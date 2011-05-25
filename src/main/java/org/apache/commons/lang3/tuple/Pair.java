@@ -18,12 +18,10 @@ package org.apache.commons.lang3.tuple;
 
 import java.io.Serializable;
 import java.util.Formattable;
-import java.util.Formatter;
 import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.CompareToBuilder;
-import org.apache.commons.lang3.text.FormattableUtils;
 
 /**
  * <p>A pair consisting of two elements.</p>
@@ -42,15 +40,10 @@ import org.apache.commons.lang3.text.FormattableUtils;
  * @since Lang 3.0
  * @version $Id$
  */
-public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Formattable, Serializable {
+public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Serializable {
 
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
-
-    /**
-     * Basic format pattern.
-     */
-    private static final String DEFAULT_FORMAT_STRING = "(%1$s,%2$s)";
 
     /**
      * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
@@ -167,23 +160,14 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Format this {@link Pair}.  Basic format is in the form: (L,R).</p>
+     * <p>Formats the receiver using the given format.</p>
      * 
-     * @param formatter  the target formatter to append to, not null
-     * @param flags  the flags for output format, see {@code Formattable}
-     * @param width  the width of the output, see {@code Formattable}
-     * @param precision the precision of the output, see {@code Formattable}
-     */
-    public void formatTo(Formatter formatter, int flags, int width, int precision) {
-        FormattableUtils.append(String.format(DEFAULT_FORMAT_STRING, getLeft(), getRight()),
-                formatter, flags, width, precision);
-    }
-
-    /**
-     * Formats the receiver using the given string.
+     * <p>This uses {@link Formattable} to perform the formatting. Two variable may
+     * be used to embed the left and right elements. Use {@code %1$} for the left
+     * element (key) and {@code %2$} for the right element (value).
+     * The default format used by {@code toString()} is {@code (%1$s,%2$s)}.</p>
      * 
-     * @param format  the {@code Formattable} format string, where {@code %1$} is
-     *  the left element (key) and {@code %2$} is the right element (value), not null
+     * @param format  the format string, optionally containing {@code %1$} and {@code %2$}, not null
      * @return the formatted string, not null
      */
     public Object toString(String format) {
