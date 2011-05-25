@@ -21,7 +21,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Formatter;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
 /**
@@ -115,8 +114,4 @@ public class FormattableUtilsTest {
         assertEquals("+*___", FormattableUtils.append("foo", new Formatter(), LEFT_JUSTIFY, 5, 2, '_', "+*").toString());
     }
 
-    @Test
-    public void testToStringFormattable() {
-        assertEquals("(Key,Value)", FormattableUtils.toString(Pair.of("Key", "Value")));
-    }
 }
