@@ -36,8 +36,8 @@ import org.apache.commons.lang3.text.FormattableUtils;
  * However, there is no restriction on the type of the stored objects that may be stored.
  * If mutable objects are stored in the pair, then the pair itself effectively becomes mutable.</p>
  *
- * @param <L> the first element type
- * @param <R> the second element type
+ * @param <L> the left element type
+ * @param <R> the right element type
  *
  * @since Lang 3.0
  * @version $Id$
@@ -113,7 +113,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Compares the pair based on the first element followed by the second element.
+     * <p>Compares the pair based on the left element followed by the right element.
      * The types must be {@code Comparable}.</p>
      * 
      * @param other  the other pair, not null

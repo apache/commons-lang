@@ -21,8 +21,8 @@ package org.apache.commons.lang3.tuple;
  * 
  * <p>Not #ThreadSafe#</p>
  *
- * @param <L> the first element type
- * @param <R> the second element type
+ * @param <L> the left element type
+ * @param <R> the right element type
  *
  * @since Lang 3.0
  * @version $Id$
@@ -82,7 +82,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * Set the left element of the pair.
+     * Sets the left element of the pair.
      * 
      * @param left  the new value of the left element, may be null
      */
@@ -99,9 +99,9 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * Set the right element of the pair.
+     * Sets the right element of the pair.
      * 
-     * @param right  the value of the right element
+     * @param right  the new value of the right element, may be null
      */
     public void setRight(R right) {
         this.right = right;
