@@ -31,6 +31,7 @@ import java.util.concurrent.ConcurrentMap;
  * @since 3.0
  * @version $Id: FormatCache 892161 2009-12-18 07:21:10Z  $
  */
+// TODO: Before making public move from getDateTimeInstance(Integer,...) to int; or some other approach.
 abstract class FormatCache<F extends Format> {
     /**
      * No date or no time.  Used in same parameters as DateFormat.SHORT or DateFormat.LONG
@@ -115,7 +116,7 @@ abstract class FormatCache<F extends Format> {
      * @throws IllegalArgumentException if the Locale has no date/time
      *  pattern defined
      */
-    public F getDateTimeInstance(Integer dateStyle, Integer timeStyle, TimeZone timeZone, Locale locale) {
+    public F getDateTimeInstance(int dateStyle, int timeStyle, TimeZone timeZone, Locale locale) {
         if (locale == null) {
             locale = Locale.getDefault();
         }
