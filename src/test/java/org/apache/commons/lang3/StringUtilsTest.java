@@ -174,7 +174,9 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testJoin_Objectarray() {
-        assertEquals(null, StringUtils.join(null));
+        // Test both types of varargs invocation
+        assertEquals(null, StringUtils.join((Object[]) null));
+        assertEquals(null, StringUtils.join((Object) null));
         assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST));
         assertEquals("", StringUtils.join(NULL_ARRAY_LIST));
         assertEquals("abc", StringUtils.join(new String[] {"a", "b", "c"}));
