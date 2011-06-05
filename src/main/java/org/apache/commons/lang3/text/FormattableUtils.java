@@ -134,7 +134,7 @@ public class FormattableUtils {
     public static Formatter append(CharSequence seq, Formatter formatter, int flags, int width,
             int precision, char padChar, CharSequence ellipsis) {
         Validate.isTrue(ellipsis == null || precision < 0 || ellipsis.length() <= precision,
-                "Specified ellipsis '%1$s' exceeds precision of %2$s", ellipsis, precision);
+                "Specified ellipsis '%1$s' exceeds precision of %2$s", ellipsis, Integer.valueOf(precision));
         StringBuilder buf = new StringBuilder(seq);
         if (precision >= 0 && precision < seq.length()) {
             CharSequence _ellipsis = ObjectUtils.defaultIfNull(ellipsis, StringUtils.EMPTY);
