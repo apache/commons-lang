@@ -301,7 +301,8 @@ public class ClassUtilsTest extends TestCase {
         assertFalse(ClassUtils.isAssignable(null, array2));
         assertTrue(ClassUtils.isAssignable(null, array0));
         assertTrue(ClassUtils.isAssignable(array0, array0));
-        assertTrue(ClassUtils.isAssignable(array0, null));
+        assertTrue(ClassUtils.isAssignable(array0, (Class<?>[]) null)); // test both types of ...
+        assertTrue(ClassUtils.isAssignable(array0, (Class<?>) null));   // ... varargs invocation
         assertTrue(ClassUtils.isAssignable((Class[]) null, (Class[]) null));
 
         assertFalse(ClassUtils.isAssignable(array1, array1s));
@@ -729,8 +730,8 @@ public class ClassUtilsTest extends TestCase {
 
     public void testPrimitivesToWrappers() {
         // test null
-        assertNull("null -> null",
-            ClassUtils.primitivesToWrappers(null));
+        assertNull("null -> null", ClassUtils.primitivesToWrappers((Class<?>[]) null)); // test both types of ...
+        assertNull("null -> null", ClassUtils.primitivesToWrappers((Class<?>) null));   // ... varargs invocation
         // test empty array
         assertEquals("empty -> empty",
                 ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.primitivesToWrappers(ArrayUtils.EMPTY_CLASS_ARRAY));
@@ -800,7 +801,9 @@ public class ClassUtilsTest extends TestCase {
     }
 
     public void testWrappersToPrimitivesNull() {
-        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives(null));
+        // Test both types of varargs invocation
+        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives((Class<?>[]) null));
+        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives((Class<?>) null));
     }
 
     public void testWrappersToPrimitivesEmpty() {
@@ -955,15 +958,17 @@ public class ClassUtilsTest extends TestCase {
     }
 
     public void testToClass_object() {
-        assertNull(ClassUtils.toClass(null));
+        // Test both types of varargs invocation
+        assertNull(ClassUtils.toClass((Object[]) null));
+        assertNull(ClassUtils.toClass((Object) null));
 
         assertSame(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass(ArrayUtils.EMPTY_OBJECT_ARRAY));
 
         assertTrue(Arrays.equals(new Class[] { String.class, Integer.class, Double.class },
-                ClassUtils.toClass(new Object[] { "Test", 1, 99d })));
+                ClassUtils.toClass(new Object[] { "Test", Integer.valueOf(1), Double.valueOf(99d) })));
 
         assertTrue(Arrays.equals(new Class[] { String.class, null, Double.class },
-                ClassUtils.toClass(new Object[] { "Test", null, 99d })));
+                ClassUtils.toClass(new Object[] { "Test", null, Double.valueOf(99d) })));
     }
 
     public void test_getShortCanonicalName_Object() {

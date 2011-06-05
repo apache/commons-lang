@@ -230,7 +230,9 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         String[] fooDots = new String[] { ".."+FOO+"..", ".."+FOO, FOO+".." };
         String[] foo = new String[] { FOO, FOO, FOO };
 
-        assertEquals(null, StringUtils.stripAll(null));
+        // Test both varargs invocations
+        assertEquals(null, StringUtils.stripAll((String[]) null));
+        assertEquals(null, StringUtils.stripAll((String) null));
         assertArrayEquals(empty, StringUtils.stripAll(empty));
         assertArrayEquals(foo, StringUtils.stripAll(fooSpace));
         
