@@ -453,10 +453,10 @@ public class AnnotationUtilsTest {
 
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 if ("equals".equals(method.getName()) && method.getParameterTypes().length == 1) {
-                    return proxy == args[0];
+                    return Boolean.valueOf(proxy == args[0]);
                 }
                 if ("hashCode".equals(method.getName()) && method.getParameterTypes().length == 0) {
-                    return System.identityHashCode(proxy);
+                    return Integer.valueOf(System.identityHashCode(proxy));
                 }
                 if ("toString".equals(method.getName()) && method.getParameterTypes().length == 0) {
                     return "Test proxy";
