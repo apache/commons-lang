@@ -301,8 +301,8 @@ public class ClassUtilsTest extends TestCase {
         assertFalse(ClassUtils.isAssignable(null, array2));
         assertTrue(ClassUtils.isAssignable(null, array0));
         assertTrue(ClassUtils.isAssignable(array0, array0));
-        assertTrue(ClassUtils.isAssignable(array0, (Class<?>[]) null)); // test both types of ...
-        assertTrue(ClassUtils.isAssignable(array0, (Class<?>) null));   // ... varargs invocation
+//        assertTrue(ClassUtils.isAssignable(array0, null)); 
+        assertTrue(ClassUtils.isAssignable(array0, (Class<?>[]) null)); // explicit cast to avoid warning
         assertTrue(ClassUtils.isAssignable((Class[]) null, (Class[]) null));
 
         assertFalse(ClassUtils.isAssignable(array1, array1s));
@@ -730,8 +730,8 @@ public class ClassUtilsTest extends TestCase {
 
     public void testPrimitivesToWrappers() {
         // test null
-        assertNull("null -> null", ClassUtils.primitivesToWrappers((Class<?>[]) null)); // test both types of ...
-        assertNull("null -> null", ClassUtils.primitivesToWrappers((Class<?>) null));   // ... varargs invocation
+//        assertNull("null -> null", ClassUtils.primitivesToWrappers(null));
+        assertNull("null -> null", ClassUtils.primitivesToWrappers((Class<?>[]) null)); // explicit cast to avoid warning
         // test empty array
         assertEquals("empty -> empty",
                 ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.primitivesToWrappers(ArrayUtils.EMPTY_CLASS_ARRAY));
@@ -801,9 +801,8 @@ public class ClassUtilsTest extends TestCase {
     }
 
     public void testWrappersToPrimitivesNull() {
-        // Test both types of varargs invocation
-        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives((Class<?>[]) null));
-        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives((Class<?>) null));
+//        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives(null));
+        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives((Class<?>[]) null)); // explicit cast
     }
 
     public void testWrappersToPrimitivesEmpty() {
@@ -958,9 +957,8 @@ public class ClassUtilsTest extends TestCase {
     }
 
     public void testToClass_object() {
-        // Test both types of varargs invocation
-        assertNull(ClassUtils.toClass((Object[]) null));
-        assertNull(ClassUtils.toClass((Object) null));
+//        assertNull(ClassUtils.toClass(null));
+        assertNull(ClassUtils.toClass((Object[]) null)); // explicit cast
 
         assertSame(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass(ArrayUtils.EMPTY_OBJECT_ARRAY));
 
