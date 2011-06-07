@@ -730,9 +730,14 @@ public class ClassUtilsTest extends TestCase {
 
     public void testPrimitivesToWrappers() {
         // test null
-//        assertNull("null -> null", ClassUtils.primitivesToWrappers(null));
-        assertNull("null -> null", ClassUtils.primitivesToWrappers((Class<?>[]) null)); // explicit cast to avoid warning
-        // test empty array
+//        assertNull("null -> null", ClassUtils.primitivesToWrappers(null)); // generates warning
+        assertNull("null -> null", ClassUtils.primitivesToWrappers((Class<?>[]) null)); // equivalent cast to avoid warning
+        // Other possible casts for null
+        assertTrue("empty -> empty", Arrays.equals(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.primitivesToWrappers()));
+        Class<?>[] castNull = ClassUtils.primitivesToWrappers((Class<?>)null); // == new Class<?>[]{null}
+        assertTrue("(Class<?>)null -> [null]", Arrays.equals(new Class<?>[]{null}, castNull));
+        // test empty array is returned unchanged
+        // TODO this is not documented
         assertEquals("empty -> empty",
                 ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.primitivesToWrappers(ArrayUtils.EMPTY_CLASS_ARRAY));
 
@@ -801,9 +806,13 @@ public class ClassUtilsTest extends TestCase {
     }
 
     public void testWrappersToPrimitivesNull() {
-//        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives(null));
-        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives((Class<?>[]) null)); // explicit cast
-    }
+//        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives(null)); // generates warning
+        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives((Class<?>[]) null)); // equivalent cast
+        // Other possible casts for null
+        assertTrue("empty -> empty", Arrays.equals(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.wrappersToPrimitives()));
+        Class<?>[] castNull = ClassUtils.wrappersToPrimitives((Class<?>)null); // == new Class<?>[]{null}
+        assertTrue("(Class<?>)null -> [null]", Arrays.equals(new Class<?>[]{null}, castNull));
+}
 
     public void testWrappersToPrimitivesEmpty() {
         Class<?>[] empty = new Class[0];
