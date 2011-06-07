@@ -732,9 +732,11 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     public void testLastIndexOfAny_StringStringArray() {
         assertEquals(-1, StringUtils.lastIndexOfAny(null, (CharSequence) null));   // test both types of ...
         assertEquals(-1, StringUtils.lastIndexOfAny(null, (CharSequence[]) null)); // ... varargs invocation
+        assertEquals(-1, StringUtils.lastIndexOfAny(null)); // Missing varag
         assertEquals(-1, StringUtils.lastIndexOfAny(null, FOOBAR_SUB_ARRAY));
         assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, (CharSequence) null));   // test both types of ...
         assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, (CharSequence[]) null)); // ... varargs invocation
+        assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR)); // Missing vararg
         assertEquals(3, StringUtils.lastIndexOfAny(FOOBAR, FOOBAR_SUB_ARRAY));
         assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, new String[0]));
         assertEquals(-1, StringUtils.lastIndexOfAny(null, new String[0]));

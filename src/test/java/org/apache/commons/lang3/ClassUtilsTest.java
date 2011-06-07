@@ -966,8 +966,13 @@ public class ClassUtilsTest extends TestCase {
     }
 
     public void testToClass_object() {
-//        assertNull(ClassUtils.toClass(null));
-        assertNull(ClassUtils.toClass((Object[]) null)); // explicit cast
+//        assertNull(ClassUtils.toClass(null)); // generates warning
+        assertNull(ClassUtils.toClass((Object[]) null)); // equivalent explicit cast
+        
+        // Additional varargs tests
+        assertTrue("empty -> empty", Arrays.equals(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass()));
+        Class<?>[] castNull = ClassUtils.toClass((Object) null); // == new Object[]{null}
+        assertTrue("(Object)null -> [null]", Arrays.equals(new Object[]{null}, castNull));
 
         assertSame(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass(ArrayUtils.EMPTY_OBJECT_ARRAY));
 

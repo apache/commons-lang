@@ -230,8 +230,12 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         String[] fooDots = new String[] { ".."+FOO+"..", ".."+FOO, FOO+".." };
         String[] foo = new String[] { FOO, FOO, FOO };
 
-//        assertEquals(null, StringUtils.stripAll(null));
-        assertEquals(null, StringUtils.stripAll((String[]) null)); // explicit cast
+//        assertEquals(null, StringUtils.stripAll(null)); // generates warning
+        assertEquals(null, StringUtils.stripAll((String[]) null)); // equivalent explicit cast
+        // Additional varargs tests
+        assertArrayEquals(empty, StringUtils.stripAll()); // empty array
+        assertArrayEquals(new String[]{null}, StringUtils.stripAll((String) null)); // == new String[]{null}
+
         assertArrayEquals(empty, StringUtils.stripAll(empty));
         assertArrayEquals(foo, StringUtils.stripAll(fooSpace));
         
