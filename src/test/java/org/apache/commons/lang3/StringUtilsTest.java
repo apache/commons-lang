@@ -174,8 +174,12 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testJoin_Objectarray() {
-//        assertEquals(null, StringUtils.join(null));
-        assertEquals(null, StringUtils.join((Object[]) null)); // explicit cast
+//        assertEquals(null, StringUtils.join(null)); // generates warning
+        assertEquals(null, StringUtils.join((Object[]) null)); // equivalent explicit cast
+        // test additional varargs calls
+        assertEquals("", StringUtils.join()); // empty array
+        assertEquals("", StringUtils.join((Object) null)); // => new Object[]{null}
+
         assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST));
         assertEquals("", StringUtils.join(NULL_ARRAY_LIST));
         assertEquals("abc", StringUtils.join(new String[] {"a", "b", "c"}));
