@@ -327,13 +327,10 @@ public class BooleanUtilsTest extends TestCase {
     public void test_toBoolean_String_String_String() {
         assertEquals(true, BooleanUtils.toBoolean((String) null, null, "N"));
         assertEquals(false, BooleanUtils.toBoolean((String) null, "Y", null));
-        try {
-            BooleanUtils.toBooleanObject((String) null, "Y", "N", "U");
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        
         assertEquals(true, BooleanUtils.toBoolean("Y", "Y", "N"));
+        assertEquals(true, BooleanUtils.toBoolean("Y", new String("Y"), new String("N")));
         assertEquals(false, BooleanUtils.toBoolean("N", "Y", "N"));
+        assertEquals(false, BooleanUtils.toBoolean("N", new String("Y"), new String("N")));
         try {
             BooleanUtils.toBoolean(null, "Y", "N");
             fail();
@@ -342,6 +339,9 @@ public class BooleanUtilsTest extends TestCase {
             BooleanUtils.toBoolean("X", "Y", "N");
             fail();
         } catch (IllegalArgumentException ex) {}
+        assertEquals(true, BooleanUtils.toBoolean((String) null, null, null));
+        assertEquals(true, BooleanUtils.toBoolean("Y", "Y", "Y"));
+        assertEquals(true, BooleanUtils.toBoolean("Y", new String("Y"), new String("Y")));
     }
 
     //-----------------------------------------------------------------------
