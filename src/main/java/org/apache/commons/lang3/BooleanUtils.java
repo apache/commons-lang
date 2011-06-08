@@ -698,8 +698,6 @@ public class BooleanUtils {
     /**
      * <p>Converts a String to a Boolean throwing an exception if no match found.</p>
      *
-     * <p>null is returned if there is no match.</p>
-     *
      * <pre>
      *   BooleanUtils.toBoolean("true", "true", "false")  = true
      *   BooleanUtils.toBoolean("false", "true", "false") = false
@@ -712,17 +710,16 @@ public class BooleanUtils {
      * @throws IllegalArgumentException if the String doesn't match
      */
     public static boolean toBoolean(String str, String trueString, String falseString) {
-        if (str == null) {
-            if (trueString == null) {
+        if (str == trueString) {
+            return true;
+        } else if (str == falseString) {
+            return false;
+        } else if (str != null) {
+            if (str.equals(trueString)) {
                 return true;
-            }
-            if (falseString == null) {
+            } else if (str.equals(falseString)) {
                 return false;
             }
-        } else if (str.equals(trueString)) {
-            return true;
-        } else if (str.equals(falseString)) {
-            return false;
         }
         // no match
         throw new IllegalArgumentException("The String did not match either specified value");
