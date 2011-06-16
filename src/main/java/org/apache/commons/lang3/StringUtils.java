@@ -6172,7 +6172,7 @@ public class StringUtils {
      */
     public static int getLevenshteinDistance(CharSequence s, CharSequence t, int threshold) {
         if(s == null || t == null) {
-            throw new IllegalArgumentException("String must not be null");
+            throw new IllegalArgumentException("Strings must not be null");
         }
         if(threshold < 0) {
             throw new IllegalArgumentException("Threshold must not be negative");
