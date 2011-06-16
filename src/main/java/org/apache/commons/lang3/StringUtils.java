@@ -6167,7 +6167,7 @@ public class StringUtils {
      * @param s  the first String, must not be null
      * @param t  the second String, must not be null
      * @param threshold the target threshold, must not be negative
-     * @return result distance, or -1 if the distance would be greater than the threshold
+     * @return result distance, or {@code -1} if the distance would be greater than the threshold
      * @throws IllegalArgumentException if either String input {@code null} or negative threshold
      */
     public static int getLevenshteinDistance(CharSequence s, CharSequence t, int threshold) {
