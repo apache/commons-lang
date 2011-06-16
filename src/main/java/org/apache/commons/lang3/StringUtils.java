@@ -6068,8 +6068,8 @@ public class StringUtils {
 
         /*
            The difference between this impl. and the previous is that, rather
-           than creating and retaining a matrix of size s.length()+1 by t.length()+1,
-           we maintain two single-dimensional arrays of length s.length()+1.  The first, d,
+           than creating and retaining a matrix of size s.length() + 1 by t.length() + 1,
+           we maintain two single-dimensional arrays of length s.length() + 1.  The first, d,
            is the 'current working' distance array that maintains the newest distance cost
            counts as we iterate through the characters of String s.  Each time we increment
            the index of String t we are comparing, d is copied to p, the second int[].  Doing so
@@ -6101,8 +6101,8 @@ public class StringUtils {
             m = t.length();
         }
 
-        int p[] = new int[n+1]; //'previous' cost array, horizontally
-        int d[] = new int[n+1]; // cost array, horizontally
+        int p[] = new int[n + 1]; //'previous' cost array, horizontally
+        int d[] = new int[n + 1]; // cost array, horizontally
         int _d[]; //placeholder to assist in swapping p and d
 
         // indexes into strings s and t
@@ -6113,18 +6113,18 @@ public class StringUtils {
 
         int cost; // cost
 
-        for (i = 0; i<=n; i++) {
+        for (i = 0; i <= n; i++) {
             p[i] = i;
         }
 
-        for (j = 1; j<=m; j++) {
-            t_j = t.charAt(j-1);
+        for (j = 1; j <= m; j++) {
+            t_j = t.charAt(j - 1);
             d[0] = j;
 
-            for (i=1; i<=n; i++) {
-                cost = s.charAt(i-1)==t_j ? 0 : 1;
+            for (i = 1; i <= n; i++) {
+                cost = s.charAt(i - 1) == t_j ? 0 : 1;
                 // minimum of cell to the left+1, to the top+1, diagonally left and up +cost
-                d[i] = Math.min(Math.min(d[i-1]+1, p[i]+1),  p[i-1]+cost);
+                d[i] = Math.min(Math.min(d[i - 1] + 1, p[i] + 1), p[i - 1] + cost);
             }
 
             // copy current distance counts to 'previous row' distance counts
@@ -6171,10 +6171,10 @@ public class StringUtils {
      * @throws IllegalArgumentException if either String input {@code null} or negative threshold
      */
     public static int getLevenshteinDistance(CharSequence s, CharSequence t, int threshold) {
-        if(s == null || t == null) {
+        if (s == null || t == null) {
             throw new IllegalArgumentException("Strings must not be null");
         }
-        if(threshold < 0) {
+        if (threshold < 0) {
             throw new IllegalArgumentException("Threshold must not be negative");
         }
 
@@ -6182,7 +6182,7 @@ public class StringUtils {
         This implementation only computes the distance if it's less than or equal to the
         threshold value, returning -1 if it's greater.  The advantage is performance: unbounded
         distance is O(nm), but a bound of k allows us to reduce it to O(km) time by only 
-        computing a diagonal stripe of width 2k+1 of the cost table.
+        computing a diagonal stripe of width 2k + 1 of the cost table.
         It is also possible to use this to compute the unbounded Levenshtein distance by starting
         the threshold at 1 and doubling each time until the distance is found; this is O(dm), where
         d is the distance.
@@ -6226,13 +6226,13 @@ public class StringUtils {
         int m = t.length(); // length of t
 
         // if one string is empty, the edit distance is necessarily the length of the other
-        if(n == 0) {
-            return m <= threshold? m : -1;
-        } else if(m == 0) {
-            return n <= threshold? n : -1;
+        if (n == 0) {
+            return m <= threshold ? m : -1;
+        } else if (m == 0) {
+            return n <= threshold ? n : -1;
         }
 
-        if(n > m) {
+        if (n > m) {
             // swap the two strings to consume less memory
             CharSequence tmp = s;
             s = t;
@@ -6241,13 +6241,13 @@ public class StringUtils {
             m = t.length();
         }
 
-        int p[] = new int[n+1]; // 'previous' cost array, horizontally
-        int d[] = new int[n+1]; // cost array, horizontally
+        int p[] = new int[n + 1]; // 'previous' cost array, horizontally
+        int d[] = new int[n + 1]; // cost array, horizontally
         int _d[]; // placeholder to assist in swapping p and d
 
         // fill in starting table values
         int boundary = Math.min(n, threshold) + 1;
-        for(int i = 0; i < boundary; i++) {
+        for (int i = 0; i < boundary; i++) {
             p[i] = i;
         }
         // these fills ensure that the value above the rightmost entry of our 
@@ -6256,8 +6256,8 @@ public class StringUtils {
         Arrays.fill(d, Integer.MAX_VALUE);
 
         // iterates through t
-        for(int j = 1; j <= m; j++) {
-            char t_j = t.charAt(j-1); // jth character of t
+        for (int j = 1; j <= m; j++) {
+            char t_j = t.charAt(j - 1); // jth character of t
             d[0] = j;
 
             // compute stripe indices, constrain to array size
@@ -6265,23 +6265,23 @@ public class StringUtils {
             int max = Math.min(n, j + threshold);
 
             // the stripe may lead off of the table if s and t are of different sizes
-            if(min > max) {
+            if (min > max) {
                 return -1;
             }
 
             // ignore entry left of leftmost
-            if(min > 1) {
-                d[min-1] = Integer.MAX_VALUE;
+            if (min > 1) {
+                d[min - 1] = Integer.MAX_VALUE;
             }
 
             // iterates through [min, max] in s
-            for(int i = min; i <= max; i++) {
-                if(s.charAt(i-1) == t_j) {
+            for (int i = min; i <= max; i++) {
+                if (s.charAt(i - 1) == t_j) {
                     // diagonally left and up
-                    d[i] = p[i-1];
+                    d[i] = p[i - 1];
                 } else {
                     // 1 + minimum of cell to the left, to the top, diagonally left and up
-                    d[i] = 1 + Math.min(Math.min(d[i-1], p[i]), p[i-1]);
+                    d[i] = 1 + Math.min(Math.min(d[i - 1], p[i]), p[i - 1]);
                 }
             }
 
@@ -6293,7 +6293,7 @@ public class StringUtils {
 
         // if p[n] is greater than the threshold, there's no guarantee on it being the correct
         // distance
-        if(p[n] <= threshold) {
+        if (p[n] <= threshold) {
             return p[n];
         } else {
             return -1;
