@@ -61,6 +61,7 @@ ADDITIONS IN 3.0
     [LANG-678] Add support for ConcurrentMap.putIfAbsent()
     [LANG-692] Add hashCodeMulti varargs method
     [LANG-697] Add FormattableUtils class
+    [LANG-684] Levenshtein Distance Within a Given Threshold
 
 REMOVALS IN 3.0
 ===============
