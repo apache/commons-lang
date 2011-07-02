@@ -60,7 +60,7 @@
     <!-- ========== Compile Targets ========================================= -->
     <target name="compile" depends="init" description="Compile shareable components">
         <mkdir dir="${build.home}/classes"/>
-        <javac srcdir="${source.home}" destdir="${build.home}/classes" debug="${compile.debug}" deprecation="${compile.deprecation}" target="${compile.target}" source="${compile.source}" excludes="${compile.excludes}" optimize="${compile.optimize}">
+        <javac srcdir="${source.home}" destdir="${build.home}/classes" debug="${compile.debug}" deprecation="${compile.deprecation}" target="${compile.target}" source="${compile.source}" excludes="${compile.excludes}" optimize="${compile.optimize}" includeantruntime="false">
             <classpath refid="compile.classpath"/>
         </javac>
         <copy todir="${build.home}/classes" filtering="on">
@@ -70,7 +70,7 @@
 
     <target name="compile.tests" depends="compile" description="Compile unit test cases">
         <mkdir dir="${build.home}/tests"/>
-        <javac srcdir="${test.home}" destdir="${build.home}/tests" debug="${compile.debug}" deprecation="off" target="${compile.target}" source="${compile.source}" optimize="${compile.optimize}">
+        <javac srcdir="${test.home}" destdir="${build.home}/tests" debug="${compile.debug}" deprecation="off" target="${compile.target}" source="${compile.source}" optimize="${compile.optimize}" includeantruntime="false">
             <classpath refid="test.classpath"/>
         </javac>
         <copy todir="${build.home}/tests" filtering="on">
