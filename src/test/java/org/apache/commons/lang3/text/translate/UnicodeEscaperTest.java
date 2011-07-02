@@ -19,8 +19,6 @@ package org.apache.commons.lang3.text.translate;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.lang3.Range;
-
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeEscaper}.
  * @version $Id$
@@ -28,7 +26,7 @@ import org.apache.commons.lang3.Range;
 public class UnicodeEscaperTest extends TestCase {
 
     public void testBelow() {
-        UnicodeEscaper ue = new UnicodeEscaper(Range.between(0, (int)'E'));
+        UnicodeEscaper ue = UnicodeEscaper.below('F');
 
         String input = "ADFGZ";
         String result = ue.translate(input);
@@ -36,7 +34,7 @@ public class UnicodeEscaperTest extends TestCase {
     }
 
     public void testBetween() {
-        UnicodeEscaper ue = new UnicodeEscaper(Range.between((int)'F', (int)'L'));
+        UnicodeEscaper ue = UnicodeEscaper.between('F', 'L');
 
         String input = "ADFGZ";
         String result = ue.translate(input);
@@ -44,7 +42,7 @@ public class UnicodeEscaperTest extends TestCase {
     }
 
     public void testAbove() {
-        UnicodeEscaper ue = new UnicodeEscaper(Range.between((int)'G', Integer.MAX_VALUE));
+        UnicodeEscaper ue = UnicodeEscaper.above('F');
 
         String input = "ADFGZ";
         String result = ue.translate(input);

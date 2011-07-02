@@ -57,10 +57,7 @@ public class StringEscapeUtils {
           }).with(
             new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE())
           ).with(
-            new AggregateTranslator(
-                new UnicodeEscaper(Range.between(0, 31)), 
-                new UnicodeEscaper(Range.between(0x80, Integer.MAX_VALUE)) 
-            )
+            UnicodeEscaper.outsideOf(32, 0x7f) 
         );
 
     /**
@@ -82,10 +79,7 @@ public class StringEscapeUtils {
                             {"/", "\\/"}
                       }),
             new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE()),
-            new AggregateTranslator(
-                new UnicodeEscaper(Range.between(0, 31)), 
-                new UnicodeEscaper(Range.between(0x80, Integer.MAX_VALUE)) 
-            )
+            UnicodeEscaper.outsideOf(32, 0x7f) 
         );
             
     /**
