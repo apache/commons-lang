@@ -147,3 +147,4 @@ BUG FIXES IN 3.0
     [LANG-677] DateUtils.isSameLocalTime compares using 12 hour clock and not 24 hour
     [LANG-685] EqualsBuilder synchronizes on HashCodeBuilder.
     [LANG-703] StringUtils.join throws NPE when toString returns null for one of objects in collection
+    [LANG-710] StringIndexOutOfBoundsException when calling unescapeHtml4("&#03")
