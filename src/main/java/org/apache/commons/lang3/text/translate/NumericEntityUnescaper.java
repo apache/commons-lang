@@ -20,8 +20,10 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Translate XML numeric entities of the form &#[xX]?\d+; to 
+ * Translate XML numeric entities of the form &#[xX]?\d+;? to 
  * the specific codepoint.
+ *
+ * Note that the semi-colon is optional.
  * 
  * @since 3.0
  * @version $Id$
@@ -33,7 +35,9 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      */
     @Override
     public int translate(CharSequence input, int index, Writer out) throws IOException {
-        if(input.charAt(index) == '&' && index < (input.length() - 1) && input.charAt(index + 1) == '#') {
+        int seqEnd = input.length();
+        // Uses -2 to ensure there is something after the &#
+        if(input.charAt(index) == '&' && index < seqEnd - 2 && input.charAt(index + 1) == '#') {
             int start = index + 2;
             boolean isHex = false;
 
@@ -41,10 +45,19 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
             if(firstChar == 'x' || firstChar == 'X') {
                 start++;
                 isHex = true;
+
+                // Check there's more than just an x after the &#
+                if(start == seqEnd) {
+                    return 0;
+                }
             }
 
             int end = start;
-            while(input.charAt(end) != ';') {
+            // Note that this supports character codes without a ; on the end
+            while(end < seqEnd && ( (input.charAt(end) >= '0' && input.charAt(end) <= '9') ||
+                                    (input.charAt(end) >= 'a' && input.charAt(end) <= 'f') ||
+                                    (input.charAt(end) >= 'A' && input.charAt(end) <= 'F') ) )
+            {
                 end++;
             }
 
@@ -56,6 +69,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
                     entityValue = Integer.parseInt(input.subSequence(start, end).toString(), 10);
                 }
             } catch(NumberFormatException nfe) {
+            System.err.println("FAIL: " + input.subSequence(start, end) + "[" + start +"]["+ end +"]");
                 return 0;
             }
 
@@ -66,7 +80,10 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
             } else {
                 out.write(entityValue);
             }
-            return 2 + (end - start) + (isHex ? 1 : 0) + 1;
+
+            boolean semiNext = (end != seqEnd) && (input.charAt(end) == ';');
+
+            return 2 + (end - start) + (isHex ? 1 : 0) + (semiNext ? 1 : 0);
         }
         return 0;
     }

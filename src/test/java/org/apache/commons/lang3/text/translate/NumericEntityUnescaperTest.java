@@ -36,11 +36,20 @@ public class NumericEntityUnescaperTest extends TestCase {
 
     public void testOutOfBounds() {
         NumericEntityUnescaper neu = new NumericEntityUnescaper();
-        String input = "Test &";
-        String expected = input;
+
+        assertEquals("Failed to ignore when last character is &", "Test &", neu.translate("Test &"));
+        assertEquals("Failed to ignore when last character is &", "Test &#", neu.translate("Test &#"));
+        assertEquals("Failed to ignore when last character is &", "Test &#x", neu.translate("Test &#x"));
+        assertEquals("Failed to ignore when last character is &", "Test &#X", neu.translate("Test &#X"));
+    }
+
+    public void testUnfinishedEntity() {
+        NumericEntityUnescaper neu = new NumericEntityUnescaper();
+        String input = "Test &#x30 not test";
+        String expected = "Test \u0030 not test";
 
         String result = neu.translate(input);
-        assertEquals("Failed to ignore when last character is &", expected, result);
+        assertEquals("Failed to support unfinished entities (i.e. missing semi-colon", expected, result);
     }
 
 }
