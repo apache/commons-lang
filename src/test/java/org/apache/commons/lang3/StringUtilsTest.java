@@ -67,6 +67,14 @@ public class StringUtilsTest extends TestCase {
     private static final String[] ARRAY_LIST = { "foo", "bar", "baz" };
     private static final String[] EMPTY_ARRAY_LIST = {};
     private static final String[] NULL_ARRAY_LIST = {null};
+    private static final Object[] NULL_TO_STRING_LIST = {
+    	new Object(){
+    		@Override
+    		public String toString() {
+    			return null;
+    		}
+    	}
+    };
     private static final String[] MIXED_ARRAY_LIST = {null, "", "foo"};
     private static final Object[] MIXED_TYPE_LIST = {"foo", Long.valueOf(2L)};
 
@@ -182,6 +190,7 @@ public class StringUtilsTest extends TestCase {
 
         assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST));
         assertEquals("", StringUtils.join(NULL_ARRAY_LIST));
+        assertEquals("null", StringUtils.join(NULL_TO_STRING_LIST));
         assertEquals("abc", StringUtils.join(new String[] {"a", "b", "c"}));
         assertEquals("a", StringUtils.join(new String[] {null, "a", ""}));
         assertEquals("foo", StringUtils.join(MIXED_ARRAY_LIST));
@@ -197,6 +206,7 @@ public class StringUtilsTest extends TestCase {
 
         assertEquals("/", StringUtils.join(MIXED_ARRAY_LIST, '/', 0, MIXED_ARRAY_LIST.length-1));
         assertEquals("foo", StringUtils.join(MIXED_TYPE_LIST, '/', 0, 1));
+        assertEquals("null", StringUtils.join(NULL_TO_STRING_LIST,'/', 0, 1));
         assertEquals("foo/2", StringUtils.join(MIXED_TYPE_LIST, '/', 0, 2));
         assertEquals("2", StringUtils.join(MIXED_TYPE_LIST, '/', 1, 2));
         assertEquals("", StringUtils.join(MIXED_TYPE_LIST, '/', 2, 1));
