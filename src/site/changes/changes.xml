@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">
+    <action type="fix" issue="LANG-703">StringUtils.join throws NPE when toString returns null for one of objects in collection</action>
     <action type="add" issue="LANG-697">Add FormattableUtils class</action>
     <action type="add">Add ClassUtils.getSimpleName() methods</action>
     <action type="add" issue="LANG-692">Add hashCodeMulti varargs method</action>

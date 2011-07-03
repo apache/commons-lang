@@ -161,6 +161,7 @@ BUG FIXES IN 3.0
     [LANG-672] Doc bug in DateUtils#ceiling
     [LANG-677] DateUtils.isSameLocalTime compares using 12 hour clock and not 24 hour
     [LANG-685] EqualsBuilder synchronizes on HashCodeBuilder.
+    [LANG-703] StringUtils.join throws NPE when toString returns null for one of objects in collection
 
 </source>
 </p>
