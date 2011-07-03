@@ -33,6 +33,15 @@ import org.apache.commons.lang3.mutable.MutableObject;
  * @version $Id$
  */
 public class MethodUtilsTest extends TestCase {
+  
+    private static interface PrivateInterface {}
+    
+    static class TestBeanWithInterfaces implements PrivateInterface {
+        public String foo() {
+            return "foo()";
+        }
+    }
+    
     public static class TestBean {
 
         public static String bar() {
@@ -58,6 +67,11 @@ public class MethodUtilsTest extends TestCase {
         public static String bar(Object o) {
             return "bar(Object)";
         }
+        
+        @SuppressWarnings("unused")
+        private void privateStuff() {
+        }
+
 
         public String foo() {
             return "foo()";
@@ -247,6 +261,13 @@ public class MethodUtilsTest extends TestCase {
             assertSame(Mutable.class, accessibleMethod.getDeclaringClass());
         }
     }
+    
+    public void testGetAccessibleMethodPrivateInterface() throws Exception {
+        Method expected = TestBeanWithInterfaces.class.getMethod("foo");
+        assertNotNull(expected);
+        Method actual = MethodUtils.getAccessibleMethod(TestBeanWithInterfaces.class, "foo");
+        assertNull(actual);
+    }
 
     public void testGetAccessibleInterfaceMethodFromDescription()
             throws Exception {
@@ -268,6 +289,12 @@ public class MethodUtilsTest extends TestCase {
         assertSame(MutableObject.class, MethodUtils.getAccessibleMethod(
                 MutableObject.class, "getValue", ArrayUtils.EMPTY_CLASS_ARRAY)
                 .getDeclaringClass());
+    }
+    
+    public void testGetAccessibleMethodInaccessible() throws Exception {
+        Method expected = TestBean.class.getDeclaredMethod("privateStuff");
+        Method actual = MethodUtils.getAccessibleMethod(expected);
+        assertNull(actual);
     }
 
     public void testGetMatchingAccessibleMethod() throws Exception {
