@@ -69,7 +69,6 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
                     entityValue = Integer.parseInt(input.subSequence(start, end).toString(), 10);
                 }
             } catch(NumberFormatException nfe) {
-            System.err.println("FAIL: " + input.subSequence(start, end) + "[" + start +"]["+ end +"]");
                 return 0;
             }
 
