@@ -17,7 +17,6 @@
 package org.apache.commons.lang3.tuple;
 
 import java.io.Serializable;
-import java.util.Formattable;
 import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -162,7 +161,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * <p>Formats the receiver using the given format.</p>
      * 
-     * <p>This uses {@link Formattable} to perform the formatting. Two variables may
+     * <p>This uses {@link java.util.Formattable} to perform the formatting. Two variables may
      * be used to embed the left and right elements. Use {@code %1$s} for the left
      * element (key) and {@code %2$s} for the right element (value).
      * The default format used by {@code toString()} is {@code (%1$s,%2$s)}.</p>

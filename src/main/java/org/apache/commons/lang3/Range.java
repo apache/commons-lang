@@ -18,7 +18,6 @@ package org.apache.commons.lang3;
 
 import java.io.Serializable;
 import java.util.Comparator;
-import java.util.Formattable;
 
 /**
  * <p>An immutable range of objects from a minimum to maximum point inclusive.</p>
@@ -442,7 +441,7 @@ public final class Range<T> implements Serializable {
     /**
      * <p>Formats the receiver using the given format.</p>
      * 
-     * <p>This uses {@link Formattable} to perform the formatting. Three variables may
+     * <p>This uses {@link java.util.Formattable} to perform the formatting. Three variables may
      * be used to embed the minimum, maximum and comparator.
      * Use {@code %1$s} for the minimum element, {@code %2$s} for the maximum element
      * and {@code %3$s} for the comparator.
@@ -459,6 +458,13 @@ public final class Range<T> implements Serializable {
     @SuppressWarnings({"rawtypes", "unchecked"})
     private enum ComparableComparator implements Comparator {
         INSTANCE;
+        /**
+         * Comparable based compare implementation. 
+         *
+         * @param obj1 left hand side of comparison
+         * @param obj2 right hand side of comparison
+         * @return negative, 0, positive comparison value
+         */
         public int compare(Object obj1, Object obj2) {
             return ((Comparable) obj1).compareTo(obj2);
         }
