@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import static org.junit.Assume.*;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -86,6 +88,20 @@ public class FieldUtilsTest extends TestCase {
         assertNull(FieldUtils.getField(PrivatelyShadowedChild.class, "b"));
         assertNull(FieldUtils.getField(PrivatelyShadowedChild.class, "i"));
         assertNull(FieldUtils.getField(PrivatelyShadowedChild.class, "d"));
+        
+        try {
+            FieldUtils.getField(null, "none");
+            fail("null class should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+
+        try {
+            FieldUtils.getField(PublicChild.class, null);
+            fail("null field name should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 
     public void testGetFieldForceAccess() {
@@ -112,6 +128,20 @@ public class FieldUtilsTest extends TestCase {
                 .getDeclaringClass());
         assertEquals(PrivatelyShadowedChild.class, FieldUtils.getField(PrivatelyShadowedChild.class, "d", true)
                 .getDeclaringClass());
+        
+        try {
+            FieldUtils.getField(null, "none", true);
+            fail("null class should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+
+        try {
+            FieldUtils.getField(PublicChild.class, null, true);
+            fail("null field name should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 
     public void testGetDeclaredField() {
@@ -134,6 +164,20 @@ public class FieldUtilsTest extends TestCase {
         assertNull(FieldUtils.getDeclaredField(PrivatelyShadowedChild.class, "b"));
         assertNull(FieldUtils.getDeclaredField(PrivatelyShadowedChild.class, "i"));
         assertNull(FieldUtils.getDeclaredField(PrivatelyShadowedChild.class, "d"));
+        
+        try {
+            FieldUtils.getDeclaredField(null, "none");
+            fail("null class should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+
+        try {
+            FieldUtils.getDeclaredField(PublicChild.class, null);
+            fail("null field name should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 
     public void testGetDeclaredFieldForceAccess() {
@@ -161,15 +205,62 @@ public class FieldUtilsTest extends TestCase {
                 .getDeclaringClass());
         assertEquals(PrivatelyShadowedChild.class, FieldUtils.getDeclaredField(PrivatelyShadowedChild.class, "d", true)
                 .getDeclaringClass());
+        
+        try {
+            FieldUtils.getDeclaredField(null, "none", true);
+            fail("null class should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+
+        try {
+            FieldUtils.getDeclaredField(PublicChild.class, null, true);
+            fail("null field name should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 
     public void testReadStaticField() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(Foo.class, "VALUE")));
+        
+        try {
+            FieldUtils.readStaticField(null);
+            fail("null field should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+
+        try {
+            Field nonStaticField = FieldUtils.getField(PublicChild.class, "s");
+            assumeNotNull(nonStaticField);
+            FieldUtils.readStaticField(nonStaticField);
+            fail("non-static field should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
     }
 
     public void testReadStaticFieldForceAccess() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(Foo.class, "VALUE")));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(PublicChild.class, "VALUE")));
+        
+        try {
+            FieldUtils.readStaticField(null, true);
+            fail("null field should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            Field nonStaticField = FieldUtils.getField(PublicChild.class, "s", true);
+            assumeNotNull(nonStaticField);
+            FieldUtils.readStaticField(nonStaticField);
+            fail("non-static field should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 
     public void testReadNamedStaticField() throws Exception {
@@ -177,6 +268,34 @@ public class FieldUtilsTest extends TestCase {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PubliclyShadowedChild.class, "VALUE"));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PrivatelyShadowedChild.class, "VALUE"));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PublicChild.class, "VALUE"));
+        
+        try {
+            FieldUtils.readStaticField(null, "none");
+            fail("null class should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            FieldUtils.readStaticField(Foo.class, null);
+            fail("null field name should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            FieldUtils.readStaticField(Foo.class, "does_not_exist");
+            fail("a field that doesn't exist should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            FieldUtils.readStaticField(PublicChild.class, "s");
+            fail("non-static field should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 
     public void testReadNamedStaticFieldForceAccess() throws Exception {
@@ -184,6 +303,34 @@ public class FieldUtilsTest extends TestCase {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PubliclyShadowedChild.class, "VALUE", true));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PrivatelyShadowedChild.class, "VALUE", true));
         assertEquals("child", FieldUtils.readStaticField(PublicChild.class, "VALUE", true));
+        
+        try {
+            FieldUtils.readStaticField(null, "none", true);
+            fail("null class should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            FieldUtils.readStaticField(Foo.class, null, true);
+            fail("null field name should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            FieldUtils.readStaticField(Foo.class, "does_not_exist", true);
+            fail("a field that doesn't exist should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            FieldUtils.readStaticField(PublicChild.class, "s", false);
+            fail("non-static field should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 
     public void testReadDeclaredNamedStaticField() throws Exception {
@@ -242,6 +389,13 @@ public class FieldUtilsTest extends TestCase {
         assertEquals(D0, FieldUtils.readField(parentD, publicChild));
         assertEquals(D0, FieldUtils.readField(parentD, publiclyShadowedChild));
         assertEquals(D0, FieldUtils.readField(parentD, privatelyShadowedChild));
+        
+        try {
+            FieldUtils.readField((Field)null, publicChild);
+            fail("a null field should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 
     public void testReadFieldForceAccess() throws Exception {
@@ -265,12 +419,34 @@ public class FieldUtilsTest extends TestCase {
         assertEquals(D0, FieldUtils.readField(parentD, publicChild, true));
         assertEquals(D0, FieldUtils.readField(parentD, publiclyShadowedChild, true));
         assertEquals(D0, FieldUtils.readField(parentD, privatelyShadowedChild, true));
+        
+        try {
+            FieldUtils.readField((Field)null, publicChild, true);
+            fail("a null field should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 
     public void testReadNamedField() throws Exception {
         assertEquals("s", FieldUtils.readField(publicChild, "s"));
         assertEquals("ss", FieldUtils.readField(publiclyShadowedChild, "s"));
         assertEquals("s", FieldUtils.readField(privatelyShadowedChild, "s"));
+        
+        try {
+            FieldUtils.readField(publicChild, null);
+            fail("a null field name should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            FieldUtils.readField((Object)null, "none");
+            fail("a null target should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
         try {
             assertEquals(Boolean.FALSE, FieldUtils.readField(publicChild, "b"));
             fail("expected IllegalArgumentException");
@@ -325,9 +501,37 @@ public class FieldUtilsTest extends TestCase {
         assertEquals(D0, FieldUtils.readField(publicChild, "d", true));
         assertEquals(D1, FieldUtils.readField(publiclyShadowedChild, "d", true));
         assertEquals(D1, FieldUtils.readField(privatelyShadowedChild, "d", true));
+        
+        try {
+            FieldUtils.readField(publicChild, null, true);
+            fail("a null field name should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            FieldUtils.readField((Object)null, "none", true);
+            fail("a null target should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
     }
 
     public void testReadDeclaredNamedField() throws Exception {
+        try {
+            FieldUtils.readDeclaredField(publicChild, null);
+            fail("a null field name should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            FieldUtils.readDeclaredField((Object)null, "none");
+            fail("a null target should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
         try {
             assertEquals("s", FieldUtils.readDeclaredField(publicChild, "s"));
             fail("expected IllegalArgumentException");
@@ -383,6 +587,20 @@ public class FieldUtilsTest extends TestCase {
     }
 
     public void testReadDeclaredNamedFieldForceAccess() throws Exception {
+        try {
+            FieldUtils.readDeclaredField(publicChild, null, true);
+            fail("a null field name should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
+        try {
+            FieldUtils.readDeclaredField((Object)null, "none", true);
+            fail("a null target should cause an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
+        
         try {
             assertEquals("s", FieldUtils.readDeclaredField(publicChild, "s", true));
             fail("expected IllegalArgumentException");
