@@ -24,7 +24,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 
 /**
- * <p> Utility reflection methods focused on methods, originally from Commons BeanUtils.
+ * <p>Utility reflection methods focused on methods, originally from Commons BeanUtils.
  * Differences from the BeanUtils version may be noted, especially where similar functionality
  * already existed within Lang.
  * </p>
@@ -59,7 +59,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invoke a named method whose parameter type matches the object type.</p>
+     * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
@@ -67,7 +67,7 @@ public class MethodUtils {
      * via passing in wrapping classes. So, for example, a <code>Boolean</code> object
      * would match a <code>boolean</code> primitive.</p>
      *
-     * <p> This is a convenient wrapper for
+     * <p>This is a convenient wrapper for
      * {@link #invokeMethod(Object object,String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
@@ -95,7 +95,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invoke a named method whose parameter type matches the object type.</p>
+     * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
@@ -134,10 +134,10 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invoke a method whose parameter types match exactly the object
+     * <p>Invokes a method whose parameter types match exactly the object
      * types.</p>
      *
-     * <p> This uses reflection to invoke the method obtained from a call to
+     * <p>This uses reflection to invoke the method obtained from a call to
      * <code>getAccessibleMethod()</code>.</p>
      *
      * @param object invoke method on this object
@@ -166,7 +166,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invoke a method whose parameter types match exactly the parameter
+     * <p>Invokes a method whose parameter types match exactly the parameter
      * types given.</p>
      *
      * <p>This uses reflection to invoke the method obtained from a call to
@@ -205,7 +205,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invoke a static method whose parameter types match exactly the parameter
+     * <p>Invokes a static method whose parameter types match exactly the parameter
      * types given.</p>
      *
      * <p>This uses reflection to invoke the method obtained from a call to
@@ -242,7 +242,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invoke a named static method whose parameter type matches the object type.</p>
+     * <p>Invokes a named static method whose parameter type matches the object type.</p>
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
@@ -250,7 +250,7 @@ public class MethodUtils {
      * via passing in wrapping classes. So, for example, a <code>Boolean</code> class
      * would match a <code>boolean</code> primitive.</p>
      *
-     * <p> This is a convenient wrapper for
+     * <p>This is a convenient wrapper for
      * {@link #invokeStaticMethod(Class objectClass,String methodName,Object [] args,Class[] parameterTypes)}.
      * </p>
      *
@@ -280,7 +280,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invoke a named static method whose parameter type matches the object type.</p>
+     * <p>Invokes a named static method whose parameter type matches the object type.</p>
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
@@ -321,10 +321,10 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invoke a static method whose parameter types match exactly the object
+     * <p>Invokes a static method whose parameter types match exactly the object
      * types.</p>
      *
-     * <p> This uses reflection to invoke the method obtained from a call to
+     * <p>This uses reflection to invoke the method obtained from a call to
      * {@link #getAccessibleMethod(Class, String, Class[])}.</p>
      *
      * @param cls invoke static method on this class
@@ -353,7 +353,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Return an accessible method (that is, one that can be invoked via
+     * <p>Returns an accessible method (that is, one that can be invoked via
      * reflection) with given name and parameters.  If no such method
      * can be found, return <code>null</code>.
      * This is just a convenient wrapper for
@@ -375,7 +375,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Return an accessible method (that is, one that can be invoked via
+     * <p>Returns an accessible method (that is, one that can be invoked via
      * reflection) that implements the specified Method.  If no such method
      * can be found, return <code>null</code>.</p>
      *
@@ -407,7 +407,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Return an accessible method (that is, one that can be invoked via
+     * <p>Returns an accessible method (that is, one that can be invoked via
      * reflection) by scanning through the superclasses. If no such method
      * can be found, return <code>null</code>.</p>
      *
@@ -433,12 +433,12 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Return an accessible method (that is, one that can be invoked via
+     * <p>Returns an accessible method (that is, one that can be invoked via
      * reflection) that implements the specified method, by scanning through
      * all implemented interfaces and subinterfaces.  If no such method
      * can be found, return <code>null</code>.</p>
      *
-     * <p> There isn't any good reason why this method must be private.
+     * <p>There isn't any good reason why this method must be private.
      * It is because there doesn't seem any reason why other classes should
      * call this rather than the higher level methods.</p>
      *
@@ -486,7 +486,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Find an accessible method that matches the given name and has compatible parameters.
+     * <p>Finds an accessible method that matches the given name and has compatible parameters.
      * Compatible parameters mean that every method parameter is assignable from 
      * the given parameters.
      * In other words, it finds a method with the given name 
