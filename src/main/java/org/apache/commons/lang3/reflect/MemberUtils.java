@@ -67,7 +67,7 @@ abstract class MemberUtils {
     }
 
     /**
-     * Learn whether a given set of modifiers implies package access.
+     * Returns whether a given set of modifiers implies package access.
      * @param modifiers to test
      * @return true unless package/protected/private modifier detected
      */
@@ -76,7 +76,7 @@ abstract class MemberUtils {
     }
 
     /**
-     * Check a Member for basic accessibility.
+     * Returns whether a Member is accessible.
      * @param m Member to check
      * @return true if <code>m</code> is accessible
      */
@@ -85,7 +85,7 @@ abstract class MemberUtils {
     }
 
     /**
-     * Compare the relative fitness of two sets of parameter types in terms of
+     * Compares the relative fitness of two sets of parameter types in terms of
      * matching a third set of runtime parameter types, such that a list ordered
      * by the results of the comparison would return the best match first
      * (least).
@@ -157,7 +157,7 @@ abstract class MemberUtils {
     }
 
     /**
-     * Get the number of steps required to promote a primitive number to another
+     * Gets the number of steps required to promote a primitive number to another
      * type.
      * @param srcClass the (primitive) source class
      * @param destClass the (primitive) destination class
