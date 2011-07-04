@@ -217,7 +217,7 @@ public class FieldUtils {
      * @param cls  the class to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @return the value of the field
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class is null, the field name is null or if the field could not be found
      * @throws IllegalAccessException if the field is not accessible
      */
     public static Object readStaticField(Class<?> cls, String fieldName) throws IllegalAccessException {
@@ -232,7 +232,7 @@ public class FieldUtils {
      *  <code>setAccessible</code> method. <code>False</code> will only
      *  match public fields.
      * @return the Field object
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class is null, the field name is null or if the field could not be found
      * @throws IllegalAccessException if the field is not made accessible
      */
     public static Object readStaticField(Class<?> cls, String fieldName, boolean forceAccess)
@@ -252,7 +252,7 @@ public class FieldUtils {
      * @param cls  the class to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @return the value of the field
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class is null, the field name is null or if the field could not be found
      * @throws IllegalAccessException if the field is not accessible
      */
     public static Object readDeclaredStaticField(Class<?> cls, String fieldName) throws IllegalAccessException {
@@ -269,7 +269,7 @@ public class FieldUtils {
      *  <code>setAccessible</code> method. <code>False</code> will only
      *  match public fields.
      * @return the Field object
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class is null, the field name is null or if the field could not be found
      * @throws IllegalAccessException if the field is not made accessible
      */
     public static Object readDeclaredStaticField(Class<?> cls, String fieldName, boolean forceAccess)
