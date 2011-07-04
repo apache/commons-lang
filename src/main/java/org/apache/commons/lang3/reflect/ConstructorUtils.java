@@ -58,7 +58,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Returns new instance of <code>klazz</code> created using the actual
+     * <p>Returns a new instance of <code>klazz</code> created using the actual
      * arguments <code>args</code>. The formal parameter types are inferred from
      * the actual values of <code>args</code>. See
      * {@link #invokeExactConstructor(Class, Object[], Class[])} for more
@@ -95,7 +95,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Returns new instance of <code>klazz</code> created using constructor
+     * <p>Returns a new instance of <code>klazz</code> created using constructor
      * with signature <code>parameterTypes</code> and actual arguments
      * <code>args</code>.</p>
      *
@@ -131,7 +131,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Returns new instance of <code>klazz</code> created using the actual
+     * <p>Returns a new instance of <code>klazz</code> created using the actual
      * arguments <code>args</code>. The formal parameter types are inferred from
      * the actual values of <code>args</code>. See
      * {@link #invokeExactConstructor(Class, Object[], Class[])} for more
@@ -169,7 +169,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Returns new instance of <code>klazz</code> created using constructor
+     * <p>Returns a new instance of <code>klazz</code> created using constructor
      * with signature <code>parameterTypes</code> and actual arguments
      * <code>args</code>.</p>
      *
@@ -237,7 +237,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Find an accessible constructor with compatible parameters. Compatible
+     * <p>Finds an accessible constructor with compatible parameters. Compatible
      * parameters mean that every method parameter is assignable from the given
      * parameters. In other words, it finds constructor that will take the
      * parameters given.</p>
