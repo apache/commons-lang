@@ -16,14 +16,15 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import static org.junit.Assume.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNotNull;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-
-import junit.framework.TestCase;
 
 import org.apache.commons.lang3.reflect.testbed.Ambig;
 import org.apache.commons.lang3.reflect.testbed.Foo;
@@ -1156,14 +1157,9 @@ public class FieldUtilsTest {
         assertEquals(new Double(0.0), FieldUtils.readDeclaredField(privatelyShadowedChild, "d", true));
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testAmbig() {
-        try {
-            FieldUtils.getField(Ambig.class, "VALUE");
-            fail("should have failed on interface field ambiguity");
-        } catch (IllegalArgumentException e) {
-            // pass
-        }
+        FieldUtils.getField(Ambig.class, "VALUE");
     }
 
 }
