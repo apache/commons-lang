@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.reflect;
 
 import static org.junit.Assume.*;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -31,12 +32,14 @@ import org.apache.commons.lang3.reflect.testbed.PublicChild;
 import org.apache.commons.lang3.reflect.testbed.PubliclyShadowedChild;
 import org.apache.commons.lang3.reflect.testbed.StaticContainer;
 import org.apache.commons.lang3.reflect.testbed.StaticContainerChild;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Unit tests FieldUtils
  * @version $Id$
  */
-public class FieldUtilsTest extends TestCase {
+public class FieldUtilsTest {
 
     static final String S = "s";
     static final String SS = "ss";
@@ -50,15 +53,15 @@ public class FieldUtilsTest extends TestCase {
     private PrivatelyShadowedChild privatelyShadowedChild;
     private Class<?> parentClass = PublicChild.class.getSuperclass();
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() {
         StaticContainer.reset();
         publicChild = new PublicChild();
         publiclyShadowedChild = new PubliclyShadowedChild();
         privatelyShadowedChild = new PrivatelyShadowedChild();
     }
 
+    @Test
     public void testConstructor() {
         assertNotNull(new FieldUtils());
         Constructor<?>[] cons = FieldUtils.class.getDeclaredConstructors();
@@ -68,6 +71,7 @@ public class FieldUtilsTest extends TestCase {
         assertEquals(false, Modifier.isFinal(FieldUtils.class.getModifiers()));
     }
     
+    @Test
     public void testGetField() {
         assertEquals(Foo.class, FieldUtils.getField(PublicChild.class, "VALUE").getDeclaringClass());
         assertEquals(parentClass, FieldUtils.getField(PublicChild.class, "s").getDeclaringClass());
@@ -104,6 +108,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testGetFieldForceAccess() {
         assertEquals(PublicChild.class, FieldUtils.getField(PublicChild.class, "VALUE", true).getDeclaringClass());
         assertEquals(parentClass, FieldUtils.getField(PublicChild.class, "s", true).getDeclaringClass());
@@ -144,6 +149,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testGetDeclaredField() {
         assertNull(FieldUtils.getDeclaredField(PublicChild.class, "VALUE"));
         assertNull(FieldUtils.getDeclaredField(PublicChild.class, "s"));
@@ -180,6 +186,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testGetDeclaredFieldForceAccess() {
         assertEquals(PublicChild.class, FieldUtils.getDeclaredField(PublicChild.class, "VALUE", true)
                 .getDeclaringClass());
@@ -221,6 +228,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testReadStaticField() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(Foo.class, "VALUE")));
         
@@ -242,6 +250,7 @@ public class FieldUtilsTest extends TestCase {
         
     }
 
+    @Test
     public void testReadStaticFieldForceAccess() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(Foo.class, "VALUE")));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(PublicChild.class, "VALUE")));
@@ -263,6 +272,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testReadNamedStaticField() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(Foo.class, "VALUE"));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PubliclyShadowedChild.class, "VALUE"));
@@ -298,6 +308,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testReadNamedStaticFieldForceAccess() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(Foo.class, "VALUE", true));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PubliclyShadowedChild.class, "VALUE", true));
@@ -333,6 +344,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testReadDeclaredNamedStaticField() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readDeclaredStaticField(Foo.class, "VALUE"));
         try {
@@ -355,6 +367,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testReadDeclaredNamedStaticFieldForceAccess() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readDeclaredStaticField(Foo.class, "VALUE", true));
         assertEquals("child", FieldUtils.readDeclaredStaticField(PublicChild.class, "VALUE", true));
@@ -372,6 +385,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testReadField() throws Exception {
         Field parentS = FieldUtils.getDeclaredField(parentClass, "s");
         assertEquals("s", FieldUtils.readField(parentS, publicChild));
@@ -398,6 +412,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testReadFieldForceAccess() throws Exception {
         Field parentS = FieldUtils.getDeclaredField(parentClass, "s");
         parentS.setAccessible(false);
@@ -428,6 +443,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testReadNamedField() throws Exception {
         assertEquals("s", FieldUtils.readField(publicChild, "s"));
         assertEquals("ss", FieldUtils.readField(publiclyShadowedChild, "s"));
@@ -488,6 +504,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testReadNamedFieldForceAccess() throws Exception {
         assertEquals("s", FieldUtils.readField(publicChild, "s", true));
         assertEquals("ss", FieldUtils.readField(publiclyShadowedChild, "s", true));
@@ -517,6 +534,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testReadDeclaredNamedField() throws Exception {
         try {
             FieldUtils.readDeclaredField(publicChild, null);
@@ -586,6 +604,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testReadDeclaredNamedFieldForceAccess() throws Exception {
         try {
             FieldUtils.readDeclaredField(publicChild, null, true);
@@ -635,6 +654,7 @@ public class FieldUtilsTest extends TestCase {
         assertEquals(D1, FieldUtils.readDeclaredField(privatelyShadowedChild, "d", true));
     }
 
+    @Test
     public void testWriteStaticField() throws Exception {
         Field field = StaticContainer.class.getDeclaredField("mutablePublic");
         FieldUtils.writeStaticField(field, "new");
@@ -690,6 +710,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testWriteStaticFieldForceAccess() throws Exception {
         Field field = StaticContainer.class.getDeclaredField("mutablePublic");
         FieldUtils.writeStaticField(field, "new", true);
@@ -733,6 +754,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testWriteNamedStaticField() throws Exception {
         FieldUtils.writeStaticField(StaticContainerChild.class, "mutablePublic", "new");
         assertEquals("new", StaticContainer.mutablePublic);
@@ -780,6 +802,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testWriteNamedStaticFieldForceAccess() throws Exception {
         FieldUtils.writeStaticField(StaticContainerChild.class, "mutablePublic", "new", true);
         assertEquals("new", StaticContainer.mutablePublic);
@@ -815,6 +838,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testWriteDeclaredNamedStaticField() throws Exception {
         FieldUtils.writeStaticField(StaticContainer.class, "mutablePublic", "new");
         assertEquals("new", StaticContainer.mutablePublic);
@@ -862,6 +886,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testWriteDeclaredNamedStaticFieldForceAccess() throws Exception {
         FieldUtils.writeDeclaredStaticField(StaticContainer.class, "mutablePublic", "new", true);
         assertEquals("new", StaticContainer.mutablePublic);
@@ -897,6 +922,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testWriteField() throws Exception {
         Field field = parentClass.getDeclaredField("s");
         FieldUtils.writeField(field, publicChild, "S");
@@ -922,6 +948,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testWriteFieldForceAccess() throws Exception {
         Field field = parentClass.getDeclaredField("s");
         FieldUtils.writeField(field, publicChild, "S", true);
@@ -937,6 +964,7 @@ public class FieldUtilsTest extends TestCase {
         assertEquals(new Double(Double.MAX_VALUE), field.get(publicChild));
     }
 
+    @Test
     public void testWriteNamedField() throws Exception {
         FieldUtils.writeField(publicChild, "s", "S");
         assertEquals("S", FieldUtils.readField(publicChild, "s"));
@@ -990,6 +1018,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testWriteNamedFieldForceAccess() throws Exception {
         FieldUtils.writeField(publicChild, "s", "S", true);
         assertEquals("S", FieldUtils.readField(publicChild, "s", true));
@@ -1019,6 +1048,7 @@ public class FieldUtilsTest extends TestCase {
         assertEquals(new Double(0.0), FieldUtils.readField(privatelyShadowedChild, "d", true));
     }
 
+    @Test
     public void testWriteDeclaredNamedField() throws Exception {
         try {
             FieldUtils.writeDeclaredField(publicChild, "s", "S");
@@ -1080,6 +1110,7 @@ public class FieldUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testWriteDeclaredNamedFieldForceAccess() throws Exception {
         try {
             FieldUtils.writeDeclaredField(publicChild, "s", "S", true);
@@ -1125,6 +1156,7 @@ public class FieldUtilsTest extends TestCase {
         assertEquals(new Double(0.0), FieldUtils.readDeclaredField(privatelyShadowedChild, "d", true));
     }
 
+    @Test
     public void testAmbig() {
         try {
             FieldUtils.getField(Ambig.class, "VALUE");
