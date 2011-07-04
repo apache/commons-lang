@@ -183,7 +183,7 @@ public class FieldUtils {
     }
 
     /**
-     * Read an accessible static Field.
+     * Reads an accessible static Field.
      * @param field to read
      * @return the field value
      * @throws IllegalArgumentException if the field is null or not static
@@ -194,7 +194,7 @@ public class FieldUtils {
     }
 
     /**
-     * Read a static Field.
+     * Reads a static Field.
      * @param field to read
      * @param forceAccess  whether to break scope restrictions using the
      *  <code>setAccessible</code> method.
@@ -213,7 +213,7 @@ public class FieldUtils {
     }
 
     /**
-     * Read the named public static field. Superclasses will be considered.
+     * Reads the named public static field. Superclasses will be considered.
      * @param cls  the class to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @return the value of the field
@@ -225,7 +225,7 @@ public class FieldUtils {
     }
 
     /**
-     * Read the named static field. Superclasses will be considered.
+     * Reads the named static field. Superclasses will be considered.
      * @param cls  the class to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @param forceAccess  whether to break scope restrictions using the
@@ -283,7 +283,7 @@ public class FieldUtils {
     }
 
     /**
-     * Read an accessible Field.
+     * Reads an accessible Field.
      * @param field  the field to use
      * @param target  the object to call on, may be null for static fields
      * @return the field value
@@ -295,7 +295,7 @@ public class FieldUtils {
     }
 
     /**
-     * Read a Field.
+     * Reads a Field.
      * @param field  the field to use
      * @param target  the object to call on, may be null for static fields
      * @param forceAccess  whether to break scope restrictions using the
@@ -317,7 +317,7 @@ public class FieldUtils {
     }
 
     /**
-     * Read the named public field. Superclasses will be considered.
+     * Reads the named public field. Superclasses will be considered.
      * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @return the value of the field
@@ -329,7 +329,7 @@ public class FieldUtils {
     }
 
     /**
-     * Read the named field. Superclasses will be considered.
+     * Reads the named field. Superclasses will be considered.
      * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @param forceAccess  whether to break scope restrictions using the
@@ -353,7 +353,7 @@ public class FieldUtils {
     }
 
     /**
-     * Read the named public field. Only the class of the specified object will be considered.
+     * Reads the named public field. Only the class of the specified object will be considered.
      * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @return the value of the field
@@ -392,7 +392,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write a public static Field.
+     * Writes a public static Field.
      * @param field to write
      * @param value to set
      * @throws IllegalArgumentException if the field is null or not static
@@ -403,7 +403,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write a static Field.
+     * Writes a static Field.
      * @param field to write
      * @param value to set
      * @param forceAccess  whether to break scope restrictions using the
@@ -423,7 +423,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write a named public static Field. Superclasses will be considered.
+     * Writes a named public static Field. Superclasses will be considered.
      * @param cls Class on which the Field is to be found
      * @param fieldName to write
      * @param value to set
@@ -435,7 +435,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write a named static Field. Superclasses will be considered.
+     * Writes a named static Field. Superclasses will be considered.
      * @param cls Class on which the Field is to be found
      * @param fieldName to write
      * @param value to set
@@ -456,7 +456,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write a named public static Field. Only the specified class will be considered.
+     * Writes a named public static Field. Only the specified class will be considered.
      * @param cls Class on which the Field is to be found
      * @param fieldName to write
      * @param value to set
@@ -469,7 +469,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write a named static Field. Only the specified class will be considered.
+     * Writes a named static Field. Only the specified class will be considered.
      * @param cls Class on which the Field is to be found
      * @param fieldName to write
      * @param value to set
@@ -490,7 +490,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write an accessible field.
+     * Writes an accessible field.
      * @param field to write
      * @param target  the object to call on, may be null for static fields
      * @param value to set
@@ -502,7 +502,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write a field.
+     * Writes a field.
      * @param field to write
      * @param target  the object to call on, may be null for static fields
      * @param value to set
@@ -526,7 +526,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write a public field. Superclasses will be considered.
+     * Writes a public field. Superclasses will be considered.
      * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @param value to set
@@ -538,7 +538,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write a field. Superclasses will be considered.
+     * Writes a field. Superclasses will be considered.
      * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @param value to set
@@ -563,7 +563,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write a public field. Only the specified class will be considered.
+     * Writes a public field. Only the specified class will be considered.
      * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @param value to set
@@ -575,7 +575,7 @@ public class FieldUtils {
     }
 
     /**
-     * Write a public field. Only the specified class will be considered.
+     * Writes a public field. Only the specified class will be considered.
      * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @param value to set
