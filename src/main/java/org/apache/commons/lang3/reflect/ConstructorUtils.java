@@ -24,7 +24,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 
 /**
- * <p> Utility reflection methods focussed on constructors, modelled after
+ * <p> Utility reflection methods focused on constructors, modeled after
  * {@link MethodUtils}. </p>
  *
  * <h3>Known Limitations</h3> <h4>Accessing Public Constructors In A Default
@@ -37,7 +37,7 @@ import org.apache.commons.lang3.ClassUtils;
  * <p><code>ConstructorUtils</code> contains a workaround for this situation. It
  * will attempt to call <code>setAccessible</code> on this constructor. If this
  * call succeeds, then the method can be invoked as normal. This call will only
- * succeed when the application has sufficient security privilages. If this call
+ * succeed when the application has sufficient security privileges. If this call
  * fails then a warning will be logged and the method may fail.</p>
  *
  * @since 2.5
@@ -58,7 +58,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Returns a new instance of <code>klazz</code> created using the actual
+     * <p>Returns a new instance of <code>cls</code> created using the actual
      * arguments <code>args</code>. The formal parameter types are inferred from
      * the actual values of <code>args</code>. See
      * {@link #invokeExactConstructor(Class, Object[], Class[])} for more
@@ -69,7 +69,7 @@ public class ConstructorUtils {
      * @param <T> the type to be constructed
      * @param cls the class to be constructed.
      * @param args actual argument array
-     * @return new instance of <code>klazz</code>
+     * @return new instance of <code>cls</code>
      *
      * @throws NoSuchMethodException If the constructor cannot be found
      * @throws IllegalAccessException If an error occurs accessing the
@@ -95,7 +95,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Returns a new instance of <code>klazz</code> created using constructor
+     * <p>Returns a new instance of <code>cls</code> created using constructor
      * with signature <code>parameterTypes</code> and actual arguments
      * <code>args</code>.</p>
      *
@@ -105,7 +105,7 @@ public class ConstructorUtils {
      * @param cls the class to be constructed.
      * @param args actual argument array
      * @param parameterTypes parameter types array
-     * @return new instance of <code>klazz</code>
+     * @return new instance of <code>cls</code>
      *
      * @throws NoSuchMethodException if matching constructor cannot be found
      * @throws IllegalAccessException thrown on the constructor's invocation
@@ -131,7 +131,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Returns a new instance of <code>klazz</code> created using the actual
+     * <p>Returns a new instance of <code>cls</code> created using the actual
      * arguments <code>args</code>. The formal parameter types are inferred from
      * the actual values of <code>args</code>. See
      * {@link #invokeExactConstructor(Class, Object[], Class[])} for more
@@ -142,7 +142,7 @@ public class ConstructorUtils {
      * @param <T> the type to be constructed
      * @param cls the class to be constructed.
      * @param args actual argument array
-     * @return new instance of <code>klazz</code>
+     * @return new instance of <code>cls</code>
      *
      * @throws NoSuchMethodException If the constructor cannot be found
      * @throws IllegalAccessException If an error occurs accessing the
@@ -169,7 +169,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Returns a new instance of <code>klazz</code> created using constructor
+     * <p>Returns a new instance of <code>cls</code> created using constructor
      * with signature <code>parameterTypes</code> and actual arguments
      * <code>args</code>.</p>
      *
@@ -179,7 +179,7 @@ public class ConstructorUtils {
      * @param cls the class to be constructed.
      * @param args actual argument array
      * @param parameterTypes parameter types array
-     * @return new instance of <code>klazz</code>
+     * @return new instance of <code>cls</code>
      *
      * @throws NoSuchMethodException if matching constructor cannot be found
      * @throws IllegalAccessException thrown on the constructor's invocation
