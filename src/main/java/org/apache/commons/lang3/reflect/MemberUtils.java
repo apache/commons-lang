@@ -45,7 +45,7 @@ abstract class MemberUtils {
      * When a public class has a default access superclass with public members,
      * these members are accessible. Calling them from compiled code works fine.
      * Unfortunately, on some JVMs, using reflection to invoke these members
-     * seems to (wrongly) to prevent access even when the modifer is public.
+     * seems to (wrongly) prevent access even when the modifier is public.
      * Calling setAccessible(true) solves the problem but will only work from
      * sufficiently privileged code. Better workarounds would be gratefully
      * accepted.
