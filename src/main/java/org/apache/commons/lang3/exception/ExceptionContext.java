@@ -16,11 +16,18 @@
  */
 package org.apache.commons.lang3.exception;
 
+import java.util.List;
 import java.util.Set;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Allows the storage and retrieval of contextual information based on label-value
  * pairs for exceptions.
+ * <p>
+ * Implementations are expected to manage the pairs in a list-style collection
+ * that keeps the pairs in the sequence of their addition.
+ * </p>
  * 
  * @see ContextedException
  * @see ContextedRuntimeException
@@ -31,52 +38,91 @@ public interface ExceptionContext {
     /**
      * Adds a contextual label-value pair into this context.
      * <p>
-     * This label-value pair provides information useful for debugging. If the
-     * provided label already exists, it depends on the implementation what
-     * happens with the new value. 
+     * The pair will be added to the context, independently of an already
+     * existing pair with the same label.
      * </p>
      * 
-     * @param label  the label of the item to add, null not recommended
-     * @param value  the value of item to add, may be null
+     * @param label  the label of the item to add, {@code null} not recommended
+     * @param value  the value of item to add, may be {@code null}
      * @return context itself to allow method chaining
      */
-    public ExceptionContext addValue(String label, Object value);
+    public ExceptionContext addContextValue(String label, Object value);
 
     /**
-     * Replaces a contextual label-value pair of this context.
+     * Adds a contextual label-value pair into this context.
      * <p>
-     * This label-value pair provides information useful for debugging. If the
-     * label does not exist yet, it depends on the implementation what happens
-     * with the provided value.
+     * The pair will be added to the context, independently of an already
+     * existing pair with the same label.
      * </p>
      * 
-     * @param label  the label of the item to add, null not recommended
-     * @param value  the value of item to add, may be null
+     * @param pair  the label-value pair to add
      * @return context itself to allow method chaining
+     * @throws NullPointerException if pair is {@code null}
      */
-    public ExceptionContext replaceValue(String label, Object value);
+    public ExceptionContext addContextValue(Pair<String, Object> pair);
 
     /**
-     * Retrieves a contextual data value associated with the label.
+     * Sets a contextual label-value pair of this context.
+     * <p>
+     * The pair will be added normally, but any existing label-value pair with
+     * the same label is removed from the context.
+     * </p>
      * 
-     * @param label  the label to get the contextual value for, may be null
-     * @return the contextual value associated with the label, may be null
+     * @param label  the label of the item to add, {@code null} not recommended
+     * @param value  the value of item to add, may be {@code null}
+     * @return context itself to allow method chaining
      */
-    public Object getValue(String label);
+    public ExceptionContext setContextValue(String label, Object value);
+
+    /**
+     * Sets a contextual label-value pair of this context.
+     * <p>
+     * The pair will be added normally, but any existing label-value pair with
+     * the same label is removed from the context.
+     * </p>
+     * 
+     * @param pair  the label-value pair to add
+     * @return context itself to allow method chaining
+     * @throws NullPointerException if pair is {@code null}
+     */
+    public ExceptionContext setContextValue(Pair<String, Object> pair);
+
+    /**
+     * Retrieves contextual data values associated with the label.
+     * 
+     * @param label  the label to get the contextual values for, may be {@code null}
+     * @return the contextual values associated with the label, never {@code null}
+     */
+    public List<Object> getContextValues(String label);
+
+    /**
+     * Retrieves the first available contextual data value associated with the label.
+     * 
+     * @param label  the label to get the contextual value for, may be {@code null}
+     * @return the first contextual value associated with the label, may be {@code null}
+     */
+    public Object getFirstContextValue(String label);
 
     /**
      * Retrieves the labels defined in the contextual data.
      * 
-     * @return the set of labels, never null
+     * @return the set of labels, never {@code null}
      */
-    public Set<String> getLabelSet();
+    public Set<String> getContextLabels();
+
+    /**
+     * Retrieves the label-value pairs defined in the contextual data.
+     * 
+     * @return the list of pairs, never {@code null}
+     */
+    public List<Pair<String, Object>> getContextEntries();
 
     /**
      * Implementors provide the given base message with context label/value item 
      * information appended.
      * 
      * @param baseMessage  the base exception message <b>without</b> context information appended
-     * @return the exception message <b>with</b> context information appended, never null
+     * @return the exception message <b>with</b> context information appended, never {@code null}
      */
     public String getFormattedExceptionMessage(String baseMessage);
 

@@ -17,11 +17,15 @@
 package org.apache.commons.lang3.exception;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Default implementation of the context storing the label-value pairs for contexted exceptions.
@@ -31,73 +35,93 @@ import org.apache.commons.lang3.SystemUtils;
  * 
  * @since 3.0
  */
-class DefaultExceptionContext implements ExceptionContext, Serializable {
+public class DefaultExceptionContext implements ExceptionContext, Serializable {
 
     /** The serialization version. */
-    private static final long serialVersionUID = 293747957535772807L;
-    /** The ordered map storing the label-data pairs. */
-    private Map<String, Object> contextValueMap = new LinkedHashMap<String, Object>();
+    private static final long serialVersionUID = 20110706L;
+    /** The list storing the label-data pairs. */
+    private List<Pair<String, Object>> contextValues = new ArrayList<Pair<String,Object>>();
 
     /**
-     * Adds a contextual label-value pair into this context.
-     * <p>
-     * This label-value pair provides information useful for debugging. If the
-     * label already exists and the provided information is different, the 
-     * label will be added with an appended index.
-     * </p>
-     * 
-     * @param label  the label of the item to add, null not recommended
-     * @param value  the value of item to add, may be null
-     * @return this, for method chaining
+     * {@inheritDoc}
      */
-    public ExceptionContext addValue(String label, Object value) {        
-        String key = label;
-        int i = 0;
-        while (contextValueMap.containsKey(key)) {
-            Object information = contextValueMap.get(key);
-            if ((value == null && information == null)
-                    || (value != null && value.equals(information))) {
-                return this;
-            }
-            key = label + "[" + ++i +"]";
+    public DefaultExceptionContext addContextValue(String label, Object value) {
+        return addContextValue(new ImmutablePair<String, Object>(label, value));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public DefaultExceptionContext addContextValue(Pair<String, Object> pair) {
+        if (pair == null) {
+            throw new NullPointerException();
         }
-        contextValueMap.put(key, value);
+        contextValues.add(pair);
         return this;
     }
 
     /**
-     * Replaces a contextual label-value pair of this context.
-     * <p>
-     * This label-value pair provides information useful for debugging. If the
-     * label does not yet exists, a simply add operation is performed.
-     * </p>
-     * 
-     * @param label  the label of the item to add, null not recommended
-     * @param value  the value of item to add, may be null
-     * @return this, for method chaining
+     * {@inheritDoc}
      */
-    public ExceptionContext replaceValue(String label, Object value) {        
-        contextValueMap.put(label, value);
-        return this;
+    public DefaultExceptionContext setContextValue(String label, Object value) {
+        return setContextValue(new ImmutablePair<String, Object>(label, value));
     }
 
     /**
-     * Retrieves a contextual data value associated with the label.
-     * 
-     * @param label  the label to get the contextual value for, may be null
-     * @return the contextual value associated with the label, may be null
+     * {@inheritDoc}
      */
-    public Object getValue(String label) {
-        return contextValueMap.get(label);
+    public DefaultExceptionContext setContextValue(Pair<String, Object> pair) {
+        final String label = pair.getKey(); // implicit NPE
+        for (final Iterator<Pair<String, Object>> iter = contextValues.iterator(); iter.hasNext();) {
+            final Pair<String, Object> p = iter.next();
+            if (StringUtils.equals(label, p.getKey())) {
+                iter.remove();
+            }
+        }
+        return addContextValue(pair);
     }
 
     /**
-     * Retrieves the labels defined in the contextual data.
-     * 
-     * @return the set of labels, never null
+     * {@inheritDoc}
      */
-    public Set<String> getLabelSet() {
-        return contextValueMap.keySet();
+    public List<Object> getContextValues(String label) {
+        final List<Object> values = new ArrayList<Object>();
+        for (final Pair<String, Object> pair : contextValues) {
+            if (StringUtils.equals(label, pair.getKey())) {
+                values.add(pair.getValue());
+            }
+        }
+        return values;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Object getFirstContextValue(String label) {
+        for (final Pair<String, Object> pair : contextValues) {
+            if (StringUtils.equals(label, pair.getKey())) {
+                return pair.getValue();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> getContextLabels() {
+        final Set<String> labels = new HashSet<String>();
+        for (final Pair<String, Object> pair : contextValues) {
+            labels.add(pair.getKey());
+        }
+        return labels;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<Pair<String, Object>> getContextEntries() {
+        return contextValues;
     }
 
     /**
@@ -112,21 +136,19 @@ class DefaultExceptionContext implements ExceptionContext, Serializable {
             buffer.append(baseMessage);
         }
         
-        if (contextValueMap.size() > 0) {
-            if (buffer.length() > 0l) {
-                buffer.append(SystemUtils.LINE_SEPARATOR);
+        if (contextValues.size() > 0) {
+            if (buffer.length() > 0) {
+                buffer.append('\n');
             }
-            buffer.append("Exception Context:");
-            buffer.append(SystemUtils.LINE_SEPARATOR); 
-            buffer.append("\t");  
+            buffer.append("Exception Context:\n");
             
             Object value;
             String valueStr;
-            for (String label : contextValueMap.keySet()) {
-                buffer.append("[");
-                buffer.append(label);
+            for (final Pair<String, Object> pair : contextValues) {
+                buffer.append("\t[");
+                buffer.append(pair.getKey());
                 buffer.append("=");
-                value = this.contextValueMap.get(label);
+                value = pair.getValue();
                 if (value == null) {
                     buffer.append("null");
                 } else {
@@ -137,13 +159,10 @@ class DefaultExceptionContext implements ExceptionContext, Serializable {
                     }
                     buffer.append(valueStr);
                 }
-                buffer.append("]");
-                buffer.append(SystemUtils.LINE_SEPARATOR);  
-                buffer.append("\t");  
+                buffer.append("]\n");
             }
             buffer.append("---------------------------------");
         }
         return buffer.toString();
     }
-
 }
