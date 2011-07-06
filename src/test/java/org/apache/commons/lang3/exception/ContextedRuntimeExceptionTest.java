@@ -18,50 +18,49 @@ package org.apache.commons.lang3.exception;
 
 import java.util.Date;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ContextedExceptionTest.ObjectWithFaultyToString;
 
 /**
  * JUnit tests for ContextedRuntimeException.
  *
  */
-public class ContextedRuntimeExceptionTest extends TestCase {
+public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<ContextedRuntimeException> {
     
-    private static final String TEST_MESSAGE_2 = "This is monotonous";
-    private static final String TEST_MESSAGE = "Test Message";
-    private ContextedRuntimeException contextedRuntimeException;
+    @Override
+    protected void setUp() throws Exception {
+        exceptionContext = new ContextedRuntimeException(new Exception(TEST_MESSAGE));
+        super.setUp();
+    }
 
     public void testContextedException() {
-        contextedRuntimeException = new ContextedRuntimeException();
-        String message = contextedRuntimeException.getMessage();
-        String trace = ExceptionUtils.getStackTrace(contextedRuntimeException);
+        exceptionContext = new ContextedRuntimeException();
+        String message = exceptionContext.getMessage();
+        String trace = ExceptionUtils.getStackTrace(exceptionContext);
         assertTrue(trace.indexOf("ContextedException")>=0);
         assertTrue(StringUtils.isEmpty(message));
     }
 
     public void testContextedExceptionString() {
-        contextedRuntimeException = new ContextedRuntimeException(TEST_MESSAGE);
-        assertEquals(TEST_MESSAGE, contextedRuntimeException.getMessage());
+        exceptionContext = new ContextedRuntimeException(TEST_MESSAGE);
+        assertEquals(TEST_MESSAGE, exceptionContext.getMessage());
         
-        String trace = ExceptionUtils.getStackTrace(contextedRuntimeException);
+        String trace = ExceptionUtils.getStackTrace(exceptionContext);
         assertTrue(trace.indexOf(TEST_MESSAGE)>=0);
     }
 
     public void testContextedExceptionThrowable() {
-        contextedRuntimeException = new ContextedRuntimeException(new Exception(TEST_MESSAGE));
-        String message = contextedRuntimeException.getMessage();
-        String trace = ExceptionUtils.getStackTrace(contextedRuntimeException);
+        exceptionContext = new ContextedRuntimeException(new Exception(TEST_MESSAGE));
+        String message = exceptionContext.getMessage();
+        String trace = ExceptionUtils.getStackTrace(exceptionContext);
         assertTrue(trace.indexOf("ContextedException")>=0);
         assertTrue(trace.indexOf(TEST_MESSAGE)>=0);
         assertTrue(message.indexOf(TEST_MESSAGE)>=0);
     }
 
     public void testContextedExceptionStringThrowable() {
-        contextedRuntimeException = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE));
-        String message = contextedRuntimeException.getMessage();
-        String trace = ExceptionUtils.getStackTrace(contextedRuntimeException);
+        exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE));
+        String message = exceptionContext.getMessage();
+        String trace = ExceptionUtils.getStackTrace(exceptionContext);
         assertTrue(trace.indexOf("ContextedException")>=0);
         assertTrue(trace.indexOf(TEST_MESSAGE)>=0);
         assertTrue(trace.indexOf(TEST_MESSAGE_2)>=0);
@@ -69,85 +68,24 @@ public class ContextedRuntimeExceptionTest extends TestCase {
     }
     
     public void testContextedExceptionStringThrowableContext() {
-        contextedRuntimeException = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext());
-        String message = contextedRuntimeException.getMessage();
-        String trace = ExceptionUtils.getStackTrace(contextedRuntimeException);
+        exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext() {});
+        String message = exceptionContext.getMessage();
+        String trace = ExceptionUtils.getStackTrace(exceptionContext);
         assertTrue(trace.indexOf("ContextedException")>=0);
         assertTrue(trace.indexOf(TEST_MESSAGE)>=0);
         assertTrue(trace.indexOf(TEST_MESSAGE_2)>=0);
         assertTrue(message.indexOf(TEST_MESSAGE_2)>=0);
     }
 
-    public void testAddValue() {
-        contextedRuntimeException = new ContextedRuntimeException(new Exception(TEST_MESSAGE))
-        .addValue("test1", null)
-        .addValue("test2", "some value")
-        .addValue("test Date", new Date())
-        .addValue("test Nbr", new Integer(5));
-        
-        String message = contextedRuntimeException.getMessage();
-        assertTrue(message.indexOf(TEST_MESSAGE)>=0);
-        assertTrue(message.indexOf("test1")>=0);
-        assertTrue(message.indexOf("test2")>=0);
-        assertTrue(message.indexOf("test Date")>=0);
-        assertTrue(message.indexOf("test Nbr")>=0);
-        assertTrue(message.indexOf("some value")>=0);
-        assertTrue(message.indexOf("5")>=0);
-        
-        assertTrue(contextedRuntimeException.getValue("test1") == null);
-        assertTrue(contextedRuntimeException.getValue("test2").equals("some value"));
-        
-        assertTrue(contextedRuntimeException.getLabelSet().size() == 4);
-        assertTrue(contextedRuntimeException.getLabelSet().contains("test1"));
-        assertTrue(contextedRuntimeException.getLabelSet().contains("test2"));
-        assertTrue(contextedRuntimeException.getLabelSet().contains("test Date"));
-        assertTrue(contextedRuntimeException.getLabelSet().contains("test Nbr"));
-
-        contextedRuntimeException.addValue("test2", "different value");
-        assertTrue(contextedRuntimeException.getLabelSet().size() == 5);
-        assertTrue(contextedRuntimeException.getLabelSet().contains("test2"));
-        assertTrue(contextedRuntimeException.getLabelSet().contains("test2[1]"));
-        
-        String contextMessage = contextedRuntimeException.getFormattedExceptionMessage(null);
-        assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
-        assertTrue(contextedRuntimeException.getMessage().endsWith(contextMessage));
-    }
-
-    public void testReplaceValue() {
-        contextedRuntimeException = new ContextedRuntimeException(new Exception(TEST_MESSAGE))
-        .addValue("test Poorly written obj", new ObjectWithFaultyToString());
-        
-        String message = contextedRuntimeException.getMessage();
-        assertTrue(message.indexOf(TEST_MESSAGE)>=0);
-        assertTrue(message.indexOf("test Poorly written obj")>=0);
-        assertTrue(message.indexOf("Crap")>=0);
-        
-        assertTrue(contextedRuntimeException.getValue("crap") == null);
-        assertTrue(contextedRuntimeException.getValue("test Poorly written obj") instanceof ObjectWithFaultyToString);
-        
-        assertTrue(contextedRuntimeException.getLabelSet().size() == 1);
-        assertTrue(contextedRuntimeException.getLabelSet().contains("test Poorly written obj"));
-        
-        assertTrue(!contextedRuntimeException.getLabelSet().contains("crap"));
-
-        contextedRuntimeException.replaceValue("test Poorly written obj", "replacement");
-
-        assertTrue(contextedRuntimeException.getLabelSet().size() == 1);
-
-        String contextMessage = contextedRuntimeException.getFormattedExceptionMessage(null);
-        assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
-        assertTrue(contextedRuntimeException.getMessage().endsWith(contextMessage));
-    }
-    
     public void testNullExceptionPassing() {
-        contextedRuntimeException = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), null)
-        .addValue("test1", null)
-        .addValue("test2", "some value")
-        .addValue("test Date", new Date())
-        .addValue("test Nbr", new Integer(5))
-        .addValue("test Poorly written obj", new ObjectWithFaultyToString());
+        exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), null)
+        .addContextValue("test1", null)
+        .addContextValue("test2", "some value")
+        .addContextValue("test Date", new Date())
+        .addContextValue("test Nbr", new Integer(5))
+        .addContextValue("test Poorly written obj", new ObjectWithFaultyToString());
         
-        String message = contextedRuntimeException.getMessage();
+        String message = exceptionContext.getMessage();
         assertTrue(message != null);
     }
 }
