@@ -46,7 +46,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      *
      * For example, to support numeric entities without a ';':
      *    new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.semiColonOptional)
-     * and to throw a RuntimeException when they're missing:
+     * and to throw an IllegalArgumentException when they're missing:
      *    new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.errorIfNoSemiColon)
      *
      * Note that the default behaviour is to ignore them. 
@@ -109,7 +109,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
                     return 0;
                 } else
                 if(isSet(OPTION.errorIfNoSemiColon)) {
-                    throw new RuntimeException("Semi-colon required at end of numeric entity");
+                    throw new IllegalArgumentException("Semi-colon required at end of numeric entity");
                 }
             }
 
