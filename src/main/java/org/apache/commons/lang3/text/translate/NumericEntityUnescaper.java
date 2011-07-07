@@ -40,12 +40,16 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
     /**
      * Create a UnicodeUnescaper.
      *
-     * The constructor takes a list of options, only one of which is currently 
-     * available (whether to allow the semi-colon on the end of a numeric entity to 
-     * be optional. 
+     * The constructor takes a list of options, only one type of which is currently 
+     * available (whether to allow, error or ignore the semi-colon on the end of a 
+     * numeric entity to being missing).
      *
      * For example, to support numeric entities without a ';':
      *    new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.semiColonOptional)
+     * and to throw a RuntimeException when they're missing:
+     *    new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.errorIfNoSemiColon)
+     *
+     * Note that the default behaviour is to ignore them. 
      *
      * @param options to apply to this unescaper
      */
