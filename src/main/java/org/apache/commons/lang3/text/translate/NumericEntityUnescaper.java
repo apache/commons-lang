@@ -18,6 +18,8 @@ package org.apache.commons.lang3.text.translate;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Arrays;
+import java.util.EnumSet;
 
 /**
  * Translate XML numeric entities of the form &#[xX]?\d+;? to 
@@ -29,6 +31,41 @@ import java.io.Writer;
  * @version $Id$
  */
 public class NumericEntityUnescaper extends CharSequenceTranslator {
+
+    public static enum OPTION { semiColonRequired, semiColonOptional, errorIfNoSemiColon }
+
+    // TODO?: Create an OptionsSet class to hide some of the conditional logic below
+    private final EnumSet<OPTION> options;
+
+    /**
+     * Create a UnicodeUnescaper.
+     *
+     * The constructor takes a list of options, only one of which is currently 
+     * available (whether to allow the semi-colon on the end of a numeric entity to 
+     * be optional. 
+     *
+     * For example, to support numeric entities without a ';':
+     *    new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.semiColonOptional)
+     *
+     * @param options to apply to this unescaper
+     */
+    public NumericEntityUnescaper(OPTION... options) {
+        if(options.length > 0) {
+            this.options = EnumSet.copyOf(Arrays.asList(options));
+        } else {
+            this.options = EnumSet.copyOf(Arrays.asList(new OPTION[] { OPTION.semiColonRequired }));
+        }
+    }
+
+    /**
+     * Whether the passed in option is currently set.
+     *
+     * @param option to check state of
+     * @return whether the option is set
+     */
+    public boolean isSet(OPTION option) { 
+        return (options == null) ? false : options.contains(option);
+    }
 
     /**
      * {@inheritDoc}
@@ -61,6 +98,17 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
                 end++;
             }
 
+            boolean semiNext = (end != seqEnd) && (input.charAt(end) == ';');
+
+            if(!semiNext) {
+                if(isSet(OPTION.semiColonRequired)) {
+                    return 0;
+                } else
+                if(isSet(OPTION.errorIfNoSemiColon)) {
+                    throw new RuntimeException("Semi-colon required at end of numeric entity");
+                }
+            }
+
             int entityValue;
             try {
                 if(isHex) {
@@ -79,8 +127,6 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
             } else {
                 out.write(entityValue);
             }
-
-            boolean semiNext = (end != seqEnd) && (input.charAt(end) == ';');
 
             return 2 + (end - start) + (isHex ? 1 : 0) + (semiNext ? 1 : 0);
         }
