@@ -49,19 +49,6 @@ public interface ExceptionContext {
     public ExceptionContext addContextValue(String label, Object value);
 
     /**
-     * Adds a contextual label-value pair into this context.
-     * <p>
-     * The pair will be added to the context, independently of an already
-     * existing pair with the same label.
-     * </p>
-     * 
-     * @param pair  the label-value pair to add, not {@code null}
-     * @return {@code this}, for method chaining, not {@code null}
-     * @throws NullPointerException if pair is {@code null}
-     */
-    public ExceptionContext addContextValue(Pair<String, Object> pair);
-
-    /**
      * Sets a contextual label-value pair into this context.
      * <p>
      * The pair will be added normally, but any existing label-value pair with
@@ -73,19 +60,6 @@ public interface ExceptionContext {
      * @return {@code this}, for method chaining, not {@code null}
      */
     public ExceptionContext setContextValue(String label, Object value);
-
-    /**
-     * Sets a contextual label-value pair into this context.
-     * <p>
-     * The pair will be added normally, but any existing label-value pair with
-     * the same label is removed from the context.
-     * </p>
-     * 
-     * @param pair  the label-value pair to add, not {@code null}
-     * @return {@code this}, for method chaining, not {@code null}
-     * @throws NullPointerException if pair is {@code null}
-     */
-    public ExceptionContext setContextValue(Pair<String, Object> pair);
 
     /**
      * Retrieves all the contextual data values associated with the label.

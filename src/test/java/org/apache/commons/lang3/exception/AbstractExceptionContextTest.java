@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import junit.framework.TestCase;
@@ -31,16 +32,13 @@ import junit.framework.TestCase;
 /**
  * Abstract test of an ExceptionContext implementation.
  */
-public abstract class AbstractExceptionContextTest<T extends ExceptionContext> extends TestCase {
+public abstract class AbstractExceptionContextTest<T extends ExceptionContext & Serializable> extends TestCase {
 
     protected static final String TEST_MESSAGE_2 = "This is monotonous";
     protected static final String TEST_MESSAGE = "Test Message";
     protected T exceptionContext;
 
-    protected static class ObjectWithFaultyToString implements Serializable {
-
-        private static final long serialVersionUID = 3495843995332310458L;
-
+    protected static class ObjectWithFaultyToString {
         @Override
         public String toString() {
             throw new RuntimeException("Crap");
@@ -166,5 +164,13 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext> e
         assertEquals("test Nbr", entries.get(3).getKey());
         assertEquals("test Poorly written obj", entries.get(4).getKey());
         assertEquals("test2", entries.get(5).getKey());
+    }
+    
+    public void testJavaSerialization() {
+        exceptionContext.setContextValue("test Poorly written obj", "serializable replacement");
+        
+        @SuppressWarnings("unchecked")
+        T clone = (T)SerializationUtils.deserialize(SerializationUtils.serialize(exceptionContext));
+        assertEquals(exceptionContext.getFormattedExceptionMessage(null), clone.getFormattedExceptionMessage(null));
     }
 }

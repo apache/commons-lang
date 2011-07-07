@@ -32,7 +32,10 @@ import org.apache.commons.lang3.tuple.Pair;
  * <p>
  * This implementation is serializable, however this is dependent on the values that
  * are added also being serializable.
+ * </p>
  * 
+ * @see ContextedException
+ * @see ContextedRuntimeException
  * @since 3.0
  */
 public class DefaultExceptionContext implements ExceptionContext, Serializable {
@@ -47,17 +50,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      * {@inheritDoc}
      */
     public DefaultExceptionContext addContextValue(String label, Object value) {
-        return addContextValue(new ImmutablePair<String, Object>(label, value));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public DefaultExceptionContext addContextValue(Pair<String, Object> pair) {
-        if (pair == null) {
-            throw new NullPointerException();
-        }
-        contextValues.add(pair);
+        contextValues.add(new ImmutablePair<String, Object>(label, value));
         return this;
     }
 
@@ -65,21 +58,14 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      * {@inheritDoc}
      */
     public DefaultExceptionContext setContextValue(String label, Object value) {
-        return setContextValue(new ImmutablePair<String, Object>(label, value));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public DefaultExceptionContext setContextValue(Pair<String, Object> pair) {
-        final String label = pair.getKey(); // implicit NPE
         for (final Iterator<Pair<String, Object>> iter = contextValues.iterator(); iter.hasNext();) {
             final Pair<String, Object> p = iter.next();
             if (StringUtils.equals(label, p.getKey())) {
                 iter.remove();
             }
         }
-        return addContextValue(pair);
+        addContextValue(label, value);
+        return this;
     }
 
     /**
@@ -143,16 +129,18 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
             }
             buffer.append("Exception Context:\n");
             
-            Object value;
-            String valueStr;
+            int i = 0;
             for (final Pair<String, Object> pair : contextValues) {
                 buffer.append("\t[");
+                buffer.append(++i);
+                buffer.append(':');
                 buffer.append(pair.getKey());
                 buffer.append("=");
-                value = pair.getValue();
+                final Object value = pair.getValue();
                 if (value == null) {
                     buffer.append("null");
                 } else {
+                    String valueStr;
                     try {
                         valueStr = value.toString();
                     } catch (Exception e) {
