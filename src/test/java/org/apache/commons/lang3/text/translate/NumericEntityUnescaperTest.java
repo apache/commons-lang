@@ -66,8 +66,8 @@ public class NumericEntityUnescaperTest extends TestCase {
 
         try {
             result = neu.translate(input);
-            fail("RuntimeException expected");
-        } catch(RuntimeException re) {
+            fail("IllegalArgumentException expected");
+        } catch(IllegalArgumentException iae) {
             // expected
         }
     }
