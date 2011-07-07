@@ -194,7 +194,7 @@ public class ConstructorUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Finds a constructor given a class and signature, checking accessibiilty.</p>
+     * <p>Finds a constructor given a class and signature, checking accessibility.</p>
      * 
      * <p>This finds the constructor and ensures that it is accessible.
      * The constructor signature must match the parameter types exactly.</p>
