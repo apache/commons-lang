@@ -42,10 +42,23 @@ import org.apache.commons.lang3.tuple.Pair;
  *   try {
  *     ...
  *   } catch (Exception e) {
- *     throw new ContextedException("Error posting account transaction", e)
- *          .addContextValue("accountNumber", accountNumber)
- *          .addContextValue("amountPosted", amountPosted)
- *          .addContextValue("previousBalance", previousBalance)
+ *     throw new ContextedRuntimeException("Error posting account transaction", e)
+ *          .addContextValue("Account Number", accountNumber)
+ *          .addContextValue("Amount Posted", amountPosted)
+ *          .addContextValue("Previous Balance", previousBalance)
+ *   }
+ * }
+ * </pre> or improve diagnose data at a higher level:
+ * <pre>
+ *   try {
+ *     ...
+ *   } catch (ContextedRuntimeException e) {
+ *     throw e.setContextValue("Transaction Id", transactionId);
+ *   } catch (Exception e) {
+ *     if (e instanceof ExceptionContext) {
+ *       e.setContextValue("Transaction Id", transactionId);
+ *     }
+ *     throw e;
  *   }
  * }
  * </pre>
@@ -54,9 +67,10 @@ import org.apache.commons.lang3.tuple.Pair;
  * <pre>
  * org.apache.commons.lang3.exception.ContextedRuntimeException: java.lang.Exception: Error posting account transaction
  *  Exception Context:
- *  [accountNumber=null]
- *  [amountPosted=100.00]
- *  [previousBalance=-2.17]
+ *  [1:Account Number=null]
+ *  [2:Amount Posted=100.00]
+ *  [3:Previous Balance=-2.17]
+ *  [4:Transaction Id=94ef1d15-d443-46c4-822b-637f26244899]
  *
  *  ---------------------------------
  *  at org.apache.commons.lang3.exception.ContextedRuntimeExceptionTest.testAddValue(ContextedExceptionTest.java:88)
@@ -156,24 +170,6 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     }
 
     /**
-     * Adds information helpful to a developer in diagnosing and correcting the problem.
-     * For the information to be meaningful, the value passed should have a reasonable
-     * toString() implementation.
-     * Different values can be added with the same label multiple times.
-     * <p>
-     * Note: This exception is only serializable if the object added as value is serializable.
-     * </p>
-     * 
-     * @param pair  a pair of textual label and information, not {@code null}
-     * @return {@code this}, for method chaining, not {@code null}
-     * @throws NullPointerException if {@code pair} is {@code null}
-     */
-    public ContextedRuntimeException addContextValue(Pair<String, Object> pair) {
-        this.exceptionContext.addContextValue(pair);
-        return this;
-    }
-
-    /**
      * Sets information helpful to a developer in diagnosing and correcting the problem.
      * For the information to be meaningful, the value passed should have a reasonable
      * toString() implementation.
@@ -188,24 +184,6 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      */
     public ContextedRuntimeException setContextValue(String label, Object value) {        
         exceptionContext.setContextValue(label, value);
-        return this;
-    }
-
-    /**
-     * Sets information helpful to a developer in diagnosing and correcting the problem.
-     * For the information to be meaningful, the value passed should have a reasonable
-     * toString() implementation.
-     * Any existing values with the same labels are removed before the new one is added.
-     * <p>
-     * Note: This exception is only serializable if the object added as value is serializable.
-     * </p>
-     * 
-     * @param pair  a pair of textual label and information, not {@code null}
-     * @return {@code this}, for method chaining, not {@code null}
-     * @throws NullPointerException if {@code pair} is {@code null}
-     */
-    public ContextedRuntimeException setContextValue(Pair<String, Object> pair) {
-        this.exceptionContext.setContextValue(pair);
         return this;
     }
 
