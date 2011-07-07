@@ -58,33 +58,27 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Returns a new instance of <code>cls</code> created using the actual
-     * arguments <code>args</code>. The formal parameter types are inferred from
-     * the actual values of <code>args</code>. See
-     * {@link #invokeExactConstructor(Class, Object[], Class[])} for more
-     * details.</p>
-     *
-     * <p>The signatures should be assignment compatible.</p>
+     * <p>Returns a new instance of the specified class inferring the right constructor
+     * from the types of the arguments.</p>
+     * 
+     * <p>This locates and calls a constructor.
+     * The constructor signature must match the argument types by assignment compatibility.</p>
      *
      * @param <T> the type to be constructed
-     * @param cls the class to be constructed.
-     * @param args actual argument array
-     * @return new instance of <code>cls</code>
+     * @param cls  the class to be constructed, not null
+     * @param args  the array of arguments, null treated as empty
+     * @return new instance of <code>cls</code>, not null
      *
-     * @throws NoSuchMethodException If the constructor cannot be found
-     * @throws IllegalAccessException If an error occurs accessing the
-     * constructor
-     * @throws InvocationTargetException If an error occurs invoking the
-     * constructor
-     * @throws InstantiationException If an error occurs instantiating the class
-     *
-     * @see #invokeConstructor(java.lang.Class, java.lang.Object[],
-     * java.lang.Class[])
+     * @throws NoSuchMethodException if a matching constructor cannot be found
+     * @throws IllegalAccessException if invocation is not permitted by security
+     * @throws InvocationTargetException if an error occurs on invocation
+     * @throws InstantiationException if an error occurs on instantiation
+     * @see #invokeConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
      */
     public static <T> T invokeConstructor(Class<T> cls, Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
-        if (null == args) {
+        if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
         Class<?> parameterTypes[] = new Class[args.length];
@@ -95,22 +89,22 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Returns a new instance of <code>cls</code> created using constructor
-     * with signature <code>parameterTypes</code> and actual arguments
-     * <code>args</code>.</p>
-     *
-     * <p>The signatures should be assignment compatible.</p>
+     * <p>Returns a new instance of the specified class choosing the right constructor
+     * from the list of parameter types.</p>
+     * 
+     * <p>This locates and calls a constructor.
+     * The constructor signature must match the parameter types by assignment compatibility.</p>
      *
      * @param <T> the type to be constructed
-     * @param cls the class to be constructed.
-     * @param args actual argument array
-     * @param parameterTypes parameter types array
-     * @return new instance of <code>cls</code>
+     * @param cls  the class to be constructed, not null
+     * @param args  the array of arguments, null treated as empty
+     * @param parameterTypes  the array of parameter types, null treated as empty
+     * @return new instance of <code>cls</code>, not null
      *
-     * @throws NoSuchMethodException if matching constructor cannot be found
-     * @throws IllegalAccessException thrown on the constructor's invocation
-     * @throws InvocationTargetException thrown on the constructor's invocation
-     * @throws InstantiationException thrown on the constructor's invocation
+     * @throws NoSuchMethodException if a matching constructor cannot be found
+     * @throws IllegalAccessException if invocation is not permitted by security
+     * @throws InvocationTargetException if an error occurs on invocation
+     * @throws InstantiationException if an error occurs on instantiation
      * @see Constructor#newInstance
      */
     public static <T> T invokeConstructor(Class<T> cls, Object[] args, Class<?>[] parameterTypes)
@@ -123,41 +117,35 @@ public class ConstructorUtils {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
         Constructor<T> ctor = getMatchingAccessibleConstructor(cls, parameterTypes);
-        if (null == ctor) {
-            throw new NoSuchMethodException("No such accessible constructor on object: "
-                    + cls.getName());
+        if (ctor == null) {
+            throw new NoSuchMethodException(
+                "No such accessible constructor on object: " + cls.getName());
         }
         return ctor.newInstance(args);
     }
 
     /**
-     * <p>Returns a new instance of <code>cls</code> created using the actual
-     * arguments <code>args</code>. The formal parameter types are inferred from
-     * the actual values of <code>args</code>. See
-     * {@link #invokeExactConstructor(Class, Object[], Class[])} for more
-     * details.</p>
+     * <p>Returns a new instance of the specified class inferring the right constructor
+     * from the types of the arguments.</p>
      *
-     * <p>The signatures should match exactly.</p>
+     * <p>This locates and calls a constructor.
+     * The constructor signature must match the argument types exactly.</p>
      *
      * @param <T> the type to be constructed
-     * @param cls the class to be constructed.
-     * @param args actual argument array
-     * @return new instance of <code>cls</code>
+     * @param cls  the class to be constructed, not null
+     * @param args  the array of arguments, null treated as empty
+     * @return new instance of <code>cls</code>, not null
      *
-     * @throws NoSuchMethodException If the constructor cannot be found
-     * @throws IllegalAccessException If an error occurs accessing the
-     * constructor
-     * @throws InvocationTargetException If an error occurs invoking the
-     * constructor
-     * @throws InstantiationException If an error occurs instantiating the class
-     *
-     * @see #invokeExactConstructor(java.lang.Class, java.lang.Object[],
-     * java.lang.Class[])
+     * @throws NoSuchMethodException if a matching constructor cannot be found
+     * @throws IllegalAccessException if invocation is not permitted by security
+     * @throws InvocationTargetException if an error occurs on invocation
+     * @throws InstantiationException if an error occurs on instantiation
+     * @see #invokeExactConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
      */
     public static <T> T invokeExactConstructor(Class<T> cls, Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
-        if (null == args) {
+        if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
         int arguments = args.length;
@@ -169,22 +157,22 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Returns a new instance of <code>cls</code> created using constructor
-     * with signature <code>parameterTypes</code> and actual arguments
-     * <code>args</code>.</p>
+     * <p>Returns a new instance of the specified class choosing the right constructor
+     * from the list of parameter types.</p>
      *
-     * <p>The signatures should match exactly.</p>
+     * <p>This locates and calls a constructor.
+     * The constructor signature must match the parameter types exactly.</p>
      *
      * @param <T> the type to be constructed
-     * @param cls the class to be constructed.
-     * @param args actual argument array
-     * @param parameterTypes parameter types array
-     * @return new instance of <code>cls</code>
+     * @param cls  the class to be constructed, not null
+     * @param args  the array of arguments, null treated as empty
+     * @param parameterTypes  the array of parameter types, null treated as empty
+     * @return new instance of <code>cls</code>, not null
      *
-     * @throws NoSuchMethodException if matching constructor cannot be found
-     * @throws IllegalAccessException thrown on the constructor's invocation
-     * @throws InvocationTargetException thrown on the constructor's invocation
-     * @throws InstantiationException thrown on the constructor's invocation
+     * @throws NoSuchMethodException if a matching constructor cannot be found
+     * @throws IllegalAccessException if invocation is not permitted by security
+     * @throws InvocationTargetException if an error occurs on invocation
+     * @throws InstantiationException if an error occurs on instantiation
      * @see Constructor#newInstance
      */
     public static <T> T invokeExactConstructor(Class<T> cls, Object[] args,
@@ -197,20 +185,24 @@ public class ConstructorUtils {
             parameterTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
         Constructor<T> ctor = getAccessibleConstructor(cls, parameterTypes);
-        if (null == ctor) {
-            throw new NoSuchMethodException("No such accessible constructor on object: "
-                    + cls.getName());
+        if (ctor == null) {
+            throw new NoSuchMethodException(
+                "No such accessible constructor on object: "+ cls.getName());
         }
         return ctor.newInstance(args);
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * Returns a constructor given a class and signature.
+     * <p>Finds a constructor given a class and signature, checking accessibiilty.</p>
+     * 
+     * <p>This finds the constructor and ensures that it is accessible.
+     * The constructor signature must match the parameter types exactly.</p>
      *
-     * @param <T> the type to be constructed
-     * @param cls the class to be constructed
-     * @param parameterTypes the parameter array
-     * @return null if matching accessible constructor can not be found
+     * @param <T> the constructor type
+     * @param cls  the class to find a constructor for, not null
+     * @param parameterTypes  the array of parameter types, null treated as empty
+     * @return the constructor, null if no matching accessible constructor found
      * @see Class#getConstructor
      * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
      */
@@ -224,11 +216,13 @@ public class ConstructorUtils {
     }
 
     /**
-     * Returns accessible version of the given constructor.
+     * <p>Checks if the specified constructor is accessible.</p>
+     * 
+     * <p>This simply ensures that the constructor is accessible.</p>
      *
-     * @param <T> the type to be constructed
-     * @param ctor prototype constructor object.
-     * @return <code>null</code> if accessible constructor can not be found.
+     * @param <T> the constructor type
+     * @param ctor  the prototype constructor object, not null
+     * @return the constructor, null if no matching accessible constructor found
      * @see java.lang.SecurityManager
      */
     public static <T> Constructor<T> getAccessibleConstructor(Constructor<T> ctor) {
@@ -237,21 +231,21 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Finds an accessible constructor with compatible parameters. Compatible
-     * parameters mean that every method parameter is assignable from the given
-     * parameters. In other words, it finds constructor that will take the
-     * parameters given.</p>
+     * <p>Finds an accessible constructor with compatible parameters.</p>
+     * 
+     * <p>This checks all the constructor and finds one with compatible parameters
+     * This requires that every parameter is assignable from the given parameter types.
+     * This is a more flexible search than the normal exact matching algorithm.</p>
      *
-     * <p>First it checks if there is constructor matching the exact signature.
-     * If no such, all the constructors of the class are tested if their
-     * signatures are assignment compatible with the parameter types. The first
-     * matching constructor is returned.</p>
+     * <p>First it checks if there is a constructor matching the exact signature.
+     * If not then all the constructors of the class are checked to see if their
+     * signatures are assignment compatible with the parameter types.
+     * The first assignment compatible matching constructor is returned.</p>
      *
-     * @param <T> the type to be constructed
-     * @param cls find constructor for this class
+     * @param <T> the constructor type
+     * @param cls  the class to find a constructor for, not null
      * @param parameterTypes find method with compatible parameters
-     * @return a valid Constructor object. If there's no matching constructor,
-     * returns <code>null</code>.
+     * @return the constructor, null if no matching accessible constructor found
      */
     public static <T> Constructor<T> getMatchingAccessibleConstructor(Class<T> cls,
             Class<?>... parameterTypes) {
