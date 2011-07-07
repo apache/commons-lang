@@ -39,6 +39,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
 
     /** The serialization version. */
     private static final long serialVersionUID = 20110706L;
+
     /** The list storing the label-data pairs. */
     private List<Pair<String, Object>> contextValues = new ArrayList<Pair<String,Object>>();
 
@@ -165,4 +166,5 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
         }
         return buffer.toString();
     }
+
 }

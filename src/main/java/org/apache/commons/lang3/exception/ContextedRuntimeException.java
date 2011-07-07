@@ -33,7 +33,7 @@ import org.apache.commons.lang3.tuple.Pair;
  * list of context label-value pairs. This additional information is automatically included in
  * the message and printed stack trace.
  * </p><p>
- * An checked version of this exception is provided by ContextedException.
+ * A checked version of this exception is provided by ContextedException.
  * </p>
  * <p>
  * To use this class write code as follows:
@@ -123,9 +123,6 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
 
     /**
      * Instantiates ContextedRuntimeException with cause, message, and ExceptionContext.
-     * <p>
-     * Note: This exception is only serializable if the object added is serializable.
-     * </p>
      * 
      * @param message  the exception message, may be null
      * @param cause  the underlying cause of the exception, may be null
@@ -140,19 +137,18 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     }
 
     //-----------------------------------------------------------------------
-
     /**
-     * Adds information helpful to a developer in diagnosing and correcting
-     * the problem.  For the information to be meaningful, the value passed
-     * should have a reasonable toString() implementation.  Different values
-     * can be added with the same label multiple times. 
+     * Adds information helpful to a developer in diagnosing and correcting the problem.
+     * For the information to be meaningful, the value passed should have a reasonable
+     * toString() implementation.
+     * Different values can be added with the same label multiple times.
      * <p>
      * Note: This exception is only serializable if the object added is serializable.
      * </p>
      * 
      * @param label  a textual label associated with information, {@code null} not recommended
      * @param value  information needed to understand exception, may be {@code null}
-     * @return this, for method chaining
+     * @return {@code this}, for method chaining, not {@code null}
      */
     public ContextedRuntimeException addContextValue(String label, Object value) {        
         exceptionContext.addContextValue(label, value);
@@ -160,17 +156,17 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     }
 
     /**
-     * Adds information helpful to a developer in diagnosing and correcting
-     * the problem.  For the information to be meaningful, the value passed
-     * should have a reasonable toString() implementation.  Different values
-     * can be added with the same label multiple times. 
+     * Adds information helpful to a developer in diagnosing and correcting the problem.
+     * For the information to be meaningful, the value passed should have a reasonable
+     * toString() implementation.
+     * Different values can be added with the same label multiple times.
      * <p>
      * Note: This exception is only serializable if the object added as value is serializable.
      * </p>
      * 
-     * @param pair a pair of textual label and information
+     * @param pair  a pair of textual label and information, not {@code null}
+     * @return {@code this}, for method chaining, not {@code null}
      * @throws NullPointerException if {@code pair} is {@code null}
-     * @return this, for method chaining
      */
     public ContextedRuntimeException addContextValue(Pair<String, Object> pair) {
         this.exceptionContext.addContextValue(pair);
@@ -178,35 +174,35 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     }
 
     /**
-     * Set information helpful to a developer in diagnosing and correcting
-     * the problem.  For the information to be meaningful, the value passed
-     * should have a reasonable toString() implementation.  Existing values
-     * with the same labels are removed before the new one is added.
+     * Sets information helpful to a developer in diagnosing and correcting the problem.
+     * For the information to be meaningful, the value passed should have a reasonable
+     * toString() implementation.
+     * Any existing values with the same labels are removed before the new one is added.
      * <p>
      * Note: This exception is only serializable if the object added as value is serializable.
      * </p>
      * 
      * @param label  a textual label associated with information, {@code null} not recommended
      * @param value  information needed to understand exception, may be {@code null}
-     * @return this, for method chaining
+     * @return {@code this}, for method chaining, not {@code null}
      */
     public ContextedRuntimeException setContextValue(String label, Object value) {        
         exceptionContext.setContextValue(label, value);
         return this;
     }
-    
+
     /**
-     * Set information helpful to a developer in diagnosing and correcting
-     * the problem.  For the information to be meaningful, the value passed
-     * should have a reasonable toString() implementation.  Existing values
-     * with the same labels are removed before the new one is added.
+     * Sets information helpful to a developer in diagnosing and correcting the problem.
+     * For the information to be meaningful, the value passed should have a reasonable
+     * toString() implementation.
+     * Any existing values with the same labels are removed before the new one is added.
      * <p>
      * Note: This exception is only serializable if the object added as value is serializable.
      * </p>
      * 
-     * @param pair a pair of textual label and information
+     * @param pair  a pair of textual label and information, not {@code null}
+     * @return {@code this}, for method chaining, not {@code null}
      * @throws NullPointerException if {@code pair} is {@code null}
-     * @return this, for method chaining
      */
     public ContextedRuntimeException setContextValue(Pair<String, Object> pair) {
         this.exceptionContext.setContextValue(pair);
@@ -258,4 +254,5 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     public String getFormattedExceptionMessage(String baseMessage) {
         return exceptionContext.getFormattedExceptionMessage(baseMessage);
     }
+
 }
