@@ -197,7 +197,7 @@ public class WordUtils {
      * @since 2.1
      */
     public static String capitalize(String str, char... delimiters) {
-        int delimLen = (delimiters == null ? -1 : delimiters.length);
+        int delimLen = delimiters == null ? -1 : delimiters.length;
         if (str == null || str.length() == 0 || delimLen == 0) {
             return str;
         }
