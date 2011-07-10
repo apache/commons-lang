@@ -18,6 +18,8 @@ package org.apache.commons.lang3.text;
 
 import java.util.Arrays;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * A matcher class that can be queried to determine if a character array
  * portion matches.
@@ -201,7 +203,7 @@ public abstract class StrMatcher {
      * @return a new Matcher for the given String
      */
     public static StrMatcher stringMatcher(String str) {
-        if (str == null || str.length() == 0) {
+        if (StringUtils.isEmpty(str)) {
             return NONE_MATCHER;
         }
         return new StringMatcher(str);
