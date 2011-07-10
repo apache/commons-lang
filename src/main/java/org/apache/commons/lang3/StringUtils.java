@@ -5094,7 +5094,7 @@ public class StringUtils {
      * @return the changed String, {@code null} if null String input
      */
     public static String swapCase(String str) {
-        if (str == null || str.length() == 0) {
+        if (StringUtils.isEmpty(str)) {
             return str;
         }
 

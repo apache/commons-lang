@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.text;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
@@ -198,7 +199,7 @@ public class WordUtils {
      */
     public static String capitalize(String str, char... delimiters) {
         int delimLen = delimiters == null ? -1 : delimiters.length;
-        if (str == null || str.length() == 0 || delimLen == 0) {
+        if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
         }
         char[] buffer = str.toCharArray();
@@ -267,7 +268,7 @@ public class WordUtils {
      */
     public static String capitalizeFully(String str, char... delimiters) {
         int delimLen = (delimiters == null ? -1 : delimiters.length);
-        if (str == null || str.length() == 0 || delimLen == 0) {
+        if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
         }
         str = str.toLowerCase();
@@ -323,7 +324,7 @@ public class WordUtils {
      */
     public static String uncapitalize(String str, char... delimiters) {
         int delimLen = (delimiters == null ? -1 : delimiters.length);
-        if (str == null || str.length() == 0 || delimLen == 0) {
+        if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
         }
         char[] buffer = str.toCharArray();
@@ -364,7 +365,7 @@ public class WordUtils {
      * @return the changed String, <code>null</code> if null String input
      */
     public static String swapCase(String str) {
-        if (str == null || str.length() == 0) {
+        if (StringUtils.isEmpty(str)) {
             return str;
         }
         char[] buffer = str.toCharArray();
@@ -448,7 +449,7 @@ public class WordUtils {
      * @since 2.2
      */
     public static String initials(String str, char... delimiters) {
-        if (str == null || str.length() == 0) {
+        if (StringUtils.isEmpty(str)) {
             return str;
         }
         if (delimiters != null && delimiters.length == 0) {
