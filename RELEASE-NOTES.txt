@@ -149,3 +149,5 @@ BUG FIXES IN 3.0
     [LANG-685] EqualsBuilder synchronizes on HashCodeBuilder.
     [LANG-703] StringUtils.join throws NPE when toString returns null for one of objects in collection
     [LANG-710] StringIndexOutOfBoundsException when calling unescapeHtml4("&#03")
+    [LANG-714] StringUtils doc/comment spelling fixes.
+	[LANG-715] CharSetUtils.squeeze() speedup.
