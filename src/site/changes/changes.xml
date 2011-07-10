@@ -22,9 +22,10 @@
   <body>
 
   <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">
-    <action type="update" issue="LANG-713">Increase test coverage of FieldUtils read methods and tweak javadoc</action>
+    <action type="fix" issue="LANG-716">swapCase and *capitalize speedups.</action>
     <action type="fix" issue="LANG-715">CharSetUtils.squeeze() speedup.</action>
     <action type="fix" issue="LANG-714">StringUtils doc/comment spelling fixes.</action>
+    <action type="update" issue="LANG-713">Increase test coverage of FieldUtils read methods and tweak javadoc</action>
     <action type="fix" issue="LANG-711">Add includeantruntime=false to javac targets to quell warnings in ant 1.8.1 and better (and modest performance gain).</action>
     <action type="fix" issue="LANG-710">StringIndexOutOfBoundsException when calling unescapeHtml4("&amp;#03")</action>
     <action type="fix" issue="LANG-703">StringUtils.join throws NPE when toString returns null for one of objects in collection</action>

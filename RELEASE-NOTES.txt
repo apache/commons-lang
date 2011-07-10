@@ -151,3 +151,4 @@ BUG FIXES IN 3.0
     [LANG-710] StringIndexOutOfBoundsException when calling unescapeHtml4("&#03")
     [LANG-714] StringUtils doc/comment spelling fixes.
 	[LANG-715] CharSetUtils.squeeze() speedup.
+    [LANG-716] swapCase and *capitalize speedups.

@@ -201,23 +201,18 @@ public class WordUtils {
         if (str == null || str.length() == 0 || delimLen == 0) {
             return str;
         }
-        int strLen = str.length();
-        StringBuilder buffer = new StringBuilder(strLen);
+        char[] buffer = str.toCharArray();
         boolean capitalizeNext = true;
-        for (int i = 0; i < strLen; i++) {
-            char ch = str.charAt(i);
-
+        for (int i = 0; i < buffer.length; i++) {
+            char ch = buffer[i];
             if (isDelimiter(ch, delimiters)) {
-                buffer.append(ch);
                 capitalizeNext = true;
             } else if (capitalizeNext) {
-                buffer.append(Character.toTitleCase(ch));
+                buffer[i] = Character.toTitleCase(ch);
                 capitalizeNext = false;
-            } else {
-                buffer.append(ch);
             }
         }
-        return buffer.toString();
+        return new String(buffer);
     }
 
     //-----------------------------------------------------------------------
@@ -331,23 +326,18 @@ public class WordUtils {
         if (str == null || str.length() == 0 || delimLen == 0) {
             return str;
         }
-        int strLen = str.length();
-        StringBuilder buffer = new StringBuilder(strLen);
+        char[] buffer = str.toCharArray();
         boolean uncapitalizeNext = true;
-        for (int i = 0; i < strLen; i++) {
-            char ch = str.charAt(i);
-
+        for (int i = 0; i < buffer.length; i++) {
+            char ch = buffer[i];
             if (isDelimiter(ch, delimiters)) {
-                buffer.append(ch);
                 uncapitalizeNext = true;
             } else if (uncapitalizeNext) {
-                buffer.append(Character.toLowerCase(ch));
+                buffer[i] = Character.toLowerCase(ch);
                 uncapitalizeNext = false;
-            } else {
-                buffer.append(ch);
             }
         }
-        return buffer.toString();
+        return new String(buffer);
     }
 
     //-----------------------------------------------------------------------
@@ -374,35 +364,33 @@ public class WordUtils {
      * @return the changed String, <code>null</code> if null String input
      */
     public static String swapCase(String str) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        if (str == null || str.length() == 0) {
             return str;
         }
-        StringBuilder buffer = new StringBuilder(strLen);
+        char[] buffer = str.toCharArray();
 
         boolean whitespace = true;
-        char ch = 0;
-        char tmp = 0;
 
-        for (int i = 0; i < strLen; i++) {
-            ch = str.charAt(i);
+        for (int i = 0; i < buffer.length; i++) {
+            char ch = buffer[i];
             if (Character.isUpperCase(ch)) {
-                tmp = Character.toLowerCase(ch);
+                buffer[i] = Character.toLowerCase(ch);
+                whitespace = false;
             } else if (Character.isTitleCase(ch)) {
-                tmp = Character.toLowerCase(ch);
+                buffer[i] = Character.toLowerCase(ch);
+                whitespace = false;
             } else if (Character.isLowerCase(ch)) {
                 if (whitespace) {
-                    tmp = Character.toTitleCase(ch);
+                    buffer[i] = Character.toTitleCase(ch);
+                    whitespace = false;
                 } else {
-                    tmp = Character.toUpperCase(ch);
+                    buffer[i] = Character.toUpperCase(ch);
                 }
             } else {
-                tmp = ch;
+                whitespace = Character.isWhitespace(ch);
             }
-            buffer.append(tmp);
-            whitespace = Character.isWhitespace(ch);
         }
-        return buffer.toString();
+        return new String(buffer);
     }
 
     //-----------------------------------------------------------------------
