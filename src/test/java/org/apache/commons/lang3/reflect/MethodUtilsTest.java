@@ -254,8 +254,8 @@ public class MethodUtilsTest extends TestCase {
     public void testGetAccessibleInterfaceMethod() throws Exception {
 
         Class<?>[][] p = { ArrayUtils.EMPTY_CLASS_ARRAY, null };
-        for (int i = 0; i < p.length; i++) {
-            Method method = TestMutable.class.getMethod("getValue", p[i]);
+        for (Class<?>[] element : p) {
+            Method method = TestMutable.class.getMethod("getValue", element);
             Method accessibleMethod = MethodUtils.getAccessibleMethod(method);
             assertNotSame(accessibleMethod, method);
             assertSame(Mutable.class, accessibleMethod.getDeclaringClass());
@@ -272,9 +272,9 @@ public class MethodUtilsTest extends TestCase {
     public void testGetAccessibleInterfaceMethodFromDescription()
             throws Exception {
         Class<?>[][] p = { ArrayUtils.EMPTY_CLASS_ARRAY, null };
-        for (int i = 0; i < p.length; i++) {
+        for (Class<?>[] element : p) {
             Method accessibleMethod = MethodUtils.getAccessibleMethod(
-                    TestMutable.class, "getValue", p[i]);
+                    TestMutable.class, "getValue", element);
             assertSame(Mutable.class, accessibleMethod.getDeclaringClass());
         }
     }

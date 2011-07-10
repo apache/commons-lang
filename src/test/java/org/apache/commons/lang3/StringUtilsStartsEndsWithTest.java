@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import junit.framework.TestCase;
+
 import org.apache.commons.lang3.text.StrBuilder;
 
 /**

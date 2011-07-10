@@ -790,8 +790,7 @@ public class TypeUtils {
             Type genericInterface = null;
 
             // find the interface closest to the super class
-            for (int i = 0; i < interfaceTypes.length; i++) {
-                Type midType = interfaceTypes[i];
+            for (Type midType : interfaceTypes) {
                 Class<?> midClass = null;
 
                 if (midType instanceof ParameterizedType) {

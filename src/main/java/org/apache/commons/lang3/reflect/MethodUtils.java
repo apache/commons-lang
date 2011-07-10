@@ -516,13 +516,13 @@ public class MethodUtils {
         // search through all methods
         Method bestMatch = null;
         Method[] methods = cls.getMethods();
-        for (int i = 0, size = methods.length; i < size; i++) {
-            if (methods[i].getName().equals(methodName)) {
+        for (Method method : methods) {
+            if (method.getName().equals(methodName)) {
                 // compare parameters
-                if (ClassUtils.isAssignable(parameterTypes, methods[i]
+                if (ClassUtils.isAssignable(parameterTypes, method
                         .getParameterTypes(), true)) {
                     // get accessible version of method
-                    Method accessibleMethod = getAccessibleMethod(methods[i]);
+                    Method accessibleMethod = getAccessibleMethod(method);
                     if (accessibleMethod != null) {
                         if (bestMatch == null
                                 || MemberUtils.compareParameterTypes(

@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.event;
 
-import javax.naming.event.ObjectChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.VetoableChangeListener;
@@ -28,6 +27,8 @@ import java.lang.reflect.Proxy;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.naming.event.ObjectChangeListener;
 
 import junit.framework.TestCase;
 

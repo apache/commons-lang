@@ -1183,9 +1183,9 @@ public class StringUtilsTest extends TestCase {
             { "", "" },
             { "a", "" },
         };
-        for (int i = 0; i < chopCases.length; i++) {
-            String original = chopCases[i][0];
-            String expectedResult = chopCases[i][1];
+        for (String[] chopCase : chopCases) {
+            String original = chopCase[0];
+            String expectedResult = chopCase[1];
             assertEquals("chop(String) failed",
                     expectedResult, StringUtils.chop(original));
         }
@@ -1211,9 +1211,9 @@ public class StringUtilsTest extends TestCase {
             { null, null },
             { FOO_UNCAP + "\n\r", FOO_UNCAP + "\n"}
         };
-        for (int i = 0; i < chompCases.length; i++) {
-            String original = chompCases[i][0];
-            String expectedResult = chompCases[i][1];
+        for (String[] chompCase : chompCases) {
+            String original = chompCase[0];
+            String expectedResult = chompCase[1];
             assertEquals("chomp(String) failed",
                     expectedResult, StringUtils.chomp(original));
         }
@@ -1990,8 +1990,7 @@ public class StringUtilsTest extends TestCase {
     public void testStringUtilsCharSequenceContract() {
         Class<StringUtils> c = StringUtils.class;
         Method[] methods = c.getMethods();
-        for (int i=0; i<methods.length; i++) {
-            Method m = methods[i];
+        for (Method m : methods) {
             if (m.getReturnType() == String.class || m.getReturnType() == String[].class) {
                 // Assume this is mutable and ensure the first parameter is not CharSequence.
                 // It may be String or it may be something else (String[], Object, Object[]) so 

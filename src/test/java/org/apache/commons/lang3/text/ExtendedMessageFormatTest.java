@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.text;
 
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
+
 import java.text.ChoiceFormat;
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -28,13 +30,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
 import junit.framework.TestCase;
 
-import static org.apache.commons.lang3.JavaVersion.*;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
@@ -102,8 +102,7 @@ public class ExtendedMessageFormatTest extends TestCase {
         testLocales.retainAll(Arrays.asList(NumberFormat.getAvailableLocales()));
         testLocales.add(null);
 
-        for (Iterator<Locale> l = testLocales.iterator(); l.hasNext();) {
-            Locale locale = l.next();
+        for (Locale locale : testLocales) {
             MessageFormat builtins = createMessageFormat(builtinsPattern, locale);
             String expectedPattern = extendedPattern + builtins.toPattern();
             DateFormat df = null;
@@ -194,13 +193,13 @@ public class ExtendedMessageFormatTest extends TestCase {
         Locale[] availableLocales = ChoiceFormat.getAvailableLocales();
 
         choicePattern = "{0,choice,1#One|2#Two|3#Many {0,number}}";
-        for (int i = 0; i < values.length; i++) {
-            checkBuiltInFormat(values[i] + ": " + choicePattern, new Object[] {values[i]}, availableLocales);
+        for (Object value : values) {
+            checkBuiltInFormat(value + ": " + choicePattern, new Object[] {value}, availableLocales);
         }
 
         choicePattern = "{0,choice,1#''One''|2#\"Two\"|3#''{Many}'' {0,number}}";
-        for (int i = 0; i < values.length; i++) {
-            checkBuiltInFormat(values[i] + ": " + choicePattern, new Object[] {values[i]}, availableLocales);
+        for (Object value : values) {
+            checkBuiltInFormat(value + ": " + choicePattern, new Object[] {value}, availableLocales);
         }
     }
 
@@ -326,8 +325,8 @@ public class ExtendedMessageFormatTest extends TestCase {
      */
     private void checkBuiltInFormat(String pattern, Map<String, ?> registry, Object[] args, Locale[] locales) {
         checkBuiltInFormat(pattern, registry, args, (Locale) null);
-        for (int i = 0; i < locales.length; i++) {
-            checkBuiltInFormat(pattern, registry, args, locales[i]);
+        for (Locale locale : locales) {
+            checkBuiltInFormat(pattern, registry, args, locale);
         }
     }
 

@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -25,8 +27,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-
-import static org.apache.commons.lang3.JavaVersion.*;
 
 import junit.framework.TestCase;
 
@@ -385,7 +385,7 @@ public class LocaleUtilsTest extends TestCase {
         assertNotNull(list);
         assertSame(list, list2);
         //search through langauges
-        for (int i = 0; i < languages.length; i++) {
+        for (String language : languages) {
             Iterator<Locale> iterator = list.iterator();
             boolean found = false;
             // see if it was returned by the set
@@ -395,13 +395,13 @@ public class LocaleUtilsTest extends TestCase {
                 assertTrue(locale.getVariant() == null
                         || locale.getVariant().length() == 0);
                 assertEquals(country, locale.getCountry());
-                if (languages[i].equals(locale.getLanguage())) {
+                if (language.equals(locale.getLanguage())) {
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                fail("Cound not find language: " + languages[i]
+                fail("Cound not find language: " + language
                         + " for country: " + country);
             }
         }
@@ -435,7 +435,7 @@ public class LocaleUtilsTest extends TestCase {
         assertNotNull(list);
         assertSame(list, list2);
         //search through langauges
-        for (int i = 0; i < countries.length; i++) {
+        for (String countrie : countries) {
             Iterator<Locale> iterator = list.iterator();
             boolean found = false;
             // see if it was returned by the set
@@ -445,13 +445,13 @@ public class LocaleUtilsTest extends TestCase {
                 assertTrue(locale.getVariant() == null
                         || locale.getVariant().length() == 0);
                 assertEquals(language, locale.getLanguage());
-                if (countries[i].equals(locale.getCountry())) {
+                if (countrie.equals(locale.getCountry())) {
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                fail("Cound not find language: " + countries[i]
+                fail("Cound not find language: " + countrie
                         + " for country: " + language);
             }
         }

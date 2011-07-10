@@ -961,8 +961,8 @@ public class StrBuilder implements CharSequence, Appendable {
      */
     public StrBuilder appendAll(Object[] array) {
         if (array != null && array.length > 0) {
-            for (int i = 0; i < array.length; i++) {
-                append(array[i]);
+            for (Object element : array) {
+                append(element);
             }
         }
         return this;

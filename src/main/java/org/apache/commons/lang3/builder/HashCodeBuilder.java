@@ -591,8 +591,8 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (array == null) {
             iTotal = iTotal * iConstant;
         } else {
-            for (int i = 0; i < array.length; i++) {
-                append(array[i]);
+            for (boolean element : array) {
+                append(element);
             }
         }
         return this;
@@ -629,8 +629,8 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (array == null) {
             iTotal = iTotal * iConstant;
         } else {
-            for (int i = 0; i < array.length; i++) {
-                append(array[i]);
+            for (byte element : array) {
+                append(element);
             }
         }
         return this;
@@ -663,8 +663,8 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (array == null) {
             iTotal = iTotal * iConstant;
         } else {
-            for (int i = 0; i < array.length; i++) {
-                append(array[i]);
+            for (char element : array) {
+                append(element);
             }
         }
         return this;
@@ -696,8 +696,8 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (array == null) {
             iTotal = iTotal * iConstant;
         } else {
-            for (int i = 0; i < array.length; i++) {
-                append(array[i]);
+            for (double element : array) {
+                append(element);
             }
         }
         return this;
@@ -730,8 +730,8 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (array == null) {
             iTotal = iTotal * iConstant;
         } else {
-            for (int i = 0; i < array.length; i++) {
-                append(array[i]);
+            for (float element : array) {
+                append(element);
             }
         }
         return this;
@@ -764,8 +764,8 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (array == null) {
             iTotal = iTotal * iConstant;
         } else {
-            for (int i = 0; i < array.length; i++) {
-                append(array[i]);
+            for (int element : array) {
+                append(element);
             }
         }
         return this;
@@ -802,8 +802,8 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (array == null) {
             iTotal = iTotal * iConstant;
         } else {
-            for (int i = 0; i < array.length; i++) {
-                append(array[i]);
+            for (long element : array) {
+                append(element);
             }
         }
         return this;
@@ -866,8 +866,8 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (array == null) {
             iTotal = iTotal * iConstant;
         } else {
-            for (int i = 0; i < array.length; i++) {
-                append(array[i]);
+            for (Object element : array) {
+                append(element);
             }
         }
         return this;
@@ -900,8 +900,8 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (array == null) {
             iTotal = iTotal * iConstant;
         } else {
-            for (int i = 0; i < array.length; i++) {
-                append(array[i]);
+            for (short element : array) {
+                append(element);
             }
         }
         return this;

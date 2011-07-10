@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_5;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -26,8 +28,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import static org.apache.commons.lang3.JavaVersion.*;
 
 import junit.framework.TestCase;
 
@@ -793,10 +793,10 @@ public class ClassUtilsTest extends TestCase {
                 Boolean.TYPE, Byte.TYPE, Character.TYPE, Short.TYPE,
                 Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE
         };
-        for (int i = 0; i < primitives.length; i++) {
-            Class<?> wrapperCls = ClassUtils.primitiveToWrapper(primitives[i]);
+        for (Class<?> primitive : primitives) {
+            Class<?> wrapperCls = ClassUtils.primitiveToWrapper(primitive);
             assertFalse("Still primitive", wrapperCls.isPrimitive());
-            assertEquals(wrapperCls + " -> " + primitives[i], primitives[i],
+            assertEquals(wrapperCls + " -> " + primitive, primitive,
                     ClassUtils.wrapperToPrimitive(wrapperCls));
         }
     }

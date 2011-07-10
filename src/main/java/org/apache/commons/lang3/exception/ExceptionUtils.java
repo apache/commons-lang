@@ -147,8 +147,7 @@ public class ExceptionUtils {
             methodNames = CAUSE_METHOD_NAMES;
         }
 
-        for (int i = 0; i < methodNames.length; i++) {
-            String methodName = methodNames[i];
+        for (String methodName : methodNames) {
             if (methodName != null) {
                 Throwable cause = getCauseUsingMethodName(throwable, methodName);
                 if (cause != null) {
@@ -461,8 +460,8 @@ public class ExceptionUtils {
             throw new IllegalArgumentException("The PrintStream must not be null");
         }
         String trace[] = getRootCauseStackTrace(throwable);
-        for (int i = 0; i < trace.length; i++) {
-            stream.println(trace[i]);
+        for (String element : trace) {
+            stream.println(element);
         }
         stream.flush();
     }
@@ -494,8 +493,8 @@ public class ExceptionUtils {
             throw new IllegalArgumentException("The PrintWriter must not be null");
         }
         String trace[] = getRootCauseStackTrace(throwable);
-        for (int i = 0; i < trace.length; i++) {
-            writer.println(trace[i]);
+        for (String element : trace) {
+            writer.println(element);
         }
         writer.flush();
     }

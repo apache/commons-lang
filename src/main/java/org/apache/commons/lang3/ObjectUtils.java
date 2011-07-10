@@ -216,8 +216,8 @@ public class ObjectUtils {
     public static int hashCodeMulti(Object... objects) {
         int hash = 1;
         if (objects != null) {
-            for (int i = 0; i < objects.length; i++) {
-                hash = hash * 31 + ObjectUtils.hashCode(objects[i]);
+            for (Object object : objects) {
+                hash = hash * 31 + ObjectUtils.hashCode(object);
             }
         }
         return hash;

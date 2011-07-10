@@ -6392,8 +6392,7 @@ public class StringUtils {
         if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
-        for (int i = 0; i < searchStrings.length; i++) {
-            CharSequence searchString = searchStrings[i];
+        for (CharSequence searchString : searchStrings) {
             if (StringUtils.startsWith(string, searchString)) {
                 return true;
             }
@@ -6550,8 +6549,7 @@ public class StringUtils {
         if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
-        for (int i = 0; i < searchStrings.length; i++) {
-            CharSequence searchString = searchStrings[i];
+        for (CharSequence searchString : searchStrings) {
             if (StringUtils.endsWith(string, searchString)) {
                 return true;
             }
