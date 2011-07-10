@@ -73,10 +73,9 @@ public class CharSetUtils {
         char ch = ' ';
         for (int i = 0; i < sz; i++) {
             ch = chrs[i];
-            if (chars.contains(ch)) {
-                if ((ch == lastChar) && (i != 0)) {
-                    continue;
-                }
+            // Compare with contains() last for performance.
+            if (ch == lastChar && i != 0 && chars.contains(ch)) {
+                continue;
             }
             buffer.append(ch);
             lastChar = ch;
