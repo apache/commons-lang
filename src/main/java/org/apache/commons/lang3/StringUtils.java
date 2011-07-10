@@ -5094,25 +5094,23 @@ public class StringUtils {
      * @return the changed String, {@code null} if null String input
      */
     public static String swapCase(String str) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        if (str == null || str.length() == 0) {
             return str;
         }
-        StringBuilder buffer = new StringBuilder(strLen);
 
-        char ch = 0;
-        for (int i = 0; i < strLen; i++) {
-            ch = str.charAt(i);
+        char[] buffer = str.toCharArray();
+
+        for (int i = 0; i < buffer.length; i++) {
+            char ch = buffer[i];
             if (Character.isUpperCase(ch)) {
-                ch = Character.toLowerCase(ch);
+                buffer[i] = Character.toLowerCase(ch);
             } else if (Character.isTitleCase(ch)) {
-                ch = Character.toLowerCase(ch);
+                buffer[i] = Character.toLowerCase(ch);
             } else if (Character.isLowerCase(ch)) {
-                ch = Character.toUpperCase(ch);
+                buffer[i] = Character.toUpperCase(ch);
             }
-            buffer.append(ch);
         }
-        return buffer.toString();
+        return new String(buffer);
     }
 
     // Count matches
