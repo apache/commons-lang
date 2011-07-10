@@ -74,7 +74,7 @@ import java.util.regex.Pattern;
  *      - abbreviates a string using ellipsis</li>
  *  <li><b>Difference</b>
  *      - compares Strings and reports on their differences</li>
- *  <li><b>LevensteinDistance</b>
+ *  <li><b>LevenshteinDistance</b>
  *      - the number of changes needed to change one String into another</li>
  * </ul>
  *
@@ -615,7 +615,7 @@ public class StringUtils {
      * StringUtils.stripAccents(null)                = null
      * StringUtils.stripAccents("")                  = ""
      * StringUtils.stripAccents("control")           = "control"
-     * StringUtils.stripAccents("&ecute;clair")      = "eclair"
+     * StringUtils.stripAccents("&eacute;clair")     = "eclair"
      * </pre>
      *
      * @param input String to be stripped
@@ -623,7 +623,7 @@ public class StringUtils {
      *
      * @since 3.0
      */
-    // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their unaccented equivalent (and uncommited bug fix: https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
+    // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their unaccented equivalent (and uncommitted bug fix: https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
     public static String stripAccents(String input) {
         if(input == null) {
             return null;
@@ -653,7 +653,7 @@ public class StringUtils {
 
     /**
      * Use {@code java.text.Normalizer#normalize(CharSequence, Normalizer.Form)}
-     * (but be careful, this classe exists in Java 1.3, with an entirely different meaning!)
+     * (but be careful, this class exists in Java 1.3, with an entirely different meaning!)
      *
      * @param text the text to be processed
      * @return the processed string
@@ -2064,7 +2064,7 @@ public class StringUtils {
      *  count back from the end of the String by this many characters
      * @param end  the position to end at (exclusive), negative means
      *  count back from the end of the String by this many characters
-     * @return substring from start position to end positon,
+     * @return substring from start position to end position,
      *  {@code null} if null String input
      */
     public static String substring(String str, int start, int end) {
@@ -3562,7 +3562,7 @@ public class StringUtils {
     // Remove
     //-----------------------------------------------------------------------
     /**
-     * <p>Removes a substring only if it is at the begining of a source string,
+     * <p>Removes a substring only if it is at the beginning of a source string,
      * otherwise returns the source string.</p>
      *
      * <p>A {@code null} source string will return {@code null}.
@@ -3596,7 +3596,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Case insensitive removal of a substring if it is at the begining of a source string,
+     * <p>Case insensitive removal of a substring if it is at the beginning of a source string,
      * otherwise returns the source string.</p>
      *
      * <p>A {@code null} source string will return {@code null}.
@@ -4027,7 +4027,7 @@ public class StringUtils {
             return text;
         }
 
-        // if recursing, this shouldnt be less than 0
+        // if recursing, this shouldn't be less than 0
         if (timeToLive < 0) {
             throw new IllegalStateException("TimeToLive of " + timeToLive + " is less than 0: " + text);
         }
@@ -4079,7 +4079,7 @@ public class StringUtils {
 
         int start = 0;
 
-        // get a good guess on the size of the result buffer so it doesnt have to double if it goes over a bit
+        // get a good guess on the size of the result buffer so it doesn't have to double if it goes over a bit
         int increase = 0;
 
         // count the replacement text elements that are larger than their corresponding text being replaced
@@ -5153,7 +5153,7 @@ public class StringUtils {
     // Character Tests
     //-----------------------------------------------------------------------
     /**
-     * <p>Checks if the CharSequence contains only unicode letters.</p>
+     * <p>Checks if the CharSequence contains only Unicode letters.</p>
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code false}.</p>
@@ -5186,7 +5186,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the CharSequence contains only unicode letters and
+     * <p>Checks if the CharSequence contains only Unicode letters and
      * space (' ').</p>
      *
      * <p>{@code null} will return {@code false}
@@ -5221,7 +5221,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the CharSequence contains only unicode letters or digits.</p>
+     * <p>Checks if the CharSequence contains only Unicode letters or digits.</p>
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code false}.</p>
@@ -5256,7 +5256,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the CharSequence contains only unicode letters, digits
+     * <p>Checks if the CharSequence contains only Unicode letters, digits
      * or space ({@code ' '}).</p>
      *
      * <p>{@code null} will return {@code false}.
@@ -5330,8 +5330,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the CharSequence contains only unicode digits.
-     * A decimal point is not a unicode digit and returns false.</p>
+     * <p>Checks if the CharSequence contains only Unicode digits.
+     * A decimal point is not a Unicode digit and returns false.</p>
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code false}.</p>
@@ -5366,9 +5366,9 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the CharSequence contains only unicode digits or space
+     * <p>Checks if the CharSequence contains only Unicode digits or space
      * ({@code ' '}).
-     * A decimal point is not a unicode digit and returns false.</p>
+     * A decimal point is not a Unicode digit and returns false.</p>
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code true}.</p>
@@ -6356,7 +6356,7 @@ public class StringUtils {
      * @see java.lang.String#startsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
-     * @param ignoreCase inidicates whether the compare should ignore case
+     * @param ignoreCase indicates whether the compare should ignore case
      *  (case insensitive) or not.
      * @return {@code true} if the CharSequence starts with the prefix or
      *  both {@code null}
@@ -6466,7 +6466,7 @@ public class StringUtils {
      * @see java.lang.String#endsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
-     * @param ignoreCase inidicates whether the compare should ignore case
+     * @param ignoreCase indicates whether the compare should ignore case
      *  (case insensitive) or not.
      * @return {@code true} if the CharSequence starts with the prefix or
      *  both {@code null}
@@ -6510,7 +6510,7 @@ public class StringUtils {
      * </p>
      * <p>
      * The difference is that Java's whitespace includes vertical tab and form feed, which this functional will also
-     * normalize. Additonally <code>{@link #trim(String)}</code> removes control characters (char &lt;= 32) from both
+     * normalize. Additionally <code>{@link #trim(String)}</code> removes control characters (char &lt;= 32) from both
      * ends of this String.
      * </p>
      *
