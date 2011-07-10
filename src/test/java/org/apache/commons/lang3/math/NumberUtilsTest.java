@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.math;
 
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_3;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
@@ -23,7 +25,6 @@ import java.math.BigInteger;
 
 import junit.framework.TestCase;
 
-import static org.apache.commons.lang3.JavaVersion.*;
 import org.apache.commons.lang3.SystemUtils;
 
 /**

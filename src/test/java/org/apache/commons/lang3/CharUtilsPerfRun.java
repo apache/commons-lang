@@ -125,8 +125,7 @@ public class CharUtilsPerfRun {
     private int run_CharSet(int loopCount) {
         int t = 0;
         for (int i = 0; i < loopCount; i++) {
-            for (int j = 0; j < CHAR_SAMPLES.length; j++) {
-                char ch = CHAR_SAMPLES[j];
+            for (char ch : CHAR_SAMPLES) {
                 boolean b = CharSet.ASCII_NUMERIC.contains(ch);
                 t += b ? 1 : 0;
             }
@@ -137,8 +136,7 @@ public class CharUtilsPerfRun {
     private int run_CharUtils_isAsciiNumeric(int loopCount) {
         int t = 0;
         for (int i = 0; i < loopCount; i++) {
-            for (int j = 0; j < CHAR_SAMPLES.length; j++) {
-                char ch = CHAR_SAMPLES[j];
+            for (char ch : CHAR_SAMPLES) {
                 boolean b = CharUtils.isAsciiNumeric(ch);
                 t += b ? 1 : 0;
             }
@@ -149,8 +147,7 @@ public class CharUtilsPerfRun {
     private int run_inlined_CharUtils_isAsciiNumeric(int loopCount) {
         int t = 0;
         for (int i = 0; i < loopCount; i++) {
-            for (int j = 0; j < CHAR_SAMPLES.length; j++) {
-                char ch = CHAR_SAMPLES[j];
+            for (char ch : CHAR_SAMPLES) {
                 boolean b = (ch >= '0' && ch <= '9');
                 t += b ? 1 : 0;
             }

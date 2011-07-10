@@ -18,7 +18,6 @@ package org.apache.commons.lang3.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Iterator;
 
 import org.apache.commons.lang3.ClassUtils;
 
@@ -114,17 +113,12 @@ public class FieldUtils {
         // incase there is a public supersuperclass field hidden by a private/package
         // superclass field.
         Field match = null;
-        for (Iterator<Class<?>> intf = ClassUtils.getAllInterfaces(cls).iterator(); intf
-                .hasNext();) {
+        for (Class<?> class1 : ClassUtils.getAllInterfaces(cls)) {
             try {
-                Field test = ((Class<?>) intf.next()).getField(fieldName);
+                Field test = ((Class<?>) class1).getField(fieldName);
                 if (match != null) {
-                    throw new IllegalArgumentException(
-                            "Reference to field "
-                                    + fieldName
-                                    + " is ambiguous relative to "
-                                    + cls
-                                    + "; a matching field exists on two or more implemented interfaces.");
+                    throw new IllegalArgumentException("Reference to field " + fieldName + " is ambiguous relative to " + cls
+                            + "; a matching field exists on two or more implemented interfaces.");
                 }
                 match = test;
             } catch (NoSuchFieldException ex) { // NOPMD

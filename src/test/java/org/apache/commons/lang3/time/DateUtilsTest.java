@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.time;
 
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.text.DateFormat;
@@ -32,7 +34,6 @@ import java.util.TimeZone;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
-import static org.apache.commons.lang3.JavaVersion.*;
 import org.apache.commons.lang3.SystemUtils;
 
 /**

@@ -220,8 +220,8 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         };
 
         try {
-            for (int i = 0; i < locales.length; i++) {
-                Locale.setDefault(locales[i]);
+            for (Locale locale : locales) {
+                Locale.setDefault(locale);
                 for (int j = 0; j < tdata.length; j++) {
                     assertTrue(Locale.getDefault() + ": " + j + " " + tdata[j][0] + " " + tdata[j][1], StringUtils
                             .containsIgnoreCase(tdata[j][0], tdata[j][1]));

@@ -19,6 +19,8 @@
 
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
+
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -26,8 +28,6 @@ import java.util.Locale;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-
-import static org.apache.commons.lang3.JavaVersion.*;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.SystemUtils}.

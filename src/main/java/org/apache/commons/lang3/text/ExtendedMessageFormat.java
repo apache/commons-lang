@@ -525,8 +525,8 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (coll == null || coll.size() == 0) {
             return false;
         }
-        for (Iterator<?> iter = coll.iterator(); iter.hasNext();) {
-            if (iter.next() != null) {
+        for (Object name : coll) {
+            if (name != null) {
                 return true;
             }
         }

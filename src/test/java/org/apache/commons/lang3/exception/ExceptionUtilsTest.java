@@ -408,8 +408,8 @@ public class ExceptionUtilsTest extends TestCase {
         Throwable withCause = createExceptionWithCause();
         String[] stackTrace = ExceptionUtils.getRootCauseStackTrace(withCause);
         boolean match = false;
-        for (int i = 0; i < stackTrace.length; i++) {
-            if (stackTrace[i].startsWith(ExceptionUtils.WRAPPED_MARKER)) {
+        for (String element : stackTrace) {
+            if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
                 match = true;
                 break;
             }
@@ -418,8 +418,8 @@ public class ExceptionUtilsTest extends TestCase {
         
         stackTrace = ExceptionUtils.getRootCauseStackTrace(withoutCause);
         match = false;
-        for (int i = 0; i < stackTrace.length; i++) {
-            if (stackTrace[i].startsWith(ExceptionUtils.WRAPPED_MARKER)) {
+        for (String element : stackTrace) {
+            if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
                 match = true;
                 break;
             }

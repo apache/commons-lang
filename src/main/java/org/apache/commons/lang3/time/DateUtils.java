@@ -310,12 +310,12 @@ public class DateUtils {
         SimpleDateFormat parser = new SimpleDateFormat();
         parser.setLenient(lenient);
         ParsePosition pos = new ParsePosition(0);
-        for (int i = 0; i < parsePatterns.length; i++) {
+        for (String parsePattern : parsePatterns) {
 
-            String pattern = parsePatterns[i];
+            String pattern = parsePattern;
 
             // LANG-530 - need to make sure 'ZZ' output doesn't get passed to SimpleDateFormat
-            if (parsePatterns[i].endsWith("ZZ")) {
+            if (parsePattern.endsWith("ZZ")) {
                 pattern = pattern.substring(0, pattern.length() - 1);
             }
             
@@ -324,7 +324,7 @@ public class DateUtils {
 
             String str2 = str;
             // LANG-530 - need to make sure 'ZZ' output doesn't hit SimpleDateFormat as it will ParseException
-            if (parsePatterns[i].endsWith("ZZ")) {
+            if (parsePattern.endsWith("ZZ")) {
                 str2 = str.replaceAll("([-+][0-9][0-9]):([0-9][0-9])$", "$1$2"); 
             }
 
@@ -950,9 +950,9 @@ public class DateUtils {
         // ----------------- Fix for LANG-59 ----------------------- END ----------------
 
         boolean roundUp = false;
-        for (int i = 0; i < fields.length; i++) {
-            for (int j = 0; j < fields[i].length; j++) {
-                if (fields[i][j] == field) {
+        for (int[] aField : fields) {
+            for (int j = 0; j < aField.length; j++) {
+                if (aField[j] == field) {
                     //This is our field... we stop looping
                     if (modType == MODIFY_CEILING || (modType == MODIFY_ROUND && roundUp)) {
                         if (field == DateUtils.SEMI_MONTH) {
@@ -980,7 +980,7 @@ public class DateUtils {
                         } else {
                             //We need at add one to this field since the
                             //  last number causes us to round up
-                            val.add(fields[i][0], 1);
+                            val.add(aField[0], 1);
                         }
                     }
                     return;
@@ -992,7 +992,7 @@ public class DateUtils {
             //These are special types of fields that require different rounding rules
             switch (field) {
                 case DateUtils.SEMI_MONTH:
-                    if (fields[i][0] == Calendar.DATE) {
+                    if (aField[0] == Calendar.DATE) {
                         //If we're going to drop the DATE field's value,
                         //  we want to do this our own way.
                         //We need to subtrace 1 since the date has a minimum of 1
@@ -1008,7 +1008,7 @@ public class DateUtils {
                     }
                     break;
                 case Calendar.AM_PM:
-                    if (fields[i][0] == Calendar.HOUR_OF_DAY) {
+                    if (aField[0] == Calendar.HOUR_OF_DAY) {
                         //If we're going to drop the HOUR field's value,
                         //  we want to do this our own way.
                         offset = val.get(Calendar.HOUR_OF_DAY);
@@ -1021,16 +1021,16 @@ public class DateUtils {
                     break;
             }
             if (!offsetSet) {
-                int min = val.getActualMinimum(fields[i][0]);
-                int max = val.getActualMaximum(fields[i][0]);
+                int min = val.getActualMinimum(aField[0]);
+                int max = val.getActualMaximum(aField[0]);
                 //Calculate the offset from the minimum allowed value
-                offset = val.get(fields[i][0]) - min;
+                offset = val.get(aField[0]) - min;
                 //Set roundUp if this is more than half way between the minimum and maximum
                 roundUp = offset > ((max - min) / 2);
             }
             //We need to remove this field
             if (offset != 0) {
-                val.set(fields[i][0], val.get(fields[i][0]) - offset);
+                val.set(aField[0], val.get(aField[0]) - offset);
             }
         }
         throw new IllegalArgumentException("The field " + field + " is not supported");

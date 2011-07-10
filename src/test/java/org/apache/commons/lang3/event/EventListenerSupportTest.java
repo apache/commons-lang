@@ -17,8 +17,8 @@
 
 package org.apache.commons.lang3.event;
 
-import java.beans.PropertyVetoException;
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -486,8 +486,8 @@ public class WordUtils {
         if (delimiters == null) {
             return Character.isWhitespace(ch);
         }
-        for (int i = 0, isize = delimiters.length; i < isize; i++) {
-            if (ch == delimiters[i]) {
+        for (char delimiter : delimiters) {
+            if (ch == delimiter) {
                 return true;
             }
         }
