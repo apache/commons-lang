@@ -21,7 +21,8 @@
   </properties>
   <body>
 
-  <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">
+  <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">  
+    <action type="update" issue="LANG-718">build.xml Java 1.5+ updates.</action>
     <action type="fix" issue="LANG-716">swapCase and *capitalize speedups.</action>
     <action type="fix" issue="LANG-715">CharSetUtils.squeeze() speedup.</action>
     <action type="fix" issue="LANG-714">StringUtils doc/comment spelling fixes.</action>

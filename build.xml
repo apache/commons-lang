@@ -29,8 +29,7 @@
     <property file="${user.home}/build.properties"/>
     <property file="${basedir}/build.properties"/>
     <property file="${basedir}/default.properties"/>
-    <!-- The Sun Javadoc for versions prior to 1.3 are off-line. -->
-    <property name="jdk.javadoc" value="http://java.sun.com/j2se/1.3/docs/api/"/>
+    <property name="jdk.javadoc" value="http://download.oracle.com/javase/1.5.0/docs/api/"/>
 
     <!-- ========== Construct compile classpath =============================== -->
     <path id="compile.classpath">
@@ -54,7 +53,6 @@
         <filter token="compile.source" value="${compile.source}"/>
         <filter token="compile.target" value="${compile.target}"/>
         <mkdir dir="${build.home}"/>
-        <available property="jdk.1.5.present" classname="java.lang.StringBuilder"/>
     </target>
 
     <!-- ========== Compile Targets ========================================= -->

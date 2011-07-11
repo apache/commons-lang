@@ -103,7 +103,8 @@ IMPROVEMENTS IN 3.0
     [LANG-668] Change ObjectUtils min() & max() functions to use varargs rather than just two parameters
     [LANG-681] Push down WordUtils to "text" sub-package.
     [LANG-711] Add includeantruntime=false to javac targets to quell warnings in ant 1.8.1 and better (and modest performance gain).
-    [LANG-713] Increase test coverage of FieldUtils read methods and tweak javadoc
+    [LANG-713] Increase test coverage of FieldUtils read methods and tweak javadoc.
+    [LANG-718] build.xml Java 1.5+ updates.
 
 BUG FIXES IN 3.0
 ================
