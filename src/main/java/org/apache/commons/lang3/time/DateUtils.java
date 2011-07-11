@@ -951,8 +951,8 @@ public class DateUtils {
 
         boolean roundUp = false;
         for (int[] aField : fields) {
-            for (int j = 0; j < aField.length; j++) {
-                if (aField[j] == field) {
+            for (int element : aField) {
+                if (element == field) {
                     //This is our field... we stop looping
                     if (modType == MODIFY_CEILING || (modType == MODIFY_ROUND && roundUp)) {
                         if (field == DateUtils.SEMI_MONTH) {
