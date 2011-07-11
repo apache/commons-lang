@@ -44,7 +44,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
     private static final long serialVersionUID = 20110706L;
 
     /** The list storing the label-data pairs. */
-    private List<Pair<String, Object>> contextValues = new ArrayList<Pair<String,Object>>();
+    private final List<Pair<String, Object>> contextValues = new ArrayList<Pair<String,Object>>();
 
     /**
      * {@inheritDoc}
