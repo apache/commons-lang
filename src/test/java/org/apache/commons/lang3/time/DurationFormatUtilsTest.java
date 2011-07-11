@@ -508,7 +508,7 @@ public class DurationFormatUtilsTest extends TestCase {
         //bruteForce(1996, 1, 29, "M", Calendar.MONTH);  // this will fail
     }
     
-    private final int FOUR_YEARS = 365 * 3 + 366;
+    private static final int FOUR_YEARS = 365 * 3 + 366;
     
     // Takes a minute to run, so generally turned off
 //    public void testBrutally() {
