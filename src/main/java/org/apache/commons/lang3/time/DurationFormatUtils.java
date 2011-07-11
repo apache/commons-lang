@@ -559,7 +559,7 @@ public class DurationFormatUtils {
             return false;
         }
 
-        private Object value;
+        private final Object value;
         private int count;
 
         /**
