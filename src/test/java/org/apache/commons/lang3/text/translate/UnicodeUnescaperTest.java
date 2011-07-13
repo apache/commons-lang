@@ -30,14 +30,6 @@ public class UnicodeUnescaperTest extends TestCase {
         UnicodeUnescaper uu = new UnicodeUnescaper();
 
         String input = "\\u+0047";
-        try {
-            uu.translate(input);
-            fail("Default behaviour should not parse u+");
-        } catch(IllegalArgumentException iae) {
-            // expected
-        }
-
-        uu = new UnicodeUnescaper(UnicodeUnescaper.OPTION.escapePlus);
         assertEquals("Failed to unescape unicode characters with 'u+' notation", "G", uu.translate(input));
     }
 
