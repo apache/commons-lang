@@ -216,8 +216,9 @@ public class FastDateFormatTest extends TestCase {
                 " dddd ddd dd d DDDD DDD DD D EEEE EEE EE E aaaa aaa aa a zzzz zzz zz z";
             fdf = FastDateFormat.getInstance(pattern);
             sdf = new SimpleDateFormat(pattern);
-            assertEquals(sdf.format(date1), fdf.format(date1));
-            assertEquals(sdf.format(date2), fdf.format(date2));
+            // SDF bug fix starting with Java 7
+            assertEquals(sdf.format(date1).replaceAll("2003 03 03 03", "2003 2003 03 2003"), fdf.format(date1));
+            assertEquals(sdf.format(date2).replaceAll("2003 03 03 03", "2003 2003 03 2003"), fdf.format(date2));
         } finally {
             Locale.setDefault(realDefaultLocale);
             TimeZone.setDefault(realDefaultZone);

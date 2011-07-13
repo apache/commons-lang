@@ -47,7 +47,7 @@ import org.apache.commons.lang3.Validate;
  * </p>
  *
  * <p>Only formatting is supported, but all patterns are compatible with
- * SimpleDateFormat (except time zones - see below).</p>
+ * SimpleDateFormat (except time zones and some year patterns - see below).</p>
  *
  * <p>Java 1.4 introduced a new pattern letter, {@code 'Z'}, to represent
  * time zones in RFC822 format (eg. {@code +0800} or {@code -1100}).
@@ -57,6 +57,12 @@ import org.apache.commons.lang3.Validate;
  * ISO8601 full format time zones (eg. {@code +08:00} or {@code -11:00}).
  * This introduces a minor incompatibility with Java 1.4, but at a gain of
  * useful functionality.</p>
+ *
+ * <p>Javadoc cites for the year pattern: <i>For formatting, if the number of
+ * pattern letters is 2, the year is truncated to 2 digits; otherwise it is
+ * interpreted as a number.</i> Starting with Java 1.7 a pattern of 'Y' or
+ * 'YYY' will be formatted as '2003', while it was '03' in former Java
+ * versions. FastDateFormat implements the behavior of Java 7.</p>
  *
  * @since 2.0
  * @version $Id$
@@ -486,10 +492,10 @@ public class FastDateFormat extends Format {
                 rule = new TextField(Calendar.ERA, ERAs);
                 break;
             case 'y': // year (number)
-                if (tokenLen >= 4) {
-                    rule = selectNumberRule(Calendar.YEAR, tokenLen);
-                } else {
+                if (tokenLen == 2) {
                     rule = TwoDigitYearField.INSTANCE;
+                } else {
+                    rule = selectNumberRule(Calendar.YEAR, tokenLen < 4 ? 4 : tokenLen);
                 }
                 break;
             case 'M': // month in year (text and number)
