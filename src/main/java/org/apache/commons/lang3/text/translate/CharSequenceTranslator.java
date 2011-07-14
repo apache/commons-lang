@@ -79,27 +79,20 @@ public abstract class CharSequenceTranslator {
         if (input == null) {
             return;
         }
-        int sz = Character.codePointCount(input, 0, input.length());
-        for (int i = 0; i < sz; i++) {
-
-            // consumed is the number of codepoints consumed
-            int consumed = translate(input, i, out);
-
+        int pos = 0;
+        int len = input.length();
+        while (pos < len) {
+            int consumed = translate(input, pos, out);
             if (consumed == 0) {
-                out.write(Character.toChars(Character.codePointAt(input, i)));
-            } else {
-                // contract with translators is that they have to understand codepoints 
-                // and they just took care of a surrogate pair
-                for (int j = 0; j < consumed; j++) {
-                    if (i < sz - 2) {
-                        i += Character.charCount(Character.codePointAt(input, i));
-                    } else {
-                        // If the String ends with a high surrogate, just add the 1 and don't worry about such things
-                        i++;
-                    }
-                }
-                // for loop will increment 1 anyway, so remove 1 to account for that
-                i--;
+                char[] c = Character.toChars(Character.codePointAt(input, pos));
+                out.write(c);
+                pos+= c.length;
+                continue;
+            }
+//          // contract with translators is that they have to understand codepoints 
+//          // and they just took care of a surrogate pair
+            for (int pt = 0; pt < consumed; pt++) {
+                pos += Character.charCount(Character.codePointAt(input, pos));
             }
         }
     }

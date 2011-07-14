@@ -423,4 +423,11 @@ public class StringEscapeUtilsTest extends TestCase {
 
         assertEquals( "Hiragana character unicode behaviour has changed - expected no unescaping", escaped, unescaped);
     }
+
+    // https://issues.apache.org/jira/browse/LANG-720
+    public void testLang720() {
+        String input = new StringBuilder("\ud842\udfb7").append("A").toString();
+        String escaped = StringEscapeUtils.escapeXml(input);
+        assertEquals(input, escaped);
+    }
 }
