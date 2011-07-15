@@ -16,12 +16,15 @@
  */
 package org.apache.commons.lang3;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 import junit.framework.TestCase;
+
+import org.apache.commons.io.IOUtils;
 
 /**
  * Unit tests for {@link StringEscapeUtils}.
@@ -390,7 +393,11 @@ public class StringEscapeUtilsTest extends TestCase {
         }
     }
 
-    // https://issues.apache.org/jira/browse/LANG-480
+    /**
+     * Tests // https://issues.apache.org/jira/browse/LANG-480
+     * 
+     * @throws java.io.UnsupportedEncodingException
+     */
     public void testEscapeHtmlHighUnicode() throws java.io.UnsupportedEncodingException {
         // this is the utf8 representation of the character:
         // COUNTING ROD UNIT DIGIT THREE
@@ -411,7 +418,9 @@ public class StringEscapeUtilsTest extends TestCase {
 //        assertEquals( "High unicode should have been unescaped", original, unescapedFromEntity);
     }
 
-    // https://issues.apache.org/jira/browse/LANG-339
+    /**
+     * Tests https://issues.apache.org/jira/browse/LANG-339
+     */
     public void testEscapeHiragana() {
         // Some random Japanese unicode characters
         String original = "\u304B\u304C\u3068";
@@ -424,7 +433,24 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals( "Hiragana character unicode behaviour has changed - expected no unescaping", escaped, unescaped);
     }
 
-    // https://issues.apache.org/jira/browse/LANG-720
+    /**
+     * Tests https://issues.apache.org/jira/browse/LANG-708
+     * 
+     * @throws IOException
+     *             if an I/O error occurs
+     */
+    public void testLang708() throws IOException {
+        String input = IOUtils.toString(new FileInputStream("src/test/resources/lang-708-input.txt"), "UTF-8");
+        String escaped = StringEscapeUtils.escapeEcmaScript(input);
+        // just the end:
+        assertTrue(escaped, escaped.endsWith("}]"));
+        // a little more:
+        assertTrue(escaped, escaped.endsWith("\"valueCode\\\":\\\"\\\"}]"));
+    }
+
+    /**
+     * Tests https://issues.apache.org/jira/browse/LANG-720
+     */
     public void testLang720() {
         String input = new StringBuilder("\ud842\udfb7").append("A").toString();
         String escaped = StringEscapeUtils.escapeXml(input);

@@ -24,3 +24,4 @@
 repository=${user.home}/.m2/repository
 junit.home=${repository}/junit/junit/4.7/
 easymock.home=${repository}/org/easymock/easymock/2.5.2/
+commons-io.home=${repository}/commons-io/commons-io/2.0.1/
