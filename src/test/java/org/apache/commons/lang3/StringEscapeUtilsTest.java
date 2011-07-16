@@ -276,19 +276,16 @@ public class StringEscapeUtilsTest {
     }
 
     @Test
-    public void testUnescapeUnknownEntity() throws Exception
-    {
+    public void testUnescapeUnknownEntity() throws Exception {
         assertEquals("&zzzz;", StringEscapeUtils.unescapeHtml4("&zzzz;"));
     }
 
     @Test
-    public void testEscapeHtmlVersions() throws Exception
-    {
+    public void testEscapeHtmlVersions() throws Exception {
         assertEquals("&Beta;", StringEscapeUtils.escapeHtml4("\u0392"));
         assertEquals("\u0392", StringEscapeUtils.unescapeHtml4("&Beta;"));
 
         // TODO: refine API for escaping/unescaping specific HTML versions
-
     }
 
     @Test
@@ -363,8 +360,7 @@ public class StringEscapeUtilsTest {
     }
 
     @Test
-    public void testEscapeCsvString() throws Exception
-    {
+    public void testEscapeCsvString() throws Exception {
         assertEquals("foo.bar",          StringEscapeUtils.escapeCsv("foo.bar"));
         assertEquals("\"foo,bar\"",      StringEscapeUtils.escapeCsv("foo,bar"));
         assertEquals("\"foo\nbar\"",     StringEscapeUtils.escapeCsv("foo\nbar"));
@@ -375,8 +371,7 @@ public class StringEscapeUtilsTest {
     }
 
     @Test
-    public void testEscapeCsvWriter() throws Exception
-    {
+    public void testEscapeCsvWriter() throws Exception {
         checkCsvEscapeWriter("foo.bar",        "foo.bar");
         checkCsvEscapeWriter("\"foo,bar\"",    "foo,bar");
         checkCsvEscapeWriter("\"foo\nbar\"",   "foo\nbar");
@@ -397,8 +392,7 @@ public class StringEscapeUtilsTest {
     }
 
     @Test
-    public void testUnescapeCsvString() throws Exception
-    {
+    public void testUnescapeCsvString() throws Exception {
         assertEquals("foo.bar",          StringEscapeUtils.unescapeCsv("foo.bar"));
         assertEquals("foo,bar",      StringEscapeUtils.unescapeCsv("\"foo,bar\""));
         assertEquals("foo\nbar",     StringEscapeUtils.unescapeCsv("\"foo\nbar\""));
@@ -411,8 +405,7 @@ public class StringEscapeUtilsTest {
     }
 
     @Test
-    public void testUnescapeCsvWriter() throws Exception
-    {
+    public void testUnescapeCsvWriter() throws Exception {
         checkCsvUnescapeWriter("foo.bar",        "foo.bar");
         checkCsvUnescapeWriter("foo,bar",    "\"foo,bar\"");
         checkCsvUnescapeWriter("foo\nbar",   "\"foo\nbar\"");
