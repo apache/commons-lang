@@ -201,7 +201,7 @@ public class StringEscapeUtilsTest {
     // HTML and XML
     //--------------------------------------------------------------
 
-    String[][] htmlEscapes = {
+    private static final String[][] HTML_ESCAPES = {
         {"no escaping", "plain text", "plain text"},
         {"no escaping", "plain text", "plain text"},
         {"empty string", "", ""},
@@ -217,10 +217,10 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testEscapeHtml() {
-        for (int i = 0; i < htmlEscapes.length; ++i) {
-            String message = htmlEscapes[i][0];
-            String expected = htmlEscapes[i][1];
-            String original = htmlEscapes[i][2];
+        for (int i = 0; i < HTML_ESCAPES.length; ++i) {
+            String message = HTML_ESCAPES[i][0];
+            String expected = HTML_ESCAPES[i][1];
+            String original = HTML_ESCAPES[i][2];
             assertEquals(message, expected, StringEscapeUtils.escapeHtml4(original));
             StringWriter sw = new StringWriter();
             try {
@@ -234,10 +234,10 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testUnescapeHtml4() {
-        for (int i = 0; i < htmlEscapes.length; ++i) {
-            String message = htmlEscapes[i][0];
-            String expected = htmlEscapes[i][2];
-            String original = htmlEscapes[i][1];
+        for (int i = 0; i < HTML_ESCAPES.length; ++i) {
+            String message = HTML_ESCAPES[i][0];
+            String expected = HTML_ESCAPES[i][2];
+            String original = HTML_ESCAPES[i][1];
             assertEquals(message, expected, StringEscapeUtils.unescapeHtml4(original));
             
             StringWriter sw = new StringWriter();
