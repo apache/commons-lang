@@ -16,15 +16,19 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import static org.junit.Assert.*;
-
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -318,6 +322,31 @@ public class StringEscapeUtilsTest {
         assertEquals("XML was unescaped incorrectly", "<abc>", sw.toString() );
     }
 
+    /**
+     * Tests Supplementary characters. 
+     * <p>
+     * From http://www.w3.org/International/questions/qa-escapes
+     * </p>
+     * <blockquote>
+     * Supplementary characters are those Unicode characters that have code points higher than the characters in
+     * the Basic Multilingual Plane (BMP). In UTF-16 a supplementary character is encoded using two 16-bit surrogate code points from the
+     * BMP. Because of this, some people think that supplementary characters need to be represented using two escapes, but this is incorrect
+     * – you must use the single, code point value for that character. For example, use &#x233B4; rather than &#xD84C;&#xDFB4;.
+     * </blockquote>
+     * @see <a href="http://www.w3.org/International/questions/qa-escapes">Using character escapes in markup and CSS</a>
+     * @see <a href="https://issues.apache.org/jira/browse/LANG-728">LANG-728</a>
+     */
+    @Ignore
+    @Test
+    public void testEscapeXmlSupplementaryCharacters() {
+        // Example from https://issues.apache.org/jira/browse/LANG-728
+        assertEquals("Supplementary character must be represented using a single escape", "&#144308;",
+                StringEscapeUtils.escapeXml("\uD84C\uDFB4"));
+        // Example from See http://www.w3.org/International/questions/qa-escapes
+        assertEquals("Supplementary character must be represented using a single escape", "&#x233B4;",
+                StringEscapeUtils.escapeXml("\uD84C;\uDFB4;"));
+    }
+    
     // Tests issue #38569
     // http://issues.apache.org/bugzilla/show_bug.cgi?id=38569
     @Test
