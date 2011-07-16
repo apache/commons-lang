@@ -22,23 +22,20 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Test;
 
 /**
  * Unit tests for {@link StringEscapeUtils}.
  *
  * @version $Id$
  */
-public class StringEscapeUtilsTest extends TestCase {
+public class StringEscapeUtilsTest {
     private final static String FOO = "foo";
 
-    public StringEscapeUtilsTest(String name) {
-        super(name);
-    }
-
-    //-----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new StringEscapeUtils());
         Constructor<?>[] cons = StringEscapeUtils.class.getDeclaredConstructors();
@@ -48,7 +45,7 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals(false, Modifier.isFinal(StringEscapeUtils.class.getModifiers()));
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testEscapeJava() throws IOException {
         assertEquals(null, StringEscapeUtils.escapeJava(null));
         try {
@@ -87,8 +84,9 @@ public class StringEscapeUtilsTest extends TestCase {
     }
 
     /**
-     * https://issues.apache.org/jira/browse/LANG-421
+     * Tests https://issues.apache.org/jira/browse/LANG-421
      */
+    @Test
     public void testEscapeJavaWithSlash() {
         final String input = "String with a slash (/) in it";
 
@@ -116,6 +114,7 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals(expected, writer.toString());
     }
 
+    @Test
     public void testUnescapeJava() throws IOException {
         assertEquals(null, StringEscapeUtils.unescapeJava(null));
         try {
@@ -171,6 +170,7 @@ public class StringEscapeUtilsTest extends TestCase {
 
     }
 
+    @Test
     public void testEscapeEcmaScript() {
         assertEquals(null, StringEscapeUtils.escapeEcmaScript(null));
         try {
@@ -211,6 +211,7 @@ public class StringEscapeUtilsTest extends TestCase {
         {"8-bit ascii shouldn't number-escape", "\u0080\u009F", "\u0080\u009F"},
     };
 
+    @Test
     public void testEscapeHtml() {
         for (int i = 0; i < htmlEscapes.length; ++i) {
             String message = htmlEscapes[i][0];
@@ -227,6 +228,7 @@ public class StringEscapeUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testUnescapeHtml4() {
         for (int i = 0; i < htmlEscapes.length; ++i) {
             String message = htmlEscapes[i][0];
@@ -253,6 +255,7 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals("Hello&##;World", StringEscapeUtils.unescapeHtml4("Hello&##;World"));
     }
 
+    @Test
     public void testUnescapeHexCharsHtml() {
         // Simple easy to grok test 
         assertEquals("hex number unescape", "\u0080\u009F", StringEscapeUtils.unescapeHtml4("&#x80;&#x9F;"));
@@ -268,11 +271,13 @@ public class StringEscapeUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testUnescapeUnknownEntity() throws Exception
     {
         assertEquals("&zzzz;", StringEscapeUtils.unescapeHtml4("&zzzz;"));
     }
 
+    @Test
     public void testEscapeHtmlVersions() throws Exception
     {
         assertEquals("&Beta;", StringEscapeUtils.escapeHtml4("\u0392"));
@@ -282,6 +287,7 @@ public class StringEscapeUtilsTest extends TestCase {
 
     }
 
+    @Test
     public void testEscapeXml() throws Exception {
         assertEquals("&lt;abc&gt;", StringEscapeUtils.escapeXml("<abc>"));
         assertEquals("<abc>", StringEscapeUtils.unescapeXml("&lt;abc&gt;"));
@@ -314,6 +320,7 @@ public class StringEscapeUtilsTest extends TestCase {
 
     // Tests issue #38569
     // http://issues.apache.org/bugzilla/show_bug.cgi?id=38569
+    @Test
     public void testStandaloneAmphersand() {
         assertEquals("<P&O>", StringEscapeUtils.unescapeHtml4("&lt;P&O&gt;"));
         assertEquals("test & <", StringEscapeUtils.unescapeHtml4("test & &lt;"));
@@ -321,10 +328,12 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals("test & <", StringEscapeUtils.unescapeXml("test & &lt;"));
     }
 
+    @Test
     public void testLang313() {
         assertEquals("& &", StringEscapeUtils.unescapeHtml4("& &amp;"));
     }
 
+    @Test
     public void testEscapeCsvString() throws Exception
     {
         assertEquals("foo.bar",          StringEscapeUtils.escapeCsv("foo.bar"));
@@ -336,6 +345,7 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals(null, StringEscapeUtils.escapeCsv(null));
     }
 
+    @Test
     public void testEscapeCsvWriter() throws Exception
     {
         checkCsvEscapeWriter("foo.bar",        "foo.bar");
@@ -357,6 +367,7 @@ public class StringEscapeUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testUnescapeCsvString() throws Exception
     {
         assertEquals("foo.bar",          StringEscapeUtils.unescapeCsv("foo.bar"));
@@ -370,6 +381,7 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals("\"foo.bar\"",          StringEscapeUtils.unescapeCsv("\"foo.bar\""));
     }
 
+    @Test
     public void testUnescapeCsvWriter() throws Exception
     {
         checkCsvUnescapeWriter("foo.bar",        "foo.bar");
@@ -398,6 +410,7 @@ public class StringEscapeUtilsTest extends TestCase {
      * 
      * @throws java.io.UnsupportedEncodingException
      */
+    @Test
     public void testEscapeHtmlHighUnicode() throws java.io.UnsupportedEncodingException {
         // this is the utf8 representation of the character:
         // COUNTING ROD UNIT DIGIT THREE
@@ -421,6 +434,7 @@ public class StringEscapeUtilsTest extends TestCase {
     /**
      * Tests https://issues.apache.org/jira/browse/LANG-339
      */
+    @Test
     public void testEscapeHiragana() {
         // Some random Japanese unicode characters
         String original = "\u304B\u304C\u3068";
@@ -439,6 +453,7 @@ public class StringEscapeUtilsTest extends TestCase {
      * @throws IOException
      *             if an I/O error occurs
      */
+    @Test
     public void testLang708() throws IOException {
         String input = IOUtils.toString(new FileInputStream("src/test/resources/lang-708-input.txt"), "UTF-8");
         String escaped = StringEscapeUtils.escapeEcmaScript(input);
@@ -451,6 +466,7 @@ public class StringEscapeUtilsTest extends TestCase {
     /**
      * Tests https://issues.apache.org/jira/browse/LANG-720
      */
+    @Test
     public void testLang720() {
         String input = new StringBuilder("\ud842\udfb7").append("A").toString();
         String escaped = StringEscapeUtils.escapeXml(input);
