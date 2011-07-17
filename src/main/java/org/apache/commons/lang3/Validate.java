@@ -535,8 +535,8 @@ public class Validate {
      * @throws IllegalArgumentException if an element is {@code null}
      * @see #noNullElements(Object[], String, Object...)
      */
-    public static <T> T[] noNullElements(T... array) {
-        return Validate.<T> noNullElements((T[]) array, DEFAULT_NO_NULL_ELEMENTS_ARRAY_EX_MESSAGE);
+    public static <T> T[] noNullElements(T[] array) {
+        return noNullElements(array, DEFAULT_NO_NULL_ELEMENTS_ARRAY_EX_MESSAGE);
     }
 
     // noNullElements iterable
