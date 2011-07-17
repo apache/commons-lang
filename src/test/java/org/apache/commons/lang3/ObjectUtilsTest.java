@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.*;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -24,25 +26,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableObject;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ObjectUtils}.
  *
  * @version $Id$
  */
-public class ObjectUtilsTest extends TestCase {
+public class ObjectUtilsTest {
     private static final String FOO = "foo";
     private static final String BAR = "bar";
 
-    public ObjectUtilsTest(String name) {
-        super(name);
-    }
-
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new ObjectUtils());
         Constructor<?>[] cons = ObjectUtils.class.getDeclaredConstructors();
@@ -53,6 +51,7 @@ public class ObjectUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testIsNull() {
         Object o = FOO;
         Object dflt = BAR;
@@ -60,6 +59,7 @@ public class ObjectUtilsTest extends TestCase {
         assertSame("dflt was returned when o was not null", o, ObjectUtils.defaultIfNull(o, dflt));
     }
 
+    @Test
     public void testFirstNonNull() {
         assertEquals(null, ObjectUtils.firstNonNull(null, null));
         assertEquals("", ObjectUtils.firstNonNull(null, ""));
@@ -78,6 +78,7 @@ public class ObjectUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testEquals() {
         assertTrue("ObjectUtils.equals(null, null) returned false", ObjectUtils.equals(null, null));
         assertTrue("ObjectUtils.equals(\"foo\", null) returned true", !ObjectUtils.equals(FOO, null));
@@ -86,6 +87,7 @@ public class ObjectUtilsTest extends TestCase {
         assertTrue("ObjectUtils.equals(\"foo\", \"foo\") returned false", ObjectUtils.equals(FOO, FOO));
     }
 
+    @Test
     public void testNotEqual() {
         assertFalse("ObjectUtils.notEqual(null, null) returned false", ObjectUtils.notEqual(null, null));
         assertTrue("ObjectUtils.notEqual(\"foo\", null) returned true", ObjectUtils.notEqual(FOO, null));
@@ -94,21 +96,25 @@ public class ObjectUtilsTest extends TestCase {
         assertFalse("ObjectUtils.notEqual(\"foo\", \"foo\") returned false", ObjectUtils.notEqual(FOO, FOO));
     }
 
+    @Test
     public void testHashCode() {
         assertEquals(0, ObjectUtils.hashCode(null));
         assertEquals("a".hashCode(), ObjectUtils.hashCode("a"));
     }
 
+    @Test
     public void testHashCodeMulti_multiple_emptyArray() {
         Object[] array = new Object[0];
         assertEquals(1, ObjectUtils.hashCodeMulti(array));
     }
 
+    @Test
     public void testHashCodeMulti_multiple_nullArray() {
         Object[] array = null;
         assertEquals(1, ObjectUtils.hashCodeMulti(array));
     }
 
+    @Test
     public void testHashCodeMulti_multiple_likeList() {
         List<Object> list0 = new ArrayList<Object>(Arrays.asList());
         assertEquals(list0.hashCode(), ObjectUtils.hashCodeMulti());
@@ -164,6 +170,7 @@ public class ObjectUtilsTest extends TestCase {
 //        //assertFalse("java.util.Date and java.sql.Timestamp should be equal", ObjectUtils.equals(date, timestamp));
 //    }
     
+    @Test
     public void testIdentityToString() {
         assertEquals(null, ObjectUtils.identityToString(null));
         assertEquals(
@@ -188,24 +195,26 @@ public class ObjectUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testToString_Object() {
         assertEquals("", ObjectUtils.toString((Object) null) );
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE) );
     }
             
+    @Test
     public void testToString_ObjectString() {
         assertEquals(BAR, ObjectUtils.toString((Object) null, BAR) );
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, BAR) );
     }
 
+    @Test
     public void testNull() {
         assertNotNull(ObjectUtils.NULL);
         assertTrue(ObjectUtils.NULL instanceof ObjectUtils.Null);
         assertSame(ObjectUtils.NULL, SerializationUtils.clone(ObjectUtils.NULL));
     }
-    
-    
-    
+
+    @Test
     public void testMax() {
         Calendar calendar = Calendar.getInstance();
         Date nonNullComparable1 = calendar.getTime();
@@ -230,7 +239,8 @@ public class ObjectUtilsTest extends TestCase {
 
         assertNull( ObjectUtils.max((String)null, (String)null) );
     }
-    
+
+    @Test
     public void testMin() {
         Calendar calendar = Calendar.getInstance();
         Date nonNullComparable1 = calendar.getTime();
@@ -259,6 +269,7 @@ public class ObjectUtilsTest extends TestCase {
     /**
      * Tests {@link ObjectUtils#compare(Comparable, Comparable, boolean)}.
      */
+    @Test
     public void testCompare() {
         Integer one = Integer.valueOf(1);
         Integer two = Integer.valueOf(2);
@@ -280,6 +291,7 @@ public class ObjectUtilsTest extends TestCase {
     /**
      * Tests {@link ObjectUtils#clone(Object)} with a cloneable object.
      */
+    @Test
     public void testCloneOfCloneable() {
         final CloneableString string = new CloneableString("apache");
         final CloneableString stringClone = ObjectUtils.clone(string);
@@ -289,6 +301,7 @@ public class ObjectUtilsTest extends TestCase {
     /**
      * Tests {@link ObjectUtils#clone(Object)} with a not cloneable object.
      */
+    @Test
     public void testCloneOfNotCloneable() {
         final String string = new String("apache");
         assertNull(ObjectUtils.clone(string));
@@ -297,19 +310,21 @@ public class ObjectUtilsTest extends TestCase {
     /**
      * Tests {@link ObjectUtils#clone(Object)} with an uncloneable object.
      */
-    public void testCloneOfUncloneable() {
+    @Test(expected = NoSuchMethodException.class)
+    public void testCloneOfUncloneable() throws Throwable {
         final UncloneableString string = new UncloneableString("apache");
         try {
             ObjectUtils.clone(string);
             fail("Thrown " + CloneFailedException.class.getName() + " expected");
         } catch (final CloneFailedException e) {
-            assertEquals(NoSuchMethodException.class, e.getCause().getClass());
+            throw e.getCause();
         }
     }
 
     /**
      * Tests {@link ObjectUtils#clone(Object)} with an object array.
      */
+    @Test
     public void testCloneOfStringArray() {
         assertTrue(Arrays.deepEquals(
             new String[]{"string"}, ObjectUtils.clone(new String[]{"string"})));
@@ -318,6 +333,7 @@ public class ObjectUtilsTest extends TestCase {
     /**
      * Tests {@link ObjectUtils#clone(Object)} with an array of primitives.
      */
+    @Test
     public void testCloneOfPrimitiveArray() {
         assertTrue(Arrays.equals(new int[]{1}, ObjectUtils.clone(new int[]{1})));
     }
@@ -325,6 +341,7 @@ public class ObjectUtilsTest extends TestCase {
     /**
      * Tests {@link ObjectUtils#cloneIfPossible(Object)} with a cloneable object.
      */
+    @Test
     public void testPossibleCloneOfCloneable() {
         final CloneableString string = new CloneableString("apache");
         final CloneableString stringClone = ObjectUtils.cloneIfPossible(string);
@@ -334,6 +351,7 @@ public class ObjectUtilsTest extends TestCase {
     /**
      * Tests {@link ObjectUtils#cloneIfPossible(Object)} with a not cloneable object.
      */
+    @Test
     public void testPossibleCloneOfNotCloneable() {
         final String string = new String("apache");
         assertSame(string, ObjectUtils.cloneIfPossible(string));
@@ -342,13 +360,14 @@ public class ObjectUtilsTest extends TestCase {
     /**
      * Tests {@link ObjectUtils#cloneIfPossible(Object)} with an uncloneable object.
      */
-    public void testPossibleCloneOfUncloneable() {
+    @Test(expected = NoSuchMethodException.class)
+    public void testPossibleCloneOfUncloneable() throws Throwable {
         final UncloneableString string = new UncloneableString("apache");
         try {
             ObjectUtils.cloneIfPossible(string);
             fail("Thrown " + CloneFailedException.class.getName() + " expected");
         } catch (final CloneFailedException e) {
-            assertEquals(NoSuchMethodException.class, e.getCause().getClass());
+            throw e.getCause();
         }
     }
 
