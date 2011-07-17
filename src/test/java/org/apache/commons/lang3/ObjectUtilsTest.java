@@ -23,6 +23,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -288,6 +289,75 @@ public class ObjectUtilsTest {
         assertEquals("one two true",  -1, ObjectUtils.compare(one, two, true));
     }
 
+    @Test
+    public void testMedian() {
+        assertEquals("foo", ObjectUtils.median("foo"));
+        assertEquals("bar", ObjectUtils.median("foo", "bar"));
+        assertEquals("baz", ObjectUtils.median("foo", "bar", "baz"));
+        assertEquals("baz", ObjectUtils.median("foo", "bar", "baz", "blah"));
+        assertEquals("blah", ObjectUtils.median("foo", "bar", "baz", "blah", "wah"));
+        assertEquals(Integer.valueOf(5),
+            ObjectUtils.median(Integer.valueOf(1), Integer.valueOf(5), Integer.valueOf(10)));
+        assertEquals(
+            Integer.valueOf(7),
+            ObjectUtils.median(Integer.valueOf(5), Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8),
+                Integer.valueOf(9)));
+        assertEquals(Integer.valueOf(6),
+            ObjectUtils.median(Integer.valueOf(5), Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8)));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testMedian_nullItems() {
+        ObjectUtils.median((String[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMedian_emptyItems() {
+        ObjectUtils.<String> median();
+    }
+
+    @Test
+    public void testComparatorMedian() {
+        CharSequenceComparator cmp = new CharSequenceComparator();
+        NonComparableCharSequence foo = new NonComparableCharSequence("foo");
+        NonComparableCharSequence bar = new NonComparableCharSequence("bar");
+        NonComparableCharSequence baz = new NonComparableCharSequence("baz");
+        NonComparableCharSequence blah = new NonComparableCharSequence("blah");
+        NonComparableCharSequence wah = new NonComparableCharSequence("wah");
+        assertSame(foo, ObjectUtils.median(cmp, foo));
+        assertSame(bar, ObjectUtils.median(cmp, foo, bar));
+        assertSame(baz, ObjectUtils.median(cmp, foo, bar, baz));
+        assertSame(baz, ObjectUtils.median(cmp, foo, bar, baz, blah));
+        assertSame(blah, ObjectUtils.median(cmp, foo, bar, baz, blah, wah));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testComparatorMedian_nullComparator() {
+        ObjectUtils.median((Comparator<CharSequence>) null, new NonComparableCharSequence("foo"));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testComparatorMedian_nullItems() {
+        ObjectUtils.median(new CharSequenceComparator(), (CharSequence[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testComparatorMedian_emptyItems() {
+        ObjectUtils.median(new CharSequenceComparator());
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testMode() {
+        assertNull(ObjectUtils.mode((Object[]) null));
+        assertNull(ObjectUtils.mode());
+        assertNull(ObjectUtils.mode("foo", "bar", "baz"));
+        assertNull(ObjectUtils.mode("foo", "bar", "baz", "foo", "bar"));
+        assertEquals("foo", ObjectUtils.mode("foo", "bar", "baz", "foo"));
+        assertEquals(Integer.valueOf(9),
+            ObjectUtils.mode("foo", "bar", "baz", Integer.valueOf(9), Integer.valueOf(10), Integer.valueOf(9)));
+    }
+
     /**
      * Tests {@link ObjectUtils#clone(Object)} with a cloneable object.
      */
@@ -396,4 +466,43 @@ public class ObjectUtilsTest {
         }
     }
 
+    static final class NonComparableCharSequence implements CharSequence {
+        final String value;
+
+        /**
+         * Create a new NonComparableCharSequence instance.
+         *
+         * @param value
+         */
+        public NonComparableCharSequence(String value) {
+            super();
+            Validate.notNull(value);
+            this.value = value;
+        }
+
+        public char charAt(int arg0) {
+            return value.charAt(arg0);
+        }
+
+        public int length() {
+            return value.length();
+        }
+
+        public CharSequence subSequence(int arg0, int arg1) {
+            return value.subSequence(arg0, arg1);
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
+    static final class CharSequenceComparator implements Comparator<CharSequence> {
+
+        public int compare(CharSequence o1, CharSequence o2) {
+            return o1.toString().compareTo(o2.toString());
+        }
+
+    }
 }

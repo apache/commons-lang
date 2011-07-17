@@ -20,8 +20,14 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
+import org.apache.commons.lang3.mutable.MutableInt;
 
 /**
  * <p>Operations on {@code Object}.</p>
@@ -408,6 +414,82 @@ public class ObjectUtils {
             return (nullGreater ? -1 : 1);
         }
         return c1.compareTo(c2);
+    }
+
+    /**
+     * Find the "best guess" middle value among comparables. If there is an even
+     * number of total values, the lower of the two middle values will be returned.
+     * @param <T> type of values processed by this method
+     * @param items to compare
+     * @return T at middle position
+     * @throws NullPointerException if items is {@code null}
+     * @throws IllegalArgumentException if items is empty or contains {@code null} values
+     */
+    public static <T extends Comparable<? super T>> T median(T... items) {
+        Validate.notEmpty(items);
+        Validate.noNullElements(items);
+        TreeSet<T> sort = new TreeSet<T>();
+        Collections.addAll(sort, items);
+        @SuppressWarnings("unchecked") //we know all items added were T instances
+        T result = (T) sort.toArray()[(sort.size() - 1) / 2];
+        return result;
+    }
+
+    /**
+     * Find the "best guess" middle value among comparables. If there is an even
+     * number of total values, the lower of the two middle values will be returned.
+     * @param <T> type of values processed by this method
+     * @param comparator to use for comparisons
+     * @param items to compare
+     * @return T at middle position
+     * @throws NullPointerException if items or comparator is {@code null}
+     * @throws IllegalArgumentException if items is empty or contains {@code null} values
+     */
+    public static <T> T median(Comparator<T> comparator, T... items) {
+        Validate.notEmpty(items, "null/empty items");
+        Validate.noNullElements(items);
+        Validate.notNull(comparator, "null comparator");
+        TreeSet<T> sort = new TreeSet<T>(comparator);
+        Collections.addAll(sort, items);
+        @SuppressWarnings("unchecked") //we know all items added were T instances
+        T result = (T) sort.toArray()[(sort.size() - 1) / 2];
+        return result;
+    }
+
+    // Mode
+    //-----------------------------------------------------------------------
+    /**
+     * Find the most frequently occurring item.
+     * 
+     * @param <T>
+     * @param items to check
+     * @return most populous T, {@code null} if non-unique or no items supplied
+     */
+    public static <T> T mode(T... items) {
+        if (ArrayUtils.isNotEmpty(items)) {
+            HashMap<T, MutableInt> occurrences = new HashMap<T, MutableInt>(items.length);
+            for (T t : items) {
+                MutableInt count = occurrences.get(t);
+                if (count == null) {
+                    occurrences.put(t, new MutableInt(1));
+                } else {
+                    count.increment();
+                }
+            }
+            T result = null;
+            int max = 0;
+            for (Map.Entry<T, MutableInt> e : occurrences.entrySet()) {
+                int cmp = e.getValue().intValue();
+                if (cmp == max) {
+                    result = null;
+                } else if (cmp > max) {
+                    max = cmp;
+                    result = e.getKey();
+                }
+            }
+            return result;
+        }
+        return null;
     }
 
     // cloning
