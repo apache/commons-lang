@@ -5019,7 +5019,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, toPrimitive(toRemove.toArray(new Integer[toRemove.size()])));
+        return removeAll(array, extractIndices(toRemove));
     }
 
     /**
@@ -5109,7 +5109,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, toPrimitive(toRemove.toArray(new Integer[toRemove.size()])));
+        return removeAll(array, extractIndices(toRemove));
     }
 
     /**
@@ -5199,7 +5199,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, toPrimitive(toRemove.toArray(new Integer[toRemove.size()])));
+        return removeAll(array, extractIndices(toRemove));
     }
 
     /**
@@ -5289,7 +5289,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, toPrimitive(toRemove.toArray(new Integer[toRemove.size()])));
+        return removeAll(array, extractIndices(toRemove));
     }
 
     /**
@@ -5379,7 +5379,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, toPrimitive(toRemove.toArray(new Integer[toRemove.size()])));
+        return removeAll(array, extractIndices(toRemove));
     }
 
     /**
@@ -5469,7 +5469,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, toPrimitive(toRemove.toArray(new Integer[toRemove.size()])));
+        return removeAll(array, extractIndices(toRemove));
     }
 
     /**
@@ -5559,7 +5559,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, toPrimitive(toRemove.toArray(new Integer[toRemove.size()])));
+        return removeAll(array, extractIndices(toRemove));
     }
 
     /**
@@ -5649,7 +5649,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, toPrimitive(toRemove.toArray(new Integer[toRemove.size()])));
+        return removeAll(array, extractIndices(toRemove));
     }
 
     /**
@@ -5735,7 +5735,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, toPrimitive(toRemove.toArray(new Integer[toRemove.size()])));
+        return removeAll(array, extractIndices(toRemove));
     }
 
     /**
@@ -5786,4 +5786,12 @@ public class ArrayUtils {
         return result;
     }
 
+    private static int[] extractIndices(HashSet<Integer> coll) {
+        int[] result = new int[coll.size()];
+        int i = 0;
+        for (Integer index : coll) {
+            result[i++] = index.intValue();
+        }
+        return result;
+    }
 }
