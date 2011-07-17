@@ -320,7 +320,7 @@ public class ObjectUtils {
         return obj == null ? nullStr : obj.toString();
     }
 
-    // Min/Max
+    // Comparable
     //-----------------------------------------------------------------------
     /**
      * <p>Null safe comparison of Comparables.</p>
@@ -410,6 +410,8 @@ public class ObjectUtils {
         return c1.compareTo(c2);
     }
 
+    // cloning
+    //-----------------------------------------------------------------------
     /**
      * <p>Clone an object.</p>
      *
