@@ -969,7 +969,7 @@ public class BooleanUtils {
         }
         return false;
     }
-    
+
     /**
      * <p>Performs an or on an array of Booleans.</p>
      *
@@ -1004,7 +1004,7 @@ public class BooleanUtils {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
     }
-    
+
     /**
      * <p>Performs an xor on a set of booleans.</p>
      *
@@ -1030,7 +1030,7 @@ public class BooleanUtils {
         if (array.length == 0) {
             throw new IllegalArgumentException("Array is empty");
         }
-        
+
         // Loops through array, comparing each item
         int trueCount = 0;
         for (boolean element : array) {
@@ -1044,11 +1044,11 @@ public class BooleanUtils {
                 }
             }
         }
-        
+
         // Returns true if there was exactly 1 true item
         return trueCount == 1;
     }
-    
+
     /**
      * <p>Performs an xor on an array of Booleans.</p>
      *
@@ -1078,5 +1078,5 @@ public class BooleanUtils {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
     }
-    
+
 }
