@@ -348,19 +348,18 @@ public class NumberUtilsTest {
 
     // min/max tests
     // ----------------------------------------------------------------------
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinLong_nullArray() {
+        NumberUtils.min((long[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinLong_emptyArray() {
+        NumberUtils.min(new long[0]);
+    }
+
     @Test
     public void testMinLong() {
-        final long[] l = null;
-        try {
-            NumberUtils.min(l);
-            fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.min(new long[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
-
         assertEquals(
             "min(long[]) failed for array length 1",
             5,
@@ -375,19 +374,18 @@ public class NumberUtilsTest {
         assertEquals(-10, NumberUtils.min(new long[] { -5, 0, -10, 5, 10 }));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinInt_nullArray() {
+        NumberUtils.min((int[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinInt_emptyArray() {
+        NumberUtils.min(new int[0]);
+    }
+
     @Test
     public void testMinInt() {
-        final int[] i = null;
-        try {
-            NumberUtils.min(i);
-            fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.min(new int[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
-
         assertEquals(
             "min(int[]) failed for array length 1",
             5,
@@ -402,19 +400,18 @@ public class NumberUtilsTest {
         assertEquals(-10, NumberUtils.min(new int[] { -5, 0, -10, 5, 10 }));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinShort_nullArray() {
+        NumberUtils.min((short[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinShort_emptyArray() {
+        NumberUtils.min(new short[0]);
+    }
+
     @Test
     public void testMinShort() {
-        final short[] s = null;
-        try {
-            NumberUtils.min(s);
-            fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.min(new short[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
-
         assertEquals(
             "min(short[]) failed for array length 1",
             5,
@@ -429,19 +426,18 @@ public class NumberUtilsTest {
         assertEquals(-10, NumberUtils.min(new short[] { -5, 0, -10, 5, 10 }));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinByte_nullArray() {
+        NumberUtils.min((byte[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinByte_emptyArray() {
+        NumberUtils.min(new byte[0]);
+    }
+
     @Test
     public void testMinByte() {
-        final byte[] b = null;
-        try {
-            NumberUtils.min(b);
-            fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.min(new byte[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
-
         assertEquals(
             "min(byte[]) failed for array length 1",
             5,
@@ -456,19 +452,18 @@ public class NumberUtilsTest {
         assertEquals(-10, NumberUtils.min(new byte[] { -5, 0, -10, 5, 10 }));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinDouble_nullArray() {
+        NumberUtils.min((double[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinDouble_emptyArray() {
+        NumberUtils.min(new double[0]);
+    }
+
     @Test
     public void testMinDouble() {
-        final double[] d = null;
-        try {
-            NumberUtils.min(d);
-            fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.min(new double[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
-
         assertEquals(
             "min(double[]) failed for array length 1",
             5.12,
@@ -490,19 +485,18 @@ public class NumberUtilsTest {
         assertEquals(-10, NumberUtils.min(new double[] { -5, 0, -10, 5, 10 }), 0.0001);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinFloat_nullArray() {
+        NumberUtils.min((float[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMinFloat_emptyArray() {
+        NumberUtils.min(new float[0]);
+    }
+
     @Test
     public void testMinFloat() {
-        final float[] f = null;
-        try {
-            NumberUtils.min(f);
-            fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.min(new float[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
-
         assertEquals(
             "min(float[]) failed for array length 1",
             5.9f,
@@ -524,19 +518,18 @@ public class NumberUtilsTest {
         assertEquals(-10, NumberUtils.min(new float[] { -5, 0, -10, 5, 10 }), 0.0001f);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxLong_nullArray() {
+        NumberUtils.max((long[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxLong_emptyArray() {
+        NumberUtils.max(new long[0]);
+    }
+
     @Test
     public void testMaxLong() {
-        final long[] l = null;
-        try {
-            NumberUtils.max(l);
-            fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.max(new long[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
-
         assertEquals(
             "max(long[]) failed for array length 1",
             5,
@@ -555,19 +548,18 @@ public class NumberUtilsTest {
         assertEquals(10, NumberUtils.max(new long[] { -5, 0, 10, 5, -10 }));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxInt_nullArray() {
+        NumberUtils.max((int[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxInt_emptyArray() {
+        NumberUtils.max(new int[0]);
+    }
+
     @Test
     public void testMaxInt() {
-        final int[] i = null;
-        try {
-            NumberUtils.max(i);
-            fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.max(new int[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
-
         assertEquals(
             "max(int[]) failed for array length 1",
             5,
@@ -586,19 +578,18 @@ public class NumberUtilsTest {
         assertEquals(10, NumberUtils.max(new int[] { -5, 0, 10, 5, -10 }));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxShort_nullArray() {
+        NumberUtils.max((short[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxShort_emptyArray() {
+        NumberUtils.max(new short[0]);
+    }
+
     @Test
     public void testMaxShort() {
-        final short[] s = null;
-        try {
-            NumberUtils.max(s);
-            fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.max(new short[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
-
         assertEquals(
             "max(short[]) failed for array length 1",
             5,
@@ -617,19 +608,18 @@ public class NumberUtilsTest {
         assertEquals(10, NumberUtils.max(new short[] { -5, 0, 10, 5, -10 }));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxByte_nullArray() {
+        NumberUtils.max((byte[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxByte_emptyArray() {
+        NumberUtils.max(new byte[0]);
+    }
+
     @Test
     public void testMaxByte() {
-        final byte[] b = null;
-        try {
-            NumberUtils.max(b);
-            fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.max(new byte[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
-
         assertEquals(
             "max(byte[]) failed for array length 1",
             5,
@@ -646,6 +636,16 @@ public class NumberUtilsTest {
             NumberUtils.max(new byte[] { -10, -5, 0, 5, 10 }));
         assertEquals(10, NumberUtils.max(new byte[] { -10, -5, 0, 5, 10 }));
         assertEquals(10, NumberUtils.max(new byte[] { -5, 0, 10, 5, -10 }));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxDouble_nullArray() {
+        NumberUtils.max((double[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxDouble_emptyArray() {
+        NumberUtils.max(new double[0]);
     }
 
     @Test
@@ -682,19 +682,18 @@ public class NumberUtilsTest {
         assertEquals(10, NumberUtils.max(new double[] { -5, 0, 10, 5, -10 }), 0.0001);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxFloat_nullArray() {
+        NumberUtils.max((float[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxFloat_emptyArray() {
+        NumberUtils.max(new float[0]);
+    }
+
     @Test
     public void testMaxFloat() {
-        final float[] f = null;
-        try {
-            NumberUtils.max(f);
-            fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.max(new float[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
-
         assertEquals(
             "max(float[]) failed for array length 1",
             5.1f,
