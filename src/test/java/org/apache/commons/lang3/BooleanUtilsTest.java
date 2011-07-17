@@ -126,10 +126,11 @@ public class BooleanUtilsTest {
     public void test_toBoolean_int_int_int() {
         assertEquals(true, BooleanUtils.toBoolean(6, 6, 7));
         assertEquals(false, BooleanUtils.toBoolean(7, 6, 7));
-        try {
-            BooleanUtils.toBoolean(8, 6, 7);
-            fail();
-        } catch (IllegalArgumentException ex) {}
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_toBoolean_int_int_int_noMatch() {
+        BooleanUtils.toBoolean(8, 6, 7);
     }
     
     @Test
@@ -139,17 +140,19 @@ public class BooleanUtilsTest {
 
         assertEquals(true, BooleanUtils.toBoolean((Integer) null, null, seven));
         assertEquals(false, BooleanUtils.toBoolean((Integer) null, six, null));
-        try {
-            BooleanUtils.toBoolean(null, six, seven);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        
+
         assertEquals(true, BooleanUtils.toBoolean(new Integer(6), six, seven));
         assertEquals(false, BooleanUtils.toBoolean(new Integer(7), six, seven));
-        try {
-            BooleanUtils.toBoolean(new Integer(8), six, seven);
-            fail();
-        } catch (IllegalArgumentException ex) {}
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_toBoolean_Integer_Integer_Integer_nullValue() {
+        BooleanUtils.toBoolean(null, Integer.valueOf(6), Integer.valueOf(7));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_toBoolean_Integer_Integer_Integer_noMatch() {
+        BooleanUtils.toBoolean(new Integer(8), Integer.valueOf(6), Integer.valueOf(7));
     }
     
     //-----------------------------------------------------------------------
@@ -158,10 +161,11 @@ public class BooleanUtilsTest {
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(6, 6, 7, 8));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(7, 6, 7, 8));
         assertEquals(null, BooleanUtils.toBooleanObject(8, 6, 7, 8));
-        try {
-            BooleanUtils.toBooleanObject(9, 6, 7, 8);
-            fail();
-        } catch (IllegalArgumentException ex) {}
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_toBooleanObject_int_int_int_noMatch() {
+        BooleanUtils.toBooleanObject(9, 6, 7, 8);
     }
     
     @Test
@@ -173,20 +177,22 @@ public class BooleanUtilsTest {
         assertSame(Boolean.TRUE, BooleanUtils.toBooleanObject((Integer) null, null, seven, eight));
         assertSame(Boolean.FALSE, BooleanUtils.toBooleanObject((Integer) null, six, null, eight));
         assertSame(null, BooleanUtils.toBooleanObject((Integer) null, six, seven, null));
-        try {
-            BooleanUtils.toBooleanObject(null, six, seven, eight);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        
+
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(new Integer(6), six, seven, eight));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(new Integer(7), six, seven, eight));
         assertEquals(null, BooleanUtils.toBooleanObject(new Integer(8), six, seven, eight));
-        try {
-            BooleanUtils.toBooleanObject(new Integer(9), six, seven, eight);
-            fail();
-        } catch (IllegalArgumentException ex) {}
     }
-    
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_toBooleanObject_Integer_Integer_Integer_Integer_nullValue() {
+        BooleanUtils.toBooleanObject(null, Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_toBooleanObject_Integer_Integer_Integer_Integer_noMatch() {
+        BooleanUtils.toBooleanObject(Integer.valueOf(9), Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8));
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void test_toInteger_boolean() {
@@ -281,22 +287,20 @@ public class BooleanUtilsTest {
         assertSame(Boolean.TRUE, BooleanUtils.toBooleanObject((String) null, null, "N", "U"));
         assertSame(Boolean.FALSE, BooleanUtils.toBooleanObject((String) null, "Y", null, "U"));
         assertSame(null, BooleanUtils.toBooleanObject((String) null, "Y", "N", null));
-        try {
-            BooleanUtils.toBooleanObject((String) null, "Y", "N", "U");
-            fail();
-        } catch (IllegalArgumentException ex) {}
 
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject("Y", "Y", "N", "U"));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject("N", "Y", "N", "U"));
         assertEquals(null, BooleanUtils.toBooleanObject("U", "Y", "N", "U"));
-        try {
-            BooleanUtils.toBooleanObject(null, "Y", "N", "U");
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            BooleanUtils.toBooleanObject("X", "Y", "N", "U");
-            fail();
-        } catch (IllegalArgumentException ex) {}
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_toBooleanObject_String_String_String_String_nullValue() {
+        BooleanUtils.toBooleanObject((String) null, "Y", "N", "U");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_toBooleanObject_String_String_String_String_noMatch() {
+        BooleanUtils.toBooleanObject("X", "Y", "N", "U");
     }
 
     //-----------------------------------------------------------------------
@@ -355,17 +359,19 @@ public class BooleanUtilsTest {
         assertEquals(true, BooleanUtils.toBoolean("Y", new String("Y"), new String("N")));
         assertEquals(false, BooleanUtils.toBoolean("N", "Y", "N"));
         assertEquals(false, BooleanUtils.toBoolean("N", new String("Y"), new String("N")));
-        try {
-            BooleanUtils.toBoolean(null, "Y", "N");
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            BooleanUtils.toBoolean("X", "Y", "N");
-            fail();
-        } catch (IllegalArgumentException ex) {}
         assertEquals(true, BooleanUtils.toBoolean((String) null, null, null));
         assertEquals(true, BooleanUtils.toBoolean("Y", "Y", "Y"));
         assertEquals(true, BooleanUtils.toBoolean("Y", new String("Y"), new String("Y")));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_toBoolean_String_String_String_nullValue() {
+        BooleanUtils.toBoolean(null, "Y", "N");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_toBoolean_String_String_String_noMatch() {
+        BooleanUtils.toBoolean("X", "Y", "N");
     }
 
     //-----------------------------------------------------------------------
@@ -424,21 +430,14 @@ public class BooleanUtilsTest {
     
     //  testXor
     //  -----------------------------------------------------------------------
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testXor_primitive_nullInput() {
-        final boolean[] b = null;
-        try {
-            BooleanUtils.xor(b);
-            fail("Exception was not thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
+        BooleanUtils.xor((boolean[]) null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testXor_primitive_emptyInput() {
-        try {
-            BooleanUtils.xor(new boolean[] {});
-            fail("Exception was not thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
+        BooleanUtils.xor(new boolean[] {});
     }
 
     @Test
@@ -495,29 +494,19 @@ public class BooleanUtilsTest {
             ! BooleanUtils.xor(new boolean[] { false, true, true }));
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testXor_object_nullInput() {
-        final Boolean[] b = null;
-        try {
-            BooleanUtils.xor(b);
-            fail("Exception was not thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
+        BooleanUtils.xor((Boolean[]) null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testXor_object_emptyInput() {
-        try {
-            BooleanUtils.xor(new Boolean[] {});
-            fail("Exception was not thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
+        BooleanUtils.xor(new Boolean[] {});
     }
     
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testXor_object_nullElementInput() {
-        try {
-            BooleanUtils.xor(new Boolean[] {null});
-            fail("Exception was not thrown for null element input.");
-        } catch (IllegalArgumentException ex) {}
+        BooleanUtils.xor(new Boolean[] {null});
     }
 
     @Test
