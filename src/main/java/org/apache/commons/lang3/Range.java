@@ -371,6 +371,26 @@ public final class Range<T> implements Serializable {
         return isBefore(otherRange.minimum);
     }
 
+    /**
+     * Calculate the intersection of {@code this} and an overlapping Range.
+     * @param other overlapping Range
+     * @return range representing the intersection of {@code this} and {@code other} ({@code this} if equal)
+     * @throws IllegalArgumentException if {@code other} does not overlap {@code this}
+     * @since 3.0.1
+     */
+    public Range<T> intersectionWith(Range<T> other) {
+        if (!this.isOverlappedBy(other)) {
+            throw new IllegalArgumentException(String.format(
+                "Cannot calculate intersection with non-overlapping range %s", other));
+        }
+        if (this.equals(other)) {
+            return this;
+        }
+        T min = getComparator().compare(minimum, other.minimum) < 0 ? other.minimum : minimum;
+        T max = getComparator().compare(maximum, other.maximum) < 0 ? maximum : other.maximum;
+        return between(min, max, getComparator());
+    }
+
     // Basics
     //--------------------------------------------------------------------
 

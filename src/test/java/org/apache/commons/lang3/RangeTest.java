@@ -342,6 +342,27 @@ public class RangeTest {
         assertFalse(intRange.isBeforeRange(Range.between(10, 20)));
     }
 
+    @Test
+    public void testIntersectionWith() {
+        assertSame(intRange, intRange.intersectionWith(intRange));
+        assertSame(byteRange, byteRange.intersectionWith(byteRange));
+        assertSame(longRange, longRange.intersectionWith(longRange));
+        assertSame(floatRange, floatRange.intersectionWith(floatRange));
+        assertSame(doubleRange, doubleRange.intersectionWith(doubleRange));
+
+        assertEquals(Range.between(10, 15), intRange.intersectionWith(Range.between(5, 15)));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIntersectionWithNull() {
+        intRange.intersectionWith(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIntersectionWithNonOverlapping() {
+        intRange.intersectionWith(Range.between(0, 9));
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testSerializing() {
