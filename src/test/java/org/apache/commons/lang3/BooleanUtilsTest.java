@@ -611,4 +611,370 @@ public class BooleanUtilsTest {
                 .booleanValue());
     }
 
+    //  testAnd
+    //  -----------------------------------------------------------------------
+    @Test(expected = IllegalArgumentException.class)
+    public void testAnd_primitive_nullInput() {
+        BooleanUtils.and((boolean[]) null);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAnd_primitive_emptyInput() {
+        BooleanUtils.and(new boolean[] {});
+    }
+    
+    @Test
+    public void testAnd_primitive_validInput_2items() {
+        assertTrue(
+            "False result for (true, true)",
+            BooleanUtils.and(new boolean[] { true, true }));
+        
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils.and(new boolean[] { false, false }));
+        
+        assertTrue(
+            "True result for (true, false)",
+            ! BooleanUtils.and(new boolean[] { true, false }));
+        
+        assertTrue(
+            "True result for (false, true)",
+            ! BooleanUtils.and(new boolean[] { false, true }));
+    }
+    
+    @Test
+    public void testAnd_primitive_validInput_3items() {
+        assertTrue(
+            "True result for (false, false, true)",
+            ! BooleanUtils.and(new boolean[] { false, false, true }));
+        
+        assertTrue(
+            "True result for (false, true, false)",
+            ! BooleanUtils.and(new boolean[] { false, true, false }));
+        
+        assertTrue(
+            "True result for (true, false, false)",
+            ! BooleanUtils.and(new boolean[] { true, false, false }));
+        
+        assertTrue(
+            "False result for (true, true, true)",
+            BooleanUtils.and(new boolean[] { true, true, true }));
+        
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils.and(new boolean[] { false, false, false }));
+        
+        assertTrue(
+            "True result for (true, true, false)",
+            ! BooleanUtils.and(new boolean[] { true, true, false }));
+        
+        assertTrue(
+            "True result for (true, false, true)",
+            ! BooleanUtils.and(new boolean[] { true, false, true }));
+        
+        assertTrue(
+            "True result for (false, true, true)",
+            ! BooleanUtils.and(new boolean[] { false, true, true }));
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAnd_object_nullInput() {
+        BooleanUtils.and((Boolean[]) null);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAnd_object_emptyInput() {
+        BooleanUtils.and(new Boolean[] {});
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAnd_object_nullElementInput() {
+        BooleanUtils.and(new Boolean[] {null});
+    }
+    
+    @Test
+    public void testAnd_object_validInput_2items() {
+        assertTrue(
+            "False result for (true, true)",
+            BooleanUtils
+            .and(new Boolean[] { Boolean.TRUE, Boolean.TRUE })
+            .booleanValue());
+        
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils
+            .and(new Boolean[] { Boolean.FALSE, Boolean.FALSE })
+            .booleanValue());
+        
+        assertTrue(
+            "True result for (true, false)",
+            ! BooleanUtils
+            .and(new Boolean[] { Boolean.TRUE, Boolean.FALSE })
+            .booleanValue());
+        
+        assertTrue(
+            "True result for (false, true)",
+            ! BooleanUtils
+            .and(new Boolean[] { Boolean.FALSE, Boolean.TRUE })
+            .booleanValue());
+    }
+    
+    @Test
+    public void testAnd_object_validInput_3items() {
+        assertTrue(
+            "True result for (false, false, true)",
+            ! BooleanUtils
+            .and(
+                new Boolean[] {
+                    Boolean.FALSE,
+                    Boolean.FALSE,
+                    Boolean.TRUE })
+                    .booleanValue());
+        
+        assertTrue(
+            "True result for (false, true, false)",
+            ! BooleanUtils
+            .and(
+                new Boolean[] {
+                    Boolean.FALSE,
+                    Boolean.TRUE,
+                    Boolean.FALSE })
+                    .booleanValue());
+        
+        assertTrue(
+            "True result for (true, false, false)",
+            ! BooleanUtils
+            .and(
+                new Boolean[] {
+                    Boolean.TRUE,
+                    Boolean.FALSE,
+                    Boolean.FALSE })
+                    .booleanValue());
+        
+        assertTrue(
+            "False result for (true, true, true)",
+            BooleanUtils
+            .and(new Boolean[] { Boolean.TRUE, Boolean.TRUE, Boolean.TRUE })
+            .booleanValue());
+        
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils.and(
+                new Boolean[] {
+                    Boolean.FALSE,
+                    Boolean.FALSE,
+                    Boolean.FALSE })
+                    .booleanValue());
+        
+        assertTrue(
+            "True result for (true, true, false)",
+            ! BooleanUtils.and(
+                new Boolean[] {
+                    Boolean.TRUE,
+                    Boolean.TRUE,
+                    Boolean.FALSE })
+                    .booleanValue());
+        
+        assertTrue(
+            "True result for (true, false, true)",
+            ! BooleanUtils.and(
+                new Boolean[] {
+                    Boolean.TRUE,
+                    Boolean.FALSE,
+                    Boolean.TRUE })
+                    .booleanValue());
+        
+        assertTrue(
+            "True result for (false, true, true)",
+            ! BooleanUtils.and(
+                new Boolean[] {
+                    Boolean.FALSE,
+                    Boolean.TRUE,
+                    Boolean.TRUE })
+                    .booleanValue());
+    }
+    
+    //  testOr
+    //  -----------------------------------------------------------------------
+    @Test(expected = IllegalArgumentException.class)
+    public void testOr_primitive_nullInput() {
+        BooleanUtils.or((boolean[]) null);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testOr_primitive_emptyInput() {
+        BooleanUtils.or(new boolean[] {});
+    }
+    
+    @Test
+    public void testOr_primitive_validInput_2items() {
+        assertTrue(
+            "False result for (true, true)",
+            BooleanUtils.or(new boolean[] { true, true }));
+        
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils.or(new boolean[] { false, false }));
+        
+        assertTrue(
+            "False result for (true, false)",
+            BooleanUtils.or(new boolean[] { true, false }));
+        
+        assertTrue(
+            "False result for (false, true)",
+            BooleanUtils.or(new boolean[] { false, true }));
+    }
+    
+    @Test
+    public void testOr_primitive_validInput_3items() {
+        assertTrue(
+            "False result for (false, false, true)",
+            BooleanUtils.or(new boolean[] { false, false, true }));
+        
+        assertTrue(
+            "False result for (false, true, false)",
+            BooleanUtils.or(new boolean[] { false, true, false }));
+        
+        assertTrue(
+            "False result for (true, false, false)",
+            BooleanUtils.or(new boolean[] { true, false, false }));
+        
+        assertTrue(
+            "False result for (true, true, true)",
+            BooleanUtils.or(new boolean[] { true, true, true }));
+        
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils.or(new boolean[] { false, false, false }));
+        
+        assertTrue(
+            "False result for (true, true, false)",
+            BooleanUtils.or(new boolean[] { true, true, false }));
+        
+        assertTrue(
+            "False result for (true, false, true)",
+            BooleanUtils.or(new boolean[] { true, false, true }));
+        
+        assertTrue(
+            "False result for (false, true, true)",
+            BooleanUtils.or(new boolean[] { false, true, true }));
+    
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testOr_object_nullInput() {
+        BooleanUtils.or((Boolean[]) null);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testOr_object_emptyInput() {
+        BooleanUtils.or(new Boolean[] {});
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testOr_object_nullElementInput() {
+        BooleanUtils.or(new Boolean[] {null});
+    }
+    
+    @Test
+    public void testOr_object_validInput_2items() {
+        assertTrue(
+            "False result for (true, true)",
+            BooleanUtils
+            .or(new Boolean[] { Boolean.TRUE, Boolean.TRUE })
+            .booleanValue());
+        
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils
+            .or(new Boolean[] { Boolean.FALSE, Boolean.FALSE })
+            .booleanValue());
+        
+        assertTrue(
+            "False result for (true, false)",
+            BooleanUtils
+            .or(new Boolean[] { Boolean.TRUE, Boolean.FALSE })
+            .booleanValue());
+        
+        assertTrue(
+            "False result for (false, true)",
+            BooleanUtils
+            .or(new Boolean[] { Boolean.FALSE, Boolean.TRUE })
+            .booleanValue());
+    }
+    
+    @Test
+    public void testOr_object_validInput_3items() {
+        assertTrue(
+            "False result for (false, false, true)",
+            BooleanUtils
+            .or(
+                new Boolean[] {
+                    Boolean.FALSE,
+                    Boolean.FALSE,
+                    Boolean.TRUE })
+                    .booleanValue());
+        
+        assertTrue(
+            "False result for (false, true, false)",
+            BooleanUtils
+            .or(
+                new Boolean[] {
+                    Boolean.FALSE,
+                    Boolean.TRUE,
+                    Boolean.FALSE })
+                    .booleanValue());
+        
+        assertTrue(
+            "False result for (true, false, false)",
+            BooleanUtils
+            .or(
+                new Boolean[] {
+                    Boolean.TRUE,
+                    Boolean.FALSE,
+                    Boolean.FALSE })
+                    .booleanValue());
+        
+        assertTrue(
+            "False result for (true, true, true)",
+            BooleanUtils
+            .or(new Boolean[] { Boolean.TRUE, Boolean.TRUE, Boolean.TRUE })
+            .booleanValue());
+        
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils.or(
+                new Boolean[] {
+                    Boolean.FALSE,
+                    Boolean.FALSE,
+                    Boolean.FALSE })
+                    .booleanValue());
+        
+        assertTrue(
+            "False result for (true, true, false)",
+            BooleanUtils.or(
+                new Boolean[] {
+                    Boolean.TRUE,
+                    Boolean.TRUE,
+                    Boolean.FALSE })
+                    .booleanValue());
+        
+        assertTrue(
+            "False result for (true, false, true)",
+            BooleanUtils.or(
+                new Boolean[] {
+                    Boolean.TRUE,
+                    Boolean.FALSE,
+                    Boolean.TRUE })
+                    .booleanValue());
+        
+        assertTrue(
+            "False result for (false, true, true)",
+            BooleanUtils.or(
+                new Boolean[] {
+                    Boolean.FALSE,
+                    Boolean.TRUE,
+                    Boolean.TRUE })
+                    .booleanValue());
+    }
+    
 }
