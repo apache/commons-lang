@@ -16,23 +16,22 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.*;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.BooleanUtils}.
  *
  * @version $Id$
  */
-public class BooleanUtilsTest extends TestCase {
-
-    public BooleanUtilsTest(String name) {
-        super(name);
-    }
+public class BooleanUtilsTest {
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new BooleanUtils());
         Constructor<?>[] cons = BooleanUtils.class.getDeclaredConstructors();
@@ -43,6 +42,7 @@ public class BooleanUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void test_negate_Boolean() {
         assertSame(null, BooleanUtils.negate(null));
         assertSame(Boolean.TRUE, BooleanUtils.negate(Boolean.FALSE));
@@ -50,12 +50,14 @@ public class BooleanUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void test_isTrue_Boolean() {
         assertEquals(true, BooleanUtils.isTrue(Boolean.TRUE));
         assertEquals(false, BooleanUtils.isTrue(Boolean.FALSE));
         assertEquals(false, BooleanUtils.isTrue((Boolean) null));
     }
 
+    @Test
     public void test_isNotTrue_Boolean() {
         assertEquals(false, BooleanUtils.isNotTrue(Boolean.TRUE));
         assertEquals(true, BooleanUtils.isNotTrue(Boolean.FALSE));
@@ -63,12 +65,14 @@ public class BooleanUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void test_isFalse_Boolean() {
         assertEquals(false, BooleanUtils.isFalse(Boolean.TRUE));
         assertEquals(true, BooleanUtils.isFalse(Boolean.FALSE));
         assertEquals(false, BooleanUtils.isFalse((Boolean) null));
     }
 
+    @Test
     public void test_isNotFalse_Boolean() {
         assertEquals(true, BooleanUtils.isNotFalse(Boolean.TRUE));
         assertEquals(false, BooleanUtils.isNotFalse(Boolean.FALSE));
@@ -76,12 +80,14 @@ public class BooleanUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void test_toBoolean_Boolean() {
         assertEquals(true, BooleanUtils.toBoolean(Boolean.TRUE));
         assertEquals(false, BooleanUtils.toBoolean(Boolean.FALSE));
         assertEquals(false, BooleanUtils.toBoolean((Boolean) null));
     }
 
+    @Test
     public void test_toBooleanDefaultIfNull_Boolean_boolean() {
         assertEquals(true, BooleanUtils.toBooleanDefaultIfNull(Boolean.TRUE, true));
         assertEquals(true, BooleanUtils.toBooleanDefaultIfNull(Boolean.TRUE, false));
@@ -93,18 +99,21 @@ public class BooleanUtilsTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void test_toBoolean_int() {
         assertEquals(true, BooleanUtils.toBoolean(1));
         assertEquals(true, BooleanUtils.toBoolean(-1));
         assertEquals(false, BooleanUtils.toBoolean(0));
     }
     
+    @Test
     public void test_toBooleanObject_int() {
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(1));
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(-1));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(0));
     }
     
+    @Test
     public void test_toBooleanObject_Integer() {
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(new Integer(1)));
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(new Integer(-1)));
@@ -113,6 +122,7 @@ public class BooleanUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void test_toBoolean_int_int_int() {
         assertEquals(true, BooleanUtils.toBoolean(6, 6, 7));
         assertEquals(false, BooleanUtils.toBoolean(7, 6, 7));
@@ -122,6 +132,7 @@ public class BooleanUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
     
+    @Test
     public void test_toBoolean_Integer_Integer_Integer() {
         Integer six = new Integer(6);
         Integer seven = new Integer(7);
@@ -142,6 +153,7 @@ public class BooleanUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void test_toBooleanObject_int_int_int() {
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(6, 6, 7, 8));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(7, 6, 7, 8));
@@ -152,6 +164,7 @@ public class BooleanUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
     
+    @Test
     public void test_toBooleanObject_Integer_Integer_Integer_Integer() {
         Integer six = new Integer(6);
         Integer seven = new Integer(7);
@@ -175,16 +188,19 @@ public class BooleanUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void test_toInteger_boolean() {
         assertEquals(1, BooleanUtils.toInteger(true));
         assertEquals(0, BooleanUtils.toInteger(false));
     }
     
+    @Test
     public void test_toIntegerObject_boolean() {
         assertEquals(new Integer(1), BooleanUtils.toIntegerObject(true));
         assertEquals(new Integer(0), BooleanUtils.toIntegerObject(false));
     }
     
+    @Test
     public void test_toIntegerObject_Boolean() {
         assertEquals(new Integer(1), BooleanUtils.toIntegerObject(Boolean.TRUE));
         assertEquals(new Integer(0), BooleanUtils.toIntegerObject(Boolean.FALSE));
@@ -192,17 +208,20 @@ public class BooleanUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void test_toInteger_boolean_int_int() {
         assertEquals(6, BooleanUtils.toInteger(true, 6, 7));
         assertEquals(7, BooleanUtils.toInteger(false, 6, 7));
     }
     
+    @Test
     public void test_toInteger_Boolean_int_int_int() {
         assertEquals(6, BooleanUtils.toInteger(Boolean.TRUE, 6, 7, 8));
         assertEquals(7, BooleanUtils.toInteger(Boolean.FALSE, 6, 7, 8));
         assertEquals(8, BooleanUtils.toInteger(null, 6, 7, 8));
     }
     
+    @Test
     public void test_toIntegerObject_boolean_Integer_Integer() {
         Integer six = new Integer(6);
         Integer seven = new Integer(7);
@@ -210,6 +229,7 @@ public class BooleanUtilsTest extends TestCase {
         assertEquals(seven, BooleanUtils.toIntegerObject(false, six, seven));
     }
     
+    @Test
     public void test_toIntegerObject_Boolean_Integer_Integer_Integer() {
         Integer six = new Integer(6);
         Integer seven = new Integer(7);
@@ -222,6 +242,7 @@ public class BooleanUtilsTest extends TestCase {
     
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void test_toBooleanObject_String() {
         assertEquals(null, BooleanUtils.toBooleanObject((String) null));
         assertEquals(null, BooleanUtils.toBooleanObject(""));
@@ -255,6 +276,7 @@ public class BooleanUtilsTest extends TestCase {
         assertEquals(null, BooleanUtils.toBooleanObject("yoo"));
     }
     
+    @Test
     public void test_toBooleanObject_String_String_String_String() {
         assertSame(Boolean.TRUE, BooleanUtils.toBooleanObject((String) null, null, "N", "U"));
         assertSame(Boolean.FALSE, BooleanUtils.toBooleanObject((String) null, "Y", null, "U"));
@@ -278,6 +300,7 @@ public class BooleanUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void test_toBoolean_String() {
         assertEquals(false, BooleanUtils.toBoolean((String) null));
         assertEquals(false, BooleanUtils.toBoolean(""));
@@ -324,6 +347,7 @@ public class BooleanUtilsTest extends TestCase {
         assertEquals(false, BooleanUtils.toBoolean("yoo"));
     }
 
+    @Test
     public void test_toBoolean_String_String_String() {
         assertEquals(true, BooleanUtils.toBoolean((String) null, null, "N"));
         assertEquals(false, BooleanUtils.toBoolean((String) null, "Y", null));
@@ -345,24 +369,28 @@ public class BooleanUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void test_toStringTrueFalse_Boolean() {
         assertEquals(null, BooleanUtils.toStringTrueFalse((Boolean) null));
         assertEquals("true", BooleanUtils.toStringTrueFalse(Boolean.TRUE));
         assertEquals("false", BooleanUtils.toStringTrueFalse(Boolean.FALSE));
     }
     
+    @Test
     public void test_toStringOnOff_Boolean() {
         assertEquals(null, BooleanUtils.toStringOnOff((Boolean) null));
         assertEquals("on", BooleanUtils.toStringOnOff(Boolean.TRUE));
         assertEquals("off", BooleanUtils.toStringOnOff(Boolean.FALSE));
     }
     
+    @Test
     public void test_toStringYesNo_Boolean() {
         assertEquals(null, BooleanUtils.toStringYesNo((Boolean) null));
         assertEquals("yes", BooleanUtils.toStringYesNo(Boolean.TRUE));
         assertEquals("no", BooleanUtils.toStringYesNo(Boolean.FALSE));
     }
     
+    @Test
     public void test_toString_Boolean_String_String_String() {
         assertEquals("U", BooleanUtils.toString((Boolean) null, "Y", "N", "U"));
         assertEquals("Y", BooleanUtils.toString(Boolean.TRUE, "Y", "N", "U"));
@@ -370,21 +398,25 @@ public class BooleanUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void test_toStringTrueFalse_boolean() {
         assertEquals("true", BooleanUtils.toStringTrueFalse(true));
         assertEquals("false", BooleanUtils.toStringTrueFalse(false));
     }
     
+    @Test
     public void test_toStringOnOff_boolean() {
         assertEquals("on", BooleanUtils.toStringOnOff(true));
         assertEquals("off", BooleanUtils.toStringOnOff(false));
     }
     
+    @Test
     public void test_toStringYesNo_boolean() {
         assertEquals("yes", BooleanUtils.toStringYesNo(true));
         assertEquals("no", BooleanUtils.toStringYesNo(false));
     }
     
+    @Test
     public void test_toString_boolean_String_String_String() {
         assertEquals("Y", BooleanUtils.toString(true, "Y", "N"));
         assertEquals("N", BooleanUtils.toString(false, "Y", "N"));
@@ -392,6 +424,7 @@ public class BooleanUtilsTest extends TestCase {
     
     //  testXor
     //  -----------------------------------------------------------------------
+    @Test
     public void testXor_primitive_nullInput() {
         final boolean[] b = null;
         try {
@@ -400,6 +433,7 @@ public class BooleanUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
 
+    @Test
     public void testXor_primitive_emptyInput() {
         try {
             BooleanUtils.xor(new boolean[] {});
@@ -407,6 +441,7 @@ public class BooleanUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
 
+    @Test
     public void testXor_primitive_validInput_2items() {
         assertTrue(
             "True result for (true, true)",
@@ -425,6 +460,7 @@ public class BooleanUtilsTest extends TestCase {
             BooleanUtils.xor(new boolean[] { false, true }));
     }
 
+    @Test
     public void testXor_primitive_validInput_3items() {
         assertTrue(
             "False result for (false, false, true)",
@@ -459,6 +495,7 @@ public class BooleanUtilsTest extends TestCase {
             ! BooleanUtils.xor(new boolean[] { false, true, true }));
     }
 
+    @Test
     public void testXor_object_nullInput() {
         final Boolean[] b = null;
         try {
@@ -467,6 +504,7 @@ public class BooleanUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
 
+    @Test
     public void testXor_object_emptyInput() {
         try {
             BooleanUtils.xor(new Boolean[] {});
@@ -474,6 +512,7 @@ public class BooleanUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
     
+    @Test
     public void testXor_object_nullElementInput() {
         try {
             BooleanUtils.xor(new Boolean[] {null});
@@ -481,6 +520,7 @@ public class BooleanUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
 
+    @Test
     public void testXor_object_validInput_2items() {
         assertTrue(
             "True result for (true, true)",
@@ -507,6 +547,7 @@ public class BooleanUtilsTest extends TestCase {
                 .booleanValue());
     }
 
+    @Test
     public void testXor_object_validInput_3items() {
         assertTrue(
             "False result for (false, false, true)",
@@ -579,7 +620,6 @@ public class BooleanUtilsTest extends TestCase {
                         Boolean.TRUE,
                         Boolean.TRUE })
                 .booleanValue());
-                
     }
 
 }
