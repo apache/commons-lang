@@ -1411,5 +1411,5 @@ public class NumberUtils {
         // found digit it to make sure weird stuff like '.' and '1E-' doesn't pass
         return !allowSigns && foundDigit;
     }
-    
+
 }
