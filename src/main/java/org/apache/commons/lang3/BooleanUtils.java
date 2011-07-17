@@ -884,6 +884,7 @@ public class BooleanUtils {
      * @return {@code true} if the and is successful.
      * @throws IllegalArgumentException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
+     * @since 3.0.1
      */
     public static boolean and(boolean... array) {
         // Validates input
@@ -918,6 +919,7 @@ public class BooleanUtils {
      * @throws IllegalArgumentException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
      * @throws IllegalArgumentException if {@code array} contains a {@code null}
+     * @since 3.0.1
      */
     public static Boolean and(Boolean... array) {
         if (array == null) {
@@ -950,6 +952,7 @@ public class BooleanUtils {
      * @return {@code true} if the or is successful.
      * @throws IllegalArgumentException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
+     * @since 3.0.1
      */
     public static boolean or(boolean... array) {
         // Validates input
@@ -985,6 +988,7 @@ public class BooleanUtils {
      * @throws IllegalArgumentException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
      * @throws IllegalArgumentException if {@code array} contains a {@code null}
+     * @since 3.0.1
      */
     public static Boolean or(Boolean... array) {
         if (array == null) {
