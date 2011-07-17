@@ -17,28 +17,26 @@
 package org.apache.commons.lang3.math;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_3;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.lang3.SystemUtils;
+
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.math.NumberUtils}.
  *
  * @version $Id$
  */
-public class NumberUtilsTest extends TestCase {
-
-    public NumberUtilsTest(String name) {
-        super(name);
-    }
+public class NumberUtilsTest {
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new NumberUtils());
         Constructor<?>[] cons = NumberUtils.class.getDeclaredConstructors();
@@ -53,6 +51,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#toInt(String)}.
      */
+    @Test
     public void testToIntString() {
         assertTrue("toInt(String) 1 failed", NumberUtils.toInt("12345") == 12345);
         assertTrue("toInt(String) 2 failed", NumberUtils.toInt("abc") == 0);
@@ -63,6 +62,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#toInt(String, int)}.
      */
+    @Test
     public void testToIntStringI() {
         assertTrue("toInt(String,int) 1 failed", NumberUtils.toInt("12345", 5) == 12345);
         assertTrue("toInt(String,int) 2 failed", NumberUtils.toInt("1234.5", 5) == 5);
@@ -71,6 +71,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#toLong(String)}.
      */
+    @Test
     public void testToLongString() {
         assertTrue("toLong(String) 1 failed", NumberUtils.toLong("12345") == 12345l);
         assertTrue("toLong(String) 2 failed", NumberUtils.toLong("abc") == 0l);
@@ -85,6 +86,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#toLong(String, long)}.
      */
+    @Test
     public void testToLongStringL() {
         assertTrue("toLong(String,long) 1 failed", NumberUtils.toLong("12345", 5l) == 12345l);
         assertTrue("toLong(String,long) 2 failed", NumberUtils.toLong("1234.5", 5l) == 5l);
@@ -93,6 +95,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#toFloat(String)}.
      */
+    @Test
     public void testToFloatString() {
         assertTrue("toFloat(String) 1 failed", NumberUtils.toFloat("-1.2345") == -1.2345f);
         assertTrue("toFloat(String) 2 failed", NumberUtils.toFloat("1.2345") == 1.2345f);
@@ -106,6 +109,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#toFloat(String, float)}.
      */
+    @Test
     public void testToFloatStringF() {
         assertTrue("toFloat(String,int) 1 failed", NumberUtils.toFloat("1.2345", 5.1f) == 1.2345f);
         assertTrue("toFloat(String,int) 2 failed", NumberUtils.toFloat("a", 5.0f) == 5.0f);
@@ -114,6 +118,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#toDouble(String)}.
      */
+    @Test
     public void testStringToDoubleString() {
         assertTrue("toDouble(String) 1 failed", NumberUtils.toDouble("-1.2345") == -1.2345d);
         assertTrue("toDouble(String) 2 failed", NumberUtils.toDouble("1.2345") == 1.2345d);
@@ -127,6 +132,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#toDouble(String, double)}.
      */
+    @Test
     public void testStringToDoubleStringD() {
         assertTrue("toDouble(String,int) 1 failed", NumberUtils.toDouble("1.2345", 5.1d) == 1.2345d);
         assertTrue("toDouble(String,int) 2 failed", NumberUtils.toDouble("a", 5.0d) == 5.0d);
@@ -135,6 +141,7 @@ public class NumberUtilsTest extends TestCase {
      /**
      * Test for {@link NumberUtils#toByte(String)}.
      */
+    @Test
     public void testToByteString() {
         assertTrue("toByte(String) 1 failed", NumberUtils.toByte("123") == 123);
         assertTrue("toByte(String) 2 failed", NumberUtils.toByte("abc") == 0);
@@ -145,6 +152,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#toByte(String, byte)}.
      */
+    @Test
     public void testToByteStringI() {
         assertTrue("toByte(String,byte) 1 failed", NumberUtils.toByte("123", (byte) 5) == 123);
         assertTrue("toByte(String,byte) 2 failed", NumberUtils.toByte("12.3", (byte) 5) == 5);
@@ -153,6 +161,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#toShort(String)}.
      */
+    @Test
     public void testToShortString() {
         assertTrue("toShort(String) 1 failed", NumberUtils.toShort("12345") == 12345);
         assertTrue("toShort(String) 2 failed", NumberUtils.toShort("abc") == 0);
@@ -163,11 +172,13 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#toShort(String, short)}.
      */
+    @Test
     public void testToShortStringI() {
         assertTrue("toShort(String,short) 1 failed", NumberUtils.toShort("12345", (short) 5) == 12345);
         assertTrue("toShort(String,short) 2 failed", NumberUtils.toShort("1234.5", (short) 5) == 5);
     }
 
+    @Test
     public void testCreateNumber() {
         // a lot of things can go wrong
         assertEquals("createNumber(String) 1 failed", new Float("1234.5"), NumberUtils.createNumber("1234.5"));
@@ -215,6 +226,7 @@ public class NumberUtilsTest extends TestCase {
                     .createNumber("" + Double.MAX_VALUE));
     }
 
+    @Test
     public void testCreateFloat() {
         assertEquals("createFloat(String) failed", new Float("1234.5"), NumberUtils.createFloat("1234.5"));
         assertEquals("createFloat(null) failed", null, NumberUtils.createFloat(null));
@@ -234,6 +246,7 @@ public class NumberUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testCreateDouble() {
         assertEquals("createDouble(String) failed", new Double("1234.5"), NumberUtils.createDouble("1234.5"));
         assertEquals("createDouble(null) failed", null, NumberUtils.createDouble(null));
@@ -253,6 +266,7 @@ public class NumberUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testCreateInteger() {
         assertEquals("createInteger(String) failed", new Integer("12345"), NumberUtils.createInteger("12345"));
         assertEquals("createInteger(null) failed", null, NumberUtils.createInteger(null));
@@ -272,6 +286,7 @@ public class NumberUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testCreateLong() {
         assertEquals("createLong(String) failed", new Long("12345"), NumberUtils.createLong("12345"));
         assertEquals("createLong(null) failed", null, NumberUtils.createLong(null));
@@ -291,6 +306,7 @@ public class NumberUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testCreateBigInteger() {
         assertEquals("createBigInteger(String) failed", new BigInteger("12345"), NumberUtils.createBigInteger("12345"));
         assertEquals("createBigInteger(null) failed", null, NumberUtils.createBigInteger(null));
@@ -310,6 +326,7 @@ public class NumberUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testCreateBigDecimal() {
         assertEquals("createBigDecimal(String) failed", new BigDecimal("1234.5"), NumberUtils.createBigDecimal("1234.5"));
         assertEquals("createBigDecimal(null) failed", null, NumberUtils.createBigDecimal(null));
@@ -331,6 +348,7 @@ public class NumberUtilsTest extends TestCase {
 
     // min/max tests
     // ----------------------------------------------------------------------
+    @Test
     public void testMinLong() {
         final long[] l = null;
         try {
@@ -357,6 +375,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(-10, NumberUtils.min(new long[] { -5, 0, -10, 5, 10 }));
     }
 
+    @Test
     public void testMinInt() {
         final int[] i = null;
         try {
@@ -383,6 +402,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(-10, NumberUtils.min(new int[] { -5, 0, -10, 5, 10 }));
     }
 
+    @Test
     public void testMinShort() {
         final short[] s = null;
         try {
@@ -409,6 +429,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(-10, NumberUtils.min(new short[] { -5, 0, -10, 5, 10 }));
     }
 
+    @Test
     public void testMinByte() {
         final byte[] b = null;
         try {
@@ -435,6 +456,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(-10, NumberUtils.min(new byte[] { -5, 0, -10, 5, 10 }));
     }
 
+    @Test
     public void testMinDouble() {
         final double[] d = null;
         try {
@@ -468,6 +490,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(-10, NumberUtils.min(new double[] { -5, 0, -10, 5, 10 }), 0.0001);
     }
 
+    @Test
     public void testMinFloat() {
         final float[] f = null;
         try {
@@ -501,6 +524,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(-10, NumberUtils.min(new float[] { -5, 0, -10, 5, 10 }), 0.0001f);
     }
 
+    @Test
     public void testMaxLong() {
         final long[] l = null;
         try {
@@ -531,6 +555,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(10, NumberUtils.max(new long[] { -5, 0, 10, 5, -10 }));
     }
 
+    @Test
     public void testMaxInt() {
         final int[] i = null;
         try {
@@ -561,6 +586,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(10, NumberUtils.max(new int[] { -5, 0, 10, 5, -10 }));
     }
 
+    @Test
     public void testMaxShort() {
         final short[] s = null;
         try {
@@ -591,6 +617,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(10, NumberUtils.max(new short[] { -5, 0, 10, 5, -10 }));
     }
 
+    @Test
     public void testMaxByte() {
         final byte[] b = null;
         try {
@@ -621,6 +648,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(10, NumberUtils.max(new byte[] { -5, 0, 10, 5, -10 }));
     }
 
+    @Test
     public void testMaxDouble() {
         final double[] d = null;
         try {
@@ -654,6 +682,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(10, NumberUtils.max(new double[] { -5, 0, 10, 5, -10 }), 0.0001);
     }
 
+    @Test
     public void testMaxFloat() {
         final float[] f = null;
         try {
@@ -687,6 +716,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(10, NumberUtils.max(new float[] { -5, 0, 10, 5, -10 }), 0.0001f);
     }
 
+    @Test
     public void testMinimumLong() {
         assertEquals("minimum(long,long,long) 1 failed", 12345L, NumberUtils.min(12345L, 12345L + 1L, 12345L + 2L));
         assertEquals("minimum(long,long,long) 2 failed", 12345L, NumberUtils.min(12345L + 1L, 12345L, 12345 + 2L));
@@ -695,6 +725,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("minimum(long,long,long) 5 failed", 12345L, NumberUtils.min(12345L, 12345L, 12345L));
     }
 
+    @Test
     public void testMinimumInt() {
         assertEquals("minimum(int,int,int) 1 failed", 12345, NumberUtils.min(12345, 12345 + 1, 12345 + 2));
         assertEquals("minimum(int,int,int) 2 failed", 12345, NumberUtils.min(12345 + 1, 12345, 12345 + 2));
@@ -703,6 +734,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("minimum(int,int,int) 5 failed", 12345, NumberUtils.min(12345, 12345, 12345));
     }
 
+    @Test
     public void testMinimumShort() {
         short low = 1234;
         short mid = 1234 + 1;
@@ -713,6 +745,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("minimum(short,short,short) 1 failed", low, NumberUtils.min(low, mid, low));
     }
 
+    @Test
     public void testMinimumByte() {
         byte low = 123;
         byte mid = 123 + 1;
@@ -723,6 +756,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("minimum(byte,byte,byte) 1 failed", low, NumberUtils.min(low, mid, low));
     }
 
+    @Test
     public void testMinimumDouble() {
         double low = 12.3;
         double mid = 12.3 + 1;
@@ -734,6 +768,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(mid, NumberUtils.min(high, mid, high), 0.0001);
     }
 
+    @Test
     public void testMinimumFloat() {
         float low = 12.3f;
         float mid = 12.3f + 1;
@@ -745,6 +780,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(mid, NumberUtils.min(high, mid, high), 0.0001f);
     }
 
+    @Test
     public void testMaximumLong() {
         assertEquals("maximum(long,long,long) 1 failed", 12345L, NumberUtils.max(12345L, 12345L - 1L, 12345L - 2L));
         assertEquals("maximum(long,long,long) 2 failed", 12345L, NumberUtils.max(12345L - 1L, 12345L, 12345L - 2L));
@@ -753,6 +789,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("maximum(long,long,long) 5 failed", 12345L, NumberUtils.max(12345L, 12345L, 12345L));
     }
 
+    @Test
     public void testMaximumInt() {
         assertEquals("maximum(int,int,int) 1 failed", 12345, NumberUtils.max(12345, 12345 - 1, 12345 - 2));
         assertEquals("maximum(int,int,int) 2 failed", 12345, NumberUtils.max(12345 - 1, 12345, 12345 - 2));
@@ -761,6 +798,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("maximum(int,int,int) 5 failed", 12345, NumberUtils.max(12345, 12345, 12345));
     }
 
+    @Test
     public void testMaximumShort() {
         short low = 1234;
         short mid = 1234 + 1;
@@ -771,6 +809,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("maximum(short,short,short) 1 failed", high, NumberUtils.max(high, mid, high));
     }
 
+    @Test
     public void testMaximumByte() {
         byte low = 123;
         byte mid = 123 + 1;
@@ -781,6 +820,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("maximum(byte,byte,byte) 1 failed", high, NumberUtils.max(high, mid, high));
     }
 
+    @Test
     public void testMaximumDouble() {
         double low = 12.3;
         double mid = 12.3 + 1;
@@ -792,6 +832,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(high, NumberUtils.max(high, mid, high), 0.0001);
     }
 
+    @Test
     public void testMaximumFloat() {
         float low = 12.3f;
         float mid = 12.3f + 1;
@@ -804,6 +845,7 @@ public class NumberUtilsTest extends TestCase {
     }
 
     // Testing JDK against old Lang functionality
+    @Test
     public void testCompareDouble() {
         assertTrue(Double.compare(Double.NaN, Double.NaN) == 0);
         assertTrue(Double.compare(Double.NaN, Double.POSITIVE_INFINITY) == +1);
@@ -896,6 +938,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Double.compare(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY) == 0);
     }
 
+    @Test
     public void testCompareFloat() {
         assertTrue(Float.compare(Float.NaN, Float.NaN) == 0);
         assertTrue(Float.compare(Float.NaN, Float.POSITIVE_INFINITY) == +1);
@@ -988,6 +1031,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Float.compare(Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY) == 0);
     }
 
+    @Test
     public void testIsDigits() {
         assertEquals("isDigits(null) failed", false, NumberUtils.isDigits(null));
         assertEquals("isDigits('') failed", false, NumberUtils.isDigits(""));
@@ -1001,6 +1045,7 @@ public class NumberUtilsTest extends TestCase {
      * Tests isNumber(String) and tests that createNumber(String) returns
      * a valid number iff isNumber(String) returns false.
      */
+    @Test
     public void testIsNumber() {
         String val = "12345";
         assertTrue("isNumber(String) 1 failed", NumberUtils.isNumber(val));
@@ -1157,6 +1202,7 @@ public class NumberUtilsTest extends TestCase {
     }
 
     @SuppressWarnings("cast") // suppress instanceof warning check
+    @Test
     public void testConstants() {
         assertTrue(NumberUtils.LONG_ZERO instanceof Long);
         assertTrue(NumberUtils.LONG_ONE instanceof Long);
@@ -1197,12 +1243,14 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(NumberUtils.FLOAT_MINUS_ONE.floatValue() == -1.0f);
     }
 
+    @Test
     public void testLang300() {
         NumberUtils.createNumber("-1l");
         NumberUtils.createNumber("01l");
         NumberUtils.createNumber("1l");
     }
 
+    @Test
     public void testLang381() {
         assertTrue(Double.isNaN(NumberUtils.min(1.2, 2.5, Double.NaN)));
         assertTrue(Double.isNaN(NumberUtils.max(1.2, 2.5, Double.NaN)));
