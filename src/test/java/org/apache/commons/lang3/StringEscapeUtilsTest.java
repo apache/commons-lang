@@ -300,6 +300,12 @@ public class StringEscapeUtilsTest {
                 "\u00A1", StringEscapeUtils.escapeXml("\u00A1"));
         assertEquals("XML should be able to unescape >0x7f values",
                 "\u00A0", StringEscapeUtils.unescapeXml("&#160;"));
+        assertEquals("XML should be able to unescape >0x7f values with one leading 0",
+                "\u00A0", StringEscapeUtils.unescapeXml("&#0160;"));
+        assertEquals("XML should be able to unescape >0x7f values with two leading 0s",
+                "\u00A0", StringEscapeUtils.unescapeXml("&#00160;"));
+        assertEquals("XML should be able to unescape >0x7f values with three leading 0s",
+                "\u00A0", StringEscapeUtils.unescapeXml("&#000160;"));
 
         assertEquals("ain't", StringEscapeUtils.unescapeXml("ain&apos;t"));
         assertEquals("ain&apos;t", StringEscapeUtils.escapeXml("ain't"));
