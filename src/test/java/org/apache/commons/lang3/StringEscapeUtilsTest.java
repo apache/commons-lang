@@ -32,6 +32,7 @@ import org.junit.Test;
 
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
+import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 
 /**
  * Unit tests for {@link StringEscapeUtils}.
@@ -342,6 +343,17 @@ public class StringEscapeUtilsTest {
 
         assertEquals("Supplementary character must be represented using a single escape", "&#144308;",
                 escapeXml.translate("\uD84C\uDFB4"));
+    }
+    
+    /**
+     * Reverse of the above.
+     *
+     * @see <a href="https://issues.apache.org/jira/browse/LANG-729">LANG-729</a>
+     */
+    @Test
+    public void testUnescapeXmlSupplementaryCharacters() {
+        assertEquals("Supplementary character must be represented using a single escape", "\uD84C\uDFB4",
+                StringEscapeUtils.unescapeXml("&#144308;") );
     }
     
     // Tests issue #38569
