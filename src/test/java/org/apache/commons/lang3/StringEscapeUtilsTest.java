@@ -31,6 +31,9 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
+import org.apache.commons.lang3.text.translate.UnicodeEscaper;
+
 /**
  * Unit tests for {@link StringEscapeUtils}.
  *
@@ -333,15 +336,13 @@ public class StringEscapeUtilsTest {
      * @see <a href="http://www.w3.org/International/questions/qa-escapes">Using character escapes in markup and CSS</a>
      * @see <a href="https://issues.apache.org/jira/browse/LANG-728">LANG-728</a>
      */
-    @Ignore
     @Test
     public void testEscapeXmlSupplementaryCharacters() {
-        // Example from https://issues.apache.org/jira/browse/LANG-728
-        assertEquals("Supplementary character must be represented using a single escape", "&#144308;",
-                StringEscapeUtils.escapeXml("\uD84C\uDFB4"));
-        // Example from See http://www.w3.org/International/questions/qa-escapes
-        assertEquals("Supplementary character must be represented using a single escape", "&#x233B4;",
-                StringEscapeUtils.escapeXml("\uD84C;\uDFB4;"));
+        CharSequenceTranslator escapeXml = 
+            StringEscapeUtils.ESCAPE_XML.with( UnicodeEscaper.between(0x7f, Integer.MAX_VALUE) );
+
+        assertEquals("Supplementary character must be represented using a single escape", "\u233B4",
+                escapeXml.translate("\uD84C\uDFB4"));
     }
     
     // Tests issue #38569
