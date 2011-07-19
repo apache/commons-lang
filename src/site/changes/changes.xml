@@ -30,7 +30,7 @@
     <action type="update" issue="LANG-713">Increase test coverage of FieldUtils read methods and tweak javadoc</action>
     <action type="fix" issue="LANG-711">Add includeantruntime=false to javac targets to quell warnings in ant 1.8.1 and better (and modest performance gain).</action>
     <action type="fix" issue="LANG-710">StringIndexOutOfBoundsException when calling unescapeHtml4("&amp;#03")</action>
-    <action type="fix" issue="LANG-708">StringEscapeUtils.escapeEcmaScript from lang3 cuts off long unicode string</action>
+    <action type="fix" issue="LANG-708">StringEscapeUtils.escapeEcmaScript from lang3 cuts off long Unicode string</action>
     <action type="fix" issue="LANG-703">StringUtils.join throws NPE when toString returns null for one of objects in collection</action>
     <action type="add" issue="LANG-697">Add FormattableUtils class</action>
     <action type="add">Add ClassUtils.getSimpleName() methods</action>
@@ -122,7 +122,7 @@
     <action type="remove" issue="LANG-492">Remove code handled now by the JDK.</action>
     <action type="add" issue="LANG-482">StrSubstitutor now supports substitution in variable names.</action>
     <action type="fix" issue="LANG-481">Possible race-conditions in hashCode of the range classes.</action>
-    <action type="fix" issue="LANG-480">StringEscapeUtils.escapeHtml incorrectly converts unicode characters above U+00FFFF into 2 characters.</action>
+    <action type="fix" issue="LANG-480">StringEscapeUtils.escapeHtml incorrectly converts Unicode characters above U+00FFFF into 2 characters.</action>
     <action type="update" issue="LANG-479">Document where in SVN trunk is.</action>
     <action type="fix" issue="LANG-478">StopWatch does not resist to system time changes.</action>
     <action type="fix" issue="LANG-474">Fixes for thread safety.</action>
@@ -325,7 +325,7 @@
     <action type="fix" issue="LANG-10">ClassUtils.primitiveToWrapper and Void</action>
     <action type="fix" issue="LANG-37">unit test for org.apache.commons.lang.text.StrBuilder</action>
     <action type="fix" issue="LANG-59">DateUtils.truncate method is buggy when dealing with DST switching hours</action>
-    <action type="fix" issue="LANG-100">RandomStringUtils.random() family of methods create invalid unicode sequences</action>
+    <action type="fix" issue="LANG-100">RandomStringUtils.random() family of methods create invalid Unicode sequences</action>
     <action type="fix" issue="LANG-106">StringUtils#getLevenshteinDistance() performance is sub-optimal</action>
     <action type="fix" issue="LANG-112">Wrong length check in StrTokenizer.StringMatcher</action>
     <action type="fix" issue="LANG-105">ExceptionUtils goes into infinite loop in getThrowables is throwable.getCause() == throwable</action>

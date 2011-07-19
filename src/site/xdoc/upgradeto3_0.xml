@@ -133,7 +133,7 @@ BUG FIXES IN 3.0
     [LANG-468] JDK 1.5 build/runtime failure on LANG-393 (EqualsBuilder).
     [LANG-474] Fixes for thread safety.
     [LANG-478] StopWatch does not resist to system time changes.
-    [LANG-480] StringEscapeUtils.escapeHtml incorrectly converts unicode characters above U+00FFFF into 2 characters.
+    [LANG-480] StringEscapeUtils.escapeHtml incorrectly converts Unicode characters above U+00FFFF into 2 characters.
     [LANG-481] Possible race-conditions in hashCode of the range classes.
     [LANG-564] Improve StrLookup API documentation.
     [LANG-568] @SuppressWarnings("unchecked") is used too generally.

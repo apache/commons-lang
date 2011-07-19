@@ -150,7 +150,7 @@ public class WordUtils {
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
      * A <code>null</code> input String returns <code>null</code>.
-     * Capitalization uses the unicode title case, normally equivalent to
+     * Capitalization uses the Unicode title case, normally equivalent to
      * upper case.</p>
      *
      * <pre>
@@ -179,7 +179,7 @@ public class WordUtils {
      * delimiter will be capitalized. </p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
-     * Capitalization uses the unicode title case, normally equivalent to
+     * Capitalization uses the Unicode title case, normally equivalent to
      * upper case.</p>
      *
      * <pre>
@@ -224,7 +224,7 @@ public class WordUtils {
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
      * A <code>null</code> input String returns <code>null</code>.
-     * Capitalization uses the unicode title case, normally equivalent to
+     * Capitalization uses the Unicode title case, normally equivalent to
      * upper case.</p>
      *
      * <pre>
@@ -250,7 +250,7 @@ public class WordUtils {
      * delimiter will be capitalized. </p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
-     * Capitalization uses the unicode title case, normally equivalent to
+     * Capitalization uses the Unicode title case, normally equivalent to
      * upper case.</p>
      *
      * <pre>

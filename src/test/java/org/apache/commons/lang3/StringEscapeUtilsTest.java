@@ -80,7 +80,7 @@ public class StringEscapeUtilsTest {
         assertEscapeJava("\\u0234", "\u0234");
         assertEscapeJava("\\u00EF", "\u00ef");
         assertEscapeJava("\\u0001", "\u0001");
-        assertEscapeJava("Should use capitalized unicode hex", "\\uABCD", "\uabcd");
+        assertEscapeJava("Should use capitalized Unicode hex", "\\uABCD", "\uabcd");
 
         assertEscapeJava("He didn't say, \\\"stop!\\\"",
                 "He didn't say, \"stop!\"");
@@ -151,9 +151,9 @@ public class StringEscapeUtilsTest {
         assertUnescapeJava("'\foo\teste\r", "\\'\\foo\\teste\\r");
         assertUnescapeJava("", "\\");
         //foo
-        assertUnescapeJava("lowercase unicode", "\uABCDx", "\\uabcdx");
-        assertUnescapeJava("uppercase unicode", "\uABCDx", "\\uABCDx");
-        assertUnescapeJava("unicode as final character", "\uABCD", "\\uabcd");
+        assertUnescapeJava("lowercase Unicode", "\uABCDx", "\\uabcdx");
+        assertUnescapeJava("uppercase Unicode", "\uABCDx", "\\uABCDx");
+        assertUnescapeJava("Unicode as final character", "\uABCD", "\\uabcd");
     }
 
     private void assertUnescapeJava(String unescaped, String original) throws IOException {
@@ -252,7 +252,7 @@ public class StringEscapeUtilsTest {
             assertEquals(message, expected, actual);
         }
         // \u00E7 is a cedilla (c with wiggle under)
-        // note that the test string must be 7-bit-clean (unicode escaped) or else it will compile incorrectly
+        // note that the test string must be 7-bit-clean (Unicode escaped) or else it will compile incorrectly
         // on some locales        
         assertEquals("funny chars pass through OK", "Fran\u00E7ais", StringEscapeUtils.unescapeHtml4("Fran\u00E7ais"));
         
@@ -448,21 +448,21 @@ public class StringEscapeUtilsTest {
     public void testEscapeHtmlHighUnicode() throws java.io.UnsupportedEncodingException {
         // this is the utf8 representation of the character:
         // COUNTING ROD UNIT DIGIT THREE
-        // in unicode
+        // in Unicode
         // codepoint: U+1D362
         byte[] data = new byte[] { (byte)0xF0, (byte)0x9D, (byte)0x8D, (byte)0xA2 };
 
         String original = new String(data, "UTF8");
 
         String escaped = StringEscapeUtils.escapeHtml4( original );
-        assertEquals( "High unicode should not have been escaped", original, escaped);
+        assertEquals( "High Unicode should not have been escaped", original, escaped);
 
         String unescaped = StringEscapeUtils.unescapeHtml4( escaped );
-        assertEquals( "High unicode should have been unchanged", original, unescaped);
+        assertEquals( "High Unicode should have been unchanged", original, unescaped);
 
 // TODO: I think this should hold, needs further investigation
 //        String unescapedFromEntity = StringEscapeUtils.unescapeHtml4( "&#119650;" );
-//        assertEquals( "High unicode should have been unescaped", original, unescapedFromEntity);
+//        assertEquals( "High Unicode should have been unescaped", original, unescapedFromEntity);
     }
 
     /**
@@ -470,15 +470,15 @@ public class StringEscapeUtilsTest {
      */
     @Test
     public void testEscapeHiragana() {
-        // Some random Japanese unicode characters
+        // Some random Japanese Unicode characters
         String original = "\u304B\u304C\u3068";
         String escaped = StringEscapeUtils.escapeHtml4(original);
-        assertEquals( "Hiragana character unicode behaviour should not be being escaped by escapeHtml4",
+        assertEquals( "Hiragana character Unicode behaviour should not be being escaped by escapeHtml4",
         original, escaped);
 
         String unescaped = StringEscapeUtils.unescapeHtml4( escaped );
 
-        assertEquals( "Hiragana character unicode behaviour has changed - expected no unescaping", escaped, unescaped);
+        assertEquals( "Hiragana character Unicode behaviour has changed - expected no unescaping", escaped, unescaped);
     }
 
     /**

@@ -1281,7 +1281,7 @@ public class NumberUtils {
      * <code>false</code>.</p>
      *
      * @param str  the <code>String</code> to check
-     * @return <code>true</code> if str contains only unicode numeric
+     * @return <code>true</code> if str contains only Unicode numeric
      */
     public static boolean isDigits(String str) {
         if (StringUtils.isEmpty(str)) {

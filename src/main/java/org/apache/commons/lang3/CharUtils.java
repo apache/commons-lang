@@ -358,7 +358,7 @@ public class CharUtils {
     
     //--------------------------------------------------------------------------
     /**
-     * <p>Converts the string to the unicode format '\u0020'.</p>
+     * <p>Converts the string to the Unicode format '\u0020'.</p>
      * 
      * <p>This format is the Java source code format.</p>
      *
@@ -368,7 +368,7 @@ public class CharUtils {
      * </pre>
      * 
      * @param ch  the character to convert
-     * @return the escaped unicode string
+     * @return the escaped Unicode string
      */
     public static String unicodeEscaped(char ch) {
         if (ch < 0x10) {
@@ -382,7 +382,7 @@ public class CharUtils {
     }
     
     /**
-     * <p>Converts the string to the unicode format '\u0020'.</p>
+     * <p>Converts the string to the Unicode format '\u0020'.</p>
      * 
      * <p>This format is the Java source code format.</p>
      * 
@@ -395,7 +395,7 @@ public class CharUtils {
      * </pre>
      * 
      * @param ch  the character to convert, may be null
-     * @return the escaped unicode string, null if null input
+     * @return the escaped Unicode string, null if null input
      */
     public static String unicodeEscaped(Character ch) {
         if (ch == null) {
