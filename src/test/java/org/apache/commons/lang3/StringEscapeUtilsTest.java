@@ -31,7 +31,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
-import org.apache.commons.lang3.text.translate.UnicodeEscaper;
+import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
 
 /**
  * Unit tests for {@link StringEscapeUtils}.
@@ -338,9 +338,9 @@ public class StringEscapeUtilsTest {
     @Test
     public void testEscapeXmlSupplementaryCharacters() {
         CharSequenceTranslator escapeXml = 
-            StringEscapeUtils.ESCAPE_XML.with( UnicodeEscaper.between(0x7f, Integer.MAX_VALUE) );
+            StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE) );
 
-        assertEquals("Supplementary character must be represented using a single escape", "\u233B4",
+        assertEquals("Supplementary character must be represented using a single escape", "&#144308;",
                 escapeXml.translate("\uD84C\uDFB4"));
     }
     
