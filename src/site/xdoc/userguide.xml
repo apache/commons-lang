@@ -34,7 +34,6 @@ limitations under the License.
       <a href="#Description">[Description]</a>
       <a href="#lang3.">[lang3.*]</a>
       <a href="#lang3.builder.">[lang3.builder.*]</a>
-      <a href="#lang3.exception.">[lang3.exception.*]</a>
       <a href="#lang3.math.">[lang3.math.*]</a>
       <a href="#lang3.mutable.">[lang3.mutable.*]</a>
       <a href="#lang3.text.">[lang3.text.*]</a>
@@ -47,7 +46,7 @@ limitations under the License.
   <section name="Description">
    <p>The Commons Lang library provides much needed additions to the standard JDK's java.lang package. Very generic, very reusable components for everyday use.</p>
    <p>The top level package contains various Utils classes, whilst there are various subpackages including math, concurrent and builder. Using the Utils classes is generally simplicity itself. They are the equivalent of global functions in another language, a collection of stand-alone, thread-safe, static methods. In contrast, subpackages may contain interfaces which may have to be implemented or classes which may need to be extended to get the full functionality from the code. They may, however, contain more global-like functions. </p>
-   <p>Lang 3.0 is JDK 1.5+; before that Lang was JDK 1.2+. In both cases you can find features of later JDKs being maintained by us and likely to be removed or modified in favour of the JDK in the next major version. </p>
+   <p>Lang 3.0 is JDK 1.5+; before that Lang was JDK 1.2+. In both cases you can find features of later JDKs being maintained by us and likely to be removed or modified in favour of the JDK in the next major version. Note that Lang 3.0 uses a different package than its predecessors, allowing it to be used at the same time as an earlier version. </p>
    <p>You will find deprecated methods as you stroll through the Lang documentation. These are removed in the next major version. </p>
    <p>Before we begin, it's a good time to mention the Utils classes. They all contain empty public constructors with warnings not to use. This may seem an odd thing to do, but it allows tools like Velocity to access the class as if it were a bean. In other words, yes we know about private constructors and have chosen not to use them. </p>
   </section>
