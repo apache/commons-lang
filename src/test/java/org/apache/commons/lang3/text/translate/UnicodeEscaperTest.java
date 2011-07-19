@@ -30,7 +30,7 @@ public class UnicodeEscaperTest extends TestCase {
 
         String input = "ADFGZ";
         String result = ue.translate(input);
-        assertEquals("Failed to escape unicode characters via the below method", "\\u0041\\u0044FGZ", result);
+        assertEquals("Failed to escape Unicode characters via the below method", "\\u0041\\u0044FGZ", result);
     }
 
     public void testBetween() {
@@ -38,7 +38,7 @@ public class UnicodeEscaperTest extends TestCase {
 
         String input = "ADFGZ";
         String result = ue.translate(input);
-        assertEquals("Failed to escape unicode characters via the between method", "AD\\u0046\\u0047Z", result);
+        assertEquals("Failed to escape Unicode characters via the between method", "AD\\u0046\\u0047Z", result);
     }
 
     public void testAbove() {
@@ -46,6 +46,6 @@ public class UnicodeEscaperTest extends TestCase {
 
         String input = "ADFGZ";
         String result = ue.translate(input);
-        assertEquals("Failed to escape unicode characters via the above method", "ADF\\u0047\\u005A", result);
+        assertEquals("Failed to escape Unicode characters via the above method", "ADF\\u0047\\u005A", result);
     }
 }

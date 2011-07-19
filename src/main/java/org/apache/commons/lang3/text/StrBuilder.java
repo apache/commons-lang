@@ -186,7 +186,7 @@ public class StrBuilder implements CharSequence, Appendable {
 
     /**
      * Updates the length of the builder by either dropping the last characters
-     * or adding filler of unicode zero.
+     * or adding filler of Unicode zero.
      *
      * @param length  the length to set to, must be zero or positive
      * @return this, to enable chaining

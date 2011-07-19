@@ -30,7 +30,7 @@ public class UnicodeUnescaperTest extends TestCase {
         UnicodeUnescaper uu = new UnicodeUnescaper();
 
         String input = "\\u+0047";
-        assertEquals("Failed to unescape unicode characters with 'u+' notation", "G", uu.translate(input));
+        assertEquals("Failed to unescape Unicode characters with 'u+' notation", "G", uu.translate(input));
     }
 
     public void testUuuuu() {
@@ -38,7 +38,7 @@ public class UnicodeUnescaperTest extends TestCase {
 
         String input = "\\uuuuuuuu0047";
         String result = uu.translate(input);
-        assertEquals("Failed to unescape unicode characters with many 'u' characters", "G", result);
+        assertEquals("Failed to unescape Unicode characters with many 'u' characters", "G", result);
     }
 
     public void testLessThanFour() {
@@ -47,7 +47,7 @@ public class UnicodeUnescaperTest extends TestCase {
         String input = "\\0047\\u006";
         try {
             uu.translate(input);
-            fail("A lack of digits in a unicode escape sequence failed to throw an exception");
+            fail("A lack of digits in a Unicode escape sequence failed to throw an exception");
         } catch(IllegalArgumentException iae) {
             // expected
         }

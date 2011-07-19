@@ -53,7 +53,7 @@ BUG FIXES IN 2.2:
 <a href="https://issues.apache.org/jira/browse/LANG-45">LANG-45</a>   StrBuilderTest#testReplaceStringString fails.
 <a href="https://issues.apache.org/jira/browse/LANG-50">LANG-50</a>   Replace Clover with Cobertura
 <a href="https://issues.apache.org/jira/browse/LANG-59">LANG-59</a>   DateUtils.truncate method is buggy when dealing with DST switching hours
-<a href="https://issues.apache.org/jira/browse/LANG-100">LANG-100</a>  RandomStringUtils.random() family of methods create invalid unicode sequences
+<a href="https://issues.apache.org/jira/browse/LANG-100">LANG-100</a>  RandomStringUtils.random() family of methods create invalid Unicode sequences
 <a href="https://issues.apache.org/jira/browse/LANG-105">LANG-105</a>  ExceptionUtils goes into infinite loop in getThrowables is throwable.getCause() == throwable
 <a href="https://issues.apache.org/jira/browse/LANG-106">LANG-106</a>  StringUtils#getLevenshteinDistance() performance is sub-optimal
 <a href="https://issues.apache.org/jira/browse/LANG-112">LANG-112</a>  Wrong length check in StrTokenizer.StringMatcher
