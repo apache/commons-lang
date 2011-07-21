@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -89,9 +90,24 @@ public class EnumUtilsTest {
         EnumUtils.getEnum((Class<Traffic>) null, "PURPLE");
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=NullPointerException.class)
     public void test_generateBitVector_nullClass() {
         EnumUtils.generateBitVector(null, EnumSet.of(Traffic.RED));
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void test_generateBitVector_nullIterable() {
+        EnumUtils.generateBitVector(null, (Iterable<Traffic>) null);
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void test_generateBitVector_nullClassWithArray() {
+        EnumUtils.generateBitVector(null, Traffic.RED);
+    }
+    
+    @Test(expected=NullPointerException.class)
+    public void test_generateBitVector_nullArray() {
+        EnumUtils.generateBitVector(null, (Traffic[]) null);
     }
 
     @Test(expected=IllegalArgumentException.class)
@@ -99,9 +115,31 @@ public class EnumUtilsTest {
         EnumUtils.generateBitVector(TooMany.class, EnumSet.of(TooMany.A1));
     }
 
+    @Test(expected=IllegalArgumentException.class)
+    public void test_generateBitVector_longClassWithArray() {
+        EnumUtils.generateBitVector(TooMany.class, TooMany.A1);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test(expected=IllegalArgumentException.class)
+    public void test_generateBitVector_nonEnumClass() {
+        @SuppressWarnings("rawtypes")
+        Class rawType = Object.class;
+        @SuppressWarnings("rawtypes")
+        List rawList = new ArrayList();
+        EnumUtils.generateBitVector(rawType, rawList);
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Test(expected=IllegalArgumentException.class)
+    public void test_generateBitVector_nonEnumClassWithArray() {
+        @SuppressWarnings("rawtypes")
+        Class rawType = Object.class;
+        EnumUtils.generateBitVector(rawType);
+    }
+    
     @Test
     public void test_generateBitVector() {
-        assertEquals(0L, EnumUtils.generateBitVector(Traffic.class, null));
         assertEquals(0L, EnumUtils.generateBitVector(Traffic.class, EnumSet.noneOf(Traffic.class)));
         assertEquals(1L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.RED)));
         assertEquals(2L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.AMBER)));
@@ -112,7 +150,21 @@ public class EnumUtilsTest {
         assertEquals(7L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.RED, Traffic.AMBER, Traffic.GREEN)));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
+    public void test_generateBitVectorFromArray() {
+        assertEquals(0L, EnumUtils.generateBitVector(Traffic.class));
+        assertEquals(1L, EnumUtils.generateBitVector(Traffic.class, Traffic.RED));
+        assertEquals(2L, EnumUtils.generateBitVector(Traffic.class, Traffic.AMBER));
+        assertEquals(4L, EnumUtils.generateBitVector(Traffic.class, Traffic.GREEN));
+        assertEquals(3L, EnumUtils.generateBitVector(Traffic.class, Traffic.RED, Traffic.AMBER));
+        assertEquals(5L, EnumUtils.generateBitVector(Traffic.class, Traffic.RED, Traffic.GREEN));
+        assertEquals(6L, EnumUtils.generateBitVector(Traffic.class, Traffic.AMBER, Traffic.GREEN));
+        assertEquals(7L, EnumUtils.generateBitVector(Traffic.class, Traffic.RED, Traffic.AMBER, Traffic.GREEN));
+        //gracefully handles duplicates:
+        assertEquals(7L, EnumUtils.generateBitVector(Traffic.class, Traffic.RED, Traffic.AMBER, Traffic.GREEN, Traffic.GREEN));
+    }
+    
+    @Test(expected=NullPointerException.class)
     public void test_processBitVector_nullClass() {
         final Class<Traffic> empty = null;
         EnumUtils.processBitVector(empty, 0L);
