@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.EnumSet;
 
 /**
  * <p>Utility library to provide helper methods for Java enums.</p>
@@ -114,4 +115,66 @@ public class EnumUtils {
         }
     }
 
+    /**
+     * <p>Creates a long bit vector representation of the given subset of an Enum.</p>
+     *
+     * <p>This generates a value that is usable by {@link EnumUtils#processBitVector}.</p>
+     *
+     * <p>Do not use this method if you have more than 64 values in your Enum, as this
+     * would create a value greater than a long can hold.</p>
+     *
+     * @param enumClass the class of the enum we are working with, not null
+     * @param set       the set of enum values we want to convert
+     * @param <E>       the type of the enumeration
+     * @return a long whose binary value represents the given set of enum values.
+     */
+    public static <E extends Enum<E>> long generateBitVector(Class<E> enumClass, EnumSet<E> set) {
+        if (enumClass == null) {
+            throw new IllegalArgumentException("EnumClass must be defined.");
+        }
+        final E[] constants = enumClass.getEnumConstants();
+        if (constants != null && constants.length > 64) {
+            throw new IllegalArgumentException("EnumClass is too big to be stored in a 64-bit value.");
+        }
+        long total = 0;
+        if (set != null) {
+            if (constants != null && constants.length > 0) {
+                for (E constant : constants) {
+                    if (set.contains(constant)) {
+                        total += Math.pow(2, constant.ordinal());
+                    }
+                }
+            }
+        }
+        return total;
+    }
+
+    /**
+     * <p>Convert a long value created by {@link EnumUtils#generateBitVector} into the set of
+     * enum values that it represents.</p>
+     *
+     * <p>If you store this value, beware any changes to the enum that would affect ordinal values.</p>
+     * @param enumClass the class of the enum we are working with, not null
+     * @param value     the long value representation of a set of enum values
+     * @param <E>       the type of the enumeration
+     * @return a set of enum values
+     */
+    public static <E extends Enum<E>> EnumSet<E> processBitVector(Class<E> enumClass, long value) {
+        if (enumClass == null) {
+            throw new IllegalArgumentException("EnumClass must be defined.");
+        }
+        final E[] constants = enumClass.getEnumConstants();
+        if (constants != null && constants.length > 64) {
+            throw new IllegalArgumentException("EnumClass is too big to be stored in a 64-bit value.");
+        }
+        final EnumSet results = EnumSet.noneOf(enumClass);
+        if (constants != null && constants.length > 0) {
+            for (E constant : constants) {
+                if ((value & (1 << constant.ordinal())) != 0) {
+                    results.add(constant);
+                }
+            }
+        }
+        return results;
+    }
 }

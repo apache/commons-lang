@@ -18,6 +18,7 @@
  */
 package org.apache.commons.lang3;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
@@ -89,8 +90,69 @@ public class EnumUtilsTest extends TestCase {
         }
     }
 
+    public void test_generateBitVector_nullClass() {
+        try {
+            EnumUtils.generateBitVector(null, EnumSet.of(Traffic.RED));
+        } catch (IllegalArgumentException ex) {
+            // ok
+        }
+    }
+
+    public void test_generateBitVector_longClass() {
+        try {
+            EnumUtils.generateBitVector(TooMany.class, EnumSet.of(TooMany.A1));
+        } catch (IllegalArgumentException ex) {
+            // ok
+        }
+    }
+
+    public void test_generateBitVector() {
+        assertEquals(0L, EnumUtils.generateBitVector(Traffic.class, null));
+        assertEquals(0L, EnumUtils.generateBitVector(Traffic.class, EnumSet.noneOf(Traffic.class)));
+        assertEquals(1L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.RED)));
+        assertEquals(2L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.AMBER)));
+        assertEquals(4L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.GREEN)));
+        assertEquals(3L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.RED, Traffic.AMBER)));
+        assertEquals(5L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.RED, Traffic.GREEN)));
+        assertEquals(6L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.AMBER, Traffic.GREEN)));
+        assertEquals(7L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.RED, Traffic.AMBER, Traffic.GREEN)));
+    }
+
+    public void test_processBitVector_nullClass() {
+        final Class<Traffic> empty = null;
+        try {
+            EnumUtils.processBitVector(empty, 0L);
+        } catch (IllegalArgumentException ex) {
+            // ok
+        }
+    }
+
+    public void test_processBitVector_longClass() {
+        try {
+            EnumUtils.processBitVector(TooMany.class, 0L);
+        } catch (IllegalArgumentException ex) {
+            // ok
+        }
+    }
+
+    public void test_processBitVector() {
+        assertEquals(EnumSet.noneOf(Traffic.class), EnumUtils.processBitVector(Traffic.class, 0L));
+        assertEquals(EnumSet.of(Traffic.RED), EnumUtils.processBitVector(Traffic.class, 1L));
+        assertEquals(EnumSet.of(Traffic.AMBER), EnumUtils.processBitVector(Traffic.class, 2L));
+        assertEquals(EnumSet.of(Traffic.RED, Traffic.AMBER), EnumUtils.processBitVector(Traffic.class, 3L));
+        assertEquals(EnumSet.of(Traffic.GREEN), EnumUtils.processBitVector(Traffic.class, 4L));
+        assertEquals(EnumSet.of(Traffic.RED, Traffic.GREEN), EnumUtils.processBitVector(Traffic.class, 5L));
+        assertEquals(EnumSet.of(Traffic.AMBER, Traffic.GREEN), EnumUtils.processBitVector(Traffic.class, 6L));
+        assertEquals(EnumSet.of(Traffic.RED, Traffic.AMBER, Traffic.GREEN), EnumUtils.processBitVector(Traffic.class, 7L));
+    }
 }
 
 enum Traffic {
     RED, AMBER, GREEN
+}
+
+enum TooMany{
+    A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
+    A1,B1,C1,D1,E1,F1,G1,H1,I1,J1,K1,L1,M1,N1,O1,P1,Q1,R1,S1,T1,U1,V1,W1,X1,Y1,Z1;
+
 }

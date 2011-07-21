@@ -21,6 +21,10 @@
   </properties>
   <body>
 
+  <release version="3.0.1" date="Unreleased" description="Next 3.x release">  
+    <action type="add" issue="LANG-730">EnumSet -> bit vector</action>
+  </release>
+
   <release version="3.0" date="2011-07-18" description="Backwards incompatible update of Commons Lang to Java 5">  
     <action type="fix" issue="LANG-720">StringEscapeUtils.escapeXml(input) outputs wrong results when an input contains characters in Supplementary Planes.</action>
     <action type="update" issue="LANG-718">build.xml Java 1.5+ updates.</action>
