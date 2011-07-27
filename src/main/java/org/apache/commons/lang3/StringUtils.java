@@ -3907,7 +3907,7 @@ public class StringUtils {
      *            the Strings to replace them with, no-op if null
      * @return the text with any replacements processed, {@code null} if
      *         null String input
-     * @throws IndexOutOfBoundsException
+     * @throws IllegalArgumentException
      *             if the lengths of the arrays are not the same (null is ok,
      *             and/or size 0)
      * @since 2.4
@@ -3940,7 +3940,7 @@ public class StringUtils {
      *  (example of how it repeats)
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false) = "dcte"
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true) = "tcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, true) = IllegalArgumentException
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, true) = IllegalStateException
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, false) = "dcabe"
      * </pre>
      *
@@ -3952,10 +3952,10 @@ public class StringUtils {
      *            the Strings to replace them with, no-op if null
      * @return the text with any replacements processed, {@code null} if
      *         null String input
-     * @throws IllegalArgumentException
+     * @throws IllegalStateException
      *             if the search is repeating and there is an endless loop due
      *             to outputs of one being inputs to another
-     * @throws IndexOutOfBoundsException
+     * @throws IllegalArgumentException
      *             if the lengths of the arrays are not the same (null is ok,
      *             and/or size 0)
      * @since 2.4
@@ -3991,7 +3991,7 @@ public class StringUtils {
      *  (example of how it repeats)
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false) = "dcte"
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true) = "tcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *) = IllegalArgumentException
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *) = IllegalStateException
      * </pre>
      *
      * @param text
@@ -4007,10 +4007,10 @@ public class StringUtils {
      *            loop
      * @return the text with any replacements processed, {@code null} if
      *         null String input
-     * @throws IllegalArgumentException
+     * @throws IllegalStateException
      *             if the search is repeating and there is an endless loop due
      *             to outputs of one being inputs to another
-     * @throws IndexOutOfBoundsException
+     * @throws IllegalArgumentException
      *             if the lengths of the arrays are not the same (null is ok,
      *             and/or size 0)
      * @since 2.4
