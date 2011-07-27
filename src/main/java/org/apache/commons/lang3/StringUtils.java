@@ -3924,8 +3924,7 @@ public class StringUtils {
      * <p>
      * A {@code null} reference passed to this method is a no-op, or if
      * any "search string" or "string to replace" is null, that replace will be
-     * ignored. This will not repeat. For repeating replaces, call the
-     * overloaded method.
+     * ignored. 
      * </p>
      *
      * <pre>
