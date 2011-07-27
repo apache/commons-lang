@@ -4028,7 +4028,8 @@ public class StringUtils {
 
         // if recursing, this shouldn't be less than 0
         if (timeToLive < 0) {
-            throw new IllegalStateException("TimeToLive of " + timeToLive + " is less than 0: " + text);
+            throw new IllegalStateException("Output of one loop is the input of another; " + 
+                                            "protecting from potential StackOverflowError");
         }
 
         int searchLength = searchList.length;
