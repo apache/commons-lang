@@ -4028,8 +4028,8 @@ public class StringUtils {
 
         // if recursing, this shouldn't be less than 0
         if (timeToLive < 0) {
-            throw new IllegalStateException("Output of one loop is the input of another; " + 
-                                            "protecting from potential StackOverflowError");
+            throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
+                                            "output of one loop is the input of another");
         }
 
         int searchLength = searchList.length;
