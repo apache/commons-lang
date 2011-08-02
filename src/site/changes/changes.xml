@@ -26,6 +26,7 @@
     <action type="fix" issue="LANG-727">ToStringBuilderTest.testReflectionHierarchyArrayList fails with IBM JDK 6</action>
     <action type="fix" issue="LANG-720">StringEscapeUtils.escapeXml(input) wrong when input contains characters in Supplementary Planes</action>
     <action type="fix" issue="LANG-708">StringEscapeUtils.escapeEcmaScript from lang3 cuts off long unicode string</action>
+    <action type="update" issue="LANG-686">Improve exception message when StringUtils.replaceEachRepeatedly detects recursion</action>
     <action type="update" issue="LANG-717">Specify source encoding for Ant build</action>
     <action type="add" issue="LANG-721">Complement ArrayUtils.addAll() variants with by-index and by-value removal methods</action>
     <action type="add" issue="LANG-726">Add Range<T> Range&lt;T&gt;.intersectionWith(Range&lt;T&gt;)</action>
