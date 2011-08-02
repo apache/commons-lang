@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.ObjectStreamClass;
 import java.io.OutputStream;
 import java.io.Serializable;
 
@@ -73,14 +74,36 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static <T extends Serializable> T clone(T object) {
-        /*
-         * when we serialize and deserialize an object,
-         * it is reasonable to assume the deserialized object
-         * is of the same type as the original serialized object
-         */
-        @SuppressWarnings("unchecked")
-        final T result = (T) deserialize(serialize(object));
-        return result;
+        if (object == null) {
+            return null;
+        }
+        byte[] objectData = serialize(object);
+        ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
+
+        ClassLoaderAwareObjectInputStream in = null;
+        try {
+            // stream closed in the finally
+            in = new ClassLoaderAwareObjectInputStream(bais, object.getClass().getClassLoader());
+            /*
+             * when we serialize and deserialize an object,
+             * it is reasonable to assume the deserialized object
+             * is of the same type as the original serialized object
+             */
+            return (T) in.readObject();
+
+        } catch (ClassNotFoundException ex) {
+            throw new SerializationException("ClassNotFoundException while reading cloned object data", ex);
+        } catch (IOException ex) {
+            throw new SerializationException("IOException while reading cloned object data", ex);
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                throw new SerializationException("IOException on closing cloned object data InputStream.", ex);
+            }
+        }
     }
 
     // Serialize
@@ -193,6 +216,54 @@ public class SerializationUtils {
         }
         ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
         return deserialize(bais);
+    }
+
+    /**
+     * <p>Custom specialization of the standard JDK {@link java.io.ObjectInputStream}
+     * that uses a custom  <code>ClassLoader</code> to resolve a class.
+     * If the specified <code>ClassLoader</code> is not able to resolve the class,
+     * the context classloader of the current thread will be used.
+     * This way, the standard deserialization work also in web-application
+     * containers and application servers, no matter in which of the
+     * <code>ClassLoader</code> the particular class that encapsulates
+     * serialization/deserialization lives. </p>
+     * 
+     * <p>For more in-depth information about the problem for which this
+     * class here is a workaround, see the JIRA issue LANG-626. </p>
+     */
+     static class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
+        private ClassLoader classLoader;
+
+        /**
+         * Constructor.
+         * @param in The <code>InputStream</code>.
+         * @param classLoader classloader to use
+         * @throws IOException if an I/O error occurs while reading stream header.
+         * @see java.io.ObjectInputStream
+         */
+        public ClassLoaderAwareObjectInputStream(InputStream in, ClassLoader classLoader) throws IOException {
+            super(in);
+            this.classLoader = classLoader;
+        }
+
+        /**
+         * Overriden version that uses the parametrized <code>ClassLoader</code> or the <code>ClassLoader</code>
+         * of the current <code>Thread</code> to resolve the class.
+         * @param desc An instance of class <code>ObjectStreamClass</code>.
+         * @return A <code>Class</code> object corresponding to <code>desc</code>.
+         * @throws IOException Any of the usual Input/Output exceptions.
+         * @throws ClassNotFoundException If class of a serialized object cannot be found.
+         */
+        @Override
+        protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
+            String name = desc.getName();
+            try {
+                return Class.forName(name, false, classLoader);
+            } catch (ClassNotFoundException ex) {
+                return Class.forName(name, false, Thread.currentThread().getContextClassLoader());
+            }
+        }
+
     }
 
 }
