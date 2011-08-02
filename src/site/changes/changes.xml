@@ -22,7 +22,16 @@
   <body>
 
   <release version="3.0.1" date="Unreleased" description="Next 3.x release">  
-    <action type="add" issue="LANG-730">EnumSet -> bit vector</action>
+    <action type="fix" issue="LANG-626">SerializationUtils.clone: Fallback to context classloader if class not found in current classloader</action>
+    <action type="fix" issue="LANG-727">ToStringBuilderTest.testReflectionHierarchyArrayList fails with IBM JDK 6</action>
+    <action type="fix" issue="LANG-720">StringEscapeUtils.escapeXml(input) wrong when input contains characters in Supplementary Planes</action>
+    <action type="fix" issue="LANG-708">StringEscapeUtils.escapeEcmaScript from lang3 cuts off long unicode string</action>
+    <action type="update" issue="LANG-717">Specify source encoding for Ant build</action>
+    <action type="add" issue="LANG-721">Complement ArrayUtils.addAll() variants with by-index and by-value removal methods</action>
+    <action type="add" issue="LANG-726">Add Range<T> Range&lt;T&gt;.intersectionWith(Range&lt;T&gt;)</action>
+    <action type="add" issue="LANG-723">Add mode and median Comparable... methods to ObjectUtils</action>
+    <action type="add" issue="LANG-722">Add BooleanUtils.and + or varargs methods</action>
+    <action type="add" issue="LANG-730">EnumSet -&gt; bit vector</action>
   </release>
 
   <release version="3.0" date="2011-07-18" description="Backwards incompatible update of Commons Lang to Java 5">  
