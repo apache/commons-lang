@@ -88,4 +88,11 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         assertTrue(message != null);
     }
 
+    public void testRawMessage() {
+        assertEquals(Exception.class.getName() + ": " + TEST_MESSAGE, exceptionContext.getRawMessage());
+        exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext());
+        assertEquals(TEST_MESSAGE_2, exceptionContext.getRawMessage());
+        exceptionContext = new ContextedException(null, new Exception(TEST_MESSAGE), new DefaultExceptionContext());
+        assertNull(exceptionContext.getRawMessage());
+    }
 }
