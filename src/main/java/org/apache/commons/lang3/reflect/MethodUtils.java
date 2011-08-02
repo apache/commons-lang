@@ -517,22 +517,16 @@ public class MethodUtils {
         Method bestMatch = null;
         Method[] methods = cls.getMethods();
         for (Method method : methods) {
-            if (method.getName().equals(methodName)) {
-                // compare parameters
-                if (ClassUtils.isAssignable(parameterTypes, method
-                        .getParameterTypes(), true)) {
-                    // get accessible version of method
-                    Method accessibleMethod = getAccessibleMethod(method);
-                    if (accessibleMethod != null) {
-                        if (bestMatch == null
-                                || MemberUtils.compareParameterTypes(
-                                        accessibleMethod.getParameterTypes(),
-                                        bestMatch.getParameterTypes(),
-                                        parameterTypes) < 0) {
-                            bestMatch = accessibleMethod;
-                        }
-                    }
-                }
+            // compare name and parameters
+            if (method.getName().equals(methodName) && ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true)) {
+                // get accessible version of method
+                Method accessibleMethod = getAccessibleMethod(method);
+                if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareParameterTypes(
+                            accessibleMethod.getParameterTypes(),
+                            bestMatch.getParameterTypes(),
+                            parameterTypes) < 0)) {
+                        bestMatch = accessibleMethod;
+                 }
             }
         }
         if (bestMatch != null) {

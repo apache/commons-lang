@@ -4425,10 +4425,8 @@ public class StringUtils {
         int lastIdx = strLen - 1;
         String ret = str.substring(0, lastIdx);
         char last = str.charAt(lastIdx);
-        if (last == CharUtils.LF) {
-            if (ret.charAt(lastIdx - 1) == CharUtils.CR) {
-                return ret.substring(0, lastIdx - 1);
-            }
+        if (last == CharUtils.LF && ret.charAt(lastIdx - 1) == CharUtils.CR) {
+            return ret.substring(0, lastIdx - 1);
         }
         return ret;
     }

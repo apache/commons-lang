@@ -773,12 +773,10 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                 }
                 
                 // check for quote, and thus back into quoting mode
-                if (quoteLen > 0) {
-                    if (isQuote(chars, pos, len, quoteStart, quoteLen)) {
-                        quoting = true;
-                        pos += quoteLen;
-                        continue;
-                    }
+                if (quoteLen > 0 && isQuote(chars, pos, len, quoteStart, quoteLen)) {
+                    quoting = true;
+                    pos += quoteLen;
+                    continue;
                 }
                 
                 // check for ignored (outside quotes), and ignore
