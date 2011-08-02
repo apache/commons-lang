@@ -303,6 +303,7 @@ public class ToStringBuilderTest extends TestCase {
         List<Object> base = new ArrayList<Object>();
         String baseStr = this.toBaseString(base);
 
+        // Lots of contains methods so we're not making assumptions about the order of ArrayList [LANG-727].
         String result = ToStringBuilder.reflectionToString(base, null, true);
         assertTrue( StringUtils.startsWith(result, baseStr + "[") );
         assertTrue( StringUtils.contains(result, "elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>}" ) );
