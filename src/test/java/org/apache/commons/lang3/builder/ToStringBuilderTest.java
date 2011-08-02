@@ -22,6 +22,8 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Unit tests for {@link org.apache.commons.lang3.builder.ToStringBuilder}.
  *
@@ -300,8 +302,15 @@ public class ToStringBuilderTest extends TestCase {
     public void testReflectionHierarchyArrayList() {
         List<Object> base = new ArrayList<Object>();
         String baseStr = this.toBaseString(base);
-        assertEquals(baseStr + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]", ToStringBuilder.reflectionToString(base, null, true));
+
+        String result = ToStringBuilder.reflectionToString(base, null, true);
+        assertTrue( StringUtils.startsWith(result, baseStr + "[") );
+        assertTrue( StringUtils.contains(result, "elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>}" ) );
+        assertTrue( StringUtils.contains(result, "size=0") );
+        assertTrue( StringUtils.contains(result, "modCount=0") );
+        assertTrue( StringUtils.endsWith(result, "]") );
         assertEquals(baseStr + "[size=0]", ToStringBuilder.reflectionToString(base, null, false));
+
         this.validateNullToStringStyleRegistry();
     }
 
