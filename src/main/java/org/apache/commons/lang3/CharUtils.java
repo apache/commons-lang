@@ -48,7 +48,6 @@ public class CharUtils {
         "\u0078\u0079\u007a\u007b\u007c\u007d\u007e\u007f";
     
     private static final String[] CHAR_STRING_ARRAY = new String[128];
-    private static final Character[] CHAR_ARRAY = new Character[128];
     
     /**
      * {@code \u000a} linefeed LF ('\n').
@@ -72,7 +71,6 @@ public class CharUtils {
     static {
         for (int i = 127; i >= 0; i--) {
             CHAR_STRING_ARRAY[i] = CHAR_STRING.substring(i, i + 1);
-            CHAR_ARRAY[i] = new Character((char) i);
         }
     }
 
@@ -99,14 +97,13 @@ public class CharUtils {
      *   CharUtils.toCharacterObject('A')  = 'A'
      * </pre>
      *
+     * @deprecated Java 5 introduced {@link Character#valueOf(char)} which caches chars 0 through 127.
      * @param ch  the character to convert
      * @return a Character of the specified character
      */
+    @Deprecated
     public static Character toCharacterObject(char ch) {
-        if (ch < CHAR_ARRAY.length) {
-            return CHAR_ARRAY[ch];
-        }
-        return new Character(ch);
+        return Character.valueOf(ch);
     }
     
     /**
@@ -130,7 +127,7 @@ public class CharUtils {
         if (StringUtils.isEmpty(str)) {
             return null;
         }
-        return toCharacterObject(str.charAt(0));
+        return Character.valueOf(str.charAt(0));
     }
     
     //-----------------------------------------------------------------------
