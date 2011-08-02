@@ -227,10 +227,20 @@ public class ContextedException extends Exception implements ExceptionContext {
     }
 
     /**
+     * Provides the message explaining the exception without the contextual data.
+     * 
+     * @see java.lang.Throwable#getMessage()
+     * @return the message
+     * @since 3.0.1
+     */
+    public String getRawMessage() {
+        return super.getMessage();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public String getFormattedExceptionMessage(String baseMessage) {
         return exceptionContext.getFormattedExceptionMessage(baseMessage);
     }
-
 }

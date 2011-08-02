@@ -227,6 +227,17 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     }
 
     /**
+     * Provides the message explaining the exception without the contextual data.
+     * 
+     * @see java.lang.Throwable#getMessage()
+     * @return the message
+     * @since 3.0.1
+     */
+    public String getRawMessage() {
+        return super.getMessage();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public String getFormattedExceptionMessage(String baseMessage) {
