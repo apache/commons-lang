@@ -937,7 +937,7 @@ public class ToStringBuilderTest extends TestCase {
      * @return the String result
      * @throws IllegalArgumentException if the Object is <code>null</code>
      */
-    public Object toStringWithStatics(Object object, ToStringStyle style, Class reflectUpToClass) {
+    public <T> String toStringWithStatics(T object, ToStringStyle style, Class<? super T> reflectUpToClass) {
         return ReflectionToStringBuilder.toString(object, style, false, true, reflectUpToClass);
     }
 
