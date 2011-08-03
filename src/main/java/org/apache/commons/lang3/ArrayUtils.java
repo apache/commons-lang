@@ -4988,8 +4988,9 @@ public class ArrayUtils {
      * ArrayUtils.removeElements(["a", "b", "a"], "a", "a") = ["b"]
      * </pre>
      *
+     * @param <T> the component type of the array
      * @param array  the array to remove the element from, may be {@code null}
-     * @param elements  the elements to be removed
+     * @param values the elements to be removed
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -5043,7 +5044,6 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param <T> the component type of the array
      * @param array   the array to remove the element from, may not be {@code null}
      * @param indices the positions of the elements to be removed
      * @return A new array containing the existing elements except those
@@ -5078,7 +5078,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array  the array to remove the element from, may be {@code null}
-     * @param elements  the elements to be removed
+     * @param values the elements to be removed
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -5133,7 +5133,6 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param <T> the component type of the array
      * @param array   the array to remove the element from, may not be {@code null}
      * @param indices the positions of the elements to be removed
      * @return A new array containing the existing elements except those
@@ -5168,7 +5167,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array  the array to remove the element from, may be {@code null}
-     * @param elements  the elements to be removed
+     * @param values the elements to be removed
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -5223,7 +5222,6 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param <T> the component type of the array
      * @param array   the array to remove the element from, may not be {@code null}
      * @param indices the positions of the elements to be removed
      * @return A new array containing the existing elements except those
@@ -5258,7 +5256,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array  the array to remove the element from, may be {@code null}
-     * @param elements  the elements to be removed
+     * @param values the elements to be removed
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -5313,7 +5311,6 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param <T> the component type of the array
      * @param array   the array to remove the element from, may not be {@code null}
      * @param indices the positions of the elements to be removed
      * @return A new array containing the existing elements except those
@@ -5348,7 +5345,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array  the array to remove the element from, may be {@code null}
-     * @param elements  the elements to be removed
+     * @param values the elements to be removed
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -5403,7 +5400,6 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param <T> the component type of the array
      * @param array   the array to remove the element from, may not be {@code null}
      * @param indices the positions of the elements to be removed
      * @return A new array containing the existing elements except those
@@ -5438,7 +5434,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array  the array to remove the element from, may be {@code null}
-     * @param elements  the elements to be removed
+     * @param values the elements to be removed
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -5493,7 +5489,6 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param <T> the component type of the array
      * @param array   the array to remove the element from, may not be {@code null}
      * @param indices the positions of the elements to be removed
      * @return A new array containing the existing elements except those
@@ -5528,7 +5523,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array  the array to remove the element from, may be {@code null}
-     * @param elements  the elements to be removed
+     * @param values the elements to be removed
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -5583,7 +5578,6 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param <T> the component type of the array
      * @param array   the array to remove the element from, may not be {@code null}
      * @param indices the positions of the elements to be removed
      * @return A new array containing the existing elements except those
@@ -5618,7 +5612,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array  the array to remove the element from, may be {@code null}
-     * @param elements  the elements to be removed
+     * @param values the elements to be removed
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -5669,7 +5663,6 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([true, false, true], 1, 2) = [true]
      * </pre>
      *
-     * @param <T> the component type of the array
      * @param array   the array to remove the element from, may not be {@code null}
      * @param indices the positions of the elements to be removed
      * @return A new array containing the existing elements except those
@@ -5704,7 +5697,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array  the array to remove the element from, may be {@code null}
-     * @param elements  the elements to be removed
+     * @param values the elements to be removed
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1

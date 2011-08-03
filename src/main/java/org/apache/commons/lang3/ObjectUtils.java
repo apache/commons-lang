@@ -463,7 +463,7 @@ public class ObjectUtils {
     /**
      * Find the most frequently occurring item.
      * 
-     * @param <T>
+     * @param <T> type of values processed by this method
      * @param items to check
      * @return most populous T, {@code null} if non-unique or no items supplied
      * @since 3.0.1
