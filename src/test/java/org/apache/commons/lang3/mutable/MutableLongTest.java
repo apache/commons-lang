@@ -36,7 +36,7 @@ public class MutableLongTest extends TestCase {
         
         assertEquals(1, new MutableLong(1).longValue());
         
-        assertEquals(2, new MutableLong(new Long(2)).longValue());
+        assertEquals(2, new MutableLong(Long.valueOf(2)).longValue());
         assertEquals(3, new MutableLong(new MutableLong(3)).longValue());
 
         assertEquals(2, new MutableLong("2").longValue());
@@ -50,19 +50,19 @@ public class MutableLongTest extends TestCase {
     public void testGetSet() {
         final MutableLong mutNum = new MutableLong(0);
         assertEquals(0, new MutableLong().longValue());
-        assertEquals(new Long(0), new MutableLong().getValue());
+        assertEquals(Long.valueOf(0), new MutableLong().getValue());
         
         mutNum.setValue(1);
         assertEquals(1, mutNum.longValue());
-        assertEquals(new Long(1), mutNum.getValue());
+        assertEquals(Long.valueOf(1), mutNum.getValue());
         
-        mutNum.setValue(new Long(2));
+        mutNum.setValue(Long.valueOf(2));
         assertEquals(2, mutNum.longValue());
-        assertEquals(new Long(2), mutNum.getValue());
+        assertEquals(Long.valueOf(2), mutNum.getValue());
         
         mutNum.setValue(new MutableLong(3));
         assertEquals(3, mutNum.longValue());
-        assertEquals(new Long(3), mutNum.getValue());
+        assertEquals(Long.valueOf(3), mutNum.getValue());
         try {
             mutNum.setValue(null);
             fail();
@@ -82,7 +82,7 @@ public class MutableLongTest extends TestCase {
         assertEquals(false, mutNumB.equals(mutNumC));
         assertEquals(true, mutNumC.equals(mutNumC));
         assertEquals(false, mutNumA.equals(null));
-        assertEquals(false, mutNumA.equals(new Long(0)));
+        assertEquals(false, mutNumA.equals(Long.valueOf(0)));
         assertEquals(false, mutNumA.equals("0"));
     }
 
@@ -94,7 +94,7 @@ public class MutableLongTest extends TestCase {
         assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
         assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
         assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(true, mutNumA.hashCode() == new Long(0).hashCode());
+        assertEquals(true, mutNumA.hashCode() == Long.valueOf(0).hashCode());
     }
 
     public void testCompareTo() {
@@ -121,8 +121,8 @@ public class MutableLongTest extends TestCase {
     }
 
     public void testToLong() {
-        assertEquals(new Long(0L), new MutableLong(0L).toLong());
-        assertEquals(new Long(123L), new MutableLong(123L).toLong());
+        assertEquals(Long.valueOf(0L), new MutableLong(0L).toLong());
+        assertEquals(Long.valueOf(123L), new MutableLong(123L).toLong());
     }
 
     public void testIncrement() {
@@ -151,7 +151,7 @@ public class MutableLongTest extends TestCase {
 
     public void testAddValueObject() {
         MutableLong mutNum = new MutableLong(1);
-        mutNum.add(new Long(1));
+        mutNum.add(Long.valueOf(1));
         
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
@@ -167,7 +167,7 @@ public class MutableLongTest extends TestCase {
 
     public void testSubtractValueObject() {
         MutableLong mutNum = new MutableLong(1);
-        mutNum.subtract(new Long(1));
+        mutNum.subtract(Long.valueOf(1));
         
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());

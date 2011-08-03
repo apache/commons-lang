@@ -82,7 +82,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @return the value as a Long, never null
      */
     public Long getValue() {
-        return new Long(this.value);
+        return Long.valueOf(this.value);
     }
 
     /**

@@ -187,10 +187,10 @@ public class NumberUtilsTest {
         assertEquals("createNumber(String) 3 failed", new Double("1234.5"), NumberUtils.createNumber("1234.5d"));
         assertEquals("createNumber(String) 4 failed", new Float("1234.5"), NumberUtils.createNumber("1234.5F"));
         assertEquals("createNumber(String) 4 failed", new Float("1234.5"), NumberUtils.createNumber("1234.5f"));
-        assertEquals("createNumber(String) 5 failed", new Long(Integer.MAX_VALUE + 1L), NumberUtils.createNumber(""
+        assertEquals("createNumber(String) 5 failed", Long.valueOf(Integer.MAX_VALUE + 1L), NumberUtils.createNumber(""
             + (Integer.MAX_VALUE + 1L)));
-        assertEquals("createNumber(String) 6 failed", new Long(12345), NumberUtils.createNumber("12345L"));
-        assertEquals("createNumber(String) 6 failed", new Long(12345), NumberUtils.createNumber("12345l"));
+        assertEquals("createNumber(String) 6 failed", Long.valueOf(12345), NumberUtils.createNumber("12345L"));
+        assertEquals("createNumber(String) 6 failed", Long.valueOf(12345), NumberUtils.createNumber("12345l"));
         assertEquals("createNumber(String) 7 failed", new Float("-1234.5"), NumberUtils.createNumber("-1234.5"));
         assertEquals("createNumber(String) 8 failed", Integer.valueOf("-12345"), NumberUtils.createNumber("-12345"));
         assertTrue("createNumber(String) 9 failed", 0xFADE == NumberUtils.createNumber("0xFADE").intValue());
@@ -208,9 +208,9 @@ public class NumberUtilsTest {
             assertEquals("createNumber(String) 15 failed", new BigDecimal("1.1E-700"), NumberUtils
                     .createNumber("1.1E-700F"));
         }
-        assertEquals("createNumber(String) 16 failed", new Long("10" + Integer.MAX_VALUE), NumberUtils
+        assertEquals("createNumber(String) 16 failed", Long.valueOf("10" + Integer.MAX_VALUE), NumberUtils
                 .createNumber("10" + Integer.MAX_VALUE + "L"));
-        assertEquals("createNumber(String) 17 failed", new Long("10" + Integer.MAX_VALUE), NumberUtils
+        assertEquals("createNumber(String) 17 failed", Long.valueOf("10" + Integer.MAX_VALUE), NumberUtils
                 .createNumber("10" + Integer.MAX_VALUE));
         assertEquals("createNumber(String) 18 failed", new BigInteger("10" + Long.MAX_VALUE), NumberUtils
                 .createNumber("10" + Long.MAX_VALUE));
@@ -288,7 +288,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testCreateLong() {
-        assertEquals("createLong(String) failed", new Long("12345"), NumberUtils.createLong("12345"));
+        assertEquals("createLong(String) failed", Long.valueOf("12345"), NumberUtils.createLong("12345"));
         assertEquals("createLong(null) failed", null, NumberUtils.createLong(null));
         this.testCreateLongFailure("");
         this.testCreateLongFailure(" ");
