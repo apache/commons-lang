@@ -2438,12 +2438,12 @@ public class ArrayUtilsTest extends TestCase {
         
         assertTrue(Arrays.equals(
             new short[] {Short.MIN_VALUE, Short.MAX_VALUE, (short)9999999},
-            ArrayUtils.toPrimitive(new Short[] {new Short(Short.MIN_VALUE), 
-                new Short(Short.MAX_VALUE), new Short((short)9999999)}))
+            ArrayUtils.toPrimitive(new Short[] {Short.valueOf(Short.MIN_VALUE), 
+                Short.valueOf(Short.MAX_VALUE), Short.valueOf((short)9999999)}))
         );
 
         try {
-            ArrayUtils.toPrimitive(new Short[] {new Short(Short.MIN_VALUE), null});
+            ArrayUtils.toPrimitive(new Short[] {Short.valueOf(Short.MIN_VALUE), null});
             fail();
         } catch (NullPointerException ex) {}
     }
@@ -2457,14 +2457,14 @@ public class ArrayUtilsTest extends TestCase {
         
         assertTrue(Arrays.equals(
             new short[] {Short.MIN_VALUE, Short.MAX_VALUE, (short)9999999},
-            ArrayUtils.toPrimitive(new Short[] {new Short(Short.MIN_VALUE), 
-                new Short(Short.MAX_VALUE), new Short((short)9999999)}, Short.MIN_VALUE))
+            ArrayUtils.toPrimitive(new Short[] {Short.valueOf(Short.MIN_VALUE), 
+                Short.valueOf(Short.MAX_VALUE), Short.valueOf((short)9999999)}, Short.MIN_VALUE))
         );
         
         assertTrue(Arrays.equals(
             new short[] {Short.MIN_VALUE, Short.MAX_VALUE, (short)9999999},
-            ArrayUtils.toPrimitive(new Short[] {new Short(Short.MIN_VALUE), null, 
-                new Short((short)9999999)}, Short.MAX_VALUE))
+            ArrayUtils.toPrimitive(new Short[] {Short.valueOf(Short.MIN_VALUE), null, 
+                Short.valueOf((short)9999999)}, Short.MAX_VALUE))
         );
     }
 
@@ -2476,8 +2476,8 @@ public class ArrayUtilsTest extends TestCase {
         ArrayUtils.toObject(new short[0]));
         
         assertTrue(Arrays.equals(
-            new Short[] {new Short(Short.MIN_VALUE), new Short(Short.MAX_VALUE), 
-                new Short((short)9999999)},
+            new Short[] {Short.valueOf(Short.MIN_VALUE), Short.valueOf(Short.MAX_VALUE), 
+                Short.valueOf((short)9999999)},
             ArrayUtils.toObject(new short[] {Short.MIN_VALUE, Short.MAX_VALUE, 
                 (short)9999999}))
         );

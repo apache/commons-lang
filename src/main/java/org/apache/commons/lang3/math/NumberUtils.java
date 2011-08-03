@@ -42,11 +42,11 @@ public class NumberUtils {
     /** Reusable Integer constant for minus one. */
     public static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
     /** Reusable Short constant for zero. */
-    public static final Short SHORT_ZERO = new Short((short) 0);
+    public static final Short SHORT_ZERO = Short.valueOf((short) 0);
     /** Reusable Short constant for one. */
-    public static final Short SHORT_ONE = new Short((short) 1);
+    public static final Short SHORT_ONE = Short.valueOf((short) 1);
     /** Reusable Short constant for minus one. */
-    public static final Short SHORT_MINUS_ONE = new Short((short) -1);
+    public static final Short SHORT_MINUS_ONE = Short.valueOf((short) -1);
     /** Reusable Byte constant for zero. */
     public static final Byte BYTE_ZERO = Byte.valueOf((byte) 0);
     /** Reusable Byte constant for one. */
@@ -404,7 +404,7 @@ public class NumberUtils {
     // Long.getLong(String,Integer)
     // Long.valueOf(String,int)
     // Long.valueOf(String)
-    // new Short(String)
+    // Short.valueOf(String)
     // Short.decode(String)
     // Short.valueOf(String,int)
     // Short.valueOf(String)
