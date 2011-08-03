@@ -2551,12 +2551,12 @@ public class ArrayUtilsTest extends TestCase {
          
          assertTrue(Arrays.equals(
              new long[] {Long.MIN_VALUE, Long.MAX_VALUE, 9999999},
-             ArrayUtils.toPrimitive(new Long[] {new Long(Long.MIN_VALUE), 
-                 new Long(Long.MAX_VALUE), new Long(9999999)}))
+             ArrayUtils.toPrimitive(new Long[] {Long.valueOf(Long.MIN_VALUE), 
+                 Long.valueOf(Long.MAX_VALUE), Long.valueOf(9999999)}))
          );
 
          try {
-             ArrayUtils.toPrimitive(new Long[] {new Long(Long.MIN_VALUE), null});
+             ArrayUtils.toPrimitive(new Long[] {Long.valueOf(Long.MIN_VALUE), null});
              fail();
          } catch (NullPointerException ex) {}
      }
@@ -2570,13 +2570,13 @@ public class ArrayUtilsTest extends TestCase {
          
          assertTrue(Arrays.equals(
              new long[] {Long.MIN_VALUE, Long.MAX_VALUE, 9999999},
-             ArrayUtils.toPrimitive(new Long[] {new Long(Long.MIN_VALUE), 
-                 new Long(Long.MAX_VALUE), new Long(9999999)},1)));
+             ArrayUtils.toPrimitive(new Long[] {Long.valueOf(Long.MIN_VALUE), 
+                 Long.valueOf(Long.MAX_VALUE), Long.valueOf(9999999)},1)));
          
          assertTrue(Arrays.equals(
              new long[] {Long.MIN_VALUE, Long.MAX_VALUE, 9999999},
-             ArrayUtils.toPrimitive(new Long[] {new Long(Long.MIN_VALUE), 
-                 null, new Long(9999999)}, Long.MAX_VALUE))
+             ArrayUtils.toPrimitive(new Long[] {Long.valueOf(Long.MIN_VALUE), 
+                 null, Long.valueOf(9999999)}, Long.MAX_VALUE))
          );
      }
      
@@ -2591,9 +2591,9 @@ public class ArrayUtilsTest extends TestCase {
         assertTrue(
             Arrays.equals(
                 new Long[] {
-                    new Long(Long.MIN_VALUE),
-                    new Long(Long.MAX_VALUE),
-                    new Long(9999999)},
+                    Long.valueOf(Long.MIN_VALUE),
+                    Long.valueOf(Long.MAX_VALUE),
+                    Long.valueOf(9999999)},
             ArrayUtils.toObject(
                 new long[] { Long.MIN_VALUE, Long.MAX_VALUE, 9999999 })));
     }
