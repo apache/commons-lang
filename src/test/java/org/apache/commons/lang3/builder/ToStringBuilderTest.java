@@ -29,7 +29,7 @@ import junit.framework.TestCase;
  */
 public class ToStringBuilderTest extends TestCase {
 
-    private final Integer base = new Integer(5);
+    private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
     public ToStringBuilderTest(String name) {
