@@ -1704,7 +1704,7 @@ public class StrBuilderTest extends TestCase {
         assertEquals(true, sb1.equals(sb2));
         assertEquals(true, sb1.equals((Object) sb2));
         
-        assertEquals(false, sb1.equals(new Integer(1)));
+        assertEquals(false, sb1.equals(Integer.valueOf(1)));
         assertEquals(false, sb1.equals("abc"));
     }
 

@@ -122,7 +122,7 @@ public abstract class StrLookup<V> {
      * the underlying data, by converting it as necessary. For example:
      * <pre>
      * Map<String, Object> map = new HashMap<String, Object>();
-     * map.put("number", new Integer(2));
+     * map.put("number", Integer.valueOf(2));
      * assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
      * </pre>
      * @param key  the key to be looked up, may be null

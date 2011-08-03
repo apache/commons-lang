@@ -38,8 +38,8 @@ public class HashCodeBuilderAndEqualsBuilderTest extends TestCase {
     //-----------------------------------------------------------------------
 
     public void testInteger(boolean testTransients) {
-        Integer i1 = new Integer(12345);
-        Integer i2 = new Integer(12345);
+        Integer i1 = Integer.valueOf(12345);
+        Integer i2 = Integer.valueOf(12345);
         assertEqualsAndHashCodeContract(i1, i2, testTransients);
     }
 

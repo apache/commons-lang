@@ -226,9 +226,9 @@ public class BooleanUtils {
      * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
      *
      * <pre>
-     *   BooleanUtils.toBoolean(new Integer(0))    = Boolean.FALSE
-     *   BooleanUtils.toBoolean(new Integer(1))    = Boolean.TRUE
-     *   BooleanUtils.toBoolean(new Integer(null)) = null
+     *   BooleanUtils.toBoolean(Integer.valueOf(0))    = Boolean.FALSE
+     *   BooleanUtils.toBoolean(Integer.valueOf(1))    = Boolean.TRUE
+     *   BooleanUtils.toBoolean(Integer.valueOf(null)) = null
      * </pre>
      *
      * @param value  the Integer to convert
@@ -273,11 +273,11 @@ public class BooleanUtils {
      * <p>Converts an Integer to a boolean specifying the conversion values.</p>
      *
      * <pre>
-     *   BooleanUtils.toBoolean(new Integer(0), new Integer(1), new Integer(0)) = false
-     *   BooleanUtils.toBoolean(new Integer(1), new Integer(1), new Integer(0)) = true
-     *   BooleanUtils.toBoolean(new Integer(2), new Integer(1), new Integer(2)) = false
-     *   BooleanUtils.toBoolean(new Integer(2), new Integer(2), new Integer(0)) = true
-     *   BooleanUtils.toBoolean(null, null, new Integer(0))                     = true
+     *   BooleanUtils.toBoolean(Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0)) = false
+     *   BooleanUtils.toBoolean(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(0)) = true
+     *   BooleanUtils.toBoolean(Integer.valueOf(2), Integer.valueOf(1), Integer.valueOf(2)) = false
+     *   BooleanUtils.toBoolean(Integer.valueOf(2), Integer.valueOf(2), Integer.valueOf(0)) = true
+     *   BooleanUtils.toBoolean(null, null, Integer.valueOf(0))                     = true
      * </pre>
      *
      * @param value  the Integer to convert
@@ -341,9 +341,9 @@ public class BooleanUtils {
      * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
      *
      * <pre>
-     *   BooleanUtils.toBooleanObject(new Integer(0), new Integer(0), new Integer(2), new Integer(3)) = Boolean.TRUE
-     *   BooleanUtils.toBooleanObject(new Integer(2), new Integer(1), new Integer(2), new Integer(3)) = Boolean.FALSE
-     *   BooleanUtils.toBooleanObject(new Integer(3), new Integer(1), new Integer(2), new Integer(3)) = null
+     *   BooleanUtils.toBooleanObject(Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(2), Integer.valueOf(3)) = Boolean.TRUE
+     *   BooleanUtils.toBooleanObject(Integer.valueOf(2), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)) = Boolean.FALSE
+     *   BooleanUtils.toBooleanObject(Integer.valueOf(3), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)) = null
      * </pre>
      *
      * @param value  the Integer to convert
@@ -398,8 +398,8 @@ public class BooleanUtils {
      * {@code zero} is {@code false}.</p>
      *
      * <pre>
-     *   BooleanUtils.toIntegerObject(true)  = new Integer(1)
-     *   BooleanUtils.toIntegerObject(false) = new Integer(0)
+     *   BooleanUtils.toIntegerObject(true)  = Integer.valueOf(1)
+     *   BooleanUtils.toIntegerObject(false) = Integer.valueOf(0)
      * </pre>
      *
      * @param bool  the boolean to convert
@@ -416,8 +416,8 @@ public class BooleanUtils {
      * <p>{@code null} will be converted to {@code null}.</p>
      *
      * <pre>
-     *   BooleanUtils.toIntegerObject(Boolean.TRUE)  = new Integer(1)
-     *   BooleanUtils.toIntegerObject(Boolean.FALSE) = new Integer(0)
+     *   BooleanUtils.toIntegerObject(Boolean.TRUE)  = Integer.valueOf(1)
+     *   BooleanUtils.toIntegerObject(Boolean.FALSE) = Integer.valueOf(0)
      * </pre>
      *
      * @param bool  the Boolean to convert
@@ -473,8 +473,8 @@ public class BooleanUtils {
      * <p>Converts a boolean to an Integer specifying the conversion values.</p>
      *
      * <pre>
-     *   BooleanUtils.toIntegerObject(true, new Integer(1), new Integer(0))  = new Integer(1)
-     *   BooleanUtils.toIntegerObject(false, new Integer(1), new Integer(0)) = new Integer(0)
+     *   BooleanUtils.toIntegerObject(true, Integer.valueOf(1), Integer.valueOf(0))  = Integer.valueOf(1)
+     *   BooleanUtils.toIntegerObject(false, Integer.valueOf(1), Integer.valueOf(0)) = Integer.valueOf(0)
      * </pre>
      *
      * @param bool  the to convert
@@ -490,9 +490,9 @@ public class BooleanUtils {
      * <p>Converts a Boolean to an Integer specifying the conversion values.</p>
      *
      * <pre>
-     *   BooleanUtils.toIntegerObject(Boolean.TRUE, new Integer(1), new Integer(0), new Integer(2))  = new Integer(1)
-     *   BooleanUtils.toIntegerObject(Boolean.FALSE, new Integer(1), new Integer(0), new Integer(2)) = new Integer(0)
-     *   BooleanUtils.toIntegerObject(null, new Integer(1), new Integer(0), new Integer(2))          = new Integer(2)
+     *   BooleanUtils.toIntegerObject(Boolean.TRUE, Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(2))  = Integer.valueOf(1)
+     *   BooleanUtils.toIntegerObject(Boolean.FALSE, Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(2)) = Integer.valueOf(0)
+     *   BooleanUtils.toIntegerObject(null, Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(2))          = Integer.valueOf(2)
      * </pre>
      *
      * @param bool  the Boolean to convert

@@ -36,7 +36,7 @@ public class MutableIntTest extends TestCase {
         
         assertEquals(1, new MutableInt(1).intValue());
         
-        assertEquals(2, new MutableInt(new Integer(2)).intValue());
+        assertEquals(2, new MutableInt(Integer.valueOf(2)).intValue());
         assertEquals(3, new MutableInt(new MutableLong(3)).intValue());
 
         assertEquals(2, new MutableInt("2").intValue());
@@ -50,19 +50,19 @@ public class MutableIntTest extends TestCase {
     public void testGetSet() {
         final MutableInt mutNum = new MutableInt(0);
         assertEquals(0, new MutableInt().intValue());
-        assertEquals(new Integer(0), new MutableInt().getValue());
+        assertEquals(Integer.valueOf(0), new MutableInt().getValue());
         
         mutNum.setValue(1);
         assertEquals(1, mutNum.intValue());
-        assertEquals(new Integer(1), mutNum.getValue());
+        assertEquals(Integer.valueOf(1), mutNum.getValue());
         
-        mutNum.setValue(new Integer(2));
+        mutNum.setValue(Integer.valueOf(2));
         assertEquals(2, mutNum.intValue());
-        assertEquals(new Integer(2), mutNum.getValue());
+        assertEquals(Integer.valueOf(2), mutNum.getValue());
         
         mutNum.setValue(new MutableLong(3));
         assertEquals(3, mutNum.intValue());
-        assertEquals(new Integer(3), mutNum.getValue());
+        assertEquals(Integer.valueOf(3), mutNum.getValue());
         try {
             mutNum.setValue(null);
             fail();
@@ -72,7 +72,7 @@ public class MutableIntTest extends TestCase {
     public void testEquals() {
         this.testEquals(new MutableInt(0), new MutableInt(0), new MutableInt(1));
         // Should Numbers be supported? GaryG July-21-2005.
-        //this.testEquals(mutNumA, new Integer(0), mutNumC);
+        //this.testEquals(mutNumA, Integer.valueOf(0), mutNumC);
     }
 
     /**
@@ -89,7 +89,7 @@ public class MutableIntTest extends TestCase {
         assertEquals(false, numB.equals(numC));
         assertEquals(true, numC.equals(numC));
         assertEquals(false, numA.equals(null));
-        assertEquals(false, numA.equals(new Integer(0)));
+        assertEquals(false, numA.equals(Integer.valueOf(0)));
         assertEquals(false, numA.equals("0"));
     }
 
@@ -101,7 +101,7 @@ public class MutableIntTest extends TestCase {
         assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
         assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
         assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(true, mutNumA.hashCode() == new Integer(0).hashCode());
+        assertEquals(true, mutNumA.hashCode() == Integer.valueOf(0).hashCode());
     }
 
     public void testCompareTo() {
@@ -127,8 +127,8 @@ public class MutableIntTest extends TestCase {
     }
 
     public void testToInteger() {
-        assertEquals(new Integer(0), new MutableInt(0).toInteger());
-        assertEquals(new Integer(123), new MutableInt(123).toInteger());
+        assertEquals(Integer.valueOf(0), new MutableInt(0).toInteger());
+        assertEquals(Integer.valueOf(123), new MutableInt(123).toInteger());
     }
 
     public void testIncrement() {
@@ -157,7 +157,7 @@ public class MutableIntTest extends TestCase {
 
     public void testAddValueObject() {
         MutableInt mutNum = new MutableInt(1);
-        mutNum.add(new Integer(1));
+        mutNum.add(Integer.valueOf(1));
         
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
@@ -173,7 +173,7 @@ public class MutableIntTest extends TestCase {
 
     public void testSubtractValueObject() {
         MutableInt mutNum = new MutableInt(1);
-        mutNum.subtract(new Integer(1));
+        mutNum.subtract(Integer.valueOf(1));
         
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());

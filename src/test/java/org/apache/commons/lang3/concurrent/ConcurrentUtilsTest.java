@@ -380,7 +380,7 @@ public class ConcurrentUtilsTest {
      */
     @Test
     public void testConstantFuture_Integer() throws Exception {
-        Integer value = new Integer(5);
+        Integer value = Integer.valueOf(5);
         Future<Integer> test = ConcurrentUtils.constantFuture(value);
         assertTrue(test.isDone());
         assertSame(value, test.get());

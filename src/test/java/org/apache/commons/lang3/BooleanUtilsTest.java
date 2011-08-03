@@ -115,9 +115,9 @@ public class BooleanUtilsTest {
     
     @Test
     public void test_toBooleanObject_Integer() {
-        assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(new Integer(1)));
-        assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(new Integer(-1)));
-        assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(new Integer(0)));
+        assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(Integer.valueOf(1)));
+        assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(Integer.valueOf(-1)));
+        assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(Integer.valueOf(0)));
         assertEquals(null, BooleanUtils.toBooleanObject((Integer) null));
     }
     
@@ -135,14 +135,14 @@ public class BooleanUtilsTest {
     
     @Test
     public void test_toBoolean_Integer_Integer_Integer() {
-        Integer six = new Integer(6);
-        Integer seven = new Integer(7);
+        Integer six = Integer.valueOf(6);
+        Integer seven = Integer.valueOf(7);
 
         assertEquals(true, BooleanUtils.toBoolean((Integer) null, null, seven));
         assertEquals(false, BooleanUtils.toBoolean((Integer) null, six, null));
 
-        assertEquals(true, BooleanUtils.toBoolean(new Integer(6), six, seven));
-        assertEquals(false, BooleanUtils.toBoolean(new Integer(7), six, seven));
+        assertEquals(true, BooleanUtils.toBoolean(Integer.valueOf(6), six, seven));
+        assertEquals(false, BooleanUtils.toBoolean(Integer.valueOf(7), six, seven));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -152,7 +152,7 @@ public class BooleanUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void test_toBoolean_Integer_Integer_Integer_noMatch() {
-        BooleanUtils.toBoolean(new Integer(8), Integer.valueOf(6), Integer.valueOf(7));
+        BooleanUtils.toBoolean(Integer.valueOf(8), Integer.valueOf(6), Integer.valueOf(7));
     }
     
     //-----------------------------------------------------------------------
@@ -170,17 +170,17 @@ public class BooleanUtilsTest {
     
     @Test
     public void test_toBooleanObject_Integer_Integer_Integer_Integer() {
-        Integer six = new Integer(6);
-        Integer seven = new Integer(7);
-        Integer eight = new Integer(8);
+        Integer six = Integer.valueOf(6);
+        Integer seven = Integer.valueOf(7);
+        Integer eight = Integer.valueOf(8);
 
         assertSame(Boolean.TRUE, BooleanUtils.toBooleanObject((Integer) null, null, seven, eight));
         assertSame(Boolean.FALSE, BooleanUtils.toBooleanObject((Integer) null, six, null, eight));
         assertSame(null, BooleanUtils.toBooleanObject((Integer) null, six, seven, null));
 
-        assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(new Integer(6), six, seven, eight));
-        assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(new Integer(7), six, seven, eight));
-        assertEquals(null, BooleanUtils.toBooleanObject(new Integer(8), six, seven, eight));
+        assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(Integer.valueOf(6), six, seven, eight));
+        assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(Integer.valueOf(7), six, seven, eight));
+        assertEquals(null, BooleanUtils.toBooleanObject(Integer.valueOf(8), six, seven, eight));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -202,14 +202,14 @@ public class BooleanUtilsTest {
     
     @Test
     public void test_toIntegerObject_boolean() {
-        assertEquals(new Integer(1), BooleanUtils.toIntegerObject(true));
-        assertEquals(new Integer(0), BooleanUtils.toIntegerObject(false));
+        assertEquals(Integer.valueOf(1), BooleanUtils.toIntegerObject(true));
+        assertEquals(Integer.valueOf(0), BooleanUtils.toIntegerObject(false));
     }
     
     @Test
     public void test_toIntegerObject_Boolean() {
-        assertEquals(new Integer(1), BooleanUtils.toIntegerObject(Boolean.TRUE));
-        assertEquals(new Integer(0), BooleanUtils.toIntegerObject(Boolean.FALSE));
+        assertEquals(Integer.valueOf(1), BooleanUtils.toIntegerObject(Boolean.TRUE));
+        assertEquals(Integer.valueOf(0), BooleanUtils.toIntegerObject(Boolean.FALSE));
         assertEquals(null, BooleanUtils.toIntegerObject((Boolean) null));
     }
     
@@ -229,17 +229,17 @@ public class BooleanUtilsTest {
     
     @Test
     public void test_toIntegerObject_boolean_Integer_Integer() {
-        Integer six = new Integer(6);
-        Integer seven = new Integer(7);
+        Integer six = Integer.valueOf(6);
+        Integer seven = Integer.valueOf(7);
         assertEquals(six, BooleanUtils.toIntegerObject(true, six, seven));
         assertEquals(seven, BooleanUtils.toIntegerObject(false, six, seven));
     }
     
     @Test
     public void test_toIntegerObject_Boolean_Integer_Integer_Integer() {
-        Integer six = new Integer(6);
-        Integer seven = new Integer(7);
-        Integer eight = new Integer(8);
+        Integer six = Integer.valueOf(6);
+        Integer seven = Integer.valueOf(7);
+        Integer eight = Integer.valueOf(8);
         assertEquals(six, BooleanUtils.toIntegerObject(Boolean.TRUE, six, seven, eight));
         assertEquals(seven, BooleanUtils.toIntegerObject(Boolean.FALSE, six, seven, eight));
         assertEquals(eight, BooleanUtils.toIntegerObject((Boolean) null, six, seven, eight));

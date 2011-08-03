@@ -601,8 +601,8 @@ public class ToStringBuilderTest extends TestCase {
     }
 
     public void testObject() {
-        Integer i3 = new Integer(3);
-        Integer i4 = new Integer(4);
+        Integer i3 = Integer.valueOf(3);
+        Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(i3).toString());
         assertEquals(baseStr + "[a=<null>]", new ToStringBuilder(base).append("a", (Object) null).toString());
@@ -618,8 +618,8 @@ public class ToStringBuilderTest extends TestCase {
     }
     
     public void testObjectBuild() {
-        Integer i3 = new Integer(3);
-        Integer i4 = new Integer(4);
+        Integer i3 = Integer.valueOf(3);
+        Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).build());
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(i3).build());
         assertEquals(baseStr + "[a=<null>]", new ToStringBuilder(base).append("a", (Object) null).build());
@@ -945,7 +945,7 @@ public class ToStringBuilderTest extends TestCase {
      * Tests ReflectionToStringBuilder setUpToClass().
      */
     public void test_setUpToClass_valid() {
-        Integer val = new Integer(5);
+        Integer val = Integer.valueOf(5);
         ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
         test.setUpToClass(Number.class);
     }
@@ -954,7 +954,7 @@ public class ToStringBuilderTest extends TestCase {
      * Tests ReflectionToStringBuilder setUpToClass().
      */
     public void test_setUpToClass_invalid() {
-        Integer val = new Integer(5);
+        Integer val = Integer.valueOf(5);
         ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
         try {
             test.setUpToClass(String.class);
@@ -1003,7 +1003,7 @@ public class ToStringBuilderTest extends TestCase {
      * See issue LANG-372.
      */
     class MultiLineTestObject {
-        Integer i = new Integer(31337);
+        Integer i = Integer.valueOf(31337);
         @Override
         public String toString() {
             return new ToStringBuilder(this).append("testInt", i).toString();

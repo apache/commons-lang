@@ -65,9 +65,9 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testIsTrue3() {
-        Validate.isTrue(true, "MSG", new Integer(6));
+        Validate.isTrue(true, "MSG", Integer.valueOf(6));
         try {
-            Validate.isTrue(false, "MSG", new Integer(6));
+            Validate.isTrue(false, "MSG", Integer.valueOf(6));
             fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
@@ -186,7 +186,7 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated collection is empty", ex.getMessage());
         }
-        coll.add(new Integer(8));
+        coll.add(Integer.valueOf(8));
         Validate.notEmpty(coll);
         
         Collection<Integer> test = Validate.notEmpty(coll);
@@ -208,7 +208,7 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
-        coll.add(new Integer(8));
+        coll.add(Integer.valueOf(8));
         Validate.notEmpty(coll, "MSG");
         
         Collection<Integer> test = Validate.notEmpty(coll, "Message");
@@ -231,7 +231,7 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated map is empty", ex.getMessage());
         }
-        map.put("ll", new Integer(8));
+        map.put("ll", Integer.valueOf(8));
         Validate.notEmpty(map);
         
         Map<String, Integer> test = Validate.notEmpty(map);
@@ -253,7 +253,7 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
-        map.put("ll", new Integer(8));
+        map.put("ll", Integer.valueOf(8));
         Validate.notEmpty(map, "MSG");
         
         Map<String, Integer> test = Validate.notEmpty(map, "Message");

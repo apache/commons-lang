@@ -957,8 +957,8 @@ public class EqualsBuilderTest extends TestCase {
      * Test from http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
      */
     public void testNpeForNullElement() {
-        Object[] x1 = new Object[] { new Integer(1), null, new Integer(3) };
-        Object[] x2 = new Object[] { new Integer(1), new Integer(2), new Integer(3) };
+        Object[] x1 = new Object[] { Integer.valueOf(1), null, Integer.valueOf(3) };
+        Object[] x2 = new Object[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) };
 
         // causes an NPE in 2.0 according to:
         // http://issues.apache.org/bugzilla/show_bug.cgi?id=33067

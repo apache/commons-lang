@@ -82,7 +82,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @return the value as a Integer, never null
      */
     public Integer getValue() {
-        return new Integer(this.value);
+        return Integer.valueOf(this.value);
     }
 
     /**

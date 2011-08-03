@@ -462,7 +462,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
         sb.appendln(FOO);
         assertEquals(SEP + "foo" + SEP, sb.toString());
 
-        sb.appendln(new Integer(6));
+        sb.appendln(Integer.valueOf(6));
         assertEquals(SEP + "foo" + SEP + "6" + SEP, sb.toString());
     }
 
