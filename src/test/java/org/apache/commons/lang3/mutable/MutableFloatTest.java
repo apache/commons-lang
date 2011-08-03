@@ -36,7 +36,7 @@ public class MutableFloatTest extends TestCase {
         
         assertEquals(1f, new MutableFloat(1f).floatValue(), 0.0001f);
         
-        assertEquals(2f, new MutableFloat(new Float(2f)).floatValue(), 0.0001f);
+        assertEquals(2f, new MutableFloat(Float.valueOf(2f)).floatValue(), 0.0001f);
         assertEquals(3f, new MutableFloat(new MutableFloat(3f)).floatValue(), 0.0001f);
 
         assertEquals(2f, new MutableFloat("2.0").floatValue(), 0.0001f);
@@ -50,19 +50,19 @@ public class MutableFloatTest extends TestCase {
     public void testGetSet() {
         final MutableFloat mutNum = new MutableFloat(0f);
         assertEquals(0f, new MutableFloat().floatValue(), 0.0001f);
-        assertEquals(new Float(0), new MutableFloat().getValue());
+        assertEquals(Float.valueOf(0), new MutableFloat().getValue());
         
         mutNum.setValue(1);
         assertEquals(1f, mutNum.floatValue(), 0.0001f);
-        assertEquals(new Float(1f), mutNum.getValue());
+        assertEquals(Float.valueOf(1f), mutNum.getValue());
         
-        mutNum.setValue(new Float(2f));
+        mutNum.setValue(Float.valueOf(2f));
         assertEquals(2f, mutNum.floatValue(), 0.0001f);
-        assertEquals(new Float(2f), mutNum.getValue());
+        assertEquals(Float.valueOf(2f), mutNum.getValue());
         
         mutNum.setValue(new MutableFloat(3f));
         assertEquals(3f, mutNum.floatValue(), 0.0001f);
-        assertEquals(new Float(3f), mutNum.getValue());
+        assertEquals(Float.valueOf(3f), mutNum.getValue());
         try {
             mutNum.setValue(null);
             fail();
@@ -93,7 +93,7 @@ public class MutableFloatTest extends TestCase {
         assertEquals(false, mutNumB.equals(mutNumC));
         assertEquals(true, mutNumC.equals(mutNumC));
         assertEquals(false, mutNumA.equals(null));
-        assertEquals(false, mutNumA.equals(new Float(0f)));
+        assertEquals(false, mutNumA.equals(Float.valueOf(0f)));
         assertEquals(false, mutNumA.equals("0"));
     }
 
@@ -105,7 +105,7 @@ public class MutableFloatTest extends TestCase {
         assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
         assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
         assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(true, mutNumA.hashCode() == new Float(0f).hashCode());
+        assertEquals(true, mutNumA.hashCode() == Float.valueOf(0f).hashCode());
     }
 
     public void testCompareTo() {
@@ -132,8 +132,8 @@ public class MutableFloatTest extends TestCase {
     }
 
     public void testToFloat() {
-        assertEquals(new Float(0f), new MutableFloat(0f).toFloat());
-        assertEquals(new Float(12.3f), new MutableFloat(12.3f).toFloat());
+        assertEquals(Float.valueOf(0f), new MutableFloat(0f).toFloat());
+        assertEquals(Float.valueOf(12.3f), new MutableFloat(12.3f).toFloat());
     }
 
     public void testIncrement() {
@@ -161,7 +161,7 @@ public class MutableFloatTest extends TestCase {
 
     public void testAddValueObject() {
         MutableFloat mutNum = new MutableFloat(1);
-        mutNum.add(new Float(1.1f));
+        mutNum.add(Float.valueOf(1.1f));
         
         assertEquals(2.1f, mutNum.floatValue(), 0.01f);
     }
@@ -175,7 +175,7 @@ public class MutableFloatTest extends TestCase {
 
     public void testSubtractValueObject() {
         MutableFloat mutNum = new MutableFloat(1);
-        mutNum.subtract(new Float(0.9f));
+        mutNum.subtract(Float.valueOf(0.9f));
         
         assertEquals(0.1f, mutNum.floatValue(), 0.01f);
     }

@@ -92,7 +92,7 @@ public class ExtendedMessageFormatTest extends TestCase {
     public void testExtendedAndBuiltInFormats() {
         Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 05);
-        Object[] args = new Object[] {"John Doe", cal.getTime(), new Double("12345.67")};
+        Object[] args = new Object[] {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
         String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
         String extendedPattern = "Name: {0,upper} ";
         String pattern = extendedPattern + builtinsPattern;
@@ -153,8 +153,8 @@ public class ExtendedMessageFormatTest extends TestCase {
 //     */
 //    public void testExtendedAndBuiltInWithChoiceFormat() {
 //        String pattern = "Choice: {0,choice,1.0#{0} {1,lower} {2,number}|2.0#{0} {1,upper} {2,number,currency}}";
-//        Object[] lowArgs  = new Object[] {Integer.valueOf(1), "Low",  new Double("1234.56")};
-//        Object[] highArgs = new Object[] {Integer.valueOf(2), "High", new Double("9876.54")};
+//        Object[] lowArgs  = new Object[] {Integer.valueOf(1), "Low",  Double.valueOf("1234.56")};
+//        Object[] highArgs = new Object[] {Integer.valueOf(2), "High", Double.valueOf("9876.54")};
 //        Locale[] availableLocales = ChoiceFormat.getAvailableLocales();
 //        Locale[] testLocales = new Locale[availableLocales.length + 1];
 //        testLocales[0] = null;
@@ -188,7 +188,7 @@ public class ExtendedMessageFormatTest extends TestCase {
      * Test the built in choice format.
      */
     public void testBuiltInChoiceFormat() {
-        Object[] values = new Number[] {Integer.valueOf(1), new Double("2.2"), new Double("1234.5")};
+        Object[] values = new Number[] {Integer.valueOf(1), Double.valueOf("2.2"), Double.valueOf("1234.5")};
         String choicePattern = null;
         Locale[] availableLocales = ChoiceFormat.getAvailableLocales();
 
@@ -255,7 +255,7 @@ public class ExtendedMessageFormatTest extends TestCase {
      * Test the built in number formats.
      */
     public void testBuiltInNumberFormat() {
-        Object[] args = new Object[] {new Double("6543.21")};
+        Object[] args = new Object[] {Double.valueOf("6543.21")};
         Locale[] availableLocales = NumberFormat.getAvailableLocales();
         checkBuiltInFormat("1: {0,number}",            args, availableLocales);
         checkBuiltInFormat("2: {0,number,integer}",    args, availableLocales);

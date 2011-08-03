@@ -129,7 +129,7 @@ public class Validate {
      */
     public static void isTrue(boolean expression, String message, double value) {
         if (expression == false) {
-            throw new IllegalArgumentException(String.format(message, new Double(value)));
+            throw new IllegalArgumentException(String.format(message, Double.valueOf(value)));
         }
     }
 

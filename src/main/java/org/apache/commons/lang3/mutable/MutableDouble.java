@@ -82,7 +82,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @return the value as a Double, never null
      */
     public Double getValue() {
-        return new Double(this.value);
+        return Double.valueOf(this.value);
     }
 
     /**
