@@ -424,6 +424,7 @@ public class ObjectUtils {
      * @return T at middle position
      * @throws NullPointerException if items is {@code null}
      * @throws IllegalArgumentException if items is empty or contains {@code null} values
+     * @since 3.0.1
      */
     public static <T extends Comparable<? super T>> T median(T... items) {
         Validate.notEmpty(items);
@@ -444,6 +445,7 @@ public class ObjectUtils {
      * @return T at middle position
      * @throws NullPointerException if items or comparator is {@code null}
      * @throws IllegalArgumentException if items is empty or contains {@code null} values
+     * @since 3.0.1
      */
     public static <T> T median(Comparator<T> comparator, T... items) {
         Validate.notEmpty(items, "null/empty items");
@@ -464,6 +466,7 @@ public class ObjectUtils {
      * @param <T>
      * @param items to check
      * @return most populous T, {@code null} if non-unique or no items supplied
+     * @since 3.0.1
      */
     public static <T> T mode(T... items) {
         if (ArrayUtils.isNotEmpty(items)) {
