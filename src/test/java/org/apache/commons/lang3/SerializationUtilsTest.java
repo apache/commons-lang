@@ -53,7 +53,7 @@ public class SerializationUtilsTest extends TestCase {
         super.setUp();
 
         iString = "foo";
-        iInteger = new Integer(7);
+        iInteger = Integer.valueOf(7);
         iMap = new HashMap<Object, Object>();
         iMap.put("FOO", iString);
         iMap.put("BAR", iInteger);

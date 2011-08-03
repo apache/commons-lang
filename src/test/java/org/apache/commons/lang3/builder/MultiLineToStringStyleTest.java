@@ -31,7 +31,7 @@ import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
  */
 public class MultiLineToStringStyleTest extends TestCase {
 
-    private final Integer base = new Integer(5);
+    private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
     
     public MultiLineToStringStyleTest(String name) {
@@ -66,8 +66,8 @@ public class MultiLineToStringStyleTest extends TestCase {
     }
     
     public void testObject() {
-        Integer i3 = new Integer(3);
-        Integer i4 = new Integer(4);
+        Integer i3 = Integer.valueOf(3);
+        Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  <null>" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  3" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append(i3).toString());
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  a=<null>" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append("a", (Object) null).toString());

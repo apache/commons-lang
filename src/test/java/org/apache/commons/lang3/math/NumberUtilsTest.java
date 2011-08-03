@@ -182,7 +182,7 @@ public class NumberUtilsTest {
     public void testCreateNumber() {
         // a lot of things can go wrong
         assertEquals("createNumber(String) 1 failed", new Float("1234.5"), NumberUtils.createNumber("1234.5"));
-        assertEquals("createNumber(String) 2 failed", new Integer("12345"), NumberUtils.createNumber("12345"));
+        assertEquals("createNumber(String) 2 failed", Integer.valueOf("12345"), NumberUtils.createNumber("12345"));
         assertEquals("createNumber(String) 3 failed", new Double("1234.5"), NumberUtils.createNumber("1234.5D"));
         assertEquals("createNumber(String) 3 failed", new Double("1234.5"), NumberUtils.createNumber("1234.5d"));
         assertEquals("createNumber(String) 4 failed", new Float("1234.5"), NumberUtils.createNumber("1234.5F"));
@@ -192,7 +192,7 @@ public class NumberUtilsTest {
         assertEquals("createNumber(String) 6 failed", new Long(12345), NumberUtils.createNumber("12345L"));
         assertEquals("createNumber(String) 6 failed", new Long(12345), NumberUtils.createNumber("12345l"));
         assertEquals("createNumber(String) 7 failed", new Float("-1234.5"), NumberUtils.createNumber("-1234.5"));
-        assertEquals("createNumber(String) 8 failed", new Integer("-12345"), NumberUtils.createNumber("-12345"));
+        assertEquals("createNumber(String) 8 failed", Integer.valueOf("-12345"), NumberUtils.createNumber("-12345"));
         assertTrue("createNumber(String) 9 failed", 0xFADE == NumberUtils.createNumber("0xFADE").intValue());
         assertTrue("createNumber(String) 10 failed", -0xFADE == NumberUtils.createNumber("-0xFADE").intValue());
         assertEquals("createNumber(String) 11 failed", new Double("1.1E200"), NumberUtils.createNumber("1.1E200"));
@@ -268,7 +268,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testCreateInteger() {
-        assertEquals("createInteger(String) failed", new Integer("12345"), NumberUtils.createInteger("12345"));
+        assertEquals("createInteger(String) failed", Integer.valueOf("12345"), NumberUtils.createInteger("12345"));
         assertEquals("createInteger(null) failed", null, NumberUtils.createInteger(null));
         this.testCreateIntegerFailure("");
         this.testCreateIntegerFailure(" ");

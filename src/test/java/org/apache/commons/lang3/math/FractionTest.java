@@ -1220,7 +1220,7 @@ public class FractionTest extends TestCase {
         f1 = Fraction.getFraction(3, 5);
         assertEquals(false, f1.equals(null));
         assertEquals(false, f1.equals(new Object()));
-        assertEquals(false, f1.equals(new Integer(6)));
+        assertEquals(false, f1.equals(Integer.valueOf(6)));
         
         f1 = Fraction.getFraction(3, 5);
         f2 = Fraction.getFraction(2, 5);

@@ -30,7 +30,7 @@ import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
  */
 public class ShortPrefixToStringStyleTest extends TestCase {
 
-    private final Integer base = new Integer(5);
+    private final Integer base = Integer.valueOf(5);
     private final String baseStr = "Integer";
     
     @Override
@@ -61,8 +61,8 @@ public class ShortPrefixToStringStyleTest extends TestCase {
     }
     
     public void testObject() {
-        Integer i3 = new Integer(3);
-        Integer i4 = new Integer(4);
+        Integer i3 = Integer.valueOf(3);
+        Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(i3).toString());
         assertEquals(baseStr + "[a=<null>]", new ToStringBuilder(base).append("a", (Object) null).toString());

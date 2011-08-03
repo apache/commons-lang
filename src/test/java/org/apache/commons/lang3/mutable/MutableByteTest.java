@@ -150,7 +150,7 @@ public class MutableByteTest extends TestCase {
 
     public void testAddValueObject() {
         MutableByte mutNum = new MutableByte((byte) 1);
-        mutNum.add(new Integer(1));
+        mutNum.add(Integer.valueOf(1));
         
         assertEquals((byte) 2, mutNum.byteValue());
     }
@@ -164,7 +164,7 @@ public class MutableByteTest extends TestCase {
 
     public void testSubtractValueObject() {
         MutableByte mutNum = new MutableByte((byte) 1);
-        mutNum.subtract(new Integer(1));
+        mutNum.subtract(Integer.valueOf(1));
         
         assertEquals((byte) 0, mutNum.byteValue());
     }

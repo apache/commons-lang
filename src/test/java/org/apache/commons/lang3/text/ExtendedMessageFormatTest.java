@@ -139,8 +139,8 @@ public class ExtendedMessageFormatTest extends TestCase {
 //        ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
 //        assertPatterns(null, pattern, emf.toPattern());
 //        try {
-//            assertEquals("one", emf.format(new Object[] {new Integer(1), "ONE"}));
-//            assertEquals("TWO", emf.format(new Object[] {new Integer(2), "two"}));
+//            assertEquals("one", emf.format(new Object[] {Integer.valueOf(1), "ONE"}));
+//            assertEquals("TWO", emf.format(new Object[] {Integer.valueOf(2), "two"}));
 //        } catch (IllegalArgumentException e) {
 //            // currently sub-formats not supported
 //        }
@@ -153,8 +153,8 @@ public class ExtendedMessageFormatTest extends TestCase {
 //     */
 //    public void testExtendedAndBuiltInWithChoiceFormat() {
 //        String pattern = "Choice: {0,choice,1.0#{0} {1,lower} {2,number}|2.0#{0} {1,upper} {2,number,currency}}";
-//        Object[] lowArgs  = new Object[] {new Integer(1), "Low",  new Double("1234.56")};
-//        Object[] highArgs = new Object[] {new Integer(2), "High", new Double("9876.54")};
+//        Object[] lowArgs  = new Object[] {Integer.valueOf(1), "Low",  new Double("1234.56")};
+//        Object[] highArgs = new Object[] {Integer.valueOf(2), "High", new Double("9876.54")};
 //        Locale[] availableLocales = ChoiceFormat.getAvailableLocales();
 //        Locale[] testLocales = new Locale[availableLocales.length + 1];
 //        testLocales[0] = null;
@@ -188,7 +188,7 @@ public class ExtendedMessageFormatTest extends TestCase {
      * Test the built in choice format.
      */
     public void testBuiltInChoiceFormat() {
-        Object[] values = new Number[] {new Integer(1), new Double("2.2"), new Double("1234.5")};
+        Object[] values = new Number[] {Integer.valueOf(1), new Double("2.2"), new Double("1234.5")};
         String choicePattern = null;
         Locale[] availableLocales = ChoiceFormat.getAvailableLocales();
 

@@ -30,7 +30,7 @@ import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
  */
 public class SimpleToStringStyleTest extends TestCase {
 
-    private final Integer base = new Integer(5);
+    private final Integer base = Integer.valueOf(5);
     
     public SimpleToStringStyleTest(String name) {
         super(name);
@@ -64,8 +64,8 @@ public class SimpleToStringStyleTest extends TestCase {
     }
     
     public void testObject() {
-        Integer i3 = new Integer(3);
-        Integer i4 = new Integer(4);
+        Integer i3 = Integer.valueOf(3);
+        Integer i4 = Integer.valueOf(4);
         assertEquals("<null>", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals("3", new ToStringBuilder(base).append(i3).toString());
         assertEquals("<null>", new ToStringBuilder(base).append("a", (Object) null).toString());

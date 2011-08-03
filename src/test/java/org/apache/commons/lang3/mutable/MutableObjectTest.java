@@ -34,7 +34,7 @@ public class MutableObjectTest extends TestCase {
     public void testConstructors() {
         assertEquals(null, new MutableObject<String>().getValue());
         
-        Integer i = new Integer(6);
+        Integer i = Integer.valueOf(6);
         assertSame(i, new MutableObject<Integer>(i).getValue());
         assertSame("HI", new MutableObject<String>("HI").getValue());
         assertSame(null, new MutableObject<Object>(null).getValue());

@@ -2491,12 +2491,12 @@ public class ArrayUtilsTest extends TestCase {
          assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.toPrimitive(new Integer[0]));
          assertTrue(Arrays.equals(
              new int[] {Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999},
-             ArrayUtils.toPrimitive(new Integer[] {new Integer(Integer.MIN_VALUE), 
-                 new Integer(Integer.MAX_VALUE), new Integer(9999999)}))
+             ArrayUtils.toPrimitive(new Integer[] {Integer.valueOf(Integer.MIN_VALUE), 
+                 Integer.valueOf(Integer.MAX_VALUE), Integer.valueOf(9999999)}))
          );
 
          try {
-             ArrayUtils.toPrimitive(new Integer[] {new Integer(Integer.MIN_VALUE), null});
+             ArrayUtils.toPrimitive(new Integer[] {Integer.valueOf(Integer.MIN_VALUE), null});
              fail();
          } catch (NullPointerException ex) {}
      }
@@ -2508,12 +2508,12 @@ public class ArrayUtilsTest extends TestCase {
          ArrayUtils.toPrimitive(new Integer[0], 1));
          assertTrue(Arrays.equals(
              new int[] {Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999},
-             ArrayUtils.toPrimitive(new Integer[] {new Integer(Integer.MIN_VALUE), 
-                 new Integer(Integer.MAX_VALUE), new Integer(9999999)},1)));
+             ArrayUtils.toPrimitive(new Integer[] {Integer.valueOf(Integer.MIN_VALUE), 
+                 Integer.valueOf(Integer.MAX_VALUE), Integer.valueOf(9999999)},1)));
          assertTrue(Arrays.equals(
              new int[] {Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999},
-             ArrayUtils.toPrimitive(new Integer[] {new Integer(Integer.MIN_VALUE), 
-                 null, new Integer(9999999)}, Integer.MAX_VALUE))
+             ArrayUtils.toPrimitive(new Integer[] {Integer.valueOf(Integer.MIN_VALUE), 
+                 null, Integer.valueOf(9999999)}, Integer.MAX_VALUE))
          );
      }
      
@@ -2533,9 +2533,9 @@ public class ArrayUtilsTest extends TestCase {
         assertTrue(
             Arrays.equals(
                 new Integer[] {
-                    new Integer(Integer.MIN_VALUE),
-                    new Integer(Integer.MAX_VALUE),
-                    new Integer(9999999)},
+                    Integer.valueOf(Integer.MIN_VALUE),
+                    Integer.valueOf(Integer.MAX_VALUE),
+                    Integer.valueOf(9999999)},
             ArrayUtils.toObject(
                 new int[] { Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999 })));
     }

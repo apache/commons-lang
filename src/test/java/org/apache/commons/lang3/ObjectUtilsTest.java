@@ -177,7 +177,7 @@ public class ObjectUtilsTest {
         assertEquals(
             "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
             ObjectUtils.identityToString(FOO));
-        Integer i = new Integer(90);
+        Integer i = Integer.valueOf(90);
         String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
         assertEquals(expected, ObjectUtils.identityToString(i));
         StringBuffer buffer = new StringBuffer();

@@ -375,7 +375,7 @@ public class DurationFormatUtilsTest extends TestCase {
                 new Object())));
         assertFalse("Token equal to Token with different count. ", token.equals(new DurationFormatUtils.Token(
                 DurationFormatUtils.y, 1)));
-        DurationFormatUtils.Token numToken = new DurationFormatUtils.Token(new Integer(1), 4);
+        DurationFormatUtils.Token numToken = new DurationFormatUtils.Token(Integer.valueOf(1), 4);
         assertTrue("Token with Number value not equal to itself. ", numToken.equals(numToken));
     }
 

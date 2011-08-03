@@ -36,11 +36,11 @@ public class NumberUtils {
     /** Reusable Long constant for minus one. */
     public static final Long LONG_MINUS_ONE = new Long(-1L);
     /** Reusable Integer constant for zero. */
-    public static final Integer INTEGER_ZERO = new Integer(0);
+    public static final Integer INTEGER_ZERO = Integer.valueOf(0);
     /** Reusable Integer constant for one. */
-    public static final Integer INTEGER_ONE = new Integer(1);
+    public static final Integer INTEGER_ONE = Integer.valueOf(1);
     /** Reusable Integer constant for minus one. */
-    public static final Integer INTEGER_MINUS_ONE = new Integer(-1);
+    public static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
     /** Reusable Short constant for zero. */
     public static final Short SHORT_ZERO = new Short((short) 0);
     /** Reusable Short constant for one. */
@@ -395,7 +395,7 @@ public class NumberUtils {
     // Integer.getInteger(String)
     // Integer.getInteger(String,int val)
     // Integer.getInteger(String,Integer val)
-    // new Integer(String)
+    // Integer.valueOf(String)
     // new Double(String)
     // new Byte(String)
     // new Long(String)

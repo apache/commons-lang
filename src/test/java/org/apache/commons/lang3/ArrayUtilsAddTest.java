@@ -199,9 +199,9 @@ public class ArrayUtilsAddTest extends TestCase {
         assertTrue(Arrays.equals((new String[]{"a", "b", "c", "d"}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
 
-        Number[] numberArray1 = new Number[]{new Integer(1), new Double(2)};
+        Number[] numberArray1 = new Number[]{Integer.valueOf(1), new Double(2)};
         newArray = ArrayUtils.add(numberArray1, new Float(3));
-        assertTrue(Arrays.equals((new Number[]{new Integer(1), new Double(2), new Float(3)}), newArray));
+        assertTrue(Arrays.equals((new Number[]{Integer.valueOf(1), new Double(2), new Float(3)}), newArray));
         assertEquals(Number.class, newArray.getClass().getComponentType());
 
         numberArray1 = null;
