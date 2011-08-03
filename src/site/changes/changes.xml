@@ -36,6 +36,7 @@
     <action type="fix" issue="LANG-734">The CHAR_ARRAY cache in CharUtils duplicates the cache in java.lang.Character</action>
     <action type="update" issue="LANG-735">Deprecate CharUtils.toCharacterObject(char) in favor of java.lang.Character.valueOf(char)</action>
     <action type="add" issue="LANG-737">Missing method getRawMessage for ContextedException and ContextedRuntimeException</action>
+    <action type="fix" issue="LANG-738">Use internal Java's Number caches instead creating new objects</action>
   </release>
 
   <release version="3.0" date="2011-07-18" description="Backwards incompatible update of Commons Lang to Java 5">  
