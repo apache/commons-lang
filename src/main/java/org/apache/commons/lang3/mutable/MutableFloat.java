@@ -82,7 +82,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @return the value as a Float, never null
      */
     public Float getValue() {
-        return new Float(this.value);
+        return Float.valueOf(this.value);
     }
 
     /**

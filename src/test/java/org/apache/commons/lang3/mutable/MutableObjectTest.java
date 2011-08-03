@@ -88,7 +88,7 @@ public class MutableObjectTest extends TestCase {
 
     public void testToString() {
         assertEquals("HI", new MutableObject<String>("HI").toString());
-        assertEquals("10.0", new MutableObject<Double>(new Double(10)).toString());
+        assertEquals("10.0", new MutableObject<Double>(Double.valueOf(10)).toString());
         assertEquals("null", new MutableObject<Object>(null).toString());
     }
 

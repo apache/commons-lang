@@ -288,9 +288,9 @@ public class ArrayUtils {
      * <p>Note, this method makes only sense to provide arguments of the same type so that the
      * compiler can deduce the type of the array itself. While it is possible to select the
      * type explicitly like in
-     * <code>Number[] array = ArrayUtils.&lt;Number&gt;toArray(Integer.valueOf(42), new Double(Math.PI))</code>,
+     * <code>Number[] array = ArrayUtils.&lt;Number&gt;toArray(Integer.valueOf(42), Double.valueOf(Math.PI))</code>,
      * there is no real advantage when compared to
-     * <code>new Number[] {Integer.valueOf(42), new Double(Math.PI)}</code>.</p>
+     * <code>new Number[] {Integer.valueOf(42), Double.valueOf(Math.PI)}</code>.</p>
      *
      * @param  <T>   the array's element type
      * @param  items  the varargs array items, null allowed

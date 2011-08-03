@@ -54,17 +54,17 @@ public class NumberUtils {
     /** Reusable Byte constant for minus one. */
     public static final Byte BYTE_MINUS_ONE = Byte.valueOf((byte) -1);
     /** Reusable Double constant for zero. */
-    public static final Double DOUBLE_ZERO = new Double(0.0d);
+    public static final Double DOUBLE_ZERO = Double.valueOf(0.0d);
     /** Reusable Double constant for one. */
-    public static final Double DOUBLE_ONE = new Double(1.0d);
+    public static final Double DOUBLE_ONE = Double.valueOf(1.0d);
     /** Reusable Double constant for minus one. */
-    public static final Double DOUBLE_MINUS_ONE = new Double(-1.0d);
+    public static final Double DOUBLE_MINUS_ONE = Double.valueOf(-1.0d);
     /** Reusable Float constant for zero. */
-    public static final Float FLOAT_ZERO = new Float(0.0f);
+    public static final Float FLOAT_ZERO = Float.valueOf(0.0f);
     /** Reusable Float constant for one. */
-    public static final Float FLOAT_ONE = new Float(1.0f);
+    public static final Float FLOAT_ONE = Float.valueOf(1.0f);
     /** Reusable Float constant for minus one. */
-    public static final Float FLOAT_MINUS_ONE = new Float(-1.0f);
+    public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
 
     /**
      * <p><code>NumberUtils</code> instances should NOT be constructed in standard programming.
@@ -388,7 +388,7 @@ public class NumberUtils {
     // Byte.valueOf(String)
     // Double.valueOf(String)
     // Float.valueOf(String)
-    // new Float(String)
+    // Float.valueOf(String)
     // Integer.valueOf(String,int radix)
     // Integer.valueOf(String)
     // Integer.decode(String)
@@ -396,7 +396,7 @@ public class NumberUtils {
     // Integer.getInteger(String,int val)
     // Integer.getInteger(String,Integer val)
     // Integer.valueOf(String)
-    // new Double(String)
+    // Double.valueOf(String)
     // new Byte(String)
     // Long.valueOf(String)
     // Long.getLong(String)

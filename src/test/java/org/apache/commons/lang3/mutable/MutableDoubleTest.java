@@ -36,7 +36,7 @@ public class MutableDoubleTest extends TestCase {
         
         assertEquals(1d, new MutableDouble(1d).doubleValue(), 0.0001d);
         
-        assertEquals(2d, new MutableDouble(new Double(2d)).doubleValue(), 0.0001d);
+        assertEquals(2d, new MutableDouble(Double.valueOf(2d)).doubleValue(), 0.0001d);
         assertEquals(3d, new MutableDouble(new MutableDouble(3d)).doubleValue(), 0.0001d);
         
         assertEquals(2d, new MutableDouble("2.0").doubleValue(), 0.0001d);
@@ -50,19 +50,19 @@ public class MutableDoubleTest extends TestCase {
     public void testGetSet() {
         final MutableDouble mutNum = new MutableDouble(0d);
         assertEquals(0d, new MutableDouble().doubleValue(), 0.0001d);
-        assertEquals(new Double(0), new MutableDouble().getValue());
+        assertEquals(Double.valueOf(0), new MutableDouble().getValue());
         
         mutNum.setValue(1);
         assertEquals(1d, mutNum.doubleValue(), 0.0001d);
-        assertEquals(new Double(1d), mutNum.getValue());
+        assertEquals(Double.valueOf(1d), mutNum.getValue());
         
-        mutNum.setValue(new Double(2d));
+        mutNum.setValue(Double.valueOf(2d));
         assertEquals(2d, mutNum.doubleValue(), 0.0001d);
-        assertEquals(new Double(2d), mutNum.getValue());
+        assertEquals(Double.valueOf(2d), mutNum.getValue());
         
         mutNum.setValue(new MutableDouble(3d));
         assertEquals(3d, mutNum.doubleValue(), 0.0001d);
-        assertEquals(new Double(3d), mutNum.getValue());
+        assertEquals(Double.valueOf(3d), mutNum.getValue());
         try {
             mutNum.setValue(null);
             fail();
@@ -93,7 +93,7 @@ public class MutableDoubleTest extends TestCase {
         assertEquals(false, mutNumB.equals(mutNumC));
         assertEquals(true, mutNumC.equals(mutNumC));
         assertEquals(false, mutNumA.equals(null));
-        assertEquals(false, mutNumA.equals(new Double(0d)));
+        assertEquals(false, mutNumA.equals(Double.valueOf(0d)));
         assertEquals(false, mutNumA.equals("0"));
     }
 
@@ -105,7 +105,7 @@ public class MutableDoubleTest extends TestCase {
         assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
         assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
         assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(true, mutNumA.hashCode() == new Double(0d).hashCode());
+        assertEquals(true, mutNumA.hashCode() == Double.valueOf(0d).hashCode());
     }
 
     public void testCompareTo() {
@@ -132,8 +132,8 @@ public class MutableDoubleTest extends TestCase {
     }
 
     public void testToDouble() {
-        assertEquals(new Double(0d), new MutableDouble(0d).toDouble());
-        assertEquals(new Double(12.3d), new MutableDouble(12.3d).toDouble());
+        assertEquals(Double.valueOf(0d), new MutableDouble(0d).toDouble());
+        assertEquals(Double.valueOf(12.3d), new MutableDouble(12.3d).toDouble());
     }
 
     public void testIncrement() {
@@ -161,7 +161,7 @@ public class MutableDoubleTest extends TestCase {
 
     public void testAddValueObject() {
         MutableDouble mutNum = new MutableDouble(1);
-        mutNum.add(new Double(1.1d));
+        mutNum.add(Double.valueOf(1.1d));
         
         assertEquals(2.1d, mutNum.doubleValue(), 0.01d);
     }
@@ -175,7 +175,7 @@ public class MutableDoubleTest extends TestCase {
 
     public void testSubtractValueObject() {
         MutableDouble mutNum = new MutableDouble(1);
-        mutNum.subtract(new Double(0.9d));
+        mutNum.subtract(Double.valueOf(0.9d));
         
         assertEquals(0.1d, mutNum.doubleValue(), 0.01d);
     }
