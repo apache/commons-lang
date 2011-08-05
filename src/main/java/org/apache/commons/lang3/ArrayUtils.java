@@ -5779,6 +5779,12 @@ public class ArrayUtils {
         return result;
     }
 
+    /**
+     * Extract a set of Integer indices into an int[].
+     * @param coll {@code HashSet} of {@code Integer}
+     * @return int[]
+     * @since 3.0.1
+     */
     private static int[] extractIndices(HashSet<Integer> coll) {
         int[] result = new int[coll.size()];
         int i = 0;
