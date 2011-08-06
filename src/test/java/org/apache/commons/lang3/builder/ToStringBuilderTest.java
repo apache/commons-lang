@@ -24,6 +24,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import org.apache.commons.lang3.SystemUtils;
+
 /**
  * Unit tests for {@link org.apache.commons.lang3.builder.ToStringBuilder}.
  *
@@ -320,13 +322,27 @@ public class ToStringBuilderTest {
     }
 
     // Reflection hierarchy tests
-
     @Test
     public void testReflectionHierarchyArrayList() {
         List<Object> base = new ArrayList<Object>();
         String baseStr = this.toBaseString(base);
-        assertEquals(baseStr + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]", ToStringBuilder.reflectionToString(base, null, true));
-        assertEquals(baseStr + "[size=0]", ToStringBuilder.reflectionToString(base, null, false));
+        // note, the test data depends on the internal representation of the ArrayList, which may differ between JDK versions and vendors
+        String expectedWithTransients = baseStr + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]";
+        String toStringWithTransients = ToStringBuilder.reflectionToString(base, null, true);
+        if (!expectedWithTransients.equals(toStringWithTransients)) {
+            // representation different for IBM JDK 1.6.0, LANG-727
+            if (!("IBM Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".equals(SystemUtils.JAVA_SPECIFICATION_VERSION))) {
+                assertEquals(expectedWithTransients, toStringWithTransients);
+            }
+        }
+        String expectedWithoutTransients = baseStr + "[size=0]";
+        String toStringWithoutTransients = ToStringBuilder.reflectionToString(base, null, false);
+        if (!expectedWithoutTransients.equals(toStringWithoutTransients)) {
+            // representation different for IBM JDK 1.6.0, LANG-727
+            if (!("IBM Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".equals(SystemUtils.JAVA_SPECIFICATION_VERSION))) {
+                assertEquals(expectedWithoutTransients, toStringWithoutTransients);
+            }
+        }
         this.validateNullToStringStyleRegistry();
     }
 
