@@ -24,10 +24,10 @@ CHANGES IN 3.0.1
     [LANG-686] Improve exception message when StringUtils.replaceEachRepeatedly detects recursion
     [LANG-717] Specify source encoding for Ant build
     [LANG-721] Complement ArrayUtils.addAll() variants with by-index and by-value removal methods
-    [LANG-726] Add Range&lt;T&gt; Range&lt;T&gt;.intersectionWith(Range&lt;T&gt;)
+    [LANG-726] Add Range<T> Range<T>.intersectionWith(Range<T>)
     [LANG-723] Add mode and median Comparable... methods to ObjectUtils
     [LANG-722] Add BooleanUtils.and + or varargs methods
-    [LANG-730] EnumSet -&gt; bit vector
+    [LANG-730] EnumSet -> bit vector
     [LANG-735] Deprecate CharUtils.toCharacterObject(char) in favor of java.lang.Character.valueOf(char)
     [LANG-737] Missing method getRawMessage for ContextedException and ContextedRuntimeException
 
