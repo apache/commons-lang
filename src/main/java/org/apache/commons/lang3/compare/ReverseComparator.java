@@ -14,12 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.collections.comparators;
+package org.apache.commons.lang3.compare;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
-import org.apache.commons.collections.ComparatorUtils;
 
 /**
  * Reverses the order of another comparator by reversing the arguments
