@@ -500,10 +500,16 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-changes-plugin</artifactId>
-          <version>2.3</version>
+          <version>2.4</version>
           <configuration>
             <xmlPath>${basedir}/src/site/changes/changes.xml</xmlPath>
-            <issueLinkTemplate>%URL%/%ISSUE%</issueLinkTemplate>
+            <issueLinkTemplatePerSystem>
+              <default>%URL%/%ISSUE%</default>
+            </issueLinkTemplatePerSystem>
+            <template>release-notes.vm</template>
+            <templateDirectory>templates</templateDirectory>
+            <!-- Give the output file its proper name -->
+            <announcementFile>RELEASE-NOTES.txt</announcementFile>
           </configuration>
           <reportSets>
             <reportSet>
