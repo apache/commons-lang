@@ -1,0 +1,136 @@
+## Licensed to the Apache Software Foundation (ASF) under one
+## or more contributor license agreements.  See the NOTICE file
+## distributed with this work for additional information
+## regarding copyright ownership.  The ASF licenses this file
+## to you under the Apache License, Version 2.0 (the
+## "License"); you may not use this file except in compliance
+## with the License.  You may obtain a copy of the License at
+##
+##  http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing,
+## software distributed under the License is distributed on an
+## "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+## KIND, either express or implied.  See the License for the
+## specific language governing permissions and limitations
+## under the License.
+                        
+                        Apache ${project.name} Package
+                            Version ${version}
+                              Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for the 3.0.1 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.0 and onwards now targets Java 5.0, making use of features that arrived with Java 5.0 such as generics, 
+variable arguments, autoboxing, concurrency and formatted output.
+
+For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    http://commons.apache.org/lang/article3_0.html
+
+## Hack to improve layout: replace all pairs of spaces with a single new-line
+##$release.description.replaceAll("  ", "
+##")
+
+#if ($release.getActions().size() == 0)
+No changes defined in this version.
+#else
+Changes in this version include:
+
+#if ($release.getActions('add').size() !=0)
+New features:
+#foreach($actionItem in $release.getActions('add'))
+#set($action=$actionItem.getAction())
+#if ($actionItem.getIssue())
+#set($issue=$actionItem.getIssue())
+#else
+#set($issue="")
+#end
+#if ($actionItem.getDueTo())
+#set($dueto=$actionItem.getDueTo())
+#else
+#set($dueto="")
+#end
+o#if($!issue != "") $issue: #end ${action} #if($!dueto != "")Thanks to $dueto. #end
+
+#set($issue="")
+#set($dueto="")
+#end 
+#end
+
+#if ($release.getActions('fix').size() !=0)
+Fixed Bugs:
+#foreach($actionItem in $release.getActions('fix'))
+#set($action=$actionItem.getAction())
+#if ($actionItem.getIssue())
+#set($issue=$actionItem.getIssue())
+#else
+#set($issue="")
+#end
+#if ($actionItem.getDueTo())
+#set($dueto=$actionItem.getDueTo())
+#else
+#set($dueto="")
+#end
+o#if($!issue != "") $issue: #end ${action} #if($!dueto != "")Thanks to $dueto. #end
+
+#set($issue="")
+#set($dueto="")
+#end
+#end
+
+#if ($release.getActions('update').size() !=0)
+Changes:
+#foreach($actionItem in $release.getActions('update'))
+#set($action=$actionItem.getAction())
+#if ($actionItem.getIssue())
+#set($issue=$actionItem.getIssue())
+#else
+#set($issue="")
+#end
+#if ($actionItem.getDueTo())
+#set($dueto=$actionItem.getDueTo())
+#else
+#set($dueto="")
+#end
+o#if($!issue != "") $issue: #end ${action} #if($!dueto != "")Thanks to $dueto. #end
+
+#set($issue="")
+#set($dueto="")
+#end
+#end
+
+#if ($release.getActions('remove').size() !=0)
+Removed:
+#foreach($actionItem in $release.getActions('remove'))
+#set($action=$actionItem.getAction())
+#if ($actionItem.getIssue())
+#set($issue=$actionItem.getIssue())
+#else
+#set($issue="")
+#end
+#if ($actionItem.getDueTo())
+#set($dueto=$actionItem.getDueTo())
+#else
+#set($dueto="")
+#end
+o#if($!issue != "") $issue: #end ${action} #if($!dueto != "")Thanks to $dueto. #end
+
+#set($issue="")
+#set($dueto="")
+#end
+#end
+## End of main loop
+#end
+ 
+For complete information on ${project.name}, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache ${project.name} website:
+
+${project.url}
+
+
