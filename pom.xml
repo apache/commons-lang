@@ -469,6 +469,10 @@
           <includes>
             <include>**/*Test.java</include>
           </includes>
+          <excludes>
+            <exclude>**/BulkTest.java</exclude>
+            <exclude>**/AbstractTestObject.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>

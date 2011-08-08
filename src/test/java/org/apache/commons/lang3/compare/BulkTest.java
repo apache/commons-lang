@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.collections;
+package org.apache.commons.lang3.compare;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -136,7 +136,7 @@ import junit.framework.TestSuite;
  *  @author Paul Jack
  *  @version $Id$
  */
-public class BulkTest extends TestCase implements Cloneable {
+class BulkTest extends TestCase implements Cloneable {
 
 
     // Note:  BulkTest is Cloneable to make it easier to construct 

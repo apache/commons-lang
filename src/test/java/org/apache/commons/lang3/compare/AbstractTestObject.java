@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.collections;
+package org.apache.commons.lang3.compare;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -44,7 +44,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Anonymous
  */
-public abstract class AbstractTestObject extends BulkTest {
+abstract class AbstractTestObject extends BulkTest {
 
     /** Current major release for Collections */
     public static final int COLLECTIONS_MAJOR_VERSION = 3;
@@ -316,7 +316,7 @@ public abstract class AbstractTestObject extends BulkTest {
     }
 
     protected boolean skipSerializedCanonicalTests() {
-        return Boolean.getBoolean("org.apache.commons.collections:with-clover");
+        return Boolean.getBoolean("org.apache.commons.lang3:with-clover");
     }
 
     // private implementation

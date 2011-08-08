@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.collections.comparators;
+package org.apache.commons.lang3.compare;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,8 +23,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.apache.commons.collections.AbstractTestObject;
 
 /**
  * Abstract test class for testing the Comparator interface.
