@@ -14,17 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.collections;
+package org.apache.commons.lang3.compare;
 
 import java.util.Collection;
 import java.util.Comparator;
-
-import org.apache.commons.collections.comparators.BooleanComparator;
-import org.apache.commons.collections.comparators.ComparableComparator;
-import org.apache.commons.collections.comparators.ComparatorChain;
-import org.apache.commons.collections.comparators.NullComparator;
-import org.apache.commons.collections.comparators.ReverseComparator;
-import org.apache.commons.collections.comparators.TransformingComparator;
 
 /**
  * Provides convenient static utility methods for <Code>Comparator</Code>
@@ -133,22 +126,6 @@ public class ComparatorUtils {
     }
 
     /**
-     * Gets a Comparator that can sort Boolean objects.
-     * <p>
-     * The parameter specifies whether true or false is sorted first.
-     * <p>
-     * The comparator throws NullPointerException if a null value is compared.
-     * 
-     * @param trueFirst  when <code>true</code>, sort 
-     *        <code>true</code> {@link Boolean}s before
-     *        <code>false</code> {@link Boolean}s.
-     * @return  a comparator that sorts booleans
-     */
-    public static Comparator<Boolean> booleanComparator(boolean trueFirst) {
-        return BooleanComparator.booleanComparator(trueFirst);
-    }
-    
-    /**
      * Gets a Comparator that controls the comparison of <code>null</code> values.
      * <p>
      * The returned comparator will consider a null value to be less than
@@ -184,26 +161,6 @@ public class ComparatorUtils {
             comparator = NATURAL_COMPARATOR;
         }
         return new NullComparator<E>(comparator, true);
-    }
-
-    /**
-     * Gets a Comparator that passes transformed objects to the given comparator.
-     * <p>
-     * Objects passed to the returned comparator will first be transformed
-     * by the given transformer before they are compared by the given
-     * comparator.
-     *
-     * @param comparator  the sort order to use
-     * @param transformer  the transformer to use
-     * @return  a comparator that transforms its input objects before comparing them
-     * @see  TransformingComparator
-     */
-    @SuppressWarnings("unchecked")
-    public static <E> Comparator<E> transformedComparator(Comparator<E> comparator, Transformer<? super E, ? extends E> transformer) {
-        if (comparator == null) {
-            comparator = NATURAL_COMPARATOR;
-        }
-        return new TransformingComparator<E>(transformer, comparator);
     }
 
     /**
