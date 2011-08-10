@@ -37,7 +37,7 @@ and System properties. Additionally it contains basic enhancements to java.util.
 building methods, such as hashCode, toString and equals.
 </p>
 <p>
-Note that Lang 3.0 uses a different package (<i>org.apache.commons.lang3</i>) than its predecessors (<i>org.apache.commons.lang</i>), allowing it to be used at the same time as an earlier version.
+Note that Lang 3.0 (and subsequent versions) use a different package (<i>org.apache.commons.lang3</i>) than the previous versions (<i>org.apache.commons.lang</i>), allowing it to be used at the same time as an earlier version.
 </p>
 </section>
 <!-- ================================================== -->
