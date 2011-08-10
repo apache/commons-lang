@@ -65,13 +65,8 @@ The <a href="source-repository.html">subversion repository</a> can be
 <p>
 A latest stable and Java 5.0 dependent version is available: 
 (<a href="http://commons.apache.org/lang/download_lang.cgi">download 3.0.1</a>)
-(<a href="upgradeto3_0.html">changelog</a>) (<a href="article3_0.html">upgrade notes</a>)
+(<a href="release-notes/RELEASE-NOTES-3.0.1.txt">3.0.1 release notes</a>) (<a href="article3_0.html">2.x to 3.0 upgrade notes</a>)
 (<a href="lang2-lang3-clirr-report.html">Lang2 to Lang3 Clirr report</a>). </p>
-
-<p>
-The legacy JDK 1.3 compatible version is also available:
-(<a href="http://commons.apache.org/lang/download_lang.cgi">download 2.6</a>) 
-(<a href="upgradeto2_6.html">release notes</a>). </p>
 
 <p>
 For information on previous releases, see the <a href="release-history.html">Release History</a> and to download previous releases, see the <a href="http://archive.apache.org/dist/commons/lang/">Apache Archive</a>.
