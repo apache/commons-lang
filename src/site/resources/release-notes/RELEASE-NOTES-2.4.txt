@@ -1,0 +1,124 @@
+$Id: RELEASE-NOTES.txt 637522 2008-03-16 03:41:46Z bayard $
+
+                        Commons Lang Package
+                            Version 2.4
+                           Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for the 2.4 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any Java environment.
+
+Lang 2.4 no longer attempts to target the Java 1.1 environment and now targets Java 1.2. While previous versions 
+were built for 1.1, some parts were using methods that were only available in 1.2, and the Enum class had 
+become dependent on Java 1.3. 
+
+INCOMPATIBLE CHANGES WITH VERSION 2.3:
+
+- None
+
+INCOMPATIBLE CHANGES WITH VERSION 2.2:
+
+- Calling stop on a suspended StopWatch will no longer change the underlying time. 
+  It's very unlikely anyone was relying on that bug as a feature.
+
+ADDITIONAL INCOMPATIBLE CHANGES WITH VERSION 2.0:
+
+- The Nestable interface defines the method indexOfThrowable(Class).
+Previously the implementations checked only for a specific Class.
+Now they check for subclasses of that Class as well.
+For most situations this will be the expected behaviour (ie. its a bug fix).
+If it causes problems, please use the ExceptionUtils.indexOfThrowable(Class) method instead.
+Note that the ExceptionUtils method is available in v1.0 and v2.0 of commons-lang and has not been changed.
+(An alternative to this is to change the public static matchSubclasses flag on NestableDelegate.
+However, we don't recommend that as a long-term solution.)
+
+- The StopWatch class has had much extra validation added.
+If your code previously relied on unusual aspects, it may no longer work.
+
+- Starting with version 2.1, Ant version 1.6.x is required to build. Copy 
+junit.jar to ANT_HOME/lib. You can get JUnit from http://www.junit.org. See the developer's guide
+for more details.
+
+DEPRECATIONS FROM 2.3 to 2.4:
+
+- ObjectUtils.appendIdentityToString(StringBuffer, Object) - has very odd semantics, use 
+  ObjectUtils.identityToString(StringBuffer, Object) instead.
+
+- public static java.util.Date add(java.util.Date, int, int) - it is not intended for this 
+  method to be public. Please let us know if you use this. 
+
+DEPRECATIONS FROM 2.2 to 2.3:
+
+- None
+
+DEPRECATIONS FROM 2.1 to 2.2:
+
+- None
+
+DEPRECATIONS FROM 2.0 to 2.1:
+
+- The enum package has been renamed to enums for JDK1.5 compilance.
+All functionality is identical, just the package has changed.
+This package will be removed in v3.0.
+
+- NumberUtils.stringToInt - renamed to toInt
+
+- DateUtils - four constants, MILLIS_IN_* have been deprecated as they were defined
+as int not long. The replacements are MILLIS_PER_*. 
+
+
+BUG FIXES IN 2.4:
+
+    * [LANG-76 ] - EnumUtils.getEnum() doesn't work well in 1.5
+    * [LANG-328] - LocaleUtils.toLocale() rejects strings with only language+variant
+    * [LANG-334] - Enum is not thread-safe
+    * [LANG-346] - Dates.round() behaves incorrectly for minutes and seconds
+    * [LANG-349] - Deadlock using ReflectionToStringBuilder
+    * [LANG-353] - Javadoc Example for EqualsBuilder is questionable
+    * [LANG-360] - Why does appendIdentityToString return null?
+    * [LANG-361] - BooleanUtils toBooleanObject javadoc does not match implementation
+    * [LANG-363] - StringEscapeUtils..escapeJavaScript() method did not escape '/' into '\/', it will make IE render page uncorrectly
+    * [LANG-364] - Documentation bug for ignoreEmptyTokens accessors in StrTokenizer
+    * [LANG-365] - BooleanUtils.toBoolean() - invalid drop-thru in case statement causes StringIndexOutOfBoundsException
+    * [LANG-367] - FastDateFormat thread safety
+    * [LANG-368] - FastDateFormat getDateInstance() and getDateTimeInstance() assume Locale.getDefault() won't change
+    * [LANG-369] - ExceptionUtils not thread-safe
+    * [LANG-372] - ToStringBuilder: MULTI_LINE_STYLE does not print anything from appendToString methods.
+    * [LANG-380] - infinite loop in Fraction.reduce when numerator == 0
+    * [LANG-381] - NumberUtils.min(floatArray) returns wrong value if floatArray[0] happens to be Float.NaN
+    * [LANG-385] - http://commons.apache.org/lang/developerguide.html "Building" section is incorrect and incomplete
+    * [LANG-393] - EqualsBuilder don't compare BigDecimals correctly
+    * [LANG-399] - Javadoc bugs - cannot find object
+    * [LANG-410] - Ambiguous / confusing names in StringUtils replace* methods
+    * [LANG-412] - StrBuilder appendFixedWidth does not handle nulls
+    * [LANG-414] - DateUtils.round() often fails
+
+IMPROVEMENTS IN 2.4:
+
+    * [LANG-180] - adding a StringUtils.replace method that takes an array or List of replacement strings
+    * [LANG-192] - Split camel case strings
+    * [LANG-257] - Add new splitByWholeSeparatorPreserveAllTokens() methods to StringUtils
+    * [LANG-269] - Shouldn't Commons Lang's StringUtils have a "common" string method?
+    * [LANG-298] - ClassUtils.getShortClassName and ClassUtils.getPackageName and class of array
+    * [LANG-321] - Add toArray() method to IntRange and LongRange classes
+    * [LANG-322] - ClassUtils.getShortClassName(String) inefficient
+    * [LANG-326] - StringUtils: startsWith / endsWith / startsWithIgnoreCase / endsWithIgnoreCase / removeStartIgnoreCase / removeEndIgnoreCase methods
+    * [LANG-329] - Pointless synchronized in ThreadLocal.initialValue should be removed
+    * [LANG-333] - ArrayUtils.toClass
+    * [LANG-337] - Utility class constructor javadocs should acknowledge that they may sometimes be used, e.g. with Velocity.
+    * [LANG-338] - truncateNicely method which avoids truncating in the middle of a word
+    * [LANG-345] - Optimize HashCodeBuilder.append(Object)
+    * [LANG-351] - Extension to ClassUtils: Obtain the primitive class from a wrapper
+    * [LANG-356] - Add getStartTime to StopWatch
+    * [LANG-362] - Add ExtendedMessageFormat to org.apache.commons.lang.text
+    * [LANG-371] - ToStringStyle javadoc should show examples of styles
+    * [LANG-374] - Add escaping for CSV columns to StringEscapeUtils
+    * [LANG-375] - add SystemUtils.IS_OS_WINDOWS_VISTA field
+    * [LANG-379] - Calculating A date fragment in any time-unit
+    * [LANG-383] - Adding functionality to DateUtils to allow direct setting of various fields.
+    * [LANG-402] - OSGi-ify Lang
+    * [LANG-404] - Add Calendar flavour format methods to DateFormatUtils
+    * [LANG-407] - StringUtils.length(String) returns null-safe length
+    * [LANG-413] - Memory usage improvement for StringUtils#getLevenshteinDistance()
