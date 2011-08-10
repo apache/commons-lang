@@ -71,11 +71,11 @@ The <a href="source-repository.html">subversion repository</a> can be
 
 <p>
 Alternatively you can pull it from the central Maven repositories:
-<code>
+<pre>
   &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
   &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
   &lt;version&gt;3.0.1&lt;/version&gt;
-</code>
+</pre>
 </p>
 
 <p>
