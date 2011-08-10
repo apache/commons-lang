@@ -21,7 +21,7 @@
   </properties>
   <body>
 
-  <release version="3.0.1" date="Unreleased" description="Next 3.x release">  
+  <release version="3.0.1" date="2011-08-09" description="August release">  
     <action type="fix" issue="LANG-626">SerializationUtils.clone: Fallback to context classloader if class not found in current classloader.</action>
     <action type="fix" issue="LANG-727">ToStringBuilderTest.testReflectionHierarchyArrayList fails with IBM JDK 6.</action>
     <action type="fix" issue="LANG-720">StringEscapeUtils.escapeXml(input) wrong when input contains characters in Supplementary Planes.</action>
