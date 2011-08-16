@@ -17,17 +17,25 @@
 
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Arrays;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Tests ArrayUtils add methods.
  *
  * @version $Id$
  */
-public class ArrayUtilsAddTest extends TestCase {
+public class ArrayUtilsAddTest {
 
+    @Test
     public void testJira567(){
         Number[] n;
         // Valid array construction
@@ -42,6 +50,7 @@ public class ArrayUtilsAddTest extends TestCase {
         }
     }
 
+    @Test
     public void testAddObjectArrayBoolean() {
         boolean[] newArray;
         newArray = ArrayUtils.add((boolean[])null, false);
@@ -56,6 +65,7 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Boolean.TYPE, newArray.getClass().getComponentType());
     }
 
+    @Test
     public void testAddObjectArrayByte() {
         byte[] newArray;
         newArray = ArrayUtils.add((byte[])null, (byte)0);
@@ -73,6 +83,7 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
     }
 
+    @Test
     public void testAddObjectArrayChar() {
         char[] newArray;
         newArray = ArrayUtils.add((char[])null, (char)0);
@@ -90,6 +101,7 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Character.TYPE, newArray.getClass().getComponentType());
     }
 
+    @Test
     public void testAddObjectArrayDouble() {
         double[] newArray;
         newArray = ArrayUtils.add((double[])null, 0);
@@ -107,6 +119,7 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Double.TYPE, newArray.getClass().getComponentType());
     }
 
+    @Test
     public void testAddObjectArrayFloat() {
         float[] newArray;
         newArray = ArrayUtils.add((float[])null, 0);
@@ -124,6 +137,7 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Float.TYPE, newArray.getClass().getComponentType());
     }
 
+    @Test
     public void testAddObjectArrayInt() {
         int[] newArray;
         newArray = ArrayUtils.add((int[])null, 0);
@@ -141,6 +155,7 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Integer.TYPE, newArray.getClass().getComponentType());
     }
 
+    @Test
     public void testAddObjectArrayLong() {
         long[] newArray;
         newArray = ArrayUtils.add((long[])null, 0);
@@ -158,6 +173,7 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Long.TYPE, newArray.getClass().getComponentType());
     }
 
+    @Test
     public void testAddObjectArrayShort() {
         short[] newArray;
         newArray = ArrayUtils.add((short[])null, (short)0);
@@ -175,6 +191,7 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Short.TYPE, newArray.getClass().getComponentType());
     }
 
+    @Test
     public void testAddObjectArrayObject() {
         Object[] newArray;
 
@@ -210,6 +227,7 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Float.class, newArray.getClass().getComponentType());
     }
     
+    @Test
     public void testLANG571(){
         String[] stringArray=null;
         String aString=null;
@@ -229,6 +247,7 @@ public class ArrayUtilsAddTest extends TestCase {
         }
     }
 
+    @Test
     public void testAddObjectArrayToObjectArray() {
         assertNull(ArrayUtils.addAll((Object[]) null, (Object[]) null));
         Object[] newArray;
@@ -346,6 +365,7 @@ public class ArrayUtilsAddTest extends TestCase {
 
     }
 
+    @Test
     public void testAddObjectAtIndex() {
         Object[] newArray;
         newArray = ArrayUtils.add((Object[])null, 0, "a");
