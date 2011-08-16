@@ -16,27 +16,28 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.CharUtils}.
  *
  * @version $Id$
  */
-public class CharUtilsTest extends TestCase {
+public class CharUtilsTest {
 
     private static final Character CHARACTER_A = new Character('A');
     private static final Character CHARACTER_B = new Character('B');
     private static final char CHAR_COPY = '\u00a9';
     
-    public CharUtilsTest(String name) {
-        super(name);
-    }
-
-    //-----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new CharUtils());
         Constructor<?>[] cons = CharUtils.class.getDeclaredConstructors();
@@ -46,7 +47,7 @@ public class CharUtilsTest extends TestCase {
         assertEquals(false, Modifier.isFinal(BooleanUtils.class.getModifiers()));
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testToCharacterObject_char() {
         assertEquals(new Character('a'), CharUtils.toCharacterObject('a'));
         assertSame(CharUtils.toCharacterObject('a'), CharUtils.toCharacterObject('a'));
@@ -67,6 +68,7 @@ public class CharUtilsTest extends TestCase {
         }
     }
     
+    @Test
     public void testToCharacterObject_String() {
         assertEquals(null, CharUtils.toCharacterObject(null));
         assertEquals(null, CharUtils.toCharacterObject(""));
@@ -76,7 +78,7 @@ public class CharUtilsTest extends TestCase {
         assertSame(CharUtils.toCharacterObject("a"), CharUtils.toCharacterObject('a'));
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testToChar_Character() {
         assertEquals('A', CharUtils.toChar(CHARACTER_A));
         assertEquals('B', CharUtils.toChar(CHARACTER_B));
@@ -85,13 +87,14 @@ public class CharUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
     
+    @Test
     public void testToChar_Character_char() {
         assertEquals('A', CharUtils.toChar(CHARACTER_A, 'X'));
         assertEquals('B', CharUtils.toChar(CHARACTER_B, 'X'));
         assertEquals('X', CharUtils.toChar((Character) null, 'X'));
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testToChar_String() {
         assertEquals('A', CharUtils.toChar("A"));
         assertEquals('B', CharUtils.toChar("BA"));
@@ -103,6 +106,7 @@ public class CharUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
     
+    @Test
     public void testToChar_String_char() {
         assertEquals('A', CharUtils.toChar("A", 'X'));
         assertEquals('B', CharUtils.toChar("BA", 'X'));
@@ -110,7 +114,7 @@ public class CharUtilsTest extends TestCase {
         assertEquals('X', CharUtils.toChar((String) null, 'X'));
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testToIntValue_char() {
         assertEquals(0, CharUtils.toIntValue('0'));
         assertEquals(1, CharUtils.toIntValue('1'));
@@ -127,13 +131,14 @@ public class CharUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
     
+    @Test
     public void testToIntValue_char_int() {
         assertEquals(0, CharUtils.toIntValue('0', -1));
         assertEquals(3, CharUtils.toIntValue('3', -1));
         assertEquals(-1, CharUtils.toIntValue('a', -1));
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testToIntValue_Character() {
         assertEquals(0, CharUtils.toIntValue(new Character('0')));
         assertEquals(3, CharUtils.toIntValue(new Character('3')));
@@ -145,6 +150,7 @@ public class CharUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
     
+    @Test
     public void testToIntValue_Character_int() {
         assertEquals(0, CharUtils.toIntValue(new Character('0'), -1));
         assertEquals(3, CharUtils.toIntValue(new Character('3'), -1));
@@ -152,7 +158,7 @@ public class CharUtilsTest extends TestCase {
         assertEquals(-1, CharUtils.toIntValue(null, -1));
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testToString_char() {
         assertEquals("a", CharUtils.toString('a'));
         assertSame(CharUtils.toString('a'), CharUtils.toString('a'));
@@ -176,13 +182,14 @@ public class CharUtilsTest extends TestCase {
         }
     }
     
+    @Test
     public void testToString_Character() {
         assertEquals(null, CharUtils.toString(null));
         assertEquals("A", CharUtils.toString(CHARACTER_A));
         assertSame(CharUtils.toString(CHARACTER_A), CharUtils.toString(CHARACTER_A));
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testToUnicodeEscaped_char() {
         assertEquals("\\u0041", CharUtils.unicodeEscaped('A'));
        
@@ -196,12 +203,13 @@ public class CharUtilsTest extends TestCase {
         assertEquals("\\u1001", CharUtils.unicodeEscaped((char) 0x1001));
     }
     
+    @Test
     public void testToUnicodeEscaped_Character() {
         assertEquals(null, CharUtils.unicodeEscaped(null));
         assertEquals("\\u0041", CharUtils.unicodeEscaped(CHARACTER_A));
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testIsAscii_char() {
         assertEquals(true, CharUtils.isAscii('a'));
         assertEquals(true, CharUtils.isAscii('A'));
@@ -219,7 +227,7 @@ public class CharUtilsTest extends TestCase {
         }
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testIsAsciiPrintable_char() {
         assertEquals(true, CharUtils.isAsciiPrintable('a'));
         assertEquals(true, CharUtils.isAsciiPrintable('A'));
@@ -237,7 +245,7 @@ public class CharUtilsTest extends TestCase {
         }
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testIsAsciiControl_char() {
         assertEquals(false, CharUtils.isAsciiControl('a'));
         assertEquals(false, CharUtils.isAsciiControl('A'));
@@ -255,7 +263,7 @@ public class CharUtilsTest extends TestCase {
         }
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testIsAsciiAlpha_char() {
         assertEquals(true, CharUtils.isAsciiAlpha('a'));
         assertEquals(true, CharUtils.isAsciiAlpha('A'));
@@ -273,7 +281,7 @@ public class CharUtilsTest extends TestCase {
         }
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testIsAsciiAlphaUpper_char() {
         assertEquals(false, CharUtils.isAsciiAlphaUpper('a'));
         assertEquals(true, CharUtils.isAsciiAlphaUpper('A'));
@@ -291,7 +299,7 @@ public class CharUtilsTest extends TestCase {
         }
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testIsAsciiAlphaLower_char() {
         assertEquals(true, CharUtils.isAsciiAlphaLower('a'));
         assertEquals(false, CharUtils.isAsciiAlphaLower('A'));
@@ -309,7 +317,7 @@ public class CharUtilsTest extends TestCase {
         }
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testIsAsciiNumeric_char() {
         assertEquals(false, CharUtils.isAsciiNumeric('a'));
         assertEquals(false, CharUtils.isAsciiNumeric('A'));
@@ -327,7 +335,7 @@ public class CharUtilsTest extends TestCase {
         }
     }
     
-    //-----------------------------------------------------------------------
+    @Test
     public void testIsAsciiAlphanumeric_char() {
         assertEquals(true, CharUtils.isAsciiAlphanumeric('a'));
         assertEquals(true, CharUtils.isAsciiAlphanumeric('A'));
