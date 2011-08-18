@@ -26,8 +26,6 @@ import java.util.Comparator;
  * @since Commons Collections 2.0
  * @version $Revision$ $Date$
  *
- * @author Michael A. Smith
- *
  * @see java.util.Collections#reverseOrder()
  */
 public class ReverseComparator<E> implements Comparator<E>, Serializable {

@@ -42,10 +42,6 @@ import java.util.Map;
  *
  * @since Commons Collections 3.0
  * @version $Revision$ $Date$
- *
- * @author David Leppik
- * @author Stephen Colebourne
- * @author Janek Bogucki
  */
 public class FixedOrderComparator<T> implements Comparator<T> {
 
