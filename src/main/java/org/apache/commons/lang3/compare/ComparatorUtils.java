@@ -30,9 +30,6 @@ import java.util.Comparator;
  *
  * @since Commons Collections 2.1
  * @version $Revision$ $Date$
- *
- * @author Paul Jack
- * @author Stephen Colebourne
  */
 public class ComparatorUtils {
 

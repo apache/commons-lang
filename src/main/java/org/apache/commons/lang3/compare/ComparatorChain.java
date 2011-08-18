@@ -51,7 +51,6 @@ import java.util.List;
  * after all the setup operations are complete.</p>
  *
  * @since Commons Collections 2.0
- * @author Morgan Delagrange
  * @version $Revision$ $Date$
  */
 public class ComparatorChain<E> implements Comparator<E>, Serializable {
