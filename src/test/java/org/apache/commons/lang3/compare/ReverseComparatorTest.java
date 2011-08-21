@@ -49,4 +49,39 @@ public class ReverseComparatorTest {
         assertTrue("Comparison wasn't reversed", rc.compare( "aardvark", "baa" ) > 0 );
     }
 
+    @Test
+    public void testTwoCallsCancel() {
+        ReverseComparator rc = new ReverseComparator(new ReverseComparator());
+
+        // back to front tests
+        assertTrue("Reversal wasn't cancelled out", rc.compare( 1, 2 ) < 0 );
+        assertTrue("Reversal wasn't cancelled out", rc.compare( 2, 1 ) > 0 );
+        assertTrue("Reversal wasn't cancelled out", rc.compare( "aardvark", "baa" ) < 0 );
+        assertTrue("Reversal wasn't cancelled out", rc.compare( "baa", "aardvark" ) > 0 );
+    }
+
+    @Test
+    public void testEquality() {
+        ReverseComparator rc1 = new ReverseComparator();
+        ReverseComparator rc2 = new ReverseComparator(rc1);
+        ReverseComparator rc3 = new ReverseComparator(rc1);
+
+        // test same instance
+        assertTrue("Same instance wasn't equal", rc1.equals(rc1));
+        assertEquals("Equal instance has different hash code", rc1.hashCode(), rc1.hashCode());
+
+        // test null not equal
+        assertFalse("Null was equal", rc1.equals(null));
+
+        // test diff subcomparator not equal
+        assertFalse("Was equal despite different nested comparators", rc1.equals(rc2));
+
+        // test same subcomparator equal
+        assertTrue("Wasn't equal despite same nested comparator", rc2.equals(rc3));
+        assertEquals("Same subcomparator had different hash code", rc2.hashCode(), rc3.hashCode());
+
+        // test different type not equal
+        assertFalse("Was equal despite not being same class", rc1.equals(this));
+    }
+
 }
