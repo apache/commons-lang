@@ -428,7 +428,7 @@ public class NumberUtils {
      * <code>BigInteger</code> and from <code>Float</code> to
      * <code>BigDecimal</code>.</p>
      *
-     * <p>If the string starts with <code>0x</code> or <code>-0x</code>, it
+     * <p>If the string starts with <code>0x</code> or <code>-0x</code> (lower or upper case), it
      * will be interpreted as a hexadecimal integer.  Values with leading
      * <code>0</code>'s will not be interpreted as octal.</p>
      *
@@ -438,7 +438,7 @@ public class NumberUtils {
      * or trailing spaces will generate NumberFormatExceptions.</p>
      *
      * @param str  String containing a number, may be null
-     * @return Number created from the string
+     * @return Number created from the string (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Number createNumber(String str) throws NumberFormatException {
@@ -455,7 +455,7 @@ public class NumberUtils {
             // a wrong value.
             return null;
         }
-        if (str.startsWith("0x") || str.startsWith("-0x")) {
+        if (str.startsWith("0x") || str.startsWith("-0x") || str.startsWith("0X") || str.startsWith("-0X")) {
             return createInteger(str);
         }   
         char lastChar = str.charAt(str.length() - 1);
