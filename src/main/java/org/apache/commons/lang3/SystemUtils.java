@@ -1003,6 +1003,42 @@ public class SystemUtils {
 
     /**
      * <p>
+     * Is {@code true} if this is FreeBSD.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.0.2
+     */
+    public static final boolean IS_OS_FREE_BSD = getOSMatchesName("FreeBSD");
+
+    /**
+     * <p>
+     * Is {@code true} if this is OpenBSD.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.0.2
+     */
+    public static final boolean IS_OS_OPEN_BSD = getOSMatchesName("OpenBSD");
+
+    /**
+     * <p>
+     * Is {@code true} if this is NetBSD.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.0.2
+     */
+    public static final boolean IS_OS_NET_BSD = getOSMatchesName("NetBSD");
+
+    /**
+     * <p>
      * Is {@code true} if this is OS/2.
      * </p>
      * <p>
@@ -1048,7 +1084,7 @@ public class SystemUtils {
      * @since 2.1
      */
     public static final boolean IS_OS_UNIX = IS_OS_AIX || IS_OS_HP_UX || IS_OS_IRIX || IS_OS_LINUX || IS_OS_MAC_OSX
-            || IS_OS_SOLARIS || IS_OS_SUN_OS;
+            || IS_OS_SOLARIS || IS_OS_SUN_OS || IS_OS_FREE_BSD || IS_OS_OPEN_BSD || IS_OS_NET_BSD;
 
     /**
      * <p>
