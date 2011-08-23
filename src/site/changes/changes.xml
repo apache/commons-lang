@@ -21,6 +21,14 @@
   </properties>
   <body>
 
+  <release version="3.0.2" date="unreleased" description="September release">  
+    <action type="update" issue="LANG-736">CharUtils static final array CHAR_STRING is not needed to compute CHAR_STRING_ARRAY</action>
+    <action type="fix" issue="LANG-744">StringUtils throws java.security.AccessControlException on Google App Engine</action>
+    <action type="add" issue="LANG-695">SystemUtils.IS_OS_UNIX doesn't recognize FreeBSD as a Unix system</action>
+    <action type="fix" issue="LANG-698">Document that the Mutable numbers don't work as expected with String.format</action>
+    <action type="fix" issue="LANG-741">Ant build has wrong component.name</action>
+  </release>
+
   <release version="3.0.1" date="2011-08-09" description="August release">  
     <action type="fix" issue="LANG-626">SerializationUtils.clone: Fallback to context classloader if class not found in current classloader.</action>
     <action type="fix" issue="LANG-727">ToStringBuilderTest.testReflectionHierarchyArrayList fails with IBM JDK 6.</action>
