@@ -18,6 +18,8 @@ package org.apache.commons.lang3.mutable;
 
 /**
  * A mutable <code>float</code> wrapper.
+ * <p>
+ * Note that as MutableFloat does not extend Float, it is not treated by String.format as a Float parameter. 
  * 
  * @see Float
  * @since 2.1

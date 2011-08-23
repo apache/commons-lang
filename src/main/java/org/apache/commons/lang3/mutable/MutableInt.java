@@ -18,6 +18,8 @@ package org.apache.commons.lang3.mutable;
 
 /**
  * A mutable <code>int</code> wrapper.
+ * <p>
+ * Note that as MutableInt does not extend Integer, it is not treated by String.format as an Integer parameter. 
  * 
  * @see Integer
  * @since 2.1

@@ -18,6 +18,8 @@ package org.apache.commons.lang3.mutable;
 
 /**
  * A mutable <code>byte</code> wrapper.
+ * <p>
+ * Note that as MutableByte does not extend Byte, it is not treated by String.format as a Byte parameter. 
  * 
  * @see Byte
  * @since 2.1

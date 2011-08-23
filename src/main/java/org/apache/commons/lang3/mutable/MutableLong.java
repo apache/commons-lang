@@ -18,6 +18,8 @@ package org.apache.commons.lang3.mutable;
 
 /**
  * A mutable <code>long</code> wrapper.
+ * <p>
+ * Note that as MutableLong does not extend Long, it is not treated by String.format as a Long parameter. 
  * 
  * @see Long
  * @since 2.1
