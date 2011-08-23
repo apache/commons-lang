@@ -743,6 +743,9 @@ public class StringUtils {
             sunAvailable = false;
         } catch (NoSuchMethodException e) {
             sunAvailable = false;
+        } catch (java.security.AccessControlException e) {
+            // LANG-744 - thrown in Google App Engine
+            sunAvailable = false;
         }
     }
 
