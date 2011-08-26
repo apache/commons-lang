@@ -4381,15 +4381,11 @@ public class StringUtils {
      * @param str  the String to chomp from, may be null
      * @param separator  separator String, may be null
      * @return String without trailing separator, {@code null} if null String input
+     * @deprecated This feature will be removed in Lang 4.0
      */
+    @Deprecated
     public static String chomp(String str, String separator) {
-        if (isEmpty(str) || separator == null) {
-            return str;
-        }
-        if (str.endsWith(separator)) {
-            return str.substring(0, str.length() - separator.length());
-        }
-        return str;
+        return removeEnd(str,separator);
     }
 
     // Chopping
