@@ -57,6 +57,7 @@ public class ComparableComparator<E extends Comparable<? super E>> implements Co
      * instead of constructing a new instance to reduce allocation and GC overhead
      * when multiple comparable comparators may be used in the same VM.
      * 
+     * @param <E> the type of the enumeration
      * @return the singleton ComparableComparator
      */
     @SuppressWarnings("unchecked")
