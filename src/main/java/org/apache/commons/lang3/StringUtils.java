@@ -744,7 +744,10 @@ public class StringUtils {
         } catch (NoSuchMethodException e) {
             sunAvailable = false;
         } catch (java.security.AccessControlException e) {
-            // LANG-744 - thrown in Google App Engine
+            // LANG-744 - thrown when under a SecurityManager
+            // we are not allowed to access this class
+            System.err.println("Caught a AccessControlException loading sun.text.Normalizer. " + 
+                               "Adjust your security manager if you want to use the stripAccents method. ");
             sunAvailable = false;
         }
     }
