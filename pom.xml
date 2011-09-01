@@ -462,7 +462,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
-    <commons.componentid>lang</commons.componentid>
+    <commons.componentid>lang3</commons.componentid>
     <commons.release.version>3.0.1</commons.release.version>
     <commons.release.desc>(Java 5.0+)</commons.release.desc>
     <commons.jira.id>LANG</commons.jira.id>
