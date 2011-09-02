@@ -479,7 +479,7 @@
           <includes>
             <include>**/*Test.java</include>
           </includes>
-          <!-- Test [LANG-744] StringUtils throws java.security.AccessControlException on Google App Engine. -->
+          <!-- Test [LANG-744] StringUtils throws java.security.AccessControlException on Google App Engine -->
           <!-- <argLine>-Djava.security.manager -Djava.security.policy=${basedir}/src/test/resources/java.policy</argLine>  -->
         </configuration>
       </plugin>
