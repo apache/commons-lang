@@ -15,7 +15,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-project
+<project
   xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -32,10 +32,10 @@ project
 
   <inceptionYear>2001</inceptionYear>
   <description>
-        Commons Lang, a package of Java utility classes for the
-        classes that are in java.lang's hierarchy, or are considered to be so
-        standard as to justify existence in java.lang.
-    </description>
+  Commons Lang, a package of Java utility classes for the
+  classes that are in java.lang's hierarchy, or are considered to be so
+  standard as to justify existence in java.lang.
+</description>
 
   <url>http://commons.apache.org/lang/</url>
 
@@ -475,13 +475,27 @@ project
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <includes>
-            <include>**/*Test.java</include>
-          </includes>
-          <!-- Test [LANG-744] StringUtils throws java.security.AccessControlException on Google App Engine. -->
-          <!-- <argLine>-Djava.security.manager -Djava.security.policy=${basedir}/src/test/resources/java.policy</argLine> -->
-        </configuration>
+        <executions>
+          <execution>
+            <id>plain</id>
+            <configuration>
+              <includes>
+                <include>**/*Test.java</include>
+              </includes>
+            </configuration>
+          </execution>
+          <!-- 
+          <execution>
+            <id>security-manager</id>
+            <configuration>
+              <includes>
+                <include>**/*Test.java</include>
+              </includes>              
+              <argLine>-Djava.security.manager -Djava.security.policy=${basedir}/src/test/resources/java.policy</argLine>
+            </configuration>
+          </execution>
+          -->
+        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
