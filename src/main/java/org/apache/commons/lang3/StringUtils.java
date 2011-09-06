@@ -630,13 +630,14 @@ public class StringUtils {
         }
         try {
             String result = null;
-            if (java6Available) {
+            if (java6NormalizeMethod != null) {
                 result = removeAccentsJava6(input);
-            } else if (sunAvailable) {
+            } else if (sunDecomposeMethod != null) {
                 result = removeAccentsSUN(input);
             } else {
                 throw new UnsupportedOperationException(
-                    "The stripAccents(CharSequence) method requires at least Java 1.6 or a Sun JVM");
+                    "The stripAccents(CharSequence) method requires at least Java 1.6 or a Sun JVM",
+                    new UnsupportedOperationException(java6Exception));
             }
             // Note that none of the above methods correctly remove ligatures...
             return result;
@@ -667,8 +668,8 @@ public class StringUtils {
         String decomposed = java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
         return java6Pattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
         */
-        if (!java6Available || java6NormalizerFormNFD == null) {
-            throw new IllegalStateException("java.text.Normalizer is not available");
+        if (java6NormalizeMethod == null || java6NormalizerFormNFD == null) {
+            throw new IllegalStateException("java.text.Normalizer is not available", java6Exception);
         }
         String result;
         result = (String) java6NormalizeMethod.invoke(null, new Object[] {text, java6NormalizerFormNFD});
@@ -691,8 +692,8 @@ public class StringUtils {
         String decomposed = sun.text.Normalizer.decompose(text, false, 0);
         return sunPattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
         */
-        if (! sunAvailable) {
-            throw new IllegalStateException("sun.text.Normalizer is not available");
+        if (sunDecomposeMethod == null) {
+            throw new IllegalStateException("sun.text.Normalizer is not available", sunException);
         }
         String result;
         result = (String) sunDecomposeMethod.invoke(null, new Object[] {text, Boolean.FALSE, Integer.valueOf(0)});
@@ -701,55 +702,52 @@ public class StringUtils {
     }
 
     // SUN internal, Java 1.3 -> Java 5
-    private static boolean sunAvailable = false;
-    private static Method  sunDecomposeMethod = null;
+    private static final Throwable sunException;
+    private static final Method  sunDecomposeMethod;
     private static final Pattern sunPattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");//$NON-NLS-1$
     // Java 6+
-    private static boolean java6Available = false;
-    private static Method  java6NormalizeMethod = null;
-    private static Object  java6NormalizerFormNFD = null;
+    private static final Throwable java6Exception;
+    private static final Method  java6NormalizeMethod;
+    private static final Object  java6NormalizerFormNFD;
     private static final Pattern java6Pattern = sunPattern;
 
     static {
+        // Set up defaults for final static fields
+        Object _java6NormalizerFormNFD = null;
+        Method _java6NormalizeMethod = null;
+        Method _sunDecomposeMethod = null;
+        Throwable _java6Exception = null;
+        Throwable _sunException = null;
         try {
             // java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
             // Be careful not to get Java 1.3 java.text.Normalizer!
             Class<?> normalizerFormClass = Thread.currentThread().getContextClassLoader()
                 .loadClass("java.text.Normalizer$Form");//$NON-NLS-1$
-            java6NormalizerFormNFD = normalizerFormClass.getField("NFD").get(null);//$NON-NLS-1$
+            _java6NormalizerFormNFD = normalizerFormClass.getField("NFD").get(null);//$NON-NLS-1$
             Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
                 .loadClass("java.text.Normalizer");//$NON-NLS-1$
-            java6NormalizeMethod = normalizerClass.getMethod("normalize",
+            _java6NormalizeMethod = normalizerClass.getMethod("normalize",//$NON-NLS-1$
                     new Class[] {CharSequence.class, normalizerFormClass});//$NON-NLS-1$
-            java6Available = true;
-        } catch (ClassNotFoundException e) {
-            java6Available = false;
-        } catch (NoSuchFieldException e) {
-            java6Available = false;
-        } catch (IllegalAccessException e) {
-            java6Available = false;
-        } catch (NoSuchMethodException e) {
-            java6Available = false;
+        } catch (Exception e1) {
+            // Only check for Sun method if Java 6 method is not available
+            _java6Exception = e1;
+            try {
+                // sun.text.Normalizer.decompose(text, false, 0);
+                Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
+                    .loadClass("sun.text.Normalizer");//$NON-NLS-1$
+                _sunDecomposeMethod = normalizerClass.getMethod("decompose",//$NON-NLS-1$
+                        new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
+            } catch (Exception e2) {
+                _sunException = e2;
+            }
         }
 
-        try {
-            // sun.text.Normalizer.decompose(text, false, 0);
-            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
-                .loadClass("sun.text.Normalizer");//$NON-NLS-1$
-            sunDecomposeMethod = normalizerClass.getMethod("decompose",
-                    new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
-            sunAvailable = true;
-        } catch (ClassNotFoundException e) {
-            sunAvailable = false;
-        } catch (NoSuchMethodException e) {
-            sunAvailable = false;
-        } catch (java.security.AccessControlException e) {
-            // LANG-744 - thrown when under a SecurityManager
-            // we are not allowed to access this class
-            System.err.println("Caught a AccessControlException loading sun.text.Normalizer. " + 
-                               "Adjust your security manager if you want to use the stripAccents method. ");
-            sunAvailable = false;
-        }
+        // Set up final static fields
+        java6Exception = _java6Exception;
+        java6NormalizerFormNFD = _java6NormalizerFormNFD;
+        java6NormalizeMethod = _java6NormalizeMethod;
+        sunException = _sunException;
+        sunDecomposeMethod = _sunDecomposeMethod;
     }
 
     // Equals
