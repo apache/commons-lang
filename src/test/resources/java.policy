@@ -194,6 +194,7 @@ grant {
 //            at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
 
   permission java.io.FilePermission "${user.home}/.m2/repository/org/apache/maven/surefire/surefire-junit4/2.8.1/surefire-junit4-2.8.1.jar", "read";
+  permission java.io.FilePermission "${user.home}/.m2/repository/org/apache/maven/surefire/surefire-junit4/2.9/surefire-junit4-2.9.jar", "read";
 
 
 //    java.security.AccessControlException: access denied (java.io.FilePermission C:\Users\ggregory\.m2\repository\org\apache\maven\surefire\surefire-api\2.8.1\surefire-api-2.8.1.jar read)
@@ -212,6 +213,7 @@ grant {
 //at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
 
   permission java.io.FilePermission "${user.home}/.m2/repository/org/apache/maven/surefire/surefire-api/2.8.1/surefire-api-2.8.1.jar", "read";
+  permission java.io.FilePermission "${user.home}/.m2/repository/org/apache/maven/surefire/surefire-api/2.9/surefire-api-2.9.jar", "read";
 
 
 //    java.security.AccessControlException: access denied (java.lang.RuntimePermission createClassLoader)
