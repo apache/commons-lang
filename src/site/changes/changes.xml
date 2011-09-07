@@ -22,7 +22,6 @@
   <body>
 
   <release version="3.0.2" date="unreleased" description="September release">  
-    <action type="add" issue="LANG-750">Add MethodUtil APIs to call methods without parameters</action>
     <action type="fix" issue="LANG-746">NumberUtils does not handle upper-case hex: 0X and -0X</action>
     <action type="update" issue="LANG-736">CharUtils static final array CHAR_STRING is not needed to compute CHAR_STRING_ARRAY</action>
     <action type="fix" issue="LANG-744">StringUtils throws java.security.AccessControlException on Google App Engine</action>
