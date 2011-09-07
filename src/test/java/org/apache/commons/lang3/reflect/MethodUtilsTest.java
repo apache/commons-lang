@@ -34,7 +34,6 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.Mutable;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -77,6 +76,10 @@ public class MethodUtilsTest {
             return "bar(Object)";
         }
         
+        public static void oneParameterStatic(String s) {
+            // empty
+        }
+
         @SuppressWarnings("unused")
         private void privateStuff() {
         }
@@ -159,6 +162,16 @@ public class MethodUtilsTest {
     }
 
     @Test
+    public void testInvokeMethodNoParam() throws Exception {
+        assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo"));
+    }
+
+    @Test(expected = NoSuchMethodException.class)
+    public void testInvokeMethodNoParamFailure() throws Exception {
+        assertEquals("oneParameter()", MethodUtils.invokeMethod(testBean, "oneParameter"));
+    }
+
+    @Test
     public void testInvokeExactMethod() throws Exception {
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo",
                 (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
@@ -197,7 +210,12 @@ public class MethodUtilsTest {
 
     @Test
     public void testInvokeExactMethodNoParam() throws Exception {
-        //assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo"));
+        assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo"));
+    }
+
+    @Test(expected = NoSuchMethodException.class)
+    public void testInvokeExactMethodNoParamFailure() throws Exception {
+        MethodUtils.invokeExactMethod(testBean, "oneParameter");
     }
 
     @Test
@@ -228,6 +246,16 @@ public class MethodUtilsTest {
             fail("should throw NoSuchMethodException");
         } catch (NoSuchMethodException e) {
         }
+    }
+
+    @Test
+    public void testInvokeStaticMethodNoParam() throws Exception {
+        assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class, "bar"));
+    }
+
+    @Test(expected = NoSuchMethodException.class)
+    public void testInvokeStaticMethodNoParamFailure() throws Exception {
+        assertEquals("oneParameter()", MethodUtils.invokeStaticMethod(TestBean.class, "oneParameter"));
     }
 
     @Test
@@ -266,6 +294,16 @@ public class MethodUtilsTest {
             fail("should throw NoSuchMethodException");
         } catch (NoSuchMethodException e) {
         }
+    }
+
+    @Test
+    public void testInvokeExactStaticMethodNoParam() throws Exception {
+        assertEquals("bar()", MethodUtils.invokeExactStaticMethod(TestBean.class, "bar"));
+    }
+
+    @Test(expected = NoSuchMethodException.class)
+    public void testInvokeExactStaticMethodNoParamFailure() throws Exception {
+        assertEquals("oneParameterStatic()", MethodUtils.invokeExactStaticMethod(TestBean.class, "oneParameterStatic"));
     }
 
     @Test
