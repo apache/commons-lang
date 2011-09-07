@@ -855,7 +855,7 @@ public class ClassUtils {
     public static Class<?> getClass(String className, boolean initialize) throws ClassNotFoundException {
         ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
         ClassLoader loader = contextCL == null ? ClassUtils.class.getClassLoader() : contextCL;
-        return getClass(loader, className, initialize );
+        return getClass(loader, className, initialize);
     }
 
     // Public method
