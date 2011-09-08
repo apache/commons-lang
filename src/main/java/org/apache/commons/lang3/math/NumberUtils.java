@@ -665,7 +665,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a <code>String</code> to a <code>Long</code>.</p>
+     * <p>Convert a <code>String</code> to a <code>Long</code>; 
+     * since 3.0.2 it handles hex and octal notations.</p>
      * 
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      *
@@ -677,7 +678,7 @@ public class NumberUtils {
         if (str == null) {
             return null;
         }
-        return Long.valueOf(str);
+        return Long.decode(str);
     }
 
     /**
