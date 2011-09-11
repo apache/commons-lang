@@ -88,8 +88,8 @@ public class FixedOrderComparator<T> implements Comparator<T> {
         if (items == null) {
             throw new IllegalArgumentException("The list of items must not be null");
         }
-        for (int i = 0; i < items.length; i++) {
-            add(items[i]);
+        for (T item : items) {
+            add(item);
         }
     }
 
