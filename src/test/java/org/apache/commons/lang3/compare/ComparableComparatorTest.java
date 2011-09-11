@@ -50,4 +50,10 @@ public class ComparableComparatorTest {
                                                     cc.compare(new File("dir/file"), new File("dir/file2")) );
     }
 
+    public void testEquals() {
+        assertEquals( "Same instance wasn't equal", ComparableComparator.INSTANCE, ComparableComparator.INSTANCE);
+        assertEquals( "Different instance wasn't equal", ComparableComparator.INSTANCE, new ComparableComparator());
+        assertFalse( "Null was equal", ComparableComparator.INSTANCE.equals(null) );
+    }
+
 }
