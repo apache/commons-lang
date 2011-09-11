@@ -43,7 +43,7 @@ import java.util.List;
  * @since Commons Collections 2.0
  * @version $Revision$ $Date$
  */
-public class ComparatorChain<E> implements Comparator<E>, Serializable {
+public class ComparatorChain<E> implements Comparator<E>, Serializable, Iterable {
 
     /** The list of comparators in the chain. */
     protected List<Comparator<E>> comparatorChain = null;
@@ -105,6 +105,16 @@ public class ComparatorChain<E> implements Comparator<E>, Serializable {
 
         // if comparators are exhausted, return 0
         return 0;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Iterate through the chained comparators. 
+     *
+     * @return Unmodifiable iterator over the chained comparators
+     */
+    public Iterator<Comparator<E>> iterator() {
+        return new UnmodifiableIterator(comparatorChain.iterator());
     }
 
     //-----------------------------------------------------------------------

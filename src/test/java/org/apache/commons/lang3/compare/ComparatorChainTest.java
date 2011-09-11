@@ -20,6 +20,7 @@ package org.apache.commons.lang3.compare;
 import static org.junit.Assert.*;
 
 import java.util.Comparator;
+import java.util.Iterator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +50,22 @@ public class ComparatorChainTest {
         assertTrue("Comparison failed", cc.compare( "ZZZ-123", "AAA-124" ) < 0 );
         assertTrue("Comparison failed", cc.compare( "ABC-123", "ABD-123" ) < 0 );
         assertTrue("Comparison failed", cc.compare( "ABC-123", "ABC-123" ) == 0 );
+    }
+
+    @Test
+    public void testIterate() {
+        Comparator c1 = ComparableComparator.INSTANCE;
+        Comparator c2 = new ComparableComparator();
+        Comparator c3 = new NullComparator();
+        Comparator c4 = new ReverseComparator();
+        Iterable cc = new ComparatorChain(c1, c2, c3, c4);
+
+        Iterator itr = cc.iterator();
+        assertEquals( "Iteration failed", c1, itr.next() );
+        assertEquals( "Iteration failed", c2, itr.next() );
+        assertEquals( "Iteration failed", c3, itr.next() );
+        assertEquals( "Iteration failed", c4, itr.next() );
+        assertFalse( "Iteration failed", itr.hasNext() );
     }
 
 }
