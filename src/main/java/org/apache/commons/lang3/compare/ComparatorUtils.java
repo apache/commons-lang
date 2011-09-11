@@ -25,7 +25,7 @@ import java.util.Comparator;
  * @since Commons Collections 2.1
  * @version $Revision$ $Date$
  */
-public class ComparatorUtils {
+class ComparatorUtils {
 
     /**
      * ComparatorUtils should not normally be instantiated.
