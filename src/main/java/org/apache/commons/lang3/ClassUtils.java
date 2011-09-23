@@ -524,6 +524,37 @@ public class ClassUtils {
     }
 
     /**
+     * Returns whether the given {@code type} is a primitive or primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character},
+     * {@link Short}, {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
+     * 
+     * @param type
+     *            The class to query or null.
+     * @return true if the given {@code type} is a primitive or primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character},
+     *         {@link Short}, {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
+     * @since 3.0.2
+     */
+    public static boolean isPrimitiveOrWrapper(Class<?> type) {
+        if (type == null) {
+            return false;
+        }
+        return type.isPrimitive() || isPrimitiveWrapper(type);
+    }
+
+    /**
+     * Returns whether the given {@code type} is a primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character}, {@link Short},
+     * {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
+     * 
+     * @param type
+     *            The class to query or null.
+     * @return true if the given {@code type} is a primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character}, {@link Short},
+     *         {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
+     * @since 3.0.2
+     */
+    public static boolean isPrimitiveWrapper(Class<?> type) {
+        return wrapperPrimitiveMap.containsKey(type);
+    }
+
+    /**
      * <p>Checks if one {@code Class} can be assigned to a variable of
      * another {@code Class}.</p>
      *
@@ -1100,4 +1131,5 @@ public class ClassUtils {
             }
         }
     }
+
 }

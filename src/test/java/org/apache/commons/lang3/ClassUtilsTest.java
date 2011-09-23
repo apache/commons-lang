@@ -716,6 +716,66 @@ public class ClassUtilsTest extends TestCase {
         assertTrue("boolean -> boolean", ClassUtils.isAssignable(Boolean.class, Boolean.TYPE, true));
     }
 
+    public void testIsPrimitiveOrWrapper() {
+
+        // test primitive wrapper classes
+        assertTrue("Boolean.class", ClassUtils.isPrimitiveOrWrapper(Boolean.class));
+        assertTrue("Byte.class", ClassUtils.isPrimitiveOrWrapper(Byte.class));
+        assertTrue("Character.class", ClassUtils.isPrimitiveOrWrapper(Character.class));
+        assertTrue("Short.class", ClassUtils.isPrimitiveOrWrapper(Short.class));
+        assertTrue("Integer.class", ClassUtils.isPrimitiveOrWrapper(Integer.class));
+        assertTrue("Long.class", ClassUtils.isPrimitiveOrWrapper(Long.class));
+        assertTrue("Double.class", ClassUtils.isPrimitiveOrWrapper(Double.class));
+        assertTrue("Float.class", ClassUtils.isPrimitiveOrWrapper(Float.class));
+        
+        // test primitive classes
+        assertTrue("boolean", ClassUtils.isPrimitiveOrWrapper(Boolean.TYPE));
+        assertTrue("byte", ClassUtils.isPrimitiveOrWrapper(Byte.TYPE));
+        assertTrue("char", ClassUtils.isPrimitiveOrWrapper(Character.TYPE));
+        assertTrue("short", ClassUtils.isPrimitiveOrWrapper(Short.TYPE));
+        assertTrue("int", ClassUtils.isPrimitiveOrWrapper(Integer.TYPE));
+        assertTrue("long", ClassUtils.isPrimitiveOrWrapper(Long.TYPE));
+        assertTrue("double", ClassUtils.isPrimitiveOrWrapper(Double.TYPE));
+        assertTrue("float", ClassUtils.isPrimitiveOrWrapper(Float.TYPE));
+        assertTrue("Void.TYPE", ClassUtils.isPrimitiveOrWrapper(Void.TYPE));
+        
+        // others
+        assertFalse("null", ClassUtils.isPrimitiveOrWrapper(null));
+        assertFalse("Void.class", ClassUtils.isPrimitiveOrWrapper(Void.class));
+        assertFalse("String.class", ClassUtils.isPrimitiveOrWrapper(String.class));
+        assertFalse("this.getClass()", ClassUtils.isPrimitiveOrWrapper(this.getClass()));
+    }
+    
+    public void testIsPrimitiveWrapper() {
+
+        // test primitive wrapper classes
+        assertTrue("Boolean.class", ClassUtils.isPrimitiveWrapper(Boolean.class));
+        assertTrue("Byte.class", ClassUtils.isPrimitiveWrapper(Byte.class));
+        assertTrue("Character.class", ClassUtils.isPrimitiveWrapper(Character.class));
+        assertTrue("Short.class", ClassUtils.isPrimitiveWrapper(Short.class));
+        assertTrue("Integer.class", ClassUtils.isPrimitiveWrapper(Integer.class));
+        assertTrue("Long.class", ClassUtils.isPrimitiveWrapper(Long.class));
+        assertTrue("Double.class", ClassUtils.isPrimitiveWrapper(Double.class));
+        assertTrue("Float.class", ClassUtils.isPrimitiveWrapper(Float.class));
+        
+        // test primitive classes
+        assertFalse("boolean", ClassUtils.isPrimitiveWrapper(Boolean.TYPE));
+        assertFalse("byte", ClassUtils.isPrimitiveWrapper(Byte.TYPE));
+        assertFalse("char", ClassUtils.isPrimitiveWrapper(Character.TYPE));
+        assertFalse("short", ClassUtils.isPrimitiveWrapper(Short.TYPE));
+        assertFalse("int", ClassUtils.isPrimitiveWrapper(Integer.TYPE));
+        assertFalse("long", ClassUtils.isPrimitiveWrapper(Long.TYPE));
+        assertFalse("double", ClassUtils.isPrimitiveWrapper(Double.TYPE));
+        assertFalse("float", ClassUtils.isPrimitiveWrapper(Float.TYPE));
+        
+        // others
+        assertFalse("null", ClassUtils.isPrimitiveWrapper(null));
+        assertFalse("Void.class", ClassUtils.isPrimitiveWrapper(Void.class));
+        assertFalse("Void.TYPE", ClassUtils.isPrimitiveWrapper(Void.TYPE));
+        assertFalse("String.class", ClassUtils.isPrimitiveWrapper(String.class));
+        assertFalse("this.getClass()", ClassUtils.isPrimitiveWrapper(this.getClass()));
+    }
+    
     public void testPrimitiveToWrapper() {
 
         // test primitive classes
