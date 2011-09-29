@@ -5568,6 +5568,7 @@ public class StringUtils {
      * <pre>
      * StringUtils.defaultIfEmpty(null, "NULL")  = "NULL"
      * StringUtils.defaultIfEmpty("", "NULL")    = "NULL"
+     * StringUtils.defaultIfEmpty(" ", "NULL")   = " "
      * StringUtils.defaultIfEmpty("bat", "NULL") = "bat"
      * StringUtils.defaultIfEmpty("", null)      = null
      * </pre>
