@@ -1112,6 +1112,30 @@ public class SystemUtils {
 
     /**
      * <p>
+     * Is {@code true} if this is Windows 2003.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.1
+     */
+    public static final boolean IS_OS_WINDOWS_2003 = getOSMatches(OS_NAME_WINDOWS_PREFIX, "5.2");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Windows 2008.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.1
+     */
+    public static final boolean IS_OS_WINDOWS_2008 = getOSMatches(OS_NAME_WINDOWS_PREFIX + " Server 2008", "6.1");
+
+    /**
+     * <p>
      * Is {@code true} if this is Windows 95.
      * </p>
      * <p>
