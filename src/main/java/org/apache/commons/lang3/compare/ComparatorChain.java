@@ -53,7 +53,7 @@ public class ComparatorChain<E> implements Comparator<E>, Serializable, Iterable
      * Construct a ComparatorChain with a single Comparator,
      * sorting in the forward order
      *
-     * @param comparator First comparator in the Comparator chain
+     * @param comparators Comparators in the Comparator chain
      */
     public ComparatorChain(Comparator<E>... comparators) {
         this.comparatorChain = new ArrayList<Comparator<E>>();
@@ -66,7 +66,6 @@ public class ComparatorChain<E> implements Comparator<E>, Serializable, Iterable
      * sort order.
      *
      * @param list   List of Comparators
-     * @see #ComparatorChain(List,BitSet)
      */
     public ComparatorChain(List<Comparator<E>> list) {
         this.comparatorChain = new ArrayList<Comparator<E>>();
