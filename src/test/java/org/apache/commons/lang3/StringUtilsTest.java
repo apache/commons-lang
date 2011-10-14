@@ -25,6 +25,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -2091,5 +2092,26 @@ public class StringUtilsTest {
                 }
             }
         }
+    }
+
+    /**
+     * Tests {@link StringUtils#toString(byte[], String)}
+     * 
+     * @throws UnsupportedEncodingException
+     * @see StringUtils#toString(byte[], String)
+     */
+    @Test
+    public void testToString() throws UnsupportedEncodingException {
+        final String expectedString = "The quick brown fox jumped over the lazy dog.";
+        String encoding = SystemUtils.FILE_ENCODING;
+        byte[] expectedBytes = expectedString.getBytes(encoding);
+        // sanity check start
+        assertArrayEquals(expectedBytes, expectedString.getBytes());
+        // sanity check end
+        assertEquals(expectedString, StringUtils.toString(expectedBytes, null));
+        assertEquals(expectedString, StringUtils.toString(expectedBytes, encoding));
+        encoding = "UTF-16";
+        expectedBytes = expectedString.getBytes(encoding);
+        assertEquals(expectedString, StringUtils.toString(expectedBytes, encoding));
     }
 }
