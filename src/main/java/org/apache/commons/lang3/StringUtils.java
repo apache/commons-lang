@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -6558,6 +6559,24 @@ public class StringUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * Converts a <code>byte[]</code> to a String using the specified character encoding.
+     * 
+     * @param bytes
+     *            the byte array to read from
+     * @param charsetName
+     *            the encoding to use, if null then use the platform default
+     * @return a new String
+     * @throws UnsupportedEncodingException
+     *             If the named charset is not supported
+     * @throws NullPointerException
+     *             if the input is null
+     * @since 3.1
+     */
+    public static String toString(byte[] bytes, String charsetName) throws UnsupportedEncodingException {
+        return charsetName == null ? new String(bytes) : new String(bytes, charsetName);
     }
 
 }

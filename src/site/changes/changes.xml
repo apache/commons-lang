@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.0.2" date="unreleased" description="September release">      
+    <action type="add" issue="LANG-760">Add API StringUtils.toString(byte[] intput, String charsetName)</action>
     <action type="add" issue="LANG-756">Add APIs ClassUtils.isPrimitiveWrapper(Class&lt;?&gt;) and isPrimitiveOrWrapper(Class&lt;?&gt;)</action>
     <action type="update" issue="LANG-752">Fix createLong() so it behaves like createInteger()</action>
     <action type="update" issue="LANG-751">Include the actual type in the Validate.isInstance and isAssignableFrom exception messages</action>
