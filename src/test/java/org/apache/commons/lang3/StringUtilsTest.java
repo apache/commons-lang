@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -299,7 +300,7 @@ public class StringUtilsTest {
 
     @Test
     public void testSplit_String() {
-        assertEquals(null, StringUtils.split(null));
+        assertArrayEquals(null, StringUtils.split(null));
         assertEquals(0, StringUtils.split("").length);
         
         String str = "a b  .c";
@@ -323,7 +324,7 @@ public class StringUtilsTest {
     
     @Test
     public void testSplit_StringChar() {
-        assertEquals(null, StringUtils.split(null, '.'));
+        assertArrayEquals(null, StringUtils.split(null, '.'));
         assertEquals(0, StringUtils.split("", '.').length);
 
         String str = "a.b.. c";
@@ -348,8 +349,8 @@ public class StringUtilsTest {
     
     @Test
     public void testSplit_StringString_StringStringInt() {
-        assertEquals(null, StringUtils.split(null, "."));
-        assertEquals(null, StringUtils.split(null, ".", 3));
+        assertArrayEquals(null, StringUtils.split(null, "."));
+        assertArrayEquals(null, StringUtils.split(null, ".", 3));
         
         assertEquals(0, StringUtils.split("", ".").length);
         assertEquals(0, StringUtils.split("", ".", 3).length);
@@ -422,7 +423,7 @@ public class StringUtilsTest {
 
     @Test
     public void testSplitByWholeString_StringStringBoolean() {
-        assertEquals( null, StringUtils.splitByWholeSeparator( null, "." ) ) ;
+        assertArrayEquals( null, StringUtils.splitByWholeSeparator( null, "." ) ) ;
 
         assertEquals( 0, StringUtils.splitByWholeSeparator( "", "." ).length ) ;
 
@@ -454,7 +455,7 @@ public class StringUtilsTest {
 
     @Test
     public void testSplitByWholeString_StringStringBooleanInt() {
-        assertEquals( null, StringUtils.splitByWholeSeparator( null, ".", 3 ) ) ;
+        assertArrayEquals( null, StringUtils.splitByWholeSeparator( null, ".", 3 ) ) ;
 
         assertEquals( 0, StringUtils.splitByWholeSeparator( "", ".", 3 ).length ) ;
 
@@ -481,7 +482,7 @@ public class StringUtilsTest {
 
     @Test
     public void testSplitByWholeSeparatorPreserveAllTokens_StringStringInt() {
-        assertEquals( null, StringUtils.splitByWholeSeparatorPreserveAllTokens( null, ".", -1 ) ) ;
+        assertArrayEquals( null, StringUtils.splitByWholeSeparatorPreserveAllTokens( null, ".", -1 ) ) ;
 
         assertEquals( 0, StringUtils.splitByWholeSeparatorPreserveAllTokens( "", ".", -1 ).length ) ;
 
@@ -528,7 +529,7 @@ public class StringUtilsTest {
     
     @Test
     public void testSplitPreserveAllTokens_String() {
-        assertEquals(null, StringUtils.splitPreserveAllTokens(null));
+        assertArrayEquals(null, StringUtils.splitPreserveAllTokens(null));
         assertEquals(0, StringUtils.splitPreserveAllTokens("").length);
         
         String str = "abc def";
@@ -604,7 +605,7 @@ public class StringUtilsTest {
     
     @Test
     public void testSplitPreserveAllTokens_StringChar() {
-        assertEquals(null, StringUtils.splitPreserveAllTokens(null, '.'));
+        assertArrayEquals(null, StringUtils.splitPreserveAllTokens(null, '.'));
         assertEquals(0, StringUtils.splitPreserveAllTokens("", '.').length);
 
         String str = "a.b. c";
@@ -716,8 +717,8 @@ public class StringUtilsTest {
     
     @Test
     public void testSplitPreserveAllTokens_StringString_StringStringInt() {
-        assertEquals(null, StringUtils.splitPreserveAllTokens(null, "."));
-        assertEquals(null, StringUtils.splitPreserveAllTokens(null, ".", 3));
+        assertArrayEquals(null, StringUtils.splitPreserveAllTokens(null, "."));
+        assertArrayEquals(null, StringUtils.splitPreserveAllTokens(null, ".", 3));
         
         assertEquals(0, StringUtils.splitPreserveAllTokens("", ".").length);
         assertEquals(0, StringUtils.splitPreserveAllTokens("", ".", 3).length);
