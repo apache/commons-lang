@@ -16,46 +16,45 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.MultiLineToStringStyleTest}.
  *
  * @version $Id$
  */
-public class MultiLineToStringStyleTest extends TestCase {
+public class MultiLineToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
     
-    public MultiLineToStringStyleTest(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.MULTI_LINE_STYLE);
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @After
+    public void tearDown() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
     //----------------------------------------------------------------
-    
+
+    @Test
     public void testBlank() {
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).toString());
     }
 
+    @Test
     public void testAppendSuper() {
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).appendSuper("Integer@8888[" + SystemUtils.LINE_SEPARATOR + "]").toString());
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  <null>" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).appendSuper("Integer@8888[" + SystemUtils.LINE_SEPARATOR + "  <null>" + SystemUtils.LINE_SEPARATOR + "]").toString());
@@ -65,6 +64,7 @@ public class MultiLineToStringStyleTest extends TestCase {
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  a=hello" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).appendSuper(null).append("a", "hello").toString());
     }
     
+    @Test
     public void testObject() {
         Integer i3 = Integer.valueOf(3);
         Integer i4 = Integer.valueOf(4);
@@ -82,6 +82,7 @@ public class MultiLineToStringStyleTest extends TestCase {
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  a={}" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
     }
 
+    @Test
     public void testPerson() {
         Person p = new Person();
         p.name = "Jane Doe";
@@ -91,12 +92,14 @@ public class MultiLineToStringStyleTest extends TestCase {
         assertEquals(pBaseStr + "[" + SystemUtils.LINE_SEPARATOR + "  name=Jane Doe" + SystemUtils.LINE_SEPARATOR + "  age=25" + SystemUtils.LINE_SEPARATOR + "  smoker=true" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 
+    @Test
     public void testLong() {
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  3" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append(3L).toString());
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  a=3" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append("a", 3L).toString());
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  a=3" + SystemUtils.LINE_SEPARATOR + "  b=4" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append("a", 3L).append("b", 4L).toString());
     }
 
+    @Test
     public void testObjectArray() {
         Object[] array = new Object[] {null, base, new int[] {3, 6}};
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  {<null>,5,{3,6}}" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append(array).toString());
@@ -106,6 +109,7 @@ public class MultiLineToStringStyleTest extends TestCase {
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  <null>" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append((Object) array).toString());
     }
 
+    @Test
     public void testLongArray() {
         long[] array = new long[] {1, 2, -3, 4};
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  {1,2,-3,4}" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append(array).toString());
@@ -115,6 +119,7 @@ public class MultiLineToStringStyleTest extends TestCase {
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  <null>" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append((Object) array).toString());
     }
 
+    @Test
     public void testLongArrayArray() {
         long[][] array = new long[][] {{1, 2}, null, {5}};
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  {{1,2},<null>,{5}}" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append(array).toString());
