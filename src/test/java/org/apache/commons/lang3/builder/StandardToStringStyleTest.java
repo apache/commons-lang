@@ -16,19 +16,22 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.ToStringStyle}.
  *
  * @version $Id$
  */
-public class StandardToStringStyleTest extends TestCase {
+public class StandardToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = "Integer";
@@ -48,28 +51,24 @@ public class StandardToStringStyleTest extends TestCase {
         STYLE.setSummaryObjectEndText("%");
     }
     
-    public StandardToStringStyleTest(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         ToStringBuilder.setDefaultStyle(STYLE);
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @After
+    public void tearDown() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
     //----------------------------------------------------------------
     
+    @Test
     public void testBlank() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
     }
 
+    @Test
     public void testAppendSuper() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
         assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).appendSuper("Integer@8888[%NULL%]").toString());
@@ -79,6 +78,7 @@ public class StandardToStringStyleTest extends TestCase {
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper(null).append("a", "hello").toString());
     }
     
+    @Test
     public void testObject() {
         Integer i3 = Integer.valueOf(3);
         Integer i4 = Integer.valueOf(4);
@@ -96,6 +96,7 @@ public class StandardToStringStyleTest extends TestCase {
         assertEquals(baseStr + "[a=[]]", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
     }
 
+    @Test
     public void testPerson() {
         Person p = new Person();
         p.name = "Suzy Queue";
@@ -105,12 +106,14 @@ public class StandardToStringStyleTest extends TestCase {
         assertEquals(pBaseStr + "[name=Suzy Queue,age=19,smoker=false]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 
+    @Test
     public void testLong() {
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(3L).toString());
         assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", 3L).toString());
         assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", 3L).append("b", 4L).toString());
     }
 
+    @Test
     public void testObjectArray() {
         Object[] array = new Object[] {null, base, new int[] {3, 6}};
         assertEquals(baseStr + "[[%NULL%, 5, [3, 6]]]", new ToStringBuilder(base).append(array).toString());
@@ -120,6 +123,7 @@ public class StandardToStringStyleTest extends TestCase {
         assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).append((Object) array).toString());
     }
 
+    @Test
     public void testLongArray() {
         long[] array = new long[] {1, 2, -3, 4};
         assertEquals(baseStr + "[[1, 2, -3, 4]]", new ToStringBuilder(base).append(array).toString());
@@ -129,6 +133,7 @@ public class StandardToStringStyleTest extends TestCase {
         assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).append((Object) array).toString());
     }
 
+    @Test
     public void testLongArrayArray() {
         long[][] array = new long[][] {{1, 2}, null, {5}};
         assertEquals(baseStr + "[[[1, 2], %NULL%, [5]]]", new ToStringBuilder(base).append(array).toString());
