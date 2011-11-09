@@ -1018,7 +1018,7 @@ public class StrBuilder implements CharSequence, Appendable {
      */
     public StrBuilder appendWithSeparators(Object[] array, String separator) {
         if (array != null && array.length > 0) {
-            separator = (separator == null ? "" : separator);
+            separator = separator == null ? "" : separator;
             append(array[0]);
             for (int i = 1; i < array.length; i++) {
                 append(separator);
@@ -1040,7 +1040,7 @@ public class StrBuilder implements CharSequence, Appendable {
      */
     public StrBuilder appendWithSeparators(Iterable<?> iterable, String separator) {
         if (iterable != null) {
-            separator = (separator == null ? "" : separator);
+            separator = separator == null ? "" : separator;
             Iterator<?> it = iterable.iterator();
             while (it.hasNext()) {
                 append(it.next());
@@ -1064,7 +1064,7 @@ public class StrBuilder implements CharSequence, Appendable {
      */
     public StrBuilder appendWithSeparators(Iterator<?> it, String separator) {
         if (it != null) {
-            separator = (separator == null ? "" : separator);
+            separator = separator == null ? "" : separator;
             while (it.hasNext()) {
                 append(it.next());
                 if (it.hasNext()) {
