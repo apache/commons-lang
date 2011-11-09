@@ -64,7 +64,7 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("<null>", ClassUtils.getShortClassName(null, "<null>"));
 
         // Inner types
-        class Named extends Object {};
+        class Named extends Object {}
         assertEquals("ClassUtilsTest.1", ClassUtils.getShortClassName(new Object(){}, "<null>"));
         assertEquals("ClassUtilsTest.1Named", ClassUtils.getShortClassName(new Named(), "<null>"));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortClassName(new Inner(), "<null>"));
@@ -105,7 +105,7 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("String[][][][]", ClassUtils.getShortClassName(String[][][][].class));
         
         // Inner types
-        class Named extends Object {};
+        class Named extends Object {}
         assertEquals("ClassUtilsTest.2", ClassUtils.getShortClassName(new Object(){}.getClass()));
         assertEquals("ClassUtilsTest.2Named", ClassUtils.getShortClassName(Named.class));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortClassName(Inner.class));
@@ -155,7 +155,7 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("String[][][][]", ClassUtils.getSimpleName(String[][][][].class));
         
         // On-the-fly types
-        class Named extends Object {};
+        class Named extends Object {}
         assertEquals("", ClassUtils.getSimpleName(new Object(){}.getClass()));
         assertEquals("Named", ClassUtils.getSimpleName(Named.class));
     }
@@ -198,7 +198,7 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("java.lang", ClassUtils.getPackageName(String[][][][].class));
         
         // On-the-fly types
-        class Named extends Object {};
+        class Named extends Object {}
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(new Object(){}.getClass()));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(Named.class));
     }
@@ -1074,7 +1074,7 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("int[][]", ClassUtils.getShortCanonicalName(new int[0][0], "<null>"));
 
         // Inner types
-        class Named extends Object {};
+        class Named extends Object {}
         assertEquals("ClassUtilsTest.6", ClassUtils.getShortCanonicalName(new Object(){}, "<null>"));
         assertEquals("ClassUtilsTest.5Named", ClassUtils.getShortCanonicalName(new Named(), "<null>"));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortCanonicalName(new Inner(), "<null>"));
@@ -1088,7 +1088,7 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("int[][]", ClassUtils.getShortCanonicalName(int[][].class));
         
         // Inner types
-        class Named extends Object {};
+        class Named extends Object {}
         assertEquals("ClassUtilsTest.7", ClassUtils.getShortCanonicalName(new Object(){}.getClass()));
         assertEquals("ClassUtilsTest.6Named", ClassUtils.getShortCanonicalName(Named.class));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortCanonicalName(Inner.class));
@@ -1120,7 +1120,7 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("", ClassUtils.getPackageCanonicalName(new int[0][0], "<null>"));
         
         // Inner types
-        class Named extends Object {};
+        class Named extends Object {}
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName(new Object(){}, "<null>"));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName(new Named(), "<null>"));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName(new Inner(), "<null>"));
@@ -1134,7 +1134,7 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("", ClassUtils.getPackageCanonicalName(int[][].class));
         
         // Inner types
-        class Named extends Object {};
+        class Named extends Object {}
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName(new Object(){}.getClass()));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName(Named.class));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName(Inner.class));
