@@ -1,13 +1,13 @@
 $Id$
 
                         Commons Lang Package
-                            Version 3.0.1
+                            Version 3.0.2
                            Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 3.0.1 version of Apache Commons Lang.
+This document contains the release notes for the 3.0.2 version of Apache Commons Lang.
 Commons Lang is a set of utility functions and reusable components that should be of use in any 
 Java environment.
 
@@ -18,25 +18,23 @@ For the advice on upgrading from 2.x to 3.x, see the following page:
 
     http://commons.apache.org/lang/article3_0.html
 
-CHANGES IN 3.0.1
+CHANGES IN 3.0.2
 ================
 
-    [LANG-686] Improve exception message when StringUtils.replaceEachRepeatedly detects recursion
-    [LANG-717] Specify source encoding for Ant build
-    [LANG-721] Complement ArrayUtils.addAll() variants with by-index and by-value removal methods
-    [LANG-726] Add Range<T> Range<T>.intersectionWith(Range<T>)
-    [LANG-723] Add mode and median Comparable... methods to ObjectUtils
-    [LANG-722] Add BooleanUtils.and + or varargs methods
-    [LANG-730] EnumSet -> bit vector
-    [LANG-735] Deprecate CharUtils.toCharacterObject(char) in favor of java.lang.Character.valueOf(char)
-    [LANG-737] Missing method getRawMessage for ContextedException and ContextedRuntimeException
+    [LANG-760] Add API StringUtils.toString(byte[] intput, String charsetName)
+    [LANG-756] Add APIs ClassUtils.isPrimitiveWrapper(Class<?>) and isPrimitiveOrWrapper(Class<?>)
+    [LANG-758] Add an example with whitespace in StringUtils.defaultIfEmpty
+    [LANG-752] Fix createLong() so it behaves like createInteger()
+    [LANG-751] Include the actual type in the Validate.isInstance and isAssignableFrom exception messages
+    [LANG-748] Deprecating chomp(String, String)
+    [LANG-736] CharUtils static final array CHAR_STRING is not needed to compute CHAR_STRING_ARRAY
+    [LANG-695] SystemUtils.IS_OS_UNIX doesn't recognize FreeBSD as a Unix system
 
-BUG FIXES IN 3.0.1
+BUG FIXES IN 3.0.2
 ==================
 
-    [LANG-626] SerializationUtils.clone: Fallback to context classloader if class not found in current classloader
-    [LANG-727] ToStringBuilderTest.testReflectionHierarchyArrayList fails with IBM JDK 6
-    [LANG-720] StringEscapeUtils.escapeXml(input) wrong when input contains characters in Supplementary Planes
-    [LANG-708] StringEscapeUtils.escapeEcmaScript from lang3 cuts off long unicode string
-    [LANG-734] The CHAR_ARRAY cache in CharUtils duplicates the cache in java.lang.Character
-    [LANG-738] Use internal Java's Number caches instead creating new objects
+    [LANG-749] Incorrect Bundle-SymbolicName in Manifest
+    [LANG-746] NumberUtils does not handle upper-case hex: 0X and -0X
+    [LANG-744] StringUtils throws java.security.AccessControlException on Google App Engine
+    [LANG-741] Ant build has wrong component.name
+    [LANG-698] Document that the Mutable numbers don't work as expected with String.format
