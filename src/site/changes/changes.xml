@@ -23,15 +23,18 @@
 
   <release version="3.0.2" date="unreleased" description="September release">      
     <action type="add" issue="LANG-760">Add API StringUtils.toString(byte[] intput, String charsetName)</action>
+    <action type="update" issue="LANG-758">Add an example with whitespace in StringUtils.defaultIfEmpty</action>
     <action type="add" issue="LANG-756">Add APIs ClassUtils.isPrimitiveWrapper(Class&lt;?&gt;) and isPrimitiveOrWrapper(Class&lt;?&gt;)</action>
     <action type="update" issue="LANG-752">Fix createLong() so it behaves like createInteger()</action>
     <action type="update" issue="LANG-751">Include the actual type in the Validate.isInstance and isAssignableFrom exception messages</action>
+    <action type="fix" issue="LANG-749">Incorrect Bundle-SymbolicName in Manifest</action>
+    <action type="update" issue="LANG-748">Deprecating chomp(String, String)</action>
     <action type="fix" issue="LANG-746">NumberUtils does not handle upper-case hex: 0X and -0X</action>
-    <action type="update" issue="LANG-736">CharUtils static final array CHAR_STRING is not needed to compute CHAR_STRING_ARRAY</action>
     <action type="fix" issue="LANG-744">StringUtils throws java.security.AccessControlException on Google App Engine</action>
-    <action type="add" issue="LANG-695">SystemUtils.IS_OS_UNIX doesn't recognize FreeBSD as a Unix system</action>
-    <action type="fix" issue="LANG-698">Document that the Mutable numbers don't work as expected with String.format</action>
     <action type="fix" issue="LANG-741">Ant build has wrong component.name</action>
+    <action type="update" issue="LANG-736">CharUtils static final array CHAR_STRING is not needed to compute CHAR_STRING_ARRAY</action>
+    <action type="fix" issue="LANG-698">Document that the Mutable numbers don't work as expected with String.format</action>
+    <action type="add" issue="LANG-695">SystemUtils.IS_OS_UNIX doesn't recognize FreeBSD as a Unix system</action>
   </release>
 
   <release version="3.0.1" date="2011-08-09" description="August release">  
