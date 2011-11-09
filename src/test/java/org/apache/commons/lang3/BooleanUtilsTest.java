@@ -36,9 +36,9 @@ public class BooleanUtilsTest {
         assertNotNull(new BooleanUtils());
         Constructor<?>[] cons = BooleanUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(BooleanUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(BooleanUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(BooleanUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(BooleanUtils.class.getModifiers()));
     }
     
     //-----------------------------------------------------------------------
@@ -52,58 +52,58 @@ public class BooleanUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void test_isTrue_Boolean() {
-        assertEquals(true, BooleanUtils.isTrue(Boolean.TRUE));
-        assertEquals(false, BooleanUtils.isTrue(Boolean.FALSE));
-        assertEquals(false, BooleanUtils.isTrue((Boolean) null));
+        assertTrue(BooleanUtils.isTrue(Boolean.TRUE));
+        assertFalse(BooleanUtils.isTrue(Boolean.FALSE));
+        assertFalse(BooleanUtils.isTrue((Boolean) null));
     }
 
     @Test
     public void test_isNotTrue_Boolean() {
-        assertEquals(false, BooleanUtils.isNotTrue(Boolean.TRUE));
-        assertEquals(true, BooleanUtils.isNotTrue(Boolean.FALSE));
-        assertEquals(true, BooleanUtils.isNotTrue((Boolean) null));
+        assertFalse(BooleanUtils.isNotTrue(Boolean.TRUE));
+        assertTrue(BooleanUtils.isNotTrue(Boolean.FALSE));
+        assertTrue(BooleanUtils.isNotTrue((Boolean) null));
     }
 
     //-----------------------------------------------------------------------
     @Test
     public void test_isFalse_Boolean() {
-        assertEquals(false, BooleanUtils.isFalse(Boolean.TRUE));
-        assertEquals(true, BooleanUtils.isFalse(Boolean.FALSE));
-        assertEquals(false, BooleanUtils.isFalse((Boolean) null));
+        assertFalse(BooleanUtils.isFalse(Boolean.TRUE));
+        assertTrue(BooleanUtils.isFalse(Boolean.FALSE));
+        assertFalse(BooleanUtils.isFalse((Boolean) null));
     }
 
     @Test
     public void test_isNotFalse_Boolean() {
-        assertEquals(true, BooleanUtils.isNotFalse(Boolean.TRUE));
-        assertEquals(false, BooleanUtils.isNotFalse(Boolean.FALSE));
-        assertEquals(true, BooleanUtils.isNotFalse((Boolean) null));
+        assertTrue(BooleanUtils.isNotFalse(Boolean.TRUE));
+        assertFalse(BooleanUtils.isNotFalse(Boolean.FALSE));
+        assertTrue(BooleanUtils.isNotFalse((Boolean) null));
     }
 
     //-----------------------------------------------------------------------
     @Test
     public void test_toBoolean_Boolean() {
-        assertEquals(true, BooleanUtils.toBoolean(Boolean.TRUE));
-        assertEquals(false, BooleanUtils.toBoolean(Boolean.FALSE));
-        assertEquals(false, BooleanUtils.toBoolean((Boolean) null));
+        assertTrue(BooleanUtils.toBoolean(Boolean.TRUE));
+        assertFalse(BooleanUtils.toBoolean(Boolean.FALSE));
+        assertFalse(BooleanUtils.toBoolean((Boolean) null));
     }
 
     @Test
     public void test_toBooleanDefaultIfNull_Boolean_boolean() {
-        assertEquals(true, BooleanUtils.toBooleanDefaultIfNull(Boolean.TRUE, true));
-        assertEquals(true, BooleanUtils.toBooleanDefaultIfNull(Boolean.TRUE, false));
-        assertEquals(false, BooleanUtils.toBooleanDefaultIfNull(Boolean.FALSE, true));
-        assertEquals(false, BooleanUtils.toBooleanDefaultIfNull(Boolean.FALSE, false));
-        assertEquals(true, BooleanUtils.toBooleanDefaultIfNull((Boolean) null, true));
-        assertEquals(false, BooleanUtils.toBooleanDefaultIfNull((Boolean) null, false));
+        assertTrue(BooleanUtils.toBooleanDefaultIfNull(Boolean.TRUE, true));
+        assertTrue(BooleanUtils.toBooleanDefaultIfNull(Boolean.TRUE, false));
+        assertFalse(BooleanUtils.toBooleanDefaultIfNull(Boolean.FALSE, true));
+        assertFalse(BooleanUtils.toBooleanDefaultIfNull(Boolean.FALSE, false));
+        assertTrue(BooleanUtils.toBooleanDefaultIfNull((Boolean) null, true));
+        assertFalse(BooleanUtils.toBooleanDefaultIfNull((Boolean) null, false));
     }
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
     public void test_toBoolean_int() {
-        assertEquals(true, BooleanUtils.toBoolean(1));
-        assertEquals(true, BooleanUtils.toBoolean(-1));
-        assertEquals(false, BooleanUtils.toBoolean(0));
+        assertTrue(BooleanUtils.toBoolean(1));
+        assertTrue(BooleanUtils.toBoolean(-1));
+        assertFalse(BooleanUtils.toBoolean(0));
     }
     
     @Test
@@ -124,8 +124,8 @@ public class BooleanUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void test_toBoolean_int_int_int() {
-        assertEquals(true, BooleanUtils.toBoolean(6, 6, 7));
-        assertEquals(false, BooleanUtils.toBoolean(7, 6, 7));
+        assertTrue(BooleanUtils.toBoolean(6, 6, 7));
+        assertFalse(BooleanUtils.toBoolean(7, 6, 7));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -138,11 +138,11 @@ public class BooleanUtilsTest {
         Integer six = Integer.valueOf(6);
         Integer seven = Integer.valueOf(7);
 
-        assertEquals(true, BooleanUtils.toBoolean((Integer) null, null, seven));
-        assertEquals(false, BooleanUtils.toBoolean((Integer) null, six, null));
+        assertTrue(BooleanUtils.toBoolean((Integer) null, null, seven));
+        assertFalse(BooleanUtils.toBoolean((Integer) null, six, null));
 
-        assertEquals(true, BooleanUtils.toBoolean(Integer.valueOf(6), six, seven));
-        assertEquals(false, BooleanUtils.toBoolean(Integer.valueOf(7), six, seven));
+        assertTrue(BooleanUtils.toBoolean(Integer.valueOf(6), six, seven));
+        assertFalse(BooleanUtils.toBoolean(Integer.valueOf(7), six, seven));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -306,62 +306,62 @@ public class BooleanUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void test_toBoolean_String() {
-        assertEquals(false, BooleanUtils.toBoolean((String) null));
-        assertEquals(false, BooleanUtils.toBoolean(""));
-        assertEquals(false, BooleanUtils.toBoolean("off"));
-        assertEquals(false, BooleanUtils.toBoolean("oof"));
-        assertEquals(false, BooleanUtils.toBoolean("yep"));
-        assertEquals(false, BooleanUtils.toBoolean("trux"));
-        assertEquals(false, BooleanUtils.toBoolean("false"));
-        assertEquals(false, BooleanUtils.toBoolean("a"));
-        assertEquals(true, BooleanUtils.toBoolean("true")); // interned handled differently
-        assertEquals(true, BooleanUtils.toBoolean(new StringBuffer("tr").append("ue").toString()));
-        assertEquals(true, BooleanUtils.toBoolean("truE"));
-        assertEquals(true, BooleanUtils.toBoolean("trUe"));
-        assertEquals(true, BooleanUtils.toBoolean("trUE"));
-        assertEquals(true, BooleanUtils.toBoolean("tRue"));
-        assertEquals(true, BooleanUtils.toBoolean("tRuE"));
-        assertEquals(true, BooleanUtils.toBoolean("tRUe"));
-        assertEquals(true, BooleanUtils.toBoolean("tRUE"));
-        assertEquals(true, BooleanUtils.toBoolean("TRUE"));
-        assertEquals(true, BooleanUtils.toBoolean("TRUe"));
-        assertEquals(true, BooleanUtils.toBoolean("TRuE"));
-        assertEquals(true, BooleanUtils.toBoolean("TRue"));
-        assertEquals(true, BooleanUtils.toBoolean("TrUE"));
-        assertEquals(true, BooleanUtils.toBoolean("TrUe"));
-        assertEquals(true, BooleanUtils.toBoolean("TruE"));
-        assertEquals(true, BooleanUtils.toBoolean("True"));
-        assertEquals(true, BooleanUtils.toBoolean("on"));
-        assertEquals(true, BooleanUtils.toBoolean("oN"));
-        assertEquals(true, BooleanUtils.toBoolean("On"));
-        assertEquals(true, BooleanUtils.toBoolean("ON"));
-        assertEquals(true, BooleanUtils.toBoolean("yes"));
-        assertEquals(true, BooleanUtils.toBoolean("yeS"));
-        assertEquals(true, BooleanUtils.toBoolean("yEs"));
-        assertEquals(true, BooleanUtils.toBoolean("yES"));
-        assertEquals(true, BooleanUtils.toBoolean("Yes"));
-        assertEquals(true, BooleanUtils.toBoolean("YeS"));
-        assertEquals(true, BooleanUtils.toBoolean("YEs"));
-        assertEquals(true, BooleanUtils.toBoolean("YES"));
-        assertEquals(false, BooleanUtils.toBoolean("yes?"));
-        assertEquals(false, BooleanUtils.toBoolean("tru"));
+        assertFalse(BooleanUtils.toBoolean((String) null));
+        assertFalse(BooleanUtils.toBoolean(""));
+        assertFalse(BooleanUtils.toBoolean("off"));
+        assertFalse(BooleanUtils.toBoolean("oof"));
+        assertFalse(BooleanUtils.toBoolean("yep"));
+        assertFalse(BooleanUtils.toBoolean("trux"));
+        assertFalse(BooleanUtils.toBoolean("false"));
+        assertFalse(BooleanUtils.toBoolean("a"));
+        assertTrue(BooleanUtils.toBoolean("true")); // interned handled differently
+        assertTrue(BooleanUtils.toBoolean(new StringBuffer("tr").append("ue").toString()));
+        assertTrue(BooleanUtils.toBoolean("truE"));
+        assertTrue(BooleanUtils.toBoolean("trUe"));
+        assertTrue(BooleanUtils.toBoolean("trUE"));
+        assertTrue(BooleanUtils.toBoolean("tRue"));
+        assertTrue(BooleanUtils.toBoolean("tRuE"));
+        assertTrue(BooleanUtils.toBoolean("tRUe"));
+        assertTrue(BooleanUtils.toBoolean("tRUE"));
+        assertTrue(BooleanUtils.toBoolean("TRUE"));
+        assertTrue(BooleanUtils.toBoolean("TRUe"));
+        assertTrue(BooleanUtils.toBoolean("TRuE"));
+        assertTrue(BooleanUtils.toBoolean("TRue"));
+        assertTrue(BooleanUtils.toBoolean("TrUE"));
+        assertTrue(BooleanUtils.toBoolean("TrUe"));
+        assertTrue(BooleanUtils.toBoolean("TruE"));
+        assertTrue(BooleanUtils.toBoolean("True"));
+        assertTrue(BooleanUtils.toBoolean("on"));
+        assertTrue(BooleanUtils.toBoolean("oN"));
+        assertTrue(BooleanUtils.toBoolean("On"));
+        assertTrue(BooleanUtils.toBoolean("ON"));
+        assertTrue(BooleanUtils.toBoolean("yes"));
+        assertTrue(BooleanUtils.toBoolean("yeS"));
+        assertTrue(BooleanUtils.toBoolean("yEs"));
+        assertTrue(BooleanUtils.toBoolean("yES"));
+        assertTrue(BooleanUtils.toBoolean("Yes"));
+        assertTrue(BooleanUtils.toBoolean("YeS"));
+        assertTrue(BooleanUtils.toBoolean("YEs"));
+        assertTrue(BooleanUtils.toBoolean("YES"));
+        assertFalse(BooleanUtils.toBoolean("yes?"));
+        assertFalse(BooleanUtils.toBoolean("tru"));
 
-        assertEquals(false, BooleanUtils.toBoolean("no"));
-        assertEquals(false, BooleanUtils.toBoolean("off"));
-        assertEquals(false, BooleanUtils.toBoolean("yoo"));
+        assertFalse(BooleanUtils.toBoolean("no"));
+        assertFalse(BooleanUtils.toBoolean("off"));
+        assertFalse(BooleanUtils.toBoolean("yoo"));
     }
 
     @Test
     public void test_toBoolean_String_String_String() {
-        assertEquals(true, BooleanUtils.toBoolean((String) null, null, "N"));
-        assertEquals(false, BooleanUtils.toBoolean((String) null, "Y", null));
-        assertEquals(true, BooleanUtils.toBoolean("Y", "Y", "N"));
-        assertEquals(true, BooleanUtils.toBoolean("Y", new String("Y"), new String("N")));
-        assertEquals(false, BooleanUtils.toBoolean("N", "Y", "N"));
-        assertEquals(false, BooleanUtils.toBoolean("N", new String("Y"), new String("N")));
-        assertEquals(true, BooleanUtils.toBoolean((String) null, null, null));
-        assertEquals(true, BooleanUtils.toBoolean("Y", "Y", "Y"));
-        assertEquals(true, BooleanUtils.toBoolean("Y", new String("Y"), new String("Y")));
+        assertTrue(BooleanUtils.toBoolean((String) null, null, "N"));
+        assertFalse(BooleanUtils.toBoolean((String) null, "Y", null));
+        assertTrue(BooleanUtils.toBoolean("Y", "Y", "N"));
+        assertTrue(BooleanUtils.toBoolean("Y", new String("Y"), new String("N")));
+        assertFalse(BooleanUtils.toBoolean("N", "Y", "N"));
+        assertFalse(BooleanUtils.toBoolean("N", new String("Y"), new String("N")));
+        assertTrue(BooleanUtils.toBoolean((String) null, null, null));
+        assertTrue(BooleanUtils.toBoolean("Y", "Y", "Y"));
+        assertTrue(BooleanUtils.toBoolean("Y", new String("Y"), new String("Y")));
     }
 
     @Test(expected = IllegalArgumentException.class)

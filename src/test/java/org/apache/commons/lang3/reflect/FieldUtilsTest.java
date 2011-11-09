@@ -17,8 +17,10 @@
 package org.apache.commons.lang3.reflect;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNotNull;
 
@@ -67,9 +69,9 @@ public class FieldUtilsTest {
         assertNotNull(new FieldUtils());
         Constructor<?>[] cons = FieldUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(FieldUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(FieldUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(FieldUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(FieldUtils.class.getModifiers()));
     }
     
     @Test

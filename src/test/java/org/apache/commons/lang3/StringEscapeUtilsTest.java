@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -32,7 +33,6 @@ import org.junit.Test;
 
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
-import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 
 /**
  * Unit tests for {@link StringEscapeUtils}.
@@ -47,9 +47,9 @@ public class StringEscapeUtilsTest {
         assertNotNull(new StringEscapeUtils());
         Constructor<?>[] cons = StringEscapeUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(StringEscapeUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(StringEscapeUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(StringEscapeUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(StringEscapeUtils.class.getModifiers()));
     }
     
     @Test

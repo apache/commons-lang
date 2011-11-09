@@ -76,20 +76,20 @@ public class PairTest {
     public void testComparable1() throws Exception {
         Pair<String, String> pair1 = Pair.of("A", "D");
         Pair<String, String> pair2 = Pair.of("B", "C");
-        assertEquals(true, pair1.compareTo(pair1) == 0);
-        assertEquals(true, pair1.compareTo(pair2) < 0);
-        assertEquals(true, pair2.compareTo(pair2) == 0);
-        assertEquals(true, pair2.compareTo(pair1) > 0);
+        assertTrue(pair1.compareTo(pair1) == 0);
+        assertTrue(pair1.compareTo(pair2) < 0);
+        assertTrue(pair2.compareTo(pair2) == 0);
+        assertTrue(pair2.compareTo(pair1) > 0);
     }
 
     @Test
     public void testComparable2() throws Exception {
         Pair<String, String> pair1 = Pair.of("A", "C");
         Pair<String, String> pair2 = Pair.of("A", "D");
-        assertEquals(true, pair1.compareTo(pair1) == 0);
-        assertEquals(true, pair1.compareTo(pair2) < 0);
-        assertEquals(true, pair2.compareTo(pair2) == 0);
-        assertEquals(true, pair2.compareTo(pair1) > 0);
+        assertTrue(pair1.compareTo(pair1) == 0);
+        assertTrue(pair1.compareTo(pair2) < 0);
+        assertTrue(pair2.compareTo(pair2) == 0);
+        assertTrue(pair2.compareTo(pair1) > 0);
     }
 
     @Test

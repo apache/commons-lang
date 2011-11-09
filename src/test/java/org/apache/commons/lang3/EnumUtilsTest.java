@@ -44,13 +44,13 @@ public class EnumUtilsTest {
         Map<String, Traffic> test = EnumUtils.getEnumMap(Traffic.class);
         assertEquals( "getEnumMap not created correctly", "{RED=RED, AMBER=AMBER, GREEN=GREEN}", test.toString());
         assertEquals(3, test.size());
-        assertEquals(true, test.containsKey("RED"));
+        assertTrue(test.containsKey("RED"));
         assertEquals(Traffic.RED, test.get("RED"));
-        assertEquals(true, test.containsKey("AMBER"));
+        assertTrue(test.containsKey("AMBER"));
         assertEquals(Traffic.AMBER, test.get("AMBER"));
-        assertEquals(true, test.containsKey("GREEN"));
+        assertTrue(test.containsKey("GREEN"));
         assertEquals(Traffic.GREEN, test.get("GREEN"));
-        assertEquals(false, test.containsKey("PURPLE"));
+        assertFalse(test.containsKey("PURPLE"));
     }
 
     @Test
@@ -64,11 +64,11 @@ public class EnumUtilsTest {
 
     @Test
     public void test_isEnum() {
-        assertEquals(true, EnumUtils.isValidEnum(Traffic.class, "RED"));
-        assertEquals(true, EnumUtils.isValidEnum(Traffic.class, "AMBER"));
-        assertEquals(true, EnumUtils.isValidEnum(Traffic.class, "GREEN"));
-        assertEquals(false, EnumUtils.isValidEnum(Traffic.class, "PURPLE"));
-        assertEquals(false, EnumUtils.isValidEnum(Traffic.class, null));
+        assertTrue(EnumUtils.isValidEnum(Traffic.class, "RED"));
+        assertTrue(EnumUtils.isValidEnum(Traffic.class, "AMBER"));
+        assertTrue(EnumUtils.isValidEnum(Traffic.class, "GREEN"));
+        assertFalse(EnumUtils.isValidEnum(Traffic.class, "PURPLE"));
+        assertFalse(EnumUtils.isValidEnum(Traffic.class, null));
     }
 
     @Test(expected=NullPointerException.class)

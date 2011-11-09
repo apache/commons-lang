@@ -46,9 +46,9 @@ public class ObjectUtilsTest {
         assertNotNull(new ObjectUtils());
         Constructor<?>[] cons = ObjectUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(ObjectUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(ObjectUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(ObjectUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(ObjectUtils.class.getModifiers()));
     }
 
     //-----------------------------------------------------------------------
