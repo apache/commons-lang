@@ -99,7 +99,7 @@ public class WordUtils {
         int offset = 0;
         StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
         
-        while ((inputLineLength - offset) > wrapLength) {
+        while (inputLineLength - offset > wrapLength) {
             if (str.charAt(offset) == ' ') {
                 offset++;
                 continue;
@@ -267,7 +267,7 @@ public class WordUtils {
      * @since 2.1
      */
     public static String capitalizeFully(String str, char... delimiters) {
-        int delimLen = (delimiters == null ? -1 : delimiters.length);
+        int delimLen = delimiters == null ? -1 : delimiters.length;
         if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
         }
@@ -323,7 +323,7 @@ public class WordUtils {
      * @since 2.1
      */
     public static String uncapitalize(String str, char... delimiters) {
-        int delimLen = (delimiters == null ? -1 : delimiters.length);
+        int delimLen = delimiters == null ? -1 : delimiters.length;
         if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
         }

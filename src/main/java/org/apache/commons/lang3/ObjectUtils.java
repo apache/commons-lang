@@ -152,7 +152,7 @@ public class ObjectUtils {
         if (object1 == object2) {
             return true;
         }
-        if ((object1 == null) || (object2 == null)) {
+        if (object1 == null || object2 == null) {
             return false;
         }
         return object1.equals(object2);
@@ -196,7 +196,7 @@ public class ObjectUtils {
      */
     public static int hashCode(Object obj) {
         // hashCode(Object) retained for performance, as hash code is often critical
-        return (obj == null) ? 0 : obj.hashCode();
+        return obj == null ? 0 : obj.hashCode();
     }
 
     /**
@@ -409,9 +409,9 @@ public class ObjectUtils {
         if (c1 == c2) {
             return 0;
         } else if (c1 == null) {
-            return (nullGreater ? 1 : -1);
+            return nullGreater ? 1 : -1;
         } else if (c2 == null) {
-            return (nullGreater ? -1 : 1);
+            return nullGreater ? -1 : 1;
         }
         return c1.compareTo(c2);
     }

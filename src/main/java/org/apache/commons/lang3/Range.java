@@ -219,7 +219,7 @@ public final class Range<T> implements Serializable {
         if (element == null) {
             return false;
         }
-        return (comparator.compare(element, minimum) > -1) && (comparator.compare(element, maximum) < 1);
+        return comparator.compare(element, minimum) > -1 && comparator.compare(element, maximum) < 1;
     }
 
     /**

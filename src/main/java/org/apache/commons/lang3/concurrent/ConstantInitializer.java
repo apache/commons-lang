@@ -88,7 +88,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      */
     @Override
     public int hashCode() {
-        return (getObject() != null) ? getObject().hashCode() : 0;
+        return getObject() != null ? getObject().hashCode() : 0;
     }
 
     /**

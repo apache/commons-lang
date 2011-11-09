@@ -622,7 +622,7 @@ public class ClassUtils {
         }
         // have to check for null, as isAssignableFrom doesn't
         if (cls == null) {
-            return !(toClass.isPrimitive());
+            return !toClass.isPrimitive();
         }
         //autoboxing:
         if (autoboxing) {

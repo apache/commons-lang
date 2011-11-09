@@ -178,7 +178,7 @@ public class CharSet implements Serializable {
         int len = str.length();
         int pos = 0;
         while (pos < len) {
-            int remainder = (len - pos);
+            int remainder = len - pos;
             if (remainder >= 4 && str.charAt(pos) == '^' && str.charAt(pos + 2) == '-') {
                 // negated range
                 set.add(CharRange.isNotIn(str.charAt(pos + 1), str.charAt(pos + 3)));
