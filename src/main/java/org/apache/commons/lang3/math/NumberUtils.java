@@ -666,7 +666,7 @@ public class NumberUtils {
 
     /**
      * <p>Convert a <code>String</code> to a <code>Long</code>; 
-     * since 3.0.2 it handles hex and octal notations.</p>
+     * since 3.1 it handles hex and octal notations.</p>
      * 
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      *
