@@ -296,7 +296,7 @@ public class Validate {
         if (collection == null) {
             throw new NullPointerException(String.format(message, values));
         }
-        if (collection.size() == 0) {
+        if (collection.isEmpty()) {
             throw new IllegalArgumentException(String.format(message, values));
         }
         return collection;
@@ -345,7 +345,7 @@ public class Validate {
         if (map == null) {
             throw new NullPointerException(String.format(message, values));
         }
-        if (map.size() == 0) {
+        if (map.isEmpty()) {
             throw new IllegalArgumentException(String.format(message, values));
         }
         return map;
