@@ -17,7 +17,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-lang3</artifactId>
-  <version>3.0.2-SNAPSHOT</version>
+  <version>3.1-SNAPSHOT</version>
   <name>Commons Lang</name>
 
   <inceptionYear>2001</inceptionYear>
@@ -452,7 +452,7 @@
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
     <commons.componentid>lang3</commons.componentid>
-    <commons.release.version>3.0.2</commons.release.version>
+    <commons.release.version>3.1</commons.release.version>
     <commons.release.desc>(Java 5.0+)</commons.release.desc>
     <commons.jira.id>LANG</commons.jira.id>
     <commons.jira.pid>12310481</commons.jira.pid>

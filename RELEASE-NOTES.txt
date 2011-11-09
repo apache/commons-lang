@@ -1,13 +1,13 @@
 $Id$
 
                         Commons Lang Package
-                            Version 3.0.2
+                            Version 3.1
                            Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 3.0.2 version of Apache Commons Lang.
+This document contains the release notes for the 3.1 version of Apache Commons Lang.
 Commons Lang is a set of utility functions and reusable components that should be of use in any 
 Java environment.
 
@@ -18,7 +18,7 @@ For the advice on upgrading from 2.x to 3.x, see the following page:
 
     http://commons.apache.org/lang/article3_0.html
 
-CHANGES IN 3.0.2
+CHANGES IN 3.1
 ================
 
     [LANG-760] Add API StringUtils.toString(byte[] intput, String charsetName)
@@ -30,7 +30,7 @@ CHANGES IN 3.0.2
     [LANG-736] CharUtils static final array CHAR_STRING is not needed to compute CHAR_STRING_ARRAY
     [LANG-695] SystemUtils.IS_OS_UNIX doesn't recognize FreeBSD as a Unix system
 
-BUG FIXES IN 3.0.2
+BUG FIXES IN 3.1
 ==================
 
     [LANG-749] Incorrect Bundle-SymbolicName in Manifest
