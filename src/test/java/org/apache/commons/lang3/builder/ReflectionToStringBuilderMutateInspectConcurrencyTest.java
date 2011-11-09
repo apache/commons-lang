@@ -55,7 +55,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
         }
 
         public synchronized void delete() {
-            listField.removeFirstOccurrence(Integer.valueOf(random.nextInt(N)));
+            listField.remove(Integer.valueOf(random.nextInt(N)));
         }
     }
 
