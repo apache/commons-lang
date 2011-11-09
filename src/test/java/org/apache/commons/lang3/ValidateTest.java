@@ -65,9 +65,9 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testIsTrue3() {
-        Validate.isTrue(true, "MSG", Integer.valueOf(6));
+        Validate.isTrue(true, "MSG", 6);
         try {
-            Validate.isTrue(false, "MSG", Integer.valueOf(6));
+            Validate.isTrue(false, "MSG", 6);
             fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
