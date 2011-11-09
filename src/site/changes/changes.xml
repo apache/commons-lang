@@ -21,7 +21,7 @@
   </properties>
   <body>
 
-  <release version="3.0.2" date="unreleased" description="September release">      
+  <release version="3.1" date="unreleased" description="September release">      
     <action type="add" issue="LANG-760">Add API StringUtils.toString(byte[] intput, String charsetName)</action>
     <action type="update" issue="LANG-758">Add an example with whitespace in StringUtils.defaultIfEmpty</action>
     <action type="add" issue="LANG-756">Add APIs ClassUtils.isPrimitiveWrapper(Class&lt;?&gt;) and isPrimitiveOrWrapper(Class&lt;?&gt;)</action>
