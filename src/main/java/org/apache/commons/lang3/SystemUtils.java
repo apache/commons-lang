@@ -1009,7 +1009,7 @@ public class SystemUtils {
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
      *
-     * @since 3.0.2
+     * @since 3.1
      */
     public static final boolean IS_OS_FREE_BSD = getOSMatchesName("FreeBSD");
 
@@ -1021,7 +1021,7 @@ public class SystemUtils {
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
      *
-     * @since 3.0.2
+     * @since 3.1
      */
     public static final boolean IS_OS_OPEN_BSD = getOSMatchesName("OpenBSD");
 
@@ -1033,7 +1033,7 @@ public class SystemUtils {
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
      *
-     * @since 3.0.2
+     * @since 3.1
      */
     public static final boolean IS_OS_NET_BSD = getOSMatchesName("NetBSD");
 
