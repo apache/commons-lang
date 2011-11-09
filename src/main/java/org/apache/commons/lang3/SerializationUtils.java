@@ -89,7 +89,9 @@ public class SerializationUtils {
              * it is reasonable to assume the deserialized object
              * is of the same type as the original serialized object
              */
-            return (T) in.readObject();
+            @SuppressWarnings("unchecked") // see above
+            T readObject = (T) in.readObject();
+            return readObject;
 
         } catch (ClassNotFoundException ex) {
             throw new SerializationException("ClassNotFoundException while reading cloned object data", ex);
