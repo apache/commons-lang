@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
@@ -1018,7 +1019,7 @@ public class StrBuilder implements CharSequence, Appendable {
      */
     public StrBuilder appendWithSeparators(Object[] array, String separator) {
         if (array != null && array.length > 0) {
-            separator = separator == null ? "" : separator;
+            separator = ObjectUtils.toString(separator);
             append(array[0]);
             for (int i = 1; i < array.length; i++) {
                 append(separator);
@@ -1040,7 +1041,7 @@ public class StrBuilder implements CharSequence, Appendable {
      */
     public StrBuilder appendWithSeparators(Iterable<?> iterable, String separator) {
         if (iterable != null) {
-            separator = separator == null ? "" : separator;
+            separator = ObjectUtils.toString(separator);
             Iterator<?> it = iterable.iterator();
             while (it.hasNext()) {
                 append(it.next());
@@ -1064,7 +1065,7 @@ public class StrBuilder implements CharSequence, Appendable {
      */
     public StrBuilder appendWithSeparators(Iterator<?> it, String separator) {
         if (it != null) {
-            separator = separator == null ? "" : separator;
+            separator = ObjectUtils.toString(separator);
             while (it.hasNext()) {
                 append(it.next());
                 if (it.hasNext()) {
