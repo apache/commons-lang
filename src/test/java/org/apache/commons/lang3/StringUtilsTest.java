@@ -106,9 +106,9 @@ public class StringUtilsTest {
         assertNotNull(new StringUtils());
         Constructor<?>[] cons = StringUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(StringUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(StringUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(StringUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(StringUtils.class.getModifiers()));
     }
     
     //-----------------------------------------------------------------------
@@ -1186,7 +1186,7 @@ public class StringUtilsTest {
         assertEquals("abcabcabc", StringUtils.repeat("abc", 3));
         String str = StringUtils.repeat("a", 10000);  // bigger than pad limit
         assertEquals(10000, str.length());
-        assertEquals(true, StringUtils.containsOnly(str, new char[] {'a'}));
+        assertTrue(StringUtils.containsOnly(str, new char[] {'a'}));
     }
 
     @Test
@@ -1306,7 +1306,7 @@ public class StringUtilsTest {
         assertEquals("abcxx", StringUtils.rightPad("abc", 5, 'x'));
         String str = StringUtils.rightPad("aaa", 10000, 'a');  // bigger than pad length
         assertEquals(10000, str.length());
-        assertEquals(true, StringUtils.containsOnly(str, new char[] {'a'}));
+        assertTrue(StringUtils.containsOnly(str, new char[] {'a'}));
     }
 
     @Test
@@ -1342,7 +1342,7 @@ public class StringUtilsTest {
         assertEquals("abc", StringUtils.leftPad("abc", 2, ' '));
         String str = StringUtils.leftPad("aaa", 10000, 'a');  // bigger than pad length
         assertEquals(10000, str.length());
-        assertEquals(true, StringUtils.containsOnly(str, new char[] {'a'}));
+        assertTrue(StringUtils.containsOnly(str, new char[] {'a'}));
     }
         
     @Test

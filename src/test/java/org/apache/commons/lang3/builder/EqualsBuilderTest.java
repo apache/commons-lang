@@ -285,10 +285,10 @@ public class EqualsBuilderTest {
     public void testSuper() {
         TestObject o1 = new TestObject(4);
         TestObject o2 = new TestObject(5);
-        assertEquals(true, new EqualsBuilder().appendSuper(true).append(o1, o1).isEquals());
-        assertEquals(false, new EqualsBuilder().appendSuper(false).append(o1, o1).isEquals());
-        assertEquals(false, new EqualsBuilder().appendSuper(true).append(o1, o2).isEquals());
-        assertEquals(false, new EqualsBuilder().appendSuper(false).append(o1, o2).isEquals());
+        assertTrue(new EqualsBuilder().appendSuper(true).append(o1, o1).isEquals());
+        assertFalse(new EqualsBuilder().appendSuper(false).append(o1, o1).isEquals());
+        assertFalse(new EqualsBuilder().appendSuper(true).append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().appendSuper(false).append(o1, o2).isEquals());
     }
 
     @Test
@@ -311,16 +311,16 @@ public class EqualsBuilderTest {
     public void testObjectBuild() {
         TestObject o1 = new TestObject(4);
         TestObject o2 = new TestObject(5);
-        assertTrue(new EqualsBuilder().append(o1, o1).build());
-        assertTrue(!new EqualsBuilder().append(o1, o2).build());
+        assertEquals(Boolean.TRUE, new EqualsBuilder().append(o1, o1).build());
+        assertEquals(Boolean.FALSE, new EqualsBuilder().append(o1, o2).build());
         o2.setA(4);
-        assertTrue(new EqualsBuilder().append(o1, o2).build());
+        assertEquals(Boolean.TRUE, new EqualsBuilder().append(o1, o2).build());
 
-        assertTrue(!new EqualsBuilder().append(o1, this).build());
+        assertEquals(Boolean.FALSE, new EqualsBuilder().append(o1, this).build());
         
-        assertTrue(!new EqualsBuilder().append(o1, null).build());
-        assertTrue(!new EqualsBuilder().append(null, o2).build());
-        assertTrue(new EqualsBuilder().append((Object) null, (Object) null).build());
+        assertEquals(Boolean.FALSE, new EqualsBuilder().append(o1, null).build());
+        assertEquals(Boolean.FALSE, new EqualsBuilder().append(null, o2).build());
+        assertEquals(Boolean.TRUE, new EqualsBuilder().append((Object) null, (Object) null).build());
     }
 
     @Test
