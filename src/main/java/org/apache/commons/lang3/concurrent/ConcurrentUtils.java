@@ -181,7 +181,7 @@ public class ConcurrentUtils {
      */
     public static <T> T initialize(ConcurrentInitializer<T> initializer)
             throws ConcurrentException {
-        return (initializer != null) ? initializer.get() : null;
+        return initializer != null ? initializer.get() : null;
     }
 
     /**
@@ -244,7 +244,7 @@ public class ConcurrentUtils {
         }
 
         V result = map.putIfAbsent(key, value);
-        return (result != null) ? result : value;
+        return result != null ? result : value;
     }
 
     /**

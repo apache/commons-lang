@@ -248,7 +248,7 @@ public class StopWatch {
         if (this.runningState != STATE_SUSPENDED) {
             throw new IllegalStateException("Stopwatch must be suspended to resume. ");
         }
-        this.startTime += (System.nanoTime() - this.stopTime);
+        this.startTime += System.nanoTime() - this.stopTime;
         this.runningState = STATE_RUNNING;
     }
 

@@ -50,7 +50,7 @@ public class EqualsBuilderTest {
             }
 
             TestObject rhs = (TestObject) o;
-            return (a == rhs.a);
+            return a == rhs.a;
         }
 
         public void setA(int a) {
@@ -80,7 +80,7 @@ public class EqualsBuilderTest {
             }
 
             TestSubObject rhs = (TestSubObject) o;
-            return super.equals(o) && (b == rhs.b);
+            return super.equals(o) && b == rhs.b;
         }
 
         public void setB(int b) {
@@ -712,8 +712,8 @@ public class EqualsBuilderTest {
         boolean[][] array2 = new boolean[2][2];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
-                array1[i][j] = (i == 1) || (j == 1);
-                array2[i][j] = (i == 1) || (j == 1);
+                array1[i][j] = i == 1 || j == 1;
+                array2[i][j] = i == 1 || j == 1;
             }
         }
         assertTrue(new EqualsBuilder().append(array1, array1).isEquals());

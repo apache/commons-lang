@@ -68,7 +68,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      * @return whether the option is set
      */
     public boolean isSet(OPTION option) { 
-        return (options == null) ? false : options.contains(option);
+        return options == null ? false : options.contains(option);
     }
 
     /**
@@ -95,14 +95,14 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
 
             int end = start;
             // Note that this supports character codes without a ; on the end
-            while(end < seqEnd && ( (input.charAt(end) >= '0' && input.charAt(end) <= '9') ||
-                                    (input.charAt(end) >= 'a' && input.charAt(end) <= 'f') ||
-                                    (input.charAt(end) >= 'A' && input.charAt(end) <= 'F') ) )
+            while(end < seqEnd && ( input.charAt(end) >= '0' && input.charAt(end) <= '9' ||
+                                    input.charAt(end) >= 'a' && input.charAt(end) <= 'f' ||
+                                    input.charAt(end) >= 'A' && input.charAt(end) <= 'F' ) )
             {
                 end++;
             }
 
-            boolean semiNext = (end != seqEnd) && (input.charAt(end) == ';');
+            boolean semiNext = end != seqEnd && input.charAt(end) == ';';
 
             if(!semiNext) {
                 if(isSet(OPTION.semiColonRequired)) {
@@ -132,7 +132,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
                 out.write(entityValue);
             }
 
-            return 2 + (end - start) + (isHex ? 1 : 0) + (semiNext ? 1 : 0);
+            return 2 + end - start + (isHex ? 1 : 0) + (semiNext ? 1 : 0);
         }
         return 0;
     }

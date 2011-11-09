@@ -197,33 +197,33 @@ public class ArrayUtilsAddTest {
 
         //show that not casting is okay
         newArray = ArrayUtils.add((Object[])null, "a");
-        assertTrue(Arrays.equals((new String[]{"a"}), newArray));
-        assertTrue(Arrays.equals((new Object[]{"a"}), newArray));
+        assertTrue(Arrays.equals(new String[]{"a"}, newArray));
+        assertTrue(Arrays.equals(new Object[]{"a"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
 
         //show that not casting to Object[] is okay and will assume String based on "a"
         String[] newStringArray = ArrayUtils.add(null, "a");
-        assertTrue(Arrays.equals((new String[]{"a"}), newStringArray));
-        assertTrue(Arrays.equals((new Object[]{"a"}), newStringArray));
+        assertTrue(Arrays.equals(new String[]{"a"}, newStringArray));
+        assertTrue(Arrays.equals(new Object[]{"a"}, newStringArray));
         assertEquals(String.class, newStringArray.getClass().getComponentType());
 
         String[] stringArray1 = new String[]{"a", "b", "c"};
         newArray = ArrayUtils.add(stringArray1, null);
-        assertTrue(Arrays.equals((new String[]{"a", "b", "c", null}), newArray));
+        assertTrue(Arrays.equals(new String[]{"a", "b", "c", null}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
 
         newArray = ArrayUtils.add(stringArray1, "d");
-        assertTrue(Arrays.equals((new String[]{"a", "b", "c", "d"}), newArray));
+        assertTrue(Arrays.equals(new String[]{"a", "b", "c", "d"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
 
         Number[] numberArray1 = new Number[]{Integer.valueOf(1), Double.valueOf(2)};
         newArray = ArrayUtils.add(numberArray1, Float.valueOf(3));
-        assertTrue(Arrays.equals((new Number[]{Integer.valueOf(1), Double.valueOf(2), Float.valueOf(3)}), newArray));
+        assertTrue(Arrays.equals(new Number[]{Integer.valueOf(1), Double.valueOf(2), Float.valueOf(3)}, newArray));
         assertEquals(Number.class, newArray.getClass().getComponentType());
 
         numberArray1 = null;
         newArray = ArrayUtils.add(numberArray1, Float.valueOf(3));
-        assertTrue(Arrays.equals((new Float[]{Float.valueOf(3)}), newArray));
+        assertTrue(Arrays.equals(new Float[]{Float.valueOf(3)}, newArray));
         assertEquals(Float.class, newArray.getClass().getComponentType());
     }
     
@@ -256,31 +256,31 @@ public class ArrayUtilsAddTest {
         newArray = ArrayUtils.addAll(stringArray1, (String[]) null);
         assertNotSame(stringArray1, newArray);
         assertTrue(Arrays.equals(stringArray1, newArray));
-        assertTrue(Arrays.equals((new String[]{"a", "b", "c"}), newArray));
+        assertTrue(Arrays.equals(new String[]{"a", "b", "c"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         newArray = ArrayUtils.addAll(null, stringArray2);
         assertNotSame(stringArray2, newArray);
         assertTrue(Arrays.equals(stringArray2, newArray));
-        assertTrue(Arrays.equals((new String[]{"1", "2", "3"}), newArray));
+        assertTrue(Arrays.equals(new String[]{"1", "2", "3"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         newArray = ArrayUtils.addAll(stringArray1, stringArray2);
-        assertTrue(Arrays.equals((new String[]{"a", "b", "c", "1", "2", "3"}), newArray));
+        assertTrue(Arrays.equals(new String[]{"a", "b", "c", "1", "2", "3"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         newArray = ArrayUtils.addAll(ArrayUtils.EMPTY_STRING_ARRAY, (String[]) null);
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_STRING_ARRAY, newArray));
-        assertTrue(Arrays.equals((new String[]{}), newArray));
+        assertTrue(Arrays.equals(new String[]{}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         newArray = ArrayUtils.addAll(null, ArrayUtils.EMPTY_STRING_ARRAY);
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_STRING_ARRAY, newArray));
-        assertTrue(Arrays.equals((new String[]{}), newArray));
+        assertTrue(Arrays.equals(new String[]{}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         newArray = ArrayUtils.addAll(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY);
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_STRING_ARRAY, newArray));
-        assertTrue(Arrays.equals((new String[]{}), newArray));
+        assertTrue(Arrays.equals(new String[]{}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         String[] stringArrayNull = new String []{null};
         newArray = ArrayUtils.addAll(stringArrayNull, stringArrayNull);
-        assertTrue(Arrays.equals((new String[]{null, null}), newArray));
+        assertTrue(Arrays.equals(new String[]{null, null}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
 
         // boolean
@@ -369,21 +369,21 @@ public class ArrayUtilsAddTest {
     public void testAddObjectAtIndex() {
         Object[] newArray;
         newArray = ArrayUtils.add((Object[])null, 0, "a");
-        assertTrue(Arrays.equals((new String[]{"a"}), newArray));
-        assertTrue(Arrays.equals((new Object[]{"a"}), newArray));
+        assertTrue(Arrays.equals(new String[]{"a"}, newArray));
+        assertTrue(Arrays.equals(new Object[]{"a"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         String[] stringArray1 = new String[]{"a", "b", "c"};
         newArray = ArrayUtils.add(stringArray1, 0, null);
-        assertTrue(Arrays.equals((new String[]{null, "a", "b", "c"}), newArray));
+        assertTrue(Arrays.equals(new String[]{null, "a", "b", "c"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add(stringArray1, 1, null);
-        assertTrue(Arrays.equals((new String[]{"a", null, "b", "c"}), newArray));
+        assertTrue(Arrays.equals(new String[]{"a", null, "b", "c"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add(stringArray1, 3, null);
-        assertTrue(Arrays.equals((new String[]{"a", "b", "c", null}), newArray));
+        assertTrue(Arrays.equals(new String[]{"a", "b", "c", null}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add(stringArray1, 3, "d");
-        assertTrue(Arrays.equals((new String[]{"a", "b", "c", "d"}), newArray));
+        assertTrue(Arrays.equals(new String[]{"a", "b", "c", "d"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         assertEquals(String.class, newArray.getClass().getComponentType());
 

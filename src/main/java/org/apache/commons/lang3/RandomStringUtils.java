@@ -227,7 +227,7 @@ public class RandomStringUtils {
         } else if (count < 0) {
             throw new IllegalArgumentException("Requested random string length " + count + " is less than 0.");
         }
-        if ((start == 0) && (end == 0)) {
+        if (start == 0 && end == 0) {
             end = 'z' + 1;
             start = ' ';
             if (!letters && !numbers) {
@@ -246,9 +246,9 @@ public class RandomStringUtils {
             } else {
                 ch = chars[random.nextInt(gap) + start];
             }
-            if ((letters && Character.isLetter(ch))
-                    || (numbers && Character.isDigit(ch))
-                    || (!letters && !numbers)) {
+            if (letters && Character.isLetter(ch)
+                    || numbers && Character.isDigit(ch)
+                    || !letters && !numbers) {
                 if(ch >= 56320 && ch <= 57343) {
                     if(count == 0) {
                         count++;

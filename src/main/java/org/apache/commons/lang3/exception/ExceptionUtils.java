@@ -178,7 +178,7 @@ public class ExceptionUtils {
      */
     public static Throwable getRootCause(Throwable throwable) {
         List<Throwable> list = getThrowableList(throwable);
-        return (list.size() < 2 ? null : (Throwable)list.get(list.size() - 1));
+        return list.size() < 2 ? null : (Throwable)list.get(list.size() - 1);
     }
 
     /**
@@ -690,7 +690,7 @@ public class ExceptionUtils {
      */
     public static String getRootCauseMessage(Throwable th) {
         Throwable root = ExceptionUtils.getRootCause(th);
-        root = (root == null ? th : root);
+        root = root == null ? th : root;
         return getMessage(root);
     }
 

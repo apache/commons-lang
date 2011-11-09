@@ -225,7 +225,7 @@ public class StringUtils {
             return true;
         }
         for (int i = 0; i < strLen; i++) {
-            if ((Character.isWhitespace(cs.charAt(i)) == false)) {
+            if (Character.isWhitespace(cs.charAt(i)) == false) {
                 return false;
             }
         }
@@ -484,13 +484,13 @@ public class StringUtils {
         }
         int start = 0;
         if (stripChars == null) {
-            while ((start != strLen) && Character.isWhitespace(str.charAt(start))) {
+            while (start != strLen && Character.isWhitespace(str.charAt(start))) {
                 start++;
             }
         } else if (stripChars.length() == 0) {
             return str;
         } else {
-            while ((start != strLen) && (stripChars.indexOf(str.charAt(start)) != INDEX_NOT_FOUND)) {
+            while (start != strLen && stripChars.indexOf(str.charAt(start)) != INDEX_NOT_FOUND) {
                 start++;
             }
         }
@@ -529,13 +529,13 @@ public class StringUtils {
         }
 
         if (stripChars == null) {
-            while ((end != 0) && Character.isWhitespace(str.charAt(end - 1))) {
+            while (end != 0 && Character.isWhitespace(str.charAt(end - 1))) {
                 end--;
             }
         } else if (stripChars.length() == 0) {
             return str;
         } else {
-            while ((end != 0) && (stripChars.indexOf(str.charAt(end - 1)) != INDEX_NOT_FOUND)) {
+            while (end != 0 && stripChars.indexOf(str.charAt(end - 1)) != INDEX_NOT_FOUND) {
                 end--;
             }
         }
@@ -1087,7 +1087,7 @@ public class StringUtils {
         if (startPos < 0) {
             startPos = 0;
         }
-        int endLimit = (str.length() - searchStr.length()) + 1;
+        int endLimit = str.length() - searchStr.length() + 1;
         if (startPos > endLimit) {
             return INDEX_NOT_FOUND;
         }
@@ -1333,7 +1333,7 @@ public class StringUtils {
         if (str == null || searchStr == null) {
             return INDEX_NOT_FOUND;
         }
-        if (startPos > (str.length() - searchStr.length())) {
+        if (startPos > str.length() - searchStr.length()) {
             startPos = str.length() - searchStr.length();
         }
         if (startPos < 0) {
@@ -1946,7 +1946,7 @@ public class StringUtils {
             }
         }
 
-        return (ret == Integer.MAX_VALUE) ? INDEX_NOT_FOUND : ret;
+        return ret == Integer.MAX_VALUE ? INDEX_NOT_FOUND : ret;
     }
 
     /**
@@ -2212,7 +2212,7 @@ public class StringUtils {
         if (pos < 0) {
             pos = 0;
         }
-        if (str.length() <= (pos + len)) {
+        if (str.length() <= pos + len) {
             return str.substring(pos);
         }
         return str.substring(pos, pos + len);
@@ -2378,7 +2378,7 @@ public class StringUtils {
             return EMPTY;
         }
         int pos = str.lastIndexOf(separator);
-        if (pos == INDEX_NOT_FOUND || pos == (str.length() - separator.length())) {
+        if (pos == INDEX_NOT_FOUND || pos == str.length() - separator.length()) {
             return EMPTY;
         }
         return str.substring(pos + separator.length());
@@ -2486,7 +2486,7 @@ public class StringUtils {
         int openLen = open.length();
         List<String> list = new ArrayList<String>();
         int pos = 0;
-        while (pos < (strLen - closeLen)) {
+        while (pos < strLen - closeLen) {
             int start = str.indexOf(open, pos);
             if (start < 0) {
                 break;
@@ -2773,7 +2773,7 @@ public class StringUtils {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
 
-        if ((separator == null) || (EMPTY.equals(separator))) {
+        if (separator == null || EMPTY.equals(separator)) {
             // Split on whitespace.
             return splitWorker(str, null, max, preserveAllTokens);
         }
@@ -2932,7 +2932,7 @@ public class StringUtils {
             match = true;
             i++;
         }
-        if (match || (preserveAllTokens && lastMatch)) {
+        if (match || preserveAllTokens && lastMatch) {
             list.add(str.substring(start, i));
         }
         return list.toArray(new String[list.size()]);
@@ -3108,7 +3108,7 @@ public class StringUtils {
                 i++;
             }
         }
-        if (match || (preserveAllTokens && lastMatch)) {
+        if (match || preserveAllTokens && lastMatch) {
             list.add(str.substring(start, i));
         }
         return list.toArray(new String[list.size()]);
@@ -3299,7 +3299,7 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        int noOfItems = (endIndex - startIndex);
+        int noOfItems = endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
@@ -3384,7 +3384,7 @@ public class StringUtils {
 
         // endIndex - startIndex > 0:   Len = NofStrings *(len(firstString) + len(separator))
         //           (Assuming that all Strings are roughly equally long)
-        int noOfItems = (endIndex - startIndex);
+        int noOfItems = endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
@@ -3867,8 +3867,8 @@ public class StringUtils {
         }
         int replLength = searchString.length();
         int increase = replacement.length() - replLength;
-        increase = (increase < 0 ? 0 : increase);
-        increase *= (max < 0 ? 16 : (max > 64 ? 64 : max));
+        increase = increase < 0 ? 0 : increase;
+        increase *= max < 0 ? 16 : max > 64 ? 64 : max;
         StringBuilder buf = new StringBuilder(text.length() + increase);
         while (end != INDEX_NOT_FOUND) {
             buf.append(text.substring(start, end)).append(replacement);
@@ -5214,7 +5214,7 @@ public class StringUtils {
         }
         int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isLetter(cs.charAt(i)) == false) && (cs.charAt(i) != ' ')) {
+            if (Character.isLetter(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -5284,7 +5284,7 @@ public class StringUtils {
         }
         int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isLetterOrDigit(cs.charAt(i)) == false) && (cs.charAt(i) != ' ')) {
+            if (Character.isLetterOrDigit(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -5396,7 +5396,7 @@ public class StringUtils {
         }
         int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isDigit(cs.charAt(i)) == false) && (cs.charAt(i) != ' ')) {
+            if (Character.isDigit(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -5429,7 +5429,7 @@ public class StringUtils {
         }
         int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isWhitespace(cs.charAt(i)) == false)) {
+            if (Character.isWhitespace(cs.charAt(i)) == false) {
                 return false;
             }
         }
@@ -5726,7 +5726,7 @@ public class StringUtils {
         if (offset > str.length()) {
             offset = str.length();
         }
-        if ((str.length() - offset) < (maxWidth - 3)) {
+        if (str.length() - offset < maxWidth - 3) {
             offset = str.length() - (maxWidth - 3);
         }
         final String abrevMarker = "...";
@@ -5736,7 +5736,7 @@ public class StringUtils {
         if (maxWidth < 7) {
             throw new IllegalArgumentException("Minimum abbreviation width with offset is 7");
         }
-        if ((offset + (maxWidth - 3)) < str.length()) {
+        if (offset + maxWidth - 3 < str.length()) {
             return abrevMarker + abbreviate(str.substring(offset), maxWidth - 3);
         }
         return abrevMarker + str.substring(str.length() - (maxWidth - 3));
@@ -5776,7 +5776,7 @@ public class StringUtils {
             return str;
         }
 
-        if (length >= str.length() || length < (middle.length()+2)) {
+        if (length >= str.length() || length < middle.length()+2) {
             return str;
         }
 
@@ -5934,7 +5934,7 @@ public class StringUtils {
         }
 
         // handle lists containing all nulls or all empty strings
-        if (allStringsNull || (longestStrLen == 0 && !anyStringNull)) {
+        if (allStringsNull || longestStrLen == 0 && !anyStringNull) {
             return INDEX_NOT_FOUND;
         }
 
@@ -6365,7 +6365,7 @@ public class StringUtils {
      */
     private static boolean startsWith(CharSequence str, CharSequence prefix, boolean ignoreCase) {
         if (str == null || prefix == null) {
-            return (str == null && prefix == null);
+            return str == null && prefix == null;
         }
         if (prefix.length() > str.length()) {
             return false;

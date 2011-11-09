@@ -148,7 +148,7 @@ public class CharUtilsPerfRun {
         int t = 0;
         for (int i = 0; i < loopCount; i++) {
             for (char ch : CHAR_SAMPLES) {
-                boolean b = (ch >= '0' && ch <= '9');
+                boolean b = ch >= '0' && ch <= '9';
                 t += b ? 1 : 0;
             }
         }

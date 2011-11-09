@@ -580,7 +580,7 @@ public class StrSubstitutor {
         StrMatcher suffixMatcher = getVariableSuffixMatcher();
         char escape = getEscapeChar();
 
-        boolean top = (priorVariables == null);
+        boolean top = priorVariables == null;
         boolean altered = false;
         int lengthChange = 0;
         char[] chars = buf.buffer;
@@ -656,7 +656,7 @@ public class StrSubstitutor {
                                     int change = substitute(buf, startPos,
                                             varLen, priorVariables);
                                     change = change
-                                            + (varLen - (endPos - startPos));
+                                            + varLen - (endPos - startPos);
                                     pos += change;
                                     bufEnd += change;
                                     lengthChange += change;
@@ -678,7 +678,7 @@ public class StrSubstitutor {
             }
         }
         if (top) {
-            return (altered ? 1 : 0);
+            return altered ? 1 : 0;
         }
         return lengthChange;
     }
