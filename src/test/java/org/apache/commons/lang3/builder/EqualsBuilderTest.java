@@ -936,12 +936,15 @@ public class EqualsBuilderTest {
 
         @Override
         public boolean equals(Object o) {
-            if (o == this)
+            if (o == this) {
                 return true;
-            if (o instanceof TestACanEqualB)
+            }
+            if (o instanceof TestACanEqualB) {
                 return this.a == ((TestACanEqualB) o).getA();
-            if (o instanceof TestBCanEqualA)
+            }
+            if (o instanceof TestBCanEqualA) {
                 return this.a == ((TestBCanEqualA) o).getB();
+            }
             return false;
         }
 
@@ -959,12 +962,15 @@ public class EqualsBuilderTest {
 
         @Override
         public boolean equals(Object o) {
-            if (o == this)
+            if (o == this) {
                 return true;
-            if (o instanceof TestACanEqualB)
+            }
+            if (o instanceof TestACanEqualB) {
                 return this.b == ((TestACanEqualB) o).getA();
-            if (o instanceof TestBCanEqualA)
+            }
+            if (o instanceof TestBCanEqualA) {
                 return this.b == ((TestBCanEqualA) o).getB();
+            }
             return false;
         }
 
