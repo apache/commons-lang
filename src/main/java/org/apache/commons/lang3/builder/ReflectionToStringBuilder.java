@@ -32,34 +32,33 @@ import org.apache.commons.lang3.ClassUtils;
  * <p>
  * Assists in implementing {@link Object#toString()} methods using reflection.
  * </p>
- *
  * <p>
  * This class uses reflection to determine the fields to append. Because these fields are usually private, the class
  * uses {@link java.lang.reflect.AccessibleObject#setAccessible(java.lang.reflect.AccessibleObject[], boolean)} to
  * change the visibility of the fields. This will fail under a security manager, unless the appropriate permissions are
  * set up correctly.
  * </p>
- *
+ * <p>
+ * Using reflection to access (private) fields circumvents any synchronization protection guarding access to these
+ * fields. If a toString method cannot safely read a field, you should exclude it from the toString method, or use
+ * synchronization consistent with the class' lock management around the invocation of the method. Take special care to
+ * exclude non-thread-safe collection classes, because these classes may throw ConcurrentModificationException if
+ * modified while the toString method is executing.
+ * </p>
  * <p>
  * A typical invocation for this method would look like:
  * </p>
- *
  * <pre>
  * public String toString() {
- *   return ReflectionToStringBuilder.toString(this);
- * }</pre>
- *
- *
- *
+ *     return ReflectionToStringBuilder.toString(this);
+ * }
+ * </pre>
  * <p>
  * You can also use the builder to debug 3rd party objects:
  * </p>
- *
  * <pre>
- * System.out.println("An object: " + ReflectionToStringBuilder.toString(anObject));</pre>
- *
- *
- *
+ * System.out.println(&quot;An object: &quot; + ReflectionToStringBuilder.toString(anObject));
+ * </pre>
  * <p>
  * A subclass can control field output by overriding the methods:
  * <ul>
@@ -68,26 +67,21 @@ import org.apache.commons.lang3.ClassUtils;
  * </ul>
  * </p>
  * <p>
- * For example, this method does <i>not</i> include the <code>password</code> field in the returned
- * <code>String</code>:
+ * For example, this method does <i>not</i> include the <code>password</code> field in the returned <code>String</code>:
  * </p>
- *
  * <pre>
  * public String toString() {
  *     return (new ReflectionToStringBuilder(this) {
  *         protected boolean accept(Field f) {
- *             return super.accept(f) && !f.getName().equals("password");
+ *             return super.accept(f) &amp;&amp; !f.getName().equals(&quot;password&quot;);
  *         }
  *     }).toString();
- * }</pre>
- *
- *
- *
+ * }
+ * </pre>
  * <p>
- * The exact format of the <code>toString</code> is determined by the {@link ToStringStyle} passed into the
- * constructor.
+ * The exact format of the <code>toString</code> is determined by the {@link ToStringStyle} passed into the constructor.
  * </p>
- *
+ * 
  * @since 2.0
  * @version $Id$
  */
