@@ -271,8 +271,8 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      */
     @Override
     public boolean equals(Object obj) {
-        return (obj instanceof MutableDouble)
-            && (Double.doubleToLongBits(((MutableDouble) obj).value) == Double.doubleToLongBits(value));
+        return obj instanceof MutableDouble
+            && Double.doubleToLongBits(((MutableDouble) obj).value) == Double.doubleToLongBits(value);
     }
 
     /**
@@ -283,7 +283,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     @Override
     public int hashCode() {
         long bits = Double.doubleToLongBits(value);
-        return (int) (bits ^ (bits >>> 32));
+        return (int) (bits ^ bits >>> 32);
     }
 
     //-----------------------------------------------------------------------

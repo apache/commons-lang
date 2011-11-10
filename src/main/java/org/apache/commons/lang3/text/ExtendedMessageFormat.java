@@ -522,7 +522,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @return <code>true</code> if some Object was found, <code>false</code> otherwise.
      */
     private boolean containsElements(Collection<?> coll) {
-        if (coll == null || coll.size() == 0) {
+        if (coll == null || coll.isEmpty()) {
             return false;
         }
         for (Object name : coll) {

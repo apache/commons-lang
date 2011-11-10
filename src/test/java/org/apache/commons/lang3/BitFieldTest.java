@@ -149,7 +149,7 @@ public class BitFieldTest extends TestCase {
         }
         for (int j = 0; j < 128; j++) {
             assertEquals(bf_zero.getShortValue(bf_zero.setShortValue((short) 0, (short) j)), (short) 0);
-            assertEquals(bf_zero.setShortValue((short) 0, (short) j), (short) (0));
+            assertEquals(bf_zero.setShortValue((short) 0, (short) j), (short) 0);
         }
 
         // verify that excess bits are stripped off

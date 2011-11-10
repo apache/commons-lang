@@ -136,7 +136,7 @@ public class EnumUtils {
         Validate.notNull(values);
         long total = 0;
         for (E constant : values) {
-            total |= (1 << constant.ordinal());
+            total |= 1 << constant.ordinal();
         }
         return total;
     }
@@ -179,7 +179,7 @@ public class EnumUtils {
         final E[] constants = checkBitVectorable(enumClass).getEnumConstants();
         final EnumSet<E> results = EnumSet.noneOf(enumClass);
         for (E constant : constants) {
-            if ((value & (1 << constant.ordinal())) != 0) {
+            if ((value & 1 << constant.ordinal()) != 0) {
                 results.add(constant);
             }
         }

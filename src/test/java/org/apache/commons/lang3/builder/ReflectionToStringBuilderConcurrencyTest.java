@@ -74,6 +74,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
     }
 
     @Test
+    @Ignore
     public void testCopyOnWriteArrayList() throws InterruptedException, ExecutionException {
         this.testConcurrency(new CollectionHolder<List<Integer>>(new CopyOnWriteArrayList<Integer>()));
     }

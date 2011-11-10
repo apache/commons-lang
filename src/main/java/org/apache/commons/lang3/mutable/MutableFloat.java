@@ -273,8 +273,8 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      */
     @Override
     public boolean equals(Object obj) {
-        return (obj instanceof MutableFloat)
-            && (Float.floatToIntBits(((MutableFloat) obj).value) == Float.floatToIntBits(value));
+        return obj instanceof MutableFloat
+            && Float.floatToIntBits(((MutableFloat) obj).value) == Float.floatToIntBits(value);
     }
 
     /**

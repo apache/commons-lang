@@ -551,12 +551,12 @@ public class StrTokenizerTest extends TestCase {
      * <code>null</code>.
      */
     public void testCloneNotSupportedException() {
-        Object notCloned = (new StrTokenizer() {
+        Object notCloned = new StrTokenizer() {
             @Override
             Object cloneReset() throws CloneNotSupportedException {
                 throw new CloneNotSupportedException("test");
             }
-        }).clone();
+        }.clone();
         assertNull(notCloned);
     }
 

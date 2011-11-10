@@ -46,7 +46,7 @@ public class CompareToBuilderTest {
                 return false;
             }
             TestObject rhs = (TestObject) o;
-            return (a == rhs.a);
+            return a == rhs.a;
         }
 
         public void setA(int a) {
@@ -57,7 +57,7 @@ public class CompareToBuilderTest {
             return a;
         }
         public int compareTo(TestObject rhs) {
-            return (a < rhs.a) ? -1 : (a > rhs.a) ? +1 : 0;
+            return a < rhs.a ? -1 : a > rhs.a ? +1 : 0;
         }
     }
 
@@ -79,7 +79,7 @@ public class CompareToBuilderTest {
                 return false;
             }
             TestSubObject rhs = (TestSubObject) o;
-            return super.equals(o) && (b == rhs.b);
+            return super.equals(o) && b == rhs.b;
         }
     }
 
@@ -231,7 +231,7 @@ public class CompareToBuilderTest {
         }
         
         // strongly recommended but not strictly required
-        assertTrue((CompareToBuilder.reflectionCompare(x, y, testTransients) ==0 ) == EqualsBuilder.reflectionEquals(x, y, testTransients));
+        assertTrue(CompareToBuilder.reflectionCompare(x, y, testTransients) ==0 == EqualsBuilder.reflectionEquals(x, y, testTransients));
     }
     
     /**
@@ -823,9 +823,9 @@ public class CompareToBuilderTest {
         float[][] array3 = new float[2][3];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
-                array1[i][j] = ((i + 1) * (j + 1));
-                array2[i][j] = ((i + 1) * (j + 1));
-                array3[i][j] = ((i + 1) * (j + 1));
+                array1[i][j] = (i + 1) * (j + 1);
+                array2[i][j] = (i + 1) * (j + 1);
+                array3[i][j] = (i + 1) * (j + 1);
             }
         }
         array3[1][2] = 100;
@@ -847,9 +847,9 @@ public class CompareToBuilderTest {
         double[][] array3 = new double[2][3];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
-                array1[i][j] = ((i + 1) * (j + 1));
-                array2[i][j] = ((i + 1) * (j + 1));
-                array3[i][j] = ((i + 1) * (j + 1));
+                array1[i][j] = (i + 1) * (j + 1);
+                array2[i][j] = (i + 1) * (j + 1);
+                array3[i][j] = (i + 1) * (j + 1);
             }
         }
         array3[1][2] = 100;
@@ -871,9 +871,9 @@ public class CompareToBuilderTest {
         boolean[][] array3 = new boolean[2][3];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
-                array1[i][j] = ((i == 1) ^ (j == 1));
-                array2[i][j] = ((i == 1) ^ (j == 1));
-                array3[i][j] = ((i == 1) ^ (j == 1));
+                array1[i][j] = i == 1 ^ j == 1;
+                array2[i][j] = i == 1 ^ j == 1;
+                array3[i][j] = i == 1 ^ j == 1;
             }
         }
         array3[1][2] = false;

@@ -428,7 +428,7 @@ public class TimedSemaphoreTest {
          */
         @Override
         protected ScheduledFuture<?> startTimer() {
-            return (schedFuture != null) ? schedFuture : super.startTimer();
+            return schedFuture != null ? schedFuture : super.startTimer();
         }
     }
 
