@@ -21,6 +21,9 @@
   </properties>
   <body>
 
+  <release version="3.2" date="TBA" description="December release">
+    <action type="fix" issue="LANG-772">ClassUtils.PACKAGE_SEPARATOR javadoc contains garbage text</action>
+  </release>
   <release version="3.1" date="2011-11-14" description="November release">      
     <action type="add" issue="LANG-760">Add API StringUtils.toString(byte[] intput, String charsetName)</action>
     <action type="update" issue="LANG-758">Add an example with whitespace in StringUtils.defaultIfEmpty</action>
