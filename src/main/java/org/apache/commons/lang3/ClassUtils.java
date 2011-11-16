@@ -48,7 +48,7 @@ public class ClassUtils {
     public static final char PACKAGE_SEPARATOR_CHAR = '.';
 
     /**
-     * <p>The package separator String: {@code "&#x2e;"}.</p>
+     * <p>The package separator String: <code>"&#x2e;"</code>.</p>
      */
     public static final String PACKAGE_SEPARATOR = String.valueOf(PACKAGE_SEPARATOR_CHAR);
 
