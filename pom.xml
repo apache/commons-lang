@@ -451,9 +451,24 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
+    <!--
+       This is also  used to generate download_xxx file name.
+       To override this when generating the download page:
+       
+       mvn commons:download-page -Dcommons.componentid=lang
+       
+       The above seems to change the download page name but not any other
+       properties that depend on the componentid.
+    -->
     <commons.componentid>lang3</commons.componentid>
+    <!-- Current 3.x release series -->
     <commons.release.version>3.1</commons.release.version>
     <commons.release.desc>(Java 5.0+)</commons.release.desc>
+    <!-- Previous 2.x release series -->
+    <commons.release.2.version>2.6</commons.release.2.version>
+    <commons.release.2.desc>(Requires Java 1.2 or later)</commons.release.2.desc>
+    <!-- Override generated name -->
+    <commons.release.2.name>commons-lang-${commons.release.2.version}</commons.release.2.name>
     <commons.jira.id>LANG</commons.jira.id>
     <commons.jira.pid>12310481</commons.jira.pid>
   </properties>
