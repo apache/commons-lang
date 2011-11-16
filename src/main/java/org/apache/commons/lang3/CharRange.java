@@ -253,7 +253,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * <p>Returns an iterator which can be used to walk through the characters described by this range.</p>
      *
-     * <p>#NotThreadSafe# the iterator is not threadsafe</p>
+     * <p>#NotThreadSafe# the iterator is not thread-safe</p>
      * @return an iterator to the chars represented by this range
      * @since 2.5
      */
