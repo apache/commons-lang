@@ -24,7 +24,7 @@ package org.apache.commons.lang3.tuple;
  * itself effectively becomes mutable. The class is also not {@code final}, so a subclass
  * could add undesirable behaviour.</p>
  * 
- * <p>#ThreadSafe# if the objects are threadsafe</p>
+ * <p>#ThreadSafe# if both paired objects are threadsafe</p>
  *
  * @param <L> the left element type
  * @param <R> the right element type
