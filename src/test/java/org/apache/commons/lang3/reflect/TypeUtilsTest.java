@@ -500,6 +500,11 @@ public class TypeUtilsTest<B> {
         Assert.assertTrue(typeVarAssigns.size() == 2);
         Assert.assertEquals(String.class, typeVarAssigns.get(AAClass.class.getTypeParameters()[0]));
         Assert.assertEquals(String.class, typeVarAssigns.get(AAClass.BBClass.class.getTypeParameters()[0]));
+
+        typeVarAssigns = TypeUtils.getTypeArguments(Other.class, This.class);
+        Assert.assertEquals(2, typeVarAssigns.size());
+        Assert.assertEquals(String.class, typeVarAssigns.get(This.class.getTypeParameters()[0]));
+        Assert.assertEquals(Other.class.getTypeParameters()[0], typeVarAssigns.get(This.class.getTypeParameters()[1]));
     }
 
     @Test
