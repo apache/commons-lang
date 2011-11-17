@@ -341,7 +341,7 @@ public class TypeUtilsTest<B> {
         dis = uhder;
         Assert.assertTrue(TypeUtils.isAssignable(uhderType, disType));
         dis = ding;
-        Assert.assertTrue(String.format("type %s not assignable to %s!", dingType, disType),
+        Assert.assertFalse(String.format("type %s not assignable to %s!", dingType, disType),
                 TypeUtils.isAssignable(dingType, disType));
         dis = tester;
         Assert.assertTrue(TypeUtils.isAssignable(testerType, disType));
