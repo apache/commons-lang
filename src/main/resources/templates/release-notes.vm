@@ -14,15 +14,15 @@
 ## KIND, either express or implied.  See the License for the
 ## specific language governing permissions and limitations
 ## under the License.
-                        
+
                         Apache ${project.name} Package
                             Version ${version}
-                              Release Notes
+                           Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 3.0.1 version of Apache Commons Lang.
+This document contains the release notes for the ${version} version of Apache Commons Lang.
 Commons Lang is a set of utility functions and reusable components that should be of use in any 
 Java environment.
 
