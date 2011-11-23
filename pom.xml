@@ -531,6 +531,7 @@
           <template>release-notes.vm</template>
           <templateDirectory>templates</templateDirectory>
           <!-- Give the output file its proper name -->
+          <outputDirectory>.</outputDirectory>
           <announcementFile>RELEASE-NOTES.txt</announcementFile>
         </configuration>
         <reportSets>
