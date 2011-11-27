@@ -39,7 +39,7 @@ public class TripleTest {
         assertEquals(0, ((ImmutableTriple<Integer, String, Boolean>) triple).left.intValue());
         assertEquals("foo", ((ImmutableTriple<Integer, String, Boolean>) triple).middle);
         assertEquals(Boolean.TRUE, ((ImmutableTriple<Integer, String, Boolean>) triple).right);
-        Triple<Object, String, Long> triple2 = Triple.of(null, "bar", 200L);
+        Triple<Object, String, Long> triple2 = Triple.of(null, "bar", Long.valueOf(200L));
         assertTrue(triple2 instanceof ImmutableTriple<?, ?, ?>);
         assertNull(((ImmutableTriple<Object, String, Long>) triple2).left);
         assertEquals("bar", ((ImmutableTriple<Object, String, Long>) triple2).middle);
