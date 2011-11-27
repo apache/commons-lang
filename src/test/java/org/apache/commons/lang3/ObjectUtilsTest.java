@@ -208,9 +208,11 @@ public class ObjectUtilsTest {
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, BAR) );
     }
 
+    @SuppressWarnings("cast") // 1 OK, because we are checking for code change
     @Test
     public void testNull() {
         assertNotNull(ObjectUtils.NULL);
+        // 1 Check that NULL really is a Null i.e. the definition has not been changed
         assertTrue(ObjectUtils.NULL instanceof ObjectUtils.Null);
         assertSame(ObjectUtils.NULL, SerializationUtils.clone(ObjectUtils.NULL));
     }
