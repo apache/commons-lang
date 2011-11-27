@@ -441,7 +441,7 @@ public class ArrayUtilsTest extends TestCase {
         // Test null handling
         assertEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Object[]) null));
         // Test valid array handling
-        Object[] original = new Object[] {true, false};
+        Object[] original = new Object[] {Boolean.TRUE, Boolean.FALSE};
         assertEquals(original, ArrayUtils.nullToEmpty(original));
         // Test empty array handling
         Object[] empty = new Object[]{};
@@ -480,6 +480,7 @@ public class ArrayUtilsTest extends TestCase {
         // Test null handling
         assertEquals(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Long[]) null));
         // Test valid array handling
+        @SuppressWarnings("boxing")
         Long[] original = new Long[] {1L, 2L};
         assertEquals(original, ArrayUtils.nullToEmpty(original));
         // Test empty array handling
@@ -506,6 +507,7 @@ public class ArrayUtilsTest extends TestCase {
         // Test null handling
         assertEquals(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Short[]) null));
         // Test valid array handling
+        @SuppressWarnings("boxing")
         Short[] original = new Short[] {1, 2};
         assertEquals(original, ArrayUtils.nullToEmpty(original));
         // Test empty array handling

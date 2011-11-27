@@ -62,7 +62,7 @@ public class MutableTripleTest {
         triple.setRight(Boolean.FALSE);
         assertEquals(42, triple.getLeft().intValue());
         assertEquals("bar", triple.getMiddle());
-        assertFalse(triple.getRight());
+        assertEquals(Boolean.FALSE, triple.getRight());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class MutableTripleTest {
         MutableTriple<Integer, String, Boolean> triple = MutableTriple.of(0, "foo", Boolean.TRUE);
         assertEquals(0, triple.getLeft().intValue());
         assertEquals("foo", triple.getMiddle());
-        assertTrue(triple.getRight());
+        assertEquals(Boolean.TRUE, triple.getRight());
         MutableTriple<Object, String, String> triple2 = MutableTriple.of(null, "bar", "hello");
         assertNull(triple2.getLeft());
         assertEquals("bar", triple2.getMiddle());
