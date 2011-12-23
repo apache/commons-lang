@@ -98,14 +98,6 @@
       </roles>
     </developer>
     <developer>
-      <name>Phil Steitz</name>
-      <id>psteitz</id>
-      <organization />
-      <roles>
-        <role>Java Developer</role>
-      </roles>
-    </developer>
-    <developer>
       <name>Fredrik Westermarck</name>
       <id>fredrik</id>
       <email />
