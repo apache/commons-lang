@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.text;
 
 import java.io.Reader;
+import java.io.Serializable;
 import java.io.Writer;
 import java.util.Iterator;
 import java.util.List;
@@ -70,7 +71,7 @@ import org.apache.commons.lang3.SystemUtils;
  * @since 2.2
  * @version $Id$
  */
-public class StrBuilder implements CharSequence, Appendable {
+public class StrBuilder implements CharSequence, Appendable, Serializable {
 
     /**
      * The extra capacity for new builders.
