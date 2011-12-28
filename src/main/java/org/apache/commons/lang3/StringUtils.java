@@ -2610,8 +2610,8 @@ public class StringUtils {
      * <pre>
      * StringUtils.split(null, *, *)            = null
      * StringUtils.split("", *, *)              = []
-     * StringUtils.split("ab de fg", null, 0)   = ["ab", "cd", "ef"]
-     * StringUtils.split("ab   de fg", null, 0) = ["ab", "cd", "ef"]
+     * StringUtils.split("ab cd ef", null, 0)   = ["ab", "cd", "ef"]
+     * StringUtils.split("ab   cd ef", null, 0) = ["ab", "cd", "ef"]
      * StringUtils.split("ab:cd:ef", ":", 0)    = ["ab", "cd", "ef"]
      * StringUtils.split("ab:cd:ef", ":", 2)    = ["ab", "cd:ef"]
      * </pre>
