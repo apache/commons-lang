@@ -291,8 +291,6 @@ public class EventListenerSupport<L> implements Serializable {
      * An invocation handler used to dispatch the event(s) to all the listeners.
      */
     protected class ProxyInvocationHandler implements InvocationHandler {
-        /** Serialization version */
-        private static final long serialVersionUID = 1L;
 
         /**
          * Propagates the method call to all registered listeners in place of
