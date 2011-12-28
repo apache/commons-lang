@@ -22,9 +22,18 @@
   <body>
 
   <release version="3.2" date="TBA" description="December release">
+    <action type="fix" issue="LANG-783">Documentation bug: StringUtils.split</action>
+    <action type="fix" issue="LANG-776">TypeUtilsTest contains incorrect type assignability assertion</action>
+    <action type="fix" issue="LANG-775">TypeUtils.getTypeArguments() misses type arguments for partially-assigned classes</action>
+    <action type="fix" issue="LANG-773">ImmutablePair doc contains nonsense text</action>
     <action type="fix" issue="LANG-772">ClassUtils.PACKAGE_SEPARATOR javadoc contains garbage text</action>
+    <action type="fix" issue="LANG-765">EventListenerSupport.ProxyInvocationHandler no longer defines serialVersionUID</action>
+    <action type="fix" issue="LANG-764">StrBuilder is now serializable</action>
+    <action type="fix" issue="LANG-761">Fix javadoc Ant warnings</action>
+    <action type="fix" issue="LANG-743">JavaDoc bug in static inner class DateIterator</action>
     <action type="add" issue="LANG-675">Add Triple class (ternary version of Pair)</action>
   </release>
+
   <release version="3.1" date="2011-11-14" description="November release">      
     <action type="add" issue="LANG-760">Add API StringUtils.toString(byte[] intput, String charsetName)</action>
     <action type="update" issue="LANG-758">Add an example with whitespace in StringUtils.defaultIfEmpty</action>
