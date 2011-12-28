@@ -1786,7 +1786,7 @@ public class DateUtils {
          * Constructs a DateIterator that ranges from one date to another. 
          *
          * @param startFinal start date (inclusive)
-         * @param endFinal end date (not inclusive)
+         * @param endFinal end date (inclusive)
          */
         DateIterator(Calendar startFinal, Calendar endFinal) {
             super();
