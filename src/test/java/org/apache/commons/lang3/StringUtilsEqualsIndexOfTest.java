@@ -19,6 +19,8 @@ package org.apache.commons.lang3;
 import java.util.Locale;
 
 import junit.framework.TestCase;
+import org.hamcrest.core.IsNot;
+import static org.junit.Assert.assertThat;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
@@ -438,14 +440,75 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertTrue( StringUtils.containsWhitespace("\n") );
     }
 
+    // The purpose of this class is to test StringUtils#equals(CharSequence, CharSequence)
+    // with a CharSequence implementation whose equals(Object) override requires that the
+    // other object be an instance of CustomCharSequence, even though, as char sequences,
+    // `seq` may equal the other object.
+    private static class CustomCharSequence implements CharSequence {
+        private CharSequence seq;
+
+        public CustomCharSequence(CharSequence seq) {
+            this.seq = seq;
+        }
+
+        public char charAt(int index) {
+            return seq.charAt(index);
+        }
+
+        public int length() {
+            return seq.length();
+        }
+
+        public CharSequence subSequence(int start, int end) {
+            return new CustomCharSequence(seq.subSequence(start, end));
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null || !(obj instanceof CustomCharSequence)) {
+                return false;
+            }
+            CustomCharSequence other = (CustomCharSequence) obj;
+            return seq.equals(other.seq);
+        }
+
+        public String toString() {
+            return seq.toString();
+        }
+    }
+
+    public void testCustomCharSequence() {
+        assertThat((CharSequence) new CustomCharSequence(FOO), IsNot.<CharSequence>not(FOO));
+        assertThat((CharSequence) FOO, IsNot.<CharSequence>not(new CustomCharSequence(FOO)));
+        assertEquals(new CustomCharSequence(FOO), new CustomCharSequence(FOO));
+    }
+
     public void testEquals() {
-        assertEquals(true, StringUtils.equals(null, null));
-        assertEquals(true, StringUtils.equals(FOO, FOO));
-        assertEquals(true, StringUtils.equals(FOO, new String(new char[] { 'f', 'o', 'o' })));
-        assertEquals(false, StringUtils.equals(FOO, new String(new char[] { 'f', 'O', 'O' })));
-        assertEquals(false, StringUtils.equals(FOO, BAR));
-        assertEquals(false, StringUtils.equals(FOO, null));
-        assertEquals(false, StringUtils.equals(null, FOO));
+        final CharSequence fooCs = FOO, barCs = BAR, foobarCs = FOOBAR;
+        assertTrue(StringUtils.equals(null, null));
+        assertTrue(StringUtils.equals(fooCs, fooCs));
+        assertTrue(StringUtils.equals(fooCs, (CharSequence) new StringBuilder(FOO)));
+        assertTrue(StringUtils.equals(fooCs, (CharSequence) new String(new char[] { 'f', 'o', 'o' })));
+        assertTrue(StringUtils.equals(fooCs, (CharSequence) new CustomCharSequence(FOO)));
+        assertTrue(StringUtils.equals((CharSequence) new CustomCharSequence(FOO), fooCs));
+        assertFalse(StringUtils.equals(fooCs, (CharSequence) new String(new char[] { 'f', 'O', 'O' })));
+        assertFalse(StringUtils.equals(fooCs, barCs));
+        assertFalse(StringUtils.equals(fooCs, null));
+        assertFalse(StringUtils.equals(null, fooCs));
+        assertFalse(StringUtils.equals(fooCs, foobarCs));
+        assertFalse(StringUtils.equals(foobarCs, fooCs));
+    }
+
+    public void testEqualsOnStrings() {
+        assertTrue(StringUtils.equals(null, null));
+        assertTrue(StringUtils.equals(FOO, FOO));
+        assertTrue(StringUtils.equals(FOO, new String(new char[] { 'f', 'o', 'o' })));
+        assertFalse(StringUtils.equals(FOO, new String(new char[] { 'f', 'O', 'O' })));
+        assertFalse(StringUtils.equals(FOO, BAR));
+        assertFalse(StringUtils.equals(FOO, null));
+        assertFalse(StringUtils.equals(null, FOO));
+        assertFalse(StringUtils.equals(FOO, FOOBAR));
+        assertFalse(StringUtils.equals(FOOBAR, FOO));
     }
 
     public void testEqualsIgnoreCase() {
