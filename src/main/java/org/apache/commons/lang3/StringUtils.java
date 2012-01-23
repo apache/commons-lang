@@ -758,7 +758,8 @@ public class StringUtils {
     // Equals
     //-----------------------------------------------------------------------
     /**
-     * <p>Compares two CharSequences, returning {@code true} if they are equal.</p>
+     * <p>Compares two CharSequences, returning {@code true} if they represent
+     * equal sequences of characters.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case sensitive.</p>
@@ -771,20 +772,28 @@ public class StringUtils {
      * StringUtils.equals("abc", "ABC") = false
      * </pre>
      *
-     * @see java.lang.String#equals(Object)
-     * @param cs1  the first CharSequence, may be null
-     * @param cs2  the second CharSequence, may be null
-     * @return {@code true} if the CharSequences are equal, case sensitive, or
-     *  both {@code null}
+     * @see java.lang.CharSequence#equals(Object)
+     * @param cs1  the first CharSequence, may be {@code null}
+     * @param cs2  the second CharSequence, may be {@code null}
+     * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
      * @since 3.0 Changed signature from equals(String, String) to equals(CharSequence, CharSequence)
      */
     public static boolean equals(CharSequence cs1, CharSequence cs2) {
-        return cs1 == null ? cs2 == null : cs1.equals(cs2);
+        if (cs1 == cs2) {
+            return true;
+        }
+        if (cs1 == null || cs2 == null) {
+            return false;
+        }
+        if (cs1 instanceof String && cs2 instanceof String) {
+            return cs1.equals(cs2);
+        }
+        return CharSequenceUtils.regionMatches(cs1, false, 0, cs2, 0, Math.max(cs1.length(), cs2.length()));
     }
 
     /**
-     * <p>Compares two CharSequences, returning {@code true} if they are equal ignoring
-     * the case.</p>
+     * <p>Compares two CharSequences, returning {@code true} if they represent
+     * equal sequences of characters, ignoring case.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered equal. Comparison is case insensitive.</p>
