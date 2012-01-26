@@ -16,16 +16,25 @@
  */
 package org.apache.commons.lang3.time;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
-import junit.framework.TestCase;
-
-import org.apache.commons.lang3.SerializationUtils;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.FastDateFormat}.
@@ -33,19 +42,21 @@ import org.apache.commons.lang3.SerializationUtils;
  * @since 2.0
  * @version $Id$
  */
-public class FastDateFormatTest extends TestCase {
+public class FastDateFormatTest {
 
-    public FastDateFormatTest(String name) {
-        super(name);
-    }
-
+    /*
+     * Only the cache methods need to be tested here.  
+     * The print methods are tested by {@link FastDateFormat_PrinterTest}
+     * and the parse methods are tested by {@link FastDateFormat_ParserTest}
+     */
+    @Test
     public void test_getInstance() {
         FastDateFormat format1 = FastDateFormat.getInstance();
         FastDateFormat format2 = FastDateFormat.getInstance();
         assertSame(format1, format2);
-        assertEquals(new SimpleDateFormat().toPattern(), format1.getPattern());
     }
 
+    @Test
     public void test_getInstance_String() {
         FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy");
         FastDateFormat format2 = FastDateFormat.getInstance("MM-DD-yyyy");
@@ -58,6 +69,7 @@ public class FastDateFormatTest extends TestCase {
         assertEquals(TimeZone.getDefault(), format2.getTimeZone());
     }
 
+    @Test
     public void test_getInstance_String_TimeZone() {
         Locale realDefaultLocale = Locale.getDefault();
         TimeZone realDefaultZone = TimeZone.getDefault();
@@ -86,6 +98,7 @@ public class FastDateFormatTest extends TestCase {
         }
     }
 
+    @Test
     public void test_getInstance_String_Locale() {
         Locale realDefaultLocale = Locale.getDefault();
         try {
@@ -103,6 +116,7 @@ public class FastDateFormatTest extends TestCase {
         }
     }
 
+    @Test
     public void test_changeDefault_Locale_DateInstance() {
         Locale realDefaultLocale = Locale.getDefault();
         try {
@@ -123,6 +137,7 @@ public class FastDateFormatTest extends TestCase {
         }
     }
 
+    @Test
     public void test_changeDefault_Locale_DateTimeInstance() {
         Locale realDefaultLocale = Locale.getDefault();
         try {
@@ -143,6 +158,7 @@ public class FastDateFormatTest extends TestCase {
         }
     }
 
+    @Test
     public void test_getInstance_String_TimeZone_Locale() {
         Locale realDefaultLocale = Locale.getDefault();
         TimeZone realDefaultZone = TimeZone.getDefault();
@@ -168,154 +184,128 @@ public class FastDateFormatTest extends TestCase {
             Locale.setDefault(realDefaultLocale);
             TimeZone.setDefault(realDefaultZone);
         }
+    }       
+
+    @Test
+    public void testCheckDefaults() {
+        FastDateFormat format = FastDateFormat.getInstance();
+        FastDateFormat medium = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.SHORT);
+        assertEquals(medium, format);
+        
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        assertEquals(sdf.toPattern(), format.getPattern());
+        
+        assertEquals(Locale.getDefault(), format.getLocale());
+        assertEquals(TimeZone.getDefault(), format.getTimeZone());        
     }
 
-    public void testFormat() {
-        Locale realDefaultLocale = Locale.getDefault();
-        TimeZone realDefaultZone = TimeZone.getDefault();
-        try {
-            Locale.setDefault(Locale.US);
-            TimeZone.setDefault(TimeZone.getTimeZone("America/New_York"));
+    @Test
+    public void testCheckDifferingStyles() {
+        FastDateFormat shortShort = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.SHORT, Locale.US);
+        FastDateFormat shortLong = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.LONG, Locale.US);
+        FastDateFormat longShort = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.SHORT, Locale.US);
+        FastDateFormat longLong = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.LONG, Locale.US);
+        
+        assertFalse(shortShort.equals(shortLong));
+        assertFalse(shortShort.equals(longShort));
+        assertFalse(shortShort.equals(longLong));      
+        assertFalse(shortLong.equals(longShort));
+        assertFalse(shortLong.equals(longLong));
+        assertFalse(longShort.equals(longLong));
+    }
 
-            GregorianCalendar cal1 = new GregorianCalendar(2003, 0, 10, 15, 33, 20);
-            GregorianCalendar cal2 = new GregorianCalendar(2003, 6, 10, 9, 00, 00);
-            Date date1 = cal1.getTime();
-            Date date2 = cal2.getTime();
-            long millis1 = date1.getTime();
-            long millis2 = date2.getTime();
+    @Test
+    public void testDateDefaults() {
+        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, Locale.CANADA), 
+                FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.CANADA));
+        
+        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getTimeZone("America/New_York")), 
+                FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getTimeZone("America/New_York"), Locale.getDefault()));
 
-            FastDateFormat fdf = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-            assertEquals(sdf.format(date1), fdf.format(date1));
-            assertEquals("2003-01-10T15:33:20", fdf.format(date1));
-            assertEquals("2003-01-10T15:33:20", fdf.format(cal1));
-            assertEquals("2003-01-10T15:33:20", fdf.format(millis1));
-            assertEquals("2003-07-10T09:00:00", fdf.format(date2));
-            assertEquals("2003-07-10T09:00:00", fdf.format(cal2));
-            assertEquals("2003-07-10T09:00:00", fdf.format(millis2));
+        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG), 
+                FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.getDefault()));
+    }
 
-            fdf = FastDateFormat.getInstance("Z");
-            assertEquals("-0500", fdf.format(date1));
-            assertEquals("-0500", fdf.format(cal1));
-            assertEquals("-0500", fdf.format(millis1));
+    @Test
+    public void testTimeDefaults() {
+        assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG, Locale.CANADA),
+                FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.CANADA));
 
-            assertEquals("-0400", fdf.format(date2));
-            assertEquals("-0400", fdf.format(cal2));
-            assertEquals("-0400", fdf.format(millis2));
+        assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getTimeZone("America/New_York")),
+                FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getTimeZone("America/New_York"), Locale.getDefault()));
 
-            fdf = FastDateFormat.getInstance("ZZ");
-            assertEquals("-05:00", fdf.format(date1));
-            assertEquals("-05:00", fdf.format(cal1));
-            assertEquals("-05:00", fdf.format(millis1));
+        assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG),
+                FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.getDefault()));
+    }
 
-            assertEquals("-04:00", fdf.format(date2));
-            assertEquals("-04:00", fdf.format(cal2));
-            assertEquals("-04:00", fdf.format(millis2));
+    @Test
+    public void testTimeDateDefaults() {
+        assertEquals(FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, Locale.CANADA),
+                FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, TimeZone.getDefault(), Locale.CANADA));
 
-            String pattern = "GGGG GGG GG G yyyy yyy yy y MMMM MMM MM M" +
-                " dddd ddd dd d DDDD DDD DD D EEEE EEE EE E aaaa aaa aa a zzzz zzz zz z";
-            fdf = FastDateFormat.getInstance(pattern);
-            sdf = new SimpleDateFormat(pattern);
-            // SDF bug fix starting with Java 7
-            assertEquals(sdf.format(date1).replaceAll("2003 03 03 03", "2003 2003 03 2003"), fdf.format(date1));
-            assertEquals(sdf.format(date2).replaceAll("2003 03 03 03", "2003 2003 03 2003"), fdf.format(date2));
-        } finally {
-            Locale.setDefault(realDefaultLocale);
-            TimeZone.setDefault(realDefaultZone);
+        assertEquals(FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, TimeZone.getTimeZone("America/New_York")),
+                FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, TimeZone.getTimeZone("America/New_York"), Locale.getDefault()));
+
+        assertEquals(FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM),
+                FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, TimeZone.getDefault(), Locale.getDefault()));
+    }
+
+    @Test
+    public void testParseSync() throws ParseException, InterruptedException {
+        final FastDateFormat formatter= FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS Z");
+        
+        long sdfTime= measureTime(formatter, new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z") {
+                        private static final long serialVersionUID = 1L;  // because SimpleDateFormat is serializable
+
+                        @Override
+                        public Object parseObject(String formattedDate) throws ParseException {
+                            synchronized(this) {
+                                return super.parse(formattedDate);
+                            }
+                        }
+        });
+        
+        long fdfTime= measureTime(formatter, FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS Z"));
+        
+        String times= "FastDateParser:"+fdfTime+"  SimpleDateFormat:"+sdfTime;
+        System.out.println(times);
+    }
+
+    final static private int NTHREADS= 10;
+    final static private int NROUNDS= 10000;
+    
+    private long measureTime(final Format formatter, final Format parser) throws ParseException, InterruptedException {
+        final ExecutorService pool = Executors.newFixedThreadPool(NTHREADS);
+        final AtomicInteger failures= new AtomicInteger(0);
+        final AtomicLong totalElapsed= new AtomicLong(0);
+        
+        for(int i= 0; i<NTHREADS; ++i) {
+            pool.submit(new Runnable() {
+                public void run() {
+                    for(int i= 0; i<NROUNDS; ++i) {
+                        try {
+                            Date date= new Date();
+                            String formattedDate= formatter.format(date);
+                            long start= System.currentTimeMillis();        
+                            Object pd= parser.parseObject(formattedDate);
+                            totalElapsed.addAndGet(System.currentTimeMillis()-start);
+                            if(!date.equals(pd)) {
+                                failures.incrementAndGet();
+                            }
+                        } catch (Exception e) {
+                            failures.incrementAndGet();
+                            e.printStackTrace();
+                        }
+                    }
+                }                
+            });
         }
-    }
-
-    /**
-     * Test case for {@link FastDateFormat#getDateInstance(int, java.util.Locale)}.
-     */
-    public void testShortDateStyleWithLocales() {
-        Locale usLocale = Locale.US;
-        Locale swedishLocale = new Locale("sv", "SE");
-        Calendar cal = Calendar.getInstance();
-        cal.set(2004, 1, 3);
-        FastDateFormat fdf = FastDateFormat.getDateInstance(FastDateFormat.SHORT, usLocale);
-        assertEquals("2/3/04", fdf.format(cal));
-
-        fdf = FastDateFormat.getDateInstance(FastDateFormat.SHORT, swedishLocale);
-        assertEquals("2004-02-03", fdf.format(cal));
-
-    }
-
-    /**
-     * Tests that pre-1000AD years get padded with yyyy
-     */
-    public void testLowYearPadding() {
-        Calendar cal = Calendar.getInstance();
-        FastDateFormat format = FastDateFormat.getInstance("yyyy/MM/DD");
-
-        cal.set(1,0,1);
-        assertEquals("0001/01/01", format.format(cal));
-        cal.set(10,0,1);
-        assertEquals("0010/01/01", format.format(cal));
-        cal.set(100,0,1);
-        assertEquals("0100/01/01", format.format(cal));
-        cal.set(999,0,1);
-        assertEquals("0999/01/01", format.format(cal));
-    }
-    /**
-     * Show Bug #39410 is solved
-     */
-    public void testMilleniumBug() {
-        Calendar cal = Calendar.getInstance();
-        FastDateFormat format = FastDateFormat.getInstance("dd.MM.yyyy");
-
-        cal.set(1000,0,1);
-        assertEquals("01.01.1000", format.format(cal));
-    }
-
-    /**
-     * testLowYearPadding showed that the date was buggy
-     * This test confirms it, getting 366 back as a date
-     */
-    public void testSimpleDate() {
-        Calendar cal = Calendar.getInstance();
-        FastDateFormat format = FastDateFormat.getInstance("yyyy/MM/dd");
-
-        cal.set(2004,11,31);
-        assertEquals("2004/12/31", format.format(cal));
-        cal.set(999,11,31);
-        assertEquals("0999/12/31", format.format(cal));
-        cal.set(1,2,2);
-        assertEquals("0001/03/02", format.format(cal));
-    }
-
-    public void testLang303() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(2004,11,31);
-
-        FastDateFormat format = FastDateFormat.getInstance("yyyy/MM/dd");
-        String output = format.format(cal);
-
-        format = (FastDateFormat) SerializationUtils.deserialize( SerializationUtils.serialize( format ) );
-        assertEquals(output, format.format(cal));
-    }
-
-    public void testLang538() {
-        // more commonly constructed with: cal = new GregorianCalendar(2009, 9, 16, 8, 42, 16)
-        // for the unit test to work in any time zone, constructing with GMT-8 rather than default locale time zone
-        GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT-8"));
-        cal.clear();
-        cal.set(2009, 9, 16, 8, 42, 16);
-
-        FastDateFormat format = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone("GMT"));
-        assertEquals("dateTime", "2009-10-16T16:42:16.000Z", format.format(cal.getTime()));
-        assertEquals("dateTime", "2009-10-16T08:42:16.000Z", format.format(cal));
-    }
-
-    public void testLang645() {
-        Locale locale = new Locale("sv", "SE");
-
-        Calendar cal = Calendar.getInstance();
-        cal.set(2010, 0, 1, 12, 0, 0);
-        Date d = cal.getTime();
-
-        FastDateFormat fdf = FastDateFormat.getInstance("EEEE', week 'ww", locale);
-
-        assertEquals("fredag, week 53", fdf.format(d));
+        pool.shutdown();                        
+        if(!pool.awaitTermination(20, TimeUnit.SECONDS)) {
+            pool.shutdownNow();
+            fail("did not complete tasks");
+        }
+        assertEquals(0, failures.get());
+        return totalElapsed.get();
     }
 }

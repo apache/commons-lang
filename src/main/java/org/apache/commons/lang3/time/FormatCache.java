@@ -41,7 +41,7 @@ abstract class FormatCache<F extends Format> {
     private final ConcurrentMap<MultipartKey, F> cInstanceCache 
         = new ConcurrentHashMap<MultipartKey, F>(7);
     
-    private final ConcurrentMap<MultipartKey, String> cDateTimeInstanceCache 
+    private static final ConcurrentMap<MultipartKey, String> cDateTimeInstanceCache 
         = new ConcurrentHashMap<MultipartKey, String>(7);
 
     /**
@@ -120,6 +120,20 @@ abstract class FormatCache<F extends Format> {
         if (locale == null) {
             locale = Locale.getDefault();
         }
+        String pattern = getPatternForStyle(dateStyle, timeStyle, locale);
+        return getInstance(pattern, timeZone, locale);
+    }
+
+    /**
+     * <p>Gets a date/time format for the specified styles and locale.</p>
+     * 
+     * @param dateStyle  date style: FULL, LONG, MEDIUM, or SHORT, null indicates no date in format
+     * @param timeStyle  time style: FULL, LONG, MEDIUM, or SHORT, null indicates no time in format
+     * @param locale  The non-null locale of the desired format
+     * @return a localized standard date/time format
+     * @throws IllegalArgumentException if the Locale has no date/time pattern defined
+     */
+    public static String getPatternForStyle(Integer dateStyle, Integer timeStyle, Locale locale) {
         MultipartKey key = new MultipartKey(dateStyle, timeStyle, locale);
 
         String pattern = cDateTimeInstanceCache.get(key);
@@ -147,8 +161,7 @@ abstract class FormatCache<F extends Format> {
                 throw new IllegalArgumentException("No date time pattern for locale: " + locale);
             }
         }
-        
-        return getInstance(pattern, timeZone, locale);
+        return pattern;
     }
 
     // ----------------------------------------------------------------------
@@ -172,12 +185,9 @@ abstract class FormatCache<F extends Format> {
          */
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if ( obj instanceof MultipartKey == false ) {
-                return false;
-            }
+            // Eliminate the usual boilerplate because
+            // this inner static class is only used in a generic ConcurrentHashMap
+            // which will not compare against other Object types
             return Arrays.equals(keys, ((MultipartKey)obj).keys);
         }
 
