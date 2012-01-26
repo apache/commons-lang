@@ -21,7 +21,8 @@
   </properties>
   <body>
 
-  <release version="3.2" date="TBA" description="December release">
+  <release version="3.2" date="TBA" description="Next release">
+    <action type="fix" issue="LANG-786">StringUtils equals() relies on undefined behavior</action>
     <action type="fix" issue="LANG-783">Documentation bug: StringUtils.split</action>
     <action type="fix" issue="LANG-776">TypeUtilsTest contains incorrect type assignability assertion</action>
     <action type="fix" issue="LANG-775">TypeUtils.getTypeArguments() misses type arguments for partially-assigned classes</action>
@@ -32,6 +33,7 @@
     <action type="fix" issue="LANG-761">Fix javadoc Ant warnings</action>
     <action type="fix" issue="LANG-743">JavaDoc bug in static inner class DateIterator</action>
     <action type="add" issue="LANG-675">Add Triple class (ternary version of Pair)</action>
+    <action type="add" issue="LANG-462">FastDateFormat supports parse methods</action>
   </release>
 
   <release version="3.1" date="2011-11-14" description="November release">      
