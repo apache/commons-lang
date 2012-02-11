@@ -159,14 +159,14 @@ public class StrSubstitutorTest extends TestCase {
     /**
      * Tests when no prefix or suffix.
      */
-    public void testReplaceNoPefixNoSuffix() {
+    public void testReplaceNoPrefixNoSuffix() {
         doTestReplace("The animal jumps over the lazy dog.", "The animal jumps over the ${target}.", true);
     }
 
     /**
      * Tests when no incomplete prefix.
      */
-    public void testReplaceIncompletePefix() {
+    public void testReplaceIncompletePrefix() {
         doTestReplace("The {animal} jumps over the lazy dog.", "The {animal} jumps over the ${target}.", true);
     }
 
@@ -466,14 +466,23 @@ public class StrSubstitutorTest extends TestCase {
     /**
      * Test the replace of a properties object
      */
-    public void testSubstitutetDefaultProperties(){
+    public void testSubstituteDefaultProperties(){
         String org = "${doesnotwork}";
-        System.setProperty("doesnotwork", "It work's!");
+        System.setProperty("doesnotwork", "It works!");
 
         // create a new Properties object with the System.getProperties as default
         Properties props = new Properties(System.getProperties());
 
-        assertEquals("It work's!",StrSubstitutor.replace(org, props));
+        assertEquals("It works!", StrSubstitutor.replace(org, props));
+    }
+    
+    public void testSamePrefixAndSuffix() {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("greeting", "Hello");
+        map.put(" there ", "XXX");
+        map.put("name", "commons");
+        assertEquals("Hi commons!", StrSubstitutor.replace("Hi @name@!", map, "@", "@"));
+        assertEquals("Hello there commons!", StrSubstitutor.replace("@greeting@ there @name@!", map, "@", "@"));
     }
 
     //-----------------------------------------------------------------------
