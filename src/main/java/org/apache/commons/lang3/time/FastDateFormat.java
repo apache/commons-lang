@@ -461,7 +461,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /* (non-Javadoc)
      * @see DateParser#parse(java.lang.String)
      */
-    @Override
     public Date parse(String source) throws ParseException {
         return parser.parse(source);
     }
@@ -469,7 +468,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /* (non-Javadoc)
      * @see DateParser#parse(java.lang.String, java.text.ParsePosition)
      */
-    @Override
     public Date parse(String source, ParsePosition pos) {
             return parser.parse(source, pos);
     }

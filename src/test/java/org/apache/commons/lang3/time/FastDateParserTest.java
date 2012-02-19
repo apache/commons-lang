@@ -140,7 +140,7 @@ public class FastDateParserTest {
         Date parse = fdf.parse("2003 BC February 0010 PM Saturday 0015 0033 0020 0989 GMT-05:00");
                 assertEquals(cal.getTime(), parse);
                 
-        fdf = getInstance("y G M d a E H m s S Z");
+        fdf = getInstance("y G M d a E H m s S Z", NEW_YORK, Locale.US);
         assertEquals(cal.getTime(), fdf.parse("03 BC 2 10 PM Sat 15 33 20 989 -0500"));
         
         cal.set(Calendar.ERA, GregorianCalendar.AD);

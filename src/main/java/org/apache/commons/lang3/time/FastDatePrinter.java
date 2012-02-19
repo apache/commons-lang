@@ -375,7 +375,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param pos  the position - ignored
      * @return the buffer passed in
      */
-    @Override
     public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
         if (obj instanceof Date) {
             return format((Date) obj, toAppendTo);
@@ -392,7 +391,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#format(long)
      */
-    @Override
     public String format(long millis) {
         return format(new Date(millis));
     }
@@ -400,7 +398,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Date)
      */
-    @Override
     public String format(Date date) {
         Calendar c = new GregorianCalendar(mTimeZone, mLocale);  // hard code GregorianCalendar
         c.setTime(date);
@@ -410,7 +407,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Calendar)
      */
-    @Override
     public String format(Calendar calendar) {
         return format(calendar, new StringBuffer(mMaxLengthEstimate)).toString();
     }
@@ -418,7 +414,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#format(long, java.lang.StringBuffer)
      */
-    @Override
     public StringBuffer format(long millis, StringBuffer buf) {
         return format(new Date(millis), buf);
     }
@@ -426,7 +421,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Date, java.lang.StringBuffer)
      */
-    @Override
     public StringBuffer format(Date date, StringBuffer buf) {
         Calendar c = new GregorianCalendar(mTimeZone, mLocale);  // hard code GregorianCalendar
         c.setTime(date);
@@ -436,7 +430,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Calendar, java.lang.StringBuffer)
      */
-    @Override
     public StringBuffer format(Calendar calendar, StringBuffer buf) {
         return applyRules(calendar, buf);
     }
@@ -461,7 +454,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#getPattern()
      */
-    @Override
     public String getPattern() {
         return mPattern;
     }
@@ -469,7 +461,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#getTimeZone()
      */
-    @Override
     public TimeZone getTimeZone() {
         return mTimeZone;
     }
@@ -477,7 +468,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#getLocale()
      */
-    @Override
     public Locale getLocale() {
         return mLocale;
     }

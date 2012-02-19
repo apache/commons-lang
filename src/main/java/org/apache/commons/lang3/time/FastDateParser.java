@@ -144,7 +144,6 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#getPattern()
      */
-    @Override
     public String getPattern() {
         return pattern;
     }
@@ -152,7 +151,6 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#getTimeZone()
      */
-    @Override
     public TimeZone getTimeZone() {
         return timeZone;
     }
@@ -160,7 +158,6 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#getLocale()
      */
-    @Override
     public Locale getLocale() {
         return locale;
     }
@@ -222,7 +219,6 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#parseObject(java.lang.String)
      */
-    @Override
     public Object parseObject(String source) throws ParseException {
         return parse(source);
     }
@@ -230,7 +226,6 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#parse(java.lang.String)
      */
-    @Override
     public Date parse(String source) throws ParseException {
         Date date= parse(source, new ParsePosition(0));
         if(date==null) {
@@ -242,7 +237,6 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#parseObject(java.lang.String, java.text.ParsePosition)
      */
-    @Override
     public Object parseObject(String source, ParsePosition pos) {
         return parse(source, pos);
     }
@@ -250,7 +244,6 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#parse(java.lang.String, java.text.ParsePosition)
      */
-    @Override
     public Date parse(String source, ParsePosition pos) {
         int offset= pos.getIndex();
         Matcher matcher= parsePattern.matcher(source.substring(offset));
