@@ -64,11 +64,13 @@ public interface DateParser {
     public String getPattern();
 
     /**
-     * <p>Get the time zone used by this parser.</p>
-     *
-     * <p>This zone is always used for <code>Date</code> formatting.
-     * If a <code>Calendar</code> is passed in to be formatted, the
-     * time zone on that may be used depending on {@link Calendar#getTimeZone()}.
+     * <p>
+     * Get the time zone used by this parser.
+     * </p>
+     * 
+     * <p>
+     * The default {@link TimeZone} used to create a {@link Date} when the {@link TimeZone} is not specified by
+     * the format pattern.
      * </p>
      * 
      * @return the time zone
