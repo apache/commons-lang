@@ -18,6 +18,7 @@ package org.apache.commons.lang3.time;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -67,8 +68,8 @@ public interface DateParser {
      *
      * <p>This zone is always used for <code>Date</code> formatting.
      * If a <code>Calendar</code> is passed in to be formatted, the
-     * time zone on that may be used depending on
-     * {@link #getTimeZoneOverridesCalendar()}.</p>
+     * time zone on that may be used depending on {@link Calendar#getTimeZone()}.
+     * </p>
      * 
      * @return the time zone
      */
