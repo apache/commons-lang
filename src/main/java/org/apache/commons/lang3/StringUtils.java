@@ -772,7 +772,7 @@ public class StringUtils {
      * StringUtils.equals("abc", "ABC") = false
      * </pre>
      *
-     * @see java.lang.CharSequence#equals(Object)
+     * @see Object#equals(Object)
      * @param cs1  the first CharSequence, may be {@code null}
      * @param cs2  the second CharSequence, may be {@code null}
      * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
