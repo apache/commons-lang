@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -609,9 +610,6 @@ public class StringUtils {
      * <p>For instance, '&agrave;' will be replaced by 'a'.</p>
      * <p>Note that ligatures will be left as is.</p>
      *
-     * <p>This method will use the first available implementation of:
-     * Java 6's {@link java.text.Normalizer}, Java 1.3&ndash;1.5's {@code sun.text.Normalizer}</p>
-     *
      * <pre>
      * StringUtils.stripAccents(null)                = null
      * StringUtils.stripAccents("")                  = ""
@@ -629,130 +627,10 @@ public class StringUtils {
         if(input == null) {
             return null;
         }
-        try {
-            String result = null;
-            if (InitStripAccents.java6NormalizeMethod != null) {
-                result = removeAccentsJava6(input);
-            } else if (InitStripAccents.sunDecomposeMethod != null) {
-                result = removeAccentsSUN(input);
-            } else {
-                throw new UnsupportedOperationException(
-                    "The stripAccents(CharSequence) method requires at least"
-                        +" Java6, but got: "+InitStripAccents.java6Exception
-                        +"; or a Sun JVM: "+InitStripAccents.sunException);
-            }
-            // Note that none of the above methods correctly remove ligatures...
-            return result;
-        } catch(IllegalArgumentException iae) {
-            throw new RuntimeException("IllegalArgumentException occurred", iae);
-        } catch(IllegalAccessException iae) {
-            throw new RuntimeException("IllegalAccessException occurred", iae);
-        } catch(InvocationTargetException ite) {
-            throw new RuntimeException("InvocationTargetException occurred", ite);
-        } catch(SecurityException se) {
-            throw new RuntimeException("SecurityException occurred", se);
-        }
-    }
-
-    /**
-     * Use {@code java.text.Normalizer#normalize(CharSequence, Normalizer.Form)}
-     * (but be careful, this class exists in Java 1.3, with an entirely different meaning!)
-     *
-     * @param text the text to be processed
-     * @return the processed string
-     * @throws IllegalAccessException may be thrown by a reflection call
-     * @throws InvocationTargetException if a reflection call throws an exception
-     * @throws IllegalStateException if the {@code Normalizer} class is not available
-     */
-    private static String removeAccentsJava6(CharSequence text)
-        throws IllegalAccessException, InvocationTargetException {
-        /*
-        String decomposed = java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
-        return java6Pattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
-        */
-        if (InitStripAccents.java6NormalizeMethod == null || InitStripAccents.java6NormalizerFormNFD == null) {
-            throw new IllegalStateException("java.text.Normalizer is not available", InitStripAccents.java6Exception);
-        }
-        String result;
-        result = (String) InitStripAccents.java6NormalizeMethod.invoke(null, new Object[] {text, InitStripAccents.java6NormalizerFormNFD});
-        result = InitStripAccents.java6Pattern.matcher(result).replaceAll("");//$NON-NLS-1$
-        return result;
-    }
-
-    /**
-     * Use {@code sun.text.Normalizer#decompose(String, boolean, int)}
-     *
-     * @param text the text to be processed
-     * @return the processed string
-     * @throws IllegalAccessException may be thrown by a reflection call
-     * @throws InvocationTargetException if a reflection call throws an exception
-     * @throws IllegalStateException if the {@code Normalizer} class is not available
-     */
-    private static String removeAccentsSUN(CharSequence text)
-        throws IllegalAccessException, InvocationTargetException {
-        /*
-        String decomposed = sun.text.Normalizer.decompose(text, false, 0);
-        return sunPattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
-        */
-        if (InitStripAccents.sunDecomposeMethod == null) {
-            throw new IllegalStateException("sun.text.Normalizer is not available", InitStripAccents.sunException);
-        }
-        String result;
-        result = (String) InitStripAccents.sunDecomposeMethod.invoke(null, new Object[] {text, Boolean.FALSE, Integer.valueOf(0)});
-        result = InitStripAccents.sunPattern.matcher(result).replaceAll("");//$NON-NLS-1$
-        return result;
-    }
-
-    // IOD container for stripAccent() initialisation
-    private static class InitStripAccents {
-        // SUN internal, Java 1.3 -> Java 5
-        private static final Throwable sunException;
-        private static final Method  sunDecomposeMethod;
-        private static final Pattern sunPattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");//$NON-NLS-1$
-        // Java 6+
-        private static final Throwable java6Exception;
-        private static final Method  java6NormalizeMethod;
-        private static final Object  java6NormalizerFormNFD;
-        private static final Pattern java6Pattern = sunPattern;
-    
-        static {
-            // Set up defaults for final static fields
-            Object _java6NormalizerFormNFD = null;
-            Method _java6NormalizeMethod = null;
-            Method _sunDecomposeMethod = null;
-            Throwable _java6Exception = null;
-            Throwable _sunException = null;
-            try {
-                // java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
-                // Be careful not to get Java 1.3 java.text.Normalizer!
-                Class<?> normalizerFormClass = Thread.currentThread().getContextClassLoader()
-                    .loadClass("java.text.Normalizer$Form");//$NON-NLS-1$
-                _java6NormalizerFormNFD = normalizerFormClass.getField("NFD").get(null);//$NON-NLS-1$
-                Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
-                    .loadClass("java.text.Normalizer");//$NON-NLS-1$
-                _java6NormalizeMethod = normalizerClass.getMethod("normalize",//$NON-NLS-1$
-                        new Class[] {CharSequence.class, normalizerFormClass});//$NON-NLS-1$
-            } catch (Exception e1) {
-                // Only check for Sun method if Java 6 method is not available
-                _java6Exception = e1;
-                try {
-                    // sun.text.Normalizer.decompose(text, false, 0);
-                    Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
-                        .loadClass("sun.text.Normalizer");//$NON-NLS-1$
-                    _sunDecomposeMethod = normalizerClass.getMethod("decompose",//$NON-NLS-1$
-                            new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
-                } catch (Exception e2) {
-                    _sunException = e2;
-                }
-            }
-    
-            // Set up final static fields
-            java6Exception = _java6Exception;
-            java6NormalizerFormNFD = _java6NormalizerFormNFD;
-            java6NormalizeMethod = _java6NormalizeMethod;
-            sunException = _sunException;
-            sunDecomposeMethod = _sunDecomposeMethod;
-        }
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");//$NON-NLS-1$
+        String decomposed = Normalizer.normalize(input, Normalizer.Form.NFD);
+        // Note that this doesn't correctly remove ligatures...
+        return pattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
     }
 
     // Equals
