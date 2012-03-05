@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -625,11 +626,8 @@ public class ToStringBuilderTest {
     }
 
     void validateNullToStringStyleRegistry() {
-       if (ToStringStyle.getRegistry() != null) {
-           System.out.println(ToStringStyle.getRegistry());
-       }
-
-        assertNull(ToStringStyle.getRegistry());
+        final Map<Object, Object> registry = ToStringStyle.getRegistry();
+        assertNull("Expected null, actual: "+registry, registry);
     }
     //  End: Reflection cycle tests
 
