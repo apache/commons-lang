@@ -444,6 +444,14 @@
     </dependency>
   </dependencies>
 
+  <distributionManagement>
+    <site>
+      <id>apache.website</id>
+      <name>Apache Commons Site</name>
+      <url>${commons.deployment.protocol}://people.apache.org/www/commons.apache.org/${commons.componentid}</url>
+    </site>
+  </distributionManagement>
+
   <properties>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
