@@ -170,7 +170,7 @@ public class ToStringBuilderTest {
 
     @Test
     public void testReflectionIntArray() {
-        validateNullToStringStyleRegistry(); // Ensure registry starts out empty
+        emptyToStringStyleRegistry(); // Ensure registry starts out empty
         int[] array = new int[] { 1, 2, -3, 4 };
         String baseStr = this.toBaseString(array);
         assertEquals(baseStr + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
@@ -181,7 +181,7 @@ public class ToStringBuilderTest {
 
     @Test
     public void testReflectionShortArray() {
-        validateNullToStringStyleRegistry(); // Ensure registry starts out empty
+        emptyToStringStyleRegistry(); // Ensure registry starts out empty
         short[] array = new short[] { 1, 2, -3, 4 };
         String baseStr = this.toBaseString(array);
         assertEquals(baseStr + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
@@ -202,7 +202,7 @@ public class ToStringBuilderTest {
 
     @Test
     public void testReflectionCharArray() {
-        validateNullToStringStyleRegistry(); // Ensure registry starts out empty
+        emptyToStringStyleRegistry(); // Ensure registry starts out empty
         char[] array = new char[] { 'A', '2', '_', 'D' };
         String baseStr = this.toBaseString(array);
         assertEquals(baseStr + "[{A,2,_,D}]", ToStringBuilder.reflectionToString(array));
@@ -286,7 +286,7 @@ public class ToStringBuilderTest {
 
     @Test
     public void testReflectionByteArrayArray() {
-        validateNullToStringStyleRegistry(); // Ensure registry starts out empty
+        emptyToStringStyleRegistry(); // Ensure registry starts out empty
         byte[][] array = new byte[][] { { 1, 2 }, null, { 5 } };
         String baseStr = this.toBaseString(array);
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
@@ -297,7 +297,7 @@ public class ToStringBuilderTest {
 
     @Test
     public void testReflectionCharArrayArray() {
-        validateNullToStringStyleRegistry(); // Ensure registry starts out empty
+        emptyToStringStyleRegistry(); // Ensure registry starts out empty
         char[][] array = new char[][] { { 'A', 'B' }, null, { 'p' } };
         String baseStr = this.toBaseString(array);
         assertEquals(baseStr + "[{{A,B},<null>,{p}}]", ToStringBuilder.reflectionToString(array));
@@ -552,7 +552,7 @@ public class ToStringBuilderTest {
      */
     @Test
     public void testSimpleReflectionObjectCycle() throws Exception {
-        validateNullToStringStyleRegistry(); // Ensure registry starts out empty
+        emptyToStringStyleRegistry(); // Ensure registry starts out empty
         SimpleReflectionTestFixture simple = new SimpleReflectionTestFixture();
         simple.o = simple;
         assertEquals(this.toBaseString(simple) + "[o=" + this.toBaseString(simple) + "]", simple.toString());
@@ -566,7 +566,7 @@ public class ToStringBuilderTest {
      */
     @Test
     public void testSelfInstanceVarReflectionObjectCycle() throws Exception {
-        validateNullToStringStyleRegistry(); // Ensure registry starts out empty
+        emptyToStringStyleRegistry(); // Ensure registry starts out empty
         SelfInstanceVarReflectionTestFixture test = new SelfInstanceVarReflectionTestFixture();
         assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + "]", test.toString());
         this.validateNullToStringStyleRegistry();
@@ -593,7 +593,7 @@ public class ToStringBuilderTest {
      */
     @Test
     public void testReflectionObjectCycle() throws Exception {
-        validateNullToStringStyleRegistry(); // Ensure registry starts out empty
+        emptyToStringStyleRegistry(); // Ensure registry starts out empty
         ReflectionTestCycleA a = new ReflectionTestCycleA();
         ReflectionTestCycleB b = new ReflectionTestCycleB();
         a.b = b;
@@ -631,6 +631,17 @@ public class ToStringBuilderTest {
                 + "}]",
             ToStringBuilder.reflectionToString(simple));
         this.validateNullToStringStyleRegistry();
+    }
+
+    private static final Object DUMMY = new Object();
+    void emptyToStringStyleRegistry() {
+        final Map<Object, Object> registry = ToStringStyle.getRegistry();
+        if (registry == null) {
+            return;
+        }
+        registry.clear(); // empty
+        ToStringStyle.register(DUMMY); // add key
+        ToStringStyle.unregister(DUMMY); // remove key and drop registry
     }
 
     void validateNullToStringStyleRegistry() {
@@ -926,7 +937,7 @@ public class ToStringBuilderTest {
 
     @Test
     public void testObjectCycle() {
-        validateNullToStringStyleRegistry(); // Ensure registry starts out empty
+        emptyToStringStyleRegistry(); // Ensure registry starts out empty
         ObjectCycle a = new ObjectCycle();
         ObjectCycle b = new ObjectCycle();
         a.obj = b;
