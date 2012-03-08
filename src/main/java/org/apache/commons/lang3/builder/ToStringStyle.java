@@ -135,6 +135,15 @@ public abstract class ToStringStyle implements Serializable {
      */
     private static final ThreadLocal<WeakHashMap<Object, Object>> REGISTRY =
         new ThreadLocal<WeakHashMap<Object,Object>>();
+    /*
+     * Note that objects of this class are generally shared between threads, so
+     * an instance variable would not be suitable here.
+     * 
+     * In normal use the registry should always be left empty, because the caller
+     * should call toString() which will clean up.
+     * 
+     * See LANG-792
+     */
 
     /**
      * <p>
