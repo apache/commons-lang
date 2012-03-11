@@ -29,10 +29,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Test;
-
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
+import org.junit.Test;
 
 /**
  * Unit tests for {@link StringEscapeUtils}.
