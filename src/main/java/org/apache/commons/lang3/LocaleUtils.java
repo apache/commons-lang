@@ -235,7 +235,7 @@ public class LocaleUtils {
             for (int i = 0; i < locales.size(); i++) {
                 Locale locale = locales.get(i);
                 if (countryCode.equals(locale.getCountry()) &&
-                        locale.getVariant().length() == 0) {
+                        locale.getVariant().isEmpty()) {
                     langs.add(locale);
                 }
             }
@@ -268,7 +268,7 @@ public class LocaleUtils {
                 Locale locale = locales.get(i);
                 if (languageCode.equals(locale.getLanguage()) &&
                         locale.getCountry().length() != 0 &&
-                        locale.getVariant().length() == 0) {
+                        locale.getVariant().isEmpty()) {
                     countries.add(locale);
                 }
             }

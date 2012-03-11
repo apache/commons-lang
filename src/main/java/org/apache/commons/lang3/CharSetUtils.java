@@ -143,7 +143,7 @@ public class CharSetUtils {
             return null;
         }
         if (str.length() == 0 || deepEmpty(set)) {
-            return "";
+            return StringUtils.EMPTY;
         }
         return modify(str, set, true);
     }

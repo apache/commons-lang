@@ -183,11 +183,8 @@ public class ClassUtils {
      * @param className  the className to get the short name for
      * @return the class name of the class without the package name or an empty string
      */
-    public static String getShortClassName(String className) {
-        if (className == null) {
-            return StringUtils.EMPTY;
-        }
-        if (className.length() == 0) {
+    public static String getShortClassName(String className) {   
+        if (StringUtils.isEmpty(className)) {
             return StringUtils.EMPTY;
         }
 
@@ -289,7 +286,7 @@ public class ClassUtils {
      * @return the package name or an empty string
      */
     public static String getPackageName(String className) {
-        if (className == null || className.length() == 0) {
+        if (StringUtils.isEmpty(className)) {
             return StringUtils.EMPTY;
         }
 

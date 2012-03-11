@@ -187,7 +187,7 @@ public abstract class StrMatcher {
      * @return a new Matcher for the given characters
      */
     public static StrMatcher charSetMatcher(String chars) {
-        if (chars == null || chars.length() == 0) {
+        if (StringUtils.isEmpty(chars)) {
             return NONE_MATCHER;
         }
         if (chars.length() == 1) {
