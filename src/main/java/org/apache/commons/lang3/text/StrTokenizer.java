@@ -23,6 +23,7 @@ import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Tokenizes a string based based on delimiters (separators)
@@ -650,7 +651,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @param tok  the token to add
      */
     private void addToken(List<String> list, String tok) {
-        if (tok == null || tok.length() == 0) {
+        if (StringUtils.isEmpty(tok)) {
             if (isIgnoreEmptyTokens()) {
                 return;
             }

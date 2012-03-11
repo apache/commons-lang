@@ -86,8 +86,8 @@ public class LocaleUtilsTest extends TestCase {
         assertNotNull("valid locale", locale);
         assertEquals(language, locale.getLanguage());
         //country and variant are empty
-        assertTrue(locale.getCountry() == null || locale.getCountry().length() == 0);
-        assertTrue(locale.getVariant() == null || locale.getVariant().length() == 0);
+        assertTrue(locale.getCountry() == null || locale.getCountry().isEmpty());
+        assertTrue(locale.getVariant() == null || locale.getVariant().isEmpty());
     }
 
     /**
@@ -103,7 +103,7 @@ public class LocaleUtilsTest extends TestCase {
         assertEquals(language, locale.getLanguage());
         assertEquals(country, locale.getCountry());
         //variant is empty
-        assertTrue(locale.getVariant() == null || locale.getVariant().length() == 0);
+        assertTrue(locale.getVariant() == null || locale.getVariant().isEmpty());
     }
 
     /**
@@ -393,7 +393,7 @@ public class LocaleUtilsTest extends TestCase {
                 Locale locale = iterator.next();
                 // should have an en empty variant
                 assertTrue(locale.getVariant() == null
-                        || locale.getVariant().length() == 0);
+                        || locale.getVariant().isEmpty());
                 assertEquals(country, locale.getCountry());
                 if (language.equals(locale.getLanguage())) {
                     found = true;
@@ -443,7 +443,7 @@ public class LocaleUtilsTest extends TestCase {
                 Locale locale = iterator.next();
                 // should have an en empty variant
                 assertTrue(locale.getVariant() == null
-                        || locale.getVariant().length() == 0);
+                        || locale.getVariant().isEmpty());
                 assertEquals(language, locale.getLanguage());
                 if (countrie.equals(locale.getCountry())) {
                     found = true;

@@ -647,7 +647,7 @@ public class ExceptionUtils {
             String token = frames.nextToken();
             // Determine if the line starts with <whitespace>at
             int at = token.indexOf("at");
-            if (at != -1 && token.substring(0, at).trim().length() == 0) {
+            if (at != -1 && token.substring(0, at).trim().isEmpty()) {
                 traceStarted = true;
                 list.add(token);
             } else if (traceStarted) {
