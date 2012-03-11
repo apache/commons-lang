@@ -17,8 +17,6 @@
 package org.apache.commons.lang3;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;

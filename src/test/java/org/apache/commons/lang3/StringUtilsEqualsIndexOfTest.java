@@ -16,11 +16,13 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertThat;
+
 import java.util.Locale;
 
 import junit.framework.TestCase;
+
 import org.hamcrest.core.IsNot;
-import static org.junit.Assert.assertThat;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
