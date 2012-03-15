@@ -846,6 +846,7 @@ public class Validate {
      * @since 3.0
      */
     public static void matchesPattern(CharSequence input, String pattern) {
+        // TODO when breaking BC, consider returning input
         if (Pattern.matches(pattern, input) == false) {
             throw new IllegalArgumentException(String.format(DEFAULT_MATCHES_PATTERN_EX, input, pattern));
         }
@@ -869,6 +870,7 @@ public class Validate {
      * @since 3.0
      */
     public static void matchesPattern(CharSequence input, String pattern, String message, Object... values) {
+        // TODO when breaking BC, consider returning input
         if (Pattern.matches(pattern, input) == false) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -893,6 +895,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T> void inclusiveBetween(T start, T end, Comparable<T> value) {
+        // TODO when breaking BC, consider returning value
         if (value.compareTo(start) < 0 || value.compareTo(end) > 0) {
             throw new IllegalArgumentException(String.format(DEFAULT_INCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
         }
@@ -917,6 +920,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T> void inclusiveBetween(T start, T end, Comparable<T> value, String message, Object... values) {
+        // TODO when breaking BC, consider returning value
         if (value.compareTo(start) < 0 || value.compareTo(end) > 0) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -941,6 +945,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T> void exclusiveBetween(T start, T end, Comparable<T> value) {
+        // TODO when breaking BC, consider returning value
         if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0) {
             throw new IllegalArgumentException(String.format(DEFAULT_EXCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
         }
@@ -965,6 +970,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T> void exclusiveBetween(T start, T end, Comparable<T> value, String message, Object... values) {
+        // TODO when breaking BC, consider returning value
         if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -990,6 +996,7 @@ public class Validate {
      * @since 3.0
      */
     public static void isInstanceOf(Class<?> type, Object obj) {
+        // TODO when breaking BC, consider returning obj
         if (type.isInstance(obj) == false) {
             throw new IllegalArgumentException(String.format(DEFAULT_IS_INSTANCE_OF_EX_MESSAGE, type.getName(),
                     obj == null ? "null" : obj.getClass().getName()));
@@ -1014,6 +1021,7 @@ public class Validate {
      * @since 3.0
      */
     public static void isInstanceOf(Class<?> type, Object obj, String message, Object... values) {
+        // TODO when breaking BC, consider returning obj
         if (type.isInstance(obj) == false) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1039,6 +1047,7 @@ public class Validate {
      * @since 3.0
      */
     public static void isAssignableFrom(Class<?> superType, Class<?> type) {
+        // TODO when breaking BC, consider returning type
         if (superType.isAssignableFrom(type) == false) {
             throw new IllegalArgumentException(String.format(DEFAULT_IS_ASSIGNABLE_EX_MESSAGE, type == null ? "null" : type.getName(),
                     superType.getName()));
@@ -1063,6 +1072,7 @@ public class Validate {
      * @see #isAssignableFrom(Class, Class)
      */
     public static void isAssignableFrom(Class<?> superType, Class<?> type, String message, Object... values) {
+        // TODO when breaking BC, consider returning type
         if (superType.isAssignableFrom(type) == false) {
             throw new IllegalArgumentException(String.format(message, values));
         }
