@@ -280,10 +280,11 @@ public class SerializationUtils {
                     return Class.forName(name, false, Thread.currentThread().getContextClassLoader());
                 } catch (ClassNotFoundException cnfe) {
                     Class<?> cls = primitiveTypes.get(name);
-                    if (cls != null)
+                    if (cls != null) {
                         return cls;
-                    else
+                    } else {
                         throw cnfe;
+                    }
                 }
             }
         }
