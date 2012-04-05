@@ -67,10 +67,6 @@ public class FastDateParserTest {
 
     /**
      * Override this method in derived tests to change the construction of instances
-     * @param format
-     * @param timeZone
-     * @param locale
-     * @return
      */
     protected DateParser getInstance(String format, TimeZone timeZone, Locale locale) {
         return new FastDateParser(format, timeZone, locale);
