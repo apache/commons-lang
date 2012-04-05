@@ -38,7 +38,7 @@ public interface DateParser {
      * @return A <code>Date</code> parsed from the string
      * @throws ParseException if the beginning of the specified string cannot be parsed.
      */
-    public Date parse(String source) throws ParseException;
+    Date parse(String source) throws ParseException;
 
     /**
      * Equivalent to DateFormat.parse(String, ParsePosition). 
@@ -51,7 +51,7 @@ public interface DateParser {
      * @return A <code>Date</code> parsed from the string. In case of error, returns null. 
      * @throws NullPointerException if text or pos is null.
      */
-    public Date parse(String source, ParsePosition pos);
+    Date parse(String source, ParsePosition pos);
 
     // Accessors
     //-----------------------------------------------------------------------
@@ -60,7 +60,7 @@ public interface DateParser {
      * 
      * @return the pattern, {@link java.text.SimpleDateFormat} compatible
      */
-    public String getPattern();
+    String getPattern();
 
     /**
      * <p>
@@ -74,14 +74,14 @@ public interface DateParser {
      * 
      * @return the time zone
      */
-    public TimeZone getTimeZone();
+    TimeZone getTimeZone();
 
     /**
      * <p>Get the locale used by this parser.</p>
      * 
      * @return the locale
      */
-    public Locale getLocale();
+    Locale getLocale();
 
     /**
      * Parses text from a string to produce a Date.
@@ -95,5 +95,5 @@ public interface DateParser {
      *  
      * @see java.text.DateFormat#parseObject(String, ParsePosition) 
      */
-    public Object parseObject(String source, ParsePosition pos);
+    Object parseObject(String source, ParsePosition pos);
 }
