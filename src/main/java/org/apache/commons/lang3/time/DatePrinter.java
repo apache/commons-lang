@@ -37,7 +37,7 @@ public interface DatePrinter {
      * @return the formatted string
      * @since 2.1
      */
-    public String format(long millis);
+    String format(long millis);
 
     /**
      * <p>Formats a {@code Date} object using a {@code GregorianCalendar}.</p>
@@ -45,7 +45,7 @@ public interface DatePrinter {
      * @param date  the date to format
      * @return the formatted string
      */
-    public String format(Date date);
+    String format(Date date);
 
     /**
      * <p>Formats a {@code Calendar} object.</p>
@@ -53,7 +53,7 @@ public interface DatePrinter {
      * @param calendar  the calendar to format
      * @return the formatted string
      */
-    public String format(Calendar calendar);
+    String format(Calendar calendar);
 
     /**
      * <p>Formats a milliseond {@code long} value into the
@@ -63,7 +63,7 @@ public interface DatePrinter {
      * @param buf  the buffer to format into
      * @return the specified string buffer
      */
-    public StringBuffer format(long millis, StringBuffer buf);
+    StringBuffer format(long millis, StringBuffer buf);
 
     /**
      * <p>Formats a {@code Date} object into the
@@ -73,7 +73,7 @@ public interface DatePrinter {
      * @param buf  the buffer to format into
      * @return the specified string buffer
      */
-    public StringBuffer format(Date date, StringBuffer buf);
+    StringBuffer format(Date date, StringBuffer buf);
 
     /**
      * <p>Formats a {@code Calendar} object into the
@@ -83,7 +83,7 @@ public interface DatePrinter {
      * @param buf  the buffer to format into
      * @return the specified string buffer
      */
-    public StringBuffer format(Calendar calendar, StringBuffer buf);
+    StringBuffer format(Calendar calendar, StringBuffer buf);
 
     // Accessors
     //-----------------------------------------------------------------------
@@ -92,7 +92,7 @@ public interface DatePrinter {
      *
      * @return the pattern, {@link java.text.SimpleDateFormat} compatible
      */
-    public String getPattern();
+    String getPattern();
 
     /**
      * <p>Gets the time zone used by this printer.</p>
@@ -101,14 +101,14 @@ public interface DatePrinter {
      *
      * @return the time zone
      */
-    public TimeZone getTimeZone();
+    TimeZone getTimeZone();
 
     /**
      * <p>Gets the locale used by this printer.</p>
      *
      * @return the locale
      */
-    public Locale getLocale();
+    Locale getLocale();
 
     /**
      * <p>Formats a {@code Date}, {@code Calendar} or
