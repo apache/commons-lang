@@ -16,17 +16,19 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.After;
 import org.junit.Test;
-
-import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.builder.ToStringBuilder}.
