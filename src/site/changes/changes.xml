@@ -22,17 +22,18 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action type="update" issue="LANG-798">Use generics in SerializationUtils</action>  
     <action type="fix" issue="LANG-788">SerializationUtils throws ClassNotFoundException when cloning primitive classes</action>
     <action type="fix" issue="LANG-786">StringUtils equals() relies on undefined behavior</action>
     <action type="fix" issue="LANG-783">Documentation bug: StringUtils.split</action>
     <action type="fix" issue="LANG-776">TypeUtilsTest contains incorrect type assignability assertion</action>
     <action type="fix" issue="LANG-775">TypeUtils.getTypeArguments() misses type arguments for partially-assigned classes</action>
     <action type="fix" issue="LANG-773">ImmutablePair doc contains nonsense text</action>
-    <action type="fix" issue="LANG-772">ClassUtils.PACKAGE_SEPARATOR javadoc contains garbage text</action>
+    <action type="fix" issue="LANG-772">ClassUtils.PACKAGE_SEPARATOR Javadoc contains garbage text</action>
     <action type="fix" issue="LANG-765">EventListenerSupport.ProxyInvocationHandler no longer defines serialVersionUID</action>
     <action type="fix" issue="LANG-764">StrBuilder is now serializable</action>
-    <action type="fix" issue="LANG-761">Fix javadoc Ant warnings</action>
-    <action type="fix" issue="LANG-743">JavaDoc bug in static inner class DateIterator</action>
+    <action type="fix" issue="LANG-761">Fix Javadoc Ant warnings</action>
+    <action type="fix" issue="LANG-743">Javadoc bug in static inner class DateIterator</action>
     <action type="add" issue="LANG-675">Add Triple class (ternary version of Pair)</action>
     <action type="add" issue="LANG-462">FastDateFormat supports parse methods</action>
   </release>
@@ -77,7 +78,7 @@
     <action type="fix" issue="LANG-716">swapCase and *capitalize speedups.</action>
     <action type="fix" issue="LANG-715">CharSetUtils.squeeze() speedup.</action>
     <action type="fix" issue="LANG-714">StringUtils doc/comment spelling fixes.</action>
-    <action type="update" issue="LANG-713">Increase test coverage of FieldUtils read methods and tweak javadoc.</action>
+    <action type="update" issue="LANG-713">Increase test coverage of FieldUtils read methods and tweak Javadoc.</action>
     <action type="fix" issue="LANG-711">Add includeantruntime=false to javac targets to quell warnings in ant 1.8.1 and better (and modest performance gain).</action>
     <action type="fix" issue="LANG-710">StringIndexOutOfBoundsException when calling unescapeHtml4("&amp;#03").</action>
     <action type="fix" issue="LANG-708">StringEscapeUtils.escapeEcmaScript from lang3 cuts off long Unicode string.</action>
@@ -273,7 +274,7 @@
     <action type="fix" issue="LANG-521">NumberUtils - isNumber(String) and createNumber(String) both modified to support '2.'.</action>
     <action type="fix" issue="LANG-432">StringUtils - improve handling of case-insensitive Strings.</action>
     <action type="fix" issue="LANG-552">StringUtils - replaceEach() no longer NPEs when null appears in the last String[].</action>
-    <action type="fix" issue="LANG-460">StringUtils - correct JavaDocs for startsWith() and startsWithIgnoreCase().</action>
+    <action type="fix" issue="LANG-460">StringUtils - correct Javadoc for startsWith() and startsWithIgnoreCase().</action>
     <action type="fix" issue="LANG-421">StringEscapeUtils - escapeJava() escapes '/' characters.</action>
     <action type="fix" issue="LANG-450">StringEscapeUtils - change escapeJavaStyleString() to throw UnhandledException instead swallowing IOException and returning null.</action>
     <action type="fix" issue="LANG-419">WordUtils - fix StringIndexOutOfBoundsException when lower is greater than the String length.</action>
@@ -329,9 +330,9 @@
     <action type="add" issue="LANG-321">Add toArray() method to IntRange and LongRange classes.</action>
     <action type="add" issue="LANG-375">add SystemUtils.IS_OS_WINDOWS_VISTA field.</action>
     <action type="add" issue="LANG-329">Pointless synchronized in ThreadLocal.initialValue should be removed.</action>
-    <action type="add" issue="LANG-371">ToStringStyle javadoc should show examples of styles.</action>
+    <action type="add" issue="LANG-371">ToStringStyle Javadoc should show examples of styles.</action>
     <action type="fix" issue="LANG-364">Documentation bug for ignoreEmptyTokens accessors in StrTokenizer.</action>
-    <action type="fix" issue="LANG-361">BooleanUtils toBooleanObject javadoc does not match implementation.</action>
+    <action type="fix" issue="LANG-361">BooleanUtils toBooleanObject Javadoc does not match implementation.</action>
     <action type="add" issue="LANG-338">truncateNicely method which avoids truncating in the middle of a word.</action>
   </release>
 
@@ -345,7 +346,7 @@
     <action type="fix" issue="LANG-69"> ToStringBuilder throws StackOverflowError when an Object cycle exists.</action>
     <action type="add" issue="LANG-282">Create more tests to test out the +=31 replacement code in DurationFormatUtils.</action>
     <action type="fix" issue="LANG-295">StrBuilder contains usages of thisBuf.length when they should use size.</action>
-    <action type="add" issue="LANG-258">Enum JavaDoc: 1) outline 5.0 native Enum migration 2) warn not to use the switch() , 3) point out approaches for persistence and gui.</action>
+    <action type="add" issue="LANG-258">Enum Javadoc: 1) outline 5.0 native Enum migration 2) warn not to use the switch() , 3) point out approaches for persistence and gui.</action>
     <action type="fix" issue="LANG-313">Wrong behavior of Entities.unescape.</action>
     <action type="fix" issue="LANG-300">NumberUtils.createNumber throws NumberFormatException for one digit long.</action>
     <action type="fix" issue="LANG-304">NullPointerException in isAvailableLocale(Locale).</action>
@@ -370,7 +371,7 @@
     <action type="fix" issue="LANG-50"> Replace Clover with Cobertura.</action>
     <action type="fix" issue="LANG-259">ValuedEnum.compareTo(Object other) not typesafe - it easily could be...</action>
     <action type="fix" issue="LANG-271">LocaleUtils test fails under Mustang.</action>
-    <action type="fix" issue="LANG-2">javadoc example for StringUtils.splitByWholeSeparator incorrect.</action>
+    <action type="fix" issue="LANG-2">Javadoc example for StringUtils.splitByWholeSeparator incorrect.</action>
     <action type="fix" issue="LANG-3">PADDING array in StringUtils overflows on '\uffff'.</action>
     <action type="fix" issue="LANG-10">ClassUtils.primitiveToWrapper and Void.</action>
     <action type="fix" issue="LANG-37">unit test for org.apache.commons.lang.text.StrBuilder.</action>
@@ -380,7 +381,7 @@
     <action type="fix" issue="LANG-112">Wrong length check in StrTokenizer.StringMatcher.</action>
     <action type="fix" issue="LANG-105">ExceptionUtils goes into infinite loop in getThrowables is throwable.getCause() == throwable.</action>
     <action type="fix" issue="LANG-117">FastDateFormat: wrong format for date "01.01.1000".</action>
-    <action type="fix" issue="LANG-123">Unclear javadoc for DateUtils.iterator().</action>
+    <action type="fix" issue="LANG-123">Unclear Javadoc for DateUtils.iterator().</action>
     <action type="fix" issue="LANG-130">Memory "leak" in StringUtils.</action>
     <action type="add" issue="LANG-260">StringEscapeUtils should expose escape*() methods taking Writer argument.</action>
     <action type="fix" issue="LANG-141">Fraction.toProperString() returns -1/1 for -1.</action>
@@ -396,13 +397,13 @@
     <action type="add" issue="LANG-226">Using ReflectionToStringBuilder and excluding secure fields.</action>
     <action type="add" issue="LANG-194">add generic add method to DateUtils.</action>
     <action type="add" issue="LANG-220">Tokenizer Enhancements: reset input string, static CSV/TSV factories.</action>
-    <action type="add" issue="LANG-242">Trivial cleanup of javadoc in various files.</action>
+    <action type="add" issue="LANG-242">Trivial cleanup of Javadoc in various files.</action>
     <action type="add" issue="LANG-246">CompositeFormat.</action>
     <action type="add" issue="LANG-250">Performance boost for RandomStringUtils.</action>
     <action type="add" issue="LANG-254">Enhanced Class.forName version.</action>
     <action type="add" issue="LANG-263">Add StringUtils.containsIgnoreCase(...).</action>
     <action type="add" issue="LANG-267">Support char array converters on ArrayUtils.</action>
-    <action type="fix" issue="LANG-25">DurationFormatUtils.formatDurationISO() javadoc is missing T in duration string between date and time part.</action>
+    <action type="fix" issue="LANG-25">DurationFormatUtils.formatDurationISO() Javadoc is missing T in duration string between date and time part.</action>
     <action type="fix" issue="LANG-272">Minor build and checkstyle changes.</action>
     <action type="fix" issue="LANG-277">Javadoc errors on StringUtils.splitPreserveAllTokens(String, char).</action>
     <action type="fix" issue="LANG-122">EscapeUtil.escapeHtml() should clarify that it does not escape ' chars to &amp;apos;.</action>
@@ -412,11 +413,11 @@
     <action type="add" issue="LANG-169">Implementation of escape/unescapeHtml methods with Writer.</action>
     <action type="add" issue="LANG-176">CompareToBuilder excludeFields for reflection method.</action>
     <action type="add" issue="LANG-159">Add WordUtils.getInitials(String).</action>
-    <action type="fix" issue="LANG-261">Error in an example in the javadoc of the StringUtils.splitPreserveAllTokens() method.</action>
-    <action type="fix" issue="LANG-264">ToStringBuilder/HashCodeBuilder javadoc code examples.</action>
+    <action type="fix" issue="LANG-261">Error in an example in the Javadoc of the StringUtils.splitPreserveAllTokens() method.</action>
+    <action type="fix" issue="LANG-264">ToStringBuilder/HashCodeBuilder Javadoc code examples.</action>
     <action type="fix" issue="LANG-265">Cannot build tests from latest SVN.</action>
-    <action type="add" issue="LANG-270">minor javadoc improvements for StringUtils.stripXxx() methods.</action>
-    <action type="fix" issue="LANG-278">javadoc for StringUtils.removeEnd is incorrect.</action>
+    <action type="add" issue="LANG-270">minor Javadoc improvements for StringUtils.stripXxx() methods.</action>
+    <action type="fix" issue="LANG-278">Javadoc for StringUtils.removeEnd is incorrect.</action>
     <action type="fix" issue="LANG-127">Minor tweak to fix of bug # 26616.</action>
   </release>
 
@@ -427,7 +428,7 @@
     <action type="fix" issue="LANG-19">ToStringStyle.setArrayEnd(String) doesn't replace null with empty string.</action>
     <action type="fix" issue="LANG-80">New class proposal: CharacterEncoding.</action>
     <action type="fix" issue="LANG-43">SystemUtils fails init on HP-UX.</action>
-    <action type="fix" issue="LANG-134">javadoc - 'four basic XML entities' should be 5 (apos is missing).</action>
+    <action type="fix" issue="LANG-134">Javadoc - 'four basic XML entities' should be 5 (apos is missing).</action>
     <action type="fix" issue="LANG-156">o.a.c.lang.enum.ValuedEnum: 'enum'is a keyword in JDK1.5.0.</action>
     <action type="fix" issue="LANG-131">StringEscapeUtils.unescapeHtml() doesn't handle an empty entity.</action>
     <action type="fix" issue="LANG-6">EqualsBuilder.append(Object[], Object[]) incorrectly checks that rhs[i] is instance of lhs[i]'s class.</action>
@@ -465,9 +466,9 @@
     <action type="add" issue="LANG-222">Add convenience format(long) methods to FastDateFormat.</action>
     <action type="fix" issue="LANG-116">Enum's outer class may not be loaded for EnumUtils.</action>
     <action type="add" issue="LANG-219">WordUtils.capitalizeFully(String str) should take a delimiter.</action>
-    <action type="add" issue="LANG-183">Make javadoc crosslinking configurable.</action>
-    <action type="fix" issue="LANG-82">Minor javadoc fixes for StringUtils.contains(String, String).</action>
-    <action type="fix" issue="LANG-32">Error in JavaDoc for StringUtils.chomp(String, String).</action>
+    <action type="add" issue="LANG-183">Make Javadoc crosslinking configurable.</action>
+    <action type="fix" issue="LANG-82">Minor Javadoc fixes for StringUtils.contains(String, String).</action>
+    <action type="fix" issue="LANG-32">Error in Javadoc for StringUtils.chomp(String, String).</action>
     <action type="fix" issue="LANG-95">StringUtils.defaultString: Documentation error.</action>
     <action type="add" issue="LANG-233">Add hashCode-support to class ObjectUtils.</action>
     <action type="add" issue="LANG-202">add another "known method" to ExceptionUtils.</action>
@@ -499,10 +500,10 @@
     <action type="fix" issue="LANG-75">NumberUtils.createBigDecimal("") NPE in Sun 1.3.1_08.</action>
     <action type="fix" issue="LANG-38">Rationalize StringUtils slice functions.</action>
     <action type="fix" issue="LANG-53">SystemUtils.IS_OS_OS2 Javadoc is wrong.</action>
-    <action type="fix" issue="LANG-142">A small, but important javadoc fix for Fraction proper whole and numerator.</action>
+    <action type="fix" issue="LANG-142">A small, but important Javadoc fix for Fraction proper whole and numerator.</action>
     <action type="fix" issue="LANG-70">Adding tolerance to double[] search methods in ArrayUtils.</action>
-    <action type="fix" issue="LANG-9">lang.builder classes javadoc edits (mostly typo fixes).</action>
-    <action type="fix" issue="LANG-63">StringUtils javadoc and test enhancements.</action>
+    <action type="fix" issue="LANG-9">lang.builder classes Javadoc edits (mostly typo fixes).</action>
+    <action type="fix" issue="LANG-63">StringUtils Javadoc and test enhancements.</action>
     <action type="fix" issue="LANG-132">SystemUtils.IS_OS_*, IS_JAVA_* are always false.</action>
     <action type="fix" issue="LANG-143">Improve util.Validate tests.</action>
     <action type="fix" issue="LANG-155">maven-beta10 checkstyle problem.</action>
@@ -513,7 +514,7 @@
     <action type="fix" issue="LANG-84">RandomStringUtils.randomAlpha methods omit 'z'.</action>
     <action type="fix" issue="LANG-129">test.time fails in Japanese (non-us) locale.</action>
     <action type="fix" issue="LANG-94">NumberUtils.isNumber allows illegal trailing characters.</action>
-    <action type="fix" issue="LANG-137">Improve javadoc and overflow behavior of Fraction.</action>
+    <action type="fix" issue="LANG-137">Improve Javadoc and overflow behavior of Fraction.</action>
     <action type="fix" issue="LANG-55">RandomStringUtils infloops with length &gt; 1.</action>
     <action type="fix" issue="LANG-47">test.lang fails if compiled with non iso-8859-1 locales.</action>
     <action type="fix" issue="LANG-113">SystemUtils does not play nice in an Applet.</action>
@@ -537,12 +538,12 @@
     <action type="fix" issue="LANG-16">NumberRange inaccurate for Long, etc.</action>
     <action type="fix" issue="LANG-4">Hierarchy support in ToStringBuilder.reflectionToString().</action>
     <action type="fix" issue="LANG-56">StringUtils.countMatches loops forever if substring empty.</action>
-    <action type="add" issue="LANG-209">javadoc fixes (remove @links to non-public identifiers).</action>
-    <action type="add" issue="LANG-210">Add javadoc examples and tests for StringUtils.</action>
+    <action type="add" issue="LANG-209">Javadoc fixes (remove @links to non-public identifiers).</action>
+    <action type="add" issue="LANG-210">Add Javadoc examples and tests for StringUtils.</action>
     <action type="add" issue="LANG-170">Make NumberUtils null handling consistent.</action>
     <action type="fix" issue="LANG-145">Unused field 'startFinal' in DateIterator.</action>
     <action type="add" issue="LANG-214">reduce object creation in ToStringBuilder.</action>
-    <action type="add" issue="LANG-228">Improved tests, javadoc for CharSetUtils, StringEscapeUtils.</action>
+    <action type="add" issue="LANG-228">Improved tests, Javadoc for CharSetUtils, StringEscapeUtils.</action>
     <action type="add" issue="LANG-252">NumberUtils min/max, BooleanUtils.xor, and ArrayUtils toPrimitive and toObject.</action>
     <action type="add" issue="LANG-208">Javadoc, tests improvements for CharSet, CharSetUtils.</action>
     <action type="add" issue="LANG-205">StringUtil enhancement.</action>
@@ -552,17 +553,17 @@
     <action type="add" issue="LANG-174">Missing @since tags.</action>
     <action type="add" issue="LANG-245">Refactored reflection feature of ToStringBuilder into new ReflectionToStringBuilder.</action>
     <action type="fix" issue="LANG-51">Typo in documentation.</action>
-    <action type="fix" issue="LANG-1">Patch for javadocs.</action>
+    <action type="fix" issue="LANG-1">Patch for Javadoc.</action>
     <action type="add" issue="LANG-244">Add join(..., char c) to StringUtils (and some performance fixes). Even contains tests!.</action>
     <action type="add" issue="LANG-231">Resurrect the WordWrapUtils from commons-sandbox/utils.</action>
     <action type="fix" issue="LANG-139">EnumTest fails on Linux Sun JDK 1.3.0.</action>
     <action type="add" issue="LANG-234">What to do with FastDateFormat unused private constructors.</action>
     <action type="add" issue="LANG-240">Added class hierachy support to CompareToBuilder.reflectionCompare().</action>
     <action type="add" issue="LANG-190">Removed compile warning in FastDateFormat.</action>
-    <action type="fix" issue="LANG-97">typo in the javadoc example code.</action>
+    <action type="fix" issue="LANG-97">typo in the Javadoc example code.</action>
     <action type="add" issue="LANG-249">MethodUtils: Removed unused code/unused local vars.</action>
     <action type="add" issue="LANG-237">Hierarchy support in EqualsBuilder.reflectionEquals().</action>
-    <action type="fix" issue="LANG-91">JavaDoc Errata.</action>
+    <action type="fix" issue="LANG-91">Javadoc Errata.</action>
     <action type="add" issue="LANG-215">ArrayUtils.contains().</action>
     <action type="add" issue="LANG-221">More flexibility for getRootCause in ExceptionUtils.</action>
   </release>
