@@ -191,12 +191,12 @@ public class FastDatePrinterTest {
     @Test
     public void testLang303() {
         Calendar cal = Calendar.getInstance();
-        cal.set(2004,11,31);
+        cal.set(2004, 11, 31);
 
         DatePrinter format = getInstance(YYYY_MM_DD);
         String output = format.format(cal);
 
-        format = (DatePrinter) SerializationUtils.deserialize( SerializationUtils.serialize( (Serializable)format ) );
+        format = SerializationUtils.deserialize(SerializationUtils.serialize((Serializable) format));
         assertEquals(output, format.format(cal));
     }
 

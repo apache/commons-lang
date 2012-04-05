@@ -181,7 +181,8 @@ public class SerializationUtils {
      * @throws IllegalArgumentException if {@code inputStream} is {@code null}
      * @throws SerializationException (runtime) if the serialization fails
      */
-    public static Object deserialize(InputStream inputStream) {
+    @SuppressWarnings("unchecked")
+    public static <T> T deserialize(InputStream inputStream) {
         if (inputStream == null) {
             throw new IllegalArgumentException("The InputStream must not be null");
         }
@@ -189,7 +190,7 @@ public class SerializationUtils {
         try {
             // stream closed in the finally
             in = new ObjectInputStream(inputStream);
-            return in.readObject();
+            return (T) in.readObject();
 
         } catch (ClassNotFoundException ex) {
             throw new SerializationException(ex);
@@ -214,12 +215,12 @@ public class SerializationUtils {
      * @throws IllegalArgumentException if {@code objectData} is {@code null}
      * @throws SerializationException (runtime) if the serialization fails
      */
-    public static Object deserialize(byte[] objectData) {
+    @SuppressWarnings("unchecked")
+    public static <T> T deserialize(byte[] objectData) {
         if (objectData == null) {
             throw new IllegalArgumentException("The byte[] must not be null");
         }
-        ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
-        return deserialize(bais);
+        return (T) deserialize(new ByteArrayInputStream(objectData));
     }
 
     /**
