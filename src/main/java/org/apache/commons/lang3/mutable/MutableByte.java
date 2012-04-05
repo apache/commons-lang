@@ -83,6 +83,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * 
      * @return the value as a Byte, never null
      */
+    @Override
     public Byte getValue() {
         return Byte.valueOf(this.value);
     }
@@ -102,6 +103,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @param value  the value to set, not null
      * @throws NullPointerException if the object is null
      */
+    @Override
     public void setValue(Number value) {
         this.value = value.byteValue();
     }
@@ -264,6 +266,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @param other  the other mutable to compare to, not null
      * @return negative if this is less, zero if equal, positive if greater
      */
+    @Override
     public int compareTo(MutableByte other) {
         byte anotherVal = other.value;
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);

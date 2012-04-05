@@ -453,14 +453,17 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
             this.seq = seq;
         }
 
+        @Override
         public char charAt(int index) {
             return seq.charAt(index);
         }
 
+        @Override
         public int length() {
             return seq.length();
         }
 
+        @Override
         public CharSequence subSequence(int start, int end) {
             return new CustomCharSequence(seq.subSequence(start, end));
         }
@@ -474,6 +477,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
             return seq.equals(other.seq);
         }
 
+        @Override
         public String toString() {
             return seq.toString();
         }

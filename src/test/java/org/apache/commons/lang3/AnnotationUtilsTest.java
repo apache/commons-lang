@@ -451,6 +451,7 @@ public class AnnotationUtilsTest {
 
         InvocationHandler generatedTestInvocationHandler = new InvocationHandler() {
 
+            @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 if ("equals".equals(method.getName()) && method.getParameterTypes().length == 1) {
                     return Boolean.valueOf(proxy == args[0]);

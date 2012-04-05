@@ -115,10 +115,12 @@ public class MethodUtilsTest {
     }
 
     private static class TestMutable implements Mutable<Object> {
+        @Override
         public Object getValue() {
             return null;
         }
 
+        @Override
         public void setValue(Object value) {
         }
     }

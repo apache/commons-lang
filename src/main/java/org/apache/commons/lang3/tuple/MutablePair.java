@@ -114,6 +114,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * @param value  the right value to set, not null
      * @return the old value for the right element
      */
+    @Override
     public R setValue(R value) {
         R result = getRight();
         setRight(value);

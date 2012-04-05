@@ -83,6 +83,7 @@ public class EventUtilsTest extends TestCase
         {
             EventUtils.addEventListener(src, PropertyChangeListener.class, new PropertyChangeListener()
             {
+                @Override
                 public void propertyChange(PropertyChangeEvent e)
                 {
                     // Do nothing!
@@ -201,6 +202,7 @@ public class EventUtilsTest extends TestCase
             return count == null ? 0 : count.intValue();
         }
 
+        @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
         {
             Integer count = eventCounts.get(method.getName());

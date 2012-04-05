@@ -1073,6 +1073,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @since 3.0
      */
+    @Override
     public String build() {
         return toString();
     }

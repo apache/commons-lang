@@ -91,6 +91,7 @@ public class CallableBackgroundInitializerTest extends TestCase {
         /**
          * Records this invocation and returns the test result.
          */
+        @Override
         public Integer call() throws Exception {
             callCount++;
             return RESULT;

@@ -412,6 +412,7 @@ public class ExtendedMessageFormatTest extends TestCase {
      */
     private static class LowerCaseFormatFactory implements FormatFactory {
         private static final Format LOWER_INSTANCE = new LowerCaseFormat();
+        @Override
         public Format getFormat(String name, String arguments, Locale locale) {
             return LOWER_INSTANCE;
         }
@@ -421,6 +422,7 @@ public class ExtendedMessageFormatTest extends TestCase {
      */
     private static class UpperCaseFormatFactory implements FormatFactory {
         private static final Format UPPER_INSTANCE = new UpperCaseFormat();
+        @Override
         public Format getFormat(String name, String arguments, Locale locale) {
             return UPPER_INSTANCE;
         }
@@ -429,6 +431,7 @@ public class ExtendedMessageFormatTest extends TestCase {
      * {@link FormatFactory} implementation to override date format "short" to "default".
      */
     private static class OverrideShortDateFormatFactory implements FormatFactory {
+        @Override
         public Format getFormat(String name, String arguments, Locale locale) {
             return !"short".equals(arguments) ? null
                     : locale == null ? DateFormat

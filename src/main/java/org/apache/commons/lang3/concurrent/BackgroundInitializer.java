@@ -206,6 +206,7 @@ public abstract class BackgroundInitializer<T> implements
      * background processing
      * @throws IllegalStateException if {@link #start()} has not been called
      */
+    @Override
     public T get() throws ConcurrentException {
         try {
             return getFuture().get();
@@ -320,6 +321,7 @@ public abstract class BackgroundInitializer<T> implements
          * @return the result object
          * @throws Exception if an error occurs
          */
+        @Override
         public T call() throws Exception {
             try {
                 return initialize();

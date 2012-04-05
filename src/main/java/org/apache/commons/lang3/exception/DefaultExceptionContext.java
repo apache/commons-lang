@@ -49,6 +49,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public DefaultExceptionContext addContextValue(String label, Object value) {
         contextValues.add(new ImmutablePair<String, Object>(label, value));
         return this;
@@ -57,6 +58,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public DefaultExceptionContext setContextValue(String label, Object value) {
         for (final Iterator<Pair<String, Object>> iter = contextValues.iterator(); iter.hasNext();) {
             final Pair<String, Object> p = iter.next();
@@ -71,6 +73,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<Object> getContextValues(String label) {
         final List<Object> values = new ArrayList<Object>();
         for (final Pair<String, Object> pair : contextValues) {
@@ -84,6 +87,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Object getFirstContextValue(String label) {
         for (final Pair<String, Object> pair : contextValues) {
             if (StringUtils.equals(label, pair.getKey())) {
@@ -96,6 +100,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Set<String> getContextLabels() {
         final Set<String> labels = new HashSet<String>();
         for (final Pair<String, Object> pair : contextValues) {
@@ -107,6 +112,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<Pair<String, Object>> getContextEntries() {
         return contextValues;
     }
@@ -117,6 +123,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      * @param baseMessage  the base exception message <b>without</b> context information appended
      * @return the exception message <b>with</b> context information appended, never null
      */
+    @Override
     public String getFormattedExceptionMessage(String baseMessage){
         StringBuilder buffer = new StringBuilder(256);
         if (baseMessage != null) {

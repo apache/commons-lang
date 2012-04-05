@@ -77,6 +77,7 @@ public abstract class AtomicInitializer<T> implements ConcurrentInitializer<T> {
      * @throws ConcurrentException if an error occurred during initialization of
      * the object
      */
+    @Override
     public T get() throws ConcurrentException {
         T result = reference.get();
 

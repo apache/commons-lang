@@ -83,6 +83,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * 
      * @return the value as a Double, never null
      */
+    @Override
     public Double getValue() {
         return Double.valueOf(this.value);
     }
@@ -102,6 +103,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @param value  the value to set, not null
      * @throws NullPointerException if the object is null
      */
+    @Override
     public void setValue(Number value) {
         this.value = value.doubleValue();
     }
@@ -293,6 +295,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @param other  the other mutable to compare to, not null
      * @return negative if this is less, zero if equal, positive if greater
      */
+    @Override
     public int compareTo(MutableDouble other) {
         double anotherVal = other.value;
         return Double.compare(value, anotherVal);

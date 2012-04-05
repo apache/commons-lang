@@ -304,6 +304,7 @@ public class EventListenerSupport<L> implements Serializable {
          * @return the result of the method call
          * @throws Throwable if an error occurs
          */
+        @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             for (L listener : listeners) {
                 method.invoke(listener, args);

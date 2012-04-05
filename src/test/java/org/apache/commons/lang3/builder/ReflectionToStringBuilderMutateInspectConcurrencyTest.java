@@ -67,6 +67,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
             this.testFixture = testFixture;
         }
 
+        @Override
         public void run() {
             if (random.nextBoolean()) {
                 testFixture.add();
@@ -84,6 +85,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
             this.testFixture = testFixture;
         }
 
+        @Override
         public void run() {
             ReflectionToStringBuilder.toString(testFixture);
         }

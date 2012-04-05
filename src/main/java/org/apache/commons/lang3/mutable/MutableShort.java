@@ -83,6 +83,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * 
      * @return the value as a Short, never null
      */
+    @Override
     public Short getValue() {
         return Short.valueOf(this.value);
     }
@@ -102,6 +103,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @param value  the value to set, not null
      * @throws NullPointerException if the object is null
      */
+    @Override
     public void setValue(Number value) {
         this.value = value.shortValue();
     }
@@ -264,6 +266,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @param other  the other mutable to compare to, not null
      * @return negative if this is less, zero if equal, positive if greater
      */
+    @Override
     public int compareTo(MutableShort other) {
         short anotherVal = other.value;
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);

@@ -60,6 +60,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      * 
      * @return the value, may be null
      */
+    @Override
     public T getValue() {
         return this.value;
     }
@@ -69,6 +70,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      * 
      * @param value  the value to set
      */
+    @Override
     public void setValue(T value) {
         this.value = value;
     }

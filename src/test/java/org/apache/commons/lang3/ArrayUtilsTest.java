@@ -228,12 +228,15 @@ public class ArrayUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
         
         map = ArrayUtils.toMap(new Object[] {new Map.Entry<Object, Object>() {
+            @Override
             public Object getKey() {
                 return "foo";
             }
+            @Override
             public Object getValue() {
                 return "bar";
             }
+            @Override
             public Object setValue(Object value) {
                 throw new UnsupportedOperationException();
             }

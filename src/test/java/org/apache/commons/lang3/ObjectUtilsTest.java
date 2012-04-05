@@ -489,14 +489,17 @@ public class ObjectUtilsTest {
             this.value = value;
         }
 
+        @Override
         public char charAt(int arg0) {
             return value.charAt(arg0);
         }
 
+        @Override
         public int length() {
             return value.length();
         }
 
+        @Override
         public CharSequence subSequence(int arg0, int arg1) {
             return value.subSequence(arg0, arg1);
         }
@@ -509,6 +512,7 @@ public class ObjectUtilsTest {
 
     static final class CharSequenceComparator implements Comparator<CharSequence> {
 
+        @Override
         public int compare(CharSequence o1, CharSequence o2) {
             return o1.toString().compareTo(o2.toString());
         }

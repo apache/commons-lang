@@ -90,6 +90,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
         final ExecutorService threadPool = Executors.newFixedThreadPool(2);
         // Consumes toStrings
         Callable<Integer> consumer = new Callable<Integer>() {
+            @Override
             public Integer call() {
                 for (int i = 0; i < REPEAT; i++) {
                     String s = ReflectionToStringBuilder.toString(holder);
@@ -100,6 +101,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
         };
         // Produces changes in the list
         Callable<Integer> producer = new Callable<Integer>() {
+            @Override
             public Integer call() {
                 for (int i = 0; i < DATA_SIZE; i++) {
                     list.remove(list.get(0));

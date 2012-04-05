@@ -83,6 +83,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * 
      * @return the value as a Float, never null
      */
+    @Override
     public Float getValue() {
         return Float.valueOf(this.value);
     }
@@ -102,6 +103,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @param value  the value to set, not null
      * @throws NullPointerException if the object is null
      */
+    @Override
     public void setValue(Number value) {
         this.value = value.floatValue();
     }
@@ -294,6 +296,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @param other  the other mutable to compare to, not null
      * @return negative if this is less, zero if equal, positive if greater
      */
+    @Override
     public int compareTo(MutableFloat other) {
         float anotherVal = other.value;
         return Float.compare(value, anotherVal);

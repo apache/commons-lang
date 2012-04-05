@@ -164,6 +164,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * @param value  information needed to understand exception, may be {@code null}
      * @return {@code this}, for method chaining, not {@code null}
      */
+    @Override
     public ContextedRuntimeException addContextValue(String label, Object value) {        
         exceptionContext.addContextValue(label, value);
         return this;
@@ -182,6 +183,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * @param value  information needed to understand exception, may be {@code null}
      * @return {@code this}, for method chaining, not {@code null}
      */
+    @Override
     public ContextedRuntimeException setContextValue(String label, Object value) {        
         exceptionContext.setContextValue(label, value);
         return this;
@@ -190,6 +192,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<Object> getContextValues(String label) {
         return this.exceptionContext.getContextValues(label);
     }
@@ -197,6 +200,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     /**
      * {@inheritDoc}
      */
+    @Override
     public Object getFirstContextValue(String label) {
         return this.exceptionContext.getFirstContextValue(label);
     }
@@ -204,6 +208,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<Pair<String, Object>> getContextEntries() {
         return this.exceptionContext.getContextEntries();
     }
@@ -211,6 +216,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     /**
      * {@inheritDoc}
      */
+    @Override
     public Set<String> getContextLabels() {
         return exceptionContext.getContextLabels();
     }
@@ -240,6 +246,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getFormattedExceptionMessage(String baseMessage) {
         return exceptionContext.getFormattedExceptionMessage(baseMessage);
     }

@@ -393,6 +393,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @return the formatted string
      * @since 2.1
      */
+    @Override
     public String format(long millis) {
         return format(new Date(millis));
     }
@@ -403,6 +404,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param date  the date to format
      * @return the formatted string
      */
+    @Override
     public String format(Date date) {
         return printer.format(date);
     }
@@ -413,6 +415,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param calendar  the calendar to format
      * @return the formatted string
      */
+    @Override
     public String format(Calendar calendar) {
         return printer.format(calendar);
     }
@@ -426,6 +429,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @return the specified string buffer
      * @since 2.1
      */
+    @Override
     public StringBuffer format(long millis, StringBuffer buf) {
         return printer.format(millis, buf);
     }
@@ -438,6 +442,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param buf  the buffer to format into
      * @return the specified string buffer
      */
+    @Override
     public StringBuffer format(Date date, StringBuffer buf) {
         return printer.format(date, buf);
     }
@@ -450,6 +455,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param buf  the buffer to format into
      * @return the specified string buffer
      */
+    @Override
     public StringBuffer format(Calendar calendar, StringBuffer buf) {
         return printer.format(calendar, buf);
     }
@@ -461,6 +467,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /* (non-Javadoc)
      * @see DateParser#parse(java.lang.String)
      */
+    @Override
     public Date parse(String source) throws ParseException {
         return parser.parse(source);
     }
@@ -468,6 +475,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /* (non-Javadoc)
      * @see DateParser#parse(java.lang.String, java.text.ParsePosition)
      */
+    @Override
     public Date parse(String source, ParsePosition pos) {
             return parser.parse(source, pos);
     }
@@ -487,6 +495,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @return the pattern, {@link java.text.SimpleDateFormat} compatible
      */
+    @Override
     public String getPattern() {
         return printer.getPattern();
     }
@@ -498,6 +507,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @return the time zone
      */
+    @Override
     public TimeZone getTimeZone() {
         return printer.getTimeZone();
     }
@@ -507,6 +517,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @return the locale
      */
+    @Override
     public Locale getLocale() {
         return printer.getLocale();
     }

@@ -88,6 +88,7 @@ public abstract class LazyInitializer<T> implements ConcurrentInitializer<T> {
      * @throws ConcurrentException if an error occurred during initialization of
      * the object
      */
+    @Override
     public T get() throws ConcurrentException {
         // use a temporary variable to reduce the number of reads of the
         // volatile field

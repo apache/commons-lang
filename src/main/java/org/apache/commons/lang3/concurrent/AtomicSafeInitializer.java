@@ -69,6 +69,7 @@ public abstract class AtomicSafeInitializer<T> implements
      * @throws ConcurrentException if the initialization of the object causes an
      * exception
      */
+    @Override
     public final T get() throws ConcurrentException {
         T result;
 

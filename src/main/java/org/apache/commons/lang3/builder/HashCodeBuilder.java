@@ -940,6 +940,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @since 3.0
      */
+    @Override
     public Integer build() {
         return Integer.valueOf(toHashCode());
     }
