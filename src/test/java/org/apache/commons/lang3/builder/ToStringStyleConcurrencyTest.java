@@ -90,6 +90,7 @@ public class ToStringStyleConcurrencyTest {
         final ExecutorService threadPool = Executors.newFixedThreadPool(2);
         // Consumes toStrings
         Callable<Integer> consumer = new Callable<Integer>() {
+            @Override
             public Integer call() {
                 for (int i = 0; i < REPEAT; i++) {
                     // Calls ToStringStyle

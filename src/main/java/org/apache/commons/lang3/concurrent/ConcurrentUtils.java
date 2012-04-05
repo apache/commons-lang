@@ -347,6 +347,7 @@ public class ConcurrentUtils {
          * the constant object managed by this {@code Future} implementation is
          * always available.
          */
+        @Override
         public boolean isDone() {
             return true;
         }
@@ -354,6 +355,7 @@ public class ConcurrentUtils {
         /**
          * {@inheritDoc} This implementation just returns the constant value.
          */
+        @Override
         public T get() {
             return value;
         }
@@ -362,6 +364,7 @@ public class ConcurrentUtils {
          * {@inheritDoc} This implementation just returns the constant value; it
          * does not block, therefore the timeout has no meaning.
          */
+        @Override
         public T get(long timeout, TimeUnit unit) {
             return value;
         }
@@ -370,6 +373,7 @@ public class ConcurrentUtils {
          * {@inheritDoc} This implementation always returns <b>false</b>; there
          * is no background process which could be cancelled.
          */
+        @Override
         public boolean isCancelled() {
             return false;
         }
@@ -378,6 +382,7 @@ public class ConcurrentUtils {
          * {@inheritDoc} The cancel operation is not supported. This
          * implementation always returns <b>false</b>.
          */
+        @Override
         public boolean cancel(boolean mayInterruptIfRunning) {
             return false;
         }

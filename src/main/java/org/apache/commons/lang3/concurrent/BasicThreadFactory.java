@@ -200,6 +200,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * @param r the {@code Runnable} to be executed by the new thread
      * @return the newly created thread
      */
+    @Override
     public Thread newThread(Runnable r) {
         Thread t = getWrappedFactory().newThread(r);
         initializeThread(t);
@@ -372,6 +373,7 @@ public class BasicThreadFactory implements ThreadFactory {
          *
          * @return the new {@code BasicThreadFactory}
          */
+        @Override
         public BasicThreadFactory build() {
             BasicThreadFactory factory = new BasicThreadFactory(this);
             reset();

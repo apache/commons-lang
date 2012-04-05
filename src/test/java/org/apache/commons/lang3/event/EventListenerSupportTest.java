@@ -147,6 +147,7 @@ public class EventListenerSupportTest extends TestCase
         EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         listenerSupport.addListener(new VetoableChangeListener() {
             
+            @Override
             public void vetoableChange(PropertyChangeEvent e) {
             }
         });
@@ -220,6 +221,7 @@ public class EventListenerSupportTest extends TestCase
     {
         listenerSupport.addListener(new VetoableChangeListener()
         {
+            @Override
             public void vetoableChange(PropertyChangeEvent e)
             {
                 listenerSupport.removeListener(this);
@@ -231,6 +233,7 @@ public class EventListenerSupportTest extends TestCase
     {
         return new VetoableChangeListener()
         {
+            @Override
             public void vetoableChange(PropertyChangeEvent e)
             {
                 calledListeners.add(this);

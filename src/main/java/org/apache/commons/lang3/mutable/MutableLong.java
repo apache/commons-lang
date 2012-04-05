@@ -83,6 +83,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * 
      * @return the value as a Long, never null
      */
+    @Override
     public Long getValue() {
         return Long.valueOf(this.value);
     }
@@ -102,6 +103,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @param value  the value to set, not null
      * @throws NullPointerException if the object is null
      */
+    @Override
     public void setValue(Number value) {
         this.value = value.longValue();
     }
@@ -254,6 +256,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @param other  the other mutable to compare to, not null
      * @return negative if this is less, zero if equal, positive if greater
      */
+    @Override
     public int compareTo(MutableLong other) {
         long anotherVal = other.value;
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);

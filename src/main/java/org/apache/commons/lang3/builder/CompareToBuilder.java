@@ -1013,6 +1013,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @see #toComparison()
      * @since 3.0
      */
+    @Override
     public Integer build() {
         return Integer.valueOf(toComparison());
     }

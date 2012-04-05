@@ -879,6 +879,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ClassCastException if the object is not a <code>Fraction</code>
      * @throws NullPointerException if the object is <code>null</code>
      */
+    @Override
     public int compareTo(Fraction other) {
         if (this==other) {
             return 0;

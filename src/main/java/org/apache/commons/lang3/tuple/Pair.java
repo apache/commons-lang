@@ -87,6 +87,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * 
      * @return the left element as the key, may be null
      */
+    @Override
     public final L getKey() {
         return getLeft();
     }
@@ -99,6 +100,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * 
      * @return the right element as the value, may be null
      */
+    @Override
     public R getValue() {
         return getRight();
     }
@@ -111,6 +113,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @param other  the other pair, not null
      * @return negative if this is less, zero if equal, positive if greater
      */
+    @Override
     public int compareTo(Pair<L, R> other) {
       return new CompareToBuilder().append(getLeft(), other.getLeft())
               .append(getRight(), other.getRight()).toComparison();

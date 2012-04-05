@@ -500,6 +500,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      *
      * @return true if there are more tokens
      */
+    @Override
     public boolean hasNext() {
         checkTokenized();
         return tokenPos < tokens.length;
@@ -511,6 +512,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @return the next String token
      * @throws NoSuchElementException if there are no more elements
      */
+    @Override
     public String next() {
         if (hasNext()) {
             return tokens[tokenPos++];
@@ -523,6 +525,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      *
      * @return the next token index
      */
+    @Override
     public int nextIndex() {
         return tokenPos;
     }
@@ -532,6 +535,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      *
      * @return true if there are previous tokens
      */
+    @Override
     public boolean hasPrevious() {
         checkTokenized();
         return tokenPos > 0;
@@ -542,6 +546,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      *
      * @return the previous token
      */
+    @Override
     public String previous() {
         if (hasPrevious()) {
             return tokens[--tokenPos];
@@ -554,6 +559,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      *
      * @return the previous token index
      */
+    @Override
     public int previousIndex() {
         return tokenPos - 1;
     }
@@ -563,6 +569,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      *
      * @throws UnsupportedOperationException always
      */
+    @Override
     public void remove() {
         throw new UnsupportedOperationException("remove() is unsupported");
     }
@@ -572,6 +579,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @param obj this parameter ignored.
      * @throws UnsupportedOperationException always
      */
+    @Override
     public void set(String obj) {
         throw new UnsupportedOperationException("set() is unsupported");
     }
@@ -581,6 +589,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @param obj this parameter ignored.
      * @throws UnsupportedOperationException always
      */
+    @Override
     public void add(String obj) {
         throw new UnsupportedOperationException("add() is unsupported");
     }

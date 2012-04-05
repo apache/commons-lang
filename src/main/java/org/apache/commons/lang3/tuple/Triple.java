@@ -91,6 +91,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param other  the other triple, not null
      * @return negative if this is less, zero if equal, positive if greater
      */
+    @Override
     public int compareTo(Triple<L, M, R> other) {
       return new CompareToBuilder().append(getLeft(), other.getLeft())
           .append(getMiddle(), other.getMiddle())

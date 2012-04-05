@@ -74,6 +74,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * 
      * @return the value as a Boolean, never null
      */
+    @Override
     public Boolean getValue() {
         return Boolean.valueOf(this.value);
     }
@@ -93,6 +94,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * @param value  the value to set, not null
      * @throws NullPointerException if the object is null
      */
+    @Override
     public void setValue(Boolean value) {
         this.value = value.booleanValue();
     }
@@ -174,6 +176,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * @return negative if this is less, zero if equal, positive if greater
      *  where false is less than true
      */
+    @Override
     public int compareTo(MutableBoolean other) {
         boolean anotherVal = other.value;
         return value == anotherVal ? 0 : (value ? 1 : -1);

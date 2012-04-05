@@ -257,6 +257,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @return an iterator to the chars represented by this range
      * @since 2.5
      */
+    @Override
     public Iterator<Character> iterator() {
         return new CharacterIterator(this);
     }
@@ -325,6 +326,7 @@ final class CharRange implements Iterable<Character>, Serializable {
          *
          * @return {@code true} if the iterator has yet to reach the character date
          */
+        @Override
         public boolean hasNext() {
             return hasNext;
         }
@@ -334,6 +336,7 @@ final class CharRange implements Iterable<Character>, Serializable {
          *
          * @return {@code Character} for the next character
          */
+        @Override
         public Character next() {
             if (hasNext == false) {
                 throw new NoSuchElementException();
@@ -349,6 +352,7 @@ final class CharRange implements Iterable<Character>, Serializable {
          * @throws UnsupportedOperationException
          * @see java.util.Iterator#remove()
          */
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }

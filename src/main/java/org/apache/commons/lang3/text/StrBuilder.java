@@ -182,6 +182,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      *
      * @return the length
      */
+    @Override
     public int length() {
         return size;
     }
@@ -302,6 +303,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      * @return the character at the index
      * @throws IndexOutOfBoundsException if the index is invalid
      */
+    @Override
     public char charAt(int index) {
         if (index < 0 || index >= length()) {
             throw new StringIndexOutOfBoundsException(index);
@@ -470,6 +472,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      * @return this, to enable chaining
      * @since 3.0
      */
+    @Override
     public StrBuilder append(CharSequence seq) {
         if (seq == null) {
             return appendNull();
@@ -487,6 +490,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      * @return this, to enable chaining
      * @since 3.0
      */
+    @Override
     public StrBuilder append(CharSequence seq, int startIndex, int length) {
         if (seq == null) {
             return appendNull();
@@ -721,6 +725,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      * @return this, to enable chaining
      * @since 3.0
      */
+    @Override
     public StrBuilder append(char ch) {
         int len = length();
         ensureCapacity(len + 1);
@@ -2005,6 +2010,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      * {@inheritDoc}
      * @since 3.0
      */
+    @Override
     public CharSequence subSequence(int startIndex, int endIndex) {
       if (startIndex < 0) {
           throw new StringIndexOutOfBoundsException(startIndex);

@@ -76,6 +76,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * @return the object managed by this initializer
      * @throws ConcurrentException if an error occurs
      */
+    @Override
     public T get() throws ConcurrentException {
         return getObject();
     }

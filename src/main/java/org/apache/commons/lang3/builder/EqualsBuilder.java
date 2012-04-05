@@ -920,6 +920,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @since 3.0
      */
+    @Override
     public Boolean build() {
         return Boolean.valueOf(isEquals());
     }

@@ -96,6 +96,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @return never
      * @throws UnsupportedOperationException as this operation is not supported
      */
+    @Override
     public R setValue(R value) {
         throw new UnsupportedOperationException();
     }

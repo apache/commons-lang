@@ -144,6 +144,7 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#getPattern()
      */
+    @Override
     public String getPattern() {
         return pattern;
     }
@@ -151,6 +152,7 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#getTimeZone()
      */
+    @Override
     public TimeZone getTimeZone() {
         return timeZone;
     }
@@ -158,6 +160,7 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#getLocale()
      */
+    @Override
     public Locale getLocale() {
         return locale;
     }
@@ -219,6 +222,7 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#parseObject(java.lang.String)
      */
+    @Override
     public Object parseObject(String source) throws ParseException {
         return parse(source);
     }
@@ -226,6 +230,7 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#parse(java.lang.String)
      */
+    @Override
     public Date parse(String source) throws ParseException {
         Date date= parse(source, new ParsePosition(0));
         if(date==null) {
@@ -237,6 +242,7 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#parseObject(java.lang.String, java.text.ParsePosition)
      */
+    @Override
     public Object parseObject(String source, ParsePosition pos) {
         return parse(source, pos);
     }
@@ -244,6 +250,7 @@ public class FastDateParser implements DateParser, Serializable {
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#parse(java.lang.String, java.text.ParsePosition)
      */
+    @Override
     public Date parse(String source, ParsePosition pos) {
         int offset= pos.getIndex();
         Matcher matcher= parsePattern.matcher(source.substring(offset));
@@ -336,6 +343,7 @@ public class FastDateParser implements DateParser, Serializable {
      * ignore case comparison of keys
      */
     private static final Comparator<KeyValue> IGNORE_CASE_COMPARATOR = new Comparator<KeyValue> () {
+        @Override
         public int compare(KeyValue left, KeyValue right) {
             return left.key.compareToIgnoreCase(right.key);
         }        
@@ -565,6 +573,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public boolean isNumber() {
             char c= formatField.charAt(0);
             if(c=='\'') {
@@ -576,6 +585,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public boolean addRegex(FastDateParser parser, StringBuilder regex) {
             escapeRegex(regex, formatField, true);
             return false;
@@ -584,6 +594,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public void setCalendar(FastDateParser parser, Calendar cal, String value) {
         }
     }
@@ -605,6 +616,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public boolean isNumber() {
             return false;
         }
@@ -612,6 +624,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public boolean addRegex(FastDateParser parser, StringBuilder regex) {
             regex.append('(');
             for(KeyValue textKeyValue : parser.getDisplayNames(field)) {
@@ -624,6 +637,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public void setCalendar(FastDateParser parser, Calendar cal, String value) {
             KeyValue[] textKeyValues= parser.getDisplayNames(field);
             int idx= Arrays.binarySearch(textKeyValues, new KeyValue(value, -1), IGNORE_CASE_COMPARATOR);
@@ -657,6 +671,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public boolean isNumber() {
             return true;
         }
@@ -664,6 +679,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public boolean addRegex(FastDateParser parser, StringBuilder regex) {
             if(parser.isNextNumber()) {
                 regex.append("(\\d{").append(parser.getFieldWidth()).append("}+)");
@@ -677,6 +693,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public void setCalendar(FastDateParser parser, Calendar cal, String value) {
             cal.set(field, modify(Integer.parseInt(value)));
         }
@@ -742,6 +759,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public boolean isNumber() {
             return false;
         }
@@ -749,6 +767,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public boolean addRegex(FastDateParser parser, StringBuilder regex) {
             regex.append(validTimeZoneChars);
             return true;
@@ -757,6 +776,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public void setCalendar(FastDateParser parser, Calendar cal, String value) {
             TimeZone tz;
             if(value.charAt(0)=='+' || value.charAt(0)=='-') {
@@ -781,6 +801,7 @@ public class FastDateParser implements DateParser, Serializable {
     private static final Strategy TEXT_MONTH_STRATEGY = new TextStrategy(Calendar.MONTH);
     
     private static final Strategy NUMBER_MONTH_STRATEGY = new NumberStrategy(Calendar.MONTH) {
+        @Override
         public int modify(int iValue) {
             return iValue-1;            
         }
@@ -793,11 +814,13 @@ public class FastDateParser implements DateParser, Serializable {
     private static final Strategy DAY_OF_WEEK_IN_MONTH_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK_IN_MONTH);
     private static final Strategy HOUR_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY);
     private static final Strategy MODULO_HOUR_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY) {
+        @Override
         public int modify(int iValue) {
             return iValue%24;            
         }
     };
     private static final Strategy MODULO_HOUR_STRATEGY = new NumberStrategy(Calendar.HOUR) {
+        @Override
         public int modify(int iValue) {
             return iValue%12;            
         }

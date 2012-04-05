@@ -400,6 +400,7 @@ public class TimedSemaphore {
      */
     protected ScheduledFuture<?> startTimer() {
         return getExecutorService().scheduleAtFixedRate(new Runnable() {
+            @Override
             public void run() {
                 endOfPeriod();
             }
