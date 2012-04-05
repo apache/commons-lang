@@ -85,13 +85,15 @@ public interface DateParser {
 
     /**
      * Parses text from a string to produce a Date.
-     * See {@link java.text.DateFormat#parseObject(String)} 
+     * 
+     * @see java.text.DateFormat#parseObject(String) 
      */
     Object parseObject(String source) throws ParseException;
 
     /**
-     * Parse a date/time string according to the given parse position. 
-     * See {@link java.text.DateFormat#parseObject(String, ParsePosition)} 
+     * Parse a date/time string according to the given parse position.
+     *  
+     * @see java.text.DateFormat#parseObject(String, ParsePosition) 
      */
     public Object parseObject(String source, ParsePosition pos);
 }
