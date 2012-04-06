@@ -167,24 +167,36 @@ public class SerializationUtils {
     // Deserialize
     //-----------------------------------------------------------------------
     /**
-     * <p>Deserializes an {@code Object} from the specified stream.</p>
-     *
-     * <p>The stream will be closed once the object is written. This
-     * avoids the need for a finally clause, and maybe also exception
-     * handling, in the application code.</p>
-     *
-     * <p>The stream passed in is not buffered internally within this method.
-     * This is the responsibility of your application if desired.</p>
-     *
-     * @param inputStream  the serialized object input stream, must not be null
+     * <p>
+     * Deserializes an {@code Object} from the specified stream.
+     * </p>
+     * 
+     * <p>
+     * The stream will be closed once the object is written. This avoids the need for a finally clause, and maybe also
+     * exception handling, in the application code.
+     * </p>
+     * 
+     * <p>
+     * The stream passed in is not buffered internally within this method. This is the responsibility of your
+     * application if desired.
+     * </p>
+     * 
+     * <p>
+     * If the call site incorrectly types the return value, a {@link ClassCastException} is thrown from the call site.
+     * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
+     * Note that in both cases, the ClassCastException is in the call site, not in this method.
+     * </p>
+     * 
+     * @param inputStream
+     *            the serialized object input stream, must not be null
      * @return the deserialized object
-     * @throws IllegalArgumentException if {@code inputStream} is {@code null}
-     * @throws SerializationException (runtime) if the serialization fails
+     * @throws IllegalArgumentException
+     *             if {@code inputStream} is {@code null}
+     * @throws SerializationException
+     *             (runtime) if the serialization fails
      */
     @SuppressWarnings("unchecked")
     // Don't warn about "(T) deserialize" because we want the avoid type casting call sites.
-    // If the call site incorrectly types the return value, a ClassCastException is thrown.
-    // Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
     public static <T> T deserialize(InputStream inputStream) {
         if (inputStream == null) {
             throw new IllegalArgumentException("The InputStream must not be null");
@@ -211,17 +223,26 @@ public class SerializationUtils {
     }
 
     /**
-     * <p>Deserializes a single {@code Object} from an array of bytes.</p>
-     *
-     * @param objectData  the serialized object, must not be null
+     * <p>
+     * Deserializes a single {@code Object} from an array of bytes.
+     * </p>
+     * 
+     * <p>
+     * If the call site incorrectly types the return value, a {@link ClassCastException} is thrown from the call site.
+     * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
+     * Note that in both cases, the ClassCastException is in the call site, not in this method.
+     * </p>
+     * 
+     * @param objectData
+     *            the serialized object, must not be null
      * @return the deserialized object
-     * @throws IllegalArgumentException if {@code objectData} is {@code null}
-     * @throws SerializationException (runtime) if the serialization fails
+     * @throws IllegalArgumentException
+     *             if {@code objectData} is {@code null}
+     * @throws SerializationException
+     *             (runtime) if the serialization fails
      */
     @SuppressWarnings("unchecked")
     // Don't warn about "(T) deserialize" because we want the avoid type casting call sites.
-    // If the call site incorrectly types the return value, a ClassCastException is thrown.
-    // Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
     public static <T> T deserialize(byte[] objectData) {
         if (objectData == null) {
             throw new IllegalArgumentException("The byte[] must not be null");
