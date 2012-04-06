@@ -182,6 +182,9 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails
      */
     @SuppressWarnings("unchecked")
+    // Don't warn about "(T) deserialize" because we want the avoid type casting call sites.
+    // If the call site incorrectly types the return value, a ClassCastException is thrown.
+    // Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
     public static <T> T deserialize(InputStream inputStream) {
         if (inputStream == null) {
             throw new IllegalArgumentException("The InputStream must not be null");
@@ -216,6 +219,9 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails
      */
     @SuppressWarnings("unchecked")
+    // Don't warn about "(T) deserialize" because we want the avoid type casting call sites.
+    // If the call site incorrectly types the return value, a ClassCastException is thrown.
+    // Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
     public static <T> T deserialize(byte[] objectData) {
         if (objectData == null) {
             throw new IllegalArgumentException("The byte[] must not be null");
