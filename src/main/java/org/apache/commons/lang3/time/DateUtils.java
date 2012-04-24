@@ -841,8 +841,8 @@ public class DateUtils {
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
-     * 2002 13:00:00.000.  If this was passed with MONTH, it would
-     * return 1 Mar 2002 0:00:00.000.</p>
+     * 2002 14:00:00.000.  If this was passed with MONTH, it would
+     * return 1 Apr 2002 0:00:00.000.</p>
      * 
      * @param date  the date to work with, not null
      * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
@@ -866,8 +866,8 @@ public class DateUtils {
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
-     * 2002 13:00:00.000.  If this was passed with MONTH, it would
-     * return 1 Mar 2002 0:00:00.000.</p>
+     * 2002 14:00:00.000.  If this was passed with MONTH, it would
+     * return 1 Apr 2002 0:00:00.000.</p>
      * 
      * @param date  the date to work with, either {@code Date} or {@code Calendar}, not null
      * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
