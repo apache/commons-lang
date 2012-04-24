@@ -602,7 +602,7 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * Convert a {@code Date} into a {@code Calendar}. 
+     * Converts a {@code Date} into a {@code Calendar}. 
      * 
      * @param date the date to convert to a Calendar
      * @return the created Calendar
@@ -617,7 +617,7 @@ public class DateUtils {
     
     //-----------------------------------------------------------------------
     /**
-     * <p>Round this date, leaving the field specified as the most
+     * <p>Rounds a date, leaving the field specified as the most
      * significant field.</p>
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
@@ -653,7 +653,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Round this date, leaving the field specified as the most
+     * <p>Rounds a date, leaving the field specified as the most
      * significant field.</p>
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
@@ -689,7 +689,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Round this date, leaving the field specified as the most
+     * <p>Rounds a date, leaving the field specified as the most
      * significant field.</p>
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
@@ -731,7 +731,7 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Truncate this date, leaving the field specified as the most
+     * <p>Truncates a date, leaving the field specified as the most
      * significant field.</p>
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
@@ -756,7 +756,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Truncate this date, leaving the field specified as the most
+     * <p>Truncates a date, leaving the field specified as the most
      * significant field.</p>
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
@@ -780,7 +780,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Truncate this date, leaving the field specified as the most
+     * <p>Truncates a date, leaving the field specified as the most
      * significant field.</p>
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
@@ -810,7 +810,7 @@ public class DateUtils {
     
   //-----------------------------------------------------------------------
     /**
-     * <p>Ceil this date, leaving the field specified as the most
+     * <p>Gets a date ceiling, leaving the field specified as the most
      * significant field.</p>
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
@@ -836,7 +836,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Ceil this date, leaving the field specified as the most
+     * <p>Gets a date ceiling, leaving the field specified as the most
      * significant field.</p>
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
@@ -861,7 +861,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Ceil this date, leaving the field specified as the most
+     * <p>Gets a date ceiling, leaving the field specified as the most
      * significant field.</p>
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
@@ -1039,7 +1039,7 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * <p>This constructs an <code>Iterator</code> over each day in a date
+     * <p>Constructs an <code>Iterator</code> over each day in a date
      * range defined by a focus date and range style.</p>
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
@@ -1072,7 +1072,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>This constructs an <code>Iterator</code> over each day in a date
+     * <p>Constructs an <code>Iterator</code> over each day in a date
      * range defined by a focus date and range style.</p>
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
@@ -1168,7 +1168,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>This constructs an <code>Iterator</code> over each day in a date
+     * <p>Constructs an <code>Iterator</code> over each day in a date
      * range defined by a focus date and range style.</p>
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
@@ -1595,7 +1595,7 @@ public class DateUtils {
     }
     
     /**
-     * Date-version for fragment-calculation in any unit
+     * Gets a Date fragment for any unit.
      * 
      * @param date the date to work with, not null
      * @param fragment the Calendar field part of date to calculate 
@@ -1615,7 +1615,7 @@ public class DateUtils {
     }
 
     /**
-     * Calendar-version for fragment-calculation in any unit
+     * Gets a Calendar fragment for any unit.
      * 
      * @param calendar the calendar to work with, not null
      * @param fragment the Calendar field part of calendar to calculate 
