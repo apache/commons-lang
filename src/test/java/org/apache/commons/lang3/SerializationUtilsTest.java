@@ -16,6 +16,13 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -28,14 +35,16 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.SerializationUtils}.
  *
  * @version $Id$
  */
-public class SerializationUtilsTest extends TestCase {
+public class SerializationUtilsTest {
 
   static final String CLASS_NOT_FOUND_MESSAGE = "ClassNotFoundSerialization.readObject fake exception";
     protected static final String SERIALIZE_IO_EXCEPTION_MESSAGE = "Anonymous OutputStream I/O exception";
@@ -44,14 +53,8 @@ public class SerializationUtilsTest extends TestCase {
     private Integer iInteger;
     private HashMap<Object, Object> iMap;
 
-    public SerializationUtilsTest(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @Before
+    public void setUp() {
         iString = "foo";
         iInteger = Integer.valueOf(7);
         iMap = new HashMap<Object, Object>();
@@ -60,6 +63,8 @@ public class SerializationUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+
+    @Test
     public void testConstructor() {
         assertNotNull(new SerializationUtils());
         Constructor<?>[] cons = SerializationUtils.class.getDeclaredConstructors();
@@ -69,6 +74,7 @@ public class SerializationUtilsTest extends TestCase {
         assertEquals(false, Modifier.isFinal(SerializationUtils.class.getModifiers()));
     }
     
+    @Test
     public void testException() {
         SerializationException serEx;
         Exception ex = new Exception();
@@ -91,6 +97,8 @@ public class SerializationUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+
+    @Test
     public void testSerializeStream() throws Exception {
         ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         SerializationUtils.serialize(iMap, streamTest);
@@ -109,6 +117,7 @@ public class SerializationUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testSerializeStreamUnserializable() throws Exception {
         ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         try {
@@ -120,6 +129,7 @@ public class SerializationUtilsTest extends TestCase {
         fail();
     }
 
+    @Test
     public void testSerializeStreamNullObj() throws Exception {
         ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         SerializationUtils.serialize(null, streamTest);
@@ -138,6 +148,7 @@ public class SerializationUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testSerializeStreamObjNull() throws Exception {
         try {
             SerializationUtils.serialize(iMap, null);
@@ -147,6 +158,7 @@ public class SerializationUtilsTest extends TestCase {
         fail();
     }
 
+    @Test
     public void testSerializeStreamNullNull() throws Exception {
         try {
             SerializationUtils.serialize(null, null);
@@ -156,6 +168,7 @@ public class SerializationUtilsTest extends TestCase {
         fail();
     }
     
+    @Test
     public void testSerializeIOException() throws Exception {
         // forces an IOException when the ObjectOutputStream is created, to test not closing the stream
         // in the finally block
@@ -175,6 +188,7 @@ public class SerializationUtilsTest extends TestCase {
 
     //-----------------------------------------------------------------------
 
+    @Test
     public void testDeserializeStream() throws Exception {
         ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(streamReal);
@@ -195,6 +209,7 @@ public class SerializationUtilsTest extends TestCase {
         assertEquals(iMap, testMap);
     }
 
+    @Test
     public void testDeserializeStreamOfNull() throws Exception {
         ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(streamReal);
@@ -207,6 +222,7 @@ public class SerializationUtilsTest extends TestCase {
         assertNull(test);
     }
 
+    @Test
     public void testDeserializeStreamNull() throws Exception {
         try {
             SerializationUtils.deserialize((InputStream) null);
@@ -216,6 +232,7 @@ public class SerializationUtilsTest extends TestCase {
         fail();
     }
 
+    @Test
     public void testDeserializeStreamBadStream() throws Exception {
         try {
             SerializationUtils.deserialize(new ByteArrayInputStream(new byte[0]));
@@ -225,6 +242,7 @@ public class SerializationUtilsTest extends TestCase {
         fail();
     }
 
+    @Test
     public void testDeserializeStreamClassNotFound() throws Exception {
         ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(streamReal);
@@ -243,6 +261,7 @@ public class SerializationUtilsTest extends TestCase {
     
     //-----------------------------------------------------------------------
 
+    @Test
     public void testSerializeBytes() throws Exception {
         byte[] testBytes = SerializationUtils.serialize(iMap);
 
@@ -259,6 +278,7 @@ public class SerializationUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testSerializeBytesUnserializable() throws Exception {
         try {
             iMap.put(new Object(), new Object());
@@ -269,6 +289,7 @@ public class SerializationUtilsTest extends TestCase {
         fail();
     }
 
+    @Test
     public void testSerializeBytesNull() throws Exception {
         byte[] testBytes = SerializationUtils.serialize(null);
 
@@ -287,6 +308,7 @@ public class SerializationUtilsTest extends TestCase {
 
     //-----------------------------------------------------------------------
 
+    @Test
     public void testDeserializeBytes() throws Exception {
         ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(streamReal);
@@ -306,6 +328,7 @@ public class SerializationUtilsTest extends TestCase {
         assertEquals(iMap, testMap);
     }
 
+    @Test
     public void testDeserializeBytesOfNull() throws Exception {
         ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(streamReal);
@@ -317,6 +340,7 @@ public class SerializationUtilsTest extends TestCase {
         assertNull(test);
     }
 
+    @Test
     public void testDeserializeBytesNull() throws Exception {
         try {
             SerializationUtils.deserialize((byte[]) null);
@@ -326,6 +350,7 @@ public class SerializationUtilsTest extends TestCase {
         fail();
     }
 
+    @Test
     public void testDeserializeBytesBadStream() throws Exception {
         try {
             SerializationUtils.deserialize(new byte[0]);
@@ -337,6 +362,7 @@ public class SerializationUtilsTest extends TestCase {
 
     //-----------------------------------------------------------------------
 
+    @Test
     public void testClone() throws Exception {
         Object test = SerializationUtils.clone(iMap);
         assertNotNull(test);
@@ -350,11 +376,13 @@ public class SerializationUtilsTest extends TestCase {
         assertEquals(iMap, testMap);
     }
 
+    @Test
     public void testCloneNull() throws Exception {
         Object test = SerializationUtils.clone(null);
         assertNull(test);
     }
 
+    @Test
     public void testCloneUnserializable() throws Exception {
         try {
             iMap.put(new Object(), new Object());
@@ -365,6 +393,7 @@ public class SerializationUtilsTest extends TestCase {
         fail();
     }
     
+    @Test
     public void testPrimitiveTypeClassSerialization() {
         Class<?>[] primitiveTypes = { byte.class, short.class, int.class, long.class, float.class, double.class,
                 boolean.class, char.class, void.class };
