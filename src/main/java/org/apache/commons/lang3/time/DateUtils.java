@@ -620,7 +620,7 @@ public class DateUtils {
      * <p>Round this date, leaving the field specified as the most
      * significant field.</p>
      *
-     * <p>For example, if you had the datetime of 28 Mar 2002
+     * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if this was passed with HOUR, it would return
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.</p>
@@ -656,7 +656,7 @@ public class DateUtils {
      * <p>Round this date, leaving the field specified as the most
      * significant field.</p>
      *
-     * <p>For example, if you had the datetime of 28 Mar 2002
+     * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if this was passed with HOUR, it would return
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.</p>
@@ -692,7 +692,7 @@ public class DateUtils {
      * <p>Round this date, leaving the field specified as the most
      * significant field.</p>
      *
-     * <p>For example, if you had the datetime of 28 Mar 2002
+     * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if this was passed with HOUR, it would return
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.</p>
@@ -734,7 +734,7 @@ public class DateUtils {
      * <p>Truncate this date, leaving the field specified as the most
      * significant field.</p>
      *
-     * <p>For example, if you had the datetime of 28 Mar 2002
+     * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 13:00:00.000.  If this was passed with MONTH, it would
      * return 1 Mar 2002 0:00:00.000.</p>
@@ -759,7 +759,7 @@ public class DateUtils {
      * <p>Truncate this date, leaving the field specified as the most
      * significant field.</p>
      *
-     * <p>For example, if you had the datetime of 28 Mar 2002
+     * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 13:00:00.000.  If this was passed with MONTH, it would
      * return 1 Mar 2002 0:00:00.000.</p>
@@ -783,7 +783,7 @@ public class DateUtils {
      * <p>Truncate this date, leaving the field specified as the most
      * significant field.</p>
      *
-     * <p>For example, if you had the datetime of 28 Mar 2002
+     * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 13:00:00.000.  If this was passed with MONTH, it would
      * return 1 Mar 2002 0:00:00.000.</p>
@@ -813,7 +813,7 @@ public class DateUtils {
      * <p>Ceil this date, leaving the field specified as the most
      * significant field.</p>
      *
-     * <p>For example, if you had the datetime of 28 Mar 2002
+     * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 14:00:00.000.  If this was passed with MONTH, it would
      * return 1 Apr 2002 0:00:00.000.</p>
@@ -839,7 +839,7 @@ public class DateUtils {
      * <p>Ceil this date, leaving the field specified as the most
      * significant field.</p>
      *
-     * <p>For example, if you had the datetime of 28 Mar 2002
+     * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 13:00:00.000.  If this was passed with MONTH, it would
      * return 1 Mar 2002 0:00:00.000.</p>
@@ -864,7 +864,7 @@ public class DateUtils {
      * <p>Ceil this date, leaving the field specified as the most
      * significant field.</p>
      *
-     * <p>For example, if you had the datetime of 28 Mar 2002
+     * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 13:00:00.000.  If this was passed with MONTH, it would
      * return 1 Mar 2002 0:00:00.000.</p>
