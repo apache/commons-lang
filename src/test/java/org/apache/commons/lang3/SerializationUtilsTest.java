@@ -209,6 +209,15 @@ public class SerializationUtilsTest {
         assertEquals(iMap, testMap);
     }
 
+    @Test(expected=ClassCastException.class)
+    public void testDeserializeClassCastException() {
+        final String value = "Hello";
+        byte[] serialized = SerializationUtils.serialize(value);
+        Assert.assertEquals(value, SerializationUtils.deserialize(serialized));
+        // Causes ClassCastException in call site, not in SerializationUtils.deserialize 
+        Integer i = SerializationUtils.deserialize(serialized);
+    }
+
     @Test
     public void testDeserializeStreamOfNull() throws Exception {
         ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
