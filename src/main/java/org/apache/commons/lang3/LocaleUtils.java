@@ -290,7 +290,7 @@ public class LocaleUtils {
         static {
             List<Locale> list = new ArrayList<Locale>(Arrays.asList(Locale.getAvailableLocales()));  // extra safe
             AVAILABLE_LOCALE_LIST = Collections.unmodifiableList(list);
-            AVAILABLE_LOCALE_SET = Collections.unmodifiableSet(new HashSet<Locale>(availableLocaleList()));
+            AVAILABLE_LOCALE_SET = Collections.unmodifiableSet(new HashSet<Locale>(list));
         }
     }
 
