@@ -39,12 +39,6 @@ import java.util.Set;
  */
 public class LocaleUtils {
 
-    /** Unmodifiable list of available locales. */
-    private static List cAvailableLocaleList; // lazily created by availableLocaleList()
-
-    /** Unmodifiable set of available locales. */
-    private static Set cAvailableLocaleSet;   // lazily created by availableLocaleSet()
-
     /** Unmodifiable map of language locales by country. */
     private static final Map cLanguagesByCountry = Collections.synchronizedMap(new HashMap());
 
@@ -191,22 +185,7 @@ public class LocaleUtils {
      * @return the unmodifiable list of available locales
      */
     public static List availableLocaleList() {
-        if(cAvailableLocaleList == null) { 
-            initAvailableLocaleList(); 
-        }
-        return cAvailableLocaleList;
-    }
-
-    /**
-     * Initializes the availableLocaleList. It is separate from availableLocaleList() 
-     * to avoid the synchronized block affecting normal use, yet synchronized and 
-     * lazy loading to avoid a static block affecting other methods in this class. 
-     */
-    private static synchronized void initAvailableLocaleList() {
-        if(cAvailableLocaleList == null) {
-            List list = Arrays.asList(Locale.getAvailableLocales());
-            cAvailableLocaleList = Collections.unmodifiableList(list);
-        }
+        return SyncAvoid.AVAILABLE_LOCALE_LIST;
     }
 
     //-----------------------------------------------------------------------
@@ -220,21 +199,7 @@ public class LocaleUtils {
      * @return the unmodifiable set of available locales
      */
     public static Set availableLocaleSet() {
-        if(cAvailableLocaleSet == null) { 
-            initAvailableLocaleSet(); 
-        }
-        return cAvailableLocaleSet;
-    }
-
-    /**
-     * Initializes the availableLocaleSet. It is separate from availableLocaleSet() 
-     * to avoid the synchronized block affecting normal use, yet synchronized and 
-     * lazy loading to avoid a static block affecting other methods in this class. 
-     */
-    private static synchronized void initAvailableLocaleSet() {
-        if(cAvailableLocaleSet == null) {
-            cAvailableLocaleSet = Collections.unmodifiableSet( new HashSet(availableLocaleList()) );
-        }
+        return SyncAvoid.AVAILABLE_LOCALE_SET;
     }
 
     //-----------------------------------------------------------------------
@@ -311,6 +276,21 @@ public class LocaleUtils {
             cCountriesByLanguage.put(languageCode, countries);  //syncd
         }
         return countries;
+    }
+
+    //-----------------------------------------------------------------------
+    // class to avoid synchronization (Init on demand)
+    static class SyncAvoid {
+        /** Unmodifiable list of available locales. */
+        static final List AVAILABLE_LOCALE_LIST;
+        /** Unmodifiable set of available locales. */
+        static final Set AVAILABLE_LOCALE_SET;
+        
+        static {
+            List list = new ArrayList(Arrays.asList(Locale.getAvailableLocales()));  // extra safe
+            AVAILABLE_LOCALE_LIST = Collections.unmodifiableList(list);
+            AVAILABLE_LOCALE_SET = Collections.unmodifiableSet(new HashSet(list));
+        }
     }
 
 }

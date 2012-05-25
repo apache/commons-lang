@@ -20,6 +20,9 @@
     <title>Commons Lang Changes</title>
   </properties>
   <body>
+  <release version="2.7" date="TBA" description="TBA (requires minimum of Java 1.3)">
+    <action issue="LANG-803" type="fix">LocaleUtils - DCL idiom is not thread-safe.</action>
+  </release>
 
   <release version="2.6" date="2011-01-16" description="Bug Fixes/Enhancements for the 2.6 release (requires minimum of Java 1.3)">
     <action type="update" issue="LANG-633">BooleanUtils: use same optimization in toBooleanObject(String) as in toBoolean(String)</action>
