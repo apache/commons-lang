@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-802" type="fix">LocaleUtils - unnecessary recursive call in SyncAvoid class.</action>
     <action type="fix" issue="LANG-800">Javadoc bug in DateUtils#ceiling for Calendar and Object versions.</action>
     <action type="update" issue="LANG-798">Use generics in SerializationUtils</action>  
     <action type="fix" issue="LANG-788">SerializationUtils throws ClassNotFoundException when cloning primitive classes</action>
