@@ -12,7 +12,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>23</version>
+    <version>25</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.commons</groupId>
@@ -526,29 +526,6 @@
 
   <reporting>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-changes-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <xmlPath>${basedir}/src/site/changes/changes.xml</xmlPath>
-          <issueLinkTemplatePerSystem>
-            <default>%URL%/%ISSUE%</default>
-          </issueLinkTemplatePerSystem>
-          <template>release-notes.vm</template>
-          <templateDirectory>templates</templateDirectory>
-          <!-- Give the output file its proper name -->
-          <outputDirectory>.</outputDirectory>
-          <announcementFile>RELEASE-NOTES.txt</announcementFile>
-        </configuration>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>changes-report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.9.1</version>
