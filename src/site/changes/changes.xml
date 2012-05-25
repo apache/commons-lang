@@ -22,6 +22,7 @@
   <body>
   <release version="2.7" date="TBA" description="TBA (requires minimum of Java 1.3)">
     <action issue="LANG-803" type="fix">LocaleUtils - DCL idiom is not thread-safe.</action>
+    <action issue="LANG-677" type="fix">DateUtils isSameLocalTime() compares the hour using 12hour Calendar.HOUR instead of 24hour Calendar.HOUR_OF_DAY</action>
   </release>
 
   <release version="2.6" date="2011-01-16" description="Bug Fixes/Enhancements for the 2.6 release (requires minimum of Java 1.3)">
