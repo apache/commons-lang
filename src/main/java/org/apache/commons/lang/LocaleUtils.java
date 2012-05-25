@@ -39,10 +39,10 @@ import java.util.Set;
  */
 public class LocaleUtils {
 
-    /** Unmodifiable map of language locales by country. */
+    /** Synchronized cache of language locales by country. */
     private static final Map cLanguagesByCountry = Collections.synchronizedMap(new HashMap());
 
-    /** Unmodifiable map of country locales by language. */
+    /** Synchronized cache of country locales by language. */
     private static final Map cCountriesByLanguage = Collections.synchronizedMap(new HashMap());
 
     /**
