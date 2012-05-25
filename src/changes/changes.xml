@@ -23,21 +23,21 @@
 
   <release version="3.2" date="TBA" description="Next release">
     <action issue="LANG-802" type="fix">LocaleUtils - unnecessary recursive call in SyncAvoid class.</action>
-    <action type="fix" issue="LANG-800">Javadoc bug in DateUtils#ceiling for Calendar and Object versions.</action>
-    <action type="update" issue="LANG-798">Use generics in SerializationUtils</action>  
-    <action type="fix" issue="LANG-788">SerializationUtils throws ClassNotFoundException when cloning primitive classes</action>
-    <action type="fix" issue="LANG-786">StringUtils equals() relies on undefined behavior</action>
-    <action type="fix" issue="LANG-783">Documentation bug: StringUtils.split</action>
-    <action type="fix" issue="LANG-776">TypeUtilsTest contains incorrect type assignability assertion</action>
-    <action type="fix" issue="LANG-775">TypeUtils.getTypeArguments() misses type arguments for partially-assigned classes</action>
-    <action type="fix" issue="LANG-773">ImmutablePair doc contains nonsense text</action>
-    <action type="fix" issue="LANG-772">ClassUtils.PACKAGE_SEPARATOR Javadoc contains garbage text</action>
-    <action type="fix" issue="LANG-765">EventListenerSupport.ProxyInvocationHandler no longer defines serialVersionUID</action>
-    <action type="fix" issue="LANG-764">StrBuilder is now serializable</action>
-    <action type="fix" issue="LANG-761">Fix Javadoc Ant warnings</action>
-    <action type="fix" issue="LANG-743">Javadoc bug in static inner class DateIterator</action>
-    <action type="add" issue="LANG-675">Add Triple class (ternary version of Pair)</action>
-    <action type="add" issue="LANG-462">FastDateFormat supports parse methods</action>
+    <action issue="LANG-800" type="fix">Javadoc bug in DateUtils#ceiling for Calendar and Object versions.</action>
+    <action issue="LANG-798" type="update">Use generics in SerializationUtils</action>  
+    <action issue="LANG-788" type="fix">SerializationUtils throws ClassNotFoundException when cloning primitive classes</action>
+    <action issue="LANG-786" type="fix">StringUtils equals() relies on undefined behavior</action>
+    <action issue="LANG-783" type="fix">Documentation bug: StringUtils.split</action>
+    <action issue="LANG-776" type="fix">TypeUtilsTest contains incorrect type assignability assertion</action>
+    <action issue="LANG-775" type="fix">TypeUtils.getTypeArguments() misses type arguments for partially-assigned classes</action>
+    <action issue="LANG-773" type="fix">ImmutablePair doc contains nonsense text</action>
+    <action issue="LANG-772" type="fix">ClassUtils.PACKAGE_SEPARATOR Javadoc contains garbage text</action>
+    <action issue="LANG-765" type="fix">EventListenerSupport.ProxyInvocationHandler no longer defines serialVersionUID</action>
+    <action issue="LANG-764" type="fix">StrBuilder is now serializable</action>
+    <action issue="LANG-761" type="fix">Fix Javadoc Ant warnings</action>
+    <action issue="LANG-743" type="fix">Javadoc bug in static inner class DateIterator</action>
+    <action issue="LANG-675" type="add">Add Triple class (ternary version of Pair)</action>
+    <action issue="LANG-462" type="add">FastDateFormat supports parse methods</action>
   </release>
 
   <release version="3.1" date="2011-11-14" description="November release">      
