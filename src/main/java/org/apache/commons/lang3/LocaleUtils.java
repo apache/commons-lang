@@ -280,12 +280,12 @@ public class LocaleUtils {
     }
 
     //-----------------------------------------------------------------------
-    // class to avoid synchronization
+    // class to avoid synchronization (Init on demand)
     static class SyncAvoid {
         /** Unmodifiable list of available locales. */
-        private static List<Locale> AVAILABLE_LOCALE_LIST;
+        private static final List<Locale> AVAILABLE_LOCALE_LIST;
         /** Unmodifiable set of available locales. */
-        private static Set<Locale> AVAILABLE_LOCALE_SET;
+        private static final Set<Locale> AVAILABLE_LOCALE_SET;
         
         static {
             List<Locale> list = new ArrayList<Locale>(Arrays.asList(Locale.getAvailableLocales()));  // extra safe
