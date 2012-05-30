@@ -19,8 +19,6 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
 import org.junit.Test;
 
 /**
@@ -56,26 +54,14 @@ public class HashCodeBuilderTest {
 
     // -----------------------------------------------------------------------
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testConstructorEx1() {
-        try {
-            new HashCodeBuilder(0, 0);
-
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        new HashCodeBuilder(0, 0);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testConstructorEx2() {
-        try {
-            new HashCodeBuilder(2, 2);
-
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        new HashCodeBuilder(2, 2);
     }
 
     static class TestObject {
@@ -151,54 +137,29 @@ public class HashCodeBuilderTest {
                 123456, 7890, 0), true));
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testReflectionHierarchyHashCodeEx1() {
-        try {
-            HashCodeBuilder.reflectionHashCode(0, 0, new TestSubObject(0, 0, 0), true);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        HashCodeBuilder.reflectionHashCode(0, 0, new TestSubObject(0, 0, 0), true);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testReflectionHierarchyHashCodeEx2() {
-        try {
-            HashCodeBuilder.reflectionHashCode(2, 2, new TestSubObject(0, 0, 0), true);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        HashCodeBuilder.reflectionHashCode(2, 2, new TestSubObject(0, 0, 0), true);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testReflectionHashCodeEx1() {
-        try {
-            HashCodeBuilder.reflectionHashCode(0, 0, new TestObject(0), true);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        HashCodeBuilder.reflectionHashCode(0, 0, new TestObject(0), true);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testReflectionHashCodeEx2() {
-        try {
-            HashCodeBuilder.reflectionHashCode(2, 2, new TestObject(0), true);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        HashCodeBuilder.reflectionHashCode(2, 2, new TestObject(0), true);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testReflectionHashCodeEx3() {
-        try {
-            HashCodeBuilder.reflectionHashCode(13, 19, null, true);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        HashCodeBuilder.reflectionHashCode(13, 19, null, true);
     }
 
     @Test
