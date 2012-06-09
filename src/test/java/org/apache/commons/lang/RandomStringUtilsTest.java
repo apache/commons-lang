@@ -20,13 +20,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Random;
 
-
 /**
  * Unit tests {@link org.apache.commons.lang.RandomStringUtils}.
  *
- * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @author Phil Steitz
  * @version $Id$
  */
 public class RandomStringUtilsTest extends junit.framework.TestCase {
@@ -127,9 +123,15 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
 
         r1 = RandomStringUtils.random(0);
         assertEquals("random(0).equals(\"\")", "", r1);
-
     }
+
+    public void testLANG805() {
+        long seed = System.currentTimeMillis();
+        assertEquals("aaa", RandomStringUtils.random(3,0,0,false,false,new char[]{'a'},new Random(seed)));
+    }
+
     public void testExceptions() {
+        final char[] DUMMY = new char[]{'a'}; // valid char array
         try {
             RandomStringUtils.random(-1);
             fail();
@@ -139,7 +141,11 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
-            RandomStringUtils.random(-1, new char[0]);
+            RandomStringUtils.random(-1, DUMMY);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            RandomStringUtils.random(1, new char[0]); // must not provide empty array => IAE
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
@@ -147,15 +153,19 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
+            RandomStringUtils.random(-1, (String)null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
             RandomStringUtils.random(-1, 'a', 'z', false, false);
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
-            RandomStringUtils.random(-1, 'a', 'z', false, false, new char[0]);
+            RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY);
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
-            RandomStringUtils.random(-1, 'a', 'z', false, false, new char[0], new Random());
+            RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random());
             fail();
         } catch (IllegalArgumentException ex) {}
     }
@@ -290,8 +300,8 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
         double sumSq = 0.0d;
         double dev = 0.0d;
         for (int i = 0; i < observed.length; i++) {
-            dev = (double) (observed[i] - expected[i]);
-            sumSq += dev * dev / (double) expected[i];
+            dev = observed[i] - expected[i];
+            sumSq += dev * dev / expected[i];
         }
         return sumSq;
     }           
@@ -315,8 +325,8 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
         for (int i=0; i < orig.length() && i < copy.length(); i++) {
             char o = orig.charAt(i);
             char c = copy.charAt(i);
-            assertEquals("differs at " + i + "(" + Integer.toHexString((new Character(o)).hashCode()) + "," +
-            Integer.toHexString((new Character(c)).hashCode()) + ")", o, c);
+            assertEquals("differs at " + i + "(" + Integer.toHexString(new Character(o).hashCode()) + "," +
+            Integer.toHexString(new Character(c).hashCode()) + ")", o, c);
         }
         // compare length also
         assertEquals(orig.length(), copy.length());
