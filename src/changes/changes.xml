@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-805" type="fix">RandomStringUtils.random(count, 0, 0, false, false, universe, random) always throws java.lang.ArrayIndexOutOfBoundsException</action>
     <action issue="LANG-802" type="fix">LocaleUtils - unnecessary recursive call in SyncAvoid class.</action>
     <action issue="LANG-800" type="fix">Javadoc bug in DateUtils#ceiling for Calendar and Object versions.</action>
     <action issue="LANG-798" type="update">Use generics in SerializationUtils</action>  

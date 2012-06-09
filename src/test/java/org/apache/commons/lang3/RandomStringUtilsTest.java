@@ -123,9 +123,15 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
 
         r1 = RandomStringUtils.random(0);
         assertEquals("random(0).equals(\"\")", "", r1);
-
     }
+
+    public void testLANG805() {
+        long seed = System.currentTimeMillis();
+        assertEquals("aaa", RandomStringUtils.random(3,0,0,false,false,new char[]{'a'},new Random(seed)));
+    }
+
     public void testExceptions() {
+        final char[] DUMMY = new char[]{'a'}; // valid char array
         try {
             RandomStringUtils.random(-1);
             fail();
@@ -135,7 +141,11 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
-            RandomStringUtils.random(-1, new char[0]);
+            RandomStringUtils.random(-1, DUMMY);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            RandomStringUtils.random(1, new char[0]); // must not provide empty array => IAE
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
@@ -143,15 +153,19 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
+            RandomStringUtils.random(-1, (String)null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
             RandomStringUtils.random(-1, 'a', 'z', false, false);
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
-            RandomStringUtils.random(-1, 'a', 'z', false, false, new char[0]);
+            RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY);
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
-            RandomStringUtils.random(-1, 'a', 'z', false, false, new char[0], new Random());
+            RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random());
             fail();
         } catch (IllegalArgumentException ex) {}
     }
