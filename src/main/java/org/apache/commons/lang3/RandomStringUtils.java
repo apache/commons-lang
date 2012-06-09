@@ -211,13 +211,13 @@ public class RandomStringUtils {
      * @param end  the position in set of chars to end before
      * @param letters  only allow letters?
      * @param numbers  only allow numbers?
-     * @param chars  the set of chars to choose randoms from.
+     * @param chars  the set of chars to choose randoms from, must not be empty.
      *  If {@code null}, then it will use the set of all chars.
      * @param random  a source of randomness.
      * @return the random string
      * @throws ArrayIndexOutOfBoundsException if there are not
      *  {@code (end - start) + 1} characters in the set array.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @throws IllegalArgumentException if {@code count} &lt; 0 or the provided chars array is empty.
      * @since 2.0
      */
     public static String random(int count, int start, int end, boolean letters, boolean numbers,
@@ -227,12 +227,20 @@ public class RandomStringUtils {
         } else if (count < 0) {
             throw new IllegalArgumentException("Requested random string length " + count + " is less than 0.");
         }
+        if (chars != null && chars.length == 0) {
+            throw new IllegalArgumentException("The chars array must not be empty");
+        }
+
         if (start == 0 && end == 0) {
-            end = 'z' + 1;
-            start = ' ';
-            if (!letters && !numbers) {
-                start = 0;
-                end = Integer.MAX_VALUE;
+            if (chars != null) {
+                end = chars.length;
+            } else {
+                if (!letters && !numbers) {
+                    end = Integer.MAX_VALUE;
+                } else {
+                    end = 'z' + 1;
+                    start = ' ';                
+                }
             }
         }
 
@@ -285,13 +293,14 @@ public class RandomStringUtils {
      * specified.</p>
      *
      * <p>Characters will be chosen from the set of characters
-     * specified.</p>
+     * specified by the string, must not be empty. 
+     * If null, the set of all characters is used.</p>
      *
      * @param count  the length of random string to create
      * @param chars  the String containing the set of characters to use,
-     *  may be null
+     *  may be null, but must not be empty
      * @return the random string
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @throws IllegalArgumentException if {@code count} &lt; 0 or the string is empty.
      */
     public static String random(int count, String chars) {
         if (chars == null) {
