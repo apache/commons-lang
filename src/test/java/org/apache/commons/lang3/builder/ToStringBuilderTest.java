@@ -79,15 +79,9 @@ public class ToStringBuilderTest {
         }
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testSetDefaultEx() {
-        try {
-            ToStringBuilder.setDefaultStyle(null);
-
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        ToStringBuilder.setDefaultStyle(null);
     }
 
     @Test
