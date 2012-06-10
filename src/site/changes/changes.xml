@@ -21,6 +21,7 @@
   </properties>
   <body>
   <release version="2.7" date="TBA" description="TBA (requires minimum of Java 1.3)">
+    <action issue="LANG-807" type="fix">RandomStringUtils throws confusing IAE when end &lt;= start</action>
     <action issue="LANG-805" type="fix">RandomStringUtils.random(count, 0, 0, false, false, universe, random) always throws java.lang.ArrayIndexOutOfBoundsException</action>
     <action issue="LANG-803" type="fix">LocaleUtils - DCL idiom is not thread-safe.</action>
     <action issue="LANG-677" type="fix">DateUtils isSameLocalTime() compares the hour using 12hour Calendar.HOUR instead of 24hour Calendar.HOUR_OF_DAY</action>

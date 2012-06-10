@@ -242,6 +242,10 @@ public class RandomStringUtils {
                     start = ' ';                
                 }
             }
+        } else {
+            if (end <= start) {
+                throw new IllegalArgumentException("Parameter end (" + end + ") must be greater than start (" + start + ")");
+            }
         }
 
         char[] buffer = new char[count];
