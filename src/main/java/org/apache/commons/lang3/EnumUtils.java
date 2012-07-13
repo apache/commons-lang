@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,6 +33,11 @@ import java.util.Map;
  * @version $Id$
  */
 public class EnumUtils {
+
+    private static final String NULL_ELEMENTS_NOT_PERMITTED = "null elements not permitted";
+    private static final String CANNOT_STORE_S_S_VALUES_IN_S_BITS = "Cannot store %s %s values in %s bits";
+    private static final String S_DOES_NOT_SEEM_TO_BE_AN_ENUM_TYPE = "%s does not seem to be an Enum type";
+    private static final String ENUM_CLASS_MUST_BE_DEFINED = "EnumClass must be defined.";
 
     /**
      * This constructor is public to permit tools that require a JavaBean
@@ -124,21 +130,56 @@ public class EnumUtils {
      * would create a value greater than a long can hold.</p>
      *
      * @param enumClass the class of the enum we are working with, not {@code null}
-     * @param values    the values we want to convert, not {@code null}
+     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
      * @param <E>       the type of the enumeration
-     * @return a long whose binary value represents the given set of enum values.
+     * @return a long whose value provides a binary representation of the given set of enum values.
      * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values,
+     *                                  or if any {@code values} {@code null}
      * @since 3.0.1
+     * @see #generateBitVectors(Class, Iterable)
      */
     public static <E extends Enum<E>> long generateBitVector(Class<E> enumClass, Iterable<E> values) {
         checkBitVectorable(enumClass);
         Validate.notNull(values);
         long total = 0;
         for (E constant : values) {
+            Validate.isTrue(constant != null, NULL_ELEMENTS_NOT_PERMITTED);
             total |= 1 << constant.ordinal();
         }
         return total;
+    }
+
+    /**
+     * <p>Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.</p>
+     *
+     * <p>This generates a value that is usable by {@link EnumUtils#processBitVectors}.</p>
+     *
+     * <p>Use this method if you have more than 64 values in your Enum.</p>
+     *
+     * @param enumClass the class of the enum we are working with, not {@code null}
+     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
+     * @param <E>       the type of the enumeration
+     * @return a long[] whose values provide a binary representation of the given set of enum values
+     *         with least significant digits rightmost.
+     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}
+     * @since 3.2
+     */
+    public static <E extends Enum<E>> long[] generateBitVectors(Class<E> enumClass, Iterable<E> values) {
+        asEnum(enumClass);
+        Validate.notNull(values);
+        final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
+        for (E constant : values) {
+            Validate.isTrue(constant != null, NULL_ELEMENTS_NOT_PERMITTED);
+            condensed.add(constant);
+        }
+        final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
+        for (E value : condensed) {
+            result[value.ordinal() / Long.SIZE] |= 1 << (value.ordinal() % Long.SIZE);
+        }
+        ArrayUtils.reverse(result);
+        return result;
     }
 
     /**
@@ -152,14 +193,44 @@ public class EnumUtils {
      * @param enumClass the class of the enum we are working with, not {@code null}
      * @param values    the values we want to convert, not {@code null}
      * @param <E>       the type of the enumeration
-     * @return a long whose binary value represents the given set of enum values.
+     * @return a long whose value provides a binary representation of the given set of enum values.
      * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
      * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values
      * @since 3.0.1
+     * @see #generateBitVectors(Class, Iterable)
      */
     public static <E extends Enum<E>> long generateBitVector(Class<E> enumClass, E... values) {
         Validate.noNullElements(values);
         return generateBitVector(enumClass, Arrays.<E> asList(values));
+    }
+
+    /**
+     * <p>Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.</p>
+     *
+     * <p>This generates a value that is usable by {@link EnumUtils#processBitVectors}.</p>
+     *
+     * <p>Use this method if you have more than 64 values in your Enum.</p>
+     *
+     * @param enumClass the class of the enum we are working with, not {@code null}
+     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
+     * @param <E>       the type of the enumeration
+     * @return a long[] whose values provide a binary representation of the given set of enum values
+     *         with least significant digits rightmost.
+     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}
+     * @since 3.2
+     */
+    public static <E extends Enum<E>> long[] generateBitVectors(Class<E> enumClass, E... values) {
+        asEnum(enumClass);
+        Validate.noNullElements(values);
+        final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
+        Collections.addAll(condensed, values);
+        final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
+        for (E value : condensed) {
+            result[value.ordinal() / Long.SIZE] |= 1 << (value.ordinal() % Long.SIZE);
+        }
+        ArrayUtils.reverse(result);
+        return result;
     }
 
     /**
@@ -176,10 +247,30 @@ public class EnumUtils {
      * @since 3.0.1
      */
     public static <E extends Enum<E>> EnumSet<E> processBitVector(Class<E> enumClass, long value) {
-        final E[] constants = checkBitVectorable(enumClass).getEnumConstants();
-        final EnumSet<E> results = EnumSet.noneOf(enumClass);
-        for (E constant : constants) {
-            if ((value & 1 << constant.ordinal()) != 0) {
+        checkBitVectorable(enumClass).getEnumConstants();
+        return processBitVectors(enumClass, value);
+    }
+
+    /**
+     * <p>Convert a {@code long[]} created by {@link EnumUtils#generateBitVectors} into the set of
+     * enum values that it represents.</p>
+     *
+     * <p>If you store this value, beware any changes to the enum that would affect ordinal values.</p>
+     * @param enumClass the class of the enum we are working with, not {@code null}
+     * @param values     the long[] bearing the representation of a set of enum values, least significant digits rightmost, not {@code null}
+     * @param <E>       the type of the enumeration
+     * @return a set of enum values
+     * @throws NullPointerException if {@code enumClass} is {@code null}
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class
+     * @since 3.2
+     */
+    public static <E extends Enum<E>> EnumSet<E> processBitVectors(Class<E> enumClass, long... values) {
+        final EnumSet<E> results = EnumSet.noneOf(asEnum(enumClass));
+        values = ArrayUtils.clone(Validate.notNull(values));
+        ArrayUtils.reverse(values);
+        for (E constant : enumClass.getEnumConstants()) {
+            int block = constant.ordinal() / Long.SIZE;
+            if (block < values.length && (values[block] & 1 << (constant.ordinal() % Long.SIZE)) != 0) {
                 results.add(constant);
             }
         }
@@ -196,13 +287,25 @@ public class EnumUtils {
      * @since 3.0.1
      */
     private static <E extends Enum<E>> Class<E> checkBitVectorable(Class<E> enumClass) {
-        Validate.notNull(enumClass, "EnumClass must be defined.");
-
-        final E[] constants = enumClass.getEnumConstants();
-        Validate.isTrue(constants != null, "%s does not seem to be an Enum type", enumClass);
-        Validate.isTrue(constants.length <= Long.SIZE, "Cannot store %s %s values in %s bits", constants.length,
+        final E[] constants = asEnum(enumClass).getEnumConstants();
+        Validate.isTrue(constants.length <= Long.SIZE, CANNOT_STORE_S_S_VALUES_IN_S_BITS, constants.length,
             enumClass.getSimpleName(), Long.SIZE);
 
+        return enumClass;
+    }
+
+    /**
+     * Validate {@code enumClass}.
+     * @param <E> the type of the enumeration
+     * @param enumClass to check
+     * @return {@code enumClass}
+     * @throws NullPointerException if {@code enumClass} is {@code null}
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class
+     * @since 3.2
+     */
+    private static <E extends Enum<E>> Class<E> asEnum(Class<E> enumClass) {
+        Validate.notNull(enumClass, ENUM_CLASS_MUST_BE_DEFINED);
+        Validate.isTrue(enumClass.isEnum(), S_DOES_NOT_SEEM_TO_BE_AN_ENUM_TYPE, enumClass);
         return enumClass;
     }
 }
