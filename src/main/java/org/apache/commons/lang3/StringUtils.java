@@ -691,8 +691,12 @@ public class StringUtils {
     public static boolean equalsIgnoreCase(CharSequence str1, CharSequence str2) {
         if (str1 == null || str2 == null) {
             return str1 == str2;
+        } else if (str1 == str2) {
+            return true;
+        } else if (str1.length() != str2.length()) {
+            return false;
         } else {
-            return CharSequenceUtils.regionMatches(str1, true, 0, str2, 0, Math.max(str1.length(), str2.length()));
+            return CharSequenceUtils.regionMatches(str1, true, 0, str2, 0, str1.length());
         }
     }
 
