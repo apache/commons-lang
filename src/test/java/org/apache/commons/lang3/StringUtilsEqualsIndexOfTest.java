@@ -525,6 +525,8 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(false, StringUtils.equalsIgnoreCase(FOO, BAR));
         assertEquals(false, StringUtils.equalsIgnoreCase(FOO, null));
         assertEquals(false, StringUtils.equalsIgnoreCase(null, FOO));
+        assertEquals(true, StringUtils.equalsIgnoreCase("",""));
+        assertEquals(false, StringUtils.equalsIgnoreCase("abcd","abcd "));
     }
 
     //-----------------------------------------------------------------------
