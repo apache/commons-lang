@@ -371,6 +371,12 @@ public class MethodUtilsTest {
                 singletonArray(ChildObject.class), singletonArray(ChildInterface.class));
     }
 
+    @Test
+    public void testNullArgument() {
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "oneParameter",
+                singletonArray(null), singletonArray(String.class));
+    }
+
     private void expectMatchingAccessibleMethodParameterTypes(Class<?> cls,
             String methodName, Class<?>[] requestTypes, Class<?>[] actualTypes) {
         Method m = MethodUtils.getMatchingAccessibleMethod(cls, methodName,

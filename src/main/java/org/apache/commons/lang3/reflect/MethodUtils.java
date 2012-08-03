@@ -86,11 +86,7 @@ public class MethodUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        int arguments = args.length;
-        Class<?>[] parameterTypes = new Class[arguments];
-        for (int i = 0; i < arguments; i++) {
-            parameterTypes[i] = args[i].getClass();
-        }
+        Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeMethod(object, methodName, args, parameterTypes);
     }
 
@@ -157,11 +153,7 @@ public class MethodUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        int arguments = args.length;
-        Class<?>[] parameterTypes = new Class[arguments];
-        for (int i = 0; i < arguments; i++) {
-            parameterTypes[i] = args[i].getClass();
-        }
+        Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeExactMethod(object, methodName, args, parameterTypes);
     }
 
@@ -271,11 +263,7 @@ public class MethodUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        int arguments = args.length;
-        Class<?>[] parameterTypes = new Class[arguments];
-        for (int i = 0; i < arguments; i++) {
-            parameterTypes[i] = args[i].getClass();
-        }
+        Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeStaticMethod(cls, methodName, args, parameterTypes);
     }
 
@@ -344,11 +332,7 @@ public class MethodUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        int arguments = args.length;
-        Class<?>[] parameterTypes = new Class[arguments];
-        for (int i = 0; i < arguments; i++) {
-            parameterTypes[i] = args[i].getClass();
-        }
+        Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeExactStaticMethod(cls, methodName, args, parameterTypes);
     }
 
