@@ -25,6 +25,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.lang3.mutable.MutableObject;
 
 /**
  * Unit tests ConstructorUtils
@@ -197,6 +198,11 @@ public class ConstructorUtilsTest extends TestCase {
                 singletonArray(Double.class), singletonArray(Double.TYPE));
         expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
                 singletonArray(Double.TYPE), singletonArray(Double.TYPE));
+    }
+
+    public void testNullArgument() {
+        expectMatchingAccessibleConstructorParameterTypes(MutableObject.class,
+                singletonArray(null), singletonArray(Object.class));
     }
 
     private void expectMatchingAccessibleConstructorParameterTypes(Class<?> cls,

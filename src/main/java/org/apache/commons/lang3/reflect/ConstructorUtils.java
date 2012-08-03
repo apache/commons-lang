@@ -81,10 +81,7 @@ public class ConstructorUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        Class<?> parameterTypes[] = new Class[args.length];
-        for (int i = 0; i < args.length; i++) {
-            parameterTypes[i] = args[i].getClass();
-        }
+        Class<?> parameterTypes[] = ClassUtils.toClass(args);
         return invokeConstructor(cls, args, parameterTypes);
     }
 
@@ -148,11 +145,7 @@ public class ConstructorUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        int arguments = args.length;
-        Class<?> parameterTypes[] = new Class[arguments];
-        for (int i = 0; i < arguments; i++) {
-            parameterTypes[i] = args[i].getClass();
-        }
+        Class<?> parameterTypes[] = ClassUtils.toClass(args);
         return invokeExactConstructor(cls, args, parameterTypes);
     }
 
