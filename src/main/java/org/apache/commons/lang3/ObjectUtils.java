@@ -605,4 +605,170 @@ public class ObjectUtils {
         }
     }
 
+
+    // Constants (LANG-816):
+    /*
+        These methods ensure constants are not inlined by javac.
+        For example, typically a developer might declare a constant like so:
+
+            public final static int MAGIC_NUMBER = 5;
+
+        Should a different jar file refer to this, and the MAGIC_NUMBER
+        is changed a later date (e.g., MAGIC_NUMBER = 6), the different jar
+        file will need to recompile itself.  This is because javac
+        typically inlines the primitive or String constant directly into
+        the bytecode, and removes the reference to the MAGIC_NUMBER field.
+
+        To help the other jar (so that it does not need to recompile
+        when constants are changed) the original developer can declare
+        their constant using one of the CONST() utility methods, instead:
+
+            public final static int MAGIC_NUMBER = CONST(5);
+     */
+
+
+    /**
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
+     *
+     *  public final static boolean MAGIC_FLAG = CONST(true);
+     *
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
+     *
+     * @param v the boolean value to return
+     * @return the boolean v, unchanged
+     */
+    public static boolean CONST(final boolean v) { return v; }
+
+    /**
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
+     *
+     *  public final static byte MAGIC_BYTE = CONST(127);
+     *
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
+     *
+     * @param v the byte value to return
+     * @return the byte v, unchanged
+     */
+    public static byte CONST(final byte v) { return v; }
+
+    /**
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
+     *
+     *  public final static byte MAGIC_CHAR = CONST('a');
+     *
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
+     *
+     * @param v the char value to return
+     * @return the char v, unchanged
+     */
+    public static char CONST(final char v) { return v; }
+
+    /**
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
+     *
+     *  public final static byte MAGIC_SHORT = CONST(123);
+     *
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
+     *
+     * @param v the short value to return
+     * @return the short v, unchanged
+     */
+    public static short CONST(final short v) { return v; }
+
+    /**
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
+     *
+     *  public final static byte MAGIC_INT = CONST(123);
+     *
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
+     *
+     * @param v the int value to return
+     * @return the int v, unchanged
+     */
+    public static int CONST(final int v) { return v; }
+
+    /**
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
+     *
+     *  public final static byte MAGIC_LONG = CONST(123L);
+     *
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
+     *
+     * @param v the long value to return
+     * @return the long v, unchanged
+     */
+    public static long CONST(final long v) { return v; }
+
+    /**
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
+     *
+     *  public final static byte MAGIC_FLOAT = CONST(1.0f);
+     *
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
+     *
+     * @param v the float value to return
+     * @return the float v, unchanged
+     */
+    public static float CONST(final float v) { return v; }
+
+    /**
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
+     *
+     *  public final static byte MAGIC_DOUBLE = CONST(1.0);
+     *
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
+     *
+     * @param v the double value to return
+     * @return the double v, unchanged
+     */
+    public static double CONST(final double v) { return v; }
+
+    /**
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
+     *
+     *  public final static byte MAGIC_STRING = CONST("abc");
+     *
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
+     *
+     * @param v the genericized Object value to return (typically a String).
+     * @return the genericized Object v, unchanged (typically a String).
+     */
+    public static <T> T CONST(final T v) { return v; }
+
 }
