@@ -450,6 +450,24 @@ public class ObjectUtilsTest {
         }
     }
 
+    @Test
+    public void testConstMethods() {
+
+        // To truly test the CONST() method, we'd want to look in the
+        // bytecode to see if the literals were folded into the
+        // class, or if the bytecode kept the method call.
+
+        assertEquals("CONST(boolean)", true, ObjectUtils.CONST(true));
+        assertEquals("CONST(byte)", (byte) 3, ObjectUtils.CONST((byte) 3));
+        assertEquals("CONST(char)", (char) 3, ObjectUtils.CONST((char) 3));
+        assertEquals("CONST(short)", (short) 3, ObjectUtils.CONST((short) 3));
+        assertEquals("CONST(int)", 3, ObjectUtils.CONST(3));
+        assertEquals("CONST(long)", 3l, ObjectUtils.CONST(3l));
+        assertEquals("CONST(float)", 3f, ObjectUtils.CONST(3f), 0);
+        assertEquals("CONST(double)", 3.0, ObjectUtils.CONST(3.0), 0);
+        assertEquals("CONST(Object)", "abc", ObjectUtils.CONST("abc"));
+    }
+
     /**
      * String that is cloneable.
      */
