@@ -432,7 +432,7 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.2</version>
+      <version>2.4</version>
       <scope>test</scope>
     </dependency>
 
@@ -538,7 +538,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>2.4.0</version>
+        <version>2.5.2</version>
         <configuration>
           <threshold>Normal</threshold>
           <effort>Default</effort>
@@ -553,7 +553,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>clirr-maven-plugin</artifactId>
-        <version>2.3</version>
+        <version>2.4</version>
         <configuration>
           <minSeverity>info</minSeverity>
         </configuration>
