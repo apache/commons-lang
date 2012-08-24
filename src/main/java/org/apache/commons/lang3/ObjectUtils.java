@@ -632,7 +632,9 @@ public class ObjectUtils {
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
-     *  public final static boolean MAGIC_FLAG = CONST(true);
+     * <pre>
+     *     public final static boolean MAGIC_FLAG = ObjectUtils.CONST(true);
+     * </pre>
      *
      * This way any jars that refer to this field do not
      * have to recompile themselves if the field's value
@@ -648,7 +650,9 @@ public class ObjectUtils {
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
-     *  public final static byte MAGIC_BYTE = CONST(127);
+     * <pre>
+     *     public final static byte MAGIC_BYTE = ObjectUtils.CONST((byte) 127);
+     * </pre>
      *
      * This way any jars that refer to this field do not
      * have to recompile themselves if the field's value
@@ -664,7 +668,35 @@ public class ObjectUtils {
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
-     *  public final static byte MAGIC_CHAR = CONST('a');
+     * <pre>
+     *     public final static byte MAGIC_BYTE = ObjectUtils.CONST_BYTE(127);
+     * </pre>
+     *
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
+     *
+     * @param v the byte literal (as an int) value to return
+     * @throws IllegalArgumentException if the value passed to v
+     *         is larger than a byte, that is, smaller than -128 or
+     *         larger than 127.
+     * @return the byte v, unchanged
+     */
+    public static byte CONST_BYTE(final int v) throws IllegalArgumentException {
+        if (v < Byte.MIN_VALUE || v > Byte.MAX_VALUE) {
+            throw new IllegalArgumentException("Supplied value must be a valid byte literal between -128 and 127: [" + v + "]");
+        }
+        return (byte) v;
+    }
+
+    /**
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
+     *
+     * <pre>
+     *     public final static char MAGIC_CHAR = ObjectUtils.CONST('a');
+     * </pre>
      *
      * This way any jars that refer to this field do not
      * have to recompile themselves if the field's value
@@ -680,7 +712,9 @@ public class ObjectUtils {
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
-     *  public final static byte MAGIC_SHORT = CONST(123);
+     * <pre>
+     *     public final static short MAGIC_SHORT = ObjectUtils.CONST((short) 123);
+     * </pre>
      *
      * This way any jars that refer to this field do not
      * have to recompile themselves if the field's value
@@ -696,7 +730,36 @@ public class ObjectUtils {
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
-     *  public final static byte MAGIC_INT = CONST(123);
+     * <pre>
+     *     public final static short MAGIC_SHORT = ObjectUtils.CONST_SHORT(127);
+     * </pre>
+     *
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
+     *
+     * @param v the short literal (as an int) value to return
+     * @throws IllegalArgumentException if the value passed to v
+     *         is larger than a short, that is, smaller than -32768 or
+     *         larger than 32767.
+     * @return the byte v, unchanged
+     */
+    public static short CONST_SHORT(final int v) throws IllegalArgumentException {
+        if (v < Short.MIN_VALUE || v > Short.MAX_VALUE) {
+            throw new IllegalArgumentException("Supplied value must be a valid byte literal between -32768 and 32767: [" + v + "]");
+        }
+        return (short) v;
+    }
+
+
+    /**
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
+     *
+     * <pre>
+     *     public final static int MAGIC_INT = ObjectUtils.CONST(123);
+     * </pre>
      *
      * This way any jars that refer to this field do not
      * have to recompile themselves if the field's value
@@ -712,7 +775,9 @@ public class ObjectUtils {
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
-     *  public final static byte MAGIC_LONG = CONST(123L);
+     * <pre>
+     *     public final static long MAGIC_LONG = ObjectUtils.CONST(123L);
+     * </pre>
      *
      * This way any jars that refer to this field do not
      * have to recompile themselves if the field's value
@@ -728,7 +793,9 @@ public class ObjectUtils {
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
-     *  public final static byte MAGIC_FLOAT = CONST(1.0f);
+     * <pre>
+     *     public final static float MAGIC_FLOAT = ObjectUtils.CONST(1.0f);
+     * </pre>
      *
      * This way any jars that refer to this field do not
      * have to recompile themselves if the field's value
@@ -744,7 +811,9 @@ public class ObjectUtils {
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
-     *  public final static byte MAGIC_DOUBLE = CONST(1.0);
+     * <pre>
+     *     public final static double MAGIC_DOUBLE = ObjectUtils.CONST(1.0);
+     * </pre>
      *
      * This way any jars that refer to this field do not
      * have to recompile themselves if the field's value
@@ -760,7 +829,9 @@ public class ObjectUtils {
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
-     *  public final static byte MAGIC_STRING = CONST("abc");
+     * <pre>
+     *     public final static String MAGIC_STRING = ObjectUtils.CONST("abc");
+     * </pre>
      *
      * This way any jars that refer to this field do not
      * have to recompile themselves if the field's value
