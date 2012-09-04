@@ -1225,6 +1225,18 @@ public class SystemUtils {
 
     /**
      * <p>
+     * Is {@code true} if this is Windows 8.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.2
+     */
+    public static final boolean IS_OS_WINDOWS_8 = getOSMatches(OS_NAME_WINDOWS_PREFIX, "6.2");
+
+    /**
+     * <p>
      * Gets the Java home directory as a {@code File}.
      * </p>
      *
