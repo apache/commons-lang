@@ -179,7 +179,7 @@ public class FastDateParserTest {
     }
     
     @Test
-    public void testLocales() throws ParseException {
+    public void testLocales() {
                 
         for(Locale locale : Locale.getAvailableLocales()) {
             Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
