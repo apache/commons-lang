@@ -142,6 +142,8 @@ public class StringUtilsIsTest extends TestCase {
         assertEquals(false, StringUtils.isNumeric("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
         assertEquals(false, StringUtils.isNumeric("_"));
         assertEquals(false, StringUtils.isNumeric("hkHKHik*khbkuh"));
+        assertEquals(false, StringUtils.isNumeric("+123"));
+        assertEquals(false, StringUtils.isNumeric("-123"));
     }
 
     public void testIsNumericSpace() {
