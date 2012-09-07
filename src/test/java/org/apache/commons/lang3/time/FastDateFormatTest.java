@@ -251,7 +251,7 @@ public class FastDateFormatTest {
     }
 
     @Test
-    public void testParseSync() throws ParseException, InterruptedException {
+    public void testParseSync() throws InterruptedException {
         final FastDateFormat formatter= FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS Z");
         
         long sdfTime= measureTime(formatter, new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z") {
@@ -274,7 +274,7 @@ public class FastDateFormatTest {
     final static private int NTHREADS= 10;
     final static private int NROUNDS= 10000;
     
-    private long measureTime(final Format formatter, final Format parser) throws ParseException, InterruptedException {
+    private long measureTime(final Format formatter, final Format parser) throws InterruptedException {
         final ExecutorService pool = Executors.newFixedThreadPool(NTHREADS);
         final AtomicInteger failures= new AtomicInteger(0);
         final AtomicLong totalElapsed= new AtomicLong(0);
