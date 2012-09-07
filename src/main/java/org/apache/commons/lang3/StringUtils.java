@@ -5226,6 +5226,11 @@ public class StringUtils {
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code false}.</p>
      *
+     * <p>Note that the method does not allow for a leading sign, either positive or negative.
+     * Also, if a String passes the numeric test, it may still generate a NumberFormatException
+     * when parsed by Integer.parseInt or Long.parseLong, e.g. if the value is outside the range
+     * for int or long respectively.</p>
+     *
      * <pre>
      * StringUtils.isNumeric(null)   = false
      * StringUtils.isNumeric("")     = false
@@ -5235,6 +5240,8 @@ public class StringUtils {
      * StringUtils.isNumeric("ab2c") = false
      * StringUtils.isNumeric("12-3") = false
      * StringUtils.isNumeric("12.3") = false
+     * StringUtils.isNumeric("-123") = false
+     * StringUtils.isNumeric("+123") = false
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
