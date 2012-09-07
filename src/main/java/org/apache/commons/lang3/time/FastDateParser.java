@@ -793,7 +793,7 @@ public class FastDateParser implements DateParser, Serializable {
             }
             cal.setTimeZone(tz);
         }        
-    };
+    }
 
     private static final Strategy ERA_STRATEGY = new TextStrategy(Calendar.ERA);
     private static final Strategy DAY_OF_WEEK_STRATEGY = new TextStrategy(Calendar.DAY_OF_WEEK);
