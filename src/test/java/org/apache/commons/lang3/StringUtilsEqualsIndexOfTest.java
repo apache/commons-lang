@@ -484,8 +484,8 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     }
 
     public void testCustomCharSequence() {
-        assertThat((CharSequence) new CustomCharSequence(FOO), IsNot.<CharSequence>not(FOO));
-        assertThat((CharSequence) FOO, IsNot.<CharSequence>not(new CustomCharSequence(FOO)));
+        assertThat(new CustomCharSequence(FOO), IsNot.<CharSequence>not(FOO));
+        assertThat(FOO, IsNot.<CharSequence>not(new CustomCharSequence(FOO)));
         assertEquals(new CustomCharSequence(FOO), new CustomCharSequence(FOO));
     }
 
@@ -493,11 +493,11 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         final CharSequence fooCs = FOO, barCs = BAR, foobarCs = FOOBAR;
         assertTrue(StringUtils.equals(null, null));
         assertTrue(StringUtils.equals(fooCs, fooCs));
-        assertTrue(StringUtils.equals(fooCs, (CharSequence) new StringBuilder(FOO)));
-        assertTrue(StringUtils.equals(fooCs, (CharSequence) new String(new char[] { 'f', 'o', 'o' })));
-        assertTrue(StringUtils.equals(fooCs, (CharSequence) new CustomCharSequence(FOO)));
-        assertTrue(StringUtils.equals((CharSequence) new CustomCharSequence(FOO), fooCs));
-        assertFalse(StringUtils.equals(fooCs, (CharSequence) new String(new char[] { 'f', 'O', 'O' })));
+        assertTrue(StringUtils.equals(fooCs, new StringBuilder(FOO)));
+        assertTrue(StringUtils.equals(fooCs, new String(new char[] { 'f', 'o', 'o' })));
+        assertTrue(StringUtils.equals(fooCs, new CustomCharSequence(FOO)));
+        assertTrue(StringUtils.equals(new CustomCharSequence(FOO), fooCs));
+        assertFalse(StringUtils.equals(fooCs, new String(new char[] { 'f', 'O', 'O' })));
         assertFalse(StringUtils.equals(fooCs, barCs));
         assertFalse(StringUtils.equals(fooCs, null));
         assertFalse(StringUtils.equals(null, fooCs));
