@@ -296,7 +296,7 @@ public class ObjectUtils {
      * @see StringUtils#defaultString(String)
      * @see String#valueOf(Object)
      * @param obj  the Object to {@code toString}, may be null
-     * @return the passed in Object's toString, or nullStr if {@code null} input
+     * @return the passed in Object's toString, or {@code ""} if {@code null} input
      * @since 2.0
      */
     public static String toString(Object obj) {
@@ -319,7 +319,7 @@ public class ObjectUtils {
      * @see String#valueOf(Object)
      * @param obj  the Object to {@code toString}, may be null
      * @param nullStr  the String to return if {@code null} input, may be null
-     * @return the passed in Object's toString, or nullStr if {@code null} input
+     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
      * @since 2.0
      */
     public static String toString(Object obj, String nullStr) {
