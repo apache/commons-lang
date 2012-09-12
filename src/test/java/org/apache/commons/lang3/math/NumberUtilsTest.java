@@ -340,6 +340,12 @@ public class NumberUtilsTest {
         this.testCreateBigDecimalFailure("\b\t\n\f\r");
         // Funky whitespaces
         this.testCreateBigDecimalFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        this.testCreateBigDecimalFailure("-"); // sign alone not valid
+        this.testCreateBigDecimalFailure("--"); // comment in NumberUtils suggests some implementations may incorrectly allow this
+        this.testCreateBigDecimalFailure("--0");
+        this.testCreateBigDecimalFailure("+"); // sign alone not valid
+        this.testCreateBigDecimalFailure("++"); // in case this was also allowed by some JVMs
+        this.testCreateBigDecimalFailure("++0");
     }
 
     protected void testCreateBigDecimalFailure(String str) {
