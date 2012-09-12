@@ -418,8 +418,13 @@ public class NumberUtils {
     /**
      * <p>Turns a string value into a java.lang.Number.</p>
      *
-     * <p>First, the value is examined for a type qualifier on the end
-     * (<code>'f','F','d','D','l','L'</code>).  If it is found, it starts 
+     * <p>If the string starts with <code>0x</code> or <code>-0x</code> (lower or upper case), it
+     * will be interpreted as a hexadecimal integer - or long, if the number of digits after the 0x
+     * prefix is more than 8.
+     * Values with leading <code>0</code>'s will not be interpreted as octal.</p>
+     *
+     * <p>Then, the value is examined for a type qualifier on the end, i.e. one of
+     * <code>'f','F','d','D','l','L'</code>.  If it is found, it starts 
      * trying to create successively larger types from the type specified
      * until one is found that can represent the value.</p>
      *
@@ -427,10 +432,6 @@ public class NumberUtils {
      * and then try successively larger types from <code>Integer</code> to
      * <code>BigInteger</code> and from <code>Float</code> to
      * <code>BigDecimal</code>.</p>
-     *
-     * <p>If the string starts with <code>0x</code> or <code>-0x</code> (lower or upper case), it
-     * will be interpreted as a hexadecimal integer.  Values with leading
-     * <code>0</code>'s will not be interpreted as octal.</p>
      *
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      *
@@ -456,6 +457,13 @@ public class NumberUtils {
             return null;
         }
         if (str.startsWith("0x") || str.startsWith("-0x") || str.startsWith("0X") || str.startsWith("-0X")) {
+            int hexDigits = str.length() - 2; // drop 0x
+            if (str.startsWith("-")) { // drop -
+                hexDigits--;
+            }
+            if (hexDigits > 8) { // too many for an int
+                return createLong(str);
+            }
             return createInteger(str);
         }   
         char lastChar = str.charAt(str.length() - 1);
