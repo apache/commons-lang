@@ -39,6 +39,7 @@
     <action issue="LANG-765" type="fix">EventListenerSupport.ProxyInvocationHandler no longer defines serialVersionUID</action>
     <action issue="LANG-764" type="fix">StrBuilder is now serializable</action>
     <action issue="LANG-761" type="fix">Fix Javadoc Ant warnings</action>
+    <action issue="LANG-747" type="fix">NumberUtils does not handle Long Hex numbers</action>
     <action issue="LANG-743" type="fix">Javadoc bug in static inner class DateIterator</action>
     <action issue="LANG-675" type="add">Add Triple class (ternary version of Pair)</action>
     <action issue="LANG-462" type="add">FastDateFormat supports parse methods</action>
