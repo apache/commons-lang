@@ -17,14 +17,17 @@
 
 package org.apache.commons.lang3.text.translate;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeEscaper}.
  * @version $Id$
  */
-public class UnicodeEscaperTest extends TestCase {
+public class UnicodeEscaperTest  {
 
+    @Test
     public void testBelow() {
         UnicodeEscaper ue = UnicodeEscaper.below('F');
 
@@ -33,6 +36,7 @@ public class UnicodeEscaperTest extends TestCase {
         assertEquals("Failed to escape Unicode characters via the below method", "\\u0041\\u0044FGZ", result);
     }
 
+    @Test
     public void testBetween() {
         UnicodeEscaper ue = UnicodeEscaper.between('F', 'L');
 
@@ -41,6 +45,7 @@ public class UnicodeEscaperTest extends TestCase {
         assertEquals("Failed to escape Unicode characters via the between method", "AD\\u0046\\u0047Z", result);
     }
 
+    @Test
     public void testAbove() {
         UnicodeEscaper ue = UnicodeEscaper.above('F');
 

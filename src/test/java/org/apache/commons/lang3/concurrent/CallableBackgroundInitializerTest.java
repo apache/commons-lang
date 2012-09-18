@@ -16,18 +16,21 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Test class for {@code CallableBackgroundInitializer}
  *
  * @version $Id$
  */
-public class CallableBackgroundInitializerTest extends TestCase {
+public class CallableBackgroundInitializerTest  {
     /** Constant for the result of the call() invocation. */
     private static final Integer RESULT = Integer.valueOf(42);
 
@@ -35,6 +38,7 @@ public class CallableBackgroundInitializerTest extends TestCase {
      * Tries to create an instance without a Callable. This should cause an
      * exception.
      */
+    @Test
     public void testInitNullCallable() {
         try {
             new CallableBackgroundInitializer<Object>(null);
@@ -48,6 +52,7 @@ public class CallableBackgroundInitializerTest extends TestCase {
      * Tests whether the executor service is correctly passed to the super
      * class.
      */
+    @Test
     public void testInitExecutor() {
         ExecutorService exec = Executors.newSingleThreadExecutor();
         CallableBackgroundInitializer<Integer> init = new CallableBackgroundInitializer<Integer>(
@@ -59,6 +64,7 @@ public class CallableBackgroundInitializerTest extends TestCase {
      * Tries to pass a null Callable to the constructor that takes an executor.
      * This should cause an exception.
      */
+    @Test
     public void testInitExecutorNullCallable() {
         ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
@@ -72,6 +78,7 @@ public class CallableBackgroundInitializerTest extends TestCase {
     /**
      * Tests the implementation of initialize().
      */
+    @Test
     public void testInitialize() throws Exception {
         TestCallable call = new TestCallable();
         CallableBackgroundInitializer<Integer> init = new CallableBackgroundInitializer<Integer>(

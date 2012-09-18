@@ -18,28 +18,29 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
 import java.lang.reflect.Modifier;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.CharSet}.
  *
  * @version $Id$
  */
-public class CharSetTest extends TestCase {
-    
-    public CharSetTest(String name) {
-        super(name);
-    }
+public class CharSetTest  {
 
     //-----------------------------------------------------------------------
+    @Test
     public void testClass() {
         assertEquals(true, Modifier.isPublic(CharSet.class.getModifiers()));
         assertEquals(false, Modifier.isFinal(CharSet.class.getModifiers()));
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testGetInstance() {
         assertSame(CharSet.EMPTY, CharSet.getInstance( (String) null));
         assertSame(CharSet.EMPTY, CharSet.getInstance(""));
@@ -51,6 +52,7 @@ public class CharSetTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testGetInstance_Stringarray() {
         assertEquals(null, CharSet.getInstance((String[]) null));
         assertEquals("[]", CharSet.getInstance(new String[0]).toString());
@@ -59,6 +61,7 @@ public class CharSetTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor_String_simple() {
         CharSet set;
         CharRange[] array;
@@ -98,6 +101,7 @@ public class CharSetTest extends TestCase {
         assertEquals("^a-e", array[0].toString());
     }
     
+    @Test
     public void testConstructor_String_combo() {
         CharSet set;
         CharRange[] array;
@@ -136,6 +140,7 @@ public class CharSetTest extends TestCase {
         assertEquals(true, ArrayUtils.contains(array, CharRange.is('z')));
     }
     
+    @Test
     public void testConstructor_String_comboNegated() {
         CharSet set;
         CharRange[] array;
@@ -176,6 +181,7 @@ public class CharSetTest extends TestCase {
         assertEquals(true, ArrayUtils.contains(array, CharRange.is('b')));
     }
 
+    @Test
     public void testConstructor_String_oddDash() {
         CharSet set;
         CharRange[] array;
@@ -223,6 +229,7 @@ public class CharSetTest extends TestCase {
         assertEquals(true, ArrayUtils.contains(array, CharRange.isIn('-', 'a')));
     }
     
+    @Test
     public void testConstructor_String_oddNegate() {
         CharSet set;
         CharRange[] array;
@@ -282,6 +289,7 @@ public class CharSetTest extends TestCase {
         assertEquals(true, ArrayUtils.contains(array, CharRange.is('-'))); // "-"
     }
     
+    @Test
     public void testConstructor_String_oddCombinations() {
         CharSet set;
         CharRange[] array = null;
@@ -331,6 +339,7 @@ public class CharSetTest extends TestCase {
     }
         
     //-----------------------------------------------------------------------    
+    @Test
     public void testEquals_Object() {
         CharSet abc = CharSet.getInstance("abc");
         CharSet abc2 = CharSet.getInstance("abc");
@@ -357,6 +366,7 @@ public class CharSetTest extends TestCase {
         assertEquals(true, notatoc.equals(notatoc2));
     }
             
+    @Test
     public void testHashCode() {
         CharSet abc = CharSet.getInstance("abc");
         CharSet abc2 = CharSet.getInstance("abc");
@@ -374,6 +384,7 @@ public class CharSetTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------    
+    @Test
     public void testContains_Char() {
         CharSet btod = CharSet.getInstance("b-d");
         CharSet dtob = CharSet.getInstance("d-b");
@@ -417,6 +428,7 @@ public class CharSetTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------    
+    @Test
     public void testSerialization() {
         CharSet set = CharSet.getInstance("a");
         assertEquals(set, SerializationUtils.clone(set)); 
@@ -427,6 +439,7 @@ public class CharSetTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------    
+    @Test
     public void testStatics() {
         CharRange[] array;
         

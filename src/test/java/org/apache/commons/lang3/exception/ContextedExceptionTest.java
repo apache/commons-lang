@@ -16,9 +16,14 @@
  */
 package org.apache.commons.lang3.exception;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
 
 /**
  * JUnit tests for ContextedException.
@@ -31,6 +36,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         super.setUp();
     }
 
+    @Test
     public void testContextedException() {
         exceptionContext = new ContextedException();
         String message = exceptionContext.getMessage();
@@ -39,6 +45,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         assertTrue(StringUtils.isEmpty(message));
     }
 
+    @Test
     public void testContextedExceptionString() {
         exceptionContext = new ContextedException(TEST_MESSAGE);
         assertEquals(TEST_MESSAGE, exceptionContext.getMessage());
@@ -47,6 +54,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         assertTrue(trace.indexOf(TEST_MESSAGE)>=0);
     }
 
+    @Test
     public void testContextedExceptionThrowable() {
         exceptionContext = new ContextedException(new Exception(TEST_MESSAGE));
         String message = exceptionContext.getMessage();
@@ -56,6 +64,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         assertTrue(message.indexOf(TEST_MESSAGE)>=0);
     }
 
+    @Test
     public void testContextedExceptionStringThrowable() {
         exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE));
         String message = exceptionContext.getMessage();
@@ -66,6 +75,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         assertTrue(message.indexOf(TEST_MESSAGE_2)>=0);
     }
     
+    @Test
     public void testContextedExceptionStringThrowableContext() {
         exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext());
         String message = exceptionContext.getMessage();
@@ -76,6 +86,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         assertTrue(message.indexOf(TEST_MESSAGE_2)>=0);
     }
 
+    @Test
     public void testNullExceptionPassing() {
         exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), null)
         .addContextValue("test1", null)
@@ -88,6 +99,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         assertTrue(message != null);
     }
 
+    @Test
     public void testRawMessage() {
         assertEquals(Exception.class.getName() + ": " + TEST_MESSAGE, exceptionContext.getRawMessage());
         exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext());

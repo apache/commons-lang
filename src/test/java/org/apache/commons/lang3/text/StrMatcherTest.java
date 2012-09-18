@@ -17,29 +17,26 @@
 
 package org.apache.commons.lang3.text;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.StrMatcher}.
  *
  * @version $Id$
  */
-public class StrMatcherTest extends TestCase {
+public class StrMatcherTest  {
 
     private static final char[] BUFFER1 = "0,1\t2 3\n\r\f\u0000'\"".toCharArray();
 
     private static final char[] BUFFER2 = "abcdef".toCharArray();
 
-    /**
-     * Create a new test case with the specified name.
-     * 
-     * @param name  the name
-     */
-    public StrMatcherTest(String name) {
-        super(name);
-    }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testCommaMatcher() {
         StrMatcher matcher = StrMatcher.commaMatcher();
         assertSame(matcher, StrMatcher.commaMatcher());
@@ -49,6 +46,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testTabMatcher() {
         StrMatcher matcher = StrMatcher.tabMatcher();
         assertSame(matcher, StrMatcher.tabMatcher());
@@ -58,6 +56,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testSpaceMatcher() {
         StrMatcher matcher = StrMatcher.spaceMatcher();
         assertSame(matcher, StrMatcher.spaceMatcher());
@@ -67,6 +66,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testSplitMatcher() {
         StrMatcher matcher = StrMatcher.splitMatcher();
         assertSame(matcher, StrMatcher.splitMatcher());
@@ -82,6 +82,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testTrimMatcher() {
         StrMatcher matcher = StrMatcher.trimMatcher();
         assertSame(matcher, StrMatcher.trimMatcher());
@@ -97,6 +98,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testSingleQuoteMatcher() {
         StrMatcher matcher = StrMatcher.singleQuoteMatcher();
         assertSame(matcher, StrMatcher.singleQuoteMatcher());
@@ -106,6 +108,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testDoubleQuoteMatcher() {
         StrMatcher matcher = StrMatcher.doubleQuoteMatcher();
         assertSame(matcher, StrMatcher.doubleQuoteMatcher());
@@ -114,6 +117,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testQuoteMatcher() {
         StrMatcher matcher = StrMatcher.quoteMatcher();
         assertSame(matcher, StrMatcher.quoteMatcher());
@@ -123,6 +127,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNoneMatcher() {
         StrMatcher matcher = StrMatcher.noneMatcher();
         assertSame(matcher, StrMatcher.noneMatcher());
@@ -142,6 +147,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testCharMatcher_char() {
         StrMatcher matcher = StrMatcher.charMatcher('c');
         assertEquals(0, matcher.isMatch(BUFFER2, 0));
@@ -153,6 +159,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testCharSetMatcher_String() {
         StrMatcher matcher = StrMatcher.charSetMatcher("ace");
         assertEquals(1, matcher.isMatch(BUFFER2, 0));
@@ -167,6 +174,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testCharSetMatcher_charArray() {
         StrMatcher matcher = StrMatcher.charSetMatcher("ace".toCharArray());
         assertEquals(1, matcher.isMatch(BUFFER2, 0));
@@ -181,6 +189,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testStringMatcher_String() {
         StrMatcher matcher = StrMatcher.stringMatcher("bc");
         assertEquals(0, matcher.isMatch(BUFFER2, 0));
@@ -194,6 +203,7 @@ public class StrMatcherTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testMatcherIndices() {
         // remember that the API contract is tight for the isMatch() method
         // all the onus is on the caller, so invalid inputs are not

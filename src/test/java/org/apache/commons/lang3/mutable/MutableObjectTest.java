@@ -16,7 +16,8 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * JUnit tests.
@@ -24,13 +25,10 @@ import junit.framework.TestCase;
  * @version $Id$
  * @see MutableShort
  */
-public class MutableObjectTest extends TestCase {
-
-    public MutableObjectTest(String testName) {
-        super(testName);
-    }
+public class MutableObjectTest {
 
     // ----------------------------------------------------------------
+    @Test
     public void testConstructors() {
         assertEquals(null, new MutableObject<String>().getValue());
         
@@ -40,6 +38,7 @@ public class MutableObjectTest extends TestCase {
         assertSame(null, new MutableObject<Object>(null).getValue());
     }
 
+    @Test
     public void testGetSet() {
         final MutableObject<String> mutNum = new MutableObject<String>();
         assertEquals(null, new MutableObject<Object>().getValue());
@@ -51,6 +50,7 @@ public class MutableObjectTest extends TestCase {
         assertSame(null, mutNum.getValue());
     }
 
+    @Test
     public void testEquals() {
         final MutableObject<String> mutNumA = new MutableObject<String>("ALPHA");
         final MutableObject<String> mutNumB = new MutableObject<String>("ALPHA");
@@ -72,6 +72,7 @@ public class MutableObjectTest extends TestCase {
         assertEquals(false, mutNumA.equals("0"));
     }
 
+    @Test
     public void testHashCode() {
         final MutableObject<String> mutNumA = new MutableObject<String>("ALPHA");
         final MutableObject<String> mutNumB = new MutableObject<String>("ALPHA");
@@ -86,6 +87,7 @@ public class MutableObjectTest extends TestCase {
         assertEquals(0, mutNumD.hashCode());
     }
 
+    @Test
     public void testToString() {
         assertEquals("HI", new MutableObject<String>("HI").toString());
         assertEquals("10.0", new MutableObject<Double>(Double.valueOf(10)).toString());

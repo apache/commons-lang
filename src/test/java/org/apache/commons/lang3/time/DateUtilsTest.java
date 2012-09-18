@@ -16,6 +16,9 @@
  */
 package org.apache.commons.lang3.time;
 
+import org.junit.Test;
+import org.junit.Before;
+import static org.junit.Assert.*;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
 
 import java.lang.reflect.Constructor;
@@ -32,15 +35,13 @@ import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
 import junit.framework.AssertionFailedError;
-import junit.framework.TestCase;
-
 import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.DateUtils}.
  *
  */
-public class DateUtilsTest extends TestCase {
+public class DateUtilsTest {
 
     private static final long MILLIS_TEST;
     static {
@@ -80,13 +81,10 @@ public class DateUtilsTest extends TestCase {
     TimeZone zone = null;
     TimeZone defaultZone = null;
 
-    public DateUtilsTest(String name) {
-        super(name);
-    }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
+
 
         dateParser = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
         dateTimeParser = new SimpleDateFormat("MMM dd, yyyy H:mm:ss.SSS", Locale.ENGLISH);
@@ -139,6 +137,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new DateUtils());
         Constructor<?>[] cons = DateUtils.class.getDeclaredConstructors();
@@ -149,6 +148,7 @@ public class DateUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testIsSameDay_Date() {
         Date date1 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
         Date date2 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
@@ -166,6 +166,7 @@ public class DateUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testIsSameDay_Cal() {
         GregorianCalendar cal1 = new GregorianCalendar(2004, 6, 9, 13, 45);
         GregorianCalendar cal2 = new GregorianCalendar(2004, 6, 9, 13, 45);
@@ -183,6 +184,7 @@ public class DateUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testIsSameInstant_Date() {
         Date date1 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
         Date date2 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
@@ -200,6 +202,7 @@ public class DateUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testIsSameInstant_Cal() {
         GregorianCalendar cal1 = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
         GregorianCalendar cal2 = new GregorianCalendar(TimeZone.getTimeZone("GMT-1"));
@@ -218,6 +221,7 @@ public class DateUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testIsSameLocalTime_Cal() {
         GregorianCalendar cal1 = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
         GregorianCalendar cal2 = new GregorianCalendar(TimeZone.getTimeZone("GMT-1"));
@@ -244,6 +248,7 @@ public class DateUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testParseDate() throws Exception {
         GregorianCalendar cal = new GregorianCalendar(1972, 11, 3);
         String dateStr = "1972-12-03";
@@ -281,6 +286,7 @@ public class DateUtilsTest extends TestCase {
         } catch (ParseException ex) {}
     }
     // LANG-486
+    @Test
     public void testParseDateWithLeniency() throws Exception {
         GregorianCalendar cal = new GregorianCalendar(1998, 6, 30);
         String dateStr = "02 942, 1996";
@@ -296,6 +302,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAddYears() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.addYears(base, 0);
@@ -315,6 +322,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAddMonths() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.addMonths(base, 0);
@@ -334,6 +342,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAddWeeks() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.addWeeks(base, 0);
@@ -353,6 +362,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAddDays() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.addDays(base, 0);
@@ -372,6 +382,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAddHours() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.addHours(base, 0);
@@ -391,6 +402,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAddMinutes() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.addMinutes(base, 0);
@@ -410,6 +422,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAddSeconds() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.addSeconds(base, 0);
@@ -429,6 +442,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAddMilliseconds() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.addMilliseconds(base, 0);
@@ -448,6 +462,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     // -----------------------------------------------------------------------
+    @Test
     public void testSetYears() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.setYears(base, 2000);
@@ -467,6 +482,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     // -----------------------------------------------------------------------
+    @Test
     public void testSetMonths() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.setMonths(base, 5);
@@ -488,6 +504,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     // -----------------------------------------------------------------------
+    @Test
     public void testSetDays() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.setDays(base, 1);
@@ -509,6 +526,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     // -----------------------------------------------------------------------
+    @Test
     public void testSetHours() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.setHours(base, 0);
@@ -530,6 +548,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     // -----------------------------------------------------------------------
+    @Test
     public void testSetMinutes() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.setMinutes(base, 0);
@@ -551,6 +570,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     // -----------------------------------------------------------------------
+    @Test
     public void testSetSeconds() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.setSeconds(base, 0);
@@ -572,6 +592,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     // -----------------------------------------------------------------------
+    @Test
     public void testSetMilliseconds() throws Exception {
         Date base = new Date(MILLIS_TEST);
         Date result = DateUtils.setMilliseconds(base, 0);
@@ -606,6 +627,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testToCalendar() {
         assertEquals("Failed to convert to a Calendar and back", date1, DateUtils.toCalendar(date1).getTime());
         try {
@@ -620,6 +642,7 @@ public class DateUtilsTest extends TestCase {
     /**
      * Tests various values with the round method
      */
+    @Test
     public void testRound() throws Exception {
         // tests for public static Date round(Date date, int field)
         assertEquals("round year-1 failed",
@@ -843,6 +866,7 @@ public class DateUtilsTest extends TestCase {
      * Tests the Changes Made by LANG-346 to the DateUtils.modify() private method invoked
      * by DateUtils.round().
      */
+    @Test
     public void testRoundLang346() throws Exception
     {
         TimeZone.setDefault(defaultZone);
@@ -905,6 +929,7 @@ public class DateUtilsTest extends TestCase {
     /**
      * Tests various values with the trunc method
      */
+    @Test
     public void testTruncate() throws Exception {
         // tests public static Date truncate(Date date, int field)
         assertEquals("truncate year-1 failed",
@@ -1098,6 +1123,7 @@ public class DateUtilsTest extends TestCase {
      *
      * see http://issues.apache.org/jira/browse/LANG-59
      */
+    @Test
     public void testTruncateLang59() throws Exception {
         if (!SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
             this.warn("WARNING: Test for LANG-59 not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
@@ -1173,6 +1199,7 @@ public class DateUtilsTest extends TestCase {
     }
 
     // http://issues.apache.org/jira/browse/LANG-530
+    @Test
     public void testLang530() throws ParseException {
         Date d = new Date();
         String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
@@ -1184,6 +1211,7 @@ public class DateUtilsTest extends TestCase {
     /**
      * Tests various values with the ceiling method
      */
+    @Test
     public void testCeil() throws Exception {
         // test javadoc
         assertEquals("ceiling javadoc-1 failed",
@@ -1433,6 +1461,7 @@ public class DateUtilsTest extends TestCase {
     /**
      * Tests the iterator exceptions
      */
+    @Test
     public void testIteratorEx() throws Exception {
         try {
             DateUtils.iterator(Calendar.getInstance(), -9999);
@@ -1458,6 +1487,7 @@ public class DateUtilsTest extends TestCase {
     /**
      * Tests the calendar iterator for week ranges
      */
+    @Test
     public void testWeekIterator() throws Exception {
         Calendar now = Calendar.getInstance();
         for (int i = 0; i< 7; i++) {
@@ -1504,6 +1534,7 @@ public class DateUtilsTest extends TestCase {
     /**
      * Tests the calendar iterator for month-based ranges
      */
+    @Test
     public void testMonthIterator() throws Exception {
         Iterator<?> it = DateUtils.iterator(date1, DateUtils.RANGE_MONTH_SUNDAY);
         assertWeekIterator(it,
@@ -1556,12 +1587,12 @@ public class DateUtilsTest extends TestCase {
      */
     private static void assertWeekIterator(Iterator<?> it, Calendar start, Calendar end) {
         Calendar cal = (Calendar) it.next();
-        assertEquals("", start, cal, 0);
+        assertCalendarsEquals("", start, cal, 0);
         Calendar last = null;
         int count = 1;
         while (it.hasNext()) {
             //Check this is just a date (no time component)
-            assertEquals("", cal, DateUtils.truncate(cal, Calendar.DATE), 0);
+            assertCalendarsEquals("", cal, DateUtils.truncate(cal, Calendar.DATE), 0);
 
             last = cal;
             cal = (Calendar) it.next();
@@ -1569,19 +1600,19 @@ public class DateUtilsTest extends TestCase {
 
             //Check that this is one day more than the last date
             last.add(Calendar.DATE, 1);
-            assertEquals("", last, cal, 0);
+            assertCalendarsEquals("", last, cal, 0);
         }
         if (count % 7 != 0) {
             throw new AssertionFailedError("There were " + count + " days in this iterator");
         }
-        assertEquals("", end, cal, 0);
+        assertCalendarsEquals("", end, cal, 0);
     }
 
     /**
      * Used to check that Calendar objects are close enough
      * delta is in milliseconds
      */
-    private static void assertEquals(String message, Calendar cal1, Calendar cal2, long delta) {
+    private static void assertCalendarsEquals(String message, Calendar cal1, Calendar cal2, long delta) {
         if (Math.abs(cal1.getTime().getTime() - cal2.getTime().getTime()) > delta) {
             throw new AssertionFailedError(
                     message + " expected " + cal1.getTime() + " but got " + cal2.getTime());

@@ -20,7 +20,10 @@ package org.apache.commons.lang3;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_2;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_3;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 /**
  * Tests CharEncoding.
@@ -28,7 +31,7 @@ import junit.framework.TestCase;
  * @see CharEncoding
  * @version $Id$
  */
-public class CharEncodingTest extends TestCase {
+public class CharEncodingTest  {
 
     private void assertSupportedEncoding(String name) {
         assertTrue("Encoding should be supported: " + name, CharEncoding.isSupported(name));
@@ -37,10 +40,12 @@ public class CharEncodingTest extends TestCase {
     /**
      * The class can be instantiated.
      */
+    @Test
     public void testConstructor() {
         new CharEncoding();
     }
 
+    @Test
     public void testMustBeSupportedJava1_3_1() {
         if (SystemUtils.isJavaVersionAtLeast(JAVA_1_3)) {
             this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
@@ -54,12 +59,14 @@ public class CharEncodingTest extends TestCase {
         }
     }
 
+    @Test
     public void testSupported() {
         assertTrue(CharEncoding.isSupported("UTF8"));
         assertTrue(CharEncoding.isSupported("UTF-8"));
         assertTrue(CharEncoding.isSupported("ASCII"));
     }
 
+    @Test
     public void testNotSupported() {
         assertFalse(CharEncoding.isSupported(null));
         assertFalse(CharEncoding.isSupported(""));
@@ -69,6 +76,7 @@ public class CharEncodingTest extends TestCase {
         assertFalse(CharEncoding.isSupported("this is not a valid encoding name"));
     }
 
+    @Test
     public void testWorksOnJava1_1_8() {
         //
         // In this test, I simply deleted the encodings from the 1.3.1 list.
@@ -83,6 +91,7 @@ public class CharEncodingTest extends TestCase {
         }
     }
 
+    @Test
     public void testWorksOnJava1_2_2() {
         //
         // In this test, I simply deleted the encodings from the 1.3.1 list.

@@ -17,6 +17,11 @@
 package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -28,14 +33,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Unit tests for {@link LocaleUtils}.
  *
  * @version $Id$
  */
-public class LocaleUtilsTest extends TestCase {
+public class LocaleUtilsTest  {
 
     private static final Locale LOCALE_EN = new Locale("en", "");
     private static final Locale LOCALE_EN_US = new Locale("en", "US");
@@ -45,19 +51,10 @@ public class LocaleUtilsTest extends TestCase {
     private static final Locale LOCALE_QQ = new Locale("qq", "");
     private static final Locale LOCALE_QQ_ZZ = new Locale("qq", "ZZ");
 
-    /**
-     * Constructor.
-     * 
-     * @param name
-     */
-    public LocaleUtilsTest(String name) {
-        super(name);
-    }
 
-    @Override
+
+    @Before
     public void setUp() throws Exception {
-        super.setUp();
-
         // Testing #LANG-304. Must be called before availableLocaleSet is called.
         LocaleUtils.isAvailableLocale(Locale.getDefault());
     }
@@ -66,6 +63,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Test that constructors are public, and work, etc.
      */
+    @Test
     public void testConstructor() {
         assertNotNull(new LocaleUtils());
         Constructor<?>[] cons = LocaleUtils.class.getDeclaredConstructors();
@@ -128,6 +126,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Test toLocale() method.
      */
+    @Test
     public void testToLocale_1Part() {
         assertEquals(null, LocaleUtils.toLocale((String) null));
         
@@ -174,6 +173,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Test toLocale() method.
      */
+    @Test
     public void testToLocale_2Part() {
         assertValidToLocale("us_EN", "us", "EN");
         //valid though doesnt exist
@@ -208,6 +208,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Test toLocale() method.
      */
+    @Test
     public void testToLocale_3Part() {
         assertValidToLocale("us_EN_A", "us", "EN", "A");
         // this isn't pretty, but was caused by a jdk bug it seems
@@ -252,6 +253,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Test localeLookupList() method.
      */
+    @Test
     public void testLocaleLookupList_Locale() {
         assertLocaleLookupList(null, null, new Locale[0]);
         assertLocaleLookupList(LOCALE_QQ, null, new Locale[]{LOCALE_QQ});
@@ -271,6 +273,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Test localeLookupList() method.
      */
+    @Test
     public void testLocaleLookupList_LocaleLocale() {
         assertLocaleLookupList(LOCALE_QQ, LOCALE_QQ, 
                 new Locale[]{LOCALE_QQ});
@@ -325,6 +328,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Test availableLocaleList() method.
      */
+    @Test
     public void testAvailableLocaleList() {
         List<Locale> list = LocaleUtils.availableLocaleList();
         List<Locale> list2 = LocaleUtils.availableLocaleList();
@@ -341,6 +345,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Test availableLocaleSet() method.
      */
+    @Test
     public void testAvailableLocaleSet() {
         Set<Locale> set = LocaleUtils.availableLocaleSet();
         Set<Locale> set2 = LocaleUtils.availableLocaleSet();
@@ -358,6 +363,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Test availableLocaleSet() method.
      */
+    @Test
     public void testIsAvailableLocale() {
         Set<Locale> set = LocaleUtils.availableLocaleSet();
         assertEquals(set.contains(LOCALE_EN), LocaleUtils.isAvailableLocale(LOCALE_EN));
@@ -411,6 +417,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Test languagesByCountry() method.
      */
+    @Test
     public void testLanguagesByCountry() {
         assertLanguageByCountry(null, new String[0]);
         assertLanguageByCountry("GB", new String[]{"en"});
@@ -461,6 +468,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Test countriesByLanguage() method.
      */
+    @Test
     public void testCountriesByLanguage() {
         assertCountriesByLanguage(null, new String[0]);
         assertCountriesByLanguage("de", new String[]{"DE", "CH", "AT", "LU"});
@@ -481,6 +489,7 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * Tests #LANG-328 - only language+variant
      */
+    @Test
     public void testLang328() {
         assertValidToLocale("fr__POSIX", "fr", "", "POSIX");
     }

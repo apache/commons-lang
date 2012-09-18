@@ -16,23 +16,23 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.CharSetUtils}.
  *
  * @version $Id$
  */
-public class CharSetUtilsTest extends TestCase {
-    
-    public CharSetUtilsTest(String name) {
-        super(name);
-    }
+public class CharSetUtilsTest  {
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new CharSetUtils());
         Constructor<?>[] cons = CharSetUtils.class.getDeclaredConstructors();
@@ -43,6 +43,7 @@ public class CharSetUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testSqueeze_StringString() {
         assertEquals(null, CharSetUtils.squeeze(null, (String) null));
         assertEquals(null, CharSetUtils.squeeze(null, ""));
@@ -59,6 +60,7 @@ public class CharSetUtilsTest extends TestCase {
         assertEquals("hello", CharSetUtils.squeeze("helloo", "^l"));
     }
     
+    @Test
     public void testSqueeze_StringStringarray() {
         assertEquals(null, CharSetUtils.squeeze(null, (String[]) null));
         assertEquals(null, CharSetUtils.squeeze(null, new String[0]));
@@ -82,6 +84,7 @@ public class CharSetUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testCount_StringString() {
         assertEquals(0, CharSetUtils.count(null, (String) null));
         assertEquals(0, CharSetUtils.count(null, ""));
@@ -96,6 +99,7 @@ public class CharSetUtilsTest extends TestCase {
         assertEquals(3, CharSetUtils.count("hello", "l-p"));
     }
     
+    @Test
     public void testCount_StringStringarray() {
         assertEquals(0, CharSetUtils.count(null, (String[]) null));
         assertEquals(0, CharSetUtils.count(null, new String[0]));
@@ -120,6 +124,7 @@ public class CharSetUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testKeep_StringString() {
         assertEquals(null, CharSetUtils.keep(null, (String) null));
         assertEquals(null, CharSetUtils.keep(null, ""));
@@ -136,6 +141,7 @@ public class CharSetUtilsTest extends TestCase {
         assertEquals("ell", CharSetUtils.keep("hello", "el"));
     }
     
+    @Test
     public void testKeep_StringStringarray() {
         assertEquals(null, CharSetUtils.keep(null, (String[]) null));
         assertEquals(null, CharSetUtils.keep(null, new String[0]));
@@ -161,6 +167,7 @@ public class CharSetUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testDelete_StringString() {
         assertEquals(null, CharSetUtils.delete(null, (String) null));
         assertEquals(null, CharSetUtils.delete(null, ""));
@@ -176,6 +183,7 @@ public class CharSetUtilsTest extends TestCase {
         assertEquals("hello", CharSetUtils.delete("hello", "z"));
     }
     
+    @Test
     public void testDelete_StringStringarray() {
         assertEquals(null, CharSetUtils.delete(null, (String[]) null));
         assertEquals(null, CharSetUtils.delete(null, new String[0]));

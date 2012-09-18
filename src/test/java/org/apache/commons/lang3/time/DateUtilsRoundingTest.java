@@ -16,13 +16,14 @@
  */
 package org.apache.commons.lang3.time;
 
+import org.junit.Test;
+import org.junit.Before;
+import static org.junit.Assert.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import junit.framework.TestCase;
 
 /**
  * These Unit-tests will check all possible extremes when using some rounding-methods of DateUtils.
@@ -37,7 +38,7 @@ import junit.framework.TestCase;
  * @since 3.0
  * @version $Id$
  */
-public class DateUtilsRoundingTest extends TestCase {
+public class DateUtilsRoundingTest {
 
     DateFormat dateTimeParser;
     
@@ -53,9 +54,10 @@ public class DateUtilsRoundingTest extends TestCase {
     Calendar januaryOneCalendar;
     FastDateFormat fdf = DateFormatUtils.ISO_DATETIME_FORMAT;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+
+    @Before
+    public void setUp() throws Exception {
+
         dateTimeParser = new SimpleDateFormat("MMM dd, yyyy H:mm:ss.SSS", Locale.ENGLISH);
         
         targetYearDate = dateTimeParser.parse("January 1, 2007 0:00:00.000");
@@ -79,6 +81,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testRoundYear() throws Exception {
         final int calendarField = Calendar.YEAR;
         Date roundedUpDate = dateTimeParser.parse("January 1, 2008 0:00:00.000");
@@ -95,6 +98,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testRoundMonth() throws Exception {
         final int calendarField = Calendar.MONTH;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
@@ -138,6 +142,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testRoundSemiMonth() throws Exception {
         final int calendarField = DateUtils.SEMI_MONTH;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
@@ -205,6 +210,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testRoundDate() throws Exception {
         final int calendarField = Calendar.DATE;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
@@ -229,6 +235,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testRoundDayOfMonth() throws Exception {
         final int calendarField = Calendar.DAY_OF_MONTH;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
@@ -253,6 +260,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testRoundAmPm() throws Exception {
         final int calendarField = Calendar.AM_PM;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
@@ -284,6 +292,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testRoundHourOfDay() throws Exception {
         final int calendarField = Calendar.HOUR_OF_DAY;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
@@ -308,6 +317,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testRoundHour() throws Exception {
         final int calendarField = Calendar.HOUR;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
@@ -332,6 +342,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testRoundMinute() throws Exception {
         final int calendarField = Calendar.MINUTE;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
@@ -356,6 +367,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testRoundSecond() throws Exception {
         final int calendarField = Calendar.SECOND;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
@@ -380,6 +392,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testRoundMilliSecond() throws Exception {
         final int calendarField = Calendar.MILLISECOND;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
@@ -400,6 +413,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testTruncateYear() throws Exception {
         final int calendarField = Calendar.YEAR;
         Date lastTruncateDate = dateTimeParser.parse("December 31, 2007 23:59:59.999");
@@ -412,6 +426,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testTruncateMonth() throws Exception {
         final int calendarField = Calendar.MONTH;
         Date truncatedDate = dateTimeParser.parse("March 1, 2008 0:00:00.000");
@@ -426,6 +441,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testTruncateSemiMonth() throws Exception {
         final int calendarField = DateUtils.SEMI_MONTH;
         Date truncatedDate, lastTruncateDate;
@@ -478,6 +494,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testTruncateDate() throws Exception {
         final int calendarField = Calendar.DATE;
         Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 23:59:59.999");
@@ -490,6 +507,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testTruncateDayOfMonth() throws Exception {
         final int calendarField = Calendar.DAY_OF_MONTH;
         Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 23:59:59.999");
@@ -503,6 +521,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testTruncateAmPm() throws Exception {
         final int calendarField = Calendar.AM_PM;
         
@@ -521,6 +540,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testTruncateHour() throws Exception {
         final int calendarField = Calendar.HOUR;
         Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:59:59.999");
@@ -533,6 +553,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testTruncateHourOfDay() throws Exception {
         final int calendarField = Calendar.HOUR_OF_DAY;
         Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:59:59.999");
@@ -545,6 +566,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testTruncateMinute() throws Exception {
         final int calendarField = Calendar.MINUTE;
         Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:15:59.999");
@@ -557,6 +579,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testTruncateSecond() throws Exception {
         final int calendarField = Calendar.SECOND;
         Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:15:14.999");
@@ -569,6 +592,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * @throws Exception
      * @since 3.0
      */
+    @Test
     public void testTruncateMilliSecond() throws Exception {
         final int calendarField = Calendar.MILLISECOND;
         baseTruncateTest(targetMilliSecondDate, targetMilliSecondDate, calendarField);

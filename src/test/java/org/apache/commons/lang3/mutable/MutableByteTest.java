@@ -16,7 +16,8 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * JUnit tests.
@@ -24,13 +25,10 @@ import junit.framework.TestCase;
  * @version $Id$
  * @see MutableByte
  */
-public class MutableByteTest extends TestCase {
-
-    public MutableByteTest(String testName) {
-        super(testName);
-    }
+public class MutableByteTest {
 
     // ----------------------------------------------------------------
+    @Test
     public void testConstructors() {
         assertEquals((byte) 0, new MutableByte().byteValue());
         
@@ -47,6 +45,7 @@ public class MutableByteTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testGetSet() {
         final MutableByte mutNum = new MutableByte((byte) 0);
         assertEquals((byte) 0, new MutableByte().byteValue());
@@ -69,6 +68,7 @@ public class MutableByteTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testEquals() {
         final MutableByte mutNumA = new MutableByte((byte) 0);
         final MutableByte mutNumB = new MutableByte((byte) 0);
@@ -86,6 +86,7 @@ public class MutableByteTest extends TestCase {
         assertEquals(false, mutNumA.equals("0"));
     }
 
+    @Test
     public void testHashCode() {
         final MutableByte mutNumA = new MutableByte((byte) 0);
         final MutableByte mutNumB = new MutableByte((byte) 0);
@@ -97,6 +98,7 @@ public class MutableByteTest extends TestCase {
         assertEquals(true, mutNumA.hashCode() == Byte.valueOf((byte) 0).hashCode());
     }
 
+    @Test
     public void testCompareTo() {
         final MutableByte mutNum = new MutableByte((byte) 0);
 
@@ -109,6 +111,7 @@ public class MutableByteTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testPrimitiveValues() {
         MutableByte mutNum = new MutableByte( (byte) 1 );
         
@@ -120,11 +123,13 @@ public class MutableByteTest extends TestCase {
         assertEquals( 1L, mutNum.longValue() );
     }
 
+    @Test
     public void testToByte() {
         assertEquals(Byte.valueOf((byte) 0), new MutableByte((byte) 0).toByte());
         assertEquals(Byte.valueOf((byte) 123), new MutableByte((byte) 123).toByte());
     }
 
+    @Test
     public void testIncrement() {
         MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.increment();
@@ -133,6 +138,7 @@ public class MutableByteTest extends TestCase {
         assertEquals(2L, mutNum.longValue());
     }
 
+    @Test
     public void testDecrement() {
         MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.decrement();
@@ -141,6 +147,7 @@ public class MutableByteTest extends TestCase {
         assertEquals(0L, mutNum.longValue());
     }
 
+    @Test
     public void testAddValuePrimitive() {
         MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.add((byte)1);
@@ -148,6 +155,7 @@ public class MutableByteTest extends TestCase {
         assertEquals((byte) 2, mutNum.byteValue());
     }
 
+    @Test
     public void testAddValueObject() {
         MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.add(Integer.valueOf(1));
@@ -155,6 +163,7 @@ public class MutableByteTest extends TestCase {
         assertEquals((byte) 2, mutNum.byteValue());
     }
 
+    @Test
     public void testSubtractValuePrimitive() {
         MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.subtract((byte) 1);
@@ -162,6 +171,7 @@ public class MutableByteTest extends TestCase {
         assertEquals((byte) 0, mutNum.byteValue());
     }
 
+    @Test
     public void testSubtractValueObject() {
         MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.subtract(Integer.valueOf(1));
@@ -169,6 +179,7 @@ public class MutableByteTest extends TestCase {
         assertEquals((byte) 0, mutNum.byteValue());
     }
 
+    @Test
     public void testToString() {
         assertEquals("0", new MutableByte((byte) 0).toString());
         assertEquals("10", new MutableByte((byte) 10).toString());

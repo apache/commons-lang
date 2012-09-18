@@ -19,6 +19,8 @@
 
 package org.apache.commons.lang3;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
 
 import java.io.File;
@@ -27,7 +29,6 @@ import java.lang.reflect.Modifier;
 import java.util.Locale;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.SystemUtils}.
@@ -36,12 +37,9 @@ import junit.framework.TestCase;
  * 
  * @version $Id$
  */
-public class SystemUtilsTest extends TestCase {
+public class SystemUtilsTest {
 
-    public SystemUtilsTest(String name) {
-        super(name);
-    }
-
+    @Test
     public void testConstructor() {
         assertNotNull(new SystemUtils());
         Constructor<?>[] cons = SystemUtils.class.getDeclaredConstructors();
@@ -54,6 +52,7 @@ public class SystemUtilsTest extends TestCase {
     /**
      * Assums no security manager exists.
      */
+    @Test
     public void testGetJavaHome() {
         File dir = SystemUtils.getJavaHome();
         Assert.assertNotNull(dir);
@@ -63,6 +62,7 @@ public class SystemUtilsTest extends TestCase {
     /**
      * Assums no security manager exists.
      */
+    @Test
     public void testGetJavaIoTmpDir() {
         File dir = SystemUtils.getJavaIoTmpDir();
         Assert.assertNotNull(dir);
@@ -72,6 +72,7 @@ public class SystemUtilsTest extends TestCase {
     /**
      * Assums no security manager exists.
      */
+    @Test
     public void testGetUserDir() {
         File dir = SystemUtils.getUserDir();
         Assert.assertNotNull(dir);
@@ -81,12 +82,14 @@ public class SystemUtilsTest extends TestCase {
     /**
      * Assums no security manager exists.
      */
+    @Test
     public void testGetUserHome() {
         File dir = SystemUtils.getUserHome();
         Assert.assertNotNull(dir);
         Assert.assertTrue(dir.exists());
     }
 
+    @Test
     public void testIS_JAVA() {
         String javaVersion = System.getProperty("java.version");
         if (javaVersion == null) {
@@ -150,6 +153,7 @@ public class SystemUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testIS_OS() {
         String osName = System.getProperty("os.name");
         if (osName == null) {
@@ -186,6 +190,7 @@ public class SystemUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testJavaVersionMatches() {
         String javaVersion = null;
         assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
@@ -306,6 +311,7 @@ public class SystemUtilsTest extends TestCase {
         assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
     }
 
+    @Test
     public void testOSMatchesName() {
         String osName = null;
         assertEquals(false, SystemUtils.isOSNameMatch(osName, "Windows"));
@@ -319,6 +325,7 @@ public class SystemUtilsTest extends TestCase {
         assertEquals(false, SystemUtils.isOSNameMatch(osName, "Windows"));
     }
 
+    @Test
     public void testOSMatchesNameAndVersion() {
         String osName = null;
         String osVersion = null;
@@ -343,6 +350,7 @@ public class SystemUtilsTest extends TestCase {
         assertEquals(false, SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
     }
 
+    @Test
     public void testJavaAwtHeadless() {
         boolean atLeastJava14 = SystemUtils.isJavaVersionAtLeast(JAVA_1_4);
         String expectedStringValue = System.getProperty("java.awt.headless");

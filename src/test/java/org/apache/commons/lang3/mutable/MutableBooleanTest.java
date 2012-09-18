@@ -17,7 +17,8 @@
 
 package org.apache.commons.lang3.mutable;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * JUnit tests.
@@ -26,12 +27,9 @@ import junit.framework.TestCase;
  * @see MutableBoolean
  * @version $Id$
  */
-public class MutableBooleanTest extends TestCase {
+public class MutableBooleanTest {
 
-    public MutableBooleanTest(String testName) {
-        super(testName);
-    }
-
+    @Test
     public void testCompareTo() {
         final MutableBoolean mutBool = new MutableBoolean(false);
 
@@ -49,6 +47,7 @@ public class MutableBooleanTest extends TestCase {
     }
 
     // ----------------------------------------------------------------
+    @Test
     public void testConstructors() {
         assertEquals(false, new MutableBoolean().booleanValue());
 
@@ -65,6 +64,7 @@ public class MutableBooleanTest extends TestCase {
         }
     }
 
+    @Test
     public void testEquals() {
         final MutableBoolean mutBoolA = new MutableBoolean(false);
         final MutableBoolean mutBoolB = new MutableBoolean(false);
@@ -82,6 +82,7 @@ public class MutableBooleanTest extends TestCase {
         assertEquals(false, mutBoolA.equals("false"));
     }
 
+    @Test
     public void testGetSet() {
         assertEquals(false, new MutableBoolean().booleanValue());
         assertEquals(Boolean.FALSE, new MutableBoolean().getValue());
@@ -111,6 +112,7 @@ public class MutableBooleanTest extends TestCase {
         }
     }
 
+    @Test
     public void testHashCode() {
         final MutableBoolean mutBoolA = new MutableBoolean(false);
         final MutableBoolean mutBoolB = new MutableBoolean(false);
@@ -123,6 +125,7 @@ public class MutableBooleanTest extends TestCase {
         assertEquals(true, mutBoolC.hashCode() == Boolean.TRUE.hashCode());
     }
 
+    @Test
     public void testToString() {
         assertEquals(Boolean.FALSE.toString(), new MutableBoolean(false).toString());
         assertEquals(Boolean.TRUE.toString(), new MutableBoolean(true).toString());

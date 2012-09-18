@@ -17,33 +17,23 @@
 
 package org.apache.commons.lang3.text;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import junit.framework.TestCase;
-
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.CompositeFormat}.
  */
-public class CompositeFormatTest extends TestCase {
-
-    /**
-     * Create a new test case with the specified name.
-     * 
-     * @param name
-     *            name
-     */
-    public CompositeFormatTest(String name) {
-        super(name);
-    }
-
+public class CompositeFormatTest {
 
     /**
      * Ensures that the parse/format separation is correctly maintained. 
      */
+    @Test
     public void testCompositeFormat() {
 
         Format parser = new Format() {
@@ -78,6 +68,7 @@ public class CompositeFormatTest extends TestCase {
         assertEquals( "Formatter get method incorrectly implemented", formatter, composite.getFormatter() );
     }
 
+    @Test
     public void testUsage() throws Exception {
         Format f1 = new SimpleDateFormat("MMddyyyy", Locale.ENGLISH);
         Format f2 = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);

@@ -18,23 +18,25 @@
  */
 package org.apache.commons.lang3.math;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
 
 /**
  * Test cases for the {@link Fraction} class
  *
  * @version $Id$
  */
-public class FractionTest extends TestCase {
+public class FractionTest  {
     
     private static final int SKIP = 500;  //53
 
-    public FractionTest(String name) {
-        super(name);
-    }
-
     //--------------------------------------------------------------------------
-    
+    @Test
     public void testConstants() {
         assertEquals(0, Fraction.ZERO.getNumerator());
         assertEquals(1, Fraction.ZERO.getDenominator());
@@ -73,6 +75,7 @@ public class FractionTest extends TestCase {
         assertEquals(5, Fraction.FOUR_FIFTHS.getDenominator());
     }
 
+    @Test
     public void testFactory_int_int() {
         Fraction f = null;
         
@@ -143,6 +146,7 @@ public class FractionTest extends TestCase {
         } catch (ArithmeticException ex) {}
     }
 
+    @Test
     public void testFactory_int_int_int() {
         Fraction f = null;
         
@@ -245,6 +249,7 @@ public class FractionTest extends TestCase {
             fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
     }
+    @Test
     public void testReducedFactory_int_int() {
         Fraction f = null;
         
@@ -335,6 +340,7 @@ public class FractionTest extends TestCase {
         assertEquals(1, f.getDenominator());
     }
 
+    @Test
     public void testFactory_double() {
         Fraction f = null;
         
@@ -424,6 +430,7 @@ public class FractionTest extends TestCase {
         }
     }
 
+    @Test
     public void testFactory_String() {
         try {
             Fraction.getFraction(null);
@@ -432,6 +439,7 @@ public class FractionTest extends TestCase {
     }
     
     
+    @Test
     public void testFactory_String_double() {
         Fraction f = null;
         
@@ -467,6 +475,7 @@ public class FractionTest extends TestCase {
         } catch (NumberFormatException ex) {}
     }
 
+    @Test
     public void testFactory_String_proper() {
         Fraction f = null;
         
@@ -525,6 +534,7 @@ public class FractionTest extends TestCase {
         } catch (NumberFormatException ex) {}
     }
 
+    @Test
     public void testFactory_String_improper() {
         Fraction f = null;
         
@@ -573,6 +583,7 @@ public class FractionTest extends TestCase {
         } catch (NumberFormatException ex) {}
     }
 
+    @Test
     public void testGets() {
         Fraction f = null;
         
@@ -595,6 +606,7 @@ public class FractionTest extends TestCase {
         assertEquals(1, f.getDenominator());
     }
             
+    @Test
     public void testConversions() {
         Fraction f = null;
         
@@ -605,6 +617,7 @@ public class FractionTest extends TestCase {
         assertEquals(3.875d, f.doubleValue(), 0.00001d);
     }
     
+    @Test
     public void testReduce() {
         Fraction f = null;
         
@@ -653,6 +666,7 @@ public class FractionTest extends TestCase {
         assertEquals(1, result.getDenominator());
     }
     
+    @Test
     public void testInvert() {
         Fraction f = null;
         
@@ -690,6 +704,7 @@ public class FractionTest extends TestCase {
         assertEquals(Integer.MAX_VALUE, f.getDenominator());
     }
     
+    @Test
     public void testNegate() {
         Fraction f = null;
         
@@ -716,6 +731,7 @@ public class FractionTest extends TestCase {
         } catch (ArithmeticException ex) {}
     }
     
+    @Test
     public void testAbs() {
         Fraction f = null;
         
@@ -746,6 +762,7 @@ public class FractionTest extends TestCase {
         } catch (ArithmeticException ex) {}
     }
     
+    @Test
     public void testPow() {
         Fraction f = null;
         
@@ -858,6 +875,7 @@ public class FractionTest extends TestCase {
         } catch (ArithmeticException ex) {}
     }
     
+    @Test
     public void testAdd() {
         Fraction f = null;
         Fraction f1 = null;
@@ -976,6 +994,7 @@ public class FractionTest extends TestCase {
         } catch (ArithmeticException ex) {}
     }
             
+    @Test
     public void testSubtract() {
         Fraction f = null;
         Fraction f1 = null;
@@ -1088,6 +1107,7 @@ public class FractionTest extends TestCase {
         } catch (ArithmeticException ex) {}
     }
             
+    @Test
     public void testMultiply() {
         Fraction f = null;
         Fraction f1 = null;
@@ -1156,6 +1176,7 @@ public class FractionTest extends TestCase {
         } catch (ArithmeticException ex) {}
     }
             
+    @Test
     public void testDivide() {
         Fraction f = null;
         Fraction f1 = null;
@@ -1213,6 +1234,7 @@ public class FractionTest extends TestCase {
         } catch (ArithmeticException ex) {}
     }
             
+    @Test
     public void testEquals() {
         Fraction f1 = null;
         Fraction f2 = null;
@@ -1235,6 +1257,7 @@ public class FractionTest extends TestCase {
         assertEquals(false, f1.equals(f2));
     }
     
+    @Test
     public void testHashCode() {
         Fraction f1 = Fraction.getFraction(3, 5);
         Fraction f2 = Fraction.getFraction(3, 5);
@@ -1248,6 +1271,7 @@ public class FractionTest extends TestCase {
         assertTrue(f1.hashCode() != f2.hashCode());
     }
     
+    @Test
     public void testCompareTo() {
         Fraction f1 = null;
         Fraction f2 = null;
@@ -1282,6 +1306,7 @@ public class FractionTest extends TestCase {
 
     }
     
+    @Test
     public void testToString() {
         Fraction f = null;
 
@@ -1309,6 +1334,7 @@ public class FractionTest extends TestCase {
         assertEquals("-2147483648/2147483647", f.toString());
     }
     
+    @Test
     public void testToProperString() {
         Fraction f = null;
 

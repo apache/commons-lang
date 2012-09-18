@@ -17,24 +17,21 @@
 
 package org.apache.commons.lang3.time;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import junit.framework.TestCase;
-
 /**
  * TestCase for DurationFormatUtils.
  * 
  */
-public class DurationFormatUtilsTest extends TestCase {
-
-    public DurationFormatUtilsTest(String s) {
-        super(s);
-    }
+public class DurationFormatUtilsTest {
 
     // -----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new DurationFormatUtils());
         Constructor<?>[] cons = DurationFormatUtils.class.getDeclaredConstructors();
@@ -45,6 +42,7 @@ public class DurationFormatUtilsTest extends TestCase {
     }
 
     // -----------------------------------------------------------------------
+    @Test
     public void testFormatDurationWords() {
         String text = null;
 
@@ -132,6 +130,7 @@ public class DurationFormatUtilsTest extends TestCase {
     /**
      * Tests that "1 <unit>s" gets converted to "1 <unit>" but that "11 <unit>s" is left alone.
      */
+    @Test
     public void testFormatDurationPluralWords() {
         long oneSecond = 1000;
         long oneMinute = oneSecond * 60;
@@ -174,6 +173,7 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEquals("1 day 1 hour 1 minute 1 second", text);
     }
 
+    @Test
     public void testFormatDurationHMS() {
         long time = 0;
         assertEquals("0:00:00.000", DurationFormatUtils.formatDurationHMS(time));
@@ -203,6 +203,7 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEquals("1:02:12.789", DurationFormatUtils.formatDurationHMS(time));
     }
 
+    @Test
     public void testFormatDurationISO() {
         assertEquals("P0Y0M0DT0H0M0.000S", DurationFormatUtils.formatDurationISO(0L));
         assertEquals("P0Y0M0DT0H0M0.001S", DurationFormatUtils.formatDurationISO(1L));
@@ -211,6 +212,7 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEquals("P0Y0M0DT0H1M15.321S", DurationFormatUtils.formatDurationISO(75321L));
     }
 
+    @Test
     public void testFormatDuration() {
         long duration = 0;
         assertEquals("0", DurationFormatUtils.formatDuration(duration, "y"));
@@ -248,6 +250,7 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEquals("0 0 " + days, DurationFormatUtils.formatDuration(duration, "y M d"));
     }
 
+    @Test
     public void testFormatPeriodISO() {
         TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         Calendar base = Calendar.getInstance(timeZone);
@@ -275,6 +278,7 @@ public class DurationFormatUtilsTest extends TestCase {
         // assertEquals("P1Y2M3DT10H30M", text);
     }
 
+    @Test
     public void testFormatPeriod() {
         Calendar cal1970 = Calendar.getInstance();
         cal1970.set(1970, 0, 1, 0, 0, 0);
@@ -328,6 +332,7 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEquals("048", DurationFormatUtils.formatPeriod(time1970, time, "MMM"));
     }
 
+    @Test
     public void testLexx() {
         // tests each constant
         assertArrayEquals(new DurationFormatUtils.Token[]{
@@ -381,18 +386,21 @@ public class DurationFormatUtilsTest extends TestCase {
 
 
     // http://issues.apache.org/bugzilla/show_bug.cgi?id=38401
+    @Test
     public void testBugzilla38401() {
         assertEqualDuration( "0000/00/30 16:00:00 000", new int[] { 2006, 0, 26, 18, 47, 34 }, 
                              new int[] { 2006, 1, 26, 10, 47, 34 }, "yyyy/MM/dd HH:mm:ss SSS");
     }
 
     // https://issues.apache.org/jira/browse/LANG-281
+    @Test
     public void testJiraLang281() {
         assertEqualDuration( "09", new int[] { 2005, 11, 31, 0, 0, 0 }, 
                              new int[] { 2006, 9, 6, 0, 0, 0 }, "MM");
     }
     
     // Testing the under a day range in DurationFormatUtils.formatPeriod
+    @Test
     public void testLowDurations() {
         for(int hr=0; hr < 24; hr++) {
             for(int min=0; min < 60; min++) {
@@ -408,6 +416,7 @@ public class DurationFormatUtilsTest extends TestCase {
     }
 
     // Attempting to test edge cases in DurationFormatUtils.formatPeriod
+    @Test
     public void testEdgeDurations() {
         assertEqualDuration( "01", new int[] { 2006, 0, 15, 0, 0, 0 }, 
                              new int[] { 2006, 2, 10, 0, 0, 0 }, "MM");
@@ -497,6 +506,7 @@ public class DurationFormatUtilsTest extends TestCase {
         
     }
     
+    @Test
     public void testDurationsByBruteForce() {
         bruteForce(2006, 0, 1, "d", Calendar.DAY_OF_MONTH);
         bruteForce(2006, 0, 2, "d", Calendar.DAY_OF_MONTH);

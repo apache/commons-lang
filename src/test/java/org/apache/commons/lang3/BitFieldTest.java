@@ -16,31 +16,26 @@
  */
 package org.apache.commons.lang3;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 /**
  * Class to test BitField functionality
  *
  * @version $Id$
  */
-public class BitFieldTest extends TestCase {
+public class BitFieldTest  {
 
     private static final BitField bf_multi  = new BitField(0x3F80);
     private static final BitField bf_single = new BitField(0x4000);
     private static final BitField bf_zero = new BitField(0);
 
     /**
-     * Constructor BitFieldTest
-     *
-     * @param name
-     */
-    public BitFieldTest(String name) {
-        super(name);
-    }
-
-    /**
      * test the getValue() method
      */
+    @Test
     public void testGetValue() {
         assertEquals(bf_multi.getValue(-1), 127);
         assertEquals(bf_multi.getValue(0), 0);
@@ -53,6 +48,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the getShortValue() method
      */
+    @Test
     public void testGetShortValue() {
         assertEquals(bf_multi.getShortValue((short) - 1), (short) 127);
         assertEquals(bf_multi.getShortValue((short) 0), (short) 0);
@@ -65,6 +61,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the getRawValue() method
      */
+    @Test
     public void testGetRawValue() {
         assertEquals(bf_multi.getRawValue(-1), 0x3F80);
         assertEquals(bf_multi.getRawValue(0), 0);
@@ -77,6 +74,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the getShortRawValue() method
      */
+    @Test
     public void testGetShortRawValue() {
         assertEquals(bf_multi.getShortRawValue((short) - 1), (short) 0x3F80);
         assertEquals(bf_multi.getShortRawValue((short) 0), (short) 0);
@@ -89,6 +87,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the isSet() method
      */
+    @Test
     public void testIsSet() {
         assertTrue(!bf_multi.isSet(0));
         assertTrue(!bf_zero.isSet(0));
@@ -105,6 +104,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the isAllSet() method
      */
+    @Test
     public void testIsAllSet() {
         for (int j = 0; j < 0x3F80; j += 0x80) {
             assertTrue(!bf_multi.isAllSet(j));
@@ -118,6 +118,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the setValue() method
      */
+    @Test
     public void testSetValue() {
         for (int j = 0; j < 128; j++) {
             assertEquals(bf_multi.getValue(bf_multi.setValue(0, j)), j);
@@ -142,6 +143,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the setShortValue() method
      */
+    @Test
     public void testSetShortValue() {
         for (int j = 0; j < 128; j++) {
             assertEquals(bf_multi.getShortValue(bf_multi.setShortValue((short) 0, (short) j)), (short) j);
@@ -163,6 +165,7 @@ public class BitFieldTest extends TestCase {
         assertEquals(bf_single.setShortValue((short) 0x4000, (short) 2), (short) 0);
     }
 
+    @Test
     public void testByte() {
         assertEquals(0, new BitField(0).setByteBoolean((byte) 0, true));
         assertEquals(1, new BitField(1).setByteBoolean((byte) 0, true));
@@ -191,6 +194,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the clear() method
      */
+    @Test
     public void testClear() {
         assertEquals(bf_multi.clear(-1), 0xFFFFC07F);
         assertEquals(bf_single.clear(-1), 0xFFFFBFFF);
@@ -200,6 +204,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the clearShort() method
      */
+    @Test
     public void testClearShort() {
         assertEquals(bf_multi.clearShort((short) - 1), (short) 0xC07F);
         assertEquals(bf_single.clearShort((short) - 1), (short) 0xBFFF);
@@ -209,6 +214,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the set() method
      */
+    @Test
     public void testSet() {
         assertEquals(bf_multi.set(0), 0x3F80);
         assertEquals(bf_single.set(0), 0x4000);
@@ -218,6 +224,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the setShort() method
      */
+    @Test
     public void testSetShort() {
         assertEquals(bf_multi.setShort((short) 0), (short) 0x3F80);
         assertEquals(bf_single.setShort((short) 0), (short) 0x4000);
@@ -227,6 +234,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the setBoolean() method
      */
+    @Test
     public void testSetBoolean() {
         assertEquals(bf_multi.set(0), bf_multi.setBoolean(0, true));
         assertEquals(bf_single.set(0), bf_single.setBoolean(0, true));
@@ -239,6 +247,7 @@ public class BitFieldTest extends TestCase {
     /**
      * test the setShortBoolean() method
      */
+    @Test
     public void testSetShortBoolean() {
         assertEquals(bf_multi.setShort((short) 0), bf_multi.setShortBoolean((short) 0, true));
         assertEquals(bf_single.setShort((short) 0), bf_single.setShortBoolean((short) 0, true));

@@ -16,7 +16,8 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * JUnit tests.
@@ -24,13 +25,10 @@ import junit.framework.TestCase;
  * @version $Id$
  * @see MutableLong
  */
-public class MutableLongTest extends TestCase {
-
-    public MutableLongTest(String testName) {
-        super(testName);
-    }
+public class MutableLongTest {
 
     // ----------------------------------------------------------------
+    @Test
     public void testConstructors() {
         assertEquals(0, new MutableLong().longValue());
         
@@ -47,6 +45,7 @@ public class MutableLongTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testGetSet() {
         final MutableLong mutNum = new MutableLong(0);
         assertEquals(0, new MutableLong().longValue());
@@ -69,6 +68,7 @@ public class MutableLongTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testEquals() {
         final MutableLong mutNumA = new MutableLong(0);
         final MutableLong mutNumB = new MutableLong(0);
@@ -86,6 +86,7 @@ public class MutableLongTest extends TestCase {
         assertEquals(false, mutNumA.equals("0"));
     }
 
+    @Test
     public void testHashCode() {
         final MutableLong mutNumA = new MutableLong(0);
         final MutableLong mutNumB = new MutableLong(0);
@@ -97,6 +98,7 @@ public class MutableLongTest extends TestCase {
         assertEquals(true, mutNumA.hashCode() == Long.valueOf(0).hashCode());
     }
 
+    @Test
     public void testCompareTo() {
         final MutableLong mutNum = new MutableLong(0);
 
@@ -109,6 +111,7 @@ public class MutableLongTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testPrimitiveValues() {
         MutableLong mutNum = new MutableLong(1L);
 
@@ -120,11 +123,13 @@ public class MutableLongTest extends TestCase {
         assertEquals( 1L, mutNum.longValue() );
     }
 
+    @Test
     public void testToLong() {
         assertEquals(Long.valueOf(0L), new MutableLong(0L).toLong());
         assertEquals(Long.valueOf(123L), new MutableLong(123L).toLong());
     }
 
+    @Test
     public void testIncrement() {
         MutableLong mutNum = new MutableLong(1);
         mutNum.increment();
@@ -133,6 +138,7 @@ public class MutableLongTest extends TestCase {
         assertEquals(2L, mutNum.longValue());
     }
 
+    @Test
     public void testDecrement() {
         MutableLong mutNum = new MutableLong(1);
         mutNum.decrement();
@@ -141,6 +147,7 @@ public class MutableLongTest extends TestCase {
         assertEquals(0L, mutNum.longValue());
     }
 
+    @Test
     public void testAddValuePrimitive() {
         MutableLong mutNum = new MutableLong(1);
         mutNum.add(1);
@@ -149,6 +156,7 @@ public class MutableLongTest extends TestCase {
         assertEquals(2L, mutNum.longValue());
     }
 
+    @Test
     public void testAddValueObject() {
         MutableLong mutNum = new MutableLong(1);
         mutNum.add(Long.valueOf(1));
@@ -157,6 +165,7 @@ public class MutableLongTest extends TestCase {
         assertEquals(2L, mutNum.longValue());
     }
 
+    @Test
     public void testSubtractValuePrimitive() {
         MutableLong mutNum = new MutableLong(1);
         mutNum.subtract(1);
@@ -165,6 +174,7 @@ public class MutableLongTest extends TestCase {
         assertEquals(0L, mutNum.longValue());
     }
 
+    @Test
     public void testSubtractValueObject() {
         MutableLong mutNum = new MutableLong(1);
         mutNum.subtract(Long.valueOf(1));
@@ -173,6 +183,7 @@ public class MutableLongTest extends TestCase {
         assertEquals(0L, mutNum.longValue());
     }
 
+    @Test
     public void testToString() {
         assertEquals("0", new MutableLong(0).toString());
         assertEquals("10", new MutableLong(10).toString());

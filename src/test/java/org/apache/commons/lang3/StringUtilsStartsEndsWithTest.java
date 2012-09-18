@@ -16,8 +16,8 @@
  */
 package org.apache.commons.lang3;
 
-import junit.framework.TestCase;
-
+import org.junit.Test;
+import static org.junit.Assert.*;
 import org.apache.commons.lang3.text.StrBuilder;
 
 /**
@@ -25,7 +25,7 @@ import org.apache.commons.lang3.text.StrBuilder;
  *
  * @version $Id$
  */
-public class StringUtilsStartsEndsWithTest extends TestCase {
+public class StringUtilsStartsEndsWithTest {
     private static final String foo    = "foo";
     private static final String bar    = "bar";
     private static final String foobar = "foobar";
@@ -33,15 +33,12 @@ public class StringUtilsStartsEndsWithTest extends TestCase {
     private static final String BAR    = "BAR";
     private static final String FOOBAR = "FOOBAR";
 
-    public StringUtilsStartsEndsWithTest(String name) {
-        super(name);
-    }
-
     //-----------------------------------------------------------------------
 
     /**
      * Test StringUtils.startsWith()
      */
+    @Test
     public void testStartsWith() {
         assertTrue("startsWith(null, null)", StringUtils.startsWith(null, (String)null));
         assertFalse("startsWith(FOOBAR, null)", StringUtils.startsWith(FOOBAR, (String)null));
@@ -65,6 +62,7 @@ public class StringUtilsStartsEndsWithTest extends TestCase {
     /**
      * Test StringUtils.testStartsWithIgnoreCase()
      */
+    @Test
     public void testStartsWithIgnoreCase() {
         assertTrue("startsWithIgnoreCase(null, null)",    StringUtils.startsWithIgnoreCase(null, (String)null));
         assertFalse("startsWithIgnoreCase(FOOBAR, null)", StringUtils.startsWithIgnoreCase(FOOBAR, (String)null));
@@ -85,6 +83,7 @@ public class StringUtilsStartsEndsWithTest extends TestCase {
         assertFalse("startsWithIgnoreCase(FOOBAR, bar)", StringUtils.startsWithIgnoreCase(FOOBAR, bar));
     }
 
+    @Test
     public void testStartsWithAny() {
         assertFalse(StringUtils.startsWithAny(null, (String[])null));
         assertFalse(StringUtils.startsWithAny(null, "abc"));
@@ -102,6 +101,7 @@ public class StringUtilsStartsEndsWithTest extends TestCase {
     /**
      * Test StringUtils.endsWith()
      */
+    @Test
     public void testEndsWith() {
         assertTrue("endsWith(null, null)",    StringUtils.endsWith(null, (String)null));
         assertFalse("endsWith(FOOBAR, null)", StringUtils.endsWith(FOOBAR, (String)null));
@@ -125,6 +125,7 @@ public class StringUtilsStartsEndsWithTest extends TestCase {
     /**
      * Test StringUtils.endsWithIgnoreCase()
      */
+    @Test
     public void testEndsWithIgnoreCase() {
         assertTrue("endsWithIgnoreCase(null, null)",    StringUtils.endsWithIgnoreCase(null, (String)null));
         assertFalse("endsWithIgnoreCase(FOOBAR, null)", StringUtils.endsWithIgnoreCase(FOOBAR, (String)null));
@@ -150,6 +151,7 @@ public class StringUtilsStartsEndsWithTest extends TestCase {
         assertFalse(StringUtils.endsWithIgnoreCase("ABCDEF", "cde"));
     }
 
+    @Test
     public void testEndsWithAny() {
         assertFalse("StringUtils.endsWithAny(null, null)", StringUtils.endsWithAny(null, (String)null));
         assertFalse("StringUtils.endsWithAny(null, new String[] {abc})", StringUtils.endsWithAny(null, new String[] {"abc"}));

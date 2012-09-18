@@ -17,12 +17,12 @@
 
 package org.apache.commons.lang3.text;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-
-import junit.framework.TestCase;
 
 import org.apache.commons.lang3.SystemUtils;
 
@@ -31,7 +31,7 @@ import org.apache.commons.lang3.SystemUtils;
  *
  * @version $Id$
  */
-public class StrBuilderAppendInsertTest extends TestCase {
+public class StrBuilderAppendInsertTest {
 
     /** The system line separator. */
     private static final String SEP = SystemUtils.LINE_SEPARATOR;
@@ -44,16 +44,8 @@ public class StrBuilderAppendInsertTest extends TestCase {
         }
     };
 
-    /**
-     * Create a new test case with the specified name.
-     * 
-     * @param name  the name
-     */
-    public StrBuilderAppendInsertTest(String name) {
-        super(name);
-    }
-
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendNewLine() {
         StrBuilder sb = new StrBuilder("---");
         sb.appendNewLine().append("+++");
@@ -65,6 +57,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendWithNullText() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL");
@@ -96,6 +89,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppend_Object() {
         StrBuilder sb = new StrBuilder();
         sb.appendNull();
@@ -121,6 +115,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppend_String() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((String) null);
@@ -138,6 +133,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppend_String_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((String) null, 0, 1);
@@ -200,6 +196,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppend_StringBuffer() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StringBuffer) null);
@@ -217,6 +214,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppend_StringBuffer_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StringBuffer) null, 0, 1);
@@ -276,6 +274,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppend_StrBuilder() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StrBuilder) null);
@@ -293,6 +292,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppend_StrBuilder_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StrBuilder) null, 0, 1);
@@ -352,6 +352,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppend_CharArray() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((char[]) null);
@@ -366,6 +367,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppend_CharArray_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((char[]) null, 0, 1);
@@ -425,6 +427,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppend_Boolean() {
         StrBuilder sb = new StrBuilder();
         sb.append(true);
@@ -438,6 +441,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppend_PrimitiveNumber() {
         StrBuilder sb = new StrBuilder();
         sb.append(0);
@@ -454,6 +458,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_Object() {
         StrBuilder sb = new StrBuilder();
         sb.appendln((Object) null);
@@ -467,6 +472,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_String() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
@@ -488,6 +494,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_String_int_int() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
@@ -509,6 +516,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_StringBuffer() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
@@ -530,6 +538,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_StringBuffer_int_int() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
@@ -551,6 +560,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_StrBuilder() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
@@ -572,6 +582,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_StrBuilder_int_int() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
@@ -593,6 +604,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_CharArray() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
@@ -614,6 +626,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_CharArray_int_int() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
@@ -635,6 +648,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_Boolean() {
         StrBuilder sb = new StrBuilder();
         sb.appendln(true);
@@ -646,6 +660,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_PrimitiveNumber() {
         StrBuilder sb = new StrBuilder();
         sb.appendln(0);
@@ -665,6 +680,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendPadding() {
         StrBuilder sb = new StrBuilder();
         sb.append("foo");
@@ -686,6 +702,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendFixedWidthPadLeft() {
         StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadLeft("foo", -1, '-');
@@ -724,6 +741,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendFixedWidthPadLeft_int() {
         StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadLeft(123, -1, '-');
@@ -757,6 +775,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendFixedWidthPadRight() {
         StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadRight("foo", -1, '-');
@@ -795,6 +814,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     // See: http://issues.apache.org/jira/browse/LANG-299
+    @Test
     public void testLang299() {
         StrBuilder sb = new StrBuilder(1);
         sb.appendFixedWidthPadRight("foo", 1, '-');
@@ -802,6 +822,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendFixedWidthPadRight_int() {
         StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadRight(123, -1, '-');
@@ -835,6 +856,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendAll_Array() {
         StrBuilder sb = new StrBuilder();
         sb.appendAll((Object[]) null);
@@ -850,6 +872,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendAll_Collection() {
         StrBuilder sb = new StrBuilder();
         sb.appendAll((Collection<?>) null);
@@ -865,6 +888,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendAll_Iterator() {
         StrBuilder sb = new StrBuilder();
         sb.appendAll((Iterator<?>) null);
@@ -880,6 +904,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendWithSeparators_Array() {
         StrBuilder sb = new StrBuilder();
         sb.appendWithSeparators((Object[]) null, ",");
@@ -903,6 +928,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendWithSeparators_Collection() {
         StrBuilder sb = new StrBuilder();
         sb.appendWithSeparators((Collection<?>) null, ",");
@@ -926,6 +952,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendWithSeparators_Iterator() {
         StrBuilder sb = new StrBuilder();
         sb.appendWithSeparators((Iterator<?>) null, ",");
@@ -949,6 +976,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendWithSeparatorsWithNullText() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("null");
@@ -961,6 +989,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendSeparator_String() {
         StrBuilder sb = new StrBuilder();
         sb.appendSeparator(",");  // no effect
@@ -972,6 +1001,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendSeparator_String_String() {
         StrBuilder sb = new StrBuilder();
         final String startSeparator = "order by ";
@@ -994,6 +1024,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendSeparator_char() {
         StrBuilder sb = new StrBuilder();
         sb.appendSeparator(',');  // no effect
@@ -1003,6 +1034,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
         sb.appendSeparator(',');
         assertEquals("foo,", sb.toString());
     }
+    @Test
     public void testAppendSeparator_char_char() {
         StrBuilder sb = new StrBuilder();
         final char startSeparator = ':';
@@ -1017,6 +1049,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendSeparator_String_int() {
         StrBuilder sb = new StrBuilder();
         sb.appendSeparator(",", 0);  // no effect
@@ -1031,6 +1064,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testAppendSeparator_char_int() {
         StrBuilder sb = new StrBuilder();
         sb.appendSeparator(',', 0);  // no effect
@@ -1045,6 +1079,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testInsert() {
 
         StrBuilder sb = new StrBuilder();
@@ -1311,6 +1346,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testInsertWithNullText() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("null");
