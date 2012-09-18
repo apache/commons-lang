@@ -17,12 +17,12 @@
 
 package org.apache.commons.lang3.text;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
-
-import junit.framework.TestCase;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -31,20 +31,11 @@ import org.apache.commons.lang3.ObjectUtils;
  * Unit test for Tokenizer.
  * 
  */
-public class StrTokenizerTest extends TestCase {
+public class StrTokenizerTest {
 
     private static final String CSV_SIMPLE_FIXTURE = "A,b,c";
 
     private static final String TSV_SIMPLE_FIXTURE = "A\tb\tc";
-
-    /**
-     * JUnit constructor.
-     * 
-     * @param name
-     */
-    public StrTokenizerTest(String name) {
-        super(name);
-    }
 
     private void checkClone(StrTokenizer tokenizer) {
         assertFalse(StrTokenizer.getCSVInstance() == tokenizer);
@@ -52,6 +43,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     // -----------------------------------------------------------------------
+    @Test
     public void test1() {
 
         String input = "a;b;c;\"d;\"\"e\";f; ; ;  ";
@@ -72,6 +64,7 @@ public class StrTokenizerTest extends TestCase {
 
     }
 
+    @Test
     public void test2() {
 
         String input = "a;b;c ;\"d;\"\"e\";f; ; ;";
@@ -92,6 +85,7 @@ public class StrTokenizerTest extends TestCase {
 
     }
 
+    @Test
     public void test3() {
 
         String input = "a;b; c;\"d;\"\"e\";f; ; ;";
@@ -112,6 +106,7 @@ public class StrTokenizerTest extends TestCase {
 
     }
 
+    @Test
     public void test4() {
 
         String input = "a;b; c;\"d;\"\"e\";f; ; ;";
@@ -132,6 +127,7 @@ public class StrTokenizerTest extends TestCase {
 
     }
 
+    @Test
     public void test5() {
 
         String input = "a;b; c;\"d;\"\"e\";f; ; ;";
@@ -153,6 +149,7 @@ public class StrTokenizerTest extends TestCase {
 
     }
 
+    @Test
     public void test6() {
 
         String input = "a;b; c;\"d;\"\"e\";f; ; ;";
@@ -188,6 +185,7 @@ public class StrTokenizerTest extends TestCase {
 
     }
 
+    @Test
     public void test7() {
 
         String input = "a   b c \"d e\" f ";
@@ -208,6 +206,7 @@ public class StrTokenizerTest extends TestCase {
 
     }
 
+    @Test
     public void test8() {
 
         String input = "a   b c \"d e\" f ";
@@ -228,6 +227,7 @@ public class StrTokenizerTest extends TestCase {
 
     }
 
+    @Test
     public void testBasic1() {
         String input = "a  b c";
         StrTokenizer tok = new StrTokenizer(input);
@@ -237,6 +237,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasic2() {
         String input = "a \nb\fc";
         StrTokenizer tok = new StrTokenizer(input);
@@ -246,6 +247,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasic3() {
         String input = "a \nb\u0001\fc";
         StrTokenizer tok = new StrTokenizer(input);
@@ -255,6 +257,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasic4() {
         String input = "a \"b\" c";
         StrTokenizer tok = new StrTokenizer(input);
@@ -264,6 +267,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasic5() {
         String input = "a:b':c";
         StrTokenizer tok = new StrTokenizer(input, ':', '\'');
@@ -273,6 +277,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicDelim1() {
         String input = "a:b:c";
         StrTokenizer tok = new StrTokenizer(input, ':');
@@ -282,6 +287,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicDelim2() {
         String input = "a:b:c";
         StrTokenizer tok = new StrTokenizer(input, ',');
@@ -289,6 +295,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicEmpty1() {
         String input = "a  b c";
         StrTokenizer tok = new StrTokenizer(input);
@@ -300,6 +307,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicEmpty2() {
         String input = "a  b c";
         StrTokenizer tok = new StrTokenizer(input);
@@ -312,6 +320,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicQuoted1() {
         String input = "a 'b' c";
         StrTokenizer tok = new StrTokenizer(input, ' ', '\'');
@@ -321,6 +330,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicQuoted2() {
         String input = "a:'b':";
         StrTokenizer tok = new StrTokenizer(input, ':', '\'');
@@ -332,6 +342,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicQuoted3() {
         String input = "a:'b''c'";
         StrTokenizer tok = new StrTokenizer(input, ':', '\'');
@@ -342,6 +353,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicQuoted4() {
         String input = "a: 'b' 'c' :d";
         StrTokenizer tok = new StrTokenizer(input, ':', '\'');
@@ -354,6 +366,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicQuoted5() {
         String input = "a: 'b'x'c' :d";
         StrTokenizer tok = new StrTokenizer(input, ':', '\'');
@@ -366,6 +379,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicQuoted6() {
         String input = "a:'b'\"c':d";
         StrTokenizer tok = new StrTokenizer(input, ':');
@@ -375,6 +389,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicQuoted7() {
         String input = "a:\"There's a reason here\":b";
         StrTokenizer tok = new StrTokenizer(input, ':');
@@ -385,6 +400,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicQuotedTrimmed1() {
         String input = "a: 'b' :";
         StrTokenizer tok = new StrTokenizer(input, ':', '\'');
@@ -397,6 +413,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicTrimmed1() {
         String input = "a: b :  ";
         StrTokenizer tok = new StrTokenizer(input, ':');
@@ -409,6 +426,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicTrimmed2() {
         String input = "a:  b  :";
         StrTokenizer tok = new StrTokenizer(input, ':');
@@ -421,6 +439,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicIgnoreTrimmed1() {
         String input = "a: bIGNOREc : ";
         StrTokenizer tok = new StrTokenizer(input, ':');
@@ -434,6 +453,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicIgnoreTrimmed2() {
         String input = "IGNOREaIGNORE: IGNORE bIGNOREc IGNORE : IGNORE ";
         StrTokenizer tok = new StrTokenizer(input, ':');
@@ -447,6 +467,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicIgnoreTrimmed3() {
         String input = "IGNOREaIGNORE: IGNORE bIGNOREc IGNORE : IGNORE ";
         StrTokenizer tok = new StrTokenizer(input, ':');
@@ -459,6 +480,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(false, tok.hasNext());
     }
 
+    @Test
     public void testBasicIgnoreTrimmed4() {
         String input = "IGNOREaIGNORE: IGNORE 'bIGNOREc'IGNORE'd' IGNORE : IGNORE ";
         StrTokenizer tok = new StrTokenizer(input, ':', '\'');
@@ -473,6 +495,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testListArray() {
         String input = "a  b c";
         StrTokenizer tok = new StrTokenizer(input);
@@ -484,20 +507,23 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-    public void testCSV(String data) {
+    private void testCSV(String data) {
         this.testXSVAbc(StrTokenizer.getCSVInstance(data));
         this.testXSVAbc(StrTokenizer.getCSVInstance(data.toCharArray()));
     }
 
+    @Test
     public void testCSVEmpty() {
         this.testEmpty(StrTokenizer.getCSVInstance());
         this.testEmpty(StrTokenizer.getCSVInstance(""));
     }
 
+    @Test
     public void testCSVSimple() {
         this.testCSV(CSV_SIMPLE_FIXTURE);
     }
 
+    @Test
     public void testCSVSimpleNeedsTrim() {
         this.testCSV("   " + CSV_SIMPLE_FIXTURE);
         this.testCSV("   \n\t  " + CSV_SIMPLE_FIXTURE);
@@ -516,6 +542,7 @@ public class StrTokenizerTest extends TestCase {
         } catch (NoSuchElementException ex) {}
     }
 
+    @Test
     public void testGetContent() {
         String input = "a   b c \"d e\" f ";
         StrTokenizer tok = new StrTokenizer(input);
@@ -529,6 +556,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testChaining() {
         StrTokenizer tok = new StrTokenizer();
         assertEquals(tok, tok.reset());
@@ -550,6 +578,7 @@ public class StrTokenizerTest extends TestCase {
      * Tests that the {@link StrTokenizer#clone()} clone method catches {@link CloneNotSupportedException} and returns
      * <code>null</code>.
      */
+    @Test
     public void testCloneNotSupportedException() {
         Object notCloned = new StrTokenizer() {
             @Override
@@ -560,6 +589,7 @@ public class StrTokenizerTest extends TestCase {
         assertNull(notCloned);
     }
 
+    @Test
     public void testCloneNull() {
         StrTokenizer tokenizer = new StrTokenizer((char[]) null);
         // Start sanity check
@@ -573,6 +603,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(null, clonedTokenizer.nextToken());
     }
 
+    @Test
     public void testCloneReset() {
         char[] input = new char[]{'a'};
         StrTokenizer tokenizer = new StrTokenizer(input);
@@ -589,6 +620,7 @@ public class StrTokenizerTest extends TestCase {
     }
   
     // -----------------------------------------------------------------------
+    @Test
     public void testConstructor_String() {
         StrTokenizer tok = new StrTokenizer("a b");
         assertEquals("a", tok.next());
@@ -603,6 +635,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor_String_char() {
         StrTokenizer tok = new StrTokenizer("a b", ' ');
         assertEquals(1, tok.getDelimiterMatcher().isMatch(" ".toCharArray(), 0, 0, 1));
@@ -618,6 +651,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor_String_char_char() {
         StrTokenizer tok = new StrTokenizer("a b", ' ', '"');
         assertEquals(1, tok.getDelimiterMatcher().isMatch(" ".toCharArray(), 0, 0, 1));
@@ -634,6 +668,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor_charArray() {
         StrTokenizer tok = new StrTokenizer("a b".toCharArray());
         assertEquals("a", tok.next());
@@ -648,6 +683,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor_charArray_char() {
         StrTokenizer tok = new StrTokenizer("a b".toCharArray(), ' ');
         assertEquals(1, tok.getDelimiterMatcher().isMatch(" ".toCharArray(), 0, 0, 1));
@@ -663,6 +699,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor_charArray_char_char() {
         StrTokenizer tok = new StrTokenizer("a b".toCharArray(), ' ', '"');
         assertEquals(1, tok.getDelimiterMatcher().isMatch(" ".toCharArray(), 0, 0, 1));
@@ -679,6 +716,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testReset() {
         StrTokenizer tok = new StrTokenizer("a b c");
         assertEquals("a", tok.next());
@@ -694,6 +732,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testReset_String() {
         StrTokenizer tok = new StrTokenizer("x x x");
         tok.reset("d e");
@@ -706,6 +745,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testReset_charArray() {
         StrTokenizer tok = new StrTokenizer("x x x");
         
@@ -719,11 +759,13 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testTSV() {
         this.testXSVAbc(StrTokenizer.getTSVInstance(TSV_SIMPLE_FIXTURE));
         this.testXSVAbc(StrTokenizer.getTSVInstance(TSV_SIMPLE_FIXTURE.toCharArray()));
     }
 
+    @Test
     public void testTSVEmpty() {
         this.testEmpty(StrTokenizer.getCSVInstance());
         this.testEmpty(StrTokenizer.getCSVInstance(""));
@@ -754,6 +796,7 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(3, tokenizer.size());
     }
 
+    @Test
     public void testIteration() {
         StrTokenizer tkn = new StrTokenizer("a b c");
         assertEquals(false, tkn.hasPrevious());
@@ -796,6 +839,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testTokenizeSubclassInputChange() {
         StrTokenizer tkn = new StrTokenizer("a b c d e") {
             @Override
@@ -808,6 +852,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testTokenizeSubclassOutputChange() {
         StrTokenizer tkn = new StrTokenizer("a b c") {
             @Override
@@ -823,6 +868,7 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testToString() {
         StrTokenizer tkn = new StrTokenizer("a b c d e");
         assertEquals("StrTokenizer[not tokenized yet]", tkn.toString());

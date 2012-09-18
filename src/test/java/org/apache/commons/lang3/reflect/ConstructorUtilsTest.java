@@ -16,12 +16,13 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import org.junit.Test;
+import org.junit.Before;
+import static org.junit.Assert.*;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import junit.framework.TestCase;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -31,7 +32,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
  * Unit tests ConstructorUtils
  * @version $Id$
  */
-public class ConstructorUtilsTest extends TestCase {
+public class ConstructorUtilsTest {
     public static class TestBean {
         private String toString;
 
@@ -73,21 +74,22 @@ public class ConstructorUtilsTest extends TestCase {
 
     private Map<Class<?>, Class<?>[]> classCache;
 
-    public ConstructorUtilsTest(String name) {
-        super(name);
+    public ConstructorUtilsTest() {
         classCache = new HashMap<Class<?>, Class<?>[]>();
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+
+    @Before
+    public void setUp() throws Exception {
         classCache.clear();
     }
 
+    @Test
     public void testConstructor() throws Exception {
         assertNotNull(MethodUtils.class.newInstance());
     }
 
+    @Test
     public void testInvokeConstructor() throws Exception {
         assertEquals("()", ConstructorUtils.invokeConstructor(TestBean.class,
                 (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY).toString());
@@ -110,6 +112,7 @@ public class ConstructorUtilsTest extends TestCase {
                 TestBean.class, NumberUtils.DOUBLE_ONE).toString());
     }
 
+    @Test
     public void testInvokeExactConstructor() throws Exception {
         assertEquals("()", ConstructorUtils.invokeExactConstructor(
                 TestBean.class, (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY).toString());
@@ -145,6 +148,7 @@ public class ConstructorUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testGetAccessibleConstructor() throws Exception {
         assertNotNull(ConstructorUtils.getAccessibleConstructor(Object.class
                 .getConstructor(ArrayUtils.EMPTY_CLASS_ARRAY)));
@@ -152,6 +156,7 @@ public class ConstructorUtilsTest extends TestCase {
                 .getConstructor(ArrayUtils.EMPTY_CLASS_ARRAY)));
     }
 
+    @Test
     public void testGetAccessibleConstructorFromDescription() throws Exception {
         assertNotNull(ConstructorUtils.getAccessibleConstructor(Object.class,
                 ArrayUtils.EMPTY_CLASS_ARRAY));
@@ -159,6 +164,7 @@ public class ConstructorUtilsTest extends TestCase {
                 PrivateClass.class, ArrayUtils.EMPTY_CLASS_ARRAY));
     }
 
+    @Test
     public void testGetMatchingAccessibleMethod() throws Exception {
         expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
                 ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.EMPTY_CLASS_ARRAY);
@@ -200,6 +206,7 @@ public class ConstructorUtilsTest extends TestCase {
                 singletonArray(Double.TYPE), singletonArray(Double.TYPE));
     }
 
+    @Test
     public void testNullArgument() {
         expectMatchingAccessibleConstructorParameterTypes(MutableObject.class,
                 singletonArray(null), singletonArray(Object.class));

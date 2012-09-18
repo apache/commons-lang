@@ -16,7 +16,8 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * JUnit tests.
@@ -24,13 +25,10 @@ import junit.framework.TestCase;
  * @version $Id$
  * @see MutableInt
  */
-public class MutableIntTest extends TestCase {
-
-    public MutableIntTest(String testName) {
-        super(testName);
-    }
+public class MutableIntTest {
 
     // ----------------------------------------------------------------
+    @Test
     public void testConstructors() {
         assertEquals(0, new MutableInt().intValue());
         
@@ -47,6 +45,7 @@ public class MutableIntTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testGetSet() {
         final MutableInt mutNum = new MutableInt(0);
         assertEquals(0, new MutableInt().intValue());
@@ -69,6 +68,7 @@ public class MutableIntTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testEquals() {
         this.testEquals(new MutableInt(0), new MutableInt(0), new MutableInt(1));
         // Should Numbers be supported? GaryG July-21-2005.
@@ -93,6 +93,7 @@ public class MutableIntTest extends TestCase {
         assertEquals(false, numA.equals("0"));
     }
 
+    @Test
     public void testHashCode() {
         final MutableInt mutNumA = new MutableInt(0);
         final MutableInt mutNumB = new MutableInt(0);
@@ -104,6 +105,7 @@ public class MutableIntTest extends TestCase {
         assertEquals(true, mutNumA.hashCode() == Integer.valueOf(0).hashCode());
     }
 
+    @Test
     public void testCompareTo() {
         final MutableInt mutNum = new MutableInt(0);
 
@@ -116,6 +118,7 @@ public class MutableIntTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testPrimitiveValues() {
         MutableInt mutNum = new MutableInt(1);
         
@@ -126,11 +129,13 @@ public class MutableIntTest extends TestCase {
         assertEquals( 1L, mutNum.longValue() );
     }
 
+    @Test
     public void testToInteger() {
         assertEquals(Integer.valueOf(0), new MutableInt(0).toInteger());
         assertEquals(Integer.valueOf(123), new MutableInt(123).toInteger());
     }
 
+    @Test
     public void testIncrement() {
         MutableInt mutNum = new MutableInt(1);
         mutNum.increment();
@@ -139,6 +144,7 @@ public class MutableIntTest extends TestCase {
         assertEquals(2L, mutNum.longValue());
     }
 
+    @Test
     public void testDecrement() {
         MutableInt mutNum = new MutableInt(1);
         mutNum.decrement();
@@ -147,6 +153,7 @@ public class MutableIntTest extends TestCase {
         assertEquals(0L, mutNum.longValue());
     }
 
+    @Test
     public void testAddValuePrimitive() {
         MutableInt mutNum = new MutableInt(1);
         mutNum.add(1);
@@ -155,6 +162,7 @@ public class MutableIntTest extends TestCase {
         assertEquals(2L, mutNum.longValue());
     }
 
+    @Test
     public void testAddValueObject() {
         MutableInt mutNum = new MutableInt(1);
         mutNum.add(Integer.valueOf(1));
@@ -163,6 +171,7 @@ public class MutableIntTest extends TestCase {
         assertEquals(2L, mutNum.longValue());
     }
 
+    @Test
     public void testSubtractValuePrimitive() {
         MutableInt mutNum = new MutableInt(1);
         mutNum.subtract(1);
@@ -171,6 +180,7 @@ public class MutableIntTest extends TestCase {
         assertEquals(0L, mutNum.longValue());
     }
 
+    @Test
     public void testSubtractValueObject() {
         MutableInt mutNum = new MutableInt(1);
         mutNum.subtract(Integer.valueOf(1));
@@ -179,6 +189,7 @@ public class MutableIntTest extends TestCase {
         assertEquals(0L, mutNum.longValue());
     }
 
+    @Test
     public void testToString() {
         assertEquals("0", new MutableInt(0).toString());
         assertEquals("10", new MutableInt(10).toString());

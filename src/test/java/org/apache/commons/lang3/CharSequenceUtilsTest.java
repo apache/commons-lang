@@ -16,20 +16,25 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
+
+import org.junit.Test;
 
 /**
  * Tests CharSequenceUtils
  *
  * @version $Id: CharSequenceUtilsTest.java 1066341 2011-02-02 06:21:53Z bayard $
  */
-public class CharSequenceUtilsTest extends TestCase {
+public class CharSequenceUtilsTest {
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new CharSequenceUtils());
         Constructor<?>[] cons = CharSequenceUtils.class.getDeclaredConstructors();
@@ -40,6 +45,7 @@ public class CharSequenceUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testSubSequence() {
         //
         // null input

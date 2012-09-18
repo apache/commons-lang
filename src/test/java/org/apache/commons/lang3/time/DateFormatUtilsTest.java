@@ -16,25 +16,22 @@
  */
 package org.apache.commons.lang3.time;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import junit.framework.TestCase;
-
 /**
  * TestCase for DateFormatUtils.
  *
  */
-public class DateFormatUtilsTest extends TestCase {
-
-    public DateFormatUtilsTest(String s) {
-        super(s);
-    }
+public class DateFormatUtilsTest {
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new DateFormatUtils());
         Constructor<?>[] cons = DateFormatUtils.class.getDeclaredConstructors();
@@ -45,6 +42,7 @@ public class DateFormatUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testFormat() {
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         c.set(2005,0,1,12,0,0);
@@ -68,6 +66,7 @@ public class DateFormatUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testFormatCalendar() {
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         c.set(2005,0,1,12,0,0);
@@ -90,6 +89,7 @@ public class DateFormatUtilsTest extends TestCase {
         assertEquals(buffer.toString(), DateFormatUtils.format(c.getTime(), "yyyyMdH", Locale.US));
     }
     
+    @Test
     public void testFormatUTC() {
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         c.set(2005,0,1,12,0,0);
@@ -102,6 +102,7 @@ public class DateFormatUtilsTest extends TestCase {
         assertEquals ("2005-01-01T12:00:00", DateFormatUtils.formatUTC(c.getTime().getTime(), DateFormatUtils.ISO_DATETIME_FORMAT.getPattern(), Locale.US));
     }
     
+    @Test
     public void testDateTimeISO(){
         TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         Calendar cal = Calendar.getInstance(timeZone);
@@ -125,6 +126,7 @@ public class DateFormatUtilsTest extends TestCase {
         assertEquals("2002-02-23T09:11:12-03:00", text);
     }
 
+    @Test
     public void testDateISO(){
         TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         Calendar cal = Calendar.getInstance(timeZone);
@@ -148,6 +150,7 @@ public class DateFormatUtilsTest extends TestCase {
         assertEquals("2002-02-23-03:00", text);
     }
 
+    @Test
     public void testTimeISO(){
         TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         Calendar cal = Calendar.getInstance(timeZone);
@@ -171,6 +174,7 @@ public class DateFormatUtilsTest extends TestCase {
         assertEquals("T10:11:12-03:00", text);
     }
 
+    @Test
     public void testTimeNoTISO(){
         TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         Calendar cal = Calendar.getInstance(timeZone);
@@ -194,6 +198,7 @@ public class DateFormatUtilsTest extends TestCase {
         assertEquals("10:11:12-03:00", text);
     }
 
+    @Test
     public void testSMTP(){
         TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         Calendar cal = Calendar.getInstance(timeZone);

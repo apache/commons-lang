@@ -17,14 +17,16 @@
 
 package org.apache.commons.lang3.text.translate;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.OctalUnescaper}.
  * @version $Id: OctalUnescaperTest.java 979392 2010-07-26 18:09:52Z mbenson $
  */
-public class OctalUnescaperTest extends TestCase {
+public class OctalUnescaperTest {
 
+    @Test
     public void testBetween() {
         OctalUnescaper oue = new OctalUnescaper();   //.between("1", "377");
 

@@ -16,21 +16,20 @@
  */
 package org.apache.commons.lang3;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
  *
  * @version $Id$
  */
-public class StringUtilsIsTest extends TestCase {
-
-    public StringUtilsIsTest(String name) {
-        super(name);
-    }
+public class StringUtilsIsTest  {
 
     //-----------------------------------------------------------------------
 
+    @Test
     public void testIsAlpha() {
         assertEquals(false, StringUtils.isAlpha(null));
         assertEquals(false, StringUtils.isAlpha(""));
@@ -45,6 +44,7 @@ public class StringUtilsIsTest extends TestCase {
         assertEquals(false, StringUtils.isAlpha("hkHKHik*khbkuh"));
     }
 
+    @Test
     public void testIsAlphanumeric() {
         assertEquals(false, StringUtils.isAlphanumeric(null));
         assertEquals(false, StringUtils.isAlphanumeric(""));
@@ -59,6 +59,7 @@ public class StringUtilsIsTest extends TestCase {
         assertEquals(false, StringUtils.isAlphanumeric("hkHKHik*khbkuh"));
     }
 
+    @Test
     public void testIsWhitespace() {
         assertEquals(false, StringUtils.isWhitespace(null));
         assertEquals(true, StringUtils.isWhitespace(""));
@@ -74,6 +75,7 @@ public class StringUtilsIsTest extends TestCase {
         assertEquals(false, StringUtils.isWhitespace(StringUtilsTest.NON_WHITESPACE));
     }
 
+    @Test
     public void testIsAlphaspace() {
         assertEquals(false, StringUtils.isAlphaSpace(null));
         assertEquals(true, StringUtils.isAlphaSpace(""));
@@ -88,6 +90,7 @@ public class StringUtilsIsTest extends TestCase {
         assertEquals(false, StringUtils.isAlphaSpace("hkHKHik*khbkuh"));
     }
 
+    @Test
     public void testIsAlphanumericSpace() {
         assertEquals(false, StringUtils.isAlphanumericSpace(null));
         assertEquals(true, StringUtils.isAlphanumericSpace(""));
@@ -102,6 +105,7 @@ public class StringUtilsIsTest extends TestCase {
         assertEquals(false, StringUtils.isAlphanumericSpace("hkHKHik*khbkuh"));
     }
 
+    @Test
     public void testIsAsciiPrintable_String() {
         assertEquals(false, StringUtils.isAsciiPrintable(null));
         assertEquals(true, StringUtils.isAsciiPrintable(""));
@@ -127,6 +131,7 @@ public class StringUtilsIsTest extends TestCase {
         assertEquals(false, StringUtils.isAsciiPrintable("G\u00fclc\u00fc"));
     }
   
+    @Test
     public void testIsNumeric() {
         assertEquals(false, StringUtils.isNumeric(null));
         assertEquals(false, StringUtils.isNumeric(""));
@@ -146,6 +151,7 @@ public class StringUtilsIsTest extends TestCase {
         assertEquals(false, StringUtils.isNumeric("-123"));
     }
 
+    @Test
     public void testIsNumericSpace() {
         assertEquals(false, StringUtils.isNumericSpace(null));
         assertEquals(true, StringUtils.isNumericSpace(""));

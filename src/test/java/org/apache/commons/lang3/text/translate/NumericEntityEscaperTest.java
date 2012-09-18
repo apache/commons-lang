@@ -17,14 +17,17 @@
 
 package org.apache.commons.lang3.text.translate;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.NumericEntityEscaper}.
  * @version $Id$
  */
-public class NumericEntityEscaperTest extends TestCase {
+public class NumericEntityEscaperTest  {
 
+    @Test
     public void testBelow() {
         NumericEntityEscaper nee = NumericEntityEscaper.below('F');
 
@@ -33,6 +36,7 @@ public class NumericEntityEscaperTest extends TestCase {
         assertEquals("Failed to escape numeric entities via the below method", "&#65;&#68;FGZ", result);
     }
 
+    @Test
     public void testBetween() {
         NumericEntityEscaper nee = NumericEntityEscaper.between('F', 'L');
 
@@ -41,6 +45,7 @@ public class NumericEntityEscaperTest extends TestCase {
         assertEquals("Failed to escape numeric entities via the between method", "AD&#70;&#71;Z", result);
     }
 
+    @Test
     public void testAbove() {
         NumericEntityEscaper nee = NumericEntityEscaper.above('F');
 
@@ -50,6 +55,7 @@ public class NumericEntityEscaperTest extends TestCase {
     }
 
     // See LANG-617
+    @Test
     public void testSupplementary() {
         NumericEntityEscaper nee = new NumericEntityEscaper();
         String input = "\uD803\uDC22";

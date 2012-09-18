@@ -16,6 +16,10 @@
  */
 package org.apache.commons.lang3.event;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.VetoableChangeListener;
@@ -30,15 +34,16 @@ import java.util.TreeMap;
 
 import javax.naming.event.ObjectChangeListener;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * @since 3.0
  * @version $Id$
  */
-public class EventUtilsTest extends TestCase
+public class EventUtilsTest 
 {
 
+    @Test
     public void testConstructor() {
         assertNotNull(new EventUtils());
         Constructor<?>[] cons = EventUtils.class.getDeclaredConstructors();
@@ -48,6 +53,7 @@ public class EventUtilsTest extends TestCase
         assertEquals(false, Modifier.isFinal(EventUtils.class.getModifiers()));
     }
     
+    @Test
     public void testAddEventListener()
     {
         final PropertyChangeSource src = new PropertyChangeSource();
@@ -60,6 +66,7 @@ public class EventUtilsTest extends TestCase
         assertEquals(1, handler.getEventCount("propertyChange"));
     }
 
+    @Test
     public void testAddEventListenerWithNoAddMethod()
     {
         final PropertyChangeSource src = new PropertyChangeSource();
@@ -76,6 +83,7 @@ public class EventUtilsTest extends TestCase
         }
     }
 
+    @Test
     public void testAddEventListenerThrowsException()
     {
         final ExceptionEventSource src = new ExceptionEventSource();
@@ -97,6 +105,7 @@ public class EventUtilsTest extends TestCase
         }
     }
 
+    @Test
     public void testAddEventListenerWithPrivateAddMethod()
     {
         final PropertyChangeSource src = new PropertyChangeSource();
@@ -113,6 +122,7 @@ public class EventUtilsTest extends TestCase
         }
     }
 
+    @Test
     public void testBindEventsToMethod()
     {
         final PropertyChangeSource src = new PropertyChangeSource();
@@ -124,6 +134,7 @@ public class EventUtilsTest extends TestCase
     }
 
 
+    @Test
     public void testBindEventsToMethodWithEvent()
     {
         final PropertyChangeSource src = new PropertyChangeSource();
@@ -135,6 +146,7 @@ public class EventUtilsTest extends TestCase
     }
 
 
+    @Test
     public void testBindFilteredEventsToMethod()
     {
         final MultipleEventSource src = new MultipleEventSource();

@@ -16,6 +16,9 @@
  */
 package org.apache.commons.lang3.text;
 
+import org.junit.Test;
+import org.junit.Before;
+import static org.junit.Assert.*;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
 
 import java.text.ChoiceFormat;
@@ -33,8 +36,6 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.lang3.SystemUtils;
 
 /**
@@ -43,22 +44,12 @@ import org.apache.commons.lang3.SystemUtils;
  * @since 2.4
  * @version $Id$
  */
-public class ExtendedMessageFormatTest extends TestCase {
+public class ExtendedMessageFormatTest {
 
     private final Map<String, FormatFactory> registry = new HashMap<String, FormatFactory>();
 
-    /**
-     * Create a new test case.
-     *
-     * @param name The name of the test
-     */
-    public ExtendedMessageFormatTest(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         registry.put("lower", new LowerCaseFormatFactory());
         registry.put("upper", new UpperCaseFormatFactory());
     }
@@ -66,6 +57,7 @@ public class ExtendedMessageFormatTest extends TestCase {
     /**
      * Test extended formats.
      */
+    @Test
     public void testExtendedFormats() {
         String pattern = "Lower: {0,lower} Upper: {1,upper}";
         ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
@@ -80,6 +72,7 @@ public class ExtendedMessageFormatTest extends TestCase {
     /**
      * Test Bug LANG-477 - out of memory error with escaped quote
      */
+    @Test
     public void testEscapedQuote_LANG_477() {
         String pattern = "it''s a {0,lower} 'test'!";
         ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
@@ -89,6 +82,7 @@ public class ExtendedMessageFormatTest extends TestCase {
     /**
      * Test extended and built in formats.
      */
+    @Test
     public void testExtendedAndBuiltInFormats() {
         Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 05);
@@ -187,6 +181,7 @@ public class ExtendedMessageFormatTest extends TestCase {
     /**
      * Test the built in choice format.
      */
+    @Test
     public void testBuiltInChoiceFormat() {
         Object[] values = new Number[] {Integer.valueOf(1), Double.valueOf("2.2"), Double.valueOf("1234.5")};
         String choicePattern = null;
@@ -206,6 +201,7 @@ public class ExtendedMessageFormatTest extends TestCase {
     /**
      * Test the built in date/time formats
      */
+    @Test
     public void testBuiltInDateTimeFormat() {
         Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 05);
@@ -226,6 +222,7 @@ public class ExtendedMessageFormatTest extends TestCase {
         checkBuiltInFormat("12: {0,time}",         args, availableLocales);
     }
 
+    @Test
     public void testOverriddenBuiltinFormat() {
         Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23);
@@ -254,6 +251,7 @@ public class ExtendedMessageFormatTest extends TestCase {
     /**
      * Test the built in number formats.
      */
+    @Test
     public void testBuiltInNumberFormat() {
         Object[] args = new Object[] {Double.valueOf("6543.21")};
         Locale[] availableLocales = NumberFormat.getAvailableLocales();
@@ -267,6 +265,7 @@ public class ExtendedMessageFormatTest extends TestCase {
     /**
      * Test equals() and hashcode.
      */
+    @Test
     public void testEqualsHashcode() {
         Map<String, ? extends FormatFactory> registry = Collections.singletonMap("testfmt", new LowerCaseFormatFactory());
         Map<String, ? extends FormatFactory> otherRegitry = Collections.singletonMap("testfmt", new UpperCaseFormatFactory());

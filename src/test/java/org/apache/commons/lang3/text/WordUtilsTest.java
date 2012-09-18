@@ -16,23 +16,23 @@
  */
 package org.apache.commons.lang3.text;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Unit tests for WordUtils class.
  * 
  * @version $Id$
  */
-public class WordUtilsTest extends TestCase {
-
-    public WordUtilsTest(String name) {
-        super(name);
-    }
+public class WordUtilsTest {
 
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new WordUtils());
         Constructor<?>[] cons = WordUtils.class.getDeclaredConstructors();
@@ -43,6 +43,7 @@ public class WordUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testWrap_StringInt() {
         assertEquals(null, WordUtils.wrap(null, 20));
         assertEquals(null, WordUtils.wrap(null, -1));
@@ -70,6 +71,7 @@ public class WordUtilsTest extends TestCase {
         assertEquals(expected, WordUtils.wrap(input, 20));
     }
     
+    @Test
     public void testWrap_StringIntStringBoolean() {
         assertEquals(null, WordUtils.wrap(null, 20, "\n", false));
         assertEquals(null, WordUtils.wrap(null, 20, "\n", true));
@@ -149,6 +151,7 @@ public class WordUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @Test
     public void testCapitalize_String() {
         assertEquals(null, WordUtils.capitalize(null));
         assertEquals("", WordUtils.capitalize(""));
@@ -162,6 +165,7 @@ public class WordUtilsTest extends TestCase {
         assertEquals("I AM HERE 123", WordUtils.capitalize("I AM HERE 123") );
     }
     
+    @Test
     public void testCapitalizeWithDelimiters_String() {
         assertEquals(null, WordUtils.capitalize(null, null));
         assertEquals("", WordUtils.capitalize("", new char[0]));
@@ -179,6 +183,7 @@ public class WordUtilsTest extends TestCase {
         assertEquals("I Am.fine", WordUtils.capitalize("i am.fine", null) );
     }
 
+    @Test
     public void testCapitalizeFully_String() {
         assertEquals(null, WordUtils.capitalizeFully(null));
         assertEquals("", WordUtils.capitalizeFully(""));
@@ -192,6 +197,7 @@ public class WordUtilsTest extends TestCase {
         assertEquals("I Am Here 123", WordUtils.capitalizeFully("I AM HERE 123") );
     }
     
+    @Test
     public void testCapitalizeFullyWithDelimiters_String() {
         assertEquals(null, WordUtils.capitalizeFully(null, null));
         assertEquals("", WordUtils.capitalizeFully("", new char[0]));
@@ -209,6 +215,7 @@ public class WordUtilsTest extends TestCase {
         assertEquals("I Am.fine", WordUtils.capitalizeFully("i am.fine", null) );
     }
 
+    @Test
     public void testUncapitalize_String() {
         assertEquals(null, WordUtils.uncapitalize(null));
         assertEquals("", WordUtils.uncapitalize(""));
@@ -222,6 +229,7 @@ public class WordUtilsTest extends TestCase {
         assertEquals("i aM hERE 123", WordUtils.uncapitalize("I AM HERE 123") );
     }
     
+    @Test
     public void testUncapitalizeWithDelimiters_String() {
         assertEquals(null, WordUtils.uncapitalize(null, null));
         assertEquals("", WordUtils.uncapitalize("", new char[0]));
@@ -240,6 +248,7 @@ public class WordUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testInitials_String() {
         assertEquals(null, WordUtils.initials(null));
         assertEquals("", WordUtils.initials(""));
@@ -254,6 +263,7 @@ public class WordUtilsTest extends TestCase {
     }
 
     // -----------------------------------------------------------------------
+    @Test
     public void testInitials_String_charArray() {
         char[] array = null;
         assertEquals(null, WordUtils.initials(null, array));
@@ -335,6 +345,7 @@ public class WordUtilsTest extends TestCase {
     }
 
     // -----------------------------------------------------------------------
+    @Test
     public void testSwapCase_String() {
         assertEquals(null, WordUtils.swapCase(null));
         assertEquals("", WordUtils.swapCase(""));

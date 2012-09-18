@@ -17,17 +17,20 @@
 
 package org.apache.commons.lang3.text.translate;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.io.StringWriter;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.LookupTranslator}.
  * @version $Id$
  */
-public class LookupTranslatorTest extends TestCase {
+public class LookupTranslatorTest  {
 
+    @Test
     public void testBasicLookup() throws IOException {
         LookupTranslator lt = new LookupTranslator(new CharSequence[][] { { "one", "two" } });
         StringWriter out = new StringWriter();

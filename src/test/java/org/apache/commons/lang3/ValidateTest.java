@@ -18,6 +18,11 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.AbstractList;
@@ -28,20 +33,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.Validate}.
  *
  * @version $Id$
  */
-public class ValidateTest extends TestCase {
-
-    public ValidateTest(String name) {
-        super(name);
-    }
-
+public class ValidateTest  {
+    
     //-----------------------------------------------------------------------
+    @Test
     public void testIsTrue1() {
         Validate.isTrue(true);
         try {
@@ -53,6 +55,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testIsTrue2() {
         Validate.isTrue(true, "MSG");
         try {
@@ -64,6 +67,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testIsTrue3() {
         Validate.isTrue(true, "MSG", 6);
         try {
@@ -75,6 +79,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testIsTrue4() {
         Validate.isTrue(true, "MSG", 7);
         try {
@@ -86,6 +91,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testIsTrue5() {
         Validate.isTrue(true, "MSG", 7.4d);
         try {
@@ -98,6 +104,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testNotNull1() {
         Validate.notNull(new Object());
         try {
@@ -113,6 +120,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotNull2() {
         Validate.notNull(new Object(), "MSG");
         try {
@@ -129,6 +137,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testNotEmptyArray1() {
         Validate.notEmpty(new Object[] {null});
         try {
@@ -150,6 +159,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotEmptyArray2() {
         Validate.notEmpty(new Object[] {null}, "MSG");
         try {
@@ -172,6 +182,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testNotEmptyCollection1() {
         Collection<Integer> coll = new ArrayList<Integer>();
         try {
@@ -194,6 +205,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotEmptyCollection2() {
         Collection<Integer> coll = new ArrayList<Integer>();
         try {
@@ -217,6 +229,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testNotEmptyMap1() {
         Map<String, Integer> map = new HashMap<String, Integer>();
         try {
@@ -239,6 +252,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotEmptyMap2() {
         Map<String, Integer> map = new HashMap<String, Integer>();
         try {
@@ -262,6 +276,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testNotEmptyString1() {
         Validate.notEmpty("hjl");
         try {
@@ -283,6 +298,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotEmptyString2() {
         Validate.notEmpty("a", "MSG");
         try {
@@ -305,6 +321,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankNullStringShouldThrow() {
         //given
         String string = null;
@@ -320,6 +337,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankMsgNullStringShouldThrow() {
         //given
         String string = null;
@@ -335,6 +353,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankEmptyStringShouldThrow() {
         //given
         String string = "";
@@ -350,6 +369,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankBlankStringWithWhitespacesShouldThrow() {
         //given
         String string = "   ";
@@ -365,6 +385,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankBlankStringWithNewlinesShouldThrow() {
         //given
         String string = " \n \t \r \n ";
@@ -380,6 +401,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankMsgBlankStringShouldThrow() {
         //given
         String string = " \n \t \r \n ";
@@ -395,6 +417,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankMsgBlankStringWithWhitespacesShouldThrow() {
         //given
         String string = "   ";
@@ -410,6 +433,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankMsgEmptyStringShouldThrow() {
         //given
         String string = "";
@@ -425,6 +449,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankNotBlankStringShouldNotThrow() {
         //given
         String string = "abc";
@@ -436,6 +461,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankNotBlankStringWithWhitespacesShouldNotThrow() {
         //given
         String string = "  abc   ";
@@ -447,6 +473,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankNotBlankStringWithNewlinesShouldNotThrow() {
         //given
         String string = " \n \t abc \r \n ";
@@ -458,6 +485,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankMsgNotBlankStringShouldNotThrow() {
         //given
         String string = "abc";
@@ -469,6 +497,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankMsgNotBlankStringWithWhitespacesShouldNotThrow() {
         //given
         String string = "  abc   ";
@@ -480,6 +509,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankMsgNotBlankStringWithNewlinesShouldNotThrow() {
         //given
         String string = " \n \t abc \r \n ";
@@ -491,12 +521,14 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNotBlankReturnValues1() {
         String str = "Hi";
         String test = Validate.notBlank(str);
         assertSame(str, test);
     }
 
+    @Test
     public void testNotBlankReturnValues2() {
         String str = "Hi";
         String test = Validate.notBlank(str, "Message");
@@ -505,6 +537,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testNoNullElementsArray1() {
         String[] array = new String[] {"a", "b"};
         Validate.noNullElements(array);
@@ -528,6 +561,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNoNullElementsArray2() {
         String[] array = new String[] {"a", "b"};
         Validate.noNullElements(array, "MSG");
@@ -552,6 +586,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testNoNullElementsCollection1() {
         List<String> coll = new ArrayList<String>();
         coll.add("a");
@@ -577,6 +612,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNoNullElementsCollection2() {
         List<String> coll = new ArrayList<String>();
         coll.add("a");
@@ -603,6 +639,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testConstructor() {
         assertNotNull(new Validate());
         Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
@@ -614,6 +651,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testValidIndex_withMessage_array() {
         Object[] array = new Object[2];
         Validate.validIndex(array, 0, "Broken: ");
@@ -636,6 +674,7 @@ public class ValidateTest extends TestCase {
         assertSame(strArray, test);
     }
 
+    @Test
     public void testValidIndex_array() {
         Object[] array = new Object[2];
         Validate.validIndex(array, 0);
@@ -660,6 +699,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testValidIndex_withMessage_collection() {
         Collection<String> coll = new ArrayList<String>();
         coll.add(null);
@@ -684,6 +724,7 @@ public class ValidateTest extends TestCase {
         assertSame(strColl, test);
     }
 
+    @Test
     public void testValidIndex_collection() {
         Collection<String> coll = new ArrayList<String>();
         coll.add(null);
@@ -710,6 +751,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @Test
     public void testValidIndex_withMessage_charSequence() {
         CharSequence str = "Hi";
         Validate.validIndex(str, 0, "Broken: ");
@@ -732,6 +774,7 @@ public class ValidateTest extends TestCase {
         assertSame(input, test);
     }
 
+    @Test
     public void testValidIndex_charSequence() {
         CharSequence str = "Hi";
         Validate.validIndex(str, 0);
@@ -754,6 +797,7 @@ public class ValidateTest extends TestCase {
         assertSame(input, test);
     }
     
+    @Test
     public void testMatchesPattern()
     {
         CharSequence str = "hi";
@@ -769,6 +813,7 @@ public class ValidateTest extends TestCase {
         }
     }
     
+    @Test
     public void testMatchesPattern_withMessage()
     {
         CharSequence str = "hi";
@@ -784,6 +829,7 @@ public class ValidateTest extends TestCase {
         }
     }
     
+    @Test
     public void testInclusiveBetween()
     {
         Validate.inclusiveBetween("a", "c", "b");
@@ -797,6 +843,7 @@ public class ValidateTest extends TestCase {
         }
     }
     
+    @Test
     public void testInclusiveBetween_withMessage()
     {
         Validate.inclusiveBetween("a", "c", "b", "Error");
@@ -810,6 +857,7 @@ public class ValidateTest extends TestCase {
         }
     }
     
+    @Test
     public void testExclusiveBetween()
     {
         Validate.exclusiveBetween("a", "c", "b");
@@ -828,6 +876,7 @@ public class ValidateTest extends TestCase {
         }
     }
     
+    @Test
     public void testExclusiveBetween_withMessage()
     {
         Validate.exclusiveBetween("a", "c", "b", "Error");
@@ -846,11 +895,13 @@ public class ValidateTest extends TestCase {
         }
     }
 
+    @Test
     public void testIsInstanceOf() {
         Validate.isInstanceOf(String.class, "hi");
         Validate.isInstanceOf(Integer.class, 1);
     }
     
+    @Test
     public void testIsInstanceOfExceptionMessage() {
         try {
             Validate.isInstanceOf(List.class, "hi");
@@ -860,6 +911,7 @@ public class ValidateTest extends TestCase {
         }
     }
     
+    @Test
     public void testIsInstanceOf_withMessage() {
         Validate.isInstanceOf(String.class, "hi", "Error");
         Validate.isInstanceOf(Integer.class, 1, "Error");
@@ -871,11 +923,13 @@ public class ValidateTest extends TestCase {
         }
     }
     
+    @Test
     public void testIsAssignable() {
         Validate.isAssignableFrom(CharSequence.class, String.class);
         Validate.isAssignableFrom(AbstractList.class, ArrayList.class);
     }
     
+    @Test
     public void testIsAssignableExceptionMessage() {
         try {
             Validate.isAssignableFrom(List.class, String.class);
@@ -885,6 +939,7 @@ public class ValidateTest extends TestCase {
         }
     }
     
+    @Test
     public void testIsAssignable_withMessage() {
         Validate.isAssignableFrom(CharSequence.class, String.class, "Error");
         Validate.isAssignableFrom(AbstractList.class, ArrayList.class, "Error");

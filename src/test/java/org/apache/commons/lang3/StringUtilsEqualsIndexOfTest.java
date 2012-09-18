@@ -16,20 +16,22 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
-import junit.framework.TestCase;
-
 import org.hamcrest.core.IsNot;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
  *
  * @version $Id$
  */
-public class StringUtilsEqualsIndexOfTest extends TestCase {
+public class StringUtilsEqualsIndexOfTest  {
     private static final String BAR = "bar";
     /**
      * Supplementary character U+20000
@@ -59,10 +61,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
 
     private static final String[] FOOBAR_SUB_ARRAY = new String[] {"ob", "ba"};
 
-    public StringUtilsEqualsIndexOfTest(String name) {
-        super(name);
-    }
-
+    @Test
     public void testContains_Char() {
         assertEquals(false, StringUtils.contains(null, ' '));
         assertEquals(false, StringUtils.contains("", ' '));
@@ -74,6 +73,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(false, StringUtils.contains("abc", 'z'));
     }
 
+    @Test
     public void testContains_String() {
         assertEquals(false, StringUtils.contains(null, null));
         assertEquals(false, StringUtils.contains(null, ""));
@@ -91,6 +91,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testContains_StringWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
         assertEquals(false, StringUtils.contains(CharUSuppCharHigh, CharU20001));
@@ -105,6 +106,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testContains_StringWithSupplementaryChars() {
         assertEquals(true, StringUtils.contains(CharU20000 + CharU20001, CharU20000));
         assertEquals(true, StringUtils.contains(CharU20000 + CharU20001, CharU20001));
@@ -112,6 +114,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(false, StringUtils.contains(CharU20000, CharU20001));
     }
 
+    @Test
     public void testContainsAny_StringCharArray() {
         assertFalse(StringUtils.containsAny(null, (char[]) null));
         assertFalse(StringUtils.containsAny(null, new char[0]));
@@ -131,6 +134,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testContainsAny_StringCharArrayWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
         assertEquals(false, StringUtils.containsAny(CharUSuppCharHigh, CharU20001.toCharArray()));
@@ -145,6 +149,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testContainsAny_StringCharArrayWithSupplementaryChars() {
         assertEquals(true, StringUtils.containsAny(CharU20000 + CharU20001, CharU20000.toCharArray()));
         assertEquals(true, StringUtils.containsAny("a" + CharU20000 + CharU20001, "a".toCharArray()));
@@ -161,6 +166,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(false, StringUtils.containsAny(CharU20001, CharU20000.toCharArray()));
     }
 
+    @Test
     public void testContainsAny_StringString() {
         assertFalse(StringUtils.containsAny(null, (String) null));
         assertFalse(StringUtils.containsAny(null, ""));
@@ -180,6 +186,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testContainsAny_StringWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
         assertEquals(false, StringUtils.containsAny(CharUSuppCharHigh, CharU20001));
@@ -193,6 +200,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testContainsAny_StringWithSupplementaryChars() {
         assertEquals(true, StringUtils.containsAny(CharU20000 + CharU20001, CharU20000));
         assertEquals(true, StringUtils.containsAny(CharU20000 + CharU20001, CharU20001));
@@ -206,6 +214,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(false, StringUtils.containsAny(CharU20001, CharU20000));
     }
 
+    @Test
     public void testContainsIgnoreCase_LocaleIndependence() {
         Locale orig = Locale.getDefault();
 
@@ -240,6 +249,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         }
     }
 
+    @Test
     public void testContainsIgnoreCase_StringString() {
         assertFalse(StringUtils.containsIgnoreCase(null, null));
 
@@ -274,6 +284,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertTrue(StringUtils.containsIgnoreCase("xabcz", "ABC"));
     }
 
+    @Test
     public void testContainsNone_CharArray() {
         String str1 = "a";
         String str2 = "b";
@@ -302,6 +313,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testContainsNone_CharArrayWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
         assertEquals(true, StringUtils.containsNone(CharUSuppCharHigh, CharU20001.toCharArray()));
@@ -316,6 +328,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testContainsNone_CharArrayWithSupplementaryChars() {
         assertEquals(false, StringUtils.containsNone(CharU20000 + CharU20001, CharU20000.toCharArray()));
         assertEquals(false, StringUtils.containsNone(CharU20000 + CharU20001, CharU20001.toCharArray()));
@@ -329,6 +342,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(true, StringUtils.containsNone(CharU20001, CharU20000.toCharArray()));
     }
 
+    @Test
     public void testContainsNone_String() {
         String str1 = "a";
         String str2 = "b";
@@ -356,6 +370,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testContainsNone_StringWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
         assertEquals(true, StringUtils.containsNone(CharUSuppCharHigh, CharU20001));
@@ -370,6 +385,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testContainsNone_StringWithSupplementaryChars() {
         assertEquals(false, StringUtils.containsNone(CharU20000 + CharU20001, CharU20000));
         assertEquals(false, StringUtils.containsNone(CharU20000 + CharU20001, CharU20001));
@@ -383,6 +399,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(true, StringUtils.containsNone(CharU20001, CharU20000));
     }
 
+    @Test
     public void testContainsOnly_CharArray() {
         String str1 = "a";
         String str2 = "b";
@@ -408,6 +425,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(true, StringUtils.containsOnly(str3, chars3));
     }
 
+    @Test
     public void testContainsOnly_String() {
         String str1 = "a";
         String str2 = "b";
@@ -432,6 +450,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(true, StringUtils.containsOnly(str3, chars3));
     }
 
+    @Test
     public void testContainsWhitespace() {
         assertFalse( StringUtils.containsWhitespace("") );
         assertTrue( StringUtils.containsWhitespace(" ") );
@@ -483,12 +502,14 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         }
     }
 
+    @Test
     public void testCustomCharSequence() {
         assertThat(new CustomCharSequence(FOO), IsNot.<CharSequence>not(FOO));
         assertThat(FOO, IsNot.<CharSequence>not(new CustomCharSequence(FOO)));
         assertEquals(new CustomCharSequence(FOO), new CustomCharSequence(FOO));
     }
 
+    @Test
     public void testEquals() {
         final CharSequence fooCs = FOO, barCs = BAR, foobarCs = FOOBAR;
         assertTrue(StringUtils.equals(null, null));
@@ -505,6 +526,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertFalse(StringUtils.equals(foobarCs, fooCs));
     }
 
+    @Test
     public void testEqualsOnStrings() {
         assertTrue(StringUtils.equals(null, null));
         assertTrue(StringUtils.equals(FOO, FOO));
@@ -517,6 +539,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertFalse(StringUtils.equals(FOOBAR, FOO));
     }
 
+    @Test
     public void testEqualsIgnoreCase() {
         assertEquals(true, StringUtils.equalsIgnoreCase(null, null));
         assertEquals(true, StringUtils.equalsIgnoreCase(FOO, FOO));
@@ -530,6 +553,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    @Test
     public void testIndexOf_char() {
         assertEquals(-1, StringUtils.indexOf(null, ' '));
         assertEquals(-1, StringUtils.indexOf("", ' '));
@@ -539,6 +563,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(2, StringUtils.indexOf(new StringBuilder("aabaabaa"), 'b'));
     }
 
+    @Test
     public void testIndexOf_charInt() {
         assertEquals(-1, StringUtils.indexOf(null, ' ', 0));
         assertEquals(-1, StringUtils.indexOf(null, ' ', -1));
@@ -553,6 +578,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(5, StringUtils.indexOf(new StringBuilder("aabaabaa"), 'b', 3));
     }
 
+    @Test
     public void testIndexOf_String() {
         assertEquals(-1, StringUtils.indexOf(null, null));
         assertEquals(-1, StringUtils.indexOf("", null));
@@ -565,6 +591,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(2, StringUtils.indexOf(new StringBuilder("aabaabaa"), "b"));
     }
 
+    @Test
     public void testIndexOf_StringInt() {
         assertEquals(-1, StringUtils.indexOf(null, null, 0));
         assertEquals(-1, StringUtils.indexOf(null, null, -1));
@@ -590,6 +617,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(5, StringUtils.indexOf(new StringBuilder("aabaabaa"), "b", 3));
     }
 
+    @Test
     public void testIndexOfAny_StringCharArray() {
         assertEquals(-1, StringUtils.indexOfAny(null, (char[]) null));
         assertEquals(-1, StringUtils.indexOfAny(null, new char[0]));
@@ -609,6 +637,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testIndexOfAny_StringCharArrayWithSupplementaryChars() {
         assertEquals(0, StringUtils.indexOfAny(CharU20000 + CharU20001, CharU20000.toCharArray()));
         assertEquals(2, StringUtils.indexOfAny(CharU20000 + CharU20001, CharU20001.toCharArray()));
@@ -616,6 +645,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(-1, StringUtils.indexOfAny(CharU20000, CharU20001.toCharArray()));
     }
 
+    @Test
     public void testIndexOfAny_StringString() {
         assertEquals(-1, StringUtils.indexOfAny(null, (String) null));
         assertEquals(-1, StringUtils.indexOfAny(null, ""));
@@ -632,6 +662,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(-1, StringUtils.indexOfAny("ab", "z"));
     }
 
+    @Test
     public void testIndexOfAny_StringStringArray() {
         assertEquals(-1, StringUtils.indexOfAny(null, (String[]) null));
         assertEquals(-1, StringUtils.indexOfAny(null, FOOBAR_SUB_ARRAY));
@@ -652,6 +683,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     /**
      * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
      */
+    @Test
     public void testIndexOfAny_StringStringWithSupplementaryChars() {
         assertEquals(0, StringUtils.indexOfAny(CharU20000 + CharU20001, CharU20000));
         assertEquals(2, StringUtils.indexOfAny(CharU20000 + CharU20001, CharU20001));
@@ -659,6 +691,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(-1, StringUtils.indexOfAny(CharU20000, CharU20001));
     }
 
+    @Test
     public void testIndexOfAnyBut_StringCharArray() {
         assertEquals(-1, StringUtils.indexOfAnyBut(null, (char[]) null));
         assertEquals(-1, StringUtils.indexOfAnyBut(null, new char[0]));
@@ -677,6 +710,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
 
     }
 
+    @Test
     public void testIndexOfAnyBut_StringCharArrayWithSupplementaryChars() {
         assertEquals(2, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, CharU20000.toCharArray()));
         assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, CharU20001.toCharArray()));
@@ -684,6 +718,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(0, StringUtils.indexOfAnyBut(CharU20000, CharU20001.toCharArray()));
     }
 
+    @Test
     public void testIndexOfAnyBut_StringString() {
         assertEquals(-1, StringUtils.indexOfAnyBut(null, (String) null));
         assertEquals(-1, StringUtils.indexOfAnyBut(null, ""));
@@ -700,6 +735,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(0, StringUtils.indexOfAnyBut("ab", "z"));
     }
 
+    @Test
     public void testIndexOfAnyBut_StringStringWithSupplementaryChars() {
         assertEquals(2, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, CharU20000));
         assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, CharU20001));
@@ -707,6 +743,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(0, StringUtils.indexOfAnyBut(CharU20000, CharU20001));
     }
 
+    @Test
     public void testIndexOfIgnoreCase_String() {
         assertEquals(-1, StringUtils.indexOfIgnoreCase(null, null));
         assertEquals(-1, StringUtils.indexOfIgnoreCase(null, ""));
@@ -721,6 +758,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(0, StringUtils.indexOfIgnoreCase("aabaabaa", ""));
     }
 
+    @Test
     public void testIndexOfIgnoreCase_StringInt() {
         assertEquals(1, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", -1));
         assertEquals(1, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 0));
@@ -738,6 +776,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(-1, StringUtils.indexOfIgnoreCase("aab", "AAB", 1));
     }
 
+    @Test
     public void testLastIndexOf_char() {
         assertEquals(-1, StringUtils.lastIndexOf(null, ' '));
         assertEquals(-1, StringUtils.lastIndexOf("", ' '));
@@ -747,6 +786,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(5, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), 'b'));
     }
 
+    @Test
     public void testLastIndexOf_charInt() {
         assertEquals(-1, StringUtils.lastIndexOf(null, ' ', 0));
         assertEquals(-1, StringUtils.lastIndexOf(null, ' ', -1));
@@ -762,6 +802,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(2, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), 'b', 2));
     }
 
+    @Test
     public void testLastIndexOf_String() {
         assertEquals(-1, StringUtils.lastIndexOf(null, null));
         assertEquals(-1, StringUtils.lastIndexOf("", null));
@@ -775,6 +816,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(4, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), "ab"));
     }
 
+    @Test
     public void testLastIndexOf_StringInt() {
         assertEquals(-1, StringUtils.lastIndexOf(null, null, 0));
         assertEquals(-1, StringUtils.lastIndexOf(null, null, -1));
@@ -800,6 +842,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(2, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), "b", 3));
     }
 
+    @Test
     public void testLastIndexOfAny_StringStringArray() {
         assertEquals(-1, StringUtils.lastIndexOfAny(null, (CharSequence) null));   // test both types of ...
         assertEquals(-1, StringUtils.lastIndexOfAny(null, (CharSequence[]) null)); // ... varargs invocation
@@ -821,6 +864,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(-1, StringUtils.lastIndexOfAny(null, new String[] {null}));
     }
 
+    @Test
     public void testLastIndexOfIgnoreCase_String() {
         assertEquals(-1, StringUtils.lastIndexOfIgnoreCase(null, null));
         assertEquals(-1, StringUtils.lastIndexOfIgnoreCase("", null));
@@ -838,6 +882,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(0, StringUtils.lastIndexOfIgnoreCase("aab", "AAB"));
     }
 
+    @Test
     public void testLastIndexOfIgnoreCase_StringInt() {
         assertEquals(-1, StringUtils.lastIndexOfIgnoreCase(null, null, 0));
         assertEquals(-1, StringUtils.lastIndexOfIgnoreCase(null, null, -1));
@@ -862,6 +907,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(1, StringUtils.lastIndexOfIgnoreCase("aab", "AB", 1));
     }
 
+    @Test
     public void testLastOrdinalIndexOf() {
         assertEquals(-1, StringUtils.lastOrdinalIndexOf(null, "*", 42) );
         assertEquals(-1, StringUtils.lastOrdinalIndexOf("*", null, 42) );
@@ -876,6 +922,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(8, StringUtils.lastOrdinalIndexOf("aabaabaa", "", 2) );
     }
 
+    @Test
     public void testOrdinalIndexOf() {
         assertEquals(-1, StringUtils.ordinalIndexOf(null, null, Integer.MIN_VALUE));
         assertEquals(-1, StringUtils.ordinalIndexOf("", null, Integer.MIN_VALUE));

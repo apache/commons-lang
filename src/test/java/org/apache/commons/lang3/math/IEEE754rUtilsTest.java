@@ -16,15 +16,20 @@
  */
 package org.apache.commons.lang3.math;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.math.IEEE754rUtils}.
  *
  * @version $Id$
  */
-public class IEEE754rUtilsTest extends TestCase {
+public class IEEE754rUtilsTest  {
 
+    @Test
     public void testLang381() {
         assertEquals(1.2, IEEE754rUtils.min(1.2, 2.5, Double.NaN), 0.01);
         assertEquals(2.5, IEEE754rUtils.max(1.2, 2.5, Double.NaN), 0.01);
@@ -50,6 +55,7 @@ public class IEEE754rUtilsTest extends TestCase {
         assertEquals(42.0f, IEEE754rUtils.max(bF), 0.01);
     }
 
+    @Test
     public void testEnforceExceptions() {
         try {
             IEEE754rUtils.min( (float[]) null);
@@ -93,6 +99,7 @@ public class IEEE754rUtilsTest extends TestCase {
 
     }
 
+    @Test
     public void testConstructorExists() {
         new IEEE754rUtils();
     }

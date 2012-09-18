@@ -17,15 +17,19 @@
 
 package org.apache.commons.lang3.text.translate;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeEscaper}.
  * @version $Id$
  */
-public class UnicodeUnescaperTest extends TestCase {
+public class UnicodeUnescaperTest {
 
     // Requested in LANG-507
+    @Test
     public void testUPlus() {
         UnicodeUnescaper uu = new UnicodeUnescaper();
 
@@ -33,6 +37,7 @@ public class UnicodeUnescaperTest extends TestCase {
         assertEquals("Failed to unescape Unicode characters with 'u+' notation", "G", uu.translate(input));
     }
 
+    @Test
     public void testUuuuu() {
         UnicodeUnescaper uu = new UnicodeUnescaper();
 
@@ -41,6 +46,7 @@ public class UnicodeUnescaperTest extends TestCase {
         assertEquals("Failed to unescape Unicode characters with many 'u' characters", "G", result);
     }
 
+    @Test
     public void testLessThanFour() {
         UnicodeUnescaper uu = new UnicodeUnescaper();
 

@@ -17,6 +17,10 @@
 
 package org.apache.commons.lang3.event;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
@@ -30,16 +34,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.easymock.EasyMock;
+import org.junit.Test;
 
 /**
  * @since 3.0
  * @version $Id$
  */
-public class EventListenerSupportTest extends TestCase
+public class EventListenerSupportTest 
 {
+    @Test
     public void testAddNullListener()
     {
         EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
@@ -54,6 +58,7 @@ public class EventListenerSupportTest extends TestCase
         }
     }
 
+    @Test
     public void testRemoveNullListener()
     {
         EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
@@ -68,6 +73,7 @@ public class EventListenerSupportTest extends TestCase
         }
     }
 
+    @Test
     public void testEventDispatchOrder() throws PropertyVetoException
     {
         EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
@@ -83,6 +89,7 @@ public class EventListenerSupportTest extends TestCase
         assertSame(calledListeners.get(1), listener2);
     }
 
+    @Test
     public void testCreateWithNonInterfaceParameter()
     {
         try
@@ -96,6 +103,7 @@ public class EventListenerSupportTest extends TestCase
         }
     }
 
+    @Test
     public void testCreateWithNullParameter()
     {
         try
@@ -109,6 +117,7 @@ public class EventListenerSupportTest extends TestCase
         }
     }
 
+    @Test
     public void testRemoveListenerDuringEvent() throws PropertyVetoException
     {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
@@ -121,6 +130,7 @@ public class EventListenerSupportTest extends TestCase
         assertEquals(listenerSupport.getListenerCount(), 0);
     }
 
+    @Test
     public void testGetListeners() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
 
@@ -143,6 +153,7 @@ public class EventListenerSupportTest extends TestCase
         assertSame(empty, listenerSupport.getListeners());
     }
 
+    @Test
     public void testSerialization() throws IOException, ClassNotFoundException, PropertyVetoException {
         EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         listenerSupport.addListener(new VetoableChangeListener() {
@@ -183,6 +194,7 @@ public class EventListenerSupportTest extends TestCase
         assertEquals(0, deserializedListenerSupport.getListeners().length);
     }
 
+    @Test
     public void testSubclassInvocationHandling() throws PropertyVetoException {
 
         @SuppressWarnings("serial")

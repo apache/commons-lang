@@ -18,6 +18,8 @@
  */
 package org.apache.commons.lang3;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static org.apache.commons.lang3.JavaVersion.JAVA_0_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_2;
@@ -29,15 +31,15 @@ import static org.apache.commons.lang3.JavaVersion.JAVA_1_7;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_8;
 import static org.apache.commons.lang3.JavaVersion.get;
 import static org.apache.commons.lang3.JavaVersion.getJavaVersion;
-import junit.framework.TestCase;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.JavaVersion}.
  *
  * @version $Id: JavaVersionTest.java 918366 2010-03-03 08:56:22Z bayard $
  */
-public class JavaVersionTest extends TestCase {
+public class JavaVersionTest {
 
+    @Test
     public void testGetJavaVersion() {
         assertEquals("0.9 failed", JAVA_0_9, get("0.9"));
         assertEquals("1.1 failed", JAVA_1_1, get("1.1"));
@@ -52,6 +54,7 @@ public class JavaVersionTest extends TestCase {
         assertEquals("Wrapper method failed", get("1.5"), getJavaVersion("1.5"));
     }
 
+    @Test
     public void testAtLeast() {
         assertFalse("1.2 at least 1.5 passed", JAVA_1_2.atLeast(JAVA_1_5));
         assertTrue("1.5 at least 1.2 failed", JAVA_1_5.atLeast(JAVA_1_2));
@@ -61,6 +64,7 @@ public class JavaVersionTest extends TestCase {
         assertFalse("0.9 at least 1.6 passed", JAVA_0_9.atLeast(JAVA_1_6));
     }
 
+    @Test
     public void testToString() {
         assertEquals("1.2", JAVA_1_2.toString());
     }

@@ -16,21 +16,22 @@
  */
 package org.apache.commons.lang3.time;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import junit.framework.Assert;
-import junit.framework.TestCase;
+
+import org.junit.Test;
 
 /**
  * TestCase for StopWatch.
  *
  * @version $Id$
  */
-public class StopWatchTest extends TestCase {
-
-    public StopWatchTest(String s) {
-        super(s);
-    }
+public class StopWatchTest  {
 
     //-----------------------------------------------------------------------
+    @Test
     public void testStopWatchSimple(){
         StopWatch watch = new StopWatch();
         watch.start();
@@ -46,6 +47,7 @@ public class StopWatchTest extends TestCase {
         assertEquals(0, watch.getTime());
     }
     
+    @Test
     public void testStopWatchSimpleGet(){
         StopWatch watch = new StopWatch();
         assertEquals(0, watch.getTime());
@@ -56,6 +58,7 @@ public class StopWatchTest extends TestCase {
         assertTrue(watch.getTime() < 2000);
     }
     
+    @Test
     public void testStopWatchSplit(){
         StopWatch watch = new StopWatch();
         watch.start();
@@ -77,6 +80,7 @@ public class StopWatchTest extends TestCase {
         assertTrue(totalTime < 1900);
     }
     
+    @Test
     public void testStopWatchSuspend(){
         StopWatch watch = new StopWatch();
         watch.start();
@@ -95,6 +99,7 @@ public class StopWatchTest extends TestCase {
         assertTrue(totalTime < 1300);
     }
 
+    @Test
     public void testLang315() {
         StopWatch watch = new StopWatch();
         watch.start();
@@ -108,6 +113,7 @@ public class StopWatchTest extends TestCase {
     }
 
     // test bad states
+    @Test
     public void testBadStates() {
         StopWatch watch = new StopWatch();
         try {
@@ -192,6 +198,7 @@ public class StopWatchTest extends TestCase {
         }
     }
 
+    @Test
     public void testGetStartTime() {
         long beforeStopWatch = System.currentTimeMillis();
         StopWatch watch = new StopWatch();

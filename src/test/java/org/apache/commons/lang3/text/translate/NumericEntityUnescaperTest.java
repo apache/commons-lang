@@ -17,14 +17,18 @@
 
 package org.apache.commons.lang3.text.translate;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.NumericEntityUnescaper}.
  * @version $Id$
  */
-public class NumericEntityUnescaperTest extends TestCase {
+public class NumericEntityUnescaperTest  {
 
+    @Test
     public void testSupplementaryUnescaping() {
         NumericEntityUnescaper neu = new NumericEntityUnescaper();
         String input = "&#68642;";
@@ -34,6 +38,7 @@ public class NumericEntityUnescaperTest extends TestCase {
         assertEquals("Failed to unescape numeric entities supplementary characters", expected, result);
     }
 
+    @Test
     public void testOutOfBounds() {
         NumericEntityUnescaper neu = new NumericEntityUnescaper();
 
@@ -43,6 +48,7 @@ public class NumericEntityUnescaperTest extends TestCase {
         assertEquals("Failed to ignore when last character is &", "Test &#X", neu.translate("Test &#X"));
     }
 
+    @Test
     public void testUnfinishedEntity() {
         // parse it
         NumericEntityUnescaper neu = new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.semiColonOptional);

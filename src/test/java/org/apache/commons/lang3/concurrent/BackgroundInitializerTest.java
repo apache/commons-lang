@@ -16,15 +16,15 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-import junit.framework.TestCase;
-
-public class BackgroundInitializerTest extends TestCase {
+public class BackgroundInitializerTest {
     /**
      * Helper method for checking whether the initialize() method was correctly
      * called. start() must already have been invoked.
@@ -45,6 +45,7 @@ public class BackgroundInitializerTest extends TestCase {
     /**
      * Tests whether initialize() is invoked.
      */
+    @Test
     public void testInitialize() {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
@@ -55,6 +56,7 @@ public class BackgroundInitializerTest extends TestCase {
      * Tries to obtain the executor before start(). It should not have been
      * initialized yet.
      */
+    @Test
     public void testGetActiveExecutorBeforeStart() {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertNull("Got an executor", init.getActiveExecutor());
@@ -63,6 +65,7 @@ public class BackgroundInitializerTest extends TestCase {
     /**
      * Tests whether an external executor is correctly detected.
      */
+    @Test
     public void testGetActiveExecutorExternal() {
         ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
@@ -79,6 +82,7 @@ public class BackgroundInitializerTest extends TestCase {
     /**
      * Tests getActiveExecutor() for a temporary executor.
      */
+    @Test
     public void testGetActiveExecutorTemp() {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
@@ -90,6 +94,7 @@ public class BackgroundInitializerTest extends TestCase {
      * Tests the execution of the background task if a temporary executor has to
      * be created.
      */
+    @Test
     public void testInitializeTempExecutor() {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertTrue("Wrong result of start()", init.start());
@@ -102,6 +107,7 @@ public class BackgroundInitializerTest extends TestCase {
      * Tests whether an external executor can be set using the
      * setExternalExecutor() method.
      */
+    @Test
     public void testSetExternalExecutor() throws Exception {
         ExecutorService exec = Executors.newCachedThreadPool();
         try {
@@ -121,6 +127,7 @@ public class BackgroundInitializerTest extends TestCase {
     /**
      * Tests that setting an executor after start() causes an exception.
      */
+    @Test
     public void testSetExternalExecutorAfterStart() throws ConcurrentException {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
@@ -136,6 +143,7 @@ public class BackgroundInitializerTest extends TestCase {
      * Tests invoking start() multiple times. Only the first invocation should
      * have an effect.
      */
+    @Test
     public void testStartMultipleTimes() {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertTrue("Wrong result for start()", init.start());
@@ -148,6 +156,7 @@ public class BackgroundInitializerTest extends TestCase {
     /**
      * Tests calling get() before start(). This should cause an exception.
      */
+    @Test
     public void testGetBeforeStart() throws ConcurrentException {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         try {
@@ -162,6 +171,7 @@ public class BackgroundInitializerTest extends TestCase {
      * Tests the get() method if background processing causes a runtime
      * exception.
      */
+    @Test
     public void testGetRuntimeException() throws Exception {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         RuntimeException rex = new RuntimeException();
@@ -179,6 +189,7 @@ public class BackgroundInitializerTest extends TestCase {
      * Tests the get() method if background processing causes a checked
      * exception.
      */
+    @Test
     public void testGetCheckedException() throws Exception {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         Exception ex = new Exception();
@@ -195,6 +206,7 @@ public class BackgroundInitializerTest extends TestCase {
     /**
      * Tests the get() method if waiting for the initialization is interrupted.
      */
+    @Test
     public void testGetInterruptedException() throws Exception {
         ExecutorService exec = Executors.newSingleThreadExecutor();
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl(
@@ -229,6 +241,7 @@ public class BackgroundInitializerTest extends TestCase {
     /**
      * Tests isStarted() before start() was called.
      */
+    @Test
     public void testIsStartedFalse() {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertFalse("Already started", init.isStarted());
@@ -237,6 +250,7 @@ public class BackgroundInitializerTest extends TestCase {
     /**
      * Tests isStarted() after start().
      */
+    @Test
     public void testIsStartedTrue() {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
@@ -246,6 +260,7 @@ public class BackgroundInitializerTest extends TestCase {
     /**
      * Tests isStarted() after the background task has finished.
      */
+    @Test
     public void testIsStartedAfterGet() {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();

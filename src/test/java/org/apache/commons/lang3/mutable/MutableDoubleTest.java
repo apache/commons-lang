@@ -16,7 +16,8 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * JUnit tests.
@@ -24,13 +25,10 @@ import junit.framework.TestCase;
  * @version $Id$
  * @see MutableDouble
  */
-public class MutableDoubleTest extends TestCase {
-
-    public MutableDoubleTest(String testName) {
-        super(testName);
-    }
+public class MutableDoubleTest {
 
     // ----------------------------------------------------------------
+    @Test
     public void testConstructors() {
         assertEquals(0d, new MutableDouble().doubleValue(), 0.0001d);
         
@@ -47,6 +45,7 @@ public class MutableDoubleTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testGetSet() {
         final MutableDouble mutNum = new MutableDouble(0d);
         assertEquals(0d, new MutableDouble().doubleValue(), 0.0001d);
@@ -69,6 +68,7 @@ public class MutableDoubleTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testNanInfinite() {
         MutableDouble mutNum = new MutableDouble(Double.NaN);
         assertEquals(true, mutNum.isNaN());
@@ -80,6 +80,7 @@ public class MutableDoubleTest extends TestCase {
         assertEquals(true, mutNum.isInfinite());
     }
 
+    @Test
     public void testEquals() {
         final MutableDouble mutNumA = new MutableDouble(0d);
         final MutableDouble mutNumB = new MutableDouble(0d);
@@ -97,6 +98,7 @@ public class MutableDoubleTest extends TestCase {
         assertEquals(false, mutNumA.equals("0"));
     }
 
+    @Test
     public void testHashCode() {
         final MutableDouble mutNumA = new MutableDouble(0d);
         final MutableDouble mutNumB = new MutableDouble(0d);
@@ -108,6 +110,7 @@ public class MutableDoubleTest extends TestCase {
         assertEquals(true, mutNumA.hashCode() == Double.valueOf(0d).hashCode());
     }
 
+    @Test
     public void testCompareTo() {
         final MutableDouble mutNum = new MutableDouble(0d);
 
@@ -120,6 +123,7 @@ public class MutableDoubleTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testPrimitiveValues() {
         MutableDouble mutNum = new MutableDouble(1.7);
         
@@ -131,11 +135,13 @@ public class MutableDoubleTest extends TestCase {
         assertEquals( 1L, mutNum.longValue() );
     }
 
+    @Test
     public void testToDouble() {
         assertEquals(Double.valueOf(0d), new MutableDouble(0d).toDouble());
         assertEquals(Double.valueOf(12.3d), new MutableDouble(12.3d).toDouble());
     }
 
+    @Test
     public void testIncrement() {
         MutableDouble mutNum = new MutableDouble(1);
         mutNum.increment();
@@ -144,6 +150,7 @@ public class MutableDoubleTest extends TestCase {
         assertEquals(2L, mutNum.longValue());
     }
 
+    @Test
     public void testDecrement() {
         MutableDouble mutNum = new MutableDouble(1);
         mutNum.decrement();
@@ -152,6 +159,7 @@ public class MutableDoubleTest extends TestCase {
         assertEquals(0L, mutNum.longValue());
     }
 
+    @Test
     public void testAddValuePrimitive() {
         MutableDouble mutNum = new MutableDouble(1);
         mutNum.add(1.1d);
@@ -159,6 +167,7 @@ public class MutableDoubleTest extends TestCase {
         assertEquals(2.1d, mutNum.doubleValue(), 0.01d);
     }
 
+    @Test
     public void testAddValueObject() {
         MutableDouble mutNum = new MutableDouble(1);
         mutNum.add(Double.valueOf(1.1d));
@@ -166,6 +175,7 @@ public class MutableDoubleTest extends TestCase {
         assertEquals(2.1d, mutNum.doubleValue(), 0.01d);
     }
 
+    @Test
     public void testSubtractValuePrimitive() {
         MutableDouble mutNum = new MutableDouble(1);
         mutNum.subtract(0.9d);
@@ -173,6 +183,7 @@ public class MutableDoubleTest extends TestCase {
         assertEquals(0.1d, mutNum.doubleValue(), 0.01d);
     }
 
+    @Test
     public void testSubtractValueObject() {
         MutableDouble mutNum = new MutableDouble(1);
         mutNum.subtract(Double.valueOf(0.9d));
@@ -180,6 +191,7 @@ public class MutableDoubleTest extends TestCase {
         assertEquals(0.1d, mutNum.doubleValue(), 0.01d);
     }
 
+    @Test
     public void testToString() {
         assertEquals("0.0", new MutableDouble(0d).toString());
         assertEquals("10.0", new MutableDouble(10d).toString());

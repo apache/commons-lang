@@ -16,7 +16,8 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * JUnit tests.
@@ -24,13 +25,10 @@ import junit.framework.TestCase;
  * @version $Id$
  * @see MutableFloat
  */
-public class MutableFloatTest extends TestCase {
-
-    public MutableFloatTest(String testName) {
-        super(testName);
-    }
+public class MutableFloatTest {
 
     // ----------------------------------------------------------------
+    @Test
     public void testConstructors() {
         assertEquals(0f, new MutableFloat().floatValue(), 0.0001f);
         
@@ -47,6 +45,7 @@ public class MutableFloatTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testGetSet() {
         final MutableFloat mutNum = new MutableFloat(0f);
         assertEquals(0f, new MutableFloat().floatValue(), 0.0001f);
@@ -69,6 +68,7 @@ public class MutableFloatTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testNanInfinite() {
         MutableFloat mutNum = new MutableFloat(Float.NaN);
         assertEquals(true, mutNum.isNaN());
@@ -80,6 +80,7 @@ public class MutableFloatTest extends TestCase {
         assertEquals(true, mutNum.isInfinite());
     }
 
+    @Test
     public void testEquals() {
         final MutableFloat mutNumA = new MutableFloat(0f);
         final MutableFloat mutNumB = new MutableFloat(0f);
@@ -97,6 +98,7 @@ public class MutableFloatTest extends TestCase {
         assertEquals(false, mutNumA.equals("0"));
     }
 
+    @Test
     public void testHashCode() {
         final MutableFloat mutNumA = new MutableFloat(0f);
         final MutableFloat mutNumB = new MutableFloat(0f);
@@ -108,6 +110,7 @@ public class MutableFloatTest extends TestCase {
         assertEquals(true, mutNumA.hashCode() == Float.valueOf(0f).hashCode());
     }
 
+    @Test
     public void testCompareTo() {
         final MutableFloat mutNum = new MutableFloat(0f);
 
@@ -120,6 +123,7 @@ public class MutableFloatTest extends TestCase {
         } catch (NullPointerException ex) {}
     }
 
+    @Test
     public void testPrimitiveValues() {
         MutableFloat mutNum = new MutableFloat(1.7F);
         
@@ -131,11 +135,13 @@ public class MutableFloatTest extends TestCase {
         assertEquals( 1L, mutNum.longValue() );
     }
 
+    @Test
     public void testToFloat() {
         assertEquals(Float.valueOf(0f), new MutableFloat(0f).toFloat());
         assertEquals(Float.valueOf(12.3f), new MutableFloat(12.3f).toFloat());
     }
 
+    @Test
     public void testIncrement() {
         MutableFloat mutNum = new MutableFloat(1);
         mutNum.increment();
@@ -144,6 +150,7 @@ public class MutableFloatTest extends TestCase {
         assertEquals(2L, mutNum.longValue());
     }
 
+    @Test
     public void testDecrement() {
         MutableFloat mutNum = new MutableFloat(1);
         mutNum.decrement();
@@ -152,6 +159,7 @@ public class MutableFloatTest extends TestCase {
         assertEquals(0L, mutNum.longValue());
     }
 
+    @Test
     public void testAddValuePrimitive() {
         MutableFloat mutNum = new MutableFloat(1);
         mutNum.add(1.1f);
@@ -159,6 +167,7 @@ public class MutableFloatTest extends TestCase {
         assertEquals(2.1f, mutNum.floatValue(), 0.01f);
     }
 
+    @Test
     public void testAddValueObject() {
         MutableFloat mutNum = new MutableFloat(1);
         mutNum.add(Float.valueOf(1.1f));
@@ -166,6 +175,7 @@ public class MutableFloatTest extends TestCase {
         assertEquals(2.1f, mutNum.floatValue(), 0.01f);
     }
 
+    @Test
     public void testSubtractValuePrimitive() {
         MutableFloat mutNum = new MutableFloat(1);
         mutNum.subtract(0.9f);
@@ -173,6 +183,7 @@ public class MutableFloatTest extends TestCase {
         assertEquals(0.1f, mutNum.floatValue(), 0.01f);
     }
 
+    @Test
     public void testSubtractValueObject() {
         MutableFloat mutNum = new MutableFloat(1);
         mutNum.subtract(Float.valueOf(0.9f));
@@ -180,6 +191,7 @@ public class MutableFloatTest extends TestCase {
         assertEquals(0.1f, mutNum.floatValue(), 0.01f);
     }
 
+    @Test
     public void testToString() {
         assertEquals("0.0", new MutableFloat(0f).toString());
         assertEquals("10.0", new MutableFloat(10f).toString());

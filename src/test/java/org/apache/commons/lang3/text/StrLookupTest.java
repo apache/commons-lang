@@ -17,25 +17,30 @@
 
 package org.apache.commons.lang3.text;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Test class for StrLookup.
  *
  * @version $Id$
  */
-public class StrLookupTest extends TestCase {
+public class StrLookupTest  {
 
     //-----------------------------------------------------------------------
+    @Test
     public void testNoneLookup() {
         assertEquals(null, StrLookup.noneLookup().lookup(null));
         assertEquals(null, StrLookup.noneLookup().lookup(""));
         assertEquals(null, StrLookup.noneLookup().lookup("any"));
     }
 
+    @Test
     public void testSystemProperiesLookup() {
         assertEquals(System.getProperty("os.name"), StrLookup.systemPropertiesLookup().lookup("os.name"));
         assertEquals(null, StrLookup.systemPropertiesLookup().lookup(""));
@@ -48,6 +53,7 @@ public class StrLookupTest extends TestCase {
         }
     }
 
+    @Test
     public void testMapLookup() {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("key", "value");
@@ -59,6 +65,7 @@ public class StrLookupTest extends TestCase {
         assertEquals(null, StrLookup.mapLookup(map).lookup("other"));
     }
 
+    @Test
     public void testMapLookup_nullMap() {
         Map<String, ?> map = null;
         assertEquals(null, StrLookup.mapLookup(map).lookup(null));

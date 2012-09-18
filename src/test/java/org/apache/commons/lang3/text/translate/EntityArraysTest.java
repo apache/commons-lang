@@ -17,22 +17,26 @@
 
 package org.apache.commons.lang3.text.translate;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.EntityArrays}.
  * @version $Id$
  */
-public class EntityArraysTest extends TestCase {
+public class EntityArraysTest  {
 
+    @Test
     public void testConstructorExists() {
         new EntityArrays();
     }
     
     // LANG-659 - check arrays for duplicate entries
+    @Test
     public void testHTML40_EXTENDED_ESCAPE(){
         Set<String> col0 = new HashSet<String>();
         Set<String> col1 = new HashSet<String>();
@@ -44,6 +48,7 @@ public class EntityArraysTest extends TestCase {
     }
     
    // LANG-658 - check arrays for duplicate entries
+    @Test
     public void testISO8859_1_ESCAPE(){
         Set<String> col0 = new HashSet<String>();
         Set<String> col1 = new HashSet<String>();
