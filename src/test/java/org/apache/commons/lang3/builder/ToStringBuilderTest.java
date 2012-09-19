@@ -19,8 +19,6 @@ package org.apache.commons.lang3.builder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -1014,15 +1012,12 @@ public class ToStringBuilderTest {
     /**
      * Tests ReflectionToStringBuilder setUpToClass().
      */
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void test_setUpToClass_invalid() {
         Integer val = Integer.valueOf(5);
         ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
         try {
             test.setUpToClass(String.class);
-            fail();
-        } catch (IllegalArgumentException ex) {
-            // expected
         } finally {
             test.toString();
         }
