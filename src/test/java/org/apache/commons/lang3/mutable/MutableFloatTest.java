@@ -71,13 +71,13 @@ public class MutableFloatTest {
     @Test
     public void testNanInfinite() {
         MutableFloat mutNum = new MutableFloat(Float.NaN);
-        assertEquals(true, mutNum.isNaN());
+        assertTrue(mutNum.isNaN());
         
         mutNum = new MutableFloat(Float.POSITIVE_INFINITY);
-        assertEquals(true, mutNum.isInfinite());
+        assertTrue(mutNum.isInfinite());
         
         mutNum = new MutableFloat(Float.NEGATIVE_INFINITY);
-        assertEquals(true, mutNum.isInfinite());
+        assertTrue(mutNum.isInfinite());
     }
 
     @Test
@@ -86,16 +86,16 @@ public class MutableFloatTest {
         final MutableFloat mutNumB = new MutableFloat(0f);
         final MutableFloat mutNumC = new MutableFloat(1f);
 
-        assertEquals(true, mutNumA.equals(mutNumA));
-        assertEquals(true, mutNumA.equals(mutNumB));
-        assertEquals(true, mutNumB.equals(mutNumA));
-        assertEquals(true, mutNumB.equals(mutNumB));
-        assertEquals(false, mutNumA.equals(mutNumC));
-        assertEquals(false, mutNumB.equals(mutNumC));
-        assertEquals(true, mutNumC.equals(mutNumC));
-        assertEquals(false, mutNumA.equals(null));
-        assertEquals(false, mutNumA.equals(Float.valueOf(0f)));
-        assertEquals(false, mutNumA.equals("0"));
+        assertTrue(mutNumA.equals(mutNumA));
+        assertTrue(mutNumA.equals(mutNumB));
+        assertTrue(mutNumB.equals(mutNumA));
+        assertTrue(mutNumB.equals(mutNumB));
+        assertFalse(mutNumA.equals(mutNumC));
+        assertFalse(mutNumB.equals(mutNumC));
+        assertTrue(mutNumC.equals(mutNumC));
+        assertFalse(mutNumA.equals(null));
+        assertFalse(mutNumA.equals(Float.valueOf(0f)));
+        assertFalse(mutNumA.equals("0"));
     }
 
     @Test

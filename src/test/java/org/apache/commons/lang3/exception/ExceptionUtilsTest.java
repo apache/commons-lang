@@ -108,9 +108,9 @@ public class ExceptionUtilsTest {
         assertNotNull(new ExceptionUtils());
         Constructor<?>[] cons = ExceptionUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(ExceptionUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(ExceptionUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(ExceptionUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(ExceptionUtils.class.getModifiers()));
     }
     
     //-----------------------------------------------------------------------
@@ -439,7 +439,7 @@ public class ExceptionUtilsTest {
                 break;
             }
         }
-        assertEquals(true, match);
+        assertTrue(match);
         
         stackTrace = ExceptionUtils.getRootCauseStackTrace(withoutCause);
         match = false;
@@ -449,7 +449,7 @@ public class ExceptionUtilsTest {
                 break;
             }
         }
-        assertEquals(false, match);
+        assertFalse(match);
     }
 
     @Test

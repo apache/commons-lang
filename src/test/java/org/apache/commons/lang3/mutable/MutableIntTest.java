@@ -81,16 +81,16 @@ public class MutableIntTest {
      * @param numC must not equal numA; must not equal numC.
      */
     void testEquals(final Number numA, final Number numB, final Number numC) {
-        assertEquals(true, numA.equals(numA));
-        assertEquals(true, numA.equals(numB));
-        assertEquals(true, numB.equals(numA));
-        assertEquals(true, numB.equals(numB));
-        assertEquals(false, numA.equals(numC));
-        assertEquals(false, numB.equals(numC));
-        assertEquals(true, numC.equals(numC));
-        assertEquals(false, numA.equals(null));
-        assertEquals(false, numA.equals(Integer.valueOf(0)));
-        assertEquals(false, numA.equals("0"));
+        assertTrue(numA.equals(numA));
+        assertTrue(numA.equals(numB));
+        assertTrue(numB.equals(numA));
+        assertTrue(numB.equals(numB));
+        assertFalse(numA.equals(numC));
+        assertFalse(numB.equals(numC));
+        assertTrue(numC.equals(numC));
+        assertFalse(numA.equals(null));
+        assertFalse(numA.equals(Integer.valueOf(0)));
+        assertFalse(numA.equals("0"));
     }
 
     @Test

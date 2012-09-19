@@ -142,9 +142,9 @@ public class DateUtilsTest {
         assertNotNull(new DateUtils());
         Constructor<?>[] cons = DateUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(DateUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(DateUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(DateUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(DateUtils.class.getModifiers()));
     }
     
     //-----------------------------------------------------------------------
@@ -152,13 +152,13 @@ public class DateUtilsTest {
     public void testIsSameDay_Date() {
         Date date1 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
         Date date2 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
-        assertEquals(true, DateUtils.isSameDay(date1, date2));
+        assertTrue(DateUtils.isSameDay(date1, date2));
         date2 = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
-        assertEquals(false, DateUtils.isSameDay(date1, date2));
+        assertFalse(DateUtils.isSameDay(date1, date2));
         date1 = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
-        assertEquals(true, DateUtils.isSameDay(date1, date2));
+        assertTrue(DateUtils.isSameDay(date1, date2));
         date2 = new GregorianCalendar(2005, 6, 10, 13, 45).getTime();
-        assertEquals(false, DateUtils.isSameDay(date1, date2));
+        assertFalse(DateUtils.isSameDay(date1, date2));
         try {
             DateUtils.isSameDay((Date) null, (Date) null);
             fail();
@@ -170,13 +170,13 @@ public class DateUtilsTest {
     public void testIsSameDay_Cal() {
         GregorianCalendar cal1 = new GregorianCalendar(2004, 6, 9, 13, 45);
         GregorianCalendar cal2 = new GregorianCalendar(2004, 6, 9, 13, 45);
-        assertEquals(true, DateUtils.isSameDay(cal1, cal2));
+        assertTrue(DateUtils.isSameDay(cal1, cal2));
         cal2.add(Calendar.DAY_OF_YEAR, 1);
-        assertEquals(false, DateUtils.isSameDay(cal1, cal2));
+        assertFalse(DateUtils.isSameDay(cal1, cal2));
         cal1.add(Calendar.DAY_OF_YEAR, 1);
-        assertEquals(true, DateUtils.isSameDay(cal1, cal2));
+        assertTrue(DateUtils.isSameDay(cal1, cal2));
         cal2.add(Calendar.YEAR, 1);
-        assertEquals(false, DateUtils.isSameDay(cal1, cal2));
+        assertFalse(DateUtils.isSameDay(cal1, cal2));
         try {
             DateUtils.isSameDay((Calendar) null, (Calendar) null);
             fail();
@@ -188,13 +188,13 @@ public class DateUtilsTest {
     public void testIsSameInstant_Date() {
         Date date1 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
         Date date2 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
-        assertEquals(true, DateUtils.isSameInstant(date1, date2));
+        assertTrue(DateUtils.isSameInstant(date1, date2));
         date2 = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
-        assertEquals(false, DateUtils.isSameInstant(date1, date2));
+        assertFalse(DateUtils.isSameInstant(date1, date2));
         date1 = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
-        assertEquals(true, DateUtils.isSameInstant(date1, date2));
+        assertTrue(DateUtils.isSameInstant(date1, date2));
         date2 = new GregorianCalendar(2005, 6, 10, 13, 45).getTime();
-        assertEquals(false, DateUtils.isSameInstant(date1, date2));
+        assertFalse(DateUtils.isSameInstant(date1, date2));
         try {
             DateUtils.isSameInstant((Date) null, (Date) null);
             fail();
@@ -210,10 +210,10 @@ public class DateUtilsTest {
         cal1.set(Calendar.MILLISECOND, 0);
         cal2.set(2004, 6, 9, 13, 45, 0);
         cal2.set(Calendar.MILLISECOND, 0);
-        assertEquals(false, DateUtils.isSameInstant(cal1, cal2));
+        assertFalse(DateUtils.isSameInstant(cal1, cal2));
         
         cal2.set(2004, 6, 9, 11, 45, 0);
-        assertEquals(true, DateUtils.isSameInstant(cal1, cal2));
+        assertTrue(DateUtils.isSameInstant(cal1, cal2));
         try {
             DateUtils.isSameInstant((Calendar) null, (Calendar) null);
             fail();
@@ -229,7 +229,7 @@ public class DateUtilsTest {
         cal1.set(Calendar.MILLISECOND, 0);
         cal2.set(2004, 6, 9, 13, 45, 0);
         cal2.set(Calendar.MILLISECOND, 0);
-        assertEquals(true, DateUtils.isSameLocalTime(cal1, cal2));
+        assertTrue(DateUtils.isSameLocalTime(cal1, cal2));
 
         Calendar cal3 = Calendar.getInstance();
         Calendar cal4 = Calendar.getInstance();
@@ -240,7 +240,7 @@ public class DateUtilsTest {
         assertFalse("LANG-677", DateUtils.isSameLocalTime(cal3, cal4));
         
         cal2.set(2004, 6, 9, 11, 45, 0);
-        assertEquals(false, DateUtils.isSameLocalTime(cal1, cal2));
+        assertFalse(DateUtils.isSameLocalTime(cal1, cal2));
         try {
             DateUtils.isSameLocalTime((Calendar) null, (Calendar) null);
             fail();

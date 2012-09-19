@@ -254,14 +254,14 @@ public class StrBuilderTest {
     public void testEnsureCapacity() {
         StrBuilder sb = new StrBuilder();
         sb.ensureCapacity(2);
-        assertEquals(true, sb.capacity() >= 2);
+        assertTrue(sb.capacity() >= 2);
         
         sb.ensureCapacity(-1);
-        assertEquals(true, sb.capacity() >= 0);
+        assertTrue(sb.capacity() >= 0);
         
         sb.append("HelloWorld");
         sb.ensureCapacity(40);
-        assertEquals(true, sb.capacity() >= 40);
+        assertTrue(sb.capacity() >= 40);
     }
 
     @Test
@@ -288,13 +288,13 @@ public class StrBuilderTest {
     @Test
     public void testIsEmpty() {
         StrBuilder sb = new StrBuilder();
-        assertEquals(true, sb.isEmpty());
+        assertTrue(sb.isEmpty());
         
         sb.append("Hello");
-        assertEquals(false, sb.isEmpty());
+        assertFalse(sb.isEmpty());
         
         sb.clear();
-        assertEquals(true, sb.isEmpty());
+        assertTrue(sb.isEmpty());
     }
 
     @Test
@@ -303,7 +303,7 @@ public class StrBuilderTest {
         sb.append("Hello");
         sb.clear();
         assertEquals(0, sb.length());
-        assertEquals(true, sb.buffer.length >= 5);
+        assertTrue(sb.buffer.length >= 5);
     }
 
     //-----------------------------------------------------------------------
@@ -1217,35 +1217,35 @@ public class StrBuilderTest {
     @Test
     public void testContains_char() {
         StrBuilder sb = new StrBuilder("abcdefghijklmnopqrstuvwxyz");
-        assertEquals(true, sb.contains('a'));
-        assertEquals(true, sb.contains('o'));
-        assertEquals(true, sb.contains('z'));
-        assertEquals(false, sb.contains('1'));
+        assertTrue(sb.contains('a'));
+        assertTrue(sb.contains('o'));
+        assertTrue(sb.contains('z'));
+        assertFalse(sb.contains('1'));
     }
 
     @Test
     public void testContains_String() {
         StrBuilder sb = new StrBuilder("abcdefghijklmnopqrstuvwxyz");
-        assertEquals(true, sb.contains("a"));
-        assertEquals(true, sb.contains("pq"));
-        assertEquals(true, sb.contains("z"));
-        assertEquals(false, sb.contains("zyx"));
-        assertEquals(false, sb.contains((String) null));
+        assertTrue(sb.contains("a"));
+        assertTrue(sb.contains("pq"));
+        assertTrue(sb.contains("z"));
+        assertFalse(sb.contains("zyx"));
+        assertFalse(sb.contains((String) null));
     }
 
     @Test
     public void testContains_StrMatcher() {
         StrBuilder sb = new StrBuilder("abcdefghijklmnopqrstuvwxyz");
-        assertEquals(true, sb.contains(StrMatcher.charMatcher('a')));
-        assertEquals(true, sb.contains(StrMatcher.stringMatcher("pq")));
-        assertEquals(true, sb.contains(StrMatcher.charMatcher('z')));
-        assertEquals(false, sb.contains(StrMatcher.stringMatcher("zy")));
-        assertEquals(false, sb.contains((StrMatcher) null));
+        assertTrue(sb.contains(StrMatcher.charMatcher('a')));
+        assertTrue(sb.contains(StrMatcher.stringMatcher("pq")));
+        assertTrue(sb.contains(StrMatcher.charMatcher('z')));
+        assertFalse(sb.contains(StrMatcher.stringMatcher("zy")));
+        assertFalse(sb.contains((StrMatcher) null));
 
         sb = new StrBuilder();
-        assertEquals(false, sb.contains(A_NUMBER_MATCHER));
+        assertFalse(sb.contains(A_NUMBER_MATCHER));
         sb.append("B A1 C");
-        assertEquals(true, sb.contains(A_NUMBER_MATCHER));
+        assertTrue(sb.contains(A_NUMBER_MATCHER));
     }
 
     // -----------------------------------------------------------------------
@@ -1615,17 +1615,17 @@ public class StrBuilderTest {
     public void testAsReader() throws Exception {
         StrBuilder sb = new StrBuilder("some text");
         Reader reader = sb.asReader();
-        assertEquals(true, reader.ready());
+        assertTrue(reader.ready());
         char[] buf = new char[40];
         assertEquals(9, reader.read(buf));
         assertEquals("some text", new String(buf, 0, 9));
         
         assertEquals(-1, reader.read());
-        assertEquals(false, reader.ready());
+        assertFalse(reader.ready());
         assertEquals(0, reader.skip(2));
         assertEquals(0, reader.skip(-1));
         
-        assertEquals(true, reader.markSupported());
+        assertTrue(reader.markSupported());
         reader = sb.asReader();
         assertEquals('s', reader.read());
         reader.mark(-1);
@@ -1642,9 +1642,9 @@ public class StrBuilderTest {
         assertEquals(2, reader.skip(2));
         assertEquals(' ', reader.read());
         
-        assertEquals(true, reader.ready());
+        assertTrue(reader.ready());
         reader.close();
-        assertEquals(true, reader.ready());
+        assertTrue(reader.ready());
         
         reader = sb.asReader();
         array = new char[3];
@@ -1722,23 +1722,23 @@ public class StrBuilderTest {
     public void testEqualsIgnoreCase() {
         StrBuilder sb1 = new StrBuilder();
         StrBuilder sb2 = new StrBuilder();
-        assertEquals(true, sb1.equalsIgnoreCase(sb1));
-        assertEquals(true, sb1.equalsIgnoreCase(sb2));
-        assertEquals(true, sb2.equalsIgnoreCase(sb2));
+        assertTrue(sb1.equalsIgnoreCase(sb1));
+        assertTrue(sb1.equalsIgnoreCase(sb2));
+        assertTrue(sb2.equalsIgnoreCase(sb2));
         
         sb1.append("abc");
-        assertEquals(false, sb1.equalsIgnoreCase(sb2));
+        assertFalse(sb1.equalsIgnoreCase(sb2));
         
         sb2.append("ABC");
-        assertEquals(true, sb1.equalsIgnoreCase(sb2));
+        assertTrue(sb1.equalsIgnoreCase(sb2));
         
         sb2.clear().append("abc");
-        assertEquals(true, sb1.equalsIgnoreCase(sb2));
-        assertEquals(true, sb1.equalsIgnoreCase(sb1));
-        assertEquals(true, sb2.equalsIgnoreCase(sb2));
+        assertTrue(sb1.equalsIgnoreCase(sb2));
+        assertTrue(sb1.equalsIgnoreCase(sb1));
+        assertTrue(sb2.equalsIgnoreCase(sb2));
         
         sb2.clear().append("aBc");
-        assertEquals(true, sb1.equalsIgnoreCase(sb2));
+        assertTrue(sb1.equalsIgnoreCase(sb2));
     }
 
     //-----------------------------------------------------------------------
@@ -1746,25 +1746,25 @@ public class StrBuilderTest {
     public void testEquals() {
         StrBuilder sb1 = new StrBuilder();
         StrBuilder sb2 = new StrBuilder();
-        assertEquals(true, sb1.equals(sb2));
-        assertEquals(true, sb1.equals(sb1));
-        assertEquals(true, sb2.equals(sb2));
-        assertEquals(true, sb1.equals((Object) sb2));
+        assertTrue(sb1.equals(sb2));
+        assertTrue(sb1.equals(sb1));
+        assertTrue(sb2.equals(sb2));
+        assertTrue(sb1.equals((Object) sb2));
         
         sb1.append("abc");
-        assertEquals(false, sb1.equals(sb2));
-        assertEquals(false, sb1.equals((Object) sb2));
+        assertFalse(sb1.equals(sb2));
+        assertFalse(sb1.equals((Object) sb2));
         
         sb2.append("ABC");
-        assertEquals(false, sb1.equals(sb2));
-        assertEquals(false, sb1.equals((Object) sb2));
+        assertFalse(sb1.equals(sb2));
+        assertFalse(sb1.equals((Object) sb2));
         
         sb2.clear().append("abc");
-        assertEquals(true, sb1.equals(sb2));
-        assertEquals(true, sb1.equals((Object) sb2));
+        assertTrue(sb1.equals(sb2));
+        assertTrue(sb1.equals((Object) sb2));
         
-        assertEquals(false, sb1.equals(Integer.valueOf(1)));
-        assertEquals(false, sb1.equals("abc"));
+        assertFalse(sb1.equals(Integer.valueOf(1)));
+        assertFalse(sb1.equals("abc"));
     }
 
     //-----------------------------------------------------------------------
@@ -1779,7 +1779,7 @@ public class StrBuilderTest {
         sb.append("abc");
         int hc2a = sb.hashCode();
         int hc2b = sb.hashCode();
-        assertEquals(true, hc2a != 0);
+        assertTrue(hc2a != 0);
         assertEquals(hc2a, hc2b);
     }
 

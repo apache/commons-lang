@@ -74,16 +74,16 @@ public class MutableLongTest {
         final MutableLong mutNumB = new MutableLong(0);
         final MutableLong mutNumC = new MutableLong(1);
 
-        assertEquals(true, mutNumA.equals(mutNumA));
-        assertEquals(true, mutNumA.equals(mutNumB));
-        assertEquals(true, mutNumB.equals(mutNumA));
-        assertEquals(true, mutNumB.equals(mutNumB));
-        assertEquals(false, mutNumA.equals(mutNumC));
-        assertEquals(false, mutNumB.equals(mutNumC));
-        assertEquals(true, mutNumC.equals(mutNumC));
-        assertEquals(false, mutNumA.equals(null));
-        assertEquals(false, mutNumA.equals(Long.valueOf(0)));
-        assertEquals(false, mutNumA.equals("0"));
+        assertTrue(mutNumA.equals(mutNumA));
+        assertTrue(mutNumA.equals(mutNumB));
+        assertTrue(mutNumB.equals(mutNumA));
+        assertTrue(mutNumB.equals(mutNumB));
+        assertFalse(mutNumA.equals(mutNumC));
+        assertFalse(mutNumB.equals(mutNumC));
+        assertTrue(mutNumC.equals(mutNumC));
+        assertFalse(mutNumA.equals(null));
+        assertFalse(mutNumA.equals(Long.valueOf(0)));
+        assertFalse(mutNumA.equals("0"));
     }
 
     @Test

@@ -403,19 +403,19 @@ public class StrSubstitutorTest {
     @Test
     public void testGetSetPrefix() {
         StrSubstitutor sub = new StrSubstitutor();
-        assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
+        assertTrue(sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
         sub.setVariablePrefix('<');
-        assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.CharMatcher);
+        assertTrue(sub.getVariablePrefixMatcher() instanceof StrMatcher.CharMatcher);
 
         sub.setVariablePrefix("<<");
-        assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
+        assertTrue(sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
         try {
             sub.setVariablePrefix((String) null);
             fail();
         } catch (IllegalArgumentException ex) {
             // expected
         }
-        assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
+        assertTrue(sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
 
         StrMatcher matcher = StrMatcher.commaMatcher();
         sub.setVariablePrefixMatcher(matcher);
@@ -435,19 +435,19 @@ public class StrSubstitutorTest {
     @Test
     public void testGetSetSuffix() {
         StrSubstitutor sub = new StrSubstitutor();
-        assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
+        assertTrue(sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
         sub.setVariableSuffix('<');
-        assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.CharMatcher);
+        assertTrue(sub.getVariableSuffixMatcher() instanceof StrMatcher.CharMatcher);
 
         sub.setVariableSuffix("<<");
-        assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
+        assertTrue(sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
         try {
             sub.setVariableSuffix((String) null);
             fail();
         } catch (IllegalArgumentException ex) {
             // expected
         }
-        assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
+        assertTrue(sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
 
         StrMatcher matcher = StrMatcher.commaMatcher();
         sub.setVariableSuffixMatcher(matcher);
@@ -560,21 +560,21 @@ public class StrSubstitutorTest {
 
         // replace in StringBuffer
         buf = new StringBuffer(replaceTemplate);
-        assertEquals(true, sub.replaceIn(buf));
+        assertTrue(sub.replaceIn(buf));
         assertEquals(expectedResult, buf.toString());
         if (substring) {
             buf = new StringBuffer(replaceTemplate);
-            assertEquals(true, sub.replaceIn(buf, 1, buf.length() - 2));
+            assertTrue(sub.replaceIn(buf, 1, buf.length() - 2));
             assertEquals(expectedResult, buf.toString());  // expect full result as remainder is untouched
         }
 
         // replace in StrBuilder
         bld = new StrBuilder(replaceTemplate);
-        assertEquals(true, sub.replaceIn(bld));
+        assertTrue(sub.replaceIn(bld));
         assertEquals(expectedResult, bld.toString());
         if (substring) {
             bld = new StrBuilder(replaceTemplate);
-            assertEquals(true, sub.replaceIn(bld, 1, bld.length() - 2));
+            assertTrue(sub.replaceIn(bld, 1, bld.length() - 2));
             assertEquals(expectedResult, bld.toString());  // expect full result as remainder is untouched
         }
     }
@@ -592,14 +592,14 @@ public class StrSubstitutorTest {
             assertEquals(null, sub.replace((StrBuilder) null));
             assertEquals(null, sub.replace((StrBuilder) null, 0, 100));
             assertEquals(null, sub.replace((Object) null));
-            assertEquals(false, sub.replaceIn((StringBuffer) null));
-            assertEquals(false, sub.replaceIn((StringBuffer) null, 0, 100));
-            assertEquals(false, sub.replaceIn((StrBuilder) null));
-            assertEquals(false, sub.replaceIn((StrBuilder) null, 0, 100));
+            assertFalse(sub.replaceIn((StringBuffer) null));
+            assertFalse(sub.replaceIn((StringBuffer) null, 0, 100));
+            assertFalse(sub.replaceIn((StrBuilder) null));
+            assertFalse(sub.replaceIn((StrBuilder) null, 0, 100));
         } else {
             assertEquals(replaceTemplate, sub.replace(replaceTemplate));
             StrBuilder bld = new StrBuilder(replaceTemplate);
-            assertEquals(false, sub.replaceIn(bld));
+            assertFalse(sub.replaceIn(bld));
             assertEquals(replaceTemplate, bld.toString());
         }
     }

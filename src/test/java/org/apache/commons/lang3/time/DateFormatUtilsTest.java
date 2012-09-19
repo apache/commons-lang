@@ -36,9 +36,9 @@ public class DateFormatUtilsTest {
         assertNotNull(new DateFormatUtils());
         Constructor<?>[] cons = DateFormatUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(DateFormatUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(DateFormatUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(DateFormatUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(DateFormatUtils.class.getModifiers()));
     }
     
     //-----------------------------------------------------------------------

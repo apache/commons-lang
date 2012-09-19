@@ -57,19 +57,19 @@ public class MutableObjectTest {
         final MutableObject<String> mutNumC = new MutableObject<String>("BETA");
         final MutableObject<String> mutNumD = new MutableObject<String>(null);
 
-        assertEquals(true, mutNumA.equals(mutNumA));
-        assertEquals(true, mutNumA.equals(mutNumB));
-        assertEquals(true, mutNumB.equals(mutNumA));
-        assertEquals(true, mutNumB.equals(mutNumB));
-        assertEquals(false, mutNumA.equals(mutNumC));
-        assertEquals(false, mutNumB.equals(mutNumC));
-        assertEquals(true, mutNumC.equals(mutNumC));
-        assertEquals(false, mutNumA.equals(mutNumD));
-        assertEquals(true, mutNumD.equals(mutNumD));
+        assertTrue(mutNumA.equals(mutNumA));
+        assertTrue(mutNumA.equals(mutNumB));
+        assertTrue(mutNumB.equals(mutNumA));
+        assertTrue(mutNumB.equals(mutNumB));
+        assertFalse(mutNumA.equals(mutNumC));
+        assertFalse(mutNumB.equals(mutNumC));
+        assertTrue(mutNumC.equals(mutNumC));
+        assertFalse(mutNumA.equals(mutNumD));
+        assertTrue(mutNumD.equals(mutNumD));
         
-        assertEquals(false, mutNumA.equals(null));
-        assertEquals(false, mutNumA.equals(new Object()));
-        assertEquals(false, mutNumA.equals("0"));
+        assertFalse(mutNumA.equals(null));
+        assertFalse(mutNumA.equals(new Object()));
+        assertFalse(mutNumA.equals("0"));
     }
 
     @Test
