@@ -18,7 +18,6 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
 
@@ -105,25 +104,17 @@ public class CompareToBuilderTest {
         assertTrue(CompareToBuilder.reflectionCompare(o2, o1) > 0);
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testReflectionCompareEx1() {
         TestObject o1 = new TestObject(4);
-        try {
-            CompareToBuilder.reflectionCompare(o1, null);
-        } catch (NullPointerException ex) {
-            return;
-        }
-        fail();
+        CompareToBuilder.reflectionCompare(o1, null);
     }
 
-    @Test
+    @Test(expected=ClassCastException.class)
     public void testReflectionCompareEx2() {
         TestObject o1 = new TestObject(4);
         Object o2 = new Object();
-        try {
-            CompareToBuilder.reflectionCompare(o1, o2);
-            fail();
-        } catch (ClassCastException ex) {}
+        CompareToBuilder.reflectionCompare(o1, o2);
     }
 
     @Test
@@ -295,14 +286,11 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(null, o1).build().intValue() < 0);
     }
 
-    @Test
+    @Test(expected=ClassCastException.class)
     public void testObjectEx2() {
         TestObject o1 = new TestObject(4);
         Object o2 = new Object();
-        try {
-            new CompareToBuilder().append(o1, o2);
-            fail();
-        } catch (ClassCastException ex) {}
+        new CompareToBuilder().append(o1, o2);
     }
 
     @Test

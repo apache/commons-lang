@@ -17,7 +17,6 @@
 package org.apache.commons.lang3.concurrent;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -38,14 +37,9 @@ public class CallableBackgroundInitializerTest  {
      * Tries to create an instance without a Callable. This should cause an
      * exception.
      */
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testInitNullCallable() {
-        try {
-            new CallableBackgroundInitializer<Object>(null);
-            fail("Could create instance without a Callable!");
-        } catch (IllegalArgumentException iex) {
-            // ok
-        }
+        new CallableBackgroundInitializer<Object>(null);
     }
 
     /**
@@ -64,15 +58,10 @@ public class CallableBackgroundInitializerTest  {
      * Tries to pass a null Callable to the constructor that takes an executor.
      * This should cause an exception.
      */
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testInitExecutorNullCallable() {
         ExecutorService exec = Executors.newSingleThreadExecutor();
-        try {
-            new CallableBackgroundInitializer<Integer>(null, exec);
-            fail("Could create instance without a Callable!");
-        } catch (IllegalArgumentException iex) {
-            // ok
-        }
+        new CallableBackgroundInitializer<Integer>(null, exec);
     }
 
     /**
