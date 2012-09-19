@@ -17,7 +17,9 @@
 package org.apache.commons.lang3.text;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -37,9 +39,9 @@ public class WordUtilsTest {
         assertNotNull(new WordUtils());
         Constructor<?>[] cons = WordUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(WordUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(WordUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(WordUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(WordUtils.class.getModifiers()));
     }
     
     //-----------------------------------------------------------------------

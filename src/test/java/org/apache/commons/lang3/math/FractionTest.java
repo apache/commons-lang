@@ -1240,21 +1240,21 @@ public class FractionTest  {
         Fraction f2 = null;
         
         f1 = Fraction.getFraction(3, 5);
-        assertEquals(false, f1.equals(null));
-        assertEquals(false, f1.equals(new Object()));
-        assertEquals(false, f1.equals(Integer.valueOf(6)));
+        assertFalse(f1.equals(null));
+        assertFalse(f1.equals(new Object()));
+        assertFalse(f1.equals(Integer.valueOf(6)));
         
         f1 = Fraction.getFraction(3, 5);
         f2 = Fraction.getFraction(2, 5);
-        assertEquals(false, f1.equals(f2));
-        assertEquals(true, f1.equals(f1));
-        assertEquals(true, f2.equals(f2));
+        assertFalse(f1.equals(f2));
+        assertTrue(f1.equals(f1));
+        assertTrue(f2.equals(f2));
         
         f2 = Fraction.getFraction(3, 5);
-        assertEquals(true, f1.equals(f2));
+        assertTrue(f1.equals(f2));
         
         f2 = Fraction.getFraction(6, 10);
-        assertEquals(false, f1.equals(f2));
+        assertFalse(f1.equals(f2));
     }
     
     @Test

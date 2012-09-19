@@ -71,13 +71,13 @@ public class MutableDoubleTest {
     @Test
     public void testNanInfinite() {
         MutableDouble mutNum = new MutableDouble(Double.NaN);
-        assertEquals(true, mutNum.isNaN());
+        assertTrue(mutNum.isNaN());
         
         mutNum = new MutableDouble(Double.POSITIVE_INFINITY);
-        assertEquals(true, mutNum.isInfinite());
+        assertTrue(mutNum.isInfinite());
         
         mutNum = new MutableDouble(Double.NEGATIVE_INFINITY);
-        assertEquals(true, mutNum.isInfinite());
+        assertTrue(mutNum.isInfinite());
     }
 
     @Test
@@ -86,16 +86,16 @@ public class MutableDoubleTest {
         final MutableDouble mutNumB = new MutableDouble(0d);
         final MutableDouble mutNumC = new MutableDouble(1d);
 
-        assertEquals(true, mutNumA.equals(mutNumA));
-        assertEquals(true, mutNumA.equals(mutNumB));
-        assertEquals(true, mutNumB.equals(mutNumA));
-        assertEquals(true, mutNumB.equals(mutNumB));
-        assertEquals(false, mutNumA.equals(mutNumC));
-        assertEquals(false, mutNumB.equals(mutNumC));
-        assertEquals(true, mutNumC.equals(mutNumC));
-        assertEquals(false, mutNumA.equals(null));
-        assertEquals(false, mutNumA.equals(Double.valueOf(0d)));
-        assertEquals(false, mutNumA.equals("0"));
+        assertTrue(mutNumA.equals(mutNumA));
+        assertTrue(mutNumA.equals(mutNumB));
+        assertTrue(mutNumB.equals(mutNumA));
+        assertTrue(mutNumB.equals(mutNumB));
+        assertFalse(mutNumA.equals(mutNumC));
+        assertFalse(mutNumB.equals(mutNumC));
+        assertTrue(mutNumC.equals(mutNumC));
+        assertFalse(mutNumA.equals(null));
+        assertFalse(mutNumA.equals(Double.valueOf(0d)));
+        assertFalse(mutNumA.equals("0"));
     }
 
     @Test

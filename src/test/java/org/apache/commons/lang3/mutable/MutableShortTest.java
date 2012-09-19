@@ -74,16 +74,16 @@ public class MutableShortTest {
         final MutableShort mutNumB = new MutableShort((short) 0);
         final MutableShort mutNumC = new MutableShort((short) 1);
 
-        assertEquals(true, mutNumA.equals(mutNumA));
-        assertEquals(true, mutNumA.equals(mutNumB));
-        assertEquals(true, mutNumB.equals(mutNumA));
-        assertEquals(true, mutNumB.equals(mutNumB));
-        assertEquals(false, mutNumA.equals(mutNumC));
-        assertEquals(false, mutNumB.equals(mutNumC));
-        assertEquals(true, mutNumC.equals(mutNumC));
-        assertEquals(false, mutNumA.equals(null));
-        assertEquals(false, mutNumA.equals(Short.valueOf((short) 0)));
-        assertEquals(false, mutNumA.equals("0"));
+        assertTrue(mutNumA.equals(mutNumA));
+        assertTrue(mutNumA.equals(mutNumB));
+        assertTrue(mutNumB.equals(mutNumA));
+        assertTrue(mutNumB.equals(mutNumB));
+        assertFalse(mutNumA.equals(mutNumC));
+        assertFalse(mutNumB.equals(mutNumC));
+        assertTrue(mutNumC.equals(mutNumC));
+        assertFalse(mutNumA.equals(null));
+        assertFalse(mutNumA.equals(Short.valueOf((short) 0)));
+        assertFalse(mutNumA.equals("0"));
     }
 
     @Test

@@ -18,7 +18,9 @@ package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -33,38 +35,38 @@ public class StringUtilsTrimEmptyTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testIsEmpty() {
-        assertEquals(true, StringUtils.isEmpty(null));
-        assertEquals(true, StringUtils.isEmpty(""));
-        assertEquals(false, StringUtils.isEmpty(" "));
-        assertEquals(false, StringUtils.isEmpty("foo"));
-        assertEquals(false, StringUtils.isEmpty("  foo  "));
+        assertTrue(StringUtils.isEmpty(null));
+        assertTrue(StringUtils.isEmpty(""));
+        assertFalse(StringUtils.isEmpty(" "));
+        assertFalse(StringUtils.isEmpty("foo"));
+        assertFalse(StringUtils.isEmpty("  foo  "));
     }
 
     @Test
     public void testIsNotEmpty() {
-        assertEquals(false, StringUtils.isNotEmpty(null));
-        assertEquals(false, StringUtils.isNotEmpty(""));
-        assertEquals(true, StringUtils.isNotEmpty(" "));
-        assertEquals(true, StringUtils.isNotEmpty("foo"));
-        assertEquals(true, StringUtils.isNotEmpty("  foo  "));
+        assertFalse(StringUtils.isNotEmpty(null));
+        assertFalse(StringUtils.isNotEmpty(""));
+        assertTrue(StringUtils.isNotEmpty(" "));
+        assertTrue(StringUtils.isNotEmpty("foo"));
+        assertTrue(StringUtils.isNotEmpty("  foo  "));
     }
 
     @Test
     public void testIsBlank() {
-        assertEquals(true, StringUtils.isBlank(null));
-        assertEquals(true, StringUtils.isBlank(""));
-        assertEquals(true, StringUtils.isBlank(StringUtilsTest.WHITESPACE));
-        assertEquals(false, StringUtils.isBlank("foo"));
-        assertEquals(false, StringUtils.isBlank("  foo  "));
+        assertTrue(StringUtils.isBlank(null));
+        assertTrue(StringUtils.isBlank(""));
+        assertTrue(StringUtils.isBlank(StringUtilsTest.WHITESPACE));
+        assertFalse(StringUtils.isBlank("foo"));
+        assertFalse(StringUtils.isBlank("  foo  "));
     }
 
     @Test
     public void testIsNotBlank() {
-        assertEquals(false, StringUtils.isNotBlank(null));
-        assertEquals(false, StringUtils.isNotBlank(""));
-        assertEquals(false, StringUtils.isNotBlank(StringUtilsTest.WHITESPACE));
-        assertEquals(true, StringUtils.isNotBlank("foo"));
-        assertEquals(true, StringUtils.isNotBlank("  foo  "));
+        assertFalse(StringUtils.isNotBlank(null));
+        assertFalse(StringUtils.isNotBlank(""));
+        assertFalse(StringUtils.isNotBlank(StringUtilsTest.WHITESPACE));
+        assertTrue(StringUtils.isNotBlank("foo"));
+        assertTrue(StringUtils.isNotBlank("  foo  "));
     }
 
     //-----------------------------------------------------------------------

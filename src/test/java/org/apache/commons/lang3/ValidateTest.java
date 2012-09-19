@@ -19,8 +19,10 @@
 package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.lang.reflect.Constructor;
@@ -644,9 +646,9 @@ public class ValidateTest  {
         assertNotNull(new Validate());
         Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(Validate.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(Validate.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(Validate.class.getModifiers()));
+        assertFalse(Modifier.isFinal(Validate.class.getModifiers()));
     }
 
     //-----------------------------------------------------------------------
