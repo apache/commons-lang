@@ -79,11 +79,11 @@ public class MutableObjectTest {
         final MutableObject<String> mutNumC = new MutableObject<String>("BETA");
         final MutableObject<String> mutNumD = new MutableObject<String>(null);
 
-        assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
-        assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
-        assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(false, mutNumA.hashCode() == mutNumD.hashCode());
-        assertEquals(true, mutNumA.hashCode() == "ALPHA".hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
+        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
+        assertFalse(mutNumA.hashCode() == mutNumD.hashCode());
+        assertTrue(mutNumA.hashCode() == "ALPHA".hashCode());
         assertEquals(0, mutNumD.hashCode());
     }
 

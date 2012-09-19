@@ -99,10 +99,10 @@ public class MutableIntTest {
         final MutableInt mutNumB = new MutableInt(0);
         final MutableInt mutNumC = new MutableInt(1);
 
-        assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
-        assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
-        assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(true, mutNumA.hashCode() == Integer.valueOf(0).hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
+        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
+        assertTrue(mutNumA.hashCode() == Integer.valueOf(0).hashCode());
     }
 
     @Test
