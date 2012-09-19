@@ -92,10 +92,10 @@ public class MutableByteTest {
         final MutableByte mutNumB = new MutableByte((byte) 0);
         final MutableByte mutNumC = new MutableByte((byte) 1);
 
-        assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
-        assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
-        assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(true, mutNumA.hashCode() == Byte.valueOf((byte) 0).hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
+        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
+        assertTrue(mutNumA.hashCode() == Byte.valueOf((byte) 0).hashCode());
     }
 
     @Test

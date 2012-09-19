@@ -104,10 +104,10 @@ public class MutableFloatTest {
         final MutableFloat mutNumB = new MutableFloat(0f);
         final MutableFloat mutNumC = new MutableFloat(1f);
 
-        assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
-        assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
-        assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(true, mutNumA.hashCode() == Float.valueOf(0f).hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
+        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
+        assertTrue(mutNumA.hashCode() == Float.valueOf(0f).hashCode());
     }
 
     @Test

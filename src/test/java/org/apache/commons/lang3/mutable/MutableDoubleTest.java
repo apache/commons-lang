@@ -104,10 +104,10 @@ public class MutableDoubleTest {
         final MutableDouble mutNumB = new MutableDouble(0d);
         final MutableDouble mutNumC = new MutableDouble(1d);
 
-        assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
-        assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
-        assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(true, mutNumA.hashCode() == Double.valueOf(0d).hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
+        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
+        assertTrue(mutNumA.hashCode() == Double.valueOf(0d).hashCode());
     }
 
     @Test

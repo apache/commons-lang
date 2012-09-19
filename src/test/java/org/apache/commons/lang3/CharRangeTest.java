@@ -148,12 +148,12 @@ public class CharRangeTest  {
         CharRange rangeae = CharRange.isIn('a', 'e');
         CharRange rangenotbf = CharRange.isIn('b', 'f');
 
-        assertEquals(true, rangea.hashCode() == rangea.hashCode());
-        assertEquals(true, rangea.hashCode() == CharRange.is('a').hashCode());
-        assertEquals(true, rangeae.hashCode() == rangeae.hashCode());
-        assertEquals(true, rangeae.hashCode() == CharRange.isIn('a', 'e').hashCode());
-        assertEquals(true, rangenotbf.hashCode() == rangenotbf.hashCode());
-        assertEquals(true, rangenotbf.hashCode() == CharRange.isIn('b', 'f').hashCode());
+        assertTrue(rangea.hashCode() == rangea.hashCode());
+        assertTrue(rangea.hashCode() == CharRange.is('a').hashCode());
+        assertTrue(rangeae.hashCode() == rangeae.hashCode());
+        assertTrue(rangeae.hashCode() == CharRange.isIn('a', 'e').hashCode());
+        assertTrue(rangenotbf.hashCode() == rangenotbf.hashCode());
+        assertTrue(rangenotbf.hashCode() == CharRange.isIn('b', 'f').hashCode());
 
         assertFalse(rangea.hashCode() == rangeae.hashCode());
         assertFalse(rangea.hashCode() == rangenotbf.hashCode());

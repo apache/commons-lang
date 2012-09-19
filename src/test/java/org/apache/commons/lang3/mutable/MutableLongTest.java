@@ -92,10 +92,10 @@ public class MutableLongTest {
         final MutableLong mutNumB = new MutableLong(0);
         final MutableLong mutNumC = new MutableLong(1);
 
-        assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
-        assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
-        assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(true, mutNumA.hashCode() == Long.valueOf(0).hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
+        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
+        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
+        assertTrue(mutNumA.hashCode() == Long.valueOf(0).hashCode());
     }
 
     @Test
