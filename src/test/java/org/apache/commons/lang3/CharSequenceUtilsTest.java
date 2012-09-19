@@ -17,7 +17,9 @@
 package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -39,9 +41,9 @@ public class CharSequenceUtilsTest {
         assertNotNull(new CharSequenceUtils());
         Constructor<?>[] cons = CharSequenceUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(CharSequenceUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(CharSequenceUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(CharSequenceUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(CharSequenceUtils.class.getModifiers()));
     }
     
     //-----------------------------------------------------------------------

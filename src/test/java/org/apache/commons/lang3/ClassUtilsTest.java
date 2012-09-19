@@ -57,9 +57,9 @@ public class ClassUtilsTest  {
         assertNotNull(new ClassUtils());
         Constructor<?>[] cons = ClassUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(ClassUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(ClassUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(ClassUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(ClassUtils.class.getModifiers()));
     }
 
     // -------------------------------------------------------------------------
@@ -320,13 +320,13 @@ public class ClassUtilsTest  {
     // -------------------------------------------------------------------------
     @Test
     public void test_isInnerClass_Class() {
-        assertEquals(true, ClassUtils.isInnerClass(Inner.class));
-        assertEquals(true, ClassUtils.isInnerClass(Map.Entry.class));
-        assertEquals(true, ClassUtils.isInnerClass(new Cloneable() {
+        assertTrue(ClassUtils.isInnerClass(Inner.class));
+        assertTrue(ClassUtils.isInnerClass(Map.Entry.class));
+        assertTrue(ClassUtils.isInnerClass(new Cloneable() {
         }.getClass()));
-        assertEquals(false, ClassUtils.isInnerClass(this.getClass()));
-        assertEquals(false, ClassUtils.isInnerClass(String.class));
-        assertEquals(false, ClassUtils.isInnerClass(null));
+        assertFalse(ClassUtils.isInnerClass(this.getClass()));
+        assertFalse(ClassUtils.isInnerClass(String.class));
+        assertFalse(ClassUtils.isInnerClass(null));
     }
 
     // -------------------------------------------------------------------------

@@ -25,6 +25,7 @@ import org.junit.Test;
  */
 public class DefaultExceptionContextTest extends AbstractExceptionContextTest<DefaultExceptionContext> {
     
+    @Override
     @Before
     public void setUp() throws Exception {
         exceptionContext = new DefaultExceptionContext();

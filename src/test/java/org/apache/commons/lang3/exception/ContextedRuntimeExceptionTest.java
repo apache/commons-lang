@@ -31,6 +31,7 @@ import org.junit.Test;
  */
 public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<ContextedRuntimeException> {
     
+    @Override
     @Before
     public void setUp() throws Exception {
         exceptionContext = new ContextedRuntimeException(new Exception(TEST_MESSAGE));

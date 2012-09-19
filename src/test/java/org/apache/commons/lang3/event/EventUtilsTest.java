@@ -17,7 +17,9 @@
 package org.apache.commons.lang3.event;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.beans.PropertyChangeEvent;
@@ -48,9 +50,9 @@ public class EventUtilsTest
         assertNotNull(new EventUtils());
         Constructor<?>[] cons = EventUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(EventUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(EventUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(EventUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(EventUtils.class.getModifiers()));
     }
     
     @Test

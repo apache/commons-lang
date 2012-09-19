@@ -457,7 +457,7 @@ public class ObjectUtilsTest {
         // bytecode to see if the literals were folded into the
         // class, or if the bytecode kept the method call.
 
-        assertEquals("CONST(boolean)", true, ObjectUtils.CONST(true));
+        assertTrue("CONST(boolean)", ObjectUtils.CONST(true));
         assertEquals("CONST(byte)", (byte) 3, ObjectUtils.CONST((byte) 3));
         assertEquals("CONST(char)", (char) 3, ObjectUtils.CONST((char) 3));
         assertEquals("CONST(short)", (short) 3, ObjectUtils.CONST((short) 3));
@@ -487,7 +487,7 @@ public class ObjectUtilsTest {
         double MAGIC_DOUBLE = ObjectUtils.CONST(1.0);
         String MAGIC_STRING = ObjectUtils.CONST("abc");
 
-        assertEquals(true, MAGIC_FLAG);
+        assertTrue(MAGIC_FLAG);
         assertEquals(127, MAGIC_BYTE1);
         assertEquals(127, MAGIC_BYTE2);
         assertEquals('a', MAGIC_CHAR);

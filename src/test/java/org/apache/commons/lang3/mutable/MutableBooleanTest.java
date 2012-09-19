@@ -49,13 +49,13 @@ public class MutableBooleanTest {
     // ----------------------------------------------------------------
     @Test
     public void testConstructors() {
-        assertEquals(false, new MutableBoolean().booleanValue());
+        assertFalse(new MutableBoolean().booleanValue());
 
-        assertEquals(true, new MutableBoolean(true).booleanValue());
-        assertEquals(false, new MutableBoolean(false).booleanValue());
+        assertTrue(new MutableBoolean(true).booleanValue());
+        assertFalse(new MutableBoolean(false).booleanValue());
 
-        assertEquals(true, new MutableBoolean(Boolean.TRUE).booleanValue());
-        assertEquals(false, new MutableBoolean(Boolean.FALSE).booleanValue());
+        assertTrue(new MutableBoolean(Boolean.TRUE).booleanValue());
+        assertFalse(new MutableBoolean(Boolean.FALSE).booleanValue());
 
         try {
             new MutableBoolean(null);
@@ -70,40 +70,40 @@ public class MutableBooleanTest {
         final MutableBoolean mutBoolB = new MutableBoolean(false);
         final MutableBoolean mutBoolC = new MutableBoolean(true);
 
-        assertEquals(true, mutBoolA.equals(mutBoolA));
-        assertEquals(true, mutBoolA.equals(mutBoolB));
-        assertEquals(true, mutBoolB.equals(mutBoolA));
-        assertEquals(true, mutBoolB.equals(mutBoolB));
-        assertEquals(false, mutBoolA.equals(mutBoolC));
-        assertEquals(false, mutBoolB.equals(mutBoolC));
-        assertEquals(true, mutBoolC.equals(mutBoolC));
-        assertEquals(false, mutBoolA.equals(null));
-        assertEquals(false, mutBoolA.equals(Boolean.FALSE));
-        assertEquals(false, mutBoolA.equals("false"));
+        assertTrue(mutBoolA.equals(mutBoolA));
+        assertTrue(mutBoolA.equals(mutBoolB));
+        assertTrue(mutBoolB.equals(mutBoolA));
+        assertTrue(mutBoolB.equals(mutBoolB));
+        assertFalse(mutBoolA.equals(mutBoolC));
+        assertFalse(mutBoolB.equals(mutBoolC));
+        assertTrue(mutBoolC.equals(mutBoolC));
+        assertFalse(mutBoolA.equals(null));
+        assertFalse(mutBoolA.equals(Boolean.FALSE));
+        assertFalse(mutBoolA.equals("false"));
     }
 
     @Test
     public void testGetSet() {
-        assertEquals(false, new MutableBoolean().booleanValue());
+        assertFalse(new MutableBoolean().booleanValue());
         assertEquals(Boolean.FALSE, new MutableBoolean().getValue());
         
         final MutableBoolean mutBool = new MutableBoolean(false);
         assertEquals(Boolean.FALSE, mutBool.toBoolean());
-        assertEquals(false, mutBool.booleanValue());
-        assertEquals(true, mutBool.isFalse());
-        assertEquals(false, mutBool.isTrue());
+        assertFalse(mutBool.booleanValue());
+        assertTrue(mutBool.isFalse());
+        assertFalse(mutBool.isTrue());
 
         mutBool.setValue(Boolean.TRUE);
         assertEquals(Boolean.TRUE, mutBool.toBoolean());
-        assertEquals(true, mutBool.booleanValue());
-        assertEquals(false, mutBool.isFalse());
-        assertEquals(true, mutBool.isTrue());
+        assertTrue(mutBool.booleanValue());
+        assertFalse(mutBool.isFalse());
+        assertTrue(mutBool.isTrue());
 
         mutBool.setValue(false);
-        assertEquals(false, mutBool.booleanValue());
+        assertFalse(mutBool.booleanValue());
 
         mutBool.setValue(true);
-        assertEquals(true, mutBool.booleanValue());
+        assertTrue(mutBool.booleanValue());
 
         try {
             mutBool.setValue(null);
@@ -118,11 +118,11 @@ public class MutableBooleanTest {
         final MutableBoolean mutBoolB = new MutableBoolean(false);
         final MutableBoolean mutBoolC = new MutableBoolean(true);
 
-        assertEquals(true, mutBoolA.hashCode() == mutBoolA.hashCode());
-        assertEquals(true, mutBoolA.hashCode() == mutBoolB.hashCode());
-        assertEquals(false, mutBoolA.hashCode() == mutBoolC.hashCode());
-        assertEquals(true, mutBoolA.hashCode() == Boolean.FALSE.hashCode());
-        assertEquals(true, mutBoolC.hashCode() == Boolean.TRUE.hashCode());
+        assertEquals(mutBoolA.hashCode(), mutBoolA.hashCode());
+        assertEquals(mutBoolA.hashCode(), mutBoolB.hashCode());
+        assertFalse(mutBoolA.hashCode() == mutBoolC.hashCode());
+        assertEquals(mutBoolA.hashCode(), Boolean.FALSE.hashCode());
+        assertEquals(mutBoolC.hashCode(), Boolean.TRUE.hashCode());
     }
 
     @Test
