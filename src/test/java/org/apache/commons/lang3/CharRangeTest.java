@@ -41,8 +41,8 @@ public class CharRangeTest  {
     @Test
     public void testClass() {
         // class changed to non-public in 3.0
-        assertEquals(false, Modifier.isPublic(CharRange.class.getModifiers()));
-        assertEquals(true, Modifier.isFinal(CharRange.class.getModifiers()));
+        assertFalse(Modifier.isPublic(CharRange.class.getModifiers()));
+        assertTrue(Modifier.isFinal(CharRange.class.getModifiers()));
     }
 
     //-----------------------------------------------------------------------
@@ -51,7 +51,7 @@ public class CharRangeTest  {
         CharRange rangea = CharRange.is('a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
-        assertEquals(false, rangea.isNegated());
+        assertFalse(rangea.isNegated());
         assertEquals("a", rangea.toString());
     }
 
@@ -60,7 +60,7 @@ public class CharRangeTest  {
         CharRange rangea = CharRange.isNot('a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
-        assertEquals(true, rangea.isNegated());
+        assertTrue(rangea.isNegated());
         assertEquals("^a", rangea.toString());
     }
 
@@ -69,7 +69,7 @@ public class CharRangeTest  {
         CharRange rangea = CharRange.isIn('a', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
-        assertEquals(false, rangea.isNegated());
+        assertFalse(rangea.isNegated());
         assertEquals("a", rangea.toString());
     }
 
@@ -78,7 +78,7 @@ public class CharRangeTest  {
         CharRange rangea = CharRange.isIn('a', 'e');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
-        assertEquals(false, rangea.isNegated());
+        assertFalse(rangea.isNegated());
         assertEquals("a-e", rangea.toString());
     }
 
@@ -87,7 +87,7 @@ public class CharRangeTest  {
         CharRange rangea = CharRange.isIn('e', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
-        assertEquals(false, rangea.isNegated());
+        assertFalse(rangea.isNegated());
         assertEquals("a-e", rangea.toString());
     }
 
@@ -96,7 +96,7 @@ public class CharRangeTest  {
         CharRange rangea = CharRange.isNotIn('a', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
-        assertEquals(true, rangea.isNegated());
+        assertTrue(rangea.isNegated());
         assertEquals("^a", rangea.toString());
     }
 
@@ -105,7 +105,7 @@ public class CharRangeTest  {
         CharRange rangea = CharRange.isNotIn('a', 'e');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
-        assertEquals(true, rangea.isNegated());
+        assertTrue(rangea.isNegated());
         assertEquals("^a-e", rangea.toString());
     }
 
@@ -114,7 +114,7 @@ public class CharRangeTest  {
         CharRange rangea = CharRange.isNotIn('e', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
-        assertEquals(true, rangea.isNegated());
+        assertTrue(rangea.isNegated());
         assertEquals("^a-e", rangea.toString());
     }
 
@@ -125,21 +125,21 @@ public class CharRangeTest  {
         CharRange rangeae = CharRange.isIn('a', 'e');
         CharRange rangenotbf = CharRange.isIn('b', 'f');
 
-        assertEquals(false, rangea.equals(null));
+        assertFalse(rangea.equals(null));
 
-        assertEquals(true, rangea.equals(rangea));
-        assertEquals(true, rangea.equals(CharRange.is('a')));
-        assertEquals(true, rangeae.equals(rangeae));
-        assertEquals(true, rangeae.equals(CharRange.isIn('a', 'e')));
-        assertEquals(true, rangenotbf.equals(rangenotbf));
-        assertEquals(true, rangenotbf.equals(CharRange.isIn('b', 'f')));
+        assertTrue(rangea.equals(rangea));
+        assertTrue(rangea.equals(CharRange.is('a')));
+        assertTrue(rangeae.equals(rangeae));
+        assertTrue(rangeae.equals(CharRange.isIn('a', 'e')));
+        assertTrue(rangenotbf.equals(rangenotbf));
+        assertTrue(rangenotbf.equals(CharRange.isIn('b', 'f')));
 
-        assertEquals(false, rangea.equals(rangeae));
-        assertEquals(false, rangea.equals(rangenotbf));
-        assertEquals(false, rangeae.equals(rangea));
-        assertEquals(false, rangeae.equals(rangenotbf));
-        assertEquals(false, rangenotbf.equals(rangea));
-        assertEquals(false, rangenotbf.equals(rangeae));
+        assertFalse(rangea.equals(rangeae));
+        assertFalse(rangea.equals(rangenotbf));
+        assertFalse(rangeae.equals(rangea));
+        assertFalse(rangeae.equals(rangenotbf));
+        assertFalse(rangenotbf.equals(rangea));
+        assertFalse(rangenotbf.equals(rangeae));
     }
 
     @Test
@@ -155,42 +155,42 @@ public class CharRangeTest  {
         assertEquals(true, rangenotbf.hashCode() == rangenotbf.hashCode());
         assertEquals(true, rangenotbf.hashCode() == CharRange.isIn('b', 'f').hashCode());
 
-        assertEquals(false, rangea.hashCode() == rangeae.hashCode());
-        assertEquals(false, rangea.hashCode() == rangenotbf.hashCode());
-        assertEquals(false, rangeae.hashCode() == rangea.hashCode());
-        assertEquals(false, rangeae.hashCode() == rangenotbf.hashCode());
-        assertEquals(false, rangenotbf.hashCode() == rangea.hashCode());
-        assertEquals(false, rangenotbf.hashCode() == rangeae.hashCode());
+        assertFalse(rangea.hashCode() == rangeae.hashCode());
+        assertFalse(rangea.hashCode() == rangenotbf.hashCode());
+        assertFalse(rangeae.hashCode() == rangea.hashCode());
+        assertFalse(rangeae.hashCode() == rangenotbf.hashCode());
+        assertFalse(rangenotbf.hashCode() == rangea.hashCode());
+        assertFalse(rangenotbf.hashCode() == rangeae.hashCode());
     }
 
     //-----------------------------------------------------------------------
     @Test
     public void testContains_Char() {
         CharRange range = CharRange.is('c');
-        assertEquals(false, range.contains('b'));
-        assertEquals(true, range.contains('c'));
-        assertEquals(false, range.contains('d'));
-        assertEquals(false, range.contains('e'));
+        assertFalse(range.contains('b'));
+        assertTrue(range.contains('c'));
+        assertFalse(range.contains('d'));
+        assertFalse(range.contains('e'));
 
         range = CharRange.isIn('c', 'd');
-        assertEquals(false, range.contains('b'));
-        assertEquals(true, range.contains('c'));
-        assertEquals(true, range.contains('d'));
-        assertEquals(false, range.contains('e'));
+        assertFalse(range.contains('b'));
+        assertTrue(range.contains('c'));
+        assertTrue(range.contains('d'));
+        assertFalse(range.contains('e'));
 
         range = CharRange.isIn('d', 'c');
-        assertEquals(false, range.contains('b'));
-        assertEquals(true, range.contains('c'));
-        assertEquals(true, range.contains('d'));
-        assertEquals(false, range.contains('e'));
+        assertFalse(range.contains('b'));
+        assertTrue(range.contains('c'));
+        assertTrue(range.contains('d'));
+        assertFalse(range.contains('e'));
 
         range = CharRange.isNotIn('c', 'd');
-        assertEquals(true, range.contains('b'));
-        assertEquals(false, range.contains('c'));
-        assertEquals(false, range.contains('d'));
-        assertEquals(true, range.contains('e'));
-        assertEquals(true, range.contains((char) 0));
-        assertEquals(true, range.contains(Character.MAX_VALUE));
+        assertTrue(range.contains('b'));
+        assertFalse(range.contains('c'));
+        assertFalse(range.contains('d'));
+        assertTrue(range.contains('e'));
+        assertTrue(range.contains((char) 0));
+        assertTrue(range.contains(Character.MAX_VALUE));
     }
 
     //-----------------------------------------------------------------------
@@ -211,28 +211,28 @@ public class CharRangeTest  {
         CharRange ae = CharRange.isIn('a', 'e');
 
         // normal/normal
-        assertEquals(false, c.contains(b));
-        assertEquals(true, c.contains(c));
-        assertEquals(true, c.contains(c2));
-        assertEquals(false, c.contains(d));
+        assertFalse(c.contains(b));
+        assertTrue(c.contains(c));
+        assertTrue(c.contains(c2));
+        assertFalse(c.contains(d));
 
-        assertEquals(false, c.contains(cd));
-        assertEquals(false, c.contains(bd));
-        assertEquals(false, c.contains(bc));
-        assertEquals(false, c.contains(ab));
-        assertEquals(false, c.contains(de));
+        assertFalse(c.contains(cd));
+        assertFalse(c.contains(bd));
+        assertFalse(c.contains(bc));
+        assertFalse(c.contains(ab));
+        assertFalse(c.contains(de));
 
-        assertEquals(true, cd.contains(c));
-        assertEquals(true, bd.contains(c));
-        assertEquals(true, bc.contains(c));
-        assertEquals(false, ab.contains(c));
-        assertEquals(false, de.contains(c));
+        assertTrue(cd.contains(c));
+        assertTrue(bd.contains(c));
+        assertTrue(bc.contains(c));
+        assertFalse(ab.contains(c));
+        assertFalse(de.contains(c));
 
-        assertEquals(true, ae.contains(b));
-        assertEquals(true, ae.contains(ab));
-        assertEquals(true, ae.contains(bc));
-        assertEquals(true, ae.contains(cd));
-        assertEquals(true, ae.contains(de));
+        assertTrue(ae.contains(b));
+        assertTrue(ae.contains(ab));
+        assertTrue(ae.contains(bc));
+        assertTrue(ae.contains(cd));
+        assertTrue(ae.contains(de));
 
         CharRange notb = CharRange.isNot('b');
         CharRange notc = CharRange.isNot('c');
@@ -247,66 +247,66 @@ public class CharRangeTest  {
         CharRange allbutfirst = CharRange.isIn((char) 1, Character.MAX_VALUE);
 
         // normal/negated
-        assertEquals(false, c.contains(notc));
-        assertEquals(false, c.contains(notbd));
-        assertEquals(true, all.contains(notc));
-        assertEquals(true, all.contains(notbd));
-        assertEquals(false, allbutfirst.contains(notc));
-        assertEquals(false, allbutfirst.contains(notbd));
+        assertFalse(c.contains(notc));
+        assertFalse(c.contains(notbd));
+        assertTrue(all.contains(notc));
+        assertTrue(all.contains(notbd));
+        assertFalse(allbutfirst.contains(notc));
+        assertFalse(allbutfirst.contains(notbd));
 
         // negated/normal
-        assertEquals(true, notc.contains(a));
-        assertEquals(true, notc.contains(b));
-        assertEquals(false, notc.contains(c));
-        assertEquals(true, notc.contains(d));
-        assertEquals(true, notc.contains(e));
+        assertTrue(notc.contains(a));
+        assertTrue(notc.contains(b));
+        assertFalse(notc.contains(c));
+        assertTrue(notc.contains(d));
+        assertTrue(notc.contains(e));
 
-        assertEquals(true, notc.contains(ab));
-        assertEquals(false, notc.contains(bc));
-        assertEquals(false, notc.contains(bd));
-        assertEquals(false, notc.contains(cd));
-        assertEquals(true, notc.contains(de));
-        assertEquals(false, notc.contains(ae));
-        assertEquals(false, notc.contains(all));
-        assertEquals(false, notc.contains(allbutfirst));
+        assertTrue(notc.contains(ab));
+        assertFalse(notc.contains(bc));
+        assertFalse(notc.contains(bd));
+        assertFalse(notc.contains(cd));
+        assertTrue(notc.contains(de));
+        assertFalse(notc.contains(ae));
+        assertFalse(notc.contains(all));
+        assertFalse(notc.contains(allbutfirst));
 
-        assertEquals(true, notbd.contains(a));
-        assertEquals(false, notbd.contains(b));
-        assertEquals(false, notbd.contains(c));
-        assertEquals(false, notbd.contains(d));
-        assertEquals(true, notbd.contains(e));
+        assertTrue(notbd.contains(a));
+        assertFalse(notbd.contains(b));
+        assertFalse(notbd.contains(c));
+        assertFalse(notbd.contains(d));
+        assertTrue(notbd.contains(e));
 
-        assertEquals(true, notcd.contains(ab));
-        assertEquals(false, notcd.contains(bc));
-        assertEquals(false, notcd.contains(bd));
-        assertEquals(false, notcd.contains(cd));
-        assertEquals(false, notcd.contains(de));
-        assertEquals(false, notcd.contains(ae));
-        assertEquals(true, notcd.contains(ef));
-        assertEquals(false, notcd.contains(all));
-        assertEquals(false, notcd.contains(allbutfirst));
+        assertTrue(notcd.contains(ab));
+        assertFalse(notcd.contains(bc));
+        assertFalse(notcd.contains(bd));
+        assertFalse(notcd.contains(cd));
+        assertFalse(notcd.contains(de));
+        assertFalse(notcd.contains(ae));
+        assertTrue(notcd.contains(ef));
+        assertFalse(notcd.contains(all));
+        assertFalse(notcd.contains(allbutfirst));
 
         // negated/negated
-        assertEquals(false, notc.contains(notb));
-        assertEquals(true, notc.contains(notc));
-        assertEquals(false, notc.contains(notd));
+        assertFalse(notc.contains(notb));
+        assertTrue(notc.contains(notc));
+        assertFalse(notc.contains(notd));
 
-        assertEquals(false, notc.contains(notab));
-        assertEquals(true, notc.contains(notbc));
-        assertEquals(true, notc.contains(notbd));
-        assertEquals(true, notc.contains(notcd));
-        assertEquals(false, notc.contains(notde));
+        assertFalse(notc.contains(notab));
+        assertTrue(notc.contains(notbc));
+        assertTrue(notc.contains(notbd));
+        assertTrue(notc.contains(notcd));
+        assertFalse(notc.contains(notde));
 
-        assertEquals(false, notbd.contains(notb));
-        assertEquals(false, notbd.contains(notc));
-        assertEquals(false, notbd.contains(notd));
+        assertFalse(notbd.contains(notb));
+        assertFalse(notbd.contains(notc));
+        assertFalse(notbd.contains(notd));
 
-        assertEquals(false, notbd.contains(notab));
-        assertEquals(false, notbd.contains(notbc));
-        assertEquals(true, notbd.contains(notbd));
-        assertEquals(false, notbd.contains(notcd));
-        assertEquals(false, notbd.contains(notde));
-        assertEquals(true, notbd.contains(notae));
+        assertFalse(notbd.contains(notab));
+        assertFalse(notbd.contains(notbc));
+        assertTrue(notbd.contains(notbd));
+        assertFalse(notbd.contains(notcd));
+        assertFalse(notbd.contains(notde));
+        assertTrue(notbd.contains(notae));
     }
 
     @Test

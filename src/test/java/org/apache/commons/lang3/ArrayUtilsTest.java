@@ -47,9 +47,9 @@ public class ArrayUtilsTest  {
         assertNotNull(new ArrayUtils());
         Constructor<?>[] cons = ArrayUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(ArrayUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(ArrayUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(ArrayUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(ArrayUtils.class.getModifiers()));
     }
     
     //-----------------------------------------------------------------------
@@ -88,15 +88,15 @@ public class ArrayUtilsTest  {
 
     //-----------------------------------------------------------------------
     private void assertIsEquals(Object array1, Object array2, Object array3) {
-        assertEquals(true, ArrayUtils.isEquals(array1, array1));
-        assertEquals(true, ArrayUtils.isEquals(array2, array2));
-        assertEquals(true, ArrayUtils.isEquals(array3, array3));
-        assertEquals(false, ArrayUtils.isEquals(array1, array2));
-        assertEquals(false, ArrayUtils.isEquals(array2, array1));
-        assertEquals(false, ArrayUtils.isEquals(array1, array3));
-        assertEquals(false, ArrayUtils.isEquals(array3, array1));
-        assertEquals(false, ArrayUtils.isEquals(array1, array2));
-        assertEquals(false, ArrayUtils.isEquals(array2, array1));
+        assertTrue(ArrayUtils.isEquals(array1, array1));
+        assertTrue(ArrayUtils.isEquals(array2, array2));
+        assertTrue(ArrayUtils.isEquals(array3, array3));
+        assertFalse(ArrayUtils.isEquals(array1, array2));
+        assertFalse(ArrayUtils.isEquals(array2, array1));
+        assertFalse(ArrayUtils.isEquals(array1, array3));
+        assertFalse(ArrayUtils.isEquals(array3, array1));
+        assertFalse(ArrayUtils.isEquals(array1, array2));
+        assertFalse(ArrayUtils.isEquals(array2, array1));
     }
 
     @Test
@@ -143,11 +143,11 @@ public class ArrayUtilsTest  {
 
         Object[] array3 = new Object[]{new String(new char[]{'A', 'B'})};
         Object[] array4 = new Object[]{"AB"};
-        assertEquals(true, ArrayUtils.isEquals(array3, array3));
-        assertEquals(true, ArrayUtils.isEquals(array3, array4));
+        assertTrue(ArrayUtils.isEquals(array3, array3));
+        assertTrue(ArrayUtils.isEquals(array3, array4));
 
-        assertEquals(true, ArrayUtils.isEquals(null, null));
-        assertEquals(false, ArrayUtils.isEquals(null, array4));
+        assertTrue(ArrayUtils.isEquals(null, null));
+        assertFalse(ArrayUtils.isEquals(null, array4));
     }
     
     //-----------------------------------------------------------------------
@@ -1296,25 +1296,25 @@ public class ArrayUtilsTest  {
         Object[] oneArray = new Object[] {"pick"};
         Object[] twoArray = new Object[] {"pick", "stick"};
         
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, twoArray));
         
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
-        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertTrue(ArrayUtils.isSameLength(oneArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
-        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, oneArray));
+        assertTrue(ArrayUtils.isSameLength(twoArray, twoArray));
     }
 
     @Test
@@ -1324,25 +1324,25 @@ public class ArrayUtilsTest  {
         boolean[] oneArray = new boolean[] {true};
         boolean[] twoArray = new boolean[] {true, false};
         
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, twoArray));
         
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
-        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertTrue(ArrayUtils.isSameLength(oneArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
-        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, oneArray));
+        assertTrue(ArrayUtils.isSameLength(twoArray, twoArray));
     }
     
     @Test
@@ -1352,25 +1352,25 @@ public class ArrayUtilsTest  {
         long[] oneArray = new long[] {0L};
         long[] twoArray = new long[] {0L, 76L};
         
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, twoArray));
         
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
-        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertTrue(ArrayUtils.isSameLength(oneArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
-        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, oneArray));
+        assertTrue(ArrayUtils.isSameLength(twoArray, twoArray));
     }
     
     @Test
@@ -1380,25 +1380,25 @@ public class ArrayUtilsTest  {
         int[] oneArray = new int[] {4};
         int[] twoArray = new int[] {5, 7};
         
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, twoArray));
         
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
-        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertTrue(ArrayUtils.isSameLength(oneArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
-        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, oneArray));
+        assertTrue(ArrayUtils.isSameLength(twoArray, twoArray));
     }
     
     @Test
@@ -1408,25 +1408,25 @@ public class ArrayUtilsTest  {
         short[] oneArray = new short[] {4};
         short[] twoArray = new short[] {6, 8};
         
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, twoArray));
         
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
-        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertTrue(ArrayUtils.isSameLength(oneArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
-        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, oneArray));
+        assertTrue(ArrayUtils.isSameLength(twoArray, twoArray));
     }
     
     @Test
@@ -1436,25 +1436,25 @@ public class ArrayUtilsTest  {
         char[] oneArray = new char[] {'f'};
         char[] twoArray = new char[] {'d', 't'};
         
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, twoArray));
         
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
-        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertTrue(ArrayUtils.isSameLength(oneArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
-        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, oneArray));
+        assertTrue(ArrayUtils.isSameLength(twoArray, twoArray));
     }
     
     @Test
@@ -1464,25 +1464,25 @@ public class ArrayUtilsTest  {
         byte[] oneArray = new byte[] {3};
         byte[] twoArray = new byte[] {4, 6};
         
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, twoArray));
         
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
-        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertTrue(ArrayUtils.isSameLength(oneArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
-        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, oneArray));
+        assertTrue(ArrayUtils.isSameLength(twoArray, twoArray));
     }
     
     @Test
@@ -1492,25 +1492,25 @@ public class ArrayUtilsTest  {
         double[] oneArray = new double[] {1.3d};
         double[] twoArray = new double[] {4.5d, 6.3d};
         
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, twoArray));
         
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
-        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertTrue(ArrayUtils.isSameLength(oneArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
-        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, oneArray));
+        assertTrue(ArrayUtils.isSameLength(twoArray, twoArray));
     }
     
     @Test
@@ -1520,25 +1520,25 @@ public class ArrayUtilsTest  {
         float[] oneArray = new float[] {2.5f};
         float[] twoArray = new float[] {6.4f, 5.8f};
         
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(nullArray, twoArray));
         
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
-        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertTrue(ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(emptyArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
-        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
-        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertTrue(ArrayUtils.isSameLength(oneArray, oneArray));
+        assertFalse(ArrayUtils.isSameLength(oneArray, twoArray));
         
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
-        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
-        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, nullArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertFalse(ArrayUtils.isSameLength(twoArray, oneArray));
+        assertTrue(ArrayUtils.isSameLength(twoArray, twoArray));
     }
     
     //-----------------------------------------------------------------------
@@ -1557,11 +1557,11 @@ public class ArrayUtilsTest  {
             fail();
         } catch (IllegalArgumentException ex) {}
         
-        assertEquals(true, ArrayUtils.isSameType(new Object[0], new Object[0]));
-        assertEquals(false, ArrayUtils.isSameType(new String[0], new Object[0]));
-        assertEquals(true, ArrayUtils.isSameType(new String[0][0], new String[0][0]));
-        assertEquals(false, ArrayUtils.isSameType(new String[0], new String[0][0]));
-        assertEquals(false, ArrayUtils.isSameType(new String[0][0], new String[0]));
+        assertTrue(ArrayUtils.isSameType(new Object[0], new Object[0]));
+        assertFalse(ArrayUtils.isSameType(new String[0], new Object[0]));
+        assertTrue(ArrayUtils.isSameType(new String[0][0], new String[0][0]));
+        assertFalse(ArrayUtils.isSameType(new String[0], new String[0][0]));
+        assertFalse(ArrayUtils.isSameType(new String[0][0], new String[0]));
     }
     
     //-----------------------------------------------------------------------
@@ -1685,9 +1685,9 @@ public class ArrayUtilsTest  {
     public void testReverseBoolean() {
         boolean[] array = new boolean[] {false, false, true};
         ArrayUtils.reverse(array);
-        assertEquals(array[0], true);
-        assertEquals(array[1], false);
-        assertEquals(array[2], false);
+        assertTrue(array[0]);
+        assertFalse(array[1]);
+        assertFalse(array[2]);
 
         array = null;
         ArrayUtils.reverse(array);
@@ -1761,14 +1761,14 @@ public class ArrayUtilsTest  {
     @Test
     public void testContains() {
         Object[] array = new Object[] { "0", "1", "2", "3", null, "0" };
-        assertEquals(false, ArrayUtils.contains(null, null));
-        assertEquals(false, ArrayUtils.contains(null, "1"));
-        assertEquals(true, ArrayUtils.contains(array, "0"));
-        assertEquals(true, ArrayUtils.contains(array, "1"));
-        assertEquals(true, ArrayUtils.contains(array, "2"));
-        assertEquals(true, ArrayUtils.contains(array, "3"));
-        assertEquals(true, ArrayUtils.contains(array, null));
-        assertEquals(false, ArrayUtils.contains(array, "notInArray"));
+        assertFalse(ArrayUtils.contains(null, null));
+        assertFalse(ArrayUtils.contains(null, "1"));
+        assertTrue(ArrayUtils.contains(array, "0"));
+        assertTrue(ArrayUtils.contains(array, "1"));
+        assertTrue(ArrayUtils.contains(array, "2"));
+        assertTrue(ArrayUtils.contains(array, "3"));
+        assertTrue(ArrayUtils.contains(array, null));
+        assertFalse(ArrayUtils.contains(array, "notInArray"));
     }
     
     //-----------------------------------------------------------------------
@@ -1827,13 +1827,13 @@ public class ArrayUtilsTest  {
     @Test
     public void testContainsLong() {
         long[] array = null;
-        assertEquals(false, ArrayUtils.contains(array, 1));
+        assertFalse(ArrayUtils.contains(array, 1));
         array = new long[] { 0, 1, 2, 3, 0 };
-        assertEquals(true, ArrayUtils.contains(array, 0));
-        assertEquals(true, ArrayUtils.contains(array, 1));
-        assertEquals(true, ArrayUtils.contains(array, 2));
-        assertEquals(true, ArrayUtils.contains(array, 3));
-        assertEquals(false, ArrayUtils.contains(array, 99));
+        assertTrue(ArrayUtils.contains(array, 0));
+        assertTrue(ArrayUtils.contains(array, 1));
+        assertTrue(ArrayUtils.contains(array, 2));
+        assertTrue(ArrayUtils.contains(array, 3));
+        assertFalse(ArrayUtils.contains(array, 99));
     }
     
     //-----------------------------------------------------------------------
@@ -1892,13 +1892,13 @@ public class ArrayUtilsTest  {
     @Test
     public void testContainsInt() {
         int[] array = null;
-        assertEquals(false, ArrayUtils.contains(array, 1));
+        assertFalse(ArrayUtils.contains(array, 1));
         array = new int[] { 0, 1, 2, 3, 0 };
-        assertEquals(true, ArrayUtils.contains(array, 0));
-        assertEquals(true, ArrayUtils.contains(array, 1));
-        assertEquals(true, ArrayUtils.contains(array, 2));
-        assertEquals(true, ArrayUtils.contains(array, 3));
-        assertEquals(false, ArrayUtils.contains(array, 99));
+        assertTrue(ArrayUtils.contains(array, 0));
+        assertTrue(ArrayUtils.contains(array, 1));
+        assertTrue(ArrayUtils.contains(array, 2));
+        assertTrue(ArrayUtils.contains(array, 3));
+        assertFalse(ArrayUtils.contains(array, 99));
     }
     
     //-----------------------------------------------------------------------
@@ -1957,13 +1957,13 @@ public class ArrayUtilsTest  {
     @Test
     public void testContainsShort() {
         short[] array = null;
-        assertEquals(false, ArrayUtils.contains(array, (short) 1));
+        assertFalse(ArrayUtils.contains(array, (short) 1));
         array = new short[] { 0, 1, 2, 3, 0 };
-        assertEquals(true, ArrayUtils.contains(array, (short) 0));
-        assertEquals(true, ArrayUtils.contains(array, (short) 1));
-        assertEquals(true, ArrayUtils.contains(array, (short) 2));
-        assertEquals(true, ArrayUtils.contains(array, (short) 3));
-        assertEquals(false, ArrayUtils.contains(array, (short) 99));
+        assertTrue(ArrayUtils.contains(array, (short) 0));
+        assertTrue(ArrayUtils.contains(array, (short) 1));
+        assertTrue(ArrayUtils.contains(array, (short) 2));
+        assertTrue(ArrayUtils.contains(array, (short) 3));
+        assertFalse(ArrayUtils.contains(array, (short) 99));
     }
     
     //-----------------------------------------------------------------------
@@ -2022,13 +2022,13 @@ public class ArrayUtilsTest  {
     @Test
     public void testContainsChar() {
         char[] array = null;
-        assertEquals(false, ArrayUtils.contains(array, 'b'));
+        assertFalse(ArrayUtils.contains(array, 'b'));
         array = new char[] { 'a', 'b', 'c', 'd', 'a' };
-        assertEquals(true, ArrayUtils.contains(array, 'a'));
-        assertEquals(true, ArrayUtils.contains(array, 'b'));
-        assertEquals(true, ArrayUtils.contains(array, 'c'));
-        assertEquals(true, ArrayUtils.contains(array, 'd'));
-        assertEquals(false, ArrayUtils.contains(array, 'e'));
+        assertTrue(ArrayUtils.contains(array, 'a'));
+        assertTrue(ArrayUtils.contains(array, 'b'));
+        assertTrue(ArrayUtils.contains(array, 'c'));
+        assertTrue(ArrayUtils.contains(array, 'd'));
+        assertFalse(ArrayUtils.contains(array, 'e'));
     }
     
     //-----------------------------------------------------------------------
@@ -2087,13 +2087,13 @@ public class ArrayUtilsTest  {
     @Test
     public void testContainsByte() {
         byte[] array = null;
-        assertEquals(false, ArrayUtils.contains(array, (byte) 1));
+        assertFalse(ArrayUtils.contains(array, (byte) 1));
         array = new byte[] { 0, 1, 2, 3, 0 };
-        assertEquals(true, ArrayUtils.contains(array, (byte) 0));
-        assertEquals(true, ArrayUtils.contains(array, (byte) 1));
-        assertEquals(true, ArrayUtils.contains(array, (byte) 2));
-        assertEquals(true, ArrayUtils.contains(array, (byte) 3));
-        assertEquals(false, ArrayUtils.contains(array, (byte) 99));
+        assertTrue(ArrayUtils.contains(array, (byte) 0));
+        assertTrue(ArrayUtils.contains(array, (byte) 1));
+        assertTrue(ArrayUtils.contains(array, (byte) 2));
+        assertTrue(ArrayUtils.contains(array, (byte) 3));
+        assertFalse(ArrayUtils.contains(array, (byte) 99));
     }
     
     //-----------------------------------------------------------------------
@@ -2229,25 +2229,25 @@ public class ArrayUtilsTest  {
     @Test
     public void testContainsDouble() {
         double[] array = null;
-        assertEquals(false, ArrayUtils.contains(array, (double) 1));
+        assertFalse(ArrayUtils.contains(array, (double) 1));
         array = new double[] { 0, 1, 2, 3, 0 };
-        assertEquals(true, ArrayUtils.contains(array, (double) 0));
-        assertEquals(true, ArrayUtils.contains(array, (double) 1));
-        assertEquals(true, ArrayUtils.contains(array, (double) 2));
-        assertEquals(true, ArrayUtils.contains(array, (double) 3));
-        assertEquals(false, ArrayUtils.contains(array, (double) 99));
+        assertTrue(ArrayUtils.contains(array, (double) 0));
+        assertTrue(ArrayUtils.contains(array, (double) 1));
+        assertTrue(ArrayUtils.contains(array, (double) 2));
+        assertTrue(ArrayUtils.contains(array, (double) 3));
+        assertFalse(ArrayUtils.contains(array, (double) 99));
     }
 
     @SuppressWarnings("cast")
     @Test
     public void testContainsDoubleTolerance() {
         double[] array = null;
-        assertEquals(false, ArrayUtils.contains(array, (double) 1, (double) 0));
+        assertFalse(ArrayUtils.contains(array, (double) 1, (double) 0));
         array = new double[] { 0, 1, 2, 3, 0 };
-        assertEquals(false, ArrayUtils.contains(array, (double) 4.0, (double) 0.33));
-        assertEquals(false, ArrayUtils.contains(array, (double) 2.5, (double) 0.49));
-        assertEquals(true, ArrayUtils.contains(array, (double) 2.5, (double) 0.50));
-        assertEquals(true, ArrayUtils.contains(array, (double) 2.5, (double) 0.51));
+        assertFalse(ArrayUtils.contains(array, (double) 4.0, (double) 0.33));
+        assertFalse(ArrayUtils.contains(array, (double) 2.5, (double) 0.49));
+        assertTrue(ArrayUtils.contains(array, (double) 2.5, (double) 0.50));
+        assertTrue(ArrayUtils.contains(array, (double) 2.5, (double) 0.51));
     }
     
     //-----------------------------------------------------------------------
@@ -2319,13 +2319,13 @@ public class ArrayUtilsTest  {
     @Test
     public void testContainsFloat() {
         float[] array = null;
-        assertEquals(false, ArrayUtils.contains(array, (float) 1));
+        assertFalse(ArrayUtils.contains(array, (float) 1));
         array = new float[] { 0, 1, 2, 3, 0 };
-        assertEquals(true, ArrayUtils.contains(array, (float) 0));
-        assertEquals(true, ArrayUtils.contains(array, (float) 1));
-        assertEquals(true, ArrayUtils.contains(array, (float) 2));
-        assertEquals(true, ArrayUtils.contains(array, (float) 3));
-        assertEquals(false, ArrayUtils.contains(array, (float) 99));
+        assertTrue(ArrayUtils.contains(array, (float) 0));
+        assertTrue(ArrayUtils.contains(array, (float) 1));
+        assertTrue(ArrayUtils.contains(array, (float) 2));
+        assertTrue(ArrayUtils.contains(array, (float) 3));
+        assertFalse(ArrayUtils.contains(array, (float) 99));
     }
     
     //-----------------------------------------------------------------------
@@ -2390,13 +2390,13 @@ public class ArrayUtilsTest  {
     @Test
     public void testContainsBoolean() {
         boolean[] array = null;
-        assertEquals(false, ArrayUtils.contains(array, true));
+        assertFalse(ArrayUtils.contains(array, true));
         array = new boolean[] { true, false, true };
-        assertEquals(true, ArrayUtils.contains(array, true));
-        assertEquals(true, ArrayUtils.contains(array, false));
+        assertTrue(ArrayUtils.contains(array, true));
+        assertTrue(ArrayUtils.contains(array, false));
         array = new boolean[] { true, true };
-        assertEquals(true, ArrayUtils.contains(array, true));
-        assertEquals(false, ArrayUtils.contains(array, false));
+        assertTrue(ArrayUtils.contains(array, true));
+        assertFalse(ArrayUtils.contains(array, false));
     }
     
     // testToPrimitive/Object for boolean
@@ -2874,9 +2874,9 @@ public class ArrayUtilsTest  {
     public void testIsEmptyObject() {
         Object[] emptyArray = new Object[] {};
         Object[] notEmptyArray = new Object[] { new String("Value") };
-        assertEquals(true, ArrayUtils.isEmpty((Object[])null));
-        assertEquals(true, ArrayUtils.isEmpty(emptyArray));
-        assertEquals(false, ArrayUtils.isEmpty(notEmptyArray));
+        assertTrue(ArrayUtils.isEmpty((Object[])null));
+        assertTrue(ArrayUtils.isEmpty(emptyArray));
+        assertFalse(ArrayUtils.isEmpty(notEmptyArray));
     }
 
     /**
@@ -2893,51 +2893,51 @@ public class ArrayUtilsTest  {
     public void testIsEmptyPrimitives() {
         long[] emptyLongArray = new long[] {};
         long[] notEmptyLongArray = new long[] { 1L };
-        assertEquals(true, ArrayUtils.isEmpty((long[])null));
-        assertEquals(true, ArrayUtils.isEmpty(emptyLongArray));
-        assertEquals(false, ArrayUtils.isEmpty(notEmptyLongArray));
+        assertTrue(ArrayUtils.isEmpty((long[])null));
+        assertTrue(ArrayUtils.isEmpty(emptyLongArray));
+        assertFalse(ArrayUtils.isEmpty(notEmptyLongArray));
 
         int[] emptyIntArray = new int[] {};
         int[] notEmptyIntArray = new int[] { 1 };
-        assertEquals(true, ArrayUtils.isEmpty((int[])null));
-        assertEquals(true, ArrayUtils.isEmpty(emptyIntArray));
-        assertEquals(false, ArrayUtils.isEmpty(notEmptyIntArray));
+        assertTrue(ArrayUtils.isEmpty((int[])null));
+        assertTrue(ArrayUtils.isEmpty(emptyIntArray));
+        assertFalse(ArrayUtils.isEmpty(notEmptyIntArray));
 
         short[] emptyShortArray = new short[] {};
         short[] notEmptyShortArray = new short[] { 1 };
-        assertEquals(true, ArrayUtils.isEmpty((short[])null));
-        assertEquals(true, ArrayUtils.isEmpty(emptyShortArray));
-        assertEquals(false, ArrayUtils.isEmpty(notEmptyShortArray));
+        assertTrue(ArrayUtils.isEmpty((short[])null));
+        assertTrue(ArrayUtils.isEmpty(emptyShortArray));
+        assertFalse(ArrayUtils.isEmpty(notEmptyShortArray));
 
         char[] emptyCharArray = new char[] {};
         char[] notEmptyCharArray = new char[] { 1 };
-        assertEquals(true, ArrayUtils.isEmpty((char[])null));
-        assertEquals(true, ArrayUtils.isEmpty(emptyCharArray));
-        assertEquals(false, ArrayUtils.isEmpty(notEmptyCharArray));
+        assertTrue(ArrayUtils.isEmpty((char[])null));
+        assertTrue(ArrayUtils.isEmpty(emptyCharArray));
+        assertFalse(ArrayUtils.isEmpty(notEmptyCharArray));
 
         byte[] emptyByteArray = new byte[] {};
         byte[] notEmptyByteArray = new byte[] { 1 };
-        assertEquals(true, ArrayUtils.isEmpty((byte[])null));
-        assertEquals(true, ArrayUtils.isEmpty(emptyByteArray));
-        assertEquals(false, ArrayUtils.isEmpty(notEmptyByteArray));
+        assertTrue(ArrayUtils.isEmpty((byte[])null));
+        assertTrue(ArrayUtils.isEmpty(emptyByteArray));
+        assertFalse(ArrayUtils.isEmpty(notEmptyByteArray));
 
         double[] emptyDoubleArray = new double[] {};
         double[] notEmptyDoubleArray = new double[] { 1.0 };
-        assertEquals(true, ArrayUtils.isEmpty((double[])null));
-        assertEquals(true, ArrayUtils.isEmpty(emptyDoubleArray));
-        assertEquals(false, ArrayUtils.isEmpty(notEmptyDoubleArray));
+        assertTrue(ArrayUtils.isEmpty((double[])null));
+        assertTrue(ArrayUtils.isEmpty(emptyDoubleArray));
+        assertFalse(ArrayUtils.isEmpty(notEmptyDoubleArray));
 
         float[] emptyFloatArray = new float[] {};
         float[] notEmptyFloatArray = new float[] { 1.0F };
-        assertEquals(true, ArrayUtils.isEmpty((float[])null));
-        assertEquals(true, ArrayUtils.isEmpty(emptyFloatArray));
-        assertEquals(false, ArrayUtils.isEmpty(notEmptyFloatArray));
+        assertTrue(ArrayUtils.isEmpty((float[])null));
+        assertTrue(ArrayUtils.isEmpty(emptyFloatArray));
+        assertFalse(ArrayUtils.isEmpty(notEmptyFloatArray));
 
         boolean[] emptyBooleanArray = new boolean[] {};
         boolean[] notEmptyBooleanArray = new boolean[] { true };
-        assertEquals(true, ArrayUtils.isEmpty((boolean[])null));
-        assertEquals(true, ArrayUtils.isEmpty(emptyBooleanArray));
-        assertEquals(false, ArrayUtils.isEmpty(notEmptyBooleanArray));
+        assertTrue(ArrayUtils.isEmpty((boolean[])null));
+        assertTrue(ArrayUtils.isEmpty(emptyBooleanArray));
+        assertFalse(ArrayUtils.isEmpty(notEmptyBooleanArray));
     }
     
    /**

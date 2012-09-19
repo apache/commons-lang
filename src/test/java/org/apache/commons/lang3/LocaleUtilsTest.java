@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -68,9 +69,9 @@ public class LocaleUtilsTest  {
         assertNotNull(new LocaleUtils());
         Constructor<?>[] cons = LocaleUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(LocaleUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(LocaleUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(LocaleUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(LocaleUtils.class.getModifiers()));
     }
 
     //-----------------------------------------------------------------------

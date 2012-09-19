@@ -17,7 +17,9 @@
 package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -37,9 +39,9 @@ public class CharSetUtilsTest  {
         assertNotNull(new CharSetUtils());
         Constructor<?>[] cons = CharSetUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(CharSetUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(CharSetUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(CharSetUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(CharSetUtils.class.getModifiers()));
     }
     
     //-----------------------------------------------------------------------

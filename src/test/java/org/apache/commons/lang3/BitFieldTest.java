@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -188,7 +189,7 @@ public class BitFieldTest  {
         assertEquals(-2, new BitField(1).setByteBoolean((byte) 255, false));
         byte clearedBit = new BitField(0x40).setByteBoolean((byte) - 63, false);
 
-        assertEquals(false, new BitField(0x40).isSet(clearedBit));
+        assertFalse(new BitField(0x40).isSet(clearedBit));
     }
 
     /**

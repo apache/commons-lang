@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -40,9 +41,9 @@ public class RandomStringUtilsTest {
         assertNotNull(new RandomStringUtils());
         Constructor<?>[] cons = RandomStringUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(RandomStringUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(RandomStringUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(RandomStringUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(RandomStringUtils.class.getModifiers()));
     }
     
     //-----------------------------------------------------------------------
@@ -68,7 +69,7 @@ public class RandomStringUtilsTest {
         r1 = RandomStringUtils.randomAlphabetic(50);
         assertEquals("randomAlphabetic(50)", 50, r1.length());
         for(int i = 0; i < r1.length(); i++) {
-            assertEquals("r1 contains alphabetic", true, Character.isLetter(r1.charAt(i)) && !Character.isDigit(r1.charAt(i)));
+            assertTrue("r1 contains alphabetic", Character.isLetter(r1.charAt(i)) && !Character.isDigit(r1.charAt(i)));
         }
         r2 = RandomStringUtils.randomAlphabetic(50);
         assertTrue("!r1.equals(r2)", !r1.equals(r2));
@@ -76,7 +77,7 @@ public class RandomStringUtilsTest {
         r1 = RandomStringUtils.randomAlphanumeric(50);
         assertEquals("randomAlphanumeric(50)", 50, r1.length());
         for(int i = 0; i < r1.length(); i++) {
-            assertEquals("r1 contains alphanumeric", true, Character.isLetterOrDigit(r1.charAt(i)));
+            assertTrue("r1 contains alphanumeric", Character.isLetterOrDigit(r1.charAt(i)));
         }
         r2 = RandomStringUtils.randomAlphabetic(50);
         assertTrue("!r1.equals(r2)", !r1.equals(r2));
@@ -84,7 +85,7 @@ public class RandomStringUtilsTest {
         r1 = RandomStringUtils.randomNumeric(50);
         assertEquals("randomNumeric(50)", 50, r1.length());
         for(int i = 0; i < r1.length(); i++) {
-            assertEquals("r1 contains numeric", true, Character.isDigit(r1.charAt(i)) && !Character.isLetter(r1.charAt(i)));
+            assertTrue("r1 contains numeric", Character.isDigit(r1.charAt(i)) && !Character.isLetter(r1.charAt(i)));
         }
         r2 = RandomStringUtils.randomNumeric(50);
         assertTrue("!r1.equals(r2)", !r1.equals(r2));

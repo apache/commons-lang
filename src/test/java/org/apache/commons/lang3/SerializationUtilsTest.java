@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -69,9 +70,9 @@ public class SerializationUtilsTest {
         assertNotNull(new SerializationUtils());
         Constructor<?>[] cons = SerializationUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(SerializationUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(SerializationUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(SerializationUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(SerializationUtils.class.getModifiers()));
     }
     
     @Test
