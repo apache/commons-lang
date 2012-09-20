@@ -1228,6 +1228,7 @@ public class StringUtilsTest {
         }
     }
 
+    @SuppressWarnings("deprecation") // intentional test of deprecated method
     @Test
     public void testChomp() {
 
