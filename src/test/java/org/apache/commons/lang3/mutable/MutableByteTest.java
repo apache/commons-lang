@@ -39,10 +39,11 @@ public class MutableByteTest {
 
         assertEquals((byte) 2, new MutableByte("2").byteValue());
 
-        try {
-            new MutableByte((Number)null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testConstructorNull() {
+        new MutableByte((Number)null);
     }
 
     @Test
@@ -62,10 +63,12 @@ public class MutableByteTest {
         mutNum.setValue(new MutableByte((byte) 3));
         assertEquals((byte) 3, mutNum.byteValue());
         assertEquals(Byte.valueOf((byte) 3), mutNum.getValue());
-        try {
-            mutNum.setValue(null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testSetNull() {
+        final MutableByte mutNum = new MutableByte((byte) 0);
+        mutNum.setValue(null);
     }
 
     @Test
@@ -105,10 +108,12 @@ public class MutableByteTest {
         assertEquals((byte) 0, mutNum.compareTo(new MutableByte((byte) 0)));
         assertEquals((byte) +1, mutNum.compareTo(new MutableByte((byte) -1)));
         assertEquals((byte) -1, mutNum.compareTo(new MutableByte((byte) 1)));
-        try {
-            mutNum.compareTo(null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testCompareToNull() {
+        final MutableByte mutNum = new MutableByte((byte) 0);
+        mutNum.compareTo(null);
     }
 
     @Test

@@ -39,10 +39,11 @@ public class MutableIntTest {
 
         assertEquals(2, new MutableInt("2").intValue());
 
-        try {
-            new MutableInt((Number)null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testConstructorNull() {
+        new MutableInt((Number)null);
     }
 
     @Test
@@ -62,10 +63,12 @@ public class MutableIntTest {
         mutNum.setValue(new MutableLong(3));
         assertEquals(3, mutNum.intValue());
         assertEquals(Integer.valueOf(3), mutNum.getValue());
-        try {
-            mutNum.setValue(null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testSetNull() {
+        final MutableInt mutNum = new MutableInt(0);
+        mutNum.setValue(null);
     }
 
     @Test
@@ -112,10 +115,12 @@ public class MutableIntTest {
         assertEquals(0, mutNum.compareTo(new MutableInt(0)));
         assertEquals(+1, mutNum.compareTo(new MutableInt(-1)));
         assertEquals(-1, mutNum.compareTo(new MutableInt(1)));
-        try {
-            mutNum.compareTo(null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testCompareToNull() {
+        final MutableInt mutNum = new MutableInt(0);
+        mutNum.compareTo(null);
     }
 
     @Test

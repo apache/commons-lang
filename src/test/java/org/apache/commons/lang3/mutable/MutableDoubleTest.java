@@ -39,10 +39,11 @@ public class MutableDoubleTest {
         
         assertEquals(2d, new MutableDouble("2.0").doubleValue(), 0.0001d);
 
-        try {
-            new MutableDouble((Number)null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testConstructorNull() {
+        new MutableDouble((Number)null);
     }
 
     @Test
@@ -62,10 +63,12 @@ public class MutableDoubleTest {
         mutNum.setValue(new MutableDouble(3d));
         assertEquals(3d, mutNum.doubleValue(), 0.0001d);
         assertEquals(Double.valueOf(3d), mutNum.getValue());
-        try {
-            mutNum.setValue(null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testSetNull() {
+        final MutableDouble mutNum = new MutableDouble(0d);
+        mutNum.setValue(null);
     }
 
     @Test
@@ -117,10 +120,12 @@ public class MutableDoubleTest {
         assertEquals(0, mutNum.compareTo(new MutableDouble(0d)));
         assertEquals(+1, mutNum.compareTo(new MutableDouble(-1d)));
         assertEquals(-1, mutNum.compareTo(new MutableDouble(1d)));
-        try {
-            mutNum.compareTo(null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testCompareToNull() {
+        final MutableDouble mutNum = new MutableDouble(0d);
+        mutNum.compareTo(null);
     }
 
     @Test

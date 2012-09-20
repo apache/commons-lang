@@ -452,13 +452,9 @@ public class ExceptionUtilsTest {
         assertFalse(match);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testRemoveCommonFrames_ListList() throws Exception {
-        try {
-            ExceptionUtils.removeCommonFrames(null, null);
-            fail();
-        } catch (IllegalArgumentException ex) {
-        }
+        ExceptionUtils.removeCommonFrames(null, null);
     }
 
     @Test

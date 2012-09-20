@@ -39,10 +39,11 @@ public class MutableLongTest {
 
         assertEquals(2, new MutableLong("2").longValue());
 
-        try {
-            new MutableLong((Number)null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testConstructorNull() {
+        new MutableLong((Number)null);
     }
 
     @Test
@@ -62,10 +63,12 @@ public class MutableLongTest {
         mutNum.setValue(new MutableLong(3));
         assertEquals(3, mutNum.longValue());
         assertEquals(Long.valueOf(3), mutNum.getValue());
-        try {
-            mutNum.setValue(null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testSetNull() {
+        final MutableLong mutNum = new MutableLong(0);
+        mutNum.setValue(null);
     }
 
     @Test
@@ -105,10 +108,12 @@ public class MutableLongTest {
         assertEquals(0, mutNum.compareTo(new MutableLong(0)));
         assertEquals(+1, mutNum.compareTo(new MutableLong(-1)));
         assertEquals(-1, mutNum.compareTo(new MutableLong(1)));
-        try {
-            mutNum.compareTo(null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testCompareToNull() {
+        final MutableLong mutNum = new MutableLong(0);
+        mutNum.compareTo(null);
     }
 
     @Test

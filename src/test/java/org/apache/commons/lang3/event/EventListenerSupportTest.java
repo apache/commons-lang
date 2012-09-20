@@ -43,34 +43,18 @@ import org.junit.Test;
  */
 public class EventListenerSupportTest 
 {
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testAddNullListener()
     {
         EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        try
-        {
-            listenerSupport.addListener(null);
-            fail("Should not be able to add a null listener.");
-        }
-        catch (NullPointerException e)
-        {
-
-        }
+        listenerSupport.addListener(null);
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testRemoveNullListener()
     {
         EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        try
-        {
-            listenerSupport.removeListener(null);
-            fail("Should not be able to remove a null listener.");
-        }
-        catch (NullPointerException e)
-        {
-
-        }
+        listenerSupport.removeListener(null);
     }
 
     @Test
@@ -89,32 +73,16 @@ public class EventListenerSupportTest
         assertSame(calledListeners.get(1), listener2);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testCreateWithNonInterfaceParameter()
     {
-        try
-        {
-            EventListenerSupport.create(String.class);
-            fail("Should not be able to create using non-interface class.");
-        }
-        catch (IllegalArgumentException e)
-        {
-
-        }
+        EventListenerSupport.create(String.class);
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testCreateWithNullParameter()
     {
-        try
-        {
-            EventListenerSupport.create(null);
-            fail("Should not be able to create using null class.");
-        }
-        catch (NullPointerException e)
-        {
-
-        }
+        EventListenerSupport.create(null);
     }
 
     @Test
