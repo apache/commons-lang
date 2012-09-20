@@ -405,7 +405,7 @@ public class TimedSemaphoreTest {
          * Invokes the latch if one is set.
          */
         @Override
-        public void acquire() throws InterruptedException {
+        public synchronized void acquire() throws InterruptedException {
             super.acquire();
             if (latch != null) {
                 latch.countDown();
@@ -416,11 +416,9 @@ public class TimedSemaphoreTest {
          * Counts the number of invocations.
          */
         @Override
-        protected void endOfPeriod() {
+        protected synchronized void endOfPeriod() {
             super.endOfPeriod();
-            synchronized (this) {
-                periodEnds++;
-            }
+            periodEnds++;
         }
 
         /**
