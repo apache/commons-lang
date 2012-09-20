@@ -504,6 +504,7 @@ public class FastDateParser implements DateParser, Serializable {
             if(formatField.length()>2) {
                 formatField= formatField.substring(1, formatField.length()-1);
             }
+            //$FALL-THROUGH$
         default:
             return new CopyQuotedStrategy(formatField);
         case 'D':
