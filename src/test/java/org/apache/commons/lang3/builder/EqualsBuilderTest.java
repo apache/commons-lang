@@ -53,6 +53,11 @@ public class EqualsBuilderTest {
             return a == rhs.a;
         }
 
+        @Override
+        public int hashCode() {
+            return a;
+        }
+
         public void setA(int a) {
             this.a = a;
         }
@@ -81,6 +86,11 @@ public class EqualsBuilderTest {
 
             TestSubObject rhs = (TestSubObject) o;
             return super.equals(o) && b == rhs.b;
+        }
+
+        @Override
+        public int hashCode() {
+            return b *17 + super.hashCode();
         }
 
         public void setB(int b) {
@@ -948,6 +958,11 @@ public class EqualsBuilderTest {
             return false;
         }
 
+        @Override
+        public int hashCode() {
+            return a;
+        }
+
         public int getA() {
             return this.a;
         }
@@ -972,6 +987,11 @@ public class EqualsBuilderTest {
                 return this.b == ((TestBCanEqualA) o).getB();
             }
             return false;
+        }
+
+        @Override
+        public int hashCode() {
+            return b;
         }
 
         public int getB() {
