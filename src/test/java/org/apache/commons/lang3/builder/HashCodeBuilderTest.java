@@ -127,7 +127,7 @@ public class HashCodeBuilderTest {
 
         @Override
         public int hashCode() {
-            return b*17 + t ;
+            return b*17 + super.hashCode();
         }
 
     }
