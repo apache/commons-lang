@@ -126,7 +126,7 @@ public class FastDatePrinterTest {
     }
 
     /**
-     * Test case for {@link FastDatePrinter#getDateInstance(int, java.util.Locale)}.
+     * Test case for {@link FastDateParser#FastDateParser(String, TimeZone, Locale)}.
      */
     @Test
     public void testShortDateStyleWithLocales() {

@@ -251,7 +251,7 @@ public class FastDateParserTest {
     }
     
     /**
-     * Test case for {@link FastDateParser#getDateInstance(int, java.util.Locale)}.
+     * Test case for {@link FastDateParser#FastDateParser(String, TimeZone, Locale)}.
      * @throws ParseException 
      */
     @Test
