@@ -156,15 +156,10 @@ public class BackgroundInitializerTest {
     /**
      * Tests calling get() before start(). This should cause an exception.
      */
-    @Test
+    @Test(expected=IllegalStateException.class)
     public void testGetBeforeStart() throws ConcurrentException {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
-        try {
-            init.get();
-            fail("Could call get() before start()!");
-        } catch (IllegalStateException istex) {
-            // ok
-        }
+        init.get();
     }
 
     /**

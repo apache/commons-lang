@@ -38,12 +38,12 @@ public class MutableBooleanTest {
         mutBool.setValue(true);
         assertEquals(+1, mutBool.compareTo(new MutableBoolean(false)));
         assertEquals(0, mutBool.compareTo(new MutableBoolean(true)));
-
-        try {
-            mutBool.compareTo(null);
-            fail();
-        } catch (NullPointerException ex) {
-        }
+    }
+    
+    @Test(expected=NullPointerException.class)
+    public void testCompareToNull() {
+        final MutableBoolean mutBool = new MutableBoolean(false);
+        mutBool.compareTo(null);
     }
 
     // ----------------------------------------------------------------
@@ -57,11 +57,11 @@ public class MutableBooleanTest {
         assertTrue(new MutableBoolean(Boolean.TRUE).booleanValue());
         assertFalse(new MutableBoolean(Boolean.FALSE).booleanValue());
 
-        try {
-            new MutableBoolean(null);
-            fail();
-        } catch (NullPointerException ex) {
-        }
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testConstructorNull() {
+        new MutableBoolean(null);
     }
 
     @Test
@@ -105,11 +105,12 @@ public class MutableBooleanTest {
         mutBool.setValue(true);
         assertTrue(mutBool.booleanValue());
 
-        try {
-            mutBool.setValue(null);
-            fail();
-        } catch (NullPointerException ex) {
-        }
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testSetNull() {
+        final MutableBoolean mutBool = new MutableBoolean(false);
+        mutBool.setValue(null);
     }
 
     @Test

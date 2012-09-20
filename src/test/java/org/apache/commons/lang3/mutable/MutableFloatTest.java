@@ -39,10 +39,11 @@ public class MutableFloatTest {
 
         assertEquals(2f, new MutableFloat("2.0").floatValue(), 0.0001f);
 
-        try {
-            new MutableFloat((Number)null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testConstructorNull() {
+        new MutableFloat((Number)null);
     }
 
     @Test
@@ -62,10 +63,12 @@ public class MutableFloatTest {
         mutNum.setValue(new MutableFloat(3f));
         assertEquals(3f, mutNum.floatValue(), 0.0001f);
         assertEquals(Float.valueOf(3f), mutNum.getValue());
-        try {
-            mutNum.setValue(null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testSetNull() {
+        final MutableFloat mutNum = new MutableFloat(0f);
+        mutNum.setValue(null);
     }
 
     @Test
@@ -117,10 +120,12 @@ public class MutableFloatTest {
         assertEquals(0, mutNum.compareTo(new MutableFloat(0f)));
         assertEquals(+1, mutNum.compareTo(new MutableFloat(-1f)));
         assertEquals(-1, mutNum.compareTo(new MutableFloat(1f)));
-        try {
-            mutNum.compareTo(null);
-            fail();
-        } catch (NullPointerException ex) {}
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testCompareToNull() {
+        final MutableFloat mutNum = new MutableFloat(0f);
+        mutNum.compareTo(null);
     }
 
     @Test

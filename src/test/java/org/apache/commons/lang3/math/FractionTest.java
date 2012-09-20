@@ -430,12 +430,9 @@ public class FractionTest  {
         }
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testFactory_String() {
-        try {
-            Fraction.getFraction(null);
-            fail("expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {}
+        Fraction.getFraction(null);
     }
     
     
