@@ -48,6 +48,7 @@ public class CharUtilsTest {
         assertFalse(Modifier.isFinal(BooleanUtils.class.getModifiers()));
     }
     
+    @SuppressWarnings("deprecation") // intentional test of deprecated method
     @Test
     public void testToCharacterObject_char() {
         assertEquals(new Character('a'), CharUtils.toCharacterObject('a'));
@@ -67,6 +68,7 @@ public class CharUtilsTest {
             assertEquals(i, ch.charValue());
             assertEquals(i, ch2.charValue());
         }
+        assertSame(CharUtils.toCharacterObject("a"), CharUtils.toCharacterObject('a'));
     }
     
     @Test
@@ -76,7 +78,6 @@ public class CharUtilsTest {
         assertEquals(new Character('a'), CharUtils.toCharacterObject("a"));
         assertEquals(new Character('a'), CharUtils.toCharacterObject("abc"));
         assertSame(CharUtils.toCharacterObject("a"), CharUtils.toCharacterObject("a"));
-        assertSame(CharUtils.toCharacterObject("a"), CharUtils.toCharacterObject('a'));
     }
     
     @Test
