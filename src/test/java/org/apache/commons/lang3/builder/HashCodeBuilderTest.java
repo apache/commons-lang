@@ -83,6 +83,11 @@ public class HashCodeBuilderTest {
             return a == rhs.a;
         }
 
+        @Override
+        public int hashCode() {
+            return a;
+        }
+
         public void setA(int a) {
             this.a = a;
         }
@@ -119,6 +124,12 @@ public class HashCodeBuilderTest {
             TestSubObject rhs = (TestSubObject) o;
             return super.equals(o) && b == rhs.b;
         }
+
+        @Override
+        public int hashCode() {
+            return b*17 + t ;
+        }
+
     }
 
     @Test

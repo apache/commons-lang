@@ -497,6 +497,11 @@ public class StringUtilsEqualsIndexOfTest  {
         }
 
         @Override
+        public int hashCode() {
+            return seq.hashCode();
+        }
+
+        @Override
         public String toString() {
             return seq.toString();
         }

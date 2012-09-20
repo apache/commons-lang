@@ -49,6 +49,11 @@ public class CompareToBuilderTest {
             return a == rhs.a;
         }
 
+        @Override
+        public int hashCode() {
+            return a;
+        }
+
         public void setA(int a) {
             this.a = a;
         }
