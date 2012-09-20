@@ -355,7 +355,8 @@ public class FastDateParser implements DateParser, Serializable {
      * @return A sorted array of the field key / value pairs
      */
     KeyValue[] getDisplayNames(int field) {
-        KeyValue[] fieldKeyValues= nameValues.get(field);
+        Integer fieldInt = Integer.valueOf(field);
+        KeyValue[] fieldKeyValues= nameValues.get(fieldInt);
         if(fieldKeyValues==null) {
             DateFormatSymbols symbols= new DateFormatSymbols(locale);
             switch(field) {
@@ -374,7 +375,7 @@ public class FastDateParser implements DateParser, Serializable {
             default:
                 throw new IllegalArgumentException("Invalid field value "+field);
             }
-            KeyValue[] prior = nameValues.putIfAbsent(field, fieldKeyValues);
+            KeyValue[] prior = nameValues.putIfAbsent(fieldInt, fieldKeyValues);
             if(prior!=null) {
                 fieldKeyValues= prior;
             }
