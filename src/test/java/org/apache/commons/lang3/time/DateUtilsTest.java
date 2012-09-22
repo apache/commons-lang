@@ -58,6 +58,7 @@ public class DateUtilsTest {
         GregorianCalendar cal = new GregorianCalendar(2000, 6, 5, 4, 3, 2);
         cal.set(Calendar.MILLISECOND, 1);
         MILLIS_TEST = cal.getTime().getTime();
+        System.out.println("DateUtilsTest: Default Locale="+Locale.getDefault());
     }
 
     DateFormat dateParser = null;
