@@ -1557,6 +1557,52 @@ public class DateUtilsTest {
                 dateParser.parse("December 2, 2001"));
     }
 
+    @Test
+    public void testLANG799_EN_OK() throws ParseException {
+        Locale dflt = Locale.getDefault();
+        Locale.setDefault(Locale.ENGLISH);
+        try {
+            DateUtils.parseDate("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
+        } finally {
+            Locale.setDefault(dflt);            
+        }
+    }
+
+    // Parse German date with English Locale
+    @Test(expected=ParseException.class)
+    public void testLANG799_EN_FAIL() throws ParseException {
+        Locale dflt = Locale.getDefault();
+        Locale.setDefault(Locale.ENGLISH);
+        try {
+            DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
+        } finally {
+            Locale.setDefault(dflt);            
+        }
+    }
+
+    @Test
+    public void testLANG799_DE_OK() throws ParseException {
+        Locale dflt = Locale.getDefault();
+        Locale.setDefault(Locale.GERMAN);
+        try {
+            DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
+        } finally {
+            Locale.setDefault(dflt);            
+        }
+    }
+
+    // Parse English date with German Locale
+    @Test(expected=ParseException.class)
+    public void testLANG799_DE_FAIL() throws ParseException {
+        Locale dflt = Locale.getDefault();
+        Locale.setDefault(Locale.GERMAN);
+        try {
+            DateUtils.parseDate("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
+        } finally {
+            Locale.setDefault(dflt);            
+        }
+    }
+
     /**
      * This checks that this is a 7 element iterator of Calendar objects
      * that are dates (no time), and exactly 1 day spaced after each other.
