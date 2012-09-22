@@ -1615,6 +1615,18 @@ public class DateUtilsTest {
         }
     }
     
+    // Parse German date with English Locale, specifying German Locale override
+    @Test
+    public void testLANG799_EN_WITH_DE_LOCALE() throws ParseException {
+        Locale dflt = Locale.getDefault();
+        Locale.setDefault(Locale.ENGLISH);
+        try {
+            DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", Locale.GERMAN, "EEE, dd MMM yyyy HH:mm:ss zzz");
+        } finally {
+            Locale.setDefault(dflt);            
+        }
+    }
+
     /**
      * Retrieves a non-system locale date pattern string and attempts
      * to use it.
