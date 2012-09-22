@@ -1563,6 +1563,7 @@ public class DateUtilsTest {
         Locale.setDefault(Locale.ENGLISH);
         try {
             DateUtils.parseDate("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
+            DateUtils.parseDateStrictly("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
         } finally {
             Locale.setDefault(dflt);            
         }
@@ -1586,6 +1587,7 @@ public class DateUtilsTest {
         Locale.setDefault(Locale.GERMAN);
         try {
             DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
+            DateUtils.parseDateStrictly("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
         } finally {
             Locale.setDefault(dflt);            
         }
