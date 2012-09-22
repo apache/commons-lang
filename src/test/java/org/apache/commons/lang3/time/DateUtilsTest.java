@@ -16,26 +16,39 @@
  */
 package org.apache.commons.lang3.time;
 
-import org.junit.Test;
-import org.junit.Before;
-import static org.junit.Assert.*;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.TimeZone;
 
 import junit.framework.AssertionFailedError;
+
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.SystemUtils;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.DateUtils}.
@@ -1603,6 +1616,99 @@ public class DateUtilsTest {
         } finally {
             Locale.setDefault(dflt);            
         }
+    }
+    
+    /**
+     * Tests that an IllegalArgumentException is thrown if the
+     * locale supplied is not supported by the DateFormat class
+     * hierarchy. Note: this test is likely to pass without testing
+     * the behaviour, as typically all locales are supported.
+     * 
+     * @throws Exception
+     */
+    @Test(expected=IllegalArgumentException.class)
+    public void testParseBadLocale() throws Exception {
+        Set<Locale> availableLocales = new HashSet<Locale>(
+                Arrays.asList(Locale.getAvailableLocales()));
+        
+        Set<Locale> dateLocales = new HashSet<Locale>(
+                Arrays.asList(DateFormat.getAvailableLocales()));
+
+        Set<Locale> intersection = new HashSet<Locale>(availableLocales);
+        intersection.retainAll(dateLocales);
+        availableLocales.removeAll(intersection);
+        
+        // availableLocales now contains only those Locales that are
+        // not supported by the DateFormat class hierarchy. Could be
+        // empty, in which case we skip the test.
+        assumeTrue(availableLocales.size() > 0);
+        
+        Locale invalidLocale = availableLocales.iterator().next();
+        
+        String[] parsers = {"yyyy"};        
+        DateUtils.parseDate("foo", invalidLocale, parsers);         
+    }
+    
+    /**
+     * Retrieves a non-system locale date pattern string and attempts
+     * to use it.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testParseNonSystemLocale() throws Exception {
+        // Retrieve standard long form date pattern
+        String localPattern = getLongDateFormatForLocale(Locale.getDefault());
+        assumeTrue(localPattern != null);
+        
+        // Find a pattern from another locale that doesn't match
+        String nonMatchingPattern = null;        
+        Locale foreignLocale = null;
+        for (Locale locale : DateFormat.getAvailableLocales()) {
+            String foreignPattern = getLongDateFormatForLocale(locale);
+            if (foreignPattern != null && !foreignPattern.equals(localPattern)) {
+                getLongDateFormatForLocale(locale);
+                nonMatchingPattern = foreignPattern;
+                foreignLocale = locale;
+                break;
+            }
+        }
+        
+        // There is a slim chance that we can't find a date string that
+        // differs from the system default. Skip test in that case.
+        assumeTrue(nonMatchingPattern != null && foreignLocale != null);
+        
+        Date testDate = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("", foreignLocale);
+        sdf.applyLocalizedPattern(nonMatchingPattern);
+        String testDateString = sdf.format(testDate);
+        
+        Date resultDate = DateUtils.parseDate(testDateString, foreignLocale, 
+                new String[] {nonMatchingPattern});
+        
+        assertTrue(DateUtils.isSameDay(testDate, resultDate));
+    }
+    
+    /**
+     * Retrieves the long date format pattern string for the supplied
+     * locale.
+     * 
+     * @param locale the locale to retrieve the pattern for
+     * @return the long date pattern string, or <code>null</code> if
+     * not found
+     */
+    private String getLongDateFormatForLocale(Locale locale) {
+        if (! ArrayUtils.contains(DateFormat.getAvailableLocales(), locale)) {
+            return null;            
+        }
+        
+        DateFormat localFormat = DateFormat.getDateInstance(DateFormat.LONG, 
+                locale);
+        if (!(localFormat instanceof SimpleDateFormat)) {
+            return null;
+        }
+        
+        return ((SimpleDateFormat) localFormat).toLocalizedPattern();        
     }
 
     /**
