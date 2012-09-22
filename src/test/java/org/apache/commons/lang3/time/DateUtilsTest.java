@@ -31,15 +31,12 @@ import java.lang.reflect.Modifier;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
-import java.util.Set;
 import java.util.TimeZone;
 
 import junit.framework.AssertionFailedError;
@@ -1616,37 +1613,6 @@ public class DateUtilsTest {
         } finally {
             Locale.setDefault(dflt);            
         }
-    }
-    
-    /**
-     * Tests that an IllegalArgumentException is thrown if the
-     * locale supplied is not supported by the DateFormat class
-     * hierarchy. Note: this test is likely to pass without testing
-     * the behaviour, as typically all locales are supported.
-     * 
-     * @throws Exception
-     */
-    @Test(expected=IllegalArgumentException.class)
-    public void testParseBadLocale() throws Exception {
-        Set<Locale> availableLocales = new HashSet<Locale>(
-                Arrays.asList(Locale.getAvailableLocales()));
-        
-        Set<Locale> dateLocales = new HashSet<Locale>(
-                Arrays.asList(DateFormat.getAvailableLocales()));
-
-        Set<Locale> intersection = new HashSet<Locale>(availableLocales);
-        intersection.retainAll(dateLocales);
-        availableLocales.removeAll(intersection);
-        
-        // availableLocales now contains only those Locales that are
-        // not supported by the DateFormat class hierarchy. Could be
-        // empty, in which case we skip the test.
-        assumeTrue(availableLocales.size() > 0);
-        
-        Locale invalidLocale = availableLocales.iterator().next();
-        
-        String[] parsers = {"yyyy"};        
-        DateUtils.parseDate("foo", invalidLocale, parsers);         
     }
     
     /**
