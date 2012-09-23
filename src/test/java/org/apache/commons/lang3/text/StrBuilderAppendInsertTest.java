@@ -459,6 +459,28 @@ public class StrBuilderAppendInsertTest {
 
     //-----------------------------------------------------------------------
     @Test
+    public void testAppendln_FormattedString() {
+        final int[] count = new int[2];
+        StrBuilder sb = new StrBuilder() {
+            @Override
+            public StrBuilder append(String str) {
+                count[0]++;
+                return super.append(str);
+            }
+            @Override
+            public StrBuilder appendNewLine() {
+                count[1]++;
+                return super.appendNewLine();
+            }
+        };
+        sb.appendln("Hello %s", "Alice");
+        assertEquals("Hello Alice" + SEP, sb.toString());
+        assertEquals(2, count[0]);  // appendNewLine() calls append(String)
+        assertEquals(1, count[1]);
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_Object() {
         StrBuilder sb = new StrBuilder();
         sb.appendln((Object) null);
@@ -853,6 +875,28 @@ public class StrBuilderAppendInsertTest {
         assertEquals(10, sb.length());
         //            1234567890
         assertEquals("123-------", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
+    public void testAppend_FormattedString() {
+        StrBuilder sb;
+
+        sb = new StrBuilder();
+        sb.append("Hi", (Object[]) null);
+        assertEquals("Hi", sb.toString());
+
+        sb = new StrBuilder();
+        sb.append("Hi", "Alice");
+        assertEquals("Hi", sb.toString());
+
+        sb = new StrBuilder();
+        sb.append("Hi %s", "Alice");
+        assertEquals("Hi Alice", sb.toString());
+
+        sb = new StrBuilder();
+        sb.append("Hi %s %,d", "Alice", 5000);
+        assertEquals("Hi Alice 5,000", sb.toString());
     }
 
     //-----------------------------------------------------------------------

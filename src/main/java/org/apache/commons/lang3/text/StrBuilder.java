@@ -548,6 +548,19 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
     }
 
     /**
+     * Calls {@link String#format(String, Object...)} and appends the result.
+     *
+     * @param format the format string
+     * @param objs the objects to use in the format string
+     * @return {@code this} to enable chaining
+     * @see String#format(String, Object...)
+     * @since 3.2
+     */
+    public StrBuilder append(String format, Object... objs) {
+        return append(String.format(format, objs));
+    }
+
+    /**
      * Appends a string buffer to this string builder.
      * Appending null will call {@link #appendNull()}.
      *
@@ -810,6 +823,19 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      */
     public StrBuilder appendln(String str, int startIndex, int length) {
         return append(str, startIndex, length).appendNewLine();
+    }
+
+    /**
+     * Calls {@link String#format(String, Object...)} and appends the result.
+     *
+     * @param format the format string
+     * @param objs the objects to use in the format string
+     * @return {@code this} to enable chaining
+     * @see String#format(String, Object...)
+     * @since 3.2
+     */
+    public StrBuilder appendln(String format, Object... objs) {
+        return append(format, objs).appendNewLine();
     }
 
     /**
