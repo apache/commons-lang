@@ -1627,69 +1627,7 @@ public class DateUtilsTest {
             Locale.setDefault(dflt);            
         }
     }
-
-    /**
-     * Retrieves a non-system locale date pattern string and attempts
-     * to use it.
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void testParseNonSystemLocale() throws Exception {
-        // Retrieve standard long form date pattern
-        String localPattern = getLongDateFormatForLocale(Locale.getDefault());
-        assumeTrue(localPattern != null);
-        
-        // Find a pattern from another locale that doesn't match
-        String nonMatchingPattern = null;        
-        Locale foreignLocale = null;
-        for (Locale locale : DateFormat.getAvailableLocales()) {
-            String foreignPattern = getLongDateFormatForLocale(locale);
-            if (foreignPattern != null && !foreignPattern.equals(localPattern)) {
-                getLongDateFormatForLocale(locale);
-                nonMatchingPattern = foreignPattern;
-                foreignLocale = locale;
-                break;
-            }
-        }
-        
-        // There is a slim chance that we can't find a date string that
-        // differs from the system default. Skip test in that case.
-        assumeTrue(nonMatchingPattern != null && foreignLocale != null);
-        
-        Date testDate = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("", foreignLocale);
-        sdf.applyLocalizedPattern(nonMatchingPattern);
-        String testDateString = sdf.format(testDate);
-        
-        Date resultDate = DateUtils.parseDate(testDateString, foreignLocale, 
-                new String[] {nonMatchingPattern});
-        
-        assertTrue(DateUtils.isSameDay(testDate, resultDate));
-    }
     
-    /**
-     * Retrieves the long date format pattern string for the supplied
-     * locale.
-     * 
-     * @param locale the locale to retrieve the pattern for
-     * @return the long date pattern string, or <code>null</code> if
-     * not found
-     */
-    private String getLongDateFormatForLocale(Locale locale) {
-        if (! ArrayUtils.contains(DateFormat.getAvailableLocales(), locale)) {
-            return null;            
-        }
-        
-        DateFormat localFormat = DateFormat.getDateInstance(DateFormat.LONG, 
-                locale);
-        if (!(localFormat instanceof SimpleDateFormat)) {
-            return null;
-        }
-        
-        return ((SimpleDateFormat) localFormat).toLocalizedPattern();        
-    }
-
     /**
      * This checks that this is a 7 element iterator of Calendar objects
      * that are dates (no time), and exactly 1 day spaced after each other.
