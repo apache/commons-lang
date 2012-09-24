@@ -179,7 +179,7 @@ public class FastDateParserTest {
     }
     
     @Test
-    public void testLocales() {
+    public void testLocales_Long_AD() throws Exception {
                 
         for(Locale locale : Locale.getAvailableLocales()) {
             Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
@@ -190,23 +190,77 @@ public class FastDateParserTest {
                 String longFormat= "GGGG/yyyy/MMMM/dddd/aaaa/EEEE/ZZZZ";
                 SimpleDateFormat sdf = new SimpleDateFormat(longFormat, locale);
                 DateParser fdf = getInstance(longFormat, locale);
-                
-                                checkParse(cal, sdf, fdf);
-                
-                cal.set(Calendar.ERA, GregorianCalendar.BC);
-                                checkParse(cal, sdf, fdf);
-                        
-                String shortFormat= "G/y/M/d/a/E/Z";
-                sdf = new SimpleDateFormat(shortFormat, locale);
-                fdf = getInstance(shortFormat, locale);
-                                checkParse(cal, sdf, fdf);
-                
-                cal.set(Calendar.ERA, GregorianCalendar.AD);
-                                checkParse(cal, sdf, fdf);
+                checkParse(cal, sdf, fdf);
             }
             catch(ParseException ex) {
                 // TODO: why do ja_JP_JP, hi_IN, th_TH, and th_TH_TH fail?
-                System.out.println("Locale "+locale+ " failed");
+                System.out.println("Long AD Locale "+locale+ " failed\n" + ex.toString());
+            }
+        }
+    }
+
+    @Test
+    public void testLocales_Long_BC() throws Exception {
+                
+        for(Locale locale : Locale.getAvailableLocales()) {
+            Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
+            cal.clear();
+            cal.set(2003, 1, 10);
+            cal.set(Calendar.ERA, GregorianCalendar.BC);
+
+            try {
+                String longFormat= "GGGG/yyyy/MMMM/dddd/aaaa/EEEE/ZZZZ";
+                SimpleDateFormat sdf = new SimpleDateFormat(longFormat, locale);
+                DateParser fdf = getInstance(longFormat, locale);               
+                checkParse(cal, sdf, fdf);
+            }
+            catch(ParseException ex) {
+                // TODO: why do ja_JP_JP, hi_IN, th_TH, and th_TH_TH fail?
+                System.out.println("Long BC Locale "+locale+ " failed\n" + ex.toString());
+            }
+        }
+    }
+
+    @Test
+    public void testLocales_Short_BC() throws Exception {
+                
+        for(Locale locale : Locale.getAvailableLocales()) {
+            Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
+            cal.clear();
+            cal.set(2003, 1, 10);
+            cal.set(Calendar.ERA, GregorianCalendar.BC);                        
+
+            try {
+                String shortFormat= "G/y/M/d/a/E/Z";
+                SimpleDateFormat sdf = new SimpleDateFormat(shortFormat, locale);
+                DateParser fdf = getInstance(shortFormat, locale);
+                checkParse(cal, sdf, fdf);
+            }
+            catch(ParseException ex) {
+                // TODO: why do ja_JP_JP, hi_IN, th_TH, and th_TH_TH fail?
+                System.out.println("Short BC Locale "+locale+ " failed\n" + ex.toString());
+            }
+        }
+    }
+
+    @Test
+    public void testLocales_Short_AD() throws Exception {
+                
+        for(Locale locale : Locale.getAvailableLocales()) {
+            Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
+            cal.clear();
+            cal.set(2003, 1, 10);
+            cal.set(Calendar.ERA, GregorianCalendar.AD);
+
+            try {
+                String shortFormat= "G/y/M/d/a/E/Z";
+                SimpleDateFormat sdf = new SimpleDateFormat(shortFormat, locale);
+                DateParser fdf = getInstance(shortFormat, locale);              
+                checkParse(cal, sdf, fdf);
+            }
+            catch(ParseException ex) {
+                // TODO: why do ja_JP_JP, hi_IN, th_TH, and th_TH_TH fail?
+                System.out.println("Short_AD Locale "+locale+ " failed\n" + ex.toString());
             }
         }
     }
