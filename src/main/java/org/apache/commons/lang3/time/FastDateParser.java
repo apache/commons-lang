@@ -358,7 +358,7 @@ public class FastDateParser implements DateParser, Serializable {
         Integer fieldInt = Integer.valueOf(field);
         KeyValue[] fieldKeyValues= nameValues.get(fieldInt);
         if(fieldKeyValues==null) {
-            DateFormatSymbols symbols= new DateFormatSymbols(locale);
+            DateFormatSymbols symbols= DateFormatSymbols.getInstance(locale);
             switch(field) {
             case Calendar.ERA:
                 fieldKeyValues= createKeyValues(symbols.getEras(), null);
