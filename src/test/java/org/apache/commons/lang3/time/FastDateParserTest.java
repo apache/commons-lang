@@ -200,7 +200,7 @@ public class FastDateParserTest {
                 Calendar cal = Calendar.getInstance(tz);
                 for(int year : new int[]{2003, 1940, 1868, 1867, 0, -1940}) {
                     // http://docs.oracle.com/javase/6/docs/technotes/guides/intl/calendar.doc.html
-                    if (year < 1868 && locale.toString().equals("ja_JP_JP")) {
+                    if (year < 1868 && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
                         continue; // Japanese imperial calendar does not support eras before 1868
                     }
                     cal.clear();
@@ -363,7 +363,7 @@ public class FastDateParserTest {
         boolean failed = false;
         for(Locale locale : Locale.getAvailableLocales()) {
             // ja_JP_JP cannot handle dates before 1868 properly
-            if (eraBC && format.equals(SHORT_FORMAT) && locale.toString().equals("ja_JP_JP")) {
+            if (eraBC && format.equals(SHORT_FORMAT) && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
                 continue;
             }
             SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
