@@ -75,7 +75,9 @@ public class FastDateParser implements DateParser, Serializable {
     
     private static final ConcurrentMap<Locale,TimeZoneStrategy> tzsCache= 
         new ConcurrentHashMap<Locale,TimeZoneStrategy>(3);
-    
+
+    static final Locale JAPANESE_IMPERIAL = new Locale("ja","JP","JP");
+
     // defining fields
     private final String pattern;
     private final TimeZone timeZone;
@@ -123,10 +125,12 @@ public class FastDateParser implements DateParser, Serializable {
             throw new IllegalArgumentException("Invalid pattern");
         }
 
-        String localeName = locale.toString();
         // These locales don't use the Gregorian calendar
         // See http://docs.oracle.com/javase/6/docs/technotes/guides/intl/calendar.doc.html
-        if (localeName.equals("ja_JP_JP") || localeName.startsWith("th_TH")) {
+        // Also, the getEras() methods don't return the correct era names.
+        // N.B. Not safe to use toString() comparison because that changes between Java versions
+        if (locale.equals(JAPANESE_IMPERIAL)
+        || (locale.getLanguage().equals("th") && locale.getCountry().equals("TH"))) {
             collector.add(new SimpleDateFormatStrategy());
             strategies= collector.toArray(new Strategy[collector.size()]);
             parsePattern= Pattern.compile("(.*+)");
