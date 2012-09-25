@@ -491,7 +491,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * A <code>Pattern</code> to parse the user supplied SimpleDateFormat pattern
      */
-    private static Pattern formatPattern= Pattern.compile(
+    private static final Pattern formatPattern= Pattern.compile(
             "D+|E+|F+|G+|H+|K+|M+|S+|W+|Z+|a+|d+|h+|k+|m+|s+|w+|y+|z+|''|'[^']++(''[^']*+)*+'|[^'A-Za-z]++");
     
     /**
