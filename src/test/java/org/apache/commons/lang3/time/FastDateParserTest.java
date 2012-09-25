@@ -40,6 +40,10 @@ import org.junit.Test;
  * @since 3.2
  */
 public class FastDateParserTest {
+    private static final String SHORT_FORMAT = "G/y/M/d/a/E/Z";
+    private static final String LONG_FORMAT = "GGGG/yyyy/MMMM/dddd/aaaa/EEEE/ZZZZ";
+    private static final String SHORT_FORMAT_NOERA = "y/M/d/a/E/Z";
+    private static final String LONG_FORMAT_NOERA = "yyyy/MMMM/dddd/aaaa/EEEE/ZZZZ";
     private static final String yMdHmsSZ = "yyyy-MM-dd'T'HH:mm:ss.SSS Z";
     private static final String DMY_DOT = "dd.MM.yyyy";
     private static final String YMD_SLASH = "yyyy/MM/dd";
@@ -47,6 +51,7 @@ public class FastDateParserTest {
     private static final String MDY_SLASH = "MM/DD/yyyy";
     private static final TimeZone REYKJAVIK = TimeZone.getTimeZone("Atlantic/Reykjavik");
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
+    private static final TimeZone GMT = TimeZone.getTimeZone("GMT");
     private static final Locale SWEDEN = new Locale("sv", "SE");
 
     DateParser getInstance(String format) {
@@ -177,99 +182,99 @@ public class FastDateParserTest {
         assertEquals(cal.getTime(), k.parse("2010-08-01 12:33:20"));
         assertEquals(cal.getTime(), H.parse("2010-08-01 12:33:20"));
     }
-    
+
     @Test
-    public void testLocales_Long_AD() throws Exception {
-                
+    // Check that all Locales can parse their own formats
+    public void testParses() throws Exception {
+        Calendar cal = Calendar.getInstance(GMT); // fails for non-GMT
         for(Locale locale : Locale.getAvailableLocales()) {
-            Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
             cal.clear();
             cal.set(2003, 1, 10);
-
-            try {
-                String longFormat= "GGGG/yyyy/MMMM/dddd/aaaa/EEEE/ZZZZ";
-                SimpleDateFormat sdf = new SimpleDateFormat(longFormat, locale);
-                DateParser fdf = getInstance(longFormat, locale);
-                checkParse(cal, sdf, fdf);
-            }
-            catch(ParseException ex) {
-                // TODO: why do ja_JP_JP, hi_IN, th_TH, and th_TH_TH fail?
-                System.out.println("Long AD Locale "+locale+ " failed\n" + ex.toString());
-            }
+            Date in = cal.getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat(LONG_FORMAT, locale);
+            String fmt = sdf.format(in);
+            Date out = sdf.parse(fmt);
+            assertEquals(locale.toString(), in, out);
         }
+    }
+
+    @Test
+    public void testLocales_Long_AD() throws Exception {
+        testLocales(LONG_FORMAT, false);
     }
 
     @Test
     public void testLocales_Long_BC() throws Exception {
-                
-        for(Locale locale : Locale.getAvailableLocales()) {
-            Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
-            cal.clear();
-            cal.set(2003, 1, 10);
-            cal.set(Calendar.ERA, GregorianCalendar.BC);
-
-            try {
-                String longFormat= "GGGG/yyyy/MMMM/dddd/aaaa/EEEE/ZZZZ";
-                SimpleDateFormat sdf = new SimpleDateFormat(longFormat, locale);
-                DateParser fdf = getInstance(longFormat, locale);               
-                checkParse(cal, sdf, fdf);
-            }
-            catch(ParseException ex) {
-                // TODO: why do ja_JP_JP, hi_IN, th_TH, and th_TH_TH fail?
-                System.out.println("Long BC Locale "+locale+ " failed\n" + ex.toString());
-            }
-        }
-    }
-
-    @Test
-    public void testLocales_Short_BC() throws Exception {
-                
-        for(Locale locale : Locale.getAvailableLocales()) {
-            Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
-            cal.clear();
-            cal.set(2003, 1, 10);
-            cal.set(Calendar.ERA, GregorianCalendar.BC);                        
-
-            try {
-                String shortFormat= "G/y/M/d/a/E/Z";
-                SimpleDateFormat sdf = new SimpleDateFormat(shortFormat, locale);
-                DateParser fdf = getInstance(shortFormat, locale);
-                checkParse(cal, sdf, fdf);
-            }
-            catch(ParseException ex) {
-                // TODO: why do ja_JP_JP, hi_IN, th_TH, and th_TH_TH fail?
-                System.out.println("Short BC Locale "+locale+ " failed\n" + ex.toString());
-            }
-        }
+        testLocales(LONG_FORMAT, true);
     }
 
     @Test
     public void testLocales_Short_AD() throws Exception {
+        testLocales(SHORT_FORMAT, false);
+    }
+
+    @Test
+    public void testLocales_Short_BC() throws Exception {
+        testLocales(SHORT_FORMAT, true);
+    }
+
+    @Test
+    public void testLocales_LongNoEra_AD() throws Exception {
+        testLocales(LONG_FORMAT_NOERA, false);
+    }
+
+    @Test
+    public void testLocales_LongNoEra_BC() throws Exception {
+        testLocales(LONG_FORMAT_NOERA, true);
+    }
+
+    @Test
+    public void testLocales_ShortNoEra_AD() throws Exception {
+        testLocales(SHORT_FORMAT_NOERA, false);
+    }
+
+    @Test
+    public void testLocales_ShortNoEra_BC() throws Exception {
+        testLocales(SHORT_FORMAT_NOERA, true);
+    }
+
+    private void testLocales(String format, boolean eraBC) throws Exception {
                 
+        Calendar cal= Calendar.getInstance(GMT);
+        cal.clear();
+        cal.set(2003, 1, 10);
+        if (eraBC) {
+            cal.set(Calendar.ERA, GregorianCalendar.BC);
+        }
         for(Locale locale : Locale.getAvailableLocales()) {
-            Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
-            cal.clear();
-            cal.set(2003, 1, 10);
-            cal.set(Calendar.ERA, GregorianCalendar.AD);
+            SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
+            DateParser fdf = getInstance(format, locale);
 
             try {
-                String shortFormat= "G/y/M/d/a/E/Z";
-                SimpleDateFormat sdf = new SimpleDateFormat(shortFormat, locale);
-                DateParser fdf = getInstance(shortFormat, locale);              
-                checkParse(cal, sdf, fdf);
-            }
-            catch(ParseException ex) {
+                checkParse(locale, cal, sdf, fdf);
+            } catch(ParseException ex) {
                 // TODO: why do ja_JP_JP, hi_IN, th_TH, and th_TH_TH fail?
-                System.out.println("Short_AD Locale "+locale+ " failed\n" + ex.toString());
+                System.out.println("Locale "+locale+ " failed with "+format+" era "+(eraBC?"BC":"AD")+"\n" + trimMessage(ex.toString()));
             }
         }
     }
 
-    private void checkParse(Calendar cal, SimpleDateFormat sdf, DateParser fdf) throws ParseException {
+    private String trimMessage(String msg) {
+        if (msg.length() < 100) {
+            return msg;
+        }
+        int gmt = msg.indexOf("(GMT");
+        if (gmt > 0) {
+            return msg.substring(0, gmt+4)+"...)";
+        }
+        return msg.substring(0, 100)+"...";
+    }
+
+    private void checkParse(Locale locale, Calendar cal, SimpleDateFormat sdf, DateParser fdf) throws ParseException {
         String formattedDate= sdf.format(cal.getTime());                
         Date expectedTime = sdf.parse(formattedDate);
         Date actualTime = fdf.parse(formattedDate);
-        assertEquals(expectedTime, actualTime);
+        assertEquals(locale.toString()+" "+formattedDate,expectedTime, actualTime);
     }
     
     @Test
@@ -368,7 +373,7 @@ public class FastDateParserTest {
 
     @Test
     public void testLang538() throws ParseException {
-        DateParser parser = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone("GMT"));
+        DateParser parser = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", GMT);
         
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-8"));
         cal.clear();
