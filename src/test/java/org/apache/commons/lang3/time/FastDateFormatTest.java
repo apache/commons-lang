@@ -252,9 +252,10 @@ public class FastDateFormatTest {
 
     @Test
     public void testParseSync() throws InterruptedException {
-        final FastDateFormat formatter= FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS Z");
+        final String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS Z";
+        final FastDateFormat formatter= FastDateFormat.getInstance(pattern);
         
-        long sdfTime= measureTime(formatter, new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z") {
+        long sdfTime= measureTime(formatter, new SimpleDateFormat(pattern) {
                         private static final long serialVersionUID = 1L;  // because SimpleDateFormat is serializable
 
                         @Override
@@ -265,9 +266,9 @@ public class FastDateFormatTest {
                         }
         });
         
-        long fdfTime= measureTime(formatter, FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS Z"));
+        long fdfTime= measureTime(formatter, FastDateFormat.getInstance(pattern));
         
-        String times= "FastDateParser:"+fdfTime+"  SimpleDateFormat:"+sdfTime;
+        String times= "FastDateParserTest: FastDateParser:"+fdfTime+"  SimpleDateFormat:"+sdfTime;
         System.out.println(times);
     }
 
