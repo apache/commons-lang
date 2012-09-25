@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
  * <p>FastDateParser is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
  * 
- * <p>This class can be used as a direct replacement to
+ * <p>This class can be used as a direct replacement for
  * <code>SimpleDateFormat</code> in most parsing situations.
  * This class is especially useful in multi-threaded server environments.
  * <code>SimpleDateFormat</code> is not thread-safe in any JDK version,
