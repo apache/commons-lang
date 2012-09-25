@@ -684,10 +684,10 @@ public class FastDateParser implements DateParser, Serializable {
         @Override
         public boolean addRegex(FastDateParser parser, StringBuilder regex) {
             if(parser.isNextNumber()) {
-                regex.append("(\\d{").append(parser.getFieldWidth()).append("}+)");
+                regex.append("(\\p{IsNd}{").append(parser.getFieldWidth()).append("}+)");
             }
             else {
-                regex.append("(\\d++)");
+                regex.append("(\\p{IsNd}++)");
             }
             return true;
         }
