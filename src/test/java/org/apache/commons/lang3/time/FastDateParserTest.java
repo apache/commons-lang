@@ -279,7 +279,7 @@ public class FastDateParserTest {
         }
         
         if (locale2Absent.size() > 0) {
-            System.out.println("One or more missing era designators detected");
+            System.out.println("FastDateParserTest: one or more missing era designators detected:");
             for(ImmutablePair<Locale, String> me : locale2Absent) {
                 Locale loc = me.getKey();
                 String [] erasPrint = locale2Eras.get(loc);
