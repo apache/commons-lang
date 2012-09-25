@@ -253,7 +253,9 @@ public class FastDateParserTest {
             try {
                 checkParse(locale, cal, sdf, fdf);
             } catch(ParseException ex) {
-                // TODO: why do ja_JP_JP, hi_IN, th_TH, and th_TH_TH fail?
+                // TODO: are these Java bugs?
+                // ja_JP_JP, th_TH, and th_TH_TH fail with both eras because the generated era name does not match
+                // ja_JP_JP fails with era BC because it converts to -2002
                 System.out.println("Locale "+locale+ " failed with "+format+" era "+(eraBC?"BC":"AD")+"\n" + trimMessage(ex.toString()));
             }
         }
