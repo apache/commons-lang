@@ -79,7 +79,6 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
 
     class InspectingClient implements Runnable {
         final private TestFixture testFixture;
-        final private Random random = new Random();
 
         public InspectingClient(TestFixture testFixture) {
             this.testFixture = testFixture;
