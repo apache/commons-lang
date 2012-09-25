@@ -40,18 +40,21 @@ import org.junit.Test;
  * @since 3.2
  */
 public class FastDateParserTest {
-    private static final String SHORT_FORMAT = "G/y/M/d/a/E/Z";
-    private static final String LONG_FORMAT = "GGGG/yyyy/MMMM/dddd/aaaa/EEEE/ZZZZ";
-    private static final String SHORT_FORMAT_NOERA = "y/M/d/a/E/Z";
-    private static final String LONG_FORMAT_NOERA = "yyyy/MMMM/dddd/aaaa/EEEE/ZZZZ";
+    private static final String SHORT_FORMAT_NOERA = "y/M/d/h/a/E/Z";
+    private static final String LONG_FORMAT_NOERA = "yyyy/MMMM/dddd/hhhh/aaaa/EEEE/ZZZZ";
+    private static final String SHORT_FORMAT = "G/" + SHORT_FORMAT_NOERA;
+    private static final String LONG_FORMAT = "GGGG/" + LONG_FORMAT_NOERA;
+
     private static final String yMdHmsSZ = "yyyy-MM-dd'T'HH:mm:ss.SSS Z";
     private static final String DMY_DOT = "dd.MM.yyyy";
     private static final String YMD_SLASH = "yyyy/MM/dd";
     private static final String MDY_DASH = "MM-DD-yyyy";
     private static final String MDY_SLASH = "MM/DD/yyyy";
+
     private static final TimeZone REYKJAVIK = TimeZone.getTimeZone("Atlantic/Reykjavik");
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
     private static final TimeZone GMT = TimeZone.getTimeZone("GMT");
+
     private static final Locale SWEDEN = new Locale("sv", "SE");
 
     DateParser getInstance(String format) {
@@ -59,7 +62,7 @@ public class FastDateParserTest {
     }
 
     private DateParser getDateInstance(int dateStyle, Locale locale) {
-        return getInstance(FormatCache.getPatternForStyle(dateStyle, null, locale), TimeZone.getDefault(), Locale.getDefault());
+        return getInstance(FormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale), TimeZone.getDefault(), Locale.getDefault());
     }
 
     private DateParser getInstance(String format, Locale locale) {
@@ -92,12 +95,12 @@ public class FastDateParserTest {
         Map<DateParser,Integer> map= new HashMap<DateParser,Integer>();
         int i= 0;
         for(DateParser parser:parsers) {
-            map.put(parser, i++);            
+            map.put(parser, Integer.valueOf(i++));            
         }
 
         i= 0;
         for(DateParser parser:parsers) {
-            assertEquals(i++, (int)map.get(parser));
+            assertEquals(i++, map.get(parser).intValue());
         }        
     }
 
@@ -184,17 +187,21 @@ public class FastDateParserTest {
     }
 
     @Test
-    // Check that all Locales can parse their own formats
+    // Check that all Locales can parse the formats we use
     public void testParses() throws Exception {
-        Calendar cal = Calendar.getInstance(GMT); // fails for non-GMT
         for(Locale locale : Locale.getAvailableLocales()) {
-            cal.clear();
-            cal.set(2003, 1, 10);
-            Date in = cal.getTime();
-            SimpleDateFormat sdf = new SimpleDateFormat(LONG_FORMAT, locale);
-            String fmt = sdf.format(in);
-            Date out = sdf.parse(fmt);
-            assertEquals(locale.toString(), in, out);
+            for(TimeZone tz : new TimeZone[]{NEW_YORK, GMT}) {
+                Calendar cal = Calendar.getInstance(tz);                
+                cal.clear();
+                cal.set(2003, 1, 10);
+                Date in = cal.getTime();
+                for(String format : new String[]{LONG_FORMAT, SHORT_FORMAT}) {
+                    SimpleDateFormat sdf = new SimpleDateFormat(LONG_FORMAT, locale);
+                    String fmt = sdf.format(in);
+                    Date out = sdf.parse(fmt);
+                    assertEquals(locale.toString()+" "+ format+ " "+tz.getID(), in, out);                
+                }
+            }
         }
     }
 
