@@ -19,7 +19,6 @@ package org.apache.commons.lang3.time;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,6 +29,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+
+import junit.framework.Assert;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
@@ -191,15 +192,37 @@ public class FastDateParserTest {
     public void testParses() throws Exception {
         for(Locale locale : Locale.getAvailableLocales()) {
             for(TimeZone tz : new TimeZone[]{NEW_YORK, GMT}) {
-                Calendar cal = Calendar.getInstance(tz);                
-                cal.clear();
-                cal.set(2003, 1, 10);
-                Date in = cal.getTime();
-                for(String format : new String[]{LONG_FORMAT, SHORT_FORMAT}) {
-                    SimpleDateFormat sdf = new SimpleDateFormat(LONG_FORMAT, locale);
-                    String fmt = sdf.format(in);
-                    Date out = sdf.parse(fmt);
-                    assertEquals(locale.toString()+" "+ format+ " "+tz.getID(), in, out);                
+                Calendar cal = Calendar.getInstance(tz);
+                for(int year : new int[]{2003, 1940, 1868, 1867, 0, -1940}) {
+                    // http://docs.oracle.com/javase/6/docs/technotes/guides/intl/calendar.doc.html
+                    if (year < 1868 && locale.toString().equals("ja_JP_JP")) {
+                        continue; // Japanese imperial calendar does not support eras before 1868
+                    }
+                    cal.clear();
+                    if (year < 0) {
+                        cal.set(-year, 1, 10);
+                        cal.set(Calendar.ERA, GregorianCalendar.BC);
+                    } else {
+                        cal.set(year, 1, 10);
+                    }
+                    Date in = cal.getTime();
+                    for(String format : new String[]{LONG_FORMAT, SHORT_FORMAT}) {
+                        SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
+                        if (format.equals(SHORT_FORMAT)) {
+                            if (year < 1930) {
+                                sdf.set2DigitYearStart(cal.getTime());
+                            }
+                        }
+                        String fmt = sdf.format(in);
+                        try {
+                            Date out = sdf.parse(fmt);
+                            
+                            assertEquals(locale.toString()+" "+year+" "+ format+ " "+tz.getID(), in, out);
+                        } catch (ParseException pe) {
+                            System.out.println(fmt+" "+locale.toString()+" "+year+" "+ format+ " "+tz.getID());
+                            throw pe;
+                        }
+                    }
                 }
             }
         }
@@ -253,18 +276,27 @@ public class FastDateParserTest {
         if (eraBC) {
             cal.set(Calendar.ERA, GregorianCalendar.BC);
         }
+        boolean failed = false;
         for(Locale locale : Locale.getAvailableLocales()) {
+            // ja_JP_JP cannot handle dates before 1868 properly
+            if (eraBC && format.equals(SHORT_FORMAT) && locale.toString().equals("ja_JP_JP")) {
+                continue;
+            }
             SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
             DateParser fdf = getInstance(format, locale);
 
             try {
                 checkParse(locale, cal, sdf, fdf);
             } catch(ParseException ex) {
+                failed = true;
                 // TODO: are these Java bugs?
                 // ja_JP_JP, th_TH, and th_TH_TH fail with both eras because the generated era name does not match
                 // ja_JP_JP fails with era BC because it converts to -2002
                 System.out.println("Locale "+locale+ " failed with "+format+" era "+(eraBC?"BC":"AD")+"\n" + trimMessage(ex.toString()));
             }
+        }
+        if (failed) {
+            Assert.fail("One or more tests failed, see above");
         }
     }
 

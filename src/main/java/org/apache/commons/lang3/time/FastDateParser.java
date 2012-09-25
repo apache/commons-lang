@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -55,6 +56,13 @@ import java.util.regex.Pattern;
  * <p>Timing tests indicate this class is as about as fast as SimpleDateFormat
  * in single thread applications and about 25% faster in multi-thread applications.</p>
  *
+ * <p>Note that the code only handles Gregorian calendars. The following non-Gregorian
+ * calendars use SimpleDateFormat internally, and so will be slower:
+ * <ul>
+ * <li>ja_JP_TH - Japanese Imperial</li>
+ * <li>th_TH (any variant) - Thai Buddhist</li>
+ * </ul>
+ * </p>
  * @since 3.2
  */
 public class FastDateParser implements DateParser, Serializable {
@@ -114,7 +122,17 @@ public class FastDateParser implements DateParser, Serializable {
         if(!patternMatcher.lookingAt()) {
             throw new IllegalArgumentException("Invalid pattern");
         }
-        
+
+        String localeName = locale.toString();
+        // These locales don't use the Gregorian calendar
+        // See http://docs.oracle.com/javase/6/docs/technotes/guides/intl/calendar.doc.html
+        if (localeName.equals("ja_JP_JP") || localeName.startsWith("th_TH")) {
+            collector.add(new SimpleDateFormatStrategy());
+            strategies= collector.toArray(new Strategy[collector.size()]);
+            parsePattern= Pattern.compile("(.*+)");
+            return;
+        }
+
         currentFormatField= patternMatcher.group();
         Strategy currentStrategy= getStrategy(currentFormatField);
         for(;;) {
@@ -795,6 +813,38 @@ public class FastDateParser implements DateParser, Serializable {
             }
             cal.setTimeZone(tz);
         }        
+    }
+
+
+    /**
+     * Dummy strategy which delegates to SimpleDateFormat.
+     */
+    private static class SimpleDateFormatStrategy implements Strategy {
+
+        @Override
+        public boolean isNumber() {
+            return false;
+        }
+
+        @Override
+        public void setCalendar(FastDateParser parser, Calendar cal, String value) {
+            String pat = parser.pattern;
+            Locale loc = parser.locale;
+            SimpleDateFormat sdf = new SimpleDateFormat(pat, loc);
+            try {
+                Date d = sdf.parse(value);
+                cal.setTime(d);
+            } catch (ParseException e) {
+                throw new IllegalArgumentException(
+                        "Unexpected error using pattern " + pat + " with locale " + loc.toString(), e);
+            }
+        }
+
+        @Override
+        public boolean addRegex(FastDateParser parser, StringBuilder regex) {
+            return false;
+        }
+        
     }
 
     private static final Strategy ERA_STRATEGY = new TextStrategy(Calendar.ERA);
