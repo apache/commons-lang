@@ -22,7 +22,6 @@ import java.io.Serializable;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -30,6 +29,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.TimeZone;
 import java.util.TreeMap;
@@ -123,18 +123,6 @@ public class FastDateParser implements DateParser, Serializable {
         Matcher patternMatcher= formatPattern.matcher(pattern);
         if(!patternMatcher.lookingAt()) {
             throw new IllegalArgumentException("Invalid pattern");
-        }
-
-        // These locales don't use the Gregorian calendar
-        // See http://docs.oracle.com/javase/6/docs/technotes/guides/intl/calendar.doc.html
-        // Also, the getEras() methods don't return the correct era names.
-        // N.B. Not safe to use toString() comparison because that changes between Java versions
-        if (locale.equals(JAPANESE_IMPERIAL)
-        || (locale.getLanguage().equals("th") && locale.getCountry().equals("TH"))) {
-            collector.add(new SimpleDateFormatStrategy());
-            strategies= collector.toArray(new Strategy[collector.size()]);
-            parsePattern= Pattern.compile("(.*+)");
-            return;
         }
 
         currentFormatField= patternMatcher.group();
@@ -256,7 +244,13 @@ public class FastDateParser implements DateParser, Serializable {
     public Date parse(String source) throws ParseException {
         Date date= parse(source, new ParsePosition(0));
         if(date==null) {
-            throw new ParseException(source+" does not match "+parsePattern.pattern(), 0);            
+            // Add a note re supported date range
+            if (locale.equals(JAPANESE_IMPERIAL)) {
+                throw new ParseException(
+                        "(The " +locale + " locale does not support dates before 1868 AD)\n" +
+                        source+" does not match "+parsePattern.pattern(), 0);
+            }
+            throw new ParseException(source+" does not match "+parsePattern.pattern(), 0);
         }
         return date;
     }
@@ -383,7 +377,14 @@ public class FastDateParser implements DateParser, Serializable {
             DateFormatSymbols symbols= DateFormatSymbols.getInstance(locale);
             switch(field) {
             case Calendar.ERA:
-                fieldKeyValues= createKeyValues(symbols.getEras(), null);
+                // DateFormatSymbols#getEras() only returns AD/BC or translations
+                // It does not work for the Thai Buddhist or Japanese Imperial calendars.
+                // see: https://issues.apache.org/jira/browse/TRINIDAD-2126
+                Calendar c = Calendar.getInstance(locale);
+                // N.B. Some calendars have different short and long symbols, e.g. ja_JP_JP
+                String[] shortEras = toArray(c.getDisplayNames(Calendar.ERA, Calendar.SHORT, locale));
+                String[] longEras = toArray(c.getDisplayNames(Calendar.ERA, Calendar.LONG, locale));
+                fieldKeyValues= createKeyValues(longEras, shortEras);
                 break;
             case Calendar.DAY_OF_WEEK:
                 fieldKeyValues= createKeyValues(symbols.getWeekdays(), symbols.getShortWeekdays());
@@ -403,6 +404,19 @@ public class FastDateParser implements DateParser, Serializable {
             }
         }
         return fieldKeyValues;
+    }
+
+    private String[] toArray(Map<String, Integer> era) {
+        String[] eras = new String[era.size()]; // assume no gaps in entry values
+        for(Map.Entry<String, Integer> me : era.entrySet()) {
+            int idx = me.getValue().intValue();
+            final String key = me.getKey();
+            if (key == null) {
+                throw new IllegalArgumentException();
+            }
+            eras[idx] = key;
+        }
+        return eras;
     }
     
     /**
@@ -819,37 +833,6 @@ public class FastDateParser implements DateParser, Serializable {
         }        
     }
 
-
-    /**
-     * Dummy strategy which delegates to SimpleDateFormat.
-     */
-    private static class SimpleDateFormatStrategy implements Strategy {
-
-        @Override
-        public boolean isNumber() {
-            return false;
-        }
-
-        @Override
-        public void setCalendar(FastDateParser parser, Calendar cal, String value) {
-            String pat = parser.pattern;
-            Locale loc = parser.locale;
-            SimpleDateFormat sdf = new SimpleDateFormat(pat, loc);
-            try {
-                Date d = sdf.parse(value);
-                cal.setTime(d);
-            } catch (ParseException e) {
-                throw new IllegalArgumentException(
-                        "Unexpected error using pattern " + pat + " with locale " + loc.toString(), e);
-            }
-        }
-
-        @Override
-        public boolean addRegex(FastDateParser parser, StringBuilder regex) {
-            return false;
-        }
-        
-    }
 
     private static final Strategy ERA_STRATEGY = new TextStrategy(Calendar.ERA);
     private static final Strategy DAY_OF_WEEK_STRATEGY = new TextStrategy(Calendar.DAY_OF_WEEK);

@@ -20,24 +20,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.io.Serializable;
-import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.TimeZone;
 
 import junit.framework.Assert;
 
 import org.apache.commons.lang3.SerializationUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.Test;
 
 /**
@@ -234,85 +229,6 @@ public class FastDateParserTest {
     }
 
     @Test
-    // Check that all Locales generate Strings containing the expected eras
-    public void testEras() throws Exception {
-        Set<ImmutablePair<Locale, String>> locale2Absent = new HashSet<ImmutablePair<Locale, String>>();
-        Map<Locale, String[]> locale2Eras = new HashMap<Locale, String[]>();
-        for(Locale locale : Locale.getAvailableLocales()) {
-            for(TimeZone tz : new TimeZone[]{GMT}) {
-                Calendar cal = Calendar.getInstance(tz);
-                String[] eras = DateFormatSymbols.getInstance(locale).getEras();
-                String[] erasPrint = new String[eras.length];
-                for(int i = 0; i < eras.length ; i++) {
-                    String s = eras[i];
-                    if (s.length() > 4) {
-                        erasPrint[i] = s;
-                    } else {
-                        erasPrint[i] = display(s);
-                    }
-                }
-                for(int year : new int[]{2003, 1927, 1913, 1868, 1867, -2003}) {
-                    cal.clear();
-                    if (year < 0) {
-                        cal.set(-year, 1, 10);
-                        cal.set(Calendar.ERA, GregorianCalendar.BC);
-                    } else {
-                        cal.set(year, 1, 10);
-                    }
-                    Date in = cal.getTime();
-                    for(String format : new String[]{"GGGG","G"}) {
-                        SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
-                        String fmt = sdf.format(in);
-                        boolean found = false;
-                        for(String era : eras) {
-                            if (fmt.startsWith(era)) {
-                                found=true;
-                            }
-                        }
-                        if (!found) {
-                            locale2Absent.add(ImmutablePair.of(locale, fmt));
-                            locale2Eras.put(locale, erasPrint);
-                        }
-                    }
-                }
-            }
-        }
-        
-        if (locale2Absent.size() > 0) {
-            System.out.println("FastDateParserTest: one or more missing era designators detected:");
-            for(ImmutablePair<Locale, String> me : locale2Absent) {
-                Locale loc = me.getKey();
-                String [] erasPrint = locale2Eras.get(loc);
-                System.out.println("Locale: "+loc.toString()+" era: '"+display(me.getValue())+"' not found in eras: " + Arrays.toString(erasPrint));                
-            }
-        }
-//        assertFalse("One or more failures detected",fail);
-    }
-
-    private String display(String fmt) {
-        if (fmt.matches("\\p{ASCII}*")) {
-            return fmt;
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append(fmt);
-        sb.append(" = ");
-        for(int i =0; i < fmt.length(); i++) {
-            if (i > 0) {
-                sb.append(' ');
-            }
-            String s = fmt.substring(i,i+1);
-            if (s.matches("\\p{ASCII}")) {
-                sb.append(s);
-            } else {
-                char charAt = fmt.charAt(i);
-                sb.append("\\u");
-                sb.append(Integer.toHexString(charAt));                
-            }
-        }
-        return sb.toString();
-    }
-
-    @Test
     public void testLocales_Long_AD() throws Exception {
         testLocales(LONG_FORMAT, false);
     }
@@ -360,10 +276,9 @@ public class FastDateParserTest {
         if (eraBC) {
             cal.set(Calendar.ERA, GregorianCalendar.BC);
         }
-        boolean failed = false;
         for(Locale locale : Locale.getAvailableLocales()) {
             // ja_JP_JP cannot handle dates before 1868 properly
-            if (eraBC && format.equals(SHORT_FORMAT) && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
+            if (eraBC && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
                 continue;
             }
             SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
@@ -372,15 +287,8 @@ public class FastDateParserTest {
             try {
                 checkParse(locale, cal, sdf, fdf);
             } catch(ParseException ex) {
-                failed = true;
-                // TODO: are these Java bugs?
-                // ja_JP_JP, th_TH, and th_TH_TH fail with both eras because the generated era name does not match
-                // ja_JP_JP fails with era BC because it converts to -2002
-                System.out.println("Locale "+locale+ " failed with "+format+" era "+(eraBC?"BC":"AD")+"\n" + trimMessage(ex.toString()));
+                Assert.fail("Locale "+locale+ " failed with "+format+" era "+(eraBC?"BC":"AD")+"\n" + trimMessage(ex.toString()));
             }
-        }
-        if (failed) {
-            Assert.fail("One or more tests failed, see above");
         }
     }
 
@@ -399,7 +307,8 @@ public class FastDateParserTest {
         String formattedDate= sdf.format(cal.getTime());                
         Date expectedTime = sdf.parse(formattedDate);
         Date actualTime = fdf.parse(formattedDate);
-        assertEquals(locale.toString()+" "+formattedDate,expectedTime, actualTime);
+        assertEquals(locale.toString()+" "+formattedDate
+                +"\n",expectedTime, actualTime);
     }
     
     @Test
