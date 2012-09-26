@@ -473,7 +473,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @param twoDigitYear The year to adjust
      * @return A value within -80 and +20 years from instantiation of this instance
      */
-    protected int adjustYear(int twoDigitYear) {
+    int adjustYear(int twoDigitYear) {
         int trial= twoDigitYear + thisYear - thisYear%100;
         if(trial < thisYear+20) {
             return trial;
