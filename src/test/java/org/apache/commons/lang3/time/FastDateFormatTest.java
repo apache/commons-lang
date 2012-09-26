@@ -268,7 +268,7 @@ public class FastDateFormatTest {
         
         long fdfTime= measureTime(formatter, FastDateFormat.getInstance(pattern));
         
-        String times= "FastDateParserTest: FastDateParser:"+fdfTime+"  SimpleDateFormat:"+sdfTime;
+        String times= ">>FastDateFormatTest: FastDateParser:"+fdfTime+"  SimpleDateFormat:"+sdfTime;
         System.out.println(times);
     }
 
