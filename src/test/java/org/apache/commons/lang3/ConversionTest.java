@@ -492,9 +492,23 @@ public class ConversionTest {
         // assertEquals(0x0F12345678000000L,Conversion.intsToLong(src,1,0x123456789ABCDEF0L,32,2));
     }
 
-    public void todoTestShortsToLong() {
-        // TODO: implement this test. This is somehow low priority since intsToLong and
-        // bytesToLong are tested
+    /**
+     * Tests {@link Conversion#shortsToLong(short[], int, long, int, int)}.
+     */
+    @Test
+    public void testShortsToLong() {
+        short[] src = new short[]{
+            (short)0xCDF1, (short)0xF0C1, (short)0x0F12, (short)0x3456, (short)0x7800};
+        assertEquals(0x0000000000000000L, Conversion.shortsToLong(src, 0, 0L, 0, 0));
+        assertEquals(0x000000000000CDF1L, Conversion.shortsToLong(src, 0, 0L, 0, 1));
+        assertEquals(0x00000000F0C1CDF1L, Conversion.shortsToLong(src, 0, 0L, 0, 2));
+        assertEquals(0x780034560F12F0C1L, Conversion.shortsToLong(src, 1, 0L, 0, 4));
+        assertEquals(
+            0x123456789ABCDEF0L, Conversion.shortsToLong(src, 0, 0x123456789ABCDEF0L, 0, 0));
+        assertEquals(
+            0x123456CDF1BCDEF0L, Conversion.shortsToLong(src, 0, 0x123456789ABCDEF0L, 24, 1));
+        assertEquals(
+            0x123478003456DEF0L, Conversion.shortsToLong(src, 3, 0x123456789ABCDEF0L, 16, 2));
     }
 
     /**
@@ -513,7 +527,8 @@ public class ConversionTest {
             0x123456789ABCDEF0L, Conversion.bytesToLong(src, 0, 0x123456789ABCDEF0L, 0, 0));
         assertEquals(
             0x12345678CDBCDEF0L, Conversion.bytesToLong(src, 0, 0x123456789ABCDEF0L, 24, 1));
-        // assertEquals(0x123456789A7856F0L,Conversion.bytesToLong(src,7,0x123456789ABCDEF0L,8,2));
+        assertEquals(
+            0x123456789A7856F0L, Conversion.bytesToLong(src, 7, 0x123456789ABCDEF0L, 8, 2));
     }
 
     /**
@@ -530,7 +545,6 @@ public class ConversionTest {
         assertEquals(0x12345678, Conversion.shortsToInt(src, 0, 0x12345678, 0, 0));
         assertEquals(0xCDF15678, Conversion.shortsToInt(src, 0, 0x12345678, 16, 1));
         // assertEquals(0x34567800,Conversion.shortsToInt(src, 3, 0x12345678, 16, 2));
-
     }
 
     /**
