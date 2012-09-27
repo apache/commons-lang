@@ -45,6 +45,7 @@ import org.junit.Test;
  *
  * @version $Id$
  */
+@SuppressWarnings("boxing") // JUnit4 does not support primitive equality testing apart from long
 public class ClassUtilsTest  {
 
     private static class Inner {
