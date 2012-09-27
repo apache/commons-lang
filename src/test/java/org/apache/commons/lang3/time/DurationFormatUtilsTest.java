@@ -398,7 +398,19 @@ public class DurationFormatUtilsTest {
         assertEqualDuration( "09", new int[] { 2005, 11, 31, 0, 0, 0 }, 
                              new int[] { 2006, 9, 6, 0, 0, 0 }, "MM");
     }
-    
+
+    @Test
+    public void testLANG815() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2012, 6, 30, 0, 0, 0);
+        long startMillis = calendar.getTimeInMillis();
+
+        calendar.set(2012, 8, 8);
+        long endMillis = calendar.getTimeInMillis();
+
+        assertEquals("1 9", DurationFormatUtils.formatPeriod(startMillis, endMillis, "M d"));
+    }
+
     // Testing the under a day range in DurationFormatUtils.formatPeriod
     @Test
     public void testLowDurations() {
