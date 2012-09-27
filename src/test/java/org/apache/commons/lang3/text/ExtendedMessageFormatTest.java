@@ -111,7 +111,7 @@ public class ExtendedMessageFormatTest {
                 nf = NumberFormat.getCurrencyInstance(locale);
                 emf = new ExtendedMessageFormat(pattern, locale, registry);
             }
-            StringBuffer expected = new StringBuffer();
+            StringBuilder expected = new StringBuilder();
             expected.append("Name: ");
             expected.append(args[0].toString().toUpperCase());
             expected.append(" DOB: ");
@@ -338,7 +338,7 @@ public class ExtendedMessageFormatTest {
      * @param locale Locale
      */
     private void checkBuiltInFormat(String pattern, Map<String, ?> registry, Object[] args, Locale locale) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append("Pattern=[");
         buffer.append(pattern);
         buffer.append("], locale=[");

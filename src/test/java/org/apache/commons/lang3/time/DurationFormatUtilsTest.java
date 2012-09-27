@@ -347,30 +347,30 @@ public class DurationFormatUtilsTest {
         // tests the ISO8601-like
         assertArrayEquals(new DurationFormatUtils.Token[]{
             new DurationFormatUtils.Token(DurationFormatUtils.H, 1),
-            new DurationFormatUtils.Token(new StringBuffer(":"), 1),
+            new DurationFormatUtils.Token(new StringBuilder(":"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.m, 2),
-            new DurationFormatUtils.Token(new StringBuffer(":"), 1),
+            new DurationFormatUtils.Token(new StringBuilder(":"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.s, 2),
-            new DurationFormatUtils.Token(new StringBuffer("."), 1),
+            new DurationFormatUtils.Token(new StringBuilder("."), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.S, 3)}, DurationFormatUtils.lexx("H:mm:ss.SSS"));
 
         // test the iso extended format
         assertArrayEquals(new DurationFormatUtils.Token[]{
-            new DurationFormatUtils.Token(new StringBuffer("P"), 1),
+            new DurationFormatUtils.Token(new StringBuilder("P"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.y, 4),
-            new DurationFormatUtils.Token(new StringBuffer("Y"), 1),
+            new DurationFormatUtils.Token(new StringBuilder("Y"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.M, 1),
-            new DurationFormatUtils.Token(new StringBuffer("M"), 1),
+            new DurationFormatUtils.Token(new StringBuilder("M"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.d, 1),
-            new DurationFormatUtils.Token(new StringBuffer("DT"), 1),
+            new DurationFormatUtils.Token(new StringBuilder("DT"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.H, 1),
-            new DurationFormatUtils.Token(new StringBuffer("H"), 1),
+            new DurationFormatUtils.Token(new StringBuilder("H"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.m, 1),
-            new DurationFormatUtils.Token(new StringBuffer("M"), 1),
+            new DurationFormatUtils.Token(new StringBuilder("M"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.s, 1),
-            new DurationFormatUtils.Token(new StringBuffer("."), 1),
+            new DurationFormatUtils.Token(new StringBuilder("."), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.S, 1),
-            new DurationFormatUtils.Token(new StringBuffer("S"), 1)}, DurationFormatUtils
+            new DurationFormatUtils.Token(new StringBuilder("S"), 1)}, DurationFormatUtils
                 .lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN));
 
         // test failures in equals
