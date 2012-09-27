@@ -381,9 +381,14 @@ public class FastDateParser implements DateParser, Serializable {
                 // see: https://issues.apache.org/jira/browse/TRINIDAD-2126
                 Calendar c = Calendar.getInstance(locale);
                 // N.B. Some calendars have different short and long symbols, e.g. ja_JP_JP
+                // TODO Seems to be only that locale; if that is guaranteed, could skip some work here
                 String[] shortEras = toArray(c.getDisplayNames(Calendar.ERA, Calendar.SHORT, locale));
                 String[] longEras = toArray(c.getDisplayNames(Calendar.ERA, Calendar.LONG, locale));
-                fieldKeyValues= createKeyValues(longEras, shortEras);
+                if (Arrays.equals(shortEras, longEras)) {
+                    fieldKeyValues = createKeyValues(longEras, null); // save memory
+                } else {
+                    fieldKeyValues = createKeyValues(longEras, shortEras);                    
+                }
                 break;
             case Calendar.DAY_OF_WEEK:
                 fieldKeyValues= createKeyValues(symbols.getWeekdays(), symbols.getShortWeekdays());
