@@ -333,6 +333,52 @@ public class FastDateParserTest {
         assertEquals(cal.getTime(), fdf.parse("'20030210A'B153320989'"));
     }
 
+
+    @Test
+    public void testLANG_831() throws Exception {
+        testSdfAndFdp("M E","3  Tue", true);
+    }
+
+    private void testSdfAndFdp(String format, String date, boolean shouldFail)
+            throws Exception {
+        Date dfdp = null;
+        Date dsdf = null;
+        Throwable f = null;
+        Throwable s = null;
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+            sdf.setTimeZone(NEW_YORK);
+            dsdf = sdf.parse(date);
+            if (shouldFail) {
+                Assert.fail("Expected SDF failure, but got " + dsdf + " for ["+format+","+date+"]");
+            }
+        } catch (Exception e) {
+            s = e;
+            if (!shouldFail) {
+                throw e;
+            }
+//            System.out.println("sdf:"+format+"/"+date+"=>"+e);
+        }
+
+        try {
+            DateParser fdp = getInstance(format, NEW_YORK, Locale.US);
+            dfdp = fdp.parse(date);
+            if (shouldFail) {
+                Assert.fail("Expected FDF failure, but got " + dfdp + " for ["+format+","+date+"] using "+((FastDateParser)fdp).getParsePattern());
+            }
+        } catch (Exception e) {
+            f = e;
+            if (!shouldFail) {
+                throw e;
+            }
+//            System.out.println("fdf:"+format+"/"+date+"=>"+e);
+        }
+        // SDF and FDF should produce equivalent results
+        assertTrue("Should both or neither throw Exceptions", (f==null)==(s==null));
+        assertEquals("Parsed dates should be equal", dsdf, dfdp);
+    }
+
     @Test
     public void testDayOf() throws ParseException {
         Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
