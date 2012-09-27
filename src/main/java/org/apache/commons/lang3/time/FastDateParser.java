@@ -122,7 +122,8 @@ public class FastDateParser implements DateParser, Serializable {
 
         Matcher patternMatcher= formatPattern.matcher(pattern);
         if(!patternMatcher.lookingAt()) {
-            throw new IllegalArgumentException("Invalid pattern");
+            throw new IllegalArgumentException(
+                    "Illegal pattern character '" + pattern.charAt(patternMatcher.regionStart()) + "'");
         }
 
         currentFormatField= patternMatcher.group();
