@@ -297,6 +297,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @return The <code>StringBuilder</code>
      */
     private static StringBuilder escapeRegex(StringBuilder regex, String value, boolean unquote) {
+        regex.append("\\Q");
         for(int i= 0; i<value.length(); ++i) {
             char c= value.charAt(i);
             switch(c) {
@@ -308,24 +309,28 @@ public class FastDateParser implements DateParser, Serializable {
                     c= value.charAt(i);
                 }
                 break;
-            case '?':
-            case '[':
-            case ']':
-            case '(':
-            case ')':
-            case '{':
-            case '}':
             case '\\':
-            case '|':
-            case '*':
-            case '+':
-            case '^':
-            case '$':
-            case '.':
-                regex.append('\\');
+                if(++i==value.length()) {
+                    break;
+                }                
+                /*
+                 * If we have found \E, we replace it with \E\\E\Q, i.e. we stop the quoting,
+                 * quote the \ in \E, then restart the quoting.
+                 * 
+                 * Otherwise we just output the two characters.
+                 * In each case the initial \ needs to be output and the final char is done at the end
+                 */
+                regex.append(c); // we always want the original \
+                c = value.charAt(i); // Is it followed by E ?
+                if (c == 'E') { // \E detected
+                  regex.append("E\\\\E\\"); // see comment above
+                  c = 'Q'; // appended below
+                }
+                break;
             }
             regex.append(c);
         }
+        regex.append("\\E");
         return regex;
     }
 
