@@ -22,9 +22,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -331,57 +329,16 @@ public class FastDateParser implements DateParser, Serializable {
         return regex;
     }
 
-    /**
-     * A class to store Key / Value pairs
-     */
-    private static class KeyValue {
-        public String key;
-        public int value;
-
-        /**
-         * Construct a Key / Value pair
-         * @param key The key
-         * @param value The value
-         */
-        public KeyValue(String key, int value) {
-            this.key= key;
-            this.value= value;
-        }
-    }
-
-    /**
-     * ignore case comparison of keys
-     */
-    private static final Comparator<KeyValue> IGNORE_CASE_COMPARATOR = new Comparator<KeyValue> () {
-        @Override
-        public int compare(KeyValue left, KeyValue right) {
-            return left.key.compareToIgnoreCase(right.key);
-        }
-    };
 
     /**
      * Get the short and long values displayed for a field
      * @param field The field of interest
      * @param definingCalendar The calendar to obtain the short and long values
-     * @param locale The locale of dislay names
-     * @return A sorted array of the field key / value pairs
+     * @param locale The locale of display names
+     * @return A Map of the field key / value pairs
      */
-    private static KeyValue[] getDisplayNames(int field, Calendar definingCalendar, Locale locale) {
-		List<KeyValue> keyValues = new ArrayList<KeyValue>(24);
-		addNamesToKeyValues(keyValues, definingCalendar.getDisplayNames(field, Calendar.ALL_STYLES, locale));
-        return createKeyValues(keyValues);
-    }
-
-	private static void addNamesToKeyValues(List<KeyValue> keyValues, Map<String, Integer> displayNames) {
-        for(Map.Entry<String, Integer> me : displayNames.entrySet()) {
-        	keyValues.add(new KeyValue(me.getKey(), me.getValue()));
-        }
-    }
-
-    private static KeyValue[] createKeyValues(List<KeyValue> keyValues) {
-        KeyValue[] fieldKeyValues= keyValues.toArray(new KeyValue[keyValues.size()]);
-        Arrays.sort(fieldKeyValues, IGNORE_CASE_COMPARATOR);
-        return fieldKeyValues;
+    private static Map<String, Integer> getDisplayNames(int field, Calendar definingCalendar, Locale locale) {
+        return definingCalendar.getDisplayNames(field, Calendar.ALL_STYLES, locale);
     }
 
     /**
@@ -502,7 +459,7 @@ public class FastDateParser implements DateParser, Serializable {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // OK because we are creating an array with no entries
     private static ConcurrentMap<Locale, Strategy>[] caches = new ConcurrentMap[Calendar.FIELD_COUNT];
 
     /**
@@ -528,7 +485,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private Strategy getLocaleSpecificStrategy(int field, Calendar definingCalendar) {
     	ConcurrentMap<Locale,Strategy> cache = getCache(field);
-    	Strategy strategy= cache.get(field);
+    	Strategy strategy= cache.get(Integer.valueOf(field));
         if(strategy==null) {
         	strategy= field==Calendar.ZONE_OFFSET
         			? new TimeZoneStrategy(locale)
@@ -589,7 +546,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
      private static class TextStrategy implements Strategy {
         private final int field;
-        private final KeyValue[] keyValues;
+        private final Map<String, Integer> keyValues;
 
         /**
          * Construct a Strategy that parses a Text field
@@ -614,8 +571,8 @@ public class FastDateParser implements DateParser, Serializable {
         @Override
         public boolean addRegex(FastDateParser parser, StringBuilder regex) {
             regex.append('(');
-            for(KeyValue textKeyValue : keyValues) {
-                escapeRegex(regex, textKeyValue.key, false).append('|');
+            for(String textKeyValue : keyValues.keySet()) {
+                escapeRegex(regex, textKeyValue, false).append('|');
             }
             regex.setCharAt(regex.length()-1, ')');
             return true;
@@ -626,17 +583,17 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         public void setCalendar(FastDateParser parser, Calendar cal, String value) {
-            int idx= Arrays.binarySearch(keyValues, new KeyValue(value, -1), IGNORE_CASE_COMPARATOR);
-            if(idx<0) {
+            Integer iVal = keyValues.get(value);
+            if(iVal == null) {
                 StringBuilder sb= new StringBuilder(value);
                 sb.append(" not in (");
-                for(KeyValue textKeyValue : keyValues) {
-                    sb.append(textKeyValue.key).append(' ');
+                for(String textKeyValue : keyValues.keySet()) {
+                    sb.append(textKeyValue).append(' ');
                 }
                 sb.setCharAt(sb.length()-1, ')');
                 throw new IllegalArgumentException(sb.toString());
             }
-            cal.set(field, keyValues[idx].value);
+            cal.set(field, iVal.intValue());
         }
     }
 
