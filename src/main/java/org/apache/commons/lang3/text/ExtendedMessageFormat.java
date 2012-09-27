@@ -330,7 +330,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     private int readArgumentIndex(String pattern, ParsePosition pos) {
         int start = pos.getIndex();
         seekNonWs(pattern, pos);
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         boolean error = false;
         for (; !error && pos.getIndex() < pattern.length(); next(pos)) {
             char c = pattern.charAt(pos.getIndex());

@@ -47,7 +47,7 @@ public class DateFormatUtilsTest {
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         c.set(2005,0,1,12,0,0);
         c.setTimeZone(TimeZone.getDefault());
-        StringBuffer buffer = new StringBuffer ();
+        StringBuilder buffer = new StringBuilder ();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH) + 1;
         int day = c.get(Calendar.DAY_OF_MONTH);
@@ -71,7 +71,7 @@ public class DateFormatUtilsTest {
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         c.set(2005,0,1,12,0,0);
         c.setTimeZone(TimeZone.getDefault());
-        StringBuffer buffer = new StringBuffer ();
+        StringBuilder buffer = new StringBuilder ();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH) + 1;
         int day = c.get(Calendar.DAY_OF_MONTH);
