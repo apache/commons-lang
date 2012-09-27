@@ -15,9 +15,23 @@
 ## specific language governing permissions and limitations
 ## under the License.
 ##
-              Apache ${project.name} ${version} RELEASE NOTES
+                        Apache ${project.name}
+                            Version ${version}
+                           Release Notes
 
-The ${developmentTeam} is pleased to announce the release of ${finalName}
+
+INTRODUCTION:
+
+This document contains the release notes for the ${version} version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.0 and onwards now targets Java 5.0, making use of features that arrived with Java 5.0 such as generics, 
+variable arguments, autoboxing, concurrency and formatted output.
+
+For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    http://commons.apache.org/lang/article3_0.html
 
 $introduction.replaceAll("(?<!\015)\012", "
 ").replaceAll("(?m)^ +","")

@@ -40,6 +40,7 @@
     <action issue="LANG-788" type="fix">SerializationUtils throws ClassNotFoundException when cloning primitive classes</action>
     <action issue="LANG-786" type="fix">StringUtils equals() relies on undefined behavior</action>
     <action issue="LANG-783" type="fix">Documentation bug: StringUtils.split</action>
+    <action issue="LANG-777" type="fix">jar contains velocity template of release notes</action>
     <action issue="LANG-776" type="fix">TypeUtilsTest contains incorrect type assignability assertion</action>
     <action issue="LANG-775" type="fix">TypeUtils.getTypeArguments() misses type arguments for partially-assigned classes</action>
     <action issue="LANG-773" type="fix">ImmutablePair doc contains nonsense text</action>
