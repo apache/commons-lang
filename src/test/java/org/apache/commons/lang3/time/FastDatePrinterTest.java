@@ -48,7 +48,7 @@ public class FastDatePrinterTest {
     }
 
     private DatePrinter getDateInstance(int dateStyle, Locale locale) {
-        return getInstance(FormatCache.getPatternForStyle(dateStyle, null, locale), TimeZone.getDefault(), Locale.getDefault());
+        return getInstance(FormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale), TimeZone.getDefault(), Locale.getDefault());
     }
 
     private DatePrinter getInstance(String format, Locale locale) {
