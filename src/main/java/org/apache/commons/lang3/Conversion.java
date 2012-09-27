@@ -455,7 +455,7 @@ public class Conversion {
 
     /**
      * <p>
-     * Converta a part of a boolean array in big endian Msb0 bit ordering to a hexadecimal
+     * Converts a part of a boolean array in big endian Msb0 bit ordering to a hexadecimal
      * digit.
      * </p>
      * <p>
