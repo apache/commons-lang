@@ -298,7 +298,7 @@ public class BackgroundInitializerTest {
             if (shouldSleep) {
                 Thread.sleep(60000L);
             }
-            return ++initializeCalls;
+            return Integer.valueOf(++initializeCalls);
         }
     }
 }

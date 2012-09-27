@@ -141,13 +141,13 @@ abstract class FormatCache<F extends Format> {
             try {
                 DateFormat formatter;
                 if (dateStyle == null) {
-                    formatter = DateFormat.getTimeInstance(timeStyle, locale);                    
+                    formatter = DateFormat.getTimeInstance(timeStyle.intValue(), locale);                    
                 }
                 else if (timeStyle == null) {
-                    formatter = DateFormat.getDateInstance(dateStyle, locale);                    
+                    formatter = DateFormat.getDateInstance(dateStyle.intValue(), locale);                    
                 }
                 else {
-                    formatter = DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
+                    formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), locale);
                 }
                 pattern = ((SimpleDateFormat)formatter).toPattern();
                 String previous = cDateTimeInstanceCache.putIfAbsent(key, pattern);
