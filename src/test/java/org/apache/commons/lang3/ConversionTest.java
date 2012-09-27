@@ -35,9 +35,6 @@ public class ConversionTest extends TestCase {
      * convert an hexadecimal digit into an int using the default (Lsb0) bit ordering.
      * <p>
      * '1' is converted to 1
-     * 
-     * @param hexDigit the hexadecimal digit to convert
-     * @return an int equals to <code>hexDigit</code>
      */
     public void testHexDigitToInt() throws Exception {
         assertEquals(0, Conversion.hexDigitToInt('0'));
@@ -69,8 +66,6 @@ public class ConversionTest extends TestCase {
      * <p>
      * '1' is converted to 8
      * 
-     * @param hexDigit the hexadecimal digit to convert
-     * @return an int equals to <code>hexDigit</code>
      */
     public void testHexDigitM0ToInt() throws Exception {
         assertEquals(0x0, Conversion.hexDigitM0ToInt('0'));
@@ -102,8 +97,6 @@ public class ConversionTest extends TestCase {
      * <p>
      * '1' is converted as follow: (1, 0, 0, 0)
      * 
-     * @param hexDigit the hexadecimal digit to convert
-     * @return a boolean array with the binary representation of <code>hexDigit</code>
      */
     public void testHexDigitToBools() throws Exception {
         assertArrayEquals(
@@ -258,9 +251,6 @@ public class ConversionTest extends TestCase {
      * Convert a boolean array to an hexadecimal digit using the default (Lsb0) bit ordering.
      * <p>
      * (1, 0, 0, 0) is converted as follow: '1'
-     * 
-     * @param src the boolean array to convert
-     * @return an hexadecimal digit representing the selected bits
      */
     public void testBoolsToHexDigit() throws Exception {
         assertEquals('0', Conversion.boolsToHexDigit(new boolean[]{false, false, false, false}));
@@ -286,9 +276,6 @@ public class ConversionTest extends TestCase {
      * <p>
      * (1, 0, 0, 0) is converted as follow: '1'
      * 
-     * @param src the boolean array to convert
-     * @param srcPos the position of the lsb to start the conversion
-     * @return an hexadecimal digit representing the selected bits
      */
     public void testBoolsToHexDigit_2args() throws Exception {
         boolean[] shortArray = new boolean[]{false, true, true};
@@ -310,9 +297,6 @@ public class ConversionTest extends TestCase {
      * <p>
      * (1, 0, 0, 0) is converted as follow: '8'
      * 
-     * @param src the boolean array to convert
-     * @return an hexadecimal digit representing the selected bits
-     * @warning src.length must be >= 4.
      */
     public void testBoolsToHexDigitM0_bits() throws Exception {
         assertEquals(
@@ -355,11 +339,6 @@ public class ConversionTest extends TestCase {
      * (1, 0, 0, 0) is converted as follow: '8' (1,0,0,1,1,0,1,0) with srcPos = 3 is converted
      * to 'D'
      * 
-     * @param src the boolean array to convert
-     * @param srcPos the position of the lsb to start the conversion
-     * @return an hexadecimal digit representing the selected bits
-     * @warning src.length must be 8 at most.
-     * @warning srcPos+4 must be <= src.length.
      */
     public void testBoolsToHexDigitM0_4bits_2args() throws Exception {
         // boolean[] shortArray = new boolean[]{true,true,false};
@@ -398,9 +377,6 @@ public class ConversionTest extends TestCase {
      * <p>
      * (1, 0, 0, 0) is converted as follow: '8' (1,0,0,0,0,0,0,0, 0,0,0,0,0,1,0,0) is converted
      * to '4'
-     * 
-     * @param src the boolean array to convert
-     * @return an hexadecimal digit representing the selected bits
      */
     public void testBoolsBeM0ToHexDigit() throws Exception {
         assertEquals(
@@ -447,10 +423,6 @@ public class ConversionTest extends TestCase {
      * <p>
      * (1, 0, 0, 0) with srcPos = 0 is converted as follow: '8' (1,0,0,0,0,0,0,0,
      * 0,0,0,1,0,1,0,0) with srcPos = 2 is converted to '5'
-     * 
-     * @param src the boolean array to convert
-     * @param srcPos the position of the lsb to start the conversion
-     * @return an hexadecimal digit representing the selected bits
      */
     public void testBoolsBeM0ToHexDigit_2args() throws Exception {
         assertEquals(
@@ -503,9 +475,6 @@ public class ConversionTest extends TestCase {
      * 1 returns '1'
      * <p>
      * 10 returns 'A' and so on...
-     * 
-     * @param nibble the int to convert, value outside of the range [0:15] are not allowed.
-     * @return an hexadecimal digit representing the 4 lsb of <code>nibble</code>
      */
     public void testIntToHexDigit() throws Exception {
         assertEquals('0', Conversion.intToHexDigit(0));
@@ -534,9 +503,6 @@ public class ConversionTest extends TestCase {
      * 1 returns '8'
      * <p>
      * 10 returns '5' and so on...
-     * 
-     * @param nibble the int to convert, value outside of the range [0:15] are not allowed.
-     * @return an hexadecimal digit representing the 4 lsb of <code>nibble</code>
      */
     public void testIntToHexDigitM0() throws Exception {
         assertEquals('0', Conversion.intToHexDigitM0(0));
