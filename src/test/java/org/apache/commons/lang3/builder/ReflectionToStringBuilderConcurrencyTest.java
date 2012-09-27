@@ -96,7 +96,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
                     String s = ReflectionToStringBuilder.toString(holder);
                     Assert.assertNotNull(s);
                 }
-                return REPEAT;
+                return Integer.valueOf(REPEAT);
             }
         };
         // Produces changes in the list
@@ -106,7 +106,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
                 for (int i = 0; i < DATA_SIZE; i++) {
                     list.remove(list.get(0));
                 }
-                return REPEAT;
+                return Integer.valueOf(REPEAT);
             }
         };
         Collection<Callable<Integer>> tasks = new ArrayList<Callable<Integer>>();

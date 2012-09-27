@@ -96,7 +96,7 @@ public class ToStringStyleConcurrencyTest {
                     // Calls ToStringStyle
                     new ToStringBuilder(holder).append(holder.collection);
                 }
-                return REPEAT;
+                return Integer.valueOf(REPEAT);
             }
         };
         Collection<Callable<Integer>> tasks = new ArrayList<Callable<Integer>>();

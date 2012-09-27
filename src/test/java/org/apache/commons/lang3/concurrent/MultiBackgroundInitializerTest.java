@@ -375,7 +375,7 @@ public class MultiBackgroundInitializerTest {
                 throw ex;
             }
 
-            return initializeCalls;
+            return Integer.valueOf(initializeCalls);
         }
     }
 }
