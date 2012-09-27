@@ -470,7 +470,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @param pattern pattern to parse
      * @param pos current parse position
-     * @param appendTo optional StringBuffer to append
+     * @param appendTo optional StringBuilder to append
      * @param escapingOn whether to process escaped quotes
      * @return <code>appendTo</code>
      */
