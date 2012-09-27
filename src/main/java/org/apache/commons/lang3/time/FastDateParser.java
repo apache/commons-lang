@@ -19,7 +19,6 @@ package org.apache.commons.lang3.time;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.ArrayList;
@@ -73,9 +72,6 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    private static final ConcurrentMap<Locale,TimeZoneStrategy> tzsCache=
-        new ConcurrentHashMap<Locale,TimeZoneStrategy>(3);
-
     static final Locale JAPANESE_IMPERIAL = new Locale("ja","JP","JP");
 
     // defining fields
@@ -87,7 +83,6 @@ public class FastDateParser implements DateParser, Serializable {
     private transient Pattern parsePattern;
     private transient Strategy[] strategies;
     private transient int thisYear;
-    private transient ConcurrentMap<Integer, KeyValue[]> nameValues;
 
     // dynamic fields to communicate with Strategy
     private transient String currentFormatField;
@@ -113,9 +108,8 @@ public class FastDateParser implements DateParser, Serializable {
      * This is called from constructor and from readObject (de-serialization)
      */
     private void init() {
-        thisYear= Calendar.getInstance(timeZone, locale).get(Calendar.YEAR);
-
-        nameValues= new ConcurrentHashMap<Integer, KeyValue[]>();
+        Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
+		thisYear= definingCalendar.get(Calendar.YEAR);
 
         StringBuilder regex= new StringBuilder();
         List<Strategy> collector = new ArrayList<Strategy>();
@@ -127,7 +121,7 @@ public class FastDateParser implements DateParser, Serializable {
         }
 
         currentFormatField= patternMatcher.group();
-        Strategy currentStrategy= getStrategy(currentFormatField);
+        Strategy currentStrategy= getStrategy(currentFormatField, definingCalendar);
         for(;;) {
             patternMatcher.region(patternMatcher.end(), patternMatcher.regionEnd());
             if(!patternMatcher.lookingAt()) {
@@ -135,7 +129,7 @@ public class FastDateParser implements DateParser, Serializable {
                 break;
             }
             String nextFormatField= patternMatcher.group();
-            nextStrategy = getStrategy(nextFormatField);
+            nextStrategy = getStrategy(nextFormatField, definingCalendar);
             if(currentStrategy.addRegex(this, regex)) {
                 collector.add(currentStrategy);
             }
@@ -368,109 +362,26 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Get the short and long values displayed for a field
      * @param field The field of interest
+     * @param definingCalendar The calendar to obtain the short and long values
+     * @param locale The locale of dislay names
      * @return A sorted array of the field key / value pairs
      */
-    KeyValue[] getDisplayNames(int field) {
-        Integer fieldInt = Integer.valueOf(field);
-        KeyValue[] fieldKeyValues= nameValues.get(fieldInt);
-        if(fieldKeyValues==null) {
-            DateFormatSymbols symbols= DateFormatSymbols.getInstance(locale);
-            switch(field) {
-            case Calendar.ERA:
-                // DateFormatSymbols#getEras() only returns AD/BC or translations
-                // It does not work for the Thai Buddhist or Japanese Imperial calendars.
-                // see: https://issues.apache.org/jira/browse/TRINIDAD-2126
-                Calendar c = Calendar.getInstance(locale);
-                // N.B. Some calendars have different short and long symbols, e.g. ja_JP_JP
-                // TODO Seems to be only that locale; if that is guaranteed, could skip some work here
-                String[] shortEras = toArray(c.getDisplayNames(Calendar.ERA, Calendar.SHORT, locale));
-                String[] longEras = toArray(c.getDisplayNames(Calendar.ERA, Calendar.LONG, locale));
-                if (Arrays.equals(shortEras, longEras)) {
-                    fieldKeyValues = createKeyValues(longEras, null); // save memory
-                } else {
-                    fieldKeyValues = createKeyValues(longEras, shortEras);                    
-                }
-                break;
-            case Calendar.DAY_OF_WEEK:
-                fieldKeyValues= createKeyValues(symbols.getWeekdays(), symbols.getShortWeekdays());
-                break;
-            case Calendar.AM_PM:
-                fieldKeyValues= createKeyValues(symbols.getAmPmStrings(), null);
-                break;
-            case Calendar.MONTH:
-                fieldKeyValues= createKeyValues(symbols.getMonths(), symbols.getShortMonths());
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid field value "+field);
-            }
-            KeyValue[] prior = nameValues.putIfAbsent(fieldInt, fieldKeyValues);
-            if(prior!=null) {
-                fieldKeyValues= prior;
-            }
-        }
-        return fieldKeyValues;
+    private static KeyValue[] getDisplayNames(int field, Calendar definingCalendar, Locale locale) {
+		List<KeyValue> keyValues = new ArrayList<KeyValue>(24);
+		addNamesToKeyValues(keyValues, definingCalendar.getDisplayNames(field, Calendar.ALL_STYLES, locale));
+        return createKeyValues(keyValues);
     }
 
-    private String[] toArray(Map<String, Integer> era) {
-        String[] eras = new String[era.size()]; // assume no gaps in entry values
-        for(Map.Entry<String, Integer> me : era.entrySet()) {
-            int idx = me.getValue().intValue();
-            final String key = me.getKey();
-            if (key == null) {
-                throw new IllegalArgumentException();
-            }
-            eras[idx] = key;
+	private static void addNamesToKeyValues(List<KeyValue> keyValues, Map<String, Integer> displayNames) {
+        for(Map.Entry<String, Integer> me : displayNames.entrySet()) {
+        	keyValues.add(new KeyValue(me.getKey(), me.getValue()));
         }
-        return eras;
     }
 
-    /**
-     * Create key / value pairs from keys
-     * @param longValues The allowable long names for a field
-     * @param shortValues The optional allowable short names for a field
-     * @return The sorted name / value pairs for the field
-     */
-    private static KeyValue[] createKeyValues(String[] longValues, String[] shortValues) {
-        KeyValue[] fieldKeyValues= new KeyValue[count(longValues)+count(shortValues)];
-        copy(fieldKeyValues, copy(fieldKeyValues, 0, longValues), shortValues);
+    private static KeyValue[] createKeyValues(List<KeyValue> keyValues) {
+        KeyValue[] fieldKeyValues= keyValues.toArray(new KeyValue[keyValues.size()]);
         Arrays.sort(fieldKeyValues, IGNORE_CASE_COMPARATOR);
         return fieldKeyValues;
-    }
-
-    /**
-     * Get a count of valid values in array.  A valid value is of non-zero length.
-     * @param values The values to check.  This parameter may be null
-     * @return The number of valid values
-     */
-    private static int count(String[] values) {
-        int count= 0;
-        if(values!=null) {
-            for(String value : values) {
-                if(value.length()>0) {
-                    ++count;
-                }
-            }
-        }
-        return count;
-    }
-
-    /**
-     * Create key / value pairs from values
-     * @param fieldKeyValues The destination array
-     * @param offset The offset into the destination array
-     * @param values The values to use to create key / value pairs.  This parameter may be null.
-     * @return The offset into the destination array
-     */
-    private static int copy(KeyValue[] fieldKeyValues, int offset, String[] values) {
-        if(values!=null) {
-            for(int i= 0; i<values.length; ++i) {
-                String value= values[i];
-                if(value.length()>0) {
-                    fieldKeyValues[offset++]= new KeyValue(value, i);
-                }
-            }
-        }
-        return offset;
     }
 
     /**
@@ -523,6 +434,7 @@ public class FastDateParser implements DateParser, Serializable {
          * which will accept this field
          * @param parser The parser calling this strategy
          * @param regex The <code>StringBuilder</code> to append to
+         * @param Calendar The calendar this strategy must parse
          * @return true, if this field will set the calendar;
          * false, if this field is a constant value
          */
@@ -538,9 +450,10 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Obtain a Strategy given a field from a SimpleDateFormat pattern
      * @param formatField A sub-sequence of the SimpleDateFormat pattern
+     * @param definingCalendar The calendar to obtain the short and long values
      * @return The Strategy that will handle parsing for the field
      */
-    private Strategy getStrategy(String formatField) {
+    private Strategy getStrategy(String formatField, Calendar definingCalendar) {
         switch(formatField.charAt(0)) {
         case '\'':
             if(formatField.length()>2) {
@@ -552,25 +465,23 @@ public class FastDateParser implements DateParser, Serializable {
         case 'D':
             return DAY_OF_YEAR_STRATEGY;
         case 'E':
-            return DAY_OF_WEEK_STRATEGY;
+            return getLocaleSpecificStrategy(Calendar.DAY_OF_WEEK, definingCalendar);
         case 'F':
             return DAY_OF_WEEK_IN_MONTH_STRATEGY;
         case 'G':
-            return ERA_STRATEGY;
+            return getLocaleSpecificStrategy(Calendar.ERA, definingCalendar);
         case 'H':
             return MODULO_HOUR_OF_DAY_STRATEGY;
         case 'K':
             return HOUR_STRATEGY;
         case 'M':
-            return formatField.length()>=3 ?TEXT_MONTH_STRATEGY :NUMBER_MONTH_STRATEGY;
+            return formatField.length()>=3 ?getLocaleSpecificStrategy(Calendar.MONTH, definingCalendar) :NUMBER_MONTH_STRATEGY;
         case 'S':
             return MILLISECOND_STRATEGY;
         case 'W':
             return WEEK_OF_MONTH_STRATEGY;
-        case 'Z':
-            break;
         case 'a':
-            return AM_PM_STRATEGY;
+            return getLocaleSpecificStrategy(Calendar.AM_PM, definingCalendar);
         case 'd':
             return DAY_OF_MONTH_STRATEGY;
         case 'h':
@@ -585,21 +496,52 @@ public class FastDateParser implements DateParser, Serializable {
             return WEEK_OF_YEAR_STRATEGY;
         case 'y':
             return formatField.length()>2 ?LITERAL_YEAR_STRATEGY :ABBREVIATED_YEAR_STRATEGY;
+        case 'Z':
         case 'z':
-            break;
+        	return getLocaleSpecificStrategy(Calendar.ZONE_OFFSET, definingCalendar);
         }
-        TimeZoneStrategy tzs= tzsCache.get(locale);
-        if(tzs==null) {
-            tzs= new TimeZoneStrategy(locale);
-            TimeZoneStrategy inCache= tzsCache.putIfAbsent(locale, tzs);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static ConcurrentMap<Locale, Strategy>[] caches = new ConcurrentMap[Calendar.FIELD_COUNT];
+
+    /**
+     * Get a cache of Strategies for a particular field
+     * @param field The Calendar field
+     * @return a cache of Locale to Strategy
+     */
+    private static ConcurrentMap<Locale, Strategy> getCache(int field) {
+    	synchronized(caches) {
+    		if(caches[field]==null) {
+    			caches[field]= new ConcurrentHashMap<Locale,Strategy>(3);
+    		}
+    		return caches[field];
+    	}
+    }
+
+    /**
+     * Construct a Strategy that parses a Text field
+     * @param locale The Locale of the TimeZone to parse
+     * @param field The Calendar field
+     * @param definingCalendar The calendar to obtain the short and long values
+     * @return a TextStrategy for the field and Locale
+     */
+    private Strategy getLocaleSpecificStrategy(int field, Calendar definingCalendar) {
+    	ConcurrentMap<Locale,Strategy> cache = getCache(field);
+    	Strategy strategy= cache.get(field);
+        if(strategy==null) {
+        	strategy= field==Calendar.ZONE_OFFSET
+        			? new TimeZoneStrategy(locale)
+        			: new TextStrategy(field, definingCalendar, locale);
+            Strategy inCache= cache.putIfAbsent(locale, strategy);
             if(inCache!=null) {
                 return inCache;
             }
         }
-        return tzs;
+        return strategy;
     }
 
-    /**
+	/**
      * A strategy that copies the static or quoted field in the parsing pattern
      */
     private static class CopyQuotedStrategy implements Strategy {
@@ -642,18 +584,20 @@ public class FastDateParser implements DateParser, Serializable {
         }
     }
 
-    /**
+	/**
      * A strategy that handles a text field in the parsing pattern
      */
-    private static class TextStrategy implements Strategy {
+     private static class TextStrategy implements Strategy {
         private final int field;
+        private final KeyValue[] keyValues;
 
         /**
          * Construct a Strategy that parses a Text field
          * @param field The Calendar field
          */
-        TextStrategy(int field) {
+        TextStrategy(int field, Calendar definingCalendar, Locale locale) {
             this.field= field;
+            this.keyValues= getDisplayNames(field, definingCalendar, locale);
         }
 
         /**
@@ -670,7 +614,7 @@ public class FastDateParser implements DateParser, Serializable {
         @Override
         public boolean addRegex(FastDateParser parser, StringBuilder regex) {
             regex.append('(');
-            for(KeyValue textKeyValue : parser.getDisplayNames(field)) {
+            for(KeyValue textKeyValue : keyValues) {
                 escapeRegex(regex, textKeyValue.key, false).append('|');
             }
             regex.setCharAt(regex.length()-1, ')');
@@ -682,20 +626,20 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         public void setCalendar(FastDateParser parser, Calendar cal, String value) {
-            KeyValue[] textKeyValues= parser.getDisplayNames(field);
-            int idx= Arrays.binarySearch(textKeyValues, new KeyValue(value, -1), IGNORE_CASE_COMPARATOR);
+            int idx= Arrays.binarySearch(keyValues, new KeyValue(value, -1), IGNORE_CASE_COMPARATOR);
             if(idx<0) {
                 StringBuilder sb= new StringBuilder(value);
                 sb.append(" not in (");
-                for(KeyValue textKeyValue : textKeyValues) {
+                for(KeyValue textKeyValue : keyValues) {
                     sb.append(textKeyValue.key).append(' ');
                 }
                 sb.setCharAt(sb.length()-1, ')');
                 throw new IllegalArgumentException(sb.toString());
             }
-            cal.set(field, textKeyValues[idx].value);
+            cal.set(field, keyValues[idx].value);
         }
     }
+
 
     /**
      * A strategy that handles a number field in the parsing pattern
@@ -837,12 +781,6 @@ public class FastDateParser implements DateParser, Serializable {
             cal.setTimeZone(tz);
         }
     }
-
-
-    private static final Strategy ERA_STRATEGY = new TextStrategy(Calendar.ERA);
-    private static final Strategy DAY_OF_WEEK_STRATEGY = new TextStrategy(Calendar.DAY_OF_WEEK);
-    private static final Strategy AM_PM_STRATEGY = new TextStrategy(Calendar.AM_PM);
-    private static final Strategy TEXT_MONTH_STRATEGY = new TextStrategy(Calendar.MONTH);
 
     private static final Strategy NUMBER_MONTH_STRATEGY = new NumberStrategy(Calendar.MONTH) {
         @Override
