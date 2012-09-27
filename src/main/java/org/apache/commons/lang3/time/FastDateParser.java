@@ -107,7 +107,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private void init() {
         Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
-		thisYear= definingCalendar.get(Calendar.YEAR);
+        thisYear= definingCalendar.get(Calendar.YEAR);
 
         StringBuilder regex= new StringBuilder();
         List<Strategy> collector = new ArrayList<Strategy>();
@@ -460,7 +460,7 @@ public class FastDateParser implements DateParser, Serializable {
             return formatField.length()>2 ?LITERAL_YEAR_STRATEGY :ABBREVIATED_YEAR_STRATEGY;
         case 'Z':
         case 'z':
-        	return getLocaleSpecificStrategy(Calendar.ZONE_OFFSET, definingCalendar);
+            return getLocaleSpecificStrategy(Calendar.ZONE_OFFSET, definingCalendar);
         }
     }
 
@@ -473,12 +473,12 @@ public class FastDateParser implements DateParser, Serializable {
      * @return a cache of Locale to Strategy
      */
     private static ConcurrentMap<Locale, Strategy> getCache(int field) {
-    	synchronized(caches) {
-    		if(caches[field]==null) {
-    			caches[field]= new ConcurrentHashMap<Locale,Strategy>(3);
-    		}
-    		return caches[field];
-    	}
+        synchronized(caches) {
+            if(caches[field]==null) {
+                caches[field]= new ConcurrentHashMap<Locale,Strategy>(3);
+            }
+            return caches[field];
+        }
     }
 
     /**
@@ -489,12 +489,12 @@ public class FastDateParser implements DateParser, Serializable {
      * @return a TextStrategy for the field and Locale
      */
     private Strategy getLocaleSpecificStrategy(int field, Calendar definingCalendar) {
-    	ConcurrentMap<Locale,Strategy> cache = getCache(field);
-    	Strategy strategy= cache.get(Integer.valueOf(field));
+        ConcurrentMap<Locale,Strategy> cache = getCache(field);
+        Strategy strategy= cache.get(Integer.valueOf(field));
         if(strategy==null) {
-        	strategy= field==Calendar.ZONE_OFFSET
-        			? new TimeZoneStrategy(locale)
-        			: new TextStrategy(field, definingCalendar, locale);
+            strategy= field==Calendar.ZONE_OFFSET
+                    ? new TimeZoneStrategy(locale)
+                    : new TextStrategy(field, definingCalendar, locale);
             Strategy inCache= cache.putIfAbsent(locale, strategy);
             if(inCache!=null) {
                 return inCache;
@@ -503,7 +503,7 @@ public class FastDateParser implements DateParser, Serializable {
         return strategy;
     }
 
-	/**
+    /**
      * A strategy that copies the static or quoted field in the parsing pattern
      */
     private static class CopyQuotedStrategy implements Strategy {
@@ -546,7 +546,7 @@ public class FastDateParser implements DateParser, Serializable {
         }
     }
 
-	/**
+    /**
      * A strategy that handles a text field in the parsing pattern
      */
      private static class TextStrategy implements Strategy {

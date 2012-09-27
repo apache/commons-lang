@@ -42,8 +42,8 @@
         <pathelement location="${build.home}/classes"/>
         <pathelement location="${build.home}/tests"/>
         <pathelement location="${junit.jar}"/>
-    	<pathelement location="${easymock.jar}"/>
-    	<pathelement location="${commons-io.jar}"/>
+        <pathelement location="${easymock.jar}"/>
+        <pathelement location="${commons-io.jar}"/>
     </path>
 
     <!-- ========== Executable Targets ======================================== -->

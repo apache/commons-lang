@@ -77,12 +77,12 @@ public class StringUtilsTest {
     private static final String[] EMPTY_ARRAY_LIST = {};
     private static final String[] NULL_ARRAY_LIST = {null};
     private static final Object[] NULL_TO_STRING_LIST = {
-    	new Object(){
-    		@Override
-    		public String toString() {
-    			return null;
-    		}
-    	}
+        new Object(){
+            @Override
+            public String toString() {
+                return null;
+            }
+        }
     };
     private static final String[] MIXED_ARRAY_LIST = {null, "", "foo"};
     private static final Object[] MIXED_TYPE_LIST = {"foo", Long.valueOf(2L)};
