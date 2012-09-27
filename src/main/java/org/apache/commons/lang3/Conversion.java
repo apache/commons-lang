@@ -18,9 +18,6 @@
  *******************************************************************************/
 package org.apache.commons.lang3;
 
-import java.lang.IllegalArgumentException;
-import java.lang.Long;
-
 
 /**
  * <p>
