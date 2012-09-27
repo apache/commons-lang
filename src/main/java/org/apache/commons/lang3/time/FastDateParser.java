@@ -175,6 +175,11 @@ public class FastDateParser implements DateParser, Serializable {
         return locale;
     }
 
+    // Give access to generated pattern for test code
+    Pattern getParsePattern() {
+        return parsePattern;
+    }
+
     // Basics
     //-----------------------------------------------------------------------
     /**
@@ -248,9 +253,9 @@ public class FastDateParser implements DateParser, Serializable {
             if (locale.equals(JAPANESE_IMPERIAL)) {
                 throw new ParseException(
                         "(The " +locale + " locale does not support dates before 1868 AD)\n" +
-                        source+" does not match "+parsePattern.pattern(), 0);
+                                "Unparseable date: \""+source+"\" does not match "+parsePattern.pattern(), 0);
             }
-            throw new ParseException(source+" does not match "+parsePattern.pattern(), 0);
+            throw new ParseException("Unparseable date: \""+source+"\" does not match "+parsePattern.pattern(), 0);
         }
         return date;
     }
