@@ -25,6 +25,7 @@ November release
 Changes in this version include:
 
 New features:
+o LANG-801:  Add Conversion utility to convert between data types on byte level
 o LANG-760:  Add API StringUtils.toString(byte[] intput, String charsetName)
 o LANG-756:  Add APIs ClassUtils.isPrimitiveWrapper(Class<?>) and isPrimitiveOrWrapper(Class<?>)
 o LANG-695:  SystemUtils.IS_OS_UNIX doesn't recognize FreeBSD as a Unix system
