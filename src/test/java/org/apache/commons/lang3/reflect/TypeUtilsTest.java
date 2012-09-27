@@ -655,6 +655,13 @@ public class TypeUtilsTest<B> {
         Assert.assertEquals(types[6], TypeUtils.getArrayComponentType(types[13]));
     }
 
+    @Test
+    public void testLang820() throws Exception {
+        Type[] typeArray = {String.class, String.class};
+        Type[] expectedArray = {String.class};
+        Assert.assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
+    }
+
     public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;
 
     public static <G extends Comparable<G>> G stub() {
