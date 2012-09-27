@@ -18,9 +18,13 @@
  *******************************************************************************/
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import junit.framework.TestCase;
 import java.lang.Throwable;
 import java.lang.reflect.Method;
+
+import org.junit.Test;
 
 
 /**
@@ -29,13 +33,14 @@ import java.lang.reflect.Method;
  * @version $Id$
  */
 
-public class ConversionTest extends TestCase {
+public class ConversionTest {
 
     /**
      * convert an hexadecimal digit into an int using the default (Lsb0) bit ordering.
      * <p>
      * '1' is converted to 1
      */
+    @Test
     public void testHexDigitToInt() throws Exception {
         assertEquals(0, Conversion.hexDigitToInt('0'));
         assertEquals(1, Conversion.hexDigitToInt('1'));
@@ -67,6 +72,7 @@ public class ConversionTest extends TestCase {
      * '1' is converted to 8
      * 
      */
+    @Test
     public void testHexDigitM0ToInt() throws Exception {
         assertEquals(0x0, Conversion.hexDigitM0ToInt('0'));
         assertEquals(0x8, Conversion.hexDigitM0ToInt('1'));
@@ -98,6 +104,7 @@ public class ConversionTest extends TestCase {
      * '1' is converted as follow: (1, 0, 0, 0)
      * 
      */
+    @Test
     public void testHexDigitToBools() throws Exception {
         assertArrayEquals(
             new boolean[]{false, false, false, false}, Conversion.hexDigitToBools('0'));
@@ -200,6 +207,7 @@ public class ConversionTest extends TestCase {
         }
     }
 
+    @Test
     public void testHexDigitM0ToBools() throws Exception {
         assertArrayEquals(
             new boolean[]{false, false, false, false}, Conversion.hexDigitM0ToBools('0'));
@@ -252,6 +260,7 @@ public class ConversionTest extends TestCase {
      * <p>
      * (1, 0, 0, 0) is converted as follow: '1'
      */
+    @Test
     public void testBoolsToHexDigit() throws Exception {
         assertEquals('0', Conversion.boolsToHexDigit(new boolean[]{false, false, false, false}));
         assertEquals('1', Conversion.boolsToHexDigit(new boolean[]{true, false, false, false}));
@@ -277,6 +286,7 @@ public class ConversionTest extends TestCase {
      * (1, 0, 0, 0) is converted as follow: '1'
      * 
      */
+    @Test
     public void testBoolsToHexDigit_2args() throws Exception {
         boolean[] shortArray = new boolean[]{false, true, true};
         assertEquals('6', Conversion.boolsToHexDigit(shortArray, 0));
@@ -298,6 +308,7 @@ public class ConversionTest extends TestCase {
      * (1, 0, 0, 0) is converted as follow: '8'
      * 
      */
+    @Test
     public void testBoolsToHexDigitM0_bits() throws Exception {
         assertEquals(
             '0', Conversion.boolsToHexDigitM0_4bits(new boolean[]{false, false, false, false}));
@@ -340,6 +351,7 @@ public class ConversionTest extends TestCase {
      * to 'D'
      * 
      */
+    @Test
     public void testBoolsToHexDigitM0_4bits_2args() throws Exception {
         // boolean[] shortArray = new boolean[]{true,true,false};
         // assertEquals('6', Conversion.boolsToHexDigitM0(shortArray,0));
@@ -378,6 +390,7 @@ public class ConversionTest extends TestCase {
      * (1, 0, 0, 0) is converted as follow: '8' (1,0,0,0,0,0,0,0, 0,0,0,0,0,1,0,0) is converted
      * to '4'
      */
+    @Test
     public void testBoolsBeM0ToHexDigit() throws Exception {
         assertEquals(
             '0', Conversion.boolsBeM0ToHexDigit(new boolean[]{false, false, false, false}));
@@ -424,6 +437,7 @@ public class ConversionTest extends TestCase {
      * (1, 0, 0, 0) with srcPos = 0 is converted as follow: '8' (1,0,0,0,0,0,0,0,
      * 0,0,0,1,0,1,0,0) with srcPos = 2 is converted to '5'
      */
+    @Test
     public void testBoolsBeM0ToHexDigit_2args() throws Exception {
         assertEquals(
             '5',
@@ -476,6 +490,7 @@ public class ConversionTest extends TestCase {
      * <p>
      * 10 returns 'A' and so on...
      */
+    @Test
     public void testIntToHexDigit() throws Exception {
         assertEquals('0', Conversion.intToHexDigit(0));
         assertEquals('1', Conversion.intToHexDigit(1));
@@ -504,6 +519,7 @@ public class ConversionTest extends TestCase {
      * <p>
      * 10 returns '5' and so on...
      */
+    @Test
     public void testIntToHexDigitM0() throws Exception {
         assertEquals('0', Conversion.intToHexDigitM0(0));
         assertEquals('8', Conversion.intToHexDigitM0(1));
@@ -654,6 +670,7 @@ public class ConversionTest extends TestCase {
         }
     }
 
+    @Test
     public void testIntsToLong() throws Exception {
         int[] src = new int[]{0xCDF1F0C1, 0x0F123456, 0x78000000};
         assertEquals(0x0000000000000000L, Conversion.intsToLong(src, 0, 0L, 0, 0));
@@ -668,11 +685,13 @@ public class ConversionTest extends TestCase {
         // assertEquals(0x0F12345678000000L,Conversion.intsToLong(src,1,0x123456789ABCDEF0L,32,2));
     }
 
+    @Test
     public void testShortsToLong() throws Exception {
         // TODO: implement this test. This is somehow low priority since intsToLong and
         // bytesToLong are tested
     }
 
+    @Test
     public void testBytesToLong() throws Exception {
         byte[] src = new byte[]{
             (byte)0xCD, (byte)0xF1, (byte)0xF0, (byte)0xC1, (byte)0x0F, (byte)0x12, (byte)0x34,
@@ -688,6 +707,7 @@ public class ConversionTest extends TestCase {
         // assertEquals(0x123456789A7856F0L,Conversion.bytesToLong(src,7,0x123456789ABCDEF0L,8,2));
     }
 
+    @Test
     public void testShortsToInt() throws Exception {
         short[] src = new short[]{
             (short)0xCDF1, (short)0xF0C1, (short)0x0F12, (short)0x3456, (short)0x7800};
@@ -701,6 +721,7 @@ public class ConversionTest extends TestCase {
 
     }
 
+    @Test
     public void testBytesToInt() throws Exception {
         byte[] src = new byte[]{
             (byte)0xCD, (byte)0xF1, (byte)0xF0, (byte)0xC1, (byte)0x0F, (byte)0x12, (byte)0x34,
@@ -714,6 +735,7 @@ public class ConversionTest extends TestCase {
         // assertEquals(0x56341278,Conversion.bytesToInt(src, 5, 0x01234567, 8, 4));
     }
 
+    @Test
     public void testBytesToShort() throws Exception {
         byte[] src = new byte[]{
             (byte)0xCD, (byte)0xF1, (byte)0xF0, (byte)0xC1, (byte)0x0F, (byte)0x12, (byte)0x34,
@@ -727,6 +749,7 @@ public class ConversionTest extends TestCase {
         // assertEquals((short)0x5678,Conversion.bytesToShort(src, 7, (short) 0x0123, 8, 2));
     }
 
+    @Test
     public void testHexsToLong() throws Exception {
         String src = "CDF1F0C10F12345678";
         assertEquals(0x0000000000000000L, Conversion.hexsToLong(src, 0, 0L, 0, 0));
@@ -739,6 +762,7 @@ public class ConversionTest extends TestCase {
             0x1234567876BCDEF0L, Conversion.hexsToLong(src, 15, 0x123456798ABCDEF0L, 24, 3));
     }
 
+    @Test
     public void testHexsToInt() throws Exception {
         String src = "CDF1F0C10F12345678";
         assertEquals(0x00000000, Conversion.hexsToInt(src, 0, 0, 0, 0));
@@ -749,6 +773,7 @@ public class ConversionTest extends TestCase {
         assertEquals(0x87645679, Conversion.hexsToInt(src, 15, 0x12345679, 20, 3));
     }
 
+    @Test
     public void testHexsToShort() throws Exception {
         String src = "CDF1F0C10F12345678";
         assertEquals((short)0x0000, Conversion.hexsToShort(src, 0, (short)0, 0, 0));
@@ -759,6 +784,7 @@ public class ConversionTest extends TestCase {
         assertEquals((short)0x8764, Conversion.hexsToShort(src, 15, (short)0x1234, 4, 3));
     }
 
+    @Test
     public void testHexsToByte() throws Exception {
         String src = "CDF1F0C10F12345678";
         assertEquals((byte)0x00, Conversion.hexsToByte(src, 0, (byte)0, 0, 0));
@@ -769,6 +795,7 @@ public class ConversionTest extends TestCase {
         assertEquals((byte)0x84, Conversion.hexsToByte(src, 17, (byte)0x34, 4, 1));
     }
 
+    @Test
     public void testBoolsToLong() throws Exception {
         boolean[] src = new boolean[]{
             false, false, true, true, true, false, true, true, true, true, true, true, true,
@@ -791,6 +818,7 @@ public class ConversionTest extends TestCase {
             Conversion.boolsToLong(src, 15 * 4, 0x123456798ABCDEF0L, 24, 3 * 4));
     }
 
+    @Test
     public void testBoolsToInt() throws Exception {
         boolean[] src = new boolean[]{
             false, false, true, true, true, false, true, true, true, true, true, true, true,
@@ -809,6 +837,7 @@ public class ConversionTest extends TestCase {
         assertEquals(0x87645679, Conversion.boolsToInt(src, 15 * 4, 0x12345679, 20, 3 * 4));
     }
 
+    @Test
     public void testBoolsToShort() throws Exception {
         boolean[] src = new boolean[]{
             false, false, true, true, true, false, true, true, true, true, true, true, true,
@@ -829,6 +858,7 @@ public class ConversionTest extends TestCase {
             (short)0x8764, Conversion.boolsToShort(src, 15 * 4, (short)0x1234, 4, 3 * 4));
     }
 
+    @Test
     public void testBoolsToByte() throws Exception {
         boolean[] src = new boolean[]{
             false, false, true, true, true, false, true, true, true, true, true, true, true,
@@ -847,6 +877,7 @@ public class ConversionTest extends TestCase {
         assertEquals((byte)0x84, Conversion.boolsToByte(src, 17 * 4, (byte)0x34, 4, 1 * 4));
     }
 
+    @Test
     public void testLongToInts() throws Exception {
         assertArrayEquals(
             new int[]{}, Conversion.longToInts(0x0000000000000000L, 0, new int[]{}, 0, 0));
@@ -898,6 +929,7 @@ public class ConversionTest extends TestCase {
             Conversion.longToInts(0x1234567890ABCDEFL, 33, new int[]{0}, 0, 1));
     }
 
+    @Test
     public void testLongToShorts() throws Exception {
         assertArrayEquals(
             new short[]{}, Conversion.longToShorts(0x0000000000000000L, 0, new short[]{}, 0, 0));
@@ -954,6 +986,7 @@ public class ConversionTest extends TestCase {
             Conversion.longToShorts(0x1234567890ABCDEFL, 33, new short[]{0}, 0, 1));
     }
 
+    @Test
     public void testIntToShorts() throws Exception {
         assertArrayEquals(
             new short[]{}, Conversion.intToShorts(0x00000000, 0, new short[]{}, 0, 0));
@@ -1010,6 +1043,7 @@ public class ConversionTest extends TestCase {
             Conversion.intToShorts(0x12345678, 17, new short[]{0}, 0, 1));
     }
 
+    @Test
     public void testLongToBytes() throws Exception {
         assertArrayEquals(
             new byte[]{}, Conversion.longToBytes(0x0000000000000000L, 0, new byte[]{}, 0, 0));
@@ -1112,6 +1146,7 @@ public class ConversionTest extends TestCase {
                 -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 7));
     }
 
+    @Test
     public void testIntToBytes() throws Exception {
         assertArrayEquals(
             new byte[]{}, Conversion.intToBytes(0x00000000, 0, new byte[]{}, 0, 0));
@@ -1190,6 +1225,7 @@ public class ConversionTest extends TestCase {
                 -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 3));
     }
 
+    @Test
     public void testShortToBytes() throws Exception {
         assertArrayEquals(
             new byte[]{}, Conversion.shortToBytes((short)0x0000, 0, new byte[]{}, 0, 0));
@@ -1247,6 +1283,7 @@ public class ConversionTest extends TestCase {
                 -1, 0, -1, -1, -1, -1, -1}, 3, 1));
     }
 
+    @Test
     public void testLongToHexs() throws Exception {
         assertEquals("", Conversion.longToHexs(0x0000000000000000L, 0, "", 0, 0));
         assertEquals("", Conversion.longToHexs(0x0000000000000000L, 100, "", 0, 0));
@@ -1300,6 +1337,7 @@ public class ConversionTest extends TestCase {
             Conversion.longToHexs(0x1234567890ABCDEFL, 4, "FFFFFFFFFFFFFFFFFFFFFFFF", 3, 15));
     }
 
+    @Test
     public void testIntToHexs() throws Exception {
         assertEquals("", Conversion.intToHexs(0x00000000, 0, "", 0, 0));
         assertEquals("", Conversion.intToHexs(0x00000000, 100, "", 0, 0));
@@ -1353,6 +1391,7 @@ public class ConversionTest extends TestCase {
             Conversion.intToHexs(0x90ABCDEF, 4, "FFFFFFFFFFFFFFFFFFFFFFFF", 3, 7));
     }
 
+    @Test
     public void testShortToHexs() throws Exception {
         assertEquals("", Conversion.shortToHexs((short)0x0000, 0, "", 0, 0));
         assertEquals("", Conversion.shortToHexs((short)0x0000, 100, "", 0, 0));
@@ -1394,6 +1433,7 @@ public class ConversionTest extends TestCase {
             Conversion.shortToHexs((short)0xCDEF, 4, "FFFFFFFFFFFFFFFFFFFFFFFF", 3, 3));
     }
 
+    @Test
     public void testByteToHexs() throws Exception {
         assertEquals("", Conversion.byteToHexs((byte)0x00, 0, "", 0, 0));
         assertEquals("", Conversion.byteToHexs((byte)0x00, 100, "", 0, 0));
@@ -1411,6 +1451,7 @@ public class ConversionTest extends TestCase {
         assertEquals("000E0", Conversion.byteToHexs((byte)0xEF, 4, "00000", 3, 1));
     }
 
+    @Test
     public void testLongToBools() throws Exception {
         assertArrayEquals(
             new boolean[]{},
@@ -1530,6 +1571,7 @@ public class ConversionTest extends TestCase {
             Conversion.longToBools(0x1234567890ABCDEFL, 2, new boolean[69], 3, 62));
     }
 
+    @Test
     public void testIntToBools() throws Exception {
         assertArrayEquals(
             new boolean[]{}, Conversion.intToBools(0x00000000, 0, new boolean[]{}, 0, 0));
@@ -1602,6 +1644,7 @@ public class ConversionTest extends TestCase {
                 false, false}, Conversion.intToBools(0x90ABCDEF, 2, new boolean[37], 3, 30));
     }
 
+    @Test
     public void testShortToBools() throws Exception {
         assertArrayEquals(
             new boolean[]{}, Conversion.shortToBools((short)0x0000, 0, new boolean[]{}, 0, 0));
@@ -1667,6 +1710,7 @@ public class ConversionTest extends TestCase {
             Conversion.shortToBools((short)0xCDEF, 2, new boolean[21], 3, 14));
     }
 
+    @Test
     public void testByteToBools() throws Exception {
         assertArrayEquals(
             new boolean[]{}, Conversion.byteToBools((byte)0x00, 0, new boolean[]{}, 0, 0));
@@ -1719,6 +1763,7 @@ public class ConversionTest extends TestCase {
         return false;
     }
 
+    @Test
     public void testTestsToCheckImplemented() throws Exception {
         if (!hasMethod("testIntsToLong")) fail("test testIntsToLong not implemented");
         if (!hasMethod("testShortsToLong")) fail("test testShortsToLong not implemented");
