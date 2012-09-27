@@ -141,6 +141,9 @@ public class FastDateParser implements DateParser, Serializable {
             currentFormatField= nextFormatField;
             currentStrategy= nextStrategy;
         }
+        if (patternMatcher.regionStart() != patternMatcher.regionEnd()) {
+            throw new IllegalArgumentException("Failed to parse \""+pattern+"\" ; gave up at index "+patternMatcher.regionStart());
+        }
         if(currentStrategy.addRegex(this, regex)) {
             collector.add(currentStrategy);
         }
