@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-832" type="fix">FastDateParser does not handle unterminated quotes correctly</action>
     <action issue="LANG-831" type="fix">FastDateParser does not handle white-space properly</action>
     <action issue="LANG-828" type="fix">FastDateParser does not handle non-Gregorian calendars properly</action>
     <action issue="LANG-826" type="fix">FastDateParser does not handle non-ASCII digits correctly</action>

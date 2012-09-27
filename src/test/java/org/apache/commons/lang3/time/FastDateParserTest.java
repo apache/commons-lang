@@ -333,6 +333,11 @@ public class FastDateParserTest {
         assertEquals(cal.getTime(), fdf.parse("'20030210A'B153320989'"));
     }
 
+    @Test
+    public void testLANG_832() throws Exception {
+        testSdfAndFdp("'d'd" ,"d3", false); // OK
+        testSdfAndFdp("'d'd'","d3", true); // should fail (unterminated quote)
+    }
 
     @Test
     public void testLANG_831() throws Exception {
