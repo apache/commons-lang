@@ -63,7 +63,7 @@ public class CompositeFormat extends Format {
      * @return <code>toAppendTo</code>
      * @see Format#format(Object, StringBuffer, FieldPosition)
      */
-    @Override
+    @Override // Therefore has to use StringBuffer
     public StringBuffer format(Object obj, StringBuffer toAppendTo,
             FieldPosition pos) {
         return formatter.format(obj, toAppendTo, pos);
