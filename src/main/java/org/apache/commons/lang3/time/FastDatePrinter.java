@@ -1093,7 +1093,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * <p>Inner class to output a time zone name.</p>
      */
     private static class TimeZoneNameRule implements Rule {
-        private final TimeZone mTimeZone;
+        private final Locale mLocale;
+        private final int mStyle;
         private final String mStandard;
         private final String mDaylight;
 
@@ -1105,8 +1106,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * @param style the style
          */
         TimeZoneNameRule(TimeZone timeZone, Locale locale, int style) {
-            mTimeZone = timeZone;
-
+            mLocale = locale;
+            mStyle = style;
+            
             mStandard = getTimeZoneDisplay(timeZone, false, style, locale);
             mDaylight = getTimeZoneDisplay(timeZone, true, style, locale);
         }
@@ -1116,6 +1118,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public int estimateLength() {
+            // We have no access to the Calendar object that will be passed to
+            // appendTo so base estimate on the TimeZone passed to the
+            // constructor
             return Math.max(mStandard.length(), mDaylight.length());
         }
 
@@ -1124,10 +1129,12 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public void appendTo(StringBuffer buffer, Calendar calendar) {
-            if (mTimeZone.useDaylightTime() && calendar.get(Calendar.DST_OFFSET) != 0) {
-                buffer.append(mDaylight);
+            TimeZone zone = calendar.getTimeZone();
+            if (zone.useDaylightTime()
+                    && calendar.get(Calendar.DST_OFFSET) != 0) {
+                buffer.append(getTimeZoneDisplay(zone, true, mStyle, mLocale));
             } else {
-                buffer.append(mStandard);
+                buffer.append(getTimeZoneDisplay(zone, false, mStyle, mLocale));
             }
         }
     }

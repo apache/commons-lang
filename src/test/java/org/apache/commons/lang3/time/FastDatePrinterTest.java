@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.time;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -259,5 +260,29 @@ public class FastDatePrinterTest {
     public void testTimeZoneMatches() {
         DatePrinter printer= getInstance(YYYY_MM_DD, NEW_YORK);
         assertEquals(NEW_YORK, printer.getTimeZone());
+    }
+    
+    @Test
+    public void testCalendarTimezoneRespected() {
+        String[] availableZones = TimeZone.getAvailableIDs();
+        TimeZone currentZone = TimeZone.getDefault();
+        
+        TimeZone anotherZone = null;
+        for (String zone : availableZones) {
+            if (!zone.equals(currentZone.getID())) {
+                anotherZone = TimeZone.getTimeZone(zone);
+            }
+        }
+        
+        assertNotNull("Cannot find another timezone", anotherZone);
+        
+        final String pattern = "h:mma z";
+        final Calendar cal = Calendar.getInstance(anotherZone);
+        
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        sdf.setTimeZone(anotherZone);
+        String expectedValue = sdf.format(cal.getTime());
+        String actualValue = FastDateFormat.getInstance(pattern).format(cal);
+        assertEquals(expectedValue, actualValue);
     }
 }
