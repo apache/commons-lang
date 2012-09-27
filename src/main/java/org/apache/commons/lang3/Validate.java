@@ -889,7 +889,7 @@ public class Validate {
      * @param start  the inclusive start value, not null
      * @param end  the inclusive end value, not null
      * @param value  the object to validate, not null
-     * @throws IllegalArgumentException if the value falls out of the boundaries
+     * @throws IllegalArgumentException if the value falls outside the boundaries
      * @see #inclusiveBetween(Object, Object, Comparable, String, Object...)
      *
      * @since 3.0
@@ -914,7 +914,7 @@ public class Validate {
      * @param value  the object to validate, not null
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message, null array not recommended
-     * @throws IllegalArgumentException if the value falls out of the boundaries
+     * @throws IllegalArgumentException if the value falls outside the boundaries
      * @see #inclusiveBetween(Object, Object, Comparable)
      *
      * @since 3.0
@@ -933,13 +933,13 @@ public class Validate {
      * <p>Validate that the specified argument object fall between the two
      * exclusive values specified; otherwise, throws an exception.</p>
      *
-     * <pre>Validate.inclusiveBetween(0, 2, 1);</pre>
+     * <pre>Validate.exclusiveBetween(0, 2, 1);</pre>
      *
      * @param <T> the type of the argument object
      * @param start  the exclusive start value, not null
      * @param end  the exclusive end value, not null
      * @param value  the object to validate, not null
-     * @throws IllegalArgumentException if the value falls out of the boundaries
+     * @throws IllegalArgumentException if the value falls outside the boundaries
      * @see #exclusiveBetween(Object, Object, Comparable, String, Object...)
      *
      * @since 3.0
@@ -956,7 +956,7 @@ public class Validate {
      * exclusive values specified; otherwise, throws an exception with the
      * specified message.</p>
      *
-     * <pre>Validate.inclusiveBetween(0, 2, 1, "Not in boundaries");</pre>
+     * <pre>Validate.exclusiveBetween(0, 2, 1, "Not in boundaries");</pre>
      *
      * @param <T> the type of the argument object
      * @param start  the exclusive start value, not null
@@ -964,7 +964,7 @@ public class Validate {
      * @param value  the object to validate, not null
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message, null array not recommended
-     * @throws IllegalArgumentException if the value falls out of the boundaries
+     * @throws IllegalArgumentException if the value falls outside the boundaries
      * @see #exclusiveBetween(Object, Object, Comparable)
      *
      * @since 3.0
