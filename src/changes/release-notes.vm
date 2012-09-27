@@ -14,21 +14,58 @@
 ## KIND, either express or implied.  See the License for the
 ## specific language governing permissions and limitations
 ## under the License.
+##
               Apache ${project.name} ${version} RELEASE NOTES
 
+The ${developmentTeam} is pleased to announce the release of ${finalName}
+
 $introduction.replaceAll("(?<!\015)\012", "
-")
+").replaceAll("(?m)^ +","")
 
 ## N.B. the available variables are described here:
 ## http://maven.apache.org/plugins/maven-changes-plugin/examples/using-a-custom-announcement-template.html
+##
 ## Hack to improve layout: replace all pairs of spaces with a single new-line
 $release.description.replaceAll("  ", "
 ")
 
+## set up indent sizes. Only change indent1
+#set($props=${project.properties})
+#set($jiralen=$props.get("commons.jira.id").length())
+## indent1 =   POOL-nnnn:
+#set($blanklen=$jiralen+6)## +6 for "-nnnn:"
+## must be at least as long as the longest JIRA id
+#set($blanks="                                  ")
+#set($indent1=$blanks.substring(0,$blanklen))
+## indent2 allows for issue wrapper
+#set($indent2="$indent1   ")
+##
+#macro ( processaction )
+## Use replaceAll to fix up LF-only line ends on Windows.
+#set($action=$actionItem.getAction().replaceAll("\n","
+"))
 ## Fix up indentation for multi-line action descriptions
-#macro ( indent )
-#set($action=$action.replaceAll("(?m)^  +","                 "))
+#set($action=$action.replaceAll("(?m)^  +",$indent2))
+#if ($actionItem.getIssue())
+#set($issue="$actionItem.getIssue():")
+## Pad shorter issue numbers
+#if ($issue.length() < $indent1.length())#set ($issue="$issue ")#end
+#if ($issue.length() < $indent1.length())#set ($issue="$issue ")#end
+#if ($issue.length() < $indent1.length())#set ($issue="$issue ")#end
+#else
+#set($issue=$indent1)
 #end
+#if ($actionItem.getDueTo())
+#set($dueto=" Thanks to $actionItem.getDueTo().")
+#else
+#set($dueto="")
+#end
+o $issue ${action}$dueto
+#set($action="")
+#set($issue="")
+#set($dueto="")
+#end
+##
 #if ($release.getActions().size() == 0)
 No changes defined in this version.
 #else
@@ -37,101 +74,35 @@ Changes in this version include:
 #if ($release.getActions('add').size() !=0)
 New features:
 #foreach($actionItem in $release.getActions('add'))
-## Use replaceAll to fix up LF-only line ends on Windows.
-#set($action=$actionItem.getAction().replaceAll("\n","
-"))
-#indent()
-#if ($actionItem.getIssue())
-#set($issue=$actionItem.getIssue())
-#else
-#set($issue="")
-#end
-#if ($actionItem.getDueTo())
-#set($dueto=$actionItem.getDueTo())
-#else
-#set($dueto="")
-#end
-o#if($!issue != "") $issue: #end ${action} #if($!dueto != "")Thanks to $dueto. #end
-
-#set($issue="")
-#set($dueto="")
+#processaction()
 #end 
 #end
 
 #if ($release.getActions('fix').size() !=0)
 Fixed Bugs:
 #foreach($actionItem in $release.getActions('fix'))
-## Use replaceAll to fix up LF-only line ends on Windows.
-#set($action=$actionItem.getAction().replaceAll("\n","
-"))
-#indent()
-#if ($actionItem.getIssue())
-#set($issue=$actionItem.getIssue())
-#else
-#set($issue="")
-#end
-#if ($actionItem.getDueTo())
-#set($dueto=$actionItem.getDueTo())
-#else
-#set($dueto="")
-#end
-o#if($!issue != "") $issue: #end ${action} #if($!dueto != "")Thanks to $dueto. #end
-
-#set($issue="")
-#set($dueto="")
+#processaction()
 #end
 #end
 
 #if ($release.getActions('update').size() !=0)
 Changes:
 #foreach($actionItem in $release.getActions('update'))
-## Use replaceAll to fix up LF-only line ends on Windows.
-#set($action=$actionItem.getAction().replaceAll("\n","
-"))
-#indent()
-#if ($actionItem.getIssue())
-#set($issue=$actionItem.getIssue())
-#else
-#set($issue="")
-#end
-#if ($actionItem.getDueTo())
-#set($dueto=$actionItem.getDueTo())
-#else
-#set($dueto="")
-#end
-o#if($!issue != "") $issue: #end ${action} #if($!dueto != "")Thanks to $dueto. #end
-
-#set($issue="")
-#set($dueto="")
+#processaction()
 #end
 #end
 
 #if ($release.getActions('remove').size() !=0)
 Removed:
 #foreach($actionItem in $release.getActions('remove'))
-## Use replaceAll to fix up LF-only line ends on Windows.
-#set($action=$actionItem.getAction().replaceAll("\n","
-"))
-#indent()
-#if ($actionItem.getIssue())
-#set($issue=$actionItem.getIssue())
-#else
-#set($issue="")
-#end
-#if ($actionItem.getDueTo())
-#set($dueto=$actionItem.getDueTo())
-#else
-#set($dueto="")
-#end
-o#if($!issue != "") $issue. #end ${action} #if($!dueto != "")Thanks to $dueto. #end
-
-#set($issue="")
-#set($dueto="")
+#processaction()
 #end
 #end
 ## End of main loop
 #end
- 
+
+Historical list of changes: ${project.url}changes-report.html
+
 For complete information on ${project.name}, including instructions on how to submit bug reports,
 patches, or suggestions for improvement, see the Apache ${project.name} website:
 
