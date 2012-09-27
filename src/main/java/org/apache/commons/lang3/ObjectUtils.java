@@ -536,7 +536,7 @@ public class ObjectUtils {
                         + obj.getClass().getName(), e.getCause());
                 }
             }
-            @SuppressWarnings("unchecked")
+            @SuppressWarnings("unchecked") // OK because input is of type T
             final T checked = (T) result;
             return checked;
         }
