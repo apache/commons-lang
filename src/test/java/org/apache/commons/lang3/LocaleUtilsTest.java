@@ -364,6 +364,7 @@ public class LocaleUtilsTest  {
     /**
      * Test availableLocaleSet() method.
      */
+    @SuppressWarnings("boxing") // JUnit4 does not support primitive equality testing apart from long
     @Test
     public void testIsAvailableLocale() {
         Set<Locale> set = LocaleUtils.availableLocaleSet();
