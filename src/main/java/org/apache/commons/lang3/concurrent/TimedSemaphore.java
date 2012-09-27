@@ -149,28 +149,28 @@ public class TimedSemaphore {
     private final boolean ownExecutor;
 
     /** A future object representing the timer task. */
-    private ScheduledFuture<?> task;
+    private ScheduledFuture<?> task; // @GuardedBy("this")
 
     /** Stores the total number of invocations of the acquire() method. */
-    private long totalAcquireCount;
+    private long totalAcquireCount; // @GuardedBy("this")
 
     /**
      * The counter for the periods. This counter is increased every time a
      * period ends.
      */
-    private long periodCount;
+    private long periodCount; // @GuardedBy("this")
 
     /** The limit. */
-    private int limit;
+    private int limit; // @GuardedBy("this")
 
     /** The current counter. */
-    private int acquireCount;
+    private int acquireCount;  // @GuardedBy("this")
 
     /** The number of invocations of acquire() in the last period. */
-    private int lastCallsPerPeriod;
+    private int lastCallsPerPeriod; // @GuardedBy("this")
 
     /** A flag whether shutdown() was called. */
-    private boolean shutdown;
+    private boolean shutdown;  // @GuardedBy("this")
 
     /**
      * Creates a new instance of {@link TimedSemaphore} and initializes it with
