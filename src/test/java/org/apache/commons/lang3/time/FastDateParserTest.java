@@ -334,6 +334,14 @@ public class FastDateParserTest {
     }
 
     @Test
+    public void testSpecialCharacters() throws Exception {
+        testSdfAndFdp("q" ,"", true); // bad pattern character (at present)
+        testSdfAndFdp("Q" ,"", true); // bad pattern character
+        testSdfAndFdp("$" ,"$", false); // OK
+        testSdfAndFdp("?.d" ,"?.12", false); // OK
+    }
+
+    @Test
     public void testLANG_832() throws Exception {
         testSdfAndFdp("'d'd" ,"d3", false); // OK
         testSdfAndFdp("'d'd'","d3", true); // should fail (unterminated quote)
@@ -346,6 +354,7 @@ public class FastDateParserTest {
 
     private void testSdfAndFdp(String format, String date, boolean shouldFail)
             throws Exception {
+        final boolean debug = false;
         Date dfdp = null;
         Date dsdf = null;
         Throwable f = null;
@@ -363,7 +372,9 @@ public class FastDateParserTest {
             if (!shouldFail) {
                 throw e;
             }
-//            System.out.println("sdf:"+format+"/"+date+"=>"+e);
+            if (debug) {
+                System.out.println("sdf:"+format+"/"+date+"=>"+e);
+            }
         }
 
         try {
@@ -377,11 +388,16 @@ public class FastDateParserTest {
             if (!shouldFail) {
                 throw e;
             }
-//            System.out.println("fdf:"+format+"/"+date+"=>"+e);
+            if (debug) {
+                System.out.println("fdf:"+format+"/"+date+"=>"+e);
+            }
         }
         // SDF and FDF should produce equivalent results
         assertTrue("Should both or neither throw Exceptions", (f==null)==(s==null));
         assertEquals("Parsed dates should be equal", dsdf, dfdp);
+        if (debug) {
+            System.out.println(format + "," + date + " => " + dsdf);
+        }
     }
 
     @Test
