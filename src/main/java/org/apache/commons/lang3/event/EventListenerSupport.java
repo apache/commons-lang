@@ -245,12 +245,12 @@ public class EventListenerSupport<L> implements Serializable {
      * @throws ClassNotFoundException if the class cannot be resolved
      */
     private void readObject(ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") // Will throw CCE here if not correct
         L[] listeners = (L[]) objectInputStream.readObject();
 
         this.listeners = new CopyOnWriteArrayList<L>(listeners);
 
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") // Will throw CCE here if not correct
         Class<L> listenerInterface = (Class<L>) listeners.getClass().getComponentType();
 
         initializeTransientFields(listenerInterface, Thread.currentThread().getContextClassLoader());
@@ -262,7 +262,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @param classLoader the class loader to be used
      */
     private void initializeTransientFields(Class<L> listenerInterface, ClassLoader classLoader) {
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") // Will throw CCE here if not correct
         L[] array = (L[]) Array.newInstance(listenerInterface, 0);
         this.prototypeArray = array;
         createProxy(listenerInterface, classLoader);

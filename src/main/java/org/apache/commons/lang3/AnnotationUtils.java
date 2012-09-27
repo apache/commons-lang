@@ -73,8 +73,7 @@ public class AnnotationUtils {
             Class<? extends Annotation> annotationType = null;
             for (Class<?> iface : ClassUtils.getAllInterfaces(cls)) {
                 if (Annotation.class.isAssignableFrom(iface)) {
-                    @SuppressWarnings("unchecked")
-                    //because we just checked the assignability
+                    @SuppressWarnings("unchecked") // OK because we just checked the assignability
                     Class<? extends Annotation> found = (Class<? extends Annotation>) iface;
                     annotationType = found;
                     break;
