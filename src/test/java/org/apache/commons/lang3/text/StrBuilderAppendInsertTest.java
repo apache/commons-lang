@@ -112,6 +112,9 @@ public class StrBuilderAppendInsertTest {
 
         sb.append((CharSequence) "Seq");
         assertEquals("foobazyesSeq", sb.toString());
+
+        sb.append(new StringBuilder("bld")); // Check it supports StringBuilder
+        assertEquals("foobazyesSeqbld", sb.toString());
     }
 
     //-----------------------------------------------------------------------
