@@ -55,24 +55,6 @@ package org.apache.commons.lang3;
  */
 
 public class Conversion {
-
-    private static final boolean[] BOOL_FFFF = {false, false, false, false};
-    private static final boolean[] BOOL_TFFF = {true, false, false, false};
-    private static final boolean[] BOOL_FTFF = {false, true, false, false};
-    private static final boolean[] BOOL_TTFF = {true, true, false, false};
-    private static final boolean[] BOOL_FFTF = {false, false, true, false};
-    private static final boolean[] BOOL_TFTF = {true, false, true, false};
-    private static final boolean[] BOOL_FTTF = {false, true, true, false};
-    private static final boolean[] BOOL_TTTF = {true, true, true, false};
-    private static final boolean[] BOOL_FFFT = {false, false, false, true};
-    private static final boolean[] BOOL_TFFT = {true, false, false, true};
-    private static final boolean[] BOOL_FTFT = {false, true, false, true};
-    private static final boolean[] BOOL_TTFT = {true, true, false, true};
-    private static final boolean[] BOOL_FFTT = {false, false, true, true};
-    private static final boolean[] BOOL_TFTT = {true, false, true, true};
-    private static final boolean[] BOOL_FTTT = {false, true, true, true};
-    private static final boolean[] BOOL_TTTT = {true, true, true, true};
-
     /**
      * <p>
      * Converts a hexadecimal digit into an int using the default (Lsb0) bit ordering.
@@ -201,68 +183,50 @@ public class Conversion {
      * @return a boolean array with the binary representation of <code>hexDigit</code>
      */
     public static boolean[] hexDigitToBools(char hexDigit) {
-        final boolean[] array;
         switch (hexDigit) {
         case '0':
-            array = BOOL_FFFF;
-            break;
+            return new boolean[]{false, false, false, false};
         case '1':
-            array = BOOL_TFFF;
-            break;
+            return new boolean[]{true, false, false, false};
         case '2':
-            array = BOOL_FTFF;
-            break;
+            return new boolean[]{false, true, false, false};
         case '3':
-            array = BOOL_TTFF;
-            break;
+            return new boolean[]{true, true, false, false};
         case '4':
-            array = BOOL_FFTF;
-            break;
+            return new boolean[]{false, false, true, false};
         case '5':
-            array = BOOL_TFTF;
-            break;
+            return new boolean[]{true, false, true, false};
         case '6':
-            array = BOOL_FTTF;
-            break;
+            return new boolean[]{false, true, true, false};
         case '7':
-            array = BOOL_TTTF;
-            break;
+            return new boolean[]{true, true, true, false};
         case '8':
-            array = BOOL_FFFT;
-            break;
+            return new boolean[]{false, false, false, true};
         case '9':
-            array = BOOL_TFFT;
-            break;
+            return new boolean[]{true, false, false, true};
         case 'a':// fall through
         case 'A':
-            array = BOOL_FTFT;
-            break;
+            return new boolean[]{false, true, false, true};
         case 'b':// fall through
         case 'B':
-            array = BOOL_TTFT;
-            break;
+            return new boolean[]{true, true, false, true};
         case 'c':// fall through
         case 'C':
-            array = BOOL_FFTT;
-            break;
+            return new boolean[]{false, false, true, true};
         case 'd':// fall through
         case 'D':
-            array = BOOL_TFTT;
-            break;
+            return new boolean[]{true, false, true, true};
         case 'e':// fall through
         case 'E':
-            array = BOOL_FTTT;
-            break;
+            return new boolean[]{false, true, true, true};
         case 'f':// fall through
         case 'F':
-            array = BOOL_TTTT;
-            break;
+            return new boolean[]{true, true, true, true};
         default:
             throw new IllegalArgumentException("Cannot interpret '"
                 + hexDigit
                 + "' as a hexadecimal digit");
         }
-        return array.clone();
     }
 
     /**
@@ -277,68 +241,50 @@ public class Conversion {
      * @return a boolean array with the binary representation of <code>hexDigit</code>
      */
     public static boolean[] hexDigitM0ToBools(char hexDigit) {
-        final boolean[] array;
         switch (hexDigit) {
         case '0':
-            array = BOOL_FFFF;
-            break;
+            return new boolean[]{false, false, false, false};
         case '1':
-            array = BOOL_FFFT;
-            break;
+            return new boolean[]{false, false, false, true};
         case '2':
-            array = BOOL_FFTF;
-            break;
+            return new boolean[]{false, false, true, false};
         case '3':
-            array = BOOL_FFTT;
-            break;
+            return new boolean[]{false, false, true, true};
         case '4':
-            array = BOOL_FTFF;
-            break;
+            return new boolean[]{false, true, false, false};
         case '5':
-            array = BOOL_FTFT;
-            break;
+            return new boolean[]{false, true, false, true};
         case '6':
-            array = BOOL_FTTF;
-            break;
+            return new boolean[]{false, true, true, false};
         case '7':
-            array = BOOL_FTTT;
-            break;
+            return new boolean[]{false, true, true, true};
         case '8':
-            array = BOOL_TFFF;
-            break;
+            return new boolean[]{true, false, false, false};
         case '9':
-            array = BOOL_TFFT;
-            break;
+            return new boolean[]{true, false, false, true};
         case 'a':// fall through
         case 'A':
-            array = BOOL_TFTF;
-            break;
+            return new boolean[]{true, false, true, false};
         case 'b':// fall through
         case 'B':
-            array = BOOL_TFTT;
-            break;
+            return new boolean[]{true, false, true, true};
         case 'c':// fall through
         case 'C':
-            array = BOOL_TTFF;
-            break;
+            return new boolean[]{true, true, false, false};
         case 'd':// fall through
         case 'D':
-            array = BOOL_TTFT;
-            break;
+            return new boolean[]{true, true, false, true};
         case 'e':// fall through
         case 'E':
-            array = BOOL_TTTF;
-            break;
+            return new boolean[]{true, true, true, false};
         case 'f':// fall through
         case 'F':
-            array = BOOL_TTTT;
-            break;
+            return new boolean[]{true, true, true, true};
         default:
             throw new IllegalArgumentException("Cannot interpret '"
                 + hexDigit
                 + "' as a hexadecimal digit");
         }
-        return array.clone();
     }
 
     /**
