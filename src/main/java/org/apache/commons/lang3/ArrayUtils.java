@@ -5019,7 +5019,9 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, extractIndices(toRemove));
+        @SuppressWarnings("unchecked") // removeAll() always creates an array of the same type as its input
+        T[] result = (T[]) removeAll((Object)array, extractIndices(toRemove));
+        return result;
     }
 
     /**
@@ -5108,7 +5110,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, extractIndices(toRemove));
+        return (byte[]) removeAll((Object)array, extractIndices(toRemove));
     }
 
     /**
@@ -5197,7 +5199,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, extractIndices(toRemove));
+        return (short[]) removeAll((Object)array, extractIndices(toRemove));
     }
 
     /**
@@ -5286,7 +5288,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, extractIndices(toRemove));
+        return (int[]) removeAll((Object)array, extractIndices(toRemove));
     }
 
     /**
@@ -5375,7 +5377,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, extractIndices(toRemove));
+        return (char[]) removeAll((Object)array, extractIndices(toRemove));
     }
 
     /**
@@ -5464,7 +5466,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, extractIndices(toRemove));
+        return (long[]) removeAll((Object)array, extractIndices(toRemove));
     }
 
     /**
@@ -5553,7 +5555,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, extractIndices(toRemove));
+        return (float[]) removeAll((Object)array, extractIndices(toRemove));
     }
 
     /**
@@ -5642,7 +5644,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, extractIndices(toRemove));
+        return (double[]) removeAll((Object)array, extractIndices(toRemove));
     }
 
     /**
@@ -5727,7 +5729,7 @@ public class ArrayUtils {
                 toRemove.add(found++);
             }
         }
-        return removeAll(array, extractIndices(toRemove));
+        return (boolean[]) removeAll((Object)array, extractIndices(toRemove));
     }
 
     /**
