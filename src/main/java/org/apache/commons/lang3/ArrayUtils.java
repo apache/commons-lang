@@ -5707,7 +5707,7 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        HashMap<Boolean, MutableInt> occurrences = new HashMap<Boolean, MutableInt>(values.length);
+        HashMap<Boolean, MutableInt> occurrences = new HashMap<Boolean, MutableInt>(2); // only two possible values here
         for (boolean v : values) {
             Boolean boxed = Boolean.valueOf(v);
             MutableInt count = occurrences.get(boxed);
