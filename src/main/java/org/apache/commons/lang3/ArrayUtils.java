@@ -5741,7 +5741,7 @@ public class ArrayUtils {
      */
     private static Object removeAll(Object array, int... indices) {
         int length = getLength(array);
-        int diff = 0;
+        int diff = 0; // number of distinct indexes, i.e. number of entries that will be removed
 
         if (isNotEmpty(indices)) {
             Arrays.sort(indices);
@@ -5762,14 +5762,15 @@ public class ArrayUtils {
         }
         Object result = Array.newInstance(array.getClass().getComponentType(), length - diff);
         if (diff < length) {
-            int end = length;
-            int dest = length - diff;
+            int end = length; // index just after last copy
+            int dest = length - diff; // number of entries so far not copied
             for (int i = indices.length - 1; i >= 0; i--) {
                 int index = indices[i];
-                if (end - index > 1) {
+                if (end - index > 1) { // same as (cp > 0)
                     int cp = end - index - 1;
                     dest -= cp;
                     System.arraycopy(array, index + 1, result, dest, cp);
+                    // Afer this copy, we still have room for dest items.
                 }
                 end = index;
             }
