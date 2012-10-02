@@ -67,50 +67,13 @@ public class Conversion {
      * @return an int equals to <code>hexDigit</code>
      */
     public static int hexDigitToInt(char hexDigit) {
-        switch (hexDigit) {
-        case '0':
-            return 0;
-        case '1':
-            return 1;
-        case '2':
-            return 2;
-        case '3':
-            return 3;
-        case '4':
-            return 4;
-        case '5':
-            return 5;
-        case '6':
-            return 6;
-        case '7':
-            return 7;
-        case '8':
-            return 8;
-        case '9':
-            return 9;
-        case 'a':// fall through
-        case 'A':
-            return 10;
-        case 'b':// fall through
-        case 'B':
-            return 11;
-        case 'c':// fall through
-        case 'C':
-            return 12;
-        case 'd':// fall through
-        case 'D':
-            return 13;
-        case 'e':// fall through
-        case 'E':
-            return 14;
-        case 'f':// fall through
-        case 'F':
-            return 15;
-        default:
+        final int digit = Character.digit(hexDigit, 16);
+        if (digit < 0) { 
             throw new IllegalArgumentException("Cannot interpret '"
                 + hexDigit
                 + "' as a hexadecimal digit");
         }
+        return digit;
     }
 
     /**
@@ -318,16 +281,16 @@ public class Conversion {
         if (src.length > srcPos + 3 && src[srcPos + 3]) {
             if (src.length > srcPos + 2 && src[srcPos + 2]) {
                 if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) return 'F';
-                    else return 'E';
+                    if (src[srcPos]) return 'f';
+                    else return 'e';
                 } else {
-                    if (src[srcPos]) return 'D';
-                    else return 'C';
+                    if (src[srcPos]) return 'd';
+                    else return 'c';
                 }
             } else {
                 if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) return 'B';
-                    else return 'A';
+                    if (src[srcPos]) return 'b';
+                    else return 'a';
                 } else {
                     if (src[srcPos]) return '9';
                     else return '8';
@@ -396,15 +359,15 @@ public class Conversion {
         if (src[srcPos + 3]) {
             if (src[srcPos + 2]) {
                 if (src[srcPos + 1]) {
-                    if (src[srcPos]) return 'F';
+                    if (src[srcPos]) return 'f';
                     else return '7';
                 } else {
-                    if (src[srcPos]) return 'B';
+                    if (src[srcPos]) return 'b';
                     else return '3';
                 }
             } else {
                 if (src[srcPos + 1]) {
-                    if (src[srcPos]) return 'D';
+                    if (src[srcPos]) return 'd';
                     else return '5';
                 } else {
                     if (src[srcPos]) return '9';
@@ -414,15 +377,15 @@ public class Conversion {
         } else {
             if (src[srcPos + 2]) {
                 if (src[srcPos + 1]) {
-                    if (src[srcPos]) return 'E';
+                    if (src[srcPos]) return 'e';
                     else return '6';
                 } else {
-                    if (src[srcPos]) return 'A';
+                    if (src[srcPos]) return 'a';
                     else return '2';
                 }
             } else {
                 if (src[srcPos + 1]) {
-                    if (src[srcPos]) return 'C';
+                    if (src[srcPos]) return 'c';
                     else return '4';
                 } else {
                     if (src[srcPos]) return '8';
@@ -473,16 +436,16 @@ public class Conversion {
         if (src[srcPos]) {
             if (src.length > srcPos + 1 && src[srcPos + 1]) {
                 if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) return 'F';
-                    else return 'E';
+                    if (src.length > srcPos + 3 && src[srcPos + 3]) return 'f';
+                    else return 'e';
                 } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) return 'D';
-                    else return 'C';
+                    if (src.length > srcPos + 3 && src[srcPos + 3]) return 'd';
+                    else return 'c';
                 }
             } else {
                 if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) return 'B';
-                    else return 'A';
+                    if (src.length > srcPos + 3 && src[srcPos + 3]) return 'b';
+                    else return 'a';
                 } else {
                     if (src.length > srcPos + 3 && src[srcPos + 3]) return '9';
                     else return '8';
@@ -527,42 +490,11 @@ public class Conversion {
      * @return a hexadecimal digit representing the 4 lsb of <code>nibble</code>
      */
     public static char intToHexDigit(int nibble) {
-        switch (nibble) {
-        case 0x0:
-            return '0';
-        case 0x1:
-            return '1';
-        case 0x2:
-            return '2';
-        case 0x3:
-            return '3';
-        case 0x4:
-            return '4';
-        case 0x5:
-            return '5';
-        case 0x6:
-            return '6';
-        case 0x7:
-            return '7';
-        case 0x8:
-            return '8';
-        case 0x9:
-            return '9';
-        case 0xA:
-            return 'A';
-        case 0xB:
-            return 'B';
-        case 0xC:
-            return 'C';
-        case 0xD:
-            return 'D';
-        case 0xE:
-            return 'E';
-        case 0xF:
-            return 'F';
-        default:
+        char c = Character.forDigit(nibble, 16);
+        if (c == Character.MIN_VALUE) {
             throw new IllegalArgumentException("nibble value not between 0 and 15: " + nibble);
         }
+        return c;
     }
 
     /**
@@ -591,15 +523,15 @@ public class Conversion {
         case 0x2:
             return '4';
         case 0x3:
-            return 'C';
+            return 'c';
         case 0x4:
             return '2';
         case 0x5:
-            return 'A';
+            return 'a';
         case 0x6:
             return '6';
         case 0x7:
-            return 'E';
+            return 'e';
         case 0x8:
             return '1';
         case 0x9:
@@ -607,15 +539,15 @@ public class Conversion {
         case 0xA:
             return '5';
         case 0xB:
-            return 'D';
+            return 'd';
         case 0xC:
             return '3';
         case 0xD:
-            return 'B';
+            return 'b';
         case 0xE:
             return '7';
         case 0xF:
-            return 'F';
+            return 'f';
         default:
             throw new IllegalArgumentException("nibble value not between 0 and 15: " + nibble);
         }
