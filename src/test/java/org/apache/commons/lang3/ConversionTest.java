@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.UUID;
@@ -506,8 +506,11 @@ public class ConversionTest {
     static String dbgPrint(boolean[] src) {
         StringBuilder sb = new StringBuilder();
         for (boolean e : src) {
-            if (e) sb.append("1,");
-            else sb.append("0,");
+            if (e) {
+                sb.append("1,");
+            } else {
+                sb.append("0,");
+            }
         }
         String out = sb.toString();
         return out.substring(0, out.length() - 1);

@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 
 import java.util.UUID;
 
+
 /**
  * <p>
  * Static methods to convert a type into another, with endianness and bit ordering awareness.
@@ -71,7 +72,7 @@ public class Conversion {
      */
     public static int hexDigitToInt(char hexDigit) {
         final int digit = Character.digit(hexDigit, 16);
-        if (digit < 0) { 
+        if (digit < 0) {
             throw new IllegalArgumentException("Cannot interpret '"
                 + hexDigit
                 + "' as a hexadecimal digit");
@@ -266,8 +267,8 @@ public class Conversion {
      * 
      * @param src the boolean array to convert
      * @return a hexadecimal digit representing the selected bits
-     * @throws IllegalArgumentException if {@code src} is empty 
-     * @throws NullPointerException  if {@code src} is {@code null}
+     * @throws IllegalArgumentException if {@code src} is empty
+     * @throws NullPointerException if {@code src} is {@code null}
      */
     public static char boolsToHexDigit(boolean[] src) {
         return boolsToHexDigit(src, 0);
@@ -284,46 +285,71 @@ public class Conversion {
      * @param src the boolean array to convert
      * @param srcPos the position of the lsb to start the conversion
      * @return a hexadecimal digit representing the selected bits
-     * @throws IllegalArgumentException if {@code src} is empty 
-     * @throws NullPointerException  if {@code src} is {@code null}
+     * @throws IllegalArgumentException if {@code src} is empty
+     * @throws NullPointerException if {@code src} is {@code null}
      */
     public static char boolsToHexDigit(boolean[] src, int srcPos) {
-        if (src.length == 0)
+        if (src.length == 0) {
             throw new IllegalArgumentException("Cannot convert empty array.");
+        }
         if (src.length > srcPos + 3 && src[srcPos + 3]) {
             if (src.length > srcPos + 2 && src[srcPos + 2]) {
                 if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) return 'f';
-                    else return 'e';
+                    if (src[srcPos]) {
+                        return 'f';
+                    } else {
+                        return 'e';
+                    }
                 } else {
-                    if (src[srcPos]) return 'd';
-                    else return 'c';
+                    if (src[srcPos]) {
+                        return 'd';
+                    } else {
+                        return 'c';
+                    }
                 }
             } else {
                 if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) return 'b';
-                    else return 'a';
+                    if (src[srcPos]) {
+                        return 'b';
+                    } else {
+                        return 'a';
+                    }
                 } else {
-                    if (src[srcPos]) return '9';
-                    else return '8';
+                    if (src[srcPos]) {
+                        return '9';
+                    } else {
+                        return '8';
+                    }
                 }
             }
         } else {
             if (src.length > srcPos + 2 && src[srcPos + 2]) {
                 if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) return '7';
-                    else return '6';
+                    if (src[srcPos]) {
+                        return '7';
+                    } else {
+                        return '6';
+                    }
                 } else {
-                    if (src[srcPos]) return '5';
-                    else return '4';
+                    if (src[srcPos]) {
+                        return '5';
+                    } else {
+                        return '4';
+                    }
                 }
             } else {
                 if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) return '3';
-                    else return '2';
+                    if (src[srcPos]) {
+                        return '3';
+                    } else {
+                        return '2';
+                    }
                 } else {
-                    if (src[srcPos]) return '1';
-                    else return '0';
+                    if (src[srcPos]) {
+                        return '1';
+                    } else {
+                        return '0';
+                    }
                 }
             }
         }
@@ -339,8 +365,9 @@ public class Conversion {
      * 
      * @param src the boolean array to convert
      * @return a hexadecimal digit representing the selected bits
-     * @throws IllegalArgumentException if {@code src} is empty, {@code src.length < 4} or {@code src.length > 8} 
-     * @throws NullPointerException  if {@code src} is {@code null}
+     * @throws IllegalArgumentException if {@code src} is empty, {@code src.length < 4} or
+     *             {@code src.length > 8}
+     * @throws NullPointerException if {@code src} is {@code null}
      */
     public static char boolsToHexDigitM0_4bits(boolean[] src) {
         return boolsToHexDigitM0_4bits(src, 0);
@@ -358,51 +385,78 @@ public class Conversion {
      * @param src the boolean array to convert
      * @param srcPos the position of the lsb to start the conversion
      * @return a hexadecimal digit representing the selected bits
-     * @throws IllegalArgumentException if {@code src} is empty, {@code src.length > 8} or {@code src.length - srcPos < 4}  
-     * @throws NullPointerException  if {@code src} is {@code null}
+     * @throws IllegalArgumentException if {@code src} is empty, {@code src.length > 8} or
+     *             {@code src.length - srcPos < 4}
+     * @throws NullPointerException if {@code src} is {@code null}
      */
     public static char boolsToHexDigitM0_4bits(boolean[] src, int srcPos) {
-        if (src.length > 8)
+        if (src.length > 8) {
             throw new IllegalArgumentException("src.length>8: src.length=" + src.length);
-        if (src.length - srcPos < 4)
+        }
+        if (src.length - srcPos < 4) {
             throw new IllegalArgumentException("src.length-srcPos<4: src.length="
                 + src.length
                 + ", srcPos="
                 + srcPos);
+        }
         if (src[srcPos + 3]) {
             if (src[srcPos + 2]) {
                 if (src[srcPos + 1]) {
-                    if (src[srcPos]) return 'f';
-                    else return '7';
+                    if (src[srcPos]) {
+                        return 'f';
+                    } else {
+                        return '7';
+                    }
                 } else {
-                    if (src[srcPos]) return 'b';
-                    else return '3';
+                    if (src[srcPos]) {
+                        return 'b';
+                    } else {
+                        return '3';
+                    }
                 }
             } else {
                 if (src[srcPos + 1]) {
-                    if (src[srcPos]) return 'd';
-                    else return '5';
+                    if (src[srcPos]) {
+                        return 'd';
+                    } else {
+                        return '5';
+                    }
                 } else {
-                    if (src[srcPos]) return '9';
-                    else return '1';
+                    if (src[srcPos]) {
+                        return '9';
+                    } else {
+                        return '1';
+                    }
                 }
             }
         } else {
             if (src[srcPos + 2]) {
                 if (src[srcPos + 1]) {
-                    if (src[srcPos]) return 'e';
-                    else return '6';
+                    if (src[srcPos]) {
+                        return 'e';
+                    } else {
+                        return '6';
+                    }
                 } else {
-                    if (src[srcPos]) return 'a';
-                    else return '2';
+                    if (src[srcPos]) {
+                        return 'a';
+                    } else {
+                        return '2';
+                    }
                 }
             } else {
                 if (src[srcPos + 1]) {
-                    if (src[srcPos]) return 'c';
-                    else return '4';
+                    if (src[srcPos]) {
+                        return 'c';
+                    } else {
+                        return '4';
+                    }
                 } else {
-                    if (src[srcPos]) return '8';
-                    else return '0';
+                    if (src[srcPos]) {
+                        return '8';
+                    } else {
+                        return '0';
+                    }
                 }
             }
         }
@@ -421,7 +475,7 @@ public class Conversion {
      * @param src the boolean array to convert
      * @return a hexadecimal digit representing the selected bits
      * @throws IllegalArgumentException if {@code src} is empty
-     * @throws NullPointerException  if {@code src} is {@code null}
+     * @throws NullPointerException if {@code src} is {@code null}
      */
     public static char boolsBeM0ToHexDigit(boolean[] src) {
         return boolsBeM0ToHexDigit(src, 0);
@@ -441,11 +495,12 @@ public class Conversion {
      * @param srcPos the position of the lsb to start the conversion
      * @return a hexadecimal digit representing the selected bits
      * @throws IllegalArgumentException if {@code src} is empty
-     * @throws NullPointerException  if {@code src} is {@code null}
+     * @throws NullPointerException if {@code src} is {@code null}
      */
     public static char boolsBeM0ToHexDigit(boolean[] src, int srcPos) {
-        if (src.length == 0)
+        if (src.length == 0) {
             throw new IllegalArgumentException("Cannot convert empty array.");
+        }
         int beSrcPos = src.length - 1 - srcPos;
         int srcLen = Math.min(4, beSrcPos + 1);
         boolean[] paddedSrc = new boolean[4];
@@ -455,37 +510,61 @@ public class Conversion {
         if (src[srcPos]) {
             if (src.length > srcPos + 1 && src[srcPos + 1]) {
                 if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) return 'f';
-                    else return 'e';
+                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
+                        return 'f';
+                    } else {
+                        return 'e';
+                    }
                 } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) return 'd';
-                    else return 'c';
+                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
+                        return 'd';
+                    } else {
+                        return 'c';
+                    }
                 }
             } else {
                 if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) return 'b';
-                    else return 'a';
+                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
+                        return 'b';
+                    } else {
+                        return 'a';
+                    }
                 } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) return '9';
-                    else return '8';
+                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
+                        return '9';
+                    } else {
+                        return '8';
+                    }
                 }
             }
         } else {
             if (src.length > srcPos + 1 && src[srcPos + 1]) {
                 if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) return '7';
-                    else return '6';
+                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
+                        return '7';
+                    } else {
+                        return '6';
+                    }
                 } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) return '5';
-                    else return '4';
+                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
+                        return '5';
+                    } else {
+                        return '4';
+                    }
                 }
             } else {
                 if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) return '3';
-                    else return '2';
+                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
+                        return '3';
+                    } else {
+                        return '2';
+                    }
                 } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) return '1';
-                    else return '0';
+                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
+                        return '1';
+                    } else {
+                        return '0';
+                    }
                 }
             }
         }
@@ -507,12 +586,13 @@ public class Conversion {
      * 
      * @param nibble the int to convert
      * @return a hexadecimal digit representing the 4 lsb of {@code nibble}
-     * @throws IllegalArgumentException if {@code nibble < 0} or {@code nibble > 15}   
+     * @throws IllegalArgumentException if {@code nibble < 0} or {@code nibble > 15}
      */
     public static char intToHexDigit(int nibble) {
         char c = Character.forDigit(nibble, 16);
-        if (c == Character.MIN_VALUE)
+        if (c == Character.MIN_VALUE) {
             throw new IllegalArgumentException("nibble value not between 0 and 15: " + nibble);
+        }
         return c;
     }
 
@@ -532,7 +612,7 @@ public class Conversion {
      * 
      * @param nibble the int to convert
      * @return a hexadecimal digit representing the 4 lsb of {@code nibble}
-     * @throws IllegalArgumentException if {@code nibble < 0} or {@code nibble > 15}   
+     * @throws IllegalArgumentException if {@code nibble < 0} or {@code nibble > 15}
      */
     public static char intToHexDigitM0(int nibble) {
         switch (nibble) {
@@ -586,14 +666,16 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result long
      * @param nInts the number of ints to convert
      * @return a long containing the selected bits
-     * @throws IllegalArgumentException if {@code (nInts-1)*32+dstPos >= 64}   
+     * @throws IllegalArgumentException if {@code (nInts-1)*32+dstPos >= 64}
      */
     public static long intsToLong(int[] src, int srcPos, long dstInit, int dstPos, int nInts) {
-        if (0 == nInts)
+        if (0 == nInts) {
             return dstInit;
-        if ((nInts-1)*32+dstPos >= 64)
+        }
+        if ((nInts - 1) * 32 + dstPos >= 64) {
             throw new IllegalArgumentException(
                 "(nInts-1)*32+dstPos is greather or equal to than 64");
+        }
         long out = dstInit;
         int shift = 0;
         for (int i = 0; i < nInts; i++ ) {
@@ -618,15 +700,17 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result long
      * @param nShorts the number of shorts to convert
      * @return a long containing the selected bits
-     * @throws IllegalArgumentException if {@code (nShorts-1)*16+dstPos >= 64}   
+     * @throws IllegalArgumentException if {@code (nShorts-1)*16+dstPos >= 64}
      */
     public static long shortsToLong(short[] src, int srcPos, long dstInit, int dstPos,
         int nShorts) {
-        if (0 == nShorts) 
+        if (0 == nShorts) {
             return dstInit;
-        if ((nShorts-1)*16+dstPos >= 64)
+        }
+        if ((nShorts - 1) * 16 + dstPos >= 64) {
             throw new IllegalArgumentException(
                 "(nShorts-1)*16+dstPos is greather or equal to than 64");
+        }
         long out = dstInit;
         int shift = 0;
         for (int i = 0; i < nShorts; i++ ) {
@@ -651,14 +735,16 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result int
      * @param nShorts the number of shorts to convert
      * @return a int containing the selected bits
-     * @throws IllegalArgumentException if {@code (nShorts-1)*16+dstPos >= 32}   
+     * @throws IllegalArgumentException if {@code (nShorts-1)*16+dstPos >= 32}
      */
     public static int shortsToInt(short[] src, int srcPos, int dstInit, int dstPos, int nShorts) {
-        if (0 == nShorts) 
+        if (0 == nShorts) {
             return dstInit;
-        if ((nShorts-1)*16+dstPos >= 32)
+        }
+        if ((nShorts - 1) * 16 + dstPos >= 32) {
             throw new IllegalArgumentException(
                 "(nShorts-1)*16+dstPos is greather or equal to than 32");
+        }
         int out = dstInit;
         int shift = 0;
         for (int i = 0; i < nShorts; i++ ) {
@@ -683,14 +769,16 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result long
      * @param nBytes the number of bytes to convert
      * @return a long containing the selected bits
-     * @throws IllegalArgumentException if {@code (nBytes-1)*8+dstPos >= 64}   
+     * @throws IllegalArgumentException if {@code (nBytes-1)*8+dstPos >= 64}
      */
     public static long bytesToLong(byte[] src, int srcPos, long dstInit, int dstPos, int nBytes) {
-        if (0 == nBytes) 
+        if (0 == nBytes) {
             return dstInit;
-        if ((nBytes-1)*8+dstPos >= 64)
+        }
+        if ((nBytes - 1) * 8 + dstPos >= 64) {
             throw new IllegalArgumentException(
                 "(nBytes-1)*8+dstPos is greather or equal to than 64");
+        }
         long out = dstInit;
         int shift = 0;
         for (int i = 0; i < nBytes; i++ ) {
@@ -715,14 +803,16 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result int
      * @param nBytes the number of bytes to convert
      * @return a int containing the selected bits
-     * @throws IllegalArgumentException if {@code (nBytes-1)*8+dstPos >= 32}   
+     * @throws IllegalArgumentException if {@code (nBytes-1)*8+dstPos >= 32}
      */
     public static int bytesToInt(byte[] src, int srcPos, int dstInit, int dstPos, int nBytes) {
-        if (0 == nBytes) 
+        if (0 == nBytes) {
             return dstInit;
-        if ((nBytes-1)*8+dstPos >= 32)
+        }
+        if ((nBytes - 1) * 8 + dstPos >= 32) {
             throw new IllegalArgumentException(
                 "(nBytes-1)*8+dstPos is greather or equal to than 32");
+        }
         int out = dstInit;
         int shift = 0;
         for (int i = 0; i < nBytes; i++ ) {
@@ -747,15 +837,17 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result short
      * @param nBytes the number of bytes to convert
      * @return a short containing the selected bits
-     * @throws IllegalArgumentException if {@code (nBytes-1)*8+dstPos >= 16}   
+     * @throws IllegalArgumentException if {@code (nBytes-1)*8+dstPos >= 16}
      */
     public static short bytesToShort(byte[] src, int srcPos, short dstInit, int dstPos,
         int nBytes) {
-        if (0 == nBytes) 
+        if (0 == nBytes) {
             return dstInit;
-        if ((nBytes-1)*8+dstPos >= 16)
+        }
+        if ((nBytes - 1) * 8 + dstPos >= 16) {
             throw new IllegalArgumentException(
                 "(nBytes-1)*8+dstPos is greather or equal to than 16");
+        }
         short out = dstInit;
         int shift = 0;
         for (int i = 0; i < nBytes; i++ ) {
@@ -780,14 +872,16 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result long
      * @param nHexs the number of Chars to convert
      * @return a long containing the selected bits
-     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 64}   
+     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 64}
      */
     public static long hexsToLong(String src, int srcPos, long dstInit, int dstPos, int nHexs) {
-        if (0 == nHexs)
+        if (0 == nHexs) {
             return dstInit;
-        if ((nHexs-1)*4+dstPos >= 64)
+        }
+        if ((nHexs - 1) * 4 + dstPos >= 64) {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+dstPos is greather or equal to than 64");
+        }
         long out = dstInit;
         int shift = 0;
         for (int i = 0; i < nHexs; i++ ) {
@@ -812,14 +906,16 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result int
      * @param nHexs the number of Chars to convert
      * @return a int containing the selected bits
-     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 32}   
+     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 32}
      */
     public static int hexsToInt(String src, int srcPos, int dstInit, int dstPos, int nHexs) {
-        if (0 == nHexs) 
+        if (0 == nHexs) {
             return dstInit;
-        if ((nHexs-1)*4+dstPos >= 32)
+        }
+        if ((nHexs - 1) * 4 + dstPos >= 32) {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+dstPos is greather or equal to than 32");
+        }
         int out = dstInit;
         int shift = 0;
         for (int i = 0; i < nHexs; i++ ) {
@@ -844,14 +940,16 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result short
      * @param nHexs the number of Chars to convert
      * @return a short containing the selected bits
-     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 16}   
+     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 16}
      */
     public static short hexsToShort(String src, int srcPos, short dstInit, int dstPos, int nHexs) {
-        if (0 == nHexs) 
+        if (0 == nHexs) {
             return dstInit;
-        if ((nHexs-1)*4+dstPos >= 16)
+        }
+        if ((nHexs - 1) * 4 + dstPos >= 16) {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+dstPos is greather or equal to than 16");
+        }
         short out = dstInit;
         int shift = 0;
         for (int i = 0; i < nHexs; i++ ) {
@@ -876,14 +974,16 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result byte
      * @param nHexs the number of Chars to convert
      * @return a byte containing the selected bits
-     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 8}   
+     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 8}
      */
     public static byte hexsToByte(String src, int srcPos, byte dstInit, int dstPos, int nHexs) {
-        if (0 == nHexs) 
+        if (0 == nHexs) {
             return dstInit;
-        if ((nHexs-1)*4+dstPos >= 8)
+        }
+        if ((nHexs - 1) * 4 + dstPos >= 8) {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+dstPos is greather or equal to than 8");
+        }
         byte out = dstInit;
         int shift = 0;
         for (int i = 0; i < nHexs; i++ ) {
@@ -908,15 +1008,17 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result long
      * @param nBools the number of booleans to convert
      * @return a long containing the selected bits
-     * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 64}   
+     * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 64}
      */
     public static long boolsToLong(boolean[] src, int srcPos, long dstInit, int dstPos,
         int nBools) {
-        if (0 == nBools) 
+        if (0 == nBools) {
             return dstInit;
-        if (nBools-1+dstPos >= 64)
+        }
+        if (nBools - 1 + dstPos >= 64) {
             throw new IllegalArgumentException(
                 "nBools-1+dstPos is greather or equal to than 64");
+        }
         long out = dstInit;
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
@@ -941,14 +1043,16 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result int
      * @param nBools the number of booleans to convert
      * @return a int containing the selected bits
-     * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 32}   
+     * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 32}
      */
     public static int boolsToInt(boolean[] src, int srcPos, int dstInit, int dstPos, int nBools) {
-        if (0 == nBools)
+        if (0 == nBools) {
             return dstInit;
-        if (nBools-1+dstPos >= 32)
+        }
+        if (nBools - 1 + dstPos >= 32) {
             throw new IllegalArgumentException(
                 "nBools-1+dstPos is greather or equal to than 32");
+        }
         int out = dstInit;
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
@@ -973,15 +1077,17 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result short
      * @param nBools the number of booleans to convert
      * @return a short containing the selected bits
-     * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 16}   
+     * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 16}
      */
     public static short boolsToShort(boolean[] src, int srcPos, short dstInit, int dstPos,
         int nBools) {
-        if (0 == nBools)
+        if (0 == nBools) {
             return dstInit;
-        if (nBools-1+dstPos >= 16)
+        }
+        if (nBools - 1 + dstPos >= 16) {
             throw new IllegalArgumentException(
                 "nBools-1+dstPos is greather or equal to than 16");
+        }
         short out = dstInit;
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
@@ -1006,15 +1112,16 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result byte
      * @param nBools the number of booleans to convert
      * @return a byte containing the selected bits
-     * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 8}   
+     * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 8}
      */
     public static byte boolsToByte(boolean[] src, int srcPos, byte dstInit, int dstPos,
         int nBools) {
-        if (0 == nBools)
+        if (0 == nBools) {
             return dstInit;
-        if (nBools-1+dstPos >= 8)
-            throw new IllegalArgumentException(
-                "nBools-1+dstPos is greather or equal to than 8");
+        }
+        if (nBools - 1 + dstPos >= 8) {
+            throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 8");
+        }
         byte out = dstInit;
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
@@ -1033,21 +1140,22 @@ public class Conversion {
      * </p>
      * 
      * @param src the long to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nInts the number of ints to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     * @param nInts the number of ints to copy to {@code dst}, must be smaller or equal to the
+     *            width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code (nInts-1)*32+srcPos >= 64}   
+     * @throws IllegalArgumentException if {@code (nInts-1)*32+srcPos >= 64}
      */
     public static int[] longToInts(long src, int srcPos, int[] dst, int dstPos, int nInts) {
-        if (0 == nInts)
+        if (0 == nInts) {
             return dst;
-        if ((nInts - 1) * 32 + srcPos >= 64)
+        }
+        if ((nInts - 1) * 32 + srcPos >= 64) {
             throw new IllegalArgumentException(
                 "(nInts-1)*32+srcPos is greather or equal to than 64");
+        }
         int shift = 0;
         for (int i = 0; i < nInts; i++ ) {
             shift = i * 32 + srcPos;
@@ -1063,22 +1171,23 @@ public class Conversion {
      * </p>
      * 
      * @param src the long to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nShorts the number of shorts to copy to {@code dst}, must be smaller or equal
-     *            to the width of the input (from srcPos to msb)
+     * @param nShorts the number of shorts to copy to {@code dst}, must be smaller or equal to
+     *            the width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code (nShorts-1)*16+srcPos >= 64}   
+     * @throws IllegalArgumentException if {@code (nShorts-1)*16+srcPos >= 64}
      */
     public static short[] longToShorts(long src, int srcPos, short[] dst, int dstPos,
         int nShorts) {
-        if (0 == nShorts)
+        if (0 == nShorts) {
             return dst;
-        if ((nShorts - 1) * 16 + srcPos >= 64)
+        }
+        if ((nShorts - 1) * 16 + srcPos >= 64) {
             throw new IllegalArgumentException(
                 "(nShorts-1)*16+srcPos is greather or equal to than 64");
+        }
         int shift = 0;
         for (int i = 0; i < nShorts; i++ ) {
             shift = i * 16 + srcPos;
@@ -1094,21 +1203,22 @@ public class Conversion {
      * </p>
      * 
      * @param src the int to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nShorts the number of shorts to copy to {@code dst}, must be smaller or equal
-     *            to the width of the input (from srcPos to msb)
+     * @param nShorts the number of shorts to copy to {@code dst}, must be smaller or equal to
+     *            the width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code (nShorts-1)*16+srcPos >= 32}   
+     * @throws IllegalArgumentException if {@code (nShorts-1)*16+srcPos >= 32}
      */
     public static short[] intToShorts(int src, int srcPos, short[] dst, int dstPos, int nShorts) {
-        if (0 == nShorts) 
+        if (0 == nShorts) {
             return dst;
-        if ((nShorts - 1) * 16 + srcPos >= 32)
+        }
+        if ((nShorts - 1) * 16 + srcPos >= 32) {
             throw new IllegalArgumentException(
                 "(nShorts-1)*16+srcPos is greather or equal to than 32");
+        }
         int shift = 0;
         for (int i = 0; i < nShorts; i++ ) {
             shift = i * 16 + srcPos;
@@ -1124,21 +1234,22 @@ public class Conversion {
      * </p>
      * 
      * @param src the long to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to the
+     *            width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 64}   
+     * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 64}
      */
     public static byte[] longToBytes(long src, int srcPos, byte[] dst, int dstPos, int nBytes) {
-        if (0 == nBytes)
+        if (0 == nBytes) {
             return dst;
-        if ((nBytes - 1) * 8 + srcPos >= 64)
+        }
+        if ((nBytes - 1) * 8 + srcPos >= 64) {
             throw new IllegalArgumentException(
                 "(nBytes-1)*8+srcPos is greather or equal to than 64");
+        }
         int shift = 0;
         for (int i = 0; i < nBytes; i++ ) {
             shift = i * 8 + srcPos;
@@ -1154,21 +1265,22 @@ public class Conversion {
      * </p>
      * 
      * @param src the int to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to the
+     *            width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 32}   
+     * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 32}
      */
     public static byte[] intToBytes(int src, int srcPos, byte[] dst, int dstPos, int nBytes) {
-        if (0 == nBytes)
+        if (0 == nBytes) {
             return dst;
-        if ((nBytes - 1) * 8 + srcPos >= 32)
+        }
+        if ((nBytes - 1) * 8 + srcPos >= 32) {
             throw new IllegalArgumentException(
                 "(nBytes-1)*8+srcPos is greather or equal to than 32");
+        }
         int shift = 0;
         for (int i = 0; i < nBytes; i++ ) {
             shift = i * 8 + srcPos;
@@ -1184,21 +1296,22 @@ public class Conversion {
      * </p>
      * 
      * @param src the short to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to the
+     *            width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 16}   
+     * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 16}
      */
     public static byte[] shortToBytes(short src, int srcPos, byte[] dst, int dstPos, int nBytes) {
-        if (0 == nBytes)
+        if (0 == nBytes) {
             return dst;
-        if ((nBytes - 1) * 8 + srcPos >= 16)
+        }
+        if ((nBytes - 1) * 8 + srcPos >= 16) {
             throw new IllegalArgumentException(
                 "(nBytes-1)*8+srcPos is greather or equal to than 16");
+        }
         int shift = 0;
         for (int i = 0; i < nBytes; i++ ) {
             shift = i * 8 + srcPos;
@@ -1214,21 +1327,22 @@ public class Conversion {
      * </p>
      * 
      * @param src the long to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dstInit the initial value for the result String
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to the
+     *            width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 64}   
+     * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 64}
      */
     public static String longToHexs(long src, int srcPos, String dstInit, int dstPos, int nHexs) {
-        if (0 == nHexs)
+        if (0 == nHexs) {
             return dstInit;
-        if ((nHexs - 1) * 4 + srcPos >= 64)
+        }
+        if ((nHexs - 1) * 4 + srcPos >= 64) {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+srcPos is greather or equal to than 64");
+        }
         StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         for (int i = 0; i < nHexs; i++ ) {
@@ -1246,21 +1360,22 @@ public class Conversion {
      * </p>
      * 
      * @param src the int to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dstInit the initial value for the result String
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to the
+     *            width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 32}   
+     * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 32}
      */
     public static String intToHexs(int src, int srcPos, String dstInit, int dstPos, int nHexs) {
-        if (0 == nHexs)
+        if (0 == nHexs) {
             return dstInit;
-        if ((nHexs - 1) * 4 + srcPos >= 32)
+        }
+        if ((nHexs - 1) * 4 + srcPos >= 32) {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+srcPos is greather or equal to than 32");
+        }
         StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         for (int i = 0; i < nHexs; i++ ) {
@@ -1278,22 +1393,23 @@ public class Conversion {
      * </p>
      * 
      * @param src the short to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dstInit the initial value for the result String
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to the
+     *            width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 16}   
+     * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 16}
      */
     public static String shortToHexs(short src, int srcPos, String dstInit, int dstPos,
         int nHexs) {
-        if (0 == nHexs)
+        if (0 == nHexs) {
             return dstInit;
-        if ((nHexs - 1) * 4 + srcPos >= 16)
+        }
+        if ((nHexs - 1) * 4 + srcPos >= 16) {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+srcPos is greather or equal to than 16");
+        }
         StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         for (int i = 0; i < nHexs; i++ ) {
@@ -1311,21 +1427,22 @@ public class Conversion {
      * </p>
      * 
      * @param src the byte to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dstInit the initial value for the result String
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to the
+     *            width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 8}   
+     * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 8}
      */
     public static String byteToHexs(byte src, int srcPos, String dstInit, int dstPos, int nHexs) {
-        if (0 == nHexs)
+        if (0 == nHexs) {
             return dstInit;
-        if ((nHexs - 1) * 4 + srcPos >= 8)
+        }
+        if ((nHexs - 1) * 4 + srcPos >= 8) {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+srcPos is greather or equal to than 8");
+        }
         StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         for (int i = 0; i < nHexs; i++ ) {
@@ -1343,22 +1460,23 @@ public class Conversion {
      * </p>
      * 
      * @param src the long to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal
-     *            to the width of the input (from srcPos to msb)
+     * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal to
+     *            the width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 64}   
+     * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 64}
      */
     public static boolean[] longToBools(long src, int srcPos, boolean[] dst, int dstPos,
         int nBools) {
-        if (0 == nBools)
+        if (0 == nBools) {
             return dst;
-        if (nBools - 1 + srcPos >= 64)
+        }
+        if (nBools - 1 + srcPos >= 64) {
             throw new IllegalArgumentException(
                 "nBools-1+srcPos is greather or equal to than 64");
+        }
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
             shift = i * 1 + srcPos;
@@ -1374,22 +1492,23 @@ public class Conversion {
      * </p>
      * 
      * @param src the int to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal
-     *            to the width of the input (from srcPos to msb)
+     * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal to
+     *            the width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 32}   
+     * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 32}
      */
     public static boolean[] intToBools(int src, int srcPos, boolean[] dst, int dstPos,
         int nBools) {
-        if (0 == nBools)
+        if (0 == nBools) {
             return dst;
-        if (nBools - 1 + srcPos >= 32)
+        }
+        if (nBools - 1 + srcPos >= 32) {
             throw new IllegalArgumentException(
                 "nBools-1+srcPos is greather or equal to than 32");
+        }
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
             shift = i * 1 + srcPos;
@@ -1405,22 +1524,23 @@ public class Conversion {
      * </p>
      * 
      * @param src the short to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal
-     *            to the width of the input (from srcPos to msb)
+     * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal to
+     *            the width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 16}   
+     * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 16}
      */
     public static boolean[] shortToBools(short src, int srcPos, boolean[] dst, int dstPos,
         int nBools) {
-        if (0 == nBools)
+        if (0 == nBools) {
             return dst;
-        if (nBools - 1 + srcPos >= 16)
+        }
+        if (nBools - 1 + srcPos >= 16) {
             throw new IllegalArgumentException(
                 "nBools-1+srcPos is greather or equal to than 16");
+        }
         int shift = 0;
         assert ((nBools - 1) * 1 < 16 - srcPos);
         for (int i = 0; i < nBools; i++ ) {
@@ -1437,22 +1557,22 @@ public class Conversion {
      * </p>
      * 
      * @param src the byte to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the
-     *            conversion
+     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal
-     *            to the width of the input (from srcPos to msb)
+     * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal to
+     *            the width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 8}   
+     * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 8}
      */
     public static boolean[] byteToBools(byte src, int srcPos, boolean[] dst, int dstPos,
         int nBools) {
-        if (0 == nBools)
+        if (0 == nBools) {
             return dst;
-        if (nBools - 1 + srcPos >= 8)
-            throw new IllegalArgumentException(
-                "nBools-1+srcPos is greather or equal to than 8");
+        }
+        if (nBools - 1 + srcPos >= 8) {
+            throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 8");
+        }
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
             shift = i * 1 + srcPos;
@@ -1463,43 +1583,49 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts UUID into an array of byte using the default (little endian, Lsb0) byte and
-     * bit ordering.
+     * Converts UUID into an array of byte using the default (little endian, Lsb0) byte and bit
+     * ordering.
      * </p>
      * 
      * @param src the UUID to convert
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
-     * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to the
+     *            width of the input (from srcPos to msb)
      * @return {@code dst}
-     * @throws IllegalArgumentException if {@code nBytes > 16}   
+     * @throws IllegalArgumentException if {@code nBytes > 16}
      */
     public static byte[] uuidToBytes(UUID src, byte[] dst, int dstPos, int nBytes) {
-        if (0 == nBytes)
+        if (0 == nBytes) {
             return dst;
-        if (nBytes > 16 )
+        }
+        if (nBytes > 16) {
             throw new IllegalArgumentException("nBytes is greather than 16");
+        }
         longToBytes(src.getMostSignificantBits(), 0, dst, dstPos, nBytes > 8 ? 8 : nBytes);
-        if (nBytes >= 8)
-            longToBytes(src.getLeastSignificantBits(), 0, dst, dstPos+8, nBytes-8);
+        if (nBytes >= 8) {
+            longToBytes(src.getLeastSignificantBits(), 0, dst, dstPos + 8, nBytes - 8);
+        }
         return dst;
     }
 
     /**
      * <p>
-     * Converts bytes fomr an array into a UUID using the default (little endian, Lsb0) byte and
+     * Converts bytes from an array into a UUID using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
      * 
      * @param src the source byte array
      * @param srcPos the position in {@code src} where to copy the result from
      * @return a UUID
-     * @throws IllegalArgumentException if array does not contain at least 16 bytes beginning with {@code srcPos}   
+     * @throws IllegalArgumentException if array does not contain at least 16 bytes beginning
+     *             with {@code srcPos}
      */
     public static UUID bytesToUuid(byte[] src, int srcPos) {
-        if (src.length-srcPos < 16 )
+        if (src.length - srcPos < 16) {
             throw new IllegalArgumentException("Need at least 16 bytes for UUID");
-        return new UUID(bytesToLong(src, srcPos, 0, 0, 8), bytesToLong(src, srcPos+8, 0, 0, 8));
+        }
+        return new UUID(
+            bytesToLong(src, srcPos, 0, 0, 8), bytesToLong(src, srcPos + 8, 0, 0, 8));
     }
 }
