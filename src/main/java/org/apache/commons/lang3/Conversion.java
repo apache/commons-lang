@@ -26,23 +26,28 @@ import java.util.UUID;
  * Static methods to convert a type into another, with endianness and bit ordering awareness.
  * </p>
  * <p>
- * The methods names follow a naming rule:
+ * The methods names follow a naming rule:</br>
+ * {@code <source type>[source endianness][source bit ordering]To<destination type>[destination endianness][destination bit ordering]}
  * </p>
- * 
- * <pre>
- * &ltsource type&gt[source endianness][source bit ordering]To&ltdestination type&gt[destination endianness][destination bit ordering]
- * Source/Destination type fields: either of the following. An 's' added at the end indicate an array
- *  - "bool"
- *  - "byte"
- *  - "int"
- *  - "long"
- *  - "Hex": a String containing hexadecimal digits
- *  - "HexDigit": a Char containing a hexadecimal digit
- * Endianness field: little endian is the default, in this case the field is absent. In case of big endian, the field is "Be".
- * Bit ordering: Lsb0 is the default, in this case the field is absent. In case of Msb0, the field is "Msb0".
- * 
- * Example: intBeMsb0ToHex convert an int with big endian byte order and Msb0 bit order into its hexadecimal string representation
- * </pre>
+ * <p>
+ * Source/destination type fields is one of the following:
+ * <ul>
+ * <li>binary: an array of booleans</li>
+ * <li>byte or byteArray</li>
+ * <li>int or intArray</li>
+ * <li>long or longArray</li>
+ * <li>hex: a String containing hexadecimal digits (lowercase in destination)</li>
+ * <li>hexDigit: a Char containing a hexadecimal digit (lowercase in destination)</li>
+ * <li>uuid</li>
+ * </ul>
+ * Endianness field: little endian is the default, in this case the field is absent. In case of
+ * big endian, the field is "Be".</br> Bit ordering: Lsb0 is the default, in this case the field
+ * is absent. In case of Msb0, the field is "Msb0".
+ * </p>
+ * <p>
+ * Example: intBeMsb0ToHex convert an int with big endian byte order and Msb0 bit order into its
+ * hexadecimal string representation
+ * </p>
  * <p>
  * Most of the methods provide only default encoding for destination, this limits the number of
  * ways to do one thing. Unless you are dealing with data from/to outside of the JVM platform,
@@ -141,7 +146,8 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts a hexadecimal digit into binary (represented as boolean array) using the default (Lsb0) bit ordering.
+     * Converts a hexadecimal digit into binary (represented as boolean array) using the default
+     * (Lsb0) bit ordering.
      * </p>
      * <p>
      * '1' is converted as follow: (1, 0, 0, 0)
@@ -151,7 +157,7 @@ public class Conversion {
      * @return a boolean array with the binary representation of {@code hexDigit}
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit
      */
-    public static boolean[] hexDigitToBoolArray(char hexDigit) {
+    public static boolean[] hexDigitToBinary(char hexDigit) {
         switch (hexDigit) {
         case '0':
             return new boolean[]{false, false, false, false};
@@ -200,7 +206,8 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts a hexadecimal digit into binary (represented as boolean array) using the Msb0 bit ordering.
+     * Converts a hexadecimal digit into binary (represented as boolean array) using the Msb0
+     * bit ordering.
      * </p>
      * <p>
      * '1' is converted as follow: (0, 0, 0, 1)
@@ -210,7 +217,7 @@ public class Conversion {
      * @return a boolean array with the binary representation of {@code hexDigit}
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit
      */
-    public static boolean[] hexDigitMsb0ToBoolArray(char hexDigit) {
+    public static boolean[] hexDigitMsb0ToBinary(char hexDigit) {
         switch (hexDigit) {
         case '0':
             return new boolean[]{false, false, false, false};
@@ -259,7 +266,8 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts binary (represented as boolean array) to a hexadecimal digit using the default (Lsb0) bit ordering.
+     * Converts binary (represented as boolean array) to a hexadecimal digit using the default
+     * (Lsb0) bit ordering.
      * </p>
      * <p>
      * (1, 0, 0, 0) is converted as follow: '1'
@@ -270,13 +278,14 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code src} is empty
      * @throws NullPointerException if {@code src} is {@code null}
      */
-    public static char boolArrayToHexDigit(boolean[] src) {
-        return boolArrayToHexDigit(src, 0);
+    public static char binaryToHexDigit(boolean[] src) {
+        return binaryToHexDigit(src, 0);
     }
 
     /**
      * <p>
-     * Converts binary (represented as boolean array) to a hexadecimal digit using the default (Lsb0) bit ordering.
+     * Converts binary (represented as boolean array) to a hexadecimal digit using the default
+     * (Lsb0) bit ordering.
      * </p>
      * <p>
      * (1, 0, 0, 0) is converted as follow: '1'
@@ -288,7 +297,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code src} is empty
      * @throws NullPointerException if {@code src} is {@code null}
      */
-    public static char boolArrayToHexDigit(boolean[] src, int srcPos) {
+    public static char binaryToHexDigit(boolean[] src, int srcPos) {
         if (src.length == 0) {
             throw new IllegalArgumentException("Cannot convert an empty array.");
         }
@@ -357,7 +366,8 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts binary (represented as boolean array) to a hexadecimal digit using the Msb0 bit ordering.
+     * Converts binary (represented as boolean array) to a hexadecimal digit using the Msb0 bit
+     * ordering.
      * </p>
      * <p>
      * (1, 0, 0, 0) is converted as follow: '8'
@@ -369,13 +379,14 @@ public class Conversion {
      *             {@code src.length > 8}
      * @throws NullPointerException if {@code src} is {@code null}
      */
-    public static char boolArrayToHexDigitMsb0_4bits(boolean[] src) {
-        return boolArrayToHexDigitMsb0_4bits(src, 0);
+    public static char binaryToHexDigitMsb0_4bits(boolean[] src) {
+        return binaryToHexDigitMsb0_4bits(src, 0);
     }
 
     /**
      * <p>
-     * Converts binary (represented as boolean array) to a hexadecimal digit using the Msb0 bit ordering.
+     * Converts binary (represented as boolean array) to a hexadecimal digit using the Msb0 bit
+     * ordering.
      * </p>
      * <p>
      * (1, 0, 0, 0) is converted as follow: '8' (1,0,0,1,1,0,1,0) with srcPos = 3 is converted
@@ -389,7 +400,7 @@ public class Conversion {
      *             {@code src.length - srcPos < 4}
      * @throws NullPointerException if {@code src} is {@code null}
      */
-    public static char boolArrayToHexDigitMsb0_4bits(boolean[] src, int srcPos) {
+    public static char binaryToHexDigitMsb0_4bits(boolean[] src, int srcPos) {
         if (src.length > 8) {
             throw new IllegalArgumentException("src.length>8: src.length=" + src.length);
         }
@@ -464,8 +475,8 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts the first 4 bits of a binary (represented as boolean array) in big endian Msb0 bit ordering to a
-     * hexadecimal digit.
+     * Converts the first 4 bits of a binary (represented as boolean array) in big endian Msb0
+     * bit ordering to a hexadecimal digit.
      * </p>
      * <p>
      * (1, 0, 0, 0) is converted as follow: '8' (1,0,0,0,0,0,0,0, 0,0,0,0,0,1,0,0) is converted
@@ -477,14 +488,14 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code src} is empty
      * @throws NullPointerException if {@code src} is {@code null}
      */
-    public static char boolArrayBeMsb0ToHexDigit(boolean[] src) {
-        return boolArrayBeMsb0ToHexDigit(src, 0);
+    public static char binaryBeMsb0ToHexDigit(boolean[] src) {
+        return binaryBeMsb0ToHexDigit(src, 0);
     }
 
     /**
      * <p>
-     * Converts a binary (represented as boolean array) in big endian Msb0 bit ordering to a hexadecimal
-     * digit.
+     * Converts a binary (represented as boolean array) in big endian Msb0 bit ordering to a
+     * hexadecimal digit.
      * </p>
      * <p>
      * (1, 0, 0, 0) with srcPos = 0 is converted as follow: '8' (1,0,0,0,0,0,0,0,
@@ -497,7 +508,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code src} is empty
      * @throws NullPointerException if {@code src} is {@code null}
      */
-    public static char boolArrayBeMsb0ToHexDigit(boolean[] src, int srcPos) {
+    public static char binaryBeMsb0ToHexDigit(boolean[] src, int srcPos) {
         if (src.length == 0) {
             throw new IllegalArgumentException("Cannot convert an empty array.");
         }
@@ -1011,8 +1022,8 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts binary (represented as boolean array) into a long using the default (little endian, Lsb0) byte and
-     * bit ordering.
+     * Converts binary (represented as boolean array) into a long using the default (little
+     * endian, Lsb0) byte and bit ordering.
      * </p>
      * 
      * @param src the binary to convert
@@ -1026,7 +1037,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 64}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
-    public static long boolArrayToLong(boolean[] src, int srcPos, long dstInit, int dstPos,
+    public static long binaryToLong(boolean[] src, int srcPos, long dstInit, int dstPos,
         int nBools) {
         if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
             return dstInit;
@@ -1048,8 +1059,8 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts binary (represented as boolean array) into a int using the default (little endian, Lsb0) byte and
-     * bit ordering.
+     * Converts binary (represented as boolean array) into a int using the default (little
+     * endian, Lsb0) byte and bit ordering.
      * </p>
      * 
      * @param src the binary to convert
@@ -1063,8 +1074,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
-    public static int boolArrayToInt(boolean[] src, int srcPos, int dstInit, int dstPos,
-        int nBools) {
+    public static int binaryToInt(boolean[] src, int srcPos, int dstInit, int dstPos, int nBools) {
         if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
             return dstInit;
         }
@@ -1085,8 +1095,8 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts binary (represented as boolean array) into a short using the default (little endian, Lsb0) byte
-     * and bit ordering.
+     * Converts binary (represented as boolean array) into a short using the default (little
+     * endian, Lsb0) byte and bit ordering.
      * </p>
      * 
      * @param src the binary to convert
@@ -1100,7 +1110,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 16}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
-    public static short boolArrayToShort(boolean[] src, int srcPos, short dstInit, int dstPos,
+    public static short binaryToShort(boolean[] src, int srcPos, short dstInit, int dstPos,
         int nBools) {
         if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
             return dstInit;
@@ -1122,8 +1132,8 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts binary (represented as boolean array) into a byte using the default (little endian, Lsb0) byte and
-     * bit ordering.
+     * Converts binary (represented as boolean array) into a byte using the default (little
+     * endian, Lsb0) byte and bit ordering.
      * </p>
      * 
      * @param src the binary to convert
@@ -1137,7 +1147,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 8}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
-    public static byte boolArrayToByte(boolean[] src, int srcPos, byte dstInit, int dstPos,
+    public static byte binaryToByte(boolean[] src, int srcPos, byte dstInit, int dstPos,
         int nBools) {
         if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
             return dstInit;
@@ -1535,7 +1545,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 64}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
-    public static boolean[] longToBoolArray(long src, int srcPos, boolean[] dst, int dstPos,
+    public static boolean[] longToBinary(long src, int srcPos, boolean[] dst, int dstPos,
         int nBools) {
         if (0 == nBools) {
             return dst;
@@ -1569,7 +1579,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
-    public static boolean[] intToBoolArray(int src, int srcPos, boolean[] dst, int dstPos,
+    public static boolean[] intToBinary(int src, int srcPos, boolean[] dst, int dstPos,
         int nBools) {
         if (0 == nBools) {
             return dst;
@@ -1603,7 +1613,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 16}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
-    public static boolean[] shortToBoolArray(short src, int srcPos, boolean[] dst, int dstPos,
+    public static boolean[] shortToBinary(short src, int srcPos, boolean[] dst, int dstPos,
         int nBools) {
         if (0 == nBools) {
             return dst;
@@ -1638,7 +1648,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 8}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
-    public static boolean[] byteToBoolArray(byte src, int srcPos, boolean[] dst, int dstPos,
+    public static boolean[] byteToBinary(byte src, int srcPos, boolean[] dst, int dstPos,
         int nBools) {
         if (0 == nBools) {
             return dst;
