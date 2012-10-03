@@ -22,6 +22,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.fail;
 
+import java.util.UUID;
+
 import org.junit.Test;
 
 
@@ -238,7 +240,8 @@ public class ConversionTest {
         assertEquals('e', Conversion.boolsToHexDigit(new boolean[]{false, true, true, true}));
         assertEquals('f', Conversion.boolsToHexDigit(new boolean[]{true, true, true, true}));
         assertEquals('1', Conversion.boolsToHexDigit(new boolean[]{true}));
-        assertEquals('f', Conversion.boolsToHexDigit(new boolean[]{true, true, true, true, true}));
+        assertEquals(
+            'f', Conversion.boolsToHexDigit(new boolean[]{true, true, true, true, true}));
         try {
             Conversion.boolsToHexDigit(new boolean[]{});
             fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
@@ -1701,5 +1704,57 @@ public class ConversionTest {
         assertBoolArrayEquals(new boolean[]{
             false, false, false, true, false, true, false, false, true, false, false, false,
             false}, Conversion.byteToBools((byte)0x95, 2, new boolean[13], 3, 6));
+    }
+
+    /**
+     * Tests {@link Conversion#uuidToBytes(UUID, byte[], int, int)}.
+     */
+    @Test
+    public void testUuidToBytes() {
+        assertArrayEquals(new byte[]{
+            (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,
+            (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,
+            (byte)0xff, (byte)0xff}, Conversion.uuidToBytes(new UUID(
+            0xFFFFFFFFFFFFFFFFL, 0xFFFFFFFFFFFFFFFFL), new byte[16], 0, 16));
+        assertArrayEquals(new byte[]{
+            (byte)0x88, (byte)0x99, (byte)0xaa, (byte)0xbb, (byte)0xcc, (byte)0xdd, (byte)0xee,
+            (byte)0xff, (byte)0x00, (byte)0x11, (byte)0x22, (byte)0x33, (byte)0x44, (byte)0x55,
+            (byte)0x66, (byte)0x77}, Conversion.uuidToBytes(new UUID(
+            0xFFEEDDCCBBAA9988L, 0x7766554433221100L), new byte[16], 0, 16));
+        assertArrayEquals(new byte[]{
+            (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x88, (byte)0x99, (byte)0xaa,
+            (byte)0xbb, (byte)0xcc, (byte)0xdd, (byte)0xee, (byte)0xff, (byte)0x00, (byte)0x00,
+            (byte)0x00, (byte)0x00}, Conversion.uuidToBytes(new UUID(
+            0xFFEEDDCCBBAA9988L, 0x7766554433221100L), new byte[16], 4, 8));
+        assertArrayEquals(new byte[]{
+            (byte)0x00, (byte)0x00, (byte)0x88, (byte)0x99, (byte)0xaa, (byte)0xbb, (byte)0xcc,
+            (byte)0xdd, (byte)0xee, (byte)0xff, (byte)0x00, (byte)0x11, (byte)0x22, (byte)0x33,
+            (byte)0x00, (byte)0x00}, Conversion.uuidToBytes(new UUID(
+            0xFFEEDDCCBBAA9988L, 0x7766554433221100L), new byte[16], 2, 12));
+    }
+
+    /**
+     * Tests {@link Conversion#bytesToUuid(byte[], int)}.
+     */
+    @Test
+    public void testBytesToUuid() {
+        assertEquals(
+            new UUID(0xFFFFFFFFFFFFFFFFL, 0xFFFFFFFFFFFFFFFFL),
+            Conversion.bytesToUuid(new byte[]{
+                (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,
+                (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,
+                (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff}, 0));
+        assertEquals(
+            new UUID(0xFFEEDDCCBBAA9988L, 0x7766554433221100L),
+            Conversion.bytesToUuid(new byte[]{
+                (byte)0x88, (byte)0x99, (byte)0xaa, (byte)0xbb, (byte)0xcc, (byte)0xdd,
+                (byte)0xee, (byte)0xff, (byte)0x00, (byte)0x11, (byte)0x22, (byte)0x33,
+                (byte)0x44, (byte)0x55, (byte)0x66, (byte)0x77}, 0));
+        assertEquals(
+            new UUID(0xFFEEDDCCBBAA9988L, 0x7766554433221100L),
+            Conversion.bytesToUuid(new byte[]{
+                0, 0, (byte)0x88, (byte)0x99, (byte)0xaa, (byte)0xbb, (byte)0xcc, (byte)0xdd,
+                (byte)0xee, (byte)0xff, (byte)0x00, (byte)0x11, (byte)0x22, (byte)0x33,
+                (byte)0x44, (byte)0x55, (byte)0x66, (byte)0x77}, 2));
     }
 }
