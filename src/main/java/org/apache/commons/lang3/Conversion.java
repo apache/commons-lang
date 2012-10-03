@@ -597,8 +597,8 @@ public class Conversion {
         for (int i = 0; i < nInts; i++ ) {
             shift = i * 32 + dstPos;
             long bits = ((0xffffffffL & src[i + srcPos]) << shift);
-            long mask = (0xffffffffL << shift);
-            out = ((out & ~mask) | bits);
+            long mask = 0xffffffffL << shift;
+            out = (out & ~mask) | bits;
         }
         return out;
     }
@@ -919,7 +919,7 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
             shift = i * 1 + dstPos;
-            long bits = (0x1L & ((src[i + srcPos]) ? 1 : 0)) << shift;
+            long bits = (src[i + srcPos] ? 1L : 0) << shift;
             long mask = 0x1L << shift;
             out = (out & ~mask) | bits;
         }
@@ -951,7 +951,7 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
             shift = i * 1 + dstPos;
-            int bits = (0x1 & ((src[i + srcPos]) ? 1 : 0)) << shift;
+            int bits = (src[i + srcPos] ? 1 : 0) << shift;
             int mask = 0x1 << shift;
             out = (out & ~mask) | bits;
         }
@@ -984,7 +984,7 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
             shift = i * 1 + dstPos;
-            int bits = (0x1 & ((src[i + srcPos]) ? 1 : 0)) << shift;
+            int bits = (src[i + srcPos] ? 1 : 0) << shift;
             int mask = 0x1 << shift;
             out = (short)((out & ~mask) | bits);
         }
@@ -1017,7 +1017,7 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
             shift = i * 1 + dstPos;
-            int bits = (0x1 & ((src[i + srcPos]) ? 1 : 0)) << shift;
+            int bits = (src[i + srcPos] ? 1 : 0) << shift;
             int mask = 0x1 << shift;
             out = (byte)((out & ~mask) | bits);
         }
