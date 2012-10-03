@@ -240,9 +240,9 @@ public class ConversionTest {
         assertEquals('1', Conversion.boolsToHexDigit(new boolean[]{true}));
         assertEquals('f', Conversion.boolsToHexDigit(new boolean[]{true, true, true, true, true}));
         try {
-            assertEquals('0', Conversion.boolsToHexDigit(new boolean[]{}));
-            fail("Thrown " + ArrayIndexOutOfBoundsException.class.getName() + " expected");
-        } catch (final ArrayIndexOutOfBoundsException e) {
+            Conversion.boolsToHexDigit(new boolean[]{});
+            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
+        } catch (final IllegalArgumentException e) {
             // OK
         }
     }
@@ -303,6 +303,12 @@ public class ConversionTest {
             'e', Conversion.boolsToHexDigitM0_4bits(new boolean[]{true, true, true, false}));
         assertEquals(
             'f', Conversion.boolsToHexDigitM0_4bits(new boolean[]{true, true, true, true}));
+        try {
+            Conversion.boolsToHexDigitM0_4bits(new boolean[]{});
+            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
+        } catch (final IllegalArgumentException e) {
+            // OK
+        }
     }
 
     /**
@@ -381,6 +387,12 @@ public class ConversionTest {
             Conversion.boolsBeM0ToHexDigit(new boolean[]{
                 true, false, false, false, false, false, false, false, false, false, false,
                 false, false, true, false, false}));
+        try {
+            Conversion.boolsBeM0ToHexDigit(new boolean[]{});
+            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
+        } catch (final IllegalArgumentException e) {
+            // OK
+        }
     }
 
     /**
