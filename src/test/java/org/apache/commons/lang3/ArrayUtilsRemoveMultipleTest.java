@@ -461,6 +461,10 @@ public class ArrayUtilsRemoveMultipleTest {
     @Test
     public void testRemoveAllIntArray() {
         int[] array;
+        array = ArrayUtils.removeAll(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.EMPTY_INT_ARRAY);
+        assertTrue(Arrays.equals(ArrayUtils.EMPTY_INT_ARRAY, array));
+        array = ArrayUtils.removeAll(new int[] { 1 }, ArrayUtils.EMPTY_INT_ARRAY);
+        assertTrue(Arrays.equals(new int[] { 1 }, array));
         array = ArrayUtils.removeAll(new int[] { 1 }, 0);
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_INT_ARRAY, array));
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
