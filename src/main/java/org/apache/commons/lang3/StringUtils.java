@@ -4735,7 +4735,7 @@ public class StringUtils {
      * StringUtils.center(null, *, *)     = null
      * StringUtils.center("", 4, ' ')     = "    "
      * StringUtils.center("ab", -1, ' ')  = "ab"
-     * StringUtils.center("ab", 4, ' ')   = " ab"
+     * StringUtils.center("ab", 4, ' ')   = " ab "
      * StringUtils.center("abcd", 2, ' ') = "abcd"
      * StringUtils.center("a", 4, ' ')    = " a  "
      * StringUtils.center("a", 4, 'y')    = "yayy"
@@ -4773,7 +4773,7 @@ public class StringUtils {
      * StringUtils.center(null, *, *)     = null
      * StringUtils.center("", 4, " ")     = "    "
      * StringUtils.center("ab", -1, " ")  = "ab"
-     * StringUtils.center("ab", 4, " ")   = " ab"
+     * StringUtils.center("ab", 4, " ")   = " ab "
      * StringUtils.center("abcd", 2, " ") = "abcd"
      * StringUtils.center("a", 4, " ")    = " a  "
      * StringUtils.center("a", 4, "yz")   = "yayz"
