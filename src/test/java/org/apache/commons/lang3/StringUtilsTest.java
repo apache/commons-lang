@@ -988,6 +988,16 @@ public class StringUtilsTest {
     }
     
     @Test
+    public void testReplacePattern() {
+        assertEquals("X", StringUtils.replacePattern("<A>\nxy\n</A>", "<A>.*</A>", "X"));
+    }
+    
+    @Test
+    public void testRemovePattern() {
+        assertEquals("", StringUtils.removePattern("<A>x\\ny</A>", "<A>.*</A>"));
+    }
+    
+    @Test
     public void testReplace_StringStringStringInt() {
         assertEquals(null, StringUtils.replace(null, null, null, 2));
         assertEquals(null, StringUtils.replace(null, null, "any", 2));

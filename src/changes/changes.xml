@@ -23,6 +23,7 @@
 
   <release version="3.2" date="TBA" description="Next release">
     <action issue="LANG-844" type="fix">Fix examples contained in javadoc of StringUtils.center methods</action>
+    <action issue="LANG-841" type="add">Add StringUtils API to call String.replaceAll in DOTALL a.k.a. single-line mode</action>    
     <action issue="LANG-839" type="update">ArrayUtils removeElements methods use unnecessary HashSet</action>
     <action issue="LANG-838" type="update">ArrayUtils removeElements methods clone temporary index arrays unnecessarily</action>
     <action issue="LANG-832" type="fix">FastDateParser does not handle unterminated quotes correctly</action>
