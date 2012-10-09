@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import java.lang.reflect.Array;
 import java.util.BitSet;
 import java.util.HashSet;
 
@@ -28,6 +29,7 @@ import org.junit.Test;
 public class HashSetvBitSetTest {
 
     private static final int LOOPS = 2000; // number of times to invoke methods
+    private static final int LOOPS2 = 10000;
 
     @Test
     public void testTimes() {
@@ -42,6 +44,7 @@ public class HashSetvBitSetTest {
         printTimes(1000);
         printTimes(2000);
     }
+
     private void printTimes(int count) {
         long hashSet = timeHashSet(count);
         long bitSet = timeBitSet(count);
@@ -106,6 +109,94 @@ public class HashSetvBitSetTest {
         int j=0;
         while((j=coll.nextSetBit(j)) != -1) {
             result[i++] = j++;            
+        }
+        return result;
+    }
+    
+    @Test
+    public void testTimesExtractOrBitset() {
+        final BitSet toRemove = new BitSet();
+        final int[] array = new int[100];
+        toRemove.set(10, 20);
+        timeBitSetRemoveAll(array, toRemove); // warmup
+        timeExtractRemoveAll(array, toRemove); // warmup
+        printTimes(100,1);
+        printTimes(100,10);
+        printTimes(100,50);
+        printTimes(100,100);
+        printTimes(1000,10);
+        printTimes(1000,100);
+        printTimes(1000,500);
+        printTimes(1000,1000);
+    }
+
+    private void printTimes(int arraySize, int bitSetSize) {
+        int[] array = new int[arraySize];
+        BitSet remove = new BitSet();
+        for (int i = 0; i < bitSetSize; i++) {
+            remove.set(i);
+        }
+        long bitSet = timeBitSetRemoveAll(array, remove );
+        long extract = timeExtractRemoveAll(array, remove);
+        // If percent is less than 100, then direct use of bitset is faster
+        System.out.println("Ratio="+(bitSet*100/extract)+"% array="+array.length+" count="+remove.cardinality()+" extract="+extract+" bitset="+bitSet);
+    }
+
+    private long timeBitSetRemoveAll(int[] array, BitSet toRemove) {
+        int[] output = new int[0];
+        long start = System.nanoTime();
+        for(int i = 0; i < LOOPS2; i++){
+            output = (int[]) removeAll(array, toRemove);            
+        }
+        long end = System.nanoTime();
+        Assert.assertEquals(array.length-toRemove.cardinality(), output.length);
+        return end - start;
+    }
+    
+    private long timeExtractRemoveAll(int[] array, BitSet toRemove) {
+        int[] output = new int[0];
+        long start = System.nanoTime();
+        for(int i = 0; i < LOOPS2; i++){
+            final int[] extractIndices = extractIndices(toRemove);
+            output = (int[]) ArrayUtils.removeAll((Object)array, extractIndices);
+        }
+        long end = System.nanoTime();
+        Assert.assertEquals(array.length-toRemove.cardinality(), output.length);
+        return end - start;
+    }
+    
+    /**
+     * Removes multiple array elements specified by indices.
+     * 
+     * @param array source
+     * @param indices to remove
+     * @return new array of same type minus elements specified by the set bits in {@code indices}
+     * @since 3.2
+     */
+    // package protected for access by unit tests
+    static Object removeAll(Object array, BitSet indices) {
+        final int srcLength = ArrayUtils.getLength(array);
+        final int maxIndex = indices.length();
+        if (maxIndex > srcLength) { // TODO necessary? Can check this when creating the BitSit 
+            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
+        }
+        final int removals = indices.cardinality(); // true bits are items to remove
+        Object result = Array.newInstance(array.getClass().getComponentType(), srcLength - removals);
+        int srcIndex=0;
+        int destIndex=0;
+        int count;
+        int set;
+        while((set = indices.nextSetBit(srcIndex)) != -1){
+            count = set - srcIndex;
+            if (count > 0) {
+                System.arraycopy(array, srcIndex, result, destIndex, count);
+                destIndex += count;
+            }
+            srcIndex = indices.nextClearBit(set);
+        }
+        count = srcLength - srcIndex;
+        if (count > 0) {
+            System.arraycopy(array, srcIndex, result, destIndex, count);            
         }
         return result;
     }
