@@ -185,6 +185,10 @@ public class SystemUtilsTest {
             assertTrue(SystemUtils.IS_OS_SUN_OS);
             assertTrue(SystemUtils.IS_OS_UNIX);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
+        } else if (osName.startsWith("FreeBSD")) {
+            assertTrue(SystemUtils.IS_OS_FREE_BSD);
+            assertTrue(SystemUtils.IS_OS_UNIX);
+            assertFalse(SystemUtils.IS_OS_WINDOWS);
         } else {
             System.out.println("Can't test IS_OS value: "+osName);
         }
