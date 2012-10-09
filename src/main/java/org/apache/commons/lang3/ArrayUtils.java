@@ -18,8 +18,8 @@ package org.apache.commons.lang3;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -5007,7 +5007,7 @@ public class ArrayUtils {
                 count.increment();
             }
         }
-        HashSet<Integer> toRemove = new HashSet<Integer>();
+        BitSet toRemove = new BitSet();
         for (Map.Entry<T, MutableInt> e : occurrences.entrySet()) {
             T v = e.getKey();
             int found = 0;
@@ -5016,7 +5016,7 @@ public class ArrayUtils {
                 if (found < 0) {
                     break;
                 }
-                toRemove.add(found++);
+                toRemove.set(found++);
             }
         }
         @SuppressWarnings("unchecked") // removeAll() always creates an array of the same type as its input
@@ -5098,7 +5098,7 @@ public class ArrayUtils {
                 count.increment();
             }
         }
-        HashSet<Integer> toRemove = new HashSet<Integer>();
+        BitSet toRemove = new BitSet();
         for (Map.Entry<Byte, MutableInt> e : occurrences.entrySet()) {
             Byte v = e.getKey();
             int found = 0;
@@ -5107,7 +5107,7 @@ public class ArrayUtils {
                 if (found < 0) {
                     break;
                 }
-                toRemove.add(found++);
+                toRemove.set(found++);
             }
         }
         return (byte[]) removeAll((Object)array, extractIndices(toRemove));
@@ -5187,7 +5187,7 @@ public class ArrayUtils {
                 count.increment();
             }
         }
-        HashSet<Integer> toRemove = new HashSet<Integer>();
+        BitSet toRemove = new BitSet();
         for (Map.Entry<Short, MutableInt> e : occurrences.entrySet()) {
             Short v = e.getKey();
             int found = 0;
@@ -5196,7 +5196,7 @@ public class ArrayUtils {
                 if (found < 0) {
                     break;
                 }
-                toRemove.add(found++);
+                toRemove.set(found++);
             }
         }
         return (short[]) removeAll((Object)array, extractIndices(toRemove));
@@ -5276,7 +5276,7 @@ public class ArrayUtils {
                 count.increment();
             }
         }
-        HashSet<Integer> toRemove = new HashSet<Integer>();
+        BitSet toRemove = new BitSet();
         for (Map.Entry<Integer, MutableInt> e : occurrences.entrySet()) {
             Integer v = e.getKey();
             int found = 0;
@@ -5285,7 +5285,7 @@ public class ArrayUtils {
                 if (found < 0) {
                     break;
                 }
-                toRemove.add(found++);
+                toRemove.set(found++);
             }
         }
         return (int[]) removeAll((Object)array, extractIndices(toRemove));
@@ -5365,7 +5365,7 @@ public class ArrayUtils {
                 count.increment();
             }
         }
-        HashSet<Integer> toRemove = new HashSet<Integer>();
+        BitSet toRemove = new BitSet();
         for (Map.Entry<Character, MutableInt> e : occurrences.entrySet()) {
             Character v = e.getKey();
             int found = 0;
@@ -5374,7 +5374,7 @@ public class ArrayUtils {
                 if (found < 0) {
                     break;
                 }
-                toRemove.add(found++);
+                toRemove.set(found++);
             }
         }
         return (char[]) removeAll((Object)array, extractIndices(toRemove));
@@ -5454,7 +5454,7 @@ public class ArrayUtils {
                 count.increment();
             }
         }
-        HashSet<Integer> toRemove = new HashSet<Integer>();
+        BitSet toRemove = new BitSet();
         for (Map.Entry<Long, MutableInt> e : occurrences.entrySet()) {
             Long v = e.getKey();
             int found = 0;
@@ -5463,7 +5463,7 @@ public class ArrayUtils {
                 if (found < 0) {
                     break;
                 }
-                toRemove.add(found++);
+                toRemove.set(found++);
             }
         }
         return (long[]) removeAll((Object)array, extractIndices(toRemove));
@@ -5543,7 +5543,7 @@ public class ArrayUtils {
                 count.increment();
             }
         }
-        HashSet<Integer> toRemove = new HashSet<Integer>();
+        BitSet toRemove = new BitSet();
         for (Map.Entry<Float, MutableInt> e : occurrences.entrySet()) {
             Float v = e.getKey();
             int found = 0;
@@ -5552,7 +5552,7 @@ public class ArrayUtils {
                 if (found < 0) {
                     break;
                 }
-                toRemove.add(found++);
+                toRemove.set(found++);
             }
         }
         return (float[]) removeAll((Object)array, extractIndices(toRemove));
@@ -5632,7 +5632,7 @@ public class ArrayUtils {
                 count.increment();
             }
         }
-        HashSet<Integer> toRemove = new HashSet<Integer>();
+        BitSet toRemove = new BitSet();
         for (Map.Entry<Double, MutableInt> e : occurrences.entrySet()) {
             Double v = e.getKey();
             int found = 0;
@@ -5641,7 +5641,7 @@ public class ArrayUtils {
                 if (found < 0) {
                     break;
                 }
-                toRemove.add(found++);
+                toRemove.set(found++);
             }
         }
         return (double[]) removeAll((Object)array, extractIndices(toRemove));
@@ -5717,7 +5717,7 @@ public class ArrayUtils {
                 count.increment();
             }
         }
-        HashSet<Integer> toRemove = new HashSet<Integer>();
+        BitSet toRemove = new BitSet();
         for (Map.Entry<Boolean, MutableInt> e : occurrences.entrySet()) {
             Boolean v = e.getKey();
             int found = 0;
@@ -5726,7 +5726,7 @@ public class ArrayUtils {
                 if (found < 0) {
                     break;
                 }
-                toRemove.add(found++);
+                toRemove.set(found++);
             }
         }
         return (boolean[]) removeAll((Object)array, extractIndices(toRemove));
@@ -5782,16 +5782,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Extract a set of Integer indices into an int[].
-     * @param coll {@code HashSet} of {@code Integer}
+     * Extract a set of BitSet indices into an int[].
+     * @param coll Bitset
      * @return int[]
-     * @since 3.0.1
      */
-    private static int[] extractIndices(HashSet<Integer> coll) {
-        int[] result = new int[coll.size()];
+    private static int[] extractIndices(BitSet coll) {
+        int[] result = new int[coll.cardinality()];
         int i = 0;
-        for (Integer index : coll) {
-            result[i++] = index.intValue();
+        int j=0;
+        while((j=coll.nextSetBit(j)) != -1) {
+            result[i++] = j++;            
         }
         return result;
     }
