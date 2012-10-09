@@ -3699,6 +3699,46 @@ public class StringUtils {
     }
 
     /**
+     * Replaces each substring of the source String that matches the given regular expression with the given
+     * replacement using the {@link Pattern#DOTALL} option. DOTALL is also know as single-line mode in Perl. This call
+     * is also equivalent to:
+     * <ul>
+     * <li>{@code source.replaceAll(&quot;(?s)&quot; + regex, replacement)}</li>
+     * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(source).replaceAll(replacement)}</li>
+     * </ul>
+     * 
+     * @param source
+     *            the source string
+     * @param regex
+     *            the regular expression to which this string is to be matched
+     * @param replacement
+     *            the string to be substituted for each match
+     * @return The resulting {@code String}
+     * @see String#replaceAll(String, String)
+     * @see Pattern#DOTALL
+     * @since 3.2
+     */
+    public static String replacePattern(String source, String regex, String replacement) {
+        return Pattern.compile(regex, Pattern.DOTALL).matcher(source).replaceAll(replacement);
+    }
+
+    /**
+     * Removes each substring of the source String that matches the given regular expression using the DOTALL option.
+     * 
+     * @param source
+     *            the source string
+     * @param regex
+     *            the regular expression to which this string is to be matched
+     * @return The resulting {@code String}
+     * @see String#replaceAll(String, String)
+     * @see Pattern#DOTALL
+     * @since 3.2
+     */
+    public static String removePattern(String source, String regex) {
+        return replacePattern(source, regex, StringUtils.EMPTY);
+    }
+
+    /**
      * <p>Replaces all occurrences of a String within another String.</p>
      *
      * <p>A {@code null} reference passed to this method is a no-op.</p>
