@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import java.lang.reflect.Array;
 import java.util.BitSet;
 import java.util.HashSet;
 
@@ -146,7 +145,7 @@ public class HashSetvBitSetTest {
         int[] output = new int[0];
         long start = System.nanoTime();
         for(int i = 0; i < LOOPS2; i++){
-            output = (int[]) removeAll(array, toRemove);            
+            output = (int[]) ArrayUtils.removeAll(array, toRemove);            
         }
         long end = System.nanoTime();
         Assert.assertEquals(array.length-toRemove.cardinality(), output.length);
@@ -165,39 +164,4 @@ public class HashSetvBitSetTest {
         return end - start;
     }
     
-    /**
-     * Removes multiple array elements specified by indices.
-     * 
-     * @param array source
-     * @param indices to remove
-     * @return new array of same type minus elements specified by the set bits in {@code indices}
-     * @since 3.2
-     */
-    // package protected for access by unit tests
-    static Object removeAll(Object array, BitSet indices) {
-        final int srcLength = ArrayUtils.getLength(array);
-        final int maxIndex = indices.length();
-        if (maxIndex > srcLength) { // TODO necessary? Can check this when creating the BitSit 
-            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
-        }
-        final int removals = indices.cardinality(); // true bits are items to remove
-        Object result = Array.newInstance(array.getClass().getComponentType(), srcLength - removals);
-        int srcIndex=0;
-        int destIndex=0;
-        int count;
-        int set;
-        while((set = indices.nextSetBit(srcIndex)) != -1){
-            count = set - srcIndex;
-            if (count > 0) {
-                System.arraycopy(array, srcIndex, result, destIndex, count);
-                destIndex += count;
-            }
-            srcIndex = indices.nextClearBit(set);
-        }
-        count = srcLength - srcIndex;
-        if (count > 0) {
-            System.arraycopy(array, srcIndex, result, destIndex, count);            
-        }
-        return result;
-    }
 }
