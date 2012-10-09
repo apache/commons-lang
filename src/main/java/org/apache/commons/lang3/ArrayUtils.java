@@ -5020,7 +5020,7 @@ public class ArrayUtils {
             }
         }
         @SuppressWarnings("unchecked") // removeAll() always creates an array of the same type as its input
-        T[] result = (T[]) removeAll((Object)array, extractIndices(toRemove));
+        T[] result = (T[]) removeAll(array, toRemove);
         return result;
     }
 
@@ -5110,7 +5110,7 @@ public class ArrayUtils {
                 toRemove.set(found++);
             }
         }
-        return (byte[]) removeAll((Object)array, extractIndices(toRemove));
+        return (byte[]) removeAll(array, toRemove);
     }
 
     /**
@@ -5199,7 +5199,7 @@ public class ArrayUtils {
                 toRemove.set(found++);
             }
         }
-        return (short[]) removeAll((Object)array, extractIndices(toRemove));
+        return (short[]) removeAll(array, toRemove);
     }
 
     /**
@@ -5288,7 +5288,7 @@ public class ArrayUtils {
                 toRemove.set(found++);
             }
         }
-        return (int[]) removeAll((Object)array, extractIndices(toRemove));
+        return (int[]) removeAll(array, toRemove);
     }
 
     /**
@@ -5377,7 +5377,7 @@ public class ArrayUtils {
                 toRemove.set(found++);
             }
         }
-        return (char[]) removeAll((Object)array, extractIndices(toRemove));
+        return (char[]) removeAll(array, toRemove);
     }
 
     /**
@@ -5466,7 +5466,7 @@ public class ArrayUtils {
                 toRemove.set(found++);
             }
         }
-        return (long[]) removeAll((Object)array, extractIndices(toRemove));
+        return (long[]) removeAll(array, toRemove);
     }
 
     /**
@@ -5555,7 +5555,7 @@ public class ArrayUtils {
                 toRemove.set(found++);
             }
         }
-        return (float[]) removeAll((Object)array, extractIndices(toRemove));
+        return (float[]) removeAll(array, toRemove);
     }
 
     /**
@@ -5644,7 +5644,7 @@ public class ArrayUtils {
                 toRemove.set(found++);
             }
         }
-        return (double[]) removeAll((Object)array, extractIndices(toRemove));
+        return (double[]) removeAll(array, toRemove);
     }
 
     /**
@@ -5729,7 +5729,7 @@ public class ArrayUtils {
                 toRemove.set(found++);
             }
         }
-        return (boolean[]) removeAll((Object)array, extractIndices(toRemove));
+        return (boolean[]) removeAll(array, toRemove);
     }
 
     /**
@@ -5783,16 +5783,39 @@ public class ArrayUtils {
     }
 
     /**
-     * Extract a set of BitSet indices into an int[].
-     * @param coll Bitset
-     * @return int[]
+     * Removes multiple array elements specified by indices.
+     * 
+     * @param array source
+     * @param indices to remove
+     * @return new array of same type minus elements specified by the set bits in {@code indices}
+     * @since 3.2
      */
-    private static int[] extractIndices(BitSet coll) {
-        int[] result = new int[coll.cardinality()];
-        int i = 0;
-        int j=0;
-        while((j=coll.nextSetBit(j)) != -1) {
-            result[i++] = j++;            
+    // package protected for access by unit tests
+    static Object removeAll(Object array, BitSet indices) {
+        final int srcLength = ArrayUtils.getLength(array);
+        // No need to check maxIndex here, because method only currently called from removeElements()
+        // which guarantee to generate on;y valid bit entries.
+//        final int maxIndex = indices.length();
+//        if (maxIndex > srcLength) { 
+//            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
+//        }
+        final int removals = indices.cardinality(); // true bits are items to remove
+        Object result = Array.newInstance(array.getClass().getComponentType(), srcLength - removals);
+        int srcIndex=0;
+        int destIndex=0;
+        int count;
+        int set;
+        while((set = indices.nextSetBit(srcIndex)) != -1){
+            count = set - srcIndex;
+            if (count > 0) {
+                System.arraycopy(array, srcIndex, result, destIndex, count);
+                destIndex += count;
+            }
+            srcIndex = indices.nextClearBit(set);
+        }
+        count = srcLength - srcIndex;
+        if (count > 0) {
+            System.arraycopy(array, srcIndex, result, destIndex, count);            
         }
         return result;
     }
