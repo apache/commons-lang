@@ -149,7 +149,7 @@ public class SystemUtilsTest {
             assertTrue(SystemUtils.IS_JAVA_1_6);
             assertFalse(SystemUtils.IS_JAVA_1_7);
         } else {
-            System.out.println("Can't test IS_JAVA value");
+            System.out.println("Can't test IS_JAVA value: "+javaVersion);
         }
     }
 
@@ -186,7 +186,7 @@ public class SystemUtilsTest {
             assertTrue(SystemUtils.IS_OS_UNIX);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
         } else {
-            System.out.println("Can't test IS_OS value");
+            System.out.println("Can't test IS_OS value: "+osName);
         }
     }
 
