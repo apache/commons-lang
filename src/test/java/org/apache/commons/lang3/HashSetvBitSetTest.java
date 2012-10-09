@@ -34,21 +34,26 @@ public class HashSetvBitSetTest {
     public void testTimes() {
         timeHashSet(10); // warmup
         timeBitSet(10); // warmup
-        printTimes(0);
-        printTimes(5);
-        printTimes(10);
-        printTimes(200);
-        printTimes(50);
-        printTimes(100);
-        printTimes(1000);
-        printTimes(2000);
+        long timeDiff = printTimes(0);
+        timeDiff += printTimes(5);
+        timeDiff += printTimes(10);
+        timeDiff += printTimes(200);
+        timeDiff += printTimes(50);
+        timeDiff += printTimes(100);
+        timeDiff += printTimes(1000);
+        timeDiff += printTimes(2000);
+        Assert.assertTrue(timeDiff <= 0);
     }
 
-    private void printTimes(int count) {
+    /**
+     * @return bitSet - HashSet
+     */
+    private long printTimes(int count) {
         long hashSet = timeHashSet(count);
         long bitSet = timeBitSet(count);
         // If percent is less than 100, then bitset is faster
         System.out.println("Ratio="+(bitSet*100/hashSet)+"% count="+count+" hash="+hashSet+" bits="+bitSet);
+        return bitSet - hashSet;
     }
 
     private static long timeHashSet(int count) {
@@ -119,17 +124,18 @@ public class HashSetvBitSetTest {
         toRemove.set(10, 20);
         timeBitSetRemoveAll(array, toRemove); // warmup
         timeExtractRemoveAll(array, toRemove); // warmup
-        printTimes(100,1);
-        printTimes(100,10);
-        printTimes(100,50);
-        printTimes(100,100);
-        printTimes(1000,10);
-        printTimes(1000,100);
-        printTimes(1000,500);
-        printTimes(1000,1000);
+        long timeDiff = printTimes(100,1);
+        timeDiff += printTimes(100,10);
+        timeDiff += printTimes(100,50);
+        timeDiff += printTimes(100,100);
+        timeDiff += printTimes(1000,10);
+        timeDiff += printTimes(1000,100);
+        timeDiff += printTimes(1000,500);
+        timeDiff += printTimes(1000,1000);
+        Assert.assertTrue(timeDiff <= 0);
     }
 
-    private void printTimes(int arraySize, int bitSetSize) {
+    private long printTimes(int arraySize, int bitSetSize) {
         int[] array = new int[arraySize];
         BitSet remove = new BitSet();
         for (int i = 0; i < bitSetSize; i++) {
@@ -139,6 +145,7 @@ public class HashSetvBitSetTest {
         long extract = timeExtractRemoveAll(array, remove);
         // If percent is less than 100, then direct use of bitset is faster
         System.out.println("Ratio="+(bitSet*100/extract)+"% array="+array.length+" count="+remove.cardinality()+" extract="+extract+" bitset="+bitSet);
+        return bitSet - extract;
     }
 
     private long timeBitSetRemoveAll(int[] array, BitSet toRemove) {
