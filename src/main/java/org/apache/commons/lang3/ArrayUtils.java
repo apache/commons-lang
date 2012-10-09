@@ -5739,7 +5739,8 @@ public class ArrayUtils {
      * @return new array of same type minus elements specified by unique values of {@code indices}
      * @since 3.0.1
      */
-    private static Object removeAll(Object array, int... indices) {
+    // package protected for access by unit tests
+    static Object removeAll(Object array, int... indices) {
         int length = getLength(array);
         int diff = 0; // number of distinct indexes, i.e. number of entries that will be removed
 
