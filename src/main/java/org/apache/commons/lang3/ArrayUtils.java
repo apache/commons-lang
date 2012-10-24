@@ -1362,7 +1362,7 @@ public class ArrayUtils {
      *
      * @param array  the array to retrieve the length from, may be null
      * @return The length of the array, or {@code 0} if the array is {@code null}
-     * @throws IllegalArgumentException if the object arguement is not an array.
+     * @throws IllegalArgumentException if the object argument is not an array.
      * @since 2.1
      */
     public static int getLength(Object array) {

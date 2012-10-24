@@ -288,7 +288,7 @@ public class StopWatch {
         } else if (this.runningState == STATE_RUNNING) {
             return System.nanoTime() - this.startTime;
         }
-        throw new RuntimeException("Illegal running state has occured. ");
+        throw new RuntimeException("Illegal running state has occurred.");
     }
 
     /**

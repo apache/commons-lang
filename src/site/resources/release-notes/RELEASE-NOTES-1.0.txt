@@ -42,7 +42,7 @@ StringUtils.convertUnicodeToNative and convertNativeToUnicode both removed.
 
 DEPRECATIONS:
 
-Much of the exception subpackage was reworked betwen 1.0-b1 and 1.0. Apart 
+Much of the exception subpackage was reworked between 1.0-b1 and 1.0. Apart 
 from this the API should have a high level of backward compatibility.
 
 

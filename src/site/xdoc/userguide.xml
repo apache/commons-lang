@@ -294,7 +294,7 @@ public class ServerThread implements Runnable {
      high load, if multiple threads access the initializer concurrently, it is
      possible that the <code>initialize()</code> method is invoked multiple
      times. The class guarantees that <code>get()</code> always returns the
-     same object though; so objects created accidently are immideately discarded.
+     same object though; so objects created accidentally are immideately discarded.
    </p>
    <p>
      With <code>AtomicSafeInitializer</code> there is yet another variant
@@ -536,7 +536,7 @@ MyClass obj = ConcurrentUtils.initializeUnchecked(initializer);
      need on demand. However, sometimes it is desired to set some properties of
      the newly created worker threads. This is possible through the
      <code>ThreadFactory</code> interface; an implementation of this interface
-     has to be created and pased to an executor on creation time. Currently, the
+     has to be created and passed to an executor on creation time. Currently, the
      JDK does not provide an implementation of <code>ThreadFactory</code>, so
      one has to start from scratch.
    </p>

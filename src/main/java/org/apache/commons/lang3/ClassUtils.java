@@ -905,7 +905,7 @@ public class ClassUtils {
      * @param parameterTypes  the list of parameters
      * @return the method
      * @throws NullPointerException if the class is null
-     * @throws SecurityException if a a security violation occured
+     * @throws SecurityException if a security violation occurred
      * @throws NoSuchMethodException if the method is not found in the given class
      *  or if the metothod doen't conform with the requirements
      */
