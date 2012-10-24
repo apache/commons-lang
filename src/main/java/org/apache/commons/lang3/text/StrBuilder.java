@@ -1688,7 +1688,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      * Deletes all parts of the builder that the matcher matches.
      * <p>
      * Matchers can be used to perform advanced deletion behaviour.
-     * For example you could write a matcher to delete all occurances
+     * For example you could write a matcher to delete all occurrences
      * where the character 'a' is followed by a number.
      *
      * @param matcher  the matcher to use to find the deletion, null causes no action
@@ -1838,7 +1838,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      * Replaces all matches within the builder with the replace string.
      * <p>
      * Matchers can be used to perform advanced replace behaviour.
-     * For example you could write a matcher to replace all occurances
+     * For example you could write a matcher to replace all occurrences
      * where the character 'a' is followed by a number.
      *
      * @param matcher  the matcher to use to find the deletion, null causes no action
@@ -1869,7 +1869,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      * Advanced search and replaces within the builder using a matcher.
      * <p>
      * Matchers can be used to perform advanced behaviour.
-     * For example you could write a matcher to delete all occurances
+     * For example you could write a matcher to delete all occurrences
      * where the character 'a' is followed by a number.
      *
      * @param matcher  the matcher to use to find the deletion, null causes no action
@@ -1892,7 +1892,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      * Replaces within the builder using a matcher.
      * <p>
      * Matchers can be used to perform advanced behaviour.
-     * For example you could write a matcher to delete all occurances
+     * For example you could write a matcher to delete all occurrences
      * where the character 'a' is followed by a number.
      *
      * @param matcher  the matcher to use to find the deletion, null causes no action

@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-845" type="fix">Spelling fixes</action>
     <action issue="LANG-844" type="fix">Fix examples contained in javadoc of StringUtils.center methods</action>
     <action issue="LANG-841" type="add">Add StringUtils API to call String.replaceAll in DOTALL a.k.a. single-line mode</action>    
     <action issue="LANG-839" type="update">ArrayUtils removeElements methods use unnecessary HashSet</action>
@@ -212,7 +213,7 @@
     <action type="fix" issue="LANG-369">ExceptionUtils not thread-safe.</action>
     <action type="add" issue="LANG-358">ObjectUtils.coalesce.</action>
     <action type="update" issue="LANG-355">StrBuilder should implement CharSequence and Appendable.</action>
-    <action type="fix" issue="LANG-339">StringEscapeUtils.escapeHtml() escapes multibyte characters like Chinese, Japanes, etc.</action>
+    <action type="fix" issue="LANG-339">StringEscapeUtils.escapeHtml() escapes multibyte characters like Chinese, Japanese, etc.</action>
     <action type="update" issue="LANG-336">Finally start using generics.</action>
     <action type="fix" issue="LANG-302">StrBuilder does not implement clone().</action>
     <action type="update" issue="LANG-290">EnumUtils for JDK 5.0.</action>
@@ -547,7 +548,7 @@
     <action type="fix" issue="LANG-35">Should ToStringBuilder.reflectionToString handle arrays?.</action>
     <action type="fix" issue="LANG-83">EnumUtils nit: The import java.io.Serializable is never used.</action>
     <action type="fix" issue="LANG-12">Example in Javadoc for ToStringBuilder wrong for append.</action>
-    <action type="fix" issue="LANG-110">Added class hierachy support to HashCodeBuilder.reflectionHashCode().</action>
+    <action type="fix" issue="LANG-110">Added class hierarchy support to HashCodeBuilder.reflectionHashCode().</action>
     <action type="fix" issue="LANG-71">ExceptionUtils new methods.</action>
     <action type="fix" issue="LANG-15">Infinite loop in StringUtils.replace(text, repl, with) + FIX.</action>
     <action type="fix" issue="LANG-93">StackOverflow due to ToStringBuilder.</action>
@@ -579,7 +580,7 @@
     <action type="add" issue="LANG-231">Resurrect the WordWrapUtils from commons-sandbox/utils.</action>
     <action type="fix" issue="LANG-139">EnumTest fails on Linux Sun JDK 1.3.0.</action>
     <action type="add" issue="LANG-234">What to do with FastDateFormat unused private constructors.</action>
-    <action type="add" issue="LANG-240">Added class hierachy support to CompareToBuilder.reflectionCompare().</action>
+    <action type="add" issue="LANG-240">Added class hierarchy support to CompareToBuilder.reflectionCompare().</action>
     <action type="add" issue="LANG-190">Removed compile warning in FastDateFormat.</action>
     <action type="fix" issue="LANG-97">typo in the Javadoc example code.</action>
     <action type="add" issue="LANG-249">MethodUtils: Removed unused code/unused local vars.</action>

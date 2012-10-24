@@ -127,8 +127,8 @@ ID Sev Pri Plt Owner State Result Summary
 16193  Hierarchy support in EqualsBuilder.reflectionEquals()  
 16202  typo in the javadoc example code  
 16204  Infinite loop in StringUtils.replace(text, repl, with) + FIX  
-16227  Added class hierachy support to CompareToBuilder.reflectionC  
-16228  Added class hierachy support to HashCodeBuilder.reflectionHa  
+16227  Added class hierarchy support to CompareToBuilder.reflectionC  
+16228  Added class hierarchy support to HashCodeBuilder.reflectionHa  
 16284  MethodUtils: Removed unused code/unused local vars.  
 16341  No Javadoc for NestableDelegate  
 16622  Removed compile warning in FastDateFormat  

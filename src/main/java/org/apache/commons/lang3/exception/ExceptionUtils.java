@@ -381,7 +381,7 @@ public class ExceptionUtils {
      *  negative treated as zero, larger than chain size returns -1
      * @param subclass if <code>true</code>, compares with {@link Class#isAssignableFrom(Class)}, otherwise compares
      * using references
-     * @return index of the <code>type</code> within throwables nested withing the specified <code>throwable</code>
+     * @return index of the <code>type</code> within throwables nested within the specified <code>throwable</code>
      */
     private static int indexOf(Throwable throwable, Class<?> type, int fromIndex, boolean subclass) {
         if (throwable == null || type == null) {

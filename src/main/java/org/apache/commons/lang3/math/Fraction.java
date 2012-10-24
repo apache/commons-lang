@@ -922,7 +922,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * <p>Gets the fraction as a proper <code>String</code> in the format X Y/Z.</p>
      *
      * <p>The format used in '<i>wholeNumber</i> <i>numerator</i>/<i>denominator</i>'.
-     * If the whole number is zero it will be ommitted. If the numerator is zero,
+     * If the whole number is zero it will be omitted. If the numerator is zero,
      * only the whole number is returned.</p>
      *
      * @return a <code>String</code> form of the fraction

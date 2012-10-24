@@ -124,7 +124,7 @@ BUG FIXES IN 3.0
 
     [LANG-11]  Depend on JDK 1.5+.
     [LANG-302] StrBuilder does not implement clone().
-    [LANG-339] StringEscapeUtils.escapeHtml() escapes multibyte characters like Chinese, Japanes, etc.
+    [LANG-339] StringEscapeUtils.escapeHtml() escapes multibyte characters like Chinese, Japanese, etc.
     [LANG-369] ExceptionUtils not thread-safe.
     [LANG-418] Javadoc incorrect for StringUtils.endsWithIgnoreCase.
     [LANG-428] StringUtils.isAlpha, isAlphanumeric and isNumeric now return false for ""
