@@ -201,7 +201,63 @@ public class StringUtils {
     public static boolean isNotEmpty(CharSequence cs) {
         return !StringUtils.isEmpty(cs);
     }
-
+       
+    /**
+     * <p>Checks if any one of the CharSequences is empty ("") or null.</p>
+     *
+     * <pre>
+     * StringUtils.isAnyEmpty(null)             = true
+     * StringUtils.isAnyEmpty(null, "foo")      = true
+     * StringUtils.isAnyEmpty("", "bar")        = true
+     * StringUtils.isAnyEmpty("bob", "")        = true
+     * StringUtils.isAnyEmpty("  bob  ", null)  = true
+     * StringUtils.isAnyEmpty(" ", "bar")       = false
+     * StringUtils.isAnyEmpty("foo", "bar")     = false
+     * </pre>
+     *
+     * @param css  the CharSequences to check, may be null or empty
+     * @return {@code true} if any of the CharSequences is empty or null
+     */
+    public static boolean isAnyEmpty(CharSequence... css) {
+      if (ArrayUtils.isEmpty(css)) {
+        return true;
+      }
+      for (CharSequence cs : css){
+        if (isEmpty(cs)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    
+    /**
+     * <p>Checks if none of the CharSequences is empty ("") or null.</p>
+     *
+     * <pre>
+     * StringUtils.isNoneEmpty(null)             = false
+     * StringUtils.isNoneEmpty(null, "foo")      = false
+     * StringUtils.isNoneEmpty("", "bar")        = false
+     * StringUtils.isNoneEmpty("bob", "")        = false
+     * StringUtils.isNoneEmpty("  bob  ", null)  = false
+     * StringUtils.isNoneEmpty(" ", "bar")       = true
+     * StringUtils.isNoneEmpty("foo", "bar")     = true
+     * </pre>
+     *
+     * @param css  the CharSequences to check, may be null or empty
+     * @return {@code true} if none of the CharSequences is empty or null
+     */
+    public static boolean isNoneEmpty(CharSequence... css) {
+      if (ArrayUtils.isEmpty(css)) {
+        return false;
+      }
+      for (CharSequence cs : css){
+        if (isEmpty(cs)) {
+          return false;
+        }
+      }
+      return true;
+    }
+    
     /**
      * <p>Checks if a CharSequence is whitespace, empty ("") or null.</p>
      *
@@ -250,6 +306,64 @@ public class StringUtils {
      */
     public static boolean isNotBlank(CharSequence cs) {
         return !StringUtils.isBlank(cs);
+    }
+    
+        /**
+     * <p>Checks if any one of the CharSequences is blank ("") or null and not whitespace only..</p>
+     *
+     * <pre>
+     * StringUtils.isAnyBlank(null)             = true
+     * StringUtils.isAnyBlank(null, "foo")      = true
+     * StringUtils.isAnyBlank(null, null)       = true
+     * StringUtils.isAnyBlank("", "bar")        = true
+     * StringUtils.isAnyBlank("bob", "")        = true
+     * StringUtils.isAnyBlank("  bob  ", null)  = true
+     * StringUtils.isAnyBlank(" ", "bar")       = true
+     * StringUtils.isAnyBlank("foo", "bar")     = false
+     * </pre>
+     *
+     * @param css  the CharSequences to check, may be null or empty
+     * @return {@code true} if any of the CharSequences is blank or null or whitespace only
+     */
+    public static boolean isAnyBlank(CharSequence... css) {
+      if (ArrayUtils.isEmpty(css)) {
+        return true;
+      }
+      for (CharSequence cs : css){
+        if (isBlank(cs)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    
+    /**
+     * <p>Checks if none of the CharSequences is blank ("") or null and whitespace only..</p>
+     *
+     * <pre>
+     * StringUtils.isNoneBlank(null)             = false
+     * StringUtils.isNoneBlank(null, "foo")      = false
+     * StringUtils.isNoneBlank(null, null)       = false
+     * StringUtils.isNoneBlank("", "bar")        = false
+     * StringUtils.isNoneBlank("bob", "")        = false
+     * StringUtils.isNoneBlank("  bob  ", null)  = false
+     * StringUtils.isNoneBlank(" ", "bar")       = false
+     * StringUtils.isNoneBlank("foo", "bar")     = true
+     * </pre>
+     *
+     * @param css  the CharSequences to check, may be null or empty
+     * @return {@code true} if none of the CharSequences is blank or null or whitespace only
+     */
+    public static boolean isNoneBlank(CharSequence... css) {
+      if (ArrayUtils.isEmpty(css)) {
+        return false;
+      }
+      for (CharSequence cs : css){
+        if (isBlank(cs)) {
+          return false;
+        }
+      }
+      return true;
     }
 
     // Trim
