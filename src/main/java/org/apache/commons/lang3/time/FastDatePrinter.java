@@ -394,7 +394,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public String format(long millis) {
-        return format(new Date(millis));
+        Calendar c = new GregorianCalendar(mTimeZone, mLocale);  // hard code GregorianCalendar
+        c.setTimeInMillis(millis);
+        return applyRules(c, new StringBuffer(mMaxLengthEstimate)).toString();
     }
 
     /* (non-Javadoc)
