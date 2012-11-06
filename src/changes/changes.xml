@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-849" type="fix">FastDateFormat generates Date objects wastefully</action>
     <action issue="LANG-845" type="fix">Spelling fixes</action>
     <action issue="LANG-844" type="fix">Fix examples contained in javadoc of StringUtils.center methods</action>
     <action issue="LANG-841" type="add">Add StringUtils API to call String.replaceAll in DOTALL a.k.a. single-line mode</action>    

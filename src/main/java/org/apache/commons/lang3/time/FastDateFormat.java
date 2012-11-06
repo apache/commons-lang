@@ -395,7 +395,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      */
     @Override
     public String format(long millis) {
-        return format(new Date(millis));
+        return printer.format(millis);
     }
 
     /**
