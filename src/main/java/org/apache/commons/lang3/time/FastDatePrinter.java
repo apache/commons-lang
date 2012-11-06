@@ -394,9 +394,18 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public String format(long millis) {
-        Calendar c = new GregorianCalendar(mTimeZone, mLocale);  // hard code GregorianCalendar
+        Calendar c = newCalendar();  // hard code GregorianCalendar
         c.setTimeInMillis(millis);
+        return applyRulesToString(c);
+    }
+
+    private String applyRulesToString(Calendar c) {
         return applyRules(c, new StringBuffer(mMaxLengthEstimate)).toString();
+    }
+
+    private GregorianCalendar newCalendar() {
+        // hard code GregorianCalendar
+        return new GregorianCalendar(mTimeZone, mLocale);
     }
 
     /* (non-Javadoc)
@@ -404,9 +413,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public String format(Date date) {
-        Calendar c = new GregorianCalendar(mTimeZone, mLocale);  // hard code GregorianCalendar
+        Calendar c = newCalendar();  // hard code GregorianCalendar
         c.setTime(date);
-        return applyRules(c, new StringBuffer(mMaxLengthEstimate)).toString();
+        return applyRulesToString(c);
     }
 
     /* (non-Javadoc)
@@ -430,7 +439,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public StringBuffer format(Date date, StringBuffer buf) {
-        Calendar c = new GregorianCalendar(mTimeZone, mLocale);  // hard code GregorianCalendar
+        Calendar c = newCalendar();  // hard code GregorianCalendar
         c.setTime(date);
         return applyRules(c, buf);
     }
