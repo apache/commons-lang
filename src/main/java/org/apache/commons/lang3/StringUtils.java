@@ -144,7 +144,7 @@ public class StringUtils {
     /**
      * A regex pattern for recognizing blocks of whitespace characters.
      */
-    private static final Pattern WHITESPACE_BLOCK = Pattern.compile("\\s+");
+    private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+");
 
     /**
      * <p>{@code StringUtils} instances should NOT be constructed in
@@ -6472,7 +6472,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return WHITESPACE_BLOCK.matcher(trim(str)).replaceAll(" ");
+        return WHITESPACE_PATTERN.matcher(trim(str)).replaceAll(" ");
     }
 
     /**
