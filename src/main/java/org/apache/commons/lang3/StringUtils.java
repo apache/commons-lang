@@ -125,6 +125,13 @@ public class StringUtils {
     // (not sure who tested this)
 
     /**
+     * A String for a space character.
+     * 
+     * @since 3.2
+     */
+    public static final String SPACE = " ";
+
+    /**
      * The empty String {@code ""}.
      * @since 2.0
      */
@@ -4581,7 +4588,7 @@ public class StringUtils {
             return null;
         }
         if (isEmpty(padStr)) {
-            padStr = " ";
+            padStr = SPACE;
         }
         int padLen = padStr.length();
         int strLen = str.length();
@@ -4693,7 +4700,7 @@ public class StringUtils {
             return null;
         }
         if (isEmpty(padStr)) {
-            padStr = " ";
+            padStr = SPACE;
         }
         int padLen = padStr.length();
         int strLen = str.length();
@@ -4832,7 +4839,7 @@ public class StringUtils {
             return str;
         }
         if (isEmpty(padStr)) {
-            padStr = " ";
+            padStr = SPACE;
         }
         int strLen = str.length();
         int pads = size - strLen;
@@ -6472,7 +6479,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return WHITESPACE_PATTERN.matcher(trim(str)).replaceAll(" ");
+        return WHITESPACE_PATTERN.matcher(trim(str)).replaceAll(SPACE);
     }
 
     /**
