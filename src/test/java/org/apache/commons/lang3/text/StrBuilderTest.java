@@ -1802,6 +1802,16 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
+    public void testToStringBuilder() {
+        StrBuilder sb = new StrBuilder();
+        assertEquals(new StringBuilder().toString(), sb.toStringBuilder().toString());
+        
+        sb.append("junit");
+        assertEquals(new StringBuilder("junit").toString(), sb.toStringBuilder().toString());
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
     public void testLang294() {
         StrBuilder sb = new StrBuilder("\n%BLAH%\nDo more stuff\neven more stuff\n%BLAH%\n");
         sb.deleteAll("\n%BLAH%");
@@ -1837,6 +1847,12 @@ public class StrBuilderTest {
         StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadLeft(null, 10, '*');
         assertEquals( "Failed to invoke appendFixedWidthPadLeft correctly", "**********", sb.toString());
+    }
+
+    @Test
+    public void testAsBuilder() {
+        StrBuilder sb = new StrBuilder().appendAll("Lorem", " ", "ipsum", " ", "dolor");
+        assertEquals(sb.toString(), sb.build());
     }
 
 }
