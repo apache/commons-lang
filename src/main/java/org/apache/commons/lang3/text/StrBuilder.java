@@ -992,7 +992,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendAll(Object[] array) {
+    public <T> StrBuilder appendAll(T... array) {
         if (array != null && array.length > 0) {
             for (Object element : array) {
                 append(element);
@@ -1012,9 +1012,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      */
     public StrBuilder appendAll(Iterable<?> iterable) {
         if (iterable != null) {
-            Iterator<?> it = iterable.iterator();
-            while (it.hasNext()) {
-                append(it.next());
+            for (Object o : iterable) {
+                append(o);
             }
         }
         return this;
