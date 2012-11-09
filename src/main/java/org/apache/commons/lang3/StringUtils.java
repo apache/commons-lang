@@ -150,6 +150,11 @@ public class StringUtils {
 
     /**
      * A regex pattern for recognizing blocks of whitespace characters.
+     * The apparent convolutedness of the pattern serves the purpose of
+     * ignoring "blocks" consisting of only a single space:  the pattern
+     * is used only to normalize whitespace, condensing "blocks" down to a
+     * single space, thus matching the same would likely cause a great
+     * many noop replacements.
      */
     private static final Pattern WHITESPACE_PATTERN = Pattern.compile("(?: \\s|[\\s&&[^ ]])\\s*");
 
