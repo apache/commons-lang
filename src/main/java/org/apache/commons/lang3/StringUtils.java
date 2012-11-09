@@ -151,7 +151,7 @@ public class StringUtils {
     /**
      * A regex pattern for recognizing blocks of whitespace characters.
      */
-    private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+");
+    private static final Pattern WHITESPACE_PATTERN = Pattern.compile("(?: \\s|[\\s&&[^ ]])\\s*");
 
     /**
      * <p>{@code StringUtils} instances should NOT be constructed in
