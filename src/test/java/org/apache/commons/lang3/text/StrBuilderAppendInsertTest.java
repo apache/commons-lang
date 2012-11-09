@@ -916,6 +916,10 @@ public class StrBuilderAppendInsertTest {
         sb.clear();
         sb.appendAll(new Object[]{"foo", "bar", "baz"});
         assertEquals("foobarbaz", sb.toString());
+
+        sb.clear();
+        sb.appendAll("foo", "bar", "baz");
+        assertEquals("foobarbaz", sb.toString());
     }
 
     //-----------------------------------------------------------------------

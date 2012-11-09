@@ -25,6 +25,7 @@ import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.builder.Builder;
 
 /**
  * Builds a string from constituent parts providing a more flexible and powerful API
@@ -71,7 +72,7 @@ import org.apache.commons.lang3.SystemUtils;
  * @since 2.2
  * @version $Id$
  */
-public class StrBuilder implements CharSequence, Appendable, Serializable {
+public class StrBuilder implements CharSequence, Appendable, Serializable, Builder<String> {
 
     /**
      * The extra capacity for new builders.
@@ -2659,6 +2660,27 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
      */
     public StringBuffer toStringBuffer() {
         return new StringBuffer(size).append(buffer, 0, size);
+    }
+
+    /**
+     * Gets a StringBuilder version of the string builder, creating a
+     * new instance each time the method is called.
+     *
+     * @return the builder as a StringBuilder
+     * @since Apache Commons Lang 3.2
+     */
+    public StringBuilder toStringBuilder() {
+        return new StringBuilder(size).append(buffer, 0, size);
+    }
+
+    /**
+     * Implement the {@link Builder} interface.
+     * @return the builder as a String
+     * @since Apache Commons Lang 3.2
+     * @see #toString()
+     */
+    public String build() {
+        return toString();
     }
 
     //-----------------------------------------------------------------------
