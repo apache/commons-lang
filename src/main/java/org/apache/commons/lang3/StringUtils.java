@@ -3166,7 +3166,6 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-
         return join(array, separator, 0, array.length);
     }
 
