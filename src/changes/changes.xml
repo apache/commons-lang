@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-853" type="add">StringUtils join APIs for primitives</action>
     <action issue="LANG-849" type="fix">FastDateFormat and FastDatePrinter generates Date objects wastefully</action>
     <action issue="LANG-845" type="fix">Spelling fixes</action>
     <action issue="LANG-844" type="fix">Fix examples contained in javadoc of StringUtils.center methods</action>

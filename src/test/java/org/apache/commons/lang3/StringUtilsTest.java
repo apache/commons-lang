@@ -86,6 +86,13 @@ public class StringUtilsTest {
     };
     private static final String[] MIXED_ARRAY_LIST = {null, "", "foo"};
     private static final Object[] MIXED_TYPE_LIST = {"foo", Long.valueOf(2L)};
+    private static final long[] LONG_PRIM_LIST = {1, 2};
+    private static final int[] INT_PRIM_LIST = {1, 2};
+    private static final byte[] BYTE_PRIM_LIST = {1, 2};
+    private static final short[] SHORT_PRIM_LIST = {1, 2};
+    private static final char[] CHAR_PRIM_LIST = {'1', '2'};
+    private static final float[] FLOAT_PRIM_LIST = {1, 2};
+    private static final double[] DOUBLE_PRIM_LIST = {1, 2};
 
     private static final String SEPARATOR = ",";
     private static final char   SEPARATOR_CHAR = ';';
@@ -208,7 +215,7 @@ public class StringUtilsTest {
     }
         
     @Test
-    public void testJoin_ArrayChar() {
+    public void testJoin_ArrayCharSeparator() {
         assertEquals(null, StringUtils.join((Object[]) null, ','));
         assertEquals(TEXT_LIST_CHAR, StringUtils.join(ARRAY_LIST, SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, SEPARATOR_CHAR));
@@ -221,6 +228,55 @@ public class StringUtilsTest {
         assertEquals("foo/2", StringUtils.join(MIXED_TYPE_LIST, '/', 0, 2));
         assertEquals("2", StringUtils.join(MIXED_TYPE_LIST, '/', 1, 2));
         assertEquals("", StringUtils.join(MIXED_TYPE_LIST, '/', 2, 1));
+    }
+    
+    @Test
+    public void testJoin_ArrayOfChars() {
+        assertEquals(null, StringUtils.join((char[]) null, ','));
+        assertEquals("1;2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR));
+        assertEquals("2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+    }
+    
+    @Test
+    public void testJoin_ArrayOfBytes() {
+        assertEquals(null, StringUtils.join((byte[]) null, ','));
+        assertEquals("1;2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR));
+        assertEquals("2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+    }
+    
+    @Test
+    public void testJoin_ArrayOfInts() {
+        assertEquals(null, StringUtils.join((int[]) null, ','));
+        assertEquals("1;2", StringUtils.join(INT_PRIM_LIST, SEPARATOR_CHAR));
+        assertEquals("2", StringUtils.join(INT_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+    }
+    
+    @Test
+    public void testJoin_ArrayOfLongs() {
+        assertEquals(null, StringUtils.join((long[]) null, ','));
+        assertEquals("1;2", StringUtils.join(LONG_PRIM_LIST, SEPARATOR_CHAR));
+        assertEquals("2", StringUtils.join(LONG_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+    }
+    
+    @Test
+    public void testJoin_ArrayOfFloats() {
+        assertEquals(null, StringUtils.join((float[]) null, ','));
+        assertEquals("1.0;2.0", StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR_CHAR));
+        assertEquals("2.0", StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+    }
+    
+    @Test
+    public void testJoin_ArrayOfDoubles() {
+        assertEquals(null, StringUtils.join((double[]) null, ','));
+        assertEquals("1.0;2.0", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR));
+        assertEquals("2.0", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+    }
+    
+    @Test
+    public void testJoin_ArrayOfShorts() {
+        assertEquals(null, StringUtils.join((short[]) null, ','));
+        assertEquals("1;2", StringUtils.join(SHORT_PRIM_LIST, SEPARATOR_CHAR));
+        assertEquals("2", StringUtils.join(SHORT_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
     }
     
     @Test
