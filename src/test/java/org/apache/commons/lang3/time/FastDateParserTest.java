@@ -41,8 +41,8 @@ import org.junit.Test;
  * @since 3.2
  */
 public class FastDateParserTest {
-    private static final String SHORT_FORMAT_NOERA = "y/M/d/h/a/E/Z";
-    private static final String LONG_FORMAT_NOERA = "yyyy/MMMM/dddd/hhhh/aaaa/EEEE/ZZZZ";
+    private static final String SHORT_FORMAT_NOERA = "y/M/d/h/a/m/E/Z";
+    private static final String LONG_FORMAT_NOERA = "yyyy/MMMM/dddd/hhhh/mmmm/aaaa/EEEE/ZZZZ";
     private static final String SHORT_FORMAT = "G/" + SHORT_FORMAT_NOERA;
     private static final String LONG_FORMAT = "GGGG/" + LONG_FORMAT_NOERA;
 
