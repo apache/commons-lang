@@ -229,6 +229,20 @@ public class NumberUtilsTest {
         // LANG-693
         assertEquals("createNumber(String) LANG-693 failed", Double.valueOf(Double.MAX_VALUE), NumberUtils
                     .createNumber("" + Double.MAX_VALUE));
+        
+        // LANG-822
+        // ensure that the underlying negative number would create a BigDecimal
+        final Number bigNum = NumberUtils.createNumber("-1.1E-700F");
+        assertEquals(BigDecimal.class,bigNum.getClass());
+        assertNotNull(bigNum);
+
+        // Check that the code fails to create a valid number when preceeded by -- rather than -
+        try {
+            NumberUtils.createNumber("--1.1E-700F");
+            fail("Expected NumberFormatException");
+        } catch (NumberFormatException nfe) {
+            // expected
+        }
     }
 
     @Test
