@@ -628,7 +628,7 @@ public class NumberUtils {
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      * 
      * @param str  a <code>String</code> to convert, may be null
-     * @return converted <code>Float</code>
+     * @return converted <code>Float</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Float createFloat(String str) {
@@ -644,7 +644,7 @@ public class NumberUtils {
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      *
      * @param str  a <code>String</code> to convert, may be null
-     * @return converted <code>Double</code>
+     * @return converted <code>Double</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Double createDouble(String str) {
@@ -661,7 +661,7 @@ public class NumberUtils {
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      * 
      * @param str  a <code>String</code> to convert, may be null
-     * @return converted <code>Integer</code>
+     * @return converted <code>Integer</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Integer createInteger(String str) {
@@ -679,7 +679,7 @@ public class NumberUtils {
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      *
      * @param str  a <code>String</code> to convert, may be null
-     * @return converted <code>Long</code>
+     * @return converted <code>Long</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Long createLong(String str) {
@@ -695,7 +695,7 @@ public class NumberUtils {
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      * 
      * @param str  a <code>String</code> to convert, may be null
-     * @return converted <code>BigInteger</code>
+     * @return converted <code>BigInteger</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
     public static BigInteger createBigInteger(String str) {
@@ -711,7 +711,7 @@ public class NumberUtils {
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      *
      * @param str  a <code>String</code> to convert, may be null
-     * @return converted <code>BigDecimal</code>
+     * @return converted <code>BigDecimal</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
     public static BigDecimal createBigDecimal(String str) {
