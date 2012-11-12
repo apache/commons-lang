@@ -245,6 +245,20 @@ public class NumberUtilsTest {
         }
     }
 
+    // Tests to show when magnitude causes switch to next Number type
+    // Will probably need to be adjusted if code is changed to check precision (LANG-693)
+    @Test
+    public void testCreateNumberMagnitude() {
+        // Test Float.MAX_VALUE, and same with +1 in final digit to check conversion changes to next Number type
+        assertEquals(Float.class,  NumberUtils.createNumber("3.4028235e+38").getClass());
+        assertEquals(Double.class, NumberUtils.createNumber("3.4028236e+38").getClass());
+
+        // Test Double.MAX_VALUE
+        assertEquals(Double.class,     NumberUtils.createNumber("1.7976931348623157e+308").getClass());
+        // Test with +2 in final digit (+1 does not cause roll-over to BigDecimal)
+        assertEquals(BigDecimal.class, NumberUtils.createNumber("1.7976931348623159e+308").getClass());
+    }
+
     @Test
     public void testCreateFloat() {
         assertEquals("createFloat(String) failed", Float.valueOf("1234.5"), NumberUtils.createFloat("1234.5"));
