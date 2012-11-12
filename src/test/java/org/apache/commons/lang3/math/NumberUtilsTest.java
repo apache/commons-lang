@@ -233,8 +233,8 @@ public class NumberUtilsTest {
         // LANG-822
         // ensure that the underlying negative number would create a BigDecimal
         final Number bigNum = NumberUtils.createNumber("-1.1E-700F");
-        assertEquals(BigDecimal.class,bigNum.getClass());
         assertNotNull(bigNum);
+        assertEquals(BigDecimal.class, bigNum.getClass());
 
         // Check that the code fails to create a valid number when preceeded by -- rather than -
         try {
