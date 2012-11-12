@@ -112,7 +112,12 @@ public class SystemUtils {
 
     /**
      * <p>
-     * The {@code file.separator} System Property. File separator (<code>&quot;/&quot;</code> on UNIX).
+     * The {@code file.separator} System Property. 
+     * The file separator is:
+     * <ul>
+     * <li>{@code "/"}</code> on UNIX</li>
+     * <li>{@code "\"}</code> on Windows.</li>
+     * </ul>
      * </p>
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
