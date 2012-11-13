@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.math;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -766,11 +767,7 @@ public class NumberUtils {
      */
     public static long min(long[] array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        validateArray(array);
     
         // Finds and returns min
         long min = array[0];
@@ -793,11 +790,7 @@ public class NumberUtils {
      */
     public static int min(int[] array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        validateArray(array);
     
         // Finds and returns min
         int min = array[0];
@@ -820,11 +813,7 @@ public class NumberUtils {
      */
     public static short min(short[] array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        validateArray(array);
     
         // Finds and returns min
         short min = array[0];
@@ -847,11 +836,7 @@ public class NumberUtils {
      */
     public static byte min(byte[] array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        validateArray(array);
     
         // Finds and returns min
         byte min = array[0];
@@ -875,11 +860,7 @@ public class NumberUtils {
      */
     public static double min(double[] array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        validateArray(array);
     
         // Finds and returns min
         double min = array[0];
@@ -906,11 +887,7 @@ public class NumberUtils {
      */
     public static float min(float[] array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        validateArray(array);
     
         // Finds and returns min
         float min = array[0];
@@ -938,11 +915,7 @@ public class NumberUtils {
      */
     public static long max(long[] array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        validateArray(array);
 
         // Finds and returns max
         long max = array[0];
@@ -965,11 +938,7 @@ public class NumberUtils {
      */
     public static int max(int[] array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        validateArray(array);
     
         // Finds and returns max
         int max = array[0];
@@ -992,11 +961,7 @@ public class NumberUtils {
      */
     public static short max(short[] array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        validateArray(array);
     
         // Finds and returns max
         short max = array[0];
@@ -1019,11 +984,7 @@ public class NumberUtils {
      */
     public static byte max(byte[] array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        validateArray(array);
     
         // Finds and returns max
         byte max = array[0];
@@ -1047,12 +1008,8 @@ public class NumberUtils {
      */
     public static double max(double[] array) {
         // Validates input
-        if (array== null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
-    
+        validateArray(array);
+
         // Finds and returns max
         double max = array[0];
         for (int j = 1; j < array.length; j++) {
@@ -1078,11 +1035,7 @@ public class NumberUtils {
      */
     public static float max(float[] array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        validateArray(array);
 
         // Finds and returns max
         float max = array[0];
@@ -1096,6 +1049,14 @@ public class NumberUtils {
         }
 
         return max;
+    }
+
+    private static void validateArray(Object array) {
+        if (array == null) {
+            throw new IllegalArgumentException("The Array must not be null");
+        } else if (Array.getLength(array) == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
     }
      
     // 3 param min
