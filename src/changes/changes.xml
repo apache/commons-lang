@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-855" type="add">NumberUtils#createBigInteger does not allow for hex and octal numbers</action>
     <action issue="LANG-853" type="add">StringUtils join APIs for primitives</action>
     <action issue="LANG-849" type="fix">FastDateFormat and FastDatePrinter generates Date objects wastefully</action>
     <action issue="LANG-845" type="fix">Spelling fixes</action>
