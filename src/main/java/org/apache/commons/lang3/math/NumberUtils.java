@@ -448,17 +448,26 @@ public class NumberUtils {
         }
         if (StringUtils.isBlank(str)) {
             throw new NumberFormatException("A blank string is not a valid number");
-        }  
-        if (str.startsWith("0x") || str.startsWith("-0x") || str.startsWith("0X") || str.startsWith("-0X")) {
-            int hexDigits = str.length() - 2; // drop 0x
-            if (str.startsWith("-")) { // drop -
-                hexDigits--;
+        }
+        // Need to deal with all possible hex prefixes here
+        final String[] hex_prefixes = {"0x", "0X", "-0x", "-0X", "#", "-#"};
+        int pfxLen = 0;
+        for(String pfx : hex_prefixes) {
+            if (str.startsWith(pfx)) {
+                pfxLen += pfx.length();
+                break;
+            }
+        }
+        if (pfxLen > 0) {
+            int hexDigits = str.length() - pfxLen;
+            if (hexDigits > 16) { // too many for Long
+                return createBigInteger(str);
             }
             if (hexDigits > 8) { // too many for an int
                 return createLong(str);
             }
             return createInteger(str);
-        }   
+        }
         char lastChar = str.charAt(str.length() - 1);
         String mant;
         String dec;

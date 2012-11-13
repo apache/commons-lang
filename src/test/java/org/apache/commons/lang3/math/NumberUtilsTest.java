@@ -257,6 +257,21 @@ public class NumberUtilsTest {
         assertEquals(Double.class,     NumberUtils.createNumber("1.7976931348623157e+308").getClass());
         // Test with +2 in final digit (+1 does not cause roll-over to BigDecimal)
         assertEquals(BigDecimal.class, NumberUtils.createNumber("1.7976931348623159e+308").getClass());
+        
+        assertEquals(Integer.class, NumberUtils.createNumber("0x12345678").getClass());
+        assertEquals(Long.class,    NumberUtils.createNumber("0x123456789").getClass());
+
+        assertEquals(Long.class,       NumberUtils.createNumber("0x7fffffffffffffff").getClass());
+        assertEquals(BigInteger.class, NumberUtils.createNumber("0x7fffffffffffffff0").getClass());
+
+        assertEquals(Long.class,       NumberUtils.createNumber("#7fffffffffffffff").getClass());
+        assertEquals(BigInteger.class, NumberUtils.createNumber("#7fffffffffffffff0").getClass());
+
+        assertEquals(Integer.class, NumberUtils.createNumber("017777777777").getClass()); // 31 bits
+        assertEquals(Long.class,    NumberUtils.createNumber("037777777777").getClass()); // 32 bits
+
+        assertEquals(Long.class,       NumberUtils.createNumber("0777777777777777777777").getClass()); // 63 bits
+        assertEquals(BigInteger.class, NumberUtils.createNumber("01777777777777777777777").getClass());// 64 bits
     }
 
     @Test
