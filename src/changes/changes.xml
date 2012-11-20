@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-857" type="add">StringIndexOutOfBoundsException in CharSequenceTranslator</action>
     <action issue="LANG-856" type="add">Code refactoring in NumberUtils</action>
     <action issue="LANG-855" type="add">NumberUtils#createBigInteger does not allow for hex and octal numbers</action>
     <action issue="LANG-854" type="add">NumberUtils#createNumber - does not allow for hex numbers to be larger than Long</action>
