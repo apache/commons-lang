@@ -350,6 +350,24 @@ public class StringEscapeUtilsTest {
                 escapeXml.translate("\uD84C\uDFB4"));
     }
     
+    @Test
+    public void testEscapeXmlAllCharacters() {
+        // http://www.w3.org/TR/xml/#charsets says:
+        // Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] /* any Unicode character,
+        // excluding the surrogate blocks, FFFE, and FFFF. */
+        CharSequenceTranslator escapeXml = StringEscapeUtils.ESCAPE_XML
+                .with(NumericEntityEscaper.below(9), NumericEntityEscaper.between(0xB, 0xC), NumericEntityEscaper.between(0xE, 0x19),
+                        NumericEntityEscaper.between(0xD800, 0xDFFF), NumericEntityEscaper.between(0xFFFE, 0xFFFF), NumericEntityEscaper.above(0x110000));
+
+        assertEquals("&#0;&#1;&#2;&#3;&#4;&#5;&#6;&#7;&#8;", escapeXml.translate("\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008"));
+        assertEquals("\t", escapeXml.translate("\t")); // 0x9
+        assertEquals("\n", escapeXml.translate("\n")); // 0xA
+        assertEquals("&#11;&#12;", escapeXml.translate("\u000B\u000C"));
+        assertEquals("\r", escapeXml.translate("\r")); // 0xD
+        assertEquals("Hello World! Ain&apos;t this great?", escapeXml.translate("Hello World! Ain't this great?"));
+        assertEquals("&#14;&#15;&#24;&#25;", escapeXml.translate("\u000E\u000F\u0018\u0019"));
+    }
+    
     /**
      * Reverse of the above.
      *
@@ -360,7 +378,7 @@ public class StringEscapeUtilsTest {
         assertEquals("Supplementary character must be represented using a single escape", "\uD84C\uDFB4",
                 StringEscapeUtils.unescapeXml("&#144308;") );
     }
-    
+        
     // Tests issue #38569
     // http://issues.apache.org/bugzilla/show_bug.cgi?id=38569
     @Test
