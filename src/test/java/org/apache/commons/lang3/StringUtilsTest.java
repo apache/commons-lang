@@ -2201,7 +2201,6 @@ public class StringUtilsTest {
      * @throws Exception
      */
     @Test
-    @Ignore
     public void testEscapeSurrogatePairsLang858() throws Exception {
         assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeJava("\uDBFF\uDFFD"));       //fail LANG-858
         assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeEcmaScript("\uDBFF\uDFFD")); //fail LANG-858
