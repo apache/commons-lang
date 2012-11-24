@@ -48,7 +48,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @param above int value representing the highest codepoint boundary
      * @param between whether to escape between the boundaries or outside them
      */
-    private UnicodeEscaper(int below, int above, boolean between) {
+    protected UnicodeEscaper(int below, int above, boolean between) {
         this.below = below;
         this.above = above;
         this.between = between;
@@ -101,7 +101,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      */
     @Override
     public boolean translate(int codepoint, Writer out) throws IOException {
-        if(between) {
+        if (between) {
             if (codepoint < below || codepoint > above) {
                 return false;
             }
@@ -113,9 +113,7 @@ public class UnicodeEscaper extends CodePointTranslator {
 
         // TODO: Handle potential + sign per various Unicode escape implementations
         if (codepoint > 0xffff) {
-            // TODO: Figure out what to do. Output as two Unicodes?
-            //       Does this make this a Java-specific output class?
-            out.write("\\u" + hex(codepoint));
+            out.write(toUtf16Escape(codepoint));
         } else if (codepoint > 0xfff) {
             out.write("\\u" + hex(codepoint));
         } else if (codepoint > 0xff) {
@@ -126,5 +124,9 @@ public class UnicodeEscaper extends CodePointTranslator {
             out.write("\\u000" + hex(codepoint));
         }
         return true;
+    }
+
+    protected String toUtf16Escape(int codepoint) {
+        return "\\u" + hex(codepoint);
     }
 }

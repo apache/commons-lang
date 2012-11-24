@@ -22,6 +22,7 @@ import java.io.Writer;
 import org.apache.commons.lang3.text.translate.AggregateTranslator;
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.EntityArrays;
+import org.apache.commons.lang3.text.translate.JavaUnicodeEscaper;
 import org.apache.commons.lang3.text.translate.LookupTranslator;
 import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 import org.apache.commons.lang3.text.translate.OctalUnescaper;
@@ -57,7 +58,7 @@ public class StringEscapeUtils {
           }).with(
             new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE())
           ).with(
-            UnicodeEscaper.outsideOf(32, 0x7f) 
+            JavaUnicodeEscaper.outsideOf(32, 0x7f) 
         );
 
     /**
@@ -79,7 +80,7 @@ public class StringEscapeUtils {
                             {"/", "\\/"}
                       }),
             new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE()),
-            UnicodeEscaper.outsideOf(32, 0x7f) 
+            JavaUnicodeEscaper.outsideOf(32, 0x7f) 
         );
             
     /**
