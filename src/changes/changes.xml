@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-835" type="add">StrBuilder should support StringBuilder as an input parameter</action>
     <action issue="LANG-858" type="fix">StringEscapeUtils.escapeJava() and escapeEcmaScript() do not output the escaped surrogate pairs that are Java parsable</action>
     <action issue="LANG-857" type="add">StringIndexOutOfBoundsException in CharSequenceTranslator</action>
     <action issue="LANG-856" type="add">Code refactoring in NumberUtils</action>

@@ -116,6 +116,24 @@ public class StrBuilderAppendInsertTest {
         sb.append(new StringBuilder("bld")); // Check it supports StringBuilder
         assertEquals("foobazyesSeqbld", sb.toString());
     }
+    
+    //-----------------------------------------------------------------------
+    @Test
+    public void testAppend_StringBuilder() {
+        StrBuilder sb = new StrBuilder();
+        sb.setNullText("NULL").append((String) null);
+        assertEquals("NULL", sb.toString());
+
+        sb = new StrBuilder();
+        sb.append(new StringBuilder("foo"));
+        assertEquals("foo", sb.toString());
+
+        sb.append(new StringBuilder(""));
+        assertEquals("foo", sb.toString());
+
+        sb.append(new StringBuilder("bar"));
+        assertEquals("foobar", sb.toString());
+    }
 
     //-----------------------------------------------------------------------
     @Test
@@ -195,6 +213,69 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobar", sb.toString());
 
         sb.append( (CharSequence)"abcbardef", 4, 3);
+        assertEquals("foobarard", sb.toString());
+    }
+    
+    //-----------------------------------------------------------------------
+    @Test
+    public void testAppend_StringBuilder_int_int() {
+        StrBuilder sb = new StrBuilder();
+        sb.setNullText("NULL").append((String) null, 0, 1);
+        assertEquals("NULL", sb.toString());
+
+        sb = new StrBuilder();
+        sb.append(new StringBuilder("foo"), 0, 3);
+        assertEquals("foo", sb.toString());
+
+        try {
+            sb.append(new StringBuilder("bar"), -1, 1);
+            fail("append(StringBuilder, -1,) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append(new StringBuilder("bar"), 3, 1);
+            fail("append(StringBuilder, 3,) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append(new StringBuilder("bar"), 1, -1);
+            fail("append(StringBuilder,, -1) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append(new StringBuilder("bar"), 1, 3);
+            fail("append(StringBuilder, 1, 3) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append(new StringBuilder("bar"), -1, 3);
+            fail("append(StringBuilder, -1, 3) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append(new StringBuilder("bar"), 4, 0);
+            fail("append(StringBuilder, 4, 0) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        sb.append(new StringBuilder("bar"), 3, 0);
+        assertEquals("foo", sb.toString());
+
+        sb.append(new StringBuilder("abcbardef"), 3, 3);
+        assertEquals("foobar", sb.toString());
+
+        sb.append( new StringBuilder("abcbardef"), 4, 3);
         assertEquals("foobarard", sb.toString());
     }
 
@@ -564,6 +645,28 @@ public class StrBuilderAppendInsertTest {
 
     //-----------------------------------------------------------------------
     @Test
+    public void testAppendln_StringBuilder() {
+        final int[] count = new int[2];
+        StrBuilder sb = new StrBuilder() {
+            @Override
+            public StrBuilder append(StringBuilder str) {
+                count[0]++;
+                return super.append(str);
+            }
+            @Override
+            public StrBuilder appendNewLine() {
+                count[1]++;
+                return super.appendNewLine();
+            }
+        };
+        sb.appendln(new StringBuilder("foo"));
+        assertEquals("foo" + SEP, sb.toString());
+        assertEquals(1, count[0]);
+        assertEquals(1, count[1]);
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
     public void testAppendln_StringBuffer_int_int() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
@@ -579,6 +682,28 @@ public class StrBuilderAppendInsertTest {
             }
         };
         sb.appendln(new StringBuffer("foo"), 0, 3);
+        assertEquals("foo" + SEP, sb.toString());
+        assertEquals(1, count[0]);
+        assertEquals(1, count[1]);
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
+    public void testAppendln_StringBuilder_int_int() {
+        final int[] count = new int[2];
+        StrBuilder sb = new StrBuilder() {
+            @Override
+            public StrBuilder append(StringBuilder str, int startIndex, int length) {
+                count[0]++;
+                return super.append(str, startIndex, length);
+            }
+            @Override
+            public StrBuilder appendNewLine() {
+                count[1]++;
+                return super.appendNewLine();
+            }
+        };
+        sb.appendln(new StringBuilder("foo"), 0, 3);
         assertEquals("foo" + SEP, sb.toString());
         assertEquals(1, count[0]);
         assertEquals(1, count[1]);

@@ -498,7 +498,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         } 
         return append(seq.toString(), startIndex, length);
     }
-
+    
     /**
      * Appends a string to this string builder.
      * Appending null will call {@link #appendNull()}.
@@ -519,6 +519,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         }
         return this;
     }
+   
 
     /**
      * Appends part of a string to this string builder.
@@ -592,6 +593,57 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      */
     public StrBuilder append(StringBuffer str, int startIndex, int length) {
+        if (str == null) {
+            return appendNull();
+        }
+        if (startIndex < 0 || startIndex > str.length()) {
+            throw new StringIndexOutOfBoundsException("startIndex must be valid");
+        }
+        if (length < 0 || (startIndex + length) > str.length()) {
+            throw new StringIndexOutOfBoundsException("length must be valid");
+        }
+        if (length > 0) {
+            int len = length();
+            ensureCapacity(len + length);
+            str.getChars(startIndex, startIndex + length, buffer, len);
+            size += length;
+        }
+        return this;
+    }
+
+    /**
+     * Appends a StringBuilder to this string builder.
+     * Appending null will call {@link #appendNull()}.
+     *
+     * @param str the StringBuilder to append
+     * @return this, to enable chaining
+     * @since 3.2
+     */
+    public StrBuilder append(StringBuilder str) {
+        if (str == null) {
+            return appendNull();
+        }
+        int strLen = str.length();
+        if (strLen > 0) {
+            int len = length();
+            ensureCapacity(len + strLen);
+            str.getChars(0, strLen, buffer, len);
+            size += strLen;
+        }
+        return this;
+    }
+    
+    /**
+     * Appends part of a StringBuilder to this string builder.
+     * Appending null will call {@link #appendNull()}.
+     *
+     * @param str the StringBuilder to append
+     * @param startIndex the start index, inclusive, must be valid
+     * @param length the length to append, must be valid
+     * @return this, to enable chaining
+     * @since 3.2
+     */
+    public StrBuilder append(StringBuilder str, int startIndex, int length) {
         if (str == null) {
             return appendNull();
         }
@@ -849,6 +901,32 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder appendln(StringBuffer str) {
         return append(str).appendNewLine();
+    }
+
+    /**
+     * Appends a string builder followed by a new line to this string builder.
+     * Appending null will call {@link #appendNull()}.
+     *
+     * @param str  the string builder to append
+     * @return this, to enable chaining
+     * @since 3.2
+     */
+    public StrBuilder appendln(StringBuilder str) {
+        return append(str).appendNewLine();
+    }
+
+    /**
+     * Appends part of a string builder followed by a new line to this string builder.
+     * Appending null will call {@link #appendNull()}.
+     *
+     * @param str  the string builder to append
+     * @param startIndex  the start index, inclusive, must be valid
+     * @param length  the length to append, must be valid
+     * @return this, to enable chaining
+     * @since 3.2
+     */
+    public StrBuilder appendln(StringBuilder str, int startIndex, int length) {
+        return append(str, startIndex, length).appendNewLine();
     }
 
     /**
