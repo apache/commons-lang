@@ -26,7 +26,6 @@ import org.apache.commons.lang3.text.translate.JavaUnicodeEscaper;
 import org.apache.commons.lang3.text.translate.LookupTranslator;
 import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 import org.apache.commons.lang3.text.translate.OctalUnescaper;
-import org.apache.commons.lang3.text.translate.UnicodeEscaper;
 import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
 
 /**
