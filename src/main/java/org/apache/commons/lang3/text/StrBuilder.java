@@ -2757,6 +2757,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @since Apache Commons Lang 3.2
      * @see #toString()
      */
+    @Override
     public String build() {
         return toString();
     }

@@ -88,6 +88,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * @param codePoint
      *            a Unicode code point
      */
+    @Override
     protected String toUtf16Escape(int codepoint) {
         char[] surrogatePair = Character.toChars(codepoint);
         return "\\u" + hex(surrogatePair[0]) + "\\u" + hex(surrogatePair[1]);
