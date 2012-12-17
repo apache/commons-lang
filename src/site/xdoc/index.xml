@@ -50,8 +50,8 @@ together with various <a href="project-reports.html">project reports</a>.
 The JavaDoc API documents are available online:
 </p>
 <ul>
-<li>The <a href="api-3.1/index.html">current stable release 3.1</a> [Java 5.0+]</li>
-<li>The <a href="api-2.6/index.html">legacy release 2.6</a> [Java 1.2+]</li>
+<li>The <a href="javadocs/api-3.1/index.html">current stable release 3.1</a> [Java 5.0+]</li>
+<li>The <a href="javadocs/api-2.6/index.html">legacy release 2.6</a> [Java 1.2+]</li>
 <li>Older releases - see the <a href="release-history.html">Release History</a> page</li>
 </ul>
 <p>
