@@ -40,7 +40,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
     class TestFixture {
         final private LinkedList<Integer> listField = new LinkedList<Integer>();
         final private Random random = new Random();
-        private int N = 100;
+        private final int N = 100;
 
         public TestFixture() {
             synchronized (this) {

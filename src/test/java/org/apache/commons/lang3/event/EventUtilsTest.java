@@ -201,7 +201,7 @@ public class EventUtilsTest
 
     private static class EventCountingInvociationHandler implements InvocationHandler
     {
-        private Map<String, Integer> eventCounts = new TreeMap<String, Integer>();
+        private final Map<String, Integer> eventCounts = new TreeMap<String, Integer>();
 
         public <L> L createListener(Class<L> listenerType)
         {
@@ -234,7 +234,7 @@ public class EventUtilsTest
 
     public static class MultipleEventSource
     {
-        private EventListenerSupport<MultipleEventListener> listeners = EventListenerSupport.create(MultipleEventListener.class);
+        private final EventListenerSupport<MultipleEventListener> listeners = EventListenerSupport.create(MultipleEventListener.class);
 
         public void addMultipleEventListener(MultipleEventListener listener)
         {
@@ -252,7 +252,7 @@ public class EventUtilsTest
 
     public static class PropertyChangeSource
     {
-        private EventListenerSupport<PropertyChangeListener> listeners = EventListenerSupport.create(PropertyChangeListener.class);
+        private final EventListenerSupport<PropertyChangeListener> listeners = EventListenerSupport.create(PropertyChangeListener.class);
 
         private String property;
 
