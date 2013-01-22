@@ -45,21 +45,21 @@ public class EventListenerSupportTest
     @Test(expected=NullPointerException.class)
     public void testAddNullListener()
     {
-        EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
+        final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         listenerSupport.addListener(null);
     }
 
     @Test(expected=NullPointerException.class)
     public void testRemoveNullListener()
     {
-        EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
+        final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         listenerSupport.removeListener(null);
     }
 
     @Test
     public void testEventDispatchOrder() throws PropertyVetoException
     {
-        EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
+        final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         final List<VetoableChangeListener> calledListeners = new ArrayList<VetoableChangeListener>();
 
         final VetoableChangeListener listener1 = createListener(calledListeners);
@@ -101,17 +101,17 @@ public class EventListenerSupportTest
     public void testGetListeners() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
 
-        VetoableChangeListener[] listeners = listenerSupport.getListeners();
+        final VetoableChangeListener[] listeners = listenerSupport.getListeners();
         assertEquals(0, listeners.length);
         assertEquals(VetoableChangeListener.class, listeners.getClass().getComponentType());
-        VetoableChangeListener[] empty = listeners;
+        final VetoableChangeListener[] empty = listeners;
         //for fun, show that the same empty instance is used 
         assertSame(empty, listenerSupport.getListeners());
 
-        VetoableChangeListener listener1 = EasyMock.createNiceMock(VetoableChangeListener.class);
+        final VetoableChangeListener listener1 = EasyMock.createNiceMock(VetoableChangeListener.class);
         listenerSupport.addListener(listener1);
         assertEquals(1, listenerSupport.getListeners().length);
-        VetoableChangeListener listener2 = EasyMock.createNiceMock(VetoableChangeListener.class);
+        final VetoableChangeListener listener2 = EasyMock.createNiceMock(VetoableChangeListener.class);
         listenerSupport.addListener(listener2);
         assertEquals(2, listenerSupport.getListeners().length);
         listenerSupport.removeListener(listener1);
@@ -122,7 +122,7 @@ public class EventListenerSupportTest
 
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException, PropertyVetoException {
-        EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
+        final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         listenerSupport.addListener(new VetoableChangeListener() {
             
             @Override
@@ -132,25 +132,26 @@ public class EventListenerSupportTest
         listenerSupport.addListener(EasyMock.createNiceMock(VetoableChangeListener.class));
 
         //serialize:
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+        final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
         objectOutputStream.writeObject(listenerSupport);
         objectOutputStream.close();
 
         //deserialize:
         @SuppressWarnings("unchecked")
+        final
         EventListenerSupport<VetoableChangeListener> deserializedListenerSupport = (EventListenerSupport<VetoableChangeListener>) new ObjectInputStream(
                 new ByteArrayInputStream(outputStream.toByteArray())).readObject();
 
         //make sure we get a listener array back, of the correct component type, and that it contains only the serializable mock
-        VetoableChangeListener[] listeners = deserializedListenerSupport.getListeners();
+        final VetoableChangeListener[] listeners = deserializedListenerSupport.getListeners();
         assertEquals(VetoableChangeListener.class, listeners.getClass().getComponentType());
         assertEquals(1, listeners.length);
 
         //now verify that the mock still receives events; we can infer that the proxy was correctly reconstituted
-        VetoableChangeListener listener = listeners[0];
-        PropertyChangeEvent evt = new PropertyChangeEvent(new Date(), "Day", 7, 9);
+        final VetoableChangeListener listener = listeners[0];
+        final PropertyChangeEvent evt = new PropertyChangeEvent(new Date(), "Day", 7, 9);
         listener.vetoableChange(evt);
         EasyMock.replay(listener);
         deserializedListenerSupport.fire().vetoableChange(evt);
@@ -165,6 +166,7 @@ public class EventListenerSupportTest
     public void testSubclassInvocationHandling() throws PropertyVetoException {
 
         @SuppressWarnings("serial")
+        final
         EventListenerSupport<VetoableChangeListener> eventListenerSupport = new EventListenerSupport<VetoableChangeListener>(
                 VetoableChangeListener.class) {
             @Override
@@ -184,11 +186,11 @@ public class EventListenerSupportTest
             }
         };
 
-        VetoableChangeListener listener = EasyMock.createNiceMock(VetoableChangeListener.class);
+        final VetoableChangeListener listener = EasyMock.createNiceMock(VetoableChangeListener.class);
         eventListenerSupport.addListener(listener);
-        Object source = new Date();
-        PropertyChangeEvent ignore = new PropertyChangeEvent(source, "Hour", 5, 6);
-        PropertyChangeEvent respond = new PropertyChangeEvent(source, "Day", 6, 7);
+        final Object source = new Date();
+        final PropertyChangeEvent ignore = new PropertyChangeEvent(source, "Hour", 5, 6);
+        final PropertyChangeEvent respond = new PropertyChangeEvent(source, "Day", 6, 7);
         listener.vetoableChange(respond);
         EasyMock.replay(listener);
         eventListenerSupport.fire().vetoableChange(ignore);

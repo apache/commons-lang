@@ -76,11 +76,11 @@ abstract class FormatCache<F extends Format> {
         if (locale == null) {
             locale = Locale.getDefault();
         }
-        MultipartKey key = new MultipartKey(pattern, timeZone, locale);
+        final MultipartKey key = new MultipartKey(pattern, timeZone, locale);
         F format = cInstanceCache.get(key);
         if (format == null) {           
             format = createInstance(pattern, timeZone, locale);
-            F previousValue= cInstanceCache.putIfAbsent(key, format);
+            final F previousValue= cInstanceCache.putIfAbsent(key, format);
             if (previousValue != null) {
                 // another thread snuck in and did the same work
                 // we should return the instance that is in ConcurrentMap
@@ -120,7 +120,7 @@ abstract class FormatCache<F extends Format> {
         if (locale == null) {
             locale = Locale.getDefault();
         }
-        String pattern = getPatternForStyle(dateStyle, timeStyle, locale);
+        final String pattern = getPatternForStyle(dateStyle, timeStyle, locale);
         return getInstance(pattern, timeZone, locale);
     }
 
@@ -134,7 +134,7 @@ abstract class FormatCache<F extends Format> {
      * @throws IllegalArgumentException if the Locale has no date/time pattern defined
      */
     public static String getPatternForStyle(final Integer dateStyle, final Integer timeStyle, final Locale locale) {
-        MultipartKey key = new MultipartKey(dateStyle, timeStyle, locale);
+        final MultipartKey key = new MultipartKey(dateStyle, timeStyle, locale);
 
         String pattern = cDateTimeInstanceCache.get(key);
         if (pattern == null) {
@@ -150,14 +150,14 @@ abstract class FormatCache<F extends Format> {
                     formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), locale);
                 }
                 pattern = ((SimpleDateFormat)formatter).toPattern();
-                String previous = cDateTimeInstanceCache.putIfAbsent(key, pattern);
+                final String previous = cDateTimeInstanceCache.putIfAbsent(key, pattern);
                 if (previous != null) {
                     // even though it doesn't matter if another thread put the pattern
                     // it's still good practice to return the String instance that is
                     // actually in the ConcurrentMap
                     pattern= previous;
                 }
-            } catch (ClassCastException ex) {
+            } catch (final ClassCastException ex) {
                 throw new IllegalArgumentException("No date time pattern for locale: " + locale);
             }
         }
@@ -198,7 +198,7 @@ abstract class FormatCache<F extends Format> {
         public int hashCode() {
             if(hashCode==0) {
                 int rc= 0;
-                for(Object key : keys) {
+                for(final Object key : keys) {
                     if(key!=null) {
                         rc= rc*7 + key.hashCode();
                     }

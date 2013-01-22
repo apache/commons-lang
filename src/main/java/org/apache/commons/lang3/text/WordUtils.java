@@ -95,9 +95,9 @@ public class WordUtils {
         if (wrapLength < 1) {
             wrapLength = 1;
         }
-        int inputLineLength = str.length();
+        final int inputLineLength = str.length();
         int offset = 0;
-        StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
+        final StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
         
         while (inputLineLength - offset > wrapLength) {
             if (str.charAt(offset) == ' ') {
@@ -198,14 +198,14 @@ public class WordUtils {
      * @since 2.1
      */
     public static String capitalize(final String str, final char... delimiters) {
-        int delimLen = delimiters == null ? -1 : delimiters.length;
+        final int delimLen = delimiters == null ? -1 : delimiters.length;
         if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
         }
-        char[] buffer = str.toCharArray();
+        final char[] buffer = str.toCharArray();
         boolean capitalizeNext = true;
         for (int i = 0; i < buffer.length; i++) {
-            char ch = buffer[i];
+            final char ch = buffer[i];
             if (isDelimiter(ch, delimiters)) {
                 capitalizeNext = true;
             } else if (capitalizeNext) {
@@ -267,7 +267,7 @@ public class WordUtils {
      * @since 2.1
      */
     public static String capitalizeFully(String str, final char... delimiters) {
-        int delimLen = delimiters == null ? -1 : delimiters.length;
+        final int delimLen = delimiters == null ? -1 : delimiters.length;
         if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
         }
@@ -323,14 +323,14 @@ public class WordUtils {
      * @since 2.1
      */
     public static String uncapitalize(final String str, final char... delimiters) {
-        int delimLen = delimiters == null ? -1 : delimiters.length;
+        final int delimLen = delimiters == null ? -1 : delimiters.length;
         if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
         }
-        char[] buffer = str.toCharArray();
+        final char[] buffer = str.toCharArray();
         boolean uncapitalizeNext = true;
         for (int i = 0; i < buffer.length; i++) {
-            char ch = buffer[i];
+            final char ch = buffer[i];
             if (isDelimiter(ch, delimiters)) {
                 uncapitalizeNext = true;
             } else if (uncapitalizeNext) {
@@ -368,12 +368,12 @@ public class WordUtils {
         if (StringUtils.isEmpty(str)) {
             return str;
         }
-        char[] buffer = str.toCharArray();
+        final char[] buffer = str.toCharArray();
 
         boolean whitespace = true;
 
         for (int i = 0; i < buffer.length; i++) {
-            char ch = buffer[i];
+            final char ch = buffer[i];
             if (Character.isUpperCase(ch)) {
                 buffer[i] = Character.toLowerCase(ch);
                 whitespace = false;
@@ -455,12 +455,12 @@ public class WordUtils {
         if (delimiters != null && delimiters.length == 0) {
             return "";
         }
-        int strLen = str.length();
-        char[] buf = new char[strLen / 2 + 1];
+        final int strLen = str.length();
+        final char[] buf = new char[strLen / 2 + 1];
         int count = 0;
         boolean lastWasGap = true;
         for (int i = 0; i < strLen; i++) {
-            char ch = str.charAt(i);
+            final char ch = str.charAt(i);
 
             if (isDelimiter(ch, delimiters)) {
                 lastWasGap = true;
@@ -486,7 +486,7 @@ public class WordUtils {
         if (delimiters == null) {
             return Character.isWhitespace(ch);
         }
-        for (char delimiter : delimiters) {
+        for (final char delimiter : delimiters) {
             if (ch == delimiter) {
                 return true;
             }

@@ -130,7 +130,7 @@ public class MutableFloatTest {
 
     @Test
     public void testPrimitiveValues() {
-        MutableFloat mutNum = new MutableFloat(1.7F);
+        final MutableFloat mutNum = new MutableFloat(1.7F);
         
         assertEquals( 1, mutNum.intValue() );
         assertEquals( 1.7, mutNum.doubleValue(), 0.00001 );
@@ -148,7 +148,7 @@ public class MutableFloatTest {
 
     @Test
     public void testIncrement() {
-        MutableFloat mutNum = new MutableFloat(1);
+        final MutableFloat mutNum = new MutableFloat(1);
         mutNum.increment();
         
         assertEquals(2, mutNum.intValue());
@@ -157,7 +157,7 @@ public class MutableFloatTest {
 
     @Test
     public void testDecrement() {
-        MutableFloat mutNum = new MutableFloat(1);
+        final MutableFloat mutNum = new MutableFloat(1);
         mutNum.decrement();
         
         assertEquals(0, mutNum.intValue());
@@ -166,7 +166,7 @@ public class MutableFloatTest {
 
     @Test
     public void testAddValuePrimitive() {
-        MutableFloat mutNum = new MutableFloat(1);
+        final MutableFloat mutNum = new MutableFloat(1);
         mutNum.add(1.1f);
         
         assertEquals(2.1f, mutNum.floatValue(), 0.01f);
@@ -174,7 +174,7 @@ public class MutableFloatTest {
 
     @Test
     public void testAddValueObject() {
-        MutableFloat mutNum = new MutableFloat(1);
+        final MutableFloat mutNum = new MutableFloat(1);
         mutNum.add(Float.valueOf(1.1f));
         
         assertEquals(2.1f, mutNum.floatValue(), 0.01f);
@@ -182,7 +182,7 @@ public class MutableFloatTest {
 
     @Test
     public void testSubtractValuePrimitive() {
-        MutableFloat mutNum = new MutableFloat(1);
+        final MutableFloat mutNum = new MutableFloat(1);
         mutNum.subtract(0.9f);
         
         assertEquals(0.1f, mutNum.floatValue(), 0.01f);
@@ -190,7 +190,7 @@ public class MutableFloatTest {
 
     @Test
     public void testSubtractValueObject() {
-        MutableFloat mutNum = new MutableFloat(1);
+        final MutableFloat mutNum = new MutableFloat(1);
         mutNum.subtract(Float.valueOf(0.9f));
         
         assertEquals(0.1f, mutNum.floatValue(), 0.01f);

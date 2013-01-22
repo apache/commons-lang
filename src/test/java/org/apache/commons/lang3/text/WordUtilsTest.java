@@ -37,7 +37,7 @@ public class WordUtilsTest {
     @Test
     public void testConstructor() {
         assertNotNull(new WordUtils());
-        Constructor<?>[] cons = WordUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = WordUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(WordUtils.class.getModifiers()));
@@ -54,7 +54,7 @@ public class WordUtilsTest {
         assertEquals("", WordUtils.wrap("", -1));
         
         // normal
-        String systemNewLine = System.getProperty("line.separator");
+        final String systemNewLine = System.getProperty("line.separator");
         String input = "Here is one line of text that is going to be wrapped after 20 columns.";
         String expected = "Here is one line of" + systemNewLine + "text that is going" 
             + systemNewLine + "to be wrapped after" + systemNewLine + "20 columns.";
@@ -110,7 +110,7 @@ public class WordUtilsTest {
         assertEquals(expected, WordUtils.wrap(input, -1, "\n", false));
 
         // system newline char
-        String systemNewLine = System.getProperty("line.separator");
+        final String systemNewLine = System.getProperty("line.separator");
         input = "Here is one line of text that is going to be wrapped after 20 columns.";
         expected = "Here is one line of" + systemNewLine + "text that is going" + systemNewLine 
             + "to be wrapped after" + systemNewLine + "20 columns.";
@@ -360,8 +360,8 @@ public class WordUtilsTest {
         assertEquals("I AM here 123", WordUtils.swapCase("i am HERE 123") );
         assertEquals("i am here 123", WordUtils.swapCase("I AM HERE 123") );
 
-        String test = "This String contains a TitleCase character: \u01C8";
-        String expect = "tHIS sTRING CONTAINS A tITLEcASE CHARACTER: \u01C9";
+        final String test = "This String contains a TitleCase character: \u01C8";
+        final String expect = "tHIS sTRING CONTAINS A tITLEcASE CHARACTER: \u01C9";
         assertEquals(expect, WordUtils.swapCase(test));
     }
 

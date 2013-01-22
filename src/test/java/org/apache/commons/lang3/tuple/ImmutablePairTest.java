@@ -36,12 +36,12 @@ public class ImmutablePairTest {
 
     @Test
     public void testBasic() throws Exception {
-        ImmutablePair<Integer, String> pair = new ImmutablePair<Integer, String>(0, "foo");
+        final ImmutablePair<Integer, String> pair = new ImmutablePair<Integer, String>(0, "foo");
         assertEquals(0, pair.left.intValue());
         assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.right);
         assertEquals("foo", pair.getRight());
-        ImmutablePair<Object, String> pair2 = new ImmutablePair<Object, String>(null, "bar");
+        final ImmutablePair<Object, String> pair2 = new ImmutablePair<Object, String>(null, "bar");
         assertNull(pair2.left);
         assertNull(pair2.getLeft());
         assertEquals("bar", pair2.right);
@@ -50,12 +50,12 @@ public class ImmutablePairTest {
 
     @Test
     public void testPairOf() throws Exception {
-        ImmutablePair<Integer, String> pair = ImmutablePair.of(0, "foo");
+        final ImmutablePair<Integer, String> pair = ImmutablePair.of(0, "foo");
         assertEquals(0, pair.left.intValue());
         assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.right);
         assertEquals("foo", pair.getRight());
-        ImmutablePair<Object, String> pair2 = ImmutablePair.of(null, "bar");
+        final ImmutablePair<Object, String> pair2 = ImmutablePair.of(null, "bar");
         assertNull(pair2.left);
         assertNull(pair2.getLeft());
         assertEquals("bar", pair2.right);
@@ -68,7 +68,7 @@ public class ImmutablePairTest {
         assertFalse(ImmutablePair.of("foo", 0).equals(ImmutablePair.of("foo", null)));
         assertFalse(ImmutablePair.of("foo", "bar").equals(ImmutablePair.of("xyz", "bar")));
 
-        ImmutablePair<String, String> p = ImmutablePair.of("foo", "bar");
+        final ImmutablePair<String, String> p = ImmutablePair.of("foo", "bar");
         assertTrue(p.equals(p));
         assertFalse(p.equals(new Object()));
     }
@@ -89,11 +89,11 @@ public class ImmutablePairTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() throws Exception {
-        ImmutablePair<Integer, String> origPair = ImmutablePair.of(0, "foo");
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(baos);
+        final ImmutablePair<Integer, String> origPair = ImmutablePair.of(0, "foo");
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ObjectOutputStream out = new ObjectOutputStream(baos);
         out.writeObject(origPair);
-        ImmutablePair<Integer, String> deserializedPair = (ImmutablePair<Integer, String>) new ObjectInputStream(
+        final ImmutablePair<Integer, String> deserializedPair = (ImmutablePair<Integer, String>) new ObjectInputStream(
                 new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origPair, deserializedPair);
         assertEquals(origPair.hashCode(), deserializedPair.hashCode());

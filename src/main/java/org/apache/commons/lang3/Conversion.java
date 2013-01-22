@@ -512,9 +512,9 @@ public class Conversion {
         if (src.length == 0) {
             throw new IllegalArgumentException("Cannot convert an empty array.");
         }
-        int beSrcPos = src.length - 1 - srcPos;
-        int srcLen = Math.min(4, beSrcPos + 1);
-        boolean[] paddedSrc = new boolean[4];
+        final int beSrcPos = src.length - 1 - srcPos;
+        final int srcLen = Math.min(4, beSrcPos + 1);
+        final boolean[] paddedSrc = new boolean[4];
         System.arraycopy(src, beSrcPos + 1 - srcLen, paddedSrc, 4 - srcLen, srcLen);
         src = paddedSrc;
         srcPos = 0;
@@ -600,7 +600,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nibble < 0} or {@code nibble > 15}
      */
     public static char intToHexDigit(final int nibble) {
-        char c = Character.forDigit(nibble, 16);
+        final char c = Character.forDigit(nibble, 16);
         if (c == Character.MIN_VALUE) {
             throw new IllegalArgumentException("nibble value not between 0 and 15: " + nibble);
         }
@@ -693,8 +693,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nInts; i++ ) {
             shift = i * 32 + dstPos;
-            long bits = ((0xffffffffL & src[i + srcPos]) << shift);
-            long mask = 0xffffffffL << shift;
+            final long bits = ((0xffffffffL & src[i + srcPos]) << shift);
+            final long mask = 0xffffffffL << shift;
             out = (out & ~mask) | bits;
         }
         return out;
@@ -730,8 +730,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nShorts; i++ ) {
             shift = i * 16 + dstPos;
-            long bits = (0xffffL & src[i + srcPos]) << shift;
-            long mask = 0xffffL << shift;
+            final long bits = (0xffffL & src[i + srcPos]) << shift;
+            final long mask = 0xffffL << shift;
             out = (out & ~mask) | bits;
         }
         return out;
@@ -767,8 +767,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nShorts; i++ ) {
             shift = i * 16 + dstPos;
-            int bits = (0xffff & src[i + srcPos]) << shift;
-            int mask = 0xffff << shift;
+            final int bits = (0xffff & src[i + srcPos]) << shift;
+            final int mask = 0xffff << shift;
             out = (out & ~mask) | bits;
         }
         return out;
@@ -804,8 +804,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBytes; i++ ) {
             shift = i * 8 + dstPos;
-            long bits = (0xffL & src[i + srcPos]) << shift;
-            long mask = 0xffL << shift;
+            final long bits = (0xffL & src[i + srcPos]) << shift;
+            final long mask = 0xffL << shift;
             out = (out & ~mask) | bits;
         }
         return out;
@@ -840,8 +840,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBytes; i++ ) {
             shift = i * 8 + dstPos;
-            int bits = (0xff & src[i + srcPos]) << shift;
-            int mask = 0xff << shift;
+            final int bits = (0xff & src[i + srcPos]) << shift;
+            final int mask = 0xff << shift;
             out = (out & ~mask) | bits;
         }
         return out;
@@ -877,8 +877,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBytes; i++ ) {
             shift = i * 8 + dstPos;
-            int bits = (0xff & src[i + srcPos]) << shift;
-            int mask = 0xff << shift;
+            final int bits = (0xff & src[i + srcPos]) << shift;
+            final int mask = 0xff << shift;
             out = (short)((out & ~mask) | bits);
         }
         return out;
@@ -911,8 +911,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nHex; i++ ) {
             shift = i * 4 + dstPos;
-            long bits = (0xfL & hexDigitToInt(src.charAt(i + srcPos))) << shift;
-            long mask = 0xfL << shift;
+            final long bits = (0xfL & hexDigitToInt(src.charAt(i + srcPos))) << shift;
+            final long mask = 0xfL << shift;
             out = (out & ~mask) | bits;
         }
         return out;
@@ -945,8 +945,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nHex; i++ ) {
             shift = i * 4 + dstPos;
-            int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
-            int mask = 0xf << shift;
+            final int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
+            final int mask = 0xf << shift;
             out = (out & ~mask) | bits;
         }
         return out;
@@ -979,8 +979,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nHex; i++ ) {
             shift = i * 4 + dstPos;
-            int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
-            int mask = 0xf << shift;
+            final int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
+            final int mask = 0xf << shift;
             out = (short)((out & ~mask) | bits);
         }
         return out;
@@ -1013,8 +1013,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nHex; i++ ) {
             shift = i * 4 + dstPos;
-            int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
-            int mask = 0xf << shift;
+            final int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
+            final int mask = 0xf << shift;
             out = (byte)((out & ~mask) | bits);
         }
         return out;
@@ -1050,8 +1050,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
             shift = i * 1 + dstPos;
-            long bits = (src[i + srcPos] ? 1L : 0) << shift;
-            long mask = 0x1L << shift;
+            final long bits = (src[i + srcPos] ? 1L : 0) << shift;
+            final long mask = 0x1L << shift;
             out = (out & ~mask) | bits;
         }
         return out;
@@ -1086,8 +1086,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
             shift = i * 1 + dstPos;
-            int bits = (src[i + srcPos] ? 1 : 0) << shift;
-            int mask = 0x1 << shift;
+            final int bits = (src[i + srcPos] ? 1 : 0) << shift;
+            final int mask = 0x1 << shift;
             out = (out & ~mask) | bits;
         }
         return out;
@@ -1123,8 +1123,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
             shift = i * 1 + dstPos;
-            int bits = (src[i + srcPos] ? 1 : 0) << shift;
-            int mask = 0x1 << shift;
+            final int bits = (src[i + srcPos] ? 1 : 0) << shift;
+            final int mask = 0x1 << shift;
             out = (short)((out & ~mask) | bits);
         }
         return out;
@@ -1159,8 +1159,8 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
             shift = i * 1 + dstPos;
-            int bits = (src[i + srcPos] ? 1 : 0) << shift;
-            int mask = 0x1 << shift;
+            final int bits = (src[i + srcPos] ? 1 : 0) << shift;
+            final int mask = 0x1 << shift;
             out = (byte)((out & ~mask) | bits);
         }
         return out;
@@ -1392,12 +1392,12 @@ public class Conversion {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+srcPos is greather or equal to than 64");
         }
-        StringBuilder sb = new StringBuilder(dstInit);
+        final StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         int append = sb.length();
         for (int i = 0; i < nHexs; i++ ) {
             shift = i * 4 + srcPos;
-            int bits = (int)(0xF & (src >> shift));
+            final int bits = (int)(0xF & (src >> shift));
             if (dstPos + i == append) {
                 ++append;
                 sb.append(intToHexDigit(bits));
@@ -1432,12 +1432,12 @@ public class Conversion {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+srcPos is greather or equal to than 32");
         }
-        StringBuilder sb = new StringBuilder(dstInit);
+        final StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         int append = sb.length();
         for (int i = 0; i < nHexs; i++ ) {
             shift = i * 4 + srcPos;
-            int bits = 0xF & (src >> shift);
+            final int bits = 0xF & (src >> shift);
             if (dstPos + i == append) {
                 ++append;
                 sb.append(intToHexDigit(bits));
@@ -1472,12 +1472,12 @@ public class Conversion {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+srcPos is greather or equal to than 16");
         }
-        StringBuilder sb = new StringBuilder(dstInit);
+        final StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         int append = sb.length();
         for (int i = 0; i < nHexs; i++ ) {
             shift = i * 4 + srcPos;
-            int bits = 0xF & (src >> shift);
+            final int bits = 0xF & (src >> shift);
             if (dstPos + i == append) {
                 ++append;
                 sb.append(intToHexDigit(bits));
@@ -1512,12 +1512,12 @@ public class Conversion {
             throw new IllegalArgumentException(
                 "(nHexs-1)*4+srcPos is greather or equal to than 8");
         }
-        StringBuilder sb = new StringBuilder(dstInit);
+        final StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         int append = sb.length();
         for (int i = 0; i < nHexs; i++ ) {
             shift = i * 4 + srcPos;
-            int bits = 0xF & (src >> shift);
+            final int bits = 0xF & (src >> shift);
             if (dstPos + i == append) {
                 ++append;
                 sb.append(intToHexDigit(bits));

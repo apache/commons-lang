@@ -89,18 +89,18 @@ public class ReflectionToStringBuilderConcurrencyTest {
         // Create a thread pool with two threads to cause the most contention on the underlying resource.
         final ExecutorService threadPool = Executors.newFixedThreadPool(2);
         // Consumes toStrings
-        Callable<Integer> consumer = new Callable<Integer>() {
+        final Callable<Integer> consumer = new Callable<Integer>() {
             @Override
             public Integer call() {
                 for (int i = 0; i < REPEAT; i++) {
-                    String s = ReflectionToStringBuilder.toString(holder);
+                    final String s = ReflectionToStringBuilder.toString(holder);
                     Assert.assertNotNull(s);
                 }
                 return Integer.valueOf(REPEAT);
             }
         };
         // Produces changes in the list
-        Callable<Integer> producer = new Callable<Integer>() {
+        final Callable<Integer> producer = new Callable<Integer>() {
             @Override
             public Integer call() {
                 for (int i = 0; i < DATA_SIZE; i++) {
@@ -109,11 +109,11 @@ public class ReflectionToStringBuilderConcurrencyTest {
                 return Integer.valueOf(REPEAT);
             }
         };
-        Collection<Callable<Integer>> tasks = new ArrayList<Callable<Integer>>();
+        final Collection<Callable<Integer>> tasks = new ArrayList<Callable<Integer>>();
         tasks.add(consumer);
         tasks.add(producer);
         final List<Future<Integer>> futures = threadPool.invokeAll(tasks);
-        for (Future<Integer> future : futures) {
+        for (final Future<Integer> future : futures) {
             Assert.assertEquals(REPEAT, future.get().intValue());
         }
     }

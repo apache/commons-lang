@@ -115,8 +115,8 @@ public class ConstantInitializerTest {
      */
     @Test
     public void testToString() {
-        String s = init.toString();
-        Pattern pattern = Pattern
+        final String s = init.toString();
+        final Pattern pattern = Pattern
                 .compile("ConstantInitializer@\\d+ \\[ object = " + VALUE
                         + " \\]");
         assertTrue("Wrong string: " + s, pattern.matcher(s).matches());
@@ -127,7 +127,7 @@ public class ConstantInitializerTest {
      */
     @Test
     public void testToStringNull() {
-        String s = new ConstantInitializer<Object>(null).toString();
+        final String s = new ConstantInitializer<Object>(null).toString();
         assertTrue("Object not found: " + s, s.indexOf("object = null") > 0);
     }
 }

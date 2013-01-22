@@ -248,8 +248,8 @@ public class RandomStringUtils {
             }
         }
 
-        char[] buffer = new char[count];
-        int gap = end - start;
+        final char[] buffer = new char[count];
+        final int gap = end - start;
 
         while (count-- != 0) {
             char ch;

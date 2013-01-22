@@ -48,7 +48,7 @@ public class EventUtilsTest
     @Test
     public void testConstructor() {
         assertNotNull(new EventUtils());
-        Constructor<?>[] cons = EventUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = EventUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(EventUtils.class.getModifiers()));
@@ -59,8 +59,8 @@ public class EventUtilsTest
     public void testAddEventListener()
     {
         final PropertyChangeSource src = new PropertyChangeSource();
-        EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
-        PropertyChangeListener listener = handler.createListener(PropertyChangeListener.class);
+        final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
+        final PropertyChangeListener listener = handler.createListener(PropertyChangeListener.class);
         assertEquals(0, handler.getEventCount("propertyChange"));
         EventUtils.addEventListener(src, PropertyChangeListener.class, listener);
         assertEquals(0, handler.getEventCount("propertyChange"));
@@ -72,14 +72,14 @@ public class EventUtilsTest
     public void testAddEventListenerWithNoAddMethod()
     {
         final PropertyChangeSource src = new PropertyChangeSource();
-        EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
-        ObjectChangeListener listener = handler.createListener(ObjectChangeListener.class);
+        final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
+        final ObjectChangeListener listener = handler.createListener(ObjectChangeListener.class);
         try
         {
             EventUtils.addEventListener(src, ObjectChangeListener.class, listener);
             fail("Should not be allowed to add a listener to an object that doesn't support it.");
         }
-        catch (IllegalArgumentException e)
+        catch (final IllegalArgumentException e)
         {
             assertEquals("Class " + src.getClass().getName() + " does not have a public add" + ObjectChangeListener.class.getSimpleName() + " method which takes a parameter of type " + ObjectChangeListener.class.getName() + ".", e.getMessage());
         }
@@ -101,7 +101,7 @@ public class EventUtilsTest
             });
             fail("Add method should have thrown an exception, so method should fail.");
         }
-        catch (RuntimeException e)
+        catch (final RuntimeException e)
         {
 
         }
@@ -111,14 +111,14 @@ public class EventUtilsTest
     public void testAddEventListenerWithPrivateAddMethod()
     {
         final PropertyChangeSource src = new PropertyChangeSource();
-        EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
-        VetoableChangeListener listener = handler.createListener(VetoableChangeListener.class);
+        final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
+        final VetoableChangeListener listener = handler.createListener(VetoableChangeListener.class);
         try
         {
             EventUtils.addEventListener(src, VetoableChangeListener.class, listener);
             fail("Should not be allowed to add a listener to an object that doesn't support it.");
         }
-        catch (IllegalArgumentException e)
+        catch (final IllegalArgumentException e)
         {
             assertEquals("Class " + src.getClass().getName() + " does not have a public add" + VetoableChangeListener.class.getSimpleName() + " method which takes a parameter of type " + VetoableChangeListener.class.getName() + ".", e.getMessage());
         }
@@ -212,14 +212,14 @@ public class EventUtilsTest
 
         public int getEventCount(final String eventName)
         {
-            Integer count = eventCounts.get(eventName);
+            final Integer count = eventCounts.get(eventName);
             return count == null ? 0 : count.intValue();
         }
 
         @Override
         public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable
         {
-            Integer count = eventCounts.get(method.getName());
+            final Integer count = eventCounts.get(method.getName());
             if (count == null)
             {
                 eventCounts.put(method.getName(), Integer.valueOf(1));
@@ -258,7 +258,7 @@ public class EventUtilsTest
 
         public void setProperty(final String property)
         {
-            String oldValue = this.property;
+            final String oldValue = this.property;
             this.property = property;
             listeners.fire().propertyChange(new PropertyChangeEvent(this, "property", oldValue, property));
         }

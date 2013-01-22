@@ -155,9 +155,9 @@ public class DateUtils {
         if (date1 == null || date2 == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        Calendar cal1 = Calendar.getInstance();
+        final Calendar cal1 = Calendar.getInstance();
         cal1.setTime(date1);
-        Calendar cal2 = Calendar.getInstance();
+        final Calendar cal2 = Calendar.getInstance();
         cal2.setTime(date2);
         return isSameDay(cal1, cal2);
     }
@@ -363,8 +363,8 @@ public class DateUtils {
         }
         
         parser.setLenient(lenient);
-        ParsePosition pos = new ParsePosition(0);
-        for (String parsePattern : parsePatterns) {
+        final ParsePosition pos = new ParsePosition(0);
+        for (final String parsePattern : parsePatterns) {
 
             String pattern = parsePattern;
 
@@ -382,7 +382,7 @@ public class DateUtils {
                 str2 = str.replaceAll("([-+][0-9][0-9]):([0-9][0-9])$", "$1$2"); 
             }
 
-            Date date = parser.parse(str2, pos);
+            final Date date = parser.parse(str2, pos);
             if (date != null && pos.getIndex() == str2.length()) {
                 return date;
             }
@@ -517,7 +517,7 @@ public class DateUtils {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        Calendar c = Calendar.getInstance();
+        final Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.add(calendarField, amount);
         return c.getTime();
@@ -647,7 +647,7 @@ public class DateUtils {
             throw new IllegalArgumentException("The date must not be null");
         }
         // getInstance() returns a new object, so this method is thread safe.
-        Calendar c = Calendar.getInstance();
+        final Calendar c = Calendar.getInstance();
         c.setLenient(false);
         c.setTime(date);
         c.set(calendarField, amount);
@@ -664,7 +664,7 @@ public class DateUtils {
      * @since 3.0
      */
     public static Calendar toCalendar(final Date date) {
-        Calendar c = Calendar.getInstance();
+        final Calendar c = Calendar.getInstance();
         c.setTime(date);
         return c;
     }
@@ -700,7 +700,7 @@ public class DateUtils {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        Calendar gval = Calendar.getInstance();
+        final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
         modify(gval, field, MODIFY_ROUND);
         return gval.getTime();
@@ -737,7 +737,7 @@ public class DateUtils {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        Calendar rounded = (Calendar) date.clone();
+        final Calendar rounded = (Calendar) date.clone();
         modify(rounded, field, MODIFY_ROUND);
         return rounded;
     }
@@ -803,7 +803,7 @@ public class DateUtils {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        Calendar gval = Calendar.getInstance();
+        final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
         modify(gval, field, MODIFY_TRUNCATE);
         return gval.getTime();
@@ -828,7 +828,7 @@ public class DateUtils {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        Calendar truncated = (Calendar) date.clone();
+        final Calendar truncated = (Calendar) date.clone();
         modify(truncated, field, MODIFY_TRUNCATE);
         return truncated;
     }
@@ -883,7 +883,7 @@ public class DateUtils {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        Calendar gval = Calendar.getInstance();
+        final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
         modify(gval, field, MODIFY_CEILING);
         return gval.getTime();
@@ -909,7 +909,7 @@ public class DateUtils {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        Calendar ceiled = (Calendar) date.clone();
+        final Calendar ceiled = (Calendar) date.clone();
         modify(ceiled, field, MODIFY_CEILING);
         return ceiled;
     }
@@ -968,12 +968,12 @@ public class DateUtils {
         // Manually truncate milliseconds, seconds and minutes, rather than using
         // Calendar methods.
 
-        Date date = val.getTime();
+        final Date date = val.getTime();
         long time = date.getTime();
         boolean done = false;
 
         // truncate milliseconds
-        int millisecs = val.get(Calendar.MILLISECOND);
+        final int millisecs = val.get(Calendar.MILLISECOND);
         if (MODIFY_TRUNCATE == modType || millisecs < 500) {
             time = time - millisecs;
         }
@@ -982,7 +982,7 @@ public class DateUtils {
         }
 
         // truncate seconds
-        int seconds = val.get(Calendar.SECOND);
+        final int seconds = val.get(Calendar.SECOND);
         if (!done && (MODIFY_TRUNCATE == modType || seconds < 30)) {
             time = time - (seconds * 1000L);
         }
@@ -991,7 +991,7 @@ public class DateUtils {
         }
 
         // truncate minutes
-        int minutes = val.get(Calendar.MINUTE);
+        final int minutes = val.get(Calendar.MINUTE);
         if (!done && (MODIFY_TRUNCATE == modType || minutes < 30)) {
             time = time - (minutes * 60000L);
         }
@@ -1004,8 +1004,8 @@ public class DateUtils {
         // ----------------- Fix for LANG-59 ----------------------- END ----------------
 
         boolean roundUp = false;
-        for (int[] aField : fields) {
-            for (int element : aField) {
+        for (final int[] aField : fields) {
+            for (final int element : aField) {
                 if (element == field) {
                     //This is our field... we stop looping
                     if (modType == MODIFY_CEILING || (modType == MODIFY_ROUND && roundUp)) {
@@ -1075,8 +1075,8 @@ public class DateUtils {
                     break;
             }
             if (!offsetSet) {
-                int min = val.getActualMinimum(aField[0]);
-                int max = val.getActualMaximum(aField[0]);
+                final int min = val.getActualMinimum(aField[0]);
+                final int max = val.getActualMaximum(aField[0]);
                 //Calculate the offset from the minimum allowed value
                 offset = val.get(aField[0]) - min;
                 //Set roundUp if this is more than half way between the minimum and maximum
@@ -1120,7 +1120,7 @@ public class DateUtils {
         if (focus == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        Calendar gval = Calendar.getInstance();
+        final Calendar gval = Calendar.getInstance();
         gval.setTime(focus);
         return iterator(gval, rangeStyle);
     }
@@ -1663,7 +1663,7 @@ public class DateUtils {
         if(date == null) {
             throw  new IllegalArgumentException("The date must not be null");
         }
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return getFragment(calendar, fragment, unit);
     }
@@ -1683,7 +1683,7 @@ public class DateUtils {
         if(calendar == null) {
             throw  new IllegalArgumentException("The date must not be null"); 
         }
-        long millisPerUnit = getMillisPerUnit(unit);
+        final long millisPerUnit = getMillisPerUnit(unit);
         long result = 0;
         
         // Fragments bigger than a day require a breakdown to days
@@ -1770,8 +1770,8 @@ public class DateUtils {
      * @since 3.0
      */
     public static int truncatedCompareTo(final Calendar cal1, final Calendar cal2, final int field) {
-        Calendar truncatedCal1 = truncate(cal1, field);
-        Calendar truncatedCal2 = truncate(cal2, field);
+        final Calendar truncatedCal1 = truncate(cal1, field);
+        final Calendar truncatedCal2 = truncate(cal2, field);
         return truncatedCal1.compareTo(truncatedCal2);
     }
 
@@ -1790,8 +1790,8 @@ public class DateUtils {
      * @since 3.0
      */
     public static int truncatedCompareTo(final Date date1, final Date date2, final int field) {
-        Date truncatedDate1 = truncate(date1, field);
-        Date truncatedDate2 = truncate(date2, field);
+        final Date truncatedDate1 = truncate(date1, field);
+        final Date truncatedDate2 = truncate(date2, field);
         return truncatedDate1.compareTo(truncatedDate2);
     }
 

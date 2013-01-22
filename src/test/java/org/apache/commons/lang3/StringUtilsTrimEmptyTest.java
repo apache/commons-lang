@@ -241,10 +241,10 @@ public class StringUtilsTrimEmptyTest  {
     @Test
     public void testStripAll() {
         // test stripAll method, merely an array version of the above strip
-        String[] empty = new String[0];
-        String[] fooSpace = new String[] { "  "+FOO+"  ", "  "+FOO, FOO+"  " };
-        String[] fooDots = new String[] { ".."+FOO+"..", ".."+FOO, FOO+".." };
-        String[] foo = new String[] { FOO, FOO, FOO };
+        final String[] empty = new String[0];
+        final String[] fooSpace = new String[] { "  "+FOO+"  ", "  "+FOO, FOO+"  " };
+        final String[] fooDots = new String[] { ".."+FOO+"..", ".."+FOO, FOO+".." };
+        final String[] foo = new String[] { FOO, FOO, FOO };
 
         assertNull(StringUtils.stripAll((String[]) null));
         // Additional varargs tests
@@ -261,10 +261,10 @@ public class StringUtilsTrimEmptyTest  {
 
     @Test
     public void testStripAccents() {
-        String cue = "\u00C7\u00FA\u00EA";
+        final String cue = "\u00C7\u00FA\u00EA";
         assertEquals( "Failed to strip accents from " + cue, "Cue", StringUtils.stripAccents(cue));
 
-        String lots = "\u00C0\u00C1\u00C2\u00C3\u00C4\u00C5\u00C7\u00C8\u00C9" + 
+        final String lots = "\u00C0\u00C1\u00C2\u00C3\u00C4\u00C5\u00C7\u00C8\u00C9" + 
                       "\u00CA\u00CB\u00CC\u00CD\u00CE\u00CF\u00D1\u00D2\u00D3" + 
                       "\u00D4\u00D5\u00D6\u00D9\u00DA\u00DB\u00DC\u00DD";
         assertEquals( "Failed to strip accents from " + lots, 

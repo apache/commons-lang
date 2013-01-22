@@ -268,7 +268,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      */
     @Override
     public int compareTo(final MutableShort other) {
-        short anotherVal = other.value;
+        final short anotherVal = other.value;
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }
 

@@ -36,24 +36,24 @@ public class MutablePairTest {
 
     @Test
     public void testBasic() throws Exception {
-        MutablePair<Integer, String> pair = new MutablePair<Integer, String>(0, "foo");
+        final MutablePair<Integer, String> pair = new MutablePair<Integer, String>(0, "foo");
         assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.getRight());
-        MutablePair<Object, String> pair2 = new MutablePair<Object, String>(null, "bar");
+        final MutablePair<Object, String> pair2 = new MutablePair<Object, String>(null, "bar");
         assertNull(pair2.getLeft());
         assertEquals("bar", pair2.getRight());
     }
 
     @Test
     public void testDefault() throws Exception {
-        MutablePair<Integer, String> pair = new MutablePair<Integer, String>();
+        final MutablePair<Integer, String> pair = new MutablePair<Integer, String>();
         assertNull(pair.getLeft());
         assertNull(pair.getRight());
     }
     
     @Test
     public void testMutate() throws Exception {
-        MutablePair<Integer, String> pair = new MutablePair<Integer, String>(0, "foo");
+        final MutablePair<Integer, String> pair = new MutablePair<Integer, String>(0, "foo");
         pair.setLeft(42);
         pair.setRight("bar");
         assertEquals(42, pair.getLeft().intValue());
@@ -62,10 +62,10 @@ public class MutablePairTest {
 
     @Test
     public void testPairOf() throws Exception {
-        MutablePair<Integer, String> pair = MutablePair.of(0, "foo");
+        final MutablePair<Integer, String> pair = MutablePair.of(0, "foo");
         assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.getRight());
-        MutablePair<Object, String> pair2 = MutablePair.of(null, "bar");
+        final MutablePair<Object, String> pair2 = MutablePair.of(null, "bar");
         assertNull(pair2.getLeft());
         assertEquals("bar", pair2.getRight());
     }
@@ -76,7 +76,7 @@ public class MutablePairTest {
         assertFalse(MutablePair.of("foo", 0).equals(MutablePair.of("foo", null)));
         assertFalse(MutablePair.of("foo", "bar").equals(MutablePair.of("xyz", "bar")));
 
-        MutablePair<String, String> p = MutablePair.of("foo", "bar");
+        final MutablePair<String, String> p = MutablePair.of("foo", "bar");
         assertTrue(p.equals(p));
         assertFalse(p.equals(new Object()));
     }
@@ -97,11 +97,11 @@ public class MutablePairTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() throws Exception {
-        MutablePair<Integer, String> origPair = MutablePair.of(0, "foo");
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(baos);
+        final MutablePair<Integer, String> origPair = MutablePair.of(0, "foo");
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ObjectOutputStream out = new ObjectOutputStream(baos);
         out.writeObject(origPair);
-        MutablePair<Integer, String> deserializedPair = (MutablePair<Integer, String>) new ObjectInputStream(
+        final MutablePair<Integer, String> deserializedPair = (MutablePair<Integer, String>) new ObjectInputStream(
                 new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origPair, deserializedPair);
         assertEquals(origPair.hashCode(), deserializedPair.hashCode());

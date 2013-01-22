@@ -51,20 +51,20 @@ public class ArrayUtilsRemoveTest {
         try {
             ArrayUtils.remove(new Object[] {"a", "b"}, -1);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove(new Object[] {"a", "b"}, 2);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove((Object[]) null, 0);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
     }
 
     @Test
     public void testRemoveNumberArray(){
-        Number[] inarray = {Integer.valueOf(1),Long.valueOf(2),Byte.valueOf((byte) 3)};
+        final Number[] inarray = {Integer.valueOf(1),Long.valueOf(2),Byte.valueOf((byte) 3)};
         assertEquals(3, inarray.length);
         Number[] outarray;
         outarray = ArrayUtils.remove(inarray, 1);
@@ -96,15 +96,15 @@ public class ArrayUtilsRemoveTest {
         try {
             ArrayUtils.remove(new boolean[] {true, false}, -1);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove(new boolean[] {true, false}, 2);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove((boolean[]) null, 0);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
     }
     
     @Test
@@ -125,15 +125,15 @@ public class ArrayUtilsRemoveTest {
         try {
             ArrayUtils.remove(new byte[] {1, 2}, -1);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove(new byte[] {1, 2}, 2);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove((byte[]) null, 0);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
     }
     
     @Test
@@ -154,15 +154,15 @@ public class ArrayUtilsRemoveTest {
         try {
             ArrayUtils.remove(new char[] {'a', 'b'}, -1);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove(new char[] {'a', 'b'}, 2);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove((char[]) null, 0);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
     }
     
     @Test
@@ -183,15 +183,15 @@ public class ArrayUtilsRemoveTest {
         try {
             ArrayUtils.remove(new double[] {1, 2}, -1);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove(new double[] {1, 2}, 2);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove((double[]) null, 0);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
     }
     
     @Test
@@ -212,15 +212,15 @@ public class ArrayUtilsRemoveTest {
         try {
             ArrayUtils.remove(new float[] {1, 2}, -1);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove(new float[] {1, 2}, 2);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove((float[]) null, 0);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
     }
     
     @Test
@@ -241,15 +241,15 @@ public class ArrayUtilsRemoveTest {
         try {
             ArrayUtils.remove(new int[] {1, 2}, -1);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove(new int[] {1, 2}, 2);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove((int[]) null, 0);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
     }
     
     @Test
@@ -270,15 +270,15 @@ public class ArrayUtilsRemoveTest {
         try {
             ArrayUtils.remove(new long[] {1, 2}, -1);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove(new long[] {1, 2}, 2);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove((long[]) null, 0);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
     }
     
     @Test
@@ -299,15 +299,15 @@ public class ArrayUtilsRemoveTest {
         try {
             ArrayUtils.remove(new short[] {1, 2}, -1);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove(new short[] {1, 2}, 2);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
         try {
             ArrayUtils.remove((short[]) null, 0);
             fail("IndexOutOfBoundsException expected");
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (final IndexOutOfBoundsException e) {}
     }
     
     @Test

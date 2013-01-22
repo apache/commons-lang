@@ -51,16 +51,16 @@ public class FastDateFormatTest {
      */
     @Test
     public void test_getInstance() {
-        FastDateFormat format1 = FastDateFormat.getInstance();
-        FastDateFormat format2 = FastDateFormat.getInstance();
+        final FastDateFormat format1 = FastDateFormat.getInstance();
+        final FastDateFormat format2 = FastDateFormat.getInstance();
         assertSame(format1, format2);
     }
 
     @Test
     public void test_getInstance_String() {
-        FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy");
-        FastDateFormat format2 = FastDateFormat.getInstance("MM-DD-yyyy");
-        FastDateFormat format3 = FastDateFormat.getInstance("MM-DD-yyyy");
+        final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy");
+        final FastDateFormat format2 = FastDateFormat.getInstance("MM-DD-yyyy");
+        final FastDateFormat format3 = FastDateFormat.getInstance("MM-DD-yyyy");
 
         assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
         assertSame(format2, format3);
@@ -71,19 +71,19 @@ public class FastDateFormatTest {
 
     @Test
     public void test_getInstance_String_TimeZone() {
-        Locale realDefaultLocale = Locale.getDefault();
-        TimeZone realDefaultZone = TimeZone.getDefault();
+        final Locale realDefaultLocale = Locale.getDefault();
+        final TimeZone realDefaultZone = TimeZone.getDefault();
         try {
             Locale.setDefault(Locale.US);
             TimeZone.setDefault(TimeZone.getTimeZone("America/New_York"));
 
-            FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
+            final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
                     TimeZone.getTimeZone("Atlantic/Reykjavik"));
-            FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy");
-            FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy", TimeZone.getDefault());
-            FastDateFormat format4 = FastDateFormat.getInstance("MM/DD/yyyy", TimeZone.getDefault());
-            FastDateFormat format5 = FastDateFormat.getInstance("MM-DD-yyyy", TimeZone.getDefault());
-            FastDateFormat format6 = FastDateFormat.getInstance("MM-DD-yyyy");
+            final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy");
+            final FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy", TimeZone.getDefault());
+            final FastDateFormat format4 = FastDateFormat.getInstance("MM/DD/yyyy", TimeZone.getDefault());
+            final FastDateFormat format5 = FastDateFormat.getInstance("MM-DD-yyyy", TimeZone.getDefault());
+            final FastDateFormat format6 = FastDateFormat.getInstance("MM-DD-yyyy");
 
             assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
             assertEquals(TimeZone.getTimeZone("Atlantic/Reykjavik"), format1.getTimeZone());
@@ -100,12 +100,12 @@ public class FastDateFormatTest {
 
     @Test
     public void test_getInstance_String_Locale() {
-        Locale realDefaultLocale = Locale.getDefault();
+        final Locale realDefaultLocale = Locale.getDefault();
         try {
             Locale.setDefault(Locale.US);
-            FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
-            FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy");
-            FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
+            final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
+            final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy");
+            final FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
 
             assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
             assertSame(format1, format3);
@@ -118,13 +118,13 @@ public class FastDateFormatTest {
 
     @Test
     public void test_changeDefault_Locale_DateInstance() {
-        Locale realDefaultLocale = Locale.getDefault();
+        final Locale realDefaultLocale = Locale.getDefault();
         try {
             Locale.setDefault(Locale.US);
-            FastDateFormat format1 = FastDateFormat.getDateInstance(FastDateFormat.FULL, Locale.GERMANY);
-            FastDateFormat format2 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
+            final FastDateFormat format1 = FastDateFormat.getDateInstance(FastDateFormat.FULL, Locale.GERMANY);
+            final FastDateFormat format2 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
             Locale.setDefault(Locale.GERMANY);
-            FastDateFormat format3 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
+            final FastDateFormat format3 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
 
             assertSame(Locale.GERMANY, format1.getLocale());
             assertSame(Locale.US, format2.getLocale());
@@ -139,13 +139,13 @@ public class FastDateFormatTest {
 
     @Test
     public void test_changeDefault_Locale_DateTimeInstance() {
-        Locale realDefaultLocale = Locale.getDefault();
+        final Locale realDefaultLocale = Locale.getDefault();
         try {
             Locale.setDefault(Locale.US);
-            FastDateFormat format1 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL, Locale.GERMANY);
-            FastDateFormat format2 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
+            final FastDateFormat format1 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL, Locale.GERMANY);
+            final FastDateFormat format2 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
             Locale.setDefault(Locale.GERMANY);
-            FastDateFormat format3 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
+            final FastDateFormat format3 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
 
             assertSame(Locale.GERMANY, format1.getLocale());
             assertSame(Locale.US, format2.getLocale());
@@ -160,16 +160,16 @@ public class FastDateFormatTest {
 
     @Test
     public void test_getInstance_String_TimeZone_Locale() {
-        Locale realDefaultLocale = Locale.getDefault();
-        TimeZone realDefaultZone = TimeZone.getDefault();
+        final Locale realDefaultLocale = Locale.getDefault();
+        final TimeZone realDefaultZone = TimeZone.getDefault();
         try {
             Locale.setDefault(Locale.US);
             TimeZone.setDefault(TimeZone.getTimeZone("America/New_York"));
 
-            FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
+            final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
                     TimeZone.getTimeZone("Atlantic/Reykjavik"), Locale.GERMANY);
-            FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
-            FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy",
+            final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
+            final FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy",
                     TimeZone.getDefault(), Locale.GERMANY);
 
             assertTrue(format1 != format2); // -- junit 3.8 version -- assertNotSame(format1, format2);
@@ -188,11 +188,11 @@ public class FastDateFormatTest {
 
     @Test
     public void testCheckDefaults() {
-        FastDateFormat format = FastDateFormat.getInstance();
-        FastDateFormat medium = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.SHORT);
+        final FastDateFormat format = FastDateFormat.getInstance();
+        final FastDateFormat medium = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.SHORT);
         assertEquals(medium, format);
         
-        SimpleDateFormat sdf = new SimpleDateFormat();
+        final SimpleDateFormat sdf = new SimpleDateFormat();
         assertEquals(sdf.toPattern(), format.getPattern());
         
         assertEquals(Locale.getDefault(), format.getLocale());
@@ -201,10 +201,10 @@ public class FastDateFormatTest {
 
     @Test
     public void testCheckDifferingStyles() {
-        FastDateFormat shortShort = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.SHORT, Locale.US);
-        FastDateFormat shortLong = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.LONG, Locale.US);
-        FastDateFormat longShort = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.SHORT, Locale.US);
-        FastDateFormat longLong = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.LONG, Locale.US);
+        final FastDateFormat shortShort = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.SHORT, Locale.US);
+        final FastDateFormat shortLong = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.LONG, Locale.US);
+        final FastDateFormat longShort = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.SHORT, Locale.US);
+        final FastDateFormat longLong = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.LONG, Locale.US);
         
         assertFalse(shortShort.equals(shortLong));
         assertFalse(shortShort.equals(longShort));
@@ -255,7 +255,7 @@ public class FastDateFormatTest {
         final String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS Z";
         final FastDateFormat formatter= FastDateFormat.getInstance(pattern);
         
-        long sdfTime= measureTime(formatter, new SimpleDateFormat(pattern) {
+        final long sdfTime= measureTime(formatter, new SimpleDateFormat(pattern) {
                         private static final long serialVersionUID = 1L;  // because SimpleDateFormat is serializable
 
                         @Override
@@ -266,9 +266,9 @@ public class FastDateFormatTest {
                         }
         });
         
-        long fdfTime= measureTime(formatter, FastDateFormat.getInstance(pattern));
+        final long fdfTime= measureTime(formatter, FastDateFormat.getInstance(pattern));
         
-        String times= ">>FastDateFormatTest: FastDateParser:"+fdfTime+"  SimpleDateFormat:"+sdfTime;
+        final String times= ">>FastDateFormatTest: FastDateParser:"+fdfTime+"  SimpleDateFormat:"+sdfTime;
         System.out.println(times);
     }
 
@@ -286,15 +286,15 @@ public class FastDateFormatTest {
                 public void run() {
                     for(int i= 0; i<NROUNDS; ++i) {
                         try {
-                            Date date= new Date();
-                            String formattedDate= formatter.format(date);
-                            long start= System.currentTimeMillis();        
-                            Object pd= parser.parseObject(formattedDate);
+                            final Date date= new Date();
+                            final String formattedDate= formatter.format(date);
+                            final long start= System.currentTimeMillis();        
+                            final Object pd= parser.parseObject(formattedDate);
                             totalElapsed.addAndGet(System.currentTimeMillis()-start);
                             if(!date.equals(pd)) {
                                 failures.incrementAndGet();
                             }
-                        } catch (Exception e) {
+                        } catch (final Exception e) {
                             failures.incrementAndGet();
                             e.printStackTrace();
                         }

@@ -256,11 +256,11 @@ public class ConversionTest {
      */
     @Test
     public void testBinaryToHexDigit_2args() {
-        boolean[] shortArray = new boolean[]{false, true, true};
+        final boolean[] shortArray = new boolean[]{false, true, true};
         assertEquals('6', Conversion.binaryToHexDigit(shortArray, 0));
         assertEquals('3', Conversion.binaryToHexDigit(shortArray, 1));
         assertEquals('1', Conversion.binaryToHexDigit(shortArray, 2));
-        boolean[] longArray = new boolean[]{true, false, true, false, false, true, true};
+        final boolean[] longArray = new boolean[]{true, false, true, false, false, true, true};
         assertEquals('5', Conversion.binaryToHexDigit(longArray, 0));
         assertEquals('2', Conversion.binaryToHexDigit(longArray, 1));
         assertEquals('9', Conversion.binaryToHexDigit(longArray, 2));
@@ -329,9 +329,9 @@ public class ConversionTest {
         // assertEquals('6', Conversion.BinaryToHexDigitMsb0(shortArray,0));
         // assertEquals('3', Conversion.BinaryToHexDigitMsb0(shortArray,1));
         // assertEquals('1', Conversion.BinaryToHexDigitMsb0(shortArray,2));
-        boolean[] shortArray = new boolean[]{true, true, false, true};
+        final boolean[] shortArray = new boolean[]{true, true, false, true};
         assertEquals('d', Conversion.binaryToHexDigitMsb0_4bits(shortArray, 0));
-        boolean[] longArray = new boolean[]{true, false, true, false, false, true, true};
+        final boolean[] longArray = new boolean[]{true, false, true, false, false, true, true};
         assertEquals('a', Conversion.binaryToHexDigitMsb0_4bits(longArray, 0));
         assertEquals('4', Conversion.binaryToHexDigitMsb0_4bits(longArray, 1));
         assertEquals('9', Conversion.binaryToHexDigitMsb0_4bits(longArray, 2));
@@ -339,7 +339,7 @@ public class ConversionTest {
         // assertEquals('6', Conversion.BinaryToHexDigitMsb0(longArray,4));
         // assertEquals('3', Conversion.BinaryToHexDigitMsb0(longArray,5));
         // assertEquals('1', Conversion.BinaryToHexDigitMsb0(longArray,6));
-        boolean[] maxLengthArray = new boolean[]{
+        final boolean[] maxLengthArray = new boolean[]{
             true, false, true, false, false, true, true, true};
         assertEquals('a', Conversion.binaryToHexDigitMsb0_4bits(maxLengthArray, 0));
         assertEquals('4', Conversion.binaryToHexDigitMsb0_4bits(maxLengthArray, 1));
@@ -349,7 +349,7 @@ public class ConversionTest {
         // assertEquals('7', Conversion.BinaryToHexDigitMsb0(longArray,5));
         // assertEquals('3', Conversion.BinaryToHexDigitMsb0(longArray,6));
         // assertEquals('1', Conversion.BinaryToHexDigitMsb0(longArray,7));
-        boolean[] javaDocCheck = new boolean[]{
+        final boolean[] javaDocCheck = new boolean[]{
             true, false, false, true, true, false, true, false};
         assertEquals('d', Conversion.binaryToHexDigitMsb0_4bits(javaDocCheck, 3));
 
@@ -416,11 +416,11 @@ public class ConversionTest {
                 true, false, false, false, false, false, false, false, false, false, false,
                 true, false, true, false, false}, 2));
 
-        boolean[] shortArray = new boolean[]{true, true, false};
+        final boolean[] shortArray = new boolean[]{true, true, false};
         assertEquals('6', Conversion.binaryBeMsb0ToHexDigit(shortArray, 0));
         assertEquals('3', Conversion.binaryBeMsb0ToHexDigit(shortArray, 1));
         assertEquals('1', Conversion.binaryBeMsb0ToHexDigit(shortArray, 2));
-        boolean[] shortArray2 = new boolean[]{true, true, true, false, false, true, false, true};
+        final boolean[] shortArray2 = new boolean[]{true, true, true, false, false, true, false, true};
         assertEquals('5', Conversion.binaryBeMsb0ToHexDigit(shortArray2, 0));
         assertEquals('2', Conversion.binaryBeMsb0ToHexDigit(shortArray2, 1));
         assertEquals('9', Conversion.binaryBeMsb0ToHexDigit(shortArray2, 2));
@@ -429,7 +429,7 @@ public class ConversionTest {
         assertEquals('7', Conversion.binaryBeMsb0ToHexDigit(shortArray2, 5));
         assertEquals('3', Conversion.binaryBeMsb0ToHexDigit(shortArray2, 6));
         assertEquals('1', Conversion.binaryBeMsb0ToHexDigit(shortArray2, 7));
-        boolean[] multiBytesArray = new boolean[]{
+        final boolean[] multiBytesArray = new boolean[]{
             true, true, false, false, true, false, true, false, true, true, true, false, false,
             true, false, true};
         assertEquals('5', Conversion.binaryBeMsb0ToHexDigit(multiBytesArray, 0));
@@ -511,15 +511,15 @@ public class ConversionTest {
     }
 
     static String dbgPrint(final boolean[] src) {
-        StringBuilder sb = new StringBuilder();
-        for (boolean e : src) {
+        final StringBuilder sb = new StringBuilder();
+        for (final boolean e : src) {
             if (e) {
                 sb.append("1,");
             } else {
                 sb.append("0,");
             }
         }
-        String out = sb.toString();
+        final String out = sb.toString();
         return out.substring(0, out.length() - 1);
     }
 
@@ -529,8 +529,8 @@ public class ConversionTest {
         for (int i = 0; i < expected.length; i++ ) {
             try {
                 assertEquals(expected[i], actual[i]);
-            } catch (Throwable e) {
-                String msg = "Mismatch at index "
+            } catch (final Throwable e) {
+                final String msg = "Mismatch at index "
                     + i
                     + " between:\n"
                     + dbgPrint(expected)
@@ -546,7 +546,7 @@ public class ConversionTest {
      */
     @Test
     public void testIntArrayToLong() {
-        int[] src = new int[]{0xCDF1F0C1, 0x0F123456, 0x78000000};
+        final int[] src = new int[]{0xCDF1F0C1, 0x0F123456, 0x78000000};
         assertEquals(0x0000000000000000L, Conversion.intArrayToLong(src, 0, 0L, 0, 0));
         assertEquals(0x0000000000000000L, Conversion.intArrayToLong(src, 1, 0L, 0, 0));
         assertEquals(0x00000000CDF1F0C1L, Conversion.intArrayToLong(src, 0, 0L, 0, 1));
@@ -564,7 +564,7 @@ public class ConversionTest {
      */
     @Test
     public void testShortArrayToLong() {
-        short[] src = new short[]{
+        final short[] src = new short[]{
             (short)0xCDF1, (short)0xF0C1, (short)0x0F12, (short)0x3456, (short)0x7800};
         assertEquals(0x0000000000000000L, Conversion.shortArrayToLong(src, 0, 0L, 0, 0));
         assertEquals(0x000000000000CDF1L, Conversion.shortArrayToLong(src, 0, 0L, 0, 1));
@@ -585,7 +585,7 @@ public class ConversionTest {
      */
     @Test
     public void testByteArrayToLong() {
-        byte[] src = new byte[]{
+        final byte[] src = new byte[]{
             (byte)0xCD, (byte)0xF1, (byte)0xF0, (byte)0xC1, (byte)0x0F, (byte)0x12, (byte)0x34,
             (byte)0x56, (byte)0x78};
         assertEquals(0x0000000000000000L, Conversion.byteArrayToLong(src, 0, 0L, 0, 0));
@@ -605,7 +605,7 @@ public class ConversionTest {
      */
     @Test
     public void testShortArrayToInt() {
-        short[] src = new short[]{
+        final short[] src = new short[]{
             (short)0xCDF1, (short)0xF0C1, (short)0x0F12, (short)0x3456, (short)0x7800};
         assertEquals(0x00000000, Conversion.shortArrayToInt(src, 0, 0, 0, 0));
         assertEquals(0x0000CDF1, Conversion.shortArrayToInt(src, 0, 0, 0, 1));
@@ -621,7 +621,7 @@ public class ConversionTest {
      */
     @Test
     public void testByteArrayToInt() {
-        byte[] src = new byte[]{
+        final byte[] src = new byte[]{
             (byte)0xCD, (byte)0xF1, (byte)0xF0, (byte)0xC1, (byte)0x0F, (byte)0x12, (byte)0x34,
             (byte)0x56, (byte)0x78};
         assertEquals(0x00000000, Conversion.byteArrayToInt(src, 0, 0, 0, 0));
@@ -638,7 +638,7 @@ public class ConversionTest {
      */
     @Test
     public void testByteArrayToShort() {
-        byte[] src = new byte[]{
+        final byte[] src = new byte[]{
             (byte)0xCD, (byte)0xF1, (byte)0xF0, (byte)0xC1, (byte)0x0F, (byte)0x12, (byte)0x34,
             (byte)0x56, (byte)0x78};
         assertEquals((short)0x0000, Conversion.byteArrayToShort(src, 0, (short)0, 0, 0));
@@ -656,7 +656,7 @@ public class ConversionTest {
      */
     @Test
     public void testHexToLong() {
-        String src = "CDF1F0C10F12345678";
+        final String src = "CDF1F0C10F12345678";
         assertEquals(0x0000000000000000L, Conversion.hexToLong(src, 0, 0L, 0, 0));
         assertEquals(0x000000000000000CL, Conversion.hexToLong(src, 0, 0L, 0, 1));
         assertEquals(0x000000001C0F1FDCL, Conversion.hexToLong(src, 0, 0L, 0, 8));
@@ -672,7 +672,7 @@ public class ConversionTest {
      */
     @Test
     public void testHexToInt() {
-        String src = "CDF1F0C10F12345678";
+        final String src = "CDF1F0C10F12345678";
         assertEquals(0x00000000, Conversion.hexToInt(src, 0, 0, 0, 0));
         assertEquals(0x0000000C, Conversion.hexToInt(src, 0, 0, 0, 1));
         assertEquals(0x1C0F1FDC, Conversion.hexToInt(src, 0, 0, 0, 8));
@@ -686,7 +686,7 @@ public class ConversionTest {
      */
     @Test
     public void testHexToShort() {
-        String src = "CDF1F0C10F12345678";
+        final String src = "CDF1F0C10F12345678";
         assertEquals((short)0x0000, Conversion.hexToShort(src, 0, (short)0, 0, 0));
         assertEquals((short)0x000C, Conversion.hexToShort(src, 0, (short)0, 0, 1));
         assertEquals((short)0x1FDC, Conversion.hexToShort(src, 0, (short)0, 0, 4));
@@ -700,7 +700,7 @@ public class ConversionTest {
      */
     @Test
     public void testHexToByte() {
-        String src = "CDF1F0C10F12345678";
+        final String src = "CDF1F0C10F12345678";
         assertEquals((byte)0x00, Conversion.hexToByte(src, 0, (byte)0, 0, 0));
         assertEquals((byte)0x0C, Conversion.hexToByte(src, 0, (byte)0, 0, 1));
         assertEquals((byte)0xDC, Conversion.hexToByte(src, 0, (byte)0, 0, 2));
@@ -714,7 +714,7 @@ public class ConversionTest {
      */
     @Test
     public void testBinaryToLong() {
-        boolean[] src = new boolean[]{
+        final boolean[] src = new boolean[]{
             false, false, true, true, true, false, true, true, true, true, true, true, true,
             false, false, false, true, true, true, true, false, false, false, false, false,
             false, true, true, true, false, false, false, false, false, false, false, true,
@@ -738,7 +738,7 @@ public class ConversionTest {
      */
     @Test
     public void testBinaryToInt() {
-        boolean[] src = new boolean[]{
+        final boolean[] src = new boolean[]{
             false, false, true, true, true, false, true, true, true, true, true, true, true,
             false, false, false, true, true, true, true, false, false, false, false, false,
             false, true, true, true, false, false, false, false, false, false, false, true,
@@ -759,7 +759,7 @@ public class ConversionTest {
      */
     @Test
     public void testBinaryToShort() {
-        boolean[] src = new boolean[]{
+        final boolean[] src = new boolean[]{
             false, false, true, true, true, false, true, true, true, true, true, true, true,
             false, false, false, true, true, true, true, false, false, false, false, false,
             false, true, true, true, false, false, false, false, false, false, false, true,
@@ -782,7 +782,7 @@ public class ConversionTest {
      */
     @Test
     public void testBinaryToByte() {
-        boolean[] src = new boolean[]{
+        final boolean[] src = new boolean[]{
             false, false, true, true, true, false, true, true, true, true, true, true, true,
             false, false, false, true, true, true, true, false, false, false, false, false,
             false, true, true, true, false, false, false, false, false, false, false, true,

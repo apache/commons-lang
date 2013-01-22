@@ -178,7 +178,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      */
     @Override
     public int compareTo(final MutableBoolean other) {
-        boolean anotherVal = other.value;
+        final boolean anotherVal = other.value;
         return value == anotherVal ? 0 : (value ? 1 : -1);
     }
 

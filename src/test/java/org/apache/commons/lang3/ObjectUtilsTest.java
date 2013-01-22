@@ -51,7 +51,7 @@ public class ObjectUtilsTest {
     @Test
     public void testConstructor() {
         assertNotNull(new ObjectUtils());
-        Constructor<?>[] cons = ObjectUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = ObjectUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(ObjectUtils.class.getModifiers()));
@@ -61,8 +61,8 @@ public class ObjectUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testIsNull() {
-        Object o = FOO;
-        Object dflt = BAR;
+        final Object o = FOO;
+        final Object dflt = BAR;
         assertSame("dflt was not returned when o was null", dflt, ObjectUtils.defaultIfNull(null, dflt));
         assertSame("dflt was returned when o was not null", o, ObjectUtils.defaultIfNull(o, dflt));
     }
@@ -71,7 +71,7 @@ public class ObjectUtilsTest {
     public void testFirstNonNull() {
         assertEquals(null, ObjectUtils.firstNonNull(null, null));
         assertEquals("", ObjectUtils.firstNonNull(null, ""));
-        String firstNonNullGenerics = ObjectUtils.firstNonNull(null, null, "123", "456");
+        final String firstNonNullGenerics = ObjectUtils.firstNonNull(null, null, "123", "456");
         assertEquals("123", firstNonNullGenerics);
         assertEquals("123", ObjectUtils.firstNonNull("123", null, "456", null));
         assertEquals(null, ObjectUtils.firstNonNull());
@@ -112,28 +112,28 @@ public class ObjectUtilsTest {
 
     @Test
     public void testHashCodeMulti_multiple_emptyArray() {
-        Object[] array = new Object[0];
+        final Object[] array = new Object[0];
         assertEquals(1, ObjectUtils.hashCodeMulti(array));
     }
 
     @Test
     public void testHashCodeMulti_multiple_nullArray() {
-        Object[] array = null;
+        final Object[] array = null;
         assertEquals(1, ObjectUtils.hashCodeMulti(array));
     }
 
     @Test
     public void testHashCodeMulti_multiple_likeList() {
-        List<Object> list0 = new ArrayList<Object>(Arrays.asList());
+        final List<Object> list0 = new ArrayList<Object>(Arrays.asList());
         assertEquals(list0.hashCode(), ObjectUtils.hashCodeMulti());
         
-        List<Object> list1 = new ArrayList<Object>(Arrays.asList("a"));
+        final List<Object> list1 = new ArrayList<Object>(Arrays.asList("a"));
         assertEquals(list1.hashCode(), ObjectUtils.hashCodeMulti("a"));
         
-        List<Object> list2 = new ArrayList<Object>(Arrays.asList("a", "b"));
+        final List<Object> list2 = new ArrayList<Object>(Arrays.asList("a", "b"));
         assertEquals(list2.hashCode(), ObjectUtils.hashCodeMulti("a", "b"));
         
-        List<Object> list3 = new ArrayList<Object>(Arrays.asList("a", "b", "c"));
+        final List<Object> list3 = new ArrayList<Object>(Arrays.asList("a", "b", "c"));
         assertEquals(list3.hashCode(), ObjectUtils.hashCodeMulti("a", "b", "c"));
     }
 
@@ -184,22 +184,22 @@ public class ObjectUtilsTest {
         assertEquals(
             "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
             ObjectUtils.identityToString(FOO));
-        Integer i = Integer.valueOf(90);
-        String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
+        final Integer i = Integer.valueOf(90);
+        final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
         assertEquals(expected, ObjectUtils.identityToString(i));
-        StringBuffer buffer = new StringBuffer();
+        final StringBuffer buffer = new StringBuffer();
         ObjectUtils.identityToString(buffer, i);
         assertEquals(expected, buffer.toString());
 
         try {
             ObjectUtils.identityToString(null, "tmp");
             fail("NullPointerException expected");
-        } catch(NullPointerException npe) {
+        } catch(final NullPointerException npe) {
         }
         try {
             ObjectUtils.identityToString(new StringBuffer(), null);
             fail("NullPointerException expected");
-        } catch(NullPointerException npe) {
+        } catch(final NullPointerException npe) {
         }
     }
 
@@ -226,13 +226,13 @@ public class ObjectUtilsTest {
 
     @Test
     public void testMax() {
-        Calendar calendar = Calendar.getInstance();
-        Date nonNullComparable1 = calendar.getTime();
-        Date nonNullComparable2 = calendar.getTime();
-        String[] nullAray = null;
+        final Calendar calendar = Calendar.getInstance();
+        final Date nonNullComparable1 = calendar.getTime();
+        final Date nonNullComparable2 = calendar.getTime();
+        final String[] nullAray = null;
         
         calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
-        Date minComparable = calendar.getTime();
+        final Date minComparable = calendar.getTime();
         
         assertNotSame( nonNullComparable1, nonNullComparable2 );
         
@@ -252,13 +252,13 @@ public class ObjectUtilsTest {
 
     @Test
     public void testMin() {
-        Calendar calendar = Calendar.getInstance();
-        Date nonNullComparable1 = calendar.getTime();
-        Date nonNullComparable2 = calendar.getTime();
-        String[] nullAray = null;
+        final Calendar calendar = Calendar.getInstance();
+        final Date nonNullComparable1 = calendar.getTime();
+        final Date nonNullComparable2 = calendar.getTime();
+        final String[] nullAray = null;
         
         calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
-        Date minComparable = calendar.getTime();
+        final Date minComparable = calendar.getTime();
         
         assertNotSame( nonNullComparable1, nonNullComparable2 );
         
@@ -281,9 +281,9 @@ public class ObjectUtilsTest {
      */
     @Test
     public void testCompare() {
-        Integer one = Integer.valueOf(1);
-        Integer two = Integer.valueOf(2);
-        Integer nullValue = null;
+        final Integer one = Integer.valueOf(1);
+        final Integer two = Integer.valueOf(2);
+        final Integer nullValue = null;
 
         assertEquals("Null Null false", 0, ObjectUtils.compare(nullValue, nullValue));
         assertEquals("Null Null true",  0, ObjectUtils.compare(nullValue, nullValue, true));
@@ -327,12 +327,12 @@ public class ObjectUtilsTest {
 
     @Test
     public void testComparatorMedian() {
-        CharSequenceComparator cmp = new CharSequenceComparator();
-        NonComparableCharSequence foo = new NonComparableCharSequence("foo");
-        NonComparableCharSequence bar = new NonComparableCharSequence("bar");
-        NonComparableCharSequence baz = new NonComparableCharSequence("baz");
-        NonComparableCharSequence blah = new NonComparableCharSequence("blah");
-        NonComparableCharSequence wah = new NonComparableCharSequence("wah");
+        final CharSequenceComparator cmp = new CharSequenceComparator();
+        final NonComparableCharSequence foo = new NonComparableCharSequence("foo");
+        final NonComparableCharSequence bar = new NonComparableCharSequence("bar");
+        final NonComparableCharSequence baz = new NonComparableCharSequence("baz");
+        final NonComparableCharSequence blah = new NonComparableCharSequence("blah");
+        final NonComparableCharSequence wah = new NonComparableCharSequence("wah");
         assertSame(foo, ObjectUtils.median(cmp, foo));
         assertSame(bar, ObjectUtils.median(cmp, foo, bar));
         assertSame(baz, ObjectUtils.median(cmp, foo, bar, baz));
@@ -474,18 +474,18 @@ public class ObjectUtilsTest {
         // for "Can you screw this up?"  The answer is, yes,
         // you can even screw this up.  (When you == Julius)
         // .
-        boolean MAGIC_FLAG = ObjectUtils.CONST(true);
-        byte MAGIC_BYTE1 = ObjectUtils.CONST((byte) 127);
-        byte MAGIC_BYTE2 = ObjectUtils.CONST_BYTE(127);
-        char MAGIC_CHAR = ObjectUtils.CONST('a');
-        short MAGIC_SHORT1 = ObjectUtils.CONST((short) 123);
-        short MAGIC_SHORT2 = ObjectUtils.CONST_SHORT(127);
-        int MAGIC_INT = ObjectUtils.CONST(123);
-        long MAGIC_LONG1 = ObjectUtils.CONST(123L);
-        long MAGIC_LONG2 = ObjectUtils.CONST(3);
-        float MAGIC_FLOAT = ObjectUtils.CONST(1.0f);
-        double MAGIC_DOUBLE = ObjectUtils.CONST(1.0);
-        String MAGIC_STRING = ObjectUtils.CONST("abc");
+        final boolean MAGIC_FLAG = ObjectUtils.CONST(true);
+        final byte MAGIC_BYTE1 = ObjectUtils.CONST((byte) 127);
+        final byte MAGIC_BYTE2 = ObjectUtils.CONST_BYTE(127);
+        final char MAGIC_CHAR = ObjectUtils.CONST('a');
+        final short MAGIC_SHORT1 = ObjectUtils.CONST((short) 123);
+        final short MAGIC_SHORT2 = ObjectUtils.CONST_SHORT(127);
+        final int MAGIC_INT = ObjectUtils.CONST(123);
+        final long MAGIC_LONG1 = ObjectUtils.CONST(123L);
+        final long MAGIC_LONG2 = ObjectUtils.CONST(3);
+        final float MAGIC_FLOAT = ObjectUtils.CONST(1.0f);
+        final double MAGIC_DOUBLE = ObjectUtils.CONST(1.0);
+        final String MAGIC_STRING = ObjectUtils.CONST("abc");
 
         assertTrue(MAGIC_FLAG);
         assertEquals(127, MAGIC_BYTE1);
@@ -503,25 +503,25 @@ public class ObjectUtilsTest {
         try {
             ObjectUtils.CONST_BYTE(-129);
             fail("CONST_BYTE(-129): IllegalArgumentException should have been thrown.");
-        } catch (IllegalArgumentException iae) {
+        } catch (final IllegalArgumentException iae) {
 
         }
         try {
             ObjectUtils.CONST_BYTE(128);
             fail("CONST_BYTE(128): IllegalArgumentException should have been thrown.");
-        } catch (IllegalArgumentException iae) {
+        } catch (final IllegalArgumentException iae) {
 
         }
         try {
             ObjectUtils.CONST_SHORT(-32769);
             fail("CONST_SHORT(-32769): IllegalArgumentException should have been thrown.");
-        } catch (IllegalArgumentException iae) {
+        } catch (final IllegalArgumentException iae) {
 
         }
         try {
             ObjectUtils.CONST_BYTE(32768);
             fail("CONST_SHORT(32768): IllegalArgumentException should have been thrown.");
-        } catch (IllegalArgumentException iae) {
+        } catch (final IllegalArgumentException iae) {
 
         }
 

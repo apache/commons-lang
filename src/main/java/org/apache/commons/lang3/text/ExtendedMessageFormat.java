@@ -148,12 +148,12 @@ public class ExtendedMessageFormat extends MessageFormat {
             toPattern = super.toPattern();
             return;
         }
-        ArrayList<Format> foundFormats = new ArrayList<Format>();
-        ArrayList<String> foundDescriptions = new ArrayList<String>();
-        StringBuilder stripCustom = new StringBuilder(pattern.length());
+        final ArrayList<Format> foundFormats = new ArrayList<Format>();
+        final ArrayList<String> foundDescriptions = new ArrayList<String>();
+        final StringBuilder stripCustom = new StringBuilder(pattern.length());
 
-        ParsePosition pos = new ParsePosition(0);
-        char[] c = pattern.toCharArray();
+        final ParsePosition pos = new ParsePosition(0);
+        final char[] c = pattern.toCharArray();
         int fmtCount = 0;
         while (pos.getIndex() < pattern.length()) {
             switch (c[pos.getIndex()]) {
@@ -163,8 +163,8 @@ public class ExtendedMessageFormat extends MessageFormat {
             case START_FE:
                 fmtCount++;
                 seekNonWs(pattern, pos);
-                int start = pos.getIndex();
-                int index = readArgumentIndex(pattern, next(pos));
+                final int start = pos.getIndex();
+                final int index = readArgumentIndex(pattern, next(pos));
                 stripCustom.append(START_FE).append(index);
                 seekNonWs(pattern, pos);
                 Format format = null;
@@ -194,12 +194,12 @@ public class ExtendedMessageFormat extends MessageFormat {
         super.applyPattern(stripCustom.toString());
         toPattern = insertFormats(super.toPattern(), foundDescriptions);
         if (containsElements(foundFormats)) {
-            Format[] origFormats = getFormats();
+            final Format[] origFormats = getFormats();
             // only loop over what we know we have, as MessageFormat on Java 1.3
             // seems to provide an extra format element:
             int i = 0;
-            for (Iterator<Format> it = foundFormats.iterator(); it.hasNext(); i++) {
-                Format f = it.next();
+            for (final Iterator<Format> it = foundFormats.iterator(); it.hasNext(); i++) {
+                final Format f = it.next();
                 if (f != null) {
                     origFormats[i] = f;
                 }
@@ -274,7 +274,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (ObjectUtils.notEqual(getClass(), obj.getClass())) {
           return false;
         }
-        ExtendedMessageFormat rhs = (ExtendedMessageFormat)obj;
+        final ExtendedMessageFormat rhs = (ExtendedMessageFormat)obj;
         if (ObjectUtils.notEqual(toPattern, rhs.toPattern)) {
             return false;
         }
@@ -307,12 +307,12 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (registry != null) {
             String name = desc;
             String args = null;
-            int i = desc.indexOf(START_FMT);
+            final int i = desc.indexOf(START_FMT);
             if (i > 0) {
                 name = desc.substring(0, i).trim();
                 args = desc.substring(i + 1).trim();
             }
-            FormatFactory factory = registry.get(name);
+            final FormatFactory factory = registry.get(name);
             if (factory != null) {
                 return factory.getFormat(name, args, getLocale());
             }
@@ -328,9 +328,9 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @return argument index
      */
     private int readArgumentIndex(final String pattern, final ParsePosition pos) {
-        int start = pos.getIndex();
+        final int start = pos.getIndex();
         seekNonWs(pattern, pos);
-        StringBuilder result = new StringBuilder();
+        final StringBuilder result = new StringBuilder();
         boolean error = false;
         for (; !error && pos.getIndex() < pattern.length(); next(pos)) {
             char c = pattern.charAt(pos.getIndex());
@@ -345,7 +345,7 @@ public class ExtendedMessageFormat extends MessageFormat {
             if ((c == START_FMT || c == END_FE) && result.length() > 0) {
                 try {
                     return Integer.parseInt(result.toString());
-                } catch (NumberFormatException e) { // NOPMD
+                } catch (final NumberFormatException e) { // NOPMD
                     // we've already ensured only digits, so unless something
                     // outlandishly large was specified we should be okay.
                 }
@@ -370,9 +370,9 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @return Format description String
      */
     private String parseFormatDescription(final String pattern, final ParsePosition pos) {
-        int start = pos.getIndex();
+        final int start = pos.getIndex();
         seekNonWs(pattern, pos);
-        int text = pos.getIndex();
+        final int text = pos.getIndex();
         int depth = 1;
         for (; pos.getIndex() < pattern.length(); next(pos)) {
             switch (pattern.charAt(pos.getIndex())) {
@@ -405,12 +405,12 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (!containsElements(customPatterns)) {
             return pattern;
         }
-        StringBuilder sb = new StringBuilder(pattern.length() * 2);
-        ParsePosition pos = new ParsePosition(0);
+        final StringBuilder sb = new StringBuilder(pattern.length() * 2);
+        final ParsePosition pos = new ParsePosition(0);
         int fe = -1;
         int depth = 0;
         while (pos.getIndex() < pattern.length()) {
-            char c = pattern.charAt(pos.getIndex());
+            final char c = pattern.charAt(pos.getIndex());
             switch (c) {
             case QUOTE:
                 appendQuotedString(pattern, pos, sb, false);
@@ -421,7 +421,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                     fe++;
                     sb.append(START_FE).append(
                             readArgumentIndex(pattern, next(pos)));
-                    String customPattern = customPatterns.get(fe);
+                    final String customPattern = customPatterns.get(fe);
                     if (customPattern != null) {
                         sb.append(START_FMT).append(customPattern);
                     }
@@ -446,7 +446,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      */
     private void seekNonWs(final String pattern, final ParsePosition pos) {
         int len = 0;
-        char[] buffer = pattern.toCharArray();
+        final char[] buffer = pattern.toCharArray();
         do {
             len = StrMatcher.splitMatcher().isMatch(buffer, pos.getIndex());
             pos.setIndex(pos.getIndex() + len);
@@ -476,8 +476,8 @@ public class ExtendedMessageFormat extends MessageFormat {
      */
     private StringBuilder appendQuotedString(final String pattern, final ParsePosition pos,
             final StringBuilder appendTo, final boolean escapingOn) {
-        int start = pos.getIndex();
-        char[] c = pattern.toCharArray();
+        final int start = pos.getIndex();
+        final char[] c = pattern.toCharArray();
         if (escapingOn && c[start] == QUOTE) {
             next(pos);
             return appendTo == null ? null : appendTo.append(QUOTE);
@@ -525,7 +525,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (coll == null || coll.isEmpty()) {
             return false;
         }
-        for (Object name : coll) {
+        for (final Object name : coll) {
             if (name != null) {
                 return true;
             }

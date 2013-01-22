@@ -64,8 +64,8 @@ public class SimpleToStringStyleTest {
     
     @Test
     public void testObject() {
-        Integer i3 = Integer.valueOf(3);
-        Integer i4 = Integer.valueOf(4);
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
         assertEquals("<null>", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals("3", new ToStringBuilder(base).append(i3).toString());
         assertEquals("<null>", new ToStringBuilder(base).append("a", (Object) null).toString());
@@ -82,7 +82,7 @@ public class SimpleToStringStyleTest {
 
     @Test
     public void testPerson() {
-        Person p = new Person();
+        final Person p = new Person();
         p.name = "Jane Q. Public";
         p.age = 47;
         p.smoker = false;

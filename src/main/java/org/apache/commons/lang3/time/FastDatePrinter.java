@@ -145,7 +145,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * <p>Initializes the instance for first use.</p>
      */
     private void init() {
-        List<Rule> rulesList = parsePattern();
+        final List<Rule> rulesList = parsePattern();
         mRules = rulesList.toArray(new Rule[rulesList.size()]);
 
         int len = 0;
@@ -165,31 +165,31 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @throws IllegalArgumentException if pattern is invalid
      */
     protected List<Rule> parsePattern() {
-        DateFormatSymbols symbols = new DateFormatSymbols(mLocale);
-        List<Rule> rules = new ArrayList<Rule>();
+        final DateFormatSymbols symbols = new DateFormatSymbols(mLocale);
+        final List<Rule> rules = new ArrayList<Rule>();
 
-        String[] ERAs = symbols.getEras();
-        String[] months = symbols.getMonths();
-        String[] shortMonths = symbols.getShortMonths();
-        String[] weekdays = symbols.getWeekdays();
-        String[] shortWeekdays = symbols.getShortWeekdays();
-        String[] AmPmStrings = symbols.getAmPmStrings();
+        final String[] ERAs = symbols.getEras();
+        final String[] months = symbols.getMonths();
+        final String[] shortMonths = symbols.getShortMonths();
+        final String[] weekdays = symbols.getWeekdays();
+        final String[] shortWeekdays = symbols.getShortWeekdays();
+        final String[] AmPmStrings = symbols.getAmPmStrings();
 
-        int length = mPattern.length();
-        int[] indexRef = new int[1];
+        final int length = mPattern.length();
+        final int[] indexRef = new int[1];
 
         for (int i = 0; i < length; i++) {
             indexRef[0] = i;
-            String token = parseToken(mPattern, indexRef);
+            final String token = parseToken(mPattern, indexRef);
             i = indexRef[0];
 
-            int tokenLen = token.length();
+            final int tokenLen = token.length();
             if (tokenLen == 0) {
                 break;
             }
 
             Rule rule;
-            char c = token.charAt(0);
+            final char c = token.charAt(0);
 
             switch (c) {
             case 'G': // era designator (text)
@@ -270,7 +270,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 }
                 break;
             case '\'': // literal text
-                String sub = token.substring(1);
+                final String sub = token.substring(1);
                 if (sub.length() == 1) {
                     rule = new CharacterLiteral(sub.charAt(0));
                 } else {
@@ -295,10 +295,10 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @return parsed token
      */
     protected String parseToken(final String pattern, final int[] indexRef) {
-        StringBuilder buf = new StringBuilder();
+        final StringBuilder buf = new StringBuilder();
 
         int i = indexRef[0];
-        int length = pattern.length();
+        final int length = pattern.length();
 
         char c = pattern.charAt(i);
         if (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z') {
@@ -307,7 +307,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             buf.append(c);
 
             while (i + 1 < length) {
-                char peek = pattern.charAt(i + 1);
+                final char peek = pattern.charAt(i + 1);
                 if (peek == c) {
                     buf.append(c);
                     i++;
@@ -394,7 +394,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public String format(final long millis) {
-        Calendar c = newCalendar();  // hard code GregorianCalendar
+        final Calendar c = newCalendar();  // hard code GregorianCalendar
         c.setTimeInMillis(millis);
         return applyRulesToString(c);
     }
@@ -413,7 +413,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public String format(final Date date) {
-        Calendar c = newCalendar();  // hard code GregorianCalendar
+        final Calendar c = newCalendar();  // hard code GregorianCalendar
         c.setTime(date);
         return applyRulesToString(c);
     }
@@ -439,7 +439,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public StringBuffer format(final Date date, final StringBuffer buf) {
-        Calendar c = newCalendar();  // hard code GregorianCalendar
+        final Calendar c = newCalendar();  // hard code GregorianCalendar
         c.setTime(date);
         return applyRules(c, buf);
     }
@@ -461,7 +461,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @return the specified string buffer
      */
     protected StringBuffer applyRules(final Calendar calendar, final StringBuffer buf) {
-        for (Rule rule : mRules) {
+        for (final Rule rule : mRules) {
             rule.appendTo(buf, calendar);
         }
         return buf;
@@ -519,7 +519,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         if (obj instanceof FastDatePrinter == false) {
             return false;
         }
-        FastDatePrinter other = (FastDatePrinter) obj;
+        final FastDatePrinter other = (FastDatePrinter) obj;
         return mPattern.equals(other.mPattern)
             && mTimeZone.equals(other.mTimeZone) 
             && mLocale.equals(other.mLocale);
@@ -687,7 +687,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         public int estimateLength() {
             int max = 0;
             for (int i=mValues.length; --i >= 0; ) {
-                int len = mValues[i].length();
+                final int len = mValues[i].length();
                 if (len > max) {
                     max = len;
                 }
@@ -1087,12 +1087,12 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @return the textual name of the time zone
      */
     static String getTimeZoneDisplay(final TimeZone tz, final boolean daylight, final int style, final Locale locale) {
-        TimeZoneDisplayKey key = new TimeZoneDisplayKey(tz, daylight, style, locale);
+        final TimeZoneDisplayKey key = new TimeZoneDisplayKey(tz, daylight, style, locale);
         String value = cTimeZoneDisplayCache.get(key);
         if (value == null) {
             // This is a very slow call, so cache the results.
             value = tz.getDisplayName(daylight, style, locale);
-            String prior = cTimeZoneDisplayCache.putIfAbsent(key, value);
+            final String prior = cTimeZoneDisplayCache.putIfAbsent(key, value);
             if (prior != null) {
                 value= prior;
             }
@@ -1140,7 +1140,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public void appendTo(final StringBuffer buffer, final Calendar calendar) {
-            TimeZone zone = calendar.getTimeZone();
+            final TimeZone zone = calendar.getTimeZone();
             if (zone.useDaylightTime()
                     && calendar.get(Calendar.DST_OFFSET) != 0) {
                 buffer.append(getTimeZoneDisplay(zone, true, mStyle, mLocale));
@@ -1191,7 +1191,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 buffer.append('+');
             }
 
-            int hours = offset / (60 * 60 * 1000);
+            final int hours = offset / (60 * 60 * 1000);
             buffer.append((char)(hours / 10 + '0'));
             buffer.append((char)(hours % 10 + '0'));
 
@@ -1199,7 +1199,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 buffer.append(':');
             }
 
-            int minutes = offset / (60 * 1000) - 60 * hours;
+            final int minutes = offset / (60 * 1000) - 60 * hours;
             buffer.append((char)(minutes / 10 + '0'));
             buffer.append((char)(minutes % 10 + '0'));
         }
@@ -1249,7 +1249,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 return true;
             }
             if (obj instanceof TimeZoneDisplayKey) {
-                TimeZoneDisplayKey other = (TimeZoneDisplayKey)obj;
+                final TimeZoneDisplayKey other = (TimeZoneDisplayKey)obj;
                 return
                     mTimeZone.equals(other.mTimeZone) &&
                     mStyle == other.mStyle &&

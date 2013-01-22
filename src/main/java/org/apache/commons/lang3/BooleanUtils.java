@@ -550,7 +550,7 @@ public class BooleanUtils {
         }
         switch (str.length()) {
             case 1: {
-                char ch0 = str.charAt(0);
+                final char ch0 = str.charAt(0);
                 if (ch0 == 'y' || ch0 == 'Y' ||
                     ch0 == 't' || ch0 == 'T') {
                     return Boolean.TRUE;
@@ -562,8 +562,8 @@ public class BooleanUtils {
                 break;
             }
             case 2: {
-                char ch0 = str.charAt(0);
-                char ch1 = str.charAt(1);
+                final char ch0 = str.charAt(0);
+                final char ch1 = str.charAt(1);
                 if ((ch0 == 'o' || ch0 == 'O') &&
                     (ch1 == 'n' || ch1 == 'N') ) {
                     return Boolean.TRUE;
@@ -575,9 +575,9 @@ public class BooleanUtils {
                 break;
             }
             case 3: {
-                char ch0 = str.charAt(0);
-                char ch1 = str.charAt(1);
-                char ch2 = str.charAt(2);
+                final char ch0 = str.charAt(0);
+                final char ch1 = str.charAt(1);
+                final char ch2 = str.charAt(2);
                 if ((ch0 == 'y' || ch0 == 'Y') &&
                     (ch1 == 'e' || ch1 == 'E') &&
                     (ch2 == 's' || ch2 == 'S') ) {
@@ -591,10 +591,10 @@ public class BooleanUtils {
                 break;
             }
             case 4: {
-                char ch0 = str.charAt(0);
-                char ch1 = str.charAt(1);
-                char ch2 = str.charAt(2);
-                char ch3 = str.charAt(3);
+                final char ch0 = str.charAt(0);
+                final char ch1 = str.charAt(1);
+                final char ch2 = str.charAt(2);
+                final char ch3 = str.charAt(3);
                 if ((ch0 == 't' || ch0 == 'T') &&
                     (ch1 == 'r' || ch1 == 'R') &&
                     (ch2 == 'u' || ch2 == 'U') &&
@@ -604,11 +604,11 @@ public class BooleanUtils {
                 break;
             }
             case 5: {
-                char ch0 = str.charAt(0);
-                char ch1 = str.charAt(1);
-                char ch2 = str.charAt(2);
-                char ch3 = str.charAt(3);
-                char ch4 = str.charAt(4);
+                final char ch0 = str.charAt(0);
+                final char ch1 = str.charAt(1);
+                final char ch2 = str.charAt(2);
+                final char ch3 = str.charAt(3);
+                final char ch4 = str.charAt(4);
                 if ((ch0 == 'f' || ch0 == 'F') &&
                     (ch1 == 'a' || ch1 == 'A') &&
                     (ch2 == 'l' || ch2 == 'L') &&
@@ -894,7 +894,7 @@ public class BooleanUtils {
         if (array.length == 0) {
             throw new IllegalArgumentException("Array is empty");
         }
-        for (boolean element : array) {
+        for (final boolean element : array) {
             if (!element) {
                 return false;
             }
@@ -929,9 +929,9 @@ public class BooleanUtils {
             throw new IllegalArgumentException("Array is empty");
         }
         try {
-            boolean[] primitive = ArrayUtils.toPrimitive(array);
+            final boolean[] primitive = ArrayUtils.toPrimitive(array);
             return and(primitive) ? Boolean.TRUE : Boolean.FALSE;
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
     }
@@ -962,7 +962,7 @@ public class BooleanUtils {
         if (array.length == 0) {
             throw new IllegalArgumentException("Array is empty");
         }
-        for (boolean element : array) {
+        for (final boolean element : array) {
             if (element) {
                 return true;
             }
@@ -998,9 +998,9 @@ public class BooleanUtils {
             throw new IllegalArgumentException("Array is empty");
         }
         try {
-            boolean[] primitive = ArrayUtils.toPrimitive(array);
+            final boolean[] primitive = ArrayUtils.toPrimitive(array);
             return or(primitive) ? Boolean.TRUE : Boolean.FALSE;
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
     }
@@ -1033,7 +1033,7 @@ public class BooleanUtils {
 
         // Loops through array, comparing each item
         int trueCount = 0;
-        for (boolean element : array) {
+        for (final boolean element : array) {
             // If item is true, and trueCount is < 1, increments count
             // Else, xor fails
             if (element) {
@@ -1072,9 +1072,9 @@ public class BooleanUtils {
             throw new IllegalArgumentException("Array is empty");
         }
         try {
-            boolean[] primitive = ArrayUtils.toPrimitive(array);
+            final boolean[] primitive = ArrayUtils.toPrimitive(array);
             return xor(primitive) ? Boolean.TRUE : Boolean.FALSE;
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
     }

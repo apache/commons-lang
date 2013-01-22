@@ -56,8 +56,8 @@ public class EnumUtils {
      * @return the modifiable map of enum names to enums, never null
      */
     public static <E extends Enum<E>> Map<String, E> getEnumMap(final Class<E> enumClass) {
-        Map<String, E> map = new LinkedHashMap<String, E>();
-        for (E e: enumClass.getEnumConstants()) {
+        final Map<String, E> map = new LinkedHashMap<String, E>();
+        for (final E e: enumClass.getEnumConstants()) {
             map.put(e.name(), e);
         }
         return map;
@@ -94,7 +94,7 @@ public class EnumUtils {
         try {
             Enum.valueOf(enumClass, enumName);
             return true;
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             return false;
         }
     }
@@ -116,7 +116,7 @@ public class EnumUtils {
         }
         try {
             return Enum.valueOf(enumClass, enumName);
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             return null;
         }
     }
@@ -143,7 +143,7 @@ public class EnumUtils {
         checkBitVectorable(enumClass);
         Validate.notNull(values);
         long total = 0;
-        for (E constant : values) {
+        for (final E constant : values) {
             Validate.isTrue(constant != null, NULL_ELEMENTS_NOT_PERMITTED);
             total |= 1 << constant.ordinal();
         }
@@ -170,12 +170,12 @@ public class EnumUtils {
         asEnum(enumClass);
         Validate.notNull(values);
         final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
-        for (E constant : values) {
+        for (final E constant : values) {
             Validate.isTrue(constant != null, NULL_ELEMENTS_NOT_PERMITTED);
             condensed.add(constant);
         }
         final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
-        for (E value : condensed) {
+        for (final E value : condensed) {
             result[value.ordinal() / Long.SIZE] |= 1 << (value.ordinal() % Long.SIZE);
         }
         ArrayUtils.reverse(result);
@@ -226,7 +226,7 @@ public class EnumUtils {
         final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
         Collections.addAll(condensed, values);
         final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
-        for (E value : condensed) {
+        for (final E value : condensed) {
             result[value.ordinal() / Long.SIZE] |= 1 << (value.ordinal() % Long.SIZE);
         }
         ArrayUtils.reverse(result);
@@ -268,8 +268,8 @@ public class EnumUtils {
         final EnumSet<E> results = EnumSet.noneOf(asEnum(enumClass));
         values = ArrayUtils.clone(Validate.notNull(values));
         ArrayUtils.reverse(values);
-        for (E constant : enumClass.getEnumConstants()) {
-            int block = constant.ordinal() / Long.SIZE;
+        for (final E constant : enumClass.getEnumConstants()) {
+            final int block = constant.ordinal() / Long.SIZE;
             if (block < values.length && (values[block] & 1 << (constant.ordinal() % Long.SIZE)) != 0) {
                 results.add(constant);
             }

@@ -66,8 +66,8 @@ public class MultiLineToStringStyleTest {
     
     @Test
     public void testObject() {
-        Integer i3 = Integer.valueOf(3);
-        Integer i4 = Integer.valueOf(4);
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  <null>" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  3" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append(i3).toString());
         assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  a=<null>" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base).append("a", (Object) null).toString());
@@ -84,11 +84,11 @@ public class MultiLineToStringStyleTest {
 
     @Test
     public void testPerson() {
-        Person p = new Person();
+        final Person p = new Person();
         p.name = "Jane Doe";
         p.age = 25;
         p.smoker = true;
-        String pBaseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
+        final String pBaseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
         assertEquals(pBaseStr + "[" + SystemUtils.LINE_SEPARATOR + "  name=Jane Doe" + SystemUtils.LINE_SEPARATOR + "  age=25" + SystemUtils.LINE_SEPARATOR + "  smoker=true" + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 

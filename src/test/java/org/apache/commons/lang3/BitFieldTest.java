@@ -187,7 +187,7 @@ public class BitFieldTest  {
         assertEquals(0, new BitField(64).setByteBoolean((byte) 64, false));
         assertEquals(0, new BitField(128).setByteBoolean((byte) 128, false));
         assertEquals(-2, new BitField(1).setByteBoolean((byte) 255, false));
-        byte clearedBit = new BitField(0x40).setByteBoolean((byte) - 63, false);
+        final byte clearedBit = new BitField(0x40).setByteBoolean((byte) - 63, false);
 
         assertFalse(new BitField(0x40).isSet(clearedBit));
     }

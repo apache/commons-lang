@@ -56,7 +56,7 @@ public class ClassUtilsTest  {
     @Test
     public void testConstructor() {
         assertNotNull(new ClassUtils());
-        Constructor<?>[] cons = ClassUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = ClassUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(ClassUtils.class.getModifiers()));
@@ -228,7 +228,7 @@ public class ClassUtilsTest  {
     // -------------------------------------------------------------------------
     @Test
     public void test_getAllSuperclasses_Class() {
-        List<?> list = ClassUtils.getAllSuperclasses(CY.class);
+        final List<?> list = ClassUtils.getAllSuperclasses(CY.class);
         assertEquals(2, list.size());
         assertEquals(CX.class, list.get(0));
         assertEquals(Object.class, list.get(1));
@@ -238,7 +238,7 @@ public class ClassUtilsTest  {
 
     @Test
     public void test_getAllInterfaces_Class() {
-        List<?> list = ClassUtils.getAllInterfaces(CY.class);
+        final List<?> list = ClassUtils.getAllInterfaces(CY.class);
         assertEquals(6, list.size());
         assertEquals(IB.class, list.get(0));
         assertEquals(IC.class, list.get(1));
@@ -270,7 +270,7 @@ public class ClassUtilsTest  {
     // -------------------------------------------------------------------------
     @Test
     public void test_convertClassNamesToClasses_List() {
-        List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<String>();
         List<Class<?>> result = ClassUtils.convertClassNamesToClasses(list);
         assertEquals(0, result.size());
 
@@ -284,18 +284,19 @@ public class ClassUtilsTest  {
         assertEquals(Object.class, result.get(2));
 
         @SuppressWarnings("unchecked") // test what happens when non-generic code adds wrong type of element
+        final
         List<Object> olist = (List<Object>)(List<?>)list;
         olist.add(new Object());
         try {
             ClassUtils.convertClassNamesToClasses(list);
             fail("Should not have been able to convert list");
-        } catch (ClassCastException expected) {}
+        } catch (final ClassCastException expected) {}
         assertEquals(null, ClassUtils.convertClassNamesToClasses(null));
     }
 
     @Test
     public void test_convertClassesToClassNames_List() {
-        List<Class<?>> list = new ArrayList<Class<?>>();
+        final List<Class<?>> list = new ArrayList<Class<?>>();
         List<String> result = ClassUtils.convertClassesToClassNames(list);
         assertEquals(0, result.size());
 
@@ -309,12 +310,13 @@ public class ClassUtilsTest  {
         assertEquals("java.lang.Object", result.get(2));
 
         @SuppressWarnings("unchecked") // test what happens when non-generic code adds wrong type of element
+        final
         List<Object> olist = (List<Object>)(List<?>)list;
         olist.add(new Object());
         try {
             ClassUtils.convertClassesToClassNames(list);
             fail("Should not have been able to convert list");
-        } catch (ClassCastException expected) {}
+        } catch (final ClassCastException expected) {}
         assertEquals(null, ClassUtils.convertClassesToClassNames(null));
     }
 
@@ -333,12 +335,12 @@ public class ClassUtilsTest  {
     // -------------------------------------------------------------------------
     @Test
     public void test_isAssignable_ClassArray_ClassArray() throws Exception {
-        Class<?>[] array2 = new Class[] {Object.class, Object.class};
-        Class<?>[] array1 = new Class[] {Object.class};
-        Class<?>[] array1s = new Class[] {String.class};
-        Class<?>[] array0 = new Class[] {};
-        Class<?>[] arrayPrimitives = { Integer.TYPE, Boolean.TYPE };
-        Class<?>[] arrayWrappers = { Integer.class, Boolean.class };
+        final Class<?>[] array2 = new Class[] {Object.class, Object.class};
+        final Class<?>[] array1 = new Class[] {Object.class};
+        final Class<?>[] array1s = new Class[] {String.class};
+        final Class<?>[] array0 = new Class[] {};
+        final Class<?>[] arrayPrimitives = { Integer.TYPE, Boolean.TYPE };
+        final Class<?>[] arrayWrappers = { Integer.class, Boolean.class };
 
         assertFalse(ClassUtils.isAssignable(array1, array2));
         assertFalse(ClassUtils.isAssignable(null, array2));
@@ -352,7 +354,7 @@ public class ClassUtilsTest  {
         assertTrue(ClassUtils.isAssignable(array1s, array1s));
         assertTrue(ClassUtils.isAssignable(array1s, array1));
 
-        boolean autoboxing = SystemUtils.isJavaVersionAtLeast(JAVA_1_5);
+        final boolean autoboxing = SystemUtils.isJavaVersionAtLeast(JAVA_1_5);
 
         assertEquals(autoboxing, ClassUtils.isAssignable(arrayPrimitives, arrayWrappers));
         assertEquals(autoboxing, ClassUtils.isAssignable(arrayWrappers, arrayPrimitives));
@@ -364,12 +366,12 @@ public class ClassUtilsTest  {
 
     @Test
     public void test_isAssignable_ClassArray_ClassArray_Autoboxing() throws Exception {
-        Class<?>[] array2 = new Class[] {Object.class, Object.class};
-        Class<?>[] array1 = new Class[] {Object.class};
-        Class<?>[] array1s = new Class[] {String.class};
-        Class<?>[] array0 = new Class[] {};
-        Class<?>[] arrayPrimitives = { Integer.TYPE, Boolean.TYPE };
-        Class<?>[] arrayWrappers = { Integer.class, Boolean.class };
+        final Class<?>[] array2 = new Class[] {Object.class, Object.class};
+        final Class<?>[] array1 = new Class[] {Object.class};
+        final Class<?>[] array1s = new Class[] {String.class};
+        final Class<?>[] array0 = new Class[] {};
+        final Class<?>[] arrayPrimitives = { Integer.TYPE, Boolean.TYPE };
+        final Class<?>[] arrayWrappers = { Integer.class, Boolean.class };
 
         assertFalse(ClassUtils.isAssignable(array1, array2, true));
         assertFalse(ClassUtils.isAssignable(null, array2, true));
@@ -392,12 +394,12 @@ public class ClassUtilsTest  {
 
     @Test
     public void test_isAssignable_ClassArray_ClassArray_NoAutoboxing() throws Exception {
-        Class<?>[] array2 = new Class[] {Object.class, Object.class};
-        Class<?>[] array1 = new Class[] {Object.class};
-        Class<?>[] array1s = new Class[] {String.class};
-        Class<?>[] array0 = new Class[] {};
-        Class<?>[] arrayPrimitives = { Integer.TYPE, Boolean.TYPE };
-        Class<?>[] arrayWrappers = { Integer.class, Boolean.class };
+        final Class<?>[] array2 = new Class[] {Object.class, Object.class};
+        final Class<?>[] array1 = new Class[] {Object.class};
+        final Class<?>[] array1s = new Class[] {String.class};
+        final Class<?>[] array0 = new Class[] {};
+        final Class<?>[] arrayPrimitives = { Integer.TYPE, Boolean.TYPE };
+        final Class<?>[] arrayWrappers = { Integer.class, Boolean.class };
 
         assertFalse(ClassUtils.isAssignable(array1, array2, false));
         assertFalse(ClassUtils.isAssignable(null, array2, false));
@@ -430,7 +432,7 @@ public class ClassUtilsTest  {
         assertTrue(ClassUtils.isAssignable(String.class, String.class));
         assertFalse(ClassUtils.isAssignable(Object.class, String.class));
 
-        boolean autoboxing = SystemUtils.isJavaVersionAtLeast(JAVA_1_5);
+        final boolean autoboxing = SystemUtils.isJavaVersionAtLeast(JAVA_1_5);
 
         assertEquals(autoboxing, ClassUtils.isAssignable(Integer.TYPE, Integer.class));
         assertEquals(autoboxing, ClassUtils.isAssignable(Integer.TYPE, Object.class));
@@ -579,7 +581,7 @@ public class ClassUtilsTest  {
 
     @Test
     public void test_isAssignable_DefaultUnboxing_Widening() throws Exception {
-        boolean autoboxing = SystemUtils.isJavaVersionAtLeast(JAVA_1_5);
+        final boolean autoboxing = SystemUtils.isJavaVersionAtLeast(JAVA_1_5);
 
         // test byte conversions
         assertFalse("byte -> char", ClassUtils.isAssignable(Byte.class, Character.TYPE));
@@ -849,7 +851,7 @@ public class ClassUtilsTest  {
         assertNull("null -> null", ClassUtils.primitivesToWrappers((Class<?>[]) null)); // equivalent cast to avoid warning
         // Other possible casts for null
         assertTrue("empty -> empty", Arrays.equals(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.primitivesToWrappers()));
-        Class<?>[] castNull = ClassUtils.primitivesToWrappers((Class<?>)null); // == new Class<?>[]{null}
+        final Class<?>[] castNull = ClassUtils.primitivesToWrappers((Class<?>)null); // == new Class<?>[]{null}
         assertTrue("(Class<?>)null -> [null]", Arrays.equals(new Class<?>[]{null}, castNull));
         // test empty array is returned unchanged
         // TODO this is not documented
@@ -862,12 +864,12 @@ public class ClassUtilsTest  {
                 Integer.TYPE, Long.TYPE, Double.TYPE, Float.TYPE,
                 String.class, ClassUtils.class
         };
-        Class<?>[] wrappers= ClassUtils.primitivesToWrappers(primitives);
+        final Class<?>[] wrappers= ClassUtils.primitivesToWrappers(primitives);
 
         for (int i=0; i < primitives.length; i++) {
             // test each returned wrapper
-            Class<?> primitive = primitives[i];
-            Class<?> expectedWrapper = ClassUtils.primitiveToWrapper(primitive);
+            final Class<?> primitive = primitives[i];
+            final Class<?> expectedWrapper = ClassUtils.primitiveToWrapper(primitive);
 
             assertEquals(primitive + " -> " + expectedWrapper, expectedWrapper, wrappers[i]);
         }
@@ -887,8 +889,8 @@ public class ClassUtilsTest  {
                 Boolean.TYPE, Byte.TYPE, Character.TYPE, Short.TYPE,
                 Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE
         };
-        for (Class<?> primitive : primitives) {
-            Class<?> wrapperCls = ClassUtils.primitiveToWrapper(primitive);
+        for (final Class<?> primitive : primitives) {
+            final Class<?> wrapperCls = ClassUtils.primitiveToWrapper(primitive);
             assertFalse("Still primitive", wrapperCls.isPrimitive());
             assertEquals(wrapperCls + " -> " + primitive, primitive,
                     ClassUtils.wrapperToPrimitive(wrapperCls));
@@ -914,11 +916,11 @@ public class ClassUtilsTest  {
                 String.class, ClassUtils.class, null
         };
 
-        Class<?>[] primitives = ClassUtils.wrappersToPrimitives(classes);
+        final Class<?>[] primitives = ClassUtils.wrappersToPrimitives(classes);
         // now test the result
         assertEquals("Wrong length of result array", classes.length, primitives.length);
         for (int i = 0; i < classes.length; i++) {
-            Class<?> expectedPrimitive = ClassUtils.wrapperToPrimitive(classes[i]);
+            final Class<?> expectedPrimitive = ClassUtils.wrapperToPrimitive(classes[i]);
             assertEquals(classes[i] + " -> " + expectedPrimitive, expectedPrimitive,
                     primitives[i]);
         }
@@ -930,13 +932,13 @@ public class ClassUtilsTest  {
         assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives((Class<?>[]) null)); // equivalent cast
         // Other possible casts for null
         assertTrue("empty -> empty", Arrays.equals(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.wrappersToPrimitives()));
-        Class<?>[] castNull = ClassUtils.wrappersToPrimitives((Class<?>)null); // == new Class<?>[]{null}
+        final Class<?>[] castNull = ClassUtils.wrappersToPrimitives((Class<?>)null); // == new Class<?>[]{null}
         assertTrue("(Class<?>)null -> [null]", Arrays.equals(new Class<?>[]{null}, castNull));
 }
 
     @Test
     public void testWrappersToPrimitivesEmpty() {
-        Class<?>[] empty = new Class[0];
+        final Class<?>[] empty = new Class[0];
         assertArrayEquals("Wrong result for empty input", empty, ClassUtils.wrappersToPrimitives(empty));
     }
 
@@ -1051,7 +1053,7 @@ public class ClassUtilsTest  {
             ClassUtils.getClass( className );
             fail( "ClassUtils.getClass() should fail with an exception of type " + exceptionType.getName() + " when given class name \"" + className + "\"." );
         }
-        catch( Exception e ) {
+        catch( final Exception e ) {
             assertTrue( exceptionType.isAssignableFrom( e.getClass() ) );
         }
     }
@@ -1069,12 +1071,12 @@ public class ClassUtilsTest  {
     @Test
     public void testShowJavaBug() throws Exception {
         // Tests with Collections$UnmodifiableSet
-        Set<?> set = Collections.unmodifiableSet(new HashSet<Object>());
-        Method isEmptyMethod = set.getClass().getMethod("isEmpty",  new Class[0]);
+        final Set<?> set = Collections.unmodifiableSet(new HashSet<Object>());
+        final Method isEmptyMethod = set.getClass().getMethod("isEmpty",  new Class[0]);
         try {
             isEmptyMethod.invoke(set, new Object[0]);
             fail("Failed to throw IllegalAccessException as expected");
-        } catch(IllegalAccessException iae) {
+        } catch(final IllegalAccessException iae) {
             // expected
         }
     }
@@ -1082,18 +1084,18 @@ public class ClassUtilsTest  {
     @Test
     public void testGetPublicMethod() throws Exception {
         // Tests with Collections$UnmodifiableSet
-        Set<?> set = Collections.unmodifiableSet(new HashSet<Object>());
-        Method isEmptyMethod = ClassUtils.getPublicMethod(set.getClass(), "isEmpty",  new Class[0]);
+        final Set<?> set = Collections.unmodifiableSet(new HashSet<Object>());
+        final Method isEmptyMethod = ClassUtils.getPublicMethod(set.getClass(), "isEmpty",  new Class[0]);
             assertTrue(Modifier.isPublic(isEmptyMethod.getDeclaringClass().getModifiers()));
 
         try {
             isEmptyMethod.invoke(set, new Object[0]);
-        } catch(java.lang.IllegalAccessException iae) {
+        } catch(final java.lang.IllegalAccessException iae) {
             fail("Should not have thrown IllegalAccessException");
         }
 
         // Tests with a public Class
-        Method toStringMethod = ClassUtils.getPublicMethod(Object.class, "toString",  new Class[0]);
+        final Method toStringMethod = ClassUtils.getPublicMethod(Object.class, "toString",  new Class[0]);
             assertEquals(Object.class.getMethod("toString", new Class[0]), toStringMethod);
     }
 
@@ -1104,7 +1106,7 @@ public class ClassUtilsTest  {
         
         // Additional varargs tests
         assertTrue("empty -> empty", Arrays.equals(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass()));
-        Class<?>[] castNull = ClassUtils.toClass((Object) null); // == new Object[]{null}
+        final Class<?>[] castNull = ClassUtils.toClass((Object) null); // == new Object[]{null}
         assertTrue("(Object)null -> [null]", Arrays.equals(new Object[]{null}, castNull));
 
         assertSame(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass(ArrayUtils.EMPTY_OBJECT_ARRAY));

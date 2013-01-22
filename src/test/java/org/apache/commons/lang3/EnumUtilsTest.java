@@ -45,7 +45,7 @@ public class EnumUtilsTest {
 
     @Test
     public void test_getEnumMap() {
-        Map<String, Traffic> test = EnumUtils.getEnumMap(Traffic.class);
+        final Map<String, Traffic> test = EnumUtils.getEnumMap(Traffic.class);
         assertEquals( "getEnumMap not created correctly", "{RED=RED, AMBER=AMBER, GREEN=GREEN}", test.toString());
         assertEquals(3, test.size());
         assertTrue(test.containsKey("RED"));
@@ -59,7 +59,7 @@ public class EnumUtilsTest {
 
     @Test
     public void test_getEnumList() {
-        List<Traffic> test = EnumUtils.getEnumList(Traffic.class);
+        final List<Traffic> test = EnumUtils.getEnumList(Traffic.class);
         assertEquals(3, test.size());
         assertEquals(Traffic.RED, test.get(0));
         assertEquals(Traffic.AMBER, test.get(1));
@@ -168,8 +168,10 @@ public class EnumUtilsTest {
     @Test(expected=IllegalArgumentException.class)
     public void test_generateBitVector_nonEnumClass() {
         @SuppressWarnings("rawtypes")
+        final
         Class rawType = Object.class;
         @SuppressWarnings("rawtypes")
+        final
         List rawList = new ArrayList();
         EnumUtils.generateBitVector(rawType, rawList);
     }
@@ -178,8 +180,10 @@ public class EnumUtilsTest {
     @Test(expected=IllegalArgumentException.class)
     public void test_generateBitVectors_nonEnumClass() {
         @SuppressWarnings("rawtypes")
+        final
         Class rawType = Object.class;
         @SuppressWarnings("rawtypes")
+        final
         List rawList = new ArrayList();
         EnumUtils.generateBitVectors(rawType, rawList);
     }
@@ -188,6 +192,7 @@ public class EnumUtilsTest {
     @Test(expected=IllegalArgumentException.class)
     public void test_generateBitVector_nonEnumClassWithArray() {
         @SuppressWarnings("rawtypes")
+        final
         Class rawType = Object.class;
         EnumUtils.generateBitVector(rawType);
     }
@@ -196,6 +201,7 @@ public class EnumUtilsTest {
     @Test(expected=IllegalArgumentException.class)
     public void test_generateBitVectors_nonEnumClassWithArray() {
         @SuppressWarnings("rawtypes")
+        final
         Class rawType = Object.class;
         EnumUtils.generateBitVectors(rawType);
     }

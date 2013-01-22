@@ -55,12 +55,12 @@ abstract class MemberUtils {
         if (o == null || o.isAccessible()) {
             return;
         }
-        Member m = (Member) o;
+        final Member m = (Member) o;
         if (Modifier.isPublic(m.getModifiers())
                 && isPackageAccess(m.getDeclaringClass().getModifiers())) {
             try {
                 o.setAccessible(true);
-            } catch (SecurityException e) { // NOPMD
+            } catch (final SecurityException e) { // NOPMD
                 // ignore in favor of subsequent IllegalAccessException
             }
         }
@@ -97,8 +97,8 @@ abstract class MemberUtils {
      * @return int consistent with <code>compare</code> semantics
      */
     static int compareParameterTypes(final Class<?>[] left, final Class<?>[] right, final Class<?>[] actual) {
-        float leftCost = getTotalTransformationCost(actual, left);
-        float rightCost = getTotalTransformationCost(actual, right);
+        final float leftCost = getTotalTransformationCost(actual, left);
+        final float rightCost = getTotalTransformationCost(actual, right);
         return leftCost < rightCost ? -1 : rightCost < leftCost ? 1 : 0;
     }
 

@@ -202,7 +202,7 @@ public class BasicThreadFactory implements ThreadFactory {
      */
     @Override
     public Thread newThread(final Runnable r) {
-        Thread t = getWrappedFactory().newThread(r);
+        final Thread t = getWrappedFactory().newThread(r);
         initializeThread(t);
 
         return t;
@@ -219,7 +219,7 @@ public class BasicThreadFactory implements ThreadFactory {
     private void initializeThread(final Thread t) {
 
         if (getNamingPattern() != null) {
-            Long count = Long.valueOf(threadCounter.incrementAndGet());
+            final Long count = Long.valueOf(threadCounter.incrementAndGet());
             t.setName(String.format(getNamingPattern(), count));
         }
 
@@ -375,7 +375,7 @@ public class BasicThreadFactory implements ThreadFactory {
          */
         @Override
         public BasicThreadFactory build() {
-            BasicThreadFactory factory = new BasicThreadFactory(this);
+            final BasicThreadFactory factory = new BasicThreadFactory(this);
             reset();
             return factory;
         }

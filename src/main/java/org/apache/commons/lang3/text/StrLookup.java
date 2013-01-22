@@ -52,7 +52,7 @@ public abstract class StrLookup<V> {
             @SuppressWarnings("unchecked") // System property keys and values are always Strings
             final Map<String, String> properties = (Map<String, String>) propMap;
             lookup = new MapStrLookup<String>(properties);
-        } catch (SecurityException ex) {
+        } catch (final SecurityException ex) {
             lookup = NONE_LOOKUP;
         }
         SYSTEM_PROPERTIES_LOOKUP = lookup;
@@ -162,7 +162,7 @@ public abstract class StrLookup<V> {
             if (map == null) {
                 return null;
             }
-            Object obj = map.get(key);
+            final Object obj = map.get(key);
             if (obj == null) {
                 return null;
             }

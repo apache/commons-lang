@@ -364,7 +364,7 @@ public abstract class StrMatcher {
          */
         @Override
         public int isMatch(final char[] buffer, int pos, final int bufferStart, final int bufferEnd) {
-            int len = chars.length;
+            final int len = chars.length;
             if (pos + len > bufferEnd) {
                 return 0;
             }

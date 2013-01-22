@@ -268,7 +268,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      */
     @Override
     public int compareTo(final MutableByte other) {
-        byte anotherVal = other.value;
+        final byte anotherVal = other.value;
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }
 

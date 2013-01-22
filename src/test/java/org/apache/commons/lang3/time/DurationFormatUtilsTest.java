@@ -34,7 +34,7 @@ public class DurationFormatUtilsTest {
     @Test
     public void testConstructor() {
         assertNotNull(new DurationFormatUtils());
-        Constructor<?>[] cons = DurationFormatUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = DurationFormatUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(DurationFormatUtils.class.getModifiers()));
@@ -132,10 +132,10 @@ public class DurationFormatUtilsTest {
      */
     @Test
     public void testFormatDurationPluralWords() {
-        long oneSecond = 1000;
-        long oneMinute = oneSecond * 60;
-        long oneHour = oneMinute * 60;
-        long oneDay = oneHour * 24;
+        final long oneSecond = 1000;
+        final long oneMinute = oneSecond * 60;
+        final long oneHour = oneMinute * 60;
+        final long oneDay = oneHour * 24;
         String text = null;
 
         text = DurationFormatUtils.formatDurationWords(oneSecond, false, false);
@@ -236,28 +236,28 @@ public class DurationFormatUtilsTest {
         assertEquals("60000", DurationFormatUtils.formatDuration(duration, "S"));
         assertEquals("01:00", DurationFormatUtils.formatDuration(duration, "mm:ss"));
 
-        Calendar base = Calendar.getInstance();
+        final Calendar base = Calendar.getInstance();
         base.set(2000, 0, 1, 0, 0, 0);
         base.set(Calendar.MILLISECOND, 0);
 
-        Calendar cal = Calendar.getInstance();
+        final Calendar cal = Calendar.getInstance();
         cal.set(2003, 1, 1, 0, 0, 0);
         cal.set(Calendar.MILLISECOND, 0);
         duration = cal.getTime().getTime() - base.getTime().getTime(); // duration from 2000-01-01 to cal
         // don't use 1970 in test as time zones were less reliable in 1970 than now
         // remember that duration formatting ignores time zones, working on strict hour lengths
-        int days = 366 + 365 + 365 + 31;
+        final int days = 366 + 365 + 365 + 31;
         assertEquals("0 0 " + days, DurationFormatUtils.formatDuration(duration, "y M d"));
     }
 
     @Test
     public void testFormatPeriodISO() {
-        TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
-        Calendar base = Calendar.getInstance(timeZone);
+        final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+        final Calendar base = Calendar.getInstance(timeZone);
         base.set(1970, 0, 1, 0, 0, 0);
         base.set(Calendar.MILLISECOND, 0);
 
-        Calendar cal = Calendar.getInstance(timeZone);
+        final Calendar cal = Calendar.getInstance(timeZone);
         cal.set(2002, 1, 23, 9, 11, 12);
         cal.set(Calendar.MILLISECOND, 1);
         String text;
@@ -280,10 +280,10 @@ public class DurationFormatUtilsTest {
 
     @Test
     public void testFormatPeriod() {
-        Calendar cal1970 = Calendar.getInstance();
+        final Calendar cal1970 = Calendar.getInstance();
         cal1970.set(1970, 0, 1, 0, 0, 0);
         cal1970.set(Calendar.MILLISECOND, 0);
-        long time1970 = cal1970.getTime().getTime();
+        final long time1970 = cal1970.getTime().getTime();
 
         assertEquals("0", DurationFormatUtils.formatPeriod(time1970, time1970, "y"));
         assertEquals("0", DurationFormatUtils.formatPeriod(time1970, time1970, "M"));
@@ -306,7 +306,7 @@ public class DurationFormatUtilsTest {
         assertEquals("60000", DurationFormatUtils.formatPeriod(time1970, time, "S"));
         assertEquals("01:00", DurationFormatUtils.formatPeriod(time1970, time, "mm:ss"));
 
-        Calendar cal = Calendar.getInstance();
+        final Calendar cal = Calendar.getInstance();
         cal.set(1973, 6, 1, 0, 0, 0);
         cal.set(Calendar.MILLISECOND, 0);
         time = cal.getTime().getTime();
@@ -374,13 +374,13 @@ public class DurationFormatUtilsTest {
                 .lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN));
 
         // test failures in equals
-        DurationFormatUtils.Token token = new DurationFormatUtils.Token(DurationFormatUtils.y, 4);
+        final DurationFormatUtils.Token token = new DurationFormatUtils.Token(DurationFormatUtils.y, 4);
         assertFalse("Token equal to non-Token class. ", token.equals(new Object()));
         assertFalse("Token equal to Token with wrong value class. ", token.equals(new DurationFormatUtils.Token(
                 new Object())));
         assertFalse("Token equal to Token with different count. ", token.equals(new DurationFormatUtils.Token(
                 DurationFormatUtils.y, 1)));
-        DurationFormatUtils.Token numToken = new DurationFormatUtils.Token(Integer.valueOf(1), 4);
+        final DurationFormatUtils.Token numToken = new DurationFormatUtils.Token(Integer.valueOf(1), 4);
         assertTrue("Token with Number value not equal to itself. ", numToken.equals(numToken));
     }
 
@@ -401,12 +401,12 @@ public class DurationFormatUtilsTest {
 
     @Test
     public void testLANG815() {
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         calendar.set(2012, 6, 30, 0, 0, 0);
-        long startMillis = calendar.getTimeInMillis();
+        final long startMillis = calendar.getTimeInMillis();
 
         calendar.set(2012, 8, 8);
-        long endMillis = calendar.getTimeInMillis();
+        final long endMillis = calendar.getTimeInMillis();
 
         assertEquals("1 9", DurationFormatUtils.formatPeriod(startMillis, endMillis, "M d"));
     }
@@ -543,16 +543,16 @@ public class DurationFormatUtilsTest {
 //    }        
     
     private void bruteForce(final int year, final int month, final int day, final String format, final int calendarType) {
-        String msg = year + "-" + month + "-" + day + " to ";
-        Calendar c = Calendar.getInstance();
+        final String msg = year + "-" + month + "-" + day + " to ";
+        final Calendar c = Calendar.getInstance();
         c.set(year, month, day, 0, 0, 0);
-        int[] array1 = new int[] { year, month, day, 0, 0, 0 };
-        int[] array2 = new int[] { year, month, day, 0, 0, 0 };
+        final int[] array1 = new int[] { year, month, day, 0, 0, 0 };
+        final int[] array2 = new int[] { year, month, day, 0, 0, 0 };
         for (int i=0; i < FOUR_YEARS; i++) {
             array2[0] = c.get(Calendar.YEAR);
             array2[1] = c.get(Calendar.MONTH);
             array2[2] = c.get(Calendar.DAY_OF_MONTH);
-            String tmpMsg = msg + array2[0] + "-" + array2[1] + "-" + array2[2] + " at ";
+            final String tmpMsg = msg + array2[0] + "-" + array2[1] + "-" + array2[2] + " at ";
             assertEqualDuration( tmpMsg + i, Integer.toString(i), array1, array2, format );
             c.add(calendarType, 1);
         }
@@ -562,15 +562,15 @@ public class DurationFormatUtilsTest {
         assertEqualDuration(null, expected, start, end, format);
     }
     private void assertEqualDuration(final String message, final String expected, final int[] start, final int[] end, final String format) {
-        Calendar cal1 = Calendar.getInstance();
+        final Calendar cal1 = Calendar.getInstance();
         cal1.set(start[0], start[1], start[2], start[3], start[4], start[5]);
         cal1.set(Calendar.MILLISECOND, 0);
-        Calendar cal2 = Calendar.getInstance();
+        final Calendar cal2 = Calendar.getInstance();
         cal2.set(end[0], end[1], end[2], end[3], end[4], end[5]);
         cal2.set(Calendar.MILLISECOND, 0);
-        long milli1 = cal1.getTime().getTime();
-        long milli2 = cal2.getTime().getTime();
-        String result = DurationFormatUtils.formatPeriod(milli1, milli2, format);
+        final long milli1 = cal1.getTime().getTime();
+        final long milli2 = cal2.getTime().getTime();
+        final String result = DurationFormatUtils.formatPeriod(milli1, milli2, format);
         if (message == null) {
             assertEquals(expected, result);
         } else {

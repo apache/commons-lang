@@ -46,7 +46,7 @@ public class FormattableUtilsTest {
 
     @Test
     public void testAlternatePadCharacter() {
-        char pad='_';
+        final char pad='_';
         assertEquals("foo", FormattableUtils.append("foo", new Formatter(), 0, -1, -1, pad).toString());
         assertEquals("fo", FormattableUtils.append("foo", new Formatter(), 0, -1, 2, pad).toString());
         assertEquals("_foo", FormattableUtils.append("foo", new Formatter(), 0, 4, -1, pad).toString());

@@ -36,11 +36,11 @@ public class MutableTripleTest {
 
     @Test
     public void testBasic() throws Exception {
-        MutableTriple<Integer, String, Boolean> triple = new MutableTriple<Integer, String, Boolean>(0, "foo", Boolean.FALSE);
+        final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<Integer, String, Boolean>(0, "foo", Boolean.FALSE);
         assertEquals(0, triple.getLeft().intValue());
         assertEquals("foo", triple.getMiddle());
         assertEquals(Boolean.FALSE, triple.getRight());
-        MutableTriple<Object, String, String> triple2 = new MutableTriple<Object, String, String>(null, "bar", "hello");
+        final MutableTriple<Object, String, String> triple2 = new MutableTriple<Object, String, String>(null, "bar", "hello");
         assertNull(triple2.getLeft());
         assertEquals("bar", triple2.getMiddle());
         assertEquals("hello", triple2.getRight());
@@ -48,7 +48,7 @@ public class MutableTripleTest {
 
     @Test
     public void testDefault() throws Exception {
-        MutableTriple<Integer, String, Boolean> triple = new MutableTriple<Integer, String, Boolean>();
+        final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<Integer, String, Boolean>();
         assertNull(triple.getLeft());
         assertNull(triple.getMiddle());
         assertNull(triple.getRight());
@@ -56,7 +56,7 @@ public class MutableTripleTest {
     
     @Test
     public void testMutate() throws Exception {
-        MutableTriple<Integer, String, Boolean> triple = new MutableTriple<Integer, String, Boolean>(0, "foo", Boolean.TRUE);
+        final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<Integer, String, Boolean>(0, "foo", Boolean.TRUE);
         triple.setLeft(42);
         triple.setMiddle("bar");
         triple.setRight(Boolean.FALSE);
@@ -67,11 +67,11 @@ public class MutableTripleTest {
 
     @Test
     public void testTripleOf() throws Exception {
-        MutableTriple<Integer, String, Boolean> triple = MutableTriple.of(0, "foo", Boolean.TRUE);
+        final MutableTriple<Integer, String, Boolean> triple = MutableTriple.of(0, "foo", Boolean.TRUE);
         assertEquals(0, triple.getLeft().intValue());
         assertEquals("foo", triple.getMiddle());
         assertEquals(Boolean.TRUE, triple.getRight());
-        MutableTriple<Object, String, String> triple2 = MutableTriple.of(null, "bar", "hello");
+        final MutableTriple<Object, String, String> triple2 = MutableTriple.of(null, "bar", "hello");
         assertNull(triple2.getLeft());
         assertEquals("bar", triple2.getMiddle());
         assertEquals("hello", triple2.getRight());
@@ -84,7 +84,7 @@ public class MutableTripleTest {
         assertFalse(MutableTriple.of("foo", "bar", "baz").equals(MutableTriple.of("xyz", "bar", "baz")));
         assertFalse(MutableTriple.of("foo", "bar", "baz").equals(MutableTriple.of("foo", "bar", "blo")));
 
-        MutableTriple<String, String, String> p = MutableTriple.of("foo", "bar", "baz");
+        final MutableTriple<String, String, String> p = MutableTriple.of("foo", "bar", "baz");
         assertTrue(p.equals(p));
         assertFalse(p.equals(new Object()));
     }
@@ -108,11 +108,11 @@ public class MutableTripleTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() throws Exception {
-        MutableTriple<Integer, String, Boolean> origTriple = MutableTriple.of(0, "foo", Boolean.TRUE);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(baos);
+        final MutableTriple<Integer, String, Boolean> origTriple = MutableTriple.of(0, "foo", Boolean.TRUE);
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ObjectOutputStream out = new ObjectOutputStream(baos);
         out.writeObject(origTriple);
-        MutableTriple<Integer, String, Boolean> deserializedTriple = (MutableTriple<Integer, String, Boolean>) new ObjectInputStream(
+        final MutableTriple<Integer, String, Boolean> deserializedTriple = (MutableTriple<Integer, String, Boolean>) new ObjectInputStream(
                 new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origTriple, deserializedTriple);
         assertEquals(origTriple.hashCode(), deserializedTriple.hashCode());

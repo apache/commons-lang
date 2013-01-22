@@ -118,7 +118,7 @@ public class MutableByteTest {
 
     @Test
     public void testPrimitiveValues() {
-        MutableByte mutNum = new MutableByte( (byte) 1 );
+        final MutableByte mutNum = new MutableByte( (byte) 1 );
         
         assertEquals( 1.0F, mutNum.floatValue(), 0 );
         assertEquals( 1.0, mutNum.doubleValue(), 0 );
@@ -136,7 +136,7 @@ public class MutableByteTest {
 
     @Test
     public void testIncrement() {
-        MutableByte mutNum = new MutableByte((byte) 1);
+        final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.increment();
         
         assertEquals(2, mutNum.intValue());
@@ -145,7 +145,7 @@ public class MutableByteTest {
 
     @Test
     public void testDecrement() {
-        MutableByte mutNum = new MutableByte((byte) 1);
+        final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.decrement();
         
         assertEquals(0, mutNum.intValue());
@@ -154,7 +154,7 @@ public class MutableByteTest {
 
     @Test
     public void testAddValuePrimitive() {
-        MutableByte mutNum = new MutableByte((byte) 1);
+        final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.add((byte)1);
         
         assertEquals((byte) 2, mutNum.byteValue());
@@ -162,7 +162,7 @@ public class MutableByteTest {
 
     @Test
     public void testAddValueObject() {
-        MutableByte mutNum = new MutableByte((byte) 1);
+        final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.add(Integer.valueOf(1));
         
         assertEquals((byte) 2, mutNum.byteValue());
@@ -170,7 +170,7 @@ public class MutableByteTest {
 
     @Test
     public void testSubtractValuePrimitive() {
-        MutableByte mutNum = new MutableByte((byte) 1);
+        final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.subtract((byte) 1);
         
         assertEquals((byte) 0, mutNum.byteValue());
@@ -178,7 +178,7 @@ public class MutableByteTest {
 
     @Test
     public void testSubtractValueObject() {
-        MutableByte mutNum = new MutableByte((byte) 1);
+        final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.subtract(Integer.valueOf(1));
         
         assertEquals((byte) 0, mutNum.byteValue());

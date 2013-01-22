@@ -47,12 +47,12 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
 
             if (index + i + 4 <= input.length()) {
                 // Get 4 hex digits
-                CharSequence unicode = input.subSequence(index + i, index + i + 4);
+                final CharSequence unicode = input.subSequence(index + i, index + i + 4);
 
                 try {
-                    int value = Integer.parseInt(unicode.toString(), 16);
+                    final int value = Integer.parseInt(unicode.toString(), 16);
                     out.write((char) value);
-                } catch (NumberFormatException nfe) {
+                } catch (final NumberFormatException nfe) {
                     throw new IllegalArgumentException("Unable to parse unicode value: " + unicode, nfe);
                 }
                 return i + 4;

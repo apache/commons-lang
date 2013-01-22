@@ -86,7 +86,7 @@ public class MethodUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        Class<?>[] parameterTypes = ClassUtils.toClass(args);
+        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeMethod(object, methodName, args, parameterTypes);
     }
 
@@ -119,7 +119,7 @@ public class MethodUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        Method method = getMatchingAccessibleMethod(object.getClass(),
+        final Method method = getMatchingAccessibleMethod(object.getClass(),
                 methodName, parameterTypes);
         if (method == null) {
             throw new NoSuchMethodException("No such accessible method: "
@@ -153,7 +153,7 @@ public class MethodUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        Class<?>[] parameterTypes = ClassUtils.toClass(args);
+        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeExactMethod(object, methodName, args, parameterTypes);
     }
 
@@ -186,7 +186,7 @@ public class MethodUtils {
         if (parameterTypes == null) {
             parameterTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
-        Method method = getAccessibleMethod(object.getClass(), methodName,
+        final Method method = getAccessibleMethod(object.getClass(), methodName,
                 parameterTypes);
         if (method == null) {
             throw new NoSuchMethodException("No such accessible method: "
@@ -225,7 +225,7 @@ public class MethodUtils {
         if (parameterTypes == null) {
             parameterTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
-        Method method = getAccessibleMethod(cls, methodName, parameterTypes);
+        final Method method = getAccessibleMethod(cls, methodName, parameterTypes);
         if (method == null) {
             throw new NoSuchMethodException("No such accessible method: "
                     + methodName + "() on class: " + cls.getName());
@@ -263,7 +263,7 @@ public class MethodUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        Class<?>[] parameterTypes = ClassUtils.toClass(args);
+        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeStaticMethod(cls, methodName, args, parameterTypes);
     }
 
@@ -299,7 +299,7 @@ public class MethodUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        Method method = getMatchingAccessibleMethod(cls, methodName,
+        final Method method = getMatchingAccessibleMethod(cls, methodName,
                 parameterTypes);
         if (method == null) {
             throw new NoSuchMethodException("No such accessible method: "
@@ -332,7 +332,7 @@ public class MethodUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        Class<?>[] parameterTypes = ClassUtils.toClass(args);
+        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeExactStaticMethod(cls, methodName, args, parameterTypes);
     }
 
@@ -353,7 +353,7 @@ public class MethodUtils {
         try {
             return getAccessibleMethod(cls.getMethod(methodName,
                     parameterTypes));
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
             return null;
         }
     }
@@ -371,12 +371,12 @@ public class MethodUtils {
             return null;
         }
         // If the declaring class is public, we are done
-        Class<?> cls = method.getDeclaringClass();
+        final Class<?> cls = method.getDeclaringClass();
         if (Modifier.isPublic(cls.getModifiers())) {
             return method;
         }
-        String methodName = method.getName();
-        Class<?>[] parameterTypes = method.getParameterTypes();
+        final String methodName = method.getName();
+        final Class<?>[] parameterTypes = method.getParameterTypes();
 
         // Check the implemented interfaces and subinterfaces
         method = getAccessibleMethodFromInterfaceNest(cls, methodName,
@@ -407,7 +407,7 @@ public class MethodUtils {
             if (Modifier.isPublic(parentClass.getModifiers())) {
                 try {
                     return parentClass.getMethod(methodName, parameterTypes);
-                } catch (NoSuchMethodException e) {
+                } catch (final NoSuchMethodException e) {
                     return null;
                 }
             }
@@ -439,7 +439,7 @@ public class MethodUtils {
         for (; cls != null; cls = cls.getSuperclass()) {
 
             // Check the implemented interfaces of the parent class
-            Class<?>[] interfaces = cls.getInterfaces();
+            final Class<?>[] interfaces = cls.getInterfaces();
             for (int i = 0; i < interfaces.length; i++) {
                 // Is this interface public?
                 if (!Modifier.isPublic(interfaces[i].getModifiers())) {
@@ -449,7 +449,7 @@ public class MethodUtils {
                 try {
                     method = interfaces[i].getDeclaredMethod(methodName,
                             parameterTypes);
-                } catch (NoSuchMethodException e) { // NOPMD
+                } catch (final NoSuchMethodException e) { // NOPMD
                     /*
                      * Swallow, if no method is found after the loop then this
                      * method returns null.
@@ -492,19 +492,19 @@ public class MethodUtils {
     public static Method getMatchingAccessibleMethod(final Class<?> cls,
             final String methodName, final Class<?>... parameterTypes) {
         try {
-            Method method = cls.getMethod(methodName, parameterTypes);
+            final Method method = cls.getMethod(methodName, parameterTypes);
             MemberUtils.setAccessibleWorkaround(method);
             return method;
-        } catch (NoSuchMethodException e) { // NOPMD - Swallow the exception
+        } catch (final NoSuchMethodException e) { // NOPMD - Swallow the exception
         }
         // search through all methods
         Method bestMatch = null;
-        Method[] methods = cls.getMethods();
-        for (Method method : methods) {
+        final Method[] methods = cls.getMethods();
+        for (final Method method : methods) {
             // compare name and parameters
             if (method.getName().equals(methodName) && ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true)) {
                 // get accessible version of method
-                Method accessibleMethod = getAccessibleMethod(method);
+                final Method accessibleMethod = getAccessibleMethod(method);
                 if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareParameterTypes(
                             accessibleMethod.getParameterTypes(),
                             bestMatch.getParameterTypes(),

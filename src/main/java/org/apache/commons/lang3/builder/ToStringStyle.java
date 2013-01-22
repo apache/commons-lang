@@ -169,7 +169,7 @@ public abstract class ToStringStyle implements Serializable {
      *             object.
      */
     static boolean isRegistered(final Object value) {
-        Map<Object, Object> m = getRegistry();
+        final Map<Object, Object> m = getRegistry();
         return m != null && m.containsKey(value);
     }
 
@@ -184,7 +184,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     static void register(final Object value) {
         if (value != null) {
-            Map<Object, Object> m = getRegistry();
+            final Map<Object, Object> m = getRegistry();
             if (m == null) {
                 REGISTRY.set(new WeakHashMap<Object, Object>());
             }
@@ -206,7 +206,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     static void unregister(final Object value) {
         if (value != null) {
-            Map<Object, Object> m = getRegistry();
+            final Map<Object, Object> m = getRegistry();
             if (m != null) {
                 m.remove(value);
                 if (m.isEmpty()) {
@@ -354,10 +354,10 @@ public abstract class ToStringStyle implements Serializable {
      */
     public void appendToString(final StringBuffer buffer, final String toString) {
         if (toString != null) {
-            int pos1 = toString.indexOf(contentStart) + contentStart.length();
-            int pos2 = toString.lastIndexOf(contentEnd);
+            final int pos1 = toString.indexOf(contentStart) + contentStart.length();
+            final int pos2 = toString.lastIndexOf(contentEnd);
             if (pos1 != pos2 && pos1 >= 0 && pos2 >= 0) {
-                String data = toString.substring(pos1, pos2);
+                final String data = toString.substring(pos1, pos2);
                 if (fieldSeparatorAtStart) {
                     removeLastFieldSeparator(buffer);
                 }
@@ -406,8 +406,8 @@ public abstract class ToStringStyle implements Serializable {
      * @since 2.0
      */
     protected void removeLastFieldSeparator(final StringBuffer buffer) {
-        int len = buffer.length();
-        int sepLen = fieldSeparator.length();
+        final int len = buffer.length();
+        final int sepLen = fieldSeparator.length();
         if (len > 0 && sepLen > 0 && len >= sepLen) {
             boolean match = true;
             for (int i = 0; i < sepLen; i++) {
@@ -898,7 +898,7 @@ public abstract class ToStringStyle implements Serializable {
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Object[] array) {
         buffer.append(arrayStart);
         for (int i = 0; i < array.length; i++) {
-            Object item = array[i];
+            final Object item = array[i];
             if (i > 0) {
                 buffer.append(arraySeparator);
             }
@@ -923,9 +923,9 @@ public abstract class ToStringStyle implements Serializable {
      */
     protected void reflectionAppendArrayDetail(final StringBuffer buffer, final String fieldName, final Object array) {
         buffer.append(arrayStart);
-        int length = Array.getLength(array);
+        final int length = Array.getLength(array);
         for (int i = 0; i < length; i++) {
-            Object item = Array.get(array, i);
+            final Object item = Array.get(array, i);
             if (i > 0) {
                 buffer.append(arraySeparator);
             }

@@ -31,30 +31,30 @@ public class UnicodeUnescaperTest {
     // Requested in LANG-507
     @Test
     public void testUPlus() {
-        UnicodeUnescaper uu = new UnicodeUnescaper();
+        final UnicodeUnescaper uu = new UnicodeUnescaper();
 
-        String input = "\\u+0047";
+        final String input = "\\u+0047";
         assertEquals("Failed to unescape Unicode characters with 'u+' notation", "G", uu.translate(input));
     }
 
     @Test
     public void testUuuuu() {
-        UnicodeUnescaper uu = new UnicodeUnescaper();
+        final UnicodeUnescaper uu = new UnicodeUnescaper();
 
-        String input = "\\uuuuuuuu0047";
-        String result = uu.translate(input);
+        final String input = "\\uuuuuuuu0047";
+        final String result = uu.translate(input);
         assertEquals("Failed to unescape Unicode characters with many 'u' characters", "G", result);
     }
 
     @Test
     public void testLessThanFour() {
-        UnicodeUnescaper uu = new UnicodeUnescaper();
+        final UnicodeUnescaper uu = new UnicodeUnescaper();
 
-        String input = "\\0047\\u006";
+        final String input = "\\0047\\u006";
         try {
             uu.translate(input);
             fail("A lack of digits in a Unicode escape sequence failed to throw an exception");
-        } catch(IllegalArgumentException iae) {
+        } catch(final IllegalArgumentException iae) {
             // expected
         }
     }

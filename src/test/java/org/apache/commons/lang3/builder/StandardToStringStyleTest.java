@@ -80,8 +80,8 @@ public class StandardToStringStyleTest {
     
     @Test
     public void testObject() {
-        Integer i3 = Integer.valueOf(3);
-        Integer i4 = Integer.valueOf(4);
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(i3).toString());
         assertEquals(baseStr + "[a=%NULL%]", new ToStringBuilder(base).append("a", (Object) null).toString());
@@ -98,11 +98,11 @@ public class StandardToStringStyleTest {
 
     @Test
     public void testPerson() {
-        Person p = new Person();
+        final Person p = new Person();
         p.name = "Suzy Queue";
         p.age = 19;
         p.smoker = false;
-        String pBaseStr = "ToStringStyleTest.Person";
+        final String pBaseStr = "ToStringStyleTest.Person";
         assertEquals(pBaseStr + "[name=Suzy Queue,age=19,smoker=false]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 

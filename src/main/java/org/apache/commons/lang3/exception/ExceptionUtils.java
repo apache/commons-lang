@@ -147,9 +147,9 @@ public class ExceptionUtils {
             methodNames = CAUSE_METHOD_NAMES;
         }
 
-        for (String methodName : methodNames) {
+        for (final String methodName : methodNames) {
             if (methodName != null) {
-                Throwable cause = getCauseUsingMethodName(throwable, methodName);
+                final Throwable cause = getCauseUsingMethodName(throwable, methodName);
                 if (cause != null) {
                     return cause;
                 }
@@ -177,7 +177,7 @@ public class ExceptionUtils {
      *  <code>null</code> if none found or null throwable input
      */
     public static Throwable getRootCause(final Throwable throwable) {
-        List<Throwable> list = getThrowableList(throwable);
+        final List<Throwable> list = getThrowableList(throwable);
         return list.size() < 2 ? null : (Throwable)list.get(list.size() - 1);
     }
 
@@ -193,20 +193,20 @@ public class ExceptionUtils {
         Method method = null;
         try {
             method = throwable.getClass().getMethod(methodName);
-        } catch (NoSuchMethodException ignored) { // NOPMD
+        } catch (final NoSuchMethodException ignored) { // NOPMD
             // exception ignored
-        } catch (SecurityException ignored) { // NOPMD
+        } catch (final SecurityException ignored) { // NOPMD
             // exception ignored
         }
 
         if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
             try {
                 return (Throwable) method.invoke(throwable);
-            } catch (IllegalAccessException ignored) { // NOPMD
+            } catch (final IllegalAccessException ignored) { // NOPMD
                 // exception ignored
-            } catch (IllegalArgumentException ignored) { // NOPMD
+            } catch (final IllegalArgumentException ignored) { // NOPMD
                 // exception ignored
-            } catch (InvocationTargetException ignored) { // NOPMD
+            } catch (final InvocationTargetException ignored) { // NOPMD
                 // exception ignored
             }
         }
@@ -254,7 +254,7 @@ public class ExceptionUtils {
      * @return the array of throwables, never null
      */
     public static Throwable[] getThrowables(final Throwable throwable) {
-        List<Throwable> list = getThrowableList(throwable);
+        final List<Throwable> list = getThrowableList(throwable);
         return list.toArray(new Throwable[list.size()]);
     }
 
@@ -278,7 +278,7 @@ public class ExceptionUtils {
      * @since Commons Lang 2.2
      */
     public static List<Throwable> getThrowableList(Throwable throwable) {
-        List<Throwable> list = new ArrayList<Throwable>();
+        final List<Throwable> list = new ArrayList<Throwable>();
         while (throwable != null && list.contains(throwable) == false) {
             list.add(throwable);
             throwable = ExceptionUtils.getCause(throwable);
@@ -390,7 +390,7 @@ public class ExceptionUtils {
         if (fromIndex < 0) {
             fromIndex = 0;
         }
-        Throwable[] throwables = ExceptionUtils.getThrowables(throwable);
+        final Throwable[] throwables = ExceptionUtils.getThrowables(throwable);
         if (fromIndex >= throwables.length) {
             return -1;
         }
@@ -459,8 +459,8 @@ public class ExceptionUtils {
         if (stream == null) {
             throw new IllegalArgumentException("The PrintStream must not be null");
         }
-        String trace[] = getRootCauseStackTrace(throwable);
-        for (String element : trace) {
+        final String trace[] = getRootCauseStackTrace(throwable);
+        for (final String element : trace) {
             stream.println(element);
         }
         stream.flush();
@@ -492,8 +492,8 @@ public class ExceptionUtils {
         if (writer == null) {
             throw new IllegalArgumentException("The PrintWriter must not be null");
         }
-        String trace[] = getRootCauseStackTrace(throwable);
-        for (String element : trace) {
+        final String trace[] = getRootCauseStackTrace(throwable);
+        for (final String element : trace) {
             writer.println(element);
         }
         writer.flush();
@@ -517,12 +517,12 @@ public class ExceptionUtils {
         if (throwable == null) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        Throwable throwables[] = getThrowables(throwable);
-        int count = throwables.length;
-        List<String> frames = new ArrayList<String>();
+        final Throwable throwables[] = getThrowables(throwable);
+        final int count = throwables.length;
+        final List<String> frames = new ArrayList<String>();
         List<String> nextTrace = getStackFrameList(throwables[count - 1]);
         for (int i = count; --i >= 0;) {
-            List<String> trace = nextTrace;
+            final List<String> trace = nextTrace;
             if (i != 0) {
                 nextTrace = getStackFrameList(throwables[i - 1]);
                 removeCommonFrames(trace, nextTrace);
@@ -556,8 +556,8 @@ public class ExceptionUtils {
         while (causeFrameIndex >= 0 && wrapperFrameIndex >= 0) {
             // Remove the frame from the cause trace if it is the same
             // as in the wrapper trace
-            String causeFrame = causeFrames.get(causeFrameIndex);
-            String wrapperFrame = wrapperFrames.get(wrapperFrameIndex);
+            final String causeFrame = causeFrames.get(causeFrameIndex);
+            final String wrapperFrame = wrapperFrames.get(wrapperFrameIndex);
             if (causeFrame.equals(wrapperFrame)) {
                 causeFrames.remove(causeFrameIndex);
             }
@@ -580,8 +580,8 @@ public class ExceptionUtils {
      *  <code>printStackTrace(PrintWriter)</code> method
      */
     public static String getStackTrace(final Throwable throwable) {
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw, true);
+        final StringWriter sw = new StringWriter();
+        final PrintWriter pw = new PrintWriter(sw, true);
         throwable.printStackTrace(pw);
         return sw.getBuffer().toString();
     }
@@ -616,9 +616,9 @@ public class ExceptionUtils {
      * @return an array where each element is a line from the argument
      */
     static String[] getStackFrames(final String stackTrace) {
-        String linebreak = SystemUtils.LINE_SEPARATOR;
-        StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        List<String> list = new ArrayList<String>();
+        final String linebreak = SystemUtils.LINE_SEPARATOR;
+        final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
+        final List<String> list = new ArrayList<String>();
         while (frames.hasMoreTokens()) {
             list.add(frames.nextToken());
         }
@@ -638,15 +638,15 @@ public class ExceptionUtils {
      * @return List of stack frames
      */
     static List<String> getStackFrameList(final Throwable t) {
-        String stackTrace = getStackTrace(t);
-        String linebreak = SystemUtils.LINE_SEPARATOR;
-        StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        List<String> list = new ArrayList<String>();
+        final String stackTrace = getStackTrace(t);
+        final String linebreak = SystemUtils.LINE_SEPARATOR;
+        final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
+        final List<String> list = new ArrayList<String>();
         boolean traceStarted = false;
         while (frames.hasMoreTokens()) {
-            String token = frames.nextToken();
+            final String token = frames.nextToken();
             // Determine if the line starts with <whitespace>at
-            int at = token.indexOf("at");
+            final int at = token.indexOf("at");
             if (at != -1 && token.substring(0, at).trim().isEmpty()) {
                 traceStarted = true;
                 list.add(token);
@@ -672,8 +672,8 @@ public class ExceptionUtils {
         if (th == null) {
             return "";
         }
-        String clsName = ClassUtils.getShortClassName(th, null);
-        String msg = th.getMessage();
+        final String clsName = ClassUtils.getShortClassName(th, null);
+        final String msg = th.getMessage();
         return clsName + ": " + StringUtils.defaultString(msg);
     }
 

@@ -164,7 +164,7 @@ public class MultiBackgroundInitializer
     protected int getTaskCount() {
         int result = 1;
 
-        for (BackgroundInitializer<?> bi : childInitializers.values()) {
+        for (final BackgroundInitializer<?> bi : childInitializers.values()) {
             result += bi.getTaskCount();
         }
 
@@ -191,8 +191,8 @@ public class MultiBackgroundInitializer
         }
 
         // start the child initializers
-        ExecutorService exec = getActiveExecutor();
-        for (BackgroundInitializer<?> bi : inits.values()) {
+        final ExecutorService exec = getActiveExecutor();
+        for (final BackgroundInitializer<?> bi : inits.values()) {
             if (bi.getExternalExecutor() == null) {
                 // share the executor service if necessary
                 bi.setExternalExecutor(exec);
@@ -201,12 +201,12 @@ public class MultiBackgroundInitializer
         }
 
         // collect the results
-        Map<String, Object> results = new HashMap<String, Object>();
-        Map<String, ConcurrentException> excepts = new HashMap<String, ConcurrentException>();
-        for (Map.Entry<String, BackgroundInitializer<?>> e : inits.entrySet()) {
+        final Map<String, Object> results = new HashMap<String, Object>();
+        final Map<String, ConcurrentException> excepts = new HashMap<String, ConcurrentException>();
+        for (final Map.Entry<String, BackgroundInitializer<?>> e : inits.entrySet()) {
             try {
                 results.put(e.getKey(), e.getValue().get());
-            } catch (ConcurrentException cex) {
+            } catch (final ConcurrentException cex) {
                 excepts.put(e.getKey(), cex);
             }
         }
@@ -340,7 +340,7 @@ public class MultiBackgroundInitializer
          * @throws NoSuchElementException if the name is unknown
          */
         private BackgroundInitializer<?> checkName(final String name) {
-            BackgroundInitializer<?> init = initializers.get(name);
+            final BackgroundInitializer<?> init = initializers.get(name);
             if (init == null) {
                 throw new NoSuchElementException(
                         "No child initializer with name " + name);

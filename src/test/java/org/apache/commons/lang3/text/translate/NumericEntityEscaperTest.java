@@ -29,39 +29,39 @@ public class NumericEntityEscaperTest  {
 
     @Test
     public void testBelow() {
-        NumericEntityEscaper nee = NumericEntityEscaper.below('F');
+        final NumericEntityEscaper nee = NumericEntityEscaper.below('F');
 
-        String input = "ADFGZ";
-        String result = nee.translate(input);
+        final String input = "ADFGZ";
+        final String result = nee.translate(input);
         assertEquals("Failed to escape numeric entities via the below method", "&#65;&#68;FGZ", result);
     }
 
     @Test
     public void testBetween() {
-        NumericEntityEscaper nee = NumericEntityEscaper.between('F', 'L');
+        final NumericEntityEscaper nee = NumericEntityEscaper.between('F', 'L');
 
-        String input = "ADFGZ";
-        String result = nee.translate(input);
+        final String input = "ADFGZ";
+        final String result = nee.translate(input);
         assertEquals("Failed to escape numeric entities via the between method", "AD&#70;&#71;Z", result);
     }
 
     @Test
     public void testAbove() {
-        NumericEntityEscaper nee = NumericEntityEscaper.above('F');
+        final NumericEntityEscaper nee = NumericEntityEscaper.above('F');
 
-        String input = "ADFGZ";
-        String result = nee.translate(input);
+        final String input = "ADFGZ";
+        final String result = nee.translate(input);
         assertEquals("Failed to escape numeric entities via the above method", "ADF&#71;&#90;", result);
     }
 
     // See LANG-617
     @Test
     public void testSupplementary() {
-        NumericEntityEscaper nee = new NumericEntityEscaper();
-        String input = "\uD803\uDC22";
-        String expected = "&#68642;";
+        final NumericEntityEscaper nee = new NumericEntityEscaper();
+        final String input = "\uD803\uDC22";
+        final String expected = "&#68642;";
 
-        String result = nee.translate(input);
+        final String result = nee.translate(input);
         assertEquals("Failed to escape numeric entities supplementary characters", expected, result);
 
     }

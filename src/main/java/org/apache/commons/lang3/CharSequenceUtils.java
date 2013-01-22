@@ -70,7 +70,7 @@ public class CharSequenceUtils {
         if (cs instanceof String) {
             return ((String) cs).indexOf(searchChar, start);
         } else {
-            int sz = cs.length();
+            final int sz = cs.length();
             if (start < 0) {
                 start = 0;
             }
@@ -117,7 +117,7 @@ public class CharSequenceUtils {
         if (cs instanceof String) {
             return ((String) cs).lastIndexOf(searchChar, start);
         } else {
-            int sz = cs.length();
+            final int sz = cs.length();
             if (start < 0) {
                 return -1;
             }
@@ -164,8 +164,8 @@ public class CharSequenceUtils {
         if (cs instanceof String) {
             return ((String) cs).toCharArray();
         } else {
-            int sz = cs.length();
-            char[] array = new char[cs.length()];
+            final int sz = cs.length();
+            final char[] array = new char[cs.length()];
             for (int i = 0; i < sz; i++) {
                 array[i] = cs.charAt(i);
             }

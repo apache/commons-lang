@@ -110,7 +110,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
             return true;
         }
         if (obj instanceof Triple<?, ?, ?>) {
-            Triple<?, ?, ?> other = (Triple<?, ?, ?>) obj;
+            final Triple<?, ?, ?> other = (Triple<?, ?, ?>) obj;
             return ObjectUtils.equals(getLeft(), other.getLeft())
                 && ObjectUtils.equals(getMiddle(), other.getMiddle())
                 && ObjectUtils.equals(getRight(), other.getRight());

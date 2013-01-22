@@ -49,7 +49,7 @@ public class EqualsBuilderTest {
                 return false;
             }
 
-            TestObject rhs = (TestObject) o;
+            final TestObject rhs = (TestObject) o;
             return a == rhs.a;
         }
 
@@ -84,7 +84,7 @@ public class EqualsBuilderTest {
                 return false;
             }
 
-            TestSubObject rhs = (TestSubObject) o;
+            final TestSubObject rhs = (TestSubObject) o;
             return super.equals(o) && b == rhs.b;
         }
 
@@ -150,8 +150,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testReflectionEquals() {
-        TestObject o1 = new TestObject(4);
-        TestObject o2 = new TestObject(5);
+        final TestObject o1 = new TestObject(4);
+        final TestObject o2 = new TestObject(5);
         assertTrue(EqualsBuilder.reflectionEquals(o1, o1));
         assertTrue(!EqualsBuilder.reflectionEquals(o1, o2));
         o2.setA(4);
@@ -177,18 +177,18 @@ public class EqualsBuilderTest {
     }
 
     private void testReflectionHierarchyEquals(final boolean testTransients) {
-        TestObject to1 = new TestObject(4);
-        TestObject to1Bis = new TestObject(4);
-        TestObject to1Ter = new TestObject(4);
-        TestObject to2 = new TestObject(5);
-        TestEmptySubObject teso = new TestEmptySubObject(4);
-        TestTSubObject ttso = new TestTSubObject(4, 1);
-        TestTTSubObject tttso = new TestTTSubObject(4, 1, 2);
-        TestTTLeafObject ttlo = new TestTTLeafObject(4, 1, 2, 3);
-        TestSubObject tso1 = new TestSubObject(1, 4);
-        TestSubObject tso1bis = new TestSubObject(1, 4);
-        TestSubObject tso1ter = new TestSubObject(1, 4);
-        TestSubObject tso2 = new TestSubObject(2, 5);
+        final TestObject to1 = new TestObject(4);
+        final TestObject to1Bis = new TestObject(4);
+        final TestObject to1Ter = new TestObject(4);
+        final TestObject to2 = new TestObject(5);
+        final TestEmptySubObject teso = new TestEmptySubObject(4);
+        final TestTSubObject ttso = new TestTSubObject(4, 1);
+        final TestTTSubObject tttso = new TestTTSubObject(4, 1, 2);
+        final TestTTLeafObject ttlo = new TestTTLeafObject(4, 1, 2, 3);
+        final TestSubObject tso1 = new TestSubObject(1, 4);
+        final TestSubObject tso1bis = new TestSubObject(1, 4);
+        final TestSubObject tso1ter = new TestSubObject(1, 4);
+        final TestSubObject tso2 = new TestSubObject(2, 5);
 
         testReflectionEqualsEquivalenceRelationship(to1, to1Bis, to1Ter, to2, new TestObject(), testTransients);
         testReflectionEqualsEquivalenceRelationship(tso1, tso1bis, tso1ter, tso2, new TestSubObject(), testTransients);
@@ -293,8 +293,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testSuper() {
-        TestObject o1 = new TestObject(4);
-        TestObject o2 = new TestObject(5);
+        final TestObject o1 = new TestObject(4);
+        final TestObject o2 = new TestObject(5);
         assertTrue(new EqualsBuilder().appendSuper(true).append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().appendSuper(false).append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().appendSuper(true).append(o1, o2).isEquals());
@@ -303,8 +303,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testObject() {
-        TestObject o1 = new TestObject(4);
-        TestObject o2 = new TestObject(5);
+        final TestObject o1 = new TestObject(4);
+        final TestObject o2 = new TestObject(5);
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertTrue(!new EqualsBuilder().append(o1, o2).isEquals());
         o2.setA(4);
@@ -319,8 +319,8 @@ public class EqualsBuilderTest {
     
     @Test
     public void testObjectBuild() {
-        TestObject o1 = new TestObject(4);
-        TestObject o2 = new TestObject(5);
+        final TestObject o1 = new TestObject(4);
+        final TestObject o2 = new TestObject(5);
         assertEquals(Boolean.TRUE, new EqualsBuilder().append(o1, o1).build());
         assertEquals(Boolean.FALSE, new EqualsBuilder().append(o1, o2).build());
         o2.setA(4);
@@ -335,48 +335,48 @@ public class EqualsBuilderTest {
 
     @Test
     public void testLong() {
-        long o1 = 1L;
-        long o2 = 2L;
+        final long o1 = 1L;
+        final long o2 = 2L;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertTrue(!new EqualsBuilder().append(o1, o2).isEquals());
     }
 
     @Test
     public void testInt() {
-        int o1 = 1;
-        int o2 = 2;
+        final int o1 = 1;
+        final int o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertTrue(!new EqualsBuilder().append(o1, o2).isEquals());
     }
 
     @Test
     public void testShort() {
-        short o1 = 1;
-        short o2 = 2;
+        final short o1 = 1;
+        final short o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertTrue(!new EqualsBuilder().append(o1, o2).isEquals());
     }
 
     @Test
     public void testChar() {
-        char o1 = 1;
-        char o2 = 2;
+        final char o1 = 1;
+        final char o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertTrue(!new EqualsBuilder().append(o1, o2).isEquals());
     }
 
     @Test
     public void testByte() {
-        byte o1 = 1;
-        byte o2 = 2;
+        final byte o1 = 1;
+        final byte o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertTrue(!new EqualsBuilder().append(o1, o2).isEquals());
     }
 
     @Test
     public void testDouble() {
-        double o1 = 1;
-        double o2 = 2;
+        final double o1 = 1;
+        final double o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertTrue(!new EqualsBuilder().append(o1, o2).isEquals());
         assertTrue(!new EqualsBuilder().append(o1, Double.NaN).isEquals());
@@ -386,8 +386,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testFloat() {
-        float o1 = 1;
-        float o2 = 2;
+        final float o1 = 1;
+        final float o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertTrue(!new EqualsBuilder().append(o1, o2).isEquals());
         assertTrue(!new EqualsBuilder().append(o1, Float.NaN).isEquals());
@@ -397,7 +397,7 @@ public class EqualsBuilderTest {
 
     @Test
     public void testAccessors() {
-        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        final EqualsBuilder equalsBuilder = new EqualsBuilder();
         assertTrue(equalsBuilder.isEquals());
         equalsBuilder.setEquals(true);
         assertTrue(equalsBuilder.isEquals());
@@ -407,7 +407,7 @@ public class EqualsBuilderTest {
 
     @Test
     public void testReset() {
-        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        final EqualsBuilder equalsBuilder = new EqualsBuilder();
         assertTrue(equalsBuilder.isEquals());
         equalsBuilder.setEquals(false);
         assertFalse(equalsBuilder.isEquals());
@@ -417,8 +417,8 @@ public class EqualsBuilderTest {
     
     @Test
     public void testBoolean() {
-        boolean o1 = true;
-        boolean o2 = false;
+        final boolean o1 = true;
+        final boolean o2 = false;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertTrue(!new EqualsBuilder().append(o1, o2).isEquals());
     }
@@ -606,8 +606,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testMultiLongArray() {
-        long[][] array1 = new long[2][2];
-        long[][] array2 = new long[2][2];
+        final long[][] array1 = new long[2][2];
+        final long[][] array2 = new long[2][2];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
                 array1[i][j] = (i + 1) * (j + 1);
@@ -622,8 +622,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testMultiIntArray() {
-        int[][] array1 = new int[2][2];
-        int[][] array2 = new int[2][2];
+        final int[][] array1 = new int[2][2];
+        final int[][] array2 = new int[2][2];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
                 array1[i][j] = (i + 1) * (j + 1);
@@ -638,8 +638,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testMultiShortArray() {
-        short[][] array1 = new short[2][2];
-        short[][] array2 = new short[2][2];
+        final short[][] array1 = new short[2][2];
+        final short[][] array2 = new short[2][2];
         for (short i = 0; i < array1.length; ++i) {
             for (short j = 0; j < array1[0].length; j++) {
                 array1[i][j] = i;
@@ -654,8 +654,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testMultiCharArray() {
-        char[][] array1 = new char[2][2];
-        char[][] array2 = new char[2][2];
+        final char[][] array1 = new char[2][2];
+        final char[][] array2 = new char[2][2];
         for (char i = 0; i < array1.length; ++i) {
             for (char j = 0; j < array1[0].length; j++) {
                 array1[i][j] = i;
@@ -670,8 +670,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testMultiByteArray() {
-        byte[][] array1 = new byte[2][2];
-        byte[][] array2 = new byte[2][2];
+        final byte[][] array1 = new byte[2][2];
+        final byte[][] array2 = new byte[2][2];
         for (byte i = 0; i < array1.length; ++i) {
             for (byte j = 0; j < array1[0].length; j++) {
                 array1[i][j] = i;
@@ -686,8 +686,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testMultiFloatArray() {
-        float[][] array1 = new float[2][2];
-        float[][] array2 = new float[2][2];
+        final float[][] array1 = new float[2][2];
+        final float[][] array2 = new float[2][2];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
                 array1[i][j] = (i + 1) * (j + 1);
@@ -702,8 +702,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testMultiDoubleArray() {
-        double[][] array1 = new double[2][2];
-        double[][] array2 = new double[2][2];
+        final double[][] array1 = new double[2][2];
+        final double[][] array2 = new double[2][2];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
                 array1[i][j] = (i + 1) * (j + 1);
@@ -718,8 +718,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testMultiBooleanArray() {
-        boolean[][] array1 = new boolean[2][2];
-        boolean[][] array2 = new boolean[2][2];
+        final boolean[][] array1 = new boolean[2][2];
+        final boolean[][] array2 = new boolean[2][2];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
                 array1[i][j] = i == 1 || j == 1;
@@ -732,7 +732,7 @@ public class EqualsBuilderTest {
         assertTrue(!new EqualsBuilder().append(array1, array2).isEquals());
         
         // compare 1 dim to 2.
-        boolean[] array3 = new boolean[]{true, true};
+        final boolean[] array3 = new boolean[]{true, true};
         assertFalse(new EqualsBuilder().append(array1, array3).isEquals());
         assertFalse(new EqualsBuilder().append(array3, array1).isEquals());
         assertFalse(new EqualsBuilder().append(array2, array3).isEquals());
@@ -741,8 +741,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testRaggedArray() {
-        long array1[][] = new long[2][];
-        long array2[][] = new long[2][];
+        final long array1[][] = new long[2][];
+        final long array2[][] = new long[2][];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];
@@ -759,8 +759,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testMixedArray() {
-        Object array1[] = new Object[2];
-        Object array2[] = new Object[2];
+        final Object array1[] = new Object[2];
+        final Object array2[] = new Object[2];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];
@@ -777,14 +777,14 @@ public class EqualsBuilderTest {
 
     @Test
     public void testObjectArrayHiddenByObject() {
-        TestObject[] array1 = new TestObject[2];
+        final TestObject[] array1 = new TestObject[2];
         array1[0] = new TestObject(4);
         array1[1] = new TestObject(5);
-        TestObject[] array2 = new TestObject[2];
+        final TestObject[] array2 = new TestObject[2];
         array2[0] = new TestObject(4);
         array2[1] = new TestObject(5);
-        Object obj1 = array1;
-        Object obj2 = array2;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, array1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
@@ -795,14 +795,14 @@ public class EqualsBuilderTest {
 
     @Test
     public void testLongArrayHiddenByObject() {
-        long[] array1 = new long[2];
+        final long[] array1 = new long[2];
         array1[0] = 5L;
         array1[1] = 6L;
-        long[] array2 = new long[2];
+        final long[] array2 = new long[2];
         array2[0] = 5L;
         array2[1] = 6L;
-        Object obj1 = array1;
-        Object obj2 = array2;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, array1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
@@ -813,14 +813,14 @@ public class EqualsBuilderTest {
 
     @Test
     public void testIntArrayHiddenByObject() {
-        int[] array1 = new int[2];
+        final int[] array1 = new int[2];
         array1[0] = 5;
         array1[1] = 6;
-        int[] array2 = new int[2];
+        final int[] array2 = new int[2];
         array2[0] = 5;
         array2[1] = 6;
-        Object obj1 = array1;
-        Object obj2 = array2;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, array1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
@@ -831,14 +831,14 @@ public class EqualsBuilderTest {
 
     @Test
     public void testShortArrayHiddenByObject() {
-        short[] array1 = new short[2];
+        final short[] array1 = new short[2];
         array1[0] = 5;
         array1[1] = 6;
-        short[] array2 = new short[2];
+        final short[] array2 = new short[2];
         array2[0] = 5;
         array2[1] = 6;
-        Object obj1 = array1;
-        Object obj2 = array2;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, array1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
@@ -849,14 +849,14 @@ public class EqualsBuilderTest {
 
     @Test
     public void testCharArrayHiddenByObject() {
-        char[] array1 = new char[2];
+        final char[] array1 = new char[2];
         array1[0] = 5;
         array1[1] = 6;
-        char[] array2 = new char[2];
+        final char[] array2 = new char[2];
         array2[0] = 5;
         array2[1] = 6;
-        Object obj1 = array1;
-        Object obj2 = array2;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, array1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
@@ -867,14 +867,14 @@ public class EqualsBuilderTest {
 
     @Test
     public void testByteArrayHiddenByObject() {
-        byte[] array1 = new byte[2];
+        final byte[] array1 = new byte[2];
         array1[0] = 5;
         array1[1] = 6;
-        byte[] array2 = new byte[2];
+        final byte[] array2 = new byte[2];
         array2[0] = 5;
         array2[1] = 6;
-        Object obj1 = array1;
-        Object obj2 = array2;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, array1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
@@ -885,14 +885,14 @@ public class EqualsBuilderTest {
 
     @Test
     public void testDoubleArrayHiddenByObject() {
-        double[] array1 = new double[2];
+        final double[] array1 = new double[2];
         array1[0] = 5;
         array1[1] = 6;
-        double[] array2 = new double[2];
+        final double[] array2 = new double[2];
         array2[0] = 5;
         array2[1] = 6;
-        Object obj1 = array1;
-        Object obj2 = array2;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, array1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
@@ -903,14 +903,14 @@ public class EqualsBuilderTest {
 
     @Test
     public void testFloatArrayHiddenByObject() {
-        float[] array1 = new float[2];
+        final float[] array1 = new float[2];
         array1[0] = 5;
         array1[1] = 6;
-        float[] array2 = new float[2];
+        final float[] array2 = new float[2];
         array2[0] = 5;
         array2[1] = 6;
-        Object obj1 = array1;
-        Object obj2 = array2;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, array1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
@@ -921,14 +921,14 @@ public class EqualsBuilderTest {
 
     @Test
     public void testBooleanArrayHiddenByObject() {
-        boolean[] array1 = new boolean[2];
+        final boolean[] array1 = new boolean[2];
         array1[0] = true;
         array1[1] = false;
-        boolean[] array2 = new boolean[2];
+        final boolean[] array2 = new boolean[2];
         array2[0] = true;
         array2[1] = false;
-        Object obj1 = array1;
-        Object obj2 = array2;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, array1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
@@ -1006,8 +1006,8 @@ public class EqualsBuilderTest {
      */
     @Test
     public void testUnrelatedClasses() {
-        Object[] x = new Object[]{new TestACanEqualB(1)};
-        Object[] y = new Object[]{new TestBCanEqualA(1)};
+        final Object[] x = new Object[]{new TestACanEqualB(1)};
+        final Object[] y = new Object[]{new TestBCanEqualA(1)};
 
         // sanity checks:
         assertTrue(Arrays.equals(x, x));
@@ -1030,8 +1030,8 @@ public class EqualsBuilderTest {
      */
     @Test
     public void testNpeForNullElement() {
-        Object[] x1 = new Object[] { Integer.valueOf(1), null, Integer.valueOf(3) };
-        Object[] x2 = new Object[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) };
+        final Object[] x1 = new Object[] { Integer.valueOf(1), null, Integer.valueOf(3) };
+        final Object[] x2 = new Object[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) };
 
         // causes an NPE in 2.0 according to:
         // http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
@@ -1040,8 +1040,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testReflectionEqualsExcludeFields() throws Exception {
-        TestObjectWithMultipleFields x1 = new TestObjectWithMultipleFields(1, 2, 3);
-        TestObjectWithMultipleFields x2 = new TestObjectWithMultipleFields(1, 3, 4);
+        final TestObjectWithMultipleFields x1 = new TestObjectWithMultipleFields(1, 2, 3);
+        final TestObjectWithMultipleFields x2 = new TestObjectWithMultipleFields(1, 3, 4);
 
         // not equal when including all fields
         assertTrue(!EqualsBuilder.reflectionEquals(x1, x2));
@@ -1084,18 +1084,18 @@ public class EqualsBuilderTest {
      */
     @Test
     public void testCyclicalObjectReferences() {
-        TestObjectReference refX1 = new TestObjectReference(1);
-        TestObjectReference x1 = new TestObjectReference(1);
+        final TestObjectReference refX1 = new TestObjectReference(1);
+        final TestObjectReference x1 = new TestObjectReference(1);
         x1.setObjectReference(refX1);
         refX1.setObjectReference(x1);
 
-        TestObjectReference refX2 = new TestObjectReference(1);
-        TestObjectReference x2 = new TestObjectReference(1);
+        final TestObjectReference refX2 = new TestObjectReference(1);
+        final TestObjectReference x2 = new TestObjectReference(1);
         x2.setObjectReference(refX2);
         refX2.setObjectReference(x2);
 
-        TestObjectReference refX3 = new TestObjectReference(2);
-        TestObjectReference x3 = new TestObjectReference(2);
+        final TestObjectReference refX3 = new TestObjectReference(2);
+        final TestObjectReference x3 = new TestObjectReference(2);
         x3.setObjectReference(refX3);
         refX3.setObjectReference(x3);
 

@@ -184,7 +184,7 @@ public class LocaleUtils {
      * @return the unmodifiable list of Locale objects, 0 being locale, not null
      */
     public static List<Locale> localeLookupList(final Locale locale, final Locale defaultLocale) {
-        List<Locale> list = new ArrayList<Locale>(4);
+        final List<Locale> list = new ArrayList<Locale>(4);
         if (locale != null) {
             list.add(locale);
             if (locale.getVariant().length() > 0) {
@@ -256,9 +256,9 @@ public class LocaleUtils {
         List<Locale> langs = cLanguagesByCountry.get(countryCode);
         if (langs == null) {
             langs = new ArrayList<Locale>();
-            List<Locale> locales = availableLocaleList();
+            final List<Locale> locales = availableLocaleList();
             for (int i = 0; i < locales.size(); i++) {
-                Locale locale = locales.get(i);
+                final Locale locale = locales.get(i);
                 if (countryCode.equals(locale.getCountry()) &&
                         locale.getVariant().isEmpty()) {
                     langs.add(locale);
@@ -288,9 +288,9 @@ public class LocaleUtils {
         List<Locale> countries = cCountriesByLanguage.get(languageCode);
         if (countries == null) {
             countries = new ArrayList<Locale>();
-            List<Locale> locales = availableLocaleList();
+            final List<Locale> locales = availableLocaleList();
             for (int i = 0; i < locales.size(); i++) {
-                Locale locale = locales.get(i);
+                final Locale locale = locales.get(i);
                 if (languageCode.equals(locale.getLanguage()) &&
                         locale.getCountry().length() != 0 &&
                         locale.getVariant().isEmpty()) {
@@ -313,7 +313,7 @@ public class LocaleUtils {
         private static final Set<Locale> AVAILABLE_LOCALE_SET;
         
         static {
-            List<Locale> list = new ArrayList<Locale>(Arrays.asList(Locale.getAvailableLocales()));  // extra safe
+            final List<Locale> list = new ArrayList<Locale>(Arrays.asList(Locale.getAvailableLocales()));  // extra safe
             AVAILABLE_LOCALE_LIST = Collections.unmodifiableList(list);
             AVAILABLE_LOCALE_SET = Collections.unmodifiableSet(new HashSet<Locale>(list));
         }

@@ -33,11 +33,11 @@ public class BackgroundInitializerTest {
      */
     private void checkInitialize(final BackgroundInitializerTestImpl init) {
         try {
-            Integer result = init.get();
+            final Integer result = init.get();
             assertEquals("Wrong result", 1, result.intValue());
             assertEquals("Wrong number of invocations", 1, init.initializeCalls);
             assertNotNull("No future", init.getFuture());
-        } catch (ConcurrentException cex) {
+        } catch (final ConcurrentException cex) {
             fail("Unexpected exception: " + cex);
         }
     }
@@ -47,7 +47,7 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testInitialize() {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         checkInitialize(init);
     }
@@ -58,7 +58,7 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testGetActiveExecutorBeforeStart() {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertNull("Got an executor", init.getActiveExecutor());
     }
 
@@ -67,9 +67,9 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testGetActiveExecutorExternal() {
-        ExecutorService exec = Executors.newSingleThreadExecutor();
+        final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
-            BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl(
+            final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl(
                     exec);
             init.start();
             assertSame("Wrong executor", exec, init.getActiveExecutor());
@@ -84,7 +84,7 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testGetActiveExecutorTemp() {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         assertNotNull("No active executor", init.getActiveExecutor());
         checkInitialize(init);
@@ -96,7 +96,7 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testInitializeTempExecutor() {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertTrue("Wrong result of start()", init.start());
         checkInitialize(init);
         assertTrue("Executor not shutdown", init.getActiveExecutor()
@@ -109,9 +109,9 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testSetExternalExecutor() throws Exception {
-        ExecutorService exec = Executors.newCachedThreadPool();
+        final ExecutorService exec = Executors.newCachedThreadPool();
         try {
-            BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+            final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
             init.setExternalExecutor(exec);
             assertEquals("Wrong executor service", exec, init
                     .getExternalExecutor());
@@ -129,12 +129,12 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testSetExternalExecutorAfterStart() throws ConcurrentException {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         try {
             init.setExternalExecutor(Executors.newSingleThreadExecutor());
             fail("Could set executor after start()!");
-        } catch (IllegalStateException istex) {
+        } catch (final IllegalStateException istex) {
             init.get();
         }
     }
@@ -145,7 +145,7 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testStartMultipleTimes() {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertTrue("Wrong result for start()", init.start());
         for (int i = 0; i < 10; i++) {
             assertFalse("Could start again", init.start());
@@ -158,7 +158,7 @@ public class BackgroundInitializerTest {
      */
     @Test(expected=IllegalStateException.class)
     public void testGetBeforeStart() throws ConcurrentException {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.get();
     }
 
@@ -168,14 +168,14 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testGetRuntimeException() throws Exception {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
-        RuntimeException rex = new RuntimeException();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final RuntimeException rex = new RuntimeException();
         init.ex = rex;
         init.start();
         try {
             init.get();
             fail("Exception not thrown!");
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             assertEquals("Runtime exception not thrown", rex, ex);
         }
     }
@@ -186,14 +186,14 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testGetCheckedException() throws Exception {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
-        Exception ex = new Exception();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final Exception ex = new Exception();
         init.ex = ex;
         init.start();
         try {
             init.get();
             fail("Exception not thrown!");
-        } catch (ConcurrentException cex) {
+        } catch (final ConcurrentException cex) {
             assertEquals("Exception not thrown", ex, cex.getCause());
         }
     }
@@ -203,19 +203,19 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testGetInterruptedException() throws Exception {
-        ExecutorService exec = Executors.newSingleThreadExecutor();
+        final ExecutorService exec = Executors.newSingleThreadExecutor();
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl(
                 exec);
         final CountDownLatch latch1 = new CountDownLatch(1);
         init.shouldSleep = true;
         init.start();
         final AtomicReference<InterruptedException> iex = new AtomicReference<InterruptedException>();
-        Thread getThread = new Thread() {
+        final Thread getThread = new Thread() {
             @Override
             public void run() {
                 try {
                     init.get();
-                } catch (ConcurrentException cex) {
+                } catch (final ConcurrentException cex) {
                     if (cex.getCause() instanceof InterruptedException) {
                         iex.set((InterruptedException) cex.getCause());
                     }
@@ -238,7 +238,7 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testIsStartedFalse() {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertFalse("Already started", init.isStarted());
     }
 
@@ -247,7 +247,7 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testIsStartedTrue() {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         assertTrue("Not started", init.isStarted());
     }
@@ -257,7 +257,7 @@ public class BackgroundInitializerTest {
      */
     @Test
     public void testIsStartedAfterGet() {
-        BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         checkInitialize(init);
         assertTrue("Not started", init.isStarted());

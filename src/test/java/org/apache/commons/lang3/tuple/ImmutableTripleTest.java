@@ -36,14 +36,14 @@ public class ImmutableTripleTest {
 
     @Test
     public void testBasic() throws Exception {
-        ImmutableTriple<Integer, String, Boolean> triple = new ImmutableTriple<Integer, String, Boolean>(0, "foo", Boolean.TRUE);
+        final ImmutableTriple<Integer, String, Boolean> triple = new ImmutableTriple<Integer, String, Boolean>(0, "foo", Boolean.TRUE);
         assertEquals(0, triple.left.intValue());
         assertEquals(0, triple.getLeft().intValue());
         assertEquals("foo", triple.middle);
         assertEquals("foo", triple.getMiddle());
         assertEquals(Boolean.TRUE, triple.right);
         assertEquals(Boolean.TRUE, triple.getRight());
-        ImmutableTriple<Object, String, Integer> triple2 = new ImmutableTriple<Object, String, Integer>(null, "bar", 42);
+        final ImmutableTriple<Object, String, Integer> triple2 = new ImmutableTriple<Object, String, Integer>(null, "bar", 42);
         assertNull(triple2.left);
         assertNull(triple2.getLeft());
         assertEquals("bar", triple2.middle);
@@ -54,14 +54,14 @@ public class ImmutableTripleTest {
 
     @Test
     public void testTripleOf() throws Exception {
-        ImmutableTriple<Integer, String, Boolean> triple = ImmutableTriple.of(0, "foo", Boolean.FALSE);
+        final ImmutableTriple<Integer, String, Boolean> triple = ImmutableTriple.of(0, "foo", Boolean.FALSE);
         assertEquals(0, triple.left.intValue());
         assertEquals(0, triple.getLeft().intValue());
         assertEquals("foo", triple.middle);
         assertEquals("foo", triple.getMiddle());
         assertEquals(Boolean.FALSE, triple.right);
         assertEquals(Boolean.FALSE, triple.getRight());
-        ImmutableTriple<Object, String, Boolean> triple2 = ImmutableTriple.of(null, "bar", Boolean.TRUE);
+        final ImmutableTriple<Object, String, Boolean> triple2 = ImmutableTriple.of(null, "bar", Boolean.TRUE);
         assertNull(triple2.left);
         assertNull(triple2.getLeft());
         assertEquals("bar", triple2.middle);
@@ -76,7 +76,7 @@ public class ImmutableTripleTest {
         assertFalse(ImmutableTriple.of("foo", 0, Boolean.TRUE).equals(ImmutableTriple.of("foo", null, null)));
         assertFalse(ImmutableTriple.of("foo", "bar", "baz").equals(ImmutableTriple.of("xyz", "bar", "blo")));
 
-        ImmutableTriple<String, String, String> p = ImmutableTriple.of("foo", "bar", "baz");
+        final ImmutableTriple<String, String, String> p = ImmutableTriple.of("foo", "bar", "baz");
         assertTrue(p.equals(p));
         assertFalse(p.equals(new Object()));
     }
@@ -100,11 +100,11 @@ public class ImmutableTripleTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() throws Exception {
-        ImmutableTriple<Integer, String, Boolean> origTriple = ImmutableTriple.of(0, "foo", Boolean.TRUE);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(baos);
+        final ImmutableTriple<Integer, String, Boolean> origTriple = ImmutableTriple.of(0, "foo", Boolean.TRUE);
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ObjectOutputStream out = new ObjectOutputStream(baos);
         out.writeObject(origTriple);
-        ImmutableTriple<Integer, String, Boolean> deserializedTriple = (ImmutableTriple<Integer, String, Boolean>) new ObjectInputStream(
+        final ImmutableTriple<Integer, String, Boolean> deserializedTriple = (ImmutableTriple<Integer, String, Boolean>) new ObjectInputStream(
                 new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origTriple, deserializedTriple);
         assertEquals(origTriple.hashCode(), deserializedTriple.hashCode());

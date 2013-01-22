@@ -97,7 +97,7 @@ public class CharEncoding {
         }
         try {
             return Charset.isSupported(name);
-        } catch (IllegalCharsetNameException ex) {
+        } catch (final IllegalCharsetNameException ex) {
             return false;
         }
     }

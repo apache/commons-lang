@@ -42,7 +42,7 @@ public class SystemUtilsTest {
     @Test
     public void testConstructor() {
         assertNotNull(new SystemUtils());
-        Constructor<?>[] cons = SystemUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = SystemUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(SystemUtils.class.getModifiers()));
@@ -54,7 +54,7 @@ public class SystemUtilsTest {
      */
     @Test
     public void testGetJavaHome() {
-        File dir = SystemUtils.getJavaHome();
+        final File dir = SystemUtils.getJavaHome();
         Assert.assertNotNull(dir);
         Assert.assertTrue(dir.exists());
     }
@@ -64,7 +64,7 @@ public class SystemUtilsTest {
      */
     @Test
     public void testGetJavaIoTmpDir() {
-        File dir = SystemUtils.getJavaIoTmpDir();
+        final File dir = SystemUtils.getJavaIoTmpDir();
         Assert.assertNotNull(dir);
         Assert.assertTrue(dir.exists());
     }
@@ -74,7 +74,7 @@ public class SystemUtilsTest {
      */
     @Test
     public void testGetUserDir() {
-        File dir = SystemUtils.getUserDir();
+        final File dir = SystemUtils.getUserDir();
         Assert.assertNotNull(dir);
         Assert.assertTrue(dir.exists());
     }
@@ -84,14 +84,14 @@ public class SystemUtilsTest {
      */
     @Test
     public void testGetUserHome() {
-        File dir = SystemUtils.getUserHome();
+        final File dir = SystemUtils.getUserHome();
         Assert.assertNotNull(dir);
         Assert.assertTrue(dir.exists());
     }
 
     @Test
     public void testIS_JAVA() {
-        String javaVersion = System.getProperty("java.version");
+        final String javaVersion = System.getProperty("java.version");
         if (javaVersion == null) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -155,7 +155,7 @@ public class SystemUtilsTest {
 
     @Test
     public void testIS_OS() {
-        String osName = System.getProperty("os.name");
+        final String osName = System.getProperty("os.name");
         if (osName == null) {
             assertFalse(SystemUtils.IS_OS_WINDOWS);
             assertFalse(SystemUtils.IS_OS_UNIX);
@@ -356,12 +356,12 @@ public class SystemUtilsTest {
 
     @Test
     public void testJavaAwtHeadless() {
-        boolean atLeastJava14 = SystemUtils.isJavaVersionAtLeast(JAVA_1_4);
-        String expectedStringValue = System.getProperty("java.awt.headless");
-        String expectedStringValueWithDefault = System.getProperty("java.awt.headless", "false");
+        final boolean atLeastJava14 = SystemUtils.isJavaVersionAtLeast(JAVA_1_4);
+        final String expectedStringValue = System.getProperty("java.awt.headless");
+        final String expectedStringValueWithDefault = System.getProperty("java.awt.headless", "false");
         assertNotNull(expectedStringValueWithDefault);
         if (atLeastJava14) {
-            boolean expectedValue = Boolean.valueOf(expectedStringValue).booleanValue();
+            final boolean expectedValue = Boolean.valueOf(expectedStringValue).booleanValue();
             if (expectedStringValue != null) {
                 assertEquals(expectedStringValue, SystemUtils.JAVA_AWT_HEADLESS);
             }

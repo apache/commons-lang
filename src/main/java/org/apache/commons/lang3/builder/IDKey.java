@@ -64,7 +64,7 @@ final class IDKey {
             if (!(other instanceof IDKey)) {
                 return false;
             }
-            IDKey idKey = (IDKey) other;
+            final IDKey idKey = (IDKey) other;
             if (id != idKey.id) {
                 return false;
             }

@@ -39,7 +39,7 @@ public class CharSequenceUtilsTest {
     @Test
     public void testConstructor() {
         assertNotNull(new CharSequenceUtils());
-        Constructor<?>[] cons = CharSequenceUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = CharSequenceUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(CharSequenceUtils.class.getModifiers()));
@@ -69,13 +69,13 @@ public class CharSequenceUtilsTest {
         try {
             Assert.assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
             Assert.fail("Expected " + IndexOutOfBoundsException.class.getName());
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // Expected
         }
         try {
             Assert.assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
             Assert.fail("Expected " + IndexOutOfBoundsException.class.getName());
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // Expected
         }
     }

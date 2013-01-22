@@ -123,7 +123,7 @@ public class NumberUtils {
         }
         try {
             return Integer.parseInt(str);
-        } catch (NumberFormatException nfe) {
+        } catch (final NumberFormatException nfe) {
             return defaultValue;
         }
     }
@@ -172,7 +172,7 @@ public class NumberUtils {
         }
         try {
             return Long.parseLong(str);
-        } catch (NumberFormatException nfe) {
+        } catch (final NumberFormatException nfe) {
             return defaultValue;
         }
     }
@@ -224,7 +224,7 @@ public class NumberUtils {
       }     
       try {
           return Float.parseFloat(str);
-      } catch (NumberFormatException nfe) {
+      } catch (final NumberFormatException nfe) {
           return defaultValue;
       }
     }
@@ -276,7 +276,7 @@ public class NumberUtils {
       }
       try {
           return Double.parseDouble(str);
-      } catch (NumberFormatException nfe) {
+      } catch (final NumberFormatException nfe) {
           return defaultValue;
       }
     }
@@ -326,7 +326,7 @@ public class NumberUtils {
         }
         try {
             return Byte.parseByte(str);
-        } catch (NumberFormatException nfe) {
+        } catch (final NumberFormatException nfe) {
             return defaultValue;
         }
     }
@@ -375,7 +375,7 @@ public class NumberUtils {
         }
         try {
             return Short.parseShort(str);
-        } catch (NumberFormatException nfe) {
+        } catch (final NumberFormatException nfe) {
             return defaultValue;
         }
     }
@@ -453,14 +453,14 @@ public class NumberUtils {
         // Need to deal with all possible hex prefixes here
         final String[] hex_prefixes = {"0x", "0X", "-0x", "-0X", "#", "-#"};
         int pfxLen = 0;
-        for(String pfx : hex_prefixes) {
+        for(final String pfx : hex_prefixes) {
             if (str.startsWith(pfx)) {
                 pfxLen += pfx.length();
                 break;
             }
         }
         if (pfxLen > 0) {
-            int hexDigits = str.length() - pfxLen;
+            final int hexDigits = str.length() - pfxLen;
             if (hexDigits > 16) { // too many for Long
                 return createBigInteger(str);
             }
@@ -469,12 +469,12 @@ public class NumberUtils {
             }
             return createInteger(str);
         }
-        char lastChar = str.charAt(str.length() - 1);
+        final char lastChar = str.charAt(str.length() - 1);
         String mant;
         String dec;
         String exp;
-        int decPos = str.indexOf('.');
-        int expPos = str.indexOf('e') + str.indexOf('E') + 1;
+        final int decPos = str.indexOf('.');
+        final int expPos = str.indexOf('e') + str.indexOf('E') + 1;
 
         if (decPos > -1) {
 
@@ -505,8 +505,8 @@ public class NumberUtils {
                 exp = null;
             }
             //Requesting a specific type..
-            String numeric = str.substring(0, str.length() - 1);
-            boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
+            final String numeric = str.substring(0, str.length() - 1);
+            final boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
             switch (lastChar) {
                 case 'l' :
                 case 'L' :
@@ -515,7 +515,7 @@ public class NumberUtils {
                         && (numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
                         try {
                             return createLong(numeric);
-                        } catch (NumberFormatException nfe) { // NOPMD
+                        } catch (final NumberFormatException nfe) { // NOPMD
                             // Too big for a long
                         }
                         return createBigInteger(numeric);
@@ -525,30 +525,30 @@ public class NumberUtils {
                 case 'f' :
                 case 'F' :
                     try {
-                        Float f = NumberUtils.createFloat(numeric);
+                        final Float f = NumberUtils.createFloat(numeric);
                         if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
                             //If it's too big for a float or the float value = 0 and the string
                             //has non-zeros in it, then float does not have the precision we want
                             return f;
                         }
 
-                    } catch (NumberFormatException nfe) { // NOPMD
+                    } catch (final NumberFormatException nfe) { // NOPMD
                         // ignore the bad number
                     }
                     //$FALL-THROUGH$
                 case 'd' :
                 case 'D' :
                     try {
-                        Double d = NumberUtils.createDouble(numeric);
+                        final Double d = NumberUtils.createDouble(numeric);
                         if (!(d.isInfinite() || (d.floatValue() == 0.0D && !allZeros))) {
                             return d;
                         }
-                    } catch (NumberFormatException nfe) { // NOPMD
+                    } catch (final NumberFormatException nfe) { // NOPMD
                         // ignore the bad number
                     }
                     try {
                         return createBigDecimal(numeric);
-                    } catch (NumberFormatException e) { // NOPMD
+                    } catch (final NumberFormatException e) { // NOPMD
                         // ignore the bad number
                     }
                     //$FALL-THROUGH$
@@ -568,33 +568,33 @@ public class NumberUtils {
                 //Must be an int,long,bigint
                 try {
                     return createInteger(str);
-                } catch (NumberFormatException nfe) { // NOPMD
+                } catch (final NumberFormatException nfe) { // NOPMD
                     // ignore the bad number
                 }
                 try {
                     return createLong(str);
-                } catch (NumberFormatException nfe) { // NOPMD
+                } catch (final NumberFormatException nfe) { // NOPMD
                     // ignore the bad number
                 }
                 return createBigInteger(str);
 
             } else {
                 //Must be a float,double,BigDec
-                boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
+                final boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
                 try {
-                    Float f = createFloat(str);
+                    final Float f = createFloat(str);
                     if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
                         return f;
                     }
-                } catch (NumberFormatException nfe) { // NOPMD
+                } catch (final NumberFormatException nfe) { // NOPMD
                     // ignore the bad number
                 }
                 try {
-                    Double d = createDouble(str);
+                    final Double d = createDouble(str);
                     if (!(d.isInfinite() || (d.doubleValue() == 0.0D && !allZeros))) {
                         return d;
                     }
-                } catch (NumberFormatException nfe) { // NOPMD
+                } catch (final NumberFormatException nfe) { // NOPMD
                     // ignore the bad number
                 }
 
@@ -1311,14 +1311,14 @@ public class NumberUtils {
         if (StringUtils.isEmpty(str)) {
             return false;
         }
-        char[] chars = str.toCharArray();
+        final char[] chars = str.toCharArray();
         int sz = chars.length;
         boolean hasExp = false;
         boolean hasDecPoint = false;
         boolean allowSigns = false;
         boolean foundDigit = false;
         // deal with any possible sign up front
-        int start = (chars[0] == '-') ? 1 : 0;
+        final int start = (chars[0] == '-') ? 1 : 0;
         if (sz > start + 1 && chars[start] == '0' && chars[start + 1] == 'x') {
             int i = start + 2;
             if (i == sz) {

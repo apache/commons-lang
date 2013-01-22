@@ -284,7 +284,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      */
     @Override
     public int hashCode() {
-        long bits = Double.doubleToLongBits(value);
+        final long bits = Double.doubleToLongBits(value);
         return (int) (bits ^ bits >>> 32);
     }
 
@@ -297,7 +297,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      */
     @Override
     public int compareTo(final MutableDouble other) {
-        double anotherVal = other.value;
+        final double anotherVal = other.value;
         return Double.compare(value, anotherVal);
     }
 

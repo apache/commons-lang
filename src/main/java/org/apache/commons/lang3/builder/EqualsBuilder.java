@@ -132,8 +132,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return the pair
      */
     static Pair<IDKey, IDKey> getRegisterPair(final Object lhs, final Object rhs) {
-        IDKey left = new IDKey(lhs);
-        IDKey right = new IDKey(rhs);
+        final IDKey left = new IDKey(lhs);
+        final IDKey right = new IDKey(rhs);
         return Pair.of(left, right);
     }
 
@@ -151,9 +151,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @since 3.0
      */
     static boolean isRegistered(final Object lhs, final Object rhs) {
-        Set<Pair<IDKey, IDKey>> registry = getRegistry();
-        Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
-        Pair<IDKey, IDKey> swappedPair = Pair.of(pair.getLeft(), pair.getRight());
+        final Set<Pair<IDKey, IDKey>> registry = getRegistry();
+        final Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
+        final Pair<IDKey, IDKey> swappedPair = Pair.of(pair.getLeft(), pair.getRight());
 
         return registry != null
                 && (registry.contains(pair) || registry.contains(swappedPair));
@@ -175,8 +175,8 @@ public class EqualsBuilder implements Builder<Boolean> {
             }
         }
 
-        Set<Pair<IDKey, IDKey>> registry = getRegistry();
-        Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
+        final Set<Pair<IDKey, IDKey>> registry = getRegistry();
+        final Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
         registry.add(pair);
     }
 
@@ -195,7 +195,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     static void unregister(final Object lhs, final Object rhs) {
         Set<Pair<IDKey, IDKey>> registry = getRegistry();
         if (registry != null) {
-            Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
+            final Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
             registry.remove(pair);
             synchronized (EqualsBuilder.class) {
                 //read again
@@ -333,8 +333,8 @@ public class EqualsBuilder implements Builder<Boolean> {
         // class or in classes between the leaf and root.
         // If we are not testing transients or a subclass has no ivars,
         // then a subclass can test equals to a superclass.
-        Class<?> lhsClass = lhs.getClass();
-        Class<?> rhsClass = rhs.getClass();
+        final Class<?> lhsClass = lhs.getClass();
+        final Class<?> rhsClass = rhs.getClass();
         Class<?> testClass;
         if (lhsClass.isInstance(rhs)) {
             testClass = lhsClass;
@@ -352,14 +352,14 @@ public class EqualsBuilder implements Builder<Boolean> {
             // The two classes are not related.
             return false;
         }
-        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        final EqualsBuilder equalsBuilder = new EqualsBuilder();
         try {
             reflectionAppend(lhs, rhs, testClass, equalsBuilder, testTransients, excludeFields);
             while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
                 testClass = testClass.getSuperclass();
                 reflectionAppend(lhs, rhs, testClass, equalsBuilder, testTransients, excludeFields);
             }
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // In this case, we tried to test a subclass vs. a superclass and
             // the subclass has ivars or the ivars are transient and
             // we are testing transients.
@@ -395,17 +395,17 @@ public class EqualsBuilder implements Builder<Boolean> {
 
         try {
             register(lhs, rhs);
-            Field[] fields = clazz.getDeclaredFields();
+            final Field[] fields = clazz.getDeclaredFields();
             AccessibleObject.setAccessible(fields, true);
             for (int i = 0; i < fields.length && builder.isEquals; i++) {
-                Field f = fields[i];
+                final Field f = fields[i];
                 if (!ArrayUtils.contains(excludeFields, f.getName())
                     && (f.getName().indexOf('$') == -1)
                     && (useTransients || !Modifier.isTransient(f.getModifiers()))
                     && (!Modifier.isStatic(f.getModifiers()))) {
                     try {
                         builder.append(f.get(lhs), f.get(rhs));
-                    } catch (IllegalAccessException e) {
+                    } catch (final IllegalAccessException e) {
                         //this can't happen. Would get a Security exception instead
                         //throw a runtime exception in case the impossible happens.
                         throw new InternalError("Unexpected IllegalAccessException");
@@ -455,7 +455,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             this.setEquals(false);
             return this;
         }
-        Class<?> lhsClass = lhs.getClass();
+        final Class<?> lhsClass = lhs.getClass();
         if (!lhsClass.isArray()) {
             // The simple case, not an array, just test the element
             isEquals = lhs.equals(rhs);
