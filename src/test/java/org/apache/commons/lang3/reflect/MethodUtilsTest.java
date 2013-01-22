@@ -185,18 +185,18 @@ public class MethodUtilsTest {
             MethodUtils
                     .invokeExactMethod(testBean, "foo", NumberUtils.BYTE_ONE);
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
         }
         try {
             MethodUtils
                     .invokeExactMethod(testBean, "foo", NumberUtils.LONG_ONE);
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
         }
         try {
             MethodUtils.invokeExactMethod(testBean, "foo", Boolean.TRUE);
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
         }
     }
 
@@ -226,7 +226,7 @@ public class MethodUtilsTest {
         try {
             MethodUtils.invokeStaticMethod(TestBean.class, "does_not_exist");
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
         }
     }
 
@@ -252,28 +252,28 @@ public class MethodUtilsTest {
             MethodUtils.invokeExactStaticMethod(TestBean.class, "bar",
                     NumberUtils.BYTE_ONE);
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
         }
         try {
             MethodUtils.invokeExactStaticMethod(TestBean.class, "bar",
                     NumberUtils.LONG_ONE);
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
         }
         try {
             MethodUtils.invokeExactStaticMethod(TestBean.class, "bar",
                     Boolean.TRUE);
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
         }
     }
 
     @Test
     public void testGetAccessibleInterfaceMethod() throws Exception {
-        Class<?>[][] p = { ArrayUtils.EMPTY_CLASS_ARRAY, null };
-        for (Class<?>[] element : p) {
-            Method method = TestMutable.class.getMethod("getValue", element);
-            Method accessibleMethod = MethodUtils.getAccessibleMethod(method);
+        final Class<?>[][] p = { ArrayUtils.EMPTY_CLASS_ARRAY, null };
+        for (final Class<?>[] element : p) {
+            final Method method = TestMutable.class.getMethod("getValue", element);
+            final Method accessibleMethod = MethodUtils.getAccessibleMethod(method);
             assertNotSame(accessibleMethod, method);
             assertSame(Mutable.class, accessibleMethod.getDeclaringClass());
         }
@@ -281,18 +281,18 @@ public class MethodUtilsTest {
     
     @Test
     public void testGetAccessibleMethodPrivateInterface() throws Exception {
-        Method expected = TestBeanWithInterfaces.class.getMethod("foo");
+        final Method expected = TestBeanWithInterfaces.class.getMethod("foo");
         assertNotNull(expected);
-        Method actual = MethodUtils.getAccessibleMethod(TestBeanWithInterfaces.class, "foo");
+        final Method actual = MethodUtils.getAccessibleMethod(TestBeanWithInterfaces.class, "foo");
         assertNull(actual);
     }
 
     @Test
     public void testGetAccessibleInterfaceMethodFromDescription()
             throws Exception {
-        Class<?>[][] p = { ArrayUtils.EMPTY_CLASS_ARRAY, null };
-        for (Class<?>[] element : p) {
-            Method accessibleMethod = MethodUtils.getAccessibleMethod(
+        final Class<?>[][] p = { ArrayUtils.EMPTY_CLASS_ARRAY, null };
+        for (final Class<?>[] element : p) {
+            final Method accessibleMethod = MethodUtils.getAccessibleMethod(
                     TestMutable.class, "getValue", element);
             assertSame(Mutable.class, accessibleMethod.getDeclaringClass());
         }
@@ -314,8 +314,8 @@ public class MethodUtilsTest {
     
     @Test
    public void testGetAccessibleMethodInaccessible() throws Exception {
-        Method expected = TestBean.class.getDeclaredMethod("privateStuff");
-        Method actual = MethodUtils.getAccessibleMethod(expected);
+        final Method expected = TestBean.class.getDeclaredMethod("privateStuff");
+        final Method actual = MethodUtils.getAccessibleMethod(expected);
         assertNull(actual);
     }
 
@@ -379,7 +379,7 @@ public class MethodUtilsTest {
 
     private void expectMatchingAccessibleMethodParameterTypes(final Class<?> cls,
             final String methodName, final Class<?>[] requestTypes, final Class<?>[] actualTypes) {
-        Method m = MethodUtils.getMatchingAccessibleMethod(cls, methodName,
+        final Method m = MethodUtils.getMatchingAccessibleMethod(cls, methodName,
                 requestTypes);
         assertTrue(toString(m.getParameterTypes()) + " not equals "
                 + toString(actualTypes), Arrays.equals(actualTypes, m

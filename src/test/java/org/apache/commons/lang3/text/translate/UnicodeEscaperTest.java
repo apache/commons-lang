@@ -29,28 +29,28 @@ public class UnicodeEscaperTest  {
 
     @Test
     public void testBelow() {
-        UnicodeEscaper ue = UnicodeEscaper.below('F');
+        final UnicodeEscaper ue = UnicodeEscaper.below('F');
 
-        String input = "ADFGZ";
-        String result = ue.translate(input);
+        final String input = "ADFGZ";
+        final String result = ue.translate(input);
         assertEquals("Failed to escape Unicode characters via the below method", "\\u0041\\u0044FGZ", result);
     }
 
     @Test
     public void testBetween() {
-        UnicodeEscaper ue = UnicodeEscaper.between('F', 'L');
+        final UnicodeEscaper ue = UnicodeEscaper.between('F', 'L');
 
-        String input = "ADFGZ";
-        String result = ue.translate(input);
+        final String input = "ADFGZ";
+        final String result = ue.translate(input);
         assertEquals("Failed to escape Unicode characters via the between method", "AD\\u0046\\u0047Z", result);
     }
 
     @Test
     public void testAbove() {
-        UnicodeEscaper ue = UnicodeEscaper.above('F');
+        final UnicodeEscaper ue = UnicodeEscaper.above('F');
 
-        String input = "ADFGZ";
-        String result = ue.translate(input);
+        final String input = "ADFGZ";
+        final String result = ue.translate(input);
         assertEquals("Failed to escape Unicode characters via the above method", "ADF\\u0047\\u005A", result);
     }
 }

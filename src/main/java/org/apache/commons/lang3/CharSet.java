@@ -140,7 +140,7 @@ public class CharSet implements Serializable {
             return null;
         }
         if (setStrs.length == 1) {
-            CharSet common = COMMON.get(setStrs[0]);
+            final CharSet common = COMMON.get(setStrs[0]);
             if (common != null) {
                 return common;
             }
@@ -158,7 +158,7 @@ public class CharSet implements Serializable {
      */
     protected CharSet(final String... set) {
         super();
-        int sz = set.length;
+        final int sz = set.length;
         for (int i = 0; i < sz; i++) {
             add(set[i]);
         }
@@ -175,10 +175,10 @@ public class CharSet implements Serializable {
             return;
         }
 
-        int len = str.length();
+        final int len = str.length();
         int pos = 0;
         while (pos < len) {
-            int remainder = len - pos;
+            final int remainder = len - pos;
             if (remainder >= 4 && str.charAt(pos) == '^' && str.charAt(pos + 2) == '-') {
                 // negated range
                 set.add(CharRange.isNotIn(str.charAt(pos + 1), str.charAt(pos + 3)));
@@ -221,7 +221,7 @@ public class CharSet implements Serializable {
      * @return {@code true} if the set contains the characters
      */
     public boolean contains(final char ch) {
-        for (CharRange range : set) {
+        for (final CharRange range : set) {
             if (range.contains(ch)) {
                 return true;
             }
@@ -250,7 +250,7 @@ public class CharSet implements Serializable {
         if (obj instanceof CharSet == false) {
             return false;
         }
-        CharSet other = (CharSet) obj;
+        final CharSet other = (CharSet) obj;
         return set.equals(other.set);
     }
 

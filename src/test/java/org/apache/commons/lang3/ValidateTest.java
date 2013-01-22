@@ -51,7 +51,7 @@ public class ValidateTest  {
         try {
             Validate.isTrue(false);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("The validated expression is false", ex.getMessage());
         }
     }
@@ -63,7 +63,7 @@ public class ValidateTest  {
         try {
             Validate.isTrue(false, "MSG");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
     }
@@ -75,7 +75,7 @@ public class ValidateTest  {
         try {
             Validate.isTrue(false, "MSG", 6);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
     }
@@ -87,7 +87,7 @@ public class ValidateTest  {
         try {
             Validate.isTrue(false, "MSG", 7);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
     }
@@ -99,7 +99,7 @@ public class ValidateTest  {
         try {
             Validate.isTrue(false, "MSG", 7.4d);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
     }
@@ -112,12 +112,12 @@ public class ValidateTest  {
         try {
             Validate.notNull(null);
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("The validated object is null", ex.getMessage());
         }
         
-        String str = "Hi";
-        String testStr = Validate.notNull(str);
+        final String str = "Hi";
+        final String testStr = Validate.notNull(str);
         assertSame(str, testStr);
     }
 
@@ -128,12 +128,12 @@ public class ValidateTest  {
         try {
             Validate.notNull(null, "MSG");
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         
-        String str = "Hi";
-        String testStr = Validate.notNull(str, "Message");
+        final String str = "Hi";
+        final String testStr = Validate.notNull(str, "Message");
         assertSame(str, testStr);
     }
 
@@ -145,18 +145,18 @@ public class ValidateTest  {
         try {
             Validate.notEmpty((Object[]) null);
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("The validated array is empty", ex.getMessage());
         }
         try {
             Validate.notEmpty(new Object[0]);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("The validated array is empty", ex.getMessage());
         }
         
-        String[] array = new String[] {"hi"};
-        String[] test = Validate.notEmpty(array);
+        final String[] array = new String[] {"hi"};
+        final String[] test = Validate.notEmpty(array);
         assertSame(array, test);
     }
 
@@ -167,18 +167,18 @@ public class ValidateTest  {
         try {
             Validate.notEmpty((Object[]) null, "MSG");
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         try {
             Validate.notEmpty(new Object[0], "MSG");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         
-        String[] array = new String[] {"hi"};
-        String[] test = Validate.notEmpty(array, "Message");
+        final String[] array = new String[] {"hi"};
+        final String[] test = Validate.notEmpty(array, "Message");
         assertSame(array, test);
     }
 
@@ -186,46 +186,46 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNotEmptyCollection1() {
-        Collection<Integer> coll = new ArrayList<Integer>();
+        final Collection<Integer> coll = new ArrayList<Integer>();
         try {
             Validate.notEmpty((Collection<?>) null);
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("The validated collection is empty", ex.getMessage());
         }
         try {
             Validate.notEmpty(coll);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("The validated collection is empty", ex.getMessage());
         }
         coll.add(Integer.valueOf(8));
         Validate.notEmpty(coll);
         
-        Collection<Integer> test = Validate.notEmpty(coll);
+        final Collection<Integer> test = Validate.notEmpty(coll);
         assertSame(coll, test);
     }
 
     //-----------------------------------------------------------------------
     @Test
     public void testNotEmptyCollection2() {
-        Collection<Integer> coll = new ArrayList<Integer>();
+        final Collection<Integer> coll = new ArrayList<Integer>();
         try {
             Validate.notEmpty((Collection<?>) null, "MSG");
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         try {
             Validate.notEmpty(coll, "MSG");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         coll.add(Integer.valueOf(8));
         Validate.notEmpty(coll, "MSG");
         
-        Collection<Integer> test = Validate.notEmpty(coll, "Message");
+        final Collection<Integer> test = Validate.notEmpty(coll, "Message");
         assertSame(coll, test);
     }
 
@@ -233,46 +233,46 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNotEmptyMap1() {
-        Map<String, Integer> map = new HashMap<String, Integer>();
+        final Map<String, Integer> map = new HashMap<String, Integer>();
         try {
             Validate.notEmpty((Map<?, ?>) null);
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("The validated map is empty", ex.getMessage());
         }
         try {
             Validate.notEmpty(map);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("The validated map is empty", ex.getMessage());
         }
         map.put("ll", Integer.valueOf(8));
         Validate.notEmpty(map);
         
-        Map<String, Integer> test = Validate.notEmpty(map);
+        final Map<String, Integer> test = Validate.notEmpty(map);
         assertSame(map, test);
     }
 
     //-----------------------------------------------------------------------
     @Test
     public void testNotEmptyMap2() {
-        Map<String, Integer> map = new HashMap<String, Integer>();
+        final Map<String, Integer> map = new HashMap<String, Integer>();
         try {
             Validate.notEmpty((Map<?, ?>) null, "MSG");
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         try {
             Validate.notEmpty(map, "MSG");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         map.put("ll", Integer.valueOf(8));
         Validate.notEmpty(map, "MSG");
         
-        Map<String, Integer> test = Validate.notEmpty(map, "Message");
+        final Map<String, Integer> test = Validate.notEmpty(map, "Message");
         assertSame(map, test);
     }
 
@@ -284,18 +284,18 @@ public class ValidateTest  {
         try {
             Validate.notEmpty((String) null);
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("The validated character sequence is empty", ex.getMessage());
         }
         try {
             Validate.notEmpty("");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("The validated character sequence is empty", ex.getMessage());
         }
         
-        String str = "Hi";
-        String testStr = Validate.notEmpty(str);
+        final String str = "Hi";
+        final String testStr = Validate.notEmpty(str);
         assertSame(str, testStr);
     }
 
@@ -306,18 +306,18 @@ public class ValidateTest  {
         try {
             Validate.notEmpty((String) null, "MSG");
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         try {
             Validate.notEmpty("", "MSG");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         
-        String str = "Hi";
-        String testStr = Validate.notEmpty(str, "Message");
+        final String str = "Hi";
+        final String testStr = Validate.notEmpty(str, "Message");
         assertSame(str, testStr);
     }
 
@@ -326,13 +326,13 @@ public class ValidateTest  {
     @Test
     public void testNotBlankNullStringShouldThrow() {
         //given
-        String string = null;
+        final String string = null;
 
         try {
             //when
             Validate.notBlank(string);
             fail("Expecting NullPointerException");
-        } catch (NullPointerException e) {
+        } catch (final NullPointerException e) {
             //then
             assertEquals("The validated character sequence is blank", e.getMessage());
         }
@@ -342,13 +342,13 @@ public class ValidateTest  {
     @Test
     public void testNotBlankMsgNullStringShouldThrow() {
         //given
-        String string = null;
+        final String string = null;
 
         try {
             //when
             Validate.notBlank(string, "Message");
             fail("Expecting NullPointerException");
-        } catch (NullPointerException e) {
+        } catch (final NullPointerException e) {
             //then
             assertEquals("Message", e.getMessage());
         }
@@ -358,13 +358,13 @@ public class ValidateTest  {
     @Test
     public void testNotBlankEmptyStringShouldThrow() {
         //given
-        String string = "";
+        final String string = "";
 
         try {
             //when
             Validate.notBlank(string);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             //then
             assertEquals("The validated character sequence is blank", e.getMessage());
         }
@@ -374,13 +374,13 @@ public class ValidateTest  {
     @Test
     public void testNotBlankBlankStringWithWhitespacesShouldThrow() {
         //given
-        String string = "   ";
+        final String string = "   ";
 
         try {
             //when
             Validate.notBlank(string);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             //then
             assertEquals("The validated character sequence is blank", e.getMessage());
         }
@@ -390,13 +390,13 @@ public class ValidateTest  {
     @Test
     public void testNotBlankBlankStringWithNewlinesShouldThrow() {
         //given
-        String string = " \n \t \r \n ";
+        final String string = " \n \t \r \n ";
 
         try {
             //when
             Validate.notBlank(string);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             //then
             assertEquals("The validated character sequence is blank", e.getMessage());
         }
@@ -406,13 +406,13 @@ public class ValidateTest  {
     @Test
     public void testNotBlankMsgBlankStringShouldThrow() {
         //given
-        String string = " \n \t \r \n ";
+        final String string = " \n \t \r \n ";
 
         try {
             //when
             Validate.notBlank(string, "Message");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             //then
             assertEquals("Message", e.getMessage());
         }
@@ -422,13 +422,13 @@ public class ValidateTest  {
     @Test
     public void testNotBlankMsgBlankStringWithWhitespacesShouldThrow() {
         //given
-        String string = "   ";
+        final String string = "   ";
 
         try {
             //when
             Validate.notBlank(string, "Message");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             //then
             assertEquals("Message", e.getMessage());
         }
@@ -438,13 +438,13 @@ public class ValidateTest  {
     @Test
     public void testNotBlankMsgEmptyStringShouldThrow() {
         //given
-        String string = "";
+        final String string = "";
 
         try {
             //when
             Validate.notBlank(string, "Message");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             //then
             assertEquals("Message", e.getMessage());
         }
@@ -454,7 +454,7 @@ public class ValidateTest  {
     @Test
     public void testNotBlankNotBlankStringShouldNotThrow() {
         //given
-        String string = "abc";
+        final String string = "abc";
 
         //when
         Validate.notBlank(string);
@@ -466,7 +466,7 @@ public class ValidateTest  {
     @Test
     public void testNotBlankNotBlankStringWithWhitespacesShouldNotThrow() {
         //given
-        String string = "  abc   ";
+        final String string = "  abc   ";
 
         //when
         Validate.notBlank(string);
@@ -478,7 +478,7 @@ public class ValidateTest  {
     @Test
     public void testNotBlankNotBlankStringWithNewlinesShouldNotThrow() {
         //given
-        String string = " \n \t abc \r \n ";
+        final String string = " \n \t abc \r \n ";
 
         //when
         Validate.notBlank(string);
@@ -490,7 +490,7 @@ public class ValidateTest  {
     @Test
     public void testNotBlankMsgNotBlankStringShouldNotThrow() {
         //given
-        String string = "abc";
+        final String string = "abc";
 
         //when
         Validate.notBlank(string, "Message");
@@ -502,7 +502,7 @@ public class ValidateTest  {
     @Test
     public void testNotBlankMsgNotBlankStringWithWhitespacesShouldNotThrow() {
         //given
-        String string = "  abc   ";
+        final String string = "  abc   ";
 
         //when
         Validate.notBlank(string, "Message");
@@ -514,7 +514,7 @@ public class ValidateTest  {
     @Test
     public void testNotBlankMsgNotBlankStringWithNewlinesShouldNotThrow() {
         //given
-        String string = " \n \t abc \r \n ";
+        final String string = " \n \t abc \r \n ";
 
         //when
         Validate.notBlank(string, "Message");
@@ -525,15 +525,15 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNotBlankReturnValues1() {
-        String str = "Hi";
-        String test = Validate.notBlank(str);
+        final String str = "Hi";
+        final String test = Validate.notBlank(str);
         assertSame(str, test);
     }
 
     @Test
     public void testNotBlankReturnValues2() {
-        String str = "Hi";
-        String test = Validate.notBlank(str, "Message");
+        final String str = "Hi";
+        final String test = Validate.notBlank(str, "Message");
         assertSame(str, test);
     }
 
@@ -546,19 +546,19 @@ public class ValidateTest  {
         try {
             Validate.noNullElements((Object[]) null);
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("The validated object is null", ex.getMessage());
         }
         array[1] = null;
         try {
             Validate.noNullElements(array);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("The validated array contains null element at index: 1", ex.getMessage());
         }
         
         array = new String[] {"a", "b"};
-        String[] test = Validate.noNullElements(array);
+        final String[] test = Validate.noNullElements(array);
         assertSame(array, test);
     }
 
@@ -570,19 +570,19 @@ public class ValidateTest  {
         try {
             Validate.noNullElements((Object[]) null, "MSG");
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("The validated object is null", ex.getMessage());
         }
         array[1] = null;
         try {
             Validate.noNullElements(array, "MSG");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         
         array = new String[] {"a", "b"};
-        String[] test = Validate.noNullElements(array, "Message");
+        final String[] test = Validate.noNullElements(array, "Message");
         assertSame(array, test);
     }
 
@@ -590,52 +590,52 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNoNullElementsCollection1() {
-        List<String> coll = new ArrayList<String>();
+        final List<String> coll = new ArrayList<String>();
         coll.add("a");
         coll.add("b");
         Validate.noNullElements(coll);
         try {
             Validate.noNullElements((Collection<?>) null);
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("The validated object is null", ex.getMessage());
         }
         coll.set(1, null);
         try {
             Validate.noNullElements(coll);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("The validated collection contains null element at index: 1", ex.getMessage());
         }
         
         coll.set(1, "b");
-        List<String> test = Validate.noNullElements(coll);
+        final List<String> test = Validate.noNullElements(coll);
         assertSame(coll, test);
     }
 
     //-----------------------------------------------------------------------
     @Test
     public void testNoNullElementsCollection2() {
-        List<String> coll = new ArrayList<String>();
+        final List<String> coll = new ArrayList<String>();
         coll.add("a");
         coll.add("b");
         Validate.noNullElements(coll, "MSG");
         try {
             Validate.noNullElements((Collection<?>) null, "MSG");
             fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             assertEquals("The validated object is null", ex.getMessage());
         }
         coll.set(1, null);
         try {
             Validate.noNullElements(coll, "MSG");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         
         coll.set(1, "b");
-        List<String> test = Validate.noNullElements(coll, "Message");
+        final List<String> test = Validate.noNullElements(coll, "Message");
         assertSame(coll, test);
     }
 
@@ -644,7 +644,7 @@ public class ValidateTest  {
     @Test
     public void testConstructor() {
         assertNotNull(new Validate());
-        Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(Validate.class.getModifiers()));
@@ -655,47 +655,47 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testValidIndex_withMessage_array() {
-        Object[] array = new Object[2];
+        final Object[] array = new Object[2];
         Validate.validIndex(array, 0, "Broken: ");
         Validate.validIndex(array, 1, "Broken: ");
         try {
             Validate.validIndex(array, -1, "Broken: ");
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("Broken: ", ex.getMessage());
         }
         try {
             Validate.validIndex(array, 2, "Broken: ");
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("Broken: ", ex.getMessage());
         }
         
-        String[] strArray = new String[] {"Hi"};
-        String[] test = Validate.noNullElements(strArray, "Message");
+        final String[] strArray = new String[] {"Hi"};
+        final String[] test = Validate.noNullElements(strArray, "Message");
         assertSame(strArray, test);
     }
 
     @Test
     public void testValidIndex_array() {
-        Object[] array = new Object[2];
+        final Object[] array = new Object[2];
         Validate.validIndex(array, 0);
         Validate.validIndex(array, 1);
         try {
             Validate.validIndex(array, -1);
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("The validated array index is invalid: -1", ex.getMessage());
         }
         try {
             Validate.validIndex(array, 2);
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("The validated array index is invalid: 2", ex.getMessage());
         }
         
-        String[] strArray = new String[] {"Hi"};
-        String[] test = Validate.noNullElements(strArray);
+        final String[] strArray = new String[] {"Hi"};
+        final String[] test = Validate.noNullElements(strArray);
         assertSame(strArray, test);
     }
 
@@ -703,7 +703,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testValidIndex_withMessage_collection() {
-        Collection<String> coll = new ArrayList<String>();
+        final Collection<String> coll = new ArrayList<String>();
         coll.add(null);
         coll.add(null);
         Validate.validIndex(coll, 0, "Broken: ");
@@ -711,24 +711,24 @@ public class ValidateTest  {
         try {
             Validate.validIndex(coll, -1, "Broken: ");
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("Broken: ", ex.getMessage());
         }
         try {
             Validate.validIndex(coll, 2, "Broken: ");
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("Broken: ", ex.getMessage());
         }
         
-        List<String> strColl = Arrays.asList(new String[] {"Hi"});
-        List<String> test = Validate.validIndex(strColl, 0, "Message");
+        final List<String> strColl = Arrays.asList(new String[] {"Hi"});
+        final List<String> test = Validate.validIndex(strColl, 0, "Message");
         assertSame(strColl, test);
     }
 
     @Test
     public void testValidIndex_collection() {
-        Collection<String> coll = new ArrayList<String>();
+        final Collection<String> coll = new ArrayList<String>();
         coll.add(null);
         coll.add(null);
         Validate.validIndex(coll, 0);
@@ -736,18 +736,18 @@ public class ValidateTest  {
         try {
             Validate.validIndex(coll, -1);
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("The validated collection index is invalid: -1", ex.getMessage());
         }
         try {
             Validate.validIndex(coll, 2);
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("The validated collection index is invalid: 2", ex.getMessage());
         }
         
-        List<String> strColl = Arrays.asList(new String[] {"Hi"});
-        List<String> test = Validate.validIndex(strColl, 0);
+        final List<String> strColl = Arrays.asList(new String[] {"Hi"});
+        final List<String> test = Validate.validIndex(strColl, 0);
         assertSame(strColl, test);
     }
 
@@ -755,61 +755,61 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testValidIndex_withMessage_charSequence() {
-        CharSequence str = "Hi";
+        final CharSequence str = "Hi";
         Validate.validIndex(str, 0, "Broken: ");
         Validate.validIndex(str, 1, "Broken: ");
         try {
             Validate.validIndex(str, -1, "Broken: ");
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("Broken: ", ex.getMessage());
         }
         try {
             Validate.validIndex(str, 2, "Broken: ");
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("Broken: ", ex.getMessage());
         }
         
-        String input = "Hi";
-        String test = Validate.validIndex(input, 0, "Message");
+        final String input = "Hi";
+        final String test = Validate.validIndex(input, 0, "Message");
         assertSame(input, test);
     }
 
     @Test
     public void testValidIndex_charSequence() {
-        CharSequence str = "Hi";
+        final CharSequence str = "Hi";
         Validate.validIndex(str, 0);
         Validate.validIndex(str, 1);
         try {
             Validate.validIndex(str, -1);
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("The validated character sequence index is invalid: -1", ex.getMessage());
         }
         try {
             Validate.validIndex(str, 2);
             fail("Expecting IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (final IndexOutOfBoundsException ex) {
             assertEquals("The validated character sequence index is invalid: 2", ex.getMessage());
         }
         
-        String input = "Hi";
-        String test = Validate.validIndex(input, 0);
+        final String input = "Hi";
+        final String test = Validate.validIndex(input, 0);
         assertSame(input, test);
     }
     
     @Test
     public void testMatchesPattern()
     {
-        CharSequence str = "hi";
+        final CharSequence str = "hi";
         Validate.matchesPattern(str, "[a-z]*");
         try
         {
             Validate.matchesPattern(str, "[0-9]*");
             fail("Expecting IllegalArgumentException");
         }
-        catch (IllegalArgumentException e)
+        catch (final IllegalArgumentException e)
         {
             assertEquals("The string hi does not match the pattern [0-9]*", e.getMessage());
         }
@@ -818,14 +818,14 @@ public class ValidateTest  {
     @Test
     public void testMatchesPattern_withMessage()
     {
-        CharSequence str = "hi";
+        final CharSequence str = "hi";
         Validate.matchesPattern(str, "[a-z]*", "Does not match");
         try
         {
             Validate.matchesPattern(str, "[0-9]*", "Does not match");
             fail("Expecting IllegalArgumentException");
         }
-        catch (IllegalArgumentException e)
+        catch (final IllegalArgumentException e)
         {
             assertEquals("Does not match", e.getMessage());
         }
@@ -840,7 +840,7 @@ public class ValidateTest  {
         try {
             Validate.inclusiveBetween(0, 5, 6);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("The value 6 is not in the specified inclusive range of 0 to 5", e.getMessage());
         }
     }
@@ -854,7 +854,7 @@ public class ValidateTest  {
         try {
             Validate.inclusiveBetween(0, 5, 6, "Error");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Error", e.getMessage());
         }
     }
@@ -867,13 +867,13 @@ public class ValidateTest  {
         try {
             Validate.exclusiveBetween(0, 5, 6);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("The value 6 is not in the specified exclusive range of 0 to 5", e.getMessage());
         }
         try {
             Validate.exclusiveBetween(0, 5, 5);
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("The value 5 is not in the specified exclusive range of 0 to 5", e.getMessage());
         }
     }
@@ -886,13 +886,13 @@ public class ValidateTest  {
         try {
             Validate.exclusiveBetween(0, 5, 6, "Error");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Error", e.getMessage());
         }
         try {
             Validate.exclusiveBetween(0, 5, 5, "Error");
             fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Error", e.getMessage());
         }
     }
@@ -908,7 +908,7 @@ public class ValidateTest  {
         try {
             Validate.isInstanceOf(List.class, "hi");
             fail("Expecting IllegalArgumentException");
-        } catch(IllegalArgumentException e) {
+        } catch(final IllegalArgumentException e) {
             assertEquals("Expected type: java.util.List, actual: java.lang.String", e.getMessage());
         }
     }
@@ -920,7 +920,7 @@ public class ValidateTest  {
         try {
             Validate.isInstanceOf(List.class, "hi", "Error");
             fail("Expecting IllegalArgumentException");
-        } catch(IllegalArgumentException e) {
+        } catch(final IllegalArgumentException e) {
             assertEquals("Error", e.getMessage());
         }
     }
@@ -936,7 +936,7 @@ public class ValidateTest  {
         try {
             Validate.isAssignableFrom(List.class, String.class);
             fail("Expecting IllegalArgumentException");
-        } catch(IllegalArgumentException e) {
+        } catch(final IllegalArgumentException e) {
             assertEquals("Cannot assign a java.lang.String to a java.util.List", e.getMessage());
         }
     }
@@ -948,7 +948,7 @@ public class ValidateTest  {
         try {
             Validate.isAssignableFrom(List.class, String.class, "Error");
             fail("Expecting IllegalArgumentException");
-        } catch(IllegalArgumentException e) {
+        } catch(final IllegalArgumentException e) {
             assertEquals("Error", e.getMessage());
         }
     }

@@ -125,7 +125,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      */
     @Override
     public String getFormattedExceptionMessage(final String baseMessage){
-        StringBuilder buffer = new StringBuilder(256);
+        final StringBuilder buffer = new StringBuilder(256);
         if (baseMessage != null) {
             buffer.append(baseMessage);
         }
@@ -150,7 +150,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
                     String valueStr;
                     try {
                         valueStr = value.toString();
-                    } catch (Exception e) {
+                    } catch (final Exception e) {
                         valueStr = "Exception thrown on toString(): " + ExceptionUtils.getStackTrace(e);
                     }
                     buffer.append(valueStr);

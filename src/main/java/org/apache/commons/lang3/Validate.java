@@ -506,7 +506,7 @@ public class Validate {
         Validate.notNull(array);
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
-                Object[] values2 = ArrayUtils.add(values, Integer.valueOf(i));
+                final Object[] values2 = ArrayUtils.add(values, Integer.valueOf(i));
                 throw new IllegalArgumentException(String.format(message, values2));
             }
         }
@@ -567,9 +567,9 @@ public class Validate {
     public static <T extends Iterable<?>> T noNullElements(final T iterable, final String message, final Object... values) {
         Validate.notNull(iterable);
         int i = 0;
-        for (Iterator<?> it = iterable.iterator(); it.hasNext(); i++) {
+        for (final Iterator<?> it = iterable.iterator(); it.hasNext(); i++) {
             if (it.next() == null) {
-                Object[] values2 = ArrayUtils.addAll(values, Integer.valueOf(i));
+                final Object[] values2 = ArrayUtils.addAll(values, Integer.valueOf(i));
                 throw new IllegalArgumentException(String.format(message, values2));
             }
         }

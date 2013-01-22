@@ -430,14 +430,14 @@ public class AnnotationUtilsTest {
 
     @Test
     public void testIsValidAnnotationMemberType() {
-        for (Class<?> type : new Class[] { byte.class, short.class, int.class, char.class,
+        for (final Class<?> type : new Class[] { byte.class, short.class, int.class, char.class,
                 long.class, float.class, double.class, boolean.class, String.class, Class.class,
                 NestAnnotation.class, TestAnnotation.class, Stooge.class, ElementType.class }) {
             assertTrue(AnnotationUtils.isValidAnnotationMemberType(type));
             assertTrue(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0)
                     .getClass()));
         }
-        for (Class<?> type : new Class[] { Object.class, Map.class, Collection.class }) {
+        for (final Class<?> type : new Class[] { Object.class, Map.class, Collection.class }) {
             assertFalse(AnnotationUtils.isValidAnnotationMemberType(type));
             assertFalse(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0)
                     .getClass()));
@@ -449,7 +449,7 @@ public class AnnotationUtilsTest {
         final Test real = getClass().getDeclaredMethod(
                 "testGeneratedAnnotationEquivalentToRealAnnotation").getAnnotation(Test.class);
 
-        InvocationHandler generatedTestInvocationHandler = new InvocationHandler() {
+        final InvocationHandler generatedTestInvocationHandler = new InvocationHandler() {
 
             @Override
             public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
@@ -466,7 +466,7 @@ public class AnnotationUtilsTest {
             }
         };
 
-        Test generated = (Test) Proxy.newProxyInstance(Thread.currentThread()
+        final Test generated = (Test) Proxy.newProxyInstance(Thread.currentThread()
                 .getContextClassLoader(), new Class[] { Test.class },
                 generatedTestInvocationHandler);
         assertTrue(real.equals(generated));
@@ -474,7 +474,7 @@ public class AnnotationUtilsTest {
         assertTrue(AnnotationUtils.equals(generated, real));
         assertTrue(AnnotationUtils.equals(real, generated));
 
-        Test generated2 = (Test) Proxy.newProxyInstance(Thread.currentThread()
+        final Test generated2 = (Test) Proxy.newProxyInstance(Thread.currentThread()
                 .getContextClassLoader(), new Class[] { Test.class },
                 generatedTestInvocationHandler);
         assertFalse(generated.equals(generated2));
@@ -497,7 +497,7 @@ public class AnnotationUtilsTest {
     public void testToString() throws Exception {
         final Test testAnno = getClass().getDeclaredMethod("testToString")
                 .getAnnotation(Test.class);
-        String toString = AnnotationUtils.toString(testAnno);
+        final String toString = AnnotationUtils.toString(testAnno);
         assertTrue(toString.startsWith("@org.junit.Test("));
         assertTrue(toString.endsWith(")"));
         assertTrue(toString.contains("expected=class org.junit.Test$None"));

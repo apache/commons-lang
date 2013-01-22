@@ -210,7 +210,7 @@ public class TimedSemaphore {
             executorService = service;
             ownExecutor = false;
         } else {
-            ScheduledThreadPoolExecutor s = new ScheduledThreadPoolExecutor(
+            final ScheduledThreadPoolExecutor s = new ScheduledThreadPoolExecutor(
                     THREAD_POOL_SIZE);
             s.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
             s.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);

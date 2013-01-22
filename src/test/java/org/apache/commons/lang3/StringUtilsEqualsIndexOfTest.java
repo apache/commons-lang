@@ -216,11 +216,11 @@ public class StringUtilsEqualsIndexOfTest  {
 
     @Test
     public void testContainsIgnoreCase_LocaleIndependence() {
-        Locale orig = Locale.getDefault();
+        final Locale orig = Locale.getDefault();
 
-        Locale[] locales = { Locale.ENGLISH, new Locale("tr"), Locale.getDefault() };
+        final Locale[] locales = { Locale.ENGLISH, new Locale("tr"), Locale.getDefault() };
 
-        String[][] tdata = {
+        final String[][] tdata = {
             { "i", "I" },
             { "I", "i" },
             { "\u03C2", "\u03C3" },
@@ -228,12 +228,12 @@ public class StringUtilsEqualsIndexOfTest  {
             { "\u03A3", "\u03C3" },
         };
 
-        String[][] fdata = {
+        final String[][] fdata = {
             { "\u00DF", "SS" },
         };
 
         try {
-            for (Locale locale : locales) {
+            for (final Locale locale : locales) {
                 Locale.setDefault(locale);
                 for (int j = 0; j < tdata.length; j++) {
                     assertTrue(Locale.getDefault() + ": " + j + " " + tdata[j][0] + " " + tdata[j][1], StringUtils
@@ -286,13 +286,13 @@ public class StringUtilsEqualsIndexOfTest  {
 
     @Test
     public void testContainsNone_CharArray() {
-        String str1 = "a";
-        String str2 = "b";
-        String str3 = "ab.";
-        char[] chars1= {'b'};
-        char[] chars2= {'.'};
-        char[] chars3= {'c', 'd'};
-        char[] emptyChars = new char[0];
+        final String str1 = "a";
+        final String str2 = "b";
+        final String str3 = "ab.";
+        final char[] chars1= {'b'};
+        final char[] chars2= {'.'};
+        final char[] chars3= {'c', 'd'};
+        final char[] emptyChars = new char[0];
         assertTrue(StringUtils.containsNone(null, (char[]) null));
         assertTrue(StringUtils.containsNone("", (char[]) null));
         assertTrue(StringUtils.containsNone(null, emptyChars));
@@ -344,12 +344,12 @@ public class StringUtilsEqualsIndexOfTest  {
 
     @Test
     public void testContainsNone_String() {
-        String str1 = "a";
-        String str2 = "b";
-        String str3 = "ab.";
-        String chars1= "b";
-        String chars2= ".";
-        String chars3= "cd";
+        final String str1 = "a";
+        final String str2 = "b";
+        final String str3 = "ab.";
+        final String chars1= "b";
+        final String chars2= ".";
+        final String chars3= "cd";
         assertTrue(StringUtils.containsNone(null, (String) null));
         assertTrue(StringUtils.containsNone("", (String) null));
         assertTrue(StringUtils.containsNone(null, ""));
@@ -401,13 +401,13 @@ public class StringUtilsEqualsIndexOfTest  {
 
     @Test
     public void testContainsOnly_CharArray() {
-        String str1 = "a";
-        String str2 = "b";
-        String str3 = "ab";
-        char[] chars1= {'b'};
-        char[] chars2= {'a'};
-        char[] chars3= {'a', 'b'};
-        char[] emptyChars = new char[0];
+        final String str1 = "a";
+        final String str2 = "b";
+        final String str3 = "ab";
+        final char[] chars1= {'b'};
+        final char[] chars2= {'a'};
+        final char[] chars3= {'a', 'b'};
+        final char[] emptyChars = new char[0];
         assertFalse(StringUtils.containsOnly(null, (char[]) null));
         assertFalse(StringUtils.containsOnly("", (char[]) null));
         assertFalse(StringUtils.containsOnly(null, emptyChars));
@@ -427,12 +427,12 @@ public class StringUtilsEqualsIndexOfTest  {
 
     @Test
     public void testContainsOnly_String() {
-        String str1 = "a";
-        String str2 = "b";
-        String str3 = "ab";
-        String chars1= "b";
-        String chars2= "a";
-        String chars3= "ab";
+        final String str1 = "a";
+        final String str2 = "b";
+        final String str3 = "ab";
+        final String chars1= "b";
+        final String chars2= "a";
+        final String chars3= "ab";
         assertFalse(StringUtils.containsOnly(null, (String) null));
         assertFalse(StringUtils.containsOnly("", (String) null));
         assertFalse(StringUtils.containsOnly(null, ""));
@@ -492,7 +492,7 @@ public class StringUtilsEqualsIndexOfTest  {
             if (obj == null || !(obj instanceof CustomCharSequence)) {
                 return false;
             }
-            CustomCharSequence other = (CustomCharSequence) obj;
+            final CustomCharSequence other = (CustomCharSequence) obj;
             return seq.equals(other.seq);
         }
 

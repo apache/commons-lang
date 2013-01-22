@@ -48,8 +48,8 @@ public class CallableBackgroundInitializerTest  {
      */
     @Test
     public void testInitExecutor() {
-        ExecutorService exec = Executors.newSingleThreadExecutor();
-        CallableBackgroundInitializer<Integer> init = new CallableBackgroundInitializer<Integer>(
+        final ExecutorService exec = Executors.newSingleThreadExecutor();
+        final CallableBackgroundInitializer<Integer> init = new CallableBackgroundInitializer<Integer>(
                 new TestCallable(), exec);
         assertEquals("Executor not set", exec, init.getExternalExecutor());
     }
@@ -60,7 +60,7 @@ public class CallableBackgroundInitializerTest  {
      */
     @Test(expected=IllegalArgumentException.class)
     public void testInitExecutorNullCallable() {
-        ExecutorService exec = Executors.newSingleThreadExecutor();
+        final ExecutorService exec = Executors.newSingleThreadExecutor();
         new CallableBackgroundInitializer<Integer>(null, exec);
     }
 
@@ -69,8 +69,8 @@ public class CallableBackgroundInitializerTest  {
      */
     @Test
     public void testInitialize() throws Exception {
-        TestCallable call = new TestCallable();
-        CallableBackgroundInitializer<Integer> init = new CallableBackgroundInitializer<Integer>(
+        final TestCallable call = new TestCallable();
+        final CallableBackgroundInitializer<Integer> init = new CallableBackgroundInitializer<Integer>(
                 call);
         assertEquals("Wrong result", RESULT, init.initialize());
         assertEquals("Wrong number of invocations", 1, call.callCount);

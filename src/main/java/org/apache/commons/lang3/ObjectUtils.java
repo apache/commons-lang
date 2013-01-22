@@ -118,7 +118,7 @@ public class ObjectUtils {
      */
     public static <T> T firstNonNull(final T... values) {
         if (values != null) {
-            for (T val : values) {
+            for (final T val : values) {
                 if (val != null) {
                     return val;
                 }
@@ -222,7 +222,7 @@ public class ObjectUtils {
     public static int hashCodeMulti(final Object... objects) {
         int hash = 1;
         if (objects != null) {
-            for (Object object : objects) {
+            for (final Object object : objects) {
                 hash = hash * 31 + ObjectUtils.hashCode(object);
             }
         }
@@ -251,7 +251,7 @@ public class ObjectUtils {
         if (object == null) {
             return null;
         }
-        StringBuffer buffer = new StringBuffer();
+        final StringBuffer buffer = new StringBuffer();
         identityToString(buffer, object);
         return buffer.toString();
     }
@@ -344,7 +344,7 @@ public class ObjectUtils {
     public static <T extends Comparable<? super T>> T min(final T... values) {
         T result = null;
         if (values != null) {
-            for (T value : values) {
+            for (final T value : values) {
                 if (compare(value, result, true) < 0) {
                     result = value;
                 }
@@ -369,7 +369,7 @@ public class ObjectUtils {
     public static <T extends Comparable<? super T>> T max(final T... values) {
         T result = null;
         if (values != null) {
-            for (T value : values) {
+            for (final T value : values) {
                 if (compare(value, result, false) > 0) {
                     result = value;
                 }
@@ -429,9 +429,10 @@ public class ObjectUtils {
     public static <T extends Comparable<? super T>> T median(final T... items) {
         Validate.notEmpty(items);
         Validate.noNullElements(items);
-        TreeSet<T> sort = new TreeSet<T>();
+        final TreeSet<T> sort = new TreeSet<T>();
         Collections.addAll(sort, items);
         @SuppressWarnings("unchecked") //we know all items added were T instances
+        final
         T result = (T) sort.toArray()[(sort.size() - 1) / 2];
         return result;
     }
@@ -451,9 +452,10 @@ public class ObjectUtils {
         Validate.notEmpty(items, "null/empty items");
         Validate.noNullElements(items);
         Validate.notNull(comparator, "null comparator");
-        TreeSet<T> sort = new TreeSet<T>(comparator);
+        final TreeSet<T> sort = new TreeSet<T>(comparator);
         Collections.addAll(sort, items);
         @SuppressWarnings("unchecked") //we know all items added were T instances
+        final
         T result = (T) sort.toArray()[(sort.size() - 1) / 2];
         return result;
     }
@@ -470,9 +472,9 @@ public class ObjectUtils {
      */
     public static <T> T mode(final T... items) {
         if (ArrayUtils.isNotEmpty(items)) {
-            HashMap<T, MutableInt> occurrences = new HashMap<T, MutableInt>(items.length);
-            for (T t : items) {
-                MutableInt count = occurrences.get(t);
+            final HashMap<T, MutableInt> occurrences = new HashMap<T, MutableInt>(items.length);
+            for (final T t : items) {
+                final MutableInt count = occurrences.get(t);
                 if (count == null) {
                     occurrences.put(t, new MutableInt(1));
                 } else {
@@ -481,8 +483,8 @@ public class ObjectUtils {
             }
             T result = null;
             int max = 0;
-            for (Map.Entry<T, MutableInt> e : occurrences.entrySet()) {
-                int cmp = e.getValue().intValue();
+            for (final Map.Entry<T, MutableInt> e : occurrences.entrySet()) {
+                final int cmp = e.getValue().intValue();
                 if (cmp == max) {
                     result = null;
                 } else if (cmp > max) {

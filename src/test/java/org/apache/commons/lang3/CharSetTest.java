@@ -343,12 +343,12 @@ public class CharSetTest  {
     //-----------------------------------------------------------------------    
     @Test
     public void testEquals_Object() {
-        CharSet abc = CharSet.getInstance("abc");
-        CharSet abc2 = CharSet.getInstance("abc");
-        CharSet atoc = CharSet.getInstance("a-c");
-        CharSet atoc2 = CharSet.getInstance("a-c");
-        CharSet notatoc = CharSet.getInstance("^a-c");
-        CharSet notatoc2 = CharSet.getInstance("^a-c");
+        final CharSet abc = CharSet.getInstance("abc");
+        final CharSet abc2 = CharSet.getInstance("abc");
+        final CharSet atoc = CharSet.getInstance("a-c");
+        final CharSet atoc2 = CharSet.getInstance("a-c");
+        final CharSet notatoc = CharSet.getInstance("^a-c");
+        final CharSet notatoc2 = CharSet.getInstance("^a-c");
         
         assertFalse(abc.equals(null));
         
@@ -370,12 +370,12 @@ public class CharSetTest  {
             
     @Test
     public void testHashCode() {
-        CharSet abc = CharSet.getInstance("abc");
-        CharSet abc2 = CharSet.getInstance("abc");
-        CharSet atoc = CharSet.getInstance("a-c");
-        CharSet atoc2 = CharSet.getInstance("a-c");
-        CharSet notatoc = CharSet.getInstance("^a-c");
-        CharSet notatoc2 = CharSet.getInstance("^a-c");
+        final CharSet abc = CharSet.getInstance("abc");
+        final CharSet abc2 = CharSet.getInstance("abc");
+        final CharSet atoc = CharSet.getInstance("a-c");
+        final CharSet atoc2 = CharSet.getInstance("a-c");
+        final CharSet notatoc = CharSet.getInstance("^a-c");
+        final CharSet notatoc2 = CharSet.getInstance("^a-c");
         
         assertEquals(abc.hashCode(), abc.hashCode());
         assertEquals(abc.hashCode(), abc2.hashCode());
@@ -388,11 +388,11 @@ public class CharSetTest  {
     //-----------------------------------------------------------------------    
     @Test
     public void testContains_Char() {
-        CharSet btod = CharSet.getInstance("b-d");
-        CharSet dtob = CharSet.getInstance("d-b");
-        CharSet bcd = CharSet.getInstance("bcd");
-        CharSet bd = CharSet.getInstance("bd");
-        CharSet notbtod = CharSet.getInstance("^b-d");
+        final CharSet btod = CharSet.getInstance("b-d");
+        final CharSet dtob = CharSet.getInstance("d-b");
+        final CharSet bcd = CharSet.getInstance("bcd");
+        final CharSet bd = CharSet.getInstance("bd");
+        final CharSet notbtod = CharSet.getInstance("^b-d");
         
         assertFalse(btod.contains('a'));
         assertTrue(btod.contains('b'));
@@ -424,7 +424,7 @@ public class CharSetTest  {
         assertTrue(dtob.contains('d'));
         assertFalse(dtob.contains('e'));
       
-        CharRange[] array = dtob.getCharRanges();
+        final CharRange[] array = dtob.getCharRanges();
         assertEquals("[b-d]", dtob.toString());
         assertEquals(1, array.length);
     }

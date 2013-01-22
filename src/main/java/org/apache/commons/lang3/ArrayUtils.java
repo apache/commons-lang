@@ -237,12 +237,12 @@ public class ArrayUtils {
         }
         final Map<Object, Object> map = new HashMap<Object, Object>((int) (array.length * 1.5));
         for (int i = 0; i < array.length; i++) {
-            Object object = array[i];
+            final Object object = array[i];
             if (object instanceof Map.Entry<?, ?>) {
-                Map.Entry<?,?> entry = (Map.Entry<?,?>) object;
+                final Map.Entry<?,?> entry = (Map.Entry<?,?>) object;
                 map.put(entry.getKey(), entry.getValue());
             } else if (object instanceof Object[]) {
-                Object[] entry = (Object[]) object;
+                final Object[] entry = (Object[]) object;
                 if (entry.length < 2) {
                     throw new IllegalArgumentException("Array element " + i + ", '"
                         + object
@@ -853,14 +853,15 @@ public class ArrayUtils {
         if (endIndexExclusive > array.length) {
             endIndexExclusive = array.length;
         }
-        int newSize = endIndexExclusive - startIndexInclusive;
-        Class<?> type = array.getClass().getComponentType();
+        final int newSize = endIndexExclusive - startIndexInclusive;
+        final Class<?> type = array.getClass().getComponentType();
         if (newSize <= 0) {
             @SuppressWarnings("unchecked") // OK, because array is of type T
             final T[] emptyArray = (T[]) Array.newInstance(type, 0);
             return emptyArray;
         }
         @SuppressWarnings("unchecked") // OK, because array is of type T
+        final
         T[] subarray = (T[]) Array.newInstance(type, newSize);
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
@@ -895,12 +896,12 @@ public class ArrayUtils {
         if (endIndexExclusive > array.length) {
             endIndexExclusive = array.length;
         }
-        int newSize = endIndexExclusive - startIndexInclusive;
+        final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_LONG_ARRAY;
         }
 
-        long[] subarray = new long[newSize];
+        final long[] subarray = new long[newSize];
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
     }
@@ -934,12 +935,12 @@ public class ArrayUtils {
         if (endIndexExclusive > array.length) {
             endIndexExclusive = array.length;
         }
-        int newSize = endIndexExclusive - startIndexInclusive;
+        final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_INT_ARRAY;
         }
 
-        int[] subarray = new int[newSize];
+        final int[] subarray = new int[newSize];
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
     }
@@ -973,12 +974,12 @@ public class ArrayUtils {
         if (endIndexExclusive > array.length) {
             endIndexExclusive = array.length;
         }
-        int newSize = endIndexExclusive - startIndexInclusive;
+        final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_SHORT_ARRAY;
         }
 
-        short[] subarray = new short[newSize];
+        final short[] subarray = new short[newSize];
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
     }
@@ -1012,12 +1013,12 @@ public class ArrayUtils {
         if (endIndexExclusive > array.length) {
             endIndexExclusive = array.length;
         }
-        int newSize = endIndexExclusive - startIndexInclusive;
+        final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_CHAR_ARRAY;
         }
 
-        char[] subarray = new char[newSize];
+        final char[] subarray = new char[newSize];
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
     }
@@ -1051,12 +1052,12 @@ public class ArrayUtils {
         if (endIndexExclusive > array.length) {
             endIndexExclusive = array.length;
         }
-        int newSize = endIndexExclusive - startIndexInclusive;
+        final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_BYTE_ARRAY;
         }
 
-        byte[] subarray = new byte[newSize];
+        final byte[] subarray = new byte[newSize];
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
     }
@@ -1090,12 +1091,12 @@ public class ArrayUtils {
         if (endIndexExclusive > array.length) {
             endIndexExclusive = array.length;
         }
-        int newSize = endIndexExclusive - startIndexInclusive;
+        final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_DOUBLE_ARRAY;
         }
 
-        double[] subarray = new double[newSize];
+        final double[] subarray = new double[newSize];
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
     }
@@ -1129,12 +1130,12 @@ public class ArrayUtils {
         if (endIndexExclusive > array.length) {
             endIndexExclusive = array.length;
         }
-        int newSize = endIndexExclusive - startIndexInclusive;
+        final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_FLOAT_ARRAY;
         }
 
-        float[] subarray = new float[newSize];
+        final float[] subarray = new float[newSize];
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
     }
@@ -1168,12 +1169,12 @@ public class ArrayUtils {
         if (endIndexExclusive > array.length) {
             endIndexExclusive = array.length;
         }
-        int newSize = endIndexExclusive - startIndexInclusive;
+        final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_BOOLEAN_ARRAY;
         }
 
-        boolean[] subarray = new boolean[newSize];
+        final boolean[] subarray = new boolean[newSize];
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
     }
@@ -2327,8 +2328,8 @@ public class ArrayUtils {
         if (startIndex < 0) {
             startIndex = 0;
         }
-        double min = valueToFind - tolerance;
-        double max = valueToFind + tolerance;
+        final double min = valueToFind - tolerance;
+        final double max = valueToFind + tolerance;
         for (int i = startIndex; i < array.length; i++) {
             if (array[i] >= min && array[i] <= max) {
                 return i;
@@ -2425,8 +2426,8 @@ public class ArrayUtils {
         } else if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
-        double min = valueToFind - tolerance;
-        double max = valueToFind + tolerance;
+        final double min = valueToFind - tolerance;
+        final double max = valueToFind + tolerance;
         for (int i = startIndex; i >= 0; i--) {
             if (array[i] >= min && array[i] <= max) {
                 return i;
@@ -2717,7 +2718,7 @@ public class ArrayUtils {
         }
         final char[] result = new char[array.length];
         for (int i = 0; i < array.length; i++) {
-            Character b = array[i];
+            final Character b = array[i];
             result[i] = (b == null ? valueForNull : b.charValue());
         }
         return result;
@@ -2785,7 +2786,7 @@ public class ArrayUtils {
         }
         final long[] result = new long[array.length];
         for (int i = 0; i < array.length; i++) {
-            Long b = array[i];
+            final Long b = array[i];
             result[i] = (b == null ? valueForNull : b.longValue());
         }
         return result;
@@ -2853,7 +2854,7 @@ public class ArrayUtils {
         }
         final int[] result = new int[array.length];
         for (int i = 0; i < array.length; i++) {
-            Integer b = array[i];
+            final Integer b = array[i];
             result[i] = (b == null ? valueForNull : b.intValue());
         }
         return result;
@@ -2921,7 +2922,7 @@ public class ArrayUtils {
         }
         final short[] result = new short[array.length];
         for (int i = 0; i < array.length; i++) {
-            Short b = array[i];
+            final Short b = array[i];
             result[i] = (b == null ? valueForNull : b.shortValue());
         }
         return result;
@@ -2989,7 +2990,7 @@ public class ArrayUtils {
         }
         final byte[] result = new byte[array.length];
         for (int i = 0; i < array.length; i++) {
-            Byte b = array[i];
+            final Byte b = array[i];
             result[i] = (b == null ? valueForNull : b.byteValue());
         }
         return result;
@@ -3057,7 +3058,7 @@ public class ArrayUtils {
         }
         final double[] result = new double[array.length];
         for (int i = 0; i < array.length; i++) {
-            Double b = array[i];
+            final Double b = array[i];
             result[i] = (b == null ? valueForNull : b.doubleValue());
         }
         return result;
@@ -3125,7 +3126,7 @@ public class ArrayUtils {
         }
         final float[] result = new float[array.length];
         for (int i = 0; i < array.length; i++) {
-            Float b = array[i];
+            final Float b = array[i];
             result[i] = (b == null ? valueForNull : b.floatValue());
         }
         return result;
@@ -3193,7 +3194,7 @@ public class ArrayUtils {
         }
         final boolean[] result = new boolean[array.length];
         for (int i = 0; i < array.length; i++) {
-            Boolean b = array[i];
+            final Boolean b = array[i];
             result[i] = (b == null ? valueForNull : b.booleanValue());
         }
         return result;
@@ -3453,11 +3454,12 @@ public class ArrayUtils {
         }
         final Class<?> type1 = array1.getClass().getComponentType();
         @SuppressWarnings("unchecked") // OK, because array is of type T
+        final
         T[] joinedArray = (T[]) Array.newInstance(type1, array1.length + array2.length);
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         try {
             System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
-        } catch (ArrayStoreException ase) {
+        } catch (final ArrayStoreException ase) {
             // Check if problem was due to incompatible types
             /*
              * We do this here, rather than before the copy because:
@@ -3497,7 +3499,7 @@ public class ArrayUtils {
         } else if (array2 == null) {
             return clone(array1);
         }
-        boolean[] joinedArray = new boolean[array1.length + array2.length];
+        final boolean[] joinedArray = new boolean[array1.length + array2.length];
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
         return joinedArray;
@@ -3526,7 +3528,7 @@ public class ArrayUtils {
         } else if (array2 == null) {
             return clone(array1);
         }
-        char[] joinedArray = new char[array1.length + array2.length];
+        final char[] joinedArray = new char[array1.length + array2.length];
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
         return joinedArray;
@@ -3555,7 +3557,7 @@ public class ArrayUtils {
         } else if (array2 == null) {
             return clone(array1);
         }
-        byte[] joinedArray = new byte[array1.length + array2.length];
+        final byte[] joinedArray = new byte[array1.length + array2.length];
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
         return joinedArray;
@@ -3584,7 +3586,7 @@ public class ArrayUtils {
         } else if (array2 == null) {
             return clone(array1);
         }
-        short[] joinedArray = new short[array1.length + array2.length];
+        final short[] joinedArray = new short[array1.length + array2.length];
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
         return joinedArray;
@@ -3613,7 +3615,7 @@ public class ArrayUtils {
         } else if (array2 == null) {
             return clone(array1);
         }
-        int[] joinedArray = new int[array1.length + array2.length];
+        final int[] joinedArray = new int[array1.length + array2.length];
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
         return joinedArray;
@@ -3642,7 +3644,7 @@ public class ArrayUtils {
         } else if (array2 == null) {
             return clone(array1);
         }
-        long[] joinedArray = new long[array1.length + array2.length];
+        final long[] joinedArray = new long[array1.length + array2.length];
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
         return joinedArray;
@@ -3671,7 +3673,7 @@ public class ArrayUtils {
         } else if (array2 == null) {
             return clone(array1);
         }
-        float[] joinedArray = new float[array1.length + array2.length];
+        final float[] joinedArray = new float[array1.length + array2.length];
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
         return joinedArray;
@@ -3700,7 +3702,7 @@ public class ArrayUtils {
         } else if (array2 == null) {
             return clone(array1);
         }
-        double[] joinedArray = new double[array1.length + array2.length];
+        final double[] joinedArray = new double[array1.length + array2.length];
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
         return joinedArray;
@@ -3745,6 +3747,7 @@ public class ArrayUtils {
             throw new IllegalArgumentException("Arguments cannot both be null");
         }
         @SuppressWarnings("unchecked") // type must be T
+        final
         T[] newArray = (T[]) copyArrayGrow1(array, type);
         newArray[newArray.length - 1] = element;
         return newArray;
@@ -3772,7 +3775,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean[] add(final boolean[] array, final boolean element) {
-        boolean[] newArray = (boolean[])copyArrayGrow1(array, Boolean.TYPE);
+        final boolean[] newArray = (boolean[])copyArrayGrow1(array, Boolean.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3799,7 +3802,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static byte[] add(final byte[] array, final byte element) {
-        byte[] newArray = (byte[])copyArrayGrow1(array, Byte.TYPE);
+        final byte[] newArray = (byte[])copyArrayGrow1(array, Byte.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3826,7 +3829,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static char[] add(final char[] array, final char element) {
-        char[] newArray = (char[])copyArrayGrow1(array, Character.TYPE);
+        final char[] newArray = (char[])copyArrayGrow1(array, Character.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3853,7 +3856,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static double[] add(final double[] array, final double element) {
-        double[] newArray = (double[])copyArrayGrow1(array, Double.TYPE);
+        final double[] newArray = (double[])copyArrayGrow1(array, Double.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3880,7 +3883,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static float[] add(final float[] array, final float element) {
-        float[] newArray = (float[])copyArrayGrow1(array, Float.TYPE);
+        final float[] newArray = (float[])copyArrayGrow1(array, Float.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3907,7 +3910,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static int[] add(final int[] array, final int element) {
-        int[] newArray = (int[])copyArrayGrow1(array, Integer.TYPE);
+        final int[] newArray = (int[])copyArrayGrow1(array, Integer.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3934,7 +3937,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static long[] add(final long[] array, final long element) {
-        long[] newArray = (long[])copyArrayGrow1(array, Long.TYPE);
+        final long[] newArray = (long[])copyArrayGrow1(array, Long.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3961,7 +3964,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static short[] add(final short[] array, final short element) {
-        short[] newArray = (short[])copyArrayGrow1(array, Short.TYPE);
+        final short[] newArray = (short[])copyArrayGrow1(array, Short.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3977,8 +3980,8 @@ public class ArrayUtils {
      */
     private static Object copyArrayGrow1(final Object array, final Class<?> newArrayComponentType) {
         if (array != null) {
-            int arrayLength = Array.getLength(array);
-            Object newArray = Array.newInstance(array.getClass().getComponentType(), arrayLength + 1);
+            final int arrayLength = Array.getLength(array);
+            final Object newArray = Array.newInstance(array.getClass().getComponentType(), arrayLength + 1);
             System.arraycopy(array, 0, newArray, 0, arrayLength);
             return newArray;
         }
@@ -4294,15 +4297,15 @@ public class ArrayUtils {
             if (index != 0) {
                 throw new IndexOutOfBoundsException("Index: " + index + ", Length: 0");
             }
-            Object joinedArray = Array.newInstance(clss, 1);
+            final Object joinedArray = Array.newInstance(clss, 1);
             Array.set(joinedArray, 0, element);
             return joinedArray;
         }
-        int length = Array.getLength(array);
+        final int length = Array.getLength(array);
         if (index > length || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + length);
         }
-        Object result = Array.newInstance(clss, length + 1);
+        final Object result = Array.newInstance(clss, length + 1);
         System.arraycopy(array, 0, result, 0, index);
         Array.set(result, index, element);
         if (index < length) {
@@ -4372,7 +4375,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static <T> T[] removeElement(final T[] array, final Object element) {
-        int index = indexOf(array, element);
+        final int index = indexOf(array, element);
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
@@ -4437,7 +4440,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean[] removeElement(final boolean[] array, final boolean element) {
-        int index = indexOf(array, element);
+        final int index = indexOf(array, element);
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
@@ -4502,7 +4505,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static byte[] removeElement(final byte[] array, final byte element) {
-        int index = indexOf(array, element);
+        final int index = indexOf(array, element);
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
@@ -4567,7 +4570,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static char[] removeElement(final char[] array, final char element) {
-        int index = indexOf(array, element);
+        final int index = indexOf(array, element);
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
@@ -4632,7 +4635,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static double[] removeElement(final double[] array, final double element) {
-        int index = indexOf(array, element);
+        final int index = indexOf(array, element);
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
@@ -4697,7 +4700,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static float[] removeElement(final float[] array, final float element) {
-        int index = indexOf(array, element);
+        final int index = indexOf(array, element);
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
@@ -4762,7 +4765,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static int[] removeElement(final int[] array, final int element) {
-        int index = indexOf(array, element);
+        final int index = indexOf(array, element);
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
@@ -4827,7 +4830,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static long[] removeElement(final long[] array, final long element) {
-        int index = indexOf(array, element);
+        final int index = indexOf(array, element);
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
@@ -4892,7 +4895,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static short[] removeElement(final short[] array, final short element) {
-        int index = indexOf(array, element);
+        final int index = indexOf(array, element);
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
@@ -4921,12 +4924,12 @@ public class ArrayUtils {
      * @since 2.1
      */
     private static Object remove(final Object array, final int index) {
-        int length = getLength(array);
+        final int length = getLength(array);
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + length);
         }
 
-        Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
+        final Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
         System.arraycopy(array, 0, result, 0, index);
         if (index < length - 1) {
             System.arraycopy(array, index + 1, result, index, length - index - 1);
@@ -4998,18 +5001,18 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        HashMap<T, MutableInt> occurrences = new HashMap<T, MutableInt>(values.length);
-        for (T v : values) {
-            MutableInt count = occurrences.get(v);
+        final HashMap<T, MutableInt> occurrences = new HashMap<T, MutableInt>(values.length);
+        for (final T v : values) {
+            final MutableInt count = occurrences.get(v);
             if (count == null) {
                 occurrences.put(v, new MutableInt(1));
             } else {
                 count.increment();
             }
         }
-        BitSet toRemove = new BitSet();
-        for (Map.Entry<T, MutableInt> e : occurrences.entrySet()) {
-            T v = e.getKey();
+        final BitSet toRemove = new BitSet();
+        for (final Map.Entry<T, MutableInt> e : occurrences.entrySet()) {
+            final T v = e.getKey();
             int found = 0;
             for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
                 found = indexOf(array, v, found);
@@ -5020,6 +5023,7 @@ public class ArrayUtils {
             }
         }
         @SuppressWarnings("unchecked") // removeAll() always creates an array of the same type as its input
+        final
         T[] result = (T[]) removeAll(array, toRemove);
         return result;
     }
@@ -5088,19 +5092,19 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        HashMap<Byte, MutableInt> occurrences = new HashMap<Byte, MutableInt>(values.length);
-        for (byte v : values) {
-            Byte boxed = Byte.valueOf(v);
-            MutableInt count = occurrences.get(boxed);
+        final HashMap<Byte, MutableInt> occurrences = new HashMap<Byte, MutableInt>(values.length);
+        for (final byte v : values) {
+            final Byte boxed = Byte.valueOf(v);
+            final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
             } else {
                 count.increment();
             }
         }
-        BitSet toRemove = new BitSet();
-        for (Map.Entry<Byte, MutableInt> e : occurrences.entrySet()) {
-            Byte v = e.getKey();
+        final BitSet toRemove = new BitSet();
+        for (final Map.Entry<Byte, MutableInt> e : occurrences.entrySet()) {
+            final Byte v = e.getKey();
             int found = 0;
             for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
                 found = indexOf(array, v.byteValue(), found);
@@ -5177,19 +5181,19 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        HashMap<Short, MutableInt> occurrences = new HashMap<Short, MutableInt>(values.length);
-        for (short v : values) {
-            Short boxed = Short.valueOf(v);
-            MutableInt count = occurrences.get(boxed);
+        final HashMap<Short, MutableInt> occurrences = new HashMap<Short, MutableInt>(values.length);
+        for (final short v : values) {
+            final Short boxed = Short.valueOf(v);
+            final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
             } else {
                 count.increment();
             }
         }
-        BitSet toRemove = new BitSet();
-        for (Map.Entry<Short, MutableInt> e : occurrences.entrySet()) {
-            Short v = e.getKey();
+        final BitSet toRemove = new BitSet();
+        for (final Map.Entry<Short, MutableInt> e : occurrences.entrySet()) {
+            final Short v = e.getKey();
             int found = 0;
             for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
                 found = indexOf(array, v.shortValue(), found);
@@ -5266,19 +5270,19 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        HashMap<Integer, MutableInt> occurrences = new HashMap<Integer, MutableInt>(values.length);
-        for (int v : values) {
-            Integer boxed = Integer.valueOf(v);
-            MutableInt count = occurrences.get(boxed);
+        final HashMap<Integer, MutableInt> occurrences = new HashMap<Integer, MutableInt>(values.length);
+        for (final int v : values) {
+            final Integer boxed = Integer.valueOf(v);
+            final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
             } else {
                 count.increment();
             }
         }
-        BitSet toRemove = new BitSet();
-        for (Map.Entry<Integer, MutableInt> e : occurrences.entrySet()) {
-            Integer v = e.getKey();
+        final BitSet toRemove = new BitSet();
+        for (final Map.Entry<Integer, MutableInt> e : occurrences.entrySet()) {
+            final Integer v = e.getKey();
             int found = 0;
             for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
                 found = indexOf(array, v.intValue(), found);
@@ -5355,19 +5359,19 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        HashMap<Character, MutableInt> occurrences = new HashMap<Character, MutableInt>(values.length);
-        for (char v : values) {
-            Character boxed = Character.valueOf(v);
-            MutableInt count = occurrences.get(boxed);
+        final HashMap<Character, MutableInt> occurrences = new HashMap<Character, MutableInt>(values.length);
+        for (final char v : values) {
+            final Character boxed = Character.valueOf(v);
+            final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
             } else {
                 count.increment();
             }
         }
-        BitSet toRemove = new BitSet();
-        for (Map.Entry<Character, MutableInt> e : occurrences.entrySet()) {
-            Character v = e.getKey();
+        final BitSet toRemove = new BitSet();
+        for (final Map.Entry<Character, MutableInt> e : occurrences.entrySet()) {
+            final Character v = e.getKey();
             int found = 0;
             for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
                 found = indexOf(array, v.charValue(), found);
@@ -5444,19 +5448,19 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        HashMap<Long, MutableInt> occurrences = new HashMap<Long, MutableInt>(values.length);
-        for (long v : values) {
-            Long boxed = Long.valueOf(v);
-            MutableInt count = occurrences.get(boxed);
+        final HashMap<Long, MutableInt> occurrences = new HashMap<Long, MutableInt>(values.length);
+        for (final long v : values) {
+            final Long boxed = Long.valueOf(v);
+            final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
             } else {
                 count.increment();
             }
         }
-        BitSet toRemove = new BitSet();
-        for (Map.Entry<Long, MutableInt> e : occurrences.entrySet()) {
-            Long v = e.getKey();
+        final BitSet toRemove = new BitSet();
+        for (final Map.Entry<Long, MutableInt> e : occurrences.entrySet()) {
+            final Long v = e.getKey();
             int found = 0;
             for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
                 found = indexOf(array, v.longValue(), found);
@@ -5533,19 +5537,19 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        HashMap<Float, MutableInt> occurrences = new HashMap<Float, MutableInt>(values.length);
-        for (float v : values) {
-            Float boxed = Float.valueOf(v);
-            MutableInt count = occurrences.get(boxed);
+        final HashMap<Float, MutableInt> occurrences = new HashMap<Float, MutableInt>(values.length);
+        for (final float v : values) {
+            final Float boxed = Float.valueOf(v);
+            final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
             } else {
                 count.increment();
             }
         }
-        BitSet toRemove = new BitSet();
-        for (Map.Entry<Float, MutableInt> e : occurrences.entrySet()) {
-            Float v = e.getKey();
+        final BitSet toRemove = new BitSet();
+        for (final Map.Entry<Float, MutableInt> e : occurrences.entrySet()) {
+            final Float v = e.getKey();
             int found = 0;
             for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
                 found = indexOf(array, v.floatValue(), found);
@@ -5622,19 +5626,19 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        HashMap<Double, MutableInt> occurrences = new HashMap<Double, MutableInt>(values.length);
-        for (double v : values) {
-            Double boxed = Double.valueOf(v);
-            MutableInt count = occurrences.get(boxed);
+        final HashMap<Double, MutableInt> occurrences = new HashMap<Double, MutableInt>(values.length);
+        for (final double v : values) {
+            final Double boxed = Double.valueOf(v);
+            final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
             } else {
                 count.increment();
             }
         }
-        BitSet toRemove = new BitSet();
-        for (Map.Entry<Double, MutableInt> e : occurrences.entrySet()) {
-            Double v = e.getKey();
+        final BitSet toRemove = new BitSet();
+        for (final Map.Entry<Double, MutableInt> e : occurrences.entrySet()) {
+            final Double v = e.getKey();
             int found = 0;
             for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
                 found = indexOf(array, v.doubleValue(), found);
@@ -5707,19 +5711,19 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        HashMap<Boolean, MutableInt> occurrences = new HashMap<Boolean, MutableInt>(2); // only two possible values here
-        for (boolean v : values) {
-            Boolean boxed = Boolean.valueOf(v);
-            MutableInt count = occurrences.get(boxed);
+        final HashMap<Boolean, MutableInt> occurrences = new HashMap<Boolean, MutableInt>(2); // only two possible values here
+        for (final boolean v : values) {
+            final Boolean boxed = Boolean.valueOf(v);
+            final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
             } else {
                 count.increment();
             }
         }
-        BitSet toRemove = new BitSet();
-        for (Map.Entry<Boolean, MutableInt> e : occurrences.entrySet()) {
-            Boolean v = e.getKey();
+        final BitSet toRemove = new BitSet();
+        for (final Map.Entry<Boolean, MutableInt> e : occurrences.entrySet()) {
+            final Boolean v = e.getKey();
             int found = 0;
             for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
                 found = indexOf(array, v.booleanValue(), found);
@@ -5741,7 +5745,7 @@ public class ArrayUtils {
      */
     // package protected for access by unit tests
     static Object removeAll(final Object array, final int... indices) {
-        int length = getLength(array);
+        final int length = getLength(array);
         int diff = 0; // number of distinct indexes, i.e. number of entries that will be removed
 
         if (isNotEmpty(indices)) {
@@ -5750,7 +5754,7 @@ public class ArrayUtils {
             int i = indices.length;
             int prevIndex = length;
             while (--i >= 0) {
-                int index = indices[i];
+                final int index = indices[i];
                 if (index < 0 || index >= length) {
                     throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + length);
                 }
@@ -5761,14 +5765,14 @@ public class ArrayUtils {
                 prevIndex = index;
             }
         }
-        Object result = Array.newInstance(array.getClass().getComponentType(), length - diff);
+        final Object result = Array.newInstance(array.getClass().getComponentType(), length - diff);
         if (diff < length) {
             int end = length; // index just after last copy
             int dest = length - diff; // number of entries so far not copied
             for (int i = indices.length - 1; i >= 0; i--) {
-                int index = indices[i];
+                final int index = indices[i];
                 if (end - index > 1) { // same as (cp > 0)
-                    int cp = end - index - 1;
+                    final int cp = end - index - 1;
                     dest -= cp;
                     System.arraycopy(array, index + 1, result, dest, cp);
                     // Afer this copy, we still have room for dest items.
@@ -5800,7 +5804,7 @@ public class ArrayUtils {
 //            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
 //        }
         final int removals = indices.cardinality(); // true bits are items to remove
-        Object result = Array.newInstance(array.getClass().getComponentType(), srcLength - removals);
+        final Object result = Array.newInstance(array.getClass().getComponentType(), srcLength - removals);
         int srcIndex=0;
         int destIndex=0;
         int count;

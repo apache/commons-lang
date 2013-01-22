@@ -49,8 +49,8 @@ public class HashSetvBitSetTest {
      * @return bitSet - HashSet
      */
     private long printTimes(final int count) {
-        long hashSet = timeHashSet(count);
-        long bitSet = timeBitSet(count);
+        final long hashSet = timeHashSet(count);
+        final long bitSet = timeBitSet(count);
         // If percent is less than 100, then bitset is faster
         System.out.println("Ratio="+(bitSet*100/hashSet)+"% count="+count+" hash="+hashSet+" bits="+bitSet);
         return bitSet - hashSet;
@@ -58,29 +58,29 @@ public class HashSetvBitSetTest {
 
     private static long timeHashSet(final int count) {
         int [] result = new int[0];
-        long start = System.nanoTime();
+        final long start = System.nanoTime();
         for (int i = 0; i < LOOPS; i++) {
             result = testHashSet(count);
         }
-        long elapsed = System.nanoTime() - start;
+        final long elapsed = System.nanoTime() - start;
         Assert.assertEquals(count, result.length);
         return elapsed;
     }
 
     private static long timeBitSet(final int count) {
         int [] result = new int[0];
-        long start = System.nanoTime();
+        final long start = System.nanoTime();
         for (int i = 0; i < LOOPS; i++) {
             result = testBitSet(count);
         }
-        long elapsed = System.nanoTime() - start;
+        final long elapsed = System.nanoTime() - start;
         Assert.assertEquals(count, result.length);
         return elapsed;
     }
 
     @SuppressWarnings("boxing")
     private static int[] testHashSet(final int count) {
-        HashSet<Integer> toRemove = new HashSet<Integer>();
+        final HashSet<Integer> toRemove = new HashSet<Integer>();
             int found = 0;
             for (int i = 0; i < count; i++) {
                 toRemove.add(found++);
@@ -89,7 +89,7 @@ public class HashSetvBitSetTest {
         }
     
     private static int[] testBitSet(final int count) {
-        BitSet toRemove = new BitSet();
+        final BitSet toRemove = new BitSet();
         int found = 0;
         for (int i = 0; i < count; i++) {
             toRemove.set(found++);
@@ -99,16 +99,16 @@ public class HashSetvBitSetTest {
     
 
     private static int[] extractIndices(final HashSet<Integer> coll) {
-        int[] result = new int[coll.size()];
+        final int[] result = new int[coll.size()];
         int i = 0;
-        for (Integer index : coll) {
+        for (final Integer index : coll) {
             result[i++] = index.intValue();
         }
         return result;
     }
 
     private static int[] extractIndices(final BitSet coll) {
-        int[] result = new int[coll.cardinality()];
+        final int[] result = new int[coll.cardinality()];
         int i = 0;
         int j=0;
         while((j=coll.nextSetBit(j)) != -1) {
@@ -136,13 +136,13 @@ public class HashSetvBitSetTest {
     }
 
     private long printTimes(final int arraySize, final int bitSetSize) {
-        int[] array = new int[arraySize];
-        BitSet remove = new BitSet();
+        final int[] array = new int[arraySize];
+        final BitSet remove = new BitSet();
         for (int i = 0; i < bitSetSize; i++) {
             remove.set(i);
         }
-        long bitSet = timeBitSetRemoveAll(array, remove );
-        long extract = timeExtractRemoveAll(array, remove);
+        final long bitSet = timeBitSetRemoveAll(array, remove );
+        final long extract = timeExtractRemoveAll(array, remove);
         // If percent is less than 100, then direct use of bitset is faster
         System.out.println("Ratio="+(bitSet*100/extract)+"% array="+array.length+" count="+remove.cardinality()+" extract="+extract+" bitset="+bitSet);
         return bitSet - extract;
@@ -150,23 +150,23 @@ public class HashSetvBitSetTest {
 
     private long timeBitSetRemoveAll(final int[] array, final BitSet toRemove) {
         int[] output = new int[0];
-        long start = System.nanoTime();
+        final long start = System.nanoTime();
         for(int i = 0; i < LOOPS2; i++){
             output = (int[]) ArrayUtils.removeAll(array, toRemove);            
         }
-        long end = System.nanoTime();
+        final long end = System.nanoTime();
         Assert.assertEquals(array.length-toRemove.cardinality(), output.length);
         return end - start;
     }
     
     private long timeExtractRemoveAll(final int[] array, final BitSet toRemove) {
         int[] output = new int[0];
-        long start = System.nanoTime();
+        final long start = System.nanoTime();
         for(int i = 0; i < LOOPS2; i++){
             final int[] extractIndices = extractIndices(toRemove);
             output = (int[]) ArrayUtils.removeAll((Object)array, extractIndices);
         }
-        long end = System.nanoTime();
+        final long end = System.nanoTime();
         Assert.assertEquals(array.length-toRemove.cardinality(), output.length);
         return end - start;
     }

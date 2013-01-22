@@ -64,8 +64,8 @@ public class ExceptionUtilsTest {
         nested = new NestableException(withoutCause);
         withCause = new ExceptionWithCause(nested);
         jdkNoCause = new NullPointerException();
-        ExceptionWithCause a = new ExceptionWithCause(null);
-        ExceptionWithCause b = new ExceptionWithCause(a);
+        final ExceptionWithCause a = new ExceptionWithCause(null);
+        final ExceptionWithCause b = new ExceptionWithCause(a);
         a.setCause(b);
         cyclicCause = new ExceptionWithCause(a);
     }
@@ -84,7 +84,7 @@ public class ExceptionUtilsTest {
     private Throwable createExceptionWithoutCause() {
         try {
             throw new ExceptionWithoutCause();
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             return t;
         }
     }
@@ -93,10 +93,10 @@ public class ExceptionUtilsTest {
         try {
             try {
                 throw new ExceptionWithCause(createExceptionWithoutCause());
-            } catch (Throwable t) {
+            } catch (final Throwable t) {
                 throw new ExceptionWithCause(t);
             }
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             return t;
         }
     }
@@ -106,7 +106,7 @@ public class ExceptionUtilsTest {
     @Test
     public void testConstructor() {
         assertNotNull(new ExceptionUtils());
-        Constructor<?>[] cons = ExceptionUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = ExceptionUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(ExceptionUtils.class.getModifiers()));
@@ -176,14 +176,14 @@ public class ExceptionUtilsTest {
 
     @Test
     public void testGetThrowables_Throwable_withoutCause() {
-        Throwable[] throwables = ExceptionUtils.getThrowables(withoutCause);
+        final Throwable[] throwables = ExceptionUtils.getThrowables(withoutCause);
         assertEquals(1, throwables.length);
         assertSame(withoutCause, throwables[0]);
     }
 
     @Test
     public void testGetThrowables_Throwable_nested() {
-        Throwable[] throwables = ExceptionUtils.getThrowables(nested);
+        final Throwable[] throwables = ExceptionUtils.getThrowables(nested);
         assertEquals(2, throwables.length);
         assertSame(nested, throwables[0]);
         assertSame(withoutCause, throwables[1]);
@@ -191,7 +191,7 @@ public class ExceptionUtilsTest {
 
     @Test
     public void testGetThrowables_Throwable_withCause() {
-        Throwable[] throwables = ExceptionUtils.getThrowables(withCause);
+        final Throwable[] throwables = ExceptionUtils.getThrowables(withCause);
         assertEquals(3, throwables.length);
         assertSame(withCause, throwables[0]);
         assertSame(nested, throwables[1]);
@@ -200,14 +200,14 @@ public class ExceptionUtilsTest {
 
     @Test
     public void testGetThrowables_Throwable_jdkNoCause() {
-        Throwable[] throwables = ExceptionUtils.getThrowables(jdkNoCause);
+        final Throwable[] throwables = ExceptionUtils.getThrowables(jdkNoCause);
         assertEquals(1, throwables.length);
         assertSame(jdkNoCause, throwables[0]);
     }
 
     @Test
     public void testGetThrowables_Throwable_recursiveCause() {
-        Throwable[] throwables = ExceptionUtils.getThrowables(cyclicCause);
+        final Throwable[] throwables = ExceptionUtils.getThrowables(cyclicCause);
         assertEquals(3, throwables.length);
         assertSame(cyclicCause, throwables[0]);
         assertSame(cyclicCause.getCause(), throwables[1]);
@@ -217,20 +217,20 @@ public class ExceptionUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testGetThrowableList_Throwable_null() {
-        List<?> throwables = ExceptionUtils.getThrowableList(null);
+        final List<?> throwables = ExceptionUtils.getThrowableList(null);
         assertEquals(0, throwables.size());
     }
 
     @Test
     public void testGetThrowableList_Throwable_withoutCause() {
-        List<?> throwables = ExceptionUtils.getThrowableList(withoutCause);
+        final List<?> throwables = ExceptionUtils.getThrowableList(withoutCause);
         assertEquals(1, throwables.size());
         assertSame(withoutCause, throwables.get(0));
     }
 
     @Test
     public void testGetThrowableList_Throwable_nested() {
-        List<?> throwables = ExceptionUtils.getThrowableList(nested);
+        final List<?> throwables = ExceptionUtils.getThrowableList(nested);
         assertEquals(2, throwables.size());
         assertSame(nested, throwables.get(0));
         assertSame(withoutCause, throwables.get(1));
@@ -238,7 +238,7 @@ public class ExceptionUtilsTest {
 
     @Test
     public void testGetThrowableList_Throwable_withCause() {
-        List<?> throwables = ExceptionUtils.getThrowableList(withCause);
+        final List<?> throwables = ExceptionUtils.getThrowableList(withCause);
         assertEquals(3, throwables.size());
         assertSame(withCause, throwables.get(0));
         assertSame(nested, throwables.get(1));
@@ -247,14 +247,14 @@ public class ExceptionUtilsTest {
 
     @Test
     public void testGetThrowableList_Throwable_jdkNoCause() {
-        List<?> throwables = ExceptionUtils.getThrowableList(jdkNoCause);
+        final List<?> throwables = ExceptionUtils.getThrowableList(jdkNoCause);
         assertEquals(1, throwables.size());
         assertSame(jdkNoCause, throwables.get(0));
     }
 
     @Test
     public void testGetThrowableList_Throwable_recursiveCause() {
-        List<?> throwables = ExceptionUtils.getThrowableList(cyclicCause);
+        final List<?> throwables = ExceptionUtils.getThrowableList(cyclicCause);
         assertEquals(3, throwables.size());
         assertSame(cyclicCause, throwables.get(0));
         assertSame(cyclicCause.getCause(), throwables.get(1));
@@ -384,11 +384,11 @@ public class ExceptionUtilsTest {
         try {
             ExceptionUtils.printRootCauseStackTrace(withCause, (PrintStream) null);
             fail();
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
         }
         
         out = new ByteArrayOutputStream(1024);
-        Throwable withCause = createExceptionWithCause();
+        final Throwable withCause = createExceptionWithCause();
         ExceptionUtils.printRootCauseStackTrace(withCause, new PrintStream(out));
         String stackTrace = out.toString();
         assertTrue(stackTrace.indexOf(ExceptionUtils.WRAPPED_MARKER) != -1);
@@ -410,11 +410,11 @@ public class ExceptionUtilsTest {
         try {
             ExceptionUtils.printRootCauseStackTrace(withCause, (PrintWriter) null);
             fail();
-        } catch (IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException ex) {
         }
         
         writer = new StringWriter(1024);
-        Throwable withCause = createExceptionWithCause();
+        final Throwable withCause = createExceptionWithCause();
         ExceptionUtils.printRootCauseStackTrace(withCause, new PrintWriter(writer));
         String stackTrace = writer.toString();
         assertTrue(stackTrace.indexOf(ExceptionUtils.WRAPPED_MARKER) != -1);
@@ -430,10 +430,10 @@ public class ExceptionUtilsTest {
     public void testGetRootCauseStackTrace_Throwable() throws Exception {
         assertEquals(0, ExceptionUtils.getRootCauseStackTrace(null).length);
         
-        Throwable withCause = createExceptionWithCause();
+        final Throwable withCause = createExceptionWithCause();
         String[] stackTrace = ExceptionUtils.getRootCauseStackTrace(withCause);
         boolean match = false;
-        for (String element : stackTrace) {
+        for (final String element : stackTrace) {
             if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
                 match = true;
                 break;
@@ -443,7 +443,7 @@ public class ExceptionUtilsTest {
         
         stackTrace = ExceptionUtils.getRootCauseStackTrace(withoutCause);
         match = false;
-        for (String element : stackTrace) {
+        for (final String element : stackTrace) {
             if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
                 match = true;
                 break;

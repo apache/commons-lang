@@ -54,7 +54,7 @@ public class FieldUtils {
      * @throws IllegalArgumentException if the class or field name is null
      */
     public static Field getField(final Class<?> cls, final String fieldName) {
-        Field field = getField(cls, fieldName, false);
+        final Field field = getField(cls, fieldName, false);
         MemberUtils.setAccessibleWorkaround(field);
         return field;
     }
@@ -94,7 +94,7 @@ public class FieldUtils {
         // check up the superclass hierarchy
         for (Class<?> acls = cls; acls != null; acls = acls.getSuperclass()) {
             try {
-                Field field = acls.getDeclaredField(fieldName);
+                final Field field = acls.getDeclaredField(fieldName);
                 // getDeclaredField checks for non-public scopes as well
                 // and it returns accurate results
                 if (!Modifier.isPublic(field.getModifiers())) {
@@ -105,7 +105,7 @@ public class FieldUtils {
                     }
                 }
                 return field;
-            } catch (NoSuchFieldException ex) { // NOPMD
+            } catch (final NoSuchFieldException ex) { // NOPMD
                 // ignore
             }
         }
@@ -113,15 +113,15 @@ public class FieldUtils {
         // incase there is a public supersuperclass field hidden by a private/package
         // superclass field.
         Field match = null;
-        for (Class<?> class1 : ClassUtils.getAllInterfaces(cls)) {
+        for (final Class<?> class1 : ClassUtils.getAllInterfaces(cls)) {
             try {
-                Field test = ((Class<?>) class1).getField(fieldName);
+                final Field test = ((Class<?>) class1).getField(fieldName);
                 if (match != null) {
                     throw new IllegalArgumentException("Reference to field " + fieldName + " is ambiguous relative to " + cls
                             + "; a matching field exists on two or more implemented interfaces.");
                 }
                 match = test;
-            } catch (NoSuchFieldException ex) { // NOPMD
+            } catch (final NoSuchFieldException ex) { // NOPMD
                 // ignore
             }
         }
@@ -161,7 +161,7 @@ public class FieldUtils {
         }
         try {
             // only consider the specified class by using getDeclaredField()
-            Field field = cls.getDeclaredField(fieldName);
+            final Field field = cls.getDeclaredField(fieldName);
             if (!MemberUtils.isAccessible(field)) {
                 if (forceAccess) {
                     field.setAccessible(true);
@@ -170,7 +170,7 @@ public class FieldUtils {
                 }
             }
             return field;
-        } catch (NoSuchFieldException e) { // NOPMD
+        } catch (final NoSuchFieldException e) { // NOPMD
             // ignore
         }
         return null;
@@ -231,7 +231,7 @@ public class FieldUtils {
      */
     public static Object readStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess)
         throws IllegalAccessException {
-        Field field = getField(cls, fieldName, forceAccess);
+        final Field field = getField(cls, fieldName, forceAccess);
         if (field == null) {
             throw new IllegalArgumentException("Cannot locate field " + fieldName + " on " + cls);
         }
@@ -268,7 +268,7 @@ public class FieldUtils {
      */
     public static Object readDeclaredStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess)
             throws IllegalAccessException {
-        Field field = getDeclaredField(cls, fieldName, forceAccess);
+        final Field field = getDeclaredField(cls, fieldName, forceAccess);
         if (field == null) {
             throw new IllegalArgumentException("Cannot locate declared field " + cls.getName() + "." + fieldName);
         }
@@ -337,8 +337,8 @@ public class FieldUtils {
         if (target == null) {
             throw new IllegalArgumentException("target object must not be null");
         }
-        Class<?> cls = target.getClass();
-        Field field = getField(cls, fieldName, forceAccess);
+        final Class<?> cls = target.getClass();
+        final Field field = getField(cls, fieldName, forceAccess);
         if (field == null) {
             throw new IllegalArgumentException("Cannot locate field " + fieldName + " on " + cls);
         }
@@ -376,8 +376,8 @@ public class FieldUtils {
         if (target == null) {
             throw new IllegalArgumentException("target object must not be null");
         }
-        Class<?> cls = target.getClass();
-        Field field = getDeclaredField(cls, fieldName, forceAccess);
+        final Class<?> cls = target.getClass();
+        final Field field = getDeclaredField(cls, fieldName, forceAccess);
         if (field == null) {
             throw new IllegalArgumentException("Cannot locate declared field " + cls.getName() + "." + fieldName);
         }
@@ -441,7 +441,7 @@ public class FieldUtils {
      */
     public static void writeStaticField(final Class<?> cls, final String fieldName, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
-        Field field = getField(cls, fieldName, forceAccess);
+        final Field field = getField(cls, fieldName, forceAccess);
         if (field == null) {
             throw new IllegalArgumentException("Cannot locate field " + fieldName + " on " + cls);
         }
@@ -475,7 +475,7 @@ public class FieldUtils {
       */
     public static void writeDeclaredStaticField(final Class<?> cls, final String fieldName, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
-        Field field = getDeclaredField(cls, fieldName, forceAccess);
+        final Field field = getDeclaredField(cls, fieldName, forceAccess);
         if (field == null) {
             throw new IllegalArgumentException("Cannot locate declared field " + cls.getName() + "." + fieldName);
         }
@@ -547,8 +547,8 @@ public class FieldUtils {
         if (target == null) {
             throw new IllegalArgumentException("target object must not be null");
         }
-        Class<?> cls = target.getClass();
-        Field field = getField(cls, fieldName, forceAccess);
+        final Class<?> cls = target.getClass();
+        final Field field = getField(cls, fieldName, forceAccess);
         if (field == null) {
             throw new IllegalArgumentException("Cannot locate declared field " + cls.getName() + "." + fieldName);
         }
@@ -584,8 +584,8 @@ public class FieldUtils {
         if (target == null) {
             throw new IllegalArgumentException("target object must not be null");
         }
-        Class<?> cls = target.getClass();
-        Field field = getDeclaredField(cls, fieldName, forceAccess);
+        final Class<?> cls = target.getClass();
+        final Field field = getDeclaredField(cls, fieldName, forceAccess);
         if (field == null) {
             throw new IllegalArgumentException("Cannot locate declared field " + cls.getName() + "." + fieldName);
         }

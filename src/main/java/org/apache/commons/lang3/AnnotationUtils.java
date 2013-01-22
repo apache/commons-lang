@@ -71,9 +71,10 @@ public class AnnotationUtils {
         @Override
         protected String getShortClassName(final java.lang.Class<?> cls) {
             Class<? extends Annotation> annotationType = null;
-            for (Class<?> iface : ClassUtils.getAllInterfaces(cls)) {
+            for (final Class<?> iface : ClassUtils.getAllInterfaces(cls)) {
                 if (Annotation.class.isAssignableFrom(iface)) {
                     @SuppressWarnings("unchecked") // OK because we just checked the assignability
+                    final
                     Class<? extends Annotation> found = (Class<? extends Annotation>) iface;
                     annotationType = found;
                     break;
@@ -125,27 +126,27 @@ public class AnnotationUtils {
         if (a1 == null || a2 == null) {
             return false;
         }
-        Class<? extends Annotation> type = a1.annotationType();
-        Class<? extends Annotation> type2 = a2.annotationType();
+        final Class<? extends Annotation> type = a1.annotationType();
+        final Class<? extends Annotation> type2 = a2.annotationType();
         Validate.notNull(type, "Annotation %s with null annotationType()", a1);
         Validate.notNull(type2, "Annotation %s with null annotationType()", a2);
         if (!type.equals(type2)) {
             return false;
         }
         try {
-            for (Method m : type.getDeclaredMethods()) {
+            for (final Method m : type.getDeclaredMethods()) {
                 if (m.getParameterTypes().length == 0
                         && isValidAnnotationMemberType(m.getReturnType())) {
-                    Object v1 = m.invoke(a1);
-                    Object v2 = m.invoke(a2);
+                    final Object v1 = m.invoke(a1);
+                    final Object v2 = m.invoke(a2);
                     if (!memberEquals(m.getReturnType(), v1, v2)) {
                         return false;
                     }
                 }
             }
-        } catch (IllegalAccessException ex) {
+        } catch (final IllegalAccessException ex) {
             return false;
-        } catch (InvocationTargetException ex) {
+        } catch (final InvocationTargetException ex) {
             return false;
         }
         return true;
@@ -165,18 +166,18 @@ public class AnnotationUtils {
      */
     public static int hashCode(final Annotation a) {
         int result = 0;
-        Class<? extends Annotation> type = a.annotationType();
-        for (Method m : type.getDeclaredMethods()) {
+        final Class<? extends Annotation> type = a.annotationType();
+        for (final Method m : type.getDeclaredMethods()) {
             try {
-                Object value = m.invoke(a);
+                final Object value = m.invoke(a);
                 if (value == null) {
                     throw new IllegalStateException(
                             String.format("Annotation method %s returned null", m));
                 }
                 result += hashMember(m.getName(), value);
-            } catch (RuntimeException ex) {
+            } catch (final RuntimeException ex) {
                 throw ex;
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
                 throw new RuntimeException(ex);
             }
         }
@@ -192,16 +193,16 @@ public class AnnotationUtils {
      * {@code null}
      */
     public static String toString(final Annotation a) {
-        ToStringBuilder builder = new ToStringBuilder(a, TO_STRING_STYLE);
-        for (Method m : a.annotationType().getDeclaredMethods()) {
+        final ToStringBuilder builder = new ToStringBuilder(a, TO_STRING_STYLE);
+        for (final Method m : a.annotationType().getDeclaredMethods()) {
             if (m.getParameterTypes().length > 0) {
                 continue; //wtf?
             }
             try {
                 builder.append(m.getName(), m.invoke(a));
-            } catch (RuntimeException ex) {
+            } catch (final RuntimeException ex) {
                 throw ex;
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
                 throw new RuntimeException(ex);
             }
         }
@@ -239,7 +240,7 @@ public class AnnotationUtils {
      * @return a hash code for this member
      */
     private static int hashMember(final String name, final Object value) {
-        int part1 = name.hashCode() * 127;
+        final int part1 = name.hashCode() * 127;
         if (value.getClass().isArray()) {
             return part1 ^ arrayMemberHash(value.getClass().getComponentType(), value);
         }

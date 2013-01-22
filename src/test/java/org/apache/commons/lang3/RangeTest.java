@@ -65,22 +65,22 @@ public class RangeTest {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
     public void testComparableConstructors() {
-        Comparable c = 
+        final Comparable c = 
             new Comparable() { 
                 @Override
                 public int compareTo(final Object other) {
                     return 1;
                 }
             };
-        Range r1 = Range.is(c);
-        Range r2 = Range.between(c, c);
+        final Range r1 = Range.is(c);
+        final Range r2 = Range.between(c, c);
         assertEquals(true, r1.isNaturalOrdering());
         assertEquals(true, r2.isNaturalOrdering());
     }
 
     @Test
     public void testIsWithCompare(){
-        Comparator<Integer> c = new Comparator<Integer>(){
+        final Comparator<Integer> c = new Comparator<Integer>(){
             @Override
             public int compare(final Integer o1, final Integer o2) {
                 return 0; // all integers are equal
@@ -99,7 +99,7 @@ public class RangeTest {
     @Test
     public void testBetweenWithCompare(){
         // TODO add tests with a better comparator
-        Comparator<Integer> c = new Comparator<Integer>(){
+        final Comparator<Integer> c = new Comparator<Integer>(){
             @Override
             public int compare(final Integer o1, final Integer o2) {
                 return 0; // all integers are equal
@@ -122,7 +122,7 @@ public class RangeTest {
     //-----------------------------------------------------------------------
     @Test
     public void testRangeOfChars() {
-        Range<Character> chars = Range.between('a', 'z');
+        final Range<Character> chars = Range.between('a', 'z');
         assertTrue(chars.contains('b'));
         assertFalse(chars.contains('B'));
     }
@@ -154,14 +154,14 @@ public class RangeTest {
     public void testToString() {
         assertNotNull(byteRange.toString());
         
-        String str = intRange.toString();
+        final String str = intRange.toString();
         assertEquals("[10..20]", str);
         assertEquals("[-20..-10]", Range.between(-20, -10).toString());
     }
 
     @Test
     public void testToStringFormat() {
-        String str = intRange.toString("From %1$s to %2$s");
+        final String str = intRange.toString("From %1$s to %2$s");
         assertEquals("From 10 to 20", str);
     }
 
@@ -242,7 +242,7 @@ public class RangeTest {
         try {
             intRange.elementCompareTo(null);
             fail("NullPointerException should have been thrown");
-        } catch(NullPointerException npe) {
+        } catch(final NullPointerException npe) {
             // expected
         }
         

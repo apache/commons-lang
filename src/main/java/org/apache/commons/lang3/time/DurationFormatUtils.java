@@ -121,7 +121,7 @@ public class DurationFormatUtils {
      */
     public static String formatDuration(long durationMillis, final String format, final boolean padWithZeros) {
 
-        Token[] tokens = lexx(format);
+        final Token[] tokens = lexx(format);
 
         int days         = 0;
         int hours        = 0;
@@ -275,13 +275,13 @@ public class DurationFormatUtils {
         // TODO: Compare performance to see if anything was lost by 
         // losing this optimisation. 
         
-        Token[] tokens = lexx(format);
+        final Token[] tokens = lexx(format);
 
         // timezones get funky around 0, so normalizing everything to GMT 
         // stops the hours being off
-        Calendar start = Calendar.getInstance(timezone);
+        final Calendar start = Calendar.getInstance(timezone);
         start.setTime(new Date(startMillis));
-        Calendar end = Calendar.getInstance(timezone);
+        final Calendar end = Calendar.getInstance(timezone);
         end.setTime(new Date(endMillis));
 
         // initial estimates
@@ -413,13 +413,13 @@ public class DurationFormatUtils {
      */
     static String format(final Token[] tokens, final int years, final int months, final int days, final int hours, final int minutes, final int seconds,
             int milliseconds, final boolean padWithZeros) {
-        StringBuilder buffer = new StringBuilder();
+        final StringBuilder buffer = new StringBuilder();
         boolean lastOutputSeconds = false;
-        int sz = tokens.length;
+        final int sz = tokens.length;
         for (int i = 0; i < sz; i++) {
-            Token token = tokens[i];
-            Object value = token.getValue();
-            int count = token.getCount();
+            final Token token = tokens[i];
+            final Object value = token.getValue();
+            final int count = token.getCount();
             if (value instanceof StringBuilder) {
                 buffer.append(value.toString());
             } else {
@@ -450,7 +450,7 @@ public class DurationFormatUtils {
                 } else if (value == S) {
                     if (lastOutputSeconds) {
                         milliseconds += 1000;
-                        String str = padWithZeros
+                        final String str = padWithZeros
                                 ? StringUtils.leftPad(Integer.toString(milliseconds), count, '0')
                                 : Integer.toString(milliseconds);
                         buffer.append(str.substring(1));
@@ -481,17 +481,17 @@ public class DurationFormatUtils {
      * @return array of Token[]
      */
     static Token[] lexx(final String format) {
-        char[] array = format.toCharArray();
-        ArrayList<Token> list = new ArrayList<Token>(array.length);
+        final char[] array = format.toCharArray();
+        final ArrayList<Token> list = new ArrayList<Token>(array.length);
 
         boolean inLiteral = false;
         // Although the buffer is stored in a Token, the Tokens are only
         // used internally, so cannot be accessed by other threads
         StringBuilder buffer = null;
         Token previous = null;
-        int sz = array.length;
+        final int sz = array.length;
         for(int i=0; i<sz; i++) {
-            char ch = array[i];
+            final char ch = array[i];
             if(inLiteral && ch != '\'') {
                 buffer.append(ch); // buffer can't be null if inLiteral is true
                 continue;
@@ -528,7 +528,7 @@ public class DurationFormatUtils {
                 if(previous != null && previous.getValue() == value) {
                     previous.increment();
                 } else {
-                    Token token = new Token(value);
+                    final Token token = new Token(value);
                     list.add(token); 
                     previous = token;
                 }
@@ -552,7 +552,7 @@ public class DurationFormatUtils {
          * @return boolean <code>true</code> if contained
          */
         static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
-            int sz = tokens.length;
+            final int sz = tokens.length;
             for (int i = 0; i < sz; i++) {
                 if (tokens[i].getValue() == value) {
                     return true;
@@ -620,7 +620,7 @@ public class DurationFormatUtils {
         @Override
         public boolean equals(final Object obj2) {
             if (obj2 instanceof Token) {
-                Token tok2 = (Token) obj2;
+                final Token tok2 = (Token) obj2;
                 if (this.value.getClass() != tok2.value.getClass()) {
                     return false;
                 }

@@ -48,15 +48,15 @@ public class EventUtils {
     public static <L> void addEventListener(final Object eventSource, final Class<L> listenerType, final L listener) {
         try {
             MethodUtils.invokeMethod(eventSource, "add" + listenerType.getSimpleName(), listener);
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
             throw new IllegalArgumentException("Class " + eventSource.getClass().getName()
                     + " does not have a public add" + listenerType.getSimpleName()
                     + " method which takes a parameter of type " + listenerType.getName() + ".");
-        } catch (IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
             throw new IllegalArgumentException("Class " + eventSource.getClass().getName()
                     + " does not have an accessible add" + listenerType.getSimpleName ()
                     + " method which takes a parameter of type " + listenerType.getName() + ".");
-        } catch (InvocationTargetException e) {
+        } catch (final InvocationTargetException e) {
             throw new RuntimeException("Unable to add listener.", e.getCause());
         }
     }

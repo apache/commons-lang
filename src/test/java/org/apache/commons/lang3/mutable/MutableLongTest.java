@@ -118,7 +118,7 @@ public class MutableLongTest {
 
     @Test
     public void testPrimitiveValues() {
-        MutableLong mutNum = new MutableLong(1L);
+        final MutableLong mutNum = new MutableLong(1L);
 
         assertEquals( 1.0F, mutNum.floatValue(), 0 );
         assertEquals( 1.0, mutNum.doubleValue(), 0 );
@@ -136,7 +136,7 @@ public class MutableLongTest {
 
     @Test
     public void testIncrement() {
-        MutableLong mutNum = new MutableLong(1);
+        final MutableLong mutNum = new MutableLong(1);
         mutNum.increment();
         
         assertEquals(2, mutNum.intValue());
@@ -145,7 +145,7 @@ public class MutableLongTest {
 
     @Test
     public void testDecrement() {
-        MutableLong mutNum = new MutableLong(1);
+        final MutableLong mutNum = new MutableLong(1);
         mutNum.decrement();
         
         assertEquals(0, mutNum.intValue());
@@ -154,7 +154,7 @@ public class MutableLongTest {
 
     @Test
     public void testAddValuePrimitive() {
-        MutableLong mutNum = new MutableLong(1);
+        final MutableLong mutNum = new MutableLong(1);
         mutNum.add(1);
         
         assertEquals(2, mutNum.intValue());
@@ -163,7 +163,7 @@ public class MutableLongTest {
 
     @Test
     public void testAddValueObject() {
-        MutableLong mutNum = new MutableLong(1);
+        final MutableLong mutNum = new MutableLong(1);
         mutNum.add(Long.valueOf(1));
         
         assertEquals(2, mutNum.intValue());
@@ -172,7 +172,7 @@ public class MutableLongTest {
 
     @Test
     public void testSubtractValuePrimitive() {
-        MutableLong mutNum = new MutableLong(1);
+        final MutableLong mutNum = new MutableLong(1);
         mutNum.subtract(1);
         
         assertEquals(0, mutNum.intValue());
@@ -181,7 +181,7 @@ public class MutableLongTest {
 
     @Test
     public void testSubtractValueObject() {
-        MutableLong mutNum = new MutableLong(1);
+        final MutableLong mutNum = new MutableLong(1);
         mutNum.subtract(Long.valueOf(1));
         
         assertEquals(0, mutNum.intValue());

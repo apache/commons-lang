@@ -30,17 +30,17 @@ public class NumericEntityUnescaperTest  {
 
     @Test
     public void testSupplementaryUnescaping() {
-        NumericEntityUnescaper neu = new NumericEntityUnescaper();
-        String input = "&#68642;";
-        String expected = "\uD803\uDC22";
+        final NumericEntityUnescaper neu = new NumericEntityUnescaper();
+        final String input = "&#68642;";
+        final String expected = "\uD803\uDC22";
 
-        String result = neu.translate(input);
+        final String result = neu.translate(input);
         assertEquals("Failed to unescape numeric entities supplementary characters", expected, result);
     }
 
     @Test
     public void testOutOfBounds() {
-        NumericEntityUnescaper neu = new NumericEntityUnescaper();
+        final NumericEntityUnescaper neu = new NumericEntityUnescaper();
 
         assertEquals("Failed to ignore when last character is &", "Test &", neu.translate("Test &"));
         assertEquals("Failed to ignore when last character is &", "Test &#", neu.translate("Test &#"));
@@ -73,7 +73,7 @@ public class NumericEntityUnescaperTest  {
         try {
             result = neu.translate(input);
             fail("IllegalArgumentException expected");
-        } catch(IllegalArgumentException iae) {
+        } catch(final IllegalArgumentException iae) {
             // expected
         }
     }

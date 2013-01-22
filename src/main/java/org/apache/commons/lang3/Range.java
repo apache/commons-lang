@@ -386,8 +386,8 @@ public final class Range<T> implements Serializable {
         if (this.equals(other)) {
             return this;
         }
-        T min = getComparator().compare(minimum, other.minimum) < 0 ? other.minimum : minimum;
-        T max = getComparator().compare(maximum, other.maximum) < 0 ? maximum : other.maximum;
+        final T min = getComparator().compare(minimum, other.minimum) < 0 ? other.minimum : minimum;
+        final T max = getComparator().compare(maximum, other.maximum) < 0 ? maximum : other.maximum;
         return between(min, max, getComparator());
     }
 
@@ -411,6 +411,7 @@ public final class Range<T> implements Serializable {
             return false;
         } else {
             @SuppressWarnings("unchecked") // OK because we checked the class above
+            final
             Range<T> range = (Range<T>) obj;
             return minimum.equals(range.minimum) &&
                    maximum.equals(range.maximum);
@@ -446,7 +447,7 @@ public final class Range<T> implements Serializable {
     public String toString() {
         String result = toString;
         if (result == null) {
-            StringBuilder buf = new StringBuilder(32);
+            final StringBuilder buf = new StringBuilder(32);
             buf.append('[');
             buf.append(minimum);
             buf.append("..");

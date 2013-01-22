@@ -65,10 +65,10 @@ public class CharSetUtils {
         if (StringUtils.isEmpty(str) || deepEmpty(set)) {
             return str;
         }
-        CharSet chars = CharSet.getInstance(set);
-        StringBuilder buffer = new StringBuilder(str.length());
-        char[] chrs = str.toCharArray();
-        int sz = chrs.length;
+        final CharSet chars = CharSet.getInstance(set);
+        final StringBuilder buffer = new StringBuilder(str.length());
+        final char[] chrs = str.toCharArray();
+        final int sz = chrs.length;
         char lastChar = ' ';
         char ch = ' ';
         for (int i = 0; i < sz; i++) {
@@ -107,9 +107,9 @@ public class CharSetUtils {
         if (StringUtils.isEmpty(str) || deepEmpty(set)) {
             return 0;
         }
-        CharSet chars = CharSet.getInstance(set);
+        final CharSet chars = CharSet.getInstance(set);
         int count = 0;
-        for (char c : str.toCharArray()) {
+        for (final char c : str.toCharArray()) {
             if (chars.contains(c)) {
                 count++;
             }
@@ -185,10 +185,10 @@ public class CharSetUtils {
      * @return the modified String, not null
      */
     private static String modify(final String str, final String[] set, final boolean expect) {
-        CharSet chars = CharSet.getInstance(set);
-        StringBuilder buffer = new StringBuilder(str.length());
-        char[] chrs = str.toCharArray();
-        int sz = chrs.length;
+        final CharSet chars = CharSet.getInstance(set);
+        final StringBuilder buffer = new StringBuilder(str.length());
+        final char[] chrs = str.toCharArray();
+        final int sz = chrs.length;
         for(int i=0; i<sz; i++) {
             if(chars.contains(chrs[i]) == expect) {
                 buffer.append(chrs[i]);
@@ -206,7 +206,7 @@ public class CharSetUtils {
      */
     private static boolean deepEmpty(final String[] strings) {
         if (strings != null) {
-            for (String s : strings) {
+            for (final String s : strings) {
                 if (StringUtils.isNotEmpty(s)) {
                     return false;
                 }

@@ -38,7 +38,7 @@ public class BooleanUtilsTest {
     @Test
     public void testConstructor() {
         assertNotNull(new BooleanUtils());
-        Constructor<?>[] cons = BooleanUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = BooleanUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(BooleanUtils.class.getModifiers()));
@@ -139,8 +139,8 @@ public class BooleanUtilsTest {
     
     @Test
     public void test_toBoolean_Integer_Integer_Integer() {
-        Integer six = Integer.valueOf(6);
-        Integer seven = Integer.valueOf(7);
+        final Integer six = Integer.valueOf(6);
+        final Integer seven = Integer.valueOf(7);
 
         assertTrue(BooleanUtils.toBoolean((Integer) null, null, seven));
         assertFalse(BooleanUtils.toBoolean((Integer) null, six, null));
@@ -174,9 +174,9 @@ public class BooleanUtilsTest {
     
     @Test
     public void test_toBooleanObject_Integer_Integer_Integer_Integer() {
-        Integer six = Integer.valueOf(6);
-        Integer seven = Integer.valueOf(7);
-        Integer eight = Integer.valueOf(8);
+        final Integer six = Integer.valueOf(6);
+        final Integer seven = Integer.valueOf(7);
+        final Integer eight = Integer.valueOf(8);
 
         assertSame(Boolean.TRUE, BooleanUtils.toBooleanObject((Integer) null, null, seven, eight));
         assertSame(Boolean.FALSE, BooleanUtils.toBooleanObject((Integer) null, six, null, eight));
@@ -233,17 +233,17 @@ public class BooleanUtilsTest {
     
     @Test
     public void test_toIntegerObject_boolean_Integer_Integer() {
-        Integer six = Integer.valueOf(6);
-        Integer seven = Integer.valueOf(7);
+        final Integer six = Integer.valueOf(6);
+        final Integer seven = Integer.valueOf(7);
         assertEquals(six, BooleanUtils.toIntegerObject(true, six, seven));
         assertEquals(seven, BooleanUtils.toIntegerObject(false, six, seven));
     }
     
     @Test
     public void test_toIntegerObject_Boolean_Integer_Integer_Integer() {
-        Integer six = Integer.valueOf(6);
-        Integer seven = Integer.valueOf(7);
-        Integer eight = Integer.valueOf(8);
+        final Integer six = Integer.valueOf(6);
+        final Integer seven = Integer.valueOf(7);
+        final Integer eight = Integer.valueOf(8);
         assertEquals(six, BooleanUtils.toIntegerObject(Boolean.TRUE, six, seven, eight));
         assertEquals(seven, BooleanUtils.toIntegerObject(Boolean.FALSE, six, seven, eight));
         assertEquals(eight, BooleanUtils.toIntegerObject((Boolean) null, six, seven, eight));

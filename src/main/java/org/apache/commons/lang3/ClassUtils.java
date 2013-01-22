@@ -83,8 +83,8 @@ public class ClassUtils {
      */
     private static final Map<Class<?>, Class<?>> wrapperPrimitiveMap = new HashMap<Class<?>, Class<?>>();
     static {
-        for (Class<?> primitiveClass : primitiveWrapperMap.keySet()) {
-            Class<?> wrapperClass = primitiveWrapperMap.get(primitiveClass);
+        for (final Class<?> primitiveClass : primitiveWrapperMap.keySet()) {
+            final Class<?> wrapperClass = primitiveWrapperMap.get(primitiveClass);
             if (!primitiveClass.equals(wrapperClass)) {
                 wrapperPrimitiveMap.put(wrapperClass, primitiveClass);
             }
@@ -188,7 +188,7 @@ public class ClassUtils {
             return StringUtils.EMPTY;
         }
 
-        StringBuilder arrayPrefix = new StringBuilder();
+        final StringBuilder arrayPrefix = new StringBuilder();
 
         // Handle array encoding
         if (className.startsWith("[")) {
@@ -206,8 +206,8 @@ public class ClassUtils {
             className = reverseAbbreviationMap.get(className);
         }
 
-        int lastDotIdx = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
-        int innerIdx = className.indexOf(
+        final int lastDotIdx = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
+        final int innerIdx = className.indexOf(
                 INNER_CLASS_SEPARATOR_CHAR, lastDotIdx == -1 ? 0 : lastDotIdx + 1);
         String out = className.substring(lastDotIdx + 1);
         if (innerIdx != -1) {
@@ -299,7 +299,7 @@ public class ClassUtils {
             className = className.substring(1);
         }
 
-        int i = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
+        final int i = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
         if (i == -1) {
             return StringUtils.EMPTY;
         }
@@ -319,7 +319,7 @@ public class ClassUtils {
         if (cls == null) {
             return null;
         }
-        List<Class<?>> classes = new ArrayList<Class<?>>();
+        final List<Class<?>> classes = new ArrayList<Class<?>>();
         Class<?> superclass = cls.getSuperclass();
         while (superclass != null) {
             classes.add(superclass);
@@ -346,7 +346,7 @@ public class ClassUtils {
             return null;
         }
 
-        LinkedHashSet<Class<?>> interfacesFound = new LinkedHashSet<Class<?>>();
+        final LinkedHashSet<Class<?>> interfacesFound = new LinkedHashSet<Class<?>>();
         getAllInterfaces(cls, interfacesFound);
 
         return new ArrayList<Class<?>>(interfacesFound);
@@ -360,9 +360,9 @@ public class ClassUtils {
      */
     private static void getAllInterfaces(Class<?> cls, final HashSet<Class<?>> interfacesFound) {
         while (cls != null) {
-            Class<?>[] interfaces = cls.getInterfaces();
+            final Class<?>[] interfaces = cls.getInterfaces();
 
-            for (Class<?> i : interfaces) {
+            for (final Class<?> i : interfaces) {
                 if (interfacesFound.add(i)) {
                     getAllInterfaces(i, interfacesFound);
                 }
@@ -390,11 +390,11 @@ public class ClassUtils {
         if (classNames == null) {
             return null;
         }
-        List<Class<?>> classes = new ArrayList<Class<?>>(classNames.size());
-        for (String className : classNames) {
+        final List<Class<?>> classes = new ArrayList<Class<?>>(classNames.size());
+        for (final String className : classNames) {
             try {
                 classes.add(Class.forName(className));
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
                 classes.add(null);
             }
         }
@@ -417,8 +417,8 @@ public class ClassUtils {
         if (classes == null) {
             return null;
         }
-        List<String> classNames = new ArrayList<String>(classes.size());
-        for (Class<?> cls : classes) {
+        final List<String> classNames = new ArrayList<String>(classes.size());
+        for (final Class<?> cls : classes) {
             if (cls == null) {
                 classNames.add(null);
             } else {
@@ -725,7 +725,7 @@ public class ClassUtils {
             return classes;
         }
 
-        Class<?>[] convertedClasses = new Class[classes.length];
+        final Class<?>[] convertedClasses = new Class[classes.length];
         for (int i = 0; i < classes.length; i++) {
             convertedClasses[i] = primitiveToWrapper(classes[i]);
         }
@@ -775,7 +775,7 @@ public class ClassUtils {
             return classes;
         }
 
-        Class<?>[] convertedClasses = new Class[classes.length];
+        final Class<?>[] convertedClasses = new Class[classes.length];
         for (int i = 0; i < classes.length; i++) {
             convertedClasses[i] = wrapperToPrimitive(classes[i]);
         }
@@ -814,22 +814,22 @@ public class ClassUtils {
         try {
             Class<?> clazz;
             if (abbreviationMap.containsKey(className)) {
-                String clsName = "[" + abbreviationMap.get(className);
+                final String clsName = "[" + abbreviationMap.get(className);
                 clazz = Class.forName(clsName, initialize, classLoader).getComponentType();
             } else {
                 clazz = Class.forName(toCanonicalName(className), initialize, classLoader);
             }
             return clazz;
-        } catch (ClassNotFoundException ex) {
+        } catch (final ClassNotFoundException ex) {
             // allow path separators (.) as inner class name separators
-            int lastDotIndex = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
+            final int lastDotIndex = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
 
             if (lastDotIndex != -1) {
                 try {
                     return getClass(classLoader, className.substring(0, lastDotIndex) +
                             INNER_CLASS_SEPARATOR_CHAR + className.substring(lastDotIndex + 1),
                             initialize);
-                } catch (ClassNotFoundException ex2) { // NOPMD
+                } catch (final ClassNotFoundException ex2) { // NOPMD
                     // ignore exception
                 }
             }
@@ -881,8 +881,8 @@ public class ClassUtils {
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(final String className, final boolean initialize) throws ClassNotFoundException {
-        ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
-        ClassLoader loader = contextCL == null ? ClassUtils.class.getClassLoader() : contextCL;
+        final ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
+        final ClassLoader loader = contextCL == null ? ClassUtils.class.getClassLoader() : contextCL;
         return getClass(loader, className, initialize);
     }
 
@@ -912,23 +912,23 @@ public class ClassUtils {
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes)
             throws SecurityException, NoSuchMethodException {
 
-        Method declaredMethod = cls.getMethod(methodName, parameterTypes);
+        final Method declaredMethod = cls.getMethod(methodName, parameterTypes);
         if (Modifier.isPublic(declaredMethod.getDeclaringClass().getModifiers())) {
             return declaredMethod;
         }
 
-        List<Class<?>> candidateClasses = new ArrayList<Class<?>>();
+        final List<Class<?>> candidateClasses = new ArrayList<Class<?>>();
         candidateClasses.addAll(getAllInterfaces(cls));
         candidateClasses.addAll(getAllSuperclasses(cls));
 
-        for (Class<?> candidateClass : candidateClasses) {
+        for (final Class<?> candidateClass : candidateClasses) {
             if (!Modifier.isPublic(candidateClass.getModifiers())) {
                 continue;
             }
             Method candidateMethod;
             try {
                 candidateMethod = candidateClass.getMethod(methodName, parameterTypes);
-            } catch (NoSuchMethodException ex) {
+            } catch (final NoSuchMethodException ex) {
                 continue;
             }
             if (Modifier.isPublic(candidateMethod.getDeclaringClass().getModifiers())) {
@@ -952,12 +952,12 @@ public class ClassUtils {
         if (className == null) {
             throw new NullPointerException("className must not be null.");
         } else if (className.endsWith("[]")) {
-            StringBuilder classNameBuffer = new StringBuilder();
+            final StringBuilder classNameBuffer = new StringBuilder();
             while (className.endsWith("[]")) {
                 className = className.substring(0, className.length() - 2);
                 classNameBuffer.append("[");
             }
-            String abbreviation = abbreviationMap.get(className);
+            final String abbreviation = abbreviationMap.get(className);
             if (abbreviation != null) {
                 classNameBuffer.append(abbreviation);
             } else {
@@ -984,7 +984,7 @@ public class ClassUtils {
         } else if (array.length == 0) {
             return ArrayUtils.EMPTY_CLASS_ARRAY;
         }
-        Class<?>[] classes = new Class[array.length];
+        final Class<?>[] classes = new Class[array.length];
         for (int i = 0; i < array.length; i++) {
             classes[i] = array[i] == null ? null : array[i].getClass();
         }
@@ -1120,7 +1120,7 @@ public class ClassUtils {
                         className = reverseAbbreviationMap.get(className.substring(0, 1));
                     }
                 }
-                StringBuilder canonicalClassNameBuffer = new StringBuilder(className);
+                final StringBuilder canonicalClassNameBuffer = new StringBuilder(className);
                 for (int i = 0; i < dim; i++) {
                     canonicalClassNameBuffer.append("[]");
                 }

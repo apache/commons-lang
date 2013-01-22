@@ -55,10 +55,10 @@ public abstract class CharSequenceTranslator {
             return null;
         }
         try {
-            StringWriter writer = new StringWriter(input.length() * 2);
+            final StringWriter writer = new StringWriter(input.length() * 2);
             translate(input, writer);
             return writer.toString();
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             // this should never ever happen while writing to a StringWriter
             throw new RuntimeException(ioe);
         }
@@ -80,11 +80,11 @@ public abstract class CharSequenceTranslator {
             return;
         }
         int pos = 0;
-        int len = input.length();
+        final int len = input.length();
         while (pos < len) {
-            int consumed = translate(input, pos, out);
+            final int consumed = translate(input, pos, out);
             if (consumed == 0) {
-                char[] c = Character.toChars(Character.codePointAt(input, pos));
+                final char[] c = Character.toChars(Character.codePointAt(input, pos));
                 out.write(c);
                 pos+= c.length;
                 continue;
@@ -105,7 +105,7 @@ public abstract class CharSequenceTranslator {
      * @return CharSequenceTranslator merging this translator with the others
      */
     public final CharSequenceTranslator with(final CharSequenceTranslator... translators) {
-        CharSequenceTranslator[] newArray = new CharSequenceTranslator[translators.length + 1];
+        final CharSequenceTranslator[] newArray = new CharSequenceTranslator[translators.length + 1];
         newArray[0] = this;
         System.arraycopy(translators, 0, newArray, 1, translators.length);
         return new AggregateTranslator(newArray);

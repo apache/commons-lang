@@ -39,7 +39,7 @@ public class RandomStringUtilsTest {
     @Test
     public void testConstructor() {
         assertNotNull(new RandomStringUtils());
-        Constructor<?>[] cons = RandomStringUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = RandomStringUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(RandomStringUtils.class.getModifiers()));
@@ -120,7 +120,7 @@ public class RandomStringUtilsTest {
         assertEquals("random(50) length", 50, r2.length());
         assertTrue("!r1.equals(r2)", !r1.equals(r2));
 
-        long seed = System.currentTimeMillis();
+        final long seed = System.currentTimeMillis();
         r1 = RandomStringUtils.random(50,0,0,true,true,null,new Random(seed));
         r2 = RandomStringUtils.random(50,0,0,true,true,null,new Random(seed));
         assertEquals("r1.equals(r2)", r1, r2);
@@ -131,7 +131,7 @@ public class RandomStringUtilsTest {
 
     @Test
     public void testLANG805() {
-        long seed = System.currentTimeMillis();
+        final long seed = System.currentTimeMillis();
         assertEquals("aaa", RandomStringUtils.random(3,0,0,false,false,new char[]{'a'},new Random(seed)));
     }
 
@@ -140,7 +140,7 @@ public class RandomStringUtilsTest {
         try {
             RandomStringUtils.random(3,5,5,false,false);
             fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException ex) { // distinguish from Random#nextInt message
+        } catch (final IllegalArgumentException ex) { // distinguish from Random#nextInt message
             final String msg = ex.getMessage();
             assertTrue("Message (" + msg + ") must contain 'start'", msg.contains("start"));
             assertTrue("Message (" + msg + ") must contain 'end'", msg.contains("end"));
@@ -153,39 +153,39 @@ public class RandomStringUtilsTest {
         try {
             RandomStringUtils.random(-1);
             fail();
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
         try {
             RandomStringUtils.random(-1, true, true);
             fail();
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
         try {
             RandomStringUtils.random(-1, DUMMY);
             fail();
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
         try {
             RandomStringUtils.random(1, new char[0]); // must not provide empty array => IAE
             fail();
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
         try {
             RandomStringUtils.random(-1, "");
             fail();
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
         try {
             RandomStringUtils.random(-1, (String)null);
             fail();
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
         try {
             RandomStringUtils.random(-1, 'a', 'z', false, false);
             fail();
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
         try {
             RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY);
             fail();
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
         try {
             RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random());
             fail();
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
     }
     
     /**
@@ -194,10 +194,10 @@ public class RandomStringUtilsTest {
      */  
     @Test
     public void testRandomAlphaNumeric() {
-        char[] testChars = {'a', 'z', 'A', 'Z', '0', '9'};
-        boolean[] found = {false, false, false, false, false, false};
+        final char[] testChars = {'a', 'z', 'A', 'Z', '0', '9'};
+        final boolean[] found = {false, false, false, false, false, false};
         for (int i = 0; i < 100; i++) {
-            String randString = RandomStringUtils.randomAlphanumeric(10);
+            final String randString = RandomStringUtils.randomAlphanumeric(10);
             for (int j = 0; j < testChars.length; j++) {
                 if (randString.indexOf(testChars[j]) > 0) {
                     found[j] = true;
@@ -218,10 +218,10 @@ public class RandomStringUtilsTest {
      */  
     @Test
     public void testRandomNumeric() {
-        char[] testChars = {'0','9'};
-        boolean[] found = {false, false};
+        final char[] testChars = {'0','9'};
+        final boolean[] found = {false, false};
         for (int i = 0; i < 100; i++) {
-            String randString = RandomStringUtils.randomNumeric(10);
+            final String randString = RandomStringUtils.randomNumeric(10);
             for (int j = 0; j < testChars.length; j++) {
                 if (randString.indexOf(testChars[j]) > 0) {
                     found[j] = true;
@@ -242,10 +242,10 @@ public class RandomStringUtilsTest {
      */  
     @Test
     public void testRandomAlphabetic() {
-        char[] testChars = {'a', 'z', 'A', 'Z'};
-        boolean[] found = {false, false, false, false};
+        final char[] testChars = {'a', 'z', 'A', 'Z'};
+        final boolean[] found = {false, false, false, false};
         for (int i = 0; i < 100; i++) {
-            String randString = RandomStringUtils.randomAlphabetic(10);
+            final String randString = RandomStringUtils.randomAlphabetic(10);
             for (int j = 0; j < testChars.length; j++) {
                 if (randString.indexOf(testChars[j]) > 0) {
                     found[j] = true;
@@ -266,10 +266,10 @@ public class RandomStringUtilsTest {
      */  
     @Test
     public void testRandomAscii() {
-        char[] testChars = {(char) 32, (char) 126};
-        boolean[] found = {false, false};
+        final char[] testChars = {(char) 32, (char) 126};
+        final boolean[] found = {false, false};
         for (int i = 0; i < 100; i++) {
-            String randString = RandomStringUtils.randomAscii(10);
+            final String randString = RandomStringUtils.randomAscii(10);
             for (int j = 0; j < testChars.length; j++) {
                 if (randString.indexOf(testChars[j]) > 0) {
                     found[j] = true;
@@ -293,11 +293,11 @@ public class RandomStringUtilsTest {
      */
     @Test
     public void testRandomStringUtilsHomog() {
-        String set = "abc";
-        char[] chars = set.toCharArray();
+        final String set = "abc";
+        final char[] chars = set.toCharArray();
         String gen = "";
-        int[] counts = {0,0,0};
-        int[] expected = {200,200,200};
+        final int[] counts = {0,0,0};
+        final int[] expected = {200,200,200};
         for (int i = 0; i< 100; i++) {
            gen = RandomStringUtils.random(6,chars);
            for (int j = 0; j < 6; j++) {
@@ -339,16 +339,16 @@ public class RandomStringUtilsTest {
      */
     @Test
     public void testLang100() throws Exception {
-        int size = 5000;
-        String encoding = "UTF-8";
-        String orig = RandomStringUtils.random(size);
-        byte[] bytes = orig.getBytes(encoding);
-        String copy = new String(bytes, encoding);
+        final int size = 5000;
+        final String encoding = "UTF-8";
+        final String orig = RandomStringUtils.random(size);
+        final byte[] bytes = orig.getBytes(encoding);
+        final String copy = new String(bytes, encoding);
 
         // for a verbose compare:
         for (int i=0; i < orig.length() && i < copy.length(); i++) {
-            char o = orig.charAt(i);
-            char c = copy.charAt(i);
+            final char o = orig.charAt(i);
+            final char c = copy.charAt(i);
             assertEquals("differs at " + i + "(" + Integer.toHexString(new Character(o).hashCode()) + "," +
             Integer.toHexString(new Character(c).hashCode()) + ")", o, c);
         }

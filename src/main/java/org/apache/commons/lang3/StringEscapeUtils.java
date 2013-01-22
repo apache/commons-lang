@@ -286,7 +286,7 @@ public class StringEscapeUtils {
             }
 
             // strip quotes
-            String quoteless = input.subSequence(1, input.length() - 1).toString();
+            final String quoteless = input.subSequence(1, input.length() - 1).toString();
 
             if ( StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS) ) {
                 // deal with escaped quotes; ie) ""

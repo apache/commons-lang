@@ -130,7 +130,7 @@ public class MutableDoubleTest {
 
     @Test
     public void testPrimitiveValues() {
-        MutableDouble mutNum = new MutableDouble(1.7);
+        final MutableDouble mutNum = new MutableDouble(1.7);
         
         assertEquals( 1.7F, mutNum.floatValue(), 0 );
         assertEquals( 1.7, mutNum.doubleValue(), 0 );
@@ -148,7 +148,7 @@ public class MutableDoubleTest {
 
     @Test
     public void testIncrement() {
-        MutableDouble mutNum = new MutableDouble(1);
+        final MutableDouble mutNum = new MutableDouble(1);
         mutNum.increment();
         
         assertEquals(2, mutNum.intValue());
@@ -157,7 +157,7 @@ public class MutableDoubleTest {
 
     @Test
     public void testDecrement() {
-        MutableDouble mutNum = new MutableDouble(1);
+        final MutableDouble mutNum = new MutableDouble(1);
         mutNum.decrement();
         
         assertEquals(0, mutNum.intValue());
@@ -166,7 +166,7 @@ public class MutableDoubleTest {
 
     @Test
     public void testAddValuePrimitive() {
-        MutableDouble mutNum = new MutableDouble(1);
+        final MutableDouble mutNum = new MutableDouble(1);
         mutNum.add(1.1d);
         
         assertEquals(2.1d, mutNum.doubleValue(), 0.01d);
@@ -174,7 +174,7 @@ public class MutableDoubleTest {
 
     @Test
     public void testAddValueObject() {
-        MutableDouble mutNum = new MutableDouble(1);
+        final MutableDouble mutNum = new MutableDouble(1);
         mutNum.add(Double.valueOf(1.1d));
         
         assertEquals(2.1d, mutNum.doubleValue(), 0.01d);
@@ -182,7 +182,7 @@ public class MutableDoubleTest {
 
     @Test
     public void testSubtractValuePrimitive() {
-        MutableDouble mutNum = new MutableDouble(1);
+        final MutableDouble mutNum = new MutableDouble(1);
         mutNum.subtract(0.9d);
         
         assertEquals(0.1d, mutNum.doubleValue(), 0.01d);
@@ -190,7 +190,7 @@ public class MutableDoubleTest {
 
     @Test
     public void testSubtractValueObject() {
-        MutableDouble mutNum = new MutableDouble(1);
+        final MutableDouble mutNum = new MutableDouble(1);
         mutNum.subtract(Double.valueOf(0.9d));
         
         assertEquals(0.1d, mutNum.doubleValue(), 0.01d);

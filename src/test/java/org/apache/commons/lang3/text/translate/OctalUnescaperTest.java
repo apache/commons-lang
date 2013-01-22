@@ -28,7 +28,7 @@ public class OctalUnescaperTest {
 
     @Test
     public void testBetween() {
-        OctalUnescaper oue = new OctalUnescaper();   //.between("1", "377");
+        final OctalUnescaper oue = new OctalUnescaper();   //.between("1", "377");
 
         String input = "\\45";
         String result = oue.translate(input);

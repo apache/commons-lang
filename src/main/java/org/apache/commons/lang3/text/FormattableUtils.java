@@ -135,12 +135,12 @@ public class FormattableUtils {
             final int precision, final char padChar, final CharSequence ellipsis) {
         Validate.isTrue(ellipsis == null || precision < 0 || ellipsis.length() <= precision,
                 "Specified ellipsis '%1$s' exceeds precision of %2$s", ellipsis, Integer.valueOf(precision));
-        StringBuilder buf = new StringBuilder(seq);
+        final StringBuilder buf = new StringBuilder(seq);
         if (precision >= 0 && precision < seq.length()) {
-            CharSequence _ellipsis = ObjectUtils.defaultIfNull(ellipsis, StringUtils.EMPTY);
+            final CharSequence _ellipsis = ObjectUtils.defaultIfNull(ellipsis, StringUtils.EMPTY);
             buf.replace(precision - _ellipsis.length(), seq.length(), _ellipsis.toString());
         }
-        boolean leftJustify = (flags & LEFT_JUSTIFY) == LEFT_JUSTIFY;
+        final boolean leftJustify = (flags & LEFT_JUSTIFY) == LEFT_JUSTIFY;
         for (int i = buf.length(); i < width; i++) {
             buf.insert(leftJustify ? i : 0, padChar);
         }

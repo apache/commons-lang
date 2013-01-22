@@ -93,14 +93,14 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
     @Test
     @Ignore
     public void testConcurrency() throws Exception {
-        TestFixture testFixture = new TestFixture();
+        final TestFixture testFixture = new TestFixture();
         final int numMutators = 10;
         final int numIterations = 10;
         for (int i = 0; i < numIterations; i++) {
             for (int j = 0; j < numMutators; j++) {
-                Thread t = new Thread(new MutatingClient(testFixture));
+                final Thread t = new Thread(new MutatingClient(testFixture));
                 t.start();
-                Thread s = new Thread(new InspectingClient(testFixture));
+                final Thread s = new Thread(new InspectingClient(testFixture));
                 s.start();
             }
         }

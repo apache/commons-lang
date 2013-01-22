@@ -59,7 +59,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
 
     @Test
     public void testAddContextValue() {
-        String message = exceptionContext.getFormattedExceptionMessage(TEST_MESSAGE);
+        final String message = exceptionContext.getFormattedExceptionMessage(TEST_MESSAGE);
         assertTrue(message.indexOf(TEST_MESSAGE) >= 0);
         assertTrue(message.indexOf("test1") >= 0);
         assertTrue(message.indexOf("test2") >= 0);
@@ -81,7 +81,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertEquals(5, exceptionContext.getContextLabels().size());
         assertTrue(exceptionContext.getContextLabels().contains("test2"));
 
-        String contextMessage = exceptionContext.getFormattedExceptionMessage(null);
+        final String contextMessage = exceptionContext.getFormattedExceptionMessage(null);
         assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
     }
 
@@ -90,7 +90,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         exceptionContext.addContextValue("test2", "different value");
         exceptionContext.setContextValue("test3", "3");
 
-        String message = exceptionContext.getFormattedExceptionMessage(TEST_MESSAGE);
+        final String message = exceptionContext.getFormattedExceptionMessage(TEST_MESSAGE);
         assertTrue(message.indexOf(TEST_MESSAGE) >= 0);
         assertTrue(message.indexOf("test Poorly written obj") >= 0);
         assertTrue(message.indexOf("Crap") >= 0);
@@ -114,7 +114,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertEquals(6, exceptionContext.getContextEntries().size());
         assertEquals(6, exceptionContext.getContextLabels().size());
 
-        String contextMessage = exceptionContext.getFormattedExceptionMessage(null);
+        final String contextMessage = exceptionContext.getFormattedExceptionMessage(null);
         assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
     }
 
@@ -149,7 +149,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         
         exceptionContext.addContextValue("test2", "different value");
 
-        Set<String> labels = exceptionContext.getContextLabels();
+        final Set<String> labels = exceptionContext.getContextLabels();
         assertEquals(6, exceptionContext.getContextEntries().size());
         assertEquals(5, labels.size());
         assertTrue(labels.contains("test1"));
@@ -164,7 +164,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         
         exceptionContext.addContextValue("test2", "different value");
 
-        List<Pair<String, Object>> entries = exceptionContext.getContextEntries();
+        final List<Pair<String, Object>> entries = exceptionContext.getContextEntries();
         assertEquals(6, entries.size());
         assertEquals("test1", entries.get(0).getKey());
         assertEquals("test2", entries.get(1).getKey());
@@ -178,7 +178,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     public void testJavaSerialization() {
         exceptionContext.setContextValue("test Poorly written obj", "serializable replacement");
         
-        T clone = SerializationUtils.deserialize(SerializationUtils.serialize(exceptionContext));
+        final T clone = SerializationUtils.deserialize(SerializationUtils.serialize(exceptionContext));
         assertEquals(exceptionContext.getFormattedExceptionMessage(null), clone.getFormattedExceptionMessage(null));
     }
 }

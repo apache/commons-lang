@@ -179,11 +179,11 @@ public class StrSubstitutor {
         if (valueProperties == null) {
             return source.toString();
         }
-        Map<String,String> valueMap = new HashMap<String,String>();
-        Enumeration<?> propNames = valueProperties.propertyNames();
+        final Map<String,String> valueMap = new HashMap<String,String>();
+        final Enumeration<?> propNames = valueProperties.propertyNames();
         while (propNames.hasMoreElements()) {
-            String propName = (String)propNames.nextElement();
-            String propValue = valueProperties.getProperty(propName);
+            final String propName = (String)propNames.nextElement();
+            final String propValue = valueProperties.getProperty(propName);
             valueMap.put(propName, propValue);
         }
         return StrSubstitutor.replace(source, valueMap);
@@ -301,7 +301,7 @@ public class StrSubstitutor {
         if (source == null) {
             return null;
         }
-        StrBuilder buf = new StrBuilder(source);
+        final StrBuilder buf = new StrBuilder(source);
         if (substitute(buf, 0, source.length()) == false) {
             return source;
         }
@@ -324,7 +324,7 @@ public class StrSubstitutor {
         if (source == null) {
             return null;
         }
-        StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
         if (substitute(buf, 0, length) == false) {
             return source.substring(offset, offset + length);
         }
@@ -344,7 +344,7 @@ public class StrSubstitutor {
         if (source == null) {
             return null;
         }
-        StrBuilder buf = new StrBuilder(source.length).append(source);
+        final StrBuilder buf = new StrBuilder(source.length).append(source);
         substitute(buf, 0, source.length);
         return buf.toString();
     }
@@ -366,7 +366,7 @@ public class StrSubstitutor {
         if (source == null) {
             return null;
         }
-        StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
         substitute(buf, 0, length);
         return buf.toString();
     }
@@ -384,7 +384,7 @@ public class StrSubstitutor {
         if (source == null) {
             return null;
         }
-        StrBuilder buf = new StrBuilder(source.length()).append(source);
+        final StrBuilder buf = new StrBuilder(source.length()).append(source);
         substitute(buf, 0, buf.length());
         return buf.toString();
     }
@@ -406,7 +406,7 @@ public class StrSubstitutor {
         if (source == null) {
             return null;
         }
-        StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
         substitute(buf, 0, length);
         return buf.toString();
     }
@@ -424,7 +424,7 @@ public class StrSubstitutor {
         if (source == null) {
             return null;
         }
-        StrBuilder buf = new StrBuilder(source.length()).append(source);
+        final StrBuilder buf = new StrBuilder(source.length()).append(source);
         substitute(buf, 0, buf.length());
         return buf.toString();
     }
@@ -446,7 +446,7 @@ public class StrSubstitutor {
         if (source == null) {
             return null;
         }
-        StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
         substitute(buf, 0, length);
         return buf.toString();
     }
@@ -464,7 +464,7 @@ public class StrSubstitutor {
         if (source == null) {
             return null;
         }
-        StrBuilder buf = new StrBuilder().append(source);
+        final StrBuilder buf = new StrBuilder().append(source);
         substitute(buf, 0, buf.length());
         return buf.toString();
     }
@@ -502,7 +502,7 @@ public class StrSubstitutor {
         if (source == null) {
             return false;
         }
-        StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
         if (substitute(buf, 0, length) == false) {
             return false;
         }
@@ -576,18 +576,18 @@ public class StrSubstitutor {
      *  represents a boolean flag as to whether any change occurred.
      */
     private int substitute(final StrBuilder buf, final int offset, final int length, List<String> priorVariables) {
-        StrMatcher prefixMatcher = getVariablePrefixMatcher();
-        StrMatcher suffixMatcher = getVariableSuffixMatcher();
-        char escape = getEscapeChar();
+        final StrMatcher prefixMatcher = getVariablePrefixMatcher();
+        final StrMatcher suffixMatcher = getVariableSuffixMatcher();
+        final char escape = getEscapeChar();
 
-        boolean top = priorVariables == null;
+        final boolean top = priorVariables == null;
         boolean altered = false;
         int lengthChange = 0;
         char[] chars = buf.buffer;
         int bufEnd = offset + length;
         int pos = offset;
         while (pos < bufEnd) {
-            int startMatchLen = prefixMatcher.isMatch(chars, pos, offset,
+            final int startMatchLen = prefixMatcher.isMatch(chars, pos, offset,
                     bufEnd);
             if (startMatchLen == 0) {
                 pos++;
@@ -602,7 +602,7 @@ public class StrSubstitutor {
                     bufEnd--;
                 } else {
                     // find suffix
-                    int startPos = pos;
+                    final int startPos = pos;
                     pos += startMatchLen;
                     int endMatchLen = 0;
                     int nestedVarCount = 0;
@@ -627,12 +627,12 @@ public class StrSubstitutor {
                                         + startMatchLen, pos - startPos
                                         - startMatchLen);
                                 if (isEnableSubstitutionInVariables()) {
-                                    StrBuilder bufName = new StrBuilder(varName);
+                                    final StrBuilder bufName = new StrBuilder(varName);
                                     substitute(bufName, 0, bufName.length());
                                     varName = bufName.toString();
                                 }
                                 pos += endMatchLen;
-                                int endPos = pos;
+                                final int endPos = pos;
 
                                 // on the first call initialize priorVariables
                                 if (priorVariables == null) {
@@ -646,11 +646,11 @@ public class StrSubstitutor {
                                 priorVariables.add(varName);
 
                                 // resolve the variable
-                                String varValue = resolveVariable(varName, buf,
+                                final String varValue = resolveVariable(varName, buf,
                                         startPos, endPos);
                                 if (varValue != null) {
                                     // recursive replace
-                                    int varLen = varValue.length();
+                                    final int varLen = varValue.length();
                                     buf.replace(startPos, endPos, varValue);
                                     altered = true;
                                     int change = substitute(buf, startPos,
@@ -693,7 +693,7 @@ public class StrSubstitutor {
         if (priorVariables.contains(varName) == false) {
             return;
         }
-        StrBuilder buf = new StrBuilder(256);
+        final StrBuilder buf = new StrBuilder(256);
         buf.append("Infinite loop in property interpolation of ");
         buf.append(priorVariables.remove(0));
         buf.append(": ");
@@ -719,7 +719,7 @@ public class StrSubstitutor {
      * @return the variable's value or <b>null</b> if the variable is unknown
      */
     protected String resolveVariable(final String variableName, final StrBuilder buf, final int startPos, final int endPos) {
-        StrLookup<?> resolver = getVariableResolver();
+        final StrLookup<?> resolver = getVariableResolver();
         if (resolver == null) {
             return null;
         }

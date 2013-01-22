@@ -79,8 +79,8 @@ public class SerializationUtils {
         if (object == null) {
             return null;
         }
-        byte[] objectData = serialize(object);
-        ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
+        final byte[] objectData = serialize(object);
+        final ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
 
         ClassLoaderAwareObjectInputStream in = null;
         try {
@@ -92,19 +92,20 @@ public class SerializationUtils {
              * is of the same type as the original serialized object
              */
             @SuppressWarnings("unchecked") // see above
+            final
             T readObject = (T) in.readObject();
             return readObject;
 
-        } catch (ClassNotFoundException ex) {
+        } catch (final ClassNotFoundException ex) {
             throw new SerializationException("ClassNotFoundException while reading cloned object data", ex);
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             throw new SerializationException("IOException while reading cloned object data", ex);
         } finally {
             try {
                 if (in != null) {
                     in.close();
                 }
-            } catch (IOException ex) {
+            } catch (final IOException ex) {
                 throw new SerializationException("IOException on closing cloned object data InputStream.", ex);
             }
         }
@@ -137,14 +138,14 @@ public class SerializationUtils {
             out = new ObjectOutputStream(outputStream);
             out.writeObject(obj);
 
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             throw new SerializationException(ex);
         } finally {
             try {
                 if (out != null) {
                     out.close();
                 }
-            } catch (IOException ex) { // NOPMD
+            } catch (final IOException ex) { // NOPMD
                 // ignore close exception
             }
         }
@@ -159,7 +160,7 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static byte[] serialize(final Serializable obj) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
         serialize(obj, baos);
         return baos.toByteArray();
     }
@@ -207,16 +208,16 @@ public class SerializationUtils {
             in = new ObjectInputStream(inputStream);
             return (T) in.readObject();
 
-        } catch (ClassNotFoundException ex) {
+        } catch (final ClassNotFoundException ex) {
             throw new SerializationException(ex);
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             throw new SerializationException(ex);
         } finally {
             try {
                 if (in != null) {
                     in.close();
                 }
-            } catch (IOException ex) { // NOPMD
+            } catch (final IOException ex) { // NOPMD
                 // ignore close exception
             }
         }
@@ -300,14 +301,14 @@ public class SerializationUtils {
          */
         @Override
         protected Class<?> resolveClass(final ObjectStreamClass desc) throws IOException, ClassNotFoundException {
-            String name = desc.getName();
+            final String name = desc.getName();
             try {
                 return Class.forName(name, false, classLoader);
-            } catch (ClassNotFoundException ex) {
+            } catch (final ClassNotFoundException ex) {
                 try {
                     return Class.forName(name, false, Thread.currentThread().getContextClassLoader());
-                } catch (ClassNotFoundException cnfe) {
-                    Class<?> cls = primitiveTypes.get(name);
+                } catch (final ClassNotFoundException cnfe) {
+                    final Class<?> cls = primitiveTypes.get(name);
                     if (cls != null) {
                         return cls;
                     } else {

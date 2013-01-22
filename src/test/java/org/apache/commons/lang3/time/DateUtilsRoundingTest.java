@@ -84,9 +84,9 @@ public class DateUtilsRoundingTest {
     @Test
     public void testRoundYear() throws Exception {
         final int calendarField = Calendar.YEAR;
-        Date roundedUpDate = dateTimeParser.parse("January 1, 2008 0:00:00.000");
-        Date roundedDownDate = targetYearDate;
-        Date lastRoundedDownDate = dateTimeParser.parse("June 30, 2007 23:59:59.999");
+        final Date roundedUpDate = dateTimeParser.parse("January 1, 2008 0:00:00.000");
+        final Date roundedDownDate = targetYearDate;
+        final Date lastRoundedDownDate = dateTimeParser.parse("June 30, 2007 23:59:59.999");
         baseRoundTest(roundedUpDate, roundedDownDate, lastRoundedDownDate,  calendarField);
     }
     
@@ -416,7 +416,7 @@ public class DateUtilsRoundingTest {
     @Test
     public void testTruncateYear() throws Exception {
         final int calendarField = Calendar.YEAR;
-        Date lastTruncateDate = dateTimeParser.parse("December 31, 2007 23:59:59.999");
+        final Date lastTruncateDate = dateTimeParser.parse("December 31, 2007 23:59:59.999");
         baseTruncateTest(targetYearDate, lastTruncateDate, calendarField);
     }
 
@@ -429,8 +429,8 @@ public class DateUtilsRoundingTest {
     @Test
     public void testTruncateMonth() throws Exception {
         final int calendarField = Calendar.MONTH;
-        Date truncatedDate = dateTimeParser.parse("March 1, 2008 0:00:00.000");
-        Date lastTruncateDate = dateTimeParser.parse("March 31, 2008 23:59:59.999");
+        final Date truncatedDate = dateTimeParser.parse("March 1, 2008 0:00:00.000");
+        final Date lastTruncateDate = dateTimeParser.parse("March 31, 2008 23:59:59.999");
         baseTruncateTest(truncatedDate, lastTruncateDate, calendarField);
     }
 
@@ -497,7 +497,7 @@ public class DateUtilsRoundingTest {
     @Test
     public void testTruncateDate() throws Exception {
         final int calendarField = Calendar.DATE;
-        Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 23:59:59.999");
+        final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 23:59:59.999");
         baseTruncateTest(targetDateDate, lastTruncateDate, calendarField);
     }
     
@@ -510,7 +510,7 @@ public class DateUtilsRoundingTest {
     @Test
     public void testTruncateDayOfMonth() throws Exception {
         final int calendarField = Calendar.DAY_OF_MONTH;
-        Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 23:59:59.999");
+        final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 23:59:59.999");
         baseTruncateTest(targetDayOfMonthDate, lastTruncateDate, calendarField);
     }
     
@@ -543,7 +543,7 @@ public class DateUtilsRoundingTest {
     @Test
     public void testTruncateHour() throws Exception {
         final int calendarField = Calendar.HOUR;
-        Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:59:59.999");
+        final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:59:59.999");
         baseTruncateTest(targetHourDate, lastTruncateDate, calendarField);
     }
     
@@ -556,7 +556,7 @@ public class DateUtilsRoundingTest {
     @Test
     public void testTruncateHourOfDay() throws Exception {
         final int calendarField = Calendar.HOUR_OF_DAY;
-        Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:59:59.999");
+        final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:59:59.999");
         baseTruncateTest(targetHourOfDayDate, lastTruncateDate, calendarField);
     }
     
@@ -569,7 +569,7 @@ public class DateUtilsRoundingTest {
     @Test
     public void testTruncateMinute() throws Exception {
         final int calendarField = Calendar.MINUTE;
-        Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:15:59.999");
+        final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:15:59.999");
         baseTruncateTest(targetMinuteDate, lastTruncateDate, calendarField);
     }
     
@@ -582,7 +582,7 @@ public class DateUtilsRoundingTest {
     @Test
     public void testTruncateSecond() throws Exception {
         final int calendarField = Calendar.SECOND;
-        Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:15:14.999");
+        final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:15:14.999");
         baseTruncateTest(targetSecondDate, lastTruncateDate, calendarField);
     }
     
@@ -611,7 +611,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     protected void baseRoundTest(final Date roundedUpDate, final Date roundedDownDate, final Date lastRoundDownDate, final int calendarField) {
-        Date firstRoundUpDate = DateUtils.addMilliseconds(lastRoundDownDate, 1);
+        final Date firstRoundUpDate = DateUtils.addMilliseconds(lastRoundDownDate, 1);
         
         //Date-comparison
         assertEquals(roundedDownDate, DateUtils.round(roundedDownDate, calendarField));
@@ -659,7 +659,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     protected void baseTruncateTest(final Date truncatedDate, final Date lastTruncateDate, final int calendarField) {
-        Date nextTruncateDate = DateUtils.addMilliseconds(lastTruncateDate, 1);
+        final Date nextTruncateDate = DateUtils.addMilliseconds(lastTruncateDate, 1);
         
         //Date-comparison
         assertEquals("Truncating "+ fdf.format(truncatedDate) +" as Date with CalendarField-value "+ calendarField +" must return itself", truncatedDate, DateUtils.truncate(truncatedDate, calendarField));
@@ -704,22 +704,22 @@ public class DateUtilsRoundingTest {
         assertEquals(januaryOneDate, DateUtils.round(minDate, calendarField));
         assertEquals(januaryOneDate, DateUtils.round(maxDate, calendarField));
         
-        Calendar minCalendar = Calendar.getInstance();
+        final Calendar minCalendar = Calendar.getInstance();
         minCalendar.setTime(minDate);
-        Calendar maxCalendar = Calendar.getInstance();
+        final Calendar maxCalendar = Calendar.getInstance();
         maxCalendar.setTime(maxDate);
         assertEquals("Rounding "+ fdf.format(januaryOneCalendar) +" as Date with CalendarField-value "+ calendarField +" must return itself", januaryOneCalendar, DateUtils.round(januaryOneCalendar, calendarField));
         assertEquals(januaryOneCalendar, DateUtils.round(minCalendar, calendarField));
         assertEquals(januaryOneCalendar, DateUtils.round(maxCalendar, calendarField));
 
-        Date toPrevRoundDate = DateUtils.addMilliseconds(minDate, -1);
-        Date toNextRoundDate = DateUtils.addMilliseconds(maxDate, 1);
+        final Date toPrevRoundDate = DateUtils.addMilliseconds(minDate, -1);
+        final Date toNextRoundDate = DateUtils.addMilliseconds(maxDate, 1);
         assertFalse(fdf.format(minDate) +" is not an lower-extreme when rounding as Date with CalendarField-value "+ calendarField, januaryOneDate.equals(DateUtils.round(toPrevRoundDate, calendarField)));
         assertFalse(fdf.format(maxDate) +" is not an upper-extreme when rounding as Date with CalendarField-value "+ calendarField, januaryOneDate.equals(DateUtils.round(toNextRoundDate, calendarField)));
         
-        Calendar toPrevRoundCalendar = Calendar.getInstance();
+        final Calendar toPrevRoundCalendar = Calendar.getInstance();
         toPrevRoundCalendar.setTime(toPrevRoundDate);
-        Calendar toNextRoundCalendar = Calendar.getInstance();
+        final Calendar toNextRoundCalendar = Calendar.getInstance();
         toNextRoundCalendar.setTime(toNextRoundDate);
         assertFalse(fdf.format(minCalendar) +" is not an lower-extreme when rounding as Date with CalendarField-value "+ calendarField, januaryOneDate.equals(DateUtils.round(toPrevRoundDate, calendarField)));
         assertFalse(fdf.format(maxCalendar) +" is not an upper-extreme when rounding as Date with CalendarField-value "+ calendarField, januaryOneDate.equals(DateUtils.round(toNextRoundDate, calendarField)));

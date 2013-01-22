@@ -34,8 +34,8 @@ public abstract class CodePointTranslator extends CharSequenceTranslator {
      */
     @Override
     public final int translate(final CharSequence input, final int index, final Writer out) throws IOException {
-        int codepoint = Character.codePointAt(input, index);
-        boolean consumed = translate(codepoint, out);
+        final int codepoint = Character.codePointAt(input, index);
+        final boolean consumed = translate(codepoint, out);
         if (consumed) {
             return 1;
         } else {

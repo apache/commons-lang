@@ -51,8 +51,8 @@ public abstract class AbstractConcurrentInitializerTest {
      */
     @Test
     public void testGetMultipleTimes() throws ConcurrentException {
-        ConcurrentInitializer<Object> initializer = createInitializer();
-        Object obj = initializer.get();
+        final ConcurrentInitializer<Object> initializer = createInitializer();
+        final Object obj = initializer.get();
         for (int i = 0; i < 10; i++) {
             assertEquals("Got different object at " + i, obj, initializer.get());
         }
@@ -78,15 +78,15 @@ public abstract class AbstractConcurrentInitializerTest {
                     startLatch.await();
                     // access the initializer
                     object = initializer.get();
-                } catch (InterruptedException iex) {
+                } catch (final InterruptedException iex) {
                     // ignore
-                } catch (ConcurrentException cex) {
+                } catch (final ConcurrentException cex) {
                     object = cex;
                 }
             }
         }
 
-        GetThread[] threads = new GetThread[threadCount];
+        final GetThread[] threads = new GetThread[threadCount];
         for (int i = 0; i < threadCount; i++) {
             threads[i] = new GetThread();
             threads[i].start();
@@ -94,13 +94,13 @@ public abstract class AbstractConcurrentInitializerTest {
 
         // fire all threads and wait until they are ready
         startLatch.countDown();
-        for (Thread t : threads) {
+        for (final Thread t : threads) {
             t.join();
         }
 
         // check results
-        Object managedObject = initializer.get();
-        for (GetThread t : threads) {
+        final Object managedObject = initializer.get();
+        for (final GetThread t : threads) {
             assertEquals("Wrong object", managedObject, t.object);
         }
     }

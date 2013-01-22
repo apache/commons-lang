@@ -316,7 +316,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String trimToNull(final String str) {
-        String ts = trim(str);
+        final String ts = trim(str);
         return isEmpty(ts) ? null : ts;
     }
 
@@ -608,7 +608,7 @@ public class StringUtils {
         if (strs == null || (strsLen = strs.length) == 0) {
             return strs;
         }
-        String[] newArr = new String[strsLen];
+        final String[] newArr = new String[strsLen];
         for (int i = 0; i < strsLen; i++) {
             newArr[i] = strip(strs[i], stripChars);
         }
@@ -637,8 +637,8 @@ public class StringUtils {
         if(input == null) {
             return null;
         }
-        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");//$NON-NLS-1$
-        String decomposed = Normalizer.normalize(input, Normalizer.Form.NFD);
+        final Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");//$NON-NLS-1$
+        final String decomposed = Normalizer.normalize(input, Normalizer.Form.NFD);
         // Note that this doesn't correctly remove ligatures...
         return pattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
     }
@@ -988,7 +988,7 @@ public class StringUtils {
         if (startPos < 0) {
             startPos = 0;
         }
-        int endLimit = str.length() - searchStr.length() + 1;
+        final int endLimit = str.length() - searchStr.length() + 1;
         if (startPos > endLimit) {
             return INDEX_NOT_FOUND;
         }
@@ -1338,8 +1338,8 @@ public class StringUtils {
         if (str == null || searchStr == null) {
             return false;
         }
-        int len = searchStr.length();
-        int max = str.length() - len;
+        final int len = searchStr.length();
+        final int max = str.length() - len;
         for (int i = 0; i <= max; i++) {
             if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, len)) {
                 return true;
@@ -1361,7 +1361,7 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return false;
         }
-        int strLen = seq.length();
+        final int strLen = seq.length();
         for (int i = 0; i < strLen; i++) {
             if (Character.isWhitespace(seq.charAt(i))) {
                 return true;
@@ -1399,12 +1399,12 @@ public class StringUtils {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        int csLen = cs.length();
-        int csLast = csLen - 1;
-        int searchLen = searchChars.length;
-        int searchLast = searchLen - 1;
+        final int csLen = cs.length();
+        final int csLast = csLen - 1;
+        final int searchLen = searchChars.length;
+        final int searchLast = searchLen - 1;
         for (int i = 0; i < csLen; i++) {
-            char ch = cs.charAt(i);
+            final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
                     if (i < csLast && j < searchLast && Character.isHighSurrogate(ch)) {
@@ -1481,12 +1481,12 @@ public class StringUtils {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return false;
         }
-        int csLength = cs.length();
-        int searchLength = searchChars.length;
-        int csLast = csLength - 1;
-        int searchLast = searchLength - 1;
+        final int csLength = cs.length();
+        final int searchLength = searchChars.length;
+        final int csLast = csLength - 1;
+        final int searchLast = searchLength - 1;
         for (int i = 0; i < csLength; i++) {
-            char ch = cs.charAt(i);
+            final char ch = cs.charAt(i);
             for (int j = 0; j < searchLength; j++) {
                 if (searchChars[j] == ch) {
                     if (Character.isHighSurrogate(ch)) {
@@ -1572,13 +1572,13 @@ public class StringUtils {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        int csLen = cs.length();
-        int csLast = csLen - 1;
-        int searchLen = searchChars.length;
-        int searchLast = searchLen - 1;
+        final int csLen = cs.length();
+        final int csLast = csLen - 1;
+        final int searchLen = searchChars.length;
+        final int searchLast = searchLen - 1;
         outer:
         for (int i = 0; i < csLen; i++) {
-            char ch = cs.charAt(i);
+            final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
                     if (i < csLast && j < searchLast && Character.isHighSurrogate(ch)) {
@@ -1622,12 +1622,12 @@ public class StringUtils {
         if (isEmpty(seq) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        int strLen = seq.length();
+        final int strLen = seq.length();
         for (int i = 0; i < strLen; i++) {
-            char ch = seq.charAt(i);
-            boolean chFound = CharSequenceUtils.indexOf(searchChars, ch, 0) >= 0;
+            final char ch = seq.charAt(i);
+            final boolean chFound = CharSequenceUtils.indexOf(searchChars, ch, 0) >= 0;
             if (i + 1 < strLen && Character.isHighSurrogate(ch)) {
-                char ch2 = seq.charAt(i + 1);
+                final char ch2 = seq.charAt(i + 1);
                 if (chFound && CharSequenceUtils.indexOf(searchChars, ch2, 0) < 0) {
                     return i;
                 }
@@ -1737,12 +1737,12 @@ public class StringUtils {
         if (cs == null || searchChars == null) {
             return true;
         }
-        int csLen = cs.length();
-        int csLast = csLen - 1;
-        int searchLen = searchChars.length;
-        int searchLast = searchLen - 1;
+        final int csLen = cs.length();
+        final int csLast = csLen - 1;
+        final int searchLen = searchChars.length;
+        final int searchLast = searchLen - 1;
         for (int i = 0; i < csLen; i++) {
-            char ch = cs.charAt(i);
+            final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
                     if (Character.isHighSurrogate(ch)) {
@@ -1826,14 +1826,14 @@ public class StringUtils {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
-        int sz = searchStrs.length;
+        final int sz = searchStrs.length;
 
         // String's can't have a MAX_VALUEth index.
         int ret = Integer.MAX_VALUE;
 
         int tmp = 0;
         for (int i = 0; i < sz; i++) {
-            CharSequence search = searchStrs[i];
+            final CharSequence search = searchStrs[i];
             if (search == null) {
                 continue;
             }
@@ -1880,11 +1880,11 @@ public class StringUtils {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
-        int sz = searchStrs.length;
+        final int sz = searchStrs.length;
         int ret = INDEX_NOT_FOUND;
         int tmp = 0;
         for (int i = 0; i < sz; i++) {
-            CharSequence search = searchStrs[i];
+            final CharSequence search = searchStrs[i];
             if (search == null) {
                 continue;
             }
@@ -2155,7 +2155,7 @@ public class StringUtils {
         if (separator.length() == 0) {
             return EMPTY;
         }
-        int pos = str.indexOf(separator);
+        final int pos = str.indexOf(separator);
         if (pos == INDEX_NOT_FOUND) {
             return str;
         }
@@ -2197,7 +2197,7 @@ public class StringUtils {
         if (separator == null) {
             return EMPTY;
         }
-        int pos = str.indexOf(separator);
+        final int pos = str.indexOf(separator);
         if (pos == INDEX_NOT_FOUND) {
             return EMPTY;
         }
@@ -2235,7 +2235,7 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(separator)) {
             return str;
         }
-        int pos = str.lastIndexOf(separator);
+        final int pos = str.lastIndexOf(separator);
         if (pos == INDEX_NOT_FOUND) {
             return str;
         }
@@ -2278,7 +2278,7 @@ public class StringUtils {
         if (isEmpty(separator)) {
             return EMPTY;
         }
-        int pos = str.lastIndexOf(separator);
+        final int pos = str.lastIndexOf(separator);
         if (pos == INDEX_NOT_FOUND || pos == str.length() - separator.length()) {
             return EMPTY;
         }
@@ -2343,9 +2343,9 @@ public class StringUtils {
         if (str == null || open == null || close == null) {
             return null;
         }
-        int start = str.indexOf(open);
+        final int start = str.indexOf(open);
         if (start != INDEX_NOT_FOUND) {
-            int end = str.indexOf(close, start + open.length());
+            final int end = str.indexOf(close, start + open.length());
             if (end != INDEX_NOT_FOUND) {
                 return str.substring(start + open.length(), end);
             }
@@ -2379,13 +2379,13 @@ public class StringUtils {
         if (str == null || isEmpty(open) || isEmpty(close)) {
             return null;
         }
-        int strLen = str.length();
+        final int strLen = str.length();
         if (strLen == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        int closeLen = close.length();
-        int openLen = open.length();
-        List<String> list = new ArrayList<String>();
+        final int closeLen = close.length();
+        final int openLen = open.length();
+        final List<String> list = new ArrayList<String>();
         int pos = 0;
         while (pos < strLen - closeLen) {
             int start = str.indexOf(open, pos);
@@ -2393,7 +2393,7 @@ public class StringUtils {
                 break;
             }
             start += openLen;
-            int end = str.indexOf(close, start);
+            final int end = str.indexOf(close, start);
             if (end < 0) {
                 break;
             }
@@ -2668,7 +2668,7 @@ public class StringUtils {
             return null;
         }
 
-        int len = str.length();
+        final int len = str.length();
 
         if (len == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
@@ -2679,9 +2679,9 @@ public class StringUtils {
             return splitWorker(str, null, max, preserveAllTokens);
         }
 
-        int separatorLength = separator.length();
+        final int separatorLength = separator.length();
 
-        ArrayList<String> substrings = new ArrayList<String>();
+        final ArrayList<String> substrings = new ArrayList<String>();
         int numberOfSubstrings = 0;
         int beg = 0;
         int end = 0;
@@ -2811,11 +2811,11 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        int len = str.length();
+        final int len = str.length();
         if (len == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<String>();
         int i = 0, start = 0;
         boolean match = false;
         boolean lastMatch = false;
@@ -2938,11 +2938,11 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        int len = str.length();
+        final int len = str.length();
         if (len == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<String>();
         int sizePlus1 = 1;
         int i = 0, start = 0;
         boolean match = false;
@@ -2969,7 +2969,7 @@ public class StringUtils {
             }
         } else if (separatorChars.length() == 1) {
             // Optimise 1 character case
-            char sep = separatorChars.charAt(0);
+            final char sep = separatorChars.charAt(0);
             while (i < len) {
                 if (str.charAt(i) == sep) {
                     if (match || preserveAllTokens) {
@@ -3087,17 +3087,17 @@ public class StringUtils {
         if (str.length() == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        char[] c = str.toCharArray();
-        List<String> list = new ArrayList<String>();
+        final char[] c = str.toCharArray();
+        final List<String> list = new ArrayList<String>();
         int tokenStart = 0;
         int currentType = Character.getType(c[tokenStart]);
         for (int pos = tokenStart + 1; pos < c.length; pos++) {
-            int type = Character.getType(c[pos]);
+            final int type = Character.getType(c[pos]);
             if (type == currentType) {
                 continue;
             }
             if (camelCase && type == Character.LOWERCASE_LETTER && currentType == Character.UPPERCASE_LETTER) {
-                int newTokenStart = pos - 1;
+                final int newTokenStart = pos - 1;
                 if (newTokenStart != tokenStart) {
                     list.add(new String(c, tokenStart, newTokenStart - tokenStart));
                     tokenStart = newTokenStart;
@@ -3424,11 +3424,11 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        int noOfItems = endIndex - startIndex;
+        final int noOfItems = endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = new StringBuilder(noOfItems * 16);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -3475,11 +3475,11 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        int noOfItems = endIndex - startIndex;
+        final int noOfItems = endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = new StringBuilder(noOfItems * 16);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -3524,11 +3524,11 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        int noOfItems = endIndex - startIndex;
+        final int noOfItems = endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = new StringBuilder(noOfItems * 16);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -3573,11 +3573,11 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        int noOfItems = endIndex - startIndex;
+        final int noOfItems = endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = new StringBuilder(noOfItems * 16);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -3622,11 +3622,11 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        int noOfItems = endIndex - startIndex;
+        final int noOfItems = endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = new StringBuilder(noOfItems * 16);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -3671,11 +3671,11 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        int noOfItems = endIndex - startIndex;
+        final int noOfItems = endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = new StringBuilder(noOfItems * 16);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -3720,11 +3720,11 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        int noOfItems = endIndex - startIndex;
+        final int noOfItems = endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = new StringBuilder(noOfItems * 16);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -3769,11 +3769,11 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        int noOfItems = endIndex - startIndex;
+        final int noOfItems = endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = new StringBuilder(noOfItems * 16);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -3859,12 +3859,12 @@ public class StringUtils {
 
         // endIndex - startIndex > 0:   Len = NofStrings *(len(firstString) + len(separator))
         //           (Assuming that all Strings are roughly equally long)
-        int noOfItems = endIndex - startIndex;
+        final int noOfItems = endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
 
-        StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = new StringBuilder(noOfItems * 16);
 
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
@@ -3900,20 +3900,20 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-        Object first = iterator.next();
+        final Object first = iterator.next();
         if (!iterator.hasNext()) {
             return ObjectUtils.toString(first);
         }
 
         // two or more elements
-        StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
+        final StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
         if (first != null) {
             buf.append(first);
         }
 
         while (iterator.hasNext()) {
             buf.append(separator);
-            Object obj = iterator.next();
+            final Object obj = iterator.next();
             if (obj != null) {
                 buf.append(obj);
             }
@@ -3944,13 +3944,13 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-        Object first = iterator.next();
+        final Object first = iterator.next();
         if (!iterator.hasNext()) {
             return ObjectUtils.toString(first);
         }
 
         // two or more elements
-        StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
+        final StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
         if (first != null) {
             buf.append(first);
         }
@@ -3959,7 +3959,7 @@ public class StringUtils {
             if (separator != null) {
                 buf.append(separator);
             }
-            Object obj = iterator.next();
+            final Object obj = iterator.next();
             if (obj != null) {
                 buf.append(obj);
             }
@@ -4029,8 +4029,8 @@ public class StringUtils {
         if (isEmpty(str)) {
             return str;
         }
-        int sz = str.length();
-        char[] chs = new char[sz];
+        final int sz = str.length();
+        final char[] chs = new char[sz];
         int count = 0;
         for (int i = 0; i < sz; i++) {
             if (!Character.isWhitespace(str.charAt(i))) {
@@ -4237,7 +4237,7 @@ public class StringUtils {
         if (isEmpty(str) || str.indexOf(remove) == INDEX_NOT_FOUND) {
             return str;
         }
-        char[] chars = str.toCharArray();
+        final char[] chars = str.toCharArray();
         int pos = 0;
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] != remove) {
@@ -4380,11 +4380,11 @@ public class StringUtils {
         if (end == INDEX_NOT_FOUND) {
             return text;
         }
-        int replLength = searchString.length();
+        final int replLength = searchString.length();
         int increase = replacement.length() - replLength;
         increase = increase < 0 ? 0 : increase;
         increase *= max < 0 ? 16 : max > 64 ? 64 : max;
-        StringBuilder buf = new StringBuilder(text.length() + increase);
+        final StringBuilder buf = new StringBuilder(text.length() + increase);
         while (end != INDEX_NOT_FOUND) {
             buf.append(text.substring(start, end)).append(replacement);
             start = end + replLength;
@@ -4487,7 +4487,7 @@ public class StringUtils {
     public static String replaceEachRepeatedly(final String text, final String[] searchList, final String[] replacementList) {
         // timeToLive should be 0 if not used or nothing to replace, else it's
         // the length of the replace array
-        int timeToLive = searchList == null ? 0 : searchList.length;
+        final int timeToLive = searchList == null ? 0 : searchList.length;
         return replaceEach(text, searchList, replacementList, true, timeToLive);
     }
 
@@ -4556,8 +4556,8 @@ public class StringUtils {
                                             "output of one loop is the input of another");
         }
 
-        int searchLength = searchList.length;
-        int replacementLength = replacementList.length;
+        final int searchLength = searchList.length;
+        final int replacementLength = replacementList.length;
 
         // make sure lengths are ok, these need to be equal
         if (searchLength != replacementLength) {
@@ -4568,7 +4568,7 @@ public class StringUtils {
         }
 
         // keep track of which still have matches
-        boolean[] noMoreMatchesForReplIndex = new boolean[searchLength];
+        final boolean[] noMoreMatchesForReplIndex = new boolean[searchLength];
 
         // index on index that the match was found
         int textIndex = -1;
@@ -4611,7 +4611,7 @@ public class StringUtils {
             if (searchList[i] == null || replacementList[i] == null) {
                 continue;
             }
-            int greater = replacementList[i].length() - searchList[i].length();
+            final int greater = replacementList[i].length() - searchList[i].length();
             if (greater > 0) {
                 increase += 3 * greater; // assume 3 matches
             }
@@ -4619,7 +4619,7 @@ public class StringUtils {
         // have upper-bound at 20% increase, then let Java take over
         increase = Math.min(increase, text.length() / 5);
 
-        StringBuilder buf = new StringBuilder(text.length() + increase);
+        final StringBuilder buf = new StringBuilder(text.length() + increase);
 
         while (textIndex != -1) {
 
@@ -4655,11 +4655,11 @@ public class StringUtils {
             // NOTE: logic duplicated above END
 
         }
-        int textLength = text.length();
+        final int textLength = text.length();
         for (int i = start; i < textLength; i++) {
             buf.append(text.charAt(i));
         }
-        String result = buf.toString();
+        final String result = buf.toString();
         if (!repeat) {
             return result;
         }
@@ -4740,12 +4740,12 @@ public class StringUtils {
             replaceChars = EMPTY;
         }
         boolean modified = false;
-        int replaceCharsLength = replaceChars.length();
-        int strLength = str.length();
-        StringBuilder buf = new StringBuilder(strLength);
+        final int replaceCharsLength = replaceChars.length();
+        final int strLength = str.length();
+        final StringBuilder buf = new StringBuilder(strLength);
         for (int i = 0; i < strLength; i++) {
-            char ch = str.charAt(i);
-            int index = searchChars.indexOf(ch);
+            final char ch = str.charAt(i);
+            final int index = searchChars.indexOf(ch);
             if (index >= 0) {
                 modified = true;
                 if (index < replaceCharsLength) {
@@ -4799,7 +4799,7 @@ public class StringUtils {
         if (overlay == null) {
             overlay = EMPTY;
         }
-        int len = str.length();
+        final int len = str.length();
         if (start < 0) {
             start = 0;
         }
@@ -4813,7 +4813,7 @@ public class StringUtils {
             end = len;
         }
         if (start > end) {
-            int temp = start;
+            final int temp = start;
             start = end;
             end = temp;
         }
@@ -4857,7 +4857,7 @@ public class StringUtils {
         }
 
         if (str.length() == 1) {
-            char ch = str.charAt(0);
+            final char ch = str.charAt(0);
             if (ch == CharUtils.CR || ch == CharUtils.LF) {
                 return EMPTY;
             }
@@ -4865,7 +4865,7 @@ public class StringUtils {
         }
 
         int lastIdx = str.length() - 1;
-        char last = str.charAt(lastIdx);
+        final char last = str.charAt(lastIdx);
 
         if (last == CharUtils.LF) {
             if (str.charAt(lastIdx - 1) == CharUtils.CR) {
@@ -4938,13 +4938,13 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        int strLen = str.length();
+        final int strLen = str.length();
         if (strLen < 2) {
             return EMPTY;
         }
-        int lastIdx = strLen - 1;
-        String ret = str.substring(0, lastIdx);
-        char last = str.charAt(lastIdx);
+        final int lastIdx = strLen - 1;
+        final String ret = str.substring(0, lastIdx);
+        final char last = str.charAt(lastIdx);
         if (last == CharUtils.LF && ret.charAt(lastIdx - 1) == CharUtils.CR) {
             return ret.substring(0, lastIdx - 1);
         }
@@ -4983,7 +4983,7 @@ public class StringUtils {
         if (repeat <= 0) {
             return EMPTY;
         }
-        int inputLength = str.length();
+        final int inputLength = str.length();
         if (repeat == 1 || inputLength == 0) {
             return str;
         }
@@ -4991,21 +4991,21 @@ public class StringUtils {
             return repeat(str.charAt(0), repeat);
         }
 
-        int outputLength = inputLength * repeat;
+        final int outputLength = inputLength * repeat;
         switch (inputLength) {
             case 1 :
                 return repeat(str.charAt(0), repeat);
             case 2 :
-                char ch0 = str.charAt(0);
-                char ch1 = str.charAt(1);
-                char[] output2 = new char[outputLength];
+                final char ch0 = str.charAt(0);
+                final char ch1 = str.charAt(1);
+                final char[] output2 = new char[outputLength];
                 for (int i = repeat * 2 - 2; i >= 0; i--, i--) {
                     output2[i] = ch0;
                     output2[i + 1] = ch1;
                 }
                 return new String(output2);
             default :
-                StringBuilder buf = new StringBuilder(outputLength);
+                final StringBuilder buf = new StringBuilder(outputLength);
                 for (int i = 0; i < repeat; i++) {
                     buf.append(str);
                 }
@@ -5038,7 +5038,7 @@ public class StringUtils {
             return repeat(str, repeat);
         } else {
             // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
-            String result = repeat(str + separator, repeat);
+            final String result = repeat(str + separator, repeat);
             return removeEnd(result, separator);
         }
     }
@@ -5066,7 +5066,7 @@ public class StringUtils {
      * @see #repeat(String, int)
      */
     public static String repeat(final char ch, final int repeat) {
-        char[] buf = new char[repeat];
+        final char[] buf = new char[repeat];
         for (int i = repeat - 1; i >= 0; i--) {
             buf[i] = ch;
         }
@@ -5121,7 +5121,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        int pads = size - str.length();
+        final int pads = size - str.length();
         if (pads <= 0) {
             return str; // returns original String when possible
         }
@@ -5161,9 +5161,9 @@ public class StringUtils {
         if (isEmpty(padStr)) {
             padStr = SPACE;
         }
-        int padLen = padStr.length();
-        int strLen = str.length();
-        int pads = size - strLen;
+        final int padLen = padStr.length();
+        final int strLen = str.length();
+        final int pads = size - strLen;
         if (pads <= 0) {
             return str; // returns original String when possible
         }
@@ -5176,8 +5176,8 @@ public class StringUtils {
         } else if (pads < padLen) {
             return str.concat(padStr.substring(0, pads));
         } else {
-            char[] padding = new char[pads];
-            char[] padChars = padStr.toCharArray();
+            final char[] padding = new char[pads];
+            final char[] padChars = padStr.toCharArray();
             for (int i = 0; i < pads; i++) {
                 padding[i] = padChars[i % padLen];
             }
@@ -5233,7 +5233,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        int pads = size - str.length();
+        final int pads = size - str.length();
         if (pads <= 0) {
             return str; // returns original String when possible
         }
@@ -5273,9 +5273,9 @@ public class StringUtils {
         if (isEmpty(padStr)) {
             padStr = SPACE;
         }
-        int padLen = padStr.length();
-        int strLen = str.length();
-        int pads = size - strLen;
+        final int padLen = padStr.length();
+        final int strLen = str.length();
+        final int pads = size - strLen;
         if (pads <= 0) {
             return str; // returns original String when possible
         }
@@ -5288,8 +5288,8 @@ public class StringUtils {
         } else if (pads < padLen) {
             return padStr.substring(0, pads).concat(str);
         } else {
-            char[] padding = new char[pads];
-            char[] padChars = padStr.toCharArray();
+            final char[] padding = new char[pads];
+            final char[] padChars = padStr.toCharArray();
             for (int i = 0; i < pads; i++) {
                 padding[i] = padChars[i % padLen];
             }
@@ -5369,8 +5369,8 @@ public class StringUtils {
         if (str == null || size <= 0) {
             return str;
         }
-        int strLen = str.length();
-        int pads = size - strLen;
+        final int strLen = str.length();
+        final int pads = size - strLen;
         if (pads <= 0) {
             return str;
         }
@@ -5412,8 +5412,8 @@ public class StringUtils {
         if (isEmpty(padStr)) {
             padStr = SPACE;
         }
-        int strLen = str.length();
-        int pads = size - strLen;
+        final int strLen = str.length();
+        final int pads = size - strLen;
         if (pads <= 0) {
             return str;
         }
@@ -5616,10 +5616,10 @@ public class StringUtils {
             return str;
         }
 
-        char[] buffer = str.toCharArray();
+        final char[] buffer = str.toCharArray();
 
         for (int i = 0; i < buffer.length; i++) {
-            char ch = buffer[i];
+            final char ch = buffer[i];
             if (Character.isUpperCase(ch)) {
                 buffer[i] = Character.toLowerCase(ch);
             } else if (Character.isTitleCase(ch)) {
@@ -5692,7 +5692,7 @@ public class StringUtils {
         if (cs == null || cs.length() == 0) {
             return false;
         }
-        int sz = cs.length();
+        final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             if (Character.isLetter(cs.charAt(i)) == false) {
                 return false;
@@ -5727,7 +5727,7 @@ public class StringUtils {
         if (cs == null) {
             return false;
         }
-        int sz = cs.length();
+        final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             if (Character.isLetter(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
                 return false;
@@ -5762,7 +5762,7 @@ public class StringUtils {
         if (cs == null || cs.length() == 0) {
             return false;
         }
-        int sz = cs.length();
+        final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             if (Character.isLetterOrDigit(cs.charAt(i)) == false) {
                 return false;
@@ -5797,7 +5797,7 @@ public class StringUtils {
         if (cs == null) {
             return false;
         }
-        int sz = cs.length();
+        final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             if (Character.isLetterOrDigit(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
                 return false;
@@ -5836,7 +5836,7 @@ public class StringUtils {
         if (cs == null) {
             return false;
         }
-        int sz = cs.length();
+        final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             if (CharUtils.isAsciiPrintable(cs.charAt(i)) == false) {
                 return false;
@@ -5879,7 +5879,7 @@ public class StringUtils {
         if (cs == null || cs.length() == 0) {
             return false;
         }
-        int sz = cs.length();
+        final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             if (Character.isDigit(cs.charAt(i)) == false) {
                 return false;
@@ -5916,7 +5916,7 @@ public class StringUtils {
         if (cs == null) {
             return false;
         }
-        int sz = cs.length();
+        final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             if (Character.isDigit(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
                 return false;
@@ -5949,7 +5949,7 @@ public class StringUtils {
         if (cs == null) {
             return false;
         }
-        int sz = cs.length();
+        final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             if (Character.isWhitespace(cs.charAt(i)) == false) {
                 return false;
@@ -5981,7 +5981,7 @@ public class StringUtils {
         if (cs == null || isEmpty(cs)) {
             return false;
         }
-        int sz = cs.length();
+        final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             if (Character.isLowerCase(cs.charAt(i)) == false) {
                 return false;
@@ -6013,7 +6013,7 @@ public class StringUtils {
         if (cs == null || isEmpty(cs)) {
             return false;
         }
-        int sz = cs.length();
+        final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             if (Character.isUpperCase(cs.charAt(i)) == false) {
                 return false;
@@ -6157,7 +6157,7 @@ public class StringUtils {
         }
         // could implement manually, but simple way is to reuse other,
         // probably slower, methods.
-        String[] strs = split(str, separatorChar);
+        final String[] strs = split(str, separatorChar);
         ArrayUtils.reverse(strs);
         return join(strs, separatorChar);
     }
@@ -6302,11 +6302,11 @@ public class StringUtils {
             return str;
         }
 
-        int targetSting = length-middle.length();
-        int startOffset = targetSting/2+targetSting%2;
-        int endOffset = str.length()-targetSting/2;
+        final int targetSting = length-middle.length();
+        final int startOffset = targetSting/2+targetSting%2;
+        final int endOffset = str.length()-targetSting/2;
 
-        StringBuilder builder = new StringBuilder(length);
+        final StringBuilder builder = new StringBuilder(length);
         builder.append(str.substring(0,startOffset));
         builder.append(middle);
         builder.append(str.substring(endOffset));
@@ -6348,7 +6348,7 @@ public class StringUtils {
         if (str2 == null) {
             return str1;
         }
-        int at = indexOfDifference(str1, str2);
+        final int at = indexOfDifference(str1, str2);
         if (at == INDEX_NOT_FOUND) {
             return EMPTY;
         }
@@ -6437,7 +6437,7 @@ public class StringUtils {
         }
         boolean anyStringNull = false;
         boolean allStringsNull = true;
-        int arrayLen = css.length;
+        final int arrayLen = css.length;
         int shortestStrLen = Integer.MAX_VALUE;
         int longestStrLen = 0;
 
@@ -6468,7 +6468,7 @@ public class StringUtils {
         // find the position with the first difference across all strings
         int firstDiff = -1;
         for (int stringPos = 0; stringPos < shortestStrLen; stringPos++) {
-            char comparisonChar = css[0].charAt(stringPos);
+            final char comparisonChar = css[0].charAt(stringPos);
             for (int arrayPos = 1; arrayPos < arrayLen; arrayPos++) {
                 if (css[arrayPos].charAt(stringPos) != comparisonChar) {
                     firstDiff = stringPos;
@@ -6526,7 +6526,7 @@ public class StringUtils {
         if (strs == null || strs.length == 0) {
             return EMPTY;
         }
-        int smallestIndexOfDiff = indexOfDifference(strs);
+        final int smallestIndexOfDiff = indexOfDifference(strs);
         if (smallestIndexOfDiff == INDEX_NOT_FOUND) {
             // all strings were identical
             if (strs[0] == null) {
@@ -6613,7 +6613,7 @@ public class StringUtils {
 
         if (n > m) {
             // swap the input strings to consume less memory
-            CharSequence tmp = s;
+            final CharSequence tmp = s;
             s = t;
             t = tmp;
             n = m;
@@ -6753,7 +6753,7 @@ public class StringUtils {
 
         if (n > m) {
             // swap the two strings to consume less memory
-            CharSequence tmp = s;
+            final CharSequence tmp = s;
             s = t;
             t = tmp;
             n = m;
@@ -6765,7 +6765,7 @@ public class StringUtils {
         int _d[]; // placeholder to assist in swapping p and d
 
         // fill in starting table values
-        int boundary = Math.min(n, threshold) + 1;
+        final int boundary = Math.min(n, threshold) + 1;
         for (int i = 0; i < boundary; i++) {
             p[i] = i;
         }
@@ -6776,12 +6776,12 @@ public class StringUtils {
 
         // iterates through t
         for (int j = 1; j <= m; j++) {
-            char t_j = t.charAt(j - 1); // jth character of t
+            final char t_j = t.charAt(j - 1); // jth character of t
             d[0] = j;
 
             // compute stripe indices, constrain to array size
-            int min = Math.max(1, j - threshold);
-            int max = Math.min(n, j + threshold);
+            final int min = Math.max(1, j - threshold);
+            final int max = Math.min(n, j + threshold);
 
             // the stripe may lead off of the table if s and t are of different sizes
             if (min > max) {
@@ -6918,7 +6918,7 @@ public class StringUtils {
         if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
-        for (CharSequence searchString : searchStrings) {
+        for (final CharSequence searchString : searchStrings) {
             if (StringUtils.startsWith(string, searchString)) {
                 return true;
             }
@@ -7001,7 +7001,7 @@ public class StringUtils {
         if (suffix.length() > str.length()) {
             return false;
         }
-        int strOffset = str.length() - suffix.length();
+        final int strOffset = str.length() - suffix.length();
         return CharSequenceUtils.regionMatches(str, ignoreCase, strOffset, suffix, 0, suffix.length());
     }
 
@@ -7075,7 +7075,7 @@ public class StringUtils {
         if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
-        for (CharSequence searchString : searchStrings) {
+        for (final CharSequence searchString : searchStrings) {
             if (StringUtils.endsWith(string, searchString)) {
                 return true;
             }

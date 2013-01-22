@@ -32,8 +32,8 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     //-----------------------------------------------------------------------
 
     private void testInteger(final boolean testTransients) {
-        Integer i1 = Integer.valueOf(12345);
-        Integer i2 = Integer.valueOf(12345);
+        final Integer i1 = Integer.valueOf(12345);
+        final Integer i2 = Integer.valueOf(12345);
         assertEqualsAndHashCodeContract(i1, i2, testTransients);
     }
 

@@ -42,9 +42,9 @@ public class LookupTranslator extends CharSequenceTranslator {
         int _shortest = Integer.MAX_VALUE;
         int _longest = 0;
         if (lookup != null) {
-            for (CharSequence[] seq : lookup) {
+            for (final CharSequence[] seq : lookup) {
                 this.lookupMap.put(seq[0], seq[1]);
-                int sz = seq[0].length();
+                final int sz = seq[0].length();
                 if (sz < _shortest) {
                     _shortest = sz;
                 }
@@ -68,8 +68,8 @@ public class LookupTranslator extends CharSequenceTranslator {
         }
         // descend so as to get a greedy algorithm
         for (int i = max; i >= shortest; i--) {
-            CharSequence subSeq = input.subSequence(index, index + i);
-            CharSequence result = lookupMap.get(subSeq);
+            final CharSequence subSeq = input.subSequence(index, index + i);
+            final CharSequence result = lookupMap.get(subSeq);
             if (result != null) {
                 out.write(result.toString());
                 return i;

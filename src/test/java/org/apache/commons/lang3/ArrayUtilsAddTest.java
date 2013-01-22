@@ -46,7 +46,7 @@ public class ArrayUtilsAddTest {
             // Invalid - can't store Long in Integer array
                n = ArrayUtils.addAll(new Integer[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)});
                fail("Should have generated IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {
+        } catch (final IllegalArgumentException expected) {
         }
     }
 
@@ -59,7 +59,7 @@ public class ArrayUtilsAddTest {
         newArray = ArrayUtils.add((boolean[])null, true);
         assertTrue(Arrays.equals(new boolean[]{true}, newArray));
         assertEquals(Boolean.TYPE, newArray.getClass().getComponentType());
-        boolean[] array1 = new boolean[]{true, false, true};
+        final boolean[] array1 = new boolean[]{true, false, true};
         newArray = ArrayUtils.add(array1, false);
         assertTrue(Arrays.equals(new boolean[]{true, false, true, false}, newArray));
         assertEquals(Boolean.TYPE, newArray.getClass().getComponentType());
@@ -74,7 +74,7 @@ public class ArrayUtilsAddTest {
         newArray = ArrayUtils.add((byte[])null, (byte)1);
         assertTrue(Arrays.equals(new byte[]{1}, newArray));
         assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
-        byte[] array1 = new byte[]{1, 2, 3};
+        final byte[] array1 = new byte[]{1, 2, 3};
         newArray = ArrayUtils.add(array1, (byte)0);
         assertTrue(Arrays.equals(new byte[]{1, 2, 3, 0}, newArray));
         assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
@@ -92,7 +92,7 @@ public class ArrayUtilsAddTest {
         newArray = ArrayUtils.add((char[])null, (char)1);
         assertTrue(Arrays.equals(new char[]{1}, newArray));
         assertEquals(Character.TYPE, newArray.getClass().getComponentType());
-        char[] array1 = new char[]{1, 2, 3};
+        final char[] array1 = new char[]{1, 2, 3};
         newArray = ArrayUtils.add(array1, (char)0);
         assertTrue(Arrays.equals(new char[]{1, 2, 3, 0}, newArray));
         assertEquals(Character.TYPE, newArray.getClass().getComponentType());
@@ -110,7 +110,7 @@ public class ArrayUtilsAddTest {
         newArray = ArrayUtils.add((double[])null, 1);
         assertTrue(Arrays.equals(new double[]{1}, newArray));
         assertEquals(Double.TYPE, newArray.getClass().getComponentType());
-        double[] array1 = new double[]{1, 2, 3};
+        final double[] array1 = new double[]{1, 2, 3};
         newArray = ArrayUtils.add(array1, 0);
         assertTrue(Arrays.equals(new double[]{1, 2, 3, 0}, newArray));
         assertEquals(Double.TYPE, newArray.getClass().getComponentType());
@@ -128,7 +128,7 @@ public class ArrayUtilsAddTest {
         newArray = ArrayUtils.add((float[])null, 1);
         assertTrue(Arrays.equals(new float[]{1}, newArray));
         assertEquals(Float.TYPE, newArray.getClass().getComponentType());
-        float[] array1 = new float[]{1, 2, 3};
+        final float[] array1 = new float[]{1, 2, 3};
         newArray = ArrayUtils.add(array1, 0);
         assertTrue(Arrays.equals(new float[]{1, 2, 3, 0}, newArray));
         assertEquals(Float.TYPE, newArray.getClass().getComponentType());
@@ -146,7 +146,7 @@ public class ArrayUtilsAddTest {
         newArray = ArrayUtils.add((int[])null, 1);
         assertTrue(Arrays.equals(new int[]{1}, newArray));
         assertEquals(Integer.TYPE, newArray.getClass().getComponentType());
-        int[] array1 = new int[]{1, 2, 3};
+        final int[] array1 = new int[]{1, 2, 3};
         newArray = ArrayUtils.add(array1, 0);
         assertTrue(Arrays.equals(new int[]{1, 2, 3, 0}, newArray));
         assertEquals(Integer.TYPE, newArray.getClass().getComponentType());
@@ -164,7 +164,7 @@ public class ArrayUtilsAddTest {
         newArray = ArrayUtils.add((long[])null, 1);
         assertTrue(Arrays.equals(new long[]{1}, newArray));
         assertEquals(Long.TYPE, newArray.getClass().getComponentType());
-        long[] array1 = new long[]{1, 2, 3};
+        final long[] array1 = new long[]{1, 2, 3};
         newArray = ArrayUtils.add(array1, 0);
         assertTrue(Arrays.equals(new long[]{1, 2, 3, 0}, newArray));
         assertEquals(Long.TYPE, newArray.getClass().getComponentType());
@@ -182,7 +182,7 @@ public class ArrayUtilsAddTest {
         newArray = ArrayUtils.add((short[])null, (short)1);
         assertTrue(Arrays.equals(new short[]{1}, newArray));
         assertEquals(Short.TYPE, newArray.getClass().getComponentType());
-        short[] array1 = new short[]{1, 2, 3};
+        final short[] array1 = new short[]{1, 2, 3};
         newArray = ArrayUtils.add(array1, (short)0);
         assertTrue(Arrays.equals(new short[]{1, 2, 3, 0}, newArray));
         assertEquals(Short.TYPE, newArray.getClass().getComponentType());
@@ -202,12 +202,12 @@ public class ArrayUtilsAddTest {
         assertEquals(String.class, newArray.getClass().getComponentType());
 
         //show that not casting to Object[] is okay and will assume String based on "a"
-        String[] newStringArray = ArrayUtils.add(null, "a");
+        final String[] newStringArray = ArrayUtils.add(null, "a");
         assertTrue(Arrays.equals(new String[]{"a"}, newStringArray));
         assertTrue(Arrays.equals(new Object[]{"a"}, newStringArray));
         assertEquals(String.class, newStringArray.getClass().getComponentType());
 
-        String[] stringArray1 = new String[]{"a", "b", "c"};
+        final String[] stringArray1 = new String[]{"a", "b", "c"};
         newArray = ArrayUtils.add(stringArray1, null);
         assertTrue(Arrays.equals(new String[]{"a", "b", "c", null}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
@@ -229,20 +229,22 @@ public class ArrayUtilsAddTest {
     
     @Test
     public void testLANG571(){
-        String[] stringArray=null;
-        String aString=null;
+        final String[] stringArray=null;
+        final String aString=null;
         try {
             @SuppressWarnings("unused")
+            final
             String[] sa = ArrayUtils.add(stringArray, aString);
             fail("Should have caused IllegalArgumentException");
-        } catch (IllegalArgumentException iae){
+        } catch (final IllegalArgumentException iae){
             //expected
         }
         try {
             @SuppressWarnings("unused")
+            final
             String[] sa = ArrayUtils.add(stringArray, 0, aString);
             fail("Should have caused IllegalArgumentException");
-        } catch (IllegalArgumentException iae){
+        } catch (final IllegalArgumentException iae){
             //expected
         }
     }
@@ -251,8 +253,8 @@ public class ArrayUtilsAddTest {
     public void testAddObjectArrayToObjectArray() {
         assertNull(ArrayUtils.addAll((Object[]) null, (Object[]) null));
         Object[] newArray;
-        String[] stringArray1 = new String[]{"a", "b", "c"};
-        String[] stringArray2 = new String[]{"1", "2", "3"};
+        final String[] stringArray1 = new String[]{"a", "b", "c"};
+        final String[] stringArray2 = new String[]{"1", "2", "3"};
         newArray = ArrayUtils.addAll(stringArray1, (String[]) null);
         assertNotSame(stringArray1, newArray);
         assertTrue(Arrays.equals(stringArray1, newArray));
@@ -278,7 +280,7 @@ public class ArrayUtilsAddTest {
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_STRING_ARRAY, newArray));
         assertTrue(Arrays.equals(new String[]{}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
-        String[] stringArrayNull = new String []{null};
+        final String[] stringArrayNull = new String []{null};
         newArray = ArrayUtils.addAll(stringArrayNull, stringArrayNull);
         assertTrue(Arrays.equals(new String[]{null, null}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
@@ -372,7 +374,7 @@ public class ArrayUtilsAddTest {
         assertTrue(Arrays.equals(new String[]{"a"}, newArray));
         assertTrue(Arrays.equals(new Object[]{"a"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
-        String[] stringArray1 = new String[]{"a", "b", "c"};
+        final String[] stringArray1 = new String[]{"a", "b", "c"};
         newArray = ArrayUtils.add(stringArray1, 0, null);
         assertTrue(Arrays.equals(new String[]{null, "a", "b", "c"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
@@ -387,9 +389,9 @@ public class ArrayUtilsAddTest {
         assertEquals(String.class, newArray.getClass().getComponentType());
         assertEquals(String.class, newArray.getClass().getComponentType());
 
-        Object[] o = new Object[] {"1", "2", "4"};
-        Object[] result = ArrayUtils.add(o, 2, "3");
-        Object[] result2 = ArrayUtils.add(o, 3, "5");
+        final Object[] o = new Object[] {"1", "2", "4"};
+        final Object[] result = ArrayUtils.add(o, 2, "3");
+        final Object[] result2 = ArrayUtils.add(o, 3, "5");
 
         assertNotNull(result);
         assertEquals(4, result.length);
@@ -409,7 +411,7 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new boolean[] { true }, booleanArray ) );
         try {
             booleanArray = ArrayUtils.add( null, -1, true );
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 0", e.getMessage());
         }
         booleanArray = ArrayUtils.add( new boolean[] { true }, 0, false);
@@ -420,12 +422,12 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new boolean[] { true, true, false }, booleanArray ) );
         try {
             booleanArray = ArrayUtils.add( new boolean[] { true, false }, 4, true);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: 4, Length: 2", e.getMessage());
         }
         try {
             booleanArray = ArrayUtils.add( new boolean[] { true, false }, -1, true);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 2", e.getMessage());
         }
 
@@ -434,7 +436,7 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new char[] { 'a' }, charArray ) );
         try {
             charArray = ArrayUtils.add( (char[]) null, -1, 'a' );
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 0", e.getMessage());
         }
         charArray = ArrayUtils.add( new char[] { 'a' }, 0, 'b');
@@ -447,12 +449,12 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new char[] { 'a', 't', 'b', 'c' }, charArray ) );
         try {
             charArray = ArrayUtils.add( new char[] { 'a', 'b' }, 4, 'c');
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: 4, Length: 2", e.getMessage());
         }
         try {
             charArray = ArrayUtils.add( new char[] { 'a', 'b' }, -1, 'c');
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 2", e.getMessage());
         }
 
@@ -461,7 +463,7 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new short[] { 2, 1 }, shortArray ) );
         try {
             shortArray = ArrayUtils.add( (short[]) null, -1, (short) 2);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 0", e.getMessage());
         }
         shortArray = ArrayUtils.add( new short[] { 2, 6 }, 2, (short) 10);
@@ -472,12 +474,12 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new short[] { 2, 6, 1, 3 }, shortArray ) );
         try {
             shortArray = ArrayUtils.add( new short[] { 2, 6 }, 4, (short) 10);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: 4, Length: 2", e.getMessage());
         }
         try {
             shortArray = ArrayUtils.add( new short[] { 2, 6 }, -1, (short) 10);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 2", e.getMessage());
         }
 
@@ -486,7 +488,7 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new byte[] { 2, 1 }, byteArray ) );
         try {
             byteArray = ArrayUtils.add( (byte[]) null, -1, (byte) 2);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 0", e.getMessage());
         }
         byteArray = ArrayUtils.add( new byte[] { 2, 6 }, 2, (byte) 3);
@@ -497,12 +499,12 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new byte[] { 2, 6, 1, 3 }, byteArray ) );
         try {
             byteArray = ArrayUtils.add( new byte[] { 2, 6 }, 4, (byte) 3);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: 4, Length: 2", e.getMessage());
         }
         try {
             byteArray = ArrayUtils.add( new byte[] { 2, 6 }, -1, (byte) 3);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 2", e.getMessage());
         }
 
@@ -511,7 +513,7 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new int[] { 2, 1 }, intArray ) );
         try {
             intArray = ArrayUtils.add( (int[]) null, -1, 2);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 0", e.getMessage());
         }
         intArray = ArrayUtils.add( new int[] { 2, 6 }, 2, 10);
@@ -522,12 +524,12 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new int[] { 2, 6, 1, 3 }, intArray ) );
         try {
             intArray = ArrayUtils.add( new int[] { 2, 6 }, 4, 10);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: 4, Length: 2", e.getMessage());
         }
         try {
             intArray = ArrayUtils.add( new int[] { 2, 6 }, -1, 10);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 2", e.getMessage());
         }
 
@@ -536,7 +538,7 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new long[] { 2L, 1L }, longArray ) );
         try {
             longArray = ArrayUtils.add( (long[]) null, -1, 2L);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 0", e.getMessage());
         }
         longArray = ArrayUtils.add( new long[] { 2L, 6L }, 2, 10L);
@@ -547,12 +549,12 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new long[] { 2L, 6L, 1L, 3L }, longArray ) );
         try {
             longArray = ArrayUtils.add( new long[] { 2L, 6L }, 4, 10L);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: 4, Length: 2", e.getMessage());
         }
         try {
             longArray = ArrayUtils.add( new long[] { 2L, 6L }, -1, 10L);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 2", e.getMessage());
         }
 
@@ -561,7 +563,7 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new float[] { 2.2f, 1.1f }, floatArray ) );
         try {
             floatArray = ArrayUtils.add( (float[]) null, -1, 2.2f);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 0", e.getMessage());
         }
         floatArray = ArrayUtils.add( new float[] { 2.3f, 6.4f }, 2, 10.5f);
@@ -572,12 +574,12 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new float[] { 2.9f, 6.0f, 1.0f, 0.3f }, floatArray ) );
         try {
             floatArray = ArrayUtils.add( new float[] { 2.3f, 6.4f }, 4, 10.5f);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: 4, Length: 2", e.getMessage());
         }
         try {
             floatArray = ArrayUtils.add( new float[] { 2.3f, 6.4f }, -1, 10.5f);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 2", e.getMessage());
         }
 
@@ -586,7 +588,7 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new double[] { 2.2, 1.1 }, doubleArray ) );
         try {
           doubleArray = ArrayUtils.add( (double[]) null, -1, 2.2);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 0", e.getMessage());
         }
         doubleArray = ArrayUtils.add( new double[] { 2.3, 6.4 }, 2, 10.5);
@@ -597,12 +599,12 @@ public class ArrayUtilsAddTest {
         assertTrue( Arrays.equals( new double[] { 2.9, 6.0, 1.0, 0.3 }, doubleArray ) );
         try {
             doubleArray = ArrayUtils.add( new double[] { 2.3, 6.4 }, 4, 10.5);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: 4, Length: 2", e.getMessage());
         }
         try {
             doubleArray = ArrayUtils.add( new double[] { 2.3, 6.4 }, -1, 10.5);
-        } catch(IndexOutOfBoundsException e) {
+        } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 2", e.getMessage());
         }
     }

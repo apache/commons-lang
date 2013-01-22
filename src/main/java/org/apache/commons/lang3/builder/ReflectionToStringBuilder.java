@@ -322,8 +322,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return The given array or a new array without null.
      */
     static String[] toNoNullStringArray(final Object[] array) {
-        List<String> list = new ArrayList<String>(array.length);
-        for (Object e : array) {
+        final List<String> list = new ArrayList<String>(array.length);
+        for (final Object e : array) {
             if (e != null) {
                 list.add(e.toString());
             }
@@ -510,17 +510,17 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             this.reflectionAppendArray(this.getObject());
             return;
         }
-        Field[] fields = clazz.getDeclaredFields();
+        final Field[] fields = clazz.getDeclaredFields();
         AccessibleObject.setAccessible(fields, true);
-        for (Field field : fields) {
-            String fieldName = field.getName();
+        for (final Field field : fields) {
+            final String fieldName = field.getName();
             if (this.accept(field)) {
                 try {
                     // Warning: Field.get(Object) creates wrappers objects
                     // for primitive types.
-                    Object fieldValue = this.getValue(field);
+                    final Object fieldValue = this.getValue(field);
                     this.append(fieldName, fieldValue);
-                } catch (IllegalAccessException ex) {
+                } catch (final IllegalAccessException ex) {
                     //this can't happen. Would get a Security exception
                     // instead
                     //throw a runtime exception in case the impossible
@@ -659,7 +659,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      */
     public void setUpToClass(final Class<?> clazz) {
         if (clazz != null) {
-            Object object = getObject();
+            final Object object = getObject();
             if (object != null && clazz.isInstance(object) == false) {
                 throw new IllegalArgumentException("Specified class is not a superclass of the object");
             }

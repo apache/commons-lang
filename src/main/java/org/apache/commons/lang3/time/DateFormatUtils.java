@@ -300,7 +300,7 @@ public class DateFormatUtils {
      * @return the formatted date
      */
     public static String format(final Date date, final String pattern, final TimeZone timeZone, final Locale locale) {
-        FastDateFormat df = FastDateFormat.getInstance(pattern, timeZone, locale);
+        final FastDateFormat df = FastDateFormat.getInstance(pattern, timeZone, locale);
         return df.format(date);
     }
 
@@ -316,7 +316,7 @@ public class DateFormatUtils {
      * @since 2.4
      */
     public static String format(final Calendar calendar, final String pattern, final TimeZone timeZone, final Locale locale) {
-        FastDateFormat df = FastDateFormat.getInstance(pattern, timeZone, locale);
+        final FastDateFormat df = FastDateFormat.getInstance(pattern, timeZone, locale);
         return df.format(calendar);
     }
 

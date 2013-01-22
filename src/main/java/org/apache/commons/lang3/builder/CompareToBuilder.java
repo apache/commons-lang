@@ -282,7 +282,7 @@ public class CompareToBuilder implements Builder<Integer> {
         if (!lhsClazz.isInstance(rhs)) {
             throw new ClassCastException();
         }
-        CompareToBuilder compareToBuilder = new CompareToBuilder();
+        final CompareToBuilder compareToBuilder = new CompareToBuilder();
         reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients, excludeFields);
         while (lhsClazz.getSuperclass() != null && lhsClazz != reflectUpToClass) {
             lhsClazz = lhsClazz.getSuperclass();
@@ -310,17 +310,17 @@ public class CompareToBuilder implements Builder<Integer> {
         final boolean useTransients,
         final String[] excludeFields) {
         
-        Field[] fields = clazz.getDeclaredFields();
+        final Field[] fields = clazz.getDeclaredFields();
         AccessibleObject.setAccessible(fields, true);
         for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
-            Field f = fields[i];
+            final Field f = fields[i];
             if (!ArrayUtils.contains(excludeFields, f.getName())
                 && (f.getName().indexOf('$') == -1)
                 && (useTransients || !Modifier.isTransient(f.getModifiers()))
                 && (!Modifier.isStatic(f.getModifiers()))) {
                 try {
                     builder.append(f.get(lhs), f.get(rhs));
-                } catch (IllegalAccessException e) {
+                } catch (final IllegalAccessException e) {
                     // This can't happen. Would get a Security exception instead.
                     // Throw a runtime exception in case the impossible happens.
                     throw new InternalError("Unexpected IllegalAccessException");

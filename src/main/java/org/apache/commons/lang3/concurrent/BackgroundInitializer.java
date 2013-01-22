@@ -210,10 +210,10 @@ public abstract class BackgroundInitializer<T> implements
     public T get() throws ConcurrentException {
         try {
             return getFuture().get();
-        } catch (ExecutionException execex) {
+        } catch (final ExecutionException execex) {
             ConcurrentUtils.handleCause(execex);
             return null; // should not be reached
-        } catch (InterruptedException iex) {
+        } catch (final InterruptedException iex) {
             // reset interrupted state
             Thread.currentThread().interrupt();
             throw new ConcurrentException(iex);

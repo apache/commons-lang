@@ -548,7 +548,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
         if (obj instanceof FastDateFormat == false) {
             return false;
         }
-        FastDateFormat other = (FastDateFormat) obj;
+        final FastDateFormat other = (FastDateFormat) obj;
         // no need to check parser, as it has same invariants as printer
         return printer.equals(other.printer);
     }

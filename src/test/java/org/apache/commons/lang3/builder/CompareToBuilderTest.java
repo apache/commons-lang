@@ -45,7 +45,7 @@ public class CompareToBuilderTest {
             if (!(o instanceof TestObject)) {
                 return false;
             }
-            TestObject rhs = (TestObject) o;
+            final TestObject rhs = (TestObject) o;
             return a == rhs.a;
         }
 
@@ -84,7 +84,7 @@ public class CompareToBuilderTest {
             if (!(o instanceof TestSubObject)) {
                 return false;
             }
-            TestSubObject rhs = (TestSubObject) o;
+            final TestSubObject rhs = (TestSubObject) o;
             return super.equals(o) && b == rhs.b;
         }
     }
@@ -100,8 +100,8 @@ public class CompareToBuilderTest {
     
     @Test
     public void testReflectionCompare() {
-        TestObject o1 = new TestObject(4);
-        TestObject o2 = new TestObject(4);
+        final TestObject o1 = new TestObject(4);
+        final TestObject o2 = new TestObject(4);
         assertTrue(CompareToBuilder.reflectionCompare(o1, o1) == 0);
         assertTrue(CompareToBuilder.reflectionCompare(o1, o2) == 0);
         o2.setA(5);
@@ -111,14 +111,14 @@ public class CompareToBuilderTest {
 
     @Test(expected=NullPointerException.class)
     public void testReflectionCompareEx1() {
-        TestObject o1 = new TestObject(4);
+        final TestObject o1 = new TestObject(4);
         CompareToBuilder.reflectionCompare(o1, null);
     }
 
     @Test(expected=ClassCastException.class)
     public void testReflectionCompareEx2() {
-        TestObject o1 = new TestObject(4);
-        Object o2 = new Object();
+        final TestObject o1 = new TestObject(4);
+        final Object o2 = new Object();
         CompareToBuilder.reflectionCompare(o1, o2);
     }
 
@@ -129,7 +129,7 @@ public class CompareToBuilderTest {
     
     @Test
     public void testReflectionHierarchyCompareExcludeFields() {
-        String[] excludeFields = new String[] { "b" };
+        final String[] excludeFields = new String[] { "b" };
         testReflectionHierarchyCompare(true, excludeFields);
         
         TestSubObject x;
@@ -181,12 +181,12 @@ public class CompareToBuilderTest {
     }
     
     private void testReflectionHierarchyCompare(final boolean testTransients, final String[] excludeFields) {
-        TestObject to1 = new TestObject(1);
-        TestObject to2 = new TestObject(2);
-        TestObject to3 = new TestObject(3);
-        TestSubObject tso1 = new TestSubObject(1, 1);
-        TestSubObject tso2 = new TestSubObject(2, 2);
-        TestSubObject tso3 = new TestSubObject(3, 3);
+        final TestObject to1 = new TestObject(1);
+        final TestObject to2 = new TestObject(2);
+        final TestObject to3 = new TestObject(3);
+        final TestSubObject tso1 = new TestSubObject(1, 1);
+        final TestSubObject tso2 = new TestSubObject(2, 2);
+        final TestSubObject tso3 = new TestSubObject(3, 3);
         
         assertReflectionCompareContract(to1, to1, to1, false, excludeFields);
         assertReflectionCompareContract(to1, to2, to3, false, excludeFields);
@@ -248,8 +248,8 @@ public class CompareToBuilderTest {
     
     @Test
     public void testAppendSuper() {
-        TestObject o1 = new TestObject(4);
-        TestObject o2 = new TestObject(5);
+        final TestObject o1 = new TestObject(4);
+        final TestObject o2 = new TestObject(5);
         assertTrue(new CompareToBuilder().appendSuper(0).append(o1, o1).toComparison() == 0);
         assertTrue(new CompareToBuilder().appendSuper(0).append(o1, o2).toComparison() < 0);
         assertTrue(new CompareToBuilder().appendSuper(0).append(o2, o1).toComparison() > 0);
@@ -263,8 +263,8 @@ public class CompareToBuilderTest {
     
     @Test
     public void testObject() {
-        TestObject o1 = new TestObject(4);
-        TestObject o2 = new TestObject(4);
+        final TestObject o1 = new TestObject(4);
+        final TestObject o2 = new TestObject(4);
         assertTrue(new CompareToBuilder().append(o1, o1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o1, o2).toComparison() == 0);
         o2.setA(5);
@@ -278,8 +278,8 @@ public class CompareToBuilderTest {
     
     @Test
     public void testObjectBuild() {
-        TestObject o1 = new TestObject(4);
-        TestObject o2 = new TestObject(4);
+        final TestObject o1 = new TestObject(4);
+        final TestObject o2 = new TestObject(4);
         assertEquals(Integer.valueOf(0), new CompareToBuilder().append(o1, o1).build());
         assertEquals(Integer.valueOf(0), new CompareToBuilder().append(o1, o2).build());
         o2.setA(5);
@@ -293,14 +293,14 @@ public class CompareToBuilderTest {
 
     @Test(expected=ClassCastException.class)
     public void testObjectEx2() {
-        TestObject o1 = new TestObject(4);
-        Object o2 = new Object();
+        final TestObject o1 = new TestObject(4);
+        final Object o2 = new Object();
         new CompareToBuilder().append(o1, o2);
     }
 
     @Test
     public void testObjectComparator() {
-        String o1 = "Fred";
+        final String o1 = "Fred";
         String o2 = "Fred";
         assertTrue(new CompareToBuilder().append(o1, o1, String.CASE_INSENSITIVE_ORDER).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o1, o2, String.CASE_INSENSITIVE_ORDER).toComparison() == 0);
@@ -318,7 +318,7 @@ public class CompareToBuilderTest {
     
     @Test
     public void testObjectComparatorNull() {
-        String o1 = "Fred";
+        final String o1 = "Fred";
         String o2 = "Fred";
         assertTrue(new CompareToBuilder().append(o1, o1, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o1, o2, null).toComparison() == 0);
@@ -333,8 +333,8 @@ public class CompareToBuilderTest {
 
     @Test
     public void testLong() {
-        long o1 = 1L;
-        long o2 = 2L;
+        final long o1 = 1L;
+        final long o2 = 2L;
         assertTrue(new CompareToBuilder().append(o1, o1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o1, o2).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1).toComparison() > 0);
@@ -346,8 +346,8 @@ public class CompareToBuilderTest {
 
     @Test
     public void testInt() {
-        int o1 = 1;
-        int o2 = 2;
+        final int o1 = 1;
+        final int o2 = 2;
         assertTrue(new CompareToBuilder().append(o1, o1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o1, o2).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1).toComparison() > 0);
@@ -359,8 +359,8 @@ public class CompareToBuilderTest {
 
     @Test
     public void testShort() {
-        short o1 = 1;
-        short o2 = 2;
+        final short o1 = 1;
+        final short o2 = 2;
         assertTrue(new CompareToBuilder().append(o1, o1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o1, o2).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1).toComparison() > 0);
@@ -372,8 +372,8 @@ public class CompareToBuilderTest {
 
     @Test
     public void testChar() {
-        char o1 = 1;
-        char o2 = 2;
+        final char o1 = 1;
+        final char o2 = 2;
         assertTrue(new CompareToBuilder().append(o1, o1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o1, o2).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1).toComparison() > 0);
@@ -385,8 +385,8 @@ public class CompareToBuilderTest {
 
     @Test
     public void testByte() {
-        byte o1 = 1;
-        byte o2 = 2;
+        final byte o1 = 1;
+        final byte o2 = 2;
         assertTrue(new CompareToBuilder().append(o1, o1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o1, o2).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1).toComparison() > 0);
@@ -398,8 +398,8 @@ public class CompareToBuilderTest {
 
     @Test
     public void testDouble() {
-        double o1 = 1;
-        double o2 = 2;
+        final double o1 = 1;
+        final double o2 = 2;
         assertTrue(new CompareToBuilder().append(o1, o1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o1, o2).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1).toComparison() > 0);
@@ -419,8 +419,8 @@ public class CompareToBuilderTest {
 
     @Test
     public void testFloat() {
-        float o1 = 1;
-        float o2 = 2;
+        final float o1 = 1;
+        final float o2 = 2;
         assertTrue(new CompareToBuilder().append(o1, o1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o1, o2).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1).toComparison() > 0);
@@ -440,8 +440,8 @@ public class CompareToBuilderTest {
 
     @Test
     public void testBoolean() {
-        boolean o1 = true;
-        boolean o2 = false;
+        final boolean o1 = true;
+        final boolean o2 = false;
         assertTrue(new CompareToBuilder().append(o1, o1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o2, o2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(o1, o2).toComparison() > 0);
@@ -450,13 +450,13 @@ public class CompareToBuilderTest {
 
     @Test
     public void testObjectArray() {
-        TestObject[] obj1 = new TestObject[2];
+        final TestObject[] obj1 = new TestObject[2];
         obj1[0] = new TestObject(4);
         obj1[1] = new TestObject(5);
-        TestObject[] obj2 = new TestObject[2];
+        final TestObject[] obj2 = new TestObject[2];
         obj2[0] = new TestObject(4);
         obj2[1] = new TestObject(5);
-        TestObject[] obj3 = new TestObject[3];
+        final TestObject[] obj3 = new TestObject[3];
         obj3[0] = new TestObject(4);
         obj3[1] = new TestObject(5);
         obj3[2] = new TestObject(6);
@@ -477,13 +477,13 @@ public class CompareToBuilderTest {
 
     @Test
     public void testLongArray() {
-        long[] obj1 = new long[2];
+        final long[] obj1 = new long[2];
         obj1[0] = 5L;
         obj1[1] = 6L;
-        long[] obj2 = new long[2];
+        final long[] obj2 = new long[2];
         obj2[0] = 5L;
         obj2[1] = 6L;
-        long[] obj3 = new long[3];
+        final long[] obj3 = new long[3];
         obj3[0] = 5L;
         obj3[1] = 6L;
         obj3[2] = 7L;
@@ -504,13 +504,13 @@ public class CompareToBuilderTest {
 
     @Test
     public void testIntArray() {
-        int[] obj1 = new int[2];
+        final int[] obj1 = new int[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        int[] obj2 = new int[2];
+        final int[] obj2 = new int[2];
         obj2[0] = 5;
         obj2[1] = 6;
-        int[] obj3 = new int[3];
+        final int[] obj3 = new int[3];
         obj3[0] = 5;
         obj3[1] = 6;
         obj3[2] = 7;
@@ -531,13 +531,13 @@ public class CompareToBuilderTest {
 
     @Test
     public void testShortArray() {
-        short[] obj1 = new short[2];
+        final short[] obj1 = new short[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        short[] obj2 = new short[2];
+        final short[] obj2 = new short[2];
         obj2[0] = 5;
         obj2[1] = 6;
-        short[] obj3 = new short[3];
+        final short[] obj3 = new short[3];
         obj3[0] = 5;
         obj3[1] = 6;
         obj3[2] = 7;
@@ -558,13 +558,13 @@ public class CompareToBuilderTest {
 
     @Test
     public void testCharArray() {
-        char[] obj1 = new char[2];
+        final char[] obj1 = new char[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        char[] obj2 = new char[2];
+        final char[] obj2 = new char[2];
         obj2[0] = 5;
         obj2[1] = 6;
-        char[] obj3 = new char[3];
+        final char[] obj3 = new char[3];
         obj3[0] = 5;
         obj3[1] = 6;
         obj3[2] = 7;
@@ -585,13 +585,13 @@ public class CompareToBuilderTest {
 
     @Test
     public void testByteArray() {
-        byte[] obj1 = new byte[2];
+        final byte[] obj1 = new byte[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        byte[] obj2 = new byte[2];
+        final byte[] obj2 = new byte[2];
         obj2[0] = 5;
         obj2[1] = 6;
-        byte[] obj3 = new byte[3];
+        final byte[] obj3 = new byte[3];
         obj3[0] = 5;
         obj3[1] = 6;
         obj3[2] = 7;
@@ -612,13 +612,13 @@ public class CompareToBuilderTest {
 
     @Test
     public void testDoubleArray() {
-        double[] obj1 = new double[2];
+        final double[] obj1 = new double[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        double[] obj2 = new double[2];
+        final double[] obj2 = new double[2];
         obj2[0] = 5;
         obj2[1] = 6;
-        double[] obj3 = new double[3];
+        final double[] obj3 = new double[3];
         obj3[0] = 5;
         obj3[1] = 6;
         obj3[2] = 7;
@@ -639,13 +639,13 @@ public class CompareToBuilderTest {
 
     @Test
     public void testFloatArray() {
-        float[] obj1 = new float[2];
+        final float[] obj1 = new float[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        float[] obj2 = new float[2];
+        final float[] obj2 = new float[2];
         obj2[0] = 5;
         obj2[1] = 6;
-        float[] obj3 = new float[3];
+        final float[] obj3 = new float[3];
         obj3[0] = 5;
         obj3[1] = 6;
         obj3[2] = 7;
@@ -666,13 +666,13 @@ public class CompareToBuilderTest {
 
     @Test
     public void testBooleanArray() {
-        boolean[] obj1 = new boolean[2];
+        final boolean[] obj1 = new boolean[2];
         obj1[0] = true;
         obj1[1] = false;
-        boolean[] obj2 = new boolean[2];
+        final boolean[] obj2 = new boolean[2];
         obj2[0] = true;
         obj2[1] = false;
-        boolean[] obj3 = new boolean[3];
+        final boolean[] obj3 = new boolean[3];
         obj3[0] = true;
         obj3[1] = false;
         obj3[2] = true;
@@ -693,9 +693,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testMultiLongArray() {
-        long[][] array1 = new long[2][2];
-        long[][] array2 = new long[2][2];
-        long[][] array3 = new long[2][3];
+        final long[][] array1 = new long[2][2];
+        final long[][] array2 = new long[2][2];
+        final long[][] array3 = new long[2][3];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
                 array1[i][j] = (i + 1) * (j + 1);
@@ -717,9 +717,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testMultiIntArray() {
-        int[][] array1 = new int[2][2];
-        int[][] array2 = new int[2][2];
-        int[][] array3 = new int[2][3];
+        final int[][] array1 = new int[2][2];
+        final int[][] array2 = new int[2][2];
+        final int[][] array3 = new int[2][3];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
                 array1[i][j] = (i + 1) * (j + 1);
@@ -741,9 +741,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testMultiShortArray() {
-        short[][] array1 = new short[2][2];
-        short[][] array2 = new short[2][2];
-        short[][] array3 = new short[2][3];
+        final short[][] array1 = new short[2][2];
+        final short[][] array2 = new short[2][2];
+        final short[][] array3 = new short[2][3];
         for (short i = 0; i < array1.length; ++i) {
             for (short j = 0; j < array1[0].length; j++) {
                 array1[i][j] = (short)((i + 1) * (j + 1));
@@ -765,9 +765,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testMultiCharArray() {
-        char[][] array1 = new char[2][2];
-        char[][] array2 = new char[2][2];
-        char[][] array3 = new char[2][3];
+        final char[][] array1 = new char[2][2];
+        final char[][] array2 = new char[2][2];
+        final char[][] array3 = new char[2][3];
         for (short i = 0; i < array1.length; ++i) {
             for (short j = 0; j < array1[0].length; j++) {
                 array1[i][j] = (char)((i + 1) * (j + 1));
@@ -789,9 +789,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testMultiByteArray() {
-        byte[][] array1 = new byte[2][2];
-        byte[][] array2 = new byte[2][2];
-        byte[][] array3 = new byte[2][3];
+        final byte[][] array1 = new byte[2][2];
+        final byte[][] array2 = new byte[2][2];
+        final byte[][] array3 = new byte[2][3];
         for (byte i = 0; i < array1.length; ++i) {
             for (byte j = 0; j < array1[0].length; j++) {
                 array1[i][j] = (byte)((i + 1) * (j + 1));
@@ -813,9 +813,9 @@ public class CompareToBuilderTest {
     
     @Test
     public void testMultiFloatArray() {
-        float[][] array1 = new float[2][2];
-        float[][] array2 = new float[2][2];
-        float[][] array3 = new float[2][3];
+        final float[][] array1 = new float[2][2];
+        final float[][] array2 = new float[2][2];
+        final float[][] array3 = new float[2][3];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
                 array1[i][j] = (i + 1) * (j + 1);
@@ -837,9 +837,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testMultiDoubleArray() {
-        double[][] array1 = new double[2][2];
-        double[][] array2 = new double[2][2];
-        double[][] array3 = new double[2][3];
+        final double[][] array1 = new double[2][2];
+        final double[][] array2 = new double[2][2];
+        final double[][] array3 = new double[2][3];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
                 array1[i][j] = (i + 1) * (j + 1);
@@ -861,9 +861,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testMultiBooleanArray() {
-        boolean[][] array1 = new boolean[2][2];
-        boolean[][] array2 = new boolean[2][2];
-        boolean[][] array3 = new boolean[2][3];
+        final boolean[][] array1 = new boolean[2][2];
+        final boolean[][] array2 = new boolean[2][2];
+        final boolean[][] array3 = new boolean[2][3];
         for (int i = 0; i < array1.length; ++i) {
             for (int j = 0; j < array1[0].length; j++) {
                 array1[i][j] = i == 1 ^ j == 1;
@@ -885,9 +885,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testRaggedArray() {
-        long array1[][] = new long[2][];
-        long array2[][] = new long[2][];
-        long array3[][] = new long[3][];
+        final long array1[][] = new long[2][];
+        final long array2[][] = new long[2][];
+        final long array3[][] = new long[3][];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];
@@ -913,9 +913,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testMixedArray() {
-        Object array1[] = new Object[2];
-        Object array2[] = new Object[2];
-        Object array3[] = new Object[2];
+        final Object array1[] = new Object[2];
+        final Object array2[] = new Object[2];
+        final Object array3[] = new Object[2];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];
@@ -939,20 +939,20 @@ public class CompareToBuilderTest {
 
     @Test
     public void testObjectArrayHiddenByObject() {
-        TestObject[] array1 = new TestObject[2];
+        final TestObject[] array1 = new TestObject[2];
         array1[0] = new TestObject(4);
         array1[1] = new TestObject(5);
-        TestObject[] array2 = new TestObject[2];
+        final TestObject[] array2 = new TestObject[2];
         array2[0] = new TestObject(4);
         array2[1] = new TestObject(5);
-        TestObject[] array3 = new TestObject[3];
+        final TestObject[] array3 = new TestObject[3];
         array3[0] = new TestObject(4);
         array3[1] = new TestObject(5);
         array3[2] = new TestObject(6);
         
-        Object obj1 = array1;
-        Object obj2 = array2;
-        Object obj3 = array3;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
+        final Object obj3 = array3;
         
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
@@ -966,19 +966,19 @@ public class CompareToBuilderTest {
 
     @Test
     public void testLongArrayHiddenByObject() {
-        long[] array1 = new long[2];
+        final long[] array1 = new long[2];
         array1[0] = 5L;
         array1[1] = 6L;
-        long[] array2 = new long[2];
+        final long[] array2 = new long[2];
         array2[0] = 5L;
         array2[1] = 6L;
-        long[] array3 = new long[3];
+        final long[] array3 = new long[3];
         array3[0] = 5L;
         array3[1] = 6L;
         array3[2] = 7L;
-        Object obj1 = array1;
-        Object obj2 = array2;
-        Object obj3 = array3;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
+        final Object obj3 = array3;
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);
@@ -991,19 +991,19 @@ public class CompareToBuilderTest {
 
     @Test
     public void testIntArrayHiddenByObject() {
-        int[] array1 = new int[2];
+        final int[] array1 = new int[2];
         array1[0] = 5;
         array1[1] = 6;
-        int[] array2 = new int[2];
+        final int[] array2 = new int[2];
         array2[0] = 5;
         array2[1] = 6;
-        int[] array3 = new int[3];
+        final int[] array3 = new int[3];
         array3[0] = 5;
         array3[1] = 6;
         array3[2] = 7;
-        Object obj1 = array1;
-        Object obj2 = array2;
-        Object obj3 = array3;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
+        final Object obj3 = array3;
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);
@@ -1016,19 +1016,19 @@ public class CompareToBuilderTest {
 
     @Test
     public void testShortArrayHiddenByObject() {
-        short[] array1 = new short[2];
+        final short[] array1 = new short[2];
         array1[0] = 5;
         array1[1] = 6;
-        short[] array2 = new short[2];
+        final short[] array2 = new short[2];
         array2[0] = 5;
         array2[1] = 6;
-        short[] array3 = new short[3];
+        final short[] array3 = new short[3];
         array3[0] = 5;
         array3[1] = 6;
         array3[2] = 7;
-        Object obj1 = array1;
-        Object obj2 = array2;
-        Object obj3 = array3;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
+        final Object obj3 = array3;
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);
@@ -1041,19 +1041,19 @@ public class CompareToBuilderTest {
 
     @Test
     public void testCharArrayHiddenByObject() {
-        char[] array1 = new char[2];
+        final char[] array1 = new char[2];
         array1[0] = 5;
         array1[1] = 6;
-        char[] array2 = new char[2];
+        final char[] array2 = new char[2];
         array2[0] = 5;
         array2[1] = 6;
-        char[] array3 = new char[3];
+        final char[] array3 = new char[3];
         array3[0] = 5;
         array3[1] = 6;
         array3[2] = 7;
-        Object obj1 = array1;
-        Object obj2 = array2;
-        Object obj3 = array3;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
+        final Object obj3 = array3;
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);
@@ -1066,19 +1066,19 @@ public class CompareToBuilderTest {
 
     @Test
     public void testByteArrayHiddenByObject() {
-        byte[] array1 = new byte[2];
+        final byte[] array1 = new byte[2];
         array1[0] = 5;
         array1[1] = 6;
-        byte[] array2 = new byte[2];
+        final byte[] array2 = new byte[2];
         array2[0] = 5;
         array2[1] = 6;
-        byte[] array3 = new byte[3];
+        final byte[] array3 = new byte[3];
         array3[0] = 5;
         array3[1] = 6;
         array3[2] = 7;
-        Object obj1 = array1;
-        Object obj2 = array2;
-        Object obj3 = array3;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
+        final Object obj3 = array3;
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);
@@ -1091,19 +1091,19 @@ public class CompareToBuilderTest {
 
     @Test
     public void testDoubleArrayHiddenByObject() {
-        double[] array1 = new double[2];
+        final double[] array1 = new double[2];
         array1[0] = 5;
         array1[1] = 6;
-        double[] array2 = new double[2];
+        final double[] array2 = new double[2];
         array2[0] = 5;
         array2[1] = 6;
-        double[] array3 = new double[3];
+        final double[] array3 = new double[3];
         array3[0] = 5;
         array3[1] = 6;
         array3[2] = 7;
-        Object obj1 = array1;
-        Object obj2 = array2;
-        Object obj3 = array3;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
+        final Object obj3 = array3;
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);
@@ -1116,19 +1116,19 @@ public class CompareToBuilderTest {
 
     @Test
     public void testFloatArrayHiddenByObject() {
-        float[] array1 = new float[2];
+        final float[] array1 = new float[2];
         array1[0] = 5;
         array1[1] = 6;
-        float[] array2 = new float[2];
+        final float[] array2 = new float[2];
         array2[0] = 5;
         array2[1] = 6;
-        float[] array3 = new float[3];
+        final float[] array3 = new float[3];
         array3[0] = 5;
         array3[1] = 6;
         array3[2] = 7;
-        Object obj1 = array1;
-        Object obj2 = array2;
-        Object obj3 = array3;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
+        final Object obj3 = array3;
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);
@@ -1141,19 +1141,19 @@ public class CompareToBuilderTest {
 
     @Test
     public void testBooleanArrayHiddenByObject() {
-        boolean[] array1 = new boolean[2];
+        final boolean[] array1 = new boolean[2];
         array1[0] = true;
         array1[1] = false;
-        boolean[] array2 = new boolean[2];
+        final boolean[] array2 = new boolean[2];
         array2[0] = true;
         array2[1] = false;
-        boolean[] array3 = new boolean[3];
+        final boolean[] array3 = new boolean[3];
         array3[0] = true;
         array3[1] = false;
         array3[2] = true;
-        Object obj1 = array1;
-        Object obj2 = array2;
-        Object obj3 = array3;
+        final Object obj1 = array1;
+        final Object obj2 = array2;
+        final Object obj3 = array3;
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);

@@ -41,7 +41,7 @@ public class CharUtilsTest {
     @Test
     public void testConstructor() {
         assertNotNull(new CharUtils());
-        Constructor<?>[] cons = CharUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = CharUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(BooleanUtils.class.getModifiers()));
@@ -55,14 +55,14 @@ public class CharUtilsTest {
         assertSame(CharUtils.toCharacterObject('a'), CharUtils.toCharacterObject('a'));
        
         for (int i = 0; i < 128; i++) {
-            Character ch = CharUtils.toCharacterObject((char) i);
-            Character ch2 = CharUtils.toCharacterObject((char) i);
+            final Character ch = CharUtils.toCharacterObject((char) i);
+            final Character ch2 = CharUtils.toCharacterObject((char) i);
             assertSame(ch, ch2);
             assertEquals(i, ch.charValue());
         }
         for (int i = 128; i < 196; i++) {
-            Character ch = CharUtils.toCharacterObject((char) i);
-            Character ch2 = CharUtils.toCharacterObject((char) i);
+            final Character ch = CharUtils.toCharacterObject((char) i);
+            final Character ch2 = CharUtils.toCharacterObject((char) i);
             assertEquals(ch, ch2);
             assertTrue(ch != ch2);
             assertEquals(i, ch.charValue());
@@ -86,7 +86,7 @@ public class CharUtilsTest {
         assertEquals('B', CharUtils.toChar(CHARACTER_B));
         try {
             CharUtils.toChar((Character) null);
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
     }
     
     @Test
@@ -102,10 +102,10 @@ public class CharUtilsTest {
         assertEquals('B', CharUtils.toChar("BA"));
         try {
             CharUtils.toChar((String) null);
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
         try {
             CharUtils.toChar("");
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
     }
     
     @Test
@@ -130,7 +130,7 @@ public class CharUtilsTest {
         assertEquals(9, CharUtils.toIntValue('9'));
         try {
             CharUtils.toIntValue('a');
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
     }
     
     @Test
@@ -146,10 +146,10 @@ public class CharUtilsTest {
         assertEquals(3, CharUtils.toIntValue(new Character('3')));
         try {
             CharUtils.toIntValue(null);
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
         try {
             CharUtils.toIntValue(CHARACTER_A);
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
     }
     
     @Test
@@ -166,15 +166,15 @@ public class CharUtilsTest {
         assertSame(CharUtils.toString('a'), CharUtils.toString('a'));
        
         for (int i = 0; i < 128; i++) {
-            String str = CharUtils.toString((char) i);
-            String str2 = CharUtils.toString((char) i);
+            final String str = CharUtils.toString((char) i);
+            final String str2 = CharUtils.toString((char) i);
             assertSame(str, str2);
             assertEquals(1, str.length());
             assertEquals(i, str.charAt(0));
         }
         for (int i = 128; i < 196; i++) {
-            String str = CharUtils.toString((char) i);
-            String str2 = CharUtils.toString((char) i);
+            final String str = CharUtils.toString((char) i);
+            final String str2 = CharUtils.toString((char) i);
             assertEquals(str, str2);
             assertTrue(str != str2);
             assertEquals(1, str.length());
@@ -196,9 +196,9 @@ public class CharUtilsTest {
         assertEquals("\\u0041", CharUtils.unicodeEscaped('A'));
        
         for (int i = 0; i < 196; i++) {
-            String str = CharUtils.unicodeEscaped((char) i);
+            final String str = CharUtils.unicodeEscaped((char) i);
             assertEquals(6, str.length());
-            int val = Integer.parseInt(str.substring(2), 16);
+            final int val = Integer.parseInt(str.substring(2), 16);
             assertEquals(i, val);
         }
         assertEquals("\\u0999", CharUtils.unicodeEscaped((char) 0x999));

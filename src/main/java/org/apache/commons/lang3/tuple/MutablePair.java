@@ -116,7 +116,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      */
     @Override
     public R setValue(final R value) {
-        R result = getRight();
+        final R result = getRight();
         setRight(value);
         return result;
     }

@@ -162,7 +162,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @return a new tokenizer instance which parses Comma Separated Value strings
      */
     public static StrTokenizer getCSVInstance(final String input) {
-        StrTokenizer tok = getCSVClone();
+        final StrTokenizer tok = getCSVClone();
         tok.reset(input);
         return tok;
     }
@@ -177,7 +177,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @return a new tokenizer instance which parses Comma Separated Value strings
      */
     public static StrTokenizer getCSVInstance(final char[] input) {
-        StrTokenizer tok = getCSVClone();
+        final StrTokenizer tok = getCSVClone();
         tok.reset(input);
         return tok;
     }
@@ -212,7 +212,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @return a new tokenizer instance which parses Tab Separated Value strings.
      */
     public static StrTokenizer getTSVInstance(final String input) {
-        StrTokenizer tok = getTSVClone();
+        final StrTokenizer tok = getTSVClone();
         tok.reset(input);
         return tok;
     }
@@ -225,7 +225,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @return a new tokenizer instance which parses Tab Separated Value strings.
      */
     public static StrTokenizer getTSVInstance(final char[] input) {
-        StrTokenizer tok = getTSVClone();
+        final StrTokenizer tok = getTSVClone();
         tok.reset(input);
         return tok;
     }
@@ -441,8 +441,8 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      */
     public List<String> getTokenList() {
         checkTokenized();
-        List<String> list = new ArrayList<String>(tokens.length);
-        for (String element : tokens) {
+        final List<String> list = new ArrayList<String>(tokens.length);
+        for (final String element : tokens) {
             list.add(element);
         }
         return list;
@@ -603,10 +603,10 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         if (tokens == null) {
             if (chars == null) {
                 // still call tokenize as subclass may do some work
-                List<String> split = tokenize(null, 0, 0);
+                final List<String> split = tokenize(null, 0, 0);
                 tokens = split.toArray(new String[split.size()]);
             } else {
-                List<String> split = tokenize(chars, 0, chars.length);
+                final List<String> split = tokenize(chars, 0, chars.length);
                 tokens = split.toArray(new String[split.size()]);
             }
         }
@@ -636,8 +636,8 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         if (chars == null || count == 0) {
             return Collections.emptyList();
         }
-        StrBuilder buf = new StrBuilder();
-        List<String> tokens = new ArrayList<String>();
+        final StrBuilder buf = new StrBuilder();
+        final List<String> tokens = new ArrayList<String>();
         int pos = offset;
         
         // loop around the entire buffer
@@ -686,7 +686,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         // skip all leading whitespace, unless it is the
         // field delimiter or the quote character
         while (start < len) {
-            int removeLen = Math.max(
+            final int removeLen = Math.max(
                     getIgnoredMatcher().isMatch(chars, start, start, len),
                     getTrimmerMatcher().isMatch(chars, start, start, len));
             if (removeLen == 0 ||
@@ -704,14 +704,14 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         }
         
         // handle empty token
-        int delimLen = getDelimiterMatcher().isMatch(chars, start, start, len);
+        final int delimLen = getDelimiterMatcher().isMatch(chars, start, start, len);
         if (delimLen > 0) {
             addToken(tokens, "");
             return start + delimLen;
         }
         
         // handle found token
-        int quoteLen = getQuoteMatcher().isMatch(chars, start, start, len);
+        final int quoteLen = getQuoteMatcher().isMatch(chars, start, start, len);
         if (quoteLen > 0) {
             return readWithQuotes(chars, start + quoteLen, len, workArea, tokens, start, quoteLen);
         }
@@ -775,7 +775,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                 // Not in quoting mode
                 
                 // check for delimiter, and thus end of token
-                int delimLen = getDelimiterMatcher().isMatch(chars, pos, start, len);
+                final int delimLen = getDelimiterMatcher().isMatch(chars, pos, start, len);
                 if (delimLen > 0) {
                     // return condition when end of token found
                     addToken(tokens, workArea.substring(0, trimStart));
@@ -790,7 +790,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                 }
                 
                 // check for ignored (outside quotes), and ignore
-                int ignoredLen = getIgnoredMatcher().isMatch(chars, pos, start, len);
+                final int ignoredLen = getIgnoredMatcher().isMatch(chars, pos, start, len);
                 if (ignoredLen > 0) {
                     pos += ignoredLen;
                     continue;
@@ -799,7 +799,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                 // check for trimmed character
                 // don't yet know if its at the end, so copy to workArea
                 // use trimStart to keep track of trim at the end
-                int trimmedLen = getTrimmerMatcher().isMatch(chars, pos, start, len);
+                final int trimmedLen = getTrimmerMatcher().isMatch(chars, pos, start, len);
                 if (trimmedLen > 0) {
                     workArea.append(chars, pos, trimmedLen);
                     pos += trimmedLen;
@@ -1075,7 +1075,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     public Object clone() {
         try {
             return cloneReset();
-        } catch (CloneNotSupportedException ex) {
+        } catch (final CloneNotSupportedException ex) {
             return null;
         }
     }
@@ -1089,7 +1089,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      */
     Object cloneReset() throws CloneNotSupportedException {
         // this method exists to enable 100% test coverage
-        StrTokenizer cloned = (StrTokenizer) super.clone();
+        final StrTokenizer cloned = (StrTokenizer) super.clone();
         if (cloned.chars != null) {
             cloned.chars = cloned.chars.clone();
         }

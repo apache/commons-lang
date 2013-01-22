@@ -42,7 +42,7 @@ public class NumberUtilsTest {
     @Test
     public void testConstructor() {
         assertNotNull(new NumberUtils());
-        Constructor<?>[] cons = NumberUtils.class.getDeclaredConstructors();
+        final Constructor<?>[] cons = NumberUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(NumberUtils.class.getModifiers()));
@@ -240,7 +240,7 @@ public class NumberUtilsTest {
         try {
             NumberUtils.createNumber("--1.1E-700F");
             fail("Expected NumberFormatException");
-        } catch (NumberFormatException nfe) {
+        } catch (final NumberFormatException nfe) {
             // expected
         }
     }
@@ -287,9 +287,9 @@ public class NumberUtilsTest {
 
     protected void testCreateFloatFailure(final String str) {
         try {
-            Float value = NumberUtils.createFloat(str);
+            final Float value = NumberUtils.createFloat(str);
             fail("createFloat(blank) failed: " + value);
-        } catch (NumberFormatException ex) {
+        } catch (final NumberFormatException ex) {
             // empty
         }
     }
@@ -307,9 +307,9 @@ public class NumberUtilsTest {
 
     protected void testCreateDoubleFailure(final String str) {
         try {
-            Double value = NumberUtils.createDouble(str);
+            final Double value = NumberUtils.createDouble(str);
             fail("createDouble(blank) failed: " + value);
-        } catch (NumberFormatException ex) {
+        } catch (final NumberFormatException ex) {
             // empty
         }
     }
@@ -327,9 +327,9 @@ public class NumberUtilsTest {
 
     protected void testCreateIntegerFailure(final String str) {
         try {
-            Integer value = NumberUtils.createInteger(str);
+            final Integer value = NumberUtils.createInteger(str);
             fail("createInteger(blank) failed: " + value);
-        } catch (NumberFormatException ex) {
+        } catch (final NumberFormatException ex) {
             // empty
         }
     }
@@ -347,9 +347,9 @@ public class NumberUtilsTest {
 
     protected void testCreateLongFailure(final String str) {
         try {
-            Long value = NumberUtils.createLong(str);
+            final Long value = NumberUtils.createLong(str);
             fail("createLong(blank) failed: " + value);
-        } catch (NumberFormatException ex) {
+        } catch (final NumberFormatException ex) {
             // empty
         }
     }
@@ -379,9 +379,9 @@ public class NumberUtilsTest {
 
     protected void testCreateBigIntegerFailure(final String str) {
         try {
-            BigInteger value = NumberUtils.createBigInteger(str);
+            final BigInteger value = NumberUtils.createBigInteger(str);
             fail("createBigInteger(blank) failed: " + value);
-        } catch (NumberFormatException ex) {
+        } catch (final NumberFormatException ex) {
             // empty
         }
     }
@@ -405,9 +405,9 @@ public class NumberUtilsTest {
 
     protected void testCreateBigDecimalFailure(final String str) {
         try {
-            BigDecimal value = NumberUtils.createBigDecimal(str);
+            final BigDecimal value = NumberUtils.createBigDecimal(str);
             fail("createBigDecimal(blank) failed: " + value);
-        } catch (NumberFormatException ex) {
+        } catch (final NumberFormatException ex) {
             // empty
         }
     }
@@ -720,12 +720,12 @@ public class NumberUtilsTest {
         try {
             NumberUtils.max(d);
             fail("No exception was thrown for null input.");
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
 
         try {
             NumberUtils.max(new double[0]);
             fail("No exception was thrown for empty input.");
-        } catch (IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {}
 
         assertEquals(
             "max(double[]) failed for array length 1",
@@ -801,9 +801,9 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinimumShort() {
-        short low = 1234;
-        short mid = 1234 + 1;
-        short high = 1234 + 2;
+        final short low = 1234;
+        final short mid = 1234 + 1;
+        final short high = 1234 + 2;
         assertEquals("minimum(short,short,short) 1 failed", low, NumberUtils.min(low, mid, high));
         assertEquals("minimum(short,short,short) 1 failed", low, NumberUtils.min(mid, low, high));
         assertEquals("minimum(short,short,short) 1 failed", low, NumberUtils.min(mid, high, low));
@@ -812,9 +812,9 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinimumByte() {
-        byte low = 123;
-        byte mid = 123 + 1;
-        byte high = 123 + 2;
+        final byte low = 123;
+        final byte mid = 123 + 1;
+        final byte high = 123 + 2;
         assertEquals("minimum(byte,byte,byte) 1 failed", low, NumberUtils.min(low, mid, high));
         assertEquals("minimum(byte,byte,byte) 1 failed", low, NumberUtils.min(mid, low, high));
         assertEquals("minimum(byte,byte,byte) 1 failed", low, NumberUtils.min(mid, high, low));
@@ -823,9 +823,9 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinimumDouble() {
-        double low = 12.3;
-        double mid = 12.3 + 1;
-        double high = 12.3 + 2;
+        final double low = 12.3;
+        final double mid = 12.3 + 1;
+        final double high = 12.3 + 2;
         assertEquals(low, NumberUtils.min(low, mid, high), 0.0001);
         assertEquals(low, NumberUtils.min(mid, low, high), 0.0001);
         assertEquals(low, NumberUtils.min(mid, high, low), 0.0001);
@@ -835,9 +835,9 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinimumFloat() {
-        float low = 12.3f;
-        float mid = 12.3f + 1;
-        float high = 12.3f + 2;
+        final float low = 12.3f;
+        final float mid = 12.3f + 1;
+        final float high = 12.3f + 2;
         assertEquals(low, NumberUtils.min(low, mid, high), 0.0001f);
         assertEquals(low, NumberUtils.min(mid, low, high), 0.0001f);
         assertEquals(low, NumberUtils.min(mid, high, low), 0.0001f);
@@ -865,9 +865,9 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaximumShort() {
-        short low = 1234;
-        short mid = 1234 + 1;
-        short high = 1234 + 2;
+        final short low = 1234;
+        final short mid = 1234 + 1;
+        final short high = 1234 + 2;
         assertEquals("maximum(short,short,short) 1 failed", high, NumberUtils.max(low, mid, high));
         assertEquals("maximum(short,short,short) 1 failed", high, NumberUtils.max(mid, low, high));
         assertEquals("maximum(short,short,short) 1 failed", high, NumberUtils.max(mid, high, low));
@@ -876,9 +876,9 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaximumByte() {
-        byte low = 123;
-        byte mid = 123 + 1;
-        byte high = 123 + 2;
+        final byte low = 123;
+        final byte mid = 123 + 1;
+        final byte high = 123 + 2;
         assertEquals("maximum(byte,byte,byte) 1 failed", high, NumberUtils.max(low, mid, high));
         assertEquals("maximum(byte,byte,byte) 1 failed", high, NumberUtils.max(mid, low, high));
         assertEquals("maximum(byte,byte,byte) 1 failed", high, NumberUtils.max(mid, high, low));
@@ -887,9 +887,9 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaximumDouble() {
-        double low = 12.3;
-        double mid = 12.3 + 1;
-        double high = 12.3 + 2;
+        final double low = 12.3;
+        final double mid = 12.3 + 1;
+        final double high = 12.3 + 2;
         assertEquals(high, NumberUtils.max(low, mid, high), 0.0001);
         assertEquals(high, NumberUtils.max(mid, low, high), 0.0001);
         assertEquals(high, NumberUtils.max(mid, high, low), 0.0001);
@@ -899,9 +899,9 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaximumFloat() {
-        float low = 12.3f;
-        float mid = 12.3f + 1;
-        float high = 12.3f + 2;
+        final float low = 12.3f;
+        final float mid = 12.3f + 1;
+        final float high = 12.3f + 2;
         assertEquals(high, NumberUtils.max(low, mid, high), 0.0001f);
         assertEquals(high, NumberUtils.max(mid, low, high), 0.0001f);
         assertEquals(high, NumberUtils.max(mid, high, low), 0.0001f);
@@ -1256,12 +1256,12 @@ public class NumberUtilsTest {
 
     private boolean checkCreateNumber(final String val) {
         try {
-            Object obj = NumberUtils.createNumber(val);
+            final Object obj = NumberUtils.createNumber(val);
             if (obj == null) {
                 return false;
             }
             return true;
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             return false;
        }
     }
@@ -1322,18 +1322,18 @@ public class NumberUtilsTest {
         assertTrue(Float.isNaN(NumberUtils.min(1.2f, 2.5f, Float.NaN)));
         assertTrue(Float.isNaN(NumberUtils.max(1.2f, 2.5f, Float.NaN)));
 
-        double[] a = new double[] { 1.2, Double.NaN, 3.7, 27.0, 42.0, Double.NaN };
+        final double[] a = new double[] { 1.2, Double.NaN, 3.7, 27.0, 42.0, Double.NaN };
         assertTrue(Double.isNaN(NumberUtils.max(a)));
         assertTrue(Double.isNaN(NumberUtils.min(a)));
 
-        double[] b = new double[] { Double.NaN, 1.2, Double.NaN, 3.7, 27.0, 42.0, Double.NaN };
+        final double[] b = new double[] { Double.NaN, 1.2, Double.NaN, 3.7, 27.0, 42.0, Double.NaN };
         assertTrue(Double.isNaN(NumberUtils.max(b)));
         assertTrue(Double.isNaN(NumberUtils.min(b)));
 
-        float[] aF = new float[] { 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
+        final float[] aF = new float[] { 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
         assertTrue(Float.isNaN(NumberUtils.max(aF)));
 
-        float[] bF = new float[] { Float.NaN, 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
+        final float[] bF = new float[] { Float.NaN, 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
         assertTrue(Float.isNaN(NumberUtils.max(bF)));
     }
 

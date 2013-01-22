@@ -67,7 +67,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     private CharRange(char start, char end, final boolean negated) {
         super();
         if (start > end) {
-            char temp = start;
+            final char temp = start;
             start = end;
             end = temp;
         }
@@ -212,7 +212,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         if (obj instanceof CharRange == false) {
             return false;
         }
-        CharRange other = (CharRange) obj;
+        final CharRange other = (CharRange) obj;
         return start == other.start && end == other.end && negated == other.negated;
     }
 
@@ -234,7 +234,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     @Override
     public String toString() {
         if (iToString == null) {
-            StringBuilder buf = new StringBuilder(4);
+            final StringBuilder buf = new StringBuilder(4);
             if (isNegated()) {
                 buf.append('^');
             }
@@ -341,7 +341,7 @@ final class CharRange implements Iterable<Character>, Serializable {
             if (hasNext == false) {
                 throw new NoSuchElementException();
             }
-            char cur = current;
+            final char cur = current;
             prepareNext();
             return Character.valueOf(cur);
         }

@@ -48,14 +48,14 @@ public class StrLookupTest  {
         try {
             StrLookup.systemPropertiesLookup().lookup(null);
             fail();
-        } catch (NullPointerException ex) {
+        } catch (final NullPointerException ex) {
             // expected
         }
     }
 
     @Test
     public void testMapLookup() {
-        Map<String, Object> map = new HashMap<String, Object>();
+        final Map<String, Object> map = new HashMap<String, Object>();
         map.put("key", "value");
         map.put("number", Integer.valueOf(2));
         assertEquals("value", StrLookup.mapLookup(map).lookup("key"));
@@ -67,7 +67,7 @@ public class StrLookupTest  {
 
     @Test
     public void testMapLookup_nullMap() {
-        Map<String, ?> map = null;
+        final Map<String, ?> map = null;
         assertEquals(null, StrLookup.mapLookup(map).lookup(null));
         assertEquals(null, StrLookup.mapLookup(map).lookup(""));
         assertEquals(null, StrLookup.mapLookup(map).lookup("any"));

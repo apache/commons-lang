@@ -42,7 +42,7 @@ public class MutableShortTest {
         try {
             new MutableShort((Number)null);
             fail();
-        } catch (NullPointerException ex) {}
+        } catch (final NullPointerException ex) {}
     }
 
     @Test
@@ -65,7 +65,7 @@ public class MutableShortTest {
         try {
             mutNum.setValue(null);
             fail();
-        } catch (NullPointerException ex) {}
+        } catch (final NullPointerException ex) {}
     }
 
     @Test
@@ -108,12 +108,12 @@ public class MutableShortTest {
         try {
             mutNum.compareTo(null);
             fail();
-        } catch (NullPointerException ex) {}
+        } catch (final NullPointerException ex) {}
     }
 
     @Test
     public void testPrimitiveValues() {
-        MutableShort mutNum = new MutableShort( (short) 1 );
+        final MutableShort mutNum = new MutableShort( (short) 1 );
         
         assertEquals( 1.0F, mutNum.floatValue(), 0 );
         assertEquals( 1.0, mutNum.doubleValue(), 0 );
@@ -131,7 +131,7 @@ public class MutableShortTest {
 
     @Test
     public void testIncrement() {
-        MutableShort mutNum = new MutableShort((short) 1);
+        final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.increment();
         
         assertEquals(2, mutNum.intValue());
@@ -140,7 +140,7 @@ public class MutableShortTest {
 
     @Test
     public void testDecrement() {
-        MutableShort mutNum = new MutableShort((short) 1);
+        final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.decrement();
         
         assertEquals(0, mutNum.intValue());
@@ -149,7 +149,7 @@ public class MutableShortTest {
 
     @Test
     public void testAddValuePrimitive() {
-        MutableShort mutNum = new MutableShort((short) 1);
+        final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.add((short) 1);
         
         assertEquals((short) 2, mutNum.shortValue());
@@ -157,7 +157,7 @@ public class MutableShortTest {
 
     @Test
     public void testAddValueObject() {
-        MutableShort mutNum = new MutableShort((short) 1);
+        final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.add(Short.valueOf((short) 1));
         
         assertEquals((short) 2, mutNum.shortValue());
@@ -165,7 +165,7 @@ public class MutableShortTest {
 
     @Test
     public void testSubtractValuePrimitive() {
-        MutableShort mutNum = new MutableShort((short) 1);
+        final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.subtract((short) 1);
         
         assertEquals((short) 0, mutNum.shortValue());
@@ -173,7 +173,7 @@ public class MutableShortTest {
 
     @Test
     public void testSubtractValueObject() {
-        MutableShort mutNum = new MutableShort((short) 1);
+        final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.subtract(Short.valueOf((short) 1));
         
         assertEquals((short) 0, mutNum.shortValue());

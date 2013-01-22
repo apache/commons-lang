@@ -132,19 +132,19 @@ public class ConstructorUtilsTest {
             ConstructorUtils.invokeExactConstructor(TestBean.class,
                     NumberUtils.BYTE_ONE);
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
         }
         try {
             ConstructorUtils.invokeExactConstructor(TestBean.class,
                     NumberUtils.LONG_ONE);
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
         }
         try {
             ConstructorUtils.invokeExactConstructor(TestBean.class,
                     Boolean.TRUE);
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
         }
     }
 
@@ -214,7 +214,7 @@ public class ConstructorUtilsTest {
 
     private void expectMatchingAccessibleConstructorParameterTypes(final Class<?> cls,
             final Class<?>[] requestTypes, final Class<?>[] actualTypes) {
-        Constructor<?> c = ConstructorUtils.getMatchingAccessibleConstructor(cls,
+        final Constructor<?> c = ConstructorUtils.getMatchingAccessibleConstructor(cls,
                 requestTypes);
         assertTrue(toString(c.getParameterTypes()) + " not equals "
                 + toString(actualTypes), Arrays.equals(actualTypes, c

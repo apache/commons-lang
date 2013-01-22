@@ -103,7 +103,7 @@ public class ConcurrentUtils {
      */
     public static void handleCause(final ExecutionException ex)
             throws ConcurrentException {
-        ConcurrentException cex = extractCause(ex);
+        final ConcurrentException cex = extractCause(ex);
 
         if (cex != null) {
             throw cex;
@@ -124,7 +124,7 @@ public class ConcurrentUtils {
      * wrapped in the thrown runtime exception
      */
     public static void handleCauseUnchecked(final ExecutionException ex) {
-        ConcurrentRuntimeException crex = extractCauseUnchecked(ex);
+        final ConcurrentRuntimeException crex = extractCauseUnchecked(ex);
 
         if (crex != null) {
             throw crex;
@@ -200,7 +200,7 @@ public class ConcurrentUtils {
     public static <T> T initializeUnchecked(final ConcurrentInitializer<T> initializer) {
         try {
             return initialize(initializer);
-        } catch (ConcurrentException cex) {
+        } catch (final ConcurrentException cex) {
             throw new ConcurrentRuntimeException(cex.getCause());
         }
     }
@@ -243,7 +243,7 @@ public class ConcurrentUtils {
             return null;
         }
 
-        V result = map.putIfAbsent(key, value);
+        final V result = map.putIfAbsent(key, value);
         return result != null ? result : value;
     }
 
@@ -273,7 +273,7 @@ public class ConcurrentUtils {
             return null;
         }
 
-        V value = map.get(key);
+        final V value = map.get(key);
         if (value == null) {
             return putIfAbsent(map, key, init.get());
         }
@@ -299,7 +299,7 @@ public class ConcurrentUtils {
             final K key, final ConcurrentInitializer<V> init) {
         try {
             return createIfAbsent(map, key, init);
-        } catch (ConcurrentException cex) {
+        } catch (final ConcurrentException cex) {
             throw new ConcurrentRuntimeException(cex.getCause());
         }
     }

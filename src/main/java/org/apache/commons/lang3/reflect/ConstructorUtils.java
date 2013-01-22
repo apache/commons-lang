@@ -81,7 +81,7 @@ public class ConstructorUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        Class<?> parameterTypes[] = ClassUtils.toClass(args);
+        final Class<?> parameterTypes[] = ClassUtils.toClass(args);
         return invokeConstructor(cls, args, parameterTypes);
     }
 
@@ -113,7 +113,7 @@ public class ConstructorUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        Constructor<T> ctor = getMatchingAccessibleConstructor(cls, parameterTypes);
+        final Constructor<T> ctor = getMatchingAccessibleConstructor(cls, parameterTypes);
         if (ctor == null) {
             throw new NoSuchMethodException(
                 "No such accessible constructor on object: " + cls.getName());
@@ -145,7 +145,7 @@ public class ConstructorUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        Class<?> parameterTypes[] = ClassUtils.toClass(args);
+        final Class<?> parameterTypes[] = ClassUtils.toClass(args);
         return invokeExactConstructor(cls, args, parameterTypes);
     }
 
@@ -177,7 +177,7 @@ public class ConstructorUtils {
         if (parameterTypes == null) {
             parameterTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
-        Constructor<T> ctor = getAccessibleConstructor(cls, parameterTypes);
+        final Constructor<T> ctor = getAccessibleConstructor(cls, parameterTypes);
         if (ctor == null) {
             throw new NoSuchMethodException(
                 "No such accessible constructor on object: "+ cls.getName());
@@ -203,7 +203,7 @@ public class ConstructorUtils {
             final Class<?>... parameterTypes) {
         try {
             return getAccessibleConstructor(cls.getConstructor(parameterTypes));
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
             return null;
         }
     }
@@ -245,17 +245,17 @@ public class ConstructorUtils {
         // see if we can find the constructor directly
         // most of the time this works and it's much faster
         try {
-            Constructor<T> ctor = cls.getConstructor(parameterTypes);
+            final Constructor<T> ctor = cls.getConstructor(parameterTypes);
             MemberUtils.setAccessibleWorkaround(ctor);
             return ctor;
-        } catch (NoSuchMethodException e) { // NOPMD - Swallow
+        } catch (final NoSuchMethodException e) { // NOPMD - Swallow
         }
         Constructor<T> result = null;
         /*
          * (1) Class.getConstructors() is documented to return Constructor<T> so as
          * long as the array is not subsequently modified, everything's fine.
          */
-        Constructor<?>[] ctors = cls.getConstructors();
+        final Constructor<?>[] ctors = cls.getConstructors();
 
         // return best match:
         for (Constructor<?> ctor : ctors) {
@@ -270,6 +270,7 @@ public class ConstructorUtils {
                                     .getParameterTypes(), parameterTypes) < 0) {
                         // temporary variable for annotation, see comment above (1)
                         @SuppressWarnings("unchecked")
+                        final
                         Constructor<T> constructor = (Constructor<T>)ctor;
                         result = constructor;
                     }

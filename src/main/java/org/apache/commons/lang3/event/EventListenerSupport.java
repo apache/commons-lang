@@ -218,15 +218,15 @@ public class EventListenerSupport<L> implements Serializable {
      * @throws IOException if an IO error occurs
      */
     private void writeObject(final ObjectOutputStream objectOutputStream) throws IOException {
-        ArrayList<L> serializableListeners = new ArrayList<L>();
+        final ArrayList<L> serializableListeners = new ArrayList<L>();
 
         // don't just rely on instanceof Serializable:
         ObjectOutputStream testObjectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
-        for (L listener : listeners) {
+        for (final L listener : listeners) {
             try {
                 testObjectOutputStream.writeObject(listener);
                 serializableListeners.add(listener);
-            } catch (IOException exception) {
+            } catch (final IOException exception) {
                 //recreate test stream in case of indeterminate state
                 testObjectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
             }
@@ -246,11 +246,13 @@ public class EventListenerSupport<L> implements Serializable {
      */
     private void readObject(final ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
+        final
         L[] listeners = (L[]) objectInputStream.readObject();
 
         this.listeners = new CopyOnWriteArrayList<L>(listeners);
 
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
+        final
         Class<L> listenerInterface = (Class<L>) listeners.getClass().getComponentType();
 
         initializeTransientFields(listenerInterface, Thread.currentThread().getContextClassLoader());
@@ -263,6 +265,7 @@ public class EventListenerSupport<L> implements Serializable {
      */
     private void initializeTransientFields(final Class<L> listenerInterface, final ClassLoader classLoader) {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
+        final
         L[] array = (L[]) Array.newInstance(listenerInterface, 0);
         this.prototypeArray = array;
         createProxy(listenerInterface, classLoader);
@@ -306,7 +309,7 @@ public class EventListenerSupport<L> implements Serializable {
          */
         @Override
         public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-            for (L listener : listeners) {
+            for (final L listener : listeners) {
                 method.invoke(listener, args);
             }
             return null;
