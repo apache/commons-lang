@@ -547,7 +547,7 @@ public class StrBuilderAppendInsertTest {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
             @Override
-            public StrBuilder append(String str) {
+            public StrBuilder append(final String str) {
                 count[0]++;
                 return super.append(str);
             }
@@ -583,7 +583,7 @@ public class StrBuilderAppendInsertTest {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
             @Override
-            public StrBuilder append(String str) {
+            public StrBuilder append(final String str) {
                 count[0]++;
                 return super.append(str);
             }
@@ -605,7 +605,7 @@ public class StrBuilderAppendInsertTest {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
             @Override
-            public StrBuilder append(String str, int startIndex, int length) {
+            public StrBuilder append(final String str, final int startIndex, final int length) {
                 count[0]++;
                 return super.append(str, startIndex, length);
             }
@@ -627,7 +627,7 @@ public class StrBuilderAppendInsertTest {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
             @Override
-            public StrBuilder append(StringBuffer str) {
+            public StrBuilder append(final StringBuffer str) {
                 count[0]++;
                 return super.append(str);
             }
@@ -649,7 +649,7 @@ public class StrBuilderAppendInsertTest {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
             @Override
-            public StrBuilder append(StringBuilder str) {
+            public StrBuilder append(final StringBuilder str) {
                 count[0]++;
                 return super.append(str);
             }
@@ -671,7 +671,7 @@ public class StrBuilderAppendInsertTest {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
             @Override
-            public StrBuilder append(StringBuffer str, int startIndex, int length) {
+            public StrBuilder append(final StringBuffer str, final int startIndex, final int length) {
                 count[0]++;
                 return super.append(str, startIndex, length);
             }
@@ -693,7 +693,7 @@ public class StrBuilderAppendInsertTest {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
             @Override
-            public StrBuilder append(StringBuilder str, int startIndex, int length) {
+            public StrBuilder append(final StringBuilder str, final int startIndex, final int length) {
                 count[0]++;
                 return super.append(str, startIndex, length);
             }
@@ -715,7 +715,7 @@ public class StrBuilderAppendInsertTest {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
             @Override
-            public StrBuilder append(StrBuilder str) {
+            public StrBuilder append(final StrBuilder str) {
                 count[0]++;
                 return super.append(str);
             }
@@ -737,7 +737,7 @@ public class StrBuilderAppendInsertTest {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
             @Override
-            public StrBuilder append(StrBuilder str, int startIndex, int length) {
+            public StrBuilder append(final StrBuilder str, final int startIndex, final int length) {
                 count[0]++;
                 return super.append(str, startIndex, length);
             }
@@ -759,7 +759,7 @@ public class StrBuilderAppendInsertTest {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
             @Override
-            public StrBuilder append(char[] str) {
+            public StrBuilder append(final char[] str) {
                 count[0]++;
                 return super.append(str);
             }
@@ -781,7 +781,7 @@ public class StrBuilderAppendInsertTest {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
             @Override
-            public StrBuilder append(char[] str, int startIndex, int length) {
+            public StrBuilder append(final char[] str, final int startIndex, final int length) {
                 count[0]++;
                 return super.append(str, startIndex, length);
             }

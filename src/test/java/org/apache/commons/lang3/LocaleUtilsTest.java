@@ -80,7 +80,7 @@ public class LocaleUtilsTest  {
      *
      * @param language  the language string
      */
-    private void assertValidToLocale(String language) {
+    private void assertValidToLocale(final String language) {
         Locale locale = LocaleUtils.toLocale(language);
         assertNotNull("valid locale", locale);
         assertEquals(language, locale.getLanguage());
@@ -96,7 +96,7 @@ public class LocaleUtilsTest  {
      * @param language of the resulting Locale
      * @param country of the resulting Locale
      */
-    private void assertValidToLocale(String localeString, String language, String country) {
+    private void assertValidToLocale(final String localeString, final String language, final String country) {
         Locale locale = LocaleUtils.toLocale(localeString);
         assertNotNull("valid locale", locale);
         assertEquals(language, locale.getLanguage());
@@ -114,8 +114,8 @@ public class LocaleUtilsTest  {
      * @param variant of the resulting Locale
      */
     private void assertValidToLocale(
-            String localeString, String language, 
-            String country, String variant) {
+            final String localeString, final String language, 
+            final String country, final String variant) {
         Locale locale = LocaleUtils.toLocale(localeString);
         assertNotNull("valid locale", locale);
         assertEquals(language, locale.getLanguage());
@@ -240,7 +240,7 @@ public class LocaleUtilsTest  {
      * @param defaultLocale  the input default locale
      * @param expected  expected results
      */
-    private void assertLocaleLookupList(Locale locale, Locale defaultLocale, Locale[] expected) {
+    private void assertLocaleLookupList(final Locale locale, final Locale defaultLocale, final Locale[] expected) {
         List<Locale> localeList = defaultLocale == null ?
                 LocaleUtils.localeLookupList(locale) :
                 LocaleUtils.localeLookupList(locale, defaultLocale);
@@ -387,7 +387,7 @@ public class LocaleUtilsTest  {
      * @param country
      * @param languages array of languages that should be returned
      */
-    private void assertLanguageByCountry(String country, String[] languages) {
+    private void assertLanguageByCountry(final String country, final String[] languages) {
         List<Locale> list = LocaleUtils.languagesByCountry(country);
         List<Locale> list2 = LocaleUtils.languagesByCountry(country);
         assertNotNull(list);
@@ -438,7 +438,7 @@ public class LocaleUtilsTest  {
      * @param language
      * @param countries array of countries that should be returned
      */
-    private void assertCountriesByLanguage(String language, String[] countries) {
+    private void assertCountriesByLanguage(final String language, final String[] countries) {
         List<Locale> list = LocaleUtils.countriesByLanguage(language);
         List<Locale> list2 = LocaleUtils.countriesByLanguage(language);
         assertNotNull(list);
@@ -481,7 +481,7 @@ public class LocaleUtilsTest  {
     /**
      * @param coll  the collection to check
      */
-    private static void assertUnmodifiableCollection(Collection<?> coll) {
+    private static void assertUnmodifiableCollection(final Collection<?> coll) {
         try {
             coll.add(null);
             fail();

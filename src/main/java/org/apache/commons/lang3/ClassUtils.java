@@ -107,7 +107,7 @@ public class ClassUtils {
      * @param primitive Canonical name of primitive type
      * @param abbreviation Corresponding abbreviation of primitive type
      */
-    private static void addAbbreviation(String primitive, String abbreviation) {
+    private static void addAbbreviation(final String primitive, final String abbreviation) {
         abbreviationMap.put(primitive, abbreviation);
         reverseAbbreviationMap.put(abbreviation, primitive);
     }
@@ -147,7 +147,7 @@ public class ClassUtils {
      * @param valueIfNull  the value to return if null
      * @return the class name of the object without the package name, or the null value
      */
-    public static String getShortClassName(Object object, String valueIfNull) {
+    public static String getShortClassName(final Object object, final String valueIfNull) {
         if (object == null) {
             return valueIfNull;
         }
@@ -164,7 +164,7 @@ public class ClassUtils {
      * @param cls  the class to get the short name for.
      * @return the class name without the package name or an empty string
      */
-    public static String getShortClassName(Class<?> cls) {
+    public static String getShortClassName(final Class<?> cls) {
         if (cls == null) {
             return StringUtils.EMPTY;
         }
@@ -224,7 +224,7 @@ public class ClassUtils {
      * @since 3.0
      * @see Class#getSimpleName()
      */
-    public static String getSimpleName(Class<?> cls) {
+    public static String getSimpleName(final Class<?> cls) {
         if (cls == null) {
             return StringUtils.EMPTY;
         }
@@ -240,7 +240,7 @@ public class ClassUtils {
      * @since 3.0
      * @see Class#getSimpleName()
      */
-    public static String getSimpleName(Object object, String valueIfNull) {
+    public static String getSimpleName(final Object object, final String valueIfNull) {
         if (object == null) {
             return valueIfNull;
         }
@@ -256,7 +256,7 @@ public class ClassUtils {
      * @param valueIfNull  the value to return if null
      * @return the package name of the object, or the null value
      */
-    public static String getPackageName(Object object, String valueIfNull) {
+    public static String getPackageName(final Object object, final String valueIfNull) {
         if (object == null) {
             return valueIfNull;
         }
@@ -269,7 +269,7 @@ public class ClassUtils {
      * @param cls  the class to get the package name for, may be {@code null}.
      * @return the package name or an empty string
      */
-    public static String getPackageName(Class<?> cls) {
+    public static String getPackageName(final Class<?> cls) {
         if (cls == null) {
             return StringUtils.EMPTY;
         }
@@ -315,7 +315,7 @@ public class ClassUtils {
      * @return the {@code List} of superclasses in order going up from this one
      *  {@code null} if null input
      */
-    public static List<Class<?>> getAllSuperclasses(Class<?> cls) {
+    public static List<Class<?>> getAllSuperclasses(final Class<?> cls) {
         if (cls == null) {
             return null;
         }
@@ -341,7 +341,7 @@ public class ClassUtils {
      * @return the {@code List} of interfaces in order,
      *  {@code null} if null input
      */
-    public static List<Class<?>> getAllInterfaces(Class<?> cls) {
+    public static List<Class<?>> getAllInterfaces(final Class<?> cls) {
         if (cls == null) {
             return null;
         }
@@ -358,7 +358,7 @@ public class ClassUtils {
      * @param cls  the class to look up, may be {@code null}
      * @param interfacesFound the {@code Set} of interfaces for the class
      */
-    private static void getAllInterfaces(Class<?> cls, HashSet<Class<?>> interfacesFound) {
+    private static void getAllInterfaces(Class<?> cls, final HashSet<Class<?>> interfacesFound) {
         while (cls != null) {
             Class<?>[] interfaces = cls.getInterfaces();
 
@@ -386,7 +386,7 @@ public class ClassUtils {
      *  {@code null} if null input
      * @throws ClassCastException if classNames contains a non String entry
      */
-    public static List<Class<?>> convertClassNamesToClasses(List<String> classNames) {
+    public static List<Class<?>> convertClassNamesToClasses(final List<String> classNames) {
         if (classNames == null) {
             return null;
         }
@@ -413,7 +413,7 @@ public class ClassUtils {
      *  {@code null} if null input
      * @throws ClassCastException if {@code classes} contains a non-{@code Class} entry
      */
-    public static List<String> convertClassesToClassNames(List<Class<?>> classes) {
+    public static List<String> convertClassesToClassNames(final List<Class<?>> classes) {
         if (classes == null) {
             return null;
         }
@@ -466,7 +466,7 @@ public class ClassUtils {
      * @param toClassArray  the array of Classes to try to assign into, may be {@code null}
      * @return {@code true} if assignment possible
      */
-    public static boolean isAssignable(Class<?>[] classArray, Class<?>... toClassArray) {
+    public static boolean isAssignable(final Class<?>[] classArray, final Class<?>... toClassArray) {
         return isAssignable(classArray, toClassArray, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
     }
 
@@ -502,7 +502,7 @@ public class ClassUtils {
      * @param autoboxing  whether to use implicit autoboxing/unboxing between primitives and wrappers
      * @return {@code true} if assignment possible
      */
-    public static boolean isAssignable(Class<?>[] classArray, Class<?>[] toClassArray, boolean autoboxing) {
+    public static boolean isAssignable(Class<?>[] classArray, Class<?>[] toClassArray, final boolean autoboxing) {
         if (ArrayUtils.isSameLength(classArray, toClassArray) == false) {
             return false;
         }
@@ -530,7 +530,7 @@ public class ClassUtils {
      *         {@link Short}, {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
      * @since 3.1
      */
-    public static boolean isPrimitiveOrWrapper(Class<?> type) {
+    public static boolean isPrimitiveOrWrapper(final Class<?> type) {
         if (type == null) {
             return false;
         }
@@ -547,7 +547,7 @@ public class ClassUtils {
      *         {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
      * @since 3.1
      */
-    public static boolean isPrimitiveWrapper(Class<?> type) {
+    public static boolean isPrimitiveWrapper(final Class<?> type) {
         return wrapperPrimitiveMap.containsKey(type);
     }
 
@@ -582,7 +582,7 @@ public class ClassUtils {
      * @param toClass  the Class to try to assign into, returns false if null
      * @return {@code true} if assignment possible
      */
-    public static boolean isAssignable(Class<?> cls, Class<?> toClass) {
+    public static boolean isAssignable(final Class<?> cls, final Class<?> toClass) {
         return isAssignable(cls, toClass, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
     }
 
@@ -613,7 +613,7 @@ public class ClassUtils {
      * @param autoboxing  whether to use implicit autoboxing/unboxing between primitives and wrappers
      * @return {@code true} if assignment possible
      */
-    public static boolean isAssignable(Class<?> cls, Class<?> toClass, boolean autoboxing) {
+    public static boolean isAssignable(Class<?> cls, final Class<?> toClass, final boolean autoboxing) {
         if (toClass == null) {
             return false;
         }
@@ -698,7 +698,7 @@ public class ClassUtils {
      * {@code cls} is not a primitive. {@code null} if null input.
      * @since 2.1
      */
-    public static Class<?> primitiveToWrapper(Class<?> cls) {
+    public static Class<?> primitiveToWrapper(final Class<?> cls) {
         Class<?> convertedClass = cls;
         if (cls != null && cls.isPrimitive()) {
             convertedClass = primitiveWrapperMap.get(cls);
@@ -716,7 +716,7 @@ public class ClassUtils {
      * Empty array if an empty array passed in.
      * @since 2.1
      */
-    public static Class<?>[] primitivesToWrappers(Class<?>... classes) {
+    public static Class<?>[] primitivesToWrappers(final Class<?>... classes) {
         if (classes == null) {
             return null;
         }
@@ -748,7 +748,7 @@ public class ClassUtils {
      * @see #primitiveToWrapper(Class)
      * @since 2.4
      */
-    public static Class<?> wrapperToPrimitive(Class<?> cls) {
+    public static Class<?> wrapperToPrimitive(final Class<?> cls) {
         return wrapperPrimitiveMap.get(cls);
     }
 
@@ -766,7 +766,7 @@ public class ClassUtils {
      * @see #wrapperToPrimitive(Class)
      * @since 2.4
      */
-    public static Class<?>[] wrappersToPrimitives(Class<?>... classes) {
+    public static Class<?>[] wrappersToPrimitives(final Class<?>... classes) {
         if (classes == null) {
             return null;
         }
@@ -791,7 +791,7 @@ public class ClassUtils {
      * @return {@code true} if the class is an inner or static nested class,
      *  false if not or {@code null}
      */
-    public static boolean isInnerClass(Class<?> cls) {
+    public static boolean isInnerClass(final Class<?> cls) {
         return cls != null && cls.getEnclosingClass() != null;
     }
 
@@ -810,7 +810,7 @@ public class ClassUtils {
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(
-            ClassLoader classLoader, String className, boolean initialize) throws ClassNotFoundException {
+            final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
         try {
             Class<?> clazz;
             if (abbreviationMap.containsKey(className)) {
@@ -850,7 +850,7 @@ public class ClassUtils {
      * @return the class represented by {@code className} using the {@code classLoader}
      * @throws ClassNotFoundException if the class is not found
      */
-    public static Class<?> getClass(ClassLoader classLoader, String className) throws ClassNotFoundException {
+    public static Class<?> getClass(final ClassLoader classLoader, final String className) throws ClassNotFoundException {
         return getClass(classLoader, className, true);
     }
 
@@ -865,7 +865,7 @@ public class ClassUtils {
      * @return the class represented by {@code className} using the current thread's context class loader
      * @throws ClassNotFoundException if the class is not found
      */
-    public static Class<?> getClass(String className) throws ClassNotFoundException {
+    public static Class<?> getClass(final String className) throws ClassNotFoundException {
         return getClass(className, true);
     }
 
@@ -880,7 +880,7 @@ public class ClassUtils {
      * @return the class represented by {@code className} using the current thread's context class loader
      * @throws ClassNotFoundException if the class is not found
      */
-    public static Class<?> getClass(String className, boolean initialize) throws ClassNotFoundException {
+    public static Class<?> getClass(final String className, final boolean initialize) throws ClassNotFoundException {
         ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
         ClassLoader loader = contextCL == null ? ClassUtils.class.getClassLoader() : contextCL;
         return getClass(loader, className, initialize);
@@ -909,7 +909,7 @@ public class ClassUtils {
      * @throws NoSuchMethodException if the method is not found in the given class
      *  or if the metothod doen't conform with the requirements
      */
-    public static Method getPublicMethod(Class<?> cls, String methodName, Class<?>... parameterTypes)
+    public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes)
             throws SecurityException, NoSuchMethodException {
 
         Method declaredMethod = cls.getMethod(methodName, parameterTypes);
@@ -978,7 +978,7 @@ public class ClassUtils {
      * @return a {@code Class} array, {@code null} if null array input
      * @since 2.4
      */
-    public static Class<?>[] toClass(Object... array) {
+    public static Class<?>[] toClass(final Object... array) {
         if (array == null) {
             return null;
         } else if (array.length == 0) {
@@ -1001,7 +1001,7 @@ public class ClassUtils {
      * @return the canonical name of the object without the package name, or the null value
      * @since 2.4
      */
-    public static String getShortCanonicalName(Object object, String valueIfNull) {
+    public static String getShortCanonicalName(final Object object, final String valueIfNull) {
         if (object == null) {
             return valueIfNull;
         }
@@ -1015,7 +1015,7 @@ public class ClassUtils {
      * @return the canonical name without the package name or an empty string
      * @since 2.4
      */
-    public static String getShortCanonicalName(Class<?> cls) {
+    public static String getShortCanonicalName(final Class<?> cls) {
         if (cls == null) {
             return StringUtils.EMPTY;
         }
@@ -1031,7 +1031,7 @@ public class ClassUtils {
      * @return the canonical name of the class without the package name or an empty string
      * @since 2.4
      */
-    public static String getShortCanonicalName(String canonicalName) {
+    public static String getShortCanonicalName(final String canonicalName) {
         return ClassUtils.getShortClassName(getCanonicalName(canonicalName));
     }
 
@@ -1045,7 +1045,7 @@ public class ClassUtils {
      * @return the package name of the object, or the null value
      * @since 2.4
      */
-    public static String getPackageCanonicalName(Object object, String valueIfNull) {
+    public static String getPackageCanonicalName(final Object object, final String valueIfNull) {
         if (object == null) {
             return valueIfNull;
         }
@@ -1059,7 +1059,7 @@ public class ClassUtils {
      * @return the package name or an empty string
      * @since 2.4
      */
-    public static String getPackageCanonicalName(Class<?> cls) {
+    public static String getPackageCanonicalName(final Class<?> cls) {
         if (cls == null) {
             return StringUtils.EMPTY;
         }
@@ -1076,7 +1076,7 @@ public class ClassUtils {
      * @return the package name or an empty string
      * @since 2.4
      */
-    public static String getPackageCanonicalName(String canonicalName) {
+    public static String getPackageCanonicalName(final String canonicalName) {
         return ClassUtils.getPackageName(getCanonicalName(canonicalName));
     }
 

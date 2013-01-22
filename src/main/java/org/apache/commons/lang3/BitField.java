@@ -34,7 +34,7 @@ public class BitField {
      *  BitField. Bits that are set in this mask are the bits
      *  that this BitField operates on
      */
-    public BitField(int mask) {
+    public BitField(final int mask) {
         _mask = mask;
         int count = 0;
         int bit_pattern = mask;
@@ -62,7 +62,7 @@ public class BitField {
      *  in
      * @return the selected bits, shifted right appropriately
      */
-    public int getValue(int holder) {
+    public int getValue(final int holder) {
         return getRawValue(holder) >> _shift_count;
     }
 
@@ -80,7 +80,7 @@ public class BitField {
      *  interested in
      * @return the selected bits, shifted right appropriately
      */
-    public short getShortValue(short holder) {
+    public short getShortValue(final short holder) {
         return (short) getValue(holder);
     }
 
@@ -91,7 +91,7 @@ public class BitField {
      *  interested in
      * @return the selected bits
      */
-    public int getRawValue(int holder) {
+    public int getRawValue(final int holder) {
         return holder & _mask;
     }
 
@@ -102,7 +102,7 @@ public class BitField {
      *  interested in
      * @return the selected bits
      */
-    public short getShortRawValue(short holder) {
+    public short getShortRawValue(final short holder) {
         return (short) getRawValue(holder);
     }
 
@@ -119,7 +119,7 @@ public class BitField {
      * @return {@code true} if any of the bits are set,
      *  else {@code false}
      */
-    public boolean isSet(int holder) {
+    public boolean isSet(final int holder) {
         return (holder & _mask) != 0;
     }
 
@@ -135,7 +135,7 @@ public class BitField {
      * @return {@code true} if all of the bits are set,
      *  else {@code false}
      */
-    public boolean isAllSet(int holder) {
+    public boolean isAllSet(final int holder) {
         return (holder & _mask) == _mask;
     }
 
@@ -149,7 +149,7 @@ public class BitField {
      * @return the value of holder with the bits from the value
      *  parameter replacing the old bits
      */
-    public int setValue(int holder, int value) {
+    public int setValue(final int holder, final int value) {
         return (holder & ~_mask) | ((value << _shift_count) & _mask);
     }
 
@@ -163,7 +163,7 @@ public class BitField {
      * @return the value of holder with the bits from the value
      *  parameter replacing the old bits
      */
-    public short setShortValue(short holder, short value) {
+    public short setShortValue(final short holder, final short value) {
         return (short) setValue(holder, value);
     }
 
@@ -175,7 +175,7 @@ public class BitField {
      * @return the value of holder with the specified bits cleared
      *  (set to {@code 0})
      */
-    public int clear(int holder) {
+    public int clear(final int holder) {
         return holder & ~_mask;
     }
 
@@ -187,7 +187,7 @@ public class BitField {
      * @return the value of holder with the specified bits cleared
      *  (set to {@code 0})
      */
-    public short clearShort(short holder) {
+    public short clearShort(final short holder) {
         return (short) clear(holder);
     }
 
@@ -200,7 +200,7 @@ public class BitField {
      * @return the value of holder with the specified bits cleared
      *  (set to {@code 0})
      */
-    public byte clearByte(byte holder) {
+    public byte clearByte(final byte holder) {
         return (byte) clear(holder);
     }
 
@@ -212,7 +212,7 @@ public class BitField {
      * @return the value of holder with the specified bits set
      *  to {@code 1}
      */
-    public int set(int holder) {
+    public int set(final int holder) {
         return holder | _mask;
     }
 
@@ -224,7 +224,7 @@ public class BitField {
      * @return the value of holder with the specified bits set
      *  to {@code 1}
      */
-    public short setShort(short holder) {
+    public short setShort(final short holder) {
         return (short) set(holder);
     }
 
@@ -237,7 +237,7 @@ public class BitField {
      * @return the value of holder with the specified bits set
      *  to {@code 1}
      */
-    public byte setByte(byte holder) {
+    public byte setByte(final byte holder) {
         return (byte) set(holder);
     }
 
@@ -250,7 +250,7 @@ public class BitField {
      * @return the value of holder with the specified bits set or
      *         cleared
      */
-    public int setBoolean(int holder, boolean flag) {
+    public int setBoolean(final int holder, final boolean flag) {
         return flag ? set(holder) : clear(holder);
     }
 
@@ -263,7 +263,7 @@ public class BitField {
      * @return the value of holder with the specified bits set or
      *  cleared
      */
-    public short setShortBoolean(short holder, boolean flag) {
+    public short setShortBoolean(final short holder, final boolean flag) {
         return flag ? setShort(holder) : clearShort(holder);
     }
 
@@ -276,7 +276,7 @@ public class BitField {
      * @return the value of holder with the specified bits set or
      *  cleared
      */
-    public byte setByteBoolean(byte holder, boolean flag) {
+    public byte setByteBoolean(final byte holder, final boolean flag) {
         return flag ? setByte(holder) : clearByte(holder);
     }
 

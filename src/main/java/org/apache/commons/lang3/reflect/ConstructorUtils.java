@@ -75,7 +75,7 @@ public class ConstructorUtils {
      * @throws InstantiationException if an error occurs on instantiation
      * @see #invokeConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
      */
-    public static <T> T invokeConstructor(Class<T> cls, Object... args)
+    public static <T> T invokeConstructor(final Class<T> cls, Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
         if (args == null) {
@@ -104,7 +104,7 @@ public class ConstructorUtils {
      * @throws InstantiationException if an error occurs on instantiation
      * @see Constructor#newInstance
      */
-    public static <T> T invokeConstructor(Class<T> cls, Object[] args, Class<?>[] parameterTypes)
+    public static <T> T invokeConstructor(final Class<T> cls, Object[] args, Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
         if (parameterTypes == null) {
@@ -139,7 +139,7 @@ public class ConstructorUtils {
      * @throws InstantiationException if an error occurs on instantiation
      * @see #invokeExactConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
      */
-    public static <T> T invokeExactConstructor(Class<T> cls, Object... args)
+    public static <T> T invokeExactConstructor(final Class<T> cls, Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
         if (args == null) {
@@ -168,7 +168,7 @@ public class ConstructorUtils {
      * @throws InstantiationException if an error occurs on instantiation
      * @see Constructor#newInstance
      */
-    public static <T> T invokeExactConstructor(Class<T> cls, Object[] args,
+    public static <T> T invokeExactConstructor(final Class<T> cls, Object[] args,
             Class<?>[] parameterTypes) throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
         if (args == null) {
@@ -199,8 +199,8 @@ public class ConstructorUtils {
      * @see Class#getConstructor
      * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
      */
-    public static <T> Constructor<T> getAccessibleConstructor(Class<T> cls,
-            Class<?>... parameterTypes) {
+    public static <T> Constructor<T> getAccessibleConstructor(final Class<T> cls,
+            final Class<?>... parameterTypes) {
         try {
             return getAccessibleConstructor(cls.getConstructor(parameterTypes));
         } catch (NoSuchMethodException e) {
@@ -218,7 +218,7 @@ public class ConstructorUtils {
      * @return the constructor, null if no matching accessible constructor found
      * @see java.lang.SecurityManager
      */
-    public static <T> Constructor<T> getAccessibleConstructor(Constructor<T> ctor) {
+    public static <T> Constructor<T> getAccessibleConstructor(final Constructor<T> ctor) {
         return MemberUtils.isAccessible(ctor)
                 && Modifier.isPublic(ctor.getDeclaringClass().getModifiers()) ? ctor : null;
     }
@@ -240,8 +240,8 @@ public class ConstructorUtils {
      * @param parameterTypes find method with compatible parameters
      * @return the constructor, null if no matching accessible constructor found
      */
-    public static <T> Constructor<T> getMatchingAccessibleConstructor(Class<T> cls,
-            Class<?>... parameterTypes) {
+    public static <T> Constructor<T> getMatchingAccessibleConstructor(final Class<T> cls,
+            final Class<?>... parameterTypes) {
         // see if we can find the constructor directly
         // most of the time this works and it's much faster
         try {

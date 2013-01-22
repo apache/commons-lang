@@ -41,7 +41,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * @param above int value representing the highest codepoint boundary
      * @param between whether to escape between the boundaries or outside them
      */
-    private NumericEntityEscaper(int below, int above, boolean between) {
+    private NumericEntityEscaper(final int below, final int above, final boolean between) {
         this.below = below;
         this.above = above;
         this.between = between;
@@ -60,7 +60,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * @param codepoint below which to escape
      * @return the newly created {@code NumericEntityEscaper} instance
      */
-    public static NumericEntityEscaper below(int codepoint) {
+    public static NumericEntityEscaper below(final int codepoint) {
         return outsideOf(codepoint, Integer.MAX_VALUE);
     }
 
@@ -70,7 +70,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * @param codepoint above which to escape
      * @return the newly created {@code NumericEntityEscaper} instance
      */
-    public static NumericEntityEscaper above(int codepoint) {
+    public static NumericEntityEscaper above(final int codepoint) {
         return outsideOf(0, codepoint);
     }
 
@@ -81,7 +81,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * @param codepointHigh below which to escape
      * @return the newly created {@code NumericEntityEscaper} instance
      */
-    public static NumericEntityEscaper between(int codepointLow, int codepointHigh) {
+    public static NumericEntityEscaper between(final int codepointLow, final int codepointHigh) {
         return new NumericEntityEscaper(codepointLow, codepointHigh, true);
     }
 
@@ -92,7 +92,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * @param codepointHigh above which to escape
      * @return the newly created {@code NumericEntityEscaper} instance
      */
-    public static NumericEntityEscaper outsideOf(int codepointLow, int codepointHigh) {
+    public static NumericEntityEscaper outsideOf(final int codepointLow, final int codepointHigh) {
         return new NumericEntityEscaper(codepointLow, codepointHigh, false);
     }
 
@@ -100,7 +100,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * {@inheritDoc}
      */
     @Override
-    public boolean translate(int codepoint, Writer out) throws IOException {
+    public boolean translate(final int codepoint, final Writer out) throws IOException {
         if(between) {
             if (codepoint < below || codepoint > above) {
                 return false;

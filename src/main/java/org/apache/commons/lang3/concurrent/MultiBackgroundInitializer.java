@@ -115,7 +115,7 @@ public class MultiBackgroundInitializer
      * @param exec the {@code ExecutorService} for executing the background
      * tasks
      */
-    public MultiBackgroundInitializer(ExecutorService exec) {
+    public MultiBackgroundInitializer(final ExecutorService exec) {
         super(exec);
     }
 
@@ -131,7 +131,7 @@ public class MultiBackgroundInitializer
      * @throws IllegalArgumentException if a required parameter is missing
      * @throws IllegalStateException if {@code start()} has already been called
      */
-    public void addInitializer(String name, BackgroundInitializer<?> init) {
+    public void addInitializer(final String name, final BackgroundInitializer<?> init) {
         if (name == null) {
             throw new IllegalArgumentException(
                     "Name of child initializer must not be null!");
@@ -244,9 +244,9 @@ public class MultiBackgroundInitializer
          * @param excepts the exceptions
          */
         private MultiBackgroundInitializerResults(
-                Map<String, BackgroundInitializer<?>> inits,
-                Map<String, Object> results,
-                Map<String, ConcurrentException> excepts) {
+                final Map<String, BackgroundInitializer<?>> inits,
+                final Map<String, Object> results,
+                final Map<String, ConcurrentException> excepts) {
             initializers = inits;
             resultObjects = results;
             exceptions = excepts;
@@ -260,7 +260,7 @@ public class MultiBackgroundInitializer
          * @return the {@code BackgroundInitializer} with this name
          * @throws NoSuchElementException if the name cannot be resolved
          */
-        public BackgroundInitializer<?> getInitializer(String name) {
+        public BackgroundInitializer<?> getInitializer(final String name) {
             return checkName(name);
         }
 
@@ -276,7 +276,7 @@ public class MultiBackgroundInitializer
          * BackgroundInitializer}
          * @throws NoSuchElementException if the name cannot be resolved
          */
-        public Object getResultObject(String name) {
+        public Object getResultObject(final String name) {
             checkName(name);
             return resultObjects.get(name);
         }
@@ -289,7 +289,7 @@ public class MultiBackgroundInitializer
          * @return a flag whether this initializer caused an exception
          * @throws NoSuchElementException if the name cannot be resolved
          */
-        public boolean isException(String name) {
+        public boolean isException(final String name) {
             checkName(name);
             return exceptions.containsKey(name);
         }
@@ -304,7 +304,7 @@ public class MultiBackgroundInitializer
          * @return the exception thrown by this initializer
          * @throws NoSuchElementException if the name cannot be resolved
          */
-        public ConcurrentException getException(String name) {
+        public ConcurrentException getException(final String name) {
             checkName(name);
             return exceptions.get(name);
         }
@@ -339,7 +339,7 @@ public class MultiBackgroundInitializer
          * @return the initializer with this name
          * @throws NoSuchElementException if the name is unknown
          */
-        private BackgroundInitializer<?> checkName(String name) {
+        private BackgroundInitializer<?> checkName(final String name) {
             BackgroundInitializer<?> init = initializers.get(name);
             if (init == null) {
                 throw new NoSuchElementException(

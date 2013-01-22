@@ -121,7 +121,7 @@ public class ToStringBuilderTest {
      * @param o the object to create the string for.
      * @return a String in the Object.toString format.
      */
-    private String toBaseString(Object o) {
+    private String toBaseString(final Object o) {
         return o.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(o));
     }
 
@@ -140,7 +140,7 @@ public class ToStringBuilderTest {
     // Gary Gregory - 2003-03-12 - ggregory@seagullsw.com
     //
 
-    public void assertReflectionArray(String expected, Object actual) {
+    public void assertReflectionArray(final String expected, final Object actual) {
         if (actual == null) {
             // Until ToStringBuilder supports null objects.
             return;
@@ -477,7 +477,7 @@ public class ToStringBuilderTest {
         public SimpleReflectionTestFixture() {
         }
 
-        public SimpleReflectionTestFixture(Object o) {
+        public SimpleReflectionTestFixture(final Object o) {
             this.o = o;
         }
 
@@ -994,7 +994,7 @@ public class ToStringBuilderTest {
      * @return the String result
      * @throws IllegalArgumentException if the Object is <code>null</code>
      */
-    public <T> String toStringWithStatics(T object, ToStringStyle style, Class<? super T> reflectUpToClass) {
+    public <T> String toStringWithStatics(final T object, final ToStringStyle style, final Class<? super T> reflectUpToClass) {
         return ReflectionToStringBuilder.toString(object, style, false, true, reflectUpToClass);
     }
 

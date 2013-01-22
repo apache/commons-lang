@@ -57,7 +57,7 @@ public class ConcurrentUtils {
      * @param ex the exception to be processed
      * @return a {@code ConcurrentException} with the checked cause
      */
-    public static ConcurrentException extractCause(ExecutionException ex) {
+    public static ConcurrentException extractCause(final ExecutionException ex) {
         if (ex == null || ex.getCause() == null) {
             return null;
         }
@@ -79,7 +79,7 @@ public class ConcurrentUtils {
      * @return a {@code ConcurrentRuntimeException} with the checked cause
      */
     public static ConcurrentRuntimeException extractCauseUnchecked(
-            ExecutionException ex) {
+            final ExecutionException ex) {
         if (ex == null || ex.getCause() == null) {
             return null;
         }
@@ -101,7 +101,7 @@ public class ConcurrentUtils {
      * @throws ConcurrentException if the cause of the {@code
      * ExecutionException} is a checked exception
      */
-    public static void handleCause(ExecutionException ex)
+    public static void handleCause(final ExecutionException ex)
             throws ConcurrentException {
         ConcurrentException cex = extractCause(ex);
 
@@ -123,7 +123,7 @@ public class ConcurrentUtils {
      * ExecutionException} is a checked exception; this exception is then
      * wrapped in the thrown runtime exception
      */
-    public static void handleCauseUnchecked(ExecutionException ex) {
+    public static void handleCauseUnchecked(final ExecutionException ex) {
         ConcurrentRuntimeException crex = extractCauseUnchecked(ex);
 
         if (crex != null) {
@@ -140,7 +140,7 @@ public class ConcurrentUtils {
      * @throws IllegalArgumentException if the {@code Throwable} is not a
      * checked exception
      */
-    static Throwable checkedException(Throwable ex) {
+    static Throwable checkedException(final Throwable ex) {
         if (ex != null && !(ex instanceof RuntimeException)
                 && !(ex instanceof Error)) {
             return ex;
@@ -155,7 +155,7 @@ public class ConcurrentUtils {
      *
      * @param ex the exception in question
      */
-    private static void throwCause(ExecutionException ex) {
+    private static void throwCause(final ExecutionException ex) {
         if (ex.getCause() instanceof RuntimeException) {
             throw (RuntimeException) ex.getCause();
         }
@@ -179,7 +179,7 @@ public class ConcurrentUtils {
      * @throws ConcurrentException if the {@code ConcurrentInitializer} throws
      * an exception
      */
-    public static <T> T initialize(ConcurrentInitializer<T> initializer)
+    public static <T> T initialize(final ConcurrentInitializer<T> initializer)
             throws ConcurrentException {
         return initializer != null ? initializer.get() : null;
     }
@@ -197,7 +197,7 @@ public class ConcurrentUtils {
      * @return the object managed by the {@code ConcurrentInitializer}
      * @throws ConcurrentRuntimeException if the initializer throws an exception
      */
-    public static <T> T initializeUnchecked(ConcurrentInitializer<T> initializer) {
+    public static <T> T initializeUnchecked(final ConcurrentInitializer<T> initializer) {
         try {
             return initialize(initializer);
         } catch (ConcurrentException cex) {
@@ -238,7 +238,7 @@ public class ConcurrentUtils {
      * @param value the value to be added
      * @return the value stored in the map after this operation
      */
-    public static <K, V> V putIfAbsent(ConcurrentMap<K, V> map, K key, V value) {
+    public static <K, V> V putIfAbsent(final ConcurrentMap<K, V> map, final K key, final V value) {
         if (map == null) {
             return null;
         }
@@ -267,8 +267,8 @@ public class ConcurrentUtils {
      * not be the object created by the {@link ConcurrentInitializer}
      * @throws ConcurrentException if the initializer throws an exception
      */
-    public static <K, V> V createIfAbsent(ConcurrentMap<K, V> map, K key,
-            ConcurrentInitializer<V> init) throws ConcurrentException {
+    public static <K, V> V createIfAbsent(final ConcurrentMap<K, V> map, final K key,
+            final ConcurrentInitializer<V> init) throws ConcurrentException {
         if (map == null || init == null) {
             return null;
         }
@@ -295,8 +295,8 @@ public class ConcurrentUtils {
      * not be the object created by the {@link ConcurrentInitializer}
      * @throws ConcurrentRuntimeException if the initializer throws an exception
      */
-    public static <K, V> V createIfAbsentUnchecked(ConcurrentMap<K, V> map,
-            K key, ConcurrentInitializer<V> init) {
+    public static <K, V> V createIfAbsentUnchecked(final ConcurrentMap<K, V> map,
+            final K key, final ConcurrentInitializer<V> init) {
         try {
             return createIfAbsent(map, key, init);
         } catch (ConcurrentException cex) {
@@ -320,7 +320,7 @@ public class ConcurrentUtils {
      * @param value  the constant value to return, may be null
      * @return an instance of Future that will return the value, never null
      */
-    public static <T> Future<T> constantFuture(T value) {
+    public static <T> Future<T> constantFuture(final T value) {
         return new ConstantFuture<T>(value);
     }
 
@@ -338,7 +338,7 @@ public class ConcurrentUtils {
          *
          * @param value the value (may be <b>null</b>)
          */
-        ConstantFuture(T value) {
+        ConstantFuture(final T value) {
             this.value = value;
         }
 
@@ -365,7 +365,7 @@ public class ConcurrentUtils {
          * does not block, therefore the timeout has no meaning.
          */
         @Override
-        public T get(long timeout, TimeUnit unit) {
+        public T get(final long timeout, final TimeUnit unit) {
             return value;
         }
 
@@ -383,7 +383,7 @@ public class ConcurrentUtils {
          * implementation always returns <b>false</b>.
          */
         @Override
-        public boolean cancel(boolean mayInterruptIfRunning) {
+        public boolean cancel(final boolean mayInterruptIfRunning) {
             return false;
         }
     }

@@ -105,7 +105,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * 
      * @param message  the exception message, may be null
      */
-    public ContextedRuntimeException(String message) {
+    public ContextedRuntimeException(final String message) {
         super(message);
         exceptionContext = new DefaultExceptionContext();
     }
@@ -117,7 +117,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * 
      * @param cause  the underlying cause of the exception, may be null
      */
-    public ContextedRuntimeException(Throwable cause) {
+    public ContextedRuntimeException(final Throwable cause) {
         super(cause);
         exceptionContext = new DefaultExceptionContext();
     }
@@ -130,7 +130,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * @param message  the exception message, may be null
      * @param cause  the underlying cause of the exception, may be null
      */
-    public ContextedRuntimeException(String message, Throwable cause) {
+    public ContextedRuntimeException(final String message, final Throwable cause) {
         super(message, cause);
         exceptionContext = new DefaultExceptionContext();
     }
@@ -142,7 +142,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * @param cause  the underlying cause of the exception, may be null
      * @param context  the context used to store the additional information, null uses default implementation
      */
-    public ContextedRuntimeException(String message, Throwable cause, ExceptionContext context) {
+    public ContextedRuntimeException(final String message, final Throwable cause, ExceptionContext context) {
         super(message, cause);
         if (context == null) {
             context = new DefaultExceptionContext();
@@ -165,7 +165,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * @return {@code this}, for method chaining, not {@code null}
      */
     @Override
-    public ContextedRuntimeException addContextValue(String label, Object value) {        
+    public ContextedRuntimeException addContextValue(final String label, final Object value) {        
         exceptionContext.addContextValue(label, value);
         return this;
     }
@@ -184,7 +184,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * @return {@code this}, for method chaining, not {@code null}
      */
     @Override
-    public ContextedRuntimeException setContextValue(String label, Object value) {        
+    public ContextedRuntimeException setContextValue(final String label, final Object value) {        
         exceptionContext.setContextValue(label, value);
         return this;
     }
@@ -193,7 +193,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * {@inheritDoc}
      */
     @Override
-    public List<Object> getContextValues(String label) {
+    public List<Object> getContextValues(final String label) {
         return this.exceptionContext.getContextValues(label);
     }
 
@@ -201,7 +201,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * {@inheritDoc}
      */
     @Override
-    public Object getFirstContextValue(String label) {
+    public Object getFirstContextValue(final String label) {
         return this.exceptionContext.getFirstContextValue(label);
     }
 
@@ -247,7 +247,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * {@inheritDoc}
      */
     @Override
-    public String getFormattedExceptionMessage(String baseMessage) {
+    public String getFormattedExceptionMessage(final String baseMessage) {
         return exceptionContext.getFormattedExceptionMessage(baseMessage);
     }
 

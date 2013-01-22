@@ -63,7 +63,7 @@ public class WordUtils {
      * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1
      * @return a line with newlines inserted, <code>null</code> if null input
      */
-    public static String wrap(String str, int wrapLength) {
+    public static String wrap(final String str, final int wrapLength) {
         return wrap(str, wrapLength, null, false);
     }
     
@@ -85,7 +85,7 @@ public class WordUtils {
      * @param wrapLongWords  true if long words (such as URLs) should be wrapped
      * @return a line with newlines inserted, <code>null</code> if null input
      */
-    public static String wrap(String str, int wrapLength, String newLineStr, boolean wrapLongWords) {
+    public static String wrap(final String str, int wrapLength, String newLineStr, final boolean wrapLongWords) {
         if (str == null) {
             return null;
         }
@@ -164,7 +164,7 @@ public class WordUtils {
      * @see #uncapitalize(String)
      * @see #capitalizeFully(String)
      */
-    public static String capitalize(String str) {
+    public static String capitalize(final String str) {
         return capitalize(str, null);
     }
 
@@ -197,7 +197,7 @@ public class WordUtils {
      * @see #capitalizeFully(String)
      * @since 2.1
      */
-    public static String capitalize(String str, char... delimiters) {
+    public static String capitalize(final String str, final char... delimiters) {
         int delimLen = delimiters == null ? -1 : delimiters.length;
         if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
@@ -236,7 +236,7 @@ public class WordUtils {
      * @param str  the String to capitalize, may be null
      * @return capitalized String, <code>null</code> if null String input
      */
-    public static String capitalizeFully(String str) {
+    public static String capitalizeFully(final String str) {
         return capitalizeFully(str, null);
     }
 
@@ -266,7 +266,7 @@ public class WordUtils {
      * @return capitalized String, <code>null</code> if null String input
      * @since 2.1
      */
-    public static String capitalizeFully(String str, char... delimiters) {
+    public static String capitalizeFully(String str, final char... delimiters) {
         int delimLen = delimiters == null ? -1 : delimiters.length;
         if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
@@ -293,7 +293,7 @@ public class WordUtils {
      * @return uncapitalized String, <code>null</code> if null String input
      * @see #capitalize(String)
      */
-    public static String uncapitalize(String str) {
+    public static String uncapitalize(final String str) {
         return uncapitalize(str, null);
     }
 
@@ -322,7 +322,7 @@ public class WordUtils {
      * @see #capitalize(String)
      * @since 2.1
      */
-    public static String uncapitalize(String str, char... delimiters) {
+    public static String uncapitalize(final String str, final char... delimiters) {
         int delimLen = delimiters == null ? -1 : delimiters.length;
         if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
@@ -364,7 +364,7 @@ public class WordUtils {
      * @param str  the String to swap case, may be null
      * @return the changed String, <code>null</code> if null String input
      */
-    public static String swapCase(String str) {
+    public static String swapCase(final String str) {
         if (StringUtils.isEmpty(str)) {
             return str;
         }
@@ -417,7 +417,7 @@ public class WordUtils {
      * @see #initials(String,char[])
      * @since 2.2
      */
-    public static String initials(String str) {
+    public static String initials(final String str) {
         return initials(str, null);
     }
 
@@ -448,7 +448,7 @@ public class WordUtils {
      * @see #initials(String)
      * @since 2.2
      */
-    public static String initials(String str, char... delimiters) {
+    public static String initials(final String str, final char... delimiters) {
         if (StringUtils.isEmpty(str)) {
             return str;
         }
@@ -482,7 +482,7 @@ public class WordUtils {
      * @param delimiters  the delimiters
      * @return true if it is a delimiter
      */
-    private static boolean isDelimiter(char ch, char[] delimiters) {
+    private static boolean isDelimiter(final char ch, final char[] delimiters) {
         if (delimiters == null) {
             return Character.isWhitespace(ch);
         }

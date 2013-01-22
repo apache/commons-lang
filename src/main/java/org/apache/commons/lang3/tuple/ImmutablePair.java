@@ -54,7 +54,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @param right  the right element, may be null
      * @return a pair formed from the two parameters, not null
      */
-    public static <L, R> ImmutablePair<L, R> of(L left, R right) {
+    public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
         return new ImmutablePair<L, R>(left, right);
     }
 
@@ -64,7 +64,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @param left  the left value, may be null
      * @param right  the right value, may be null
      */
-    public ImmutablePair(L left, R right) {
+    public ImmutablePair(final L left, final R right) {
         super();
         this.left = left;
         this.right = right;
@@ -97,7 +97,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @throws UnsupportedOperationException as this operation is not supported
      */
     @Override
-    public R setValue(R value) {
+    public R setValue(final R value) {
         throw new UnsupportedOperationException();
     }
 

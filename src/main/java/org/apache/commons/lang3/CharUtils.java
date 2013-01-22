@@ -84,7 +84,7 @@ public class CharUtils {
      * @return a Character of the specified character
      */
     @Deprecated
-    public static Character toCharacterObject(char ch) {
+    public static Character toCharacterObject(final char ch) {
         return Character.valueOf(ch);
     }
     
@@ -105,7 +105,7 @@ public class CharUtils {
      * @param str  the character to convert
      * @return the Character value of the first letter of the String
      */
-    public static Character toCharacterObject(String str) {
+    public static Character toCharacterObject(final String str) {
         if (StringUtils.isEmpty(str)) {
             return null;
         }
@@ -126,7 +126,7 @@ public class CharUtils {
      * @return the char value of the Character
      * @throws IllegalArgumentException if the Character is null
      */
-    public static char toChar(Character ch) {
+    public static char toChar(final Character ch) {
         if (ch == null) {
             throw new IllegalArgumentException("The Character must not be null");
         }
@@ -146,7 +146,7 @@ public class CharUtils {
      * @param defaultValue  the value to use if the  Character is null
      * @return the char value of the Character or the default if null
      */
-    public static char toChar(Character ch, char defaultValue) {
+    public static char toChar(final Character ch, final char defaultValue) {
         if (ch == null) {
             return defaultValue;
         }
@@ -169,7 +169,7 @@ public class CharUtils {
      * @return the char value of the first letter of the String
      * @throws IllegalArgumentException if the String is empty
      */
-    public static char toChar(String str) {
+    public static char toChar(final String str) {
         if (StringUtils.isEmpty(str)) {
             throw new IllegalArgumentException("The String must not be empty");
         }
@@ -191,7 +191,7 @@ public class CharUtils {
      * @param defaultValue  the value to use if the  Character is null
      * @return the char value of the first letter of the String or the default if null
      */
-    public static char toChar(String str, char defaultValue) {
+    public static char toChar(final String str, final char defaultValue) {
         if (StringUtils.isEmpty(str)) {
             return defaultValue;
         }
@@ -214,7 +214,7 @@ public class CharUtils {
      * @return the int value of the character
      * @throws IllegalArgumentException if the character is not ASCII numeric
      */
-    public static int toIntValue(char ch) {
+    public static int toIntValue(final char ch) {
         if (isAsciiNumeric(ch) == false) {
             throw new IllegalArgumentException("The character " + ch + " is not in the range '0' - '9'");
         }
@@ -236,7 +236,7 @@ public class CharUtils {
      * @param defaultValue  the default value to use if the character is not numeric
      * @return the int value of the character
      */
-    public static int toIntValue(char ch, int defaultValue) {
+    public static int toIntValue(final char ch, final int defaultValue) {
         if (isAsciiNumeric(ch) == false) {
             return defaultValue;
         }
@@ -259,7 +259,7 @@ public class CharUtils {
      * @return the int value of the character
      * @throws IllegalArgumentException if the Character is not ASCII numeric or is null
      */
-    public static int toIntValue(Character ch) {
+    public static int toIntValue(final Character ch) {
         if (ch == null) {
             throw new IllegalArgumentException("The character must not be null");
         }
@@ -282,7 +282,7 @@ public class CharUtils {
      * @param defaultValue  the default value to use if the character is not numeric
      * @return the int value of the character
      */
-    public static int toIntValue(Character ch, int defaultValue) {
+    public static int toIntValue(final Character ch, final int defaultValue) {
         if (ch == null) {
             return defaultValue;
         }
@@ -304,7 +304,7 @@ public class CharUtils {
      * @param ch  the character to convert
      * @return a String containing the one specified character
      */
-    public static String toString(char ch) {
+    public static String toString(final char ch) {
         if (ch < 128) {
             return CHAR_STRING_ARRAY[ch];
         }
@@ -328,7 +328,7 @@ public class CharUtils {
      * @param ch  the character to convert
      * @return a String containing the one specified character
      */
-    public static String toString(Character ch) {
+    public static String toString(final Character ch) {
         if (ch == null) {
             return null;
         }
@@ -349,7 +349,7 @@ public class CharUtils {
      * @param ch  the character to convert
      * @return the escaped Unicode string
      */
-    public static String unicodeEscaped(char ch) {
+    public static String unicodeEscaped(final char ch) {
         if (ch < 0x10) {
             return "\\u000" + Integer.toHexString(ch);
         } else if (ch < 0x100) {
@@ -376,7 +376,7 @@ public class CharUtils {
      * @param ch  the character to convert, may be null
      * @return the escaped Unicode string, null if null input
      */
-    public static String unicodeEscaped(Character ch) {
+    public static String unicodeEscaped(final Character ch) {
         if (ch == null) {
             return null;
         }
@@ -399,7 +399,7 @@ public class CharUtils {
      * @param ch  the character to check
      * @return true if less than 128
      */
-    public static boolean isAscii(char ch) {
+    public static boolean isAscii(final char ch) {
         return ch < 128;
     }
     
@@ -418,7 +418,7 @@ public class CharUtils {
      * @param ch  the character to check
      * @return true if between 32 and 126 inclusive
      */
-    public static boolean isAsciiPrintable(char ch) {
+    public static boolean isAsciiPrintable(final char ch) {
         return ch >= 32 && ch < 127;
     }
     
@@ -437,7 +437,7 @@ public class CharUtils {
      * @param ch  the character to check
      * @return true if less than 32 or equals 127
      */
-    public static boolean isAsciiControl(char ch) {
+    public static boolean isAsciiControl(final char ch) {
         return ch < 32 || ch == 127;
     }
     
@@ -456,7 +456,7 @@ public class CharUtils {
      * @param ch  the character to check
      * @return true if between 65 and 90 or 97 and 122 inclusive
      */
-    public static boolean isAsciiAlpha(char ch) {
+    public static boolean isAsciiAlpha(final char ch) {
         return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
     }
     
@@ -475,7 +475,7 @@ public class CharUtils {
      * @param ch  the character to check
      * @return true if between 65 and 90 inclusive
      */
-    public static boolean isAsciiAlphaUpper(char ch) {
+    public static boolean isAsciiAlphaUpper(final char ch) {
         return ch >= 'A' && ch <= 'Z';
     }
     
@@ -494,7 +494,7 @@ public class CharUtils {
      * @param ch  the character to check
      * @return true if between 97 and 122 inclusive
      */
-    public static boolean isAsciiAlphaLower(char ch) {
+    public static boolean isAsciiAlphaLower(final char ch) {
         return ch >= 'a' && ch <= 'z';
     }
     
@@ -513,7 +513,7 @@ public class CharUtils {
      * @param ch  the character to check
      * @return true if between 48 and 57 inclusive
      */
-    public static boolean isAsciiNumeric(char ch) {
+    public static boolean isAsciiNumeric(final char ch) {
         return ch >= '0' && ch <= '9';
     }
     
@@ -532,7 +532,7 @@ public class CharUtils {
      * @param ch  the character to check
      * @return true if between 48 and 57 or 65 and 90 or 97 and 122 inclusive
      */
-    public static boolean isAsciiAlphanumeric(char ch) {
+    public static boolean isAsciiAlphanumeric(final char ch) {
         return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9');
     }
     

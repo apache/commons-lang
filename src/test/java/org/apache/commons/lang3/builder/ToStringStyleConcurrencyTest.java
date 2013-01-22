@@ -50,7 +50,7 @@ public class ToStringStyleConcurrencyTest {
     static class CollectionHolder<T extends Collection<?>> {
         T collection;
 
-        CollectionHolder(T collection) {
+        CollectionHolder(final T collection) {
             this.collection = collection;
         }
     }

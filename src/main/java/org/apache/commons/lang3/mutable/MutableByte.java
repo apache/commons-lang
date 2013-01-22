@@ -49,7 +49,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * 
      * @param value  the initial value to store
      */
-    public MutableByte(byte value) {
+    public MutableByte(final byte value) {
         super();
         this.value = value;
     }
@@ -60,7 +60,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @param value  the initial value to store, not null
      * @throws NullPointerException if the object is null
      */
-    public MutableByte(Number value) {
+    public MutableByte(final Number value) {
         super();
         this.value = value.byteValue();
     }
@@ -72,7 +72,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @throws NumberFormatException if the string cannot be parsed into a byte
      * @since 2.5
      */
-    public MutableByte(String value) throws NumberFormatException {
+    public MutableByte(final String value) throws NumberFormatException {
         super();
         this.value = Byte.parseByte(value);
     }
@@ -93,7 +93,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * 
      * @param value  the value to set
      */
-    public void setValue(byte value) {
+    public void setValue(final byte value) {
         this.value = value;
     }
 
@@ -104,7 +104,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @throws NullPointerException if the object is null
      */
     @Override
-    public void setValue(Number value) {
+    public void setValue(final Number value) {
         this.value = value.byteValue();
     }
 
@@ -134,7 +134,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @param operand  the value to add, not null
      * @since Commons Lang 2.2
      */
-    public void add(byte operand) {
+    public void add(final byte operand) {
         this.value += operand;
     }
 
@@ -145,7 +145,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
-    public void add(Number operand) {
+    public void add(final Number operand) {
         this.value += operand.byteValue();
     }
 
@@ -155,7 +155,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @param operand  the value to subtract, not null
      * @since Commons Lang 2.2
      */
-    public void subtract(byte operand) {
+    public void subtract(final byte operand) {
         this.value -= operand;
     }
 
@@ -166,7 +166,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
-    public void subtract(Number operand) {
+    public void subtract(final Number operand) {
         this.value -= operand.byteValue();
     }
 
@@ -242,7 +242,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof MutableByte) {
             return value == ((MutableByte) obj).byteValue();
         }
@@ -267,7 +267,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @return negative if this is less, zero if equal, positive if greater
      */
     @Override
-    public int compareTo(MutableByte other) {
+    public int compareTo(final MutableByte other) {
         byte anotherVal = other.value;
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }

@@ -49,7 +49,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * 
      * @param value  the initial value to store
      */
-    public MutableDouble(double value) {
+    public MutableDouble(final double value) {
         super();
         this.value = value;
     }
@@ -60,7 +60,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @param value  the initial value to store, not null
      * @throws NullPointerException if the object is null
      */
-    public MutableDouble(Number value) {
+    public MutableDouble(final Number value) {
         super();
         this.value = value.doubleValue();
     }
@@ -72,7 +72,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @throws NumberFormatException if the string cannot be parsed into a double
      * @since 2.5
      */
-    public MutableDouble(String value) throws NumberFormatException {
+    public MutableDouble(final String value) throws NumberFormatException {
         super();
         this.value = Double.parseDouble(value);
     }
@@ -93,7 +93,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * 
      * @param value  the value to set
      */
-    public void setValue(double value) {
+    public void setValue(final double value) {
         this.value = value;
     }
 
@@ -104,7 +104,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @throws NullPointerException if the object is null
      */
     @Override
-    public void setValue(Number value) {
+    public void setValue(final Number value) {
         this.value = value.doubleValue();
     }
 
@@ -153,7 +153,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @param operand  the value to add
      * @since Commons Lang 2.2
      */
-    public void add(double operand) {
+    public void add(final double operand) {
         this.value += operand;
     }
 
@@ -164,7 +164,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
-    public void add(Number operand) {
+    public void add(final Number operand) {
         this.value += operand.doubleValue();
     }
 
@@ -174,7 +174,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @param operand  the value to subtract, not null
      * @since Commons Lang 2.2
      */
-    public void subtract(double operand) {
+    public void subtract(final double operand) {
         this.value -= operand;
     }
 
@@ -185,7 +185,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
-    public void subtract(Number operand) {
+    public void subtract(final Number operand) {
         this.value -= operand.doubleValue();
     }
 
@@ -272,7 +272,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         return obj instanceof MutableDouble
             && Double.doubleToLongBits(((MutableDouble) obj).value) == Double.doubleToLongBits(value);
     }
@@ -296,7 +296,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @return negative if this is less, zero if equal, positive if greater
      */
     @Override
-    public int compareTo(MutableDouble other) {
+    public int compareTo(final MutableDouble other) {
         double anotherVal = other.value;
         return Double.compare(value, anotherVal);
     }

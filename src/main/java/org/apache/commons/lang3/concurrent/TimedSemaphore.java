@@ -181,7 +181,7 @@ public class TimedSemaphore {
      * @param limit the limit for the semaphore
      * @throws IllegalArgumentException if the period is less or equals 0
      */
-    public TimedSemaphore(long timePeriod, TimeUnit timeUnit, int limit) {
+    public TimedSemaphore(final long timePeriod, final TimeUnit timeUnit, final int limit) {
         this(null, timePeriod, timeUnit, limit);
     }
 
@@ -197,8 +197,8 @@ public class TimedSemaphore {
      * @param limit the limit for the semaphore
      * @throws IllegalArgumentException if the period is less or equals 0
      */
-    public TimedSemaphore(ScheduledExecutorService service, long timePeriod,
-            TimeUnit timeUnit, int limit) {
+    public TimedSemaphore(final ScheduledExecutorService service, final long timePeriod,
+            final TimeUnit timeUnit, final int limit) {
         if (timePeriod <= 0) {
             throw new IllegalArgumentException("Time period must be greater 0!");
         }
@@ -242,7 +242,7 @@ public class TimedSemaphore {
      *
      * @param limit the limit
      */
-    public final synchronized void setLimit(int limit) {
+    public final synchronized void setLimit(final int limit) {
         this.limit = limit;
     }
 

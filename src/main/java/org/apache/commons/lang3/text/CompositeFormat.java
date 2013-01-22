@@ -49,7 +49,7 @@ public class CompositeFormat extends Format {
      * @param parser implementation
      * @param formatter implementation
      */
-    public CompositeFormat(Format parser, Format formatter) {
+    public CompositeFormat(final Format parser, final Format formatter) {
         this.parser = parser;
         this.formatter = formatter;
     }
@@ -64,8 +64,8 @@ public class CompositeFormat extends Format {
      * @see Format#format(Object, StringBuffer, FieldPosition)
      */
     @Override // Therefore has to use StringBuffer
-    public StringBuffer format(Object obj, StringBuffer toAppendTo,
-            FieldPosition pos) {
+    public StringBuffer format(final Object obj, final StringBuffer toAppendTo,
+            final FieldPosition pos) {
         return formatter.format(obj, toAppendTo, pos);
     }
 
@@ -80,7 +80,7 @@ public class CompositeFormat extends Format {
      * @see Format#parseObject(String, ParsePosition)
      */
     @Override
-    public Object parseObject(String source, ParsePosition pos) {
+    public Object parseObject(final String source, final ParsePosition pos) {
         return parser.parseObject(source, pos);
     }
 
@@ -109,7 +109,7 @@ public class CompositeFormat extends Format {
      * @return A reformatted String
      * @throws ParseException thrown by parseObject(String) call
      */
-    public String reformat(String input) throws ParseException {
+    public String reformat(final String input) throws ParseException {
         return format(parseObject(input));
     }
 

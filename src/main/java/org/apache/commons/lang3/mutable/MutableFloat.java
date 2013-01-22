@@ -49,7 +49,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * 
      * @param value  the initial value to store
      */
-    public MutableFloat(float value) {
+    public MutableFloat(final float value) {
         super();
         this.value = value;
     }
@@ -60,7 +60,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @param value  the initial value to store, not null
      * @throws NullPointerException if the object is null
      */
-    public MutableFloat(Number value) {
+    public MutableFloat(final Number value) {
         super();
         this.value = value.floatValue();
     }
@@ -72,7 +72,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @throws NumberFormatException if the string cannot be parsed into a float
      * @since 2.5
      */
-    public MutableFloat(String value) throws NumberFormatException {
+    public MutableFloat(final String value) throws NumberFormatException {
         super();
         this.value = Float.parseFloat(value);
     }
@@ -93,7 +93,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * 
      * @param value  the value to set
      */
-    public void setValue(float value) {
+    public void setValue(final float value) {
         this.value = value;
     }
 
@@ -104,7 +104,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @throws NullPointerException if the object is null
      */
     @Override
-    public void setValue(Number value) {
+    public void setValue(final Number value) {
         this.value = value.floatValue();
     }
 
@@ -153,7 +153,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @param operand  the value to add, not null
      * @since Commons Lang 2.2
      */
-    public void add(float operand) {
+    public void add(final float operand) {
         this.value += operand;
     }
 
@@ -164,7 +164,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
-    public void add(Number operand) {
+    public void add(final Number operand) {
         this.value += operand.floatValue();
     }
 
@@ -174,7 +174,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @param operand  the value to subtract
      * @since Commons Lang 2.2
      */
-    public void subtract(float operand) {
+    public void subtract(final float operand) {
         this.value -= operand;
     }
 
@@ -185,7 +185,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
-    public void subtract(Number operand) {
+    public void subtract(final Number operand) {
         this.value -= operand.floatValue();
     }
 
@@ -274,7 +274,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @see java.lang.Float#floatToIntBits(float)
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         return obj instanceof MutableFloat
             && Float.floatToIntBits(((MutableFloat) obj).value) == Float.floatToIntBits(value);
     }
@@ -297,7 +297,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @return negative if this is less, zero if equal, positive if greater
      */
     @Override
-    public int compareTo(MutableFloat other) {
+    public int compareTo(final MutableFloat other) {
         float anotherVal = other.value;
         return Float.compare(value, anotherVal);
     }

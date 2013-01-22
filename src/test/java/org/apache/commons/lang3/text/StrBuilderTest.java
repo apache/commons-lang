@@ -1560,7 +1560,7 @@ public class StrBuilderTest {
 
     static final StrMatcher A_NUMBER_MATCHER = new StrMatcher() {
         @Override
-        public int isMatch(char[] buffer, int pos, int bufferStart, int bufferEnd) {
+        public int isMatch(final char[] buffer, int pos, final int bufferStart, final int bufferEnd) {
             if (buffer[pos] == 'A') {
                 pos++;
                 if (pos < bufferEnd && buffer[pos] >= '0' && buffer[pos] <= '9') {

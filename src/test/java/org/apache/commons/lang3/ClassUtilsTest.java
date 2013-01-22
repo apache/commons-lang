@@ -1042,11 +1042,11 @@ public class ClassUtilsTest  {
         assertEquals( boolean.class, ClassUtils.getClass( "boolean" ) );
     }
 
-    private void assertGetClassReturnsClass( Class<?> c ) throws Exception {
+    private void assertGetClassReturnsClass( final Class<?> c ) throws Exception {
         assertEquals( c, ClassUtils.getClass( c.getName() ) );
     }
 
-    private void assertGetClassThrowsException( String className, Class<?> exceptionType ) throws Exception {
+    private void assertGetClassThrowsException( final String className, final Class<?> exceptionType ) throws Exception {
         try {
             ClassUtils.getClass( className );
             fail( "ClassUtils.getClass() should fail with an exception of type " + exceptionType.getName() + " when given class name \"" + className + "\"." );
@@ -1056,11 +1056,11 @@ public class ClassUtilsTest  {
         }
     }
 
-    private void assertGetClassThrowsNullPointerException( String className ) throws Exception {
+    private void assertGetClassThrowsNullPointerException( final String className ) throws Exception {
         assertGetClassThrowsException( className, NullPointerException.class );
     }
 
-    private void assertGetClassThrowsClassNotFound( String className ) throws Exception {
+    private void assertGetClassThrowsClassNotFound( final String className ) throws Exception {
         assertGetClassThrowsException( className, ClassNotFoundException.class );
     }
 

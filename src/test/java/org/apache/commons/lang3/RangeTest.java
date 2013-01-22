@@ -68,7 +68,7 @@ public class RangeTest {
         Comparable c = 
             new Comparable() { 
                 @Override
-                public int compareTo(Object other) {
+                public int compareTo(final Object other) {
                     return 1;
                 }
             };
@@ -82,7 +82,7 @@ public class RangeTest {
     public void testIsWithCompare(){
         Comparator<Integer> c = new Comparator<Integer>(){
             @Override
-            public int compare(Integer o1, Integer o2) {
+            public int compare(final Integer o1, final Integer o2) {
                 return 0; // all integers are equal
             }
         };
@@ -101,7 +101,7 @@ public class RangeTest {
         // TODO add tests with a better comparator
         Comparator<Integer> c = new Comparator<Integer>(){
             @Override
-            public int compare(Integer o1, Integer o2) {
+            public int compare(final Integer o1, final Integer o2) {
                 return 0; // all integers are equal
             }
         };

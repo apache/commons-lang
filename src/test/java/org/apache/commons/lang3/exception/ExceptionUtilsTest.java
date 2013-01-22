@@ -490,12 +490,12 @@ public class ExceptionUtilsTest {
     private static class ExceptionWithCause extends Exception {
         private Throwable cause;
 
-        public ExceptionWithCause(String str, Throwable cause) {
+        public ExceptionWithCause(final String str, final Throwable cause) {
             super(str);
             setCause(cause);
         }
 
-        public ExceptionWithCause(Throwable cause) {
+        public ExceptionWithCause(final Throwable cause) {
             super();
             setCause(cause);
         }
@@ -505,7 +505,7 @@ public class ExceptionUtilsTest {
             return cause;
         }
 
-        public void setCause(Throwable cause) {
+        public void setCause(final Throwable cause) {
             this.cause = cause;
         }
     }
@@ -526,7 +526,7 @@ public class ExceptionUtilsTest {
     private static class NestableException extends Exception { 
         @SuppressWarnings("unused")
         public NestableException() { super(); }
-        public NestableException(Throwable t) { super(t); }
+        public NestableException(final Throwable t) { super(t); }
     }
 
 }

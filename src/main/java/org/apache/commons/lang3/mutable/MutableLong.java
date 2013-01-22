@@ -49,7 +49,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * 
      * @param value  the initial value to store
      */
-    public MutableLong(long value) {
+    public MutableLong(final long value) {
         super();
         this.value = value;
     }
@@ -60,7 +60,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @param value  the initial value to store, not null
      * @throws NullPointerException if the object is null
      */
-    public MutableLong(Number value) {
+    public MutableLong(final Number value) {
         super();
         this.value = value.longValue();
     }
@@ -72,7 +72,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @throws NumberFormatException if the string cannot be parsed into a long
      * @since 2.5
      */
-    public MutableLong(String value) throws NumberFormatException {
+    public MutableLong(final String value) throws NumberFormatException {
         super();
         this.value = Long.parseLong(value);
     }
@@ -93,7 +93,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * 
      * @param value  the value to set
      */
-    public void setValue(long value) {
+    public void setValue(final long value) {
         this.value = value;
     }
 
@@ -104,7 +104,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @throws NullPointerException if the object is null
      */
     @Override
-    public void setValue(Number value) {
+    public void setValue(final Number value) {
         this.value = value.longValue();
     }
 
@@ -134,7 +134,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @param operand  the value to add, not null
      * @since Commons Lang 2.2
      */
-    public void add(long operand) {
+    public void add(final long operand) {
         this.value += operand;
     }
 
@@ -145,7 +145,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
-    public void add(Number operand) {
+    public void add(final Number operand) {
         this.value += operand.longValue();
     }
 
@@ -155,7 +155,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @param operand  the value to subtract, not null
      * @since Commons Lang 2.2
      */
-    public void subtract(long operand) {
+    public void subtract(final long operand) {
         this.value -= operand;
     }
 
@@ -166,7 +166,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
-    public void subtract(Number operand) {
+    public void subtract(final Number operand) {
         this.value -= operand.longValue();
     }
 
@@ -232,7 +232,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof MutableLong) {
             return value == ((MutableLong) obj).longValue();
         }
@@ -257,7 +257,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @return negative if this is less, zero if equal, positive if greater
      */
     @Override
-    public int compareTo(MutableLong other) {
+    public int compareTo(final MutableLong other) {
         long anotherVal = other.value;
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }

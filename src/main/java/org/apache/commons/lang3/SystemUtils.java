@@ -1278,7 +1278,7 @@ public class SystemUtils {
      * @param versionPrefix the prefix for the java version
      * @return true if matches, or false if not or can't determine
      */
-    private static boolean getJavaVersionMatches(String versionPrefix) {
+    private static boolean getJavaVersionMatches(final String versionPrefix) {
         return isJavaVersionMatch(JAVA_SPECIFICATION_VERSION, versionPrefix);
     }
 
@@ -1289,7 +1289,7 @@ public class SystemUtils {
      * @param osVersionPrefix the prefix for the version
      * @return true if matches, or false if not or can't determine
      */
-    private static boolean getOSMatches(String osNamePrefix, String osVersionPrefix) {
+    private static boolean getOSMatches(final String osNamePrefix, final String osVersionPrefix) {
         return isOSMatch(OS_NAME, OS_VERSION, osNamePrefix, osVersionPrefix);
     }
 
@@ -1299,7 +1299,7 @@ public class SystemUtils {
      * @param osNamePrefix the prefix for the os name
      * @return true if matches, or false if not or can't determine
      */
-    private static boolean getOSMatchesName(String osNamePrefix) {
+    private static boolean getOSMatchesName(final String osNamePrefix) {
         return isOSNameMatch(OS_NAME, osNamePrefix);
     }
 
@@ -1316,7 +1316,7 @@ public class SystemUtils {
      * @param property the system property name
      * @return the system property value or {@code null} if a security problem occurs
      */
-    private static String getSystemProperty(String property) {
+    private static String getSystemProperty(final String property) {
         try {
             return System.getProperty(property);
         } catch (SecurityException ex) {
@@ -1384,7 +1384,7 @@ public class SystemUtils {
      * @param requiredVersion the required version, for example 1.31f
      * @return {@code true} if the actual version is equal or greater than the required version
      */
-    public static boolean isJavaVersionAtLeast(JavaVersion requiredVersion) {
+    public static boolean isJavaVersionAtLeast(final JavaVersion requiredVersion) {
         return JAVA_SPECIFICATION_VERSION_AS_ENUM.atLeast(requiredVersion);
     }
 
@@ -1400,7 +1400,7 @@ public class SystemUtils {
      * @param versionPrefix the prefix for the expected Java version
      * @return true if matches, or false if not or can't determine
      */
-    static boolean isJavaVersionMatch(String version, String versionPrefix) {
+    static boolean isJavaVersionMatch(final String version, final String versionPrefix) {
         if (version == null) {
             return false;
         }
@@ -1419,7 +1419,7 @@ public class SystemUtils {
      * @param osVersionPrefix the prefix for the expected OS version
      * @return true if matches, or false if not or can't determine
      */
-    static boolean isOSMatch(String osName, String osVersion, String osNamePrefix, String osVersionPrefix) {
+    static boolean isOSMatch(final String osName, final String osVersion, final String osNamePrefix, final String osVersionPrefix) {
         if (osName == null || osVersion == null) {
             return false;
         }
@@ -1436,7 +1436,7 @@ public class SystemUtils {
      * @param osNamePrefix the prefix for the expected OS name
      * @return true if matches, or false if not or can't determine
      */
-    static boolean isOSNameMatch(String osName, String osNamePrefix) {
+    static boolean isOSNameMatch(final String osName, final String osNamePrefix) {
         if (osName == null) {
             return false;
         }

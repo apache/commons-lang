@@ -135,7 +135,7 @@ public class CharSet implements Serializable {
      * @return a CharSet instance
      * @since 2.4
      */
-    public static CharSet getInstance(String... setStrs) {
+    public static CharSet getInstance(final String... setStrs) {
         if (setStrs == null) {
             return null;
         }
@@ -156,7 +156,7 @@ public class CharSet implements Serializable {
      * @param set  Strings to merge into the initial set
      * @throws NullPointerException if set is {@code null}
      */
-    protected CharSet(String... set) {
+    protected CharSet(final String... set) {
         super();
         int sz = set.length;
         for (int i = 0; i < sz; i++) {
@@ -170,7 +170,7 @@ public class CharSet implements Serializable {
      *
      * @param str  set definition string
      */
-    protected void add(String str) {
+    protected void add(final String str) {
         if (str == null) {
             return;
         }
@@ -220,7 +220,7 @@ public class CharSet implements Serializable {
      * @param ch  the character to check for
      * @return {@code true} if the set contains the characters
      */
-    public boolean contains(char ch) {
+    public boolean contains(final char ch) {
         for (CharRange range : set) {
             if (range.contains(ch)) {
                 return true;
@@ -243,7 +243,7 @@ public class CharSet implements Serializable {
      * @since 2.0
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == this) {
             return true;
         }

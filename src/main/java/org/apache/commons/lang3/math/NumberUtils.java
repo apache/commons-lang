@@ -96,7 +96,7 @@ public class NumberUtils {
      *  conversion fails
      * @since 2.1
      */
-    public static int toInt(String str) {
+    public static int toInt(final String str) {
         return toInt(str, 0);
     }
 
@@ -117,7 +117,7 @@ public class NumberUtils {
      * @return the int represented by the string, or the default if conversion fails
      * @since 2.1
      */
-    public static int toInt(String str, int defaultValue) {
+    public static int toInt(final String str, final int defaultValue) {
         if(str == null) {
             return defaultValue;
         }
@@ -145,7 +145,7 @@ public class NumberUtils {
      *  conversion fails
      * @since 2.1
      */
-    public static long toLong(String str) {
+    public static long toLong(final String str) {
         return toLong(str, 0L);
     }
 
@@ -166,7 +166,7 @@ public class NumberUtils {
      * @return the long represented by the string, or the default if conversion fails
      * @since 2.1
      */
-    public static long toLong(String str, long defaultValue) {
+    public static long toLong(final String str, final long defaultValue) {
         if (str == null) {
             return defaultValue;
         }
@@ -195,7 +195,7 @@ public class NumberUtils {
      *  if conversion fails
      * @since 2.1
      */
-    public static float toFloat(String str) {
+    public static float toFloat(final String str) {
         return toFloat(str, 0.0f);
     }
 
@@ -218,7 +218,7 @@ public class NumberUtils {
      *  if conversion fails
      * @since 2.1
      */
-    public static float toFloat(String str, float defaultValue) {
+    public static float toFloat(final String str, final float defaultValue) {
       if (str == null) {
           return defaultValue;
       }     
@@ -247,7 +247,7 @@ public class NumberUtils {
      *  if conversion fails
      * @since 2.1
      */
-    public static double toDouble(String str) {
+    public static double toDouble(final String str) {
         return toDouble(str, 0.0d);
     }
 
@@ -270,7 +270,7 @@ public class NumberUtils {
      *  if conversion fails
      * @since 2.1
      */
-    public static double toDouble(String str, double defaultValue) {
+    public static double toDouble(final String str, final double defaultValue) {
       if (str == null) {
           return defaultValue;
       }
@@ -299,7 +299,7 @@ public class NumberUtils {
      *  conversion fails
      * @since 2.5
      */
-    public static byte toByte(String str) {
+    public static byte toByte(final String str) {
         return toByte(str, (byte) 0);
     }
 
@@ -320,7 +320,7 @@ public class NumberUtils {
      * @return the byte represented by the string, or the default if conversion fails
      * @since 2.5
      */
-    public static byte toByte(String str, byte defaultValue) {
+    public static byte toByte(final String str, final byte defaultValue) {
         if(str == null) {
             return defaultValue;
         }
@@ -348,7 +348,7 @@ public class NumberUtils {
      *  conversion fails
      * @since 2.5
      */
-    public static short toShort(String str) {
+    public static short toShort(final String str) {
         return toShort(str, (short) 0);
     }
 
@@ -369,7 +369,7 @@ public class NumberUtils {
      * @return the short represented by the string, or the default if conversion fails
      * @since 2.5
      */
-    public static short toShort(String str, short defaultValue) {
+    public static short toShort(final String str, final short defaultValue) {
         if(str == null) {
             return defaultValue;
         }
@@ -443,7 +443,7 @@ public class NumberUtils {
      * @return Number created from the string (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Number createNumber(String str) throws NumberFormatException {
+    public static Number createNumber(final String str) throws NumberFormatException {
         if (str == null) {
             return null;
         }
@@ -612,7 +612,7 @@ public class NumberUtils {
      * @param str  the String to check
      * @return if it is all zeros or <code>null</code>
      */
-    private static boolean isAllZeros(String str) {
+    private static boolean isAllZeros(final String str) {
         if (str == null) {
             return true;
         }
@@ -634,7 +634,7 @@ public class NumberUtils {
      * @return converted <code>Float</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Float createFloat(String str) {
+    public static Float createFloat(final String str) {
         if (str == null) {
             return null;
         }
@@ -650,7 +650,7 @@ public class NumberUtils {
      * @return converted <code>Double</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Double createDouble(String str) {
+    public static Double createDouble(final String str) {
         if (str == null) {
             return null;
         }
@@ -667,7 +667,7 @@ public class NumberUtils {
      * @return converted <code>Integer</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Integer createInteger(String str) {
+    public static Integer createInteger(final String str) {
         if (str == null) {
             return null;
         }
@@ -685,7 +685,7 @@ public class NumberUtils {
      * @return converted <code>Long</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Long createLong(String str) {
+    public static Long createLong(final String str) {
         if (str == null) {
             return null;
         }
@@ -702,7 +702,7 @@ public class NumberUtils {
      * @return converted <code>BigInteger</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static BigInteger createBigInteger(String str) {
+    public static BigInteger createBigInteger(final String str) {
         if (str == null) {
             return null;
         }
@@ -737,7 +737,7 @@ public class NumberUtils {
      * @return converted <code>BigDecimal</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static BigDecimal createBigDecimal(String str) {
+    public static BigDecimal createBigDecimal(final String str) {
         if (str == null) {
             return null;
         }
@@ -765,7 +765,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static long min(long[] array) {
+    public static long min(final long[] array) {
         // Validates input
         validateArray(array);
     
@@ -788,7 +788,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static int min(int[] array) {
+    public static int min(final int[] array) {
         // Validates input
         validateArray(array);
     
@@ -811,7 +811,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static short min(short[] array) {
+    public static short min(final short[] array) {
         // Validates input
         validateArray(array);
     
@@ -834,7 +834,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static byte min(byte[] array) {
+    public static byte min(final byte[] array) {
         // Validates input
         validateArray(array);
     
@@ -858,7 +858,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is empty
      * @see IEEE754rUtils#min(double[]) IEEE754rUtils for a version of this method that handles NaN differently
      */
-    public static double min(double[] array) {
+    public static double min(final double[] array) {
         // Validates input
         validateArray(array);
     
@@ -885,7 +885,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is empty
      * @see IEEE754rUtils#min(float[]) IEEE754rUtils for a version of this method that handles NaN differently
      */
-    public static float min(float[] array) {
+    public static float min(final float[] array) {
         // Validates input
         validateArray(array);
     
@@ -913,7 +913,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static long max(long[] array) {
+    public static long max(final long[] array) {
         // Validates input
         validateArray(array);
 
@@ -936,7 +936,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static int max(int[] array) {
+    public static int max(final int[] array) {
         // Validates input
         validateArray(array);
     
@@ -959,7 +959,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static short max(short[] array) {
+    public static short max(final short[] array) {
         // Validates input
         validateArray(array);
     
@@ -982,7 +982,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static byte max(byte[] array) {
+    public static byte max(final byte[] array) {
         // Validates input
         validateArray(array);
     
@@ -1006,7 +1006,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is empty
      * @see IEEE754rUtils#max(double[]) IEEE754rUtils for a version of this method that handles NaN differently
      */
-    public static double max(double[] array) {
+    public static double max(final double[] array) {
         // Validates input
         validateArray(array);
 
@@ -1033,7 +1033,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if <code>array</code> is empty
      * @see IEEE754rUtils#max(float[]) IEEE754rUtils for a version of this method that handles NaN differently
      */
-    public static float max(float[] array) {
+    public static float max(final float[] array) {
         // Validates input
         validateArray(array);
 
@@ -1051,7 +1051,7 @@ public class NumberUtils {
         return max;
     }
 
-    private static void validateArray(Object array) {
+    private static void validateArray(final Object array) {
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
         } else if (Array.getLength(array) == 0) {
@@ -1069,7 +1069,7 @@ public class NumberUtils {
      * @param c  value 3
      * @return  the smallest of the values
      */
-    public static long min(long a, long b, long c) {
+    public static long min(long a, final long b, final long c) {
         if (b < a) {
             a = b;
         }
@@ -1087,7 +1087,7 @@ public class NumberUtils {
      * @param c  value 3
      * @return  the smallest of the values
      */
-    public static int min(int a, int b, int c) {
+    public static int min(int a, final int b, final int c) {
         if (b < a) {
             a = b;
         }
@@ -1105,7 +1105,7 @@ public class NumberUtils {
      * @param c  value 3
      * @return  the smallest of the values
      */
-    public static short min(short a, short b, short c) {
+    public static short min(short a, final short b, final short c) {
         if (b < a) {
             a = b;
         }
@@ -1123,7 +1123,7 @@ public class NumberUtils {
      * @param c  value 3
      * @return  the smallest of the values
      */
-    public static byte min(byte a, byte b, byte c) {
+    public static byte min(byte a, final byte b, final byte c) {
         if (b < a) {
             a = b;
         }
@@ -1145,7 +1145,7 @@ public class NumberUtils {
      * @return  the smallest of the values
      * @see IEEE754rUtils#min(double, double, double) for a version of this method that handles NaN differently
      */
-    public static double min(double a, double b, double c) {
+    public static double min(final double a, final double b, final double c) {
         return Math.min(Math.min(a, b), c);
     }
 
@@ -1161,7 +1161,7 @@ public class NumberUtils {
      * @return  the smallest of the values
      * @see IEEE754rUtils#min(float, float, float) for a version of this method that handles NaN differently
      */
-    public static float min(float a, float b, float c) {
+    public static float min(final float a, final float b, final float c) {
         return Math.min(Math.min(a, b), c);
     }
 
@@ -1175,7 +1175,7 @@ public class NumberUtils {
      * @param c  value 3
      * @return  the largest of the values
      */
-    public static long max(long a, long b, long c) {
+    public static long max(long a, final long b, final long c) {
         if (b > a) {
             a = b;
         }
@@ -1193,7 +1193,7 @@ public class NumberUtils {
      * @param c  value 3
      * @return  the largest of the values
      */
-    public static int max(int a, int b, int c) {
+    public static int max(int a, final int b, final int c) {
         if (b > a) {
             a = b;
         }
@@ -1211,7 +1211,7 @@ public class NumberUtils {
      * @param c  value 3
      * @return  the largest of the values
      */
-    public static short max(short a, short b, short c) {
+    public static short max(short a, final short b, final short c) {
         if (b > a) {
             a = b;
         }
@@ -1229,7 +1229,7 @@ public class NumberUtils {
      * @param c  value 3
      * @return  the largest of the values
      */
-    public static byte max(byte a, byte b, byte c) {
+    public static byte max(byte a, final byte b, final byte c) {
         if (b > a) {
             a = b;
         }
@@ -1251,7 +1251,7 @@ public class NumberUtils {
      * @return  the largest of the values
      * @see IEEE754rUtils#max(double, double, double) for a version of this method that handles NaN differently
      */
-    public static double max(double a, double b, double c) {
+    public static double max(final double a, final double b, final double c) {
         return Math.max(Math.max(a, b), c);
     }
 
@@ -1267,7 +1267,7 @@ public class NumberUtils {
      * @return  the largest of the values
      * @see IEEE754rUtils#max(float, float, float) for a version of this method that handles NaN differently
      */
-    public static float max(float a, float b, float c) {
+    public static float max(final float a, final float b, final float c) {
         return Math.max(Math.max(a, b), c);
     }
 
@@ -1282,7 +1282,7 @@ public class NumberUtils {
      * @param str  the <code>String</code> to check
      * @return <code>true</code> if str contains only Unicode numeric
      */
-    public static boolean isDigits(String str) {
+    public static boolean isDigits(final String str) {
         if (StringUtils.isEmpty(str)) {
             return false;
         }
@@ -1307,7 +1307,7 @@ public class NumberUtils {
      * @param str  the <code>String</code> to check
      * @return <code>true</code> if the string is a correctly formatted number
      */
-    public static boolean isNumber(String str) {
+    public static boolean isNumber(final String str) {
         if (StringUtils.isEmpty(str)) {
             return false;
         }

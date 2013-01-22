@@ -53,7 +53,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      *
      * @param options to apply to this unescaper
      */
-    public NumericEntityUnescaper(OPTION... options) {
+    public NumericEntityUnescaper(final OPTION... options) {
         if(options.length > 0) {
             this.options = EnumSet.copyOf(Arrays.asList(options));
         } else {
@@ -67,7 +67,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      * @param option to check state of
      * @return whether the option is set
      */
-    public boolean isSet(OPTION option) { 
+    public boolean isSet(final OPTION option) { 
         return options == null ? false : options.contains(option);
     }
 
@@ -75,7 +75,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      * {@inheritDoc}
      */
     @Override
-    public int translate(CharSequence input, int index, Writer out) throws IOException {
+    public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
         int seqEnd = input.length();
         // Uses -2 to ensure there is something after the &#
         if(input.charAt(index) == '&' && index < seqEnd - 2 && input.charAt(index + 1) == '#') {

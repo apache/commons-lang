@@ -112,7 +112,7 @@ public class BasicThreadFactory implements ThreadFactory {
      *
      * @param builder the {@code Builder} object
      */
-    private BasicThreadFactory(Builder builder) {
+    private BasicThreadFactory(final Builder builder) {
         if (builder.wrappedFactory == null) {
             wrappedFactory = Executors.defaultThreadFactory();
         } else {
@@ -201,7 +201,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * @return the newly created thread
      */
     @Override
-    public Thread newThread(Runnable r) {
+    public Thread newThread(final Runnable r) {
         Thread t = getWrappedFactory().newThread(r);
         initializeThread(t);
 
@@ -216,7 +216,7 @@ public class BasicThreadFactory implements ThreadFactory {
      *
      * @param t the thread to be initialized
      */
-    private void initializeThread(Thread t) {
+    private void initializeThread(final Thread t) {
 
         if (getNamingPattern() != null) {
             Long count = Long.valueOf(threadCounter.incrementAndGet());
@@ -279,7 +279,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * @throws NullPointerException if the passed in {@code ThreadFactory}
          * is <b>null</b>
          */
-        public Builder wrappedFactory(ThreadFactory factory) {
+        public Builder wrappedFactory(final ThreadFactory factory) {
             if (factory == null) {
                 throw new NullPointerException(
                         "Wrapped ThreadFactory must not be null!");
@@ -297,7 +297,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * @return a reference to this {@code Builder}
          * @throws NullPointerException if the naming pattern is <b>null</b>
          */
-        public Builder namingPattern(String pattern) {
+        public Builder namingPattern(final String pattern) {
             if (pattern == null) {
                 throw new NullPointerException(
                         "Naming pattern must not be null!");
@@ -315,7 +315,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * @param f the value of the daemon flag
          * @return a reference to this {@code Builder}
          */
-        public Builder daemon(boolean f) {
+        public Builder daemon(final boolean f) {
             daemonFlag = Boolean.valueOf(f);
             return this;
         }
@@ -327,7 +327,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * @param prio the priority
          * @return a reference to this {@code Builder}
          */
-        public Builder priority(int prio) {
+        public Builder priority(final int prio) {
             priority = Integer.valueOf(prio);
             return this;
         }
@@ -342,7 +342,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * @throws NullPointerException if the exception handler is <b>null</b>
          */
         public Builder uncaughtExceptionHandler(
-                Thread.UncaughtExceptionHandler handler) {
+                final Thread.UncaughtExceptionHandler handler) {
             if (handler == null) {
                 throw new NullPointerException(
                         "Uncaught exception handler must not be null!");

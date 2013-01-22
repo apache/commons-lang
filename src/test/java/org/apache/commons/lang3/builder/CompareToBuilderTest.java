@@ -34,11 +34,11 @@ public class CompareToBuilderTest {
 
     static class TestObject implements Comparable<TestObject> {
         private int a;
-        public TestObject(int a) {
+        public TestObject(final int a) {
             this.a = a;
         }
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (o == this) {
                 return true;
             }
@@ -54,7 +54,7 @@ public class CompareToBuilderTest {
             return a;
         }
 
-        public void setA(int a) {
+        public void setA(final int a) {
             this.a = a;
         }
 
@@ -62,7 +62,7 @@ public class CompareToBuilderTest {
             return a;
         }
         @Override
-        public int compareTo(TestObject rhs) {
+        public int compareTo(final TestObject rhs) {
             return a < rhs.a ? -1 : a > rhs.a ? +1 : 0;
         }
     }
@@ -72,12 +72,12 @@ public class CompareToBuilderTest {
         public TestSubObject() {
             super(0);
         }
-        public TestSubObject(int a, int b) {
+        public TestSubObject(final int a, final int b) {
             super(a);
             this.b = b;
         }
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (o == this) {
                 return true;
             }
@@ -92,7 +92,7 @@ public class CompareToBuilderTest {
     static class TestTransientSubObject extends TestObject {
         @SuppressWarnings("unused")
         private transient int t;
-        public TestTransientSubObject(int a, int t) {
+        public TestTransientSubObject(final int a, final int t) {
             super(a);
             this.t = t;
         }
@@ -166,7 +166,7 @@ public class CompareToBuilderTest {
         assertXYZCompareOrder(x, y, z, true, null);  
     }
     
-    private void assertXYZCompareOrder(Object x, Object y, Object z, boolean testTransients, String[] excludeFields) {
+    private void assertXYZCompareOrder(final Object x, final Object y, final Object z, final boolean testTransients, final String[] excludeFields) {
         assertTrue(0 == CompareToBuilder.reflectionCompare(x, x, testTransients, null, excludeFields));
         assertTrue(0 == CompareToBuilder.reflectionCompare(y, y, testTransients, null, excludeFields));
         assertTrue(0 == CompareToBuilder.reflectionCompare(z, z, testTransients, null, excludeFields));
@@ -180,7 +180,7 @@ public class CompareToBuilderTest {
         assertTrue(0 < CompareToBuilder.reflectionCompare(z, y, testTransients, null, excludeFields));
     }
     
-    private void testReflectionHierarchyCompare(boolean testTransients, String[] excludeFields) {
+    private void testReflectionHierarchyCompare(final boolean testTransients, final String[] excludeFields) {
         TestObject to1 = new TestObject(1);
         TestObject to2 = new TestObject(2);
         TestObject to3 = new TestObject(3);
@@ -212,7 +212,7 @@ public class CompareToBuilderTest {
      * @param testTransients Whether to include transients in the comparison
      * @param excludeFields fields to exclude
      */
-    private void assertReflectionCompareContract(Object x, Object y, Object z, boolean testTransients, String[] excludeFields) {
+    private void assertReflectionCompareContract(final Object x, final Object y, final Object z, final boolean testTransients, final String[] excludeFields) {
 
         // signum
         assertTrue(reflectionCompareSignum(x, y, testTransients, excludeFields) == -reflectionCompareSignum(y, x, testTransients, excludeFields));
@@ -242,7 +242,7 @@ public class CompareToBuilderTest {
      * @param excludeFields fields to exclude
      * @return int The signum
      */
-    private int reflectionCompareSignum(Object lhs, Object rhs, boolean testTransients, String[] excludeFields) {
+    private int reflectionCompareSignum(final Object lhs, final Object rhs, final boolean testTransients, final String[] excludeFields) {
         return BigInteger.valueOf(CompareToBuilder.reflectionCompare(lhs, rhs, testTransients)).signum();
     }
     

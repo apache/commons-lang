@@ -45,7 +45,7 @@ public class EventUtils {
      *
      * @throws IllegalArgumentException if the object doesn't support the listener type
      */
-    public static <L> void addEventListener(Object eventSource, Class<L> listenerType, L listener) {
+    public static <L> void addEventListener(final Object eventSource, final Class<L> listenerType, final L listener) {
         try {
             MethodUtils.invokeMethod(eventSource, "add" + listenerType.getSimpleName(), listener);
         } catch (NoSuchMethodException e) {
@@ -72,8 +72,8 @@ public class EventUtils {
      * @param eventTypes   the event types (method names) from the listener interface (if none specified, all will be
      *                     supported)
      */
-    public static <L> void bindEventsToMethod(Object target, String methodName, Object eventSource,
-            Class<L> listenerType, String... eventTypes) {
+    public static <L> void bindEventsToMethod(final Object target, final String methodName, final Object eventSource,
+            final Class<L> listenerType, final String... eventTypes) {
         final L listener = listenerType.cast(Proxy.newProxyInstance(target.getClass().getClassLoader(),
                 new Class[] { listenerType }, new EventBindingInvocationHandler(target, methodName, eventTypes)));
         addEventListener(eventSource, listenerType, listener);
@@ -91,7 +91,7 @@ public class EventUtils {
          * @param methodName the name of the method to be invoked
          * @param eventTypes the names of the supported event types
          */
-        EventBindingInvocationHandler(final Object target, final String methodName, String[] eventTypes) {
+        EventBindingInvocationHandler(final Object target, final String methodName, final String[] eventTypes) {
             this.target = target;
             this.methodName = methodName;
             this.eventTypes = new HashSet<String>(Arrays.asList(eventTypes));

@@ -56,8 +56,8 @@ public class MultiBackgroundInitializerTest {
      * not be checked)
      * @throws ConcurrentException if an error occurs
      */
-    private void checkChild(BackgroundInitializer<?> child,
-            ExecutorService expExec) throws ConcurrentException {
+    private void checkChild(final BackgroundInitializer<?> child,
+            final ExecutorService expExec) throws ConcurrentException {
         ChildBackgroundInitializer cinit = (ChildBackgroundInitializer) child;
         Integer result = cinit.get();
         assertEquals("Wrong result", 1, result.intValue());

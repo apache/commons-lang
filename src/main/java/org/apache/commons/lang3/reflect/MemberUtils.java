@@ -51,7 +51,7 @@ abstract class MemberUtils {
      * accepted.
      * @param o the AccessibleObject to set as accessible
      */
-    static void setAccessibleWorkaround(AccessibleObject o) {
+    static void setAccessibleWorkaround(final AccessibleObject o) {
         if (o == null || o.isAccessible()) {
             return;
         }
@@ -71,7 +71,7 @@ abstract class MemberUtils {
      * @param modifiers to test
      * @return true unless package/protected/private modifier detected
      */
-    static boolean isPackageAccess(int modifiers) {
+    static boolean isPackageAccess(final int modifiers) {
         return (modifiers & ACCESS_TEST) == 0;
     }
 
@@ -80,7 +80,7 @@ abstract class MemberUtils {
      * @param m Member to check
      * @return true if <code>m</code> is accessible
      */
-    static boolean isAccessible(Member m) {
+    static boolean isAccessible(final Member m) {
         return m != null && Modifier.isPublic(m.getModifiers()) && !m.isSynthetic();
     }
 
@@ -96,7 +96,7 @@ abstract class MemberUtils {
      * <code>left</code>/<code>right</code>
      * @return int consistent with <code>compare</code> semantics
      */
-    static int compareParameterTypes(Class<?>[] left, Class<?>[] right, Class<?>[] actual) {
+    static int compareParameterTypes(final Class<?>[] left, final Class<?>[] right, final Class<?>[] actual) {
         float leftCost = getTotalTransformationCost(actual, left);
         float rightCost = getTotalTransformationCost(actual, right);
         return leftCost < rightCost ? -1 : rightCost < leftCost ? 1 : 0;
@@ -109,7 +109,7 @@ abstract class MemberUtils {
      * @param destArgs The destination arguments
      * @return The total transformation cost
      */
-    private static float getTotalTransformationCost(Class<?>[] srcArgs, Class<?>[] destArgs) {
+    private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Class<?>[] destArgs) {
         float totalCost = 0.0f;
         for (int i = 0; i < srcArgs.length; i++) {
             Class<?> srcClass, destClass;
@@ -128,7 +128,7 @@ abstract class MemberUtils {
      * @param destClass The destination class
      * @return The cost of transforming an object
      */
-    private static float getObjectTransformationCost(Class<?> srcClass, Class<?> destClass) {
+    private static float getObjectTransformationCost(Class<?> srcClass, final Class<?> destClass) {
         if (destClass.isPrimitive()) {
             return getPrimitivePromotionCost(srcClass, destClass);
         }

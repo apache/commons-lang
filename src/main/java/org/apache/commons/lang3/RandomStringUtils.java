@@ -65,7 +65,7 @@ public class RandomStringUtils {
      * @param count  the length of random string to create
      * @return the random string
      */
-    public static String random(int count) {
+    public static String random(final int count) {
         return random(count, false, false);
     }
 
@@ -79,7 +79,7 @@ public class RandomStringUtils {
      * @param count  the length of random string to create
      * @return the random string
      */
-    public static String randomAscii(int count) {
+    public static String randomAscii(final int count) {
         return random(count, 32, 127, false, false);
     }
     
@@ -93,7 +93,7 @@ public class RandomStringUtils {
      * @param count  the length of random string to create
      * @return the random string
      */
-    public static String randomAlphabetic(int count) {
+    public static String randomAlphabetic(final int count) {
         return random(count, true, false);
     }
     
@@ -107,7 +107,7 @@ public class RandomStringUtils {
      * @param count  the length of random string to create
      * @return the random string
      */
-    public static String randomAlphanumeric(int count) {
+    public static String randomAlphanumeric(final int count) {
         return random(count, true, true);
     }
     
@@ -121,7 +121,7 @@ public class RandomStringUtils {
      * @param count  the length of random string to create
      * @return the random string
      */
-    public static String randomNumeric(int count) {
+    public static String randomNumeric(final int count) {
         return random(count, false, true);
     }
 
@@ -139,7 +139,7 @@ public class RandomStringUtils {
      *  numeric characters
      * @return the random string
      */
-    public static String random(int count, boolean letters, boolean numbers) {
+    public static String random(final int count, final boolean letters, final boolean numbers) {
         return random(count, 0, 0, letters, numbers);
     }
     
@@ -159,7 +159,7 @@ public class RandomStringUtils {
      *  numeric characters
      * @return the random string
      */
-    public static String random(int count, int start, int end, boolean letters, boolean numbers) {
+    public static String random(final int count, final int start, final int end, final boolean letters, final boolean numbers) {
         return random(count, start, end, letters, numbers, null, RANDOM);
     }
 
@@ -183,7 +183,7 @@ public class RandomStringUtils {
      * @throws ArrayIndexOutOfBoundsException if there are not
      *  {@code (end - start) + 1} characters in the set array.
      */
-    public static String random(int count, int start, int end, boolean letters, boolean numbers, char... chars) {
+    public static String random(final int count, final int start, final int end, final boolean letters, final boolean numbers, final char... chars) {
         return random(count, start, end, letters, numbers, chars, RANDOM);
     }
 
@@ -220,8 +220,8 @@ public class RandomStringUtils {
      * @throws IllegalArgumentException if {@code count} &lt; 0 or the provided chars array is empty.
      * @since 2.0
      */
-    public static String random(int count, int start, int end, boolean letters, boolean numbers,
-                                char[] chars, Random random) {
+    public static String random(int count, int start, int end, final boolean letters, final boolean numbers,
+                                final char[] chars, final Random random) {
         if (count == 0) {
             return "";
         } else if (count < 0) {
@@ -306,7 +306,7 @@ public class RandomStringUtils {
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0 or the string is empty.
      */
-    public static String random(int count, String chars) {
+    public static String random(final int count, final String chars) {
         if (chars == null) {
             return random(count, 0, 0, false, false, null, RANDOM);
         }
@@ -325,7 +325,7 @@ public class RandomStringUtils {
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      */
-    public static String random(int count, char... chars) {
+    public static String random(final int count, final char... chars) {
         if (chars == null) {
             return random(count, 0, 0, false, false, null, RANDOM);
         }

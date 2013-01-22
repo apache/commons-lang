@@ -50,7 +50,7 @@ public abstract class CharSequenceTranslator {
      * @param input CharSequence to be translated
      * @return String output of translation
      */
-    public final String translate(CharSequence input) {
+    public final String translate(final CharSequence input) {
         if (input == null) {
             return null;
         }
@@ -72,7 +72,7 @@ public abstract class CharSequenceTranslator {
      * @param out Writer to translate the text to
      * @throws IOException if and only if the Writer produces an IOException
      */
-    public final void translate(CharSequence input, Writer out) throws IOException {
+    public final void translate(final CharSequence input, final Writer out) throws IOException {
         if (out == null) {
             throw new IllegalArgumentException("The Writer must not be null");
         }
@@ -104,7 +104,7 @@ public abstract class CharSequenceTranslator {
      * @param translators CharSequenceTranslator array of translators to merge with this one
      * @return CharSequenceTranslator merging this translator with the others
      */
-    public final CharSequenceTranslator with(CharSequenceTranslator... translators) {
+    public final CharSequenceTranslator with(final CharSequenceTranslator... translators) {
         CharSequenceTranslator[] newArray = new CharSequenceTranslator[translators.length + 1];
         newArray[0] = this;
         System.arraycopy(translators, 0, newArray, 1, translators.length);
@@ -118,7 +118,7 @@ public abstract class CharSequenceTranslator {
      * @param codepoint The codepoint to convert.
      * @return An upper case hexadecimal <code>String</code>
      */
-    public static String hex(int codepoint) {
+    public static String hex(final int codepoint) {
         return Integer.toHexString(codepoint).toUpperCase(Locale.ENGLISH);
     }
 

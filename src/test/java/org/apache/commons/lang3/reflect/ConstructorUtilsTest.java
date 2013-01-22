@@ -40,23 +40,23 @@ public class ConstructorUtilsTest {
             toString = "()";
         }
 
-        public TestBean(int i) {
+        public TestBean(final int i) {
             toString = "(int)";
         }
 
-        public TestBean(Integer i) {
+        public TestBean(final Integer i) {
             toString = "(Integer)";
         }
 
-        public TestBean(double d) {
+        public TestBean(final double d) {
             toString = "(double)";
         }
 
-        public TestBean(String s) {
+        public TestBean(final String s) {
             toString = "(String)";
         }
 
-        public TestBean(Object o) {
+        public TestBean(final Object o) {
             toString = "(Object)";
         }
 
@@ -212,8 +212,8 @@ public class ConstructorUtilsTest {
                 singletonArray(null), singletonArray(Object.class));
     }
 
-    private void expectMatchingAccessibleConstructorParameterTypes(Class<?> cls,
-            Class<?>[] requestTypes, Class<?>[] actualTypes) {
+    private void expectMatchingAccessibleConstructorParameterTypes(final Class<?> cls,
+            final Class<?>[] requestTypes, final Class<?>[] actualTypes) {
         Constructor<?> c = ConstructorUtils.getMatchingAccessibleConstructor(cls,
                 requestTypes);
         assertTrue(toString(c.getParameterTypes()) + " not equals "
@@ -221,11 +221,11 @@ public class ConstructorUtilsTest {
                 .getParameterTypes()));
     }
 
-    private String toString(Class<?>[] c) {
+    private String toString(final Class<?>[] c) {
         return Arrays.asList(c).toString();
     }
 
-    private Class<?>[] singletonArray(Class<?> c) {
+    private Class<?>[] singletonArray(final Class<?> c) {
         Class<?>[] result = classCache.get(c);
         if (result == null) {
             result = new Class[] { c };

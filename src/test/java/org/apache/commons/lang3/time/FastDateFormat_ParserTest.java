@@ -27,7 +27,7 @@ import java.util.TimeZone;
 public class FastDateFormat_ParserTest extends FastDateParserTest {
 
     @Override
-    protected DateParser getInstance(String format, TimeZone timeZone, Locale locale) {
+    protected DateParser getInstance(final String format, final TimeZone timeZone, final Locale locale) {
         return FastDateFormat.getInstance(format, timeZone, locale);
     }
 }

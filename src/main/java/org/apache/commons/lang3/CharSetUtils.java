@@ -61,7 +61,7 @@ public class CharSetUtils {
      * @param set  the character set to use for manipulation, may be null
      * @return the modified String, {@code null} if null string input
      */
-    public static String squeeze(String str, String... set) {
+    public static String squeeze(final String str, final String... set) {
         if (StringUtils.isEmpty(str) || deepEmpty(set)) {
             return str;
         }
@@ -103,7 +103,7 @@ public class CharSetUtils {
      * @param set  String[] set of characters to count, may be null
      * @return the character count, zero if null string input
      */
-    public static int count(String str, String... set) {
+    public static int count(final String str, final String... set) {
         if (StringUtils.isEmpty(str) || deepEmpty(set)) {
             return 0;
         }
@@ -138,7 +138,7 @@ public class CharSetUtils {
      * @return the modified String, {@code null} if null string input
      * @since 2.0
      */
-    public static String keep(String str, String... set) {
+    public static String keep(final String str, final String... set) {
         if (str == null) {
             return null;
         }
@@ -168,7 +168,7 @@ public class CharSetUtils {
      * @param set  String[] set of characters to delete, may be null
      * @return the modified String, {@code null} if null string input
      */
-    public static String delete(String str, String... set) {
+    public static String delete(final String str, final String... set) {
         if (StringUtils.isEmpty(str) || deepEmpty(set)) {
             return str;
         }
@@ -184,7 +184,7 @@ public class CharSetUtils {
      * @param expect whether to evaluate on match, or non-match
      * @return the modified String, not null
      */
-    private static String modify(String str, String[] set, boolean expect) {
+    private static String modify(final String str, final String[] set, final boolean expect) {
         CharSet chars = CharSet.getInstance(set);
         StringBuilder buffer = new StringBuilder(str.length());
         char[] chrs = str.toCharArray();
@@ -204,7 +204,7 @@ public class CharSetUtils {
      * @param strings String[] whose elements are being checked for emptiness
      * @return whether or not the String is empty
      */
-    private static boolean deepEmpty(String[] strings) {
+    private static boolean deepEmpty(final String[] strings) {
         if (strings != null) {
             for (String s : strings) {
                 if (StringUtils.isNotEmpty(s)) {

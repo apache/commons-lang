@@ -94,7 +94,7 @@ public class EventUtilsTest
             EventUtils.addEventListener(src, PropertyChangeListener.class, new PropertyChangeListener()
             {
                 @Override
-                public void propertyChange(PropertyChangeEvent e)
+                public void propertyChange(final PropertyChangeEvent e)
                 {
                     // Do nothing!
                 }
@@ -187,7 +187,7 @@ public class EventUtilsTest
     {
         private int count;
 
-        public void eventOccurred(PropertyChangeEvent e)
+        public void eventOccurred(final PropertyChangeEvent e)
         {
             count++;
         }
@@ -203,21 +203,21 @@ public class EventUtilsTest
     {
         private final Map<String, Integer> eventCounts = new TreeMap<String, Integer>();
 
-        public <L> L createListener(Class<L> listenerType)
+        public <L> L createListener(final Class<L> listenerType)
         {
             return listenerType.cast(Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
                     new Class[]{listenerType},
                     this));
         }
 
-        public int getEventCount(String eventName)
+        public int getEventCount(final String eventName)
         {
             Integer count = eventCounts.get(eventName);
             return count == null ? 0 : count.intValue();
         }
 
         @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
+        public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable
         {
             Integer count = eventCounts.get(method.getName());
             if (count == null)
@@ -236,7 +236,7 @@ public class EventUtilsTest
     {
         private final EventListenerSupport<MultipleEventListener> listeners = EventListenerSupport.create(MultipleEventListener.class);
 
-        public void addMultipleEventListener(MultipleEventListener listener)
+        public void addMultipleEventListener(final MultipleEventListener listener)
         {
             listeners.addListener(listener);
         }
@@ -244,7 +244,7 @@ public class EventUtilsTest
 
     public static class ExceptionEventSource
     {
-        public void addPropertyChangeListener(PropertyChangeListener listener)
+        public void addPropertyChangeListener(final PropertyChangeListener listener)
         {
             throw new RuntimeException();
         }
@@ -256,24 +256,24 @@ public class EventUtilsTest
 
         private String property;
 
-        public void setProperty(String property)
+        public void setProperty(final String property)
         {
             String oldValue = this.property;
             this.property = property;
             listeners.fire().propertyChange(new PropertyChangeEvent(this, "property", oldValue, property));
         }
 
-        protected void addVetoableChangeListener(VetoableChangeListener listener)
+        protected void addVetoableChangeListener(final VetoableChangeListener listener)
         {
             // Do nothing!
         }
 
-        public void addPropertyChangeListener(PropertyChangeListener listener)
+        public void addPropertyChangeListener(final PropertyChangeListener listener)
         {
             listeners.addListener(listener);
         }
 
-        public void removePropertyChangeListener(PropertyChangeListener listener)
+        public void removePropertyChangeListener(final PropertyChangeListener listener)
         {
             listeners.removeListener(listener);
         }

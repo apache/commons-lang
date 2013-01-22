@@ -131,7 +131,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
      *  with <code>lhs</code>
      */
-    public static int reflectionCompare(Object lhs, Object rhs) {
+    public static int reflectionCompare(final Object lhs, final Object rhs) {
         return reflectionCompare(lhs, rhs, false, null);
     }
 
@@ -163,7 +163,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
      *  with <code>lhs</code>
      */
-    public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients) {
+    public static int reflectionCompare(final Object lhs, final Object rhs, final boolean compareTransients) {
         return reflectionCompare(lhs, rhs, compareTransients, null);
     }
 
@@ -196,7 +196,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *  with <code>lhs</code>
      * @since 2.2
      */
-    public static int reflectionCompare(Object lhs, Object rhs, Collection<String> excludeFields) {
+    public static int reflectionCompare(final Object lhs, final Object rhs, final Collection<String> excludeFields) {
         return reflectionCompare(lhs, rhs, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
     }
 
@@ -229,7 +229,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *  with <code>lhs</code>
      * @since 2.2
      */
-    public static int reflectionCompare(Object lhs, Object rhs, String... excludeFields) {
+    public static int reflectionCompare(final Object lhs, final Object rhs, final String... excludeFields) {
         return reflectionCompare(lhs, rhs, false, null, excludeFields);
     }
 
@@ -266,11 +266,11 @@ public class CompareToBuilder implements Builder<Integer> {
      * @since 2.2 (2.0 as <code>reflectionCompare(Object, Object, boolean, Class)</code>)
      */
     public static int reflectionCompare(
-        Object lhs, 
-        Object rhs, 
-        boolean compareTransients, 
-        Class<?> reflectUpToClass, 
-        String... excludeFields) {
+        final Object lhs, 
+        final Object rhs, 
+        final boolean compareTransients, 
+        final Class<?> reflectUpToClass, 
+        final String... excludeFields) {
 
         if (lhs == rhs) {
             return 0;
@@ -303,12 +303,12 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param excludeFields  fields to exclude
      */
     private static void reflectionAppend(
-        Object lhs,
-        Object rhs,
-        Class<?> clazz,
-        CompareToBuilder builder,
-        boolean useTransients,
-        String[] excludeFields) {
+        final Object lhs,
+        final Object rhs,
+        final Class<?> clazz,
+        final CompareToBuilder builder,
+        final boolean useTransients,
+        final String[] excludeFields) {
         
         Field[] fields = clazz.getDeclaredFields();
         AccessibleObject.setAccessible(fields, true);
@@ -338,7 +338,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @return this - used to chain append calls
      * @since 2.0
      */
-    public CompareToBuilder appendSuper(int superCompareTo) {
+    public CompareToBuilder appendSuper(final int superCompareTo) {
         if (comparison != 0) {
             return this;
         }
@@ -366,7 +366,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
      *  with <code>lhs</code>
      */
-    public CompareToBuilder append(Object lhs, Object rhs) {
+    public CompareToBuilder append(final Object lhs, final Object rhs) {
         return append(lhs, rhs, null);
     }
 
@@ -395,7 +395,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *  with <code>lhs</code>
      * @since 2.0
      */
-    public CompareToBuilder append(Object lhs, Object rhs, Comparator<?> comparator) {
+    public CompareToBuilder append(final Object lhs, final Object rhs, final Comparator<?> comparator) {
         if (comparison != 0) {
             return this;
         }
@@ -459,7 +459,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand value
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(long lhs, long rhs) {
+    public CompareToBuilder append(final long lhs, final long rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -475,7 +475,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand value
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(int lhs, int rhs) {
+    public CompareToBuilder append(final int lhs, final int rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -491,7 +491,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand value
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(short lhs, short rhs) {
+    public CompareToBuilder append(final short lhs, final short rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -507,7 +507,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand value
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(char lhs, char rhs) {
+    public CompareToBuilder append(final char lhs, final char rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -523,7 +523,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand value
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(byte lhs, byte rhs) {
+    public CompareToBuilder append(final byte lhs, final byte rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -544,7 +544,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand value
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(double lhs, double rhs) {
+    public CompareToBuilder append(final double lhs, final double rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -565,7 +565,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand value
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(float lhs, float rhs) {
+    public CompareToBuilder append(final float lhs, final float rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -581,7 +581,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand value
      * @return this - used to chain append calls
       */
-    public CompareToBuilder append(boolean lhs, boolean rhs) {
+    public CompareToBuilder append(final boolean lhs, final boolean rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -617,7 +617,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
      *  with <code>lhs</code>
      */
-    public CompareToBuilder append(Object[] lhs, Object[] rhs) {
+    public CompareToBuilder append(final Object[] lhs, final Object[] rhs) {
         return append(lhs, rhs, null);
     }
     
@@ -644,7 +644,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *  with <code>lhs</code>
      * @since 2.0
      */
-    public CompareToBuilder append(Object[] lhs, Object[] rhs, Comparator<?> comparator) {
+    public CompareToBuilder append(final Object[] lhs, final Object[] rhs, final Comparator<?> comparator) {
         if (comparison != 0) {
             return this;
         }
@@ -684,7 +684,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand array
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(long[] lhs, long[] rhs) {
+    public CompareToBuilder append(final long[] lhs, final long[] rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -724,7 +724,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand array
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(int[] lhs, int[] rhs) {
+    public CompareToBuilder append(final int[] lhs, final int[] rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -764,7 +764,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand array
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(short[] lhs, short[] rhs) {
+    public CompareToBuilder append(final short[] lhs, final short[] rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -804,7 +804,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand array
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(char[] lhs, char[] rhs) {
+    public CompareToBuilder append(final char[] lhs, final char[] rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -844,7 +844,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand array
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(byte[] lhs, byte[] rhs) {
+    public CompareToBuilder append(final byte[] lhs, final byte[] rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -884,7 +884,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand array
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(double[] lhs, double[] rhs) {
+    public CompareToBuilder append(final double[] lhs, final double[] rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -924,7 +924,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand array
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(float[] lhs, float[] rhs) {
+    public CompareToBuilder append(final float[] lhs, final float[] rhs) {
         if (comparison != 0) {
             return this;
         }
@@ -964,7 +964,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand array
      * @return this - used to chain append calls
      */
-    public CompareToBuilder append(boolean[] lhs, boolean[] rhs) {
+    public CompareToBuilder append(final boolean[] lhs, final boolean[] rhs) {
         if (comparison != 0) {
             return this;
         }

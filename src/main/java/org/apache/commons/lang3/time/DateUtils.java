@@ -151,7 +151,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if either date is <code>null</code>
      * @since 2.1
      */
-    public static boolean isSameDay(Date date1, Date date2) {
+    public static boolean isSameDay(final Date date1, final Date date2) {
         if (date1 == null || date2 == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -175,7 +175,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if either calendar is <code>null</code>
      * @since 2.1
      */
-    public static boolean isSameDay(Calendar cal1, Calendar cal2) {
+    public static boolean isSameDay(final Calendar cal1, final Calendar cal2) {
         if (cal1 == null || cal2 == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -196,7 +196,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if either date is <code>null</code>
      * @since 2.1
      */
-    public static boolean isSameInstant(Date date1, Date date2) {
+    public static boolean isSameInstant(final Date date1, final Date date2) {
         if (date1 == null || date2 == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -214,7 +214,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if either date is <code>null</code>
      * @since 2.1
      */
-    public static boolean isSameInstant(Calendar cal1, Calendar cal2) {
+    public static boolean isSameInstant(final Calendar cal1, final Calendar cal2) {
         if (cal1 == null || cal2 == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -234,7 +234,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if either date is <code>null</code>
      * @since 2.1
      */
-    public static boolean isSameLocalTime(Calendar cal1, Calendar cal2) {
+    public static boolean isSameLocalTime(final Calendar cal1, final Calendar cal2) {
         if (cal1 == null || cal2 == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -263,7 +263,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date string or pattern array is null
      * @throws ParseException if none of the date patterns were suitable (or there were none)
      */
-    public static Date parseDate(String str, String... parsePatterns) throws ParseException {
+    public static Date parseDate(final String str, final String... parsePatterns) throws ParseException {
         return parseDate(str, null, parsePatterns);
     }
     
@@ -286,7 +286,7 @@ public class DateUtils {
      * @throws ParseException if none of the date patterns were suitable (or there were none)
      * @since 3.2
      */
-    public static Date parseDate(String str, Locale locale, String... parsePatterns) throws ParseException {
+    public static Date parseDate(final String str, final Locale locale, final String... parsePatterns) throws ParseException {
         return parseDateWithLeniency(str, locale, parsePatterns, true);
     }    
 
@@ -306,7 +306,7 @@ public class DateUtils {
      * @throws ParseException if none of the date patterns were suitable
      * @since 2.5
      */
-    public static Date parseDateStrictly(String str, String... parsePatterns) throws ParseException {
+    public static Date parseDateStrictly(final String str, final String... parsePatterns) throws ParseException {
         return parseDateStrictly(str, null, parsePatterns);
     }
 
@@ -328,7 +328,7 @@ public class DateUtils {
      * @throws ParseException if none of the date patterns were suitable
      * @since 3.2
      */
-    public static Date parseDateStrictly(String str, Locale locale, String... parsePatterns) throws ParseException {
+    public static Date parseDateStrictly(final String str, final Locale locale, final String... parsePatterns) throws ParseException {
         return parseDateWithLeniency(str, null, parsePatterns, false);
     }    
 
@@ -350,7 +350,7 @@ public class DateUtils {
      * @see java.util.Calender#isLenient()
      */
     private static Date parseDateWithLeniency(
-            String str, Locale locale, String[] parsePatterns, boolean lenient) throws ParseException {
+            final String str, final Locale locale, final String[] parsePatterns, final boolean lenient) throws ParseException {
         if (str == null || parsePatterns == null) {
             throw new IllegalArgumentException("Date and Patterns must not be null");
         }
@@ -400,7 +400,7 @@ public class DateUtils {
      * @return the new {@code Date} with the amount added
      * @throws IllegalArgumentException if the date is null
      */
-    public static Date addYears(Date date, int amount) {
+    public static Date addYears(final Date date, final int amount) {
         return add(date, Calendar.YEAR, amount);
     }
 
@@ -414,7 +414,7 @@ public class DateUtils {
      * @return the new {@code Date} with the amount added
      * @throws IllegalArgumentException if the date is null
      */
-    public static Date addMonths(Date date, int amount) {
+    public static Date addMonths(final Date date, final int amount) {
         return add(date, Calendar.MONTH, amount);
     }
 
@@ -428,7 +428,7 @@ public class DateUtils {
      * @return the new {@code Date} with the amount added
      * @throws IllegalArgumentException if the date is null
      */
-    public static Date addWeeks(Date date, int amount) {
+    public static Date addWeeks(final Date date, final int amount) {
         return add(date, Calendar.WEEK_OF_YEAR, amount);
     }
 
@@ -442,7 +442,7 @@ public class DateUtils {
      * @return the new {@code Date} with the amount added
      * @throws IllegalArgumentException if the date is null
      */
-    public static Date addDays(Date date, int amount) {
+    public static Date addDays(final Date date, final int amount) {
         return add(date, Calendar.DAY_OF_MONTH, amount);
     }
 
@@ -456,7 +456,7 @@ public class DateUtils {
      * @return the new {@code Date} with the amount added
      * @throws IllegalArgumentException if the date is null
      */
-    public static Date addHours(Date date, int amount) {
+    public static Date addHours(final Date date, final int amount) {
         return add(date, Calendar.HOUR_OF_DAY, amount);
     }
 
@@ -470,7 +470,7 @@ public class DateUtils {
      * @return the new {@code Date} with the amount added
      * @throws IllegalArgumentException if the date is null
      */
-    public static Date addMinutes(Date date, int amount) {
+    public static Date addMinutes(final Date date, final int amount) {
         return add(date, Calendar.MINUTE, amount);
     }
 
@@ -484,7 +484,7 @@ public class DateUtils {
      * @return the new {@code Date} with the amount added
      * @throws IllegalArgumentException if the date is null
      */
-    public static Date addSeconds(Date date, int amount) {
+    public static Date addSeconds(final Date date, final int amount) {
         return add(date, Calendar.SECOND, amount);
     }
 
@@ -498,7 +498,7 @@ public class DateUtils {
      * @return the new {@code Date} with the amount added
      * @throws IllegalArgumentException if the date is null
      */
-    public static Date addMilliseconds(Date date, int amount) {
+    public static Date addMilliseconds(final Date date, final int amount) {
         return add(date, Calendar.MILLISECOND, amount);
     }
 
@@ -513,7 +513,7 @@ public class DateUtils {
      * @return the new {@code Date} with the amount added
      * @throws IllegalArgumentException if the date is null
      */
-    private static Date add(Date date, int calendarField, int amount) {
+    private static Date add(final Date date, final int calendarField, final int amount) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -534,7 +534,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is null
      * @since 2.4
      */
-    public static Date setYears(Date date, int amount) {
+    public static Date setYears(final Date date, final int amount) {
         return set(date, Calendar.YEAR, amount);
     }
 
@@ -549,7 +549,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is null
      * @since 2.4
      */
-    public static Date setMonths(Date date, int amount) {
+    public static Date setMonths(final Date date, final int amount) {
         return set(date, Calendar.MONTH, amount);
     }
 
@@ -564,7 +564,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is null
      * @since 2.4
      */
-    public static Date setDays(Date date, int amount) {
+    public static Date setDays(final Date date, final int amount) {
         return set(date, Calendar.DAY_OF_MONTH, amount);
     }
 
@@ -580,7 +580,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is null
      * @since 2.4
      */
-    public static Date setHours(Date date, int amount) {
+    public static Date setHours(final Date date, final int amount) {
         return set(date, Calendar.HOUR_OF_DAY, amount);
     }
 
@@ -595,7 +595,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is null
      * @since 2.4
      */
-    public static Date setMinutes(Date date, int amount) {
+    public static Date setMinutes(final Date date, final int amount) {
         return set(date, Calendar.MINUTE, amount);
     }
     
@@ -610,7 +610,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is null
      * @since 2.4
      */
-    public static Date setSeconds(Date date, int amount) {
+    public static Date setSeconds(final Date date, final int amount) {
         return set(date, Calendar.SECOND, amount);
     }
 
@@ -625,7 +625,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is null
      * @since 2.4
      */
-    public static Date setMilliseconds(Date date, int amount) {
+    public static Date setMilliseconds(final Date date, final int amount) {
         return set(date, Calendar.MILLISECOND, amount);
     } 
     
@@ -642,7 +642,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is null
      * @since 2.4
      */
-    private static Date set(Date date, int calendarField, int amount) {
+    private static Date set(final Date date, final int calendarField, final int amount) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -663,7 +663,7 @@ public class DateUtils {
      * @throws NullPointerException if null is passed in
      * @since 3.0
      */
-    public static Calendar toCalendar(Date date) {
+    public static Calendar toCalendar(final Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         return c;
@@ -696,7 +696,7 @@ public class DateUtils {
      * @return the different rounded date, not null
      * @throws ArithmeticException if the year is over 280 million
      */
-    public static Date round(Date date, int field) {
+    public static Date round(final Date date, final int field) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -733,7 +733,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is <code>null</code>
      * @throws ArithmeticException if the year is over 280 million
      */
-    public static Calendar round(Calendar date, int field) {
+    public static Calendar round(final Calendar date, final int field) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -770,7 +770,7 @@ public class DateUtils {
      * @throws ClassCastException if the object type is not a {@code Date} or {@code Calendar}
      * @throws ArithmeticException if the year is over 280 million
      */
-    public static Date round(Object date, int field) {
+    public static Date round(final Object date, final int field) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -799,7 +799,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is <code>null</code>
      * @throws ArithmeticException if the year is over 280 million
      */
-    public static Date truncate(Date date, int field) {
+    public static Date truncate(final Date date, final int field) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -824,7 +824,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is <code>null</code>
      * @throws ArithmeticException if the year is over 280 million
      */
-    public static Calendar truncate(Calendar date, int field) {
+    public static Calendar truncate(final Calendar date, final int field) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -849,7 +849,7 @@ public class DateUtils {
      * @throws ClassCastException if the object type is not a {@code Date} or {@code Calendar}
      * @throws ArithmeticException if the year is over 280 million
      */
-    public static Date truncate(Object date, int field) {
+    public static Date truncate(final Object date, final int field) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -879,7 +879,7 @@ public class DateUtils {
      * @throws ArithmeticException if the year is over 280 million
      * @since 2.5
      */
-    public static Date ceiling(Date date, int field) {
+    public static Date ceiling(final Date date, final int field) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -905,7 +905,7 @@ public class DateUtils {
      * @throws ArithmeticException if the year is over 280 million
      * @since 2.5
      */
-    public static Calendar ceiling(Calendar date, int field) {
+    public static Calendar ceiling(final Calendar date, final int field) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -931,7 +931,7 @@ public class DateUtils {
      * @throws ArithmeticException if the year is over 280 million
      * @since 2.5
      */
-    public static Date ceiling(Object date, int field) {
+    public static Date ceiling(final Object date, final int field) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -953,7 +953,7 @@ public class DateUtils {
      * @param modType  type to truncate, round or ceiling
      * @throws ArithmeticException if the year is over 280 million
      */
-    private static void modify(Calendar val, int field, int modType) {
+    private static void modify(final Calendar val, final int field, final int modType) {
         if (val.get(Calendar.YEAR) > 280000000) {
             throw new ArithmeticException("Calendar value too large for accurate calculations");
         }
@@ -1116,7 +1116,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is <code>null</code>
      * @throws IllegalArgumentException if the rangeStyle is invalid
      */
-    public static Iterator<Calendar> iterator(Date focus, int rangeStyle) {
+    public static Iterator<Calendar> iterator(final Date focus, final int rangeStyle) {
         if (focus == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -1149,7 +1149,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is <code>null</code>
      * @throws IllegalArgumentException if the rangeStyle is invalid
      */
-    public static Iterator<Calendar> iterator(Calendar focus, int rangeStyle) {
+    public static Iterator<Calendar> iterator(final Calendar focus, final int rangeStyle) {
         if (focus == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -1237,7 +1237,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is <code>null</code>
      * @throws ClassCastException if the object type is not a {@code Date} or {@code Calendar}
      */
-    public static Iterator<?> iterator(Object focus, int rangeStyle) {
+    public static Iterator<?> iterator(final Object focus, final int rangeStyle) {
         if (focus == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -1283,7 +1283,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-    public static long getFragmentInMilliseconds(Date date, int fragment) {
+    public static long getFragmentInMilliseconds(final Date date, final int fragment) {
         return getFragment(date, fragment, Calendar.MILLISECOND);    
     }
     
@@ -1323,7 +1323,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-    public static long getFragmentInSeconds(Date date, int fragment) {
+    public static long getFragmentInSeconds(final Date date, final int fragment) {
         return getFragment(date, fragment, Calendar.SECOND);
     }
     
@@ -1363,7 +1363,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-    public static long getFragmentInMinutes(Date date, int fragment) {
+    public static long getFragmentInMinutes(final Date date, final int fragment) {
         return getFragment(date, fragment, Calendar.MINUTE);
     }
     
@@ -1403,7 +1403,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-    public static long getFragmentInHours(Date date, int fragment) {
+    public static long getFragmentInHours(final Date date, final int fragment) {
         return getFragment(date, fragment, Calendar.HOUR_OF_DAY);
     }
     
@@ -1443,7 +1443,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-    public static long getFragmentInDays(Date date, int fragment) {
+    public static long getFragmentInDays(final Date date, final int fragment) {
         return getFragment(date, fragment, Calendar.DAY_OF_YEAR);
     }
 
@@ -1483,7 +1483,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-  public static long getFragmentInMilliseconds(Calendar calendar, int fragment) {
+  public static long getFragmentInMilliseconds(final Calendar calendar, final int fragment) {
     return getFragment(calendar, fragment, Calendar.MILLISECOND);
   }
     /**
@@ -1522,7 +1522,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-    public static long getFragmentInSeconds(Calendar calendar, int fragment) {
+    public static long getFragmentInSeconds(final Calendar calendar, final int fragment) {
         return getFragment(calendar, fragment, Calendar.SECOND);
     }
     
@@ -1562,7 +1562,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-    public static long getFragmentInMinutes(Calendar calendar, int fragment) {
+    public static long getFragmentInMinutes(final Calendar calendar, final int fragment) {
         return getFragment(calendar, fragment, Calendar.MINUTE);
     }
     
@@ -1602,7 +1602,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-    public static long getFragmentInHours(Calendar calendar, int fragment) {
+    public static long getFragmentInHours(final Calendar calendar, final int fragment) {
         return getFragment(calendar, fragment, Calendar.HOUR_OF_DAY);
     }
     
@@ -1644,7 +1644,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-    public static long getFragmentInDays(Calendar calendar, int fragment) {
+    public static long getFragmentInDays(final Calendar calendar, final int fragment) {
         return getFragment(calendar, fragment, Calendar.DAY_OF_YEAR);
     }
     
@@ -1659,7 +1659,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-    private static long getFragment(Date date, int fragment, int unit) {
+    private static long getFragment(final Date date, final int fragment, final int unit) {
         if(date == null) {
             throw  new IllegalArgumentException("The date must not be null");
         }
@@ -1679,7 +1679,7 @@ public class DateUtils {
      * fragment is not supported
      * @since 2.4
      */
-    private static long getFragment(Calendar calendar, int fragment, int unit) {
+    private static long getFragment(final Calendar calendar, final int fragment, final int unit) {
         if(calendar == null) {
             throw  new IllegalArgumentException("The date must not be null"); 
         }
@@ -1734,7 +1734,7 @@ public class DateUtils {
      * @see #truncatedEquals(Date, Date, int)
      * @since 3.0
      */
-    public static boolean truncatedEquals(Calendar cal1, Calendar cal2, int field) {
+    public static boolean truncatedEquals(final Calendar cal1, final Calendar cal2, final int field) {
         return truncatedCompareTo(cal1, cal2, field) == 0;
     }
 
@@ -1751,7 +1751,7 @@ public class DateUtils {
      * @see #truncatedEquals(Calendar, Calendar, int)
      * @since 3.0
      */
-    public static boolean truncatedEquals(Date date1, Date date2, int field) {
+    public static boolean truncatedEquals(final Date date1, final Date date2, final int field) {
         return truncatedCompareTo(date1, date2, field) == 0;
     }
 
@@ -1769,7 +1769,7 @@ public class DateUtils {
      * @see #truncatedCompareTo(Date, Date, int)
      * @since 3.0
      */
-    public static int truncatedCompareTo(Calendar cal1, Calendar cal2, int field) {
+    public static int truncatedCompareTo(final Calendar cal1, final Calendar cal2, final int field) {
         Calendar truncatedCal1 = truncate(cal1, field);
         Calendar truncatedCal2 = truncate(cal2, field);
         return truncatedCal1.compareTo(truncatedCal2);
@@ -1789,7 +1789,7 @@ public class DateUtils {
      * @see #truncatedCompareTo(Date, Date, int)
      * @since 3.0
      */
-    public static int truncatedCompareTo(Date date1, Date date2, int field) {
+    public static int truncatedCompareTo(final Date date1, final Date date2, final int field) {
         Date truncatedDate1 = truncate(date1, field);
         Date truncatedDate2 = truncate(date2, field);
         return truncatedDate1.compareTo(truncatedDate2);
@@ -1804,7 +1804,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if date can't be represented in milliseconds
      * @since 2.4 
      */
-    private static long getMillisPerUnit(int unit) {
+    private static long getMillisPerUnit(final int unit) {
         long result = Long.MAX_VALUE;
         switch (unit) {
             case Calendar.DAY_OF_YEAR:
@@ -1842,7 +1842,7 @@ public class DateUtils {
          * @param startFinal start date (inclusive)
          * @param endFinal end date (inclusive)
          */
-        DateIterator(Calendar startFinal, Calendar endFinal) {
+        DateIterator(final Calendar startFinal, final Calendar endFinal) {
             super();
             this.endFinal = endFinal;
             spot = startFinal;

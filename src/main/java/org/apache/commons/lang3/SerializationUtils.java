@@ -75,7 +75,7 @@ public class SerializationUtils {
      * @return the cloned object
      * @throws SerializationException (runtime) if the serialization fails
      */
-    public static <T extends Serializable> T clone(T object) {
+    public static <T extends Serializable> T clone(final T object) {
         if (object == null) {
             return null;
         }
@@ -127,7 +127,7 @@ public class SerializationUtils {
      * @throws IllegalArgumentException if {@code outputStream} is {@code null}
      * @throws SerializationException (runtime) if the serialization fails
      */
-    public static void serialize(Serializable obj, OutputStream outputStream) {
+    public static void serialize(final Serializable obj, final OutputStream outputStream) {
         if (outputStream == null) {
             throw new IllegalArgumentException("The OutputStream must not be null");
         }
@@ -158,7 +158,7 @@ public class SerializationUtils {
      * @return a byte[] with the converted Serializable
      * @throws SerializationException (runtime) if the serialization fails
      */
-    public static byte[] serialize(Serializable obj) {
+    public static byte[] serialize(final Serializable obj) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
         serialize(obj, baos);
         return baos.toByteArray();
@@ -197,7 +197,7 @@ public class SerializationUtils {
      */
     @SuppressWarnings("unchecked")
     // Don't warn about "(T) deserialize" because we want the avoid type casting call sites.
-    public static <T> T deserialize(InputStream inputStream) {
+    public static <T> T deserialize(final InputStream inputStream) {
         if (inputStream == null) {
             throw new IllegalArgumentException("The InputStream must not be null");
         }
@@ -243,7 +243,7 @@ public class SerializationUtils {
      */
     @SuppressWarnings("unchecked")
     // Don't warn about "(T) deserialize" because we want the avoid type casting call sites.
-    public static <T> T deserialize(byte[] objectData) {
+    public static <T> T deserialize(final byte[] objectData) {
         if (objectData == null) {
             throw new IllegalArgumentException("The byte[] must not be null");
         }
@@ -275,7 +275,7 @@ public class SerializationUtils {
          * @throws IOException if an I/O error occurs while reading stream header.
          * @see java.io.ObjectInputStream
          */
-        public ClassLoaderAwareObjectInputStream(InputStream in, ClassLoader classLoader) throws IOException {
+        public ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader) throws IOException {
             super(in);
             this.classLoader = classLoader;
 
@@ -299,7 +299,7 @@ public class SerializationUtils {
          * @throws ClassNotFoundException If class of a serialized object cannot be found.
          */
         @Override
-        protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
+        protected Class<?> resolveClass(final ObjectStreamClass desc) throws IOException, ClassNotFoundException {
             String name = desc.getName();
             try {
                 return Class.forName(name, false, classLoader);

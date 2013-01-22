@@ -252,7 +252,7 @@ public class EnumUtilsTest {
         assertArrayEquals(EnumUtils.generateBitVectors(Traffic.class, Traffic.RED, Traffic.AMBER, Traffic.GREEN, Traffic.GREEN), 7L);
     }
 
-    private void assertArrayEquals(long[] actual, long... expected) {
+    private void assertArrayEquals(final long[] actual, final long... expected) {
         Assert.assertArrayEquals(expected, actual);
     }
 

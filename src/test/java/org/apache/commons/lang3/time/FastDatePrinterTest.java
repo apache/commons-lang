@@ -43,19 +43,19 @@ public class FastDatePrinterTest {
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
     private static final Locale SWEDEN = new Locale("sv", "SE");
 
-        DatePrinter getInstance(String format) {
+        DatePrinter getInstance(final String format) {
         return getInstance(format, TimeZone.getDefault(), Locale.getDefault());
     }
 
-    private DatePrinter getDateInstance(int dateStyle, Locale locale) {
+    private DatePrinter getDateInstance(final int dateStyle, final Locale locale) {
         return getInstance(FormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale), TimeZone.getDefault(), Locale.getDefault());
     }
 
-    private DatePrinter getInstance(String format, Locale locale) {
+    private DatePrinter getInstance(final String format, final Locale locale) {
         return getInstance(format, TimeZone.getDefault(), locale);
     }
 
-    private DatePrinter getInstance(String format, TimeZone timeZone) {
+    private DatePrinter getInstance(final String format, final TimeZone timeZone) {
         return getInstance(format, timeZone, Locale.getDefault());
     }
 
@@ -66,7 +66,7 @@ public class FastDatePrinterTest {
      * @param locale
      * @return
      */
-    protected DatePrinter getInstance(String format, TimeZone timeZone, Locale locale) {
+    protected DatePrinter getInstance(final String format, final TimeZone timeZone, final Locale locale) {
         return new FastDatePrinter(format, timeZone, locale);
     }
 

@@ -71,7 +71,7 @@ public class CharUtilsPerfRun {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new CharUtilsPerfRun().run();
     }
 
@@ -122,7 +122,7 @@ public class CharUtilsPerfRun {
         this.printlnTotal("run_CharSet", start);
     }
 
-    private int run_CharSet(int loopCount) {
+    private int run_CharSet(final int loopCount) {
         int t = 0;
         for (int i = 0; i < loopCount; i++) {
             for (char ch : CHAR_SAMPLES) {
@@ -133,7 +133,7 @@ public class CharUtilsPerfRun {
         return t;
     }
 
-    private int run_CharUtils_isAsciiNumeric(int loopCount) {
+    private int run_CharUtils_isAsciiNumeric(final int loopCount) {
         int t = 0;
         for (int i = 0; i < loopCount; i++) {
             for (char ch : CHAR_SAMPLES) {
@@ -144,7 +144,7 @@ public class CharUtilsPerfRun {
         return t;
     }
 
-    private int run_inlined_CharUtils_isAsciiNumeric(int loopCount) {
+    private int run_inlined_CharUtils_isAsciiNumeric(final int loopCount) {
         int t = 0;
         for (int i = 0; i < loopCount; i++) {
             for (char ch : CHAR_SAMPLES) {
@@ -155,7 +155,7 @@ public class CharUtilsPerfRun {
         return t;
     }
 
-    private void printlnTotal(String prefix, long start) {
+    private void printlnTotal(final String prefix, final long start) {
         long total = System.currentTimeMillis() - start;
         System.out.println(prefix + ": " + NumberFormat.getInstance().format(total) + " milliseconds.");
     }

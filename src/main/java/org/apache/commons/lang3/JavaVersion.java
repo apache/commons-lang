@@ -101,7 +101,7 @@ public enum JavaVersion {
      * @param requiredVersion  the version to check against, not null
      * @return true if this version is equal to or greater than the specified version
      */
-    public boolean atLeast(JavaVersion requiredVersion) {
+    public boolean atLeast(final JavaVersion requiredVersion) {
         return this.value >= requiredVersion.value;
     }
 

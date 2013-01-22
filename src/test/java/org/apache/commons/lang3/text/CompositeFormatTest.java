@@ -38,24 +38,24 @@ public class CompositeFormatTest {
 
         Format parser = new Format() {
             @Override
-            public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
+            public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
                 throw new UnsupportedOperationException("Not implemented");
             }
 
             @Override
-            public Object parseObject(String source, ParsePosition pos) {
+            public Object parseObject(final String source, final ParsePosition pos) {
                 return null;    // do nothing
             }
         };
 
         Format formatter = new Format() {
             @Override
-            public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
+            public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
                 return null;    // do nothing
             }
 
             @Override
-            public Object parseObject(String source, ParsePosition pos) {
+            public Object parseObject(final String source, final ParsePosition pos) {
                 throw new UnsupportedOperationException("Not implemented");
             }
         };

@@ -56,27 +56,27 @@ public class MethodUtilsTest {
             return "bar()";
         }
 
-        public static String bar(int i) {
+        public static String bar(final int i) {
             return "bar(int)";
         }
 
-        public static String bar(Integer i) {
+        public static String bar(final Integer i) {
             return "bar(Integer)";
         }
 
-        public static String bar(double d) {
+        public static String bar(final double d) {
             return "bar(double)";
         }
 
-        public static String bar(String s) {
+        public static String bar(final String s) {
             return "bar(String)";
         }
 
-        public static String bar(Object o) {
+        public static String bar(final Object o) {
             return "bar(Object)";
         }
         
-        public static void oneParameterStatic(String s) {
+        public static void oneParameterStatic(final String s) {
             // empty
         }
 
@@ -89,27 +89,27 @@ public class MethodUtilsTest {
             return "foo()";
         }
 
-        public String foo(int i) {
+        public String foo(final int i) {
             return "foo(int)";
         }
 
-        public String foo(Integer i) {
+        public String foo(final Integer i) {
             return "foo(Integer)";
         }
 
-        public String foo(double d) {
+        public String foo(final double d) {
             return "foo(double)";
         }
 
-        public String foo(String s) {
+        public String foo(final String s) {
             return "foo(String)";
         }
 
-        public String foo(Object o) {
+        public String foo(final Object o) {
             return "foo(Object)";
         }
         
-        public void oneParameter(String s) {
+        public void oneParameter(final String s) {
             // empty
         }
     }
@@ -121,7 +121,7 @@ public class MethodUtilsTest {
         }
 
         @Override
-        public void setValue(Object value) {
+        public void setValue(final Object value) {
         }
     }
 
@@ -377,8 +377,8 @@ public class MethodUtilsTest {
                 singletonArray(null), singletonArray(String.class));
     }
 
-    private void expectMatchingAccessibleMethodParameterTypes(Class<?> cls,
-            String methodName, Class<?>[] requestTypes, Class<?>[] actualTypes) {
+    private void expectMatchingAccessibleMethodParameterTypes(final Class<?> cls,
+            final String methodName, final Class<?>[] requestTypes, final Class<?>[] actualTypes) {
         Method m = MethodUtils.getMatchingAccessibleMethod(cls, methodName,
                 requestTypes);
         assertTrue(toString(m.getParameterTypes()) + " not equals "
@@ -386,11 +386,11 @@ public class MethodUtilsTest {
                 .getParameterTypes()));
     }
 
-    private String toString(Class<?>[] c) {
+    private String toString(final Class<?>[] c) {
         return Arrays.asList(c).toString();
     }
 
-    private Class<?>[] singletonArray(Class<?> c) {
+    private Class<?>[] singletonArray(final Class<?> c) {
         Class<?>[] result = classCache.get(c);
         if (result == null) {
             result = new Class[] { c };
@@ -400,12 +400,12 @@ public class MethodUtilsTest {
     }
 
     public static class InheritanceBean {
-        public void testOne(Object obj) {}
-        public void testOne(GrandParentObject obj) {}
-        public void testOne(ParentObject obj) {}
-        public void testTwo(Object obj) {}
-        public void testTwo(GrandParentObject obj) {}
-        public void testTwo(ChildInterface obj) {}
+        public void testOne(final Object obj) {}
+        public void testOne(final GrandParentObject obj) {}
+        public void testOne(final ParentObject obj) {}
+        public void testTwo(final Object obj) {}
+        public void testTwo(final GrandParentObject obj) {}
+        public void testTwo(final ChildInterface obj) {}
     }
     
     interface ChildInterface {}    

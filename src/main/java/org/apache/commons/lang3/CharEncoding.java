@@ -91,7 +91,7 @@ public class CharEncoding {
      * @param name  the name of the requested charset; may be either a canonical name or an alias, null returns false
      * @return {@code true} if the charset is available in the current Java virtual machine
      */
-    public static boolean isSupported(String name) {
+    public static boolean isSupported(final String name) {
         if (name == null) {
             return false;
         }
