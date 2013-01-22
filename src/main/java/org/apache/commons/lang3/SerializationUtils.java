@@ -266,7 +266,7 @@ public class SerializationUtils {
      static class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
         private static final Map<String, Class<?>> primitiveTypes = 
                 new HashMap<String, Class<?>>();
-        private ClassLoader classLoader;
+        private final ClassLoader classLoader;
         
         /**
          * Constructor.

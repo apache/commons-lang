@@ -466,7 +466,7 @@ public class StringUtilsEqualsIndexOfTest  {
     // other object be an instance of CustomCharSequence, even though, as char sequences,
     // `seq` may equal the other object.
     private static class CustomCharSequence implements CharSequence {
-        private CharSequence seq;
+        private final CharSequence seq;
 
         public CustomCharSequence(CharSequence seq) {
             this.seq = seq;

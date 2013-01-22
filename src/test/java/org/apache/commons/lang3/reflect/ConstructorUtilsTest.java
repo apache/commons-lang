@@ -34,7 +34,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
  */
 public class ConstructorUtilsTest {
     public static class TestBean {
-        private String toString;
+        private final String toString;
 
         public TestBean() {
             toString = "()";
@@ -72,7 +72,7 @@ public class ConstructorUtilsTest {
         }
     }
 
-    private Map<Class<?>, Class<?>[]> classCache;
+    private final Map<Class<?>, Class<?>[]> classCache;
 
     public ConstructorUtilsTest() {
         classCache = new HashMap<Class<?>, Class<?>[]>();

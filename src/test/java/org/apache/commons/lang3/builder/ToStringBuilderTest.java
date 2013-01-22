@@ -359,14 +359,14 @@ public class ToStringBuilderTest {
 
     static class ReflectionTestFixtureA {
         @SuppressWarnings("unused")
-        private char a='a';
+        private final char a='a';
         @SuppressWarnings("unused")
         private transient char transientA='t';
     }
 
     static class ReflectionTestFixtureB extends ReflectionTestFixtureA {
         @SuppressWarnings("unused")
-        private char b='b';
+        private final char b='b';
         @SuppressWarnings("unused")
         private transient char transientB='t';
     }
@@ -489,7 +489,7 @@ public class ToStringBuilderTest {
 
     private static class SelfInstanceVarReflectionTestFixture {
         @SuppressWarnings("unused")
-        private SelfInstanceVarReflectionTestFixture typeIsSelf;
+        private final SelfInstanceVarReflectionTestFixture typeIsSelf;
 
         public SelfInstanceVarReflectionTestFixture() {
             this.typeIsSelf = this;
@@ -503,8 +503,8 @@ public class ToStringBuilderTest {
 
     private static class SelfInstanceTwoVarsReflectionTestFixture {
         @SuppressWarnings("unused")
-        private SelfInstanceTwoVarsReflectionTestFixture typeIsSelf;
-        private String otherType = "The Other Type";
+        private final SelfInstanceTwoVarsReflectionTestFixture typeIsSelf;
+        private final String otherType = "The Other Type";
 
         public SelfInstanceTwoVarsReflectionTestFixture() {
             this.typeIsSelf = this;

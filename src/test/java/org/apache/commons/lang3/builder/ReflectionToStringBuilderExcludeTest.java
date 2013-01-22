@@ -33,10 +33,10 @@ public class ReflectionToStringBuilderExcludeTest {
 
     class TestFixture {
         @SuppressWarnings("unused")
-        private String secretField = SECRET_VALUE;
+        private final String secretField = SECRET_VALUE;
 
         @SuppressWarnings("unused")
-        private String showField = NOT_SECRET_VALUE;
+        private final String showField = NOT_SECRET_VALUE;
     }
 
     private static final String NOT_SECRET_FIELD = "showField";

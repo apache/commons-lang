@@ -128,7 +128,7 @@ public class EqualsBuilderTest {
 
     static class TestTTLeafObject extends TestTTSubObject {
         @SuppressWarnings("unused")
-        private int leafValue;
+        private final int leafValue;
         public TestTTLeafObject(int a, int t, int tt, int leafValue) {
             super(a, t, tt);
             this.leafValue = leafValue;
@@ -938,7 +938,7 @@ public class EqualsBuilderTest {
     }
     
     public static class TestACanEqualB {
-        private int a;
+        private final int a;
 
         public TestACanEqualB(int a) {
             this.a = a;
@@ -969,7 +969,7 @@ public class EqualsBuilderTest {
     }
 
     public static class TestBCanEqualA {
-        private int b;
+        private final int b;
 
         public TestBCanEqualA(int b) {
             this.b = b;
@@ -1065,11 +1065,11 @@ public class EqualsBuilderTest {
 
     static class TestObjectWithMultipleFields {
         @SuppressWarnings("unused")
-        private TestObject one;
+        private final TestObject one;
         @SuppressWarnings("unused")
-        private TestObject two;
+        private final TestObject two;
         @SuppressWarnings("unused")
-        private TestObject three;
+        private final TestObject three;
 
         public TestObjectWithMultipleFields(int one, int two, int three) {
             this.one = new TestObject(one);
@@ -1111,7 +1111,7 @@ public class EqualsBuilderTest {
         @SuppressWarnings("unused")
         private TestObjectReference reference;
         @SuppressWarnings("unused")
-        private TestObject one;
+        private final TestObject one;
 
         public TestObjectReference(int one) {
             this.one = new TestObject(one);
