@@ -285,7 +285,7 @@ public class NumberUtilsTest {
         this.testCreateFloatFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
     }
 
-    protected void testCreateFloatFailure(String str) {
+    protected void testCreateFloatFailure(final String str) {
         try {
             Float value = NumberUtils.createFloat(str);
             fail("createFloat(blank) failed: " + value);
@@ -305,7 +305,7 @@ public class NumberUtilsTest {
         this.testCreateDoubleFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
     }
 
-    protected void testCreateDoubleFailure(String str) {
+    protected void testCreateDoubleFailure(final String str) {
         try {
             Double value = NumberUtils.createDouble(str);
             fail("createDouble(blank) failed: " + value);
@@ -325,7 +325,7 @@ public class NumberUtilsTest {
         this.testCreateIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
     }
 
-    protected void testCreateIntegerFailure(String str) {
+    protected void testCreateIntegerFailure(final String str) {
         try {
             Integer value = NumberUtils.createInteger(str);
             fail("createInteger(blank) failed: " + value);
@@ -345,7 +345,7 @@ public class NumberUtilsTest {
         this.testCreateLongFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
     }
 
-    protected void testCreateLongFailure(String str) {
+    protected void testCreateLongFailure(final String str) {
         try {
             Long value = NumberUtils.createLong(str);
             fail("createLong(blank) failed: " + value);
@@ -377,7 +377,7 @@ public class NumberUtilsTest {
         testCreateBigIntegerFailure("-0x");
     }
 
-    protected void testCreateBigIntegerFailure(String str) {
+    protected void testCreateBigIntegerFailure(final String str) {
         try {
             BigInteger value = NumberUtils.createBigInteger(str);
             fail("createBigInteger(blank) failed: " + value);
@@ -403,7 +403,7 @@ public class NumberUtilsTest {
         this.testCreateBigDecimalFailure("++0");
     }
 
-    protected void testCreateBigDecimalFailure(String str) {
+    protected void testCreateBigDecimalFailure(final String str) {
         try {
             BigDecimal value = NumberUtils.createBigDecimal(str);
             fail("createBigDecimal(blank) failed: " + value);
@@ -1254,7 +1254,7 @@ public class NumberUtilsTest {
         assertFalse("isNumber(String) LANG-664 failed", NumberUtils.isNumber(val));
     }
 
-    private boolean checkCreateNumber(String val) {
+    private boolean checkCreateNumber(final String val) {
         try {
             Object obj = NumberUtils.createNumber(val);
             if (obj == null) {

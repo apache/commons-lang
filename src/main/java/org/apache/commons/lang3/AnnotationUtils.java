@@ -69,7 +69,7 @@ public class AnnotationUtils {
          * {@inheritDoc}
          */
         @Override
-        protected String getShortClassName(java.lang.Class<?> cls) {
+        protected String getShortClassName(final java.lang.Class<?> cls) {
             Class<? extends Annotation> annotationType = null;
             for (Class<?> iface : ClassUtils.getAllInterfaces(cls)) {
                 if (Annotation.class.isAssignableFrom(iface)) {
@@ -87,7 +87,7 @@ public class AnnotationUtils {
          * {@inheritDoc}
          */
         @Override
-        protected void appendDetail(StringBuffer buffer, String fieldName, Object value) {
+        protected void appendDetail(final StringBuffer buffer, final String fieldName, Object value) {
             if (value instanceof Annotation) {
                 value = AnnotationUtils.toString((Annotation) value);
             }
@@ -118,7 +118,7 @@ public class AnnotationUtils {
      * @return {@code true} if the two annotations are {@code equal} or both
      * {@code null}
      */
-    public static boolean equals(Annotation a1, Annotation a2) {
+    public static boolean equals(final Annotation a1, final Annotation a2) {
         if (a1 == a2) {
             return true;
         }
@@ -163,7 +163,7 @@ public class AnnotationUtils {
      * @throws IllegalStateException if an annotation method invocation returns
      * {@code null}
      */
-    public static int hashCode(Annotation a) {
+    public static int hashCode(final Annotation a) {
         int result = 0;
         Class<? extends Annotation> type = a.annotationType();
         for (Method m : type.getDeclaredMethods()) {
@@ -238,7 +238,7 @@ public class AnnotationUtils {
      * @param value the value of the member
      * @return a hash code for this member
      */
-    private static int hashMember(String name, Object value) {
+    private static int hashMember(final String name, final Object value) {
         int part1 = name.hashCode() * 127;
         if (value.getClass().isArray()) {
             return part1 ^ arrayMemberHash(value.getClass().getComponentType(), value);
@@ -259,7 +259,7 @@ public class AnnotationUtils {
      * @param o2 the second object
      * @return a flag whether these objects are equal
      */
-    private static boolean memberEquals(Class<?> type, Object o1, Object o2) {
+    private static boolean memberEquals(final Class<?> type, final Object o1, final Object o2) {
         if (o1 == o2) {
             return true;
         }
@@ -283,7 +283,7 @@ public class AnnotationUtils {
      * @param o2 the second object
      * @return a flag whether these objects are equal
      */
-    private static boolean arrayMemberEquals(Class<?> componentType, Object o1, Object o2) {
+    private static boolean arrayMemberEquals(final Class<?> componentType, final Object o1, final Object o2) {
         if (componentType.isAnnotation()) {
             return annotationArrayMemberEquals((Annotation[]) o1, (Annotation[]) o2);
         }
@@ -321,7 +321,7 @@ public class AnnotationUtils {
      * @param a2 the second array
      * @return a flag whether these arrays are equal
      */
-    private static boolean annotationArrayMemberEquals(Annotation[] a1, Annotation[] a2) {
+    private static boolean annotationArrayMemberEquals(final Annotation[] a1, final Annotation[] a2) {
         if (a1.length != a2.length) {
             return false;
         }
@@ -340,7 +340,7 @@ public class AnnotationUtils {
      * @param o the array
      * @return a hash code for the specified array
      */
-    private static int arrayMemberHash(Class<?> componentType, Object o) {
+    private static int arrayMemberHash(final Class<?> componentType, final Object o) {
         if (componentType.equals(Byte.TYPE)) {
             return Arrays.hashCode((byte[]) o);
         }

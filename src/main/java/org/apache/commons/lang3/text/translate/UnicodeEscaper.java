@@ -48,7 +48,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @param above int value representing the highest codepoint boundary
      * @param between whether to escape between the boundaries or outside them
      */
-    protected UnicodeEscaper(int below, int above, boolean between) {
+    protected UnicodeEscaper(final int below, final int above, final boolean between) {
         this.below = below;
         this.above = above;
         this.between = between;
@@ -60,7 +60,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @param codepoint below which to escape
      * @return the newly created {@code UnicodeEscaper} instance
      */
-    public static UnicodeEscaper below(int codepoint) {
+    public static UnicodeEscaper below(final int codepoint) {
         return outsideOf(codepoint, Integer.MAX_VALUE);
     }
 
@@ -70,7 +70,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @param codepoint above which to escape
      * @return the newly created {@code UnicodeEscaper} instance
      */
-    public static UnicodeEscaper above(int codepoint) {
+    public static UnicodeEscaper above(final int codepoint) {
         return outsideOf(0, codepoint);
     }
 
@@ -81,7 +81,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @param codepointHigh above which to escape
      * @return the newly created {@code UnicodeEscaper} instance
      */
-    public static UnicodeEscaper outsideOf(int codepointLow, int codepointHigh) {
+    public static UnicodeEscaper outsideOf(final int codepointLow, final int codepointHigh) {
         return new UnicodeEscaper(codepointLow, codepointHigh, false);
     }
 
@@ -92,7 +92,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @param codepointHigh below which to escape
      * @return the newly created {@code UnicodeEscaper} instance
      */
-    public static UnicodeEscaper between(int codepointLow, int codepointHigh) {
+    public static UnicodeEscaper between(final int codepointLow, final int codepointHigh) {
         return new UnicodeEscaper(codepointLow, codepointHigh, true);
     }
 
@@ -100,7 +100,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * {@inheritDoc}
      */
     @Override
-    public boolean translate(int codepoint, Writer out) throws IOException {
+    public boolean translate(final int codepoint, final Writer out) throws IOException {
         if (between) {
             if (codepoint < below || codepoint > above) {
                 return false;
@@ -126,7 +126,7 @@ public class UnicodeEscaper extends CodePointTranslator {
         return true;
     }
 
-    protected String toUtf16Escape(int codepoint) {
+    protected String toUtf16Escape(final int codepoint) {
         return "\\u" + hex(codepoint);
     }
 }

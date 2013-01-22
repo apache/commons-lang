@@ -52,7 +52,7 @@ public class CharSequenceUtils {
      * @throws IndexOutOfBoundsException if {@code start} is negative or if 
      *  {@code start} is greater than {@code length()}
      */
-    public static CharSequence subSequence(CharSequence cs, int start) {
+    public static CharSequence subSequence(final CharSequence cs, final int start) {
         return cs == null ? null : cs.subSequence(start, cs.length());
     }
 
@@ -66,7 +66,7 @@ public class CharSequenceUtils {
      * @param start  the start index, negative starts at the string start
      * @return the index where the search char was found, -1 if not found
      */
-    static int indexOf(CharSequence cs, int searchChar, int start) {
+    static int indexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {
             return ((String) cs).indexOf(searchChar, start);
         } else {
@@ -91,7 +91,7 @@ public class CharSequenceUtils {
      * @param start the start index
      * @return the index where the search sequence was found
      */
-    static int indexOf(CharSequence cs, CharSequence searchChar, int start) {
+    static int indexOf(final CharSequence cs, final CharSequence searchChar, final int start) {
         return cs.toString().indexOf(searchChar.toString(), start);
 //        if (cs instanceof String && searchChar instanceof String) {
 //            // TODO: Do we assume searchChar is usually relatively small;
@@ -113,7 +113,7 @@ public class CharSequenceUtils {
      * @param start  the start index, negative returns -1, beyond length starts at end
      * @return the index where the search char was found, -1 if not found
      */
-    static int lastIndexOf(CharSequence cs, int searchChar, int start) {
+    static int lastIndexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {
             return ((String) cs).lastIndexOf(searchChar, start);
         } else {
@@ -141,7 +141,7 @@ public class CharSequenceUtils {
      * @param start the start index
      * @return the index where the search sequence was found
      */
-    static int lastIndexOf(CharSequence cs, CharSequence searchChar, int start) {
+    static int lastIndexOf(final CharSequence cs, final CharSequence searchChar, final int start) {
         return cs.toString().lastIndexOf(searchChar.toString(), start);
 //        if (cs instanceof String && searchChar instanceof String) {
 //            // TODO: Do we assume searchChar is usually relatively small;
@@ -160,7 +160,7 @@ public class CharSequenceUtils {
      * @param cs the {@code CharSequence} to be processed
      * @return the resulting char array
      */
-    static char[] toCharArray(CharSequence cs) {
+    static char[] toCharArray(final CharSequence cs) {
         if (cs instanceof String) {
             return ((String) cs).toCharArray();
         } else {
@@ -184,8 +184,8 @@ public class CharSequenceUtils {
      * @param length character length of the region
      * @return whether the region matched
      */
-    static boolean regionMatches(CharSequence cs, boolean ignoreCase, int thisStart,
-            CharSequence substring, int start, int length)    {
+    static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
+            final CharSequence substring, final int start, final int length)    {
         if (cs instanceof String && substring instanceof String) {
             return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
         } else {

@@ -150,8 +150,8 @@ public class TimedSemaphoreTest {
      * @param service the mock
      * @param future the future
      */
-    private void prepareStartTimer(ScheduledExecutorService service,
-            ScheduledFuture<?> future) {
+    private void prepareStartTimer(final ScheduledExecutorService service,
+            final ScheduledFuture<?> future) {
         service.scheduleAtFixedRate((Runnable) EasyMock.anyObject(), EasyMock
                 .eq(PERIOD), EasyMock.eq(PERIOD), EasyMock.eq(UNIT));
         EasyMock.expectLastCall().andReturn(future);
@@ -380,13 +380,13 @@ public class TimedSemaphoreTest {
         /** Counter for the endOfPeriod() invocations. */
         private int periodEnds;
 
-        public TimedSemaphoreTestImpl(long timePeriod, TimeUnit timeUnit,
-                int limit) {
+        public TimedSemaphoreTestImpl(final long timePeriod, final TimeUnit timeUnit,
+                final int limit) {
             super(timePeriod, timeUnit, limit);
         }
 
-        public TimedSemaphoreTestImpl(ScheduledExecutorService service,
-                long timePeriod, TimeUnit timeUnit, int limit) {
+        public TimedSemaphoreTestImpl(final ScheduledExecutorService service,
+                final long timePeriod, final TimeUnit timeUnit, final int limit) {
             super(service, timePeriod, timeUnit, limit);
         }
 
@@ -448,7 +448,7 @@ public class TimedSemaphoreTest {
         /** The number of invocations of the latch. */
         private final int latchCount;
 
-        public SemaphoreThread(TimedSemaphore b, CountDownLatch l, int c, int lc) {
+        public SemaphoreThread(final TimedSemaphore b, final CountDownLatch l, final int c, final int lc) {
             semaphore = b;
             latch = l;
             count = c;

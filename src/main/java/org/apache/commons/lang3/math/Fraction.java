@@ -120,7 +120,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @param numerator  the numerator, for example the three in 'three sevenths'
      * @param denominator  the denominator, for example the seven in 'three sevenths'
      */
-    private Fraction(int numerator, int denominator) {
+    private Fraction(final int numerator, final int denominator) {
         super();
         this.numerator = numerator;
         this.denominator = denominator;
@@ -169,7 +169,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the resulting numerator exceeds 
      *  <code>Integer.MAX_VALUE</code>
      */
-    public static Fraction getFraction(int whole, int numerator, int denominator) {
+    public static Fraction getFraction(final int whole, final int numerator, final int denominator) {
         if (denominator == 0) {
             throw new ArithmeticException("The denominator must not be zero");
         }
@@ -543,7 +543,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the resulting numerator or denominator exceeds
      *  <code>Integer.MAX_VALUE</code>
      */
-    public Fraction pow(int power) {
+    public Fraction pow(final int power) {
         if (power == 1) {
             return this;
         } else if (power == 0) {
@@ -636,7 +636,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the result can not be represented as
      *                             an int
      */
-    private static int mulAndCheck(int x, int y) {
+    private static int mulAndCheck(final int x, final int y) {
         long m = (long)x*(long)y;
         if (m < Integer.MIN_VALUE ||
             m > Integer.MAX_VALUE) {
@@ -654,7 +654,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the result can not be represented as
      * an int
      */
-    private static int mulPosAndCheck(int x, int y) {
+    private static int mulPosAndCheck(final int x, final int y) {
         /* assert x>=0 && y>=0; */
         long m = (long)x*(long)y;
         if (m > Integer.MAX_VALUE) {
@@ -672,7 +672,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the result can not be represented as
      * an int
      */
-    private static int addAndCheck(int x, int y) {
+    private static int addAndCheck(final int x, final int y) {
         long s = (long)x+(long)y;
         if (s < Integer.MIN_VALUE ||
             s > Integer.MAX_VALUE) {
@@ -690,7 +690,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the result can not be represented as
      * an int
      */
-    private static int subAndCheck(int x, int y) {
+    private static int subAndCheck(final int x, final int y) {
         long s = (long)x-(long)y;
         if (s < Integer.MIN_VALUE ||
             s > Integer.MAX_VALUE) {
@@ -709,7 +709,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the resulting numerator or denominator exceeds
      *  <code>Integer.MAX_VALUE</code>
      */
-    public Fraction add(Fraction fraction) {
+    public Fraction add(final Fraction fraction) {
         return addSub(fraction, true /* add */);
     }
 
@@ -723,7 +723,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the resulting numerator or denominator
      *   cannot be represented in an <code>int</code>.
      */
-    public Fraction subtract(Fraction fraction) {
+    public Fraction subtract(final Fraction fraction) {
         return addSub(fraction, false /* subtract */);
     }
 
@@ -737,7 +737,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the resulting numerator or denominator
      *   cannot be represented in an <code>int</code>.
      */
-    private Fraction addSub(Fraction fraction, boolean isAdd) {
+    private Fraction addSub(final Fraction fraction, final boolean isAdd) {
         if (fraction == null) {
             throw new IllegalArgumentException("The fraction must not be null");
         }
@@ -793,7 +793,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the resulting numerator or denominator exceeds
      *  <code>Integer.MAX_VALUE</code>
      */
-    public Fraction multiplyBy(Fraction fraction) {
+    public Fraction multiplyBy(final Fraction fraction) {
         if (fraction == null) {
             throw new IllegalArgumentException("The fraction must not be null");
         }
@@ -819,7 +819,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the resulting numerator or denominator exceeds
      *  <code>Integer.MAX_VALUE</code>
      */
-    public Fraction divideBy(Fraction fraction) {
+    public Fraction divideBy(final Fraction fraction) {
         if (fraction == null) {
             throw new IllegalArgumentException("The fraction must not be null");
         }
@@ -841,7 +841,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @return <code>true</code> if this object is equal
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == this) {
             return true;
         }
@@ -880,7 +880,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws NullPointerException if the object is <code>null</code>
      */
     @Override
-    public int compareTo(Fraction other) {
+    public int compareTo(final Fraction other) {
         if (this==other) {
             return 0;
         }

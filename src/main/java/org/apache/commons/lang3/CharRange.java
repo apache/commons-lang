@@ -64,7 +64,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @param end  last character, inclusive, in this range
      * @param negated  true to express everything except the range
      */
-    private CharRange(char start, char end, boolean negated) {
+    private CharRange(char start, char end, final boolean negated) {
         super();
         if (start > end) {
             char temp = start;
@@ -85,7 +85,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
-    public static CharRange is(char ch) {
+    public static CharRange is(final char ch) {
         return new CharRange(ch, ch, false);
     }
 
@@ -97,7 +97,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
-    public static CharRange isNot(char ch) {
+    public static CharRange isNot(final char ch) {
         return new CharRange(ch, ch, true);
     }
 
@@ -110,7 +110,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
-    public static CharRange isIn(char start, char end) {
+    public static CharRange isIn(final char start, final char end) {
         return new CharRange(start, end, false);
     }
 
@@ -123,7 +123,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
-    public static CharRange isNotIn(char start, char end) {
+    public static CharRange isNotIn(final char start, final char end) {
         return new CharRange(start, end, true);
     }
 
@@ -167,7 +167,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @param ch  the character to check
      * @return {@code true} if this range contains the input character
      */
-    public boolean contains(char ch) {
+    public boolean contains(final char ch) {
         return (ch >= start && ch <= end) != negated;
     }
 
@@ -179,7 +179,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @return {@code true} if this range entirely contains the input range
      * @throws IllegalArgumentException if {@code null} input
      */
-    public boolean contains(CharRange range) {
+    public boolean contains(final CharRange range) {
         if (range == null) {
             throw new IllegalArgumentException("The Range must not be null");
         }
@@ -205,7 +205,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @return true if equal
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == this) {
             return true;
         }
@@ -278,7 +278,7 @@ final class CharRange implements Iterable<Character>, Serializable {
          *
          * @param r The character range
          */
-        private CharacterIterator(CharRange r) {
+        private CharacterIterator(final CharRange r) {
             range = r;
             hasNext = true;
 

@@ -127,7 +127,7 @@ public class DateFormatUtils {
      * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
      */
-    public static String formatUTC(long millis, String pattern) {
+    public static String formatUTC(final long millis, final String pattern) {
         return format(new Date(millis), pattern, UTC_TIME_ZONE, null);
     }
 
@@ -138,7 +138,7 @@ public class DateFormatUtils {
      * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
      */
-    public static String formatUTC(Date date, String pattern) {
+    public static String formatUTC(final Date date, final String pattern) {
         return format(date, pattern, UTC_TIME_ZONE, null);
     }
     
@@ -150,7 +150,7 @@ public class DateFormatUtils {
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */
-    public static String formatUTC(long millis, String pattern, Locale locale) {
+    public static String formatUTC(final long millis, final String pattern, final Locale locale) {
         return format(new Date(millis), pattern, UTC_TIME_ZONE, locale);
     }
 
@@ -162,7 +162,7 @@ public class DateFormatUtils {
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */
-    public static String formatUTC(Date date, String pattern, Locale locale) {
+    public static String formatUTC(final Date date, final String pattern, final Locale locale) {
         return format(date, pattern, UTC_TIME_ZONE, locale);
     }
     
@@ -173,7 +173,7 @@ public class DateFormatUtils {
      * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
      */
-    public static String format(long millis, String pattern) {
+    public static String format(final long millis, final String pattern) {
         return format(new Date(millis), pattern, null, null);
     }
 
@@ -184,7 +184,7 @@ public class DateFormatUtils {
      * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
      */
-    public static String format(Date date, String pattern) {
+    public static String format(final Date date, final String pattern) {
         return format(date, pattern, null, null);
     }
 
@@ -197,7 +197,7 @@ public class DateFormatUtils {
      * @see FastDateFormat#format(Calendar)
      * @since 2.4
      */
-    public static String format(Calendar calendar, String pattern) {
+    public static String format(final Calendar calendar, final String pattern) {
         return format(calendar, pattern, null, null);
     }
     
@@ -209,7 +209,7 @@ public class DateFormatUtils {
      * @param timeZone  the time zone  to use, may be <code>null</code>
      * @return the formatted date
      */
-    public static String format(long millis, String pattern, TimeZone timeZone) {
+    public static String format(final long millis, final String pattern, final TimeZone timeZone) {
         return format(new Date(millis), pattern, timeZone, null);
     }
 
@@ -221,7 +221,7 @@ public class DateFormatUtils {
      * @param timeZone  the time zone  to use, may be <code>null</code>
      * @return the formatted date
      */
-    public static String format(Date date, String pattern, TimeZone timeZone) {
+    public static String format(final Date date, final String pattern, final TimeZone timeZone) {
         return format(date, pattern, timeZone, null);
     }
 
@@ -235,7 +235,7 @@ public class DateFormatUtils {
      * @see FastDateFormat#format(Calendar)
      * @since 2.4
      */
-    public static String format(Calendar calendar, String pattern, TimeZone timeZone) {
+    public static String format(final Calendar calendar, final String pattern, final TimeZone timeZone) {
         return format(calendar, pattern, timeZone, null);
     }
 
@@ -247,7 +247,7 @@ public class DateFormatUtils {
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */
-    public static String format(long millis, String pattern, Locale locale) {
+    public static String format(final long millis, final String pattern, final Locale locale) {
         return format(new Date(millis), pattern, null, locale);
     }
 
@@ -259,7 +259,7 @@ public class DateFormatUtils {
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */
-    public static String format(Date date, String pattern, Locale locale) {
+    public static String format(final Date date, final String pattern, final Locale locale) {
         return format(date, pattern, null, locale);
     }
 
@@ -273,7 +273,7 @@ public class DateFormatUtils {
      * @see FastDateFormat#format(Calendar)
      * @since 2.4
      */
-    public static String format(Calendar calendar, String pattern, Locale locale) {
+    public static String format(final Calendar calendar, final String pattern, final Locale locale) {
         return format(calendar, pattern, null, locale);
     }
 
@@ -286,7 +286,7 @@ public class DateFormatUtils {
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */
-    public static String format(long millis, String pattern, TimeZone timeZone, Locale locale) {
+    public static String format(final long millis, final String pattern, final TimeZone timeZone, final Locale locale) {
         return format(new Date(millis), pattern, timeZone, locale);
     }
 
@@ -299,7 +299,7 @@ public class DateFormatUtils {
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */
-    public static String format(Date date, String pattern, TimeZone timeZone, Locale locale) {
+    public static String format(final Date date, final String pattern, final TimeZone timeZone, final Locale locale) {
         FastDateFormat df = FastDateFormat.getInstance(pattern, timeZone, locale);
         return df.format(date);
     }
@@ -315,7 +315,7 @@ public class DateFormatUtils {
      * @see FastDateFormat#format(Calendar)
      * @since 2.4
      */
-    public static String format(Calendar calendar, String pattern, TimeZone timeZone, Locale locale) {
+    public static String format(final Calendar calendar, final String pattern, final TimeZone timeZone, final Locale locale) {
         FastDateFormat df = FastDateFormat.getInstance(pattern, timeZone, locale);
         return df.format(calendar);
     }

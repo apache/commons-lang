@@ -438,7 +438,7 @@ public class StringUtilsTest {
         }
     }
     
-    private void innerTestSplit(char separator, String sepStr, char noMatch) {
+    private void innerTestSplit(final char separator, final String sepStr, final char noMatch) {
         String msg = "Failed on separator hex(" + Integer.toHexString(separator) +
             "), noMatch hex(" + Integer.toHexString(noMatch) + "), sepStr(" + sepStr + ")";
         
@@ -902,7 +902,7 @@ public class StringUtilsTest {
         
     }
     
-    private void innerTestSplitPreserveAllTokens(char separator, String sepStr, char noMatch) {
+    private void innerTestSplitPreserveAllTokens(final char separator, final String sepStr, final char noMatch) {
         String msg = "Failed on separator hex(" + Integer.toHexString(separator) +
             "), noMatch hex(" + Integer.toHexString(noMatch) + "), sepStr(" + sepStr + ")";
         
@@ -1706,7 +1706,7 @@ public class StringUtilsTest {
         assertAbbreviateWithOffset("...ijklmno", Integer.MAX_VALUE, 10);
     }
 
-    private void assertAbbreviateWithOffset(String expected, int offset, int maxWidth) {
+    private void assertAbbreviateWithOffset(final String expected, final int offset, final int maxWidth) {
         String abcdefghijklmno = "abcdefghijklmno";
         String message = "abbreviate(String,int,int) failed";
         String actual = StringUtils.abbreviate(abcdefghijklmno, offset, maxWidth);

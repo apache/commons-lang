@@ -319,7 +319,7 @@ public class RandomStringUtilsTest {
      * @param observed array of observed frequency counts
      * @param expected array of expected frequency counts
      */
-    private double chiSquare(int[] expected, int[] observed) {
+    private double chiSquare(final int[] expected, final int[] observed) {
         double sumSq = 0.0d;
         double dev = 0.0d;
         for (int i = 0; i < observed.length; i++) {

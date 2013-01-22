@@ -50,7 +50,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      * {@inheritDoc}
      */
     @Override
-    public DefaultExceptionContext addContextValue(String label, Object value) {
+    public DefaultExceptionContext addContextValue(final String label, final Object value) {
         contextValues.add(new ImmutablePair<String, Object>(label, value));
         return this;
     }
@@ -59,7 +59,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      * {@inheritDoc}
      */
     @Override
-    public DefaultExceptionContext setContextValue(String label, Object value) {
+    public DefaultExceptionContext setContextValue(final String label, final Object value) {
         for (final Iterator<Pair<String, Object>> iter = contextValues.iterator(); iter.hasNext();) {
             final Pair<String, Object> p = iter.next();
             if (StringUtils.equals(label, p.getKey())) {
@@ -74,7 +74,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      * {@inheritDoc}
      */
     @Override
-    public List<Object> getContextValues(String label) {
+    public List<Object> getContextValues(final String label) {
         final List<Object> values = new ArrayList<Object>();
         for (final Pair<String, Object> pair : contextValues) {
             if (StringUtils.equals(label, pair.getKey())) {
@@ -88,7 +88,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      * {@inheritDoc}
      */
     @Override
-    public Object getFirstContextValue(String label) {
+    public Object getFirstContextValue(final String label) {
         for (final Pair<String, Object> pair : contextValues) {
             if (StringUtils.equals(label, pair.getKey())) {
                 return pair.getValue();
@@ -124,7 +124,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      * @return the exception message <b>with</b> context information appended, never null
      */
     @Override
-    public String getFormattedExceptionMessage(String baseMessage){
+    public String getFormattedExceptionMessage(final String baseMessage){
         StringBuilder buffer = new StringBuilder(256);
         if (baseMessage != null) {
             buffer.append(baseMessage);

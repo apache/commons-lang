@@ -38,11 +38,11 @@ public class EqualsBuilderTest {
         private int a;
         public TestObject() {
         }
-        public TestObject(int a) {
+        public TestObject(final int a) {
             this.a = a;
         }
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (o == null) { return false; }
             if (o == this) { return true; }
             if (o.getClass() != getClass()) {
@@ -58,7 +58,7 @@ public class EqualsBuilderTest {
             return a;
         }
 
-        public void setA(int a) {
+        public void setA(final int a) {
             this.a = a;
         }
 
@@ -72,12 +72,12 @@ public class EqualsBuilderTest {
         public TestSubObject() {
             super(0);
         }
-        public TestSubObject(int a, int b) {
+        public TestSubObject(final int a, final int b) {
             super(a);
             this.b = b;
         }
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (o == null) { return false; }
             if (o == this) { return true; }
             if (o.getClass() != getClass()) {
@@ -93,7 +93,7 @@ public class EqualsBuilderTest {
             return b *17 + super.hashCode();
         }
 
-        public void setB(int b) {
+        public void setB(final int b) {
             this.b = b;
         }
 
@@ -103,7 +103,7 @@ public class EqualsBuilderTest {
     }
     
     static class TestEmptySubObject extends TestObject {
-        public TestEmptySubObject(int a) {
+        public TestEmptySubObject(final int a) {
             super(a);
         }
     }
@@ -111,7 +111,7 @@ public class EqualsBuilderTest {
     static class TestTSubObject extends TestObject {
         @SuppressWarnings("unused")
         private transient int t;
-        public TestTSubObject(int a, int t) {
+        public TestTSubObject(final int a, final int t) {
             super(a);
             this.t = t;
         }
@@ -120,7 +120,7 @@ public class EqualsBuilderTest {
     static class TestTTSubObject extends TestTSubObject {
         @SuppressWarnings("unused")
         private transient int tt;
-        public TestTTSubObject(int a, int t, int tt) {
+        public TestTTSubObject(final int a, final int t, final int tt) {
             super(a, t);
             this.tt = tt;
         }
@@ -129,7 +129,7 @@ public class EqualsBuilderTest {
     static class TestTTLeafObject extends TestTTSubObject {
         @SuppressWarnings("unused")
         private final int leafValue;
-        public TestTTLeafObject(int a, int t, int tt, int leafValue) {
+        public TestTTLeafObject(final int a, final int t, final int tt, final int leafValue) {
             super(a, t, tt);
             this.leafValue = leafValue;
         }
@@ -137,13 +137,13 @@ public class EqualsBuilderTest {
 
     static class TestTSubObject2 extends TestObject {
         private transient int t;
-        public TestTSubObject2(int a, int t) {
+        public TestTSubObject2(final int a, final int t) {
             super(a);
         }
         public int getT() {
             return t;
         }
-        public void setT(int t) {
+        public void setT(final int t) {
             this.t = t;
         }
     }
@@ -176,7 +176,7 @@ public class EqualsBuilderTest {
         assertTrue(!EqualsBuilder.reflectionEquals(new TestTTLeafObject(0, 2, 3, 4), new TestTTLeafObject(1, 2, 3, 4), true));
     }
 
-    private void testReflectionHierarchyEquals(boolean testTransients) {
+    private void testReflectionHierarchyEquals(final boolean testTransients) {
         TestObject to1 = new TestObject(4);
         TestObject to1Bis = new TestObject(4);
         TestObject to1Ter = new TestObject(4);
@@ -249,12 +249,12 @@ public class EqualsBuilderTest {
      * @param testTransients whether to test transient instance variables 
      */
     private void testReflectionEqualsEquivalenceRelationship(
-        TestObject to,
-        TestObject toBis,
-        TestObject toTer,
-        TestObject to2,
-        TestObject oToChange,
-        boolean testTransients) {
+        final TestObject to,
+        final TestObject toBis,
+        final TestObject toTer,
+        final TestObject to2,
+        final TestObject oToChange,
+        final boolean testTransients) {
 
         // reflection test
         assertTrue(EqualsBuilder.reflectionEquals(to, to, testTransients));
@@ -940,12 +940,12 @@ public class EqualsBuilderTest {
     public static class TestACanEqualB {
         private final int a;
 
-        public TestACanEqualB(int a) {
+        public TestACanEqualB(final int a) {
             this.a = a;
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (o == this) {
                 return true;
             }
@@ -971,12 +971,12 @@ public class EqualsBuilderTest {
     public static class TestBCanEqualA {
         private final int b;
 
-        public TestBCanEqualA(int b) {
+        public TestBCanEqualA(final int b) {
             this.b = b;
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (o == this) {
                 return true;
             }
@@ -1071,7 +1071,7 @@ public class EqualsBuilderTest {
         @SuppressWarnings("unused")
         private final TestObject three;
 
-        public TestObjectWithMultipleFields(int one, int two, int three) {
+        public TestObjectWithMultipleFields(final int one, final int two, final int three) {
             this.one = new TestObject(one);
             this.two = new TestObject(two);
             this.three = new TestObject(three);
@@ -1113,16 +1113,16 @@ public class EqualsBuilderTest {
         @SuppressWarnings("unused")
         private final TestObject one;
 
-        public TestObjectReference(int one) {
+        public TestObjectReference(final int one) {
             this.one = new TestObject(one);
         }
 
-        public void setObjectReference(TestObjectReference reference) {
+        public void setObjectReference(final TestObjectReference reference) {
             this.reference = reference;
         }
 
         @Override
-        public boolean equals(Object obj) {
+        public boolean equals(final Object obj) {
             return EqualsBuilder.reflectionEquals(this, obj);
         }
     }

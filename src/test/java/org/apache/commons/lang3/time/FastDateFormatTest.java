@@ -259,7 +259,7 @@ public class FastDateFormatTest {
                         private static final long serialVersionUID = 1L;  // because SimpleDateFormat is serializable
 
                         @Override
-                        public Object parseObject(String formattedDate) throws ParseException {
+                        public Object parseObject(final String formattedDate) throws ParseException {
                             synchronized(this) {
                                 return super.parse(formattedDate);
                             }

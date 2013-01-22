@@ -102,7 +102,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @throws IllegalArgumentException if <code>listenerInterface</code> is
      *         not an interface.
      */
-    public static <T> EventListenerSupport<T> create(Class<T> listenerInterface) {
+    public static <T> EventListenerSupport<T> create(final Class<T> listenerInterface) {
         return new EventListenerSupport<T>(listenerInterface);
     }
 
@@ -118,7 +118,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @throws IllegalArgumentException if <code>listenerInterface</code> is
      *         not an interface.
      */
-    public EventListenerSupport(Class<L> listenerInterface) {
+    public EventListenerSupport(final Class<L> listenerInterface) {
         this(listenerInterface, Thread.currentThread().getContextClassLoader());
     }
 
@@ -135,7 +135,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @throws IllegalArgumentException if <code>listenerInterface</code> is
      *         not an interface.
      */
-    public EventListenerSupport(Class<L> listenerInterface, ClassLoader classLoader) {
+    public EventListenerSupport(final Class<L> listenerInterface, final ClassLoader classLoader) {
         this();
         Validate.notNull(listenerInterface, "Listener interface cannot be null.");
         Validate.notNull(classLoader, "ClassLoader cannot be null.");
@@ -175,7 +175,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @throws NullPointerException if <code>listener</code> is
      *         <code>null</code>.
      */
-    public void addListener(L listener) {
+    public void addListener(final L listener) {
         Validate.notNull(listener, "Listener object cannot be null.");
         listeners.add(listener);
     }
@@ -197,7 +197,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @throws NullPointerException if <code>listener</code> is
      *         <code>null</code>.
      */
-    public void removeListener(L listener) {
+    public void removeListener(final L listener) {
         Validate.notNull(listener, "Listener object cannot be null.");
         listeners.remove(listener);
     }
@@ -217,7 +217,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @param objectOutputStream the output stream
      * @throws IOException if an IO error occurs
      */
-    private void writeObject(ObjectOutputStream objectOutputStream) throws IOException {
+    private void writeObject(final ObjectOutputStream objectOutputStream) throws IOException {
         ArrayList<L> serializableListeners = new ArrayList<L>();
 
         // don't just rely on instanceof Serializable:
@@ -244,7 +244,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @throws IOException if an IO error occurs
      * @throws ClassNotFoundException if the class cannot be resolved
      */
-    private void readObject(ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
+    private void readObject(final ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
         L[] listeners = (L[]) objectInputStream.readObject();
 
@@ -261,7 +261,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @param listenerInterface the class of the listener interface
      * @param classLoader the class loader to be used
      */
-    private void initializeTransientFields(Class<L> listenerInterface, ClassLoader classLoader) {
+    private void initializeTransientFields(final Class<L> listenerInterface, final ClassLoader classLoader) {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
         L[] array = (L[]) Array.newInstance(listenerInterface, 0);
         this.prototypeArray = array;
@@ -273,7 +273,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @param listenerInterface the class of the listener interface
      * @param classLoader the class loader to be used
      */
-    private void createProxy(Class<L> listenerInterface, ClassLoader classLoader) {
+    private void createProxy(final Class<L> listenerInterface, final ClassLoader classLoader) {
         proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader,
                 new Class[] { listenerInterface }, createInvocationHandler()));
     }
@@ -305,7 +305,7 @@ public class EventListenerSupport<L> implements Serializable {
          * @throws Throwable if an error occurs
          */
         @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
             for (L listener : listeners) {
                 method.invoke(listener, args);
             }

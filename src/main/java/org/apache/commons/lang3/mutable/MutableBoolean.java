@@ -52,7 +52,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * 
      * @param value  the initial value to store
      */
-    public MutableBoolean(boolean value) {
+    public MutableBoolean(final boolean value) {
         super();
         this.value = value;
     }
@@ -63,7 +63,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * @param value  the initial value to store, not null
      * @throws NullPointerException if the object is null
      */
-    public MutableBoolean(Boolean value) {
+    public MutableBoolean(final Boolean value) {
         super();
         this.value = value.booleanValue();
     }
@@ -84,7 +84,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * 
      * @param value  the value to set
      */
-    public void setValue(boolean value) {
+    public void setValue(final boolean value) {
         this.value = value;
     }
 
@@ -95,7 +95,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * @throws NullPointerException if the object is null
      */
     @Override
-    public void setValue(Boolean value) {
+    public void setValue(final Boolean value) {
         this.value = value.booleanValue();
     }
 
@@ -151,7 +151,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof MutableBoolean) {
             return value == ((MutableBoolean) obj).booleanValue();
         }
@@ -177,7 +177,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      *  where false is less than true
      */
     @Override
-    public int compareTo(MutableBoolean other) {
+    public int compareTo(final MutableBoolean other) {
         boolean anotherVal = other.value;
         return value == anotherVal ? 0 : (value ? 1 : -1);
     }

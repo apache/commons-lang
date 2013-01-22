@@ -76,7 +76,7 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      * @param call the {@code Callable} (must not be <b>null</b>)
      * @throws IllegalArgumentException if the {@code Callable} is <b>null</b>
      */
-    public CallableBackgroundInitializer(Callable<T> call) {
+    public CallableBackgroundInitializer(final Callable<T> call) {
         checkCallable(call);
         callable = call;
     }
@@ -92,7 +92,7 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      * execution
      * @throws IllegalArgumentException if the {@code Callable} is <b>null</b>
      */
-    public CallableBackgroundInitializer(Callable<T> call, ExecutorService exec) {
+    public CallableBackgroundInitializer(final Callable<T> call, final ExecutorService exec) {
         super(exec);
         checkCallable(call);
         callable = call;
@@ -118,7 +118,7 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      * @param call the object to check
      * @throws IllegalArgumentException if the {@code Callable} is <b>null</b>
      */
-    private void checkCallable(Callable<T> call) {
+    private void checkCallable(final Callable<T> call) {
         if (call == null) {
             throw new IllegalArgumentException("Callable must not be null!");
         }

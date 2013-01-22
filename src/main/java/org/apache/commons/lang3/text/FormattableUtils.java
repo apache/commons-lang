@@ -62,7 +62,7 @@ public class FormattableUtils {
      * @param formattable  the instance to convert to a string, not null
      * @return the resulting string, not null
      */
-    public static String toString(Formattable formattable) {
+    public static String toString(final Formattable formattable) {
         return String.format(SIMPLEST_FORMAT, formattable);
     }
 
@@ -78,8 +78,8 @@ public class FormattableUtils {
      * @param precision  the precision of the output, see {@code Formattable}
      * @return the {@code formatter} instance, not null
      */
-    public static Formatter append(CharSequence seq, Formatter formatter, int flags, int width,
-            int precision) {
+    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
+            final int precision) {
         return append(seq, formatter, flags, width, precision, ' ', null);
     }
 
@@ -95,8 +95,8 @@ public class FormattableUtils {
      * @param padChar  the pad character to use
      * @return the {@code formatter} instance, not null
      */
-    public static Formatter append(CharSequence seq, Formatter formatter, int flags, int width,
-            int precision, char padChar) {
+    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
+            final int precision, final char padChar) {
         return append(seq, formatter, flags, width, precision, padChar, null);
     }
 
@@ -113,8 +113,8 @@ public class FormattableUtils {
      *  empty causes a hard truncation
      * @return the {@code formatter} instance, not null
      */
-    public static Formatter append(CharSequence seq, Formatter formatter, int flags, int width,
-            int precision, CharSequence ellipsis) {
+    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
+            final int precision, final CharSequence ellipsis) {
         return append(seq, formatter, flags, width, precision, ' ', ellipsis);
     }
 
@@ -131,8 +131,8 @@ public class FormattableUtils {
      *  empty causes a hard truncation
      * @return the {@code formatter} instance, not null
      */
-    public static Formatter append(CharSequence seq, Formatter formatter, int flags, int width,
-            int precision, char padChar, CharSequence ellipsis) {
+    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
+            final int precision, final char padChar, final CharSequence ellipsis) {
         Validate.isTrue(ellipsis == null || precision < 0 || ellipsis.length() <= precision,
                 "Specified ellipsis '%1$s' exceeds precision of %2$s", ellipsis, Integer.valueOf(precision));
         StringBuilder buf = new StringBuilder(seq);

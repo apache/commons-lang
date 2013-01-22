@@ -72,7 +72,7 @@ public final class Range<T> implements Serializable {
      * @throws IllegalArgumentException if the element is null
      * @throws ClassCastException if the element is not {@code Comparable}
      */
-    public static <T extends Comparable<T>> Range<T> is(T element) {
+    public static <T extends Comparable<T>> Range<T> is(final T element) {
         return between(element, element, null);
     }
 
@@ -90,7 +90,7 @@ public final class Range<T> implements Serializable {
      * @throws IllegalArgumentException if the element is null
      * @throws ClassCastException if using natural ordering and the elements are not {@code Comparable}
      */
-    public static <T> Range<T> is(T element, Comparator<T> comparator) {
+    public static <T> Range<T> is(final T element, final Comparator<T> comparator) {
         return between(element, element, comparator);
     }
 
@@ -110,7 +110,7 @@ public final class Range<T> implements Serializable {
      * @throws IllegalArgumentException if either element is null
      * @throws ClassCastException if the elements are not {@code Comparable}
      */
-    public static <T extends Comparable<T>> Range<T> between(T fromInclusive, T toInclusive) {
+    public static <T extends Comparable<T>> Range<T> between(final T fromInclusive, final T toInclusive) {
         return between(fromInclusive, toInclusive, null);
     }
 
@@ -131,7 +131,7 @@ public final class Range<T> implements Serializable {
      * @throws IllegalArgumentException if either element is null
      * @throws ClassCastException if using natural ordering and the elements are not {@code Comparable}
      */
-    public static <T> Range<T> between(T fromInclusive, T toInclusive, Comparator<T> comparator) {
+    public static <T> Range<T> between(final T fromInclusive, final T toInclusive, final Comparator<T> comparator) {
         return new Range<T>(fromInclusive, toInclusive, comparator);
     }
 
@@ -143,7 +143,7 @@ public final class Range<T> implements Serializable {
      * @param comparator  the comparator to be used, null for natural ordering
      */
     @SuppressWarnings("unchecked")
-    private Range(T element1, T element2, Comparator<T> comparator) {
+    private Range(final T element1, final T element2, Comparator<T> comparator) {
         if (element1 == null || element2 == null) {
             throw new IllegalArgumentException("Elements in a range must not be null: element1=" +
                                                element1 + ", element2=" + element2);
@@ -215,7 +215,7 @@ public final class Range<T> implements Serializable {
      * @param element  the element to check for, null returns false
      * @return true if the specified element occurs within this range
      */
-    public boolean contains(T element) {
+    public boolean contains(final T element) {
         if (element == null) {
             return false;
         }
@@ -228,7 +228,7 @@ public final class Range<T> implements Serializable {
      * @param element  the element to check for, null returns false
      * @return true if this range is entirely after the specified element
      */
-    public boolean isAfter(T element) {
+    public boolean isAfter(final T element) {
         if (element == null) {
             return false;
         }
@@ -241,7 +241,7 @@ public final class Range<T> implements Serializable {
      * @param element  the element to check for, null returns false
      * @return true if the specified element occurs within this range
      */
-    public boolean isStartedBy(T element) {
+    public boolean isStartedBy(final T element) {
         if (element == null) {
             return false;
         }
@@ -254,7 +254,7 @@ public final class Range<T> implements Serializable {
      * @param element  the element to check for, null returns false
      * @return true if the specified element occurs within this range
      */
-    public boolean isEndedBy(T element) {
+    public boolean isEndedBy(final T element) {
         if (element == null) {
             return false;
         }
@@ -267,7 +267,7 @@ public final class Range<T> implements Serializable {
      * @param element  the element to check for, null returns false
      * @return true if this range is entirely before the specified element
      */
-    public boolean isBefore(T element) {
+    public boolean isBefore(final T element) {
         if (element == null) {
             return false;
         }
@@ -284,7 +284,7 @@ public final class Range<T> implements Serializable {
      * @param element  the element to check for, not null
      * @return -1, 0 or +1 depending on the element's location relative to the range
      */
-    public int elementCompareTo(T element) {
+    public int elementCompareTo(final T element) {
         if (element == null) {
             // Comparable API says throw NPE on null
             throw new NullPointerException("Element is null");
@@ -310,7 +310,7 @@ public final class Range<T> implements Serializable {
      * @return true if this range contains the specified range
      * @throws RuntimeException if ranges cannot be compared
      */
-    public boolean containsRange(Range<T> otherRange) {
+    public boolean containsRange(final Range<T> otherRange) {
         if (otherRange == null) {
             return false;
         }
@@ -327,7 +327,7 @@ public final class Range<T> implements Serializable {
      * @return true if this range is completely after the specified range
      * @throws RuntimeException if ranges cannot be compared
      */
-    public boolean isAfterRange(Range<T> otherRange) {
+    public boolean isAfterRange(final Range<T> otherRange) {
         if (otherRange == null) {
             return false;
         }
@@ -346,7 +346,7 @@ public final class Range<T> implements Serializable {
      *  range; otherwise, {@code false}
      * @throws RuntimeException if ranges cannot be compared
      */
-    public boolean isOverlappedBy(Range<T> otherRange) {
+    public boolean isOverlappedBy(final Range<T> otherRange) {
         if (otherRange == null) {
             return false;
         }
@@ -364,7 +364,7 @@ public final class Range<T> implements Serializable {
      * @return true if this range is completely before the specified range
      * @throws RuntimeException if ranges cannot be compared
      */
-    public boolean isBeforeRange(Range<T> otherRange) {
+    public boolean isBeforeRange(final Range<T> otherRange) {
         if (otherRange == null) {
             return false;
         }
@@ -378,7 +378,7 @@ public final class Range<T> implements Serializable {
      * @throws IllegalArgumentException if {@code other} does not overlap {@code this}
      * @since 3.0.1
      */
-    public Range<T> intersectionWith(Range<T> other) {
+    public Range<T> intersectionWith(final Range<T> other) {
         if (!this.isOverlappedBy(other)) {
             throw new IllegalArgumentException(String.format(
                 "Cannot calculate intersection with non-overlapping range %s", other));
@@ -404,7 +404,7 @@ public final class Range<T> implements Serializable {
      * @return true if this object is equal
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == this) {
             return true;
         } else if (obj == null || obj.getClass() != getClass()) {
@@ -470,7 +470,7 @@ public final class Range<T> implements Serializable {
      * @param format  the format string, optionally containing {@code %1$s}, {@code %2$s} and  {@code %3$s}, not null
      * @return the formatted string, not null
      */
-    public String toString(String format) {
+    public String toString(final String format) {
         return String.format(format, minimum, maximum, comparator);
     }
 
@@ -486,7 +486,7 @@ public final class Range<T> implements Serializable {
          * @return negative, 0, positive comparison value
          */
         @Override
-        public int compare(Object obj1, Object obj2) {
+        public int compare(final Object obj1, final Object obj2) {
             return ((Comparable) obj1).compareTo(obj2);
         }
     }

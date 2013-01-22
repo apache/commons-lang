@@ -67,12 +67,12 @@ public class HashCodeBuilderTest {
     static class TestObject {
         private int a;
 
-        public TestObject(int a) {
+        public TestObject(final int a) {
             this.a = a;
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (o == this) {
                 return true;
             }
@@ -88,7 +88,7 @@ public class HashCodeBuilderTest {
             return a;
         }
 
-        public void setA(int a) {
+        public void setA(final int a) {
             this.a = a;
         }
 
@@ -107,14 +107,14 @@ public class HashCodeBuilderTest {
             super(0);
         }
 
-        public TestSubObject(int a, int b, int t) {
+        public TestSubObject(final int a, final int b, final int t) {
             super(a);
             this.b = b;
             this.t = t;
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (o == this) {
                 return true;
             }
@@ -505,7 +505,7 @@ public class HashCodeBuilderTest {
         @SuppressWarnings("unused")
         private int three = 0;
 
-        public TestObjectWithMultipleFields(int one, int two, int three) {
+        public TestObjectWithMultipleFields(final int one, final int two, final int three) {
             this.one = one;
             this.two = two;
             this.three = three;

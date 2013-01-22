@@ -542,7 +542,7 @@ public class DurationFormatUtilsTest {
 //        }
 //    }        
     
-    private void bruteForce(int year, int month, int day, String format, int calendarType) {
+    private void bruteForce(final int year, final int month, final int day, final String format, final int calendarType) {
         String msg = year + "-" + month + "-" + day + " to ";
         Calendar c = Calendar.getInstance();
         c.set(year, month, day, 0, 0, 0);
@@ -558,10 +558,10 @@ public class DurationFormatUtilsTest {
         }
     }
 
-    private void assertEqualDuration(String expected, int[] start, int[] end, String format) {
+    private void assertEqualDuration(final String expected, final int[] start, final int[] end, final String format) {
         assertEqualDuration(null, expected, start, end, format);
     }
-    private void assertEqualDuration(String message, String expected, int[] start, int[] end, String format) {
+    private void assertEqualDuration(final String message, final String expected, final int[] start, final int[] end, final String format) {
         Calendar cal1 = Calendar.getInstance();
         cal1.set(start[0], start[1], start[2], start[3], start[4], start[5]);
         cal1.set(Calendar.MILLISECOND, 0);
@@ -578,7 +578,7 @@ public class DurationFormatUtilsTest {
         }
     }
 
-    private void assertArrayEquals(DurationFormatUtils.Token[] obj1, DurationFormatUtils.Token[] obj2) {
+    private void assertArrayEquals(final DurationFormatUtils.Token[] obj1, final DurationFormatUtils.Token[] obj2) {
         assertEquals("Arrays are unequal length. ", obj1.length, obj2.length);
         for (int i = 0; i < obj1.length; i++) {
             assertTrue("Index " + i + " not equal, " + obj1[i] + " vs " + obj2[i], obj1[i].equals(obj2[i]));

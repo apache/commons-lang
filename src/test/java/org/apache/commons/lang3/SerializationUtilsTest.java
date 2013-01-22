@@ -175,7 +175,7 @@ public class SerializationUtilsTest {
         // in the finally block
         OutputStream streamTest = new OutputStream() {
             @Override
-            public void write(int arg0) throws IOException {
+            public void write(final int arg0) throws IOException {
                 throw new IOException(SERIALIZE_IO_EXCEPTION_MESSAGE);
             }
         };
@@ -420,7 +420,7 @@ public class SerializationUtilsTest {
 class ClassNotFoundSerialization implements Serializable
 {
 
-    private void readObject(ObjectInputStream in) throws ClassNotFoundException    {
+    private void readObject(final ObjectInputStream in) throws ClassNotFoundException    {
         throw new ClassNotFoundException(SerializationUtilsTest.CLASS_NOT_FOUND_MESSAGE);
     }
 }

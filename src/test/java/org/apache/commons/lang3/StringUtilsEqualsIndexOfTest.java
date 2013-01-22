@@ -468,12 +468,12 @@ public class StringUtilsEqualsIndexOfTest  {
     private static class CustomCharSequence implements CharSequence {
         private final CharSequence seq;
 
-        public CustomCharSequence(CharSequence seq) {
+        public CustomCharSequence(final CharSequence seq) {
             this.seq = seq;
         }
 
         @Override
-        public char charAt(int index) {
+        public char charAt(final int index) {
             return seq.charAt(index);
         }
 
@@ -483,12 +483,12 @@ public class StringUtilsEqualsIndexOfTest  {
         }
 
         @Override
-        public CharSequence subSequence(int start, int end) {
+        public CharSequence subSequence(final int start, final int end) {
             return new CustomCharSequence(seq.subSequence(start, end));
         }
 
         @Override
-        public boolean equals(Object obj) {
+        public boolean equals(final Object obj) {
             if (obj == null || !(obj instanceof CustomCharSequence)) {
                 return false;
             }

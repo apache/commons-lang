@@ -161,7 +161,7 @@ public class LocaleUtils {
      * @param locale  the locale to start from
      * @return the unmodifiable list of Locale objects, 0 being locale, not null
      */
-    public static List<Locale> localeLookupList(Locale locale) {
+    public static List<Locale> localeLookupList(final Locale locale) {
         return localeLookupList(locale, locale);
     }
 
@@ -183,7 +183,7 @@ public class LocaleUtils {
      * @param defaultLocale  the default locale to use if no other is found
      * @return the unmodifiable list of Locale objects, 0 being locale, not null
      */
-    public static List<Locale> localeLookupList(Locale locale, Locale defaultLocale) {
+    public static List<Locale> localeLookupList(final Locale locale, final Locale defaultLocale) {
         List<Locale> list = new ArrayList<Locale>(4);
         if (locale != null) {
             list.add(locale);
@@ -235,7 +235,7 @@ public class LocaleUtils {
      * @param locale the Locale object to check if it is available
      * @return true if the locale is a known locale
      */
-    public static boolean isAvailableLocale(Locale locale) {
+    public static boolean isAvailableLocale(final Locale locale) {
         return availableLocaleList().contains(locale);
     }
 
@@ -249,7 +249,7 @@ public class LocaleUtils {
      * @param countryCode  the 2 letter country code, null returns empty
      * @return an unmodifiable List of Locale objects, not null
      */
-    public static List<Locale> languagesByCountry(String countryCode) {
+    public static List<Locale> languagesByCountry(final String countryCode) {
         if (countryCode == null) {
             return Collections.emptyList();
         }
@@ -281,7 +281,7 @@ public class LocaleUtils {
      * @param languageCode  the 2 letter language code, null returns empty
      * @return an unmodifiable List of Locale objects, not null
      */
-    public static List<Locale> countriesByLanguage(String languageCode) {
+    public static List<Locale> countriesByLanguage(final String languageCode) {
         if (languageCode == null) {
             return Collections.emptyList();
         }

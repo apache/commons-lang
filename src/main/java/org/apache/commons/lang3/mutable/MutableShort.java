@@ -49,7 +49,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * 
      * @param value  the initial value to store
      */
-    public MutableShort(short value) {
+    public MutableShort(final short value) {
         super();
         this.value = value;
     }
@@ -60,7 +60,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @param value  the initial value to store, not null
      * @throws NullPointerException if the object is null
      */
-    public MutableShort(Number value) {
+    public MutableShort(final Number value) {
         super();
         this.value = value.shortValue();
     }
@@ -72,7 +72,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @throws NumberFormatException if the string cannot be parsed into a short
      * @since 2.5
      */
-    public MutableShort(String value) throws NumberFormatException {
+    public MutableShort(final String value) throws NumberFormatException {
         super();
         this.value = Short.parseShort(value);
     }
@@ -93,7 +93,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * 
      * @param value  the value to set
      */
-    public void setValue(short value) {
+    public void setValue(final short value) {
         this.value = value;
     }
 
@@ -104,7 +104,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @throws NullPointerException if the object is null
      */
     @Override
-    public void setValue(Number value) {
+    public void setValue(final Number value) {
         this.value = value.shortValue();
     }
 
@@ -134,7 +134,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @param operand  the value to add, not null
      * @since Commons Lang 2.2
      */
-    public void add(short operand) {
+    public void add(final short operand) {
         this.value += operand;
     }
 
@@ -145,7 +145,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
-    public void add(Number operand) {
+    public void add(final Number operand) {
         this.value += operand.shortValue();
     }
 
@@ -155,7 +155,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @param operand  the value to subtract, not null
      * @since Commons Lang 2.2
      */
-    public void subtract(short operand) {
+    public void subtract(final short operand) {
         this.value -= operand;
     }
 
@@ -166,7 +166,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
-    public void subtract(Number operand) {
+    public void subtract(final Number operand) {
         this.value -= operand.shortValue();
     }
 
@@ -242,7 +242,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof MutableShort) {
             return value == ((MutableShort) obj).shortValue();
         }
@@ -267,7 +267,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @return negative if this is less, zero if equal, positive if greater
      */
     @Override
-    public int compareTo(MutableShort other) {
+    public int compareTo(final MutableShort other) {
         short anotherVal = other.value;
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }

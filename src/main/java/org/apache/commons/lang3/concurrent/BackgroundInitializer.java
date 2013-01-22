@@ -112,7 +112,7 @@ public abstract class BackgroundInitializer<T> implements
      * @param exec an external {@code ExecutorService} to be used for task
      * execution
      */
-    protected BackgroundInitializer(ExecutorService exec) {
+    protected BackgroundInitializer(final ExecutorService exec) {
         setExternalExecutor(exec);
     }
 
@@ -151,7 +151,7 @@ public abstract class BackgroundInitializer<T> implements
      * started
      */
     public final synchronized void setExternalExecutor(
-            ExecutorService externalExecutor) {
+            final ExecutorService externalExecutor) {
         if (isStarted()) {
             throw new IllegalStateException(
                     "Cannot set ExecutorService after start()!");
@@ -287,7 +287,7 @@ public abstract class BackgroundInitializer<T> implements
      * task
      * @return a task for the background initialization
      */
-    private Callable<T> createTask(ExecutorService execDestroy) {
+    private Callable<T> createTask(final ExecutorService execDestroy) {
         return new InitializationTask(execDestroy);
     }
 
@@ -311,7 +311,7 @@ public abstract class BackgroundInitializer<T> implements
          *
          * @param exec the {@code ExecutorService}
          */
-        public InitializationTask(ExecutorService exec) {
+        public InitializationTask(final ExecutorService exec) {
             execFinally = exec;
         }
 

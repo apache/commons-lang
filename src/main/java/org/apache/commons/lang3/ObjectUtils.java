@@ -90,7 +90,7 @@ public class ObjectUtils {
      * @param defaultValue  the default value to return, may be {@code null}
      * @return {@code object} if it is not {@code null}, defaultValue otherwise
      */
-    public static <T> T defaultIfNull(T object, T defaultValue) {
+    public static <T> T defaultIfNull(final T object, final T defaultValue) {
         return object != null ? object : defaultValue;
     }
 
@@ -116,7 +116,7 @@ public class ObjectUtils {
      *  or {@code null} if there are no non-null values
      * @since 3.0
      */
-    public static <T> T firstNonNull(T... values) {
+    public static <T> T firstNonNull(final T... values) {
         if (values != null) {
             for (T val : values) {
                 if (val != null) {
@@ -148,7 +148,7 @@ public class ObjectUtils {
      * @param object2  the second object, may be {@code null}
      * @return {@code true} if the values of both objects are the same
      */
-    public static boolean equals(Object object1, Object object2) {
+    public static boolean equals(final Object object1, final Object object2) {
         if (object1 == object2) {
             return true;
         }
@@ -177,7 +177,7 @@ public class ObjectUtils {
      * @param object2  the second object, may be {@code null}
      * @return {@code false} if the values of both objects are the same
      */
-    public static boolean notEqual(Object object1, Object object2) {
+    public static boolean notEqual(final Object object1, final Object object2) {
         return ObjectUtils.equals(object1, object2) == false;
     }
 
@@ -194,7 +194,7 @@ public class ObjectUtils {
      * @return the hash code of the object, or zero if null
      * @since 2.1
      */
-    public static int hashCode(Object obj) {
+    public static int hashCode(final Object obj) {
         // hashCode(Object) retained for performance, as hash code is often critical
         return obj == null ? 0 : obj.hashCode();
     }
@@ -219,7 +219,7 @@ public class ObjectUtils {
      * @return the hash code of the objects, or zero if null
      * @since 3.0
      */
-    public static int hashCodeMulti(Object... objects) {
+    public static int hashCodeMulti(final Object... objects) {
         int hash = 1;
         if (objects != null) {
             for (Object object : objects) {
@@ -247,7 +247,7 @@ public class ObjectUtils {
      * @return the default toString text, or {@code null} if
      *  {@code null} passed in
      */
-    public static String identityToString(Object object) {
+    public static String identityToString(final Object object) {
         if (object == null) {
             return null;
         }
@@ -271,7 +271,7 @@ public class ObjectUtils {
      * @param object  the object to create a toString for
      * @since 2.4
      */
-    public static void identityToString(StringBuffer buffer, Object object) {
+    public static void identityToString(final StringBuffer buffer, final Object object) {
         if (object == null) {
             throw new NullPointerException("Cannot get the toString of a null identity");
         }
@@ -299,7 +299,7 @@ public class ObjectUtils {
      * @return the passed in Object's toString, or {@code ""} if {@code null} input
      * @since 2.0
      */
-    public static String toString(Object obj) {
+    public static String toString(final Object obj) {
         return obj == null ? "" : obj.toString();
     }
 
@@ -322,7 +322,7 @@ public class ObjectUtils {
      * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
      * @since 2.0
      */
-    public static String toString(Object obj, String nullStr) {
+    public static String toString(final Object obj, final String nullStr) {
         return obj == null ? nullStr : obj.toString();
     }
 
@@ -341,7 +341,7 @@ public class ObjectUtils {
      *   <li>If all the comparables are null, null is returned.
      *  </ul>
      */
-    public static <T extends Comparable<? super T>> T min(T... values) {
+    public static <T extends Comparable<? super T>> T min(final T... values) {
         T result = null;
         if (values != null) {
             for (T value : values) {
@@ -366,7 +366,7 @@ public class ObjectUtils {
      *   <li>If all the comparables are null, null is returned.
      *  </ul>
      */
-    public static <T extends Comparable<? super T>> T max(T... values) {
+    public static <T extends Comparable<? super T>> T max(final T... values) {
         T result = null;
         if (values != null) {
             for (T value : values) {
@@ -388,7 +388,7 @@ public class ObjectUtils {
      * @return a negative value if c1 < c2, zero if c1 = c2
      *  and a positive value if c1 > c2
      */
-    public static <T extends Comparable<? super T>> int compare(T c1, T c2) {
+    public static <T extends Comparable<? super T>> int compare(final T c1, final T c2) {
         return compare(c1, c2, false);
     }
 
@@ -405,7 +405,7 @@ public class ObjectUtils {
      *  and a positive value if c1 > c2
      * @see java.util.Comparator#compare(Object, Object)
      */
-    public static <T extends Comparable<? super T>> int compare(T c1, T c2, boolean nullGreater) {
+    public static <T extends Comparable<? super T>> int compare(final T c1, final T c2, final boolean nullGreater) {
         if (c1 == c2) {
             return 0;
         } else if (c1 == null) {
@@ -426,7 +426,7 @@ public class ObjectUtils {
      * @throws IllegalArgumentException if items is empty or contains {@code null} values
      * @since 3.0.1
      */
-    public static <T extends Comparable<? super T>> T median(T... items) {
+    public static <T extends Comparable<? super T>> T median(final T... items) {
         Validate.notEmpty(items);
         Validate.noNullElements(items);
         TreeSet<T> sort = new TreeSet<T>();
@@ -447,7 +447,7 @@ public class ObjectUtils {
      * @throws IllegalArgumentException if items is empty or contains {@code null} values
      * @since 3.0.1
      */
-    public static <T> T median(Comparator<T> comparator, T... items) {
+    public static <T> T median(final Comparator<T> comparator, final T... items) {
         Validate.notEmpty(items, "null/empty items");
         Validate.noNullElements(items);
         Validate.notNull(comparator, "null comparator");
@@ -468,7 +468,7 @@ public class ObjectUtils {
      * @return most populous T, {@code null} if non-unique or no items supplied
      * @since 3.0.1
      */
-    public static <T> T mode(T... items) {
+    public static <T> T mode(final T... items) {
         if (ArrayUtils.isNotEmpty(items)) {
             HashMap<T, MutableInt> occurrences = new HashMap<T, MutableInt>(items.length);
             for (T t : items) {

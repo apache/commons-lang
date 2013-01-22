@@ -87,7 +87,7 @@ public class ArrayUtilsTest  {
     }
 
     //-----------------------------------------------------------------------
-    private void assertIsEquals(Object array1, Object array2, Object array3) {
+    private void assertIsEquals(final Object array1, final Object array2, final Object array3) {
         assertTrue(ArrayUtils.isEquals(array1, array1));
         assertTrue(ArrayUtils.isEquals(array2, array2));
         assertTrue(ArrayUtils.isEquals(array3, array3));
@@ -254,11 +254,11 @@ public class ArrayUtilsTest  {
                 return "bar";
             }
             @Override
-            public Object setValue(Object value) {
+            public Object setValue(final Object value) {
                 throw new UnsupportedOperationException();
             }
             @Override
-            public boolean equals(Object o) {
+            public boolean equals(final Object o) {
                 throw new UnsupportedOperationException();
             }
             @Override

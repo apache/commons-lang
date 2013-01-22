@@ -311,7 +311,7 @@ public class ExtendedMessageFormatTest {
      * @param args MessageFormat arguments
      * @param locales to test
      */
-    private void checkBuiltInFormat(String pattern, Object[] args, Locale[] locales) {
+    private void checkBuiltInFormat(final String pattern, final Object[] args, final Locale[] locales) {
         checkBuiltInFormat(pattern, null, args, locales);
     }
 
@@ -322,7 +322,7 @@ public class ExtendedMessageFormatTest {
      * @param args MessageFormat arguments
      * @param locales to test
      */
-    private void checkBuiltInFormat(String pattern, Map<String, ?> registry, Object[] args, Locale[] locales) {
+    private void checkBuiltInFormat(final String pattern, final Map<String, ?> registry, final Object[] args, final Locale[] locales) {
         checkBuiltInFormat(pattern, registry, args, (Locale) null);
         for (Locale locale : locales) {
             checkBuiltInFormat(pattern, registry, args, locale);
@@ -337,7 +337,7 @@ public class ExtendedMessageFormatTest {
      * @param args Object[]
      * @param locale Locale
      */
-    private void checkBuiltInFormat(String pattern, Map<String, ?> registry, Object[] args, Locale locale) {
+    private void checkBuiltInFormat(final String pattern, final Map<String, ?> registry, final Object[] args, final Locale locale) {
         StringBuilder buffer = new StringBuilder();
         buffer.append("Pattern=[");
         buffer.append(pattern);
@@ -357,7 +357,7 @@ public class ExtendedMessageFormatTest {
     }
 
     //can't trust what MessageFormat does with toPattern() pre 1.4:
-    private void assertPatternsEqual(String message, String expected, String actual) {
+    private void assertPatternsEqual(final String message, final String expected, final String actual) {
         if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
             assertEquals(message, expected, actual);
         }
@@ -369,7 +369,7 @@ public class ExtendedMessageFormatTest {
      * @param locale Locale
      * @return MessageFormat
      */
-    private MessageFormat createMessageFormat(String pattern, Locale locale) {
+    private MessageFormat createMessageFormat(final String pattern, final Locale locale) {
         MessageFormat result = new MessageFormat(pattern);
         if (locale != null) {
             result.setLocale(locale);
@@ -385,11 +385,11 @@ public class ExtendedMessageFormatTest {
      */
     private static class LowerCaseFormat extends Format {
         @Override
-        public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
+        public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
             return toAppendTo.append(((String)obj).toLowerCase());
         }
         @Override
-        public Object parseObject(String source, ParsePosition pos) {throw new UnsupportedOperationException();}
+        public Object parseObject(final String source, final ParsePosition pos) {throw new UnsupportedOperationException();}
     }
 
     /**
@@ -397,11 +397,11 @@ public class ExtendedMessageFormatTest {
      */
     private static class UpperCaseFormat extends Format {
         @Override
-        public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
+        public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
             return toAppendTo.append(((String)obj).toUpperCase());
         }
         @Override
-        public Object parseObject(String source, ParsePosition pos) {throw new UnsupportedOperationException();}
+        public Object parseObject(final String source, final ParsePosition pos) {throw new UnsupportedOperationException();}
     }
 
 
@@ -412,7 +412,7 @@ public class ExtendedMessageFormatTest {
     private static class LowerCaseFormatFactory implements FormatFactory {
         private static final Format LOWER_INSTANCE = new LowerCaseFormat();
         @Override
-        public Format getFormat(String name, String arguments, Locale locale) {
+        public Format getFormat(final String name, final String arguments, final Locale locale) {
             return LOWER_INSTANCE;
         }
     }
@@ -422,7 +422,7 @@ public class ExtendedMessageFormatTest {
     private static class UpperCaseFormatFactory implements FormatFactory {
         private static final Format UPPER_INSTANCE = new UpperCaseFormat();
         @Override
-        public Format getFormat(String name, String arguments, Locale locale) {
+        public Format getFormat(final String name, final String arguments, final Locale locale) {
             return UPPER_INSTANCE;
         }
     }
@@ -431,7 +431,7 @@ public class ExtendedMessageFormatTest {
      */
     private static class OverrideShortDateFormatFactory implements FormatFactory {
         @Override
-        public Format getFormat(String name, String arguments, Locale locale) {
+        public Format getFormat(final String name, final String arguments, final Locale locale) {
             return !"short".equals(arguments) ? null
                     : locale == null ? DateFormat
                             .getDateInstance(DateFormat.DEFAULT) : DateFormat
@@ -443,8 +443,8 @@ public class ExtendedMessageFormatTest {
      * Alternative ExtendedMessageFormat impl.
      */
     private static class OtherExtendedMessageFormat extends ExtendedMessageFormat {
-        public OtherExtendedMessageFormat(String pattern, Locale locale,
-                Map<String, ? extends FormatFactory> registry) {
+        public OtherExtendedMessageFormat(final String pattern, final Locale locale,
+                final Map<String, ? extends FormatFactory> registry) {
             super(pattern, locale, registry);
         }
         

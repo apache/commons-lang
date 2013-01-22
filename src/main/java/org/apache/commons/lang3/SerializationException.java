@@ -48,7 +48,7 @@ public class SerializationException extends RuntimeException {
      *
      * @param msg  The error message.
      */
-    public SerializationException(String msg) {
+    public SerializationException(final String msg) {
         super(msg);
     }
 
@@ -59,7 +59,7 @@ public class SerializationException extends RuntimeException {
      * @param cause  The {@code Exception} or {@code Error}
      *  that caused this exception to be thrown.
      */
-    public SerializationException(Throwable cause) {
+    public SerializationException(final Throwable cause) {
         super(cause);
     }
 
@@ -71,7 +71,7 @@ public class SerializationException extends RuntimeException {
      * @param cause  The {@code Exception} or {@code Error}
      *  that caused this exception to be thrown.
      */
-    public SerializationException(String msg, Throwable cause) {
+    public SerializationException(final String msg, final Throwable cause) {
         super(msg, cause);
     }
 

@@ -31,7 +31,7 @@ public class BackgroundInitializerTest {
      *
      * @param init the initializer to test
      */
-    private void checkInitialize(BackgroundInitializerTestImpl init) {
+    private void checkInitialize(final BackgroundInitializerTestImpl init) {
         try {
             Integer result = init.get();
             assertEquals("Wrong result", 1, result.intValue());
@@ -282,7 +282,7 @@ public class BackgroundInitializerTest {
             super();
         }
 
-        public BackgroundInitializerTestImpl(ExecutorService exec) {
+        public BackgroundInitializerTestImpl(final ExecutorService exec) {
             super(exec);
         }
 

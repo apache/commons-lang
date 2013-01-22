@@ -560,14 +560,14 @@ public class ObjectUtilsTest {
          *
          * @param value
          */
-        public NonComparableCharSequence(String value) {
+        public NonComparableCharSequence(final String value) {
             super();
             Validate.notNull(value);
             this.value = value;
         }
 
         @Override
-        public char charAt(int arg0) {
+        public char charAt(final int arg0) {
             return value.charAt(arg0);
         }
 
@@ -577,7 +577,7 @@ public class ObjectUtilsTest {
         }
 
         @Override
-        public CharSequence subSequence(int arg0, int arg1) {
+        public CharSequence subSequence(final int arg0, final int arg1) {
             return value.subSequence(arg0, arg1);
         }
 
@@ -590,7 +590,7 @@ public class ObjectUtilsTest {
     static final class CharSequenceComparator implements Comparator<CharSequence> {
 
         @Override
-        public int compare(CharSequence o1, CharSequence o2) {
+        public int compare(final CharSequence o1, final CharSequence o2) {
             return o1.toString().compareTo(o2.toString());
         }
 

@@ -58,7 +58,7 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      * @param right  the right element, may be null
      * @return a triple formed from the three parameters, not null
      */
-    public static <L, M, R> ImmutableTriple<L, M, R> of(L left, M middle, R right) {
+    public static <L, M, R> ImmutableTriple<L, M, R> of(final L left, final M middle, final R right) {
         return new ImmutableTriple<L, M, R>(left, middle, right);
     }
 
@@ -69,7 +69,7 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      * @param middle the middle value, may be null
      * @param right  the right value, may be null
      */
-    public ImmutableTriple(L left, M middle, R right) {
+    public ImmutableTriple(final L left, final M middle, final R right) {
         super();
         this.left = left;
         this.middle = middle;

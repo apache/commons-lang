@@ -413,7 +413,7 @@ public class EntityArrays {
      * @param array String[][] to be inverted
      * @return String[][] inverted array
      */
-    public static String[][] invert(String[][] array) {
+    public static String[][] invert(final String[][] array) {
         String[][] newarray = new String[array.length][2];
         for(int i = 0; i<array.length; i++) {
             newarray[i][0] = array[i][1];

@@ -56,7 +56,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param right  the right element, may be null
      * @return a triple formed from the three parameters, not null
      */
-    public static <L, M, R> Triple<L, M, R> of(L left, M middle, R right) {
+    public static <L, M, R> Triple<L, M, R> of(final L left, final M middle, final R right) {
         return new ImmutableTriple<L, M, R>(left, middle, right);
     }
 
@@ -92,7 +92,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @return negative if this is less, zero if equal, positive if greater
      */
     @Override
-    public int compareTo(Triple<L, M, R> other) {
+    public int compareTo(final Triple<L, M, R> other) {
       return new CompareToBuilder().append(getLeft(), other.getLeft())
           .append(getMiddle(), other.getMiddle())
           .append(getRight(), other.getRight()).toComparison();
@@ -105,7 +105,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @return true if the elements of the triple are equal
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == this) {
             return true;
         }
@@ -152,7 +152,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param format  the format string, optionally containing {@code %1$s}, {@code %2$s} and {@code %3$s}, not null
      * @return the formatted string, not null
      */
-    public String toString(String format) {
+    public String toString(final String format) {
         return String.format(format, getLeft(), getMiddle(), getRight());
     }
 

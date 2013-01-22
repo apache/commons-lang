@@ -87,7 +87,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pattern  the pattern to use, not null
      * @throws IllegalArgumentException in case of a bad pattern.
      */
-    public ExtendedMessageFormat(String pattern) {
+    public ExtendedMessageFormat(final String pattern) {
         this(pattern, Locale.getDefault());
     }
 
@@ -98,7 +98,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param locale  the locale to use, not null
      * @throws IllegalArgumentException in case of a bad pattern.
      */
-    public ExtendedMessageFormat(String pattern, Locale locale) {
+    public ExtendedMessageFormat(final String pattern, final Locale locale) {
         this(pattern, locale, null);
     }
 
@@ -109,7 +109,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param registry  the registry of format factories, may be null
      * @throws IllegalArgumentException in case of a bad pattern.
      */
-    public ExtendedMessageFormat(String pattern, Map<String, ? extends FormatFactory> registry) {
+    public ExtendedMessageFormat(final String pattern, final Map<String, ? extends FormatFactory> registry) {
         this(pattern, Locale.getDefault(), registry);
     }
 
@@ -121,7 +121,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param registry  the registry of format factories, may be null
      * @throws IllegalArgumentException in case of a bad pattern.
      */
-    public ExtendedMessageFormat(String pattern, Locale locale, Map<String, ? extends FormatFactory> registry) {
+    public ExtendedMessageFormat(final String pattern, final Locale locale, final Map<String, ? extends FormatFactory> registry) {
         super(DUMMY_PATTERN);
         setLocale(locale);
         this.registry = registry;
@@ -142,7 +142,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pattern String
      */
     @Override
-    public final void applyPattern(String pattern) {
+    public final void applyPattern(final String pattern) {
         if (registry == null) {
             super.applyPattern(pattern);
             toPattern = super.toPattern();
@@ -216,7 +216,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @throws UnsupportedOperationException
      */
     @Override
-    public void setFormat(int formatElementIndex, Format newFormat) {
+    public void setFormat(final int formatElementIndex, final Format newFormat) {
         throw new UnsupportedOperationException();
     }
 
@@ -228,7 +228,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @throws UnsupportedOperationException
      */
     @Override
-    public void setFormatByArgumentIndex(int argumentIndex, Format newFormat) {
+    public void setFormatByArgumentIndex(final int argumentIndex, final Format newFormat) {
         throw new UnsupportedOperationException();
     }
 
@@ -239,7 +239,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @throws UnsupportedOperationException
      */
     @Override
-    public void setFormats(Format[] newFormats) {
+    public void setFormats(final Format[] newFormats) {
         throw new UnsupportedOperationException();
     }
 
@@ -250,7 +250,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @throws UnsupportedOperationException
      */
     @Override
-    public void setFormatsByArgumentIndex(Format[] newFormats) {
+    public void setFormatsByArgumentIndex(final Format[] newFormats) {
         throw new UnsupportedOperationException();
     }
 
@@ -261,7 +261,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @return true if this object equals the other, otherwise false
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == this) {
             return true;
         }
@@ -303,7 +303,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param desc String
      * @return Format
      */
-    private Format getFormat(String desc) {
+    private Format getFormat(final String desc) {
         if (registry != null) {
             String name = desc;
             String args = null;
@@ -327,7 +327,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos current parse position
      * @return argument index
      */
-    private int readArgumentIndex(String pattern, ParsePosition pos) {
+    private int readArgumentIndex(final String pattern, final ParsePosition pos) {
         int start = pos.getIndex();
         seekNonWs(pattern, pos);
         StringBuilder result = new StringBuilder();
@@ -369,7 +369,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos current parse position
      * @return Format description String
      */
-    private String parseFormatDescription(String pattern, ParsePosition pos) {
+    private String parseFormatDescription(final String pattern, final ParsePosition pos) {
         int start = pos.getIndex();
         seekNonWs(pattern, pos);
         int text = pos.getIndex();
@@ -401,7 +401,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param customPatterns The custom patterns to re-insert, if any
      * @return full pattern
      */
-    private String insertFormats(String pattern, ArrayList<String> customPatterns) {
+    private String insertFormats(final String pattern, final ArrayList<String> customPatterns) {
         if (!containsElements(customPatterns)) {
             return pattern;
         }
@@ -444,7 +444,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pattern String to read
      * @param pos current position
      */
-    private void seekNonWs(String pattern, ParsePosition pos) {
+    private void seekNonWs(final String pattern, final ParsePosition pos) {
         int len = 0;
         char[] buffer = pattern.toCharArray();
         do {
@@ -459,7 +459,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos ParsePosition
      * @return <code>pos</code>
      */
-    private ParsePosition next(ParsePosition pos) {
+    private ParsePosition next(final ParsePosition pos) {
         pos.setIndex(pos.getIndex() + 1);
         return pos;
     }
@@ -474,8 +474,8 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param escapingOn whether to process escaped quotes
      * @return <code>appendTo</code>
      */
-    private StringBuilder appendQuotedString(String pattern, ParsePosition pos,
-            StringBuilder appendTo, boolean escapingOn) {
+    private StringBuilder appendQuotedString(final String pattern, final ParsePosition pos,
+            final StringBuilder appendTo, final boolean escapingOn) {
         int start = pos.getIndex();
         char[] c = pattern.toCharArray();
         if (escapingOn && c[start] == QUOTE) {
@@ -511,8 +511,8 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos current parse position
      * @param escapingOn whether to process escaped quotes
      */
-    private void getQuotedString(String pattern, ParsePosition pos,
-            boolean escapingOn) {
+    private void getQuotedString(final String pattern, final ParsePosition pos,
+            final boolean escapingOn) {
         appendQuotedString(pattern, pos, null, escapingOn);
     }
 
@@ -521,7 +521,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param coll to check
      * @return <code>true</code> if some Object was found, <code>false</code> otherwise.
      */
-    private boolean containsElements(Collection<?> coll) {
+    private boolean containsElements(final Collection<?> coll) {
         if (coll == null || coll.isEmpty()) {
             return false;
         }

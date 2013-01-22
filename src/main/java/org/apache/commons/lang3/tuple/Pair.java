@@ -56,7 +56,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @param right  the right element, may be null
      * @return a pair formed from the two parameters, not null
      */
-    public static <L, R> Pair<L, R> of(L left, R right) {
+    public static <L, R> Pair<L, R> of(final L left, final R right) {
         return new ImmutablePair<L, R>(left, right);
     }
 
@@ -114,7 +114,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return negative if this is less, zero if equal, positive if greater
      */
     @Override
-    public int compareTo(Pair<L, R> other) {
+    public int compareTo(final Pair<L, R> other) {
       return new CompareToBuilder().append(getLeft(), other.getLeft())
               .append(getRight(), other.getRight()).toComparison();
     }
@@ -126,7 +126,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return true if the elements of the pair are equal
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == this) {
             return true;
         }
@@ -172,7 +172,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @param format  the format string, optionally containing {@code %1$s} and {@code %2$s}, not null
      * @return the formatted string, not null
      */
-    public String toString(String format) {
+    public String toString(final String format) {
         return String.format(format, getLeft(), getRight());
     }
 

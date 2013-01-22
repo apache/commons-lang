@@ -63,7 +63,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
         final private TestFixture testFixture;
         final private Random random = new Random();
 
-        public MutatingClient(TestFixture testFixture) {
+        public MutatingClient(final TestFixture testFixture) {
             this.testFixture = testFixture;
         }
 
@@ -80,7 +80,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
     class InspectingClient implements Runnable {
         final private TestFixture testFixture;
 
-        public InspectingClient(TestFixture testFixture) {
+        public InspectingClient(final TestFixture testFixture) {
             this.testFixture = testFixture;
         }
 

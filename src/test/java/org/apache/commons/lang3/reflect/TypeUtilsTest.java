@@ -96,11 +96,11 @@ public class TypeUtilsTest<B> {
 
     public static URI uri;
 
-    public void dummyMethod(List list0, List<Object> list1, List<?> list2,
-            List<? super Object> list3, List<String> list4, List<? extends String> list5,
-            List<? super String> list6, List[] list7, List<Object>[] list8, List<?>[] list9,
-            List<? super Object>[] list10, List<String>[] list11, List<? extends String>[] list12,
-            List<? super String>[] list13) {
+    public void dummyMethod(final List list0, final List<Object> list1, final List<?> list2,
+            final List<? super Object> list3, final List<String> list4, final List<? extends String> list5,
+            final List<? super String> list6, final List[] list7, final List<Object>[] list8, final List<?>[] list9,
+            final List<? super Object>[] list10, final List<String>[] list11, final List<? extends String>[] list12,
+            final List<? super String>[] list13) {
     }
 
     @SuppressWarnings("boxing") // deliberately used here
@@ -441,7 +441,7 @@ public class TypeUtilsTest<B> {
         Assert.assertTrue(TypeUtils.isAssignable(fClassType, eClassType));
     }
 
-    public void delegateBooleanAssertion(Type[] types, int i2, int i1, boolean expected) {
+    public void delegateBooleanAssertion(final Type[] types, final int i2, final int i1, final boolean expected) {
         Type type1 = types[i1];
         Type type2 = types[i2];
         boolean isAssignable = TypeUtils.isAssignable(type2, type1);
@@ -692,7 +692,7 @@ class AAAClass extends AAClass<String> {
 //raw types, where used, are used purposely
 class AClass extends AAClass<String>.BBClass<Number> {
 
-    public AClass(AAClass<String> enclosingInstance) {
+    public AClass(final AAClass<String> enclosingInstance) {
         enclosingInstance.super();
     }
 

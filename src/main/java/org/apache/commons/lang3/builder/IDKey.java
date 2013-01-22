@@ -36,7 +36,7 @@ final class IDKey {
          * Constructor for IDKey
          * @param _value The value
          */ 
-        public IDKey(Object _value) {
+        public IDKey(final Object _value) {
             // This is the Object hashcode 
             id = System.identityHashCode(_value);  
             // There have been some cases (LANG-459) that return the 
@@ -60,7 +60,7 @@ final class IDKey {
          * @return if the instances are for the same object
          */ 
         @Override
-        public boolean equals(Object other) {
+        public boolean equals(final Object other) {
             if (!(other instanceof IDKey)) {
                 return false;
             }

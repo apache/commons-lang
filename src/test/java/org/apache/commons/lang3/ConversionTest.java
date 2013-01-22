@@ -510,7 +510,7 @@ public class ConversionTest {
         }
     }
 
-    static String dbgPrint(boolean[] src) {
+    static String dbgPrint(final boolean[] src) {
         StringBuilder sb = new StringBuilder();
         for (boolean e : src) {
             if (e) {
@@ -524,7 +524,7 @@ public class ConversionTest {
     }
 
     // org.junit.Assert(boolean[], boolean[]) does not exist in JUnit 4.2
-    static void assertBinaryEquals(boolean[] expected, boolean[] actual) {
+    static void assertBinaryEquals(final boolean[] expected, final boolean[] actual) {
         assertEquals(expected.length, actual.length);
         for (int i = 0; i < expected.length; i++ ) {
             try {

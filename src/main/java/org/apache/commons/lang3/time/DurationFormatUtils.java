@@ -72,7 +72,7 @@ public class DurationFormatUtils {
      * @param durationMillis  the duration to format
      * @return the formatted duration, not null
      */
-    public static String formatDurationHMS(long durationMillis) {
+    public static String formatDurationHMS(final long durationMillis) {
         return formatDuration(durationMillis, "H:mm:ss.SSS");
     }
 
@@ -87,7 +87,7 @@ public class DurationFormatUtils {
      * @param durationMillis  the duration to format
      * @return the formatted duration, not null
      */
-    public static String formatDurationISO(long durationMillis) {
+    public static String formatDurationISO(final long durationMillis) {
         return formatDuration(durationMillis, ISO_EXTENDED_FORMAT_PATTERN, false);
     }
 
@@ -102,7 +102,7 @@ public class DurationFormatUtils {
      * @param format  the way in which to format the duration, not null
      * @return the formatted duration, not null
      */
-    public static String formatDuration(long durationMillis, String format) {
+    public static String formatDuration(final long durationMillis, final String format) {
         return formatDuration(durationMillis, format, true);
     }
 
@@ -119,7 +119,7 @@ public class DurationFormatUtils {
      * @param padWithZeros  whether to pad the left hand side of numbers with 0's
      * @return the formatted duration, not null
      */
-    public static String formatDuration(long durationMillis, String format, boolean padWithZeros) {
+    public static String formatDuration(long durationMillis, final String format, final boolean padWithZeros) {
 
         Token[] tokens = lexx(format);
 
@@ -164,9 +164,9 @@ public class DurationFormatUtils {
      * @return the formatted text in days/hours/minutes/seconds, not null
      */
     public static String formatDurationWords(
-        long durationMillis,
-        boolean suppressLeadingZeroElements,
-        boolean suppressTrailingZeroElements) {
+        final long durationMillis,
+        final boolean suppressLeadingZeroElements,
+        final boolean suppressTrailingZeroElements) {
 
         // This method is generally replacable by the format method, but 
         // there are a series of tweaks and special cases that require 
@@ -226,7 +226,7 @@ public class DurationFormatUtils {
      * @param endMillis  the end of the duration to format
      * @return the formatted duration, not null
      */
-    public static String formatPeriodISO(long startMillis, long endMillis) {
+    public static String formatPeriodISO(final long startMillis, final long endMillis) {
         return formatPeriod(startMillis, endMillis, ISO_EXTENDED_FORMAT_PATTERN, false, TimeZone.getDefault());
     }
 
@@ -239,7 +239,7 @@ public class DurationFormatUtils {
      * @param format  the way in which to format the duration, not null
      * @return the formatted duration, not null
      */
-    public static String formatPeriod(long startMillis, long endMillis, String format) {
+    public static String formatPeriod(final long startMillis, final long endMillis, final String format) {
         return formatPeriod(startMillis, endMillis, format, true, TimeZone.getDefault());
     }
 
@@ -266,8 +266,8 @@ public class DurationFormatUtils {
      * @param timezone  the millis are defined in
      * @return the formatted duration, not null
      */
-    public static String formatPeriod(long startMillis, long endMillis, String format, boolean padWithZeros, 
-            TimeZone timezone) {
+    public static String formatPeriod(final long startMillis, final long endMillis, final String format, final boolean padWithZeros, 
+            final TimeZone timezone) {
 
         // Used to optimise for differences under 28 days and 
         // called formatDuration(millis, format); however this did not work 
@@ -411,8 +411,8 @@ public class DurationFormatUtils {
      * @param padWithZeros  whether to pad
      * @return the formatted string
      */
-    static String format(Token[] tokens, int years, int months, int days, int hours, int minutes, int seconds,
-            int milliseconds, boolean padWithZeros) {
+    static String format(final Token[] tokens, final int years, final int months, final int days, final int hours, final int minutes, final int seconds,
+            int milliseconds, final boolean padWithZeros) {
         StringBuilder buffer = new StringBuilder();
         boolean lastOutputSeconds = false;
         int sz = tokens.length;
@@ -480,7 +480,7 @@ public class DurationFormatUtils {
      * @param format  the format to parse, not null
      * @return array of Token[]
      */
-    static Token[] lexx(String format) {
+    static Token[] lexx(final String format) {
         char[] array = format.toCharArray();
         ArrayList<Token> list = new ArrayList<Token>(array.length);
 
@@ -551,7 +551,7 @@ public class DurationFormatUtils {
          * @param value to look for
          * @return boolean <code>true</code> if contained
          */
-        static boolean containsTokenWithValue(Token[] tokens, Object value) {
+        static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
             int sz = tokens.length;
             for (int i = 0; i < sz; i++) {
                 if (tokens[i].getValue() == value) {
@@ -569,7 +569,7 @@ public class DurationFormatUtils {
          *
          * @param value to wrap
          */
-        Token(Object value) {
+        Token(final Object value) {
             this.value = value;
             this.count = 1;
         }
@@ -581,7 +581,7 @@ public class DurationFormatUtils {
          * @param value to wrap
          * @param count to wrap
          */
-        Token(Object value, int count) {
+        Token(final Object value, final int count) {
             this.value = value;
             this.count = count;
         }
@@ -618,7 +618,7 @@ public class DurationFormatUtils {
          * @return boolean <code>true</code> if equal
          */
         @Override
-        public boolean equals(Object obj2) {
+        public boolean equals(final Object obj2) {
             if (obj2 instanceof Token) {
                 Token tok2 = (Token) obj2;
                 if (this.value.getClass() != tok2.value.getClass()) {

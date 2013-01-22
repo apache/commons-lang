@@ -34,7 +34,7 @@ public class IEEE754rUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static double min(double[] array) {
+    public static double min(final double[] array) {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
@@ -59,7 +59,7 @@ public class IEEE754rUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static float min(float[] array) {
+    public static float min(final float[] array) {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
@@ -86,7 +86,7 @@ public class IEEE754rUtils {
      * @param c  value 3
      * @return  the smallest of the values
      */
-    public static double min(double a, double b, double c) {
+    public static double min(final double a, final double b, final double c) {
         return min(min(a, b), c);
     }
 
@@ -99,7 +99,7 @@ public class IEEE754rUtils {
      * @param b  value 2
      * @return  the smallest of the values
      */
-    public static double min(double a, double b) {
+    public static double min(final double a, final double b) {
         if(Double.isNaN(a)) {
             return b;
         } else
@@ -120,7 +120,7 @@ public class IEEE754rUtils {
      * @param c  value 3
      * @return  the smallest of the values
      */
-    public static float min(float a, float b, float c) {
+    public static float min(final float a, final float b, final float c) {
         return min(min(a, b), c);
     }
 
@@ -133,7 +133,7 @@ public class IEEE754rUtils {
      * @param b  value 2
      * @return  the smallest of the values
      */
-    public static float min(float a, float b) {
+    public static float min(final float a, final float b) {
         if(Float.isNaN(a)) {
             return b;
         } else
@@ -152,7 +152,7 @@ public class IEEE754rUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static double max(double[] array) {
+    public static double max(final double[] array) {
         // Validates input
         if (array== null) {
             throw new IllegalArgumentException("The Array must not be null");
@@ -177,7 +177,7 @@ public class IEEE754rUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
-    public static float max(float[] array) {
+    public static float max(final float[] array) {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
@@ -204,7 +204,7 @@ public class IEEE754rUtils {
      * @param c  value 3
      * @return  the largest of the values
      */
-    public static double max(double a, double b, double c) {
+    public static double max(final double a, final double b, final double c) {
         return max(max(a, b), c);
     }
 
@@ -217,7 +217,7 @@ public class IEEE754rUtils {
      * @param b  value 2
      * @return  the largest of the values
      */
-    public static double max(double a, double b) {
+    public static double max(final double a, final double b) {
         if(Double.isNaN(a)) {
             return b;
         } else
@@ -238,7 +238,7 @@ public class IEEE754rUtils {
      * @param c  value 3
      * @return  the largest of the values
      */
-    public static float max(float a, float b, float c) {
+    public static float max(final float a, final float b, final float c) {
         return max(max(a, b), c);
     }
 
@@ -251,7 +251,7 @@ public class IEEE754rUtils {
      * @param b  value 2
      * @return  the largest of the values
      */
-    public static float max(float a, float b) {
+    public static float max(final float a, final float b) {
         if(Float.isNaN(a)) {
             return b;
         } else

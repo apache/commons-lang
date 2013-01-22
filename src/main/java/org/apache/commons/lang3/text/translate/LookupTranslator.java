@@ -37,7 +37,7 @@ public class LookupTranslator extends CharSequenceTranslator {
      *
      * @param lookup CharSequence[][] table of size [*][2]
      */
-    public LookupTranslator(CharSequence[]... lookup) {
+    public LookupTranslator(final CharSequence[]... lookup) {
         lookupMap = new HashMap<CharSequence, CharSequence>();
         int _shortest = Integer.MAX_VALUE;
         int _longest = 0;
@@ -61,7 +61,7 @@ public class LookupTranslator extends CharSequenceTranslator {
      * {@inheritDoc}
      */
     @Override
-    public int translate(CharSequence input, int index, Writer out) throws IOException {
+    public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
         int max = longest;
         if (index + longest > input.length()) {
             max = input.length() - index;

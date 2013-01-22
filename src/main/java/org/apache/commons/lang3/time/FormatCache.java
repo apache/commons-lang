@@ -66,7 +66,7 @@ abstract class FormatCache<F extends Format> {
      * @throws IllegalArgumentException if pattern is invalid
      *  or <code>null</code>
      */
-    public F getInstance(String pattern, TimeZone timeZone, Locale locale) {
+    public F getInstance(final String pattern, TimeZone timeZone, Locale locale) {
         if (pattern == null) {
             throw new NullPointerException("pattern must not be null");
         }
@@ -116,7 +116,7 @@ abstract class FormatCache<F extends Format> {
      * @throws IllegalArgumentException if the Locale has no date/time
      *  pattern defined
      */
-    public F getDateTimeInstance(Integer dateStyle, Integer timeStyle, TimeZone timeZone, Locale locale) {
+    public F getDateTimeInstance(final Integer dateStyle, final Integer timeStyle, final TimeZone timeZone, Locale locale) {
         if (locale == null) {
             locale = Locale.getDefault();
         }
@@ -133,7 +133,7 @@ abstract class FormatCache<F extends Format> {
      * @return a localized standard date/time format
      * @throws IllegalArgumentException if the Locale has no date/time pattern defined
      */
-    public static String getPatternForStyle(Integer dateStyle, Integer timeStyle, Locale locale) {
+    public static String getPatternForStyle(final Integer dateStyle, final Integer timeStyle, final Locale locale) {
         MultipartKey key = new MultipartKey(dateStyle, timeStyle, locale);
 
         String pattern = cDateTimeInstanceCache.get(key);
@@ -176,7 +176,7 @@ abstract class FormatCache<F extends Format> {
          * Constructs an instance of <code>MultipartKey</code> to hold the specified objects.
          * @param keys the set of objects that make up the key.  Each key may be null.
          */
-        public MultipartKey(Object... keys) {
+        public MultipartKey(final Object... keys) {
             this.keys = keys;
         }
 
@@ -184,7 +184,7 @@ abstract class FormatCache<F extends Format> {
          * {@inheritDoc}
          */
         @Override
-        public boolean equals(Object obj) {
+        public boolean equals(final Object obj) {
             // Eliminate the usual boilerplate because
             // this inner static class is only used in a generic ConcurrentHashMap
             // which will not compare against other Object types

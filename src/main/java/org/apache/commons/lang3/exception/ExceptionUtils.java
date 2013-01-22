@@ -120,7 +120,7 @@ public class ExceptionUtils {
      * @deprecated This feature will be removed in Lang 4.0
      */
     @Deprecated
-    public static Throwable getCause(Throwable throwable) {
+    public static Throwable getCause(final Throwable throwable) {
         return getCause(throwable, CAUSE_METHOD_NAMES);
     }
 
@@ -138,7 +138,7 @@ public class ExceptionUtils {
      * @deprecated This feature will be removed in Lang 4.0
      */
     @Deprecated
-    public static Throwable getCause(Throwable throwable, String[] methodNames) {
+    public static Throwable getCause(final Throwable throwable, String[] methodNames) {
         if (throwable == null) {
             return null;
         }
@@ -176,7 +176,7 @@ public class ExceptionUtils {
      * @return the root cause of the <code>Throwable</code>,
      *  <code>null</code> if none found or null throwable input
      */
-    public static Throwable getRootCause(Throwable throwable) {
+    public static Throwable getRootCause(final Throwable throwable) {
         List<Throwable> list = getThrowableList(throwable);
         return list.size() < 2 ? null : (Throwable)list.get(list.size() - 1);
     }
@@ -189,7 +189,7 @@ public class ExceptionUtils {
      * @return the wrapped exception, or <code>null</code> if not found
      */
     // TODO: Remove in Lang 4.0
-    private static Throwable getCauseUsingMethodName(Throwable throwable, String methodName) {
+    private static Throwable getCauseUsingMethodName(final Throwable throwable, final String methodName) {
         Method method = null;
         try {
             method = throwable.getClass().getMethod(methodName);
@@ -230,7 +230,7 @@ public class ExceptionUtils {
      * @param throwable  the throwable to inspect, may be null
      * @return the count of throwables, zero if null input
      */
-    public static int getThrowableCount(Throwable throwable) {
+    public static int getThrowableCount(final Throwable throwable) {
         return getThrowableList(throwable).size();
     }
 
@@ -253,7 +253,7 @@ public class ExceptionUtils {
      * @param throwable  the throwable to inspect, may be null
      * @return the array of throwables, never null
      */
-    public static Throwable[] getThrowables(Throwable throwable) {
+    public static Throwable[] getThrowables(final Throwable throwable) {
         List<Throwable> list = getThrowableList(throwable);
         return list.toArray(new Throwable[list.size()]);
     }
@@ -301,7 +301,7 @@ public class ExceptionUtils {
      * @param clazz  the class to search for, subclasses do not match, null returns -1
      * @return the index into the throwable chain, -1 if no match or null input
      */
-    public static int indexOfThrowable(Throwable throwable, Class<?> clazz) {
+    public static int indexOfThrowable(final Throwable throwable, final Class<?> clazz) {
         return indexOf(throwable, clazz, 0, false);
     }
 
@@ -324,7 +324,7 @@ public class ExceptionUtils {
      *  negative treated as zero, larger than chain size returns -1
      * @return the index into the throwable chain, -1 if no match or null input
      */
-    public static int indexOfThrowable(Throwable throwable, Class<?> clazz, int fromIndex) {
+    public static int indexOfThrowable(final Throwable throwable, final Class<?> clazz, final int fromIndex) {
         return indexOf(throwable, clazz, fromIndex, false);
     }
 
@@ -344,7 +344,7 @@ public class ExceptionUtils {
      * @return the index into the throwable chain, -1 if no match or null input
      * @since 2.1
      */
-    public static int indexOfType(Throwable throwable, Class<?> type) {
+    public static int indexOfType(final Throwable throwable, final Class<?> type) {
         return indexOf(throwable, type, 0, true);
     }
 
@@ -368,7 +368,7 @@ public class ExceptionUtils {
      * @return the index into the throwable chain, -1 if no match or null input
      * @since 2.1
      */
-    public static int indexOfType(Throwable throwable, Class<?> type, int fromIndex) {
+    public static int indexOfType(final Throwable throwable, final Class<?> type, final int fromIndex) {
         return indexOf(throwable, type, fromIndex, true);
     }
 
@@ -383,7 +383,7 @@ public class ExceptionUtils {
      * using references
      * @return index of the <code>type</code> within throwables nested within the specified <code>throwable</code>
      */
-    private static int indexOf(Throwable throwable, Class<?> type, int fromIndex, boolean subclass) {
+    private static int indexOf(final Throwable throwable, final Class<?> type, int fromIndex, final boolean subclass) {
         if (throwable == null || type == null) {
             return -1;
         }
@@ -429,7 +429,7 @@ public class ExceptionUtils {
      * @param throwable  the throwable to output
      * @since 2.0
      */
-    public static void printRootCauseStackTrace(Throwable throwable) {
+    public static void printRootCauseStackTrace(final Throwable throwable) {
         printRootCauseStackTrace(throwable, System.err);
     }
 
@@ -452,7 +452,7 @@ public class ExceptionUtils {
      * @throws IllegalArgumentException if the stream is <code>null</code>
      * @since 2.0
      */
-    public static void printRootCauseStackTrace(Throwable throwable, PrintStream stream) {
+    public static void printRootCauseStackTrace(final Throwable throwable, final PrintStream stream) {
         if (throwable == null) {
             return;
         }
@@ -485,7 +485,7 @@ public class ExceptionUtils {
      * @throws IllegalArgumentException if the writer is <code>null</code>
      * @since 2.0
      */
-    public static void printRootCauseStackTrace(Throwable throwable, PrintWriter writer) {
+    public static void printRootCauseStackTrace(final Throwable throwable, final PrintWriter writer) {
         if (throwable == null) {
             return;
         }
@@ -513,7 +513,7 @@ public class ExceptionUtils {
      * @return an array of stack trace frames, never null
      * @since 2.0
      */
-    public static String[] getRootCauseStackTrace(Throwable throwable) {
+    public static String[] getRootCauseStackTrace(final Throwable throwable) {
         if (throwable == null) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
@@ -547,7 +547,7 @@ public class ExceptionUtils {
      * @throws IllegalArgumentException if either argument is null
      * @since 2.0
      */
-    public static void removeCommonFrames(List<String> causeFrames, List<String> wrapperFrames) {
+    public static void removeCommonFrames(final List<String> causeFrames, final List<String> wrapperFrames) {
         if (causeFrames == null || wrapperFrames == null) {
             throw new IllegalArgumentException("The List must not be null");
         }
@@ -579,7 +579,7 @@ public class ExceptionUtils {
      * @return the stack trace as generated by the exception's
      *  <code>printStackTrace(PrintWriter)</code> method
      */
-    public static String getStackTrace(Throwable throwable) {
+    public static String getStackTrace(final Throwable throwable) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw, true);
         throwable.printStackTrace(pw);
@@ -599,7 +599,7 @@ public class ExceptionUtils {
      * @param throwable  the <code>Throwable</code> to examine, may be null
      * @return an array of strings describing each stack frame, never null
      */
-    public static String[] getStackFrames(Throwable throwable) {
+    public static String[] getStackFrames(final Throwable throwable) {
         if (throwable == null) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
@@ -615,7 +615,7 @@ public class ExceptionUtils {
      * @param stackTrace  a stack trace String
      * @return an array where each element is a line from the argument
      */
-    static String[] getStackFrames(String stackTrace) {
+    static String[] getStackFrames(final String stackTrace) {
         String linebreak = SystemUtils.LINE_SEPARATOR;
         StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
         List<String> list = new ArrayList<String>();
@@ -637,7 +637,7 @@ public class ExceptionUtils {
      * @param t is any throwable
      * @return List of stack frames
      */
-    static List<String> getStackFrameList(Throwable t) {
+    static List<String> getStackFrameList(final Throwable t) {
         String stackTrace = getStackTrace(t);
         String linebreak = SystemUtils.LINE_SEPARATOR;
         StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
@@ -668,7 +668,7 @@ public class ExceptionUtils {
      * @return the message, non-null
      * @since Commons Lang 2.2
      */
-    public static String getMessage(Throwable th) {
+    public static String getMessage(final Throwable th) {
         if (th == null) {
             return "";
         }
@@ -688,7 +688,7 @@ public class ExceptionUtils {
      * @return the message, non-null
      * @since Commons Lang 2.2
      */
-    public static String getRootCauseMessage(Throwable th) {
+    public static String getRootCauseMessage(final Throwable th) {
         Throwable root = ExceptionUtils.getRootCause(th);
         root = root == null ? th : root;
         return getMessage(root);

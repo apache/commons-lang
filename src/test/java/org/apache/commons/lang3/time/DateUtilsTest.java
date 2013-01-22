@@ -623,7 +623,7 @@ public class DateUtilsTest {
     }
 
     //-----------------------------------------------------------------------
-    private void assertDate(Date date, int year, int month, int day, int hour, int min, int sec, int mil) throws Exception {
+    private void assertDate(final Date date, final int year, final int month, final int day, final int hour, final int min, final int sec, final int mil) throws Exception {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(date);
         assertEquals(year, cal.get(Calendar.YEAR));
@@ -1630,7 +1630,7 @@ public class DateUtilsTest {
      * This checks that this is a 7 element iterator of Calendar objects
      * that are dates (no time), and exactly 1 day spaced after each other.
      */
-    private static void assertWeekIterator(Iterator<?> it, Calendar start) {
+    private static void assertWeekIterator(final Iterator<?> it, final Calendar start) {
         Calendar end = (Calendar) start.clone();
         end.add(Calendar.DATE, 6);
 
@@ -1640,7 +1640,7 @@ public class DateUtilsTest {
     /**
      * Convenience method for when working with Date objects
      */
-    private static void assertWeekIterator(Iterator<?> it, Date start, Date end) {
+    private static void assertWeekIterator(final Iterator<?> it, final Date start, final Date end) {
         Calendar calStart = Calendar.getInstance();
         calStart.setTime(start);
         Calendar calEnd = Calendar.getInstance();
@@ -1654,7 +1654,7 @@ public class DateUtilsTest {
      * that are dates (no time), and exactly 1 day spaced after each other
      * (in addition to the proper start and stop dates)
      */
-    private static void assertWeekIterator(Iterator<?> it, Calendar start, Calendar end) {
+    private static void assertWeekIterator(final Iterator<?> it, final Calendar start, final Calendar end) {
         Calendar cal = (Calendar) it.next();
         assertCalendarsEquals("", start, cal, 0);
         Calendar last = null;
@@ -1681,14 +1681,14 @@ public class DateUtilsTest {
      * Used to check that Calendar objects are close enough
      * delta is in milliseconds
      */
-    private static void assertCalendarsEquals(String message, Calendar cal1, Calendar cal2, long delta) {
+    private static void assertCalendarsEquals(final String message, final Calendar cal1, final Calendar cal2, final long delta) {
         if (Math.abs(cal1.getTime().getTime() - cal2.getTime().getTime()) > delta) {
             throw new AssertionFailedError(
                     message + " expected " + cal1.getTime() + " but got " + cal2.getTime());
         }
     }
 
-    void warn(String msg) {
+    void warn(final String msg) {
         System.err.println(msg);
     }
 }

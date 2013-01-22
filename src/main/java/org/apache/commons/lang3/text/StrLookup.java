@@ -93,7 +93,7 @@ public abstract class StrLookup<V> {
      * @param map  the map of keys to values, may be null
      * @return a lookup using the map, not null
      */
-    public static <V> StrLookup<V> mapLookup(Map<String, V> map) {
+    public static <V> StrLookup<V> mapLookup(final Map<String, V> map) {
         return new MapStrLookup<V>(map);
     }
 
@@ -144,7 +144,7 @@ public abstract class StrLookup<V> {
          *
          * @param map  the map of keys to values, may be null
          */
-        MapStrLookup(Map<String, V> map) {
+        MapStrLookup(final Map<String, V> map) {
             this.map = map;
         }
 
@@ -158,7 +158,7 @@ public abstract class StrLookup<V> {
          * @return the matching value, null if no match
          */
         @Override
-        public String lookup(String key) {
+        public String lookup(final String key) {
             if (map == null) {
                 return null;
             }

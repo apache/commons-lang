@@ -126,7 +126,7 @@ public class EventListenerSupportTest
         listenerSupport.addListener(new VetoableChangeListener() {
             
             @Override
-            public void vetoableChange(PropertyChangeEvent e) {
+            public void vetoableChange(final PropertyChangeEvent e) {
             }
         });
         listenerSupport.addListener(EasyMock.createNiceMock(VetoableChangeListener.class));
@@ -174,7 +174,7 @@ public class EventListenerSupportTest
                      * {@inheritDoc}
                      */
                     @Override
-                    public Object invoke(Object proxy, Method method, Object[] args)
+                    public Object invoke(final Object proxy, final Method method, final Object[] args)
                             throws Throwable {
                         return "vetoableChange".equals(method.getName())
                                 && "Hour".equals(((PropertyChangeEvent) args[0]).getPropertyName()) ? null
@@ -201,7 +201,7 @@ public class EventListenerSupportTest
         listenerSupport.addListener(new VetoableChangeListener()
         {
             @Override
-            public void vetoableChange(PropertyChangeEvent e)
+            public void vetoableChange(final PropertyChangeEvent e)
             {
                 listenerSupport.removeListener(this);
             }
@@ -213,7 +213,7 @@ public class EventListenerSupportTest
         return new VetoableChangeListener()
         {
             @Override
-            public void vetoableChange(PropertyChangeEvent e)
+            public void vetoableChange(final PropertyChangeEvent e)
             {
                 calledListeners.add(this);
             }

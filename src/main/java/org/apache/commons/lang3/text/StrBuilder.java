@@ -122,7 +122,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param str  the string to copy, null treated as blank string
      */
-    public StrBuilder(String str) {
+    public StrBuilder(final String str) {
         super();
         if (str == null) {
             buffer = new char[CAPACITY];
@@ -148,7 +148,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param newLine  the new line text, null means use system default
      * @return this, to enable chaining
      */
-    public StrBuilder setNewLineText(String newLine) {
+    public StrBuilder setNewLineText(final String newLine) {
         this.newLine = newLine;
         return this;
     }
@@ -196,7 +196,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the length is negative
      */
-    public StrBuilder setLength(int length) {
+    public StrBuilder setLength(final int length) {
         if (length < 0) {
             throw new StringIndexOutOfBoundsException(length);
         }
@@ -230,7 +230,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param capacity  the capacity to ensure
      * @return this, to enable chaining
      */
-    public StrBuilder ensureCapacity(int capacity) {
+    public StrBuilder ensureCapacity(final int capacity) {
         if (capacity > buffer.length) {
             char[] old = buffer;
             buffer = new char[capacity * 2];
@@ -305,7 +305,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @throws IndexOutOfBoundsException if the index is invalid
      */
     @Override
-    public char charAt(int index) {
+    public char charAt(final int index) {
         if (index < 0 || index >= length()) {
             throw new StringIndexOutOfBoundsException(index);
         }
@@ -322,7 +322,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder setCharAt(int index, char ch) {
+    public StrBuilder setCharAt(final int index, final char ch) {
         if (index < 0 || index >= length()) {
             throw new StringIndexOutOfBoundsException(index);
         }
@@ -339,7 +339,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder deleteCharAt(int index) {
+    public StrBuilder deleteCharAt(final int index) {
         if (index < 0 || index >= size) {
             throw new StringIndexOutOfBoundsException(index);
         }
@@ -372,7 +372,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @throws IndexOutOfBoundsException if startIndex is invalid,
      *  or if endIndex is invalid (but endIndex greater than size is valid)
      */
-    public char[] toCharArray(int startIndex, int endIndex) {
+    public char[] toCharArray(final int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
         int len = endIndex - startIndex;
         if (len == 0) {
@@ -408,7 +408,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @throws NullPointerException if the array is null
      * @throws IndexOutOfBoundsException if any index is invalid
      */
-    public void getChars(int startIndex, int endIndex, char destination[], int destinationIndex) {
+    public void getChars(final int startIndex, final int endIndex, final char destination[], final int destinationIndex) {
         if (startIndex < 0) {
             throw new StringIndexOutOfBoundsException(startIndex);
         }
@@ -458,7 +458,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param obj  the object to append
      * @return this, to enable chaining
      */
-    public StrBuilder append(Object obj) {
+    public StrBuilder append(final Object obj) {
         if (obj == null) {
             return appendNull();
         } 
@@ -474,7 +474,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @since 3.0
      */
     @Override
-    public StrBuilder append(CharSequence seq) {
+    public StrBuilder append(final CharSequence seq) {
         if (seq == null) {
             return appendNull();
         } 
@@ -492,7 +492,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @since 3.0
      */
     @Override
-    public StrBuilder append(CharSequence seq, int startIndex, int length) {
+    public StrBuilder append(final CharSequence seq, final int startIndex, final int length) {
         if (seq == null) {
             return appendNull();
         } 
@@ -506,7 +506,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param str  the string to append
      * @return this, to enable chaining
      */
-    public StrBuilder append(String str) {
+    public StrBuilder append(final String str) {
         if (str == null) {
             return appendNull();
         }
@@ -530,7 +530,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param length  the length to append, must be valid
      * @return this, to enable chaining
      */
-    public StrBuilder append(String str, int startIndex, int length) {
+    public StrBuilder append(final String str, final int startIndex, final int length) {
         if (str == null) {
             return appendNull();
         }
@@ -558,7 +558,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @see String#format(String, Object...)
      * @since 3.2
      */
-    public StrBuilder append(String format, Object... objs) {
+    public StrBuilder append(final String format, final Object... objs) {
         return append(String.format(format, objs));
     }
 
@@ -569,7 +569,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param str  the string buffer to append
      * @return this, to enable chaining
      */
-    public StrBuilder append(StringBuffer str) {
+    public StrBuilder append(final StringBuffer str) {
         if (str == null) {
             return appendNull();
         }
@@ -592,7 +592,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param length  the length to append, must be valid
      * @return this, to enable chaining
      */
-    public StrBuilder append(StringBuffer str, int startIndex, int length) {
+    public StrBuilder append(final StringBuffer str, final int startIndex, final int length) {
         if (str == null) {
             return appendNull();
         }
@@ -619,7 +619,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 3.2
      */
-    public StrBuilder append(StringBuilder str) {
+    public StrBuilder append(final StringBuilder str) {
         if (str == null) {
             return appendNull();
         }
@@ -643,7 +643,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 3.2
      */
-    public StrBuilder append(StringBuilder str, int startIndex, int length) {
+    public StrBuilder append(final StringBuilder str, final int startIndex, final int length) {
         if (str == null) {
             return appendNull();
         }
@@ -669,7 +669,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param str  the string builder to append
      * @return this, to enable chaining
      */
-    public StrBuilder append(StrBuilder str) {
+    public StrBuilder append(final StrBuilder str) {
         if (str == null) {
             return appendNull();
         }
@@ -692,7 +692,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param length  the length to append, must be valid
      * @return this, to enable chaining
      */
-    public StrBuilder append(StrBuilder str, int startIndex, int length) {
+    public StrBuilder append(final StrBuilder str, final int startIndex, final int length) {
         if (str == null) {
             return appendNull();
         }
@@ -718,7 +718,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param chars  the char array to append
      * @return this, to enable chaining
      */
-    public StrBuilder append(char[] chars) {
+    public StrBuilder append(final char[] chars) {
         if (chars == null) {
             return appendNull();
         }
@@ -741,7 +741,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param length  the length to append, must be valid
      * @return this, to enable chaining
      */
-    public StrBuilder append(char[] chars, int startIndex, int length) {
+    public StrBuilder append(final char[] chars, final int startIndex, final int length) {
         if (chars == null) {
             return appendNull();
         }
@@ -766,7 +766,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param value  the value to append
      * @return this, to enable chaining
      */
-    public StrBuilder append(boolean value) {
+    public StrBuilder append(final boolean value) {
         if (value) {
             ensureCapacity(size + 4);
             buffer[size++] = 't';
@@ -792,7 +792,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @since 3.0
      */
     @Override
-    public StrBuilder append(char ch) {
+    public StrBuilder append(final char ch) {
         int len = length();
         ensureCapacity(len + 1);
         buffer[size++] = ch;
@@ -805,7 +805,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param value  the value to append
      * @return this, to enable chaining
      */
-    public StrBuilder append(int value) {
+    public StrBuilder append(final int value) {
         return append(String.valueOf(value));
     }
 
@@ -815,7 +815,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param value  the value to append
      * @return this, to enable chaining
      */
-    public StrBuilder append(long value) {
+    public StrBuilder append(final long value) {
         return append(String.valueOf(value));
     }
 
@@ -825,7 +825,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param value  the value to append
      * @return this, to enable chaining
      */
-    public StrBuilder append(float value) {
+    public StrBuilder append(final float value) {
         return append(String.valueOf(value));
     }
 
@@ -835,7 +835,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param value  the value to append
      * @return this, to enable chaining
      */
-    public StrBuilder append(double value) {
+    public StrBuilder append(final double value) {
         return append(String.valueOf(value));
     }
 
@@ -848,7 +848,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(Object obj) {
+    public StrBuilder appendln(final Object obj) {
         return append(obj).appendNewLine();
     }
 
@@ -860,7 +860,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(String str) {
+    public StrBuilder appendln(final String str) {
         return append(str).appendNewLine();
     }
 
@@ -874,7 +874,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(String str, int startIndex, int length) {
+    public StrBuilder appendln(final String str, final int startIndex, final int length) {
         return append(str, startIndex, length).appendNewLine();
     }
 
@@ -887,7 +887,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @see String#format(String, Object...)
      * @since 3.2
      */
-    public StrBuilder appendln(String format, Object... objs) {
+    public StrBuilder appendln(final String format, final Object... objs) {
         return append(format, objs).appendNewLine();
     }
 
@@ -899,7 +899,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(StringBuffer str) {
+    public StrBuilder appendln(final StringBuffer str) {
         return append(str).appendNewLine();
     }
 
@@ -911,7 +911,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 3.2
      */
-    public StrBuilder appendln(StringBuilder str) {
+    public StrBuilder appendln(final StringBuilder str) {
         return append(str).appendNewLine();
     }
 
@@ -925,7 +925,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 3.2
      */
-    public StrBuilder appendln(StringBuilder str, int startIndex, int length) {
+    public StrBuilder appendln(final StringBuilder str, final int startIndex, final int length) {
         return append(str, startIndex, length).appendNewLine();
     }
 
@@ -939,7 +939,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(StringBuffer str, int startIndex, int length) {
+    public StrBuilder appendln(final StringBuffer str, final int startIndex, final int length) {
         return append(str, startIndex, length).appendNewLine();
     }
 
@@ -951,7 +951,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(StrBuilder str) {
+    public StrBuilder appendln(final StrBuilder str) {
         return append(str).appendNewLine();
     }
 
@@ -965,7 +965,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(StrBuilder str, int startIndex, int length) {
+    public StrBuilder appendln(final StrBuilder str, final int startIndex, final int length) {
         return append(str, startIndex, length).appendNewLine();
     }
 
@@ -977,7 +977,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(char[] chars) {
+    public StrBuilder appendln(final char[] chars) {
         return append(chars).appendNewLine();
     }
 
@@ -991,7 +991,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(char[] chars, int startIndex, int length) {
+    public StrBuilder appendln(final char[] chars, final int startIndex, final int length) {
         return append(chars, startIndex, length).appendNewLine();
     }
 
@@ -1002,7 +1002,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(boolean value) {
+    public StrBuilder appendln(final boolean value) {
         return append(value).appendNewLine();
     }
 
@@ -1013,7 +1013,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(char ch) {
+    public StrBuilder appendln(final char ch) {
         return append(ch).appendNewLine();
     }
 
@@ -1024,7 +1024,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(int value) {
+    public StrBuilder appendln(final int value) {
         return append(value).appendNewLine();
     }
 
@@ -1035,7 +1035,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(long value) {
+    public StrBuilder appendln(final long value) {
         return append(value).appendNewLine();
     }
 
@@ -1046,7 +1046,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(float value) {
+    public StrBuilder appendln(final float value) {
         return append(value).appendNewLine();
     }
 
@@ -1057,7 +1057,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendln(double value) {
+    public StrBuilder appendln(final double value) {
         return append(value).appendNewLine();
     }
 
@@ -1071,7 +1071,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public <T> StrBuilder appendAll(T... array) {
+    public <T> StrBuilder appendAll(final T... array) {
         if (array != null && array.length > 0) {
             for (Object element : array) {
                 append(element);
@@ -1089,7 +1089,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendAll(Iterable<?> iterable) {
+    public StrBuilder appendAll(final Iterable<?> iterable) {
         if (iterable != null) {
             for (Object o : iterable) {
                 append(o);
@@ -1107,7 +1107,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendAll(Iterator<?> it) {
+    public StrBuilder appendAll(final Iterator<?> it) {
         if (it != null) {
             while (it.hasNext()) {
                 append(it.next());
@@ -1127,7 +1127,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param separator  the separator to use, null means no separator
      * @return this, to enable chaining
      */
-    public StrBuilder appendWithSeparators(Object[] array, String separator) {
+    public StrBuilder appendWithSeparators(final Object[] array, String separator) {
         if (array != null && array.length > 0) {
             separator = ObjectUtils.toString(separator);
             append(array[0]);
@@ -1149,7 +1149,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param separator  the separator to use, null means no separator
      * @return this, to enable chaining
      */
-    public StrBuilder appendWithSeparators(Iterable<?> iterable, String separator) {
+    public StrBuilder appendWithSeparators(final Iterable<?> iterable, String separator) {
         if (iterable != null) {
             separator = ObjectUtils.toString(separator);
             Iterator<?> it = iterable.iterator();
@@ -1173,7 +1173,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param separator  the separator to use, null means no separator
      * @return this, to enable chaining
      */
-    public StrBuilder appendWithSeparators(Iterator<?> it, String separator) {
+    public StrBuilder appendWithSeparators(final Iterator<?> it, String separator) {
         if (it != null) {
             separator = ObjectUtils.toString(separator);
             while (it.hasNext()) {
@@ -1207,7 +1207,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendSeparator(String separator) {
+    public StrBuilder appendSeparator(final String separator) {
         return appendSeparator(separator, null);
     }
 
@@ -1238,7 +1238,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.5
      */
-    public StrBuilder appendSeparator(String standard, String defaultIfEmpty) {
+    public StrBuilder appendSeparator(final String standard, final String defaultIfEmpty) {
         String str = isEmpty() ? defaultIfEmpty : standard;
         if (str != null) {
             append(str);
@@ -1265,7 +1265,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendSeparator(char separator) {
+    public StrBuilder appendSeparator(final char separator) {
         if (size() > 0) {
             append(separator);
         }
@@ -1283,7 +1283,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.5
      */
-    public StrBuilder appendSeparator(char standard, char defaultIfEmpty) {
+    public StrBuilder appendSeparator(final char standard, final char defaultIfEmpty) {
         if (size() > 0) {
             append(standard);
         } else {
@@ -1312,7 +1312,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendSeparator(String separator, int loopIndex) {
+    public StrBuilder appendSeparator(final String separator, final int loopIndex) {
         if (separator != null && loopIndex > 0) {
             append(separator);
         }
@@ -1339,7 +1339,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendSeparator(char separator, int loopIndex) {
+    public StrBuilder appendSeparator(final char separator, final int loopIndex) {
         if (loopIndex > 0) {
             append(separator);
         }
@@ -1354,7 +1354,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param padChar  the character to append
      * @return this, to enable chaining
      */
-    public StrBuilder appendPadding(int length, char padChar) {
+    public StrBuilder appendPadding(final int length, final char padChar) {
         if (length >= 0) {
             ensureCapacity(size + length);
             for (int i = 0; i < length; i++) {
@@ -1376,7 +1376,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param padChar  the pad character to use
      * @return this, to enable chaining
      */
-    public StrBuilder appendFixedWidthPadLeft(Object obj, int width, char padChar) {
+    public StrBuilder appendFixedWidthPadLeft(final Object obj, final int width, final char padChar) {
         if (width > 0) {
             ensureCapacity(size + width);
             String str = (obj == null ? getNullText() : obj.toString());
@@ -1408,7 +1408,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param padChar  the pad character to use
      * @return this, to enable chaining
      */
-    public StrBuilder appendFixedWidthPadLeft(int value, int width, char padChar) {
+    public StrBuilder appendFixedWidthPadLeft(final int value, final int width, final char padChar) {
         return appendFixedWidthPadLeft(String.valueOf(value), width, padChar);
     }
 
@@ -1423,7 +1423,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param padChar  the pad character to use
      * @return this, to enable chaining
      */
-    public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {
+    public StrBuilder appendFixedWidthPadRight(final Object obj, final int width, final char padChar) {
         if (width > 0) {
             ensureCapacity(size + width);
             String str = (obj == null ? getNullText() : obj.toString());
@@ -1455,7 +1455,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param padChar  the pad character to use
      * @return this, to enable chaining
      */
-    public StrBuilder appendFixedWidthPadRight(int value, int width, char padChar) {
+    public StrBuilder appendFixedWidthPadRight(final int value, final int width, final char padChar) {
         return appendFixedWidthPadRight(String.valueOf(value), width, padChar);
     }
 
@@ -1469,7 +1469,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder insert(int index, Object obj) {
+    public StrBuilder insert(final int index, final Object obj) {
         if (obj == null) {
             return insert(index, nullText);
         }
@@ -1486,7 +1486,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @throws IndexOutOfBoundsException if the index is invalid
      */
     @SuppressWarnings("null") // str cannot be null
-    public StrBuilder insert(int index, String str) {
+    public StrBuilder insert(final int index, String str) {
         validateIndex(index);
         if (str == null) {
             str = nullText;
@@ -1511,7 +1511,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder insert(int index, char chars[]) {
+    public StrBuilder insert(final int index, final char chars[]) {
         validateIndex(index);
         if (chars == null) {
             return insert(index, nullText);
@@ -1537,7 +1537,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if any index is invalid
      */
-    public StrBuilder insert(int index, char chars[], int offset, int length) {
+    public StrBuilder insert(final int index, final char chars[], final int offset, final int length) {
         validateIndex(index);
         if (chars == null) {
             return insert(index, nullText);
@@ -1565,7 +1565,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder insert(int index, boolean value) {
+    public StrBuilder insert(int index, final boolean value) {
         validateIndex(index);
         if (value) {
             ensureCapacity(size + 4);
@@ -1596,7 +1596,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder insert(int index, char value) {
+    public StrBuilder insert(final int index, final char value) {
         validateIndex(index);
         ensureCapacity(size + 1);
         System.arraycopy(buffer, index, buffer, index + 1, size - index);
@@ -1613,7 +1613,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder insert(int index, int value) {
+    public StrBuilder insert(final int index, final int value) {
         return insert(index, String.valueOf(value));
     }
 
@@ -1625,7 +1625,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder insert(int index, long value) {
+    public StrBuilder insert(final int index, final long value) {
         return insert(index, String.valueOf(value));
     }
 
@@ -1637,7 +1637,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder insert(int index, float value) {
+    public StrBuilder insert(final int index, final float value) {
         return insert(index, String.valueOf(value));
     }
 
@@ -1649,7 +1649,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder insert(int index, double value) {
+    public StrBuilder insert(final int index, final double value) {
         return insert(index, String.valueOf(value));
     }
 
@@ -1662,7 +1662,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param len  the length, must be valid
      * @throws IndexOutOfBoundsException if any index is invalid
      */
-    private void deleteImpl(int startIndex, int endIndex, int len) {
+    private void deleteImpl(final int startIndex, final int endIndex, final int len) {
         System.arraycopy(buffer, endIndex, buffer, startIndex, size - endIndex);
         size -= len;
     }
@@ -1676,7 +1676,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder delete(int startIndex, int endIndex) {
+    public StrBuilder delete(final int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
         int len = endIndex - startIndex;
         if (len > 0) {
@@ -1692,7 +1692,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param ch  the character to delete
      * @return this, to enable chaining
      */
-    public StrBuilder deleteAll(char ch) {
+    public StrBuilder deleteAll(final char ch) {
         for (int i = 0; i < size; i++) {
             if (buffer[i] == ch) {
                 int start = i;
@@ -1715,7 +1715,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param ch  the character to delete
      * @return this, to enable chaining
      */
-    public StrBuilder deleteFirst(char ch) {
+    public StrBuilder deleteFirst(final char ch) {
         for (int i = 0; i < size; i++) {
             if (buffer[i] == ch) {
                 deleteImpl(i, i + 1, 1);
@@ -1732,7 +1732,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param str  the string to delete, null causes no action
      * @return this, to enable chaining
      */
-    public StrBuilder deleteAll(String str) {
+    public StrBuilder deleteAll(final String str) {
         int len = (str == null ? 0 : str.length());
         if (len > 0) {
             int index = indexOf(str, 0);
@@ -1750,7 +1750,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param str  the string to delete, null causes no action
      * @return this, to enable chaining
      */
-    public StrBuilder deleteFirst(String str) {
+    public StrBuilder deleteFirst(final String str) {
         int len = (str == null ? 0 : str.length());
         if (len > 0) {
             int index = indexOf(str, 0);
@@ -1772,7 +1772,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param matcher  the matcher to use to find the deletion, null causes no action
      * @return this, to enable chaining
      */
-    public StrBuilder deleteAll(StrMatcher matcher) {
+    public StrBuilder deleteAll(final StrMatcher matcher) {
         return replace(matcher, null, 0, size, -1);
     }
 
@@ -1786,7 +1786,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param matcher  the matcher to use to find the deletion, null causes no action
      * @return this, to enable chaining
      */
-    public StrBuilder deleteFirst(StrMatcher matcher) {
+    public StrBuilder deleteFirst(final StrMatcher matcher) {
         return replace(matcher, null, 0, size, 1);
     }
 
@@ -1801,7 +1801,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param insertLen  the length of the insert string, must be valid
      * @throws IndexOutOfBoundsException if any index is invalid
      */
-    private void replaceImpl(int startIndex, int endIndex, int removeLen, String insertStr, int insertLen) {
+    private void replaceImpl(final int startIndex, final int endIndex, final int removeLen, final String insertStr, final int insertLen) {
         int newSize = size - removeLen + insertLen;
         if (insertLen != removeLen) {
             ensureCapacity(newSize);
@@ -1824,7 +1824,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder replace(int startIndex, int endIndex, String replaceStr) {
+    public StrBuilder replace(final int startIndex, int endIndex, final String replaceStr) {
         endIndex = validateRange(startIndex, endIndex);
         int insertLen = (replaceStr == null ? 0 : replaceStr.length());
         replaceImpl(startIndex, endIndex, endIndex - startIndex, replaceStr, insertLen);
@@ -1840,7 +1840,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param replace  the replace character
      * @return this, to enable chaining
      */
-    public StrBuilder replaceAll(char search, char replace) {
+    public StrBuilder replaceAll(final char search, final char replace) {
         if (search != replace) {
             for (int i = 0; i < size; i++) {
                 if (buffer[i] == search) {
@@ -1859,7 +1859,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param replace  the replace character
      * @return this, to enable chaining
      */
-    public StrBuilder replaceFirst(char search, char replace) {
+    public StrBuilder replaceFirst(final char search, final char replace) {
         if (search != replace) {
             for (int i = 0; i < size; i++) {
                 if (buffer[i] == search) {
@@ -1879,7 +1879,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param replaceStr  the replace string, null is equivalent to an empty string
      * @return this, to enable chaining
      */
-    public StrBuilder replaceAll(String searchStr, String replaceStr) {
+    public StrBuilder replaceAll(final String searchStr, final String replaceStr) {
         int searchLen = (searchStr == null ? 0 : searchStr.length());
         if (searchLen > 0) {
             int replaceLen = (replaceStr == null ? 0 : replaceStr.length());
@@ -1899,7 +1899,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param replaceStr  the replace string, null is equivalent to an empty string
      * @return this, to enable chaining
      */
-    public StrBuilder replaceFirst(String searchStr, String replaceStr) {
+    public StrBuilder replaceFirst(final String searchStr, final String replaceStr) {
         int searchLen = (searchStr == null ? 0 : searchStr.length());
         if (searchLen > 0) {
             int index = indexOf(searchStr, 0);
@@ -1923,7 +1923,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param replaceStr  the replace string, null is equivalent to an empty string
      * @return this, to enable chaining
      */
-    public StrBuilder replaceAll(StrMatcher matcher, String replaceStr) {
+    public StrBuilder replaceAll(final StrMatcher matcher, final String replaceStr) {
         return replace(matcher, replaceStr, 0, size, -1);
     }
 
@@ -1938,7 +1938,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param replaceStr  the replace string, null is equivalent to an empty string
      * @return this, to enable chaining
      */
-    public StrBuilder replaceFirst(StrMatcher matcher, String replaceStr) {
+    public StrBuilder replaceFirst(final StrMatcher matcher, final String replaceStr) {
         return replace(matcher, replaceStr, 0, size, 1);
     }
 
@@ -1960,8 +1960,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @throws IndexOutOfBoundsException if start index is invalid
      */
     public StrBuilder replace(
-            StrMatcher matcher, String replaceStr,
-            int startIndex, int endIndex, int replaceCount) {
+            final StrMatcher matcher, final String replaceStr,
+            final int startIndex, int endIndex, final int replaceCount) {
         endIndex = validateRange(startIndex, endIndex);
         return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
     }
@@ -1982,8 +1982,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @throws IndexOutOfBoundsException if any index is invalid
      */
     private StrBuilder replaceImpl(
-            StrMatcher matcher, String replaceStr,
-            int from, int to, int replaceCount) {
+            final StrMatcher matcher, final String replaceStr,
+            final int from, int to, int replaceCount) {
         if (matcher == null || size == 0) {
             return this;
         }
@@ -2062,7 +2062,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param str  the string to search for, null returns false
      * @return true if the builder starts with the string
      */
-    public boolean startsWith(String str) {
+    public boolean startsWith(final String str) {
         if (str == null) {
             return false;
         }
@@ -2089,7 +2089,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param str  the string to search for, null returns false
      * @return true if the builder ends with the string
      */
-    public boolean endsWith(String str) {
+    public boolean endsWith(final String str) {
         if (str == null) {
             return false;
         }
@@ -2115,7 +2115,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @since 3.0
      */
     @Override
-    public CharSequence subSequence(int startIndex, int endIndex) {
+    public CharSequence subSequence(final int startIndex, final int endIndex) {
       if (startIndex < 0) {
           throw new StringIndexOutOfBoundsException(startIndex);
       }
@@ -2135,7 +2135,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return the new string
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public String substring(int start) {
+    public String substring(final int start) {
         return substring(start, size);
     }
 
@@ -2152,7 +2152,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return the new string
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public String substring(int startIndex, int endIndex) {
+    public String substring(final int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
         return new String(buffer, startIndex, endIndex - startIndex);
     }
@@ -2169,7 +2169,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param length  the number of characters to extract, negative returns empty string
      * @return the new string
      */
-    public String leftString(int length) {
+    public String leftString(final int length) {
         if (length <= 0) {
             return "";
         } else if (length >= size) {
@@ -2191,7 +2191,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param length  the number of characters to extract, negative returns empty string
      * @return the new string
      */
-    public String rightString(int length) {
+    public String rightString(final int length) {
         if (length <= 0) {
             return "";
         } else if (length >= size) {
@@ -2217,7 +2217,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param length  the number of characters to extract, negative returns empty string
      * @return the new string
      */
-    public String midString(int index, int length) {
+    public String midString(int index, final int length) {
         if (index < 0) {
             index = 0;
         }
@@ -2238,7 +2238,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param ch  the character to find
      * @return true if the builder contains the character
      */
-    public boolean contains(char ch) {
+    public boolean contains(final char ch) {
         char[] thisBuf = buffer;
         for (int i = 0; i < this.size; i++) {
             if (thisBuf[i] == ch) {
@@ -2254,7 +2254,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param str  the string to find
      * @return true if the builder contains the string
      */
-    public boolean contains(String str) {
+    public boolean contains(final String str) {
         return indexOf(str, 0) >= 0;
     }
 
@@ -2269,7 +2269,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param matcher  the matcher to use, null returns -1
      * @return true if the matcher finds a match in the builder
      */
-    public boolean contains(StrMatcher matcher) {
+    public boolean contains(final StrMatcher matcher) {
         return indexOf(matcher, 0) >= 0;
     }
 
@@ -2280,7 +2280,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param ch  the character to find
      * @return the first index of the character, or -1 if not found
      */
-    public int indexOf(char ch) {
+    public int indexOf(final char ch) {
         return indexOf(ch, 0);
     }
 
@@ -2291,7 +2291,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex  the index to start at, invalid index rounded to edge
      * @return the first index of the character, or -1 if not found
      */
-    public int indexOf(char ch, int startIndex) {
+    public int indexOf(final char ch, int startIndex) {
         startIndex = (startIndex < 0 ? 0 : startIndex);
         if (startIndex >= size) {
             return -1;
@@ -2313,7 +2313,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param str  the string to find, null returns -1
      * @return the first index of the string, or -1 if not found
      */
-    public int indexOf(String str) {
+    public int indexOf(final String str) {
         return indexOf(str, 0);
     }
 
@@ -2327,7 +2327,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex  the index to start at, invalid index rounded to edge
      * @return the first index of the string, or -1 if not found
      */
-    public int indexOf(String str, int startIndex) {
+    public int indexOf(final String str, int startIndex) {
         startIndex = (startIndex < 0 ? 0 : startIndex);
         if (str == null || startIndex >= size) {
             return -1;
@@ -2366,7 +2366,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param matcher  the matcher to use, null returns -1
      * @return the first index matched, or -1 if not found
      */
-    public int indexOf(StrMatcher matcher) {
+    public int indexOf(final StrMatcher matcher) {
         return indexOf(matcher, 0);
     }
 
@@ -2382,7 +2382,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex  the index to start at, invalid index rounded to edge
      * @return the first index matched, or -1 if not found
      */
-    public int indexOf(StrMatcher matcher, int startIndex) {
+    public int indexOf(final StrMatcher matcher, int startIndex) {
         startIndex = (startIndex < 0 ? 0 : startIndex);
         if (matcher == null || startIndex >= size) {
             return -1;
@@ -2404,7 +2404,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param ch  the character to find
      * @return the last index of the character, or -1 if not found
      */
-    public int lastIndexOf(char ch) {
+    public int lastIndexOf(final char ch) {
         return lastIndexOf(ch, size - 1);
     }
 
@@ -2415,7 +2415,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex  the index to start at, invalid index rounded to edge
      * @return the last index of the character, or -1 if not found
      */
-    public int lastIndexOf(char ch, int startIndex) {
+    public int lastIndexOf(final char ch, int startIndex) {
         startIndex = (startIndex >= size ? size - 1 : startIndex);
         if (startIndex < 0) {
             return -1;
@@ -2436,7 +2436,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param str  the string to find, null returns -1
      * @return the last index of the string, or -1 if not found
      */
-    public int lastIndexOf(String str) {
+    public int lastIndexOf(final String str) {
         return lastIndexOf(str, size - 1);
     }
 
@@ -2450,7 +2450,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex  the index to start at, invalid index rounded to edge
      * @return the last index of the string, or -1 if not found
      */
-    public int lastIndexOf(String str, int startIndex) {
+    public int lastIndexOf(final String str, int startIndex) {
         startIndex = (startIndex >= size ? size - 1 : startIndex);
         if (str == null || startIndex < 0) {
             return -1;
@@ -2487,7 +2487,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param matcher  the matcher to use, null returns -1
      * @return the last index matched, or -1 if not found
      */
-    public int lastIndexOf(StrMatcher matcher) {
+    public int lastIndexOf(final StrMatcher matcher) {
         return lastIndexOf(matcher, size);
     }
 
@@ -2503,7 +2503,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex  the index to start at, invalid index rounded to edge
      * @return the last index matched, or -1 if not found
      */
-    public int lastIndexOf(StrMatcher matcher, int startIndex) {
+    public int lastIndexOf(final StrMatcher matcher, int startIndex) {
         startIndex = (startIndex >= size ? size - 1 : startIndex);
         if (matcher == null || startIndex < 0) {
             return -1;
@@ -2642,7 +2642,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param other  the object to check, null returns false
      * @return true if the builders contain the same characters in the same order
      */
-    public boolean equalsIgnoreCase(StrBuilder other) {
+    public boolean equalsIgnoreCase(final StrBuilder other) {
         if (this == other) {
             return true;
         }
@@ -2668,7 +2668,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param other  the object to check, null returns false
      * @return true if the builders contain the same characters in the same order
      */
-    public boolean equals(StrBuilder other) {
+    public boolean equals(final StrBuilder other) {
         if (this == other) {
             return true;
         }
@@ -2693,7 +2693,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return true if the builders contain the same characters in the same order
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof StrBuilder) {
             return equals((StrBuilder) obj);
         }
@@ -2772,7 +2772,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return the new string
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    protected int validateRange(int startIndex, int endIndex) {
+    protected int validateRange(final int startIndex, int endIndex) {
         if (startIndex < 0) {
             throw new StringIndexOutOfBoundsException(startIndex);
         }
@@ -2791,7 +2791,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param index  the index, must be valid
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    protected void validateIndex(int index) {
+    protected void validateIndex(final int index) {
         if (index < 0 || index > size) {
             throw new StringIndexOutOfBoundsException(index);
         }
@@ -2812,7 +2812,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 
         /** {@inheritDoc} */
         @Override
-        protected List<String> tokenize(char[] chars, int offset, int count) {
+        protected List<String> tokenize(final char[] chars, final int offset, final int count) {
             if (chars == null) {
                 return super.tokenize(StrBuilder.this.buffer, 0, StrBuilder.this.size());
             } else {
@@ -2866,7 +2866,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 
         /** {@inheritDoc} */
         @Override
-        public int read(char b[], int off, int len) {
+        public int read(final char b[], final int off, int len) {
             if (off < 0 || len < 0 || off > b.length ||
                     (off + len) > b.length || (off + len) < 0) {
                 throw new IndexOutOfBoundsException();
@@ -2912,7 +2912,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 
         /** {@inheritDoc} */
         @Override
-        public void mark(int readAheadLimit) {
+        public void mark(final int readAheadLimit) {
             mark = pos;
         }
 
@@ -2950,31 +2950,31 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 
         /** {@inheritDoc} */
         @Override
-        public void write(int c) {
+        public void write(final int c) {
             StrBuilder.this.append((char) c);
         }
 
         /** {@inheritDoc} */
         @Override
-        public void write(char[] cbuf) {
+        public void write(final char[] cbuf) {
             StrBuilder.this.append(cbuf);
         }
 
         /** {@inheritDoc} */
         @Override
-        public void write(char[] cbuf, int off, int len) {
+        public void write(final char[] cbuf, final int off, final int len) {
             StrBuilder.this.append(cbuf, off, len);
         }
 
         /** {@inheritDoc} */
         @Override
-        public void write(String str) {
+        public void write(final String str) {
             StrBuilder.this.append(str);
         }
 
         /** {@inheritDoc} */
         @Override
-        public void write(String str, int off, int len) {
+        public void write(final String str, final int off, final int len) {
             StrBuilder.this.append(str, off, len);
         }
     }

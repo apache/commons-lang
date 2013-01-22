@@ -31,7 +31,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
 
     //-----------------------------------------------------------------------
 
-    private void testInteger(boolean testTransients) {
+    private void testInteger(final boolean testTransients) {
         Integer i1 = Integer.valueOf(12345);
         Integer i2 = Integer.valueOf(12345);
         assertEqualsAndHashCodeContract(i1, i2, testTransients);
@@ -57,7 +57,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
         testFixture(true);
     }
 
-    private void testFixture(boolean testTransients) {
+    private void testFixture(final boolean testTransients) {
         assertEqualsAndHashCodeContract(new TestFixture(2, 'c', "Test", (short) 2), new TestFixture(2, 'c', "Test", (short) 2), testTransients);
         assertEqualsAndHashCodeContract(
             new AllTransientFixture(2, 'c', "Test", (short) 2),
@@ -81,7 +81,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
      * @param rhs The Right-Hand-Side of the equals test
      * @param testTransients wether to test transient fields
      */
-    private void assertEqualsAndHashCodeContract(Object lhs, Object rhs, boolean testTransients) {
+    private void assertEqualsAndHashCodeContract(final Object lhs, final Object rhs, final boolean testTransients) {
         if (EqualsBuilder.reflectionEquals(lhs, rhs, testTransients)) {
             // test a couple of times for consistency.
             assertEquals(HashCodeBuilder.reflectionHashCode(lhs, testTransients), HashCodeBuilder.reflectionHashCode(rhs, testTransients));
@@ -96,7 +96,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
         String string;
         short s;
 
-        TestFixture(int i, char c, String string, short s) {
+        TestFixture(final int i, final char c, final String string, final short s) {
             this.i = i;
             this.c = c;
             this.string = string;
@@ -107,7 +107,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     static class SubTestFixture extends TestFixture {
         transient String tString;
 
-        SubTestFixture(int i, char c, String string, short s, String tString) {
+        SubTestFixture(final int i, final char c, final String string, final short s, final String tString) {
             super(i, c, string, s);
             this.tString = tString;
         }
@@ -119,7 +119,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
         transient String string;
         transient short s;
 
-        AllTransientFixture(int i, char c, String string, short s) {
+        AllTransientFixture(final int i, final char c, final String string, final short s) {
             this.i = i;
             this.c = c;
             this.string = string;
@@ -130,7 +130,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     static class SubAllTransientFixture extends AllTransientFixture {
         transient String tString;
 
-        SubAllTransientFixture(int i, char c, String string, short s, String tString) {
+        SubAllTransientFixture(final int i, final char c, final String string, final short s, final String tString) {
             super(i, c, string, s);
             this.tString = tString;
         }

@@ -151,7 +151,7 @@ public class StringEscapeUtils {
             new char[] {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
 
         @Override
-        public int translate(CharSequence input, int index, Writer out) throws IOException {
+        public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
 
             if(index != 0) {
                 throw new IllegalStateException("CsvEscaper should never reach the [1] index");
@@ -274,7 +274,7 @@ public class StringEscapeUtils {
             new char[] {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
 
         @Override
-        public int translate(CharSequence input, int index, Writer out) throws IOException {
+        public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
 
             if(index != 0) {
                 throw new IllegalStateException("CsvUnescaper should never reach the [1] index");
@@ -337,7 +337,7 @@ public class StringEscapeUtils {
      * @param input  String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
      */
-    public static final String escapeJava(String input) {
+    public static final String escapeJava(final String input) {
         return ESCAPE_JAVA.translate(input);
     }
 
@@ -366,7 +366,7 @@ public class StringEscapeUtils {
      *
      * @since 3.0
      */
-    public static final String escapeEcmaScript(String input) {
+    public static final String escapeEcmaScript(final String input) {
         return ESCAPE_ECMASCRIPT.translate(input);
     }
 
@@ -379,7 +379,7 @@ public class StringEscapeUtils {
      * @param input  the {@code String} to unescape, may be null
      * @return a new unescaped {@code String}, {@code null} if null string input
      */
-    public static final String unescapeJava(String input) {
+    public static final String unescapeJava(final String input) {
         return UNESCAPE_JAVA.translate(input);
     }
 
@@ -396,7 +396,7 @@ public class StringEscapeUtils {
      *
      * @since 3.0
      */
-    public static final String unescapeEcmaScript(String input) {
+    public static final String unescapeEcmaScript(final String input) {
         return UNESCAPE_ECMASCRIPT.translate(input);
     }
 
@@ -429,7 +429,7 @@ public class StringEscapeUtils {
      * 
      * @since 3.0
      */
-    public static final String escapeHtml4(String input) {
+    public static final String escapeHtml4(final String input) {
         return ESCAPE_HTML4.translate(input);
     }
 
@@ -442,7 +442,7 @@ public class StringEscapeUtils {
      * 
      * @since 3.0
      */
-    public static final String escapeHtml3(String input) {
+    public static final String escapeHtml3(final String input) {
         return ESCAPE_HTML3.translate(input);
     }
                 
@@ -464,7 +464,7 @@ public class StringEscapeUtils {
      * 
      * @since 3.0
      */
-    public static final String unescapeHtml4(String input) {
+    public static final String unescapeHtml4(final String input) {
         return UNESCAPE_HTML4.translate(input);
     }
 
@@ -478,7 +478,7 @@ public class StringEscapeUtils {
      * 
      * @since 3.0
      */
-    public static final String unescapeHtml3(String input) {
+    public static final String unescapeHtml3(final String input) {
         return UNESCAPE_HTML3.translate(input);
     }
 
@@ -502,7 +502,7 @@ public class StringEscapeUtils {
      * @return a new escaped {@code String}, {@code null} if null string input
      * @see #unescapeXml(java.lang.String)
      */
-    public static final String escapeXml(String input) {
+    public static final String escapeXml(final String input) {
         return ESCAPE_XML.translate(input);
     }
                 
@@ -523,7 +523,7 @@ public class StringEscapeUtils {
      * @return a new unescaped {@code String}, {@code null} if null string input
      * @see #escapeXml(String)
      */
-    public static final String unescapeXml(String input) {
+    public static final String unescapeXml(final String input) {
         return UNESCAPE_XML.translate(input);
     }
                 
@@ -552,7 +552,7 @@ public class StringEscapeUtils {
      * newline or double quote, {@code null} if null string input
      * @since 2.4
      */
-    public static final String escapeCsv(String input) {
+    public static final String escapeCsv(final String input) {
         return ESCAPE_CSV.translate(input);
     }
 
@@ -578,7 +578,7 @@ public class StringEscapeUtils {
      * quotes unescaped, {@code null} if null string input
      * @since 2.4
      */
-    public static final String unescapeCsv(String input) {
+    public static final String unescapeCsv(final String input) {
         return UNESCAPE_CSV.translate(input);
     }
 

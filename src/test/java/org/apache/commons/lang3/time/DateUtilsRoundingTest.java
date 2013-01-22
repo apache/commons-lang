@@ -699,7 +699,7 @@ public class DateUtilsRoundingTest {
      * @param calendarField
      * @since 3.0
      */
-    protected void roundToJanuaryFirst(Date minDate, Date maxDate, int calendarField) {
+    protected void roundToJanuaryFirst(final Date minDate, final Date maxDate, final int calendarField) {
         assertEquals("Rounding "+ fdf.format(januaryOneDate) +" as Date with CalendarField-value "+ calendarField +" must return itself", januaryOneDate, DateUtils.round(januaryOneDate, calendarField));
         assertEquals(januaryOneDate, DateUtils.round(minDate, calendarField));
         assertEquals(januaryOneDate, DateUtils.round(maxDate, calendarField));

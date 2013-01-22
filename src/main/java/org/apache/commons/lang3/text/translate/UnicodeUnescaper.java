@@ -33,7 +33,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
      * {@inheritDoc}
      */
     @Override
-    public int translate(CharSequence input, int index, Writer out) throws IOException {
+    public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
         if (input.charAt(index) == '\\' && index + 1 < input.length() && input.charAt(index + 1) == 'u') {
             // consume optional additional 'u' chars
             int i = 2;

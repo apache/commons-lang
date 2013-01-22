@@ -54,7 +54,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      *
      * @param obj the object to be managed by this initializer
      */
-    public ConstantInitializer(T obj) {
+    public ConstantInitializer(final T obj) {
         object = obj;
     }
 
@@ -102,7 +102,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * @return a flag whether the objects are equal
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
