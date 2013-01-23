@@ -19,7 +19,7 @@ package org.apache.commons.lang3.time;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 

@@ -30,7 +30,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
