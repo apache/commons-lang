@@ -28,7 +28,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Locale;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.SystemUtils}.
