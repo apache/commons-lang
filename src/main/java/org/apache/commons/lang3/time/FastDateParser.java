@@ -405,7 +405,6 @@ public class FastDateParser implements DateParser, Serializable {
          * which will accept this field
          * @param parser The parser calling this strategy
          * @param regex The <code>StringBuilder</code> to append to
-         * @param Calendar The calendar this strategy must parse
          * @return true, if this field will set the calendar;
          * false, if this field is a constant value
          */
@@ -492,7 +491,6 @@ public class FastDateParser implements DateParser, Serializable {
 
     /**
      * Construct a Strategy that parses a Text field
-     * @param locale The Locale of the TimeZone to parse
      * @param field The Calendar field
      * @param definingCalendar The calendar to obtain the short and long values
      * @return a TextStrategy for the field and Locale
@@ -557,7 +555,9 @@ public class FastDateParser implements DateParser, Serializable {
 
         /**
          * Construct a Strategy that parses a Text field
-         * @param field The Calendar field
+         * @param field  The Calendar field
+         * @param definingCalendar  The Calendar to use
+         * @param locale  The Locale to use
          */
         TextStrategy(final int field, final Calendar definingCalendar, final Locale locale) {
             this.field= field;
