@@ -464,7 +464,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * <ul>
      * <li>Transient fields are appended only if {@link #isAppendTransients()} returns <code>true</code>.
      * <li>Static fields are appended only if {@link #isAppendStatics()} returns <code>true</code>.
-     * <li>Inner class fields are not appened.</li>
+     * <li>Inner class fields are not appended.</li>
      * </ul>
      *
      * @param field
