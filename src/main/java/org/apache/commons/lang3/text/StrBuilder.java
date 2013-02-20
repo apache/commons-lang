@@ -1067,6 +1067,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Appending a null array will have no effect.
      * Each object is appended using {@link #append(Object)}.
      *
+     * @param <T>  the element type
      * @param array  the array to append
      * @return this, to enable chaining
      * @since 2.3
