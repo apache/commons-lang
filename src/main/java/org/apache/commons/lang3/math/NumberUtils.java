@@ -1051,6 +1051,12 @@ public class NumberUtils {
         return max;
     }
 
+    /**
+     * Checks if the specified array is neither null nor empty.
+     *
+     * @param array  the array to check
+     * @throws IllegalArgumentException if {@code array} is either {@code null} or empty
+     */
     private static void validateArray(final Object array) {
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
