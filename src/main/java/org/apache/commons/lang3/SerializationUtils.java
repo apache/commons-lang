@@ -187,7 +187,8 @@ public class SerializationUtils {
      * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
      * Note that in both cases, the ClassCastException is in the call site, not in this method.
      * </p>
-     * 
+     *
+     * @param <T>  the object type to be deserialized
      * @param inputStream
      *            the serialized object input stream, must not be null
      * @return the deserialized object
@@ -234,6 +235,7 @@ public class SerializationUtils {
      * Note that in both cases, the ClassCastException is in the call site, not in this method.
      * </p>
      * 
+     * @param <T>  the object type to be deserialized
      * @param objectData
      *            the serialized object, must not be null
      * @return the deserialized object
