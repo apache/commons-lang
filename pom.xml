@@ -611,8 +611,6 @@
   </reporting>
 
   <profiles>
-    <!-- TODO uncomment when svnpubsub ready take care of params with 2 - changed to have xml compliant format -->
-    <!--
     <profile>
       <id>setup-checkout</id>
       <activation>
@@ -636,18 +634,18 @@
                 <configuration>
                   <tasks>
                     <exec executable="svn">
-                      <arg line="checkout - -depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}" />
+                      <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}" />
                     </exec>
 
                     <exec executable="svn">
-                      <arg line="update - -set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs" />
+                      <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs" />
                     </exec>
 
                     <pathconvert pathsep=" " property="dirs">
                       <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*" />
                     </pathconvert>
                     <exec executable="svn">
-                      <arg line="update - -set-depth infinity ${dirs}" />
+                      <arg line="update --set-depth infinity ${dirs}" />
                     </exec>
                   </tasks>
                 </configuration>
@@ -657,7 +655,6 @@
         </plugins>
       </build>
     </profile>
-    -->
   </profiles>
 
 </project>
