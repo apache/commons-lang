@@ -339,7 +339,7 @@ public class DurationFormatUtils {
                     target -= 1;
                 }
                 
-                while ( (start.get(Calendar.YEAR) != target)) {
+                while (start.get(Calendar.YEAR) != target) {
                     days += start.getActualMaximum(Calendar.DAY_OF_YEAR) - start.get(Calendar.DAY_OF_YEAR);
                     
                     // Not sure I grok why this is needed, but the brutal tests show it is
