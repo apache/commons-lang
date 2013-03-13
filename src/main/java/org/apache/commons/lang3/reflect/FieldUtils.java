@@ -188,14 +188,14 @@ public class FieldUtils {
     }
 
     /**
-     * Gets all declared fields of the given class and its parents (if any).
+     * Gets all fields of the given class and its parents (if any).
      * 
      * @param cls
      *            the class to query
      * @return an array of Fields (maybe an empty array).
      * @since 3.2
      */
-    public static Field[] getDeclaredFields(Class<?> cls) {
+    public static Field[] getAllFields(Class<?> cls) {
         if (cls == null) {
             throw new IllegalArgumentException("The class must not be null");
         }
