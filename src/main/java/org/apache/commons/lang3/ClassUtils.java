@@ -156,9 +156,9 @@ public class ClassUtils {
 
     /**
      * <p>Gets the class name minus the package name from a {@code Class}.</p>
-     * 
-     * <p>Consider using the Java 5 API {@link Class#getSimpleName()} instead. 
-     * The one known difference is that this code will return {@code "Map.Entry"} while 
+     *
+     * <p>Consider using the Java 5 API {@link Class#getSimpleName()} instead.
+     * The one known difference is that this code will return {@code "Map.Entry"} while
      * the {@code java.lang.Class} variant will simply return {@code "Entry"}. </p>
      *
      * @param cls  the class to get the short name for.
@@ -176,14 +176,14 @@ public class ClassUtils {
      *
      * <p>The string passed in is assumed to be a class name - it is not checked.</p>
 
-     * <p>Note that this method differs from Class.getSimpleName() in that this will 
-     * return {@code "Map.Entry"} whilst the {@code java.lang.Class} variant will simply 
+     * <p>Note that this method differs from Class.getSimpleName() in that this will
+     * return {@code "Map.Entry"} whilst the {@code java.lang.Class} variant will simply
      * return {@code "Entry"}. </p>
      *
      * @param className  the className to get the short name for
      * @return the class name of the class without the package name or an empty string
      */
-    public static String getShortClassName(String className) {   
+    public static String getShortClassName(String className) {
         if (StringUtils.isEmpty(className)) {
             return StringUtils.EMPTY;
         }
@@ -523,7 +523,7 @@ public class ClassUtils {
     /**
      * Returns whether the given {@code type} is a primitive or primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character},
      * {@link Short}, {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
-     * 
+     *
      * @param type
      *            The class to query or null.
      * @return true if the given {@code type} is a primitive or primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character},
@@ -540,7 +540,7 @@ public class ClassUtils {
     /**
      * Returns whether the given {@code type} is a primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character}, {@link Short},
      * {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
-     * 
+     *
      * @param type
      *            The class to query or null.
      * @return true if the given {@code type} is a primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character}, {@link Short},
