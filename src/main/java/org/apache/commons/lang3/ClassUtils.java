@@ -43,22 +43,22 @@ import java.util.Map;
 public class ClassUtils {
 
     /**
-     * <p>The package separator character: <code>'&#x2e;' == {@value}</code>.</p>
+     * The package separator character: <code>'&#x2e;' == {@value}</code>.
      */
     public static final char PACKAGE_SEPARATOR_CHAR = '.';
 
     /**
-     * <p>The package separator String: <code>"&#x2e;"</code>.</p>
+     * The package separator String: <code>"&#x2e;"</code>.
      */
     public static final String PACKAGE_SEPARATOR = String.valueOf(PACKAGE_SEPARATOR_CHAR);
 
     /**
-     * <p>The inner class separator character: <code>'$' == {@value}</code>.</p>
+     * The inner class separator character: <code>'$' == {@value}</code>.
      */
     public static final char INNER_CLASS_SEPARATOR_CHAR = '$';
 
     /**
-     * <p>The inner class separator String: {@code "$"}.</p>
+     * The inner class separator String: {@code "$"}.
      */
     public static final String INNER_CLASS_SEPARATOR = String.valueOf(INNER_CLASS_SEPARATOR_CHAR);
 
