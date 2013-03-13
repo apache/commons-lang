@@ -136,13 +136,13 @@ public class FieldUtilsTest {
     }
 
     @Test
-    public void testGetDeclaredFields() {
-        assertArrayEquals(new Field[0], FieldUtils.getDeclaredFields(Object.class));
+    public void testGetAllFields() {
+        assertArrayEquals(new Field[0], FieldUtils.getAllFields(Object.class));
         final Field[] fieldsNumber = Number.class.getDeclaredFields();
-        assertArrayEquals(fieldsNumber, FieldUtils.getDeclaredFields(Number.class));
+        assertArrayEquals(fieldsNumber, FieldUtils.getAllFields(Number.class));
         final Field[] fieldsInteger = Integer.class.getDeclaredFields();
-        assertArrayEquals(ArrayUtils.addAll(fieldsInteger, fieldsNumber), FieldUtils.getDeclaredFields(Integer.class));
-        assertEquals(5, FieldUtils.getDeclaredFields(PublicChild.class).length);
+        assertArrayEquals(ArrayUtils.addAll(fieldsInteger, fieldsNumber), FieldUtils.getAllFields(Integer.class));
+        assertEquals(5, FieldUtils.getAllFields(PublicChild.class).length);
     }
 
     @Test
