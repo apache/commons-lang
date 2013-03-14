@@ -28,6 +28,9 @@ import static org.junit.Assume.assumeNotNull;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.reflect.testbed.Ambig;
@@ -143,6 +146,26 @@ public class FieldUtilsTest {
         final Field[] fieldsInteger = Integer.class.getDeclaredFields();
         assertArrayEquals(ArrayUtils.addAll(fieldsInteger, fieldsNumber), FieldUtils.getAllFields(Integer.class));
         assertEquals(5, FieldUtils.getAllFields(PublicChild.class).length);
+    }
+
+    private <T> List<T> asArrayList(T... values) {
+        final ArrayList<T> arrayList = new ArrayList<T>();
+        for (T t : values) {
+            arrayList.add(t);
+        }
+        return arrayList;
+    }
+
+    @Test
+    public void testGetAllFieldsList() {
+        assertEquals(0, FieldUtils.getAllFieldsList(Object.class).size());
+        final List<Field> fieldsNumber = asArrayList(Number.class.getDeclaredFields());
+        assertEquals(fieldsNumber, FieldUtils.getAllFieldsList(Number.class));
+        final List<Field> fieldsInteger = asArrayList(Integer.class.getDeclaredFields());
+        final List<Field> allFieldsInteger = new ArrayList<Field>(fieldsInteger);
+        allFieldsInteger.addAll(fieldsNumber);
+        assertEquals(allFieldsInteger, FieldUtils.getAllFieldsList(Integer.class));
+        assertEquals(5, FieldUtils.getAllFieldsList(PublicChild.class).size());
     }
 
     @Test
