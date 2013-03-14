@@ -196,26 +196,32 @@ public class FieldUtils {
      * @since 3.2
      */
     public static Field[] getAllFields(Class<?> cls) {
+        final List<Field> allFieldsList = getAllFieldsList(cls);
+        return allFieldsList.toArray(new Field[allFieldsList.size()]);
+    }
+
+    /**
+     * Gets all fields of the given class and its parents (if any).
+     * 
+     * @param cls
+     *            the class to query
+     * @return an array of Fields (maybe an empty array).
+     * @since 3.2
+     */
+    public static List<Field> getAllFieldsList(Class<?> cls) {
         if (cls == null) {
             throw new IllegalArgumentException("The class must not be null");
         }
-        List<Field[]> fieldArrayList = new ArrayList<Field[]>();
-        int fieldCount = 0;
-        Class<?> queryClass = cls;
-        while (queryClass != null) {
-            final Field[] declaredFields = queryClass.getDeclaredFields();
-            fieldCount += declaredFields.length;
-            fieldArrayList.add(declaredFields);
-            queryClass = queryClass.getSuperclass();
-        }
-        Field fields[] = new Field[fieldCount];
-        int fieldIndex = 0;
-        for (Field[] fieldArray : fieldArrayList) {
-            for (Field field : fieldArray) {
-                fields[fieldIndex++] = field;
+        List<Field> allFields = new ArrayList<Field>();
+        Class<?> currentClass = cls;
+        while (currentClass != null) {
+            final Field[] declaredFields = currentClass.getDeclaredFields();
+            for (Field field : declaredFields) {
+                allFields.add(field);
             }
+            currentClass = currentClass.getSuperclass();
         }
-        return fields;
+        return allFields;
     }
 
     /**
