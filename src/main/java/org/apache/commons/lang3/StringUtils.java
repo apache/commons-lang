@@ -138,6 +138,24 @@ public class StringUtils {
     public static final String EMPTY = "";
 
     /**
+     * A String for linefeed LF ("\n").
+     * 
+     * @see <a href="http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#101089">JLF: Escape Sequences
+     *      for Character and String Literals</a>
+     * @since 3.2
+     */
+    public static final String LF = "\n";
+
+    /**
+     * A String for carriage return CR ("\r").
+     * 
+     * @see <a href="http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#101089">JLF: Escape Sequences
+     *      for Character and String Literals</a>
+     * @since 3.2
+     */
+    public static final String CR = "\r";
+    
+    /**
      * Represents a failed index search.
      * @since 2.1
      */
