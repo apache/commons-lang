@@ -34,7 +34,7 @@ public class CharUtils {
     /**
      * {@code \u000a} linefeed LF ('\n').
      * 
-     * @see <a href="http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#101089">JLF: Escape Sequences
+     * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences
      *      for Character and String Literals</a>
      * @since 2.2
      */
@@ -43,7 +43,7 @@ public class CharUtils {
     /**
      * {@code \u000d} carriage return CR ('\r').
      * 
-     * @see <a href="http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#101089">JLF: Escape Sequences
+     * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences
      *      for Character and String Literals</a>
      * @since 2.2
      */
