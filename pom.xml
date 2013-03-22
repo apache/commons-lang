@@ -27,7 +27,7 @@
   standard as to justify existence in java.lang.
 </description>
 
-  <url>http://commons.apache.org/lang/</url>
+  <url>http://commons.apache.org/proper/commons-lang/</url>
 
   <issueManagement>
     <system>jira</system>
