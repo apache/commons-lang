@@ -33,7 +33,7 @@ import org.apache.commons.lang3.ArrayUtils;
  *
  * <p>
  * This class enables a good <code>hashCode</code> method to be built for any class. It follows the rules laid out in
- * the book <a href="http://java.sun.com/docs/books/effective/index.html">Effective Java</a> by Joshua Bloch. Writing a
+ * the book <a href="http://www.oracle.com/technetwork/java/effectivejava-136174.html">Effective Java</a> by Joshua Bloch. Writing a
  * good <code>hashCode</code> method is actually quite difficult. This class aims to simplify the process.
  * </p>
  *
