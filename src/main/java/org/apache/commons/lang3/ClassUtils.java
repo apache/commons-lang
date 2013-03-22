@@ -454,7 +454,7 @@ public class ClassUtils {
      * specified {@code Class} parameter can be converted to the type
      * represented by this {@code Class} object via an identity conversion
      * widening primitive or widening reference conversion. See
-     * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
+     * <em><a href="http://docs.oracle.com/javase/specs/">The Java Language Specification</a></em>,
      * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
      *
      * <p><strong>Since Lang 3.0,</strong> this method will default behavior for
@@ -494,7 +494,7 @@ public class ClassUtils {
      * specified {@code Class} parameter can be converted to the type
      * represented by this {@code Class} object via an identity conversion
      * widening primitive or widening reference conversion. See
-     * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
+     * <em><a href="http://docs.oracle.com/javase/specs/">The Java Language Specification</a></em>,
      * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
      *
      * @param classArray  the array of Classes to check, may be {@code null}
@@ -570,7 +570,7 @@ public class ClassUtils {
      * specified {@code Class} parameter can be converted to the type
      * represented by this {@code Class} object via an identity conversion
      * widening primitive or widening reference conversion. See
-     * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
+     * <em><a href="http://docs.oracle.com/javase/specs/">The Java Language Specification</a></em>,
      * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
      *
      * <p><strong>Since Lang 3.0,</strong> this method will default behavior for
@@ -605,7 +605,7 @@ public class ClassUtils {
      * specified {@code Class} parameter can be converted to the type
      * represented by this {@code Class} object via an identity conversion
      * widening primitive or widening reference conversion. See
-     * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
+     * <em><a href="http://docs.oracle.com/javase/specs/">The Java Language Specification</a></em>,
      * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
      *
      * @param cls  the Class to check, may be null

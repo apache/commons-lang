@@ -35,23 +35,23 @@ public class StringUtilsEqualsIndexOfTest  {
     private static final String BAR = "bar";
     /**
      * Supplementary character U+20000
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     private static final String CharU20000 = "\uD840\uDC00";
     /**
      * Supplementary character U+20001
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     private static final String CharU20001 = "\uD840\uDC01";
     /**
      * Incomplete supplementary character U+20000, high surrogate only.
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     private static final String CharUSuppCharHigh = "\uDC00";
 
     /**
      * Incomplete supplementary character U+20000, low surrogate only.
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     private static final String CharUSuppCharLow = "\uD840";
 
@@ -89,7 +89,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testContains_StringWithBadSupplementaryChars() {
@@ -104,7 +104,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testContains_StringWithSupplementaryChars() {
@@ -132,7 +132,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testContainsAny_StringCharArrayWithBadSupplementaryChars() {
@@ -147,7 +147,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testContainsAny_StringCharArrayWithSupplementaryChars() {
@@ -184,7 +184,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testContainsAny_StringWithBadSupplementaryChars() {
@@ -198,7 +198,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testContainsAny_StringWithSupplementaryChars() {
@@ -311,7 +311,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testContainsNone_CharArrayWithBadSupplementaryChars() {
@@ -326,7 +326,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testContainsNone_CharArrayWithSupplementaryChars() {
@@ -368,7 +368,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testContainsNone_StringWithBadSupplementaryChars() {
@@ -383,7 +383,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testContainsNone_StringWithSupplementaryChars() {
@@ -640,7 +640,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testIndexOfAny_StringCharArrayWithSupplementaryChars() {
@@ -686,7 +686,7 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     /**
-     * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
     @Test
     public void testIndexOfAny_StringStringWithSupplementaryChars() {

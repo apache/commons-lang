@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  * </ul>
  *
  * <p>All exceptions messages are
- * <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/Formatter.html#syntax">format strings</a>
+ * <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Formatter.html#syntax">format strings</a>
  * as defined by the Java platform. For example:</p>
  *
  * <pre>

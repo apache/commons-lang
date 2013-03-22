@@ -23,7 +23,7 @@ import java.nio.charset.IllegalCharsetNameException;
 /**
  * <p>Character encoding names required of every implementation of the Java platform.</p>
  *
- * <p>According to <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character
+ * <p>According to <a href="http://docs.oracle.com/javase/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character
  * encoding names</a>:</p>
  *
  * <p><cite>Every implementation of the Java platform is required to support the following character encodings.
