@@ -478,12 +478,14 @@ public class NumberUtils {
         String dec;
         String exp;
         final int decPos = str.indexOf('.');
-        final int expPos = str.indexOf('e') + str.indexOf('E') + 1; // TODO assumes both not present
+        final int expPos = str.indexOf('e') + str.indexOf('E') + 1; // assumes both not present
+        // if both e and E are present, this is caught by the checks on expPos (which prevent IOOBE)
+        // and the parsing which will detect if e or E appear in a number due to using the wrong offset
 
         if (decPos > -1) { // there is a decimal point
 
             if (expPos > -1) { // there is an exponent
-                if (expPos < decPos || expPos > str.length()) {
+                if (expPos < decPos || expPos > str.length()) { // prevents double exponent causing IOOBE
                     throw new NumberFormatException(str + " is not a valid number.");
                 }
                 dec = str.substring(decPos + 1, expPos);
@@ -493,7 +495,7 @@ public class NumberUtils {
             mant = str.substring(0, decPos);
         } else {
             if (expPos > -1) {
-                if (expPos > str.length()) {
+                if (expPos > str.length()) { // prevents double exponent causing IOOBE
                     throw new NumberFormatException(str + " is not a valid number.");
                 }
                 mant = str.substring(0, expPos);
