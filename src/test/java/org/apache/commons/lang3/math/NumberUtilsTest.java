@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.math;
 
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_3;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -28,7 +27,6 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
 /**
@@ -208,11 +206,9 @@ public class NumberUtilsTest {
         assertEquals("createNumber(String) failed", new BigInteger("12345678901234567890"), NumberUtils
                 .createNumber("12345678901234567890L"));
 
-        // jdk 1.2 doesn't support this. unsure about jdk 1.2.2
-        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_3)) {
-            assertEquals("createNumber(String) 15 failed", new BigDecimal("1.1E-700"), NumberUtils
+        assertEquals("createNumber(String) 15 failed", new BigDecimal("1.1E-700"), NumberUtils
                     .createNumber("1.1E-700F"));
-        }
+
         assertEquals("createNumber(String) 16 failed", Long.valueOf("10" + Integer.MAX_VALUE), NumberUtils
                 .createNumber("10" + Integer.MAX_VALUE + "L"));
         assertEquals("createNumber(String) 17 failed", Long.valueOf("10" + Integer.MAX_VALUE), NumberUtils
