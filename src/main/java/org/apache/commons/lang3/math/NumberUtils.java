@@ -556,52 +556,49 @@ public class NumberUtils {
                     throw new NumberFormatException(str + " is not a valid number.");
 
             }
-        } else {
-            //User doesn't have a preference on the return type, so let's start
-            //small and go from there...
-            if (expPos > -1 && expPos < str.length() - 1) {
-                exp = str.substring(expPos + 1, str.length());
-            } else {
-                exp = null;
-            }
-            if (dec == null && exp == null) {
-                //Must be an int,long,bigint
-                try {
-                    return createInteger(str);
-                } catch (final NumberFormatException nfe) { // NOPMD
-                    // ignore the bad number
-                }
-                try {
-                    return createLong(str);
-                } catch (final NumberFormatException nfe) { // NOPMD
-                    // ignore the bad number
-                }
-                return createBigInteger(str);
-
-            } else {
-                //Must be a float,double,BigDec
-                final boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
-                try {
-                    final Float f = createFloat(str);
-                    if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
-                        return f;
-                    }
-                } catch (final NumberFormatException nfe) { // NOPMD
-                    // ignore the bad number
-                }
-                try {
-                    final Double d = createDouble(str);
-                    if (!(d.isInfinite() || (d.doubleValue() == 0.0D && !allZeros))) {
-                        return d;
-                    }
-                } catch (final NumberFormatException nfe) { // NOPMD
-                    // ignore the bad number
-                }
-
-                return createBigDecimal(str);
-
-            }
         }
+        //User doesn't have a preference on the return type, so let's start
+        //small and go from there...
+        if (expPos > -1 && expPos < str.length() - 1) {
+            exp = str.substring(expPos + 1, str.length());
+        } else {
+            exp = null;
+        }
+        if (dec == null && exp == null) {
+            //Must be an int,long,bigint
+            try {
+                return createInteger(str);
+            } catch (final NumberFormatException nfe) { // NOPMD
+                // ignore the bad number
+            }
+            try {
+                return createLong(str);
+            } catch (final NumberFormatException nfe) { // NOPMD
+                // ignore the bad number
+            }
+            return createBigInteger(str);
+
+        }
+        //Must be a float,double,BigDec
+        final boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
+        try {
+            final Float f = createFloat(str);
+            if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
+                return f;
+            }
+        } catch (final NumberFormatException nfe) { // NOPMD
+            // ignore the bad number
+        }
+        try {
+            final Double d = createDouble(str);
+            if (!(d.isInfinite() || (d.doubleValue() == 0.0D && !allZeros))) {
+                return d;
+            }
+        } catch (final NumberFormatException nfe) { // NOPMD
+            // ignore the bad number
+        }
+
+        return createBigDecimal(str);
     }
 
     /**
