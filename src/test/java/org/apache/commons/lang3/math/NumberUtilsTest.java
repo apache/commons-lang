@@ -285,7 +285,7 @@ public class NumberUtilsTest {
     protected void testCreateFloatFailure(final String str) {
         try {
             final Float value = NumberUtils.createFloat(str);
-            fail("createFloat() should have failed: " + value);
+            fail("createFloat(\"" + str + "\") should have failed: " + value);
         } catch (final NumberFormatException ex) {
             // empty
         }
@@ -305,7 +305,7 @@ public class NumberUtilsTest {
     protected void testCreateDoubleFailure(final String str) {
         try {
             final Double value = NumberUtils.createDouble(str);
-            fail("createDouble() should have failed: " + value);
+            fail("createDouble(\"" + str + "\") should have failed: " + value);
         } catch (final NumberFormatException ex) {
             // empty
         }
@@ -325,7 +325,7 @@ public class NumberUtilsTest {
     protected void testCreateIntegerFailure(final String str) {
         try {
             final Integer value = NumberUtils.createInteger(str);
-            fail("createInteger() should have failed: " + value);
+            fail("createInteger(\"" + str + "\") should have failed: " + value);
         } catch (final NumberFormatException ex) {
             // empty
         }
@@ -345,7 +345,7 @@ public class NumberUtilsTest {
     protected void testCreateLongFailure(final String str) {
         try {
             final Long value = NumberUtils.createLong(str);
-            fail("createLong() should have failed: " + value);
+            fail("createLong(\"" + str + "\") should have failed: " + value);
         } catch (final NumberFormatException ex) {
             // empty
         }
@@ -377,7 +377,7 @@ public class NumberUtilsTest {
     protected void testCreateBigIntegerFailure(final String str) {
         try {
             final BigInteger value = NumberUtils.createBigInteger(str);
-            fail("createBigInteger() should have failed: " + value);
+            fail("createBigInteger(\"" + str + "\") should have failed: " + value);
         } catch (final NumberFormatException ex) {
             // empty
         }
@@ -403,7 +403,7 @@ public class NumberUtilsTest {
     protected void testCreateBigDecimalFailure(final String str) {
         try {
             final BigDecimal value = NumberUtils.createBigDecimal(str);
-            fail("createBigDecimal() should have failed: " + value);
+            fail("createBigDecimal(\"" + str + "\") should have failed: " + value);
         } catch (final NumberFormatException ex) {
             // empty
         }
