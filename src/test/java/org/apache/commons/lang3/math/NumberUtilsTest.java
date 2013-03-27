@@ -231,14 +231,12 @@ public class NumberUtilsTest {
         final Number bigNum = NumberUtils.createNumber("-1.1E-700F");
         assertNotNull(bigNum);
         assertEquals(BigDecimal.class, bigNum.getClass());
+    }
 
-        // Check that the code fails to create a valid number when preceeded by -- rather than -
-        try {
-            NumberUtils.createNumber("--1.1E-700F");
-            fail("Expected NumberFormatException");
-        } catch (final NumberFormatException nfe) {
-            // expected
-        }
+    @Test(expected=NumberFormatException.class)
+    // Check that the code fails to create a valid number when preceeded by -- rather than -
+    public void testCreateNumberFailure_1() {
+        NumberUtils.createNumber("--1.1E-700F");        
     }
 
     // Tests to show when magnitude causes switch to next Number type
