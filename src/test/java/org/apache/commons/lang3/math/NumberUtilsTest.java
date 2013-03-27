@@ -225,7 +225,7 @@ public class NumberUtilsTest {
         // LANG-693
         assertEquals("createNumber(String) LANG-693 failed", Double.valueOf(Double.MAX_VALUE), NumberUtils
                     .createNumber("" + Double.MAX_VALUE));
-        
+
         // LANG-822
         // ensure that the underlying negative number would create a BigDecimal
         final Number bigNum = NumberUtils.createNumber("-1.1E-700F");
@@ -236,7 +236,25 @@ public class NumberUtilsTest {
     @Test(expected=NumberFormatException.class)
     // Check that the code fails to create a valid number when preceeded by -- rather than -
     public void testCreateNumberFailure_1() {
-        NumberUtils.createNumber("--1.1E-700F");        
+        NumberUtils.createNumber("--1.1E-700F");
+    }
+
+    @Test(expected=NumberFormatException.class)
+    // Check that the code fails to create a valid number when both e and E are present (with decimal)
+    public void testCreateNumberFailure_2() {
+        NumberUtils.createNumber("-1.1E+0-7e00");
+    }
+
+    @Test(expected=NumberFormatException.class)
+    // Check that the code fails to create a valid number when both e and E are present (no decimal)
+    public void testCreateNumberFailure_3() {
+        NumberUtils.createNumber("-11E+0-7e00");
+    }
+
+    @Test(expected=NumberFormatException.class)
+    // Check that the code fails to create a valid number when both e and E are present (no decimal)
+    public void testCreateNumberFailure_4() {
+        NumberUtils.createNumber("1eE+00001");
     }
 
     // Tests to show when magnitude causes switch to next Number type
@@ -251,7 +269,7 @@ public class NumberUtilsTest {
         assertEquals(Double.valueOf(Double.MAX_VALUE),          NumberUtils.createNumber("1.7976931348623157e+308"));
         // Test with +2 in final digit (+1 does not cause roll-over to BigDecimal)
         assertEquals(new BigDecimal("1.7976931348623159e+308"), NumberUtils.createNumber("1.7976931348623159e+308"));
-        
+
         assertEquals(Integer.valueOf(0x12345678), NumberUtils.createNumber("0x12345678"));
         assertEquals(Long.valueOf(0x123456789L),  NumberUtils.createNumber("0x123456789"));
 
