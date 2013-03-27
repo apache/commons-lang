@@ -419,11 +419,10 @@ public class NumberUtils {
     /**
      * <p>Turns a string value into a java.lang.Number.</p>
      *
-     * <p>If the string starts with <code>0x</code> or <code>-0x</code> (lower or upper case), it
-     * will be interpreted as a hexadecimal integer - or long, if the number of digits after the 0x
-     * prefix is more than 8.
-     * Values with leading <code>0</code>'s will not be interpreted as octal.</p>
-     *
+     * <p>If the string starts with {@code 0x} or {@code -0x} (lower or upper case) or {@code #} or {@code -#}, it
+     * will be interpreted as a hexadecimal Integer - or Long, if the number of digits after the
+     * prefix is more than 8 - or BigInteger if there are more than 16 digits.
+     * </p>
      * <p>Then, the value is examined for a type qualifier on the end, i.e. one of
      * <code>'f','F','d','D','l','L'</code>.  If it is found, it starts 
      * trying to create successively larger types from the type specified
@@ -432,7 +431,12 @@ public class NumberUtils {
      * <p>If a type specifier is not found, it will check for a decimal point
      * and then try successively larger types from <code>Integer</code> to
      * <code>BigInteger</code> and from <code>Float</code> to
-     * <code>BigDecimal</code>.</p>
+    * <code>BigDecimal</code>.</p>
+    * 
+     * <p>
+     * Integral values with a leading {@code 0} will be interpreted as octal; the returned number will
+     * be Integer, Long or BigDecimal as appropriate.
+     * </p>
      *
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      *
@@ -459,7 +463,7 @@ public class NumberUtils {
                 break;
             }
         }
-        if (pfxLen > 0) {
+        if (pfxLen > 0) { // we have a hex number
             final int hexDigits = str.length() - pfxLen;
             if (hexDigits > 16) { // too many for Long
                 return createBigInteger(str);
@@ -474,11 +478,11 @@ public class NumberUtils {
         String dec;
         String exp;
         final int decPos = str.indexOf('.');
-        final int expPos = str.indexOf('e') + str.indexOf('E') + 1;
+        final int expPos = str.indexOf('e') + str.indexOf('E') + 1; // TODO assumes both not present
 
-        if (decPos > -1) {
+        if (decPos > -1) { // there is a decimal point
 
-            if (expPos > -1) {
+            if (expPos > -1) { // there is an exponent
                 if (expPos < decPos || expPos > str.length()) {
                     throw new NumberFormatException(str + " is not a valid number.");
                 }
@@ -564,8 +568,8 @@ public class NumberUtils {
         } else {
             exp = null;
         }
-        if (dec == null && exp == null) {
-            //Must be an int,long,bigint
+        if (dec == null && exp == null) { // no decimal point and no exponent
+            //Must be an Integer, Long, Biginteger
             try {
                 return createInteger(str);
             } catch (final NumberFormatException nfe) { // NOPMD
@@ -577,9 +581,9 @@ public class NumberUtils {
                 // ignore the bad number
             }
             return createBigInteger(str);
-
         }
-        //Must be a float,double,BigDec
+
+        //Must be a Float, Double, BigDecimal
         final boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
         try {
             final Float f = createFloat(str);
