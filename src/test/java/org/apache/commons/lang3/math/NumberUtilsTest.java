@@ -250,28 +250,29 @@ public class NumberUtilsTest {
     @Test
     public void testCreateNumberMagnitude() {
         // Test Float.MAX_VALUE, and same with +1 in final digit to check conversion changes to next Number type
-        assertEquals(Float.class,  NumberUtils.createNumber("3.4028235e+38").getClass());
-        assertEquals(Double.class, NumberUtils.createNumber("3.4028236e+38").getClass());
+        assertEquals(Float.valueOf(Float.MAX_VALUE),  NumberUtils.createNumber("3.4028235e+38"));
+        assertEquals(Double.valueOf(3.4028236e+38),   NumberUtils.createNumber("3.4028236e+38"));
 
         // Test Double.MAX_VALUE
-        assertEquals(Double.class,     NumberUtils.createNumber("1.7976931348623157e+308").getClass());
+        assertEquals(Double.valueOf(Double.MAX_VALUE),          NumberUtils.createNumber("1.7976931348623157e+308"));
         // Test with +2 in final digit (+1 does not cause roll-over to BigDecimal)
-        assertEquals(BigDecimal.class, NumberUtils.createNumber("1.7976931348623159e+308").getClass());
+        assertEquals(new BigDecimal("1.7976931348623159e+308"), NumberUtils.createNumber("1.7976931348623159e+308"));
         
-        assertEquals(Integer.class, NumberUtils.createNumber("0x12345678").getClass());
-        assertEquals(Long.class,    NumberUtils.createNumber("0x123456789").getClass());
+        assertEquals(Integer.valueOf(0x12345678), NumberUtils.createNumber("0x12345678"));
+        assertEquals(Long.valueOf(0x123456789L),  NumberUtils.createNumber("0x123456789"));
 
-        assertEquals(Long.class,       NumberUtils.createNumber("0x7fffffffffffffff").getClass());
-        assertEquals(BigInteger.class, NumberUtils.createNumber("0x7fffffffffffffff0").getClass());
+        assertEquals(Long.valueOf(0x7fffffffffffffffL),      NumberUtils.createNumber("0x7fffffffffffffff"));
+        // Does not appear to be a way to create a literal BigInteger of this magnitude
+        assertEquals(new BigInteger("7fffffffffffffff0",16), NumberUtils.createNumber("0x7fffffffffffffff0"));
 
-        assertEquals(Long.class,       NumberUtils.createNumber("#7fffffffffffffff").getClass());
-        assertEquals(BigInteger.class, NumberUtils.createNumber("#7fffffffffffffff0").getClass());
+        assertEquals(Long.valueOf(0x7fffffffffffffffL),      NumberUtils.createNumber("#7fffffffffffffff"));
+        assertEquals(new BigInteger("7fffffffffffffff0",16), NumberUtils.createNumber("#7fffffffffffffff0"));
 
-        assertEquals(Integer.class, NumberUtils.createNumber("017777777777").getClass()); // 31 bits
-        assertEquals(Long.class,    NumberUtils.createNumber("037777777777").getClass()); // 32 bits
+        assertEquals(Integer.valueOf(017777777777), NumberUtils.createNumber("017777777777")); // 31 bits
+        assertEquals(Long.valueOf(037777777777L),   NumberUtils.createNumber("037777777777")); // 32 bits
 
-        assertEquals(Long.class,       NumberUtils.createNumber("0777777777777777777777").getClass()); // 63 bits
-        assertEquals(BigInteger.class, NumberUtils.createNumber("01777777777777777777777").getClass());// 64 bits
+        assertEquals(Long.valueOf(0777777777777777777777L),      NumberUtils.createNumber("0777777777777777777777")); // 63 bits
+        assertEquals(new BigInteger("1777777777777777777777",8), NumberUtils.createNumber("01777777777777777777777"));// 64 bits
     }
 
     @Test
