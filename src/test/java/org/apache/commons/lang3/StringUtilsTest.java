@@ -2223,4 +2223,96 @@ public class StringUtilsTest {
         assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeHtml3("\uDBFF\uDFFD"));
         assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeHtml4("\uDBFF\uDFFD"));
     }
+
+    /**
+     * Tests {@code appendIfMissing}.
+     */
+    @Test
+    public void testAppendIfMissing() {
+        assertEquals("appendIfMissing(null,null)", null, StringUtils.appendIfMissing(null,null));
+        assertEquals("appendIfMissing(abc,null)", "abc", StringUtils.appendIfMissing("abc",null));
+        assertEquals("appendIfMissing(\"\",xyz)", "xyz", StringUtils.appendIfMissing("","xyz"));
+        assertEquals("appendIfMissing(abc,xyz)", "abcxyz", StringUtils.appendIfMissing("abc","xyz"));
+        assertEquals("appendIfMissing(abcxyz,xyz)", "abcxyz", StringUtils.appendIfMissing("abcxyz","xyz"));
+        assertEquals("appendIfMissing(aXYZ,xyz)", "aXYZxyz", StringUtils.appendIfMissing("aXYZ","xyz"));
+
+        assertEquals("appendIfMissing(null,null,null)", null, StringUtils.appendIfMissing(null,null,null));
+        assertEquals("appendIfMissing(abc,null,null)", "abc", StringUtils.appendIfMissing("abc",null,null));
+        assertEquals("appendIfMissing(\"\",xyz,null))", "xyz", StringUtils.appendIfMissing("","xyz",null));
+        assertEquals("appendIfMissing(abc,xyz,\"\")", "abc", StringUtils.appendIfMissing("abc","xyz",""));
+        assertEquals("appendIfMissing(abc,xyz,mno)", "abcxyz", StringUtils.appendIfMissing("abc","xyz","mno"));
+        assertEquals("appendIfMissing(abcxyz,xyz,mno)", "abcxyz", StringUtils.appendIfMissing("abcxyz","xyz","mno"));
+        assertEquals("appendIfMissing(abcmno,xyz,mno)", "abcmno", StringUtils.appendIfMissing("abcmno","xyz","mno"));
+        assertEquals("appendIfMissing(abcXYZ,xyz,mno)", "abcXYZxyz", StringUtils.appendIfMissing("abcXYZ","xyz","mno"));
+        assertEquals("appendIfMissing(abcMNO,xyz,mno)", "abcMNOxyz", StringUtils.appendIfMissing("abcMNO","xyz","mno"));
+    }
+
+    /**
+     * Tests {@code appendIfMissingIgnoreCase}.
+     */
+    @Test
+    public void testAppendIfMissingIgnoreCase() {
+        assertEquals("appendIfMissingIgnoreCase(null,null)", null, StringUtils.appendIfMissingIgnoreCase(null,null));
+        assertEquals("appendIfMissingIgnoreCase(abc,null)", "abc", StringUtils.appendIfMissingIgnoreCase("abc",null));
+        assertEquals("appendIfMissingIgnoreCase(\"\",xyz)", "xyz", StringUtils.appendIfMissingIgnoreCase("","xyz"));
+        assertEquals("appendIfMissingIgnoreCase(abc,xyz)", "abcxyz", StringUtils.appendIfMissingIgnoreCase("abc","xyz"));
+        assertEquals("appendIfMissingIgnoreCase(abcxyz,xyz)", "abcxyz", StringUtils.appendIfMissingIgnoreCase("abcxyz","xyz"));
+        assertEquals("appendIfMissingIgnoreCase(abcXYZ,xyz)", "abcXYZ", StringUtils.appendIfMissingIgnoreCase("abcXYZ","xyz"));
+
+        assertEquals("appendIfMissingIgnoreCase(null,null,null)", null, StringUtils.appendIfMissingIgnoreCase(null,null,null));
+        assertEquals("appendIfMissingIgnoreCase(abc,null,null)", "abc", StringUtils.appendIfMissingIgnoreCase("abc",null,null));
+        assertEquals("appendIfMissingIgnoreCase(\"\",xyz,null)", "xyz", StringUtils.appendIfMissingIgnoreCase("","xyz",null));
+        assertEquals("appendIfMissingIgnoreCase(abc,xyz,\"\")", "abc", StringUtils.appendIfMissingIgnoreCase("abc","xyz",""));
+        assertEquals("appendIfMissingIgnoreCase(abc,xyz,mno)", "abcxyz", StringUtils.appendIfMissingIgnoreCase("abc","xyz","mno"));
+        assertEquals("appendIfMissingIgnoreCase(abcxyz,xyz,mno)", "abcxyz", StringUtils.appendIfMissingIgnoreCase("abcxyz","xyz","mno"));       
+        assertEquals("appendIfMissingIgnoreCase(abcmno,xyz,mno)", "abcmno", StringUtils.appendIfMissingIgnoreCase("abcmno","xyz","mno"));       
+        assertEquals("appendIfMissingIgnoreCase(abcXYZ,xyz,mno)", "abcXYZ", StringUtils.appendIfMissingIgnoreCase("abcXYZ","xyz","mno"));
+        assertEquals("appendIfMissingIgnoreCase(abcMNO,xyz,mno)", "abcMNO", StringUtils.appendIfMissingIgnoreCase("abcMNO","xyz","mno"));
+    }
+
+    /**
+     * Tests {@code prependIfMissing}.
+     */
+    @Test
+    public void testPrependIfMissing() {
+        assertEquals("prependIfMissing(null,null)", null, StringUtils.prependIfMissing(null,null));
+        assertEquals("prependIfMissing(abc,null)", "abc", StringUtils.prependIfMissing("abc",null));
+        assertEquals("prependIfMissing(\"\",xyz)", "xyz", StringUtils.prependIfMissing("","xyz"));
+        assertEquals("prependIfMissing(abc,xyz)", "xyzabc", StringUtils.prependIfMissing("abc","xyz"));
+        assertEquals("prependIfMissing(xyzabc,xyz)", "xyzabc", StringUtils.prependIfMissing("xyzabc","xyz"));
+        assertEquals("prependIfMissing(XYZabc,xyz)", "xyzXYZabc", StringUtils.prependIfMissing("XYZabc","xyz"));
+
+        assertEquals("prependIfMissing(null,null null)", null, StringUtils.prependIfMissing(null,null,null));
+        assertEquals("prependIfMissing(abc,null,null)", "abc", StringUtils.prependIfMissing("abc",null,null));
+        assertEquals("prependIfMissing(\"\",xyz,null)", "xyz", StringUtils.prependIfMissing("","xyz",null));
+        assertEquals("prependIfMissing(abc,xyz,\"\")","abc", StringUtils.prependIfMissing("abc","xyz",""));
+        assertEquals("prependIfMissing(abc,xyz,mno)","xyzabc", StringUtils.prependIfMissing("abc","xyz","mno"));
+        assertEquals("prependIfMissing(xyzabc,xyz,mno)", "xyzabc", StringUtils.prependIfMissing("xyzabc","xyz","mno"));
+        assertEquals("prependIfMissing(mnoabc,xyz,mno)", "mnoabc", StringUtils.prependIfMissing("mnoabc","xyz","mno"));
+        assertEquals("prependIfMissing(XYZabc,xyz,mno)", "xyzXYZabc", StringUtils.prependIfMissing("XYZabc","xyz","mno"));
+        assertEquals("prependIfMissing(MNOabc,xyz,mno)", "xyzMNOabc", StringUtils.prependIfMissing("MNOabc","xyz","mno"));
+    }
+
+    /**
+     * Tests {@code prependIfMissingIgnoreCase}.
+     */
+    @Test
+    public void testPrependIfMissingIgnoreCase() {
+        assertEquals("prependIfMissingIgnoreCase(null,null)", null, StringUtils.prependIfMissingIgnoreCase(null,null));
+        assertEquals("prependIfMissingIgnoreCase(abc,null)", "abc", StringUtils.prependIfMissingIgnoreCase("abc",null));
+        assertEquals("prependIfMissingIgnoreCase(\"\",xyz)", "xyz", StringUtils.prependIfMissingIgnoreCase("","xyz"));
+        assertEquals("prependIfMissingIgnoreCase(abc,xyz)", "xyzabc", StringUtils.prependIfMissingIgnoreCase("abc","xyz"));
+        assertEquals("prependIfMissingIgnoreCase(xyzabc,xyz)", "xyzabc", StringUtils.prependIfMissingIgnoreCase("xyzabc","xyz"));
+        assertEquals("prependIfMissingIgnoreCase(XYZabc,xyz)", "XYZabc", StringUtils.prependIfMissingIgnoreCase("XYZabc","xyz"));
+
+        assertEquals("prependIfMissingIgnoreCase(null,null null)", null, StringUtils.prependIfMissingIgnoreCase(null,null,null));
+        assertEquals("prependIfMissingIgnoreCase(abc,null,null)", "abc", StringUtils.prependIfMissingIgnoreCase("abc",null,null));
+        assertEquals("prependIfMissingIgnoreCase(\"\",xyz,null)", "xyz", StringUtils.prependIfMissingIgnoreCase("","xyz",null));
+        assertEquals("prependIfMissingIgnoreCase(abc,xyz,\"\")","abc", StringUtils.prependIfMissingIgnoreCase("abc","xyz",""));
+        assertEquals("prependIfMissingIgnoreCase(abc,xyz,mno)","xyzabc", StringUtils.prependIfMissingIgnoreCase("abc","xyz","mno"));
+        assertEquals("prependIfMissingIgnoreCase(xyzabc,xyz,mno)", "xyzabc", StringUtils.prependIfMissingIgnoreCase("xyzabc","xyz","mno"));
+        assertEquals("prependIfMissingIgnoreCase(mnoabc,xyz,mno)", "mnoabc", StringUtils.prependIfMissingIgnoreCase("mnoabc","xyz","mno"));
+        assertEquals("prependIfMissingIgnoreCase(XYZabc,xyz,mno)", "XYZabc", StringUtils.prependIfMissingIgnoreCase("XYZabc","xyz","mno"));
+        assertEquals("prependIfMissingIgnoreCase(MNOabc,xyz,mno)", "MNOabc", StringUtils.prependIfMissingIgnoreCase("MNOabc","xyz","mno"));
+    }
 }

@@ -58,6 +58,10 @@ import java.util.regex.Pattern;
  *      - Searches a String and replaces one String with another</li>
  *  <li><b>Chomp/Chop</b>
  *      - removes the last part of a String</li>
+ *  <li><b>AppendIfMissing</b>
+ *      - appends a suffix to the end of the String if not present</li>
+ *  <li><b>PrependIfMissing</b>
+ *      - prepends a prefix to the start of the String if not present</li>
  *  <li><b>LeftPad/RightPad/Center/Repeat</b>
  *      - pads a String</li>
  *  <li><b>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</b>
@@ -7099,6 +7103,204 @@ public class StringUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * Appends the suffix to the end of the string if the string does not
+     * already end in the suffix.
+     *
+     * @param str The string.
+     * @param suffix The suffix to append to the end of the string.
+     * @param ignoreCase Indicates whether the compare should ignore case.
+     * @param suffixes Additional suffixes that are valid terminators (optional).
+     *
+     * @return A new String if suffix was appened, the same string otherwise.
+     */
+    private static String appendIfMissing(final String str, final CharSequence suffix, final boolean ignoreCase, final CharSequence... suffixes) {
+        if (str == null || isEmpty(suffix) || endsWith(str, suffix, ignoreCase)) {
+            return str;
+        }
+        if (suffixes != null && suffixes.length > 0) {
+            for (final CharSequence s : suffixes) {
+                if (isEmpty(s) || endsWith(str, s, ignoreCase)) {
+                    return str;
+                }
+            }
+        }
+        return str + suffix.toString();
+    }
+
+    /**
+     * Appends the suffix to the end of the string if the string does not
+     * already end with any the suffixes.
+     *
+     * <pre>
+     * StringUtils.appendIfMissing(null, null) = null
+     * StringUtils.appendIfMissing("abc", null) = "abc"
+     * StringUtils.appendIfMissing("", "xyz") = "xyz"
+     * StringUtils.appendIfMissing("abc", "xyz") = "abcxyz"
+     * StringUtils.appendIfMissing("abcxyz", "xyz") = "abcxyz"
+     * StringUtils.appendIfMissing("abcXYZ", "xyz") = "abcXYZxyz"
+     * </pre>
+     * <p>With additional suffixes,</p>
+     * <pre>
+     * StringUtils.appendIfMissing(null, null, null) = null
+     * StringUtils.appendIfMissing("abc", null, null) = "abc"
+     * StringUtils.appendIfMissing("", "xyz", null) = "xyz"
+     * StringUtils.appendIfMissing("abc", "xyz", "") = "abc"
+     * StringUtils.appendIfMissing("abc", "xyz", "mno") = "abcxyz"
+     * StringUtils.appendIfMissing("abcxyz", "xyz", "mno") = "abcxyz"
+     * StringUtils.appendIfMissing("abcmno", "xyz", "mno") = "abcmno"
+     * StringUtils.appendIfMissing("abcXYZ", "xyz", "mno") = "abcXYZxyz"
+     * StringUtils.appendIfMissing("abcMNO", "xyz", "mno") = "abcMNOxyz"
+     * </pre>
+     *
+     * @param str The string.
+     * @param suffix The suffix to append to the end of the string.
+     * @param suffixes Additional suffixes that are valid terminators.
+     *
+     * @return A new String if suffix was appened, the same string otherwise.
+     *
+     * @since 3.1
+     */
+    public static String appendIfMissing(final String str, final CharSequence suffix, final CharSequence... suffixes) {
+        return appendIfMissing(str, suffix, false, suffixes);
+    }
+
+    /**
+     * Appends the suffix to the end of the string if the string does not
+     * already end, case insensitive, with any of the suffixes.
+     *
+     * <pre>
+     * StringUtils.appendIfMissingIgnoreCase(null, null) = null
+     * StringUtils.appendIfMissingIgnoreCase("abc", null) = "abc"
+     * StringUtils.appendIfMissingIgnoreCase("", "xyz") = "xyz"
+     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz") = "abcxyz"
+     * StringUtils.appendIfMissingIgnoreCase("abcxyz", "xyz") = "abcxyz"
+     * StringUtils.appendIfMissingIgnoreCase("abcXYZ", "xyz") = "abcXYZ"
+     * </pre>
+     * <p>With additional suffixes,</p>
+     * <pre>
+     * StringUtils.appendIfMissingIgnoreCase(null, null, null) = null
+     * StringUtils.appendIfMissingIgnoreCase("abc", null, null) = "abc"
+     * StringUtils.appendIfMissingIgnoreCase("", "xyz", null) = "xyz"
+     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "") = "a"
+     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "mno") = "axyz"
+     * StringUtils.appendIfMissingIgnoreCase("abcxyz", "xyz", "mno") = "abcxyz"
+     * StringUtils.appendIfMissingIgnoreCase("abcmno", "xyz", "mno") = "abcmno"
+     * StringUtils.appendIfMissingIgnoreCase("abcXYZ", "xyz", "mno") = "abcXYZ"
+     * StringUtils.appendIfMissingIgnoreCase("abcMNO", "xyz", "mno") = "abcMNO"
+     * </pre>
+     *
+     * @param str The string.
+     * @param suffix The suffix to append to the end of the string.
+     * @param suffixes Additional suffixes that are valid terminators.
+     *
+     * @return A new String if suffix was appened, the same string otherwise.
+     *
+     * @since 3.1
+     */
+    public static String appendIfMissingIgnoreCase(final String str, final CharSequence suffix, final CharSequence... suffixes) {
+        return appendIfMissing(str, suffix, true, suffixes);
+    }
+
+    /**
+     * Prepends the prefix to the start of the string if the string does not
+     * already start with any of the prefixes.
+     *
+     * @param str The string.
+     * @param prefix The prefix to prepend to the start of the string.
+     * @param ignoreCase Indicates whether the compare should ignore case.
+     * @param prefixes Additional prefixes that are valid (optional).
+     *
+     * @return A new String if prefix was prepended, the same string otherwise.
+     */
+    private static String prependIfMissing(final String str, final CharSequence prefix, final boolean ignoreCase, final CharSequence... prefixes) {
+        if (str == null || isEmpty(prefix) || startsWith(str, prefix, ignoreCase)) {
+            return str;
+        }
+        if (prefixes != null && prefixes.length > 0) {
+            for (final CharSequence p : prefixes) {
+                if (isEmpty(p) || startsWith(str, p, ignoreCase)) {
+                    return str;
+                }
+            }
+        }
+        return prefix.toString() + str;
+    }
+
+    /**
+     * Prepends the prefix to the start of the string if the string does not
+     * already start with any of the prefixes.
+     *
+     * <pre>
+     * StringUtils.prependIfMissing(null, null) = null
+     * StringUtils.prependIfMissing("abc", null) = "abc"
+     * StringUtils.prependIfMissing("", "xyz") = "xyz"
+     * StringUtils.prependIfMissing("abc", "xyz") = "xyzabc"
+     * StringUtils.prependIfMissing("xyzabc", "xyz") = "xyzabc"
+     * StringUtils.prependIfMissing("XYZabc", "xyz") = "xyzXYZabc"
+     * </pre>
+     * <p>With additional prefixes,</p>
+     * <pre>
+     * StringUtils.prependIfMissing(null, null, null) = null
+     * StringUtils.prependIfMissing("abc", null, null) = "abc"
+     * StringUtils.prependIfMissing("", "xyz", null) = "xyz"
+     * StringUtils.prependIfMissing("abc", "xyz", "") = "abc"
+     * StringUtils.prependIfMissing("abc", "xyz", "mno") = "xyzabc"
+     * StringUtils.prependIfMissing("xyzabc", "xyz", "mno") = "xyzabc"
+     * StringUtils.prependIfMissing("mnoabc", "xyz", "mno") = "mnoabc"
+     * StringUtils.prependIfMissing("XYZabc", "xyz", "mno") = "xyzXYZabc"
+     * StringUtils.prependIfMissing("MNOabc", "xyz", "mno") = "xyzMNOabc"
+     * </pre>
+     *
+     * @param str The string.
+     * @param prefix The prefix to prepend to the start of the string.
+     * @param prefixes Additional prefixes that are valid.
+     *
+     * @return A new String if prefix was prepended, the same string otherwise.
+     *
+     * @since 3.1
+     */
+    public static String prependIfMissing(final String str, final CharSequence prefix, final CharSequence... prefixes) {
+        return prependIfMissing(str, prefix, false, prefixes);
+    }
+
+    /**
+     * Prepends the prefix to the start of the string if the string does not
+     * already start, case insensitive, with any of the prefixes.
+     *
+     * <pre>
+     * StringUtils.prependIfMissingIgnoreCase(null, null) = null
+     * StringUtils.prependIfMissingIgnoreCase("abc", null) = "abc"
+     * StringUtils.prependIfMissingIgnoreCase("", "xyz") = "xyz"
+     * StringUtils.prependIfMissingIgnoreCase("abc", "xyz") = "xyzabc"
+     * StringUtils.prependIfMissingIgnoreCase("xyzabc", "xyz") = "xyzabc"
+     * StringUtils.prependIfMissingIgnoreCase("XYZabc", "xyz") = "XYZabc"
+     * </pre>
+     * <p>With additional prefixes,</p>
+     * <pre>
+     * StringUtils.prependIfMissingIgnoreCase(null, null, null) = null
+     * StringUtils.prependIfMissingIgnoreCase("abc", null, null) = "abc"
+     * StringUtils.prependIfMissingIgnoreCase("", "xyz", null) = "xyz"
+     * StringUtils.prependIfMissingIgnoreCase("abc", "xyz", "") = "abc"
+     * StringUtils.prependIfMissingIgnoreCase("abc", "xyz", "mno") = "xyzabc"
+     * StringUtils.prependIfMissingIgnoreCase("xyzabc", "xyz", "mno") = "xyzabc"
+     * StringUtils.prependIfMissingIgnoreCase("mnoabc", "xyz", "mno") = "mnoabc"
+     * StringUtils.prependIfMissingIgnoreCase("XYZabc", "xyz", "mno") = "XYZabc"
+     * StringUtils.prependIfMissingIgnoreCase("MNOabc", "xyz", "mno") = "MNOabc"
+     * </pre>
+     *
+     * @param str The string.
+     * @param prefix The prefix to prepend to the start of the string.
+     * @param prefixes Additional prefixes that are valid (optional).
+     *
+     * @return A new String if prefix was prepended, the same string otherwise.
+     *
+     * @since 3.1
+     */
+    public static String prependIfMissingIgnoreCase(final String str, final CharSequence prefix, final CharSequence... prefixes) {
+        return prependIfMissing(str, prefix, true, prefixes);
     }
 
     /**
