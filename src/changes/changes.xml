@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-875" type="add">Added appendIfMissing and prependIfMissing methods to StringUtils</action>
     <action issue="LANG-881" type="fix">NumberUtils.createNumber() Javadoc says it does not work for octal numbers</action>
     <action type="fix">Fixed URLs in javadoc to point to new oracle.com pages</action>
     <action issue="LANG-870" type="add">Add StringUtils.LF and StringUtils.CR values</action>
