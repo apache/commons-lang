@@ -59,9 +59,9 @@ abstract class FormatCache<F extends Format> {
      * and locale.</p>
      * 
      * @param pattern  {@link java.text.SimpleDateFormat} compatible
-     *  pattern
-     * @param timeZone  the non-null time zone
-     * @param locale  the non-null locale
+     *  pattern, non-null
+     * @param timeZone  the time zone, null means use the default TimeZone
+     * @param locale  the locale, null means use the default Locale
      * @return a pattern based date/time formatter
      * @throws IllegalArgumentException if pattern is invalid
      *  or <code>null</code>
@@ -107,10 +107,10 @@ abstract class FormatCache<F extends Format> {
      * <p>Gets a date/time formatter instance using the specified style,
      * time zone and locale.</p>
      * 
-     * @param dateStyle  date style: FULL, LONG, MEDIUM, or SHORT
-     * @param timeStyle  time style: FULL, LONG, MEDIUM, or SHORT
+     * @param dateStyle  date style: FULL, LONG, MEDIUM, or SHORT, null indicates no date in format
+     * @param timeStyle  time style: FULL, LONG, MEDIUM, or SHORT, null indicates no time in format
      * @param timeZone  optional time zone, overrides time zone of
-     *  formatted date
+     *  formatted date, null means use default Locale
      * @param locale  optional locale, overrides system locale
      * @return a localized standard date/time formatter
      * @throws IllegalArgumentException if the Locale has no date/time
