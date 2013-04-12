@@ -529,4 +529,31 @@ public class StringEscapeUtilsTest {
         final String escaped = StringEscapeUtils.escapeXml(input);
         assertEquals(input, escaped);
     }
+
+    @Test
+    public void testEscapeJson() {
+        assertEquals(null, StringEscapeUtils.escapeJson(null));
+        try {
+            StringEscapeUtils.ESCAPE_JSON.translate(null, null);
+            fail();
+        } catch (final IOException ex) {
+            fail();
+        } catch (final IllegalArgumentException ex) {
+        }
+        try {
+            StringEscapeUtils.ESCAPE_JSON.translate("", null);
+            fail();
+        } catch (final IOException ex) {
+            fail();
+        } catch (final IllegalArgumentException ex) {
+        }
+
+        assertEquals("He didn't say, \\\"stop!\\\"", StringEscapeUtils.escapeJson("He didn't say, \"stop!\""));
+
+        String expected = "\\\"foo\\\" isn't \\\"bar\\\". specials: \\b\\r\\n\\f\\t\\\\\\/";
+        String input ="\"foo\" isn't \"bar\". specials: \b\r\n\f\t\\/";
+
+        assertEquals(expected, StringEscapeUtils.escapeJson(input));
+    }
+
 }
