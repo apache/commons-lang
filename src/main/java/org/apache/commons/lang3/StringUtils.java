@@ -7161,7 +7161,7 @@ public class StringUtils {
      *
      * @return A new String if suffix was appened, the same string otherwise.
      *
-     * @since 3.1
+     * @since 3.2
      */
     public static String appendIfMissing(final String str, final CharSequence suffix, final CharSequence... suffixes) {
         return appendIfMissing(str, suffix, false, suffixes);
@@ -7198,7 +7198,7 @@ public class StringUtils {
      *
      * @return A new String if suffix was appened, the same string otherwise.
      *
-     * @since 3.1
+     * @since 3.2
      */
     public static String appendIfMissingIgnoreCase(final String str, final CharSequence suffix, final CharSequence... suffixes) {
         return appendIfMissing(str, suffix, true, suffixes);
@@ -7260,7 +7260,7 @@ public class StringUtils {
      *
      * @return A new String if prefix was prepended, the same string otherwise.
      *
-     * @since 3.1
+     * @since 3.2
      */
     public static String prependIfMissing(final String str, final CharSequence prefix, final CharSequence... prefixes) {
         return prependIfMissing(str, prefix, false, prefixes);
@@ -7297,7 +7297,7 @@ public class StringUtils {
      *
      * @return A new String if prefix was prepended, the same string otherwise.
      *
-     * @since 3.1
+     * @since 3.2
      */
     public static String prependIfMissingIgnoreCase(final String str, final CharSequence prefix, final CharSequence... prefixes) {
         return prependIfMissing(str, prefix, true, prefixes);
