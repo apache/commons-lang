@@ -87,6 +87,46 @@ public class CharSetUtilsTest  {
 
     //-----------------------------------------------------------------------
     @Test
+    public void testContainsAny_StringString() {
+        assertFalse(CharSetUtils.containsAny(null, (String) null));
+        assertFalse(CharSetUtils.containsAny(null, ""));
+        
+        assertFalse(CharSetUtils.containsAny("", (String) null));
+        assertFalse(CharSetUtils.containsAny("", ""));
+        assertFalse(CharSetUtils.containsAny("", "a-e"));
+        
+        assertFalse(CharSetUtils.containsAny("hello", (String) null));
+        assertFalse(CharSetUtils.containsAny("hello", ""));
+        assertTrue(CharSetUtils.containsAny("hello", "a-e"));
+        assertTrue(CharSetUtils.containsAny("hello", "l-p"));
+    }
+    
+    @Test
+    public void testContainsAny_StringStringarray() {
+        assertFalse(CharSetUtils.containsAny(null, (String[]) null));
+        assertFalse(CharSetUtils.containsAny(null, new String[0]));
+        assertFalse(CharSetUtils.containsAny(null, new String[] {null}));
+        assertFalse(CharSetUtils.containsAny(null, new String[] {"a-e"}));
+        
+        assertFalse(CharSetUtils.containsAny("", (String[]) null));
+        assertFalse(CharSetUtils.containsAny("", new String[0]));
+        assertFalse(CharSetUtils.containsAny("", new String[] {null}));
+        assertFalse(CharSetUtils.containsAny("", new String[] {"a-e"}));
+        
+        assertFalse(CharSetUtils.containsAny("hello", (String[]) null));
+        assertFalse(CharSetUtils.containsAny("hello", new String[0]));
+        assertFalse(CharSetUtils.containsAny("hello", new String[] {null}));
+        assertTrue(CharSetUtils.containsAny("hello", new String[] {"a-e"}));
+        
+        assertTrue(CharSetUtils.containsAny("hello", new String[] { "el" }));
+        assertFalse(CharSetUtils.containsAny("hello", new String[] { "x" }));
+        assertTrue(CharSetUtils.containsAny("hello", new String[] { "e-i" }));
+        assertTrue(CharSetUtils.containsAny("hello", new String[] { "a-z" }));
+        assertFalse(CharSetUtils.containsAny("hello", new String[] { "" }));
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
     public void testCount_StringString() {
         assertEquals(0, CharSetUtils.count(null, (String) null));
         assertEquals(0, CharSetUtils.count(null, ""));
