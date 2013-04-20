@@ -83,6 +83,39 @@ public class CharSetUtils {
         return buffer.toString();
     }
 
+    // ContainsAny
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Takes an argument in set-syntax, see evaluateSet,
+     * and identifies whether any of the characters are present in the specified string.</p>
+     *
+     * <pre>
+     * CharSetUtils.containsAny(null, *)        = false
+     * CharSetUtils.containsAny("", *)          = false
+     * CharSetUtils.containsAny(*, null)        = false
+     * CharSetUtils.containsAny(*, "")          = false
+     * CharSetUtils.containsAny("hello", "k-p") = true
+     * CharSetUtils.containsAny("hello", "a-d") = false
+     * </pre>
+     *
+     * @see CharSet#getInstance(java.lang.String...) for set-syntax.
+     * @param str  String to look for characters in, may be null
+     * @param set  String[] set of characters to identify, may be null
+     * @return whether or not the characters in the set are in the primary string
+     */
+    public static boolean containsAny(final String str, final String... set) {
+        if (StringUtils.isEmpty(str) || deepEmpty(set)) {
+            return false;
+        }
+        final CharSet chars = CharSet.getInstance(set);
+        for (final char c : str.toCharArray()) {
+            if (chars.contains(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Count
     //-----------------------------------------------------------------------
     /**
