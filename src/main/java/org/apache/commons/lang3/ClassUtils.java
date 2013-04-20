@@ -200,10 +200,10 @@ public class ClassUtils {
             if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
                 className = className.substring(1, className.length() - 1);
             }
-        }
 
-        if (reverseAbbreviationMap.containsKey(className)) {
-            className = reverseAbbreviationMap.get(className);
+            if (reverseAbbreviationMap.containsKey(className)) {
+                className = reverseAbbreviationMap.get(className);
+            }
         }
 
         final int lastDotIdx = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
