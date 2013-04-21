@@ -6340,8 +6340,9 @@ public class StringUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Compares two Strings, and returns the portion where they differ.
-     * (More precisely, return the remainder of the second String,
-     * starting from where it's different from the first.)</p>
+     * More precisely, return the remainder of the second String,
+     * starting from where it's different from the first. This means that 
+     * the difference between "abc" and "ab" is the empty String and not "c". </p>
      *
      * <p>For example,
      * {@code difference("i am a machine", "i am a robot") -> "robot"}.</p>
@@ -6352,6 +6353,7 @@ public class StringUtils {
      * StringUtils.difference("", "abc") = "abc"
      * StringUtils.difference("abc", "") = ""
      * StringUtils.difference("abc", "abc") = ""
+     * StringUtils.difference("abc", "ab") = ""
      * StringUtils.difference("ab", "abxyz") = "xyz"
      * StringUtils.difference("abcde", "abxyz") = "xyz"
      * StringUtils.difference("abcde", "xyz") = "xyz"
@@ -6361,6 +6363,7 @@ public class StringUtils {
      * @param str2  the second String, may be null
      * @return the portion of str2 where it differs from str1; returns the
      * empty String if they are equal
+     * @see #indexOfDifference(CharSequence,CharSequence)
      * @since 2.0
      */
     public static String difference(final String str1, final String str2) {
