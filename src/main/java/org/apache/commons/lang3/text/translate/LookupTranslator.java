@@ -22,6 +22,10 @@ import java.util.HashMap;
 
 /**
  * Translates a value using a lookup table.
+ *
+ * NOTE: This class is broken for any CharSequence implementation that does not define 
+ *       equals(Object) and hashCode() methods as the class uses the CharSequence as 
+ *       the key to a HashMap. See http://issues.apache.org/jira/browse/LANG-882.
  * 
  * @since 3.0
  * @version $Id$
