@@ -23,31 +23,32 @@ import java.util.HashMap;
 /**
  * Translates a value using a lookup table.
  *
- * NOTE: This class is broken for any CharSequence implementation that does not define 
- *       equals(Object) and hashCode() methods as the class uses the CharSequence as 
- *       the key to a HashMap. See http://issues.apache.org/jira/browse/LANG-882.
- * 
  * @since 3.0
  * @version $Id$
  */
 public class LookupTranslator extends CharSequenceTranslator {
 
-    private final HashMap<CharSequence, CharSequence> lookupMap;
+    private final HashMap<String, CharSequence> lookupMap;
     private final int shortest;
     private final int longest;
 
     /**
      * Define the lookup table to be used in translation
      *
+     * Note that, as of Lang 3.1, the key to the lookup table is converted to a 
+     * java.lang.String, while the value remains as a java.lang.CharSequence. 
+     * This is because we need the key to support hashCode and equals(Object), 
+     * allowing it to be the key for a HashMap. See LANG-882.
+     *
      * @param lookup CharSequence[][] table of size [*][2]
      */
     public LookupTranslator(final CharSequence[]... lookup) {
-        lookupMap = new HashMap<CharSequence, CharSequence>();
+        lookupMap = new HashMap<String, CharSequence>();
         int _shortest = Integer.MAX_VALUE;
         int _longest = 0;
         if (lookup != null) {
             for (final CharSequence[] seq : lookup) {
-                this.lookupMap.put(seq[0], seq[1]);
+                this.lookupMap.put(seq[0].toString(), seq[1]);
                 final int sz = seq[0].length();
                 if (sz < _shortest) {
                     _shortest = sz;
@@ -73,7 +74,7 @@ public class LookupTranslator extends CharSequenceTranslator {
         // descend so as to get a greedy algorithm
         for (int i = max; i >= shortest; i--) {
             final CharSequence subSeq = input.subSequence(index, index + i);
-            final CharSequence result = lookupMap.get(subSeq);
+            final CharSequence result = lookupMap.get(subSeq.toString());
             if (result != null) {
                 out.write(result.toString());
                 return i;
