@@ -35,7 +35,7 @@ public abstract class CharSequenceTranslator {
      * Translate a set of codepoints, represented by an int index into a CharSequence, 
      * into another set of codepoints. The number of codepoints consumed must be returned, 
      * and the only IOExceptions thrown must be from interacting with the Writer so that 
-     * the top level API may reliable ignore StringWriter IOExceptions. 
+     * the top level API may reliably ignore StringWriter IOExceptions. 
      *
      * @param input CharSequence that is being translated
      * @param index int representing the current point of translation
