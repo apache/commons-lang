@@ -7125,7 +7125,7 @@ public class StringUtils {
         }
         if (suffixes != null && suffixes.length > 0) {
             for (final CharSequence s : suffixes) {
-                if (isEmpty(s) || endsWith(str, s, ignoreCase)) {
+                if (endsWith(str, s, ignoreCase)) {
                     return str;
                 }
             }
@@ -7150,6 +7150,7 @@ public class StringUtils {
      * StringUtils.appendIfMissing(null, null, null) = null
      * StringUtils.appendIfMissing("abc", null, null) = "abc"
      * StringUtils.appendIfMissing("", "xyz", null) = "xyz"
+     * StringUtils.appendIfMissing("abc", "xyz", new CharSequence[]{null}) = "abcxyz"
      * StringUtils.appendIfMissing("abc", "xyz", "") = "abc"
      * StringUtils.appendIfMissing("abc", "xyz", "mno") = "abcxyz"
      * StringUtils.appendIfMissing("abcxyz", "xyz", "mno") = "abcxyz"
@@ -7187,7 +7188,8 @@ public class StringUtils {
      * StringUtils.appendIfMissingIgnoreCase(null, null, null) = null
      * StringUtils.appendIfMissingIgnoreCase("abc", null, null) = "abc"
      * StringUtils.appendIfMissingIgnoreCase("", "xyz", null) = "xyz"
-     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "") = "a"
+     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", new CharSequence[]{null}) = "abcxyz"
+     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "") = "abc"
      * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "mno") = "axyz"
      * StringUtils.appendIfMissingIgnoreCase("abcxyz", "xyz", "mno") = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abcmno", "xyz", "mno") = "abcmno"
@@ -7224,7 +7226,7 @@ public class StringUtils {
         }
         if (prefixes != null && prefixes.length > 0) {
             for (final CharSequence p : prefixes) {
-                if (isEmpty(p) || startsWith(str, p, ignoreCase)) {
+                if (startsWith(str, p, ignoreCase)) {
                     return str;
                 }
             }
@@ -7249,6 +7251,7 @@ public class StringUtils {
      * StringUtils.prependIfMissing(null, null, null) = null
      * StringUtils.prependIfMissing("abc", null, null) = "abc"
      * StringUtils.prependIfMissing("", "xyz", null) = "xyz"
+     * StringUtils.prependIfMissing("abc", "xyz", new CharSequence[]{null}) = "xyzabc"
      * StringUtils.prependIfMissing("abc", "xyz", "") = "abc"
      * StringUtils.prependIfMissing("abc", "xyz", "mno") = "xyzabc"
      * StringUtils.prependIfMissing("xyzabc", "xyz", "mno") = "xyzabc"
@@ -7286,6 +7289,7 @@ public class StringUtils {
      * StringUtils.prependIfMissingIgnoreCase(null, null, null) = null
      * StringUtils.prependIfMissingIgnoreCase("abc", null, null) = "abc"
      * StringUtils.prependIfMissingIgnoreCase("", "xyz", null) = "xyz"
+     * StringUtils.prependIfMissingIgnoreCase("abc", "xyz", new CharSequence[]{null}) = "xyzabc"
      * StringUtils.prependIfMissingIgnoreCase("abc", "xyz", "") = "abc"
      * StringUtils.prependIfMissingIgnoreCase("abc", "xyz", "mno") = "xyzabc"
      * StringUtils.prependIfMissingIgnoreCase("xyzabc", "xyz", "mno") = "xyzabc"

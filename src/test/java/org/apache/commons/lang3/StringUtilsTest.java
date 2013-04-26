@@ -2239,6 +2239,7 @@ public class StringUtilsTest {
         assertEquals("appendIfMissing(null,null,null)", null, StringUtils.appendIfMissing(null,null,(CharSequence[]) null));
         assertEquals("appendIfMissing(abc,null,null)", "abc", StringUtils.appendIfMissing("abc",null,(CharSequence[]) null));
         assertEquals("appendIfMissing(\"\",xyz,null))", "xyz", StringUtils.appendIfMissing("","xyz",(CharSequence[]) null));
+        assertEquals("appendIfMissing(abc,xyz,{null})", "abcxyz", StringUtils.appendIfMissing("abc","xyz",new CharSequence[]{null}));
         assertEquals("appendIfMissing(abc,xyz,\"\")", "abc", StringUtils.appendIfMissing("abc","xyz",""));
         assertEquals("appendIfMissing(abc,xyz,mno)", "abcxyz", StringUtils.appendIfMissing("abc","xyz","mno"));
         assertEquals("appendIfMissing(abcxyz,xyz,mno)", "abcxyz", StringUtils.appendIfMissing("abcxyz","xyz","mno"));
@@ -2262,6 +2263,7 @@ public class StringUtilsTest {
         assertEquals("appendIfMissingIgnoreCase(null,null,null)", null, StringUtils.appendIfMissingIgnoreCase(null,null,(CharSequence[]) null));
         assertEquals("appendIfMissingIgnoreCase(abc,null,null)", "abc", StringUtils.appendIfMissingIgnoreCase("abc",null,(CharSequence[]) null));
         assertEquals("appendIfMissingIgnoreCase(\"\",xyz,null)", "xyz", StringUtils.appendIfMissingIgnoreCase("","xyz",(CharSequence[]) null));
+        assertEquals("appendIfMissingIgnoreCase(abc,xyz,{null})", "abcxyz", StringUtils.appendIfMissingIgnoreCase("abc","xyz",new CharSequence[]{null}));
         assertEquals("appendIfMissingIgnoreCase(abc,xyz,\"\")", "abc", StringUtils.appendIfMissingIgnoreCase("abc","xyz",""));
         assertEquals("appendIfMissingIgnoreCase(abc,xyz,mno)", "abcxyz", StringUtils.appendIfMissingIgnoreCase("abc","xyz","mno"));
         assertEquals("appendIfMissingIgnoreCase(abcxyz,xyz,mno)", "abcxyz", StringUtils.appendIfMissingIgnoreCase("abcxyz","xyz","mno"));       
@@ -2285,6 +2287,7 @@ public class StringUtilsTest {
         assertEquals("prependIfMissing(null,null null)", null, StringUtils.prependIfMissing(null,null,(CharSequence[]) null));
         assertEquals("prependIfMissing(abc,null,null)", "abc", StringUtils.prependIfMissing("abc",null,(CharSequence[]) null));
         assertEquals("prependIfMissing(\"\",xyz,null)", "xyz", StringUtils.prependIfMissing("","xyz",(CharSequence[]) null));
+        assertEquals("prependIfMissing(abc,xyz,{null})","xyzabc", StringUtils.prependIfMissing("abc","xyz",new CharSequence[]{null}));
         assertEquals("prependIfMissing(abc,xyz,\"\")","abc", StringUtils.prependIfMissing("abc","xyz",""));
         assertEquals("prependIfMissing(abc,xyz,mno)","xyzabc", StringUtils.prependIfMissing("abc","xyz","mno"));
         assertEquals("prependIfMissing(xyzabc,xyz,mno)", "xyzabc", StringUtils.prependIfMissing("xyzabc","xyz","mno"));
@@ -2308,6 +2311,7 @@ public class StringUtilsTest {
         assertEquals("prependIfMissingIgnoreCase(null,null null)", null, StringUtils.prependIfMissingIgnoreCase(null,null,(CharSequence[]) null));
         assertEquals("prependIfMissingIgnoreCase(abc,null,null)", "abc", StringUtils.prependIfMissingIgnoreCase("abc",null,(CharSequence[]) null));
         assertEquals("prependIfMissingIgnoreCase(\"\",xyz,null)", "xyz", StringUtils.prependIfMissingIgnoreCase("","xyz",(CharSequence[]) null));
+        assertEquals("prependIfMissingIgnoreCase(abc,xyz,{null})","xyzabc", StringUtils.prependIfMissingIgnoreCase("abc","xyz",new CharSequence[]{null}));
         assertEquals("prependIfMissingIgnoreCase(abc,xyz,\"\")","abc", StringUtils.prependIfMissingIgnoreCase("abc","xyz",""));
         assertEquals("prependIfMissingIgnoreCase(abc,xyz,mno)","xyzabc", StringUtils.prependIfMissingIgnoreCase("abc","xyz","mno"));
         assertEquals("prependIfMissingIgnoreCase(xyzabc,xyz,mno)", "xyzabc", StringUtils.prependIfMissingIgnoreCase("xyzabc","xyz","mno"));
