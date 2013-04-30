@@ -116,12 +116,66 @@ abstract class FormatCache<F extends Format> {
      * @throws IllegalArgumentException if the Locale has no date/time
      *  pattern defined
      */
-    public F getDateTimeInstance(final Integer dateStyle, final Integer timeStyle, final TimeZone timeZone, Locale locale) {
+    // This must remain private, see LANG-884 
+    private F getDateTimeInstance(final Integer dateStyle, final Integer timeStyle, final TimeZone timeZone, Locale locale) {
         if (locale == null) {
             locale = Locale.getDefault();
         }
         final String pattern = getPatternForStyle(dateStyle, timeStyle, locale);
         return getInstance(pattern, timeZone, locale);
+    }
+
+    /*
+     * <p>Gets a date/time formatter instance using the specified style,
+     * time zone and locale.</p>
+     * 
+     * @param dateStyle  date style: FULL, LONG, MEDIUM, or SHORT
+     * @param timeStyle  time style: FULL, LONG, MEDIUM, or SHORT
+     * @param timeZone  optional time zone, overrides time zone of
+     *  formatted date, null means use default Locale
+     * @param locale  optional locale, overrides system locale
+     * @return a localized standard date/time formatter
+     * @throws IllegalArgumentException if the Locale has no date/time
+     *  pattern defined
+     */
+    // package protected, for access from FastDateFormat; do not make public or protected
+    F getDateTimeInstance(final int dateStyle, final int timeStyle, final TimeZone timeZone, Locale locale) {
+        return getDateTimeInstance(Integer.valueOf(dateStyle), Integer.valueOf(timeStyle), timeZone, locale);
+    }
+
+    /*
+     * <p>Gets a date formatter instance using the specified style,
+     * time zone and locale.</p>
+     * 
+     * @param dateStyle  date style: FULL, LONG, MEDIUM, or SHORT
+     * @param timeZone  optional time zone, overrides time zone of
+     *  formatted date, null means use default Locale
+     * @param locale  optional locale, overrides system locale
+     * @return a localized standard date/time formatter
+     * @throws IllegalArgumentException if the Locale has no date/time
+     *  pattern defined
+     */
+    // package protected, for access from FastDateFormat; do not make public or protected
+    F getDateInstance(final int dateStyle, final TimeZone timeZone, Locale locale) {
+        return getDateTimeInstance(Integer.valueOf(dateStyle), null, timeZone, locale);
+    }
+
+    /*
+     * <p>Gets a time formatter instance using the specified style,
+     * time zone and locale.</p>
+     * 
+     * @param dateStyle  date style: FULL, LONG, MEDIUM, or SHORT
+     * @param timeStyle  time style: FULL, LONG, MEDIUM, or SHORT
+     * @param timeZone  optional time zone, overrides time zone of
+     *  formatted date, null means use default Locale
+     * @param locale  optional locale, overrides system locale
+     * @return a localized standard date/time formatter
+     * @throws IllegalArgumentException if the Locale has no date/time
+     *  pattern defined
+     */
+    // package protected, for access from FastDateFormat; do not make public or protected
+    F getTimeInstance(final int timeStyle, final TimeZone timeZone, Locale locale) {
+        return getDateTimeInstance(null, Integer.valueOf(timeStyle), timeZone, locale);
     }
 
     /**
@@ -133,7 +187,8 @@ abstract class FormatCache<F extends Format> {
      * @return a localized standard date/time format
      * @throws IllegalArgumentException if the Locale has no date/time pattern defined
      */
-    public static String getPatternForStyle(final Integer dateStyle, final Integer timeStyle, final Locale locale) {
+    // package protected, for access from test code; do not make public or protected
+    static String getPatternForStyle(final Integer dateStyle, final Integer timeStyle, final Locale locale) {
         final MultipartKey key = new MultipartKey(dateStyle, timeStyle, locale);
 
         String pattern = cDateTimeInstanceCache.get(key);
