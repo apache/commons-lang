@@ -197,8 +197,6 @@ public class SerializationUtils {
      * @throws SerializationException
      *             (runtime) if the serialization fails
      */
-    @SuppressWarnings("unchecked")
-    // Don't warn about "(T) deserialize" because we want the avoid type casting call sites.
     public static <T> T deserialize(final InputStream inputStream) {
         if (inputStream == null) {
             throw new IllegalArgumentException("The InputStream must not be null");
@@ -207,8 +205,12 @@ public class SerializationUtils {
         try {
             // stream closed in the finally
             in = new ObjectInputStream(inputStream);
-            return (T) in.readObject();
+            @SuppressWarnings("unchecked") // may fail with CCE if serialised form is incorrect
+            final T obj = (T) in.readObject();
+            return obj;
 
+        } catch (final ClassCastException ex) {
+            throw new SerializationException(ex);
         } catch (final ClassNotFoundException ex) {
             throw new SerializationException(ex);
         } catch (final IOException ex) {
@@ -244,13 +246,11 @@ public class SerializationUtils {
      * @throws SerializationException
      *             (runtime) if the serialization fails
      */
-    @SuppressWarnings("unchecked")
-    // Don't warn about "(T) deserialize" because we want the avoid type casting call sites.
     public static <T> T deserialize(final byte[] objectData) {
         if (objectData == null) {
             throw new IllegalArgumentException("The byte[] must not be null");
         }
-        return (T) deserialize(new ByteArrayInputStream(objectData));
+        return org.apache.commons.lang3.SerializationUtils.<T>deserialize(new ByteArrayInputStream(objectData));
     }
 
     /**
