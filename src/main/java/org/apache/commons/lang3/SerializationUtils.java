@@ -250,7 +250,7 @@ public class SerializationUtils {
         if (objectData == null) {
             throw new IllegalArgumentException("The byte[] must not be null");
         }
-        return org.apache.commons.lang3.SerializationUtils.<T>deserialize(new ByteArrayInputStream(objectData));
+        return SerializationUtils.<T>deserialize(new ByteArrayInputStream(objectData));
     }
 
     /**
