@@ -26,8 +26,8 @@ package org.apache.commons.lang3.mutable;
  * effectively change the value of the primitive/string. Another use case is to store a frequently changing primitive in
  * a collection (for example a total in a map) without needing to create new Integer/Long wrapper objects.
  * 
- * @since 2.1
  * @param <T> the type to set and get 
+ * @since 2.1
  * @version $Id$
  */
 public interface Mutable<T> {

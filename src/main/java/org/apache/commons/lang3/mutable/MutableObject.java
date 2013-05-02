@@ -22,6 +22,7 @@ import java.io.Serializable;
 /**
  * A mutable <code>Object</code> wrapper.
  * 
+ * @param <T> the type to set and get 
  * @since 2.1
  * @version $Id$
  */
