@@ -490,52 +490,66 @@ public class DurationFormatUtils {
         StringBuilder buffer = null;
         Token previous = null;
         final int sz = array.length;
-        for(int i=0; i<sz; i++) {
+        for (int i = 0; i < sz; i++) {
             final char ch = array[i];
-            if(inLiteral && ch != '\'') {
+            if (inLiteral && ch != '\'') {
                 buffer.append(ch); // buffer can't be null if inLiteral is true
                 continue;
             }
             Object value = null;
-            switch(ch) {
-                // TODO: Need to handle escaping of '
-                case '\'' : 
-                  if(inLiteral) {
-                      buffer = null;
-                      inLiteral = false;
-                  } else {
-                      buffer = new StringBuilder();
-                      list.add(new Token(buffer));
-                      inLiteral = true;
-                  }
-                  break;
-                case 'y'  : value = y; break;
-                case 'M'  : value = M; break;
-                case 'd'  : value = d; break;
-                case 'H'  : value = H; break;
-                case 'm'  : value = m; break;
-                case 's'  : value = s; break;
-                case 'S'  : value = S; break;
-                default   : 
-                  if(buffer == null) {
-                      buffer = new StringBuilder();
-                      list.add(new Token(buffer));
-                  }
-                  buffer.append(ch);
+            switch (ch) {
+            // TODO: Need to handle escaping of '
+            case '\'':
+                if (inLiteral) {
+                    buffer = null;
+                    inLiteral = false;
+                } else {
+                    buffer = new StringBuilder();
+                    list.add(new Token(buffer));
+                    inLiteral = true;
+                }
+                break;
+            case 'y':
+                value = y;
+                break;
+            case 'M':
+                value = M;
+                break;
+            case 'd':
+                value = d;
+                break;
+            case 'H':
+                value = H;
+                break;
+            case 'm':
+                value = m;
+                break;
+            case 's':
+                value = s;
+                break;
+            case 'S':
+                value = S;
+                break;
+            default:
+                if (buffer == null) {
+                    buffer = new StringBuilder();
+                    list.add(new Token(buffer));
+                }
+                buffer.append(ch);
             }
 
-            if(value != null) {
-                if(previous != null && previous.getValue() == value) {
+            if (value != null) {
+                if (previous != null && previous.getValue() == value) {
                     previous.increment();
                 } else {
                     final Token token = new Token(value);
-                    list.add(token); 
+                    list.add(token);
                     previous = token;
                 }
-                buffer = null; 
+                buffer = null;
             }
         }
-        return list.toArray( new Token[list.size()] );
+        return list.toArray(new Token[list.size()]);
     }
 
     //-----------------------------------------------------------------------
