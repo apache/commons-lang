@@ -215,7 +215,8 @@ public class SerializationUtilsTest {
         final String value = "Hello";
         final byte[] serialized = SerializationUtils.serialize(value);
         Assert.assertEquals(value, SerializationUtils.deserialize(serialized));
-        // Causes ClassCastException in call site, not in SerializationUtils.deserialize 
+        // Causes ClassCastException in call site, not in SerializationUtils.deserialize
+        @SuppressWarnings("unused") // needed to cause Exception
         final Integer i = SerializationUtils.deserialize(serialized);
     }
 
