@@ -50,6 +50,10 @@ public class OctalUnescaper extends CharSequenceTranslator {
                     end--; // rollback
                     break;
                 }
+                //For Octal, Only 3 chars
+                if (end - start >= 3) {
+                    break;
+                }
             }
 
             out.write( Integer.parseInt(input.subSequence(start, end).toString(), 8) );
