@@ -79,7 +79,7 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     
     @Test
     public void testContextedExceptionStringThrowableContext() {
-        exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext());
+        exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext() {});
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
         assertTrue(trace.indexOf("ContextedException")>=0);
