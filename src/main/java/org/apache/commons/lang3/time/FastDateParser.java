@@ -497,7 +497,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private Strategy getLocaleSpecificStrategy(final int field, final Calendar definingCalendar) {
         final ConcurrentMap<Locale,Strategy> cache = getCache(field);
-        Strategy strategy= cache.get(Integer.valueOf(field));
+        Strategy strategy= cache.get(locale);
         if(strategy==null) {
             strategy= field==Calendar.ZONE_OFFSET
                     ? new TimeZoneStrategy(locale)
