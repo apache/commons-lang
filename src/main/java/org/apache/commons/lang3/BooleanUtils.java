@@ -513,9 +513,9 @@ public class BooleanUtils {
     /**
      * <p>Converts a String to a Boolean.</p>
      *
-     * <p>{@code 'true'}, {@code 'on'} or {@code 'yes'}
+     * <p>{@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'} or {@code 'yes'}
      * (case insensitive) will return {@code true}.
-     * {@code 'false'}, {@code 'off'} or {@code 'no'}
+     * {@code 'false'}, {@code 'off'}, {@code 'n'}, {@code 'f'}  or {@code 'no'}
      * (case insensitive) will return {@code false}.
      * Otherwise, {@code null} is returned.</p>
      *
@@ -529,6 +529,10 @@ public class BooleanUtils {
      *   BooleanUtils.toBooleanObject("ON")    = Boolean.TRUE
      *   BooleanUtils.toBooleanObject("off")   = Boolean.FALSE
      *   BooleanUtils.toBooleanObject("oFf")   = Boolean.FALSE
+     *   BooleanUtils.toBooleanObject("y")     = Boolean.TRUE
+     *   BooleanUtils.toBooleanObject("n")     = Boolean.FALSE
+     *   BooleanUtils.toBooleanObject("t")     = Boolean.TRUE
+     *   BooleanUtils.toBooleanObject("f")     = Boolean.FALSE
      *   BooleanUtils.toBooleanObject("blue")  = null
      * </pre>
      *
@@ -669,7 +673,7 @@ public class BooleanUtils {
     /**
      * <p>Converts a String to a boolean (optimised for performance).</p>
      *
-     * <p>{@code 'true'}, {@code 'on'} or {@code 'yes'}
+     * <p>{@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'} or {@code 'yes'}
      * (case insensitive) will return {@code true}. Otherwise,
      * {@code false} is returned.</p>
      *
@@ -686,6 +690,10 @@ public class BooleanUtils {
      *   BooleanUtils.toBoolean("yes")   = true
      *   BooleanUtils.toBoolean("false") = false
      *   BooleanUtils.toBoolean("x gti") = false
+     *   BooleanUtils.toBooleanObject("y") = true
+     *   BooleanUtils.toBooleanObject("n") = false
+     *   BooleanUtils.toBooleanObject("t") = true
+     *   BooleanUtils.toBooleanObject("f") = false
      * </pre>
      *
      * @param str  the String to check
