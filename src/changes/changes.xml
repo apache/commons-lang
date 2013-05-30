@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-879" type="fix">LocaleUtils test fails with new Locale "ja_JP_JP_#u-ca-japanese" of JDK7</action>
     <action issue="LANG-836" type="fix" due-to="Arnaud Brunet">StrSubstitutor does not support StringBuilder or CharSequence</action>
     <action issue="LANG-693" type="fix" due-to="Calvin Echols">Method createNumber from NumberUtils doesn't work for floating point numbers other than Float</action>
     <action issue="LANG-887" type="fix">FastDateFormat does not use the locale specific cache correctly</action>

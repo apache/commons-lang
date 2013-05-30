@@ -89,6 +89,9 @@ public class LocaleUtils {
         if (str == null) {
             return null;
         }
+        if (str.contains("#")) { // LANG-879 - Cannot handle Java 7 script & extensions
+            throw new IllegalArgumentException("Invalid locale format: " + str);
+        }
         final int len = str.length();
         if (len < 2) {
             throw new IllegalArgumentException("Invalid locale format: " + str);
