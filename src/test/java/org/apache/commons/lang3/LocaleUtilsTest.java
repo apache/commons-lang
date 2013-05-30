@@ -542,4 +542,41 @@ public class LocaleUtilsTest  {
         }
     }
 
+    @Test
+    public void testParseAllLocales() {
+        Locale[] locales = Locale.getAvailableLocales();
+        int failures = 0;
+        for (Locale l : locales) {
+            // Check if it's possible to recreate the Locale using just the standard constructor
+            Locale locale = new Locale(l.getLanguage(), l.getCountry(), l.getVariant());
+            if (l.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales
+                String str = l.toString();
+                // Look for the script/extension suffix
+                int suff = str.indexOf("_#");
+                if (suff == - 1) {
+                    suff = str.indexOf("#");
+                }
+                if (suff >= 0) { // we have a suffix
+                    try {
+                        LocaleUtils.toLocale(str); // shouuld cause IAE
+                        System.out.println("Should not have parsed: " + str);
+                        failures++;
+                        continue; // try next Locale
+                    } catch (IllegalArgumentException iae) {
+                        // expected; try without suffix
+                        str = str.substring(0, suff);
+                    }
+                }
+                Locale loc = LocaleUtils.toLocale(str);
+                if (!l.equals(loc)) {
+                    System.out.println("Failed to parse: " + str);
+                    failures++;
+                }                    
+            }
+        }
+        if (failures > 0) {
+            fail("Failed "+failures+" test(s)");
+        }
+    }
+
 }
