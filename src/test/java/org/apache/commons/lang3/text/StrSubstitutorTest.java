@@ -547,6 +547,13 @@ public class StrSubstitutorTest {
             assertEquals(expectedShortResult, sub.replace(buf, 1, buf.length() - 2));
         }
 
+        // replace using StringBuilder
+        StringBuilder builder = new StringBuilder(replaceTemplate);
+        assertEquals(expectedResult, sub.replace(builder));
+        if (substring) {
+            assertEquals(expectedShortResult, sub.replace(builder, 1, builder.length() - 2));
+        }
+        
         // replace using StrBuilder
         StrBuilder bld = new StrBuilder(replaceTemplate);
         assertEquals(expectedResult, sub.replace(bld));
@@ -568,6 +575,16 @@ public class StrSubstitutorTest {
             assertEquals(expectedResult, buf.toString());  // expect full result as remainder is untouched
         }
 
+        // replace in StringBuilder
+        builder = new StringBuilder(replaceTemplate);
+        assertTrue(sub.replaceIn(builder));
+        assertEquals(expectedResult, builder.toString());
+        if (substring) {
+        	builder = new StringBuilder(replaceTemplate);
+            assertTrue(sub.replaceIn(builder, 1, builder.length() - 2));
+            assertEquals(expectedResult, builder.toString());  // expect full result as remainder is untouched
+        }
+        
         // replace in StrBuilder
         bld = new StrBuilder(replaceTemplate);
         assertTrue(sub.replaceIn(bld));
