@@ -513,26 +513,33 @@ public class BooleanUtils {
     /**
      * <p>Converts a String to a Boolean.</p>
      *
-     * <p>{@code 'true'}, {@code 'on'} or {@code 'yes'}
+     * <p>{@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'} or {@code 'yes'}
      * (case insensitive) will return {@code true}.
-     * {@code 'false'}, {@code 'off'} or {@code 'no'}
+     * {@code 'false'}, {@code 'off'}, {@code 'n'}, {@code 'f'} or {@code 'no'}
      * (case insensitive) will return {@code false}.
      * Otherwise, {@code null} is returned.</p>
      *
      * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
      *
      * <pre>
+     *   // N.B. case is not significant
      *   BooleanUtils.toBooleanObject(null)    = null
      *   BooleanUtils.toBooleanObject("true")  = Boolean.TRUE
+     *   BooleanUtils.toBooleanObject("T")     = Boolean.TRUE // i.e. T[RUE]
      *   BooleanUtils.toBooleanObject("false") = Boolean.FALSE
+     *   BooleanUtils.toBooleanObject("f")     = Boolean.FALSE // i.e. f[alse]
+     *   BooleanUtils.toBooleanObject("No")    = Boolean.FALSE
+     *   BooleanUtils.toBooleanObject("n")     = Boolean.FALSE // i.e. n[o]
      *   BooleanUtils.toBooleanObject("on")    = Boolean.TRUE
      *   BooleanUtils.toBooleanObject("ON")    = Boolean.TRUE
      *   BooleanUtils.toBooleanObject("off")   = Boolean.FALSE
      *   BooleanUtils.toBooleanObject("oFf")   = Boolean.FALSE
+     *   BooleanUtils.toBooleanObject("yes")   = Boolean.TRUE
+     *   BooleanUtils.toBooleanObject("Y")     = Boolean.TRUE // i.e. Y[ES]
      *   BooleanUtils.toBooleanObject("blue")  = null
      * </pre>
      *
-     * @param str  the String to check
+     * @param str  the String to check; upper and lower case are treated as the same
      * @return the Boolean value of the string, {@code null} if no match or {@code null} input
      */
     public static Boolean toBooleanObject(final String str) {
@@ -669,13 +676,13 @@ public class BooleanUtils {
     /**
      * <p>Converts a String to a boolean (optimised for performance).</p>
      *
-     * <p>{@code 'true'}, {@code 'on'} or {@code 'yes'}
+     * <p>{@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'} or {@code 'yes'}
      * (case insensitive) will return {@code true}. Otherwise,
      * {@code false} is returned.</p>
      *
      * <p>This method performs 4 times faster (JDK1.4) than
      * {@code Boolean.valueOf(String)}. However, this method accepts
-     * 'on' and 'yes' as true values.
+     * 'on' and 'yes', 't', 'y' as true values.
      *
      * <pre>
      *   BooleanUtils.toBoolean(null)    = false
@@ -686,6 +693,10 @@ public class BooleanUtils {
      *   BooleanUtils.toBoolean("yes")   = true
      *   BooleanUtils.toBoolean("false") = false
      *   BooleanUtils.toBoolean("x gti") = false
+     *   BooleanUtils.toBooleanObject("y") = true
+     *   BooleanUtils.toBooleanObject("n") = false
+     *   BooleanUtils.toBooleanObject("t") = true
+     *   BooleanUtils.toBooleanObject("f") = false 
      * </pre>
      *
      * @param str  the String to check
