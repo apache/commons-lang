@@ -418,7 +418,7 @@ public class StrSubstitutor {
      *
      * @param source  the buffer to use as a template, not changed, null returns null
      * @return the result of the replace operation
-     * @since TODO
+     * @since 3.2
      */
     public String replace(CharSequence source) {
         if (source == null) {
@@ -439,7 +439,7 @@ public class StrSubstitutor {
      * @param offset  the start offset within the array, must be valid
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
-     * @since TODO
+     * @since 3.2
      */
     public String replace(CharSequence source, int offset, int length) {
         if (source == null) {
@@ -557,7 +557,7 @@ public class StrSubstitutor {
      *
      * @param source  the buffer to replace in, updated, null returns zero
      * @return true if altered
-     * @since TODO
+     * @since 3.2
      */
     public boolean replaceIn(StringBuilder source) {
         if (source == null) {
@@ -578,7 +578,7 @@ public class StrSubstitutor {
      * @param offset  the start offset within the array, must be valid
      * @param length  the length within the buffer to be processed, must be valid
      * @return true if altered
-     * @since TODO
+     * @since 3.2
      */
     public boolean replaceIn(StringBuilder source, int offset, int length) {
         if (source == null) {
