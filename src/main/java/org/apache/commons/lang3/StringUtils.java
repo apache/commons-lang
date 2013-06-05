@@ -423,7 +423,7 @@ public class StringUtils {
             return null;
         }
         str = strip(str, null);
-        return str.length() == 0 ? null : str;
+        return str.isEmpty() ? null : str;
     }
 
     /**
@@ -520,7 +520,7 @@ public class StringUtils {
             while (start != strLen && Character.isWhitespace(str.charAt(start))) {
                 start++;
             }
-        } else if (stripChars.length() == 0) {
+        } else if (stripChars.isEmpty()) {
             return str;
         } else {
             while (start != strLen && stripChars.indexOf(str.charAt(start)) != INDEX_NOT_FOUND) {
@@ -565,7 +565,7 @@ public class StringUtils {
             while (end != 0 && Character.isWhitespace(str.charAt(end - 1))) {
                 end--;
             }
-        } else if (stripChars.length() == 0) {
+        } else if (stripChars.isEmpty()) {
             return str;
         } else {
             while (end != 0 && stripChars.indexOf(str.charAt(end - 1)) != INDEX_NOT_FOUND) {
@@ -2174,7 +2174,7 @@ public class StringUtils {
         if (isEmpty(str) || separator == null) {
             return str;
         }
-        if (separator.length() == 0) {
+        if (separator.isEmpty()) {
             return EMPTY;
         }
         final int pos = str.indexOf(separator);
@@ -3106,7 +3106,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        if (str.length() == 0) {
+        if (str.isEmpty()) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
         final char[] c = str.toCharArray();
@@ -4567,7 +4567,7 @@ public class StringUtils {
         // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
 
-        if (text == null || text.length() == 0 || searchList == null ||
+        if (text == null || text.isEmpty() || searchList == null ||
                 searchList.length == 0 || replacementList == null || replacementList.length == 0) {
             return text;
         }
@@ -4601,7 +4601,7 @@ public class StringUtils {
         // NOTE: logic duplicated below START
         for (int i = 0; i < searchLength; i++) {
             if (noMoreMatchesForReplIndex[i] || searchList[i] == null ||
-                    searchList[i].length() == 0 || replacementList[i] == null) {
+                    searchList[i].isEmpty() || replacementList[i] == null) {
                 continue;
             }
             tempIndex = text.indexOf(searchList[i]);
@@ -4659,7 +4659,7 @@ public class StringUtils {
             // NOTE: logic mostly duplicated above START
             for (int i = 0; i < searchLength; i++) {
                 if (noMoreMatchesForReplIndex[i] || searchList[i] == null ||
-                        searchList[i].length() == 0 || replacementList[i] == null) {
+                        searchList[i].isEmpty() || replacementList[i] == null) {
                     continue;
                 }
                 tempIndex = text.indexOf(searchList[i], start);
