@@ -5058,11 +5058,10 @@ public class StringUtils {
     public static String repeat(final String str, final String separator, final int repeat) {
         if(str == null || separator == null) {
             return repeat(str, repeat);
-        } else {
-            // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
-            final String result = repeat(str + separator, repeat);
-            return removeEnd(result, separator);
         }
+        // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
+        final String result = repeat(str + separator, repeat);
+        return removeEnd(result, separator);
     }
 
     /**
@@ -6839,9 +6838,8 @@ public class StringUtils {
         // distance
         if (p[n] <= threshold) {
             return p[n];
-        } else {
-            return -1;
         }
+        return -1;
     }
 
     // startsWith
