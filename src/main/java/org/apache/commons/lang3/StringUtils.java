@@ -1061,7 +1061,10 @@ public class StringUtils {
      *
      * <p>A {@code null} or empty ("") CharSequence will return {@code -1}.
      * A negative start position returns {@code -1}.
-     * A start position greater than the string length searches the whole string.</p>
+     * A start position greater than the string length searches the whole string.
+     * The search starts at the startPos and works backwards; matches starting after the start
+     * position are ignored.
+     * </p>
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *, *)          = -1
@@ -1164,7 +1167,10 @@ public class StringUtils {
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A negative start position returns {@code -1}.
      * An empty ("") search CharSequence always matches unless the start position is negative.
-     * A start position greater than the string length searches the whole string.</p>
+     * A start position greater than the string length searches the whole string.
+     * The search starts at the startPos and works backwards; matches starting after the start
+     * position are ignored.
+     * </p>
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *, *)          = -1
@@ -1176,6 +1182,10 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", "b", -1) = -1
      * StringUtils.lastIndexOf("aabaabaa", "a", 0)  = 0
      * StringUtils.lastIndexOf("aabaabaa", "b", 0)  = -1
+     * StringUtils.lastIndexOf("aabaabaa", "b", 1)  = -1
+     * StringUtils.lastIndexOf("aabaabaa", "b", 2)  = 2
+     * StringUtils.lastIndexOf("aabaabaa", "ba", 2)  = -1
+     * StringUtils.lastIndexOf("aabaabaa", "ba", 2)  = 2
      * </pre>
      *
      * @param seq  the CharSequence to check, may be null
@@ -1230,7 +1240,10 @@ public class StringUtils {
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A negative start position returns {@code -1}.
      * An empty ("") search CharSequence always matches unless the start position is negative.
-     * A start position greater than the string length searches the whole string.</p>
+     * A start position greater than the string length searches the whole string.
+     * The search starts at the startPos and works backwards; matches starting after the start
+     * position are ignored.
+     * </p>
      *
      * <pre>
      * StringUtils.lastIndexOfIgnoreCase(null, *, *)          = -1
