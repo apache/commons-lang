@@ -619,6 +619,12 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(2, StringUtils.indexOf("aabaabaa", "b", -1));
         assertEquals(2,StringUtils.indexOf("aabaabaa", "", 2));
 
+        // Test that startIndex works correctly, i.e. cannot match before startIndex
+        assertEquals(7, StringUtils.indexOf("12345678", "8", 5));
+        assertEquals(7, StringUtils.indexOf("12345678", "8", 6));
+        assertEquals(7, StringUtils.indexOf("12345678", "8", 7)); // 7 is last index
+        assertEquals(-1, StringUtils.indexOf("12345678", "8", 8));
+
         assertEquals(5, StringUtils.indexOf(new StringBuilder("aabaabaa"), "b", 3));
     }
 
@@ -843,6 +849,13 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "b", -1));
         assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "b", 0));
         assertEquals(0, StringUtils.lastIndexOf("aabaabaa", "a", 0));
+        assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "a", -1));
+
+        // Test that fromIndex works correctly, i.e. cannot match after fromIndex
+        assertEquals(7, StringUtils.lastIndexOf("12345678", "8", 9));
+        assertEquals(7, StringUtils.lastIndexOf("12345678", "8", 8));
+        assertEquals(7, StringUtils.lastIndexOf("12345678", "8", 7)); // 7 is last index
+        assertEquals(-1, StringUtils.lastIndexOf("12345678", "8", 6));
 
         assertEquals(2, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), "b", 3));
     }
