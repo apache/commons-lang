@@ -1158,7 +1158,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Finds the first index within a CharSequence, handling {@code null}.
+     * <p>Finds the last index within a CharSequence, handling {@code null}.
      * This method uses {@link String#lastIndexOf(String, int)} if possible.</p>
      *
      * <p>A {@code null} CharSequence will return {@code -1}.
