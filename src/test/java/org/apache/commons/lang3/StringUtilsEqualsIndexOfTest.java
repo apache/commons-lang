@@ -857,6 +857,11 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(7, StringUtils.lastIndexOf("12345678", "8", 7)); // 7 is last index
         assertEquals(-1, StringUtils.lastIndexOf("12345678", "8", 6));
 
+        assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "b", 1));
+        assertEquals(2, StringUtils.lastIndexOf("aabaabaa", "b", 2));
+        assertEquals(2, StringUtils.lastIndexOf("aabaabaa", "ba", 2));
+        assertEquals(2, StringUtils.lastIndexOf("aabaabaa", "ba", 3));
+
         assertEquals(2, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), "b", 3));
     }
 
