@@ -784,7 +784,7 @@ public class StringUtils {
      * @param seq  the CharSequence to check, may be null
      * @param searchChar  the character to find
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search character,
+     * @return the first index of the search character (always &ge; startPos),
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int, int) to indexOf(CharSequence, int, int)
@@ -855,7 +855,7 @@ public class StringUtils {
      * @param seq  the CharSequence to check, may be null
      * @param searchSeq  the CharSequence to find, may be null
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search CharSequence,
+     * @return the first index of the search CharSequence (always &ge; startPos),
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, String, int) to indexOf(CharSequence, CharSequence, int)
@@ -998,7 +998,7 @@ public class StringUtils {
      * @param str  the CharSequence to check, may be null
      * @param searchStr  the CharSequence to find, may be null
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search CharSequence,
+     * @return the first index of the search CharSequence (always &ge; startPos),
      *  -1 if no match or {@code null} string input
      * @since 2.5
      * @since 3.0 Changed signature from indexOfIgnoreCase(String, String, int) to indexOfIgnoreCase(CharSequence, CharSequence, int)
@@ -1077,7 +1077,7 @@ public class StringUtils {
      * @param seq  the CharSequence to check, may be null
      * @param searchChar  the character to find
      * @param startPos  the start position
-     * @return the last index of the search character,
+     * @return the last index of the search character (always &le; startPos),
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, int, int) to lastIndexOf(CharSequence, int, int)
@@ -1181,7 +1181,7 @@ public class StringUtils {
      * @param seq  the CharSequence to check, may be null
      * @param searchSeq  the CharSequence to find, may be null
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search CharSequence,
+     * @return the last index of the search CharSequence (always &le; startPos),
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, String, int) to lastIndexOf(CharSequence, CharSequence, int)
@@ -1247,7 +1247,7 @@ public class StringUtils {
      * @param str  the CharSequence to check, may be null
      * @param searchStr  the CharSequence to find, may be null
      * @param startPos  the start position
-     * @return the first index of the search CharSequence,
+     * @return the last index of the search CharSequence (always &le; startPos),
      *  -1 if no match or {@code null} input
      * @since 2.5
      * @since 3.0 Changed signature from lastIndexOfIgnoreCase(String, String, int) to lastIndexOfIgnoreCase(CharSequence, CharSequence, int)
