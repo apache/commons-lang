@@ -128,6 +128,20 @@ public abstract class ToStringStyle implements Serializable {
     public static final ToStringStyle SIMPLE_STYLE = new SimpleToStringStyle();
 
     /**
+     * The XML toString style. Using the <code>Person</code>
+     * example from {@link ToStringBuilder}, the output would look like this:
+     *
+     * <pre>
+     * <Person class="example.Person" hashCode="@2c64f6cd">
+     *     <name>John Doe</name>
+     *     <age>33</age>
+     *     <smoker>false</smoker>
+     * </Person>
+     * </pre>
+     */
+    public static final ToStringStyle XML_STYLE = new XMLToStringStyle();
+
+    /**
      * <p>
      * A registry of objects used by <code>reflectionToString</code> methods
      * to detect cyclical object references and avoid infinite loops.
@@ -2279,4 +2293,120 @@ public abstract class ToStringStyle implements Serializable {
 
     }
 
+    //----------------------------------------------------------------------------
+
+    /**
+     * <p><code>ToStringStyle</code> that outputs XML compatible syntax.</p>
+     *
+     * <p>This is an inner class rather than using
+     * <code>StandardToStringStyle</code> to ensure its immutability.</p>
+     */
+    private static final class XMLToStringStyle extends ToStringStyle {
+
+        private static final long serialVersionUID = 1L;
+
+        private static final String INDENT_STRING = "\t";
+        private int indentCount = -1;
+
+        /**
+         * <p>Constructor.</p>
+         *
+         * <p>Use the static constant rather than instantiating.</p>
+         */
+        XMLToStringStyle() {
+            super();
+    
+            setNullText(null);
+            setSizeStartText("size=");
+            setSizeEndText(null);
+    
+            setArrayStart(null);
+            setArraySeparator(SystemUtils.LINE_SEPARATOR);
+            setArrayEnd(null);
+        }
+
+
+        @Override
+        public void appendStart(final StringBuffer buffer, final Object object) {
+            indentNewLine(buffer, ++indentCount);
+            buffer.append("<");
+            buffer.append(getShortClassName(object.getClass()));
+            buffer.append(" class=\"");
+            appendClassName(buffer, object);
+            buffer.append("\" hashCode=\"");
+            appendIdentityHashCode(buffer, object);
+            buffer.append("\">");
+        }
+    
+        @Override
+        protected void appendFieldStart(final StringBuffer buffer, final String fieldName) {
+            indentNewLine(buffer, ++indentCount);
+            buffer.append("<");
+            buffer.append(fieldName);
+            buffer.append(">");
+        }
+    
+        @Override
+        protected void appendFieldEnd(final StringBuffer buffer, final String fieldName) {
+            buffer.append("</");
+            buffer.append(fieldName);
+            buffer.append(">");
+            indentCount--;
+        }
+    
+        @Override
+        public void appendEnd(final StringBuffer buffer, final Object object) {
+            int len = buffer.length();
+            if (len > 2 && buffer.charAt(len - 1) == ' ' && buffer.charAt(len - 2) == ' ') {
+                buffer.setLength(len - 2);
+            }
+    
+            indentNewLine(buffer, indentCount--);
+            buffer.append("</");
+            buffer.append(getShortClassName(object.getClass()));
+            buffer.append(">");
+            indentNewLine(buffer, indentCount);
+        }
+    
+        @Override
+        protected void appendDetail(final StringBuffer buffer, final String fieldName, final Collection coll) {
+            for (Object value : coll) {
+                appendDetail(buffer, fieldName, value);
+            }
+        }
+    
+        @Override
+        protected void appendDetail(final StringBuffer buffer, final String fieldName, final Map map) {
+            @SuppressWarnings("unchecked")
+            Set<Entry> entrySet = map.entrySet();
+    
+            appendStart(buffer, map);
+            for (Entry entry : entrySet) {
+                appendFieldStart(buffer, "Map.Entry");
+                append(buffer, "key", entry.getKey(), true);
+                append(buffer, "value", entry.getValue(), true);
+                indentNewLine(buffer, indentCount);
+                appendFieldEnd(buffer, "Map.Entry");
+            }
+            appendEnd(buffer, map);
+        }
+    
+    
+        /**
+         * <p>Helper to add a newline and add indentation to it.</p>
+         */
+        private void indentNewLine(final StringBuffer buffer, final int count) {
+            buffer.append(SystemUtils.LINE_SEPARATOR);
+            buffer.append(StringUtils.repeat(INDENT_STRING, count));
+        }
+
+        /**
+         * <p>Ensure <code>Singleton</code> after serialization.</p>
+         *
+         * @return the singleton
+         */
+        private Object readResolve() {
+            return ToStringStyle.XML_STYLE;
+        }
+    }
 }
