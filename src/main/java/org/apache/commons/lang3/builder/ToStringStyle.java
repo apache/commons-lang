@@ -118,7 +118,7 @@ public abstract class ToStringStyle implements Serializable {
     public static final ToStringStyle SHORT_PREFIX_STYLE = new ShortPrefixToStringStyle();
 
     /**
-     * The simple toString style. Using the Using the <code>Person</code>
+     * The simple toString style. Using the <code>Person</code>
      * example from {@link ToStringBuilder}, the output would look like this:
      *
      * <pre>
@@ -2205,6 +2205,8 @@ public abstract class ToStringStyle implements Serializable {
         }
 
     }
+
+    //----------------------------------------------------------------------------
 
     /**
      * <p><code>ToStringStyle</code> that does not print out the
