@@ -5581,8 +5581,15 @@ public class StringUtils {
         if (str == null || (strLen = str.length()) == 0) {
             return str;
         }
+        
+        char firstChar = str.charAt(0);
+        if (Character.isTitleCase(firstChar)) {
+        	// already capitalized
+        	return str;
+        }
+        
         return new StringBuilder(strLen)
-            .append(Character.toTitleCase(str.charAt(0)))
+            .append(Character.toTitleCase(firstChar))
             .append(str.substring(1))
             .toString();
     }
@@ -5612,8 +5619,15 @@ public class StringUtils {
         if (str == null || (strLen = str.length()) == 0) {
             return str;
         }
+        
+        char firstChar = str.charAt(0);
+        if (Character.isLowerCase(firstChar)) {
+        	// already uncapitalized
+        	return str;
+        }
+        
         return new StringBuilder(strLen)
-            .append(Character.toLowerCase(str.charAt(0)))
+            .append(Character.toLowerCase(firstChar))
             .append(str.substring(1))
             .toString();
     }

@@ -129,14 +129,20 @@ public class StringUtilsTest {
         assertEquals(null, StringUtils.uncapitalize(null));
 
         assertEquals("capitalize(empty-string) failed",
-                     "", StringUtils.capitalize("") );
+                "", StringUtils.capitalize("") );
         assertEquals("capitalize(single-char-string) failed",
                 "X", StringUtils.capitalize("x") );
-        
+        assertEquals("capitalize(String) failed",
+                FOO_CAP, StringUtils.capitalize(FOO_CAP) );
+        assertEquals("capitalize(string) failed",
+                FOO_CAP, StringUtils.capitalize(FOO_UNCAP) );
+
         assertEquals("uncapitalize(String) failed",
-                     FOO_UNCAP, StringUtils.uncapitalize(FOO_CAP) );
+                FOO_UNCAP, StringUtils.uncapitalize(FOO_CAP) );
+        assertEquals("uncapitalize(string) failed",
+                FOO_UNCAP, StringUtils.uncapitalize(FOO_UNCAP) );
         assertEquals("uncapitalize(empty-string) failed",
-                     "", StringUtils.uncapitalize("") );
+                "", StringUtils.uncapitalize("") );
         assertEquals("uncapitalize(single-char-string) failed",
                 "x", StringUtils.uncapitalize("X") );
                      
