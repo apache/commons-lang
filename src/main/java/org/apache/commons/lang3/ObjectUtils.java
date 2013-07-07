@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -28,6 +29,7 @@ import java.util.TreeSet;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableInt;
+import org.apache.commons.lang3.text.StrBuilder;
 
 /**
  * <p>Operations on {@code Object}.</p>
@@ -251,9 +253,58 @@ public class ObjectUtils {
         if (object == null) {
             return null;
         }
-        final StringBuffer buffer = new StringBuffer();
-        identityToString(buffer, object);
-        return buffer.toString();
+        final StringBuilder builder = new StringBuilder();
+        identityToString(builder, object);
+        return builder.toString();
+    }
+
+    /**
+     * <p>Appends the toString that would be produced by {@code Object}
+     * if a class did not override toString itself. {@code null}
+     * will throw a NullPointerException for either of the two parameters. </p>
+     *
+     * <pre>
+     * ObjectUtils.identityToString(appendable, "")            = appendable.append("java.lang.String@1e23"
+     * ObjectUtils.identityToString(appendable, Boolean.TRUE)  = appendable.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(appendable, Boolean.TRUE)  = appendable.append("java.lang.Boolean@7fa")
+     * </pre>
+     *
+     * @param appendable  the appendable to append to
+     * @param object  the object to create a toString for
+     * @throws IOException 
+     * @since 3.2
+     */
+    public static void identityToString(final Appendable appendable, final Object object) throws IOException {
+        if (object == null) {
+            throw new NullPointerException("Cannot get the toString of a null identity");
+        }
+        appendable.append(object.getClass().getName())
+              .append('@')
+              .append(Integer.toHexString(System.identityHashCode(object)));
+    }
+
+    /**
+     * <p>Appends the toString that would be produced by {@code Object}
+     * if a class did not override toString itself. {@code null}
+     * will throw a NullPointerException for either of the two parameters. </p>
+     *
+     * <pre>
+     * ObjectUtils.identityToString(builder, "")            = builder.append("java.lang.String@1e23"
+     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
+     * </pre>
+     *
+     * @param builder  the builder to append to
+     * @param object  the object to create a toString for
+     * @since 3.2
+     */
+    public static void identityToString(final StrBuilder builder, final Object object) {
+        if (object == null) {
+            throw new NullPointerException("Cannot get the toString of a null identity");
+        }
+        builder.append(object.getClass().getName())
+              .append('@')
+              .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
     /**
@@ -276,6 +327,30 @@ public class ObjectUtils {
             throw new NullPointerException("Cannot get the toString of a null identity");
         }
         buffer.append(object.getClass().getName())
+              .append('@')
+              .append(Integer.toHexString(System.identityHashCode(object)));
+    }
+
+    /**
+     * <p>Appends the toString that would be produced by {@code Object}
+     * if a class did not override toString itself. {@code null}
+     * will throw a NullPointerException for either of the two parameters. </p>
+     *
+     * <pre>
+     * ObjectUtils.identityToString(builder, "")            = builder.append("java.lang.String@1e23"
+     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
+     * </pre>
+     *
+     * @param builder  the builder to append to
+     * @param object  the object to create a toString for
+     * @since 3.2
+     */
+    public static void identityToString(final StringBuilder builder, final Object object) {
+        if (object == null) {
+            throw new NullPointerException("Cannot get the toString of a null identity");
+        }
+        builder.append(object.getClass().getName())
               .append('@')
               .append(Integer.toHexString(System.identityHashCode(object)));
     }

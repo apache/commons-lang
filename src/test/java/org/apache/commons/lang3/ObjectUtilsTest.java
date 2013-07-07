@@ -25,6 +25,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableObject;
+import org.apache.commons.lang3.text.StrBuilder;
 import org.junit.Test;
 
 /**
@@ -179,20 +181,16 @@ public class ObjectUtilsTest {
 //    }
     
     @Test
-    public void testIdentityToString() {
-        assertEquals(null, ObjectUtils.identityToString(null));
-        assertEquals(
-            "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
-            ObjectUtils.identityToString(FOO));
-        final Integer i = Integer.valueOf(90);
+    public void testIdentityToStringStringBuffer() {
+        final Integer i = Integer.valueOf(45);
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
-        assertEquals(expected, ObjectUtils.identityToString(i));
+
         final StringBuffer buffer = new StringBuffer();
         ObjectUtils.identityToString(buffer, i);
         assertEquals(expected, buffer.toString());
 
         try {
-            ObjectUtils.identityToString(null, "tmp");
+            ObjectUtils.identityToString((StringBuffer)null, "tmp");
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
@@ -200,6 +198,84 @@ public class ObjectUtilsTest {
             ObjectUtils.identityToString(new StringBuffer(), null);
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
+        }
+    }
+    
+    @Test
+    public void testIdentityToStringStringBuilder() {
+        assertEquals(null, ObjectUtils.identityToString(null));
+        assertEquals(
+            "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
+            ObjectUtils.identityToString(FOO));
+        final Integer i = Integer.valueOf(90);
+        final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
+        
+        assertEquals(expected, ObjectUtils.identityToString(i));
+        
+        final StringBuilder builder = new StringBuilder();
+        ObjectUtils.identityToString(builder, i);
+        assertEquals(expected, builder.toString());
+
+        try {
+            ObjectUtils.identityToString((StringBuilder)null, "tmp");
+            fail("NullPointerException expected");
+        } catch(final NullPointerException npe) {
+        }
+        
+        try {
+            ObjectUtils.identityToString(new StringBuilder(), null);
+            fail("NullPointerException expected");
+        } catch(final NullPointerException npe) {
+        }
+    }
+    
+    @Test
+    public void testIdentityToStringStrBuilder() {
+        final Integer i = Integer.valueOf(102);
+        final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
+
+        final StrBuilder builder = new StrBuilder();
+        ObjectUtils.identityToString(builder, i);
+        assertEquals(expected, builder.toString());
+
+        try {
+            ObjectUtils.identityToString((StrBuilder)null, "tmp");
+            fail("NullPointerException expected");
+        } catch(final NullPointerException npe) {
+        }
+        
+        try {
+            ObjectUtils.identityToString(new StrBuilder(), null);
+            fail("NullPointerException expected");
+        } catch(final NullPointerException npe) {
+        }
+    }
+    
+    @Test
+    public void testIdentityToStringAppendable() {
+        final Integer i = Integer.valueOf(121);
+        final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
+
+        try {
+            final Appendable appendable = new StringBuilder();
+            ObjectUtils.identityToString(appendable, i);
+            assertEquals(expected, appendable.toString());
+        } catch(IOException ex) {
+            fail("IOException unexpected");
+        }
+        
+        try {
+            ObjectUtils.identityToString((Appendable)null, "tmp");
+            fail("NullPointerException expected");
+        } catch(final NullPointerException npe) {
+        } catch (IOException ex) {
+        }
+        
+        try {
+            ObjectUtils.identityToString((Appendable)(new StringBuilder()), null);
+            fail("NullPointerException expected");
+        } catch(final NullPointerException npe) {
+        } catch (IOException ex) {
         }
     }
 
