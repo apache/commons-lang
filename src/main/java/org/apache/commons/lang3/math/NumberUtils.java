@@ -464,11 +464,20 @@ public class NumberUtils {
             }
         }
         if (pfxLen > 0) { // we have a hex number
+            char firstSigDigit = 0; // strip leading zeroes
+            for(int i = pfxLen; i < str.length(); i++) {
+                firstSigDigit = str.charAt(i);
+                if (firstSigDigit == '0') { // count leading zeroes
+                    pfxLen++;
+                } else {
+                    break;
+                }
+            }
             final int hexDigits = str.length() - pfxLen;
-            if (hexDigits > 16) { // too many for Long
+            if (hexDigits > 16 || (hexDigits == 16 && firstSigDigit > '7')) { // too many for Long
                 return createBigInteger(str);
             }
-            if (hexDigits > 8) { // too many for an int
+            if (hexDigits > 8 || (hexDigits == 8 && firstSigDigit > '7')) { // too many for an int
                 return createLong(str);
             }
             return createInteger(str);
