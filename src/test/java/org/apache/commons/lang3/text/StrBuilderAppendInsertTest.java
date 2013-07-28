@@ -19,6 +19,8 @@ package org.apache.commons.lang3.text;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -1024,7 +1026,10 @@ public class StrBuilderAppendInsertTest {
 
         sb = new StrBuilder();
         sb.append("Hi %s %,d", "Alice", 5000);
-        assertEquals("Hi Alice 5,000", sb.toString());
+        // group separator depends on system locale
+        char groupingSeparator = DecimalFormatSymbols.getInstance().getGroupingSeparator();
+        String expected = "Hi Alice 5" + groupingSeparator + "000";
+        assertEquals(expected, sb.toString());
     }
 
     //-----------------------------------------------------------------------
