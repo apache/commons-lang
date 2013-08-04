@@ -19,12 +19,16 @@ package org.apache.commons.lang3;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang3.mutable.MutableObject;
 
 /**
  * <p>Operates on classes without using reflection.</p>
@@ -41,6 +45,12 @@ import java.util.Map;
  * @version $Id$
  */
 public class ClassUtils {
+    /**
+     * @see ClassUtils#hierarchy(Class, Interfaces)
+     */
+    public enum Interfaces {
+        INCLUDE, EXCLUDE;
+    }
 
     /**
      * The package separator character: <code>'&#x2e;' == {@value}</code>.
@@ -1127,6 +1137,104 @@ public class ClassUtils {
                 return canonicalClassNameBuffer.toString();
             }
         }
+    }
+
+    /**
+     * Get an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order,
+     * excluding interfaces.
+     *
+     * @param type
+     * @return Iterable
+     */
+    public static Iterable<Class<?>> hierarchy(final Class<?> type) {
+        return hierarchy(type, Interfaces.EXCLUDE);
+    }
+
+    /**
+     * Get an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order.
+     *
+     * @param type
+     * @param interfacesBehavior
+     * @return Iterable
+     */
+    public static Iterable<Class<?>> hierarchy(final Class<?> type, Interfaces interfacesBehavior) {
+        final Iterable<Class<?>> classes = new Iterable<Class<?>>() {
+    
+            @Override
+            public Iterator<Class<?>> iterator() {
+                final MutableObject<Class<?>> next = new MutableObject<Class<?>>(type);
+                return new Iterator<Class<?>>() {
+    
+                    @Override
+                    public boolean hasNext() {
+                        return next.getValue() != null;
+                    }
+    
+                    @Override
+                    public Class<?> next() {
+                        final Class<?> result = next.getValue();
+                        next.setValue(result.getSuperclass());
+                        return result;
+                    }
+    
+                    @Override
+                    public void remove() {
+                        throw new UnsupportedOperationException();
+                    }
+    
+                };
+            }
+    
+        };
+        if (interfacesBehavior != Interfaces.INCLUDE) {
+            return classes;
+        }
+        return new Iterable<Class<?>>() {
+    
+            @Override
+            public Iterator<Class<?>> iterator() {
+                final Set<Class<?>> seenInterfaces = new HashSet<Class<?>>();
+                final Iterator<Class<?>> wrapped = classes.iterator();
+    
+                return new Iterator<Class<?>>() {
+                    Iterator<Class<?>> interfaces = Collections.<Class<?>> emptySet().iterator();
+    
+                    @Override
+                    public boolean hasNext() {
+                        return interfaces.hasNext() || wrapped.hasNext();
+                    }
+    
+                    @Override
+                    public Class<?> next() {
+                        if (interfaces.hasNext()) {
+                            final Class<?> nextInterface = interfaces.next();
+                            seenInterfaces.add(nextInterface);
+                            return nextInterface;
+                        }
+                        final Class<?> nextSuperclass = wrapped.next();
+                        final Set<Class<?>> currentInterfaces = new LinkedHashSet<Class<?>>();
+                        walkInterfaces(currentInterfaces, nextSuperclass);
+                        interfaces = currentInterfaces.iterator();
+                        return nextSuperclass;
+                    }
+    
+                    private void walkInterfaces(Set<Class<?>> addTo, Class<?> c) {
+                        for (Class<?> iface : c.getInterfaces()) {
+                            if (!seenInterfaces.contains(iface)) {
+                                addTo.add(iface);
+                            }
+                            walkInterfaces(addTo, iface);
+                        }
+                    }
+    
+                    @Override
+                    public void remove() {
+                        throw new UnsupportedOperationException();
+                    }
+    
+                };
+            }
+        };
     }
 
 }

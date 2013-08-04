@@ -34,10 +34,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.ClassUtils.Interfaces;
+import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
+import org.apache.commons.lang3.reflect.testbed.GenericParent;
+import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.junit.Test;
 
 /**
@@ -1221,4 +1226,23 @@ public class ClassUtilsTest  {
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName("org.apache.commons.lang3.ClassUtilsTest$Inner"));
     }
 
+    @Test
+    public void testHierarchyIncludingInterfaces() {
+        final Iterator<Class<?>> iter =
+            ClassUtils.hierarchy(StringParameterizedChild.class, Interfaces.INCLUDE).iterator();
+        assertEquals(StringParameterizedChild.class, iter.next());
+        assertEquals(GenericParent.class, iter.next());
+        assertEquals(GenericConsumer.class, iter.next());
+        assertEquals(Object.class, iter.next());
+        assertFalse(iter.hasNext());
+    }
+
+    @Test
+    public void testHierarchyExcludingInterfaces() {
+        final Iterator<Class<?>> iter = ClassUtils.hierarchy(StringParameterizedChild.class).iterator();
+        assertEquals(StringParameterizedChild.class, iter.next());
+        assertEquals(GenericParent.class, iter.next());
+        assertEquals(Object.class, iter.next());
+        assertFalse(iter.hasNext());
+    }
 }
