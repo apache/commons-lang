@@ -20,4 +20,8 @@ package org.apache.commons.lang3.reflect.testbed;
  * @version $Id$
  */
 public class Ambig implements Foo, Bar {
+
+    @Override
+    public void doIt() {
+    }
 }
