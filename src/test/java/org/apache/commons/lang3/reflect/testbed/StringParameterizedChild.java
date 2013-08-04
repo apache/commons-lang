@@ -21,5 +21,8 @@ package org.apache.commons.lang3.reflect.testbed;
  * @version $Id$
  */
 public class StringParameterizedChild extends GenericParent<String> {
-
+    @Override
+    public void consume(String t) {
+        super.consume(t);
+    }
 }

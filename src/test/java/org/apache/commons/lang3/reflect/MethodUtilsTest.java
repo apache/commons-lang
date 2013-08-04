@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.reflect;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
@@ -25,14 +26,20 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.Mutable;
 import org.apache.commons.lang3.mutable.MutableObject;
+import org.apache.commons.lang3.ClassUtils.Interfaces;
+import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
+import org.apache.commons.lang3.reflect.testbed.GenericParent;
+import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -377,6 +384,47 @@ public class MethodUtilsTest {
                 singletonArray(null), singletonArray(String.class));
     }
 
+    @Test
+    public void testGetOverrideHierarchyIncludingInterfaces() {
+        final Method method = MethodUtils.getAccessibleMethod(StringParameterizedChild.class, "consume", String.class);
+        final Iterator<MethodDescriptor> expected =
+            Arrays.asList(new MethodDescriptor(StringParameterizedChild.class, "consume", String.class),
+                new MethodDescriptor(GenericParent.class, "consume", GenericParent.class.getTypeParameters()[0]),
+                new MethodDescriptor(GenericConsumer.class, "consume", GenericConsumer.class.getTypeParameters()[0]))
+                .iterator();
+        for (Method m : MethodUtils.getOverrideHierarchy(method, Interfaces.INCLUDE)) {
+            assertTrue(expected.hasNext());
+            final MethodDescriptor md = expected.next();
+            assertEquals(md.declaringClass, m.getDeclaringClass());
+            assertEquals(md.name, m.getName());
+            assertEquals(md.parameterTypes.length, m.getParameterTypes().length);
+            for (int i = 0; i < md.parameterTypes.length; i++) {
+                assertTrue(TypeUtils.equals(md.parameterTypes[i], m.getGenericParameterTypes()[i]));
+            }
+        }
+        assertFalse(expected.hasNext());
+    }
+
+    @Test
+    public void testGetOverrideHierarchyExcludingInterfaces() {
+        final Method method = MethodUtils.getAccessibleMethod(StringParameterizedChild.class, "consume", String.class);
+        final Iterator<MethodDescriptor> expected =
+            Arrays.asList(new MethodDescriptor(StringParameterizedChild.class, "consume", String.class),
+                new MethodDescriptor(GenericParent.class, "consume", GenericParent.class.getTypeParameters()[0]))
+                .iterator();
+        for (Method m : MethodUtils.getOverrideHierarchy(method, Interfaces.EXCLUDE)) {
+            assertTrue(expected.hasNext());
+            final MethodDescriptor md = expected.next();
+            assertEquals(md.declaringClass, m.getDeclaringClass());
+            assertEquals(md.name, m.getName());
+            assertEquals(md.parameterTypes.length, m.getParameterTypes().length);
+            for (int i = 0; i < md.parameterTypes.length; i++) {
+                assertTrue(TypeUtils.equals(md.parameterTypes[i], m.getGenericParameterTypes()[i]));
+            }
+        }
+        assertFalse(expected.hasNext());
+    }
+    
     private void expectMatchingAccessibleMethodParameterTypes(final Class<?> cls,
             final String methodName, final Class<?>[] requestTypes, final Class<?>[] actualTypes) {
         final Method m = MethodUtils.getMatchingAccessibleMethod(cls, methodName,
@@ -412,5 +460,16 @@ public class MethodUtilsTest {
     public static class GrandParentObject {}
     public static class ParentObject extends GrandParentObject {}
     public static class ChildObject extends ParentObject implements ChildInterface {}
-    
+
+    private static class MethodDescriptor {
+        final Class<?> declaringClass;
+        final String name;
+        final Type[] parameterTypes;
+
+        MethodDescriptor(Class<?> declaringClass, String name, Type... parameterTypes) {
+            this.declaringClass = declaringClass;
+            this.name = name;
+            this.parameterTypes = parameterTypes;
+        }
+    }
 }

@@ -25,4 +25,8 @@ class Parent implements Foo {
     int i = 0;
     @SuppressWarnings("unused")
     private final double d = 0.0;
+
+    @Override
+    public void doIt() {
+    }
 }

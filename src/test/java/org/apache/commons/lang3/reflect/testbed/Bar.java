@@ -21,4 +21,6 @@ package org.apache.commons.lang3.reflect.testbed;
  */
 public interface Bar {
     public static final String VALUE = "bar";
+
+    void doIt();
 }

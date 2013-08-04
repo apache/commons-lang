@@ -19,9 +19,18 @@ package org.apache.commons.lang3.reflect;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.ClassUtils.Interfaces;
 
 /**
  * <p>Utility reflection methods focused on methods, originally from Commons BeanUtils.
@@ -518,4 +527,49 @@ public class MethodUtils {
         }
         return bestMatch;
     }
+
+    /**
+     * Get the hierarchy of overridden methods down to {@code result} respecting generics.
+     * @param method lowest to consider
+     * @param interfacesBehavior whether to search interfaces
+     * @return Collection<Method> in ascending order from sub- to superclass
+     */
+    public static Set<Method> getOverrideHierarchy(final Method method, Interfaces interfacesBehavior) {
+        Validate.notNull(method);
+        final Set<Method> result = new LinkedHashSet<Method>();
+        result.add(method);
+
+        final Class<?>[] parameterTypes = method.getParameterTypes();
+
+        final Class<?> declaringClass = method.getDeclaringClass();
+
+        final Iterator<Class<?>> hierarchy = ClassUtils.hierarchy(declaringClass, interfacesBehavior).iterator();
+        //skip the declaring class :P
+        hierarchy.next();
+        hierarchyTraversal: while (hierarchy.hasNext()) {
+            final Class<?> c = hierarchy.next();
+            final Method m = getMatchingAccessibleMethod(c, method.getName(), parameterTypes);
+            if (m == null) {
+                continue;
+            }
+            if (Arrays.equals(m.getParameterTypes(), parameterTypes)) {
+                // matches without generics
+                result.add(m);
+                continue;
+            }
+            // necessary to get arguments every time in the case that we are including interfaces
+            final Map<TypeVariable<?>, Type> typeArguments = TypeUtils.getTypeArguments(declaringClass, m.getDeclaringClass());
+            for (int i = 0; i < parameterTypes.length; i++) {
+                final Type childType = TypeUtils.unrollVariables(typeArguments, method.getGenericParameterTypes()[i]);
+                final Type parentType = TypeUtils.unrollVariables(typeArguments, m.getGenericParameterTypes()[i]);
+                if (!TypeUtils.equals(childType, parentType)) {
+                    continue hierarchyTraversal;
+                }
+            }
+            result.add(m);
+        }
+
+        return result;
+    }
+
 }
