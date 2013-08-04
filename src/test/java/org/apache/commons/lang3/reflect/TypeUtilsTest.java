@@ -17,19 +17,25 @@
 package org.apache.commons.lang3.reflect;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.reflect.TypeUtils.WildcardTypeBuilder;
 import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
@@ -41,7 +47,7 @@ import org.junit.Test;
  * Test TypeUtils
  * @version $Id$
  */
-@SuppressWarnings({ "unchecked", "unused" , "rawtypes", "null"})
+@SuppressWarnings({ "unchecked", "unused" , "rawtypes" })
 //raw types, where used, are used purposely
 public class TypeUtilsTest<B> {
 
@@ -670,6 +676,44 @@ public class TypeUtilsTest<B> {
         final Type[] typeArray = {String.class, String.class};
         final Type[] expectedArray = {String.class};
         Assert.assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
+    }
+
+    @Test
+    public void testParameterize() throws Exception {
+        final ParameterizedType stringComparableType = TypeUtils.parameterize(Comparable.class, String.class);
+        Assert.assertTrue(TypeUtils.equals(getClass().getField("stringComparable").getGenericType(),
+            stringComparableType));
+        Assert.assertEquals("java.lang.Comparable<java.lang.String>", stringComparableType.toString());
+    }
+    
+    @Test
+    public void testParameterizeWithOwner() throws Exception {
+        final Type owner = TypeUtils.parameterize(TypeUtilsTest.class, String.class);
+        final ParameterizedType dat2Type = TypeUtils.parameterizeWithOwner(owner, That.class, String.class, String.class);
+        Assert.assertTrue(TypeUtils.equals(getClass().getField("dat2").getGenericType(), dat2Type));
+    }
+    
+    @Test
+    public void testWildcardType() throws Exception {
+        final WildcardType simpleWildcard = TypeUtils.wildcardType().withUpperBounds(String.class).build();
+        final Field cClass = AClass.class.getField("cClass");
+        Assert.assertTrue(TypeUtils.equals(((ParameterizedType) cClass.getGenericType()).getActualTypeArguments()[0],
+            simpleWildcard));
+    }
+
+    @Test
+    public void testGenericArrayType() throws Exception {
+        final Type expected = getClass().getField("intWildcardComparable").getGenericType();
+        final GenericArrayType actual =
+            TypeUtils.genericArrayType(TypeUtils.parameterize(Comparable.class, TypeUtils.wildcardType()
+                .withUpperBounds(Integer.class).build()));
+        Assert.assertTrue(TypeUtils.equals(expected, actual));
+        Assert.assertEquals("java.lang.Comparable<? extends java.lang.Integer>[]", actual.toString());
+    }
+
+    @Test
+    public void testToLongString() {
+        Assert.assertEquals(getClass().getName() + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
     }
 
     public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;
