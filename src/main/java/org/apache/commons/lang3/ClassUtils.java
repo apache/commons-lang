@@ -104,36 +104,33 @@ public class ClassUtils {
     /**
      * Maps a primitive class name to its corresponding abbreviation used in array class names.
      */
-    private static final Map<String, String> abbreviationMap = new HashMap<String, String>();
+    private static final Map<String, String> abbreviationMap;
 
     /**
      * Maps an abbreviation used in array class names to corresponding primitive class name.
      */
-    private static final Map<String, String> reverseAbbreviationMap = new HashMap<String, String>();
-
-    /**
-     * Add primitive type abbreviation to maps of abbreviations.
-     *
-     * @param primitive Canonical name of primitive type
-     * @param abbreviation Corresponding abbreviation of primitive type
-     */
-    private static void addAbbreviation(final String primitive, final String abbreviation) {
-        abbreviationMap.put(primitive, abbreviation);
-        reverseAbbreviationMap.put(abbreviation, primitive);
-    }
+    private static final Map<String, String> reverseAbbreviationMap;
 
     /**
      * Feed abbreviation maps
      */
     static {
-        addAbbreviation("int", "I");
-        addAbbreviation("boolean", "Z");
-        addAbbreviation("float", "F");
-        addAbbreviation("long", "J");
-        addAbbreviation("short", "S");
-        addAbbreviation("byte", "B");
-        addAbbreviation("double", "D");
-        addAbbreviation("char", "C");
+        final Map<String, String> m = new HashMap<String, String>();
+        m.put("int", "I");
+        m.put("boolean", "Z");
+        m.put("float", "F");
+        m.put("long", "J");
+        m.put("short", "S");
+        m.put("byte", "B");
+        m.put("double", "D");
+        m.put("char", "C");
+        m.put("void", "V");
+        final Map<String, String> r = new HashMap<String, String>();
+        for (Map.Entry<String, String> e : m.entrySet()) {
+            r.put(e.getValue(), e.getKey());
+        }
+        abbreviationMap = Collections.unmodifiableMap(m);
+        reverseAbbreviationMap = Collections.unmodifiableMap(r);
     }
 
     /**
