@@ -530,6 +530,17 @@ public class StringEscapeUtilsTest {
         assertEquals(input, escaped);
     }
 
+    /**
+     * Tests https://issues.apache.org/jira/browse/LANG-911
+     */
+    @Test
+    public void testLang911() {
+        String bellsTest = "\ud83d\udc80\ud83d\udd14";
+        String value = StringEscapeUtils.escapeJava(bellsTest);
+        String valueTest = StringEscapeUtils.unescapeJava(value);
+        assertEquals(bellsTest, valueTest);
+    }
+
     @Test
     public void testEscapeJson() {
         assertEquals(null, StringEscapeUtils.escapeJson(null));
