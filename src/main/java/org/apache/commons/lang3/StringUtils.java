@@ -130,7 +130,7 @@ public class StringUtils {
 
     /**
      * A String for a space character.
-     * 
+     *
      * @since 3.2
      */
     public static final String SPACE = " ";
@@ -143,7 +143,7 @@ public class StringUtils {
 
     /**
      * A String for linefeed LF ("\n").
-     * 
+     *
      * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences
      *      for Character and String Literals</a>
      * @since 3.2
@@ -152,13 +152,13 @@ public class StringUtils {
 
     /**
      * A String for carriage return CR ("\r").
-     * 
+     *
      * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences
      *      for Character and String Literals</a>
      * @since 3.2
      */
     public static final String CR = "\r";
-    
+
     /**
      * Represents a failed index search.
      * @since 2.1
@@ -3208,12 +3208,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3221,7 +3221,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3240,12 +3240,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3253,7 +3253,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3272,12 +3272,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3285,7 +3285,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3304,12 +3304,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3317,7 +3317,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3336,12 +3336,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3349,7 +3349,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3368,12 +3368,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3381,7 +3381,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3400,12 +3400,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3413,7 +3413,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3479,12 +3479,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3492,7 +3492,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3528,12 +3528,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3541,7 +3541,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3577,12 +3577,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3590,7 +3590,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3626,12 +3626,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3639,7 +3639,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3675,12 +3675,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3688,7 +3688,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3724,12 +3724,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3737,7 +3737,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3773,12 +3773,12 @@ public class StringUtils {
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      * </p>
-     * 
+     *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
@@ -3786,7 +3786,7 @@ public class StringUtils {
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
-     * 
+     *
      * @param array
      *            the array of values to join together, may be null
      * @param separator
@@ -3882,7 +3882,7 @@ public class StringUtils {
      * {@code startIndex < 0} or <br/>
      * {@code startIndex >= array.length()} or <br/>
      * {@code endIndex < 0} or <br/>
-     * {@code endIndex > array.length()} 
+     * {@code endIndex > array.length()}
      */
     public static String join(final Object[] array, String separator, final int startIndex, final int endIndex) {
         if (array == null) {
@@ -4319,7 +4319,7 @@ public class StringUtils {
      * <li>{@code source.replaceAll(&quot;(?s)&quot; + regex, replacement)}</li>
      * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(source).replaceAll(replacement)}</li>
      * </ul>
-     * 
+     *
      * @param source
      *            the source string
      * @param regex
@@ -4337,7 +4337,7 @@ public class StringUtils {
 
     /**
      * Removes each substring of the source String that matches the given regular expression using the DOTALL option.
-     * 
+     *
      * @param source
      *            the source string
      * @param regex
@@ -4483,7 +4483,7 @@ public class StringUtils {
      * <p>
      * A {@code null} reference passed to this method is a no-op, or if
      * any "search string" or "string to replace" is null, that replace will be
-     * ignored. 
+     * ignored.
      * </p>
      *
      * <pre>
@@ -5581,13 +5581,13 @@ public class StringUtils {
         if (str == null || (strLen = str.length()) == 0) {
             return str;
         }
-        
+
         char firstChar = str.charAt(0);
         if (Character.isTitleCase(firstChar)) {
-        	// already capitalized
-        	return str;
+            // already capitalized
+            return str;
         }
-        
+
         return new StringBuilder(strLen)
             .append(Character.toTitleCase(firstChar))
             .append(str.substring(1))
@@ -5619,13 +5619,13 @@ public class StringUtils {
         if (str == null || (strLen = str.length()) == 0) {
             return str;
         }
-        
+
         char firstChar = str.charAt(0);
         if (Character.isLowerCase(firstChar)) {
-        	// already uncapitalized
-        	return str;
+            // already uncapitalized
+            return str;
         }
-        
+
         return new StringBuilder(strLen)
             .append(Character.toLowerCase(firstChar))
             .append(str.substring(1))
@@ -6367,7 +6367,7 @@ public class StringUtils {
     /**
      * <p>Compares two Strings, and returns the portion where they differ.
      * More precisely, return the remainder of the second String,
-     * starting from where it's different from the first. This means that 
+     * starting from where it's different from the first. This means that
      * the difference between "abc" and "ab" is the empty String and not "c". </p>
      *
      * <p>For example,
@@ -6709,7 +6709,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Find the Levenshtein distance between two Strings if it's less than or equal to a given 
+     * <p>Find the Levenshtein distance between two Strings if it's less than or equal to a given
      * threshold.</p>
      *
      * <p>This is the number of changes needed to change one String into
@@ -6751,26 +6751,26 @@ public class StringUtils {
         /*
         This implementation only computes the distance if it's less than or equal to the
         threshold value, returning -1 if it's greater.  The advantage is performance: unbounded
-        distance is O(nm), but a bound of k allows us to reduce it to O(km) time by only 
+        distance is O(nm), but a bound of k allows us to reduce it to O(km) time by only
         computing a diagonal stripe of width 2k + 1 of the cost table.
         It is also possible to use this to compute the unbounded Levenshtein distance by starting
         the threshold at 1 and doubling each time until the distance is found; this is O(dm), where
         d is the distance.
-        
+
         One subtlety comes from needing to ignore entries on the border of our stripe
         eg.
         p[] = |#|#|#|*
         d[] =  *|#|#|#|
         We must ignore the entry to the left of the leftmost member
         We must ignore the entry above the rightmost member
-        
+
         Another subtlety comes from our stripe running off the matrix if the strings aren't
-        of the same size.  Since string s is always swapped to be the shorter of the two, 
+        of the same size.  Since string s is always swapped to be the shorter of the two,
         the stripe will always run off to the upper right instead of the lower left of the matrix.
-        
+
         As a concrete example, suppose s is of length 5, t is of length 7, and our threshold is 1.
         In this case we're going to walk a stripe of length 3.  The matrix would look like so:
-        
+
            1 2 3 4 5
         1 |#|#| | | |
         2 |#|#|#| | |
@@ -6782,10 +6782,10 @@ public class StringUtils {
 
         Note how the stripe leads off the table as there is no possible way to turn a string of length 5
         into one of length 7 in edit distance of 1.
-        
-        Additionally, this implementation decreases memory usage by using two 
+
+        Additionally, this implementation decreases memory usage by using two
         single-dimensional arrays and swapping them back and forth instead of allocating
-        an entire n by m matrix.  This requires a few minor changes, such as immediately returning 
+        an entire n by m matrix.  This requires a few minor changes, such as immediately returning
         when it's detected that the stripe has run off the matrix and initially filling the arrays with
         large values so that entries we don't compute are ignored.
 
@@ -6820,7 +6820,7 @@ public class StringUtils {
         for (int i = 0; i < boundary; i++) {
             p[i] = i;
         }
-        // these fills ensure that the value above the rightmost entry of our 
+        // these fills ensure that the value above the rightmost entry of our
         // stripe will be ignored in following loop iterations
         Arrays.fill(p, boundary, p.length, Integer.MAX_VALUE);
         Arrays.fill(d, Integer.MAX_VALUE);
@@ -7337,7 +7337,7 @@ public class StringUtils {
 
     /**
      * Converts a <code>byte[]</code> to a String using the specified character encoding.
-     * 
+     *
      * @param bytes
      *            the byte array to read from
      * @param charsetName
