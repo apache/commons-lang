@@ -511,7 +511,7 @@ public class StrSubstitutorTest {
 
         assertEquals("It works!", StrSubstitutor.replace(org, props));
     }
-    
+
     @Test
     public void testSamePrefixAndSuffix() {
         final Map<String, String> map = new HashMap<String, String>();
@@ -553,7 +553,7 @@ public class StrSubstitutorTest {
         if (substring) {
             assertEquals(expectedShortResult, sub.replace(builder, 1, builder.length() - 2));
         }
-        
+
         // replace using StrBuilder
         StrBuilder bld = new StrBuilder(replaceTemplate);
         assertEquals(expectedResult, sub.replace(bld));
@@ -580,11 +580,11 @@ public class StrSubstitutorTest {
         assertTrue(sub.replaceIn(builder));
         assertEquals(expectedResult, builder.toString());
         if (substring) {
-        	builder = new StringBuilder(replaceTemplate);
+            builder = new StringBuilder(replaceTemplate);
             assertTrue(sub.replaceIn(builder, 1, builder.length() - 2));
             assertEquals(expectedResult, builder.toString());  // expect full result as remainder is untouched
         }
-        
+
         // replace in StrBuilder
         bld = new StrBuilder(replaceTemplate);
         assertTrue(sub.replaceIn(bld));
