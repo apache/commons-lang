@@ -10,3 +10,8 @@ site-content
 .iws
 *.iml
 *.ipr
+
+# Eclipse files
+.settings
+.classpath
+.project
