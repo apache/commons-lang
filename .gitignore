@@ -1,0 +1,12 @@
+# Maven build files
+target
+*.log
+maven-eclipse.xml
+build.properties
+site-content
+
+# IntelliJ IDEA fies
+.idea
+.iws
+*.iml
+*.ipr
