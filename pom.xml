@@ -155,6 +155,14 @@
         <role>Java Developer</role>
       </roles>
     </developer>
+    <developer>
+      <name>Benedikt Ritter</name>
+      <id>britter</id>
+      <email>britter@apache.org</email>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
   </developers>
   <contributors>
     <contributor>
@@ -423,6 +431,9 @@
     </contributor>
     <contributor>
       <name>Sebastien Riou</name>
+    </contributor>
+    <contributor>
+      <name>Allon Mureinik</name>
     </contributor>
   </contributors>
 
