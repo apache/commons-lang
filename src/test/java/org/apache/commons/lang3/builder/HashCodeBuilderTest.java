@@ -55,13 +55,18 @@ public class HashCodeBuilderTest {
     // -----------------------------------------------------------------------
 
     @Test(expected=IllegalArgumentException.class)
-    public void testConstructorEx1() {
+    public void testConstructorExZero() {
         new HashCodeBuilder(0, 0);
     }
 
     @Test(expected=IllegalArgumentException.class)
-    public void testConstructorEx2() {
+    public void testConstructorExEven() {
         new HashCodeBuilder(2, 2);
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testConstructorExEvenNegative() {
+        new HashCodeBuilder(-2, -2);
     }
 
     static class TestObject {
