@@ -59,6 +59,26 @@ import java.util.Properties;
  *      The quick brown fox jumped over the lazy dog.
  * </pre>
  * <p>
+ * Also, this class allows to set a default value for unresolved variables.
+ * The default value for a variable can be appended to the variable name after the variable
+ * default value delimiter. The default value of the variable default value delimiter is ':-',
+ * as in bash and other *nix shells, as those are arguably where the default ${} delimiter set originated.
+ * The variable default value delimiter can be manually set by calling {@link #setValueDelimiterMatcher(StrMatcher)},
+ * {@link #setValueDelimiter(char)} or {@link #setValueDelimiter(String)}.
+ * The following shows an example with varialbe default value settings:
+ * <pre>
+ * Map valuesMap = HashMap();
+ * valuesMap.put(&quot;animal&quot;, &quot;quick brown fox&quot;);
+ * valuesMap.put(&quot;target&quot;, &quot;lazy dog&quot;);
+ * String templateString = &quot;The ${animal} jumped over the ${target}. ${undefined.number:-1234567890}.&quot;;
+ * StrSubstitutor sub = new StrSubstitutor(valuesMap);
+ * String resolvedString = sub.replace(templateString);
+ * </pre>
+ * yielding:
+ * <pre>
+ *      The quick brown fox jumped over the lazy dog. 1234567890.
+ * </pre>
+ * <p>
  * In addition to this usage pattern there are some static convenience methods that
  * cover the most common use cases. These methods can be used without the need of
  * manually creating an instance. However if multiple replace operations are to be
@@ -114,6 +134,10 @@ public class StrSubstitutor {
      * Constant for the default variable suffix.
      */
     public static final StrMatcher DEFAULT_SUFFIX = StrMatcher.stringMatcher("}");
+    /**
+     * Constant for the default value delimiter of a variable.
+     */
+    public static final StrMatcher DEFAULT_VALUE_DELIMITER = StrMatcher.stringMatcher(":-");
 
     /**
      * Stores the escape character.
@@ -127,6 +151,10 @@ public class StrSubstitutor {
      * Stores the variable suffix.
      */
     private StrMatcher suffixMatcher;
+    /**
+     * Stores the default variable value delimiter
+     */
+    private StrMatcher valueDelimiterMatcher;
     /**
      * Variable resolution is delegated to an implementor of VariableResolver.
      */
@@ -250,6 +278,21 @@ public class StrSubstitutor {
     /**
      * Creates a new instance and initializes it.
      *
+     * @param <V> the type of the values in the map
+     * @param valueMap  the map with the variables' values, may be null
+     * @param prefix  the prefix for variables, not null
+     * @param suffix  the suffix for variables, not null
+     * @param escape  the escape character
+     * @param valueDelimiter  the variable default value delimiter, may be null
+     * @throws IllegalArgumentException if the prefix or suffix is null
+     */
+    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix, final char escape, final String valueDelimiter) {
+        this(StrLookup.mapLookup(valueMap), prefix, suffix, escape, valueDelimiter);
+    }
+
+    /**
+     * Creates a new instance and initializes it.
+     *
      * @param variableResolver  the variable resolver, may be null
      */
     public StrSubstitutor(final StrLookup<?> variableResolver) {
@@ -270,6 +313,25 @@ public class StrSubstitutor {
         this.setVariablePrefix(prefix);
         this.setVariableSuffix(suffix);
         this.setEscapeChar(escape);
+        this.setValueDelimiterMatcher(DEFAULT_VALUE_DELIMITER);
+    }
+
+    /**
+     * Creates a new instance and initializes it.
+     *
+     * @param variableResolver  the variable resolver, may be null
+     * @param prefix  the prefix for variables, not null
+     * @param suffix  the suffix for variables, not null
+     * @param escape  the escape character
+     * @param valueDelimiter  the variable default value delimiter string, may be null
+     * @throws IllegalArgumentException if the prefix or suffix is null
+     */
+    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix, final char escape, final String valueDelimiter) {
+        this.setVariableResolver(variableResolver);
+        this.setVariablePrefix(prefix);
+        this.setVariableSuffix(suffix);
+        this.setEscapeChar(escape);
+        this.setValueDelimiter(valueDelimiter);
     }
 
     /**
@@ -283,10 +345,26 @@ public class StrSubstitutor {
      */
     public StrSubstitutor(
             final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher, final char escape) {
+        this(variableResolver, prefixMatcher, suffixMatcher, escape, DEFAULT_VALUE_DELIMITER);
+    }
+
+    /**
+     * Creates a new instance and initializes it.
+     *
+     * @param variableResolver  the variable resolver, may be null
+     * @param prefixMatcher  the prefix for variables, not null
+     * @param suffixMatcher  the suffix for variables, not null
+     * @param escape  the escape character
+     * @param valueDelimiterMatcher  the variable default value delimiter matcher, may be null
+     * @throws IllegalArgumentException if the prefix or suffix is null
+     */
+    public StrSubstitutor(
+            final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher, final char escape, final StrMatcher valueDelimiterMatcher) {
         this.setVariableResolver(variableResolver);
         this.setVariablePrefixMatcher(prefixMatcher);
         this.setVariableSuffixMatcher(suffixMatcher);
         this.setEscapeChar(escape);
+        this.setValueDelimiterMatcher(valueDelimiterMatcher);
     }
 
     //-----------------------------------------------------------------------
@@ -410,7 +488,7 @@ public class StrSubstitutor {
         substitute(buf, 0, length);
         return buf.toString();
     }
-    
+
     /**
      * Replaces all the occurrences of variables with their matching values
      * from the resolver using the given source as a template.
@@ -591,7 +669,7 @@ public class StrSubstitutor {
         source.replace(offset, offset + length, buf.toString());
         return true;
     }
-    
+
     //-----------------------------------------------------------------------
     /**
      * Replaces all the occurrences of variables within the given source
@@ -661,6 +739,8 @@ public class StrSubstitutor {
         final StrMatcher prefixMatcher = getVariablePrefixMatcher();
         final StrMatcher suffixMatcher = getVariableSuffixMatcher();
         final char escape = getEscapeChar();
+        final StrMatcher valueDelimiterMatcher = getValueDelimiterMatcher();
+        final boolean substitutionInVariablesEnabled = isEnableSubstitutionInVariables();
 
         final boolean top = priorVariables == null;
         boolean altered = false;
@@ -689,7 +769,7 @@ public class StrSubstitutor {
                     int endMatchLen = 0;
                     int nestedVarCount = 0;
                     while (pos < bufEnd) {
-                        if (isEnableSubstitutionInVariables()
+                        if (substitutionInVariablesEnabled
                                 && (endMatchLen = prefixMatcher.isMatch(chars,
                                         pos, offset, bufEnd)) != 0) {
                             // found a nested variable start
@@ -705,16 +785,36 @@ public class StrSubstitutor {
                         } else {
                             // found variable end marker
                             if (nestedVarCount == 0) {
-                                String varName = new String(chars, startPos
+                                String varNameExpr = new String(chars, startPos
                                         + startMatchLen, pos - startPos
                                         - startMatchLen);
-                                if (isEnableSubstitutionInVariables()) {
-                                    final StrBuilder bufName = new StrBuilder(varName);
+                                if (substitutionInVariablesEnabled) {
+                                    final StrBuilder bufName = new StrBuilder(varNameExpr);
                                     substitute(bufName, 0, bufName.length());
-                                    varName = bufName.toString();
+                                    varNameExpr = bufName.toString();
                                 }
                                 pos += endMatchLen;
                                 final int endPos = pos;
+
+                                String varName = varNameExpr;
+                                String varDefaultValue = null;
+
+                                if (valueDelimiterMatcher != null) {
+                                    final char [] varNameExprChars = varNameExpr.toCharArray();
+                                    int valueDelimiterMatchLen = 0;
+                                    for (int i = 0; i < varNameExprChars.length; i++) {
+                                        // if there's any nested variable when nested variable substitution disabled, then stop resolving name and default value.
+                                        if (!substitutionInVariablesEnabled
+                                                && prefixMatcher.isMatch(varNameExprChars, i, i, varNameExprChars.length) != 0) {
+                                            break;
+                                        }
+                                        if ((valueDelimiterMatchLen = valueDelimiterMatcher.isMatch(varNameExprChars, i)) != 0) {
+                                            varName = varNameExpr.substring(0, i);
+                                            varDefaultValue = varNameExpr.substring(i + valueDelimiterMatchLen);
+                                            break;
+                                        }
+                                    }
+                                }
 
                                 // on the first call initialize priorVariables
                                 if (priorVariables == null) {
@@ -728,8 +828,11 @@ public class StrSubstitutor {
                                 priorVariables.add(varName);
 
                                 // resolve the variable
-                                final String varValue = resolveVariable(varName, buf,
+                                String varValue = resolveVariable(varName, buf,
                                         startPos, endPos);
+                                if (varValue == null) {
+                                    varValue = varDefaultValue;
+                                }
                                 if (varValue != null) {
                                     // recursive replace
                                     final int varLen = varValue.length();
@@ -958,6 +1061,76 @@ public class StrSubstitutor {
             throw new IllegalArgumentException("Variable suffix must not be null!");
         }
         return setVariableSuffixMatcher(StrMatcher.stringMatcher(suffix));
+    }
+
+    // Variable Default Value Delimiter
+    //-----------------------------------------------------------------------
+    /**
+     * Gets the variable default value delimiter matcher currently in use.
+     * <p>
+     * The variable default value delimiter is the characer or characters that delimite the
+     * variable name and the variable default value. This delimiter is expressed in terms of a matcher
+     * allowing advanced variable default value delimiter matches.
+     * <p>
+     * If it returns null, then the variable default value resolution is disabled.
+     *
+     * @return the variable default value delimiter matcher in use, may be null
+     */
+    public StrMatcher getValueDelimiterMatcher() {
+        return valueDelimiterMatcher;
+    }
+
+    /**
+     * Sets the variable default value delimiter matcher to use.
+     * <p>
+     * The variable default value delimiter is the characer or characters that delimite the
+     * variable name and the variable default value. This delimiter is expressed in terms of a matcher
+     * allowing advanced variable default value delimiter matches.
+     * <p>
+     * If the <code>valueDelimiterMatcher</code> is null, then the variable default value resolution
+     * becomes disabled.
+     *
+     * @param valueDelimiterMatcher  variable default value delimiter matcher to use, may be null
+     * @return this, to enable chaining
+     */
+    public StrSubstitutor setValueDelimiterMatcher(final StrMatcher valueDelimiterMatcher) {
+        this.valueDelimiterMatcher = valueDelimiterMatcher;
+        return this;
+    }
+
+    /**
+     * Sets the variable default value delimiter to use.
+     * <p>
+     * The variable default value delimiter is the characer or characters that delimite the
+     * variable name and the variable default value. This method allows a single character
+     * variable default value delimiter to be easily set.
+     *
+     * @param valueDelimiter  the variable default value delimiter character to use
+     * @return this, to enable chaining
+     */
+    public StrSubstitutor setValueDelimiter(final char valueDelimiter) {
+        return setValueDelimiterMatcher(StrMatcher.charMatcher(valueDelimiter));
+    }
+
+    /**
+     * Sets the variable default value delimiter to use.
+     * <p>
+     * The variable default value delimiter is the characer or characters that delimite the
+     * variable name and the variable default value. This method allows a string
+     * variable default value delimiter to be easily set.
+     * <p>
+     * If the <code>valueDelimiter</code> is null or empty string, then the variable default
+     * value resolution becomes disabled.
+     *
+     * @param valueDelimiter  the variable default value delimiter string to use, may be null or empty
+     * @return this, to enable chaining
+     */
+    public StrSubstitutor setValueDelimiter(final String valueDelimiter) {
+        if (valueDelimiter == null || valueDelimiter.length() == 0) {
+            setValueDelimiterMatcher(null);
+            return this;
+        }
+        return setValueDelimiterMatcher(StrMatcher.stringMatcher(valueDelimiter));
     }
 
     // Resolver
