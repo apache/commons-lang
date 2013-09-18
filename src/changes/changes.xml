@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-893" type="add" dev="oheger" due-to="Woonsan Ko">StrSubstitutor now supports default values for variables</action>
     <action issue="LANG-913" type="add" dev="britter" due-to="Allon Mureinik">Adding .gitignore to commons-lang</action>
     <action issue="LANG-837" type="add">Add ObjectUtils.toIdentityString methods that support StringBuilder, StrBuilder, and Appendable</action>
     <action issue="LANG-896" type="fix" due-to="Mark Bryan Yu">BooleanUtils.toBoolean(String str) javadoc is not updated</action>
