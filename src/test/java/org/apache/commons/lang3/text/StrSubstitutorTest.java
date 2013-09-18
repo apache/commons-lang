@@ -17,15 +17,21 @@
 
 package org.apache.commons.lang3.text;
 
-import org.junit.After;
-import org.junit.Test;
-import org.junit.Before;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.mutable.MutableObject;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test class for StrSubstitutor.
@@ -105,6 +111,7 @@ public class StrSubstitutorTest {
     @Test
     public void testReplaceUnknownKey() {
         doTestReplace("The ${person} jumps over the lazy dog.", "The ${person} jumps over the ${target}.", true);
+        doTestReplace("The ${person} jumps over the lazy dog. 1234567890.", "The ${person} jumps over the ${target}. ${undefined.number:-1234567890}.", true);
     }
 
     /**
@@ -143,6 +150,9 @@ public class StrSubstitutorTest {
         values.put("critterColor", "brown");
         values.put("critterType", "fox");
         doTestReplace("The quick brown fox jumps over the lazy dog.", "The ${animal} jumps over the ${target}.", true);
+
+        values.put("pet", "${petCharacteristicUnknown:-lazy} dog");
+        doTestReplace("The quick brown fox jumps over the lazy dog.", "The ${animal} jumps over the ${target}.", true);
     }
 
     /**
@@ -167,6 +177,7 @@ public class StrSubstitutorTest {
     @Test
     public void testReplaceComplexEscaping() {
         doTestReplace("The ${quick brown fox} jumps over the lazy dog.", "The $${${animal}} jumps over the ${target}.", true);
+        doTestReplace("The ${quick brown fox} jumps over the lazy dog. ${1234567890}.", "The $${${animal}} jumps over the ${target}. $${${undefined.number:-1234567890}}.", true);
     }
 
     /**
@@ -207,6 +218,7 @@ public class StrSubstitutorTest {
     @Test
     public void testReplaceEmptyKeys() {
         doTestReplace("The ${} jumps over the lazy dog.", "The ${} jumps over the ${target}.", true);
+        doTestReplace("The animal jumps over the lazy dog.", "The ${:-animal} jumps over the ${target}.", true);
     }
 
     /**
@@ -234,7 +246,17 @@ public class StrSubstitutorTest {
         map.put("critterSpeed", "quick");
         map.put("critterColor", "brown");
         map.put("critterType", "${animal}");
-        final StrSubstitutor sub = new StrSubstitutor(map);
+        StrSubstitutor sub = new StrSubstitutor(map);
+        try {
+            sub.replace("The ${animal} jumps over the ${target}.");
+            fail("Cyclic replacement was not detected!");
+        } catch (final IllegalStateException ex) {
+            // expected
+        }
+
+        // also check even when default value is set.
+        map.put("critterType", "${animal:-fox}");
+        sub = new StrSubstitutor(map);
         try {
             sub.replace("The ${animal} jumps over the ${target}.");
             fail("Cyclic replacement was not detected!");
@@ -295,6 +317,10 @@ public class StrSubstitutorTest {
                 "Wrong result (2)",
                 "The fox jumps over the lazy dog.",
                 sub.replace("The ${animal.${species}} jumps over the ${target}."));
+        assertEquals(
+                "Wrong result (3)",
+                "The fox jumps over the lazy dog.",
+                sub.replace("The ${unknown.animal.${unknown.species:-1}:-fox} jumps over the ${unknow.target:-lazy dog}."));
     }
 
     /**
@@ -307,9 +333,13 @@ public class StrSubstitutorTest {
         values.put("species", "2");
         final StrSubstitutor sub = new StrSubstitutor(values);
         assertEquals(
-                "Wrong result",
+                "Wrong result (1)",
                 "The ${animal.${species}} jumps over the lazy dog.",
                 sub.replace("The ${animal.${species}} jumps over the ${target}."));
+        assertEquals(
+                "Wrong result (2)",
+                "The ${animal.${species:-1}} jumps over the lazy dog.",
+                sub.replace("The ${animal.${species:-1}} jumps over the ${target}."));
     }
 
     /**
@@ -325,9 +355,46 @@ public class StrSubstitutorTest {
         final StrSubstitutor sub = new StrSubstitutor(values);
         sub.setEnableSubstitutionInVariables(true);
         assertEquals(
-                "Wrong result",
+                "Wrong result (1)",
                 "The white mouse jumps over the lazy dog.",
                 sub.replace("The ${animal.${species.${color}}} jumps over the ${target}."));
+        assertEquals(
+                "Wrong result (2)",
+                "The brown fox jumps over the lazy dog.",
+                sub.replace("The ${animal.${species.${unknownColor:-brown}}} jumps over the ${target}."));
+    }
+
+    @Test
+    public void testDefaultValueDelimiters() {
+        final Map<String, String> map = new HashMap<String, String>();
+        map.put("animal", "fox");
+        map.put("target", "dog");
+
+        StrSubstitutor sub = new StrSubstitutor(map, "${", "}", '$');
+        assertEquals("The fox jumps over the lazy dog. 1234567890.",
+                sub.replace("The ${animal} jumps over the lazy ${target}. ${undefined.number:-1234567890}."));
+
+        sub = new StrSubstitutor(map, "${", "}", '$', "?:");
+        assertEquals("The fox jumps over the lazy dog. 1234567890.",
+                sub.replace("The ${animal} jumps over the lazy ${target}. ${undefined.number?:1234567890}."));
+
+        sub = new StrSubstitutor(map, "${", "}", '$', "||");
+        assertEquals("The fox jumps over the lazy dog. 1234567890.",
+                sub.replace("The ${animal} jumps over the lazy ${target}. ${undefined.number||1234567890}."));
+
+        sub = new StrSubstitutor(map, "${", "}", '$', "!");
+        assertEquals("The fox jumps over the lazy dog. 1234567890.",
+                sub.replace("The ${animal} jumps over the lazy ${target}. ${undefined.number!1234567890}."));
+
+        sub = new StrSubstitutor(map, "${", "}", '$', "");
+        sub.setValueDelimiterMatcher(null);
+        assertEquals("The fox jumps over the lazy dog. ${undefined.number!1234567890}.",
+                sub.replace("The ${animal} jumps over the lazy ${target}. ${undefined.number!1234567890}."));
+
+        sub = new StrSubstitutor(map, "${", "}", '$');
+        sub.setValueDelimiterMatcher(null);
+        assertEquals("The fox jumps over the lazy dog. ${undefined.number!1234567890}.",
+                sub.replace("The ${animal} jumps over the lazy ${target}. ${undefined.number!1234567890}."));
     }
 
     //-----------------------------------------------------------------------
@@ -381,8 +448,10 @@ public class StrSubstitutorTest {
     public void testConstructorMapFull() {
         final Map<String, String> map = new HashMap<String, String>();
         map.put("name", "commons");
-        final StrSubstitutor sub = new StrSubstitutor(map, "<", ">", '!');
+        StrSubstitutor sub = new StrSubstitutor(map, "<", ">", '!');
         assertEquals("Hi < commons", sub.replace("Hi !< <name>"));
+        sub = new StrSubstitutor(map, "<", ">", '!', "||");
+        assertEquals("Hi < commons", sub.replace("Hi !< <name2||commons>"));
     }
 
     //-----------------------------------------------------------------------
@@ -459,6 +528,28 @@ public class StrSubstitutorTest {
             // expected
         }
         assertSame(matcher, sub.getVariableSuffixMatcher());
+    }
+
+    /**
+     * Tests get set.
+     */
+    @Test
+    public void testGetSetValueDelimiter() {
+        final StrSubstitutor sub = new StrSubstitutor();
+        assertTrue(sub.getValueDelimiterMatcher() instanceof StrMatcher.StringMatcher);
+        sub.setValueDelimiter(':');
+        assertTrue(sub.getValueDelimiterMatcher() instanceof StrMatcher.CharMatcher);
+
+        sub.setValueDelimiter("||");
+        assertTrue(sub.getValueDelimiterMatcher() instanceof StrMatcher.StringMatcher);
+        sub.setValueDelimiter((String) null);
+        assertNull(sub.getValueDelimiterMatcher());
+
+        final StrMatcher matcher = StrMatcher.commaMatcher();
+        sub.setValueDelimiterMatcher(matcher);
+        assertSame(matcher, sub.getValueDelimiterMatcher());
+        sub.setValueDelimiterMatcher((StrMatcher) null);
+        assertNull(sub.getValueDelimiterMatcher());
     }
 
     //-----------------------------------------------------------------------
