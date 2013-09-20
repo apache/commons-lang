@@ -19,6 +19,8 @@ package org.apache.commons.lang3.builder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assume.assumeFalse;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -311,24 +313,21 @@ public class ToStringBuilderTest {
     // Reflection hierarchy tests
     @Test
     public void testReflectionHierarchyArrayList() {
+        // note, the test data depends on the internal representation of the ArrayList, which may differ between JDK versions and vendors
+        // representation different for IBM JDK 1.6.0, LANG-727
+        assumeFalse("IBM Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".equals(SystemUtils.JAVA_SPECIFICATION_VERSION));
+        assumeFalse("Oracle Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".compareTo(SystemUtils.JAVA_SPECIFICATION_VERSION) < 0);
         final List<Object> base = new ArrayList<Object>();
         final String baseStr = this.toBaseString(base);
-        // note, the test data depends on the internal representation of the ArrayList, which may differ between JDK versions and vendors
         final String expectedWithTransients = baseStr + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]";
         final String toStringWithTransients = ToStringBuilder.reflectionToString(base, null, true);
         if (!expectedWithTransients.equals(toStringWithTransients)) {
-            // representation different for IBM JDK 1.6.0, LANG-727
-            if (!("IBM Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".equals(SystemUtils.JAVA_SPECIFICATION_VERSION))) {
-                assertEquals(expectedWithTransients, toStringWithTransients);
-            }
+            assertEquals(expectedWithTransients, toStringWithTransients);
         }
         final String expectedWithoutTransients = baseStr + "[size=0]";
         final String toStringWithoutTransients = ToStringBuilder.reflectionToString(base, null, false);
         if (!expectedWithoutTransients.equals(toStringWithoutTransients)) {
-            // representation different for IBM JDK 1.6.0, LANG-727
-            if (!("IBM Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".equals(SystemUtils.JAVA_SPECIFICATION_VERSION))) {
-                assertEquals(expectedWithoutTransients, toStringWithoutTransients);
-            }
+            assertEquals(expectedWithoutTransients, toStringWithoutTransients);
         }
     }
 
