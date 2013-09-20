@@ -247,17 +247,8 @@ public class StringUtils {
      * @return {@code true} if none of the CharSequences is empty or null
      */
     public static boolean isNoneEmpty(CharSequence... css) {
-      if (ArrayUtils.isEmpty(css)) {
-        return false;
-      }
-      for (CharSequence cs : css){
-        if (isEmpty(cs)) {
-          return false;
-        }
-      }
-      return true;
-    }
-    
+      return !isAnyEmpty(css);
+    }    
     /**
      * <p>Checks if a CharSequence is whitespace, empty ("") or null.</p>
      *
@@ -355,15 +346,7 @@ public class StringUtils {
      * @return {@code true} if none of the CharSequences is blank or null or whitespace only
      */
     public static boolean isNoneBlank(CharSequence... css) {
-      if (ArrayUtils.isEmpty(css)) {
-        return false;
-      }
-      for (CharSequence cs : css){
-        if (isBlank(cs)) {
-          return false;
-        }
-      }
-      return true;
+      return !isAnyBlank(css);
     }
 
     // Trim
