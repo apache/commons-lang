@@ -81,7 +81,7 @@ public abstract class ToStringStyle implements Serializable {
     public static final ToStringStyle DEFAULT_STYLE = new DefaultToStringStyle();
 
     /**
-     * The multi line toString style. Using the Using the <code>Person</code>
+     * The multi line toString style. Using the <code>Person</code>
      * example from {@link ToStringBuilder}, the output would look like this:
      *
      * <pre>
