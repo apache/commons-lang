@@ -2206,6 +2206,8 @@ public abstract class ToStringStyle implements Serializable {
 
     }
 
+    //----------------------------------------------------------------------------
+
     /**
      * <p><code>ToStringStyle</code> that does not print out the
      * classname, identity hashcode, content start or field name.</p>
