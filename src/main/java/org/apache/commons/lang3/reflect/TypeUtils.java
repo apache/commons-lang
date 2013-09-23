@@ -1540,6 +1540,22 @@ public class TypeUtils {
         return buf.append(':').append(typeVariableToString(var)).toString();
     }
 
+    /**
+     * Wrap the specified {@link Type} in a {@link Typed} wrapper.
+     *
+     * @param T inferred generic type
+     * @param type to wrap
+     * @return Typed<T>
+     */
+    public static <T> Typed<T> wrap(final Type type) {
+        return new Typed<T>() {
+            @Override
+            public Type getType() {
+                return type;
+            }
+        };
+    }
+
     private static String classToString(Class<?> c) {
         final StringBuilder buf = new StringBuilder();
 
