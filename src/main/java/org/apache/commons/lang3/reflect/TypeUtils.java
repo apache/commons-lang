@@ -1556,6 +1556,17 @@ public class TypeUtils {
         };
     }
 
+    /**
+     * Wrap the specified {@link Class} in a {@link Typed} wrapper.
+     *
+     * @param T generic type
+     * @param type to wrap
+     * @return Typed<T>
+     */
+    public static <T> Typed<T> wrap(final Class<T> type) {
+        return TypeUtils.<T> wrap((Type) type);
+    }
+
     private static String classToString(Class<?> c) {
         final StringBuilder buf = new StringBuilder();
 
