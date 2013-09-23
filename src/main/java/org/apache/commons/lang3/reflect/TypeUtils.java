@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -1261,6 +1262,9 @@ public class TypeUtils {
      * @return Type
      */
     public static Type unrollVariables(Map<TypeVariable<?>, Type> typeArguments, final Type type) {
+        if (typeArguments == null) {
+            typeArguments = Collections.<TypeVariable<?>, Type> emptyMap();
+        }
         if (containsTypeVariables(type)) {
             if (type instanceof TypeVariable<?>) {
                 return unrollVariables(typeArguments, typeArguments.get(type));
