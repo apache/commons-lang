@@ -720,6 +720,8 @@ public class TypeUtilsTest<B> {
     public void testWrap() {
         final Type t = getClass().getTypeParameters()[0];
         Assert.assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
+
+        Assert.assertEquals(String.class, TypeUtils.wrap(String.class).getType());
     }
 
     public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;
