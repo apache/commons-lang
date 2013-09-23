@@ -716,6 +716,12 @@ public class TypeUtilsTest<B> {
         Assert.assertEquals(getClass().getName() + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
     }
 
+    @Test
+    public void testWrap() {
+        final Type t = getClass().getTypeParameters()[0];
+        Assert.assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
+    }
+
     public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;
 
     public static <G extends Comparable<G>> G stub() {
