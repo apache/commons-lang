@@ -520,7 +520,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Two randomly chosen, non-zero, odd numbers must be passed in. Ideally these should be different for each class,
+     * Two randomly chosen, odd numbers must be passed in. Ideally these should be different for each class,
      * however this is not vital.
      * </p>
      *
@@ -528,28 +528,22 @@ public class HashCodeBuilder implements Builder<Integer> {
      * Prime numbers are preferred, especially for the multiplier.
      * </p>
      *
-     * @param initialNonZeroOddNumber
-     *            a non-zero, odd number used as the initial value
-     * @param multiplierNonZeroOddNumber
-     *            a non-zero, odd number used as the multiplier
+     * @param initialOddNumber
+     *            am odd number used as the initial value
+     * @param multiplierOddNumber
+     *            an odd number used as the multiplier
      * @throws IllegalArgumentException
-     *             if the number is zero or even
+     *             if the number is even
      */
-    public HashCodeBuilder(final int initialNonZeroOddNumber, final int multiplierNonZeroOddNumber) {
-        if (initialNonZeroOddNumber == 0) {
-            throw new IllegalArgumentException("HashCodeBuilder requires a non zero initial value");
-        }
-        if (initialNonZeroOddNumber % 2 == 0) {
+    public HashCodeBuilder(final int initialOddNumber, final int multiplierOddNumber) {
+        if (initialOddNumber % 2 == 0) {
             throw new IllegalArgumentException("HashCodeBuilder requires an odd initial value");
         }
-        if (multiplierNonZeroOddNumber == 0) {
-            throw new IllegalArgumentException("HashCodeBuilder requires a non zero multiplier");
-        }
-        if (multiplierNonZeroOddNumber % 2 == 0) {
+        if (multiplierOddNumber % 2 == 0) {
             throw new IllegalArgumentException("HashCodeBuilder requires an odd multiplier");
         }
-        iConstant = multiplierNonZeroOddNumber;
-        iTotal = initialNonZeroOddNumber;
+        iConstant = multiplierOddNumber;
+        iTotal = initialOddNumber;
     }
 
     /**
