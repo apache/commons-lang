@@ -529,7 +529,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * @param initialOddNumber
-     *            am odd number used as the initial value
+     *            an odd number used as the initial value
      * @param multiplierOddNumber
      *            an odd number used as the multiplier
      * @throws IllegalArgumentException
