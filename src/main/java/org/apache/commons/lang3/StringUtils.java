@@ -5737,7 +5737,7 @@ public class StringUtils {
      * @since 3.0 Changed "" to return false and not true
      */
     public static boolean isAlpha(final CharSequence cs) {
-        if (cs == null || cs.length() == 0) {
+        if (isEmpty(cs)) {
             return false;
         }
         final int sz = cs.length();
@@ -5807,7 +5807,7 @@ public class StringUtils {
      * @since 3.0 Changed "" to return false and not true
      */
     public static boolean isAlphanumeric(final CharSequence cs) {
-        if (cs == null || cs.length() == 0) {
+        if (isEmpty(cs)) {
             return false;
         }
         final int sz = cs.length();
@@ -5924,7 +5924,7 @@ public class StringUtils {
      * @since 3.0 Changed "" to return false and not true
      */
     public static boolean isNumeric(final CharSequence cs) {
-        if (cs == null || cs.length() == 0) {
+        if (isEmpty(cs)) {
             return false;
         }
         final int sz = cs.length();

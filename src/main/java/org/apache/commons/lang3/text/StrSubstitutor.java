@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Substitutes variables within a string by values.
  * <p>
@@ -1126,7 +1128,7 @@ public class StrSubstitutor {
      * @return this, to enable chaining
      */
     public StrSubstitutor setValueDelimiter(final String valueDelimiter) {
-        if (valueDelimiter == null || valueDelimiter.length() == 0) {
+        if (StringUtils.isEmpty(valueDelimiter)) {
             setValueDelimiterMatcher(null);
             return this;
         }
