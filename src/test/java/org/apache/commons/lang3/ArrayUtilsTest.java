@@ -489,6 +489,20 @@ public class ArrayUtilsTest  {
     }
 
     @Test
+    public void testNullToEmptyClass() {
+        // Test null handling
+        assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.nullToEmpty((Class<?>[]) null));
+        // Test valid array handling
+        final Class<?>[] original = { Object.class, String.class };
+        assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
+        // Test empty array handling
+        final Class<?>[] empty = {};
+        final Class<?>[] result = ArrayUtils.nullToEmpty(empty);
+        assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, result);
+        assertTrue(empty != result);
+    }
+
+    @Test
     public void testNullToEmptyString() {
         // Test null handling
         assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.nullToEmpty((String[]) null));

@@ -484,6 +484,26 @@ public class ArrayUtils {
      *
      * @param array  the array to check for {@code null} or empty
      * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @since 3.2
+     */
+    public static Class<?>[] nullToEmpty(final Class<?>[] array) {
+        if (array == null || array.length == 0) {
+            return EMPTY_CLASS_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a {@code null}
+     * reference to an empty one.</p>
+     *
+     * <p>This method returns an empty array for a {@code null} input array.</p>
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
+     * the empty {@code public static} references in this class.</p>
+     *
+     * @param array  the array to check for {@code null} or empty
+     * @return the same array, {@code public static} empty array if {@code null} or empty input
      * @since 2.5
      */
     public static String[] nullToEmpty(final String[] array) {
