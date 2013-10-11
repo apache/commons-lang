@@ -46,7 +46,7 @@ public interface ExceptionContext {
      * @param value  the value of item to add, may be {@code null}
      * @return {@code this}, for method chaining, not {@code null}
      */
-    public ExceptionContext addContextValue(String label, Object value);
+    ExceptionContext addContextValue(String label, Object value);
 
     /**
      * Sets a contextual label-value pair into this context.
@@ -59,7 +59,7 @@ public interface ExceptionContext {
      * @param value  the value of item to add, may be {@code null}
      * @return {@code this}, for method chaining, not {@code null}
      */
-    public ExceptionContext setContextValue(String label, Object value);
+    ExceptionContext setContextValue(String label, Object value);
 
     /**
      * Retrieves all the contextual data values associated with the label.
@@ -67,7 +67,7 @@ public interface ExceptionContext {
      * @param label  the label to get the contextual values for, may be {@code null}
      * @return the contextual values associated with the label, never {@code null}
      */
-    public List<Object> getContextValues(String label);
+    List<Object> getContextValues(String label);
 
     /**
      * Retrieves the first available contextual data value associated with the label.
@@ -75,21 +75,21 @@ public interface ExceptionContext {
      * @param label  the label to get the contextual value for, may be {@code null}
      * @return the first contextual value associated with the label, may be {@code null}
      */
-    public Object getFirstContextValue(String label);
+    Object getFirstContextValue(String label);
 
     /**
      * Retrieves the full set of labels defined in the contextual data.
      * 
      * @return the set of labels, not {@code null}
      */
-    public Set<String> getContextLabels();
+    Set<String> getContextLabels();
 
     /**
      * Retrieves the full list of label-value pairs defined in the contextual data.
      * 
      * @return the list of pairs, not {@code null}
      */
-    public List<Pair<String, Object>> getContextEntries();
+    List<Pair<String, Object>> getContextEntries();
 
     /**
      * Gets the contextualized error message based on a base message.
@@ -98,6 +98,6 @@ public interface ExceptionContext {
      * @param baseMessage  the base exception message <b>without</b> context information appended
      * @return the exception message <b>with</b> context information appended, not {@code null}
      */
-    public String getFormattedExceptionMessage(String baseMessage);
+    String getFormattedExceptionMessage(String baseMessage);
 
 }
