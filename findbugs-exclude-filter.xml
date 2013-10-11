@@ -48,6 +48,13 @@
     <Bug pattern="NP_BOOLEAN_RETURN_NULL" />
   </Match>
 
+  <!-- Reason: toString to supposed to fall back to default encoding if no charsetName is passed in -->
+  <Match>
+    <Class name="org.apache.commons.lang3.StringUtils" />
+    <Method name="toString" />
+    <Bug pattern="DM_DEFAULT_ENCODING" />
+  </Match>
+
   <!-- Reason: base class cannot be changed and field is properly checked against null so behavior is OK -->
   <Match>
     <Class name="org.apache.commons.lang3.text.ExtendedMessageFormat" />
