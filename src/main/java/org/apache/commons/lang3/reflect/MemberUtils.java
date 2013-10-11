@@ -23,8 +23,8 @@ import java.lang.reflect.Modifier;
 import org.apache.commons.lang3.ClassUtils;
 
 /**
- * Contains common code for working with Methods/Constructors, extracted and
- * refactored from <code>MethodUtils</code> when it was imported from Commons
+ * Contains common code for working with {@link Method}s/{@link Constructor}s, extracted and
+ * refactored from {@link MethodUtils} when it was imported from Commons
  * BeanUtils.
  *
  * @since 2.5
@@ -42,11 +42,11 @@ abstract class MemberUtils {
     /**
      * XXX Default access superclass workaround
      *
-     * When a public class has a default access superclass with public members,
+     * When a {@code public} class has a default access superclass with {@code public} members,
      * these members are accessible. Calling them from compiled code works fine.
      * Unfortunately, on some JVMs, using reflection to invoke these members
-     * seems to (wrongly) prevent access even when the modifier is public.
-     * Calling setAccessible(true) solves the problem but will only work from
+     * seems to (wrongly) prevent access even when the modifier is {@code public}.
+     * Calling {@code setAccessible(true)} solves the problem but will only work from
      * sufficiently privileged code. Better workarounds would be gratefully
      * accepted.
      * @param o the AccessibleObject to set as accessible
@@ -69,16 +69,16 @@ abstract class MemberUtils {
     /**
      * Returns whether a given set of modifiers implies package access.
      * @param modifiers to test
-     * @return true unless package/protected/private modifier detected
+     * @return {@code true} unless {@code package}/{@code protected}/{@code private} modifier detected
      */
     static boolean isPackageAccess(final int modifiers) {
         return (modifiers & ACCESS_TEST) == 0;
     }
 
     /**
-     * Returns whether a Member is accessible.
+     * Returns whether a {@link Member} is accessible.
      * @param m Member to check
-     * @return true if <code>m</code> is accessible
+     * @return {@code true} if <code>m</code> is accessible
      */
     static boolean isAccessible(final Member m) {
         return m != null && Modifier.isPublic(m.getModifiers()) && !m.isSynthetic();
@@ -93,8 +93,8 @@ abstract class MemberUtils {
      * @param left the "left" parameter set
      * @param right the "right" parameter set
      * @param actual the runtime parameter types to match against
-     * <code>left</code>/<code>right</code>
-     * @return int consistent with <code>compare</code> semantics
+     * {@code left}/{@code right}
+     * @return int consistent with {@code compare} semantics
      */
     static int compareParameterTypes(final Class<?>[] left, final Class<?>[] right, final Class<?>[] actual) {
         final float leftCost = getTotalTransformationCost(actual, left);
