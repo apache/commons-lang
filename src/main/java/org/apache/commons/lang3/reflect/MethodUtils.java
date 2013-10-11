@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -30,8 +29,8 @@ import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>Utility reflection methods focused on {@link Method}s, originally from Commons BeanUtils.
@@ -46,7 +45,7 @@ import org.apache.commons.lang3.ClassUtils.Interfaces;
  * However, an {@link IllegalAccessException} is thrown if the method is invoked.</p>
  *
  * <p>{@link MethodUtils} contains a workaround for this situation. 
- * It will attempt to call {@link AccessibleObject#setAccessible(boolean)} on this method.
+ * It will attempt to call {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} on this method.
  * If this call succeeds, then the method can be invoked as normal.
  * This call will only succeed when the application has sufficient security privileges. 
  * If this call fails then the method may fail.</p>
