@@ -236,7 +236,7 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeStaticMethod(Class objectClass,String methodName,Object [] args,Class[] parameterTypes)}.
+     * {@link #invokeStaticMethod(Class, String, Object[], Class[])}.
      * </p>
      *
      * @param cls invoke static method on this class
