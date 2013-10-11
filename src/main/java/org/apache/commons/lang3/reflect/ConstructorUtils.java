@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -37,7 +36,7 @@ import org.apache.commons.lang3.Validate;
  * invoked.</p>
  *
  * <p>{@link ConstructorUtils} contains a workaround for this situation: it
- * will attempt to call {@link AccessibleObject#setAccessible(boolean)} on this constructor. If this
+ * will attempt to call {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} on this constructor. If this
  * call succeeds, then the method can be invoked as normal. This call will only
  * succeed when the application has sufficient security privileges. If this call
  * fails then a warning will be logged and the method may fail.</p>
