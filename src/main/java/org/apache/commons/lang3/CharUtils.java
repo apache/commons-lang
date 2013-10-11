@@ -457,7 +457,7 @@ public class CharUtils {
      * @return true if between 65 and 90 or 97 and 122 inclusive
      */
     public static boolean isAsciiAlpha(final char ch) {
-        return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
+        return isAsciiAlphaUpper(ch) || isAsciiAlphaLower(ch);
     }
     
     /**
@@ -533,7 +533,7 @@ public class CharUtils {
      * @return true if between 48 and 57 or 65 and 90 or 97 and 122 inclusive
      */
     public static boolean isAsciiAlphanumeric(final char ch) {
-        return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9');
+        return isAsciiAlpha(ch) || isAsciiNumeric(ch);
     }
     
 }
