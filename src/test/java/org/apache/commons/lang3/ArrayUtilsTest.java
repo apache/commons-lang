@@ -362,112 +362,147 @@ public class ArrayUtilsTest  {
 
     //-----------------------------------------------------------------------
 
+
     @Test
-    public void testNullToEmptyBoolean() {
-        // Test null handling
+    public void testNullToEmptyBooleanNull() throws Exception {
         assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.nullToEmpty((boolean[]) null));
-        // Test valid array handling
-        final boolean[] original = new boolean[] {true, false};
-        assertEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyBooleanEmptyArray() throws Exception {
         final boolean[] empty = new boolean[]{};
         final boolean[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyLong() {
-        // Test null handling
-        assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.nullToEmpty((long[]) null));
-        // Test valid array handling
-        final long[] original = new long[] {1L, 2L};
+    public void testNullToEmptyBoolean() {
+        final boolean[] original = new boolean[] {true, false};
         assertEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyLongNull() throws Exception {
+        assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.nullToEmpty((long[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyLongEmptyArray() throws Exception {
         final long[] empty = new long[]{};
         final long[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyInt() {
-        // Test null handling
-        assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.nullToEmpty((int[]) null));
-        // Test valid array handling
-        final int[] original = new int[] {1, 2};
+    public void testNullToEmptyLong() {
+        final long[] original = new long[] {1L, 2L};
         assertEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyIntNull() throws Exception {
+        assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.nullToEmpty((int[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyIntEmptyArray() throws Exception {
         final int[] empty = new int[]{};
         final int[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_INT_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyShort() {
-        // Test null handling
-        assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.nullToEmpty((short[]) null));
-        // Test valid array handling
-        final short[] original = new short[] {1, 2};
+    public void testNullToEmptyInt() {
+        final int[] original = new int[] {1, 2};
         assertEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyShortNull() throws Exception {
+        assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.nullToEmpty((short[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyShortEmptyArray() throws Exception {
         final short[] empty = new short[]{};
         final short[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyChar() {
-        // Test null handling
-        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.nullToEmpty((char[]) null));
-        // Test valid array handling
-        final char[] original = new char[] {'a', 'b'};
+    public void testNullToEmptyShort() {
+        final short[] original = new short[] {1, 2};
         assertEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyCharNull() throws Exception {
+        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.nullToEmpty((char[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyCharEmptyArray() throws Exception {
         final char[] empty = new char[]{};
         final char[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyByte() {
-        // Test null handling
-        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.nullToEmpty((byte[]) null));
-        // Test valid array handling
-        final byte[] original = new byte[] {0x0F, 0x0E};
+    public void testNullToEmptyChar() {
+        final char[] original = new char[] {'a', 'b'};
         assertEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyByteNull() throws Exception {
+        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.nullToEmpty((byte[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyByteEmptyArray() throws Exception {
         final byte[] empty = new byte[]{};
         final byte[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyDouble() {
-        // Test null handling
-        assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.nullToEmpty((double[]) null));
-        // Test valid array handling
-        final double[] original = new double[] {1L, 2L};
+    public void testNullToEmptyByte() {
+        final byte[] original = new byte[] {0x0F, 0x0E};
         assertEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyDoubleNull() throws Exception {
+        assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.nullToEmpty((double[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyDoubleEmptyArray() throws Exception {
         final double[] empty = new double[]{};
         final double[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyFloat() {
-        // Test null handling
-        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.nullToEmpty((float[]) null));
-        // Test valid array handling
-        final float[] original = new float[] {2.6f, 3.8f};
+    public void testNullToEmptyDouble() {
+        final double[] original = new double[] {1L, 2L};
         assertEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyFloatNull() throws Exception {
+        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.nullToEmpty((float[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyFloatEmptyArray() throws Exception {
         final float[] empty = new float[]{};
         final float[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, result);
@@ -475,13 +510,18 @@ public class ArrayUtilsTest  {
     }
 
     @Test
-    public void testNullToEmptyObject() {
-        // Test null handling
+    public void testNullToEmptyFloat() {
+        final float[] original = new float[] {2.6f, 3.8f};
+        assertEquals(original, ArrayUtils.nullToEmpty(original));
+    }
+
+    @Test
+    public void testNullToEmptyObjectNull() throws Exception {
         assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Object[]) null));
-        // Test valid array handling
-        final Object[] original = new Object[] {Boolean.TRUE, Boolean.FALSE};
-        assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyObjectEmptyArray() throws Exception {
         final Object[] empty = new Object[]{};
         final Object[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, result);
@@ -489,13 +529,18 @@ public class ArrayUtilsTest  {
     }
 
     @Test
-    public void testNullToEmptyClass() {
-        // Test null handling
-        assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.nullToEmpty((Class<?>[]) null));
-        // Test valid array handling
-        final Class<?>[] original = { Object.class, String.class };
+    public void testNullToEmptyObject() {
+        final Object[] original = new Object[] {Boolean.TRUE, Boolean.FALSE};
         assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyClassNull() throws Exception {
+        assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.nullToEmpty((Class<?>[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyClassEmptyArray() throws Exception {
         final Class<?>[] empty = {};
         final Class<?>[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, result);
@@ -503,13 +548,18 @@ public class ArrayUtilsTest  {
     }
 
     @Test
-    public void testNullToEmptyString() {
-        // Test null handling
-        assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.nullToEmpty((String[]) null));
-        // Test valid array handling
-        final String[] original = new String[] {"abc", "def"};
+    public void testNullToEmptyClass() {
+        final Class<?>[] original = { Object.class, String.class };
         assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyStringNull() throws Exception {
+        assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.nullToEmpty((String[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyStringEmptyArray() throws Exception {
         final String[] empty = new String[]{};
         final String[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, result);
@@ -517,119 +567,163 @@ public class ArrayUtilsTest  {
     }
 
     @Test
-    public void testNullToEmptyBooleanObject() {
-        // Test null handling
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Boolean[]) null));
-        // Test valid array handling
-        final Boolean[] original = new Boolean[] {Boolean.TRUE, Boolean.FALSE};
+    public void testNullToEmptyString() {
+        final String[] original = new String[] {"abc", "def"};
         assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyBooleanObjectNull() throws Exception {
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Boolean[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyBooleanObjectEmptyArray() throws Exception {
         final Boolean[] empty = new Boolean[]{};
         final Boolean[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyLongObject() {
-        // Test null handling
-        assertArrayEquals(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Long[]) null));
-        // Test valid array handling
-        @SuppressWarnings("boxing")
-        final
-        Long[] original = new Long[] {1L, 2L};
+    public void testNullToEmptyBooleanObject() {
+        final Boolean[] original = new Boolean[] {Boolean.TRUE, Boolean.FALSE};
         assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyLongObjectNull() throws Exception {
+        assertArrayEquals(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Long[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyLongObjectEmptyArray() throws Exception {
         final Long[] empty = new Long[]{};
         final Long[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyIntObject() {
-        // Test null handling
-        assertArrayEquals(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Integer[]) null));
-        // Test valid array handling
-        final Integer[] original = new Integer[] {1, 2};
+    public void testNullToEmptyLongObject() {
+        @SuppressWarnings("boxing")
+        final Long[] original = new Long[] {1L, 2L};
         assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyIntObjectNull() throws Exception {
+        assertArrayEquals(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Integer[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyIntObjectEmptyArray() throws Exception {
         final Integer[] empty = new Integer[]{};
         final Integer[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyShortObject() {
-        // Test null handling
-        assertArrayEquals(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Short[]) null));
-        // Test valid array handling
-        @SuppressWarnings("boxing")
-        final
-        Short[] original = new Short[] {1, 2};
+    public void testNullToEmptyIntObject() {
+        final Integer[] original = new Integer[] {1, 2};
         assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyShortObjectNull() throws Exception {
+        assertArrayEquals(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Short[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyShortObjectEmptyArray() throws Exception {
         final Short[] empty = new Short[]{};
         final Short[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyCharObject() {
-        // Test null handling
-        assertArrayEquals(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Character[]) null));
-        // Test valid array handling
-        final Character[] original = new Character[] {'a', 'b'};
+    public void testNullToEmptyShortObject() {
+        @SuppressWarnings("boxing")
+        final Short[] original = new Short[] {1, 2};
         assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNUllToEmptyCharObjectNull() throws Exception {
+        assertArrayEquals(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Character[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyCharObjectEmptyArray() throws Exception {
         final Character[] empty = new Character[]{};
         final Character[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyByteObject() {
-        // Test null handling
-        assertArrayEquals(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Byte[]) null));
-        // Test valid array handling
-        final Byte[] original = new Byte[] {0x0F, 0x0E};
+    public void testNullToEmptyCharObject() {
+        final Character[] original = new Character[] {'a', 'b'};
         assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyByteObjectNull() throws Exception {
+        assertArrayEquals(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Byte[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyByteObjectEmptyArray() throws Exception {
         final Byte[] empty = new Byte[]{};
         final Byte[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyDoubleObject() {
-        // Test null handling
-        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Double[]) null));
-        // Test valid array handling
-        final Double[] original = new Double[] {1D, 2D};
+    public void testNullToEmptyByteObject() {
+        final Byte[] original = new Byte[] {0x0F, 0x0E};
         assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyDoubleObjectNull() throws Exception {
+        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Double[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyDoubleObjectEmptyArray() throws Exception {
         final Double[] empty = new Double[]{};
         final Double[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY, result);
         assertTrue(empty != result);
     }
-    
+
     @Test
-    public void testNullToEmptyFloatObject() {
-        // Test null handling
-        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Float[]) null));
-        // Test valid array handling
-        final Float[] original = new Float[] {2.6f, 3.8f};
+    public void testNullToEmptyDoubleObject() {
+        final Double[] original = new Double[] {1D, 2D};
         assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
-        // Test empty array handling
+    }
+
+    @Test
+    public void testNullToEmptyFloatObjectNull() throws Exception {
+        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Float[]) null));
+    }
+
+    @Test
+    public void testNullToEmptyFloatObjectEmptyArray() throws Exception {
         final Float[] empty = new Float[]{};
         final Float[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY, result);
         assertTrue(empty != result);
+    }
+
+    @Test
+    public void testNullToEmptyFloatObject() {
+        final Float[] original = new Float[] {2.6f, 3.8f};
+        assertArrayEquals(original, ArrayUtils.nullToEmpty(original));
     }
 
     //-----------------------------------------------------------------------
