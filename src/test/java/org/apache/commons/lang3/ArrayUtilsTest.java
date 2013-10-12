@@ -373,7 +373,7 @@ public class ArrayUtilsTest  {
         final boolean[] empty = new boolean[]{};
         final boolean[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -392,7 +392,7 @@ public class ArrayUtilsTest  {
         final long[] empty = new long[]{};
         final long[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -411,7 +411,7 @@ public class ArrayUtilsTest  {
         final int[] empty = new int[]{};
         final int[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_INT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -430,7 +430,7 @@ public class ArrayUtilsTest  {
         final short[] empty = new short[]{};
         final short[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -449,7 +449,7 @@ public class ArrayUtilsTest  {
         final char[] empty = new char[]{};
         final char[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -468,7 +468,7 @@ public class ArrayUtilsTest  {
         final byte[] empty = new byte[]{};
         final byte[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -487,7 +487,7 @@ public class ArrayUtilsTest  {
         final double[] empty = new double[]{};
         final double[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -506,7 +506,7 @@ public class ArrayUtilsTest  {
         final float[] empty = new float[]{};
         final float[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -525,7 +525,7 @@ public class ArrayUtilsTest  {
         final Object[] empty = new Object[]{};
         final Object[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -544,7 +544,7 @@ public class ArrayUtilsTest  {
         final Class<?>[] empty = {};
         final Class<?>[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -563,7 +563,7 @@ public class ArrayUtilsTest  {
         final String[] empty = new String[]{};
         final String[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -582,7 +582,7 @@ public class ArrayUtilsTest  {
         final Boolean[] empty = new Boolean[]{};
         final Boolean[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -601,7 +601,7 @@ public class ArrayUtilsTest  {
         final Long[] empty = new Long[]{};
         final Long[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -621,7 +621,7 @@ public class ArrayUtilsTest  {
         final Integer[] empty = new Integer[]{};
         final Integer[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -640,7 +640,7 @@ public class ArrayUtilsTest  {
         final Short[] empty = new Short[]{};
         final Short[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -660,7 +660,7 @@ public class ArrayUtilsTest  {
         final Character[] empty = new Character[]{};
         final Character[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -679,7 +679,7 @@ public class ArrayUtilsTest  {
         final Byte[] empty = new Byte[]{};
         final Byte[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -698,7 +698,7 @@ public class ArrayUtilsTest  {
         final Double[] empty = new Double[]{};
         final Double[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
@@ -717,7 +717,7 @@ public class ArrayUtilsTest  {
         final Float[] empty = new Float[]{};
         final Float[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY, result);
-        assertTrue(empty != result);
+        assertNotSame(empty, result);
     }
 
     @Test
