@@ -47,11 +47,13 @@ public class StringUtilsTest {
     
     static final String WHITESPACE;
     static final String NON_WHITESPACE;
+    static final String HARD_SPACE;
     static final String TRIMMABLE;
     static final String NON_TRIMMABLE;
     static {
         String ws = "";
         String nws = "";
+        String hs = String.valueOf(((char) 160));
         String tr = "";
         String ntr = "";
         for (int i = 0; i < Character.MAX_VALUE; i++) {
@@ -69,6 +71,7 @@ public class StringUtilsTest {
         }
         WHITESPACE = ws;
         NON_WHITESPACE = nws;
+        HARD_SPACE = hs;
         TRIMMABLE = tr;
         NON_TRIMMABLE = ntr;
     }
@@ -2119,14 +2122,14 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.getCommonPrefix("xyz", "abcde"));
         assertEquals("i am a ", StringUtils.getCommonPrefix("i am a machine", "i am a robot"));
     }
-        
+
     @Test
     public void testNormalizeSpace() {
         assertEquals(null, StringUtils.normalizeSpace(null));
         assertEquals("", StringUtils.normalizeSpace(""));
         assertEquals("", StringUtils.normalizeSpace(" "));
         assertEquals("", StringUtils.normalizeSpace("\t"));
-        assertEquals("", StringUtils.normalizeSpace("\n"));        
+        assertEquals("", StringUtils.normalizeSpace("\n"));
         assertEquals("", StringUtils.normalizeSpace("\u0009"));
         assertEquals("", StringUtils.normalizeSpace("\u000B"));
         assertEquals("", StringUtils.normalizeSpace("\u000C"));
@@ -2139,6 +2142,7 @@ public class StringUtilsTest {
         assertEquals("a", StringUtils.normalizeSpace("  a  "));
         assertEquals("a b c", StringUtils.normalizeSpace("  a  b   c  "));
         assertEquals("a b c", StringUtils.normalizeSpace("a\t\f\r  b\u000B   c\n"));
+        assertEquals("a   b c", StringUtils.normalizeSpace("a\t\f\r  " + HARD_SPACE + HARD_SPACE + "b\u000B   c\n"));
     }
 
     @Test
