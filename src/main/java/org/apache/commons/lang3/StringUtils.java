@@ -178,7 +178,7 @@ public class StringUtils {
      * single space, thus matching the same would likely cause a great
      * many noop replacements.
      */
-    private static final Pattern WHITESPACE_PATTERN = Pattern.compile("(?: \\s|[\\s&&[^ ]])\\s*");
+    private static final Pattern WHITESPACE_PATTERN = Pattern.compile("(?: |\\u00A0|\\s|[\\s&&[^ ]])\\s*");
 
     /**
      * <p>{@code StringUtils} instances should NOT be constructed in
