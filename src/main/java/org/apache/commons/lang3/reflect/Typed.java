@@ -20,6 +20,7 @@ import java.lang.reflect.Type;
 
 /**
  * Generalization of "has a type."
+ * @see TypeLiteral
  */
 public interface Typed<T> {
 
