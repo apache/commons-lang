@@ -149,6 +149,8 @@ public class ObjectUtils {
      * @param object1  the first object, may be {@code null}
      * @param object2  the second object, may be {@code null}
      * @return {@code true} if the values of both objects are the same
+     * @deprecated this method has been replaces by {@code java.util.Objects.equals(Object, Object)} in Java 7 and will
+     * be removed from future releases.
      */
     public static boolean equals(final Object object1, final Object object2) {
         if (object1 == object2) {
@@ -195,6 +197,8 @@ public class ObjectUtils {
      * @param obj  the object to obtain the hash code of, may be {@code null}
      * @return the hash code of the object, or zero if null
      * @since 2.1
+     * @deprecated this method has been replaced by {@code java.util.Objects.hashCode(Object)} in Java 7 and will be
+     * removed in future releases
      */
     public static int hashCode(final Object obj) {
         // hashCode(Object) retained for performance, as hash code is often critical
@@ -220,6 +224,8 @@ public class ObjectUtils {
      * @param objects  the objects to obtain the hash code of, may be {@code null}
      * @return the hash code of the objects, or zero if null
      * @since 3.0
+     * @deprecated this method has been replaced by {@code java.util.Objects.hash(Object...)} in Java 7 an will be
+     * removed in future releases.
      */
     public static int hashCodeMulti(final Object... objects) {
         int hash = 1;
@@ -373,6 +379,9 @@ public class ObjectUtils {
      * @param obj  the Object to {@code toString}, may be null
      * @return the passed in Object's toString, or {@code ""} if {@code null} input
      * @since 2.0
+     * @deprecated this method has been replaces by {@code java.util.Objects.toString(Object)} in Java 7 and will be
+     * removed in future releases. Note however that said method will return "null" for null references, while this
+     * method returns and empty String. To preserve behavior use {@code java.util.Objects.toString(myObject, "")}
      */
     public static String toString(final Object obj) {
         return obj == null ? "" : obj.toString();
@@ -396,6 +405,8 @@ public class ObjectUtils {
      * @param nullStr  the String to return if {@code null} input, may be null
      * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
      * @since 2.0
+     * @deprecated this method has been replaces by {@code java.util.Objects.toString(Object, String)} in Java 7 and
+     * will be removed in future releases.
      */
     public static String toString(final Object obj, final String nullStr) {
         return obj == null ? nullStr : obj.toString();
