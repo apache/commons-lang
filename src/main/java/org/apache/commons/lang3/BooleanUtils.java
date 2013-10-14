@@ -1028,6 +1028,14 @@ public class BooleanUtils {
      *   BooleanUtils.xor(true, false)  = true
      * </pre>
      *
+     * <p>Note that this method behaves different from using the binary XOR operator (^). Instead of combining the given
+     * booleans using the XOR operator from left to right, this method counts the appearances of true in the given
+     * array. It will only return true if exactly one boolean in the given array is true:</p>
+     * <pre>
+     *   true ^ true ^ false ^ true                 = true
+     *   BooleanUtils.xor(true, true, false, true)  = false
+     * </pre>
+     *
      * @param array  an array of {@code boolean}s
      * @return {@code true} if the xor is successful.
      * @throws IllegalArgumentException if {@code array} is {@code null}
@@ -1068,6 +1076,9 @@ public class BooleanUtils {
      *   BooleanUtils.xor(new Boolean[] { Boolean.FALSE, Boolean.FALSE }) = Boolean.FALSE
      *   BooleanUtils.xor(new Boolean[] { Boolean.TRUE, Boolean.FALSE })  = Boolean.TRUE
      * </pre>
+     *
+     * <p>Note that this method behaves different from using the binary XOR operator (^). See
+     * {@link #xor(boolean...)}.</p>
      *
      * @param array  an array of {@code Boolean}s
      * @return {@code true} if the xor is successful.
