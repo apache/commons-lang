@@ -171,7 +171,11 @@ public class FastDateParser implements DateParser, Serializable {
         return locale;
     }
 
-    // Give access to generated pattern for test code
+    /**
+     * Returns the generated pattern (for testing purposes).
+     * 
+     * @return the generated pattern
+     */
     Pattern getParsePattern() {
         return parsePattern;
     }
