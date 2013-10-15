@@ -53,6 +53,189 @@ public class BooleanUtilsTest {
         assertSame(Boolean.FALSE, BooleanUtils.negate(Boolean.TRUE));
     }
 
+    //  test isOneTrue
+    //  -----------------------------------------------------------------------
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsOneTrue_primitive_nullInput() {
+        BooleanUtils.isOneTrue((boolean[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsOneTrue_primitive_emptyInput() {
+        BooleanUtils.isOneTrue(new boolean[] {});
+    }
+
+    @Test
+    public void testIsOneTrue_primitive_validInput_2items() {
+        assertFalse(
+                "true, true",
+                BooleanUtils.isOneTrue(new boolean[] { true, true }));
+
+        assertFalse(
+                "false, false",
+                BooleanUtils.isOneTrue(new boolean[] { false, false }));
+
+        assertTrue(
+                "true, false",
+                BooleanUtils.isOneTrue(new boolean[] { true, false }));
+
+        assertTrue(
+                "false, true",
+                BooleanUtils.isOneTrue(new boolean[] { false, true }));
+    }
+
+    @Test
+    public void testIsOneTrue_primitive_validInput_3items() {
+        assertFalse(
+                "false, false, false",
+                BooleanUtils.isOneTrue(new boolean[] { false, false, false }));
+
+        assertTrue(
+                "false, false, true",
+                BooleanUtils.isOneTrue(new boolean[] { false, false, true }));
+
+        assertTrue(
+                "false, true, false",
+                BooleanUtils.isOneTrue(new boolean[] { false, true, false }));
+
+        assertFalse(
+                "false, true, true",
+                BooleanUtils.isOneTrue(new boolean[] { false, true, true }));
+
+        assertTrue(
+                "true, false, false",
+                BooleanUtils.isOneTrue(new boolean[] { true, false, false }));
+
+        assertFalse(
+                "true, false, true",
+                BooleanUtils.isOneTrue(new boolean[] { true, false, true }));
+
+        assertFalse(
+                "true, true, false",
+                BooleanUtils.isOneTrue(new boolean[] { true, true, false }));
+
+        assertFalse(
+                "true, true, true",
+                BooleanUtils.isOneTrue(new boolean[] { true, true, true }));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsOneTrue_object_nullInput() {
+        BooleanUtils.isOneTrue((Boolean[]) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsOneTrue_object_emptyInput() {
+        BooleanUtils.isOneTrue(new Boolean[] {});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsOneTrue_object_nullElementInput() {
+        BooleanUtils.isOneTrue(new Boolean[] {null});
+    }
+
+    @Test
+    public void testIsOneTrue_object_validInput_2items() {
+        assertFalse(
+                "false, false",
+                BooleanUtils
+                        .isOneTrue(new Boolean[] { Boolean.FALSE, Boolean.FALSE })
+                        .booleanValue());
+
+        assertTrue(
+                "false, true",
+                BooleanUtils
+                        .isOneTrue(new Boolean[] { Boolean.FALSE, Boolean.TRUE })
+                        .booleanValue());
+
+        assertTrue(
+                "true, false",
+                BooleanUtils
+                        .isOneTrue(new Boolean[] { Boolean.TRUE, Boolean.FALSE })
+                        .booleanValue());
+
+        assertFalse(
+                "true, true",
+                BooleanUtils
+                        .isOneTrue(new Boolean[] { Boolean.TRUE, Boolean.TRUE })
+                        .booleanValue());
+    }
+
+    @Test
+    public void testIsOneTrue_object_validInput_3items() {
+        assertFalse(
+                "false, false, false",
+                BooleanUtils.isOneTrue(
+                        new Boolean[] {
+                                Boolean.FALSE,
+                                Boolean.FALSE,
+                                Boolean.FALSE })
+                        .booleanValue());
+
+        assertTrue(
+                "false, false, true",
+                BooleanUtils
+                        .isOneTrue(
+                                new Boolean[] {
+                                        Boolean.FALSE,
+                                        Boolean.FALSE,
+                                        Boolean.TRUE })
+                        .booleanValue());
+
+        assertTrue(
+                "false, true, false",
+                BooleanUtils
+                        .isOneTrue(
+                                new Boolean[] {
+                                        Boolean.FALSE,
+                                        Boolean.TRUE,
+                                        Boolean.FALSE })
+                        .booleanValue());
+
+        assertTrue(
+                "true, false, false",
+                BooleanUtils
+                        .isOneTrue(
+                                new Boolean[] {
+                                        Boolean.TRUE,
+                                        Boolean.FALSE,
+                                        Boolean.FALSE })
+                        .booleanValue());
+
+        assertFalse(
+                "true, false, true",
+                BooleanUtils.isOneTrue(
+                        new Boolean[] {
+                                Boolean.TRUE,
+                                Boolean.FALSE,
+                                Boolean.TRUE })
+                        .booleanValue());
+
+        assertFalse(
+                "true, true, false",
+                BooleanUtils.isOneTrue(
+                        new Boolean[] {
+                                Boolean.TRUE,
+                                Boolean.TRUE,
+                                Boolean.FALSE })
+                        .booleanValue());
+
+        assertFalse(
+                "false, true, true",
+                BooleanUtils.isOneTrue(
+                        new Boolean[] {
+                                Boolean.FALSE,
+                                Boolean.TRUE,
+                                Boolean.TRUE })
+                        .booleanValue());
+
+        assertFalse(
+                "true, true, true",
+                BooleanUtils
+                        .isOneTrue(new Boolean[] { Boolean.TRUE, Boolean.TRUE, Boolean.TRUE })
+                        .booleanValue());
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void test_isTrue_Boolean() {
