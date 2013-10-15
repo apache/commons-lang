@@ -141,6 +141,82 @@ public class BooleanUtils {
         return !isFalse(bool);
     }
 
+    /**
+     * <p>Checks if exactly one of the given booleans is true.</p>
+     *
+     * <pre>
+     *   BooleanUtils.isOneTrue(true, true)   = false
+     *   BooleanUtils.isOneTrue(false, false) = false
+     *   BooleanUtils.isOneTrue(true, false)  = true
+     *   BooleanUtils.isOneTrue(true, true)   = false
+     *   BooleanUtils.isOneTrue(false, false) = false
+     *   BooleanUtils.isOneTrue(true, false)  = true
+     * </pre>
+     *
+     * @param array  an array of {@code boolean}s
+     * @return {@code true} if the array containes the value true only once.
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty.
+     * @since 3.2
+     */
+    public static boolean isOneTrue(final boolean... array) {
+        // Validates input
+        if (array == null) {
+            throw new IllegalArgumentException("The Array must not be null");
+        }
+        if (array.length == 0) {
+            throw new IllegalArgumentException("Array is empty");
+        }
+
+        // Loops through array, comparing each item
+        int trueCount = 0;
+        for (final boolean element : array) {
+            // If item is true, and trueCount is < 1, increments count
+            // Else, isOneTrue fails
+            if (element) {
+                if (trueCount < 1) {
+                    trueCount++;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        // Returns true if there was exactly 1 true item
+        return trueCount == 1;
+    }
+
+    /**
+     * <p>Checks if exactly one of the given Booleans is true.</p>
+     *
+     * <pre>
+     *   BooleanUtils.isOneTrue(new Boolean[] { Boolean.TRUE, Boolean.TRUE })   = Boolean.FALSE
+     *   BooleanUtils.isOneTrue(new Boolean[] { Boolean.FALSE, Boolean.FALSE }) = Boolean.FALSE
+     *   BooleanUtils.isOneTrue(new Boolean[] { Boolean.TRUE, Boolean.FALSE })  = Boolean.TRUE
+     * </pre>
+     *
+     * @param array  an array of {@code Boolean}s
+     * @return {@code true} if the array containes a Boolean with value true only once.
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws IllegalArgumentException if {@code array} contains a {@code null}
+     * @since 3.2
+     */
+    public static Boolean isOneTrue(final Boolean... array) {
+        if (array == null) {
+            throw new IllegalArgumentException("The Array must not be null");
+        }
+        if (array.length == 0) {
+            throw new IllegalArgumentException("Array is empty");
+        }
+        try {
+            final boolean[] primitive = ArrayUtils.toPrimitive(array);
+            return isOneTrue(primitive) ? Boolean.TRUE : Boolean.FALSE;
+        } catch (final NullPointerException ex) {
+            throw new IllegalArgumentException("The array must not contain any null elements");
+        }
+    }
+
     //-----------------------------------------------------------------------
     /**
      * <p>Converts a Boolean to a boolean handling {@code null}
