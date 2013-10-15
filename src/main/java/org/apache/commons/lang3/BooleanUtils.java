@@ -1028,14 +1028,6 @@ public class BooleanUtils {
      *   BooleanUtils.xor(true, false)  = true
      * </pre>
      *
-     * <p>Note that this method behaves different from using the binary XOR operator (^). Instead of combining the given
-     * booleans using the XOR operator from left to right, this method counts the appearances of true in the given
-     * array. It will only return true if exactly one boolean in the given array is true:</p>
-     * <pre>
-     *   true ^ true ^ false ^ true                 = true
-     *   BooleanUtils.xor(true, true, false, true)  = false
-     * </pre>
-     *
      * @param array  an array of {@code boolean}s
      * @return {@code true} if the xor is successful.
      * @throws IllegalArgumentException if {@code array} is {@code null}
@@ -1050,22 +1042,13 @@ public class BooleanUtils {
             throw new IllegalArgumentException("Array is empty");
         }
 
-        // Loops through array, comparing each item
-        int trueCount = 0;
+        // false if the neutral element of the xor operator
+        boolean result = false;
         for (final boolean element : array) {
-            // If item is true, and trueCount is < 1, increments count
-            // Else, xor fails
-            if (element) {
-                if (trueCount < 1) {
-                    trueCount++;
-                } else {
-                    return false;
-                }
-            }
+            result ^= element;
         }
 
-        // Returns true if there was exactly 1 true item
-        return trueCount == 1;
+        return result;
     }
 
     /**
@@ -1076,9 +1059,6 @@ public class BooleanUtils {
      *   BooleanUtils.xor(new Boolean[] { Boolean.FALSE, Boolean.FALSE }) = Boolean.FALSE
      *   BooleanUtils.xor(new Boolean[] { Boolean.TRUE, Boolean.FALSE })  = Boolean.TRUE
      * </pre>
-     *
-     * <p>Note that this method behaves different from using the binary XOR operator (^). See
-     * {@link #xor(boolean...)}.</p>
      *
      * @param array  an array of {@code Boolean}s
      * @return {@code true} if the xor is successful.
