@@ -133,9 +133,9 @@ public class RandomStringUtils {
      * characters as indicated by the arguments.</p>
      *
      * @param count  the length of random string to create
-     * @param letters  if {@code true}, generated string will include
+     * @param letters  if {@code true}, generated string may include
      *  alphabetic characters
-     * @param numbers  if {@code true}, generated string will include
+     * @param numbers  if {@code true}, generated string may include
      *  numeric characters
      * @return the random string
      */
@@ -153,9 +153,9 @@ public class RandomStringUtils {
      * @param count  the length of random string to create
      * @param start  the position in set of chars to start at
      * @param end  the position in set of chars to end before
-     * @param letters  if {@code true}, generated string will include
+     * @param letters  if {@code true}, generated string may include
      *  alphabetic characters
-     * @param numbers  if {@code true}, generated string will include
+     * @param numbers  if {@code true}, generated string may include
      *  numeric characters
      * @return the random string
      */
