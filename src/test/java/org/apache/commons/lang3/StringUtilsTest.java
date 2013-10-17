@@ -30,6 +30,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -2328,5 +2329,26 @@ public class StringUtilsTest {
         assertEquals("prependIfMissingIgnoreCase(mnoabc,xyz,mno)", "mnoabc", StringUtils.prependIfMissingIgnoreCase("mnoabc","xyz","mno"));
         assertEquals("prependIfMissingIgnoreCase(XYZabc,xyz,mno)", "XYZabc", StringUtils.prependIfMissingIgnoreCase("XYZabc","xyz","mno"));
         assertEquals("prependIfMissingIgnoreCase(MNOabc,xyz,mno)", "MNOabc", StringUtils.prependIfMissingIgnoreCase("MNOabc","xyz","mno"));
+    }
+    
+    /**
+     * Tests {@link StringUtils#toString(byte[], Charset)}
+     * 
+     * @throws UnsupportedEncodingException
+     * @see StringUtils#toString(byte[], Charset)
+     */
+    @Test
+    public void testToEncodedString() throws UnsupportedEncodingException {
+        final String expectedString = "The quick brown fox jumped over the lazy dog.";
+        String encoding = SystemUtils.FILE_ENCODING;
+        byte[] expectedBytes = expectedString.getBytes(encoding);
+        // sanity check start
+        assertArrayEquals(expectedBytes, expectedString.getBytes());
+        // sanity check end
+        assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.defaultCharset()));
+        assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.forName(encoding)));
+        encoding = "UTF-16";
+        expectedBytes = expectedString.getBytes(encoding);
+        assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.forName(encoding)));
     }
 }

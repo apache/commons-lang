@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-795" type="add" due-to="Aaron Digulla">StringUtils.toString(byte[], String) deprecated in favour of a new StringUtils.toString(byte[], CharSet)</action>
     <action issue="LANG-902" type="fix" due-to="Andrzej Winnicki">RandomStringUtils.random javadoc was incorrectly promising letters and numbers would, as opposed to may, appear</action>
     <action issue="LANG-921" type="fix" dev="britter">BooleanUtils.xor(boolean...) produces wrong results</action>
     <action issue="LANG-910" type="update" due-to="Timur Yarosh">StringUtils.normalizeSpace now handles non-breaking spaces (Unicode 00A0)</action>

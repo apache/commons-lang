@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7347,10 +7348,29 @@ public class StringUtils {
      *             If the named charset is not supported
      * @throws NullPointerException
      *             if the input is null
+     * @deprecated use {@link StringUtils#toEncodedString(byte[], Charset)} instead to String constants in your code
      * @since 3.1
      */
     public static String toString(final byte[] bytes, final String charsetName) throws UnsupportedEncodingException {
         return charsetName == null ? new String(bytes) : new String(bytes, charsetName);
+    }
+
+    /**
+     * Converts a <code>byte[]</code> to a String using the specified character encoding.
+     * 
+     * @param bytes
+     *            the byte array to read from
+     * @param charsetName
+     *            the encoding to use, if null then use the platform default
+     * @return a new String
+     * @throws UnsupportedEncodingException
+     *             If the named charset is not supported
+     * @throws NullPointerException
+     *             if the input is null
+     * @since 3.2
+     */
+    public static String toEncodedString(byte[] bytes, Charset charset) throws UnsupportedEncodingException {
+        return charset == null ? new String(bytes) : new String(bytes, charset);
     }
 
 }
