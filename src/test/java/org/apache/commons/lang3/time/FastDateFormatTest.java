@@ -284,7 +284,7 @@ public class FastDateFormatTest {
             pool.submit(new Runnable() {
                 @Override
                 public void run() {
-                    for(int i= 0; i<NROUNDS; ++i) {
+                    for(int j= 0; j<NROUNDS; ++j) {
                         try {
                             final Date date= new Date();
                             final String formattedDate= formatter.format(date);
