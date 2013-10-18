@@ -125,7 +125,7 @@ abstract class FormatCache<F extends Format> {
         return getInstance(pattern, timeZone, locale);
     }
 
-    /*
+    /**
      * <p>Gets a date/time formatter instance using the specified style,
      * time zone and locale.</p>
      * 
@@ -143,7 +143,7 @@ abstract class FormatCache<F extends Format> {
         return getDateTimeInstance(Integer.valueOf(dateStyle), Integer.valueOf(timeStyle), timeZone, locale);
     }
 
-    /*
+    /**
      * <p>Gets a date formatter instance using the specified style,
      * time zone and locale.</p>
      * 
@@ -160,11 +160,10 @@ abstract class FormatCache<F extends Format> {
         return getDateTimeInstance(Integer.valueOf(dateStyle), null, timeZone, locale);
     }
 
-    /*
+    /**
      * <p>Gets a time formatter instance using the specified style,
      * time zone and locale.</p>
      * 
-     * @param dateStyle  date style: FULL, LONG, MEDIUM, or SHORT
      * @param timeStyle  time style: FULL, LONG, MEDIUM, or SHORT
      * @param timeZone  optional time zone, overrides time zone of
      *  formatted date, null means use default Locale
