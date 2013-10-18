@@ -80,6 +80,9 @@ public abstract class TypeLiteral<T> implements Typed<T> {
 
     private final String toString;
 
+    /**
+     * The default constructor.
+     */
     protected TypeLiteral() {
         this.value =
             Validate.notNull(TypeUtils.getTypeArguments(getClass(), TypeLiteral.class).get(T),
