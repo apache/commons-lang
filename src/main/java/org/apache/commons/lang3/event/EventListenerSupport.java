@@ -247,13 +247,13 @@ public class EventListenerSupport<L> implements Serializable {
     private void readObject(final ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
         final
-        L[] listeners = (L[]) objectInputStream.readObject();
+        L[] srcListeners = (L[]) objectInputStream.readObject();
 
-        this.listeners = new CopyOnWriteArrayList<L>(listeners);
+        this.listeners = new CopyOnWriteArrayList<L>(srcListeners);
 
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
         final
-        Class<L> listenerInterface = (Class<L>) listeners.getClass().getComponentType();
+        Class<L> listenerInterface = (Class<L>) srcListeners.getClass().getComponentType();
 
         initializeTransientFields(listenerInterface, Thread.currentThread().getContextClassLoader());
     }

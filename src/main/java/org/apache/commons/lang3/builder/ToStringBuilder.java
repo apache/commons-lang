@@ -948,12 +948,12 @@ public class ToStringBuilder implements Builder<String> {
      * </code> method. Appends the class name followed by
      * {@link System#identityHashCode(java.lang.Object)}.</p>
      *
-     * @param object  the <code>Object</code> whose class name and id to output
+     * @param srcObject  the <code>Object</code> whose class name and id to output
      * @return this
      * @since 2.0
      */
-    public ToStringBuilder appendAsObjectToString(final Object object) {
-        ObjectUtils.identityToString(this.getStringBuffer(), object);
+    public ToStringBuilder appendAsObjectToString(final Object srcObject) {
+        ObjectUtils.identityToString(this.getStringBuffer(), srcObject);
         return this;
     }
 
