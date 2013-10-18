@@ -45,6 +45,7 @@ import org.junit.Test;
  *
  * @version $Id$
  */
+@SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class ObjectUtilsTest {
     private static final String FOO = "foo";
     private static final String BAR = "bar";
