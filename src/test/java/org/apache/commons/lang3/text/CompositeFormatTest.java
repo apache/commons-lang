@@ -37,7 +37,9 @@ public class CompositeFormatTest {
     public void testCompositeFormat() {
 
         final Format parser = new Format() {
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
                 throw new UnsupportedOperationException("Not implemented");
             }
@@ -49,7 +51,9 @@ public class CompositeFormatTest {
         };
 
         final Format formatter = new Format() {
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
                 return null;    // do nothing
             }

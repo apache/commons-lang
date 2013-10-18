@@ -28,6 +28,8 @@ import org.junit.Test;
 public class ToStringStyleTest {
 
     private static class ToStringStyleImpl extends ToStringStyle {
+		private static final long serialVersionUID = 1L;
+
     }
 
     //-----------------------------------------------------------------------
