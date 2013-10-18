@@ -18,7 +18,9 @@
 package org.apache.commons.lang3.text;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +33,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * Unit test for Tokenizer.
  * 
  */
+@SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class StrTokenizerTest {
 
     private static final String CSV_SIMPLE_FIXTURE = "A,b,c";

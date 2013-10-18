@@ -44,6 +44,7 @@ import org.junit.Test;
  *
  * @version $Id$
  */
+@SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class StringUtilsTest {
     
     static final String WHITESPACE;
@@ -1304,7 +1305,6 @@ public class StringUtilsTest {
         }
     }
 
-    @SuppressWarnings("deprecation") // intentional test of deprecated method
     @Test
     public void testChomp() {
 
