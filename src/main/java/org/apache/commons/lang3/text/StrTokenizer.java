@@ -627,30 +627,30 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * equal to the length of the array to this method, however a subclass
      * may pass other values, or even an entirely different array.
      * 
-     * @param chars  the character array being tokenized, may be null
+     * @param srcChars  the character array being tokenized, may be null
      * @param offset  the start position within the character array, must be valid
      * @param count  the number of characters to tokenize, must be valid
      * @return the modifiable list of String tokens, unmodifiable if null array or zero count
      */
-    protected List<String> tokenize(final char[] chars, final int offset, final int count) {
-        if (chars == null || count == 0) {
+    protected List<String> tokenize(final char[] srcChars, final int offset, final int count) {
+        if (srcChars == null || count == 0) {
             return Collections.emptyList();
         }
         final StrBuilder buf = new StrBuilder();
-        final List<String> tokens = new ArrayList<String>();
+        final List<String> tokenList = new ArrayList<String>();
         int pos = offset;
         
         // loop around the entire buffer
         while (pos >= 0 && pos < count) {
             // find next token
-            pos = readNextToken(chars, pos, count, buf, tokens);
+            pos = readNextToken(srcChars, pos, count, buf, tokenList);
             
             // handle case where end of string is a delimiter
             if (pos >= count) {
-                addToken(tokens, "");
+                addToken(tokenList, "");
             }
         }
-        return tokens;
+        return tokenList;
     }
 
     /**
@@ -674,24 +674,24 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     /**
      * Reads character by character through the String to get the next token.
      *
-     * @param chars  the character array being tokenized
+     * @param srcChars  the character array being tokenized
      * @param start  the first character of field
      * @param len  the length of the character array being tokenized
      * @param workArea  a temporary work area
-     * @param tokens  the list of parsed tokens
+     * @param tokenList  the list of parsed tokens
      * @return the starting position of the next field (the character
      *  immediately after the delimiter), or -1 if end of string found
      */
-    private int readNextToken(final char[] chars, int start, final int len, final StrBuilder workArea, final List<String> tokens) {
+    private int readNextToken(final char[] srcChars, int start, final int len, final StrBuilder workArea, final List<String> tokenList) {
         // skip all leading whitespace, unless it is the
         // field delimiter or the quote character
         while (start < len) {
             final int removeLen = Math.max(
-                    getIgnoredMatcher().isMatch(chars, start, start, len),
-                    getTrimmerMatcher().isMatch(chars, start, start, len));
+                    getIgnoredMatcher().isMatch(srcChars, start, start, len),
+                    getTrimmerMatcher().isMatch(srcChars, start, start, len));
             if (removeLen == 0 ||
-                getDelimiterMatcher().isMatch(chars, start, start, len) > 0 ||
-                getQuoteMatcher().isMatch(chars, start, start, len) > 0) {
+                getDelimiterMatcher().isMatch(srcChars, start, start, len) > 0 ||
+                getQuoteMatcher().isMatch(srcChars, start, start, len) > 0) {
                 break;
             }
             start += removeLen;
@@ -699,41 +699,41 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         
         // handle reaching end
         if (start >= len) {
-            addToken(tokens, "");
+            addToken(tokenList, "");
             return -1;
         }
         
         // handle empty token
-        final int delimLen = getDelimiterMatcher().isMatch(chars, start, start, len);
+        final int delimLen = getDelimiterMatcher().isMatch(srcChars, start, start, len);
         if (delimLen > 0) {
-            addToken(tokens, "");
+            addToken(tokenList, "");
             return start + delimLen;
         }
         
         // handle found token
-        final int quoteLen = getQuoteMatcher().isMatch(chars, start, start, len);
+        final int quoteLen = getQuoteMatcher().isMatch(srcChars, start, start, len);
         if (quoteLen > 0) {
-            return readWithQuotes(chars, start + quoteLen, len, workArea, tokens, start, quoteLen);
+            return readWithQuotes(srcChars, start + quoteLen, len, workArea, tokenList, start, quoteLen);
         }
-        return readWithQuotes(chars, start, len, workArea, tokens, 0, 0);
+        return readWithQuotes(srcChars, start, len, workArea, tokenList, 0, 0);
     }
 
     /**
      * Reads a possibly quoted string token.
      *
-     * @param chars  the character array being tokenized
+     * @param srcChars  the character array being tokenized
      * @param start  the first character of field
      * @param len  the length of the character array being tokenized
      * @param workArea  a temporary work area
-     * @param tokens  the list of parsed tokens
+     * @param tokenList  the list of parsed tokens
      * @param quoteStart  the start position of the matched quote, 0 if no quoting
      * @param quoteLen  the length of the matched quote, 0 if no quoting
      * @return the starting position of the next field (the character
      *  immediately after the delimiter, or if end of string found,
      *  then the length of string
      */
-    private int readWithQuotes(final char[] chars, final int start, final int len, final StrBuilder workArea, 
-                               final List<String> tokens, final int quoteStart, final int quoteLen) {
+    private int readWithQuotes(final char[] srcChars, final int start, final int len, final StrBuilder workArea, 
+                               final List<String> tokenList, final int quoteStart, final int quoteLen) {
         // Loop until we've found the end of the quoted
         // string or the end of the input
         workArea.clear();
@@ -752,10 +752,10 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                 // followed by a second quote.  If so, then we need
                 // to actually put the quote character into the token
                 // rather than end the token.
-                if (isQuote(chars, pos, len, quoteStart, quoteLen)) {
-                    if (isQuote(chars, pos + quoteLen, len, quoteStart, quoteLen)) {
+                if (isQuote(srcChars, pos, len, quoteStart, quoteLen)) {
+                    if (isQuote(srcChars, pos + quoteLen, len, quoteStart, quoteLen)) {
                         // matched pair of quotes, thus an escaped quote
-                        workArea.append(chars, pos, quoteLen);
+                        workArea.append(srcChars, pos, quoteLen);
                         pos += quoteLen * 2;
                         trimStart = workArea.size();
                         continue;
@@ -768,29 +768,29 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                 }
                 
                 // copy regular character from inside quotes
-                workArea.append(chars[pos++]);
+                workArea.append(srcChars[pos++]);
                 trimStart = workArea.size();
                 
             } else {
                 // Not in quoting mode
                 
                 // check for delimiter, and thus end of token
-                final int delimLen = getDelimiterMatcher().isMatch(chars, pos, start, len);
+                final int delimLen = getDelimiterMatcher().isMatch(srcChars, pos, start, len);
                 if (delimLen > 0) {
                     // return condition when end of token found
-                    addToken(tokens, workArea.substring(0, trimStart));
+                    addToken(tokenList, workArea.substring(0, trimStart));
                     return pos + delimLen;
                 }
                 
                 // check for quote, and thus back into quoting mode
-                if (quoteLen > 0 && isQuote(chars, pos, len, quoteStart, quoteLen)) {
+                if (quoteLen > 0 && isQuote(srcChars, pos, len, quoteStart, quoteLen)) {
                     quoting = true;
                     pos += quoteLen;
                     continue;
                 }
                 
                 // check for ignored (outside quotes), and ignore
-                final int ignoredLen = getIgnoredMatcher().isMatch(chars, pos, start, len);
+                final int ignoredLen = getIgnoredMatcher().isMatch(srcChars, pos, start, len);
                 if (ignoredLen > 0) {
                     pos += ignoredLen;
                     continue;
@@ -799,21 +799,21 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                 // check for trimmed character
                 // don't yet know if its at the end, so copy to workArea
                 // use trimStart to keep track of trim at the end
-                final int trimmedLen = getTrimmerMatcher().isMatch(chars, pos, start, len);
+                final int trimmedLen = getTrimmerMatcher().isMatch(srcChars, pos, start, len);
                 if (trimmedLen > 0) {
-                    workArea.append(chars, pos, trimmedLen);
+                    workArea.append(srcChars, pos, trimmedLen);
                     pos += trimmedLen;
                     continue;
                 }
                 
                 // copy regular character from outside quotes
-                workArea.append(chars[pos++]);
+                workArea.append(srcChars[pos++]);
                 trimStart = workArea.size();
             }
         }
         
         // return condition when end of string found
-        addToken(tokens, workArea.substring(0, trimStart));
+        addToken(tokenList, workArea.substring(0, trimStart));
         return -1;
     }
 
@@ -821,16 +821,16 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * Checks if the characters at the index specified match the quote
      * already matched in readNextToken().
      *
-     * @param chars  the character array being tokenized
+     * @param srcChars  the character array being tokenized
      * @param pos  the position to check for a quote
      * @param len  the length of the character array being tokenized
      * @param quoteStart  the start position of the matched quote, 0 if no quoting
      * @param quoteLen  the length of the matched quote, 0 if no quoting
      * @return true if a quote is matched
      */
-    private boolean isQuote(final char[] chars, final int pos, final int len, final int quoteStart, final int quoteLen) {
+    private boolean isQuote(final char[] srcChars, final int pos, final int len, final int quoteStart, final int quoteLen) {
         for (int i = 0; i < quoteLen; i++) {
-            if (pos + i >= len || chars[pos + i] != chars[quoteStart + i]) {
+            if (pos + i >= len || srcChars[pos + i] != srcChars[quoteStart + i]) {
                 return false;
             }
         }
