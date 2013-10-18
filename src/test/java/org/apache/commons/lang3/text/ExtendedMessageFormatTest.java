@@ -228,21 +228,21 @@ public class ExtendedMessageFormatTest {
         cal.set(2007, Calendar.JANUARY, 23);
         final Object[] args = new Object[] {cal.getTime()};
         final Locale[] availableLocales = DateFormat.getAvailableLocales();
-        final Map<String, ? extends FormatFactory> registry = Collections.singletonMap("date", new OverrideShortDateFormatFactory());
+        final Map<String, ? extends FormatFactory> dateRegistry = Collections.singletonMap("date", new OverrideShortDateFormatFactory());
 
         //check the non-overridden builtins:
-        checkBuiltInFormat("1: {0,date}", registry,          args, availableLocales);
-        checkBuiltInFormat("2: {0,date,medium}", registry,   args, availableLocales);
-        checkBuiltInFormat("3: {0,date,long}", registry,     args, availableLocales);
-        checkBuiltInFormat("4: {0,date,full}", registry,     args, availableLocales);
-        checkBuiltInFormat("5: {0,date,d MMM yy}", registry, args, availableLocales);
+        checkBuiltInFormat("1: {0,date}", dateRegistry,          args, availableLocales);
+        checkBuiltInFormat("2: {0,date,medium}", dateRegistry,   args, availableLocales);
+        checkBuiltInFormat("3: {0,date,long}", dateRegistry,     args, availableLocales);
+        checkBuiltInFormat("4: {0,date,full}", dateRegistry,     args, availableLocales);
+        checkBuiltInFormat("5: {0,date,d MMM yy}", dateRegistry, args, availableLocales);
 
         //check the overridden format:
         for (int i = -1; i < availableLocales.length; i++) {
             final Locale locale = i < 0 ? null : availableLocales[i];
             final MessageFormat dateDefault = createMessageFormat("{0,date}", locale);
             final String pattern = "{0,date,short}";
-            final ExtendedMessageFormat dateShort = new ExtendedMessageFormat(pattern, locale, registry);
+            final ExtendedMessageFormat dateShort = new ExtendedMessageFormat(pattern, locale, dateRegistry);
             assertEquals("overridden date,short format", dateDefault.format(args), dateShort.format(args));
             assertEquals("overridden date,short pattern", pattern, dateShort.toPattern());
         }
@@ -267,11 +267,11 @@ public class ExtendedMessageFormatTest {
      */
     @Test
     public void testEqualsHashcode() {
-        final Map<String, ? extends FormatFactory> registry = Collections.singletonMap("testfmt", new LowerCaseFormatFactory());
+        final Map<String, ? extends FormatFactory> fmtRegistry = Collections.singletonMap("testfmt", new LowerCaseFormatFactory());
         final Map<String, ? extends FormatFactory> otherRegitry = Collections.singletonMap("testfmt", new UpperCaseFormatFactory());
 
         final String pattern = "Pattern: {0,testfmt}";
-        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, Locale.US, registry);
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
 
         ExtendedMessageFormat other = null;
 
@@ -280,17 +280,17 @@ public class ExtendedMessageFormatTest {
         assertTrue("same, hashcode()", emf.hashCode() == emf.hashCode());
 
         // Equal Object
-        other = new ExtendedMessageFormat(pattern, Locale.US, registry);
+        other = new ExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
         assertTrue("equal, equals()",   emf.equals(other));
         assertTrue("equal, hashcode()", emf.hashCode() == other.hashCode());
 
         // Different Class
-        other = new OtherExtendedMessageFormat(pattern, Locale.US, registry);
+        other = new OtherExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
         assertFalse("class, equals()",  emf.equals(other));
         assertTrue("class, hashcode()", emf.hashCode() == other.hashCode()); // same hashcode
         
         // Different pattern
-        other = new ExtendedMessageFormat("X" + pattern, Locale.US, registry);
+        other = new ExtendedMessageFormat("X" + pattern, Locale.US, fmtRegistry);
         assertFalse("pattern, equals()",   emf.equals(other));
         assertFalse("pattern, hashcode()", emf.hashCode() == other.hashCode());
 
@@ -300,7 +300,7 @@ public class ExtendedMessageFormatTest {
         assertFalse("registry, hashcode()", emf.hashCode() == other.hashCode());
 
         // Different Locale
-        other = new ExtendedMessageFormat(pattern, Locale.FRANCE, registry);
+        other = new ExtendedMessageFormat(pattern, Locale.FRANCE, fmtRegistry);
         assertFalse("locale, equals()",  emf.equals(other));
         assertTrue("locale, hashcode()", emf.hashCode() == other.hashCode()); // same hashcode
     }
@@ -318,14 +318,14 @@ public class ExtendedMessageFormatTest {
     /**
      * Test a built in format for the specified Locales, plus <code>null</code> Locale.
      * @param pattern MessageFormat pattern
-     * @param registry FormatFactory registry to use
+     * @param fmtRegistry FormatFactory registry to use
      * @param args MessageFormat arguments
      * @param locales to test
      */
-    private void checkBuiltInFormat(final String pattern, final Map<String, ?> registry, final Object[] args, final Locale[] locales) {
-        checkBuiltInFormat(pattern, registry, args, (Locale) null);
+    private void checkBuiltInFormat(final String pattern, final Map<String, ?> fmtRegistry, final Object[] args, final Locale[] locales) {
+        checkBuiltInFormat(pattern, fmtRegistry, args, (Locale) null);
         for (final Locale locale : locales) {
-            checkBuiltInFormat(pattern, registry, args, locale);
+            checkBuiltInFormat(pattern, fmtRegistry, args, locale);
         }
     }
 
@@ -333,11 +333,11 @@ public class ExtendedMessageFormatTest {
      * Create an ExtendedMessageFormat for the specified pattern and locale and check the
      * formated output matches the expected result for the parameters.
      * @param pattern string
-     * @param registry map
+     * @param registryUnused map (currently unused)
      * @param args Object[]
      * @param locale Locale
      */
-    private void checkBuiltInFormat(final String pattern, final Map<String, ?> registry, final Object[] args, final Locale locale) {
+    private void checkBuiltInFormat(final String pattern, final Map<String, ?> registryUnused, final Object[] args, final Locale locale) {
         final StringBuilder buffer = new StringBuilder();
         buffer.append("Pattern=[");
         buffer.append(pattern);
