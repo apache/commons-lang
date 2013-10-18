@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -73,7 +72,8 @@ public class FieldUtils {
      * @param fieldName
      *            the field name to obtain
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match {@code public} fields.
      * @return the Field object
      * @throws IllegalArgumentException
@@ -155,7 +155,8 @@ public class FieldUtils {
      * @param fieldName
      *            the field name to obtain
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match {@code public} fields.
      * @return the Field object
      * @throws IllegalArgumentException
@@ -241,7 +242,8 @@ public class FieldUtils {
      * @param field
      *            to read
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
      * @return the field value
      * @throws IllegalArgumentException
      *             if the field is {@code null} or not {@code static}
@@ -280,7 +282,8 @@ public class FieldUtils {
      * @param fieldName
      *            the field name to obtain
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match {@code public} fields.
      * @return the Field object
      * @throws IllegalArgumentException
@@ -324,7 +327,8 @@ public class FieldUtils {
      * @param fieldName
      *            the field name to obtain
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match {@code public} fields.
      * @return the Field object
      * @throws IllegalArgumentException
@@ -365,7 +369,8 @@ public class FieldUtils {
      * @param target
      *            the object to call on, may be {@code null} for {@code static} fields
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
      * @return the field value
      * @throws IllegalArgumentException
      *             if the field is {@code null}
@@ -408,7 +413,8 @@ public class FieldUtils {
      * @param fieldName
      *            the field name to obtain
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match {@code public} fields.
      * @return the field value
      * @throws IllegalArgumentException
@@ -452,7 +458,8 @@ public class FieldUtils {
      * @param fieldName
      *            the field name to obtain
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match public fields.
      * @return the Field object
      * @throws IllegalArgumentException
@@ -495,7 +502,8 @@ public class FieldUtils {
      * @param value
      *            to set
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method. {@code false}
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false}
      *            will only match {@code public} fields.
      * @throws IllegalArgumentException
      *             if the field is {@code null} or not {@code static},
@@ -541,7 +549,8 @@ public class FieldUtils {
      * @param value
      *            to set
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match {@code public} fields.
      * @throws IllegalArgumentException
      *             if {@code cls} is {@code null},
@@ -636,7 +645,8 @@ public class FieldUtils {
      * @param value
      *            to set
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match {@code public} fields.
      * @throws IllegalArgumentException
      *             if the field is {@code null} or
@@ -685,7 +695,8 @@ public class FieldUtils {
      * @param value
      *            to set
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method. {@code false}
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false}
      *            will only match {@code public} fields.
      * @throws IllegalArgumentException
      *             if {@code target} is {@code null},
@@ -734,7 +745,8 @@ public class FieldUtils {
      * @param value
      *            to set
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match {@code public} fields.
      * @throws IllegalArgumentException
      *             if {@code target} is {@code null},
