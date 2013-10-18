@@ -388,8 +388,8 @@ public class ExceptionUtilsTest {
         }
         
         out = new ByteArrayOutputStream(1024);
-        final Throwable withCause = createExceptionWithCause();
-        ExceptionUtils.printRootCauseStackTrace(withCause, new PrintStream(out));
+        final Throwable cause = createExceptionWithCause();
+        ExceptionUtils.printRootCauseStackTrace(cause, new PrintStream(out));
         String stackTrace = out.toString();
         assertTrue(stackTrace.indexOf(ExceptionUtils.WRAPPED_MARKER) != -1);
         
@@ -414,8 +414,8 @@ public class ExceptionUtilsTest {
         }
         
         writer = new StringWriter(1024);
-        final Throwable withCause = createExceptionWithCause();
-        ExceptionUtils.printRootCauseStackTrace(withCause, new PrintWriter(writer));
+        final Throwable cause = createExceptionWithCause();
+        ExceptionUtils.printRootCauseStackTrace(cause, new PrintWriter(writer));
         String stackTrace = writer.toString();
         assertTrue(stackTrace.indexOf(ExceptionUtils.WRAPPED_MARKER) != -1);
         
@@ -430,8 +430,8 @@ public class ExceptionUtilsTest {
     public void testGetRootCauseStackTrace_Throwable() throws Exception {
         assertEquals(0, ExceptionUtils.getRootCauseStackTrace(null).length);
         
-        final Throwable withCause = createExceptionWithCause();
-        String[] stackTrace = ExceptionUtils.getRootCauseStackTrace(withCause);
+        final Throwable cause = createExceptionWithCause();
+        String[] stackTrace = ExceptionUtils.getRootCauseStackTrace(cause);
         boolean match = false;
         for (final String element : stackTrace) {
             if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
