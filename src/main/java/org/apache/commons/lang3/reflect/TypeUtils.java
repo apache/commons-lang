@@ -55,7 +55,7 @@ public class TypeUtils {
         
         private Type[] upperBounds;
         private Type[] lowerBounds;
-        
+
         public WildcardTypeBuilder withUpperBounds(Type... bounds) {
             this.upperBounds = bounds;
             return this;
@@ -1547,7 +1547,7 @@ public class TypeUtils {
     /**
      * Wrap the specified {@link Type} in a {@link Typed} wrapper.
      *
-     * @param T inferred generic type
+     * @param <T> inferred generic type
      * @param type to wrap
      * @return Typed<T>
      */
@@ -1563,7 +1563,7 @@ public class TypeUtils {
     /**
      * Wrap the specified {@link Class} in a {@link Typed} wrapper.
      *
-     * @param T generic type
+     * @param <T> generic type
      * @param type to wrap
      * @return Typed<T>
      */
