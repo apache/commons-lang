@@ -399,10 +399,19 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         return applyRulesToString(c);
     }
 
+    /**
+     * Creates a String representation of the given Calendar by applying the rules of this printer to it.
+     * @param c the Calender to apply the rules to.
+     * @return a String representation of the given Calendar.
+     */
     private String applyRulesToString(final Calendar c) {
         return applyRules(c, new StringBuffer(mMaxLengthEstimate)).toString();
     }
 
+    /**
+     * Creation method for ne calender instances.
+     * @return a new Calendar instance.
+     */
     private GregorianCalendar newCalendar() {
         // hard code GregorianCalendar
         return new GregorianCalendar(mTimeZone, mLocale);
