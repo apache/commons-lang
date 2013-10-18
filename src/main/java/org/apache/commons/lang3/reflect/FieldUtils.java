@@ -280,7 +280,7 @@ public class FieldUtils {
      * @param fieldName
      *            the field name to obtain
      * @param forceAccess
-     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(false)} method.
+     *            whether to break scope restrictions using the {@link AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match {@code public} fields.
      * @return the Field object
      * @throws IllegalArgumentException
