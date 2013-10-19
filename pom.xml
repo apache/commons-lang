@@ -574,6 +574,13 @@
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
       <!-- Requires setting 'export MAVEN_OPTS="-Xmx512m" ' -->
       <plugin>
