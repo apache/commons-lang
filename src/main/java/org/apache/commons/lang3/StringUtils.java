@@ -7360,7 +7360,7 @@ public class StringUtils {
      * 
      * @param bytes
      *            the byte array to read from
-     * @param charsetName
+     * @param charset
      *            the encoding to use, if null then use the platform default
      * @return a new String
      * @throws UnsupportedEncodingException
