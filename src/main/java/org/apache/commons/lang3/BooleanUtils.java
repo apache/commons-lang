@@ -145,12 +145,12 @@ public class BooleanUtils {
      * <p>Checks if exactly one of the given booleans is true.</p>
      *
      * <pre>
-     *   BooleanUtils.isOneTrue(true, true)   = false
-     *   BooleanUtils.isOneTrue(false, false) = false
-     *   BooleanUtils.isOneTrue(true, false)  = true
-     *   BooleanUtils.isOneTrue(true, true)   = false
-     *   BooleanUtils.isOneTrue(false, false) = false
-     *   BooleanUtils.isOneTrue(true, false)  = true
+     *   BooleanUtils.isExactlyOneTrue(true, true)   = false
+     *   BooleanUtils.isExactlyOneTrue(false, false) = false
+     *   BooleanUtils.isExactlyOneTrue(true, false)  = true
+     *   BooleanUtils.isExactlyOneTrue(true, true)   = false
+     *   BooleanUtils.isExactlyOneTrue(false, false) = false
+     *   BooleanUtils.isExactlyOneTrue(true, false)  = true
      * </pre>
      *
      * @param array  an array of {@code boolean}s
@@ -159,7 +159,7 @@ public class BooleanUtils {
      * @throws IllegalArgumentException if {@code array} is empty.
      * @since 3.2
      */
-    public static boolean isOneTrue(final boolean... array) {
+    public static boolean isExactlyOneTrue(final boolean... array) {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
@@ -172,7 +172,7 @@ public class BooleanUtils {
         int trueCount = 0;
         for (final boolean element : array) {
             // If item is true, and trueCount is < 1, increments count
-            // Else, isOneTrue fails
+            // Else, isExactlyOneTrue fails
             if (element) {
                 if (trueCount < 1) {
                     trueCount++;
@@ -190,9 +190,9 @@ public class BooleanUtils {
      * <p>Checks if exactly one of the given Booleans is true.</p>
      *
      * <pre>
-     *   BooleanUtils.isOneTrue(new Boolean[] { Boolean.TRUE, Boolean.TRUE })   = Boolean.FALSE
-     *   BooleanUtils.isOneTrue(new Boolean[] { Boolean.FALSE, Boolean.FALSE }) = Boolean.FALSE
-     *   BooleanUtils.isOneTrue(new Boolean[] { Boolean.TRUE, Boolean.FALSE })  = Boolean.TRUE
+     *   BooleanUtils.isExactlyOneTrue(new Boolean[] { Boolean.TRUE, Boolean.TRUE })   = Boolean.FALSE
+     *   BooleanUtils.isExactlyOneTrue(new Boolean[] { Boolean.FALSE, Boolean.FALSE }) = Boolean.FALSE
+     *   BooleanUtils.isExactlyOneTrue(new Boolean[] { Boolean.TRUE, Boolean.FALSE })  = Boolean.TRUE
      * </pre>
      *
      * @param array  an array of {@code Boolean}s
@@ -202,7 +202,7 @@ public class BooleanUtils {
      * @throws IllegalArgumentException if {@code array} contains a {@code null}
      * @since 3.2
      */
-    public static Boolean isOneTrue(final Boolean... array) {
+    public static Boolean isExactlyOneTrue(final Boolean... array) {
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
         }
@@ -211,7 +211,7 @@ public class BooleanUtils {
         }
         try {
             final boolean[] primitive = ArrayUtils.toPrimitive(array);
-            return isOneTrue(primitive) ? Boolean.TRUE : Boolean.FALSE;
+            return isExactlyOneTrue(primitive) ? Boolean.TRUE : Boolean.FALSE;
         } catch (final NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
