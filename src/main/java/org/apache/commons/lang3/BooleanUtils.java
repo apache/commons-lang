@@ -154,7 +154,7 @@ public class BooleanUtils {
      * </pre>
      *
      * @param array  an array of {@code boolean}s
-     * @return {@code true} if the array containes the value true only once.
+     * @return {@code true} if the array contains the value true only once.
      * @throws IllegalArgumentException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
      * @since 3.2
@@ -196,7 +196,7 @@ public class BooleanUtils {
      * </pre>
      *
      * @param array  an array of {@code Boolean}s
-     * @return {@code true} if the array containes a Boolean with value true only once.
+     * @return {@code true} if the array contains a Boolean with value true only once.
      * @throws IllegalArgumentException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
      * @throws IllegalArgumentException if {@code array} contains a {@code null}
