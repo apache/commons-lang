@@ -67,7 +67,7 @@ public class ConstructorUtils {
      *
      * @param <T> the type to be constructed
      * @param cls  the class to be constructed, not {@code null}
-     * @param args  the array of arguments, {@code null treated as empty
+     * @param args  the array of arguments, {@code null} treated as empty
      * @return new instance of {@code cls}, not {@code null}
      *
      * @throws NullPointerException if {@code cls} is {@code null}
@@ -127,8 +127,8 @@ public class ConstructorUtils {
      *
      * @param <T> the type to be constructed
      * @param cls the class to be constructed, not {@code null}
-     * @param args the array of arguments, {@code null treated as empty
-     * @return new instance of {@code cls}, not {@code null
+     * @param args the array of arguments, {@code null} treated as empty
+     * @return new instance of {@code cls}, not {@code null}
      *
      * @throws NullPointerException if {@code cls} is {@code null}
      * @throws NoSuchMethodException if a matching constructor cannot be found

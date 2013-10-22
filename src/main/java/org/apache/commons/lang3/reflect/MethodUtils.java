@@ -203,7 +203,7 @@ public class MethodUtils {
      * @param cls invoke static method on this class
      * @param methodName get method with this name
      * @param args use these arguments - treat {@code null} as empty array
-     * @param parameterTypes match these parameters - treat {@code null as empty array
+     * @param parameterTypes match these parameters - treat {@code null} as empty array
      * @return The value returned by the invoked method
      *
      * @throws NoSuchMethodException if there is no such accessible method
