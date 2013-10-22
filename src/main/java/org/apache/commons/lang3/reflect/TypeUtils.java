@@ -1258,7 +1258,7 @@ public class TypeUtils {
      * Get a type representing {@code type} with variable assignments "unrolled."
      *
      * @param typeArguments as from {@link TypeUtils#getTypeArguments(Type, Class)}
-     * @param type
+     * @param type the type to unroll variable assignments for
      * @return Type
      */
     public static Type unrollVariables(Map<TypeVariable<?>, Type> typeArguments, final Type type) {
@@ -1313,7 +1313,7 @@ public class TypeUtils {
     /**
      * Learn, recursively, whether any of the type parameters associated with {@code type} are bound to variables.
      *
-     * @param type
+     * @param type the type to check for type variables
      * @return boolean
      */
     public static boolean containsTypeVariables(Type type) {
@@ -1342,8 +1342,8 @@ public class TypeUtils {
     /**
      * Create a parameterized type instance.
      *
-     * @param raw
-     * @param typeArguments
+     * @param raw the raw class to create a parameterized type instance for
+     * @param typeArguments the types used for parameterization
      * @return {@link ParameterizedType}
      */
     public static final ParameterizedType parameterize(final Class<?> raw, final Type... typeArguments) {
@@ -1353,8 +1353,8 @@ public class TypeUtils {
     /**
      * Create a parameterized type instance.
      *
-     * @param raw
-     * @param typeArgMappings
+     * @param raw the raw class to create a parameterized type instance for
+     * @param typeArgMappings the mapping used for parameterization
      * @return {@link ParameterizedType}
      */
     public static final ParameterizedType parameterize(final Class<?> raw,
@@ -1365,9 +1365,9 @@ public class TypeUtils {
     /**
      * Create a parameterized type instance.
      *
-     * @param owner
-     * @param raw
-     * @param typeArguments
+     * @param owner the owning type
+     * @param raw the raw class to create a parameterized type instance for
+     * @param typeArguments the types used for parameterization
      *
      * @return {@link ParameterizedType}
      */
@@ -1394,9 +1394,9 @@ public class TypeUtils {
     /**
      * Create a parameterized type instance.
      *
-     * @param owner
-     * @param raw
-     * @param typeArgMappings
+     * @param owner the owning type
+     * @param raw the raw class to create a parameterized type instance for
+     * @param typeArgMappings the mapping used for parameterization
      * @return {@link ParameterizedType}
      */
     public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> raw,
@@ -1425,7 +1425,8 @@ public class TypeUtils {
     /**
      * Create a generic array type instance.
      *
-     * @param componentType
+     * @param componentType the type of the elements of the array. For example the component type of {@code boolean[]}
+     *                      is {@code boolean}
      * @return {@link GenericArrayType}
      */
     public static GenericArrayType genericArrayType(final Type componentType) {
@@ -1435,8 +1436,8 @@ public class TypeUtils {
     /**
      * Check equality of types.
      *
-     * @param t1
-     * @param t2
+     * @param t1 the first type
+     * @param t2 the second type
      * @return boolean
      */
     public static boolean equals(Type t1, Type t2) {
@@ -1494,7 +1495,7 @@ public class TypeUtils {
     /**
      * Present a given type as a Java-esque String.
      *
-     * @param type
+     * @param type the type to create a String representation for
      * @return String
      */
     public static String toString(Type type) {
@@ -1520,7 +1521,7 @@ public class TypeUtils {
     /**
      * Format a {@link TypeVariable} including its {@link GenericDeclaration}.
      *
-     * @param var
+     * @param var the type variable to create a String representation for
      * @return String
      */
     public static String toLongString(TypeVariable<?> var) {
