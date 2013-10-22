@@ -46,7 +46,8 @@ import org.apache.commons.lang3.mutable.MutableObject;
  */
 public class ClassUtils {
     /**
-     * @see ClassUtils#hierarchy(Class, Interfaces)
+     * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
+     * @since 3.2
      */
     public enum Interfaces {
         INCLUDE, EXCLUDE;
@@ -1142,6 +1143,7 @@ public class ClassUtils {
      *
      * @param type the type to get the class hierarchy from
      * @return Iterable an Iterable over the class hierarchy of the given class
+     * @since 3.2
      */
     public static Iterable<Class<?>> hierarchy(final Class<?> type) {
         return hierarchy(type, Interfaces.EXCLUDE);
@@ -1153,6 +1155,7 @@ public class ClassUtils {
      * @param type the type to get the class hierarchy from
      * @param interfacesBehavior switch indicating whether to include or exclude interfaces
      * @return Iterable an Iterable over the class hierarchy of the given class
+     * @since 3.2
      */
     public static Iterable<Class<?>> hierarchy(final Class<?> type, Interfaces interfacesBehavior) {
         final Iterable<Class<?>> classes = new Iterable<Class<?>>() {
