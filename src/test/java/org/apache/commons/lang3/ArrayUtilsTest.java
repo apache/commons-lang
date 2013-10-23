@@ -1806,6 +1806,295 @@ public class ArrayUtilsTest  {
         assertEquals(null, array);
     }
     
+    @Test
+    public void testReverseBooleanRange() {
+        boolean[] array = new boolean[] {false, false, true};
+        // The whole array
+        ArrayUtils.reverse(array, 0, 3);
+        assertTrue(array[0]);
+        assertFalse(array[1]);
+        assertFalse(array[2]);
+        // a range
+        array = new boolean[] {false, false, true};
+        ArrayUtils.reverse(array, 0, 2);
+        assertFalse(array[0]);
+        assertFalse(array[1]);
+        assertTrue(array[2]);
+        // a range with a negative start
+        array = new boolean[] {false, false, true};
+        ArrayUtils.reverse(array, -1, 3);
+        assertTrue(array[0]);
+        assertFalse(array[1]);
+        assertFalse(array[2]);
+        // a range with a large stop idnex
+        array = new boolean[] {false, false, true};
+        ArrayUtils.reverse(array, -1, array.length + 1000);
+        assertTrue(array[0]);
+        assertFalse(array[1]);
+        assertFalse(array[2]);
+        // null
+        array = null;
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(null, array);
+    }
+    
+    @Test
+    public void testReverseByteRange() {
+        byte[] array = new byte[] {1, 2, 3};
+        // The whole array
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // a range
+        array = new byte[] {1, 2, 3};
+        ArrayUtils.reverse(array, 0, 2);
+        assertEquals(2, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(3, array[2]);
+        // a range with a negative start
+        array = new byte[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, 3);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // a range with a large stop idnex
+        array = new byte[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, array.length + 1000);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // null
+        array = null;
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(null, array);
+    }
+    
+    @Test
+    public void testReverseCharRange() {
+        char[] array = new char[] {1, 2, 3};
+        // The whole array
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // a range
+        array = new char[] {1, 2, 3};
+        ArrayUtils.reverse(array, 0, 2);
+        assertEquals(2, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(3, array[2]);
+        // a range with a negative start
+        array = new char[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, 3);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // a range with a large stop idnex
+        array = new char[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, array.length + 1000);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // null
+        array = null;
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(null, array);
+    }
+    
+    @Test
+    public void testReverseDoubleRange() {
+        double[] array = new double[] {1, 2, 3};
+        // The whole array
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(3, array[0], 0);
+        assertEquals(2, array[1], 0);
+        assertEquals(1, array[2], 0);
+        // a range
+        array = new double[] {1, 2, 3};
+        ArrayUtils.reverse(array, 0, 2);
+        assertEquals(2, array[0], 0);
+        assertEquals(1, array[1], 0);
+        assertEquals(3, array[2], 0);
+        // a range with a negative start
+        array = new double[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, 3);
+        assertEquals(3, array[0], 0);
+        assertEquals(2, array[1], 0);
+        assertEquals(1, array[2], 0);
+        // a range with a large stop idnex
+        array = new double[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, array.length + 1000);
+        assertEquals(3, array[0], 0);
+        assertEquals(2, array[1], 0);
+        assertEquals(1, array[2], 0);
+        // null
+        array = null;
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(null, array);
+    }
+    
+    @Test
+    public void testReverseFloatRange() {
+        float[] array = new float[] {1, 2, 3};
+        // The whole array
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(3, array[0], 0);
+        assertEquals(2, array[1], 0);
+        assertEquals(1, array[2], 0);
+        // a range
+        array = new float[] {1, 2, 3};
+        ArrayUtils.reverse(array, 0, 2);
+        assertEquals(2, array[0], 0);
+        assertEquals(1, array[1], 0);
+        assertEquals(3, array[2], 0);
+        // a range with a negative start
+        array = new float[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, 3);
+        assertEquals(3, array[0], 0);
+        assertEquals(2, array[1], 0);
+        assertEquals(1, array[2], 0);
+        // a range with a large stop idnex
+        array = new float[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, array.length + 1000);
+        assertEquals(3, array[0], 0);
+        assertEquals(2, array[1], 0);
+        assertEquals(1, array[2], 0);
+        // null
+        array = null;
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(null, array);
+    }
+    
+    @Test
+    public void testReverseIntRange() {
+        int[] array = new int[] {1, 2, 3};
+        // The whole array
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // a range
+        array = new int[] {1, 2, 3};
+        ArrayUtils.reverse(array, 0, 2);
+        assertEquals(2, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(3, array[2]);
+        // a range with a negative start
+        array = new int[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, 3);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // a range with a large stop idnex
+        array = new int[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, array.length + 1000);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // null
+        array = null;
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(null, array);
+    }
+    
+    @Test
+    public void testReverseLongRange() {
+        long[] array = new long[] {1, 2, 3};
+        // The whole array
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // a range
+        array = new long[] {1, 2, 3};
+        ArrayUtils.reverse(array, 0, 2);
+        assertEquals(2, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(3, array[2]);
+        // a range with a negative start
+        array = new long[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, 3);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // a range with a large stop idnex
+        array = new long[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, array.length + 1000);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // null
+        array = null;
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(null, array);
+    }
+    
+    @Test
+    public void testReverseShortRange() {
+        short[] array = new short[] {1, 2, 3};
+        // The whole array
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // a range
+        array = new short[] {1, 2, 3};
+        ArrayUtils.reverse(array, 0, 2);
+        assertEquals(2, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(3, array[2]);
+        // a range with a negative start
+        array = new short[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, 3);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // a range with a large stop idnex
+        array = new short[] {1, 2, 3};
+        ArrayUtils.reverse(array, -1, array.length + 1000);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
+        // null
+        array = null;
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(null, array);
+    }
+    
+    @Test
+    public void testReverseObjectRange() {
+        String[] array = new String[] {"1", "2", "3"};
+        // The whole array
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals("3", array[0]);
+        assertEquals("2", array[1]);
+        assertEquals("1", array[2]);
+        // a range
+        array = new String[] {"1", "2", "3"};
+        ArrayUtils.reverse(array, 0, 2);
+        assertEquals("2", array[0]);
+        assertEquals("1", array[1]);
+        assertEquals("3", array[2]);
+        // a range with a negative start
+        array = new String[] {"1", "2", "3"};
+        ArrayUtils.reverse(array, -1, 3);
+        assertEquals("3", array[0]);
+        assertEquals("2", array[1]);
+        assertEquals("1", array[2]);
+        // a range with a large stop idnex
+        array = new String[] {"1", "2", "3"};
+        ArrayUtils.reverse(array, -1, array.length + 1000);
+        assertEquals("3", array[0]);
+        assertEquals("2", array[1]);
+        assertEquals("1", array[2]);
+        // null
+        array = null;
+        ArrayUtils.reverse(array, 0, 3);
+        assertEquals(null, array);
+    }
+    
+
     //-----------------------------------------------------------------------
     @Test
     public void testIndexOf() {
