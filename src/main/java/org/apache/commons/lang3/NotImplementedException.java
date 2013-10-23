@@ -38,7 +38,6 @@ package org.apache.commons.lang3;
  *
  * This class was originally added in Lang 2.0, but removed in 3.0.
  *
- * @author Apache Software Foundation
  * @since 3.2 
  * @version $Id: NotImplementedException.java 905636 2010-02-02 14:03:32Z niallp $
  */
