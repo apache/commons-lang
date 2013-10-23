@@ -48,10 +48,11 @@
     <Bug pattern="NP_BOOLEAN_RETURN_NULL" />
   </Match>
 
-  <!-- Reason: toString to supposed to fall back to default encoding if no charsetName is passed in -->
+  <!-- Reason: methods are supposed to fall back to default encoding if no charset is specified -->
   <Match>
     <Class name="org.apache.commons.lang3.StringUtils" />
     <Method name="toString" />
+      <Method name="toEncodedString" />
     <Bug pattern="DM_DEFAULT_ENCODING" />
   </Match>
 
