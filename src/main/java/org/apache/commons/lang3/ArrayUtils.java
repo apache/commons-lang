@@ -864,6 +864,7 @@ public class ArrayUtils {
      * @return a new array containing the elements between
      *      the start and end indices.
      * @since 2.1
+     * @see Arrays#copyOfRange(T[], int, int)
      */
     public static <T> T[] subarray(final T[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -907,6 +908,7 @@ public class ArrayUtils {
      * @return a new array containing the elements between
      *      the start and end indices.
      * @since 2.1
+     * @see Arrays#copyOfRange(long[], int, int)
      */
     public static long[] subarray(final long[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -946,6 +948,7 @@ public class ArrayUtils {
      * @return a new array containing the elements between
      *      the start and end indices.
      * @since 2.1
+     * @see Arrays#copyOfRange(int[], int, int)
      */
     public static int[] subarray(final int[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -985,6 +988,7 @@ public class ArrayUtils {
      * @return a new array containing the elements between
      *      the start and end indices.
      * @since 2.1
+     * @see Arrays#copyOfRange(short[], int, int)
      */
     public static short[] subarray(final short[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1024,6 +1028,7 @@ public class ArrayUtils {
      * @return a new array containing the elements between
      *      the start and end indices.
      * @since 2.1
+     * @see Arrays#copyOfRange(char[], int, int)
      */
     public static char[] subarray(final char[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1063,6 +1068,7 @@ public class ArrayUtils {
      * @return a new array containing the elements between
      *      the start and end indices.
      * @since 2.1
+     * @see Arrays#copyOfRange(byte[], int, int)
      */
     public static byte[] subarray(final byte[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1102,6 +1108,7 @@ public class ArrayUtils {
      * @return a new array containing the elements between
      *      the start and end indices.
      * @since 2.1
+     * @see Arrays#copyOfRange(double[], int, int)
      */
     public static double[] subarray(final double[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1141,6 +1148,7 @@ public class ArrayUtils {
      * @return a new array containing the elements between
      *      the start and end indices.
      * @since 2.1
+     * @see Arrays#copyOfRange(float[], int, int)
      */
     public static float[] subarray(final float[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1180,6 +1188,7 @@ public class ArrayUtils {
      * @return a new array containing the elements between
      *      the start and end indices.
      * @since 2.1
+     * @see Arrays#copyOfRange(boolean[], int, int)
      */
     public static boolean[] subarray(final boolean[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
