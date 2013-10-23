@@ -404,8 +404,8 @@ public class TypeUtils {
     /**
      * Look up {@code var} in {@code typeVarAssigns} <em>transitively</em>,
      * i.e. keep looking until the value found is <em>not</em> a type variable.
-     * @param var
-     * @param typeVarAssigns
+     * @param var the type variable to look up
+     * @param typeVarAssigns the map used for the look up
      * @since 3.2
      */
     private static Type unrollVariableAssignments(TypeVariable<?> var, final Map<TypeVariable<?>, Type> typeVarAssigns) {
