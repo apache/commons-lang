@@ -18,6 +18,7 @@ package org.apache.commons.lang3.time;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 import org.junit.Assert;
 
@@ -222,6 +223,29 @@ public class StopWatchTest  {
         } catch (final IllegalStateException expected) {
             // expected
         }
+    }
+
+    @Test
+    public void testBooleanStates() {
+        final StopWatch watch = new StopWatch();
+        assertFalse(watch.isStarted());
+        assertFalse(watch.isSuspended());
+        assertTrue(watch.isStopped());
+
+        watch.start();
+        assertTrue(watch.isStarted());
+        assertFalse(watch.isSuspended());
+        assertFalse(watch.isStopped());
+
+        watch.suspend();
+        assertTrue(watch.isStarted());
+        assertTrue(watch.isSuspended());
+        assertFalse(watch.isStopped());
+
+        watch.stop();
+        assertFalse(watch.isStarted());
+        assertFalse(watch.isSuspended());
+        assertTrue(watch.isStopped());
     }
 
 }
