@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-774" type="add" due-to="Erhan Bagdemir">Added isStarted, isSuspended and isStopped to StopWatch</action>
     <action issue="LANG-917" type="fix" due-to="Arne Burmeister">Fixed exception when combining custom and choice format in ExtendedMessageFormat</action>
     <action issue="LANG-848" type="add" due-to="Alexander Muthmann">Added StringUtils.isBlank/isEmpty CharSequence... methods</action>
     <action issue="LANG-926" type="add" dev="ggregory">Added ArrayUtils.reverse(array, from, to) methods</action>
