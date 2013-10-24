@@ -80,6 +80,16 @@ public class ExtendedMessageFormatTest {
     }
 
     /**
+     * Test Bug LANG-917 - IndexOutOfBoundsException and/or infinite loop when using a choice pattern
+     */
+    @Test
+    public void testEmbeddedPatternInChoice() {
+        final String pattern = "Hi {0,lower}, got {1,choice,0#none|1#one|1<{1,number}}, {2,upper}!";
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
+        assertEquals(emf.format(new Object[] {"there", 3, "great"}), "Hi there, got 3, GREAT!");
+    }
+
+    /**
      * Test extended and built in formats.
      */
     @Test
