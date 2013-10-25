@@ -946,15 +946,18 @@ public class TypeUtils {
      * {@code TreeSet} is {@code ? extends Map<Integer, ? extends
      * Collection<?>>}.</p>
      *
-     * @param cls the class whose type parameters are to be determined
+     * @param cls the class whose type parameters are to be determined, not {@code null}
      * @param superType the super type from which {@code cls}'s type
-     * arguments are to be determined
+     * arguments are to be determined, not {@code null}
      * @return a {@code Map} of the type assignments that could be determined
      * for the type variables in each type in the inheritance hierarchy from
      * {@code type} to {@code toClass} inclusive.
      */
     public static Map<TypeVariable<?>, Type> determineTypeArguments(final Class<?> cls,
             final ParameterizedType superType) {
+        Validate.notNull(cls, "cls is null");
+        Validate.notNull(superType, "superType is null");
+
         final Class<?> superClass = getRawType(superType);
 
         // compatibility check
@@ -1114,11 +1117,12 @@ public class TypeUtils {
      * </p>
      *
      * @param bounds an array of types representing the upper bounds of either
-     * {@link WildcardType} or {@link TypeVariable}.
+     * {@link WildcardType} or {@link TypeVariable}, not {@code null}.
      * @return an array containing the values from {@code bounds} minus the
      * redundant types.
      */
     public static Type[] normalizeUpperBounds(final Type[] bounds) {
+        Validate.notNull(bounds, "null value specified for bounds array");
         // don't bother if there's only one (or none) type
         if (bounds.length < 2) {
             return bounds;
@@ -1150,10 +1154,11 @@ public class TypeUtils {
      * returns the result of {@link TypeVariable#getBounds()} passed into
      * {@link #normalizeUpperBounds}.</p>
      *
-     * @param typeVariable the subject type variable
+     * @param typeVariable the subject type variable, not {@code null}
      * @return a non-empty array containing the bounds of the type variable.
      */
     public static Type[] getImplicitBounds(final TypeVariable<?> typeVariable) {
+        Validate.notNull(typeVariable, "typeVariable is null");
         final Type[] bounds = typeVariable.getBounds();
 
         return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds);
@@ -1165,11 +1170,12 @@ public class TypeUtils {
      * it returns the result of {@link WildcardType#getUpperBounds()}
      * passed into {@link #normalizeUpperBounds}.</p>
      *
-     * @param wildcardType the subject wildcard type
+     * @param wildcardType the subject wildcard type, not {@code null}
      * @return a non-empty array containing the upper bounds of the wildcard
      * type.
      */
     public static Type[] getImplicitUpperBounds(final WildcardType wildcardType) {
+        Validate.notNull(wildcardType, "wildcardType is null");
         final Type[] bounds = wildcardType.getUpperBounds();
 
         return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds);
@@ -1180,11 +1186,12 @@ public class TypeUtils {
      * {@link WildcardType#getLowerBounds()} returns an empty array. Otherwise,
      * it returns the result of {@link WildcardType#getLowerBounds()}.</p>
      *
-     * @param wildcardType the subject wildcard type
+     * @param wildcardType the subject wildcard type, not {@code null}
      * @return a non-empty array containing the lower bounds of the wildcard
      * type.
      */
     public static Type[] getImplicitLowerBounds(final WildcardType wildcardType) {
+        Validate.notNull(wildcardType, "wildcardType is null");
         final Type[] bounds = wildcardType.getLowerBounds();
 
         return bounds.length == 0 ? new Type[] { null } : bounds;
@@ -1199,11 +1206,12 @@ public class TypeUtils {
      * in {@code typeVarAssigns}.</p>
      *
      * @param typeVarAssigns specifies the potential types to be assigned to the
-     * type variables.
+     * type variables, not {@code null}.
      * @return whether or not the types can be assigned to their respective type
      * variables.
      */
     public static boolean typesSatisfyVariables(final Map<TypeVariable<?>, Type> typeVarAssigns) {
+        Validate.notNull(typeVarAssigns, "typeVarAssigns is null");
         // all types must be assignable to all the bounds of the their mapped
         // type variable.
         for (final Map.Entry<TypeVariable<?>, Type> entry : typeVarAssigns.entrySet()) {
@@ -1460,6 +1468,8 @@ public class TypeUtils {
      */
     public static final ParameterizedType parameterize(final Class<?> raw,
         final Map<TypeVariable<?>, Type> typeArgMappings) {
+        Validate.notNull(raw, "raw class is null");
+        Validate.notNull(typeArgMappings, "typeArgMappings is null");
         return parameterizeWithOwner(null, raw, extractTypeArgumentsFrom(typeArgMappings, raw.getTypeParameters()));
     }
 
@@ -1475,7 +1485,7 @@ public class TypeUtils {
      */
     public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> raw,
         final Type... typeArguments) {
-        Validate.notNull(raw, "raw class");
+        Validate.notNull(raw, "raw class is null");
         final Type useOwner;
         if (raw.getEnclosingClass() == null) {
             Validate.isTrue(owner == null, "no owner allowed for top-level %s", raw);
@@ -1487,8 +1497,10 @@ public class TypeUtils {
                 "%s is invalid owner type for parameterized %s", owner, raw);
             useOwner = owner;
         }
-        Validate.isTrue(raw.getTypeParameters().length == Validate.noNullElements(typeArguments,
-            "null type argument at index %s").length);
+        Validate.noNullElements(typeArguments, "null type argument at index %s");
+        Validate.isTrue(raw.getTypeParameters().length == typeArguments.length,
+            "invalid number of type parameters specified: expected %s, got %s", raw.getTypeParameters().length,
+            typeArguments.length);
 
         return new ParameterizedTypeImpl(raw, useOwner, typeArguments);
     }
@@ -1504,6 +1516,8 @@ public class TypeUtils {
      */
     public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> raw,
         final Map<TypeVariable<?>, Type> typeArgMappings) {
+        Validate.notNull(raw, "raw class is null");
+        Validate.notNull(typeArgMappings, "typeArgMappings is null");
         return parameterizeWithOwner(owner, raw, extractTypeArgumentsFrom(typeArgMappings, raw.getTypeParameters()));
     }
 
@@ -1541,7 +1555,7 @@ public class TypeUtils {
      * @since 3.2
      */
     public static GenericArrayType genericArrayType(final Type componentType) {
-        return new GenericArrayTypeImpl(componentType);
+        return new GenericArrayTypeImpl(Validate.notNull(componentType, "componentType is null"));
     }
 
     /**
@@ -1635,7 +1649,7 @@ public class TypeUtils {
     /**
      * Present a given type as a Java-esque String.
      *
-     * @param type the type to create a String representation for
+     * @param type the type to create a String representation for, not {@code null}
      * @return String
      * @since 3.2
      */
@@ -1662,11 +1676,12 @@ public class TypeUtils {
     /**
      * Format a {@link TypeVariable} including its {@link GenericDeclaration}.
      *
-     * @param var the type variable to create a String representation for
+     * @param var the type variable to create a String representation for, not {@code null}
      * @return String
      * @since 3.2
      */
     public static String toLongString(TypeVariable<?> var) {
+        Validate.notNull(var, "var is null");
         final StringBuilder buf = new StringBuilder();
         final GenericDeclaration d = ((TypeVariable<?>) var).getGenericDeclaration();
         if (d instanceof Class<?>) {
