@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.TimeZone;
 
 /**
  * <p>A suite of utilities surrounding the use of the
@@ -44,6 +45,17 @@ import java.util.NoSuchElementException;
  * @version $Id$
  */
 public class DateUtils {
+
+    /**
+     * A reusable, immutable constant representing the UTC time zone.
+     * 
+     * Note that that two different TimeZone object instances representing the
+     * same time zone (for example this constant and a {@link TimeZone}
+     * retrieved by calling {@link TimeZone#getTimeZone(String)} with UTC
+     * parameter) don't necessarily object equals each other but
+     * {@link TimeZone#hasSameRules(TimeZone)} will return true for them.
+     */
+    public static final TimeZone UTC_TIME_ZONE = new ImmutableTimeZone(TimeZone.getTimeZone("UTC"));
 
     /**
      * Number of milliseconds in a standard second.

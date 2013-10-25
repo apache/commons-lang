@@ -17,7 +17,6 @@
 package org.apache.commons.lang3.time;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -41,7 +40,6 @@ import java.util.TimeZone;
 import junit.framework.AssertionFailedError;
 
 import org.apache.commons.lang3.SystemUtils;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -1625,7 +1623,41 @@ public class DateUtilsTest {
             Locale.setDefault(dflt);            
         }
     }
-    
+
+    @Test
+    public void testUtcTzConstant() {
+        // sanity check
+        assertUtcTz(TimeZone.getTimeZone("UTC"));
+
+        assertUtcTz(DateUtils.UTC_TIME_ZONE);
+
+        TimeZone clone = (TimeZone) DateUtils.UTC_TIME_ZONE.clone();
+        assertEquals(DateUtils.UTC_TIME_ZONE.getClass(), clone.getClass());
+        assertUtcTz(clone);
+    }
+
+    private void assertUtcTz(TimeZone utcTz) {
+        assertEquals("Expected UTC TZ with UTC id.", "UTC", DateUtils.UTC_TIME_ZONE.getID());
+        assertEquals("Expected UTC TZ with no DST savings.", 0, DateUtils.UTC_TIME_ZONE.getDSTSavings());
+        assertEquals("Expected UTC TZ with no offset.", 0, DateUtils.UTC_TIME_ZONE.getRawOffset());
+        assertFalse("Expected UTC TZ with no daylight time.", DateUtils.UTC_TIME_ZONE.observesDaylightTime());
+
+        TimeZone refUtcTz = TimeZone.getTimeZone("UTC");
+        assertTrue("Expected UTC TZ with same rules as reference UTZ TZ.", refUtcTz.hasSameRules(utcTz));
+        assertEquals(utcTz, refUtcTz);
+        assertEquals(refUtcTz.hashCode(), utcTz.hashCode());
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void testUtcTzConstantImmutable1() {
+        DateUtils.UTC_TIME_ZONE.setID("UTC");
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void testUtcTzConstantImmutable2() {
+        DateUtils.UTC_TIME_ZONE.setRawOffset(0);
+    }
+
     /**
      * This checks that this is a 7 element iterator of Calendar objects
      * that are dates (no time), and exactly 1 day spaced after each other.
