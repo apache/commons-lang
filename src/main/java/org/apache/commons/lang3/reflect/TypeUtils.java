@@ -51,22 +51,38 @@ public class TypeUtils {
      * @since 3.2
      */
     public static class WildcardTypeBuilder implements Builder<WildcardType> {
+        /**
+         * Constructor
+         */
         private WildcardTypeBuilder() {
         }
         
         private Type[] upperBounds;
         private Type[] lowerBounds;
 
+        /**
+         * Specify upper bounds of the wildcard type to build.
+         * @param bounds to set
+         * @return {@code this}
+         */
         public WildcardTypeBuilder withUpperBounds(Type... bounds) {
             this.upperBounds = bounds;
             return this;
         }
 
+        /**
+         * Specify lower bounds of the wildcard type to build.
+         * @param bounds to set
+         * @return {@code this}
+         */
         public WildcardTypeBuilder withLowerBounds(Type... bounds) {
             this.lowerBounds = bounds;
             return this;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public WildcardType build() {
             return new WildcardTypeImpl(upperBounds, lowerBounds);
@@ -80,25 +96,41 @@ public class TypeUtils {
     private static final class GenericArrayTypeImpl implements GenericArrayType {
         private final Type componentType;
 
+        /**
+         * Constructor
+         * @param componentType of this array type
+         */
         private GenericArrayTypeImpl(Type componentType) {
             this.componentType = componentType;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public Type getGenericComponentType() {
             return componentType;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String toString() {
             return TypeUtils.toString(this);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean equals(Object obj) {
             return obj == this || obj instanceof GenericArrayType && TypeUtils.equals(this, (GenericArrayType) obj);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public int hashCode() {
             int result = 67 << 4;
@@ -116,37 +148,61 @@ public class TypeUtils {
         private final Type useOwner;
         private final Type[] typeArguments;
 
+        /**
+         * Constructor
+         * @param raw type
+         * @param useOwner owner type to use, if any
+         * @param typeArguments formal type arguments
+         */
         private ParameterizedTypeImpl(Class<?> raw, Type useOwner, Type[] typeArguments) {
             this.raw = raw;
             this.useOwner = useOwner;
             this.typeArguments = typeArguments;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public Type getRawType() {
             return raw;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public Type getOwnerType() {
             return useOwner;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public Type[] getActualTypeArguments() {
             return typeArguments.clone();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String toString() {
             return TypeUtils.toString(this);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean equals(Object obj) {
             return obj == this || obj instanceof ParameterizedType && TypeUtils.equals(this, ((ParameterizedType) obj));
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public int hashCode() {
             int result = 71 << 4;
@@ -169,31 +225,51 @@ public class TypeUtils {
         private final Type[] upperBounds;
         private final Type[] lowerBounds;
 
+        /**
+         * Constructor
+         * @param upperBounds of this type
+         * @param lowerBounds of this type
+         */
         private WildcardTypeImpl(Type[] upperBounds, Type[] lowerBounds) {
             this.upperBounds = ObjectUtils.defaultIfNull(upperBounds, EMPTY_BOUNDS);
             this.lowerBounds = ObjectUtils.defaultIfNull(lowerBounds, EMPTY_BOUNDS);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public Type[] getUpperBounds() {
             return upperBounds.clone();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public Type[] getLowerBounds() {
             return lowerBounds.clone();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String toString() {
             return TypeUtils.toString(this);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean equals(Object obj) {
             return obj == this || obj instanceof WildcardType && TypeUtils.equals(this, (WildcardType) obj);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public int hashCode() {
             int result = 73 << 8;
@@ -406,6 +482,7 @@ public class TypeUtils {
      * i.e. keep looking until the value found is <em>not</em> a type variable.
      * @param var the type variable to look up
      * @param typeVarAssigns the map used for the look up
+     * @return Type or {@code null} if some variable was not in the map
      * @since 3.2
      */
     private static Type unrollVariableAssignments(TypeVariable<?> var, final Map<TypeVariable<?>, Type> typeVarAssigns) {
@@ -1430,6 +1507,12 @@ public class TypeUtils {
         return parameterizeWithOwner(owner, raw, extractTypeArgumentsFrom(typeArgMappings, raw.getTypeParameters()));
     }
 
+    /**
+     * Helper method to establish the formal parameters for a parameterized type.
+     * @param mappings map containing the assignements
+     * @param variables expected map keys
+     * @return array of map values corresponding to specified keys
+     */
     private static Type[] extractTypeArgumentsFrom(Map<TypeVariable<?>, Type> mappings, TypeVariable<?>[] variables) {
         final Type[] result = new Type[variables.length];
         int index = 0;
