@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
@@ -354,10 +355,14 @@ public class EqualsBuilder implements Builder<Boolean> {
         }
         final EqualsBuilder equalsBuilder = new EqualsBuilder();
         try {
-            reflectionAppend(lhs, rhs, testClass, equalsBuilder, testTransients, excludeFields);
-            while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
-                testClass = testClass.getSuperclass();
+            if (testClass.isArray()) {
+                equalsBuilder.append(lhs, rhs);
+            } else {
                 reflectionAppend(lhs, rhs, testClass, equalsBuilder, testTransients, excludeFields);
+                while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
+                    testClass = testClass.getSuperclass();
+                    reflectionAppend(lhs, rhs, testClass, equalsBuilder, testTransients, excludeFields);
+                }
             }
         } catch (final IllegalArgumentException e) {
             // In this case, we tried to test a subclass vs. a superclass and

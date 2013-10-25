@@ -1126,5 +1126,29 @@ public class EqualsBuilderTest {
             return EqualsBuilder.reflectionEquals(this, obj);
         }
     }
+    
+    @Test
+    public void testReflectionArrays() throws Exception {
+
+        final TestObject one = new TestObject(1);
+        final TestObject two = new TestObject(2);
+
+        Object[] o1 = new Object[] { one };
+        Object[] o2 = new Object[] { two };
+        Object[] o3 = new Object[] { one };
+
+        assertTrue(!EqualsBuilder.reflectionEquals(o1, o2));
+        assertTrue(EqualsBuilder.reflectionEquals(o1, o1));
+        assertTrue(EqualsBuilder.reflectionEquals(o1, o3));
+        
+        double[] d1 = { 0, 1 };
+        double[] d2 = { 2, 3 };
+        double[] d3 = { 0, 1 };
+        
+        assertTrue(!EqualsBuilder.reflectionEquals(d1, d2));
+        assertTrue(EqualsBuilder.reflectionEquals(d1, d1));
+        assertTrue(EqualsBuilder.reflectionEquals(d1, d3));
+    }
+
 }
 
