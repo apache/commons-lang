@@ -25,8 +25,7 @@ import java.io.Writer;
  * For example, "\45" should go back to being the specific value (a %).
  *
  * Note that this currently only supports the viable range of octal for Java; namely 
- * 1 to 377. This is both because parsing Java is the main use case and Integer.parseInt
- * throws an exception when values are larger than octal 377.
+ * 1 to 377. This is because parsing Java is the main use case.
  * 
  * @since 3.0
  * @version $Id: OctalUnescaper.java 967237 2010-07-23 20:08:57Z mbenson $
