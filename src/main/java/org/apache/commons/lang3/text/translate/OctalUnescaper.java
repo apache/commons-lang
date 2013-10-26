@@ -40,25 +40,34 @@ public class OctalUnescaper extends CharSequenceTranslator {
      */
     @Override
     public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
-        if(input.charAt(index) == '\\' && index < (input.length() - 1) && Character.isDigit(input.charAt(index + 1)) ) {
-            final int start = index + 1;
+        int remaining = input.length() - index - 1; // how many characters left, ignoring the first \
+        StringBuilder builder = new StringBuilder();
+        if(input.charAt(index) == '\\' && remaining > 0 && isOctalDigit(input.charAt(index + 1)) ) {
+            int next = index + 1;
+            int next2 = index + 2;
+            int next3 = index + 3;
 
-            int end = index + 2;
-            while ( end < input.length() && Character.isDigit(input.charAt(end)) ) {
-                end++;
-                if ( Integer.parseInt(input.subSequence(start, end).toString(), 10) > OCTAL_MAX) {
-                    end--; // rollback
-                    break;
-                }
-                // only 3 characters applicable for Octal
-                if (end - start >= 3) {
-                    break;
+            // we know this is good as we checked it in the if block above
+            builder.append(input.charAt(next));
+
+            if(remaining > 1 && isOctalDigit(input.charAt(next2))) {
+                builder.append(input.charAt(next2));
+                if(remaining > 2 && isZeroToThree(input.charAt(next)) && isOctalDigit(input.charAt(next3))) {
+                    builder.append(input.charAt(next3));
                 }
             }
 
-            out.write( Integer.parseInt(input.subSequence(start, end).toString(), 8) );
-            return 1 + end - start;
+            out.write( Integer.parseInt(builder.toString(), 8) );
+            return 1 + builder.length();
         }
         return 0;
+    }
+
+    private boolean isOctalDigit(char ch) {
+        return ch >= '0' && ch <= '7';
+    }
+
+    private boolean isZeroToThree(char ch) {
+        return ch >= '0' && ch <= '3';
     }
 }

@@ -69,19 +69,14 @@ public class OctalUnescaperTest {
         input = "\\0003";
         result = oue.translate(input);
         assertEquals("Failed to unescape octal characters via the between method", "\000" + "3", result);
-    }
 
-    @Test
-    public void testOutOfRange() {
-        final OctalUnescaper oue = new OctalUnescaper();
+        input = "\\279";
+        result = oue.translate(input);
+        assertEquals("Failed to unescape octal characters via the between method", "\279", result);
 
-        String input = "\\999";
-        try {
-            String result = oue.translate(input);
-            fail("NumberFormatException was expected for input: " + input);
-        } catch(NumberFormatException nfe) {
-            // expected
-        }
+        input = "\\999";
+        result = oue.translate(input);
+        assertEquals("Failed to ignore an out of range octal character via the between method", "\\999", result);
     }
 
 }
