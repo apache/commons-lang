@@ -51,8 +51,10 @@
   <!-- Reason: methods are supposed to fall back to default encoding if no charset is specified -->
   <Match>
     <Class name="org.apache.commons.lang3.StringUtils" />
-    <Method name="toString" />
+    <Or>
+      <Method name="toString" />
       <Method name="toEncodedString" />
+    </Or>
     <Bug pattern="DM_DEFAULT_ENCODING" />
   </Match>
 
