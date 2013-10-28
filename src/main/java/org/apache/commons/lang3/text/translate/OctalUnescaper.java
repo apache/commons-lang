@@ -54,6 +54,10 @@ public class OctalUnescaper extends CharSequenceTranslator {
                 if(remaining > 2 && isZeroToThree(input.charAt(next)) && isOctalDigit(input.charAt(next3))) {
                     builder.append(input.charAt(next3));
                 }
+                //For Octal, Only 3 chars
+                if (end - start >= 3) {
+                    break;
+                }
             }
 
             out.write( Integer.parseInt(builder.toString(), 8) );
