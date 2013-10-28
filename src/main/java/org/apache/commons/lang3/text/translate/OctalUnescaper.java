@@ -32,8 +32,6 @@ import java.io.Writer;
  */
 public class OctalUnescaper extends CharSequenceTranslator {
 
-    private static int OCTAL_MAX = 377;
-
     /**
      * {@inheritDoc}
      */
