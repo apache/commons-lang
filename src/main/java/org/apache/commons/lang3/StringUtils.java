@@ -7449,7 +7449,7 @@ public class StringUtils {
      * @since 3.1
      */
     public static String toString(final byte[] bytes, final String charsetName) throws UnsupportedEncodingException {
-        return charsetName == null ? new String(bytes) : new String(bytes, charsetName);
+        return charsetName != null ? new String(bytes, charsetName) : new String(bytes, Charset.defaultCharset());
     }
 
     /**
@@ -7467,7 +7467,7 @@ public class StringUtils {
      * @since 3.2
      */
     public static String toEncodedString(byte[] bytes, Charset charset) throws UnsupportedEncodingException {
-        return charset == null ? new String(bytes) : new String(bytes, charset);
+        return new String(bytes, charset != null ? charset : Charset.defaultCharset());
     }
 
 }
