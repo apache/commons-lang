@@ -2833,7 +2833,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 
     //-----------------------------------------------------------------------
     /**
-     * Inner class to allow StrBuilder to operate as a writer.
+     * Inner class to allow StrBuilder to operate as a reader.
      */
     class StrBuilderReader extends Reader {
         /** The current stream position. */
