@@ -1,10 +1,15 @@
 package org.apache.commons.lang3.time;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.reflect.MethodUtils;
 
 /**
  * A {@link TimeZone} implementation that just delegates all non final method
@@ -21,6 +26,34 @@ import org.apache.commons.lang3.Validate;
  */
 public class DelegatingTimeZone extends TimeZone {
     private static final long serialVersionUID = 1910962594884138771L;
+    private static final String observesDaylightTimeName = "observesDaylightTime";
+ 
+    private enum JavaVersionBasedInvoker {
+        Java6 {
+            @Override
+            public boolean observesDaylightTime(TimeZone tz) {
+                throw new UnsupportedOperationException(observesDaylightTimeName + "() is not supported on pre Java7 JVM.");
+            }
+        },
+        Java7 {
+            private final Method observesDaylightTime = MethodUtils.getAccessibleMethod(TimeZone.class, observesDaylightTimeName);
+
+            @Override
+            public boolean observesDaylightTime(TimeZone tz) {
+                try {
+                    return (Boolean) observesDaylightTime.invoke(tz);
+                } catch (IllegalAccessException e) {
+                    throw new IllegalStateException("Had no access to invoke " + observesDaylightTimeName + "().", e);
+                } catch (InvocationTargetException e) {
+                    throw new IllegalStateException("Invoking " + observesDaylightTimeName + "() failed.", e);
+                }
+            }
+        };
+
+        public abstract boolean observesDaylightTime(TimeZone tz);
+    }
+
+    private static final JavaVersionBasedInvoker javaVersionBasedInvoker = SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_7) ? JavaVersionBasedInvoker.Java7 : JavaVersionBasedInvoker.Java6;
 
     private final TimeZone delegate;
 
@@ -73,9 +106,16 @@ public class DelegatingTimeZone extends TimeZone {
         return delegate.getDSTSavings();
     }
 
-    @Override
+    /**
+     * This method is only available in JDK7 and up. See {@link TimeZone#observesDaylightTime()}.
+     * 
+     * @return {@code true} if the wrapped {@code TimeZone} is currently in Daylight Saving Time,
+     * or if a transition from Standard Time to Daylight Saving Time occurs at any future time;
+     * {@code false} otherwise.
+     * @since 1.7
+     */
     public boolean observesDaylightTime() {
-        return delegate.observesDaylightTime();
+        return javaVersionBasedInvoker.observesDaylightTime(delegate);
     }
 
     @Override

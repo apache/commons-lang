@@ -39,6 +39,7 @@ import java.util.TimeZone;
 
 import junit.framework.AssertionFailedError;
 
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -1640,7 +1641,17 @@ public class DateUtilsTest {
         assertEquals("Expected UTC TZ with UTC id.", "UTC", DateUtils.UTC_TIME_ZONE.getID());
         assertEquals("Expected UTC TZ with no DST savings.", 0, DateUtils.UTC_TIME_ZONE.getDSTSavings());
         assertEquals("Expected UTC TZ with no offset.", 0, DateUtils.UTC_TIME_ZONE.getRawOffset());
-        assertFalse("Expected UTC TZ with no daylight time.", DateUtils.UTC_TIME_ZONE.observesDaylightTime());
+        if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_7)) {
+            assertFalse("Expected UTC TZ with no daylight time.", ((DelegatingTimeZone)DateUtils.UTC_TIME_ZONE).observesDaylightTime());
+        } else {
+            boolean failed = false;
+            try {
+                ((DelegatingTimeZone)DateUtils.UTC_TIME_ZONE).observesDaylightTime();
+            } catch (UnsupportedOperationException e) {
+                failed = true;
+            }
+            assertTrue("Expected observesDaylightTime() to throw an exception on a pre Java7 JVM.", failed);
+        }
 
         TimeZone refUtcTz = TimeZone.getTimeZone("UTC");
         assertTrue("Expected UTC TZ with same rules as reference UTZ TZ.", refUtcTz.hasSameRules(utcTz));
