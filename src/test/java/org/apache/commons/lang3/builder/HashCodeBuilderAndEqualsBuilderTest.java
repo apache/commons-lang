@@ -79,7 +79,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
      * 
      * @param lhs The Left-Hand-Side of the equals test
      * @param rhs The Right-Hand-Side of the equals test
-     * @param testTransients wether to test transient fields
+     * @param testTransients whether to test transient fields
      */
     private void assertEqualsAndHashCodeContract(final Object lhs, final Object rhs, final boolean testTransients) {
         if (EqualsBuilder.reflectionEquals(lhs, rhs, testTransients)) {
