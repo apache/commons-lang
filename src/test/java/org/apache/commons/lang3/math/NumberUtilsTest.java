@@ -284,7 +284,7 @@ public class NumberUtilsTest {
     }
 
     @Test(expected=NumberFormatException.class)
-    // Check that the code fails to create a valid number when preceeded by -- rather than -
+    // Check that the code fails to create a valid number when preceded by -- rather than -
     public void testCreateNumberFailure_1() {
         NumberUtils.createNumber("--1.1E-700F");
     }

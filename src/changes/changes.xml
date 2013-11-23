@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2" date="TBA" description="Next release">
+    <action issue="LANG-932" type="fix" dev="sebb" due-to="Ville Skyttä">Spelling fixes</action>
     <action issue="LANG-931" type="update" dev="britter" due-to="Christoph Schneegans">Misleading Javadoc comment in StrBuilderReader class</action>
     <action issue="LANG-929" type="fix">OctalUnescaper tried to parse all of \279</action>
     <action issue="LANG-928" type="fix">OctalUnescaper had bugs when parsing octals starting with a zero</action>
