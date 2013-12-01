@@ -16,14 +16,14 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 
 /**
  * Utilities for working with {@link Field}s by reflection. Adapted and refactored from the dormant [reflect] Commons sandbox
@@ -663,6 +663,28 @@ public class FieldUtils {
             MemberUtils.setAccessibleWorkaround(field);
         }
         field.set(target, value);
+    }
+
+    /**
+     * Remove the final modifier from a {@link Field}
+     * @param field to remove the final modifier
+     * @throws IllegalArgumentException
+     *             if the field is {@code null}
+     */
+    public static void removeFinalModifier(Field field)  {
+        Validate.isTrue(field != null, "The field must not be null");
+
+        try {
+            if(Modifier.isFinal(field.getModifiers())){
+                Field modifiersField = Field.class.getDeclaredField("modifiers");
+                modifiersField.setAccessible(true);
+                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            }
+        } catch (NoSuchFieldException ignored) {
+            // The field class contains always a modifiers field
+        } catch (IllegalAccessException ignored) {
+             // The modifiers field is made accessible
+        }
     }
 
     /**

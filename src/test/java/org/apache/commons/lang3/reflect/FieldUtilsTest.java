@@ -1253,4 +1253,11 @@ public class FieldUtilsTest {
         FieldUtils.getField(Ambig.class, "VALUE");
     }
 
+    @Test
+    public void testRemoveFinalModifier() throws Exception {
+        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
+        assertTrue(Modifier.isFinal(field.getModifiers()));
+        FieldUtils.removeFinalModifier(field);
+        assertFalse(Modifier.isFinal(field.getModifiers()));
+    }
 }
