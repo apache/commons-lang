@@ -25,6 +25,14 @@ import org.apache.commons.lang3.BooleanUtils;
  */
 public class InheritanceUtils {
 
+    /**
+     * <p>{@link InheritanceUtils} instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as
+     * {@code MethodUtils.getAccessibleMethod(method)}.</p>
+     *
+     * <p>This constructor is {@code public} to permit tools that require a JavaBean
+     * instance to operate.</p>
+     */
     public InheritanceUtils() {
         super();
     }
