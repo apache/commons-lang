@@ -84,6 +84,7 @@ public class LocaleUtils {
      * @param str  the locale String to convert, null returns null
      * @return a Locale, null if null input
      * @throws IllegalArgumentException if the string is an invalid format
+     * @see Locale#forLanguageTag(String)
      */
     public static Locale toLocale(final String str) {
         if (str == null) {
