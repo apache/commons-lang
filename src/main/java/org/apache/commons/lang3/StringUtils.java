@@ -252,6 +252,7 @@ public class StringUtils {
      *
      * @param css  the CharSequences to check, may be null or empty
      * @return {@code true} if any of the CharSequences are empty or null
+     * @since 3.2
      */
     public static boolean isAnyEmpty(CharSequence... css) {
       if (ArrayUtils.isEmpty(css)) {
@@ -280,6 +281,7 @@ public class StringUtils {
      *
      * @param css  the CharSequences to check, may be null or empty
      * @return {@code true} if none of the CharSequences are empty or null
+     * @since 3.2
      */
     public static boolean isNoneEmpty(CharSequence... css) {
       return !isAnyEmpty(css);
@@ -350,6 +352,7 @@ public class StringUtils {
      *
      * @param css  the CharSequences to check, may be null or empty
      * @return {@code true} if any of the CharSequences are blank or null or whitespace only
+     * @since 3.2
      */
     public static boolean isAnyBlank(CharSequence... css) {
       if (ArrayUtils.isEmpty(css)) {
@@ -379,6 +382,7 @@ public class StringUtils {
      *
      * @param css  the CharSequences to check, may be null or empty
      * @return {@code true} if none of the CharSequences are blank or null or whitespace only
+     * @since 3.2
      */
     public static boolean isNoneBlank(CharSequence... css) {
       return !isAnyBlank(css);
