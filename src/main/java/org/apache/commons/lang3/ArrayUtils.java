@@ -864,7 +864,7 @@ public class ArrayUtils {
      * @return a new array containing the elements between
      *      the start and end indices.
      * @since 2.1
-     * @see Arrays#copyOfRange(T[], int, int)
+     * @see Arrays#copyOfRange(Object[], int, int)
      */
     public static <T> T[] subarray(final T[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
