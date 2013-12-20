@@ -36,6 +36,7 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  * @param <R> the right element type
  *
  * @version $Id$
+ * @since 3.2
  */
 public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Serializable {
 

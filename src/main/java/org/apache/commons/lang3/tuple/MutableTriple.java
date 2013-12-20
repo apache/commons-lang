@@ -26,6 +26,7 @@ package org.apache.commons.lang3.tuple;
  * @param <R> the right element type
  *
  * @version $Id$
+ * @since 3.2
  */
 public class MutableTriple<L, M, R> extends Triple<L, M, R> {
 
