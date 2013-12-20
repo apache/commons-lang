@@ -138,6 +138,7 @@ public class StrSubstitutor {
     public static final StrMatcher DEFAULT_SUFFIX = StrMatcher.stringMatcher("}");
     /**
      * Constant for the default value delimiter of a variable.
+     * @since 3.2
      */
     public static final StrMatcher DEFAULT_VALUE_DELIMITER = StrMatcher.stringMatcher(":-");
 
@@ -273,7 +274,8 @@ public class StrSubstitutor {
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix, final char escape) {
+    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix,
+                              final char escape) {
         this(StrLookup.mapLookup(valueMap), prefix, suffix, escape);
     }
 
@@ -287,8 +289,10 @@ public class StrSubstitutor {
      * @param escape  the escape character
      * @param valueDelimiter  the variable default value delimiter, may be null
      * @throws IllegalArgumentException if the prefix or suffix is null
+     * @since 3.2
      */
-    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix, final char escape, final String valueDelimiter) {
+    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix,
+                              final char escape, final String valueDelimiter) {
         this(StrLookup.mapLookup(valueMap), prefix, suffix, escape, valueDelimiter);
     }
 
@@ -310,7 +314,8 @@ public class StrSubstitutor {
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix, final char escape) {
+    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix,
+                          final char escape) {
         this.setVariableResolver(variableResolver);
         this.setVariablePrefix(prefix);
         this.setVariableSuffix(suffix);
@@ -327,8 +332,10 @@ public class StrSubstitutor {
      * @param escape  the escape character
      * @param valueDelimiter  the variable default value delimiter string, may be null
      * @throws IllegalArgumentException if the prefix or suffix is null
+     * @since 3.2
      */
-    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix, final char escape, final String valueDelimiter) {
+    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix,
+                          final char escape, final String valueDelimiter) {
         this.setVariableResolver(variableResolver);
         this.setVariablePrefix(prefix);
         this.setVariableSuffix(suffix);
@@ -346,7 +353,8 @@ public class StrSubstitutor {
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
     public StrSubstitutor(
-            final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher, final char escape) {
+            final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher,
+            final char escape) {
         this(variableResolver, prefixMatcher, suffixMatcher, escape, DEFAULT_VALUE_DELIMITER);
     }
 
@@ -359,9 +367,11 @@ public class StrSubstitutor {
      * @param escape  the escape character
      * @param valueDelimiterMatcher  the variable default value delimiter matcher, may be null
      * @throws IllegalArgumentException if the prefix or suffix is null
+     * @since 3.2
      */
     public StrSubstitutor(
-            final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher, final char escape, final StrMatcher valueDelimiterMatcher) {
+            final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher,
+            final char escape, final StrMatcher valueDelimiterMatcher) {
         this.setVariableResolver(variableResolver);
         this.setVariablePrefixMatcher(prefixMatcher);
         this.setVariableSuffixMatcher(suffixMatcher);
@@ -1077,6 +1087,7 @@ public class StrSubstitutor {
      * If it returns null, then the variable default value resolution is disabled.
      *
      * @return the variable default value delimiter matcher in use, may be null
+     * @since 3.2
      */
     public StrMatcher getValueDelimiterMatcher() {
         return valueDelimiterMatcher;
@@ -1094,6 +1105,7 @@ public class StrSubstitutor {
      *
      * @param valueDelimiterMatcher  variable default value delimiter matcher to use, may be null
      * @return this, to enable chaining
+     * @since 3.2
      */
     public StrSubstitutor setValueDelimiterMatcher(final StrMatcher valueDelimiterMatcher) {
         this.valueDelimiterMatcher = valueDelimiterMatcher;
@@ -1109,6 +1121,7 @@ public class StrSubstitutor {
      *
      * @param valueDelimiter  the variable default value delimiter character to use
      * @return this, to enable chaining
+     * @since 3.2
      */
     public StrSubstitutor setValueDelimiter(final char valueDelimiter) {
         return setValueDelimiterMatcher(StrMatcher.charMatcher(valueDelimiter));
@@ -1126,6 +1139,7 @@ public class StrSubstitutor {
      *
      * @param valueDelimiter  the variable default value delimiter string to use, may be null or empty
      * @return this, to enable chaining
+     * @since 3.2
      */
     public StrSubstitutor setValueDelimiter(final String valueDelimiter) {
         if (StringUtils.isEmpty(valueDelimiter)) {
