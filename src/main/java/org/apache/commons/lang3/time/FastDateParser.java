@@ -61,7 +61,7 @@ import java.util.regex.Pattern;
  * </ul>
  * </p>
  *
- * @version $Id $
+ * @version $Id$
  * @since 3.2
  */
 public class FastDateParser implements DateParser, Serializable {
