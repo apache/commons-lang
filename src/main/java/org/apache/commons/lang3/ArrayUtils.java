@@ -1567,6 +1567,7 @@ public class ArrayUtils {
      * @param endIndexExclusive
      *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @since 3.2
      */
     public static void reverse(final boolean[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1601,6 +1602,7 @@ public class ArrayUtils {
      * @param endIndexExclusive
      *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @since 3.2
      */
     public static void reverse(final byte[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1635,6 +1637,7 @@ public class ArrayUtils {
      * @param endIndexExclusive
      *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @since 3.2
      */
     public static void reverse(final char[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1669,6 +1672,7 @@ public class ArrayUtils {
      * @param endIndexExclusive
      *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @since 3.2
      */
     public static void reverse(final double[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1703,6 +1707,7 @@ public class ArrayUtils {
      * @param endIndexExclusive
      *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @since 3.2
      */
     public static void reverse(final float[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1737,6 +1742,7 @@ public class ArrayUtils {
      * @param endIndexExclusive
      *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @since 3.2
      */
     public static void reverse(final int[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1771,6 +1777,7 @@ public class ArrayUtils {
      * @param endIndexExclusive
      *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @since 3.2
      */
     public static void reverse(final long[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1805,6 +1812,7 @@ public class ArrayUtils {
      * @param endIndexExclusive
      *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @since 3.2
      */
     public static void reverse(final Object[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -1839,6 +1847,7 @@ public class ArrayUtils {
      * @param endIndexExclusive
      *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @since 3.2
      */
     public static void reverse(final short[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {

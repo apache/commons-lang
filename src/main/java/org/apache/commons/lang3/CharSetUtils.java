@@ -102,6 +102,7 @@ public class CharSetUtils {
      * @param str  String to look for characters in, may be null
      * @param set  String[] set of characters to identify, may be null
      * @return whether or not the characters in the set are in the primary string
+     * @since 3.2
      */
     public static boolean containsAny(final String str, final String... set) {
         if (StringUtils.isEmpty(str) || deepEmpty(set)) {
