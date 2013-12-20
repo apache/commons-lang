@@ -730,6 +730,7 @@ public class ObjectUtils {
      *
      * @param v the boolean value to return
      * @return the boolean v, unchanged
+     * @since 3.2
      */
     public static boolean CONST(final boolean v) { return v; }
 
@@ -748,6 +749,7 @@ public class ObjectUtils {
      *
      * @param v the byte value to return
      * @return the byte v, unchanged
+     * @since 3.2
      */
     public static byte CONST(final byte v) { return v; }
 
@@ -769,6 +771,7 @@ public class ObjectUtils {
      *         is larger than a byte, that is, smaller than -128 or
      *         larger than 127.
      * @return the byte v, unchanged
+     * @since 3.2
      */
     public static byte CONST_BYTE(final int v) throws IllegalArgumentException {
         if (v < Byte.MIN_VALUE || v > Byte.MAX_VALUE) {
@@ -792,6 +795,7 @@ public class ObjectUtils {
      *
      * @param v the char value to return
      * @return the char v, unchanged
+     * @since 3.2
      */
     public static char CONST(final char v) { return v; }
 
@@ -810,6 +814,7 @@ public class ObjectUtils {
      *
      * @param v the short value to return
      * @return the short v, unchanged
+     * @since 3.2
      */
     public static short CONST(final short v) { return v; }
 
@@ -831,6 +836,7 @@ public class ObjectUtils {
      *         is larger than a short, that is, smaller than -32768 or
      *         larger than 32767.
      * @return the byte v, unchanged
+     * @since 3.2
      */
     public static short CONST_SHORT(final int v) throws IllegalArgumentException {
         if (v < Short.MIN_VALUE || v > Short.MAX_VALUE) {
@@ -855,6 +861,7 @@ public class ObjectUtils {
      *
      * @param v the int value to return
      * @return the int v, unchanged
+     * @since 3.2
      */
     public static int CONST(final int v) { return v; }
 
@@ -873,6 +880,7 @@ public class ObjectUtils {
      *
      * @param v the long value to return
      * @return the long v, unchanged
+     * @since 3.2
      */
     public static long CONST(final long v) { return v; }
 
@@ -891,6 +899,7 @@ public class ObjectUtils {
      *
      * @param v the float value to return
      * @return the float v, unchanged
+     * @since 3.2
      */
     public static float CONST(final float v) { return v; }
 
@@ -909,6 +918,7 @@ public class ObjectUtils {
      *
      * @param v the double value to return
      * @return the double v, unchanged
+     * @since 3.2
      */
     public static double CONST(final double v) { return v; }
 
@@ -928,6 +938,7 @@ public class ObjectUtils {
      * @param <T> the Object type 
      * @param v the genericized Object value to return (typically a String).
      * @return the genericized Object v, unchanged (typically a String).
+     * @since 3.2
      */
     public static <T> T CONST(final T v) { return v; }
 
