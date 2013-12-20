@@ -444,7 +444,6 @@ public class StopWatch {
      *
      * @return boolean
      *             If the StopWatch is started.
-     * @see   State#isStarted() 
      * @since 3.2
      */
     public boolean isStarted() {
@@ -458,7 +457,6 @@ public class StopWatch {
      *
      * @return boolean
      *             If the StopWatch is suspended.
-     * @see   State#isSuspended()
      * @since 3.2
      */
     public boolean isSuspended() {
@@ -474,8 +472,7 @@ public class StopWatch {
      *
      * @return boolean
      *             If the StopWatch is stopped.
-     * @see   State#isStopped()
-     * @since 3.2 
+     * @since 3.2
      */
     public boolean isStopped() {
         return runningState.isStopped();
