@@ -2746,7 +2746,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * new instance each time the method is called.
      *
      * @return the builder as a StringBuilder
-     * @since Apache Commons Lang 3.2
+     * @since 3.2
      */
     public StringBuilder toStringBuilder() {
         return new StringBuilder(size).append(buffer, 0, size);
@@ -2755,7 +2755,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /**
      * Implement the {@link Builder} interface.
      * @return the builder as a String
-     * @since Apache Commons Lang 3.2
+     * @since 3.2
      * @see #toString()
      */
     @Override
