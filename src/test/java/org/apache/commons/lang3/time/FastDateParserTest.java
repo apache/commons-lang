@@ -38,7 +38,7 @@ import org.junit.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.time.FastDateParser}.
  *
- * @version $Id $
+ * @version $Id$
  * @since 3.2
  */
 public class FastDateParserTest {
