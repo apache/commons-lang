@@ -60,6 +60,8 @@ import java.util.regex.Pattern;
  * <li>th_TH (any variant) - Thai Buddhist</li>
  * </ul>
  * </p>
+ *
+ * @version $Id $
  * @since 3.2
  */
 public class FastDateParser implements DateParser, Serializable {
