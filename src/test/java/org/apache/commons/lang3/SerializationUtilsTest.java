@@ -422,6 +422,8 @@ public class SerializationUtilsTest {
 class ClassNotFoundSerialization implements Serializable
 {
 
+    private static final long serialVersionUID = 1L;
+
     private void readObject(final ObjectInputStream in) throws ClassNotFoundException    {
         throw new ClassNotFoundException(SerializationUtilsTest.CLASS_NOT_FOUND_MESSAGE);
     }

@@ -169,6 +169,8 @@ public class EventListenerSupportTest
         final
         EventListenerSupport<VetoableChangeListener> eventListenerSupport = new EventListenerSupport<VetoableChangeListener>(
                 VetoableChangeListener.class) {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected java.lang.reflect.InvocationHandler createInvocationHandler() {
                 return new ProxyInvocationHandler() {
