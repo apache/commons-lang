@@ -7449,7 +7449,7 @@ public class StringUtils {
      *             If the named charset is not supported
      * @throws NullPointerException
      *             if the input is null
-     * @deprecated use {@link StringUtils#toEncodedString(byte[], Charset)} instead to String constants in your code
+     * @deprecated use {@link StringUtils#toEncodedString(byte[], Charset)} instead of String constants in your code
      * @since 3.1
      */
     @Deprecated
