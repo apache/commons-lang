@@ -219,10 +219,10 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testEscapeHtml() {
-        for (int i = 0; i < HTML_ESCAPES.length; ++i) {
-            final String message = HTML_ESCAPES[i][0];
-            final String expected = HTML_ESCAPES[i][1];
-            final String original = HTML_ESCAPES[i][2];
+        for (String[] element : HTML_ESCAPES) {
+            final String message = element[0];
+            final String expected = element[1];
+            final String original = element[2];
             assertEquals(message, expected, StringEscapeUtils.escapeHtml4(original));
             final StringWriter sw = new StringWriter();
             try {
@@ -236,10 +236,10 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testUnescapeHtml4() {
-        for (int i = 0; i < HTML_ESCAPES.length; ++i) {
-            final String message = HTML_ESCAPES[i][0];
-            final String expected = HTML_ESCAPES[i][2];
-            final String original = HTML_ESCAPES[i][1];
+        for (String[] element : HTML_ESCAPES) {
+            final String message = element[0];
+            final String expected = element[2];
+            final String original = element[1];
             assertEquals(message, expected, StringEscapeUtils.unescapeHtml4(original));
             
             final StringWriter sw = new StringWriter();
