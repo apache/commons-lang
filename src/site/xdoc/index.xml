@@ -69,6 +69,9 @@ The <a href="source-repository.html">subversion repository</a> can be
 <li>Compare major versions via the <a href="lang2-lang3-clirr-report.html">Lang2 to Lang3 Clirr report</a></li>
 </ul>
 
+<p>The <a href="clirr-report.html">Clirr report</a> for release 3.2 shows three errors in <code>org.apache.commons.lang3.time.FastDateFormat</code>. These are assumed to not affect client code. For more information please see the
+<a href="release-notes/RELEASE-NOTES-3.2.txt">release notes</a>.</p>
+
 <p>
 Alternatively you can pull it from the central Maven repositories:
 <pre>
