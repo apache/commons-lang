@@ -152,6 +152,7 @@ public class ObjectUtils {
      * @deprecated this method has been replaced by {@code java.util.Objects.equals(Object, Object)} in Java 7 and will
      * be removed from future releases.
      */
+    @Deprecated
     public static boolean equals(final Object object1, final Object object2) {
         if (object1 == object2) {
             return true;
@@ -200,6 +201,7 @@ public class ObjectUtils {
      * @deprecated this method has been replaced by {@code java.util.Objects.hashCode(Object)} in Java 7 and will be
      * removed in future releases
      */
+    @Deprecated
     public static int hashCode(final Object obj) {
         // hashCode(Object) retained for performance, as hash code is often critical
         return obj == null ? 0 : obj.hashCode();
@@ -227,6 +229,7 @@ public class ObjectUtils {
      * @deprecated this method has been replaced by {@code java.util.Objects.hash(Object...)} in Java 7 an will be
      * removed in future releases.
      */
+    @Deprecated
     public static int hashCodeMulti(final Object... objects) {
         int hash = 1;
         if (objects != null) {
@@ -383,6 +386,7 @@ public class ObjectUtils {
      * removed in future releases. Note however that said method will return "null" for null references, while this
      * method returns and empty String. To preserve behavior use {@code java.util.Objects.toString(myObject, "")}
      */
+    @Deprecated
     public static String toString(final Object obj) {
         return obj == null ? "" : obj.toString();
     }
@@ -408,6 +412,7 @@ public class ObjectUtils {
      * @deprecated this method has been replaced by {@code java.util.Objects.toString(Object, String)} in Java 7 and
      * will be removed in future releases.
      */
+    @Deprecated
     public static String toString(final Object obj, final String nullStr) {
         return obj == null ? nullStr : obj.toString();
     }
