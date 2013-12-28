@@ -202,6 +202,7 @@ public class ArrayUtils {
      * @deprecated this method has been replaced by {@code java.util.Objects.deepEquals(Object, Object)} and will be
      * removed from future releases.
      */
+    @Deprecated
     public static boolean isEquals(final Object array1, final Object array2) {
         return new EqualsBuilder().append(array1, array2).isEquals();
     }

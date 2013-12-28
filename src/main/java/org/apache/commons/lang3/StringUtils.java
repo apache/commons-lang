@@ -7452,6 +7452,7 @@ public class StringUtils {
      * @deprecated use {@link StringUtils#toEncodedString(byte[], Charset)} instead to String constants in your code
      * @since 3.1
      */
+    @Deprecated
     public static String toString(final byte[] bytes, final String charsetName) throws UnsupportedEncodingException {
         return charsetName != null ? new String(bytes, charsetName) : new String(bytes, Charset.defaultCharset());
     }
