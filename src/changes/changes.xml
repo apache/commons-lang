@@ -21,7 +21,7 @@
   </properties>
   <body>
 
-  <release version="3.2" date="TBA" description="Bug fixes and new features, at least requires Java 6.0">
+  <release version="3.2" date="2014-01-01" description="Bug fixes and new features, at least requires Java 6.0">
     <action issue="LANG-934" type="add" dev="mcucchiara">Add removeFinalModifier to FieldUtils</action>
     <action issue="LANG-863" type="add" due-to="Daneel S. Yaitskov" dev="sebb">Method returns number of inheritance hops between parent and subclass</action>
     <action issue="LANG-932" type="fix" due-to="Ville Skyttä" dev="sebb">Spelling fixes</action>
