@@ -28,7 +28,7 @@ limitations under the License.
 
 <table>
 <tr><th>Version</th><th>Release date</th><th>Javadoc</th><th>Release notes</th></tr>
-<tr><td>3.2</td><td>TBA</td><td><a href="javadocs/api-3.2/">api-3.2</a></td><td><a href="release-notes/RELEASE-NOTES-3.2.txt">release notes for 3.2</a></td></tr>
+<tr><td>3.2</td><td>01/Jan/14</td><td><a href="javadocs/api-3.2/">api-3.2</a></td><td><a href="release-notes/RELEASE-NOTES-3.2.txt">release notes for 3.2</a></td></tr>
 <tr><td>3.1</td><td>14/Nov/11</td><td><a href="javadocs/api-3.1/">api-3.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.1.txt">release notes for 3.1</a></td></tr>
 <tr><td>3.0.1</td><td>9/Aug/11</td><td><a href="javadocs/api-3.0.1/">api-3.0.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.0.1.txt">release notes for 3.0.1</a></td></tr>
 <tr><td>3.0</td><td>18/Jul/11</td><td><a href="javadocs/api-3.0/">api-3.0</a></td><td><a href="release-notes/RELEASE-NOTES-3.0.txt">release notes for 3.0</a></td></tr>
