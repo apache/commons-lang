@@ -25,3 +25,4 @@ repository=${user.home}/.m2/repository
 junit.home=${repository}/junit/junit/4.11/
 easymock.home=${repository}/org/easymock/easymock/3.2/
 commons-io.home=${repository}/commons-io/commons-io/2.4/
+hamcrest.home=${repository}/org/hamcrest/hamcrest-core/1.3/
