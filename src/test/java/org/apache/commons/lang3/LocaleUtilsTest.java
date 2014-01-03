@@ -80,7 +80,7 @@ public class LocaleUtilsTest  {
      *
      * @param language  the language string
      */
-    private void assertValidToLocale(final String language) {
+    private static void assertValidToLocale(final String language) {
         final Locale locale = LocaleUtils.toLocale(language);
         assertNotNull("valid locale", locale);
         assertEquals(language, locale.getLanguage());
@@ -96,7 +96,7 @@ public class LocaleUtilsTest  {
      * @param language of the resulting Locale
      * @param country of the resulting Locale
      */
-    private void assertValidToLocale(final String localeString, final String language, final String country) {
+    private static void assertValidToLocale(final String localeString, final String language, final String country) {
         final Locale locale = LocaleUtils.toLocale(localeString);
         assertNotNull("valid locale", locale);
         assertEquals(language, locale.getLanguage());
@@ -113,7 +113,7 @@ public class LocaleUtilsTest  {
      * @param country of the resulting Locale
      * @param variant of the resulting Locale
      */
-    private void assertValidToLocale(
+    private static void assertValidToLocale(
             final String localeString, final String language, 
             final String country, final String variant) {
         final Locale locale = LocaleUtils.toLocale(localeString);
@@ -121,7 +121,6 @@ public class LocaleUtilsTest  {
         assertEquals(language, locale.getLanguage());
         assertEquals(country, locale.getCountry());
         assertEquals(variant, locale.getVariant());
-        
     }
 
     /**
