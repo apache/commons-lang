@@ -90,6 +90,9 @@ public class LocaleUtils {
         if (str == null) {
             return null;
         }
+        if (str.isEmpty()) {
+            throw new IllegalArgumentException("Cannot create locale from empty string");
+        }
         if (str.contains("#")) { // LANG-879 - Cannot handle Java 7 script & extensions
             throw new IllegalArgumentException("Invalid locale format: " + str);
         }
