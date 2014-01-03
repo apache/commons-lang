@@ -239,7 +239,7 @@ public class LocaleUtilsTest  {
      * @param defaultLocale  the input default locale
      * @param expected  expected results
      */
-    private void assertLocaleLookupList(final Locale locale, final Locale defaultLocale, final Locale[] expected) {
+    private static void assertLocaleLookupList(final Locale locale, final Locale defaultLocale, final Locale[] expected) {
         final List<Locale> localeList = defaultLocale == null ?
                 LocaleUtils.localeLookupList(locale) :
                 LocaleUtils.localeLookupList(locale, defaultLocale);
@@ -386,7 +386,7 @@ public class LocaleUtilsTest  {
      * @param country
      * @param languages array of languages that should be returned
      */
-    private void assertLanguageByCountry(final String country, final String[] languages) {
+    private static void assertLanguageByCountry(final String country, final String[] languages) {
         final List<Locale> list = LocaleUtils.languagesByCountry(country);
         final List<Locale> list2 = LocaleUtils.languagesByCountry(country);
         assertNotNull(list);
@@ -437,7 +437,7 @@ public class LocaleUtilsTest  {
      * @param language
      * @param countries array of countries that should be returned
      */
-    private void assertCountriesByLanguage(final String language, final String[] countries) {
+    private static void assertCountriesByLanguage(final String language, final String[] countries) {
         final List<Locale> list = LocaleUtils.countriesByLanguage(language);
         final List<Locale> list2 = LocaleUtils.countriesByLanguage(language);
         assertNotNull(list);
