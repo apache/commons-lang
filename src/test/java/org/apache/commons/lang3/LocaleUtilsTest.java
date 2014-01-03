@@ -573,7 +573,7 @@ public class LocaleUtilsTest  {
                 if (!l.equals(loc)) {
                     System.out.println("Failed to parse: " + str);
                     failures++;
-                }                    
+                }
             }
         }
         if (failures > 0) {
