@@ -138,6 +138,10 @@ public class LocaleUtilsTest  {
         assertValidToLocale("qq");
         
         try {
+            LocaleUtils.toLocale("");
+            fail("Should fail if str is empty");
+        } catch (final IllegalArgumentException iae) {}
+        try {
             LocaleUtils.toLocale("Us");
             fail("Should fail if not lowercase");
         } catch (final IllegalArgumentException iae) {}
