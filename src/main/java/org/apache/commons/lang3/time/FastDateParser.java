@@ -387,7 +387,7 @@ public class FastDateParser implements DateParser, Serializable {
     private static abstract class Strategy {
         /**
          * Is this field a number?
-         * The default implementation returns true.
+         * The default implementation returns false.
          * 
          * @return true, if field is a number
          */
