@@ -20,6 +20,7 @@ import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -128,7 +129,7 @@ public class LocaleUtilsTest  {
      */
     @Test
     public void testToLocale_1Part() {
-        assertEquals(null, LocaleUtils.toLocale((String) null));
+        assertNull(LocaleUtils.toLocale((String) null));
         
         assertValidToLocale("us");
         assertValidToLocale("fr");
