@@ -137,11 +137,9 @@ public class LocaleUtilsTest  {
         assertValidToLocale("zh");
         // Valid format but lang doesnt exist, should make instance anyway
         assertValidToLocale("qq");
-        
-        try {
-            LocaleUtils.toLocale("");
-            fail("Should fail if str is empty");
-        } catch (final IllegalArgumentException iae) {}
+        // LANG-941: JDK 8 introduced the empty locale as one of the default locales
+        assertValidToLocale("");
+
         try {
             LocaleUtils.toLocale("Us");
             fail("Should fail if not lowercase");
