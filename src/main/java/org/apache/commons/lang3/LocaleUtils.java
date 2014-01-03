@@ -65,6 +65,7 @@ public class LocaleUtils {
      * locale object from it.</p>
      *
      * <pre>
+     *   LocaleUtils.toLocale("")           = new Locale("", "")
      *   LocaleUtils.toLocale("en")         = new Locale("en", "")
      *   LocaleUtils.toLocale("en_GB")      = new Locale("en", "GB")
      *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
@@ -90,8 +91,8 @@ public class LocaleUtils {
         if (str == null) {
             return null;
         }
-        if (str.isEmpty()) {
-            throw new IllegalArgumentException("Cannot create locale from empty string");
+        if (str.isEmpty()) { // LANG-941 - JDK 8 introduced an empty locale where all fields are blank
+            return new Locale("", "");
         }
         if (str.contains("#")) { // LANG-879 - Cannot handle Java 7 script & extensions
             throw new IllegalArgumentException("Invalid locale format: " + str);
