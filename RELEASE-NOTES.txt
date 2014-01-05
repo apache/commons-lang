@@ -17,20 +17,32 @@ $Id$
 
 
                            Apache Commons Lang
-                               Version 3.2
+                               Version 3.2.1
                               Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 3.2 version of 
+This document contains the release notes for the 3.2.1 version of 
 Apache Commons Lang. Commons Lang is a set of utility functions and reusable 
-components that should be of use in any Java environment. Commons Lang 3.2
+components that should be of use in any Java environment. Commons Lang 3.2.1
 at least requires Java 6.0.
 
 For the advice on upgrading from 2.x to 3.x, see the following page: 
 
     http://commons.apache.org/lang/article3_0.html
+
+BUG FIXES
+===========
+
+o LANG-937:  Fix missing Hamcrest dependency in Ant Build
+o LANG-941:  Test failure in LocaleUtilsTest when building with JDK 8
+o LANG-942:  Test failure in FastDateParserTest and FastDateFormat_ParserTest
+             when building with JDK8. Thanks to Bruno P. Kinoshita,
+             Henri Yandell.
+o LANG-938:  Build fails with test failures when building with JDK 8 
+
+                        Release Notes for version 3.2
 
 COMPATIBILITY WITH 3.1
 ========================
