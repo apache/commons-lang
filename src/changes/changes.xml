@@ -25,6 +25,7 @@
     <action issue="LANG-937" type="fix" dev="britter">Fix missing Hamcrest dependency in Ant Build</action>
     <action issue="LANG-941" type="fix" dev="britter">Test failure in LocaleUtilsTest when building with JDK 8</action>
     <action issue="LANG-942" type="fix" dev="britter" due-to="Bruno P. Kinoshita, Henri Yandell">Test failure in FastDateParserTest and FastDateFormat_ParserTest when building with JDK8</action>
+    <action issue="LANG-938" type="fix">Build fails with test failures when building with JDK 8</action>
   </release>
 
   <release version="3.2" date="2014-01-01" description="Bug fixes and new features, at least requires Java 6.0">
