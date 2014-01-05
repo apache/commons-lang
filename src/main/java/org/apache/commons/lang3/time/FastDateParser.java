@@ -19,6 +19,7 @@ package org.apache.commons.lang3.time;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.ArrayList;
@@ -680,22 +681,53 @@ public class FastDateParser implements DateParser, Serializable {
         private final SortedMap<String, TimeZone> tzNames= new TreeMap<String, TimeZone>(String.CASE_INSENSITIVE_ORDER);
 
         /**
+         * Index of zone id
+         */
+        private static final int ID = 0;
+        /**
+         * Index of the long name of zone in standard time
+         */
+        private static final int LONG_STD = 1;
+        /**
+         * Index of the short name of zone in standard time
+         */
+        private static final int SHORT_STD = 2;
+        /**
+         * Index of the long name of zone in daylight saving time
+         */
+        private static final int LONG_DST = 3;
+        /**
+         * Index of the short name of zone in daylight saving time
+         */
+        private static final int SHORT_DST = 4;
+
+        /**
          * Construct a Strategy that parses a TimeZone
          * @param locale The Locale
          */
         TimeZoneStrategy(final Locale locale) {
-            for(final String id : TimeZone.getAvailableIDs()) {
-                if(id.startsWith("GMT")) {
+            final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
+            for (String[] zone : zones) {
+                if (zone[ID].startsWith("GMT")) {
                     continue;
                 }
-                final TimeZone tz= TimeZone.getTimeZone(id);
-                tzNames.put(tz.getDisplayName(false, TimeZone.SHORT, locale), tz);
-                tzNames.put(tz.getDisplayName(false, TimeZone.LONG, locale), tz);
-                if(tz.useDaylightTime()) {
-                    tzNames.put(tz.getDisplayName(true, TimeZone.SHORT, locale), tz);
-                    tzNames.put(tz.getDisplayName(true, TimeZone.LONG, locale), tz);
+                final TimeZone tz = TimeZone.getTimeZone(zone[ID]);
+                if (!tzNames.containsKey(zone[LONG_STD])){
+                    tzNames.put(zone[LONG_STD], tz);
+                }
+                if (!tzNames.containsKey(zone[SHORT_STD])){
+                    tzNames.put(zone[SHORT_STD], tz);
+                }
+                if (tz.useDaylightTime()) {
+                    if (!tzNames.containsKey(zone[LONG_DST])){
+                        tzNames.put(zone[LONG_DST], tz);
+                    }
+                    if (!tzNames.containsKey(zone[SHORT_DST])){
+                        tzNames.put(zone[SHORT_DST], tz);
+                    }
                 }
             }
+
             final StringBuilder sb= new StringBuilder();
             sb.append("(GMT[+\\-]\\d{0,1}\\d{2}|[+\\-]\\d{2}:?\\d{2}|");
             for(final String id : tzNames.keySet()) {
