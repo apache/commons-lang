@@ -1,0 +1,90 @@
+<!--
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+ -->
+<!--
+   Build file for creating release candiates and releasing lang.
+   $Id$
+-->
+<project name="release-lang" basedir="../../">
+
+    <property file="src/release-tools/build.properties" />
+
+    <target name="pre-rc" description="Prepares the download page and the release notes for rolling out a RC">
+
+        <exec executable="mvn">
+            <arg value="changes:announcement-generate"/>
+            <arg value="-Prelease-notes"/>
+        </exec>
+        <exec executable="mvn">
+            <arg value="commons:download-page"/>
+            <arg value="-Dcommons.componentid=lang"/>
+        </exec>
+    </target>
+
+    <target name="rc" description="Create the RC">
+
+        <property name="repo.path" value="${user.home}/.m2/repository/org/apache/commons/commons-lang3/${version}" />
+        <property name="release.path" value="${user.home}/lang-rc" />
+        <property name="release.url" value="https://dist.apache.org/repos/dist/dev/commons/lang" />
+
+        <delete dir="${repo.path}" />
+
+        <input message="Please enter gpg passphrase..." addproperty="gpg.pass">
+            <handler type="secure" />
+        </input>
+
+        <exec executable="mvn">
+            <arg value="deploy" />
+            <arg value="-Prelease" />
+            <arg value="-Ptest-deploy" />
+            <arg value="-Duser.name=${apache.id}" />
+            <arg value="-Dgpg.passphrase=${gpg.pass}" />
+        </exec>
+
+        <echo message="Checking out ${release.url} -> ${release.path}"/>
+        <exec executable="svn">
+            <arg value="co" />
+            <arg value="${release.url}" />
+            <arg value="${release.path}" />
+        </exec>
+
+        <copy todir="${release.path}/binaries">
+            <fileset dir="${repo.path}">
+                <include name="*bin.zip*" />
+                <include name="*bin.tar.gz*"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${release.path}/source">
+            <fileset dir="${repo.path}">
+                <include name="*src.zip*" />
+                <include name="*src.tar.gz*"/>
+            </fileset>
+        </copy>
+
+        <copy file="RELEASE-NOTES.txt" todir="${release.path}" />
+
+        <echo message="Creating site" />
+        <exec executable="mvn">
+            <arg value="site" />
+        </exec>
+
+    </target>
+</project>
