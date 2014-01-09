@@ -17,5 +17,4 @@
 ##########################################################################
 
 # Repository base path - unnecessary if full jar paths are provided below
-version=3.2.1
 apache.id=luckyRM

@@ -25,6 +25,7 @@
 <project name="release-lang" basedir="../../">
 
     <property file="src/release-tools/build.properties" />
+    <property file="default.properties" />
 
     <target name="pre-rc" description="Prepares the download page and the release notes for rolling out a RC">
 
@@ -40,7 +41,7 @@
 
     <target name="rc" description="Create the RC">
 
-        <property name="repo.path" value="${user.home}/.m2/repository/org/apache/commons/commons-lang3/${version}" />
+        <property name="repo.path" value="${user.home}/.m2/repository/org/apache/commons/${component.name}/${component.version}" />
         <property name="release.path" value="${user.home}/lang-rc" />
         <property name="release.url" value="https://dist.apache.org/repos/dist/dev/commons/lang" />
 
