@@ -16,5 +16,5 @@
 # Sample Ant build.properties file for creating RCs and releasing
 ##########################################################################
 
-# Repository base path - unnecessary if full jar paths are provided below
+# Your apache ID - it is used for the Build-By MANIFEST header, when creating the RC jars
 apache.id=luckyRM
