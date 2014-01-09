@@ -19,7 +19,7 @@
  */
  -->
 <!--
-   Build file for creating release candiates and releasing lang.
+   Build file for creating release candidates and releasing lang.
    $Id$
 -->
 <project name="release-lang" basedir="../../">
