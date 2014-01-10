@@ -139,7 +139,7 @@ public class EnumUtils {
      * @since 3.0.1
      * @see #generateBitVectors(Class, Iterable)
      */
-    public static <E extends Enum<E>> long generateBitVector(final Class<E> enumClass, final Iterable<E> values) {
+    public static <E extends Enum<E>> long generateBitVector(final Class<E> enumClass, final Iterable<? extends E> values) {
         checkBitVectorable(enumClass);
         Validate.notNull(values);
         long total = 0;
@@ -166,7 +166,7 @@ public class EnumUtils {
      * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}
      * @since 3.2
      */
-    public static <E extends Enum<E>> long[] generateBitVectors(final Class<E> enumClass, final Iterable<E> values) {
+    public static <E extends Enum<E>> long[] generateBitVectors(final Class<E> enumClass, final Iterable<? extends E> values) {
         asEnum(enumClass);
         Validate.notNull(values);
         final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
