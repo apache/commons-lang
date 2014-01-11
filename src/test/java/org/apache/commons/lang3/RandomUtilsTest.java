@@ -34,56 +34,51 @@ public class RandomUtilsTest {
      * For comparing doubles and floats
      */
     private static final double DELTA = 1e-5;
-    
-    /**
-     * Tests exceptions
-     */
-    @Test
-    public void testExceptions() throws Exception {
-        try {
-            RandomUtils.nextBytes(-1);
-            fail();
-        } catch (IllegalArgumentException e) {}
-        
-        try {
-            RandomUtils.nextInt(2, 1);
-            fail();
-        } catch (IllegalArgumentException e) {}
-        
-        try {
-            RandomUtils.nextDouble(2, 1);
-            fail();
-        } catch (IllegalArgumentException e) {}
-        
-        try {
-            RandomUtils.nextLong(2, 1);
-            fail();
-        } catch (IllegalArgumentException e) {}
-        
-        try {
-            RandomUtils.nextFloat(2, 1);
-            fail();
-        } catch (IllegalArgumentException e) {} 
-        
-        try {
-            RandomUtils.nextInt(-1, 1);
-            fail();
-        } catch (IllegalArgumentException e) {}
-        
-        try {
-            RandomUtils.nextDouble(-1, 1);
-            fail();
-        } catch (IllegalArgumentException e) {}
-        
-        try {
-            RandomUtils.nextLong(-1, 1);
-            fail();
-        } catch (IllegalArgumentException e) {}
-        
-        try {
-            RandomUtils.nextFloat(-1, 1);
-            fail();
-        } catch (IllegalArgumentException e) {}         
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextBytesNegative() throws Exception {
+        RandomUtils.nextBytes(-1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextIntNegative() throws Exception {
+        RandomUtils.nextInt(-1, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextLongNegative() throws Exception {
+        RandomUtils.nextLong(-1, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextDoubleNegative() throws Exception {
+        RandomUtils.nextDouble(-1, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextFloatNegative() throws Exception {
+        RandomUtils.nextFloat(-1, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextIntLowerGreaterUpper() throws Exception {
+        RandomUtils.nextInt(2, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextLongLowerGreaterUpper() throws Exception {
+        RandomUtils.nextLong(2, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextDoubleLowerGreaterUpper() throws Exception {
+        RandomUtils.nextDouble(2, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextFloatLowerGreaterUpper() throws Exception {
+        RandomUtils.nextFloat(2, 1);
     }
 
     /**
