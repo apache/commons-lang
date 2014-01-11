@@ -51,9 +51,7 @@ public class LocaleUtilsTest  {
     private static final Locale LOCALE_FR = new Locale("fr", "");
     private static final Locale LOCALE_FR_CA = new Locale("fr", "CA");
     private static final Locale LOCALE_QQ = new Locale("qq", "");
-    private static final Locale LOCALE_QQ_ZZ = new Locale("qq", "ZZ");
-
-
+    private static final Locale LOCALE_QQ_ZZ = new Locale("qq", "ZZ"); 
 
     @Before
     public void setUp() throws Exception {
@@ -159,11 +157,6 @@ public class LocaleUtilsTest  {
         
         try {
             LocaleUtils.toLocale("u");
-            fail("Must be 2 chars if less than 5");
-        } catch (final IllegalArgumentException iae) {}
-       
-        try {
-            LocaleUtils.toLocale("uuu");
             fail("Must be 2 chars if less than 5");
         } catch (final IllegalArgumentException iae) {}
 
@@ -377,6 +370,21 @@ public class LocaleUtilsTest  {
         assertEquals(set.contains(LOCALE_FR_CA), LocaleUtils.isAvailableLocale(LOCALE_FR_CA));
         assertEquals(set.contains(LOCALE_QQ), LocaleUtils.isAvailableLocale(LOCALE_QQ));
         assertEquals(set.contains(LOCALE_QQ_ZZ), LocaleUtils.isAvailableLocale(LOCALE_QQ_ZZ));
+    }
+    
+    /**
+     * Test for 3-chars locale, further details at LANG-915
+     * 
+     */
+    @Test
+    public void testThreeCharsLocale() {
+    	for (String str : Arrays.asList("udm", "tet")) {
+        	Locale locale = LocaleUtils.toLocale(str);
+        	assertNotNull(locale);
+        	assertEquals(str, locale.getLanguage());
+        	assertTrue(StringUtils.isBlank(locale.getCountry()));
+        	assertEquals(new Locale(str), locale);	
+    	}
     }
 
     //-----------------------------------------------------------------------

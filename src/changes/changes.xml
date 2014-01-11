@@ -21,6 +21,10 @@
   </properties>
   <body>
 
+  <release version="3.2.2" date="TBA" description="Bug fix for 3.2.1">
+    <action issue="LANG-915" type="fix" dev="britter" due-to="Sergio Fernández">Wrong locale handling in LocaleUtils.toLocale()</action>
+  </release>
+
   <release version="3.2.1" date="2014-01-05" description="Bug fix for 3.2">
     <action issue="LANG-937" type="fix" dev="britter">Fix missing Hamcrest dependency in Ant Build</action>
     <action issue="LANG-941" type="fix" dev="britter">Test failure in LocaleUtilsTest when building with JDK 8</action>
