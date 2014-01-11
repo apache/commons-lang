@@ -29,7 +29,7 @@
     <property file="${user.home}/build.properties"/>
     <property file="${basedir}/build.properties"/>
     <property file="${basedir}/default.properties"/>
-    <property name="jdk.javadoc" value="http://download.oracle.com/javase/1.5.0/docs/api/"/>
+    <property name="jdk.javadoc" value="http://docs.oracle.com/javase/6/docs/api/"/>
     <property name="collections.javadoc" value="http://commons.apache.org/collections/api-release/"/>
 
     <!-- ========== Construct compile classpath =============================== -->
