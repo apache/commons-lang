@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.2.2" date="TBA" description="Bug fix for 3.2.1">
+    <action issue="LANG-900" type="add" dev="britter" due-to="Duncan Jones">New RandomUtils class</action>
     <action issue="LANG-915" type="fix" dev="britter" due-to="Sergio Fernández">Wrong locale handling in LocaleUtils.toLocale()</action>
   </release>
 
