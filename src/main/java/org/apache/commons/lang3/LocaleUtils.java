@@ -122,37 +122,37 @@ public class LocaleUtils {
             }
             return new Locale("", str.substring(1, 3), str.substring(4));
         }
-        final char ch1 = str.charAt(1);
-        if (!Character.isLowerCase(ch0) || !Character.isLowerCase(ch1)) {
-            throw new IllegalArgumentException("Invalid locale format: " + str);
+        
+        String[] split = str.split("_", -1);
+        int occurrences = split.length -1;
+        switch (occurrences) {
+            case 0:
+                if (StringUtils.isAllLowerCase(str) && (len == 2 || len == 3)) {
+                    return new Locale(str);
+                } else {
+                    throw new IllegalArgumentException("Invalid locale format: " + str);
+                }
+                
+            case 1:
+                if (StringUtils.isAllLowerCase(split[0]) &&
+                    (split[0].length() == 2 || split[0].length() == 3) &&
+                     split[1].length() == 2 && StringUtils.isAllUpperCase(split[1])) {
+                    return new Locale(split[0], split[1]);
+                } else {
+                    throw new IllegalArgumentException("Invalid locale format: " + str);
+                }
+
+            case 2:
+                if (StringUtils.isAllLowerCase(split[0]) && 
+                    (split[0].length() == 2 || split[0].length() == 3) &&
+                    (split[1].length() == 0 || (split[1].length() == 2 && StringUtils.isAllUpperCase(split[1]))) &&
+                     split[2].length() > 0) {
+                    return new Locale(split[0], split[1], split[2]);
+                }
+
+            default:
+                throw new IllegalArgumentException("Invalid locale format: " + str);
         }
-        if (len == 2) {
-            return new Locale(str);
-        }
-        if (len < 5) {
-            throw new IllegalArgumentException("Invalid locale format: " + str);
-        }
-        if (str.charAt(2) != '_') {
-            throw new IllegalArgumentException("Invalid locale format: " + str);
-        }
-        final char ch3 = str.charAt(3);
-        if (ch3 == '_') {
-            return new Locale(str.substring(0, 2), "", str.substring(4));
-        }
-        final char ch4 = str.charAt(4);
-        if (!Character.isUpperCase(ch3) || !Character.isUpperCase(ch4)) {
-            throw new IllegalArgumentException("Invalid locale format: " + str);
-        }
-        if (len == 5) {
-            return new Locale(str.substring(0, 2), str.substring(3, 5));
-        }
-        if (len < 7) {
-            throw new IllegalArgumentException("Invalid locale format: " + str);
-        }
-        if (str.charAt(5) != '_') {
-            throw new IllegalArgumentException("Invalid locale format: " + str);
-        }
-        return new Locale(str.substring(0, 2), str.substring(3, 5), str.substring(6));
     }
 
     //-----------------------------------------------------------------------
