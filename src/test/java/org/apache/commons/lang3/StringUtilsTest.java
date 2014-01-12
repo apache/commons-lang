@@ -125,7 +125,7 @@ public class StringUtilsTest {
     
     //-----------------------------------------------------------------------
     @Test
-    public void testisEmpty(){
+    public void testIsEmpty(){
       assertTrue(StringUtils.isEmpty(null));
       assertTrue(StringUtils.isEmpty(""));
       assertFalse(StringUtils.isEmpty(" "));
@@ -134,7 +134,7 @@ public class StringUtilsTest {
     }
     
     @Test
-    public void testisNotEmpty(){
+    public void testIsNotEmpty(){
       assertFalse(StringUtils.isNotEmpty(null));
       assertFalse(StringUtils.isNotEmpty(""));
       assertTrue(StringUtils.isNotEmpty(" "));
@@ -143,7 +143,7 @@ public class StringUtilsTest {
     }
     
     @Test
-    public void testisAnyEmpty(){
+    public void testIsAnyEmpty(){
       assertTrue(StringUtils.isAnyEmpty(null));
       assertTrue(StringUtils.isAnyEmpty(null, "foo"));
       assertTrue(StringUtils.isAnyEmpty("", "bar"));
@@ -154,7 +154,7 @@ public class StringUtilsTest {
     }
     
     @Test
-    public void testisNoneEmpty(){
+    public void testIsNoneEmpty(){
       assertFalse(StringUtils.isNoneEmpty(null));
       assertFalse(StringUtils.isNoneEmpty(null, "foo"));
       assertFalse(StringUtils.isNoneEmpty("", "bar"));
@@ -165,7 +165,7 @@ public class StringUtilsTest {
     }
     
     @Test
-    public void testisBlank(){
+    public void testIsBlank(){
       assertTrue(StringUtils.isBlank(null));
       assertTrue(StringUtils.isBlank(""));
       assertTrue(StringUtils.isBlank(" "));
@@ -174,7 +174,7 @@ public class StringUtilsTest {
     }
     
     @Test
-    public void testisNotBlank(){
+    public void testIsNotBlank(){
       assertFalse(StringUtils.isNotBlank(null));
       assertFalse(StringUtils.isNotBlank(""));
       assertFalse(StringUtils.isNotBlank(" "));
@@ -183,7 +183,7 @@ public class StringUtilsTest {
     }
     
      @Test
-    public void testisAnyBlank(){
+    public void testIsAnyBlank(){
       assertTrue(StringUtils.isAnyBlank(null));
       assertTrue(StringUtils.isAnyBlank(null, "foo"));
       assertTrue(StringUtils.isAnyBlank(null, null));
@@ -195,7 +195,7 @@ public class StringUtilsTest {
     }
     
     @Test
-    public void testisNoneBlank(){
+    public void testIsNoneBlank(){
       assertFalse(StringUtils.isNoneBlank(null));
       assertFalse(StringUtils.isNoneBlank(null, "foo"));
       assertFalse(StringUtils.isNoneBlank(null, null));
