@@ -50,7 +50,7 @@ public class ClassUtils {
      * @since 3.2
      */
     public enum Interfaces {
-        INCLUDE, EXCLUDE;
+        INCLUDE, EXCLUDE
     }
 
     /**
