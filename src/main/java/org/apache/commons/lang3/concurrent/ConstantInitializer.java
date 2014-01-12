@@ -101,6 +101,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * @param obj the object to compare to
      * @return a flag whether the objects are equal
      */
+    @SuppressWarnings( "deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {

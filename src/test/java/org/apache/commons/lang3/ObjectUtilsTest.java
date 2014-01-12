@@ -280,12 +280,14 @@ public class ObjectUtilsTest {
         }
     }
 
+    @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
     @Test
     public void testToString_Object() {
         assertEquals("", ObjectUtils.toString((Object) null) );
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE) );
     }
-            
+
+    @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
     @Test
     public void testToString_ObjectString() {
         assertEquals(BAR, ObjectUtils.toString((Object) null, BAR) );

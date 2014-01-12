@@ -4039,7 +4039,9 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            return ObjectUtils.toString(first);
+            @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
+            String result = ObjectUtils.toString(first);
+            return result;
         }
 
         // two or more elements
@@ -4083,7 +4085,9 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            return ObjectUtils.toString(first);
+            @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
+            final String result = ObjectUtils.toString(first);
+            return result;
         }
 
         // two or more elements

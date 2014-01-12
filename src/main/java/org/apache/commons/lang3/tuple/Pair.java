@@ -125,6 +125,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @param obj  the object to compare to, null returns false
      * @return true if the elements of the pair are equal
      */
+    @SuppressWarnings( "deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Override
     public boolean equals(final Object obj) {
         if (obj == this) {

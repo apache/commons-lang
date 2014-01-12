@@ -289,6 +289,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @return the hashcode
      */
+    @SuppressWarnings( "deprecation" ) // ObjectUtils.hashCode(Object) has been deprecated in 3.2
     @Override
     public int hashCode() {
         int result = super.hashCode();
