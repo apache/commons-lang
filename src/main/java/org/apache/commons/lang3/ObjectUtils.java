@@ -207,6 +207,11 @@ public class ObjectUtils {
         return obj == null ? 0 : obj.hashCode();
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
     /**
      * <p>Gets the hash code for multiple objects.</p>
      * 

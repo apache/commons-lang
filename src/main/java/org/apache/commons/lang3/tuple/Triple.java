@@ -105,6 +105,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param obj  the object to compare to, null returns false
      * @return true if the elements of the triple are equal
      */
+    @SuppressWarnings( "deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Override
     public boolean equals(final Object obj) {
         if (obj == this) {

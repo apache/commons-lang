@@ -203,6 +203,7 @@ public class TypeUtils {
         /**
          * {@inheritDoc}
          */
+        @SuppressWarnings( "deprecation" )  // ObjectUtils.hashCode(Object) has been deprecated in 3.2
         @Override
         public int hashCode() {
             int result = 71 << 4;
@@ -1566,6 +1567,7 @@ public class TypeUtils {
      * @return boolean
      * @since 3.2
      */
+    @SuppressWarnings( "deprecation" )  // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     public static boolean equals(Type t1, Type t2) {
         if (ObjectUtils.equals(t1, t2)) {
             return true;

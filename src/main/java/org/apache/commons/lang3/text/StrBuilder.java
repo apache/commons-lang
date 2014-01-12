@@ -1128,12 +1128,13 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param separator  the separator to use, null means no separator
      * @return this, to enable chaining
      */
-    public StrBuilder appendWithSeparators(final Object[] array, String separator) {
+    public StrBuilder appendWithSeparators(final Object[] array, final String separator) {
         if (array != null && array.length > 0) {
-            separator = ObjectUtils.toString(separator);
+            @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
+            final String sep = ObjectUtils.toString(separator);
             append(array[0]);
             for (int i = 1; i < array.length; i++) {
-                append(separator);
+                append(sep);
                 append(array[i]);
             }
         }
@@ -1150,14 +1151,15 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param separator  the separator to use, null means no separator
      * @return this, to enable chaining
      */
-    public StrBuilder appendWithSeparators(final Iterable<?> iterable, String separator) {
+    public StrBuilder appendWithSeparators(final Iterable<?> iterable, final String separator) {
         if (iterable != null) {
-            separator = ObjectUtils.toString(separator);
+            @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
+            final String sep = ObjectUtils.toString(separator);
             final Iterator<?> it = iterable.iterator();
             while (it.hasNext()) {
                 append(it.next());
                 if (it.hasNext()) {
-                    append(separator);
+                    append(sep);
                 }
             }
         }
@@ -1174,13 +1176,14 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param separator  the separator to use, null means no separator
      * @return this, to enable chaining
      */
-    public StrBuilder appendWithSeparators(final Iterator<?> it, String separator) {
+    public StrBuilder appendWithSeparators(final Iterator<?> it, final String separator) {
         if (it != null) {
-            separator = ObjectUtils.toString(separator);
+            @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
+            final String sep = ObjectUtils.toString(separator);
             while (it.hasNext()) {
                 append(it.next());
                 if (it.hasNext()) {
-                    append(separator);
+                    append(sep);
                 }
             }
         }
