@@ -89,6 +89,7 @@ public class ObjectUtilsTest {
     }
 
     //-----------------------------------------------------------------------
+    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void testEquals() {
         assertTrue("ObjectUtils.equals(null, null) returned false", ObjectUtils.equals(null, null));
@@ -107,6 +108,7 @@ public class ObjectUtilsTest {
         assertFalse("ObjectUtils.notEqual(\"foo\", \"foo\") returned false", ObjectUtils.notEqual(FOO, FOO));
     }
 
+    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void testHashCode() {
         assertEquals(0, ObjectUtils.hashCode(null));

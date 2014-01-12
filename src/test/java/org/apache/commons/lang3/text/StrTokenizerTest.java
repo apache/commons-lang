@@ -46,6 +46,7 @@ public class StrTokenizerTest {
     }
 
     // -----------------------------------------------------------------------
+    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test1() {
 
@@ -67,6 +68,7 @@ public class StrTokenizerTest {
 
     }
 
+    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test2() {
 
@@ -88,6 +90,7 @@ public class StrTokenizerTest {
 
     }
 
+    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test3() {
 
@@ -109,6 +112,7 @@ public class StrTokenizerTest {
 
     }
 
+    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test4() {
 
@@ -130,6 +134,7 @@ public class StrTokenizerTest {
 
     }
 
+    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test5() {
 
@@ -188,6 +193,7 @@ public class StrTokenizerTest {
 
     }
 
+    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test7() {
 
@@ -209,6 +215,7 @@ public class StrTokenizerTest {
 
     }
 
+    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test8() {
 
