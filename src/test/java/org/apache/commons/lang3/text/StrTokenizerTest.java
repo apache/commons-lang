@@ -46,7 +46,6 @@ public class StrTokenizerTest {
     }
 
     // -----------------------------------------------------------------------
-    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test1() {
 
@@ -62,13 +61,12 @@ public class StrTokenizerTest {
 
         assertEquals(ArrayUtils.toString(tokens), expected.length, tokens.length);
         for (int i = 0; i < expected.length; i++) {
-            assertTrue("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
-                    ObjectUtils.equals(expected[i], tokens[i]));
+            assertEquals("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
+                    expected[i], tokens[i]);
         }
 
     }
 
-    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test2() {
 
@@ -84,13 +82,12 @@ public class StrTokenizerTest {
 
         assertEquals(ArrayUtils.toString(tokens), expected.length, tokens.length);
         for (int i = 0; i < expected.length; i++) {
-            assertTrue("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
-                    ObjectUtils.equals(expected[i], tokens[i]));
+            assertEquals("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
+                    expected[i], tokens[i]);
         }
 
     }
 
-    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test3() {
 
@@ -106,13 +103,12 @@ public class StrTokenizerTest {
 
         assertEquals(ArrayUtils.toString(tokens), expected.length, tokens.length);
         for (int i = 0; i < expected.length; i++) {
-            assertTrue("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
-                    ObjectUtils.equals(expected[i], tokens[i]));
+            assertEquals("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
+                    expected[i], tokens[i]);
         }
 
     }
 
-    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test4() {
 
@@ -128,13 +124,12 @@ public class StrTokenizerTest {
 
         assertEquals(ArrayUtils.toString(tokens), expected.length, tokens.length);
         for (int i = 0; i < expected.length; i++) {
-            assertTrue("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
-                    ObjectUtils.equals(expected[i], tokens[i]));
+            assertEquals("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
+                    expected[i], tokens[i]);
         }
 
     }
 
-    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test5() {
 
@@ -151,8 +146,8 @@ public class StrTokenizerTest {
 
         assertEquals(ArrayUtils.toString(tokens), expected.length, tokens.length);
         for (int i = 0; i < expected.length; i++) {
-            assertTrue("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
-                    ObjectUtils.equals(expected[i], tokens[i]));
+            assertEquals("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
+                    expected[i], tokens[i]);
         }
 
     }
@@ -193,7 +188,6 @@ public class StrTokenizerTest {
 
     }
 
-    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test7() {
 
@@ -209,13 +203,12 @@ public class StrTokenizerTest {
 
         assertEquals(ArrayUtils.toString(tokens), expected.length, tokens.length);
         for (int i = 0; i < expected.length; i++) {
-            assertTrue("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
-                    ObjectUtils.equals(expected[i], tokens[i]));
+            assertEquals("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
+                    expected[i], tokens[i]);
         }
 
     }
 
-    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void test8() {
 
@@ -231,8 +224,8 @@ public class StrTokenizerTest {
 
         assertEquals(ArrayUtils.toString(tokens), expected.length, tokens.length);
         for (int i = 0; i < expected.length; i++) {
-            assertTrue("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
-                    ObjectUtils.equals(expected[i], tokens[i]));
+            assertEquals("token[" + i + "] was '" + tokens[i] + "' but was expected to be '" + expected[i] + "'",
+                    expected[i], tokens[i]);
         }
 
     }
