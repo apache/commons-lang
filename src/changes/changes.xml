@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.3" date="TBA" description="Bugfix and Feature release">
+    <action issue="LANG-819" type="update" dev="mbenson">EnumUtils.generateBitVector needs a "? extends"</action>
     <action issue="LANG-834" type="add" dev="britter">Validate: add inclusiveBetween and exclusiveBetween overloads for primitive types</action>
     <action issue="LANG-900" type="add" dev="britter" due-to="Duncan Jones">New RandomUtils class</action>
     <action issue="LANG-915" type="fix" dev="britter" due-to="Sergio Fernández">Wrong locale handling in LocaleUtils.toLocale()</action>
