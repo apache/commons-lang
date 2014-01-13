@@ -71,7 +71,7 @@ public class FastDateParser implements DateParser, Serializable {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     static final Locale JAPANESE_IMPERIAL = new Locale("ja","JP","JP");
 
@@ -79,11 +79,12 @@ public class FastDateParser implements DateParser, Serializable {
     private final String pattern;
     private final TimeZone timeZone;
     private final Locale locale;
+    private final int century;
+    private final int startYear;
 
     // derived fields
     private transient Pattern parsePattern;
     private transient Strategy[] strategies;
-    private transient int thisYear;
 
     // dynamic fields to communicate with Strategy
     private transient String currentFormatField;
@@ -96,21 +97,38 @@ public class FastDateParser implements DateParser, Serializable {
      *  pattern
      * @param timeZone non-null time zone to use
      * @param locale non-null locale
+     * @param centuryStart The start of the century for 2 digit year parsing
      */
-    protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale) {
+    protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, Date centuryStart) {
         this.pattern = pattern;
         this.timeZone = timeZone;
         this.locale = locale;
-        init();
+
+        final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
+        int centuryStartYear;
+        if(centuryStart!=null) {
+        	definingCalendar.setTime(centuryStart);
+        	centuryStartYear= definingCalendar.get(Calendar.YEAR);
+        }
+        else if(locale.equals(JAPANESE_IMPERIAL)) {
+        	centuryStartYear= 0;
+        }
+        else {
+        	// from 80 years ago to 20 years from now
+        	definingCalendar.setTime(new Date());
+        	centuryStartYear= definingCalendar.get(Calendar.YEAR)-80;
+        }
+        century= centuryStartYear / 100 * 100;
+        startYear= centuryStartYear - century;
+
+        init(definingCalendar);
     }
 
-    /**
+	/**
      * Initialize derived fields from defining fields.
      * This is called from constructor and from readObject (de-serialization)
      */
-    private void init() {
-        final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
-        thisYear= definingCalendar.get(Calendar.YEAR);
+    private void init(Calendar definingCalendar) {
 
         final StringBuilder regex= new StringBuilder();
         final List<Strategy> collector = new ArrayList<Strategy>();
@@ -176,7 +194,7 @@ public class FastDateParser implements DateParser, Serializable {
 
     /**
      * Returns the generated pattern (for testing purposes).
-     * 
+     *
      * @return the generated pattern
      */
     Pattern getParsePattern() {
@@ -234,7 +252,9 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        init();
+
+        final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
+        init(definingCalendar);
     }
 
     /* (non-Javadoc)
@@ -319,11 +339,11 @@ public class FastDateParser implements DateParser, Serializable {
             case '\\':
                 if(++i==value.length()) {
                     break;
-                }                
+                }
                 /*
                  * If we have found \E, we replace it with \E\\E\Q, i.e. we stop the quoting,
                  * quote the \ in \E, then restart the quoting.
-                 * 
+                 *
                  * Otherwise we just output the two characters.
                  * In each case the initial \ needs to be output and the final char is done at the end
                  */
@@ -354,16 +374,13 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * Adjust dates to be within 80 years before and 20 years after instantiation
+     * Adjust dates to be within appropriate century
      * @param twoDigitYear The year to adjust
-     * @return A value within -80 and +20 years from instantiation of this instance
+     * @return A value between centuryStart(inclusive) to centuryStart+100(exclusive)
      */
-    int adjustYear(final int twoDigitYear) {
-        final int trial= twoDigitYear + thisYear - thisYear%100;
-        if(trial < thisYear+20) {
-            return trial;
-        }
-        return trial-100;
+    private int adjustYear(final int twoDigitYear) {
+		int trial= century + twoDigitYear;
+    	return twoDigitYear>=startYear ?trial :trial+100;
     }
 
     /**
@@ -389,7 +406,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * Is this field a number?
          * The default implementation returns false.
-         * 
+         *
          * @return true, if field is a number
          */
         boolean isNumber() {
@@ -397,15 +414,15 @@ public class FastDateParser implements DateParser, Serializable {
         }
         /**
          * Set the Calendar with the parsed field.
-         * 
+         *
          * The default implementation does nothing.
-         * 
+         *
          * @param parser The parser calling this strategy
          * @param cal The <code>Calendar</code> to set
          * @param value The parsed field to translate and set in cal
          */
         void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
-            
+
         }
         /**
          * Generate a <code>Pattern</code> regular expression to the <code>StringBuilder</code>

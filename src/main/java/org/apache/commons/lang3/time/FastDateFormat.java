@@ -39,7 +39,7 @@ import java.util.TimeZone;
  *
  * <p>All patterns are compatible with
  * SimpleDateFormat (except time zones and some year patterns - see below).</p>
- * 
+ *
  * <p>Since 3.2, FastDateFormat supports parsing as well as printing.</p>
  *
  * <p>Java 1.4 introduced a new pattern letter, {@code 'Z'}, to represent
@@ -94,7 +94,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
 
     private final FastDatePrinter printer;
     private final FastDateParser parser;
-    
+
     //-----------------------------------------------------------------------
     /**
      * <p>Gets a formatter instance using the default pattern in the
@@ -210,7 +210,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     public static FastDateFormat getDateInstance(final int style, final TimeZone timeZone) {
         return cache.getDateInstance(style, timeZone, null);
     }
-    
+
     /**
      * <p>Gets a date formatter instance using the specified style, time
      * zone and locale.</p>
@@ -366,8 +366,23 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @throws NullPointerException if pattern, timeZone, or locale is null.
      */
     protected FastDateFormat(final String pattern, final TimeZone timeZone, final Locale locale) {
+    	this(pattern, timeZone, locale, null);
+    }
+
+    // Constructor
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Constructs a new FastDateFormat.</p>
+     *
+     * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern
+     * @param timeZone  non-null time zone to use
+     * @param locale  non-null locale to use
+     * @param centuryStart The start of the 100 year period to use as the "default century" for 2 digit year parsing.  If centuryStart is null, defaults to now - 80 years
+     * @throws NullPointerException if pattern, timeZone, or locale is null.
+     */
+    protected FastDateFormat(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
         printer= new FastDatePrinter(pattern, timeZone, locale);
-        parser= new FastDateParser(pattern, timeZone, locale);
+        parser= new FastDateParser(pattern, timeZone, locale, centuryStart);
     }
 
     // Format methods
@@ -463,7 +478,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     // Parsing
     //-----------------------------------------------------------------------
 
-    
+
     /* (non-Javadoc)
      * @see DateParser#parse(java.lang.String)
      */
