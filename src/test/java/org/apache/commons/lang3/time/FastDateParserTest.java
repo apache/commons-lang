@@ -19,6 +19,7 @@ package org.apache.commons.lang3.time;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,9 +31,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import org.junit.Assert;
-
 import org.apache.commons.lang3.SerializationUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -42,8 +42,8 @@ import org.junit.Test;
  * @since 3.2
  */
 public class FastDateParserTest {
-    private static final String SHORT_FORMAT_NOERA = "y/M/d/h/a/m/E/Z";
-    private static final String LONG_FORMAT_NOERA = "yyyy/MMMM/dddd/hhhh/mmmm/aaaa/EEEE/ZZZZ";
+    private static final String SHORT_FORMAT_NOERA = "y/M/d/h/a/m/s/E/Z";
+    private static final String LONG_FORMAT_NOERA = "yyyy/MMMM/dddd/hhhh/mmmm/ss/aaaa/EEEE/ZZZZ";
     private static final String SHORT_FORMAT = "G/" + SHORT_FORMAT_NOERA;
     private static final String LONG_FORMAT = "GGGG/" + LONG_FORMAT_NOERA;
 
@@ -79,7 +79,7 @@ public class FastDateParserTest {
      * Override this method in derived tests to change the construction of instances
      */
     protected DateParser getInstance(final String format, final TimeZone timeZone, final Locale locale) {
-        return new FastDateParser(format, timeZone, locale);
+        return new FastDateParser(format, timeZone, locale, null);
     }
 
     @Test
@@ -188,41 +188,58 @@ public class FastDateParserTest {
         assertEquals(cal.getTime(), H.parse("2010-08-01 12:33:20"));
     }
 
+    private Calendar getEraStart(int year, TimeZone zone, Locale locale) {
+        Calendar cal = Calendar.getInstance(zone, locale);
+        cal.clear();
+
+        // http://docs.oracle.com/javase/6/docs/technotes/guides/intl/calendar.doc.html
+        if (locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
+            if(year < 1868) {
+                cal.set(Calendar.ERA, 0);
+                cal.set(Calendar.YEAR, 1868-year);
+            }
+        }
+        else {
+            if (year < 0) {
+                cal.set(Calendar.ERA, GregorianCalendar.BC);
+                year= -year;
+            }
+            cal.set(Calendar.YEAR, year/100 * 100);
+        }
+        return cal;
+    }
+
+    private void validateSdfFormatFdpParseEquality(String format, Locale locale, TimeZone tz, DateParser fdp, Date in, int year, Date cs) throws ParseException {
+        final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
+        if (format.equals(SHORT_FORMAT)) {
+            sdf.set2DigitYearStart( cs );
+        }
+        final String fmt = sdf.format(in);
+        try {
+            final Date out = fdp.parse(fmt);
+            assertEquals(locale.toString()+" "+in+" "+ format+ " "+tz.getID(), in, out);
+        } catch (final ParseException pe) {
+            System.out.println(fmt+" "+locale.toString()+" "+year+" "+ format+ " "+tz.getID());
+            throw pe;
+        }
+    }
+
     @Test
     // Check that all Locales can parse the formats we use
     public void testParses() throws Exception {
-        for(final Locale locale : Locale.getAvailableLocales()) {
-            for(final TimeZone tz : new TimeZone[]{NEW_YORK, GMT}) {
-                final Calendar cal = Calendar.getInstance(tz);
-                for(final int year : new int[]{2003, 1940, 1868, 1867, 0, -1940}) {
-                    // http://docs.oracle.com/javase/6/docs/technotes/guides/intl/calendar.doc.html
-                    if (year < 1868 && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
-                        continue; // Japanese imperial calendar does not support eras before 1868
-                    }
-                    cal.clear();
-                    if (year < 0) {
-                        cal.set(-year, 1, 10);
-                        cal.set(Calendar.ERA, GregorianCalendar.BC);
-                    } else {
-                        cal.set(year, 1, 10);
-                    }
-                    final Date in = cal.getTime();
-                    for(final String format : new String[]{LONG_FORMAT, SHORT_FORMAT}) {
-                        final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
-                        if (format.equals(SHORT_FORMAT)) {
-                            if (year < 1930) {
-                                sdf.set2DigitYearStart(cal.getTime());
-                            }
-                        }
-                        final String fmt = sdf.format(in);
-                        try {
-                            final Date out = sdf.parse(fmt);
+        for(final String format : new String[]{LONG_FORMAT, SHORT_FORMAT}) {
+            for(final Locale locale : Locale.getAvailableLocales()) {
+                for(final TimeZone tz :  new TimeZone[]{NEW_YORK, REYKJAVIK, GMT}) {
+                     for(final int year : new int[]{2003, 1940, 1868, 1867, 1, -1, -1940}) {
+                        Calendar cal= getEraStart(year, tz, locale);
+                        Date centuryStart= cal.getTime();
 
-                            assertEquals(locale.toString()+" "+year+" "+ format+ " "+tz.getID(), in, out);
-                        } catch (final ParseException pe) {
-                            System.out.println(fmt+" "+locale.toString()+" "+year+" "+ format+ " "+tz.getID());
-                            throw pe;
-                        }
+                        cal.set(Calendar.MONTH, 1);
+                        cal.set(Calendar.DAY_OF_MONTH, 10);
+                        Date in= cal.getTime();
+
+                        final FastDateParser fdp= new FastDateParser(format, tz, locale, centuryStart);
+                        validateSdfFormatFdpParseEquality(format, locale, tz, fdp, in, year, centuryStart);
                     }
                 }
             }
