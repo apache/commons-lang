@@ -32,7 +32,7 @@ package org.apache.commons.lang3.tuple;
  * @since Lang 3.0
  * @version $Id$
  */
-public final class ImmutablePair<L, R> extends Pair<L, R> {
+public class ImmutablePair<L, R> extends Pair<L, R> {
 
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
