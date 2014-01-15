@@ -91,7 +91,6 @@ public class StopWatch {
          * StopWatch is also started watch.
          * </p>
 
-         * @param stopWatch
          * @return boolean
          *             If the StopWatch is started.
          */
@@ -104,7 +103,6 @@ public class StopWatch {
          * considered as stopped.
          * </p>
          *
-         * @param stopWatch
          * @return boolean
          *             If the StopWatch is stopped.
          */
@@ -115,7 +113,6 @@ public class StopWatch {
          * This method is used to find out whether the StopWatch is suspended.
          * </p>
          *
-         * @param stopWatch
          * @return boolean
          *             If the StopWatch is suspended.
          */
