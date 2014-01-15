@@ -347,7 +347,7 @@ public class DateUtils {
      * @return the parsed date
      * @throws IllegalArgumentException if the date string or pattern array is null
      * @throws ParseException if none of the date patterns were suitable
-     * @see java.util.Calender#isLenient()
+     * @see java.util.Calendar#isLenient()
      */
     private static Date parseDateWithLeniency(
             final String str, final Locale locale, final String[] parsePatterns, final boolean lenient) throws ParseException {
