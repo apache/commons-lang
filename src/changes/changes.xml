@@ -22,6 +22,8 @@
   <body>
 
   <release version="3.3" date="TBA" description="Bugfix and Feature release">
+    <action issue="LANG-950" type="fix" dev="chas">FastDateParser does not handle two digit year parsing like SimpleDateFormat</action>
+    <action issue="LANG-949" type="fix" dev="chas">FastDateParserTest.testParses does not test FastDateParser</action>
     <action issue="LANG-940" type="update" dev="britter">Fix deprecation warnings</action>
     <action issue="LANG-819" type="update" dev="mbenson">EnumUtils.generateBitVector needs a "? extends"</action>
     <action issue="LANG-834" type="add" dev="britter">Validate: add inclusiveBetween and exclusiveBetween overloads for primitive types</action>
