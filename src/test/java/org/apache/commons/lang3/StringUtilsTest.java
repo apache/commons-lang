@@ -455,7 +455,7 @@ public class StringUtilsTest {
 
     @Test
     public void testSplit_String() {
-        assertArrayEquals(null, StringUtils.split(null));
+        assertNull(StringUtils.split(null));
         assertEquals(0, StringUtils.split("").length);
         
         String str = "a b  .c";
@@ -479,7 +479,7 @@ public class StringUtilsTest {
     
     @Test
     public void testSplit_StringChar() {
-        assertArrayEquals(null, StringUtils.split(null, '.'));
+        assertNull(StringUtils.split(null, '.'));
         assertEquals(0, StringUtils.split("", '.').length);
 
         String str = "a.b.. c";
@@ -504,8 +504,8 @@ public class StringUtilsTest {
     
     @Test
     public void testSplit_StringString_StringStringInt() {
-        assertArrayEquals(null, StringUtils.split(null, "."));
-        assertArrayEquals(null, StringUtils.split(null, ".", 3));
+        assertNull(StringUtils.split(null, "."));
+        assertNull(StringUtils.split(null, ".", 3));
         
         assertEquals(0, StringUtils.split("", ".").length);
         assertEquals(0, StringUtils.split("", ".", 3).length);
@@ -684,7 +684,7 @@ public class StringUtilsTest {
     
     @Test
     public void testSplitPreserveAllTokens_String() {
-        assertArrayEquals(null, StringUtils.splitPreserveAllTokens(null));
+        assertNull(StringUtils.splitPreserveAllTokens(null));
         assertEquals(0, StringUtils.splitPreserveAllTokens("").length);
         
         String str = "abc def";
@@ -760,7 +760,7 @@ public class StringUtilsTest {
     
     @Test
     public void testSplitPreserveAllTokens_StringChar() {
-        assertArrayEquals(null, StringUtils.splitPreserveAllTokens(null, '.'));
+        assertNull(StringUtils.splitPreserveAllTokens(null, '.'));
         assertEquals(0, StringUtils.splitPreserveAllTokens("", '.').length);
 
         String str = "a.b. c";
@@ -872,8 +872,8 @@ public class StringUtilsTest {
     
     @Test
     public void testSplitPreserveAllTokens_StringString_StringStringInt() {
-        assertArrayEquals(null, StringUtils.splitPreserveAllTokens(null, "."));
-        assertArrayEquals(null, StringUtils.splitPreserveAllTokens(null, ".", 3));
+        assertNull(StringUtils.splitPreserveAllTokens(null, "."));
+        assertNull(StringUtils.splitPreserveAllTokens(null, ".", 3));
         
         assertEquals(0, StringUtils.splitPreserveAllTokens("", ".").length);
         assertEquals(0, StringUtils.splitPreserveAllTokens("", ".", 3).length);
@@ -1101,7 +1101,7 @@ public class StringUtilsTest {
 
     @Test
     public void testDeleteWhitespace_String() {
-        assertEquals(null, StringUtils.deleteWhitespace(null));
+        assertNull(StringUtils.deleteWhitespace(null));
         assertEquals("", StringUtils.deleteWhitespace(""));
         assertEquals("", StringUtils.deleteWhitespace("  \u000C  \t\t\u001F\n\n \u000B  "));
         assertEquals("", StringUtils.deleteWhitespace(StringUtilsTest.WHITESPACE));
@@ -1121,10 +1121,10 @@ public class StringUtilsTest {
 
     @Test
     public void testReplace_StringStringString() {
-        assertEquals(null, StringUtils.replace(null, null, null));
-        assertEquals(null, StringUtils.replace(null, null, "any"));
-        assertEquals(null, StringUtils.replace(null, "any", null));
-        assertEquals(null, StringUtils.replace(null, "any", "any"));
+        assertNull(StringUtils.replace(null, null, null));
+        assertNull(StringUtils.replace(null, null, "any"));
+        assertNull(StringUtils.replace(null, "any", null));
+        assertNull(StringUtils.replace(null, "any", "any"));
 
         assertEquals("", StringUtils.replace("", null, null));
         assertEquals("", StringUtils.replace("", null, "any"));
@@ -1153,10 +1153,10 @@ public class StringUtilsTest {
     
     @Test
     public void testReplace_StringStringStringInt() {
-        assertEquals(null, StringUtils.replace(null, null, null, 2));
-        assertEquals(null, StringUtils.replace(null, null, "any", 2));
-        assertEquals(null, StringUtils.replace(null, "any", null, 2));
-        assertEquals(null, StringUtils.replace(null, "any", "any", 2));
+        assertNull(StringUtils.replace(null, null, null, 2));
+        assertNull(StringUtils.replace(null, null, "any", 2));
+        assertNull(StringUtils.replace(null, "any", null, 2));
+        assertNull(StringUtils.replace(null, "any", "any", 2));
 
         assertEquals("", StringUtils.replace("", null, null, 2));
         assertEquals("", StringUtils.replace("", null, "any", 2));
@@ -1179,10 +1179,10 @@ public class StringUtilsTest {
     
     @Test
     public void testReplaceOnce_StringStringString() {
-        assertEquals(null, StringUtils.replaceOnce(null, null, null));
-        assertEquals(null, StringUtils.replaceOnce(null, null, "any"));
-        assertEquals(null, StringUtils.replaceOnce(null, "any", null));
-        assertEquals(null, StringUtils.replaceOnce(null, "any", "any"));
+        assertNull(StringUtils.replaceOnce(null, null, null));
+        assertNull(StringUtils.replaceOnce(null, null, "any"));
+        assertNull(StringUtils.replaceOnce(null, "any", null));
+        assertNull(StringUtils.replaceOnce(null, "any", "any"));
 
         assertEquals("", StringUtils.replaceOnce("", null, null));
         assertEquals("", StringUtils.replaceOnce("", null, "any"));
@@ -1260,7 +1260,7 @@ public class StringUtilsTest {
     
     @Test
     public void testReplaceChars_StringCharChar() {
-        assertEquals(null, StringUtils.replaceChars(null, 'b', 'z'));
+        assertNull(StringUtils.replaceChars(null, 'b', 'z'));
         assertEquals("", StringUtils.replaceChars("", 'b', 'z'));
         assertEquals("azcza", StringUtils.replaceChars("abcba", 'b', 'z'));
         assertEquals("abcba", StringUtils.replaceChars("abcba", 'x', 'z'));
@@ -1268,11 +1268,11 @@ public class StringUtilsTest {
     
     @Test
     public void testReplaceChars_StringStringString() {
-        assertEquals(null, StringUtils.replaceChars(null, null, null));
-        assertEquals(null, StringUtils.replaceChars(null, "", null));
-        assertEquals(null, StringUtils.replaceChars(null, "a", null));
-        assertEquals(null, StringUtils.replaceChars(null, null, ""));
-        assertEquals(null, StringUtils.replaceChars(null, null, "x"));
+        assertNull(StringUtils.replaceChars(null, null, null));
+        assertNull(StringUtils.replaceChars(null, "", null));
+        assertNull(StringUtils.replaceChars(null, "a", null));
+        assertNull(StringUtils.replaceChars(null, null, ""));
+        assertNull(StringUtils.replaceChars(null, null, "x"));
         
         assertEquals("", StringUtils.replaceChars("", null, null));
         assertEquals("", StringUtils.replaceChars("", "", null));
@@ -1314,8 +1314,8 @@ public class StringUtilsTest {
     
     @Test
     public void testOverlay_StringStringIntInt() {
-        assertEquals(null, StringUtils.overlay(null, null, 2, 4));
-        assertEquals(null, StringUtils.overlay(null, null, -2, -4));
+        assertNull(StringUtils.overlay(null, null, 2, 4));
+        assertNull(StringUtils.overlay(null, null, -2, -4));
         
         assertEquals("", StringUtils.overlay("", null, 0, 0));
         assertEquals("", StringUtils.overlay("", "", 0, 0));
@@ -1342,7 +1342,7 @@ public class StringUtilsTest {
 
     @Test
     public void testRepeat_StringInt() {
-        assertEquals(null, StringUtils.repeat(null, 2));
+        assertNull(StringUtils.repeat(null, 2));
         assertEquals("", StringUtils.repeat("ab", 0));
         assertEquals("", StringUtils.repeat("", 3));
         assertEquals("aaa", StringUtils.repeat("a", 3));
@@ -1355,8 +1355,8 @@ public class StringUtilsTest {
 
     @Test
     public void testRepeat_StringStringInt() {
-        assertEquals(null, StringUtils.repeat(null, null, 2));
-        assertEquals(null, StringUtils.repeat(null, "x", 2));
+        assertNull(StringUtils.repeat(null, null, 2));
+        assertNull(StringUtils.repeat(null, "x", 2));
         assertEquals("", StringUtils.repeat("", null, 2));
 
         assertEquals("", StringUtils.repeat("ab", "", 0));
@@ -1453,7 +1453,7 @@ public class StringUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testRightPad_StringInt() {
-        assertEquals(null, StringUtils.rightPad(null, 5));
+        assertNull(StringUtils.rightPad(null, 5));
         assertEquals("     ", StringUtils.rightPad("", 5));
         assertEquals("abc  ", StringUtils.rightPad("abc", 5));
         assertEquals("abc", StringUtils.rightPad("abc", 2));
@@ -1462,7 +1462,7 @@ public class StringUtilsTest {
 
     @Test
     public void testRightPad_StringIntChar() {
-        assertEquals(null, StringUtils.rightPad(null, 5, ' '));
+        assertNull(StringUtils.rightPad(null, 5, ' '));
         assertEquals("     ", StringUtils.rightPad("", 5, ' '));
         assertEquals("abc  ", StringUtils.rightPad("abc", 5, ' '));
         assertEquals("abc", StringUtils.rightPad("abc", 2, ' '));
@@ -1475,9 +1475,9 @@ public class StringUtilsTest {
 
     @Test
     public void testRightPad_StringIntString() {
-        assertEquals(null, StringUtils.rightPad(null, 5, "-+"));
+        assertNull(StringUtils.rightPad(null, 5, "-+"));
         assertEquals("     ", StringUtils.rightPad("", 5, " "));
-        assertEquals(null, StringUtils.rightPad(null, 8, null));
+        assertNull(StringUtils.rightPad(null, 8, null));
         assertEquals("abc-+-+", StringUtils.rightPad("abc", 7, "-+"));
         assertEquals("abc-+~", StringUtils.rightPad("abc", 6, "-+~"));
         assertEquals("abc-+", StringUtils.rightPad("abc", 5, "-+~"));
@@ -1490,7 +1490,7 @@ public class StringUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testLeftPad_StringInt() {
-        assertEquals(null, StringUtils.leftPad(null, 5));
+        assertNull(StringUtils.leftPad(null, 5));
         assertEquals("     ", StringUtils.leftPad("", 5));
         assertEquals("  abc", StringUtils.leftPad("abc", 5));
         assertEquals("abc", StringUtils.leftPad("abc", 2));
@@ -1498,7 +1498,7 @@ public class StringUtilsTest {
         
     @Test
     public void testLeftPad_StringIntChar() {
-        assertEquals(null, StringUtils.leftPad(null, 5, ' '));
+        assertNull(StringUtils.leftPad(null, 5, ' '));
         assertEquals("     ", StringUtils.leftPad("", 5, ' '));
         assertEquals("  abc", StringUtils.leftPad("abc", 5, ' '));
         assertEquals("xxabc", StringUtils.leftPad("abc", 5, 'x'));
@@ -1511,8 +1511,8 @@ public class StringUtilsTest {
         
     @Test
     public void testLeftPad_StringIntString() {
-        assertEquals(null, StringUtils.leftPad(null, 5, "-+"));
-        assertEquals(null, StringUtils.leftPad(null, 5, null));
+        assertNull(StringUtils.leftPad(null, 5, "-+"));
+        assertNull(StringUtils.leftPad(null, 5, null));
         assertEquals("     ", StringUtils.leftPad("", 5, " "));
         assertEquals("-+-+abc", StringUtils.leftPad("abc", 7, "-+"));
         assertEquals("-+~abc", StringUtils.leftPad("abc", 6, "-+~"));
@@ -1562,8 +1562,8 @@ public class StringUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testCenter_StringInt() {
-        assertEquals(null, StringUtils.center(null, -1));
-        assertEquals(null, StringUtils.center(null, 4));
+        assertNull(StringUtils.center(null, -1));
+        assertNull(StringUtils.center(null, 4));
         assertEquals("    ", StringUtils.center("", 4));
         assertEquals("ab", StringUtils.center("ab", 0));
         assertEquals("ab", StringUtils.center("ab", -1));
@@ -1577,8 +1577,8 @@ public class StringUtilsTest {
     
     @Test
     public void testCenter_StringIntChar() {
-        assertEquals(null, StringUtils.center(null, -1, ' '));
-        assertEquals(null, StringUtils.center(null, 4, ' '));
+        assertNull(StringUtils.center(null, -1, ' '));
+        assertNull(StringUtils.center(null, 4, ' '));
         assertEquals("    ", StringUtils.center("", 4, ' '));
         assertEquals("ab", StringUtils.center("ab", 0, ' '));
         assertEquals("ab", StringUtils.center("ab", -1, ' '));
@@ -1593,9 +1593,9 @@ public class StringUtilsTest {
     
     @Test
     public void testCenter_StringIntString() {
-        assertEquals(null, StringUtils.center(null, 4, null));
-        assertEquals(null, StringUtils.center(null, -1, " "));
-        assertEquals(null, StringUtils.center(null, 4, " "));
+        assertNull(StringUtils.center(null, 4, null));
+        assertNull(StringUtils.center(null, -1, " "));
+        assertNull(StringUtils.center(null, 4, " "));
         assertEquals("    ", StringUtils.center("", 4, " "));
         assertEquals("ab", StringUtils.center("ab", 0, " "));
         assertEquals("ab", StringUtils.center("ab", -1, " "));
@@ -1613,14 +1613,14 @@ public class StringUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testReverse_String() {
-        assertEquals(null, StringUtils.reverse(null) );
+        assertNull(StringUtils.reverse(null) );
         assertEquals("", StringUtils.reverse("") );
         assertEquals("sdrawkcab", StringUtils.reverse("backwards") );
     }
         
     @Test
     public void testReverseDelimited_StringChar() {
-        assertEquals(null, StringUtils.reverseDelimited(null, '.') );
+        assertNull(StringUtils.reverseDelimited(null, '.') );
         assertEquals("", StringUtils.reverseDelimited("", '.') );
         assertEquals("c.b.a", StringUtils.reverseDelimited("a.b.c", '.') );
         assertEquals("a b c", StringUtils.reverseDelimited("a b c", '.') );
@@ -1731,7 +1731,7 @@ public class StringUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testAbbreviate_StringInt() {
-        assertEquals(null, StringUtils.abbreviate(null, 10));
+        assertNull(StringUtils.abbreviate(null, 10));
         assertEquals("", StringUtils.abbreviate("", 10));
         assertEquals("short", StringUtils.abbreviate("short", 10));
         assertEquals("Now is ...", StringUtils.abbreviate("Now is the time for all good men to come to the aid of their party.", 10));
@@ -1758,7 +1758,7 @@ public class StringUtilsTest {
     
     @Test
     public void testAbbreviate_StringIntInt() {
-        assertEquals(null, StringUtils.abbreviate(null, 10, 12));
+        assertNull(StringUtils.abbreviate(null, 10, 12));
         assertEquals("", StringUtils.abbreviate("", 0, 10));
         assertEquals("", StringUtils.abbreviate("", 2, 10));
         
@@ -1783,7 +1783,7 @@ public class StringUtilsTest {
         final String raspberry = "raspberry peach";
         assertEquals("raspberry peach", StringUtils.abbreviate(raspberry, 11, 15));
 
-        assertEquals(null, StringUtils.abbreviate(null, 7, 14));
+        assertNull(StringUtils.abbreviate(null, 7, 14));
         assertAbbreviateWithOffset("abcdefg...", -1, 10);
         assertAbbreviateWithOffset("abcdefg...", 0, 10);
         assertAbbreviateWithOffset("abcdefg...", 1, 10);
@@ -1863,7 +1863,7 @@ public class StringUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testDifference_StringString() {
-        assertEquals(null, StringUtils.difference(null, null));
+        assertNull(StringUtils.difference(null, null));
         assertEquals("", StringUtils.difference("", ""));
         assertEquals("abc", StringUtils.difference("", "abc"));
         assertEquals("", StringUtils.difference("abc", ""));
@@ -2124,9 +2124,9 @@ public class StringUtilsTest {
     @Test
     public void testRemove_String() {
         // StringUtils.remove(null, *)        = null
-        assertEquals(null, StringUtils.remove(null, null));
-        assertEquals(null, StringUtils.remove(null, ""));
-        assertEquals(null, StringUtils.remove(null, "a"));
+        assertNull(StringUtils.remove(null, null));
+        assertNull(StringUtils.remove(null, ""));
+        assertNull(StringUtils.remove(null, "a"));
         
         // StringUtils.remove("", *)          = ""
         assertEquals("", StringUtils.remove("", null));
@@ -2134,12 +2134,12 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.remove("", "a"));
         
         // StringUtils.remove(*, null)        = *
-        assertEquals(null, StringUtils.remove(null, null));
+        assertNull(StringUtils.remove(null, null));
         assertEquals("", StringUtils.remove("", null));
         assertEquals("a", StringUtils.remove("a", null));
         
         // StringUtils.remove(*, "")          = *
-        assertEquals(null, StringUtils.remove(null, ""));
+        assertNull(StringUtils.remove(null, ""));
         assertEquals("", StringUtils.remove("", ""));
         assertEquals("a", StringUtils.remove("a", ""));
         
@@ -2153,9 +2153,9 @@ public class StringUtilsTest {
     @Test
     public void testRemove_char() {
         // StringUtils.remove(null, *)       = null
-        assertEquals(null, StringUtils.remove(null, 'a'));
-        assertEquals(null, StringUtils.remove(null, 'a'));
-        assertEquals(null, StringUtils.remove(null, 'a'));
+        assertNull(StringUtils.remove(null, 'a'));
+        assertNull(StringUtils.remove(null, 'a'));
+        assertNull(StringUtils.remove(null, 'a'));
         
         // StringUtils.remove("", *)          = ""
         assertEquals("", StringUtils.remove("", 'a'));
@@ -2213,7 +2213,7 @@ public class StringUtilsTest {
 
     @Test
     public void testNormalizeSpace() {
-        assertEquals(null, StringUtils.normalizeSpace(null));
+        assertNull(StringUtils.normalizeSpace(null));
         assertEquals("", StringUtils.normalizeSpace(""));
         assertEquals("", StringUtils.normalizeSpace(" "));
         assertEquals("", StringUtils.normalizeSpace("\t"));
