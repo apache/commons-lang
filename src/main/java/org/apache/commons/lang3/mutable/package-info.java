@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 /**
- * <p>Provides typed mutable wrappers to primitive values and Object.</p>
- * <p>These classes are not thread-safe.</p>
+ * <p>Provides typed mutable wrappers to primitive values and Object.
+ * These wrappers are similar to the wrappers provided by the Java API, but allow the wrapped value to be changed without needing to create a separate wrapper object.
+ * These classes are not thread-safe.</p>
  *
  * @since 2.1
  * @version $Id$
