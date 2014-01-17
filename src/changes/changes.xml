@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.3" date="TBA" description="Bugfix and Feature release">
+    <action issue="LANG-939" type="update" dev="britter">Move Documentation from user guide to package-info files</action>
     <action issue="LANG-953" type="update" dev="britter">Convert package.html files to package-info.java files</action>
     <action issue="LANG-950" type="fix" dev="chas">FastDateParser does not handle two digit year parsing like SimpleDateFormat</action>
     <action issue="LANG-949" type="fix" dev="chas">FastDateParserTest.testParses does not test FastDateParser</action>
