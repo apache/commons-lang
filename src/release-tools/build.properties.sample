@@ -18,3 +18,5 @@
 
 # Your apache ID - it is used for the Build-By MANIFEST header, when creating the RC jars
 apache.id=luckyRM
+# directory to use when crating the release
+release.path=${user.home}/lang-rc
