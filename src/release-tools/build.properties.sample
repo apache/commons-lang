@@ -16,7 +16,10 @@
 # Sample Ant build.properties file for creating RCs and releasing
 ##########################################################################
 
-# Your apache ID - it is used for the Build-By MANIFEST header, when creating the RC jars
+# Your apache ID - it is used for the Build-By MANIFEST header, when
+# creating the RC jars and when uploading the website
 apache.id=luckyRM
-# directory to use when crating the release
+# checkout directory for the release distribution repo
 release.path=${user.home}/lang-rc
+# SSH keyfile holding the private key
+ssh.keyfile=${user.home}/.ssh/id_rsa

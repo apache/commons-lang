@@ -30,6 +30,7 @@
         <!-- provide some defaults -->
         <property name="release.path" value="${user.home}/lang-rc" />
         <property name="apache.id" value="dev@commons.apache.org" />
+        <property name="ssh.keyfile" value="${user.home}/.ssh/id_rsa"/>
         <property name="release.url" value="https://dist.apache.org/repos/dist/dev/commons/lang" />
 
         <macrodef name="mvn">
@@ -77,7 +78,7 @@
     </target>
 
     <target name="-populate-dist-repo"
-            depends="pre-rc, -build-maven-artifacts, -prepare-dist-area">
+            depends="-build-maven-artifacts, -prepare-dist-area">
         <copy todir="${release.path}/binaries">
             <fileset dir="${repo.path}">
                 <include name="*bin.zip*" />
@@ -101,6 +102,42 @@
     <target name="-create-site" depends="-init">
         <echo message="Creating site" />
         <mvn goal="site"/>
+    </target>
+
+    <target name="upload-site" depends="-init"
+            description="Uploads and publishes the site to the RM's apache webspace">
+        <zip destfile="target/site.zip">
+            <zipfileset dir="target/site" prefix="${final.name}"/>
+        </zip>
+
+        <input message="Please enter ssh passphrase..." addproperty="ssh.pass">
+            <handler type="secure" />
+        </input>
+
+        <scp localFile="target/site.zip"
+             remoteToDir="${apache.id}@people.apache.org:."
+             keyfile="${ssh.keyfile}"
+             passphrase="${ssh.pass}"/>
+        <sshexec username="${apache.id}" host="people.apache.org"
+                 command="unzip -d public_html site.zip"
+                 keyfile="${ssh.keyfile}"
+                 passphrase="${ssh.pass}"/>
+        <sshexec username="${apache.id}" host="people.apache.org"
+                 command="rm site.zip"
+                 keyfile="${ssh.keyfile}"
+                 passphrase="${ssh.pass}"/>
+    </target>
+
+    <target name="nexus-bundle" depends="-build-maven-artifacts"
+            description="Creates an upload bundle suitable for Nexus Snapshot Upload">
+        <jar destfile="target/upload-bundle.jar">
+            <fileset dir="${repo.path}">
+                <include name="*.jar"/>
+                <include name="*.jar.asc"/>
+                <include name="*.pom"/>
+                <include name="*.pom.asc"/>
+            </fileset>
+        </jar>
     </target>
 
     <target name="-prepare-dist-area" depends="-checkout-dist, -update-dist"/>
