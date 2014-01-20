@@ -18,7 +18,9 @@ package org.apache.commons.lang3.reflect;
 
 import org.junit.Test;
 import org.junit.Before;
+
 import static org.junit.Assert.*;
+
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -69,6 +71,12 @@ public class ConstructorUtilsTest {
     private static class PrivateClass {
         @SuppressWarnings("unused")
         public PrivateClass() {
+        }
+
+        @SuppressWarnings("unused")
+        public static class PublicInnerClass {
+            public PublicInnerClass() {
+            }
         }
     }
 
@@ -154,6 +162,7 @@ public class ConstructorUtilsTest {
                 .getConstructor(ArrayUtils.EMPTY_CLASS_ARRAY)));
         assertNull(ConstructorUtils.getAccessibleConstructor(PrivateClass.class
                 .getConstructor(ArrayUtils.EMPTY_CLASS_ARRAY)));
+        assertNull(ConstructorUtils.getAccessibleConstructor(PrivateClass.PublicInnerClass.class));
     }
 
     @Test
