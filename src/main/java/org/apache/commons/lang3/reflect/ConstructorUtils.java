@@ -217,7 +217,7 @@ public class ConstructorUtils {
     public static <T> Constructor<T> getAccessibleConstructor(final Constructor<T> ctor) {
         Validate.notNull(ctor, "constructor cannot be null");
         return MemberUtils.isAccessible(ctor)
-                && Modifier.isPublic(ctor.getDeclaringClass().getModifiers()) ? ctor : null;
+                && isAccessible(ctor.getDeclaringClass()) ? ctor : null;
     }
 
     /**
@@ -277,6 +277,24 @@ public class ConstructorUtils {
             }
         }
         return result;
+    }
+
+    /**
+     * Learn whether the specified class is generally accessible, i.e. is
+     * declared in an entirely {@code public} manner.
+     * @param type to check
+     * @return {@code true} if {@code type} and any enclosing classes are
+     *         {@code public}.
+     */
+    private static boolean isAccessible(final Class<?> type) {
+        Class<?> cls = type;
+        while (cls != null) {
+            if (!Modifier.isPublic(cls.getModifiers())) {
+                return false;
+            }
+            cls = cls.getEnclosingClass();
+        }
+        return true;
     }
 
 }
