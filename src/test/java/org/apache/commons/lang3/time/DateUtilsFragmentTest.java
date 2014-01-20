@@ -532,6 +532,19 @@ testResult);
     }
 
     @Test
+    public void testMinutesOfYearWithWrongOffsetBugWithCalendar() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.MONTH, Calendar.JANUARY);
+        c.set(Calendar.DAY_OF_YEAR, 1);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        final long testResult = DateUtils.getFragmentInMinutes(c, Calendar.YEAR);
+        assertEquals( 0, testResult);
+    }
+
+    @Test
     public void testHoursOfYearWithDate() {
         final long testResult = DateUtils.getFragmentInHours(aDate, Calendar.YEAR);
         final Calendar cal = Calendar.getInstance();
