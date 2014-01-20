@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.3" date="TBA" description="Bugfix and Feature release">
+    <action issue="LANG-951" type="fix" dev="britter" due-to="Sebastian Götz">Fragments are wrong by 1 day when using fragment YEAR or MONTH</action>
     <action issue="LANG-417" type="add" dev="britter">New class ClassPathUtils with methods for turning FQN into resource path</action>
     <action issue="LANG-939" type="update" dev="britter">Move Documentation from user guide to package-info files</action>
     <action issue="LANG-953" type="update" dev="britter">Convert package.html files to package-info.java files</action>
