@@ -430,6 +430,8 @@ public class DurationFormatUtilsTest {
     // Attempting to test edge cases in DurationFormatUtils.formatPeriod
     @Test
     public void testEdgeDurations() {
+        // This test case must use a time zone without DST
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         assertEqualDuration( "01", new int[] { 2006, 0, 15, 0, 0, 0 }, 
                              new int[] { 2006, 2, 10, 0, 0, 0 }, "MM");
         assertEqualDuration( "12", new int[] { 2005, 0, 15, 0, 0, 0 }, 
