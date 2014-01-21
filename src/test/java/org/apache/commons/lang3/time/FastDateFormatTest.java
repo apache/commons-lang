@@ -250,6 +250,15 @@ public class FastDateFormatTest {
                 FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, TimeZone.getDefault(), Locale.getDefault()));
     }
 
+    /**
+     * According to LANG-954 (https://issues.apache.org/jira/browse/LANG-954) this is broken in Android 2.1.
+     */
+    @Test
+    public void testLang954() throws Exception {
+        String pattern = "yyyy-MM-dd'T'";
+        FastDateFormat.getInstance(pattern);
+    }
+
     @Test
     public void testParseSync() throws InterruptedException {
         final String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS Z";
