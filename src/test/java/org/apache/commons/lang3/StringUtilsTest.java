@@ -1974,6 +1974,14 @@ public class StringUtilsTest {
         assertEquals(8, StringUtils.getLevenshteinDistance("zzzzzzzz", "hippo",8) );
         assertEquals(1, StringUtils.getLevenshteinDistance("hello", "hallo",1) );
 
+        assertEquals(1, StringUtils.getLevenshteinDistance("frog", "fog", Integer.MAX_VALUE) );
+        assertEquals(3, StringUtils.getLevenshteinDistance("fly", "ant", Integer.MAX_VALUE) );
+        assertEquals(7, StringUtils.getLevenshteinDistance("elephant", "hippo", Integer.MAX_VALUE) );
+        assertEquals(7, StringUtils.getLevenshteinDistance("hippo", "elephant", Integer.MAX_VALUE) );
+        assertEquals(8, StringUtils.getLevenshteinDistance("hippo", "zzzzzzzz", Integer.MAX_VALUE) );
+        assertEquals(8, StringUtils.getLevenshteinDistance("zzzzzzzz", "hippo", Integer.MAX_VALUE) );
+        assertEquals(1, StringUtils.getLevenshteinDistance("hello", "hallo", Integer.MAX_VALUE) );
+
         // exceptions
         try {
             @SuppressWarnings("unused")

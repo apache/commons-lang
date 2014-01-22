@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.3" date="TBA" description="Bugfix and Feature release">
+    <action issue="LANG-936" type="fix" dev="bayard" due-to="Yaniv Kunda, Eli Lindsey">StringUtils.getLevenshteinDistance with too big of a threshold returns wrong result</action>
     <action issue="LANG-943" type="fix" dev="kinow">Test DurationFormatUtilsTest.testEdgeDuration fails in JDK 1.6, 1.7 and 1.8, BRST time zone</action>
     <action issue="LANG-613" type="fix" dev="mbenson">ConstructorUtils.getAccessibleConstructor() Does Not Check the Accessibility of Enclosing Classes</action>
     <action issue="LANG-951" type="fix" dev="britter" due-to="Sebastian Götz">Fragments are wrong by 1 day when using fragment YEAR or MONTH</action>
