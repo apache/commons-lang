@@ -7123,19 +7123,15 @@ public class StringUtils {
      * @param second The second string.
      * @return A number between 0 and 4.
      */
-    private static int commonPrefixLength(CharSequence first, CharSequence second)
-    {
+    private static int commonPrefixLength(CharSequence first, CharSequence second) {
         String shorter;
         String longer;
 
         // Determine which String is longer.
-        if (first.length() > second.length())
-        {
+        if (first.length() > second.length()) {
             longer = first.toString().toLowerCase();
             shorter = second.toString().toLowerCase();
-        }
-        else
-        {
+        } else {
             longer = second.toString().toLowerCase();
             shorter = first.toString().toLowerCase();
         }
@@ -7143,17 +7139,15 @@ public class StringUtils {
         int result = 0;
 
         // Iterate through the shorter string.
-        for (int i = 0; i < shorter.length(); i++)
-        {
-            if (shorter.charAt(i) != longer.charAt(i))
-            {
+        for (int i = 0; i < shorter.length(); i++) {
+            if (shorter.charAt(i) != longer.charAt(i)) {
                 break;
             }
             result++;
         }
 
         // Limit the result to 4.
-        return result > 4? 4: result;
+        return result > 4 ? 4 : result;
     }
     
     // startsWith
