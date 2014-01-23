@@ -7008,25 +7008,18 @@ public class StringUtils {
      * @throws IllegalArgumentException if either String input {@code null}
      */
     public static double getJaroWinklerDistance(CharSequence first, CharSequence second){
-        double matchScore = 0.0;
         final double DEFAULT_SCALING_FACTOR = 0.1;
 
         if (first == null || second == null) {
             throw new IllegalArgumentException("Strings must not be null");
         }
 
-        try {
-            double jaro = score(first,second);
-            int cl = commonPrefixLength(first, second);
-            matchScore = Math.round((jaro + (DEFAULT_SCALING_FACTOR * cl * (1.0 - jaro))) *100.0)/100.0;
-            //System.out.format("The score is %f for %s and %s ", matchScore,s1, s2);
+        double jaro = score(first,second);
+        int cl = commonPrefixLength(first, second);
+        double matchScore = Math.round((jaro + (DEFAULT_SCALING_FACTOR * cl * (1.0 - jaro))) *100.0)/100.0;
+        //System.out.format("The score is %f for %s and %s ", matchScore,s1, s2);
 
-            return  matchScore;
-
-        } catch (Exception e) {
-
-        }
-        return matchScore;
+        return  matchScore;
     }
 
     /**
