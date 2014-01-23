@@ -1918,6 +1918,45 @@ public class StringUtilsTest {
             // empty
         }
     }
+    
+    @Test
+    public void testGetJaroWinklerDistance_StringString() {
+      
+      assertEquals(0.93d, StringUtils.getJaroWinklerDistance("frog", "fog"), 0.0d);
+      assertEquals(0.0d, StringUtils.getJaroWinklerDistance("fly", "ant"), 0.0d);
+      assertEquals(0.44d, StringUtils.getJaroWinklerDistance("elephant", "hippo"), 0.0d);
+      assertEquals(0.91d, StringUtils.getJaroWinklerDistance("ABC Corporation", "ABC Corp"), 0.0d);
+      assertEquals(0.93d, StringUtils.getJaroWinklerDistance("D N H Enterprises Inc", "D & H Enterprises, Inc."), 0.0d);
+      assertEquals(0.94d, StringUtils.getJaroWinklerDistance("My Gym Children's Fitness Center", "My Gym. Childrens Fitness"), 0.0d);
+      assertEquals(0.9d, StringUtils.getJaroWinklerDistance("PENNSYLVANIA", "PENNCISYLVNIA"), 0.0d);
+      // exceptions
+      try {
+          @SuppressWarnings("unused")
+          final
+          double d = StringUtils.getJaroWinklerDistance(null, null);
+          fail("expecting IllegalArgumentException");
+      } catch (final IllegalArgumentException ex) {
+          // empty
+      }
+      
+      try {
+        @SuppressWarnings("unused")
+        final
+        double d = StringUtils.getJaroWinklerDistance(" ", null);
+        fail("expecting IllegalArgumentException");
+      } catch (final IllegalArgumentException ex) {
+        // empty
+      }
+      try {
+        @SuppressWarnings("unused")
+        final
+        double d = StringUtils.getJaroWinklerDistance(null, "clear");
+        fail("expecting IllegalArgumentException");
+      } catch (final IllegalArgumentException ex) {
+        // empty
+      }
+ 
+    }
 
     @Test
     public void testGetLevenshteinDistance_StringStringInt() {
