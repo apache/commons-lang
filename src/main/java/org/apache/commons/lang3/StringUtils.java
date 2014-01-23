@@ -6980,10 +6980,10 @@ public class StringUtils {
      * <p>Find the Jaro Winkler Distance which indicates the similarity score between two Strings.</p>
      *
      * <p>The Jaro measure is the weighted sum of percentage of matched characters from each file and transposed characters. 
-     * Winkler increased this measure for matching initial characters</p>
+     * Winkler increased this measure for matching initial characters.</p>
      *
      * <p>This implementation is based on the Jaro Winkler similarity algorithm
-     * from <a href="http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance">http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance</a></p>
+     * from <a href="http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance">http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance</a>.</p>
      * 
      * <pre>
      * StringUtils.getJaroWinklerDistance(null, null)          = IllegalArgumentException
@@ -7002,8 +7002,8 @@ public class StringUtils {
      * StringUtils.getJaroWinklerDistance("PENNSYLVANIA", "PENNCISYLVNIA")    = 0.9
      * </pre>
      *
-     * @param s  the first String, must not be null
-     * @param t  the second String, must not be null
+     * @param first the first String, must not be null
+     * @param second the second String, must not be null
      * @return result distance
      * @throws IllegalArgumentException if either String input {@code null}
      */
@@ -7029,8 +7029,9 @@ public class StringUtils {
     }
 
     /**
-     * This method returns the jarowinkler score for string matching.
-     * @param strings to be matched
+     * This method returns the Jaro-Winkler score for string matching.
+     * @param first the first string to be matched
+     * @param second the second string to be machted
      * @return matching score without scaling factor impact
      */
     private static double score(CharSequence first, CharSequence second) {
@@ -7082,13 +7083,14 @@ public class StringUtils {
 
     /**
      * Gets a set of matching characters between two strings.
-     * 
+     *
+     * <p><Two characters from the first string and the second string are considered matching if the character's
+     * respective positions are no farther than the limit value.</p>
+     *
      * @param first The first string.
      * @param second The second string.
      * @param limit The maximum distance to consider.
      * @return A string contain the set of common characters.
-     * @remarks Two characters from the first string and the second string are considered matching if the character's
-     * respective positions are no farther than the limit value.
      */
     private static String getSetOfMatchingCharacterWithin(CharSequence first, CharSequence second, int limit)
     {
