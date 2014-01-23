@@ -1902,17 +1902,13 @@ public class StringUtilsTest {
         assertEquals(8, StringUtils.getLevenshteinDistance("zzzzzzzz", "hippo") );
         assertEquals(1, StringUtils.getLevenshteinDistance("hello", "hallo") );
         try {
-            @SuppressWarnings("unused")
-            final
-            int d = StringUtils.getLevenshteinDistance("a", null);
+            StringUtils.getLevenshteinDistance("a", null);
             fail("expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             // empty
         }
         try {
-            @SuppressWarnings("unused")
-            final
-            int d = StringUtils.getLevenshteinDistance(null, "a");
+            StringUtils.getLevenshteinDistance(null, "a");
             fail("expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             // empty
@@ -1931,26 +1927,20 @@ public class StringUtilsTest {
       assertEquals(0.9d, StringUtils.getJaroWinklerDistance("PENNSYLVANIA", "PENNCISYLVNIA"), 0.0d);
       // exceptions
       try {
-          @SuppressWarnings("unused")
-          final
-          double d = StringUtils.getJaroWinklerDistance(null, null);
+          StringUtils.getJaroWinklerDistance(null, null);
           fail("expecting IllegalArgumentException");
       } catch (final IllegalArgumentException ex) {
           // empty
       }
       
       try {
-        @SuppressWarnings("unused")
-        final
-        double d = StringUtils.getJaroWinklerDistance(" ", null);
+        StringUtils.getJaroWinklerDistance(" ", null);
         fail("expecting IllegalArgumentException");
       } catch (final IllegalArgumentException ex) {
         // empty
       }
       try {
-        @SuppressWarnings("unused")
-        final
-        double d = StringUtils.getJaroWinklerDistance(null, "clear");
+        StringUtils.getJaroWinklerDistance(null, "clear");
         fail("expecting IllegalArgumentException");
       } catch (final IllegalArgumentException ex) {
         // empty
@@ -2023,26 +2013,20 @@ public class StringUtilsTest {
 
         // exceptions
         try {
-            @SuppressWarnings("unused")
-            final
-            int d = StringUtils.getLevenshteinDistance("a", null, 0);
+            StringUtils.getLevenshteinDistance("a", null, 0);
             fail("expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             // empty
         }
         try {
-            @SuppressWarnings("unused")
-            final
-            int d = StringUtils.getLevenshteinDistance(null, "a", 0);
+            StringUtils.getLevenshteinDistance(null, "a", 0);
             fail("expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             // empty
         }
 
         try {
-            @SuppressWarnings("unused")
-            final
-            int d = StringUtils.getLevenshteinDistance("a", "a", -1);
+            StringUtils.getLevenshteinDistance("a", "a", -1);
             fail("expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             // empty
