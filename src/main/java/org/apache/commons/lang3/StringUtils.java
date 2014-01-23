@@ -7112,8 +7112,7 @@ public class StringUtils {
                 transpositions++;
             }
         }
-        transpositions /= 2;
-        return transpositions;
+        return transpositions / 2;
     }
     
     /**
