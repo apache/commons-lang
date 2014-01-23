@@ -7007,16 +7007,16 @@ public class StringUtils {
      * @return result distance
      * @throws IllegalArgumentException if either String input {@code null}
      */
-    public static double getJaroWinklerDistance(CharSequence first, CharSequence second){
+    public static double getJaroWinklerDistance(final CharSequence first, final CharSequence second){
         final double DEFAULT_SCALING_FACTOR = 0.1;
 
         if (first == null || second == null) {
             throw new IllegalArgumentException("Strings must not be null");
         }
 
-        double jaro = score(first,second);
-        int cl = commonPrefixLength(first, second);
-        double matchScore = Math.round((jaro + (DEFAULT_SCALING_FACTOR * cl * (1.0 - jaro))) *100.0)/100.0;
+        final double jaro = score(first,second);
+        final int cl = commonPrefixLength(first, second);
+        final double matchScore = Math.round((jaro + (DEFAULT_SCALING_FACTOR * cl * (1.0 - jaro))) *100.0)/100.0;
         //System.out.format("The score is %f for %s and %s ", matchScore,s1, s2);
 
         return  matchScore;
@@ -7028,7 +7028,7 @@ public class StringUtils {
      * @param second the second string to be machted
      * @return matching score without scaling factor impact
      */
-    private static double score(CharSequence first, CharSequence second) {
+    private static double score(final CharSequence first, final CharSequence second) {
         String shorter;
         String longer;
 
@@ -7042,12 +7042,12 @@ public class StringUtils {
         }
 
         // Calculate the half length() distance of the shorter String.
-        int halflength = (shorter.length() / 2) + 1;
+        final int halflength = (shorter.length() / 2) + 1;
 
         // Find the set of matching characters between the shorter and longer strings. Note that
         // the set of matching characters may be different depending on the order of the strings.
-        String m1 = getSetOfMatchingCharacterWithin(shorter, longer, halflength);
-        String m2 = getSetOfMatchingCharacterWithin(longer, shorter, halflength);
+        final String m1 = getSetOfMatchingCharacterWithin(shorter, longer, halflength);
+        final String m2 = getSetOfMatchingCharacterWithin(longer, shorter, halflength);
 
         // If one or both of the sets of common characters is empty, then
         // there is no similarity between the two strings.
@@ -7059,10 +7059,10 @@ public class StringUtils {
 
         // Calculate the number of transposition between the two sets
         // of common characters.
-        int transpositions = transpositions(m1, m2);
+        final int transpositions = transpositions(m1, m2);
 
         // Calculate the distance.
-        double dist =
+        final double dist =
                 (m1.length() / ((double)shorter.length()) +
                         m2.length() / ((double)longer.length()) +
                         (m1.length() - transpositions) / ((double)m1.length())) / 3.0;
@@ -7080,13 +7080,13 @@ public class StringUtils {
      * @param limit The maximum distance to consider.
      * @return A string contain the set of common characters.
      */
-    private static String getSetOfMatchingCharacterWithin(CharSequence first, CharSequence second, int limit)
+    private static String getSetOfMatchingCharacterWithin(final CharSequence first, final CharSequence second, final int limit)
     {
-        StringBuilder common = new StringBuilder();
-        StringBuilder copy = new StringBuilder(second);
+        final StringBuilder common = new StringBuilder();
+        final StringBuilder copy = new StringBuilder(second);
         for (int i = 0; i < first.length(); i++)
         {
-            char ch = first.charAt(i);
+            final char ch = first.charAt(i);
             boolean found = false;
 
             // See if the character is within the limit positions away from the original position of that character.
