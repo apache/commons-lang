@@ -1901,20 +1901,18 @@ public class StringUtilsTest {
         assertEquals(8, StringUtils.getLevenshteinDistance("hippo", "zzzzzzzz") );
         assertEquals(8, StringUtils.getLevenshteinDistance("zzzzzzzz", "hippo") );
         assertEquals(1, StringUtils.getLevenshteinDistance("hello", "hallo") );
-        try {
-            StringUtils.getLevenshteinDistance("a", null);
-            fail("expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            // empty
-        }
-        try {
-            StringUtils.getLevenshteinDistance(null, "a");
-            fail("expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            // empty
-        }
     }
-    
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetLevenshteinDistance_NullString() throws Exception {
+        StringUtils.getLevenshteinDistance("a", null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetLevenshteinDistance_StringNull() throws Exception {
+        StringUtils.getLevenshteinDistance(null, "a");
+    }
+
     @Test
     public void testGetLevenshteinDistance_StringStringInt() {
         // empty strings
@@ -1976,33 +1974,26 @@ public class StringUtilsTest {
         assertEquals(7, StringUtils.getLevenshteinDistance("hippo", "elephant", Integer.MAX_VALUE) );
         assertEquals(8, StringUtils.getLevenshteinDistance("hippo", "zzzzzzzz", Integer.MAX_VALUE) );
         assertEquals(8, StringUtils.getLevenshteinDistance("zzzzzzzz", "hippo", Integer.MAX_VALUE) );
-        assertEquals(1, StringUtils.getLevenshteinDistance("hello", "hallo", Integer.MAX_VALUE) );
+        assertEquals(1, StringUtils.getLevenshteinDistance("hello", "hallo", Integer.MAX_VALUE));
+    }
 
-        // exceptions
-        try {
-            StringUtils.getLevenshteinDistance("a", null, 0);
-            fail("expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            // empty
-        }
-        try {
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetLevenshteinDistance_NullStringInt() throws Exception {
             StringUtils.getLevenshteinDistance(null, "a", 0);
-            fail("expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            // empty
-        }
+    }
 
-        try {
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetLevenshteinDistance_StringNullInt() throws Exception {
+            StringUtils.getLevenshteinDistance("a", null, 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetLevenshteinDistance_StringStringNegativeInt() throws Exception {
             StringUtils.getLevenshteinDistance("a", "a", -1);
-            fail("expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            // empty
-        }
     }
 
     @Test
     public void testGetJaroWinklerDistance_StringString() {
-
         assertEquals(0.93d, StringUtils.getJaroWinklerDistance("frog", "fog"), 0.0d);
         assertEquals(0.0d, StringUtils.getJaroWinklerDistance("fly", "ant"), 0.0d);
         assertEquals(0.44d, StringUtils.getJaroWinklerDistance("elephant", "hippo"), 0.0d);
@@ -2010,26 +2001,21 @@ public class StringUtilsTest {
         assertEquals(0.93d, StringUtils.getJaroWinklerDistance("D N H Enterprises Inc", "D & H Enterprises, Inc."), 0.0d);
         assertEquals(0.94d, StringUtils.getJaroWinklerDistance("My Gym Children's Fitness Center", "My Gym. Childrens Fitness"), 0.0d);
         assertEquals(0.9d, StringUtils.getJaroWinklerDistance("PENNSYLVANIA", "PENNCISYLVNIA"), 0.0d);
-        // exceptions
-        try {
-            StringUtils.getJaroWinklerDistance(null, null);
-            fail("expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            // empty
-        }
+    }
 
-        try {
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetJaroWinklerDistance_NullNull() throws Exception {
+            StringUtils.getJaroWinklerDistance(null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetJaroWinklerDistance_StringNull() throws Exception {
             StringUtils.getJaroWinklerDistance(" ", null);
-            fail("expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            // empty
-        }
-        try {
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetJaroWinklerDistance_NullString() throws Exception {
             StringUtils.getJaroWinklerDistance(null, "clear");
-            fail("expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            // empty
-        }
     }
 
     /**
