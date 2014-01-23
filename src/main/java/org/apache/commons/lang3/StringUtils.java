@@ -7007,7 +7007,7 @@ public class StringUtils {
      * @return result distance
      * @throws IllegalArgumentException if either String input {@code null}
      */
-    public static double getJaroWinklerDistance(final CharSequence first, final CharSequence second){
+    public static double getJaroWinklerDistance(final CharSequence first, final CharSequence second) {
         final double DEFAULT_SCALING_FACTOR = 0.1;
 
         if (first == null || second == null) {
@@ -7017,7 +7017,6 @@ public class StringUtils {
         final double jaro = score(first,second);
         final int cl = commonPrefixLength(first, second);
         final double matchScore = Math.round((jaro + (DEFAULT_SCALING_FACTOR * cl * (1.0 - jaro))) *100.0)/100.0;
-        //System.out.format("The score is %f for %s and %s ", matchScore,s1, s2);
 
         return  matchScore;
     }
@@ -7080,20 +7079,17 @@ public class StringUtils {
      * @param limit The maximum distance to consider.
      * @return A string contain the set of common characters.
      */
-    private static String getSetOfMatchingCharacterWithin(final CharSequence first, final CharSequence second, final int limit)
-    {
+    private static String getSetOfMatchingCharacterWithin(final CharSequence first, final CharSequence second, final int limit) {
         final StringBuilder common = new StringBuilder();
         final StringBuilder copy = new StringBuilder(second);
-        for (int i = 0; i < first.length(); i++)
-        {
+
+        for (int i = 0; i < first.length(); i++) {
             final char ch = first.charAt(i);
             boolean found = false;
 
             // See if the character is within the limit positions away from the original position of that character.
-            for (int j = Math.max(0, i - limit); !found && j < Math.min(i + limit, second.length()); j++)
-            {
-                if (copy.charAt(j) == ch)
-                {
+            for (int j = Math.max(0, i - limit); !found && j < Math.min(i + limit, second.length()); j++) {
+                if (copy.charAt(j) == ch) {
                     found = true;
                     common.append(ch);
                     copy.setCharAt(j,'*');
@@ -7109,18 +7105,15 @@ public class StringUtils {
      * @param second The second string.
      * @return The number of transposition between the two strings.
      */
-    private static int transpositions(CharSequence first, CharSequence second)
-    {
-      int transpositions = 0;
-      for (int i = 0; i < first.length(); i++)
-      {
-        if (first.charAt(i) != second.charAt(i))
-        {
-          transpositions++;
+    private static int transpositions(CharSequence first, CharSequence second) {
+        int transpositions = 0;
+        for (int i = 0; i < first.length(); i++) {
+            if (first.charAt(i) != second.charAt(i)) {
+                transpositions++;
+            }
         }
-      }
-      transpositions /= 2;
-      return transpositions;
+        transpositions /= 2;
+        return transpositions;
     }
     
     /**
