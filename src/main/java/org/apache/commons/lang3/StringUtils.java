@@ -7008,24 +7008,25 @@ public class StringUtils {
      * @throws IllegalArgumentException if either String input {@code null}
      */
     public static double getJaroWinklerDistance(CharSequence first, CharSequence second){
-      double matchScore = 0.0;
-      final double DEFAULT_SCALING_FACTOR = 0.1;
-      
-      if (first == null || second == null)
-        throw new IllegalArgumentException("Strings must not be null");
-      
-      try {
-        double jaro = score(first,second);
-        int cl = commonPrefixLength(first, second);
-        matchScore = Math.round((jaro + (DEFAULT_SCALING_FACTOR * cl * (1.0 - jaro))) *100.0)/100.0;
-        //System.out.format("The score is %f for %s and %s ", matchScore,s1, s2);
+        double matchScore = 0.0;
+        final double DEFAULT_SCALING_FACTOR = 0.1;
 
-        return  matchScore;
+        if (first == null || second == null) {
+            throw new IllegalArgumentException("Strings must not be null");
+        }
 
-      } catch (Exception e) {
+        try {
+            double jaro = score(first,second);
+            int cl = commonPrefixLength(first, second);
+            matchScore = Math.round((jaro + (DEFAULT_SCALING_FACTOR * cl * (1.0 - jaro))) *100.0)/100.0;
+            //System.out.format("The score is %f for %s and %s ", matchScore,s1, s2);
 
-      }
-      return matchScore;
+            return  matchScore;
+
+        } catch (Exception e) {
+
+        }
+        return matchScore;
     }
 
     /**
@@ -7035,50 +7036,44 @@ public class StringUtils {
      * @return matching score without scaling factor impact
      */
     private static double score(CharSequence first, CharSequence second) {
-      String shorter;
-      String longer;
+        String shorter;
+        String longer;
 
-      // Determine which String is longer.
-      if (first.length() > second.length())
-      {
-        longer = first.toString().toLowerCase();
-        shorter = second.toString().toLowerCase();
-      }
-      else
-      {
-        longer = second.toString().toLowerCase();
-        shorter = first.toString().toLowerCase();
-      }
+        // Determine which String is longer.
+        if (first.length() > second.length()) {
+            longer = first.toString().toLowerCase();
+            shorter = second.toString().toLowerCase();
+        } else {
+            longer = second.toString().toLowerCase();
+            shorter = first.toString().toLowerCase();
+        }
 
-      // Calculate the half length() distance of the shorter String.
-      int halflength = (shorter.length() / 2) + 1;
+        // Calculate the half length() distance of the shorter String.
+        int halflength = (shorter.length() / 2) + 1;
 
-      // Find the set of matching characters between the shorter and longer strings. Note that
-      // the set of matching characters may be different depending on the order of the strings.
-      String m1 = getSetOfMatchingCharacterWithin(shorter, longer, halflength);
-      String m2 = getSetOfMatchingCharacterWithin(longer, shorter, halflength);
+        // Find the set of matching characters between the shorter and longer strings. Note that
+        // the set of matching characters may be different depending on the order of the strings.
+        String m1 = getSetOfMatchingCharacterWithin(shorter, longer, halflength);
+        String m2 = getSetOfMatchingCharacterWithin(longer, shorter, halflength);
 
+        // If one or both of the sets of common characters is empty, then
+        // there is no similarity between the two strings.
+        if (m1.length() == 0 || m2.length() == 0) return 0.0;
 
-      // If one or both of the sets of common characters is empty, then 
-      // there is no similarity between the two strings.
-      if (m1.length() == 0 || m2.length() == 0) return 0.0;
+        // If the set of common characters is not the same size, then
+        // there is no similarity between the two strings, either.
+        if (m1.length() != m2.length()) return 0.0;
 
-      // If the set of common characters is not the same size, then
-      // there is no similarity between the two strings, either.
-      if (m1.length() != m2.length()) return 0.0;
+        // Calculate the number of transposition between the two sets
+        // of common characters.
+        int transpositions = transpositions(m1, m2);
 
-      // Calculate the number of transposition between the two sets
-      // of common characters.
-      int transpositions = transpositions(m1, m2);
-
-      // Calculate the distance.
-      double dist =
-          (m1.length() / ((double)shorter.length()) +
-              m2.length() / ((double)longer.length()) +
-              (m1.length() - transpositions) / ((double)m1.length())) / 3.0;
-      return dist;
-
-
+        // Calculate the distance.
+        double dist =
+                (m1.length() / ((double)shorter.length()) +
+                        m2.length() / ((double)longer.length()) +
+                        (m1.length() - transpositions) / ((double)m1.length())) / 3.0;
+        return dist;
     }
 
     /**
@@ -7094,26 +7089,25 @@ public class StringUtils {
      */
     private static String getSetOfMatchingCharacterWithin(CharSequence first, CharSequence second, int limit)
     {
-
-      StringBuilder common = new StringBuilder();
-      StringBuilder copy = new StringBuilder(second);
-      for (int i = 0; i < first.length(); i++)
-      {
-        char ch = first.charAt(i);
-        boolean found = false;
-
-        // See if the character is within the limit positions away from the original position of that character.
-        for (int j = Math.max(0, i - limit); !found && j < Math.min(i + limit, second.length()); j++)
+        StringBuilder common = new StringBuilder();
+        StringBuilder copy = new StringBuilder(second);
+        for (int i = 0; i < first.length(); i++)
         {
-          if (copy.charAt(j) == ch)
-          {
-            found = true;
-            common.append(ch);
-            copy.setCharAt(j,'*');
-          }
+            char ch = first.charAt(i);
+            boolean found = false;
+
+            // See if the character is within the limit positions away from the original position of that character.
+            for (int j = Math.max(0, i - limit); !found && j < Math.min(i + limit, second.length()); j++)
+            {
+                if (copy.charAt(j) == ch)
+                {
+                    found = true;
+                    common.append(ch);
+                    copy.setCharAt(j,'*');
+                }
+            }
         }
-      }
-      return common.toString();
+        return common.toString();
     }
 
     /**
