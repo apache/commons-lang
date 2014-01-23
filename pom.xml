@@ -173,6 +173,15 @@
         <role>Java Developer</role>
       </roles>
     </developer>
+    <developer>
+      <name>Duncan Jones</name>
+      <id>djones</id>
+      <email>djones@apache.org</email>
+      <timezone>0</timezone>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>    
   </developers>
   <contributors>
     <contributor>
@@ -276,9 +285,6 @@
     </contributor>
     <contributor>
       <name>Marc Johnson</name>
-    </contributor>
-    <contributor>
-      <name>Duncan Jones</name>
     </contributor>
     <contributor>
       <name>Shaun Kalley</name>
