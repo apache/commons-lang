@@ -213,12 +213,12 @@ public class StringUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testCaseFunctions() {
-        assertEquals(null, StringUtils.upperCase(null));
-        assertEquals(null, StringUtils.upperCase(null, Locale.ENGLISH));
-        assertEquals(null, StringUtils.lowerCase(null));
-        assertEquals(null, StringUtils.lowerCase(null, Locale.ENGLISH));
-        assertEquals(null, StringUtils.capitalize(null));
-        assertEquals(null, StringUtils.uncapitalize(null));
+        assertNull(StringUtils.upperCase(null));
+        assertNull(StringUtils.upperCase(null, Locale.ENGLISH));
+        assertNull(StringUtils.lowerCase(null));
+        assertNull(StringUtils.lowerCase(null, Locale.ENGLISH));
+        assertNull(StringUtils.capitalize(null));
+        assertNull(StringUtils.uncapitalize(null));
 
         assertEquals("capitalize(empty-string) failed",
                 "", StringUtils.capitalize("") );
@@ -271,7 +271,7 @@ public class StringUtilsTest {
 
     @Test
     public void testSwapCase_String() {
-        assertEquals(null, StringUtils.swapCase(null));
+        assertNull(StringUtils.swapCase(null));
         assertEquals("", StringUtils.swapCase(""));
         assertEquals("  ", StringUtils.swapCase("  "));
         
@@ -292,13 +292,13 @@ public class StringUtilsTest {
     public void testJoin_Objects() {
         assertEquals("abc", StringUtils.join("a", "b", "c"));
         assertEquals("a",   StringUtils.join(null, "", "a"));
-        assertEquals(null,  StringUtils.join((Object[])null));
+        assertNull( StringUtils.join((Object[])null));
     }
 
     @Test
     public void testJoin_Objectarray() {
-//        assertEquals(null, StringUtils.join(null)); // generates warning
-        assertEquals(null, StringUtils.join((Object[]) null)); // equivalent explicit cast
+//        assertNull(StringUtils.join(null)); // generates warning
+        assertNull(StringUtils.join((Object[]) null)); // equivalent explicit cast
         // test additional varargs calls
         assertEquals("", StringUtils.join()); // empty array
         assertEquals("", StringUtils.join((Object) null)); // => new Object[]{null}
@@ -314,7 +314,7 @@ public class StringUtilsTest {
         
     @Test
     public void testJoin_ArrayCharSeparator() {
-        assertEquals(null, StringUtils.join((Object[]) null, ','));
+        assertNull(StringUtils.join((Object[]) null, ','));
         assertEquals(TEXT_LIST_CHAR, StringUtils.join(ARRAY_LIST, SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, SEPARATOR_CHAR));
         assertEquals(";;foo", StringUtils.join(MIXED_ARRAY_LIST, SEPARATOR_CHAR));
@@ -330,56 +330,56 @@ public class StringUtilsTest {
     
     @Test
     public void testJoin_ArrayOfChars() {
-        assertEquals(null, StringUtils.join((char[]) null, ','));
+        assertNull(StringUtils.join((char[]) null, ','));
         assertEquals("1;2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
     }
     
     @Test
     public void testJoin_ArrayOfBytes() {
-        assertEquals(null, StringUtils.join((byte[]) null, ','));
+        assertNull(StringUtils.join((byte[]) null, ','));
         assertEquals("1;2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
     }
     
     @Test
     public void testJoin_ArrayOfInts() {
-        assertEquals(null, StringUtils.join((int[]) null, ','));
+        assertNull(StringUtils.join((int[]) null, ','));
         assertEquals("1;2", StringUtils.join(INT_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2", StringUtils.join(INT_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
     }
     
     @Test
     public void testJoin_ArrayOfLongs() {
-        assertEquals(null, StringUtils.join((long[]) null, ','));
+        assertNull(StringUtils.join((long[]) null, ','));
         assertEquals("1;2", StringUtils.join(LONG_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2", StringUtils.join(LONG_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
     }
     
     @Test
     public void testJoin_ArrayOfFloats() {
-        assertEquals(null, StringUtils.join((float[]) null, ','));
+        assertNull(StringUtils.join((float[]) null, ','));
         assertEquals("1.0;2.0", StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2.0", StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
     }
     
     @Test
     public void testJoin_ArrayOfDoubles() {
-        assertEquals(null, StringUtils.join((double[]) null, ','));
+        assertNull(StringUtils.join((double[]) null, ','));
         assertEquals("1.0;2.0", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2.0", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
     }
     
     @Test
     public void testJoin_ArrayOfShorts() {
-        assertEquals(null, StringUtils.join((short[]) null, ','));
+        assertNull(StringUtils.join((short[]) null, ','));
         assertEquals("1;2", StringUtils.join(SHORT_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2", StringUtils.join(SHORT_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
     }
     
     @Test
     public void testJoin_ArrayString() {
-        assertEquals(null, StringUtils.join((Object[]) null, null));
+        assertNull(StringUtils.join((Object[]) null, null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(ARRAY_LIST, null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(ARRAY_LIST, ""));
         
@@ -403,7 +403,7 @@ public class StringUtilsTest {
     
     @Test
     public void testJoin_IteratorChar() {
-        assertEquals(null, StringUtils.join((Iterator<?>) null, ','));
+        assertNull(StringUtils.join((Iterator<?>) null, ','));
         assertEquals(TEXT_LIST_CHAR, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(Arrays.asList(NULL_ARRAY_LIST).iterator(), SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(), SEPARATOR_CHAR));
@@ -412,7 +412,7 @@ public class StringUtilsTest {
     
     @Test
     public void testJoin_IteratorString() {
-        assertEquals(null, StringUtils.join((Iterator<?>) null, null));
+        assertNull(StringUtils.join((Iterator<?>) null, null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), ""));
         assertEquals("foo", StringUtils.join(Collections.singleton("foo").iterator(), "x"));
@@ -429,7 +429,7 @@ public class StringUtilsTest {
 
     @Test
     public void testJoin_IterableChar() {
-        assertEquals(null, StringUtils.join((Iterable<?>) null, ','));
+        assertNull(StringUtils.join((Iterable<?>) null, ','));
         assertEquals(TEXT_LIST_CHAR, StringUtils.join(Arrays.asList(ARRAY_LIST), SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(Arrays.asList(NULL_ARRAY_LIST), SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST), SEPARATOR_CHAR));
@@ -438,7 +438,7 @@ public class StringUtilsTest {
 
     @Test
     public void testJoin_IterableString() {
-        assertEquals(null, StringUtils.join((Iterable<?>) null, null));
+        assertNull(StringUtils.join((Iterable<?>) null, null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST), null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST), ""));
         assertEquals("foo", StringUtils.join(Collections.singleton("foo"), "x"));
