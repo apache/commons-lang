@@ -28,7 +28,7 @@ public final class ClassPathUtils {
     /**
      * <p>{@code ClassPathUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
-     * {@code ClassPathUtils.toFullyQualifiedName(MyClass.class, MyClass.properties);}.</p>
+     * {@code ClassPathUtils.toFullyQualifiedName(MyClass.class, "MyClass.properties");}.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
