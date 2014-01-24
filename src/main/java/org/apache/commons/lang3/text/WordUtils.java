@@ -54,10 +54,40 @@ public class WordUtils {
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>
      *
-     * <pre>
-     * WordUtils.wrap(null, *) = null
-     * WordUtils.wrap("", *) = ""
-     * </pre>
+     * <table border="1">
+     *  <tr>
+     *   <th>input</th>
+     *   <th>wrapLenght</th>
+     *   <th>result</th>
+     *  </tr>
+     *  <tr>
+     *   <td>null</td>
+     *   <td>*</td>
+     *   <td>null</td>
+     *  </tr>
+     *  <tr>
+     *   <td>""</td>
+     *   <td>*</td>
+     *   <td>""</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Here is one line of text that is going to be wrapped after 20 columns."</td>
+     *   <td>20</td>
+     *   <td>"Here is one line of\ntext that is going\nto be wrapped after\n20 columns."</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>20</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org"</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Click here, http://commons.apache.org, to jump to the commons website"</td>
+     *   <td>20</td>
+     *   <td>"Click here,\nhttp://commons.apache.org,\nto jump to the\ncommons website"</td>
+     *  </tr>
+     * </table>
+     *
+     * (assuming that '\n' is the systems line separator)
      *
      * @param str  the String to be word wrapped, may be null
      * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1
@@ -72,11 +102,65 @@ public class WordUtils {
      * 
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>
-     * 
-     * <pre>
-     * WordUtils.wrap(null, *, *, *) = null
-     * WordUtils.wrap("", *, *, *) = ""
-     * </pre>
+     *
+     * <table border="1">
+     *  <tr>
+     *   <th>input</th>
+     *   <th>wrapLenght</th>
+     *   <th>newLineString</th>
+     *   <th>wrapLongWords</th>
+     *   <th>result</th>
+     *  </tr>
+     *  <tr>
+     *   <td>null</td>
+     *   <td>*</td>
+     *   <td>*</td>
+     *   <td>true/false</td>
+     *   <td>null</td>
+     *  </tr>
+     *  <tr>
+     *   <td>""</td>
+     *   <td>*</td>
+     *   <td>*</td>
+     *   <td>true/false</td>
+     *   <td>""</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Here is one line of text that is going to be wrapped after 20 columns."</td>
+     *   <td>20</td>
+     *   <td>"\n"</td>
+     *   <td>true/false</td>
+     *   <td>"Here is one line of\ntext that is going\nto be wrapped after\n20 columns."</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Here is one line of text that is going to be wrapped after 20 columns."</td>
+     *   <td>20</td>
+     *   <td>"&lt;br /&gt;"</td>
+     *   <td>true/false</td>
+     *   <td>"Here is one line of&lt;br /&gt;text that is going&lt;br /&gt;to be wrapped after&lt;br /&gt;20 columns."</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Here is one line of text that is going to be wrapped after 20 columns."</td>
+     *   <td>20</td>
+     *   <td>null</td>
+     *   <td>true/false</td>
+     *   <td>"Here is one line of" + systemNewLine + "text that is going" + systemNewLine + "to be wrapped after" + systemNewLine + "20 columns."</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>20</td>
+     *   <td>"\n"</td>
+     *   <td>false</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org"</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>20</td>
+     *   <td>"\n"</td>
+     *   <td>true</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apach\ne.org"</td>
+     *  </tr>
+     * </table>
      *
      * @param str  the String to be word wrapped, may be null
      * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1
