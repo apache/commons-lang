@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.3" date="TBA" description="Bugfix and Feature release">
+    <action issue="LANG-637" type="add" dev="djones">There should be a DifferenceBuilder with a ReflectionDifferenceBuilder implementation</action>
     <action issue="LANG-954" type="fix" due-to="Michael Keppler" dev="sebb">uncaught PatternSyntaxException in FastDateFormat on Android</action>
     <action issue="LANG-956" type="update" dev="britter">Improve JavaDoc of WordUtils.wrap methods</action>
     <action issue="LANG-944" type="add" dev="britter" due-to="Rekha Joshi">Add the Jaro-Winkler string distance algorithm to StringUtils</action>
