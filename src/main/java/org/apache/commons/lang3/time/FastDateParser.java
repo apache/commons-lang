@@ -648,11 +648,12 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         boolean addRegex(final FastDateParser parser, final StringBuilder regex) {
+            // See LANG-954: We use {Nd} rather than {IsNd} because Android does not support the Is prefix
             if(parser.isNextNumber()) {
-                regex.append("(\\p{IsNd}{").append(parser.getFieldWidth()).append("}+)");
+                regex.append("(\\p{Nd}{").append(parser.getFieldWidth()).append("}+)");
             }
             else {
-                regex.append("(\\p{IsNd}++)");
+                regex.append("(\\p{Nd}++)");
             }
             return true;
         }
