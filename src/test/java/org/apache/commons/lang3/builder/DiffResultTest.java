@@ -25,11 +25,11 @@ import java.util.List;
 import org.junit.Test;
 
 /**
- * Unit tests {@link DiffList}.
+ * Unit tests {@link DiffResult}.
  *
  * @version $Id$
  */
-public class DiffListTest {
+public class DiffResultTest {
 
     private static final SimpleClass SIMPLE_FALSE = new SimpleClass(false);
     private static final SimpleClass SIMPLE_TRUE = new SimpleClass(true);
@@ -47,7 +47,7 @@ public class DiffListTest {
         }
 
         @Override
-        public DiffList diff(SimpleClass obj) {
+        public DiffResult diff(SimpleClass obj) {
             return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
                     .append(getFieldName(), booleanField, obj.booleanField)
                     .build();
@@ -64,7 +64,7 @@ public class DiffListTest {
 
         List<Diff<?>> diffs = lhs.diff(rhs).getDiffs();
 
-        DiffList list = new DiffList(lhs, rhs, diffs, SHORT_STYLE);
+        DiffResult list = new DiffResult(lhs, rhs, diffs, SHORT_STYLE);
         assertEquals(diffs, list.getDiffs());
         assertEquals(1, list.getNumberOfDiffs());
         list.getDiffs().remove(0);
@@ -78,7 +78,7 @@ public class DiffListTest {
         List<Diff<?>> diffs = lhs.diff(rhs).getDiffs();
         Iterator<Diff<?>> expectedIterator = diffs.iterator();
 
-        DiffList list = new DiffList(lhs, rhs, diffs, SHORT_STYLE);
+        DiffResult list = new DiffResult(lhs, rhs, diffs, SHORT_STYLE);
         Iterator<Diff<?>> iterator = list.iterator();
 
         while (iterator.hasNext()) {
@@ -89,17 +89,17 @@ public class DiffListTest {
 
     @Test
     public void testToStringOutput() {
-        DiffList list = new DiffBuilder(new EmptyClass(), new EmptyClass(),
+        DiffResult list = new DiffBuilder(new EmptyClass(), new EmptyClass(),
                 ToStringStyle.SHORT_PREFIX_STYLE).append("test", false, true)
                 .build();
         assertEquals(
-                "DiffListTest.EmptyClass[test=false] differs from DiffListTest.EmptyClass[test=true]",
+                "DiffResultTest.EmptyClass[test=false] differs from DiffResultTest.EmptyClass[test=true]",
                 list.toString());
     }
 
     @Test
     public void testToStringSpecifyStyleOutput() {
-        DiffList list = SIMPLE_FALSE.diff(SIMPLE_TRUE);
+        DiffResult list = SIMPLE_FALSE.diff(SIMPLE_TRUE);
         assertTrue(list.getToStringStyle().equals(SHORT_STYLE));
 
         String lhsString = new ToStringBuilder(SIMPLE_FALSE,
@@ -118,32 +118,32 @@ public class DiffListTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullLhs() {
-        new DiffList(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE)
+        new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE)
                 .getDiffs(), SHORT_STYLE);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullRhs() {
-        new DiffList(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE)
+        new DiffResult(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE)
                 .getDiffs(), SHORT_STYLE);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullList() {
-        new DiffList(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE);
+        new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE);
     }
 
     @Test
     public void testNullStyle() {
-        DiffList diffList = new DiffList(SIMPLE_TRUE, SIMPLE_FALSE, SIMPLE_TRUE
+        DiffResult diffResult = new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, SIMPLE_TRUE
                 .diff(SIMPLE_FALSE).getDiffs(), null);
-        assertEquals(ToStringStyle.DEFAULT_STYLE, diffList.getToStringStyle());
+        assertEquals(ToStringStyle.DEFAULT_STYLE, diffResult.getToStringStyle());
     }
 
     @Test
     public void testNoDifferencesString() {
-        DiffList diffList = new DiffBuilder(SIMPLE_TRUE, SIMPLE_TRUE,
+        DiffResult diffResult = new DiffBuilder(SIMPLE_TRUE, SIMPLE_TRUE,
                 SHORT_STYLE).build();
-        assertEquals(DiffList.OBJECTS_SAME_STRING, diffList.toString());
+        assertEquals(DiffResult.OBJECTS_SAME_STRING, diffResult.toString());
     }
 }

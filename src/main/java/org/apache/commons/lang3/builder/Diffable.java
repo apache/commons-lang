@@ -18,8 +18,8 @@ package org.apache.commons.lang3.builder;
 
 /**
  * <p>{@code Diffable} classes can be compared with other objects
- * for differences. The {@link DiffList} object retrieved can be queried
- * for a list of differences or printed using the {@link DiffList#toString()}.</p>
+ * for differences. The {@link DiffResult} object retrieved can be queried
+ * for a list of differences or printed using the {@link DiffResult#toString()}.</p>
  * 
  * <p>The calculation of the differences is <i>consistent with equals</i> if
  * and only if {@code d1.equals(d2)} implies {@code d1.diff(d2) == ""}.
@@ -50,5 +50,5 @@ public interface Diffable<T> {
      * @return a list of differences
      * @throws NullPointerException if the specified object is {@code null}
      */
-    DiffList diff(T obj);
+    DiffResult diff(T obj);
 }

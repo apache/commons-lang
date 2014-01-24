@@ -30,7 +30,7 @@ import org.apache.commons.lang3.tuple.Pair;
  * 
  * <p>
  * Typically, {@code Diff}s are retrieved by using a {@link DiffBuilder} to
- * produce a {@link DiffList}, containing the differences between two objects.
+ * produce a {@link DiffResult}, containing the differences between two objects.
  * </p>
  * 
  * 
