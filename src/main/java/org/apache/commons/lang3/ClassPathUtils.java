@@ -25,7 +25,7 @@ package org.apache.commons.lang3;
  * @version $Id$
  */
 //@Immutable
-public final class ClassPathUtils {
+public class ClassPathUtils {
 
     /**
      * <p>{@code ClassPathUtils} instances should NOT be constructed in
