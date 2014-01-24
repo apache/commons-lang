@@ -17,13 +17,30 @@
 package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
+import org.apache.commons.lang3.text.WordUtils;
 import org.junit.Test;
 
 /**
  * @version $Id$
  */
 public class ClassPathUtilsTest {
+
+    @Test
+    public void testConstructor() {
+        assertNotNull(new ClassPathUtils());
+        final Constructor<?>[] cons = ClassPathUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(ClassPathUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(ClassPathUtils.class.getModifiers()));
+    }
 
     @Test(expected = NullPointerException.class)
     public void testToFullyQualifiedNameNullClassString() throws Exception {
