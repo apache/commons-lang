@@ -44,7 +44,7 @@ import java.util.regex.Pattern;
  * <code>SimpleDateFormat</code> in most parsing situations.
  * This class is especially useful in multi-threaded server environments.
  * <code>SimpleDateFormat</code> is not thread-safe in any JDK version,
- * nor will it be as Sun have closed the
+ * nor will it be as Sun has closed the
  * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4228335">bug</a>/RFE.
  * </p>
  *
@@ -53,14 +53,6 @@ import java.util.regex.Pattern;
  *
  * <p>Timing tests indicate this class is as about as fast as SimpleDateFormat
  * in single thread applications and about 25% faster in multi-thread applications.</p>
- *
- * <p>Note that the code only handles Gregorian calendars. The following non-Gregorian
- * calendars use SimpleDateFormat internally, and so will be slower:
- * <ul>
- * <li>ja_JP_TH - Japanese Imperial</li>
- * <li>th_TH (any variant) - Thai Buddhist</li>
- * </ul>
- * </p>
  *
  * @version $Id$
  * @since 3.2
