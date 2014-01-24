@@ -148,8 +148,6 @@ public class WordUtilsTest {
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", false));
         expected = "Click here,\nhttp://commons.apach\ne.org, to jump to\nthe commons website";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
-//        System.err.println(expected);
-//        System.err.println(WordUtils.wrap(input, 20, "\n", false));
     }
     
     //-----------------------------------------------------------------------
