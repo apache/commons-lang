@@ -7006,6 +7006,7 @@ public class StringUtils {
      * @param second the second String, must not be null
      * @return result distance
      * @throws IllegalArgumentException if either String input {@code null}
+     * @since 3.3
      */
     public static double getJaroWinklerDistance(final CharSequence first, final CharSequence second) {
         final double DEFAULT_SCALING_FACTOR = 0.1;
