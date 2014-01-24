@@ -61,15 +61,15 @@ public class WordUtilsTest {
         assertEquals(expected, WordUtils.wrap(input, 20));
         
         // long word at end
-        input = "Click here to jump to the jakarta website - http://jakarta.apache.org";
-        expected = "Click here to jump" + systemNewLine + "to the jakarta" + systemNewLine 
-            + "website -" + systemNewLine + "http://jakarta.apache.org";
+        input = "Click here to jump to the commons website - http://commons.apache.org";
+        expected = "Click here to jump" + systemNewLine + "to the commons" + systemNewLine 
+            + "website -" + systemNewLine + "http://commons.apache.org";
         assertEquals(expected, WordUtils.wrap(input, 20));
         
         // long word in middle
-        input = "Click here, http://jakarta.apache.org, to jump to the jakarta website";
-        expected = "Click here," + systemNewLine + "http://jakarta.apache.org," + systemNewLine 
-            + "to jump to the" + systemNewLine + "jakarta website";
+        input = "Click here, http://commons.apache.org, to jump to the commons website";
+        expected = "Click here," + systemNewLine + "http://commons.apache.org," + systemNewLine 
+            + "to jump to the" + systemNewLine + "commons website";
         assertEquals(expected, WordUtils.wrap(input, 20));
     }
     
@@ -136,17 +136,17 @@ public class WordUtilsTest {
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
         
         // difference because of long word
-        input = "Click here to jump to the jakarta website - http://jakarta.apache.org";
-        expected = "Click here to jump\nto the jakarta\nwebsite -\nhttp://jakarta.apache.org";
+        input = "Click here to jump to the commons website - http://commons.apache.org";
+        expected = "Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", false));
-        expected = "Click here to jump\nto the jakarta\nwebsite -\nhttp://jakarta.apach\ne.org";
+        expected = "Click here to jump\nto the commons\nwebsite -\nhttp://commons.apach\ne.org";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
         
         // difference because of long word in middle
-        input = "Click here, http://jakarta.apache.org, to jump to the jakarta website";
-        expected = "Click here,\nhttp://jakarta.apache.org,\nto jump to the\njakarta website";
+        input = "Click here, http://commons.apache.org, to jump to the commons website";
+        expected = "Click here,\nhttp://commons.apache.org,\nto jump to the\ncommons website";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", false));
-        expected = "Click here,\nhttp://jakarta.apach\ne.org, to jump to\nthe jakarta website";
+        expected = "Click here,\nhttp://commons.apach\ne.org, to jump to\nthe commons website";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
 //        System.err.println(expected);
 //        System.err.println(WordUtils.wrap(input, 20, "\n", false));
