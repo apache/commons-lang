@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.3" date="TBA" description="Bugfix and Feature release">
+    <action issue="LANG-954" type="fix" due-to="Michael Keppler" dev="sebb">uncaught PatternSyntaxException in FastDateFormat on Android</action>
     <action issue="LANG-956" type="update" dev="britter">Improve JavaDoc of WordUtils.wrap methods</action>
     <action issue="LANG-944" type="add" dev="britter" due-to="Rekha Joshi">Add the Jaro-Winkler string distance algorithm to StringUtils</action>
     <action issue="LANG-936" type="fix" dev="bayard" due-to="Yaniv Kunda, Eli Lindsey">StringUtils.getLevenshteinDistance with too big of a threshold returns wrong result</action>
@@ -49,7 +50,6 @@
 
   <release version="3.2" date="2014-01-01" description="Bug fixes and new features, at least requires Java 6.0">
     <action issue="LANG-934" type="add" dev="mcucchiara">Add removeFinalModifier to FieldUtils</action>
-    <action issue="LANG-954" type="fix" due-to="Michael Keppler" dev="sebb">uncaught PatternSyntaxException in FastDateFormat on Android</action>
     <action issue="LANG-863" type="add" due-to="Daneel S. Yaitskov" dev="sebb">Method returns number of inheritance hops between parent and subclass</action>
     <action issue="LANG-932" type="fix" due-to="Ville Skyttä" dev="sebb">Spelling fixes</action>
     <action issue="LANG-931" type="update" dev="britter" due-to="Christoph Schneegans">Misleading Javadoc comment in StrBuilderReader class</action>
