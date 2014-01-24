@@ -19,6 +19,8 @@ package org.apache.commons.lang3;
 /**
  * Operations regarding the classpath.
  *
+ * <p>The methods of this class do not allow {@code null} inputs.</p>
+ *
  * @since 3.3
  * @version $Id$
  */
