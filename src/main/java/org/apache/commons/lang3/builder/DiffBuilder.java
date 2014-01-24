@@ -39,7 +39,7 @@ import org.apache.commons.lang3.ArrayUtils;
  *   
  *   ...
  *   
- *   public DiffList diff(Person obj) {
+ *   public DiffResult diff(Person obj) {
  *     // No need for null check, as NullPointerException correct if obj is null
  *     return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
  *       .append("name", this.name, obj.name)
@@ -52,19 +52,19 @@ import org.apache.commons.lang3.ArrayUtils;
  * 
  * <p>
  * The {@code ToStringStyle} passed to the constructor is embedded in the
- * returned {@code DiffList} and influences the style of the
- * {@code DiffList.toString()} method. This style choice can be overridden by
- * calling {@link DiffList#toString(ToStringStyle)}.
+ * returned {@code DiffResult} and influences the style of the
+ * {@code DiffResult.toString()} method. This style choice can be overridden by
+ * calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
  * 
  * @since 3.3
  * @version $Id$
  * @see Diffable
  * @see Diff
- * @see DiffList
+ * @see DiffResult
  * @see ToStringStyle
  */
-public class DiffBuilder implements Builder<DiffList> {
+public class DiffBuilder implements Builder<DiffResult> {
 
     private final List<Diff<?>> diffs;
     private final boolean objectsTriviallyEqual;
@@ -80,7 +80,7 @@ public class DiffBuilder implements Builder<DiffList> {
      * <p>
      * If {@code lhs == rhs} or {@code lhs.equals(rhs)} then the builder will
      * not evaluate any calls to {@code append(...)} and will return an empty
-     * {@link DiffList} when {@link #build()} is executed.
+     * {@link DiffResult} when {@link #build()} is executed.
      * </p>
      * 
      * @param lhs
@@ -899,16 +899,16 @@ public class DiffBuilder implements Builder<DiffList> {
 
     /**
      * <p>
-     * Builds a {@link DiffList} based on the differences appended to this
+     * Builds a {@link DiffResult} based on the differences appended to this
      * builder.
      * </p>
      * 
-     * @return a {@code DiffList} containing the differences between the two
+     * @return a {@code DiffResult} containing the differences between the two
      *         objects.
      */
     @Override
-    public DiffList build() {
-        return new DiffList(lhs, rhs, diffs, style);
+    public DiffResult build() {
+        return new DiffResult(lhs, rhs, diffs, style);
     }
 
 }

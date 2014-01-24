@@ -22,19 +22,19 @@ import java.util.List;
 
 /**
  * <p>
- * A {@code DiffList} contains a list of the differences between two
+ * A {@code DiffResult} contains a collection of the differences between two
  * {@link Diffable} objects. Typically these differences are displayed using
  * {@link #toString()} method, which returns a string describing the fields that
  * differ between the objects.
  * </p>
  * <p>
- * Use a {@link DiffBuilder} to build a {@code DiffList} comparing two objects.
+ * Use a {@link DiffBuilder} to build a {@code DiffResult} comparing two objects.
  * </p>
  * 
  * @since 3.3
  * @version $Id$
  */
-public class DiffList implements Iterable<Diff<?>> {
+public class DiffResult implements Iterable<Diff<?>> {
 
     /**
      * <p>
@@ -53,7 +53,7 @@ public class DiffList implements Iterable<Diff<?>> {
 
     /**
      * <p>
-     * Creates a {@link DiffList} containing the differences between two
+     * Creates a {@link DiffResult} containing the differences between two
      * objects.
      * </p>
      * 
@@ -70,7 +70,7 @@ public class DiffList implements Iterable<Diff<?>> {
      * @throws IllegalArgumentException
      *             if {@code lhs}, {@code rhs} or {@code diffs} is {@code null}
      */
-    DiffList(final Object lhs, final Object rhs, final List<Diff<?>> diffs,
+    DiffResult(final Object lhs, final Object rhs, final List<Diff<?>> diffs,
             final ToStringStyle style) {
         if (lhs == null) {
             throw new IllegalArgumentException(
@@ -133,7 +133,7 @@ public class DiffList implements Iterable<Diff<?>> {
     /**
      * <p>
      * Builds a {@code String} description of the differences contained within
-     * this {@code DiffList}. A {@link ToStringBuilder} is used for each object
+     * this {@code DiffResult}. A {@link ToStringBuilder} is used for each object
      * and the style of the output is governed by the {@code ToStringStyle}
      * passed to the constructor.
      * </p>
@@ -169,7 +169,7 @@ public class DiffList implements Iterable<Diff<?>> {
     /**
      * <p>
      * Builds a {@code String} description of the differences contained within
-     * this {@code DiffList}, using the supplied {@code ToStringStyle}.
+     * this {@code DiffResult}, using the supplied {@code ToStringStyle}.
      * </p>
      * 
      * @param style
