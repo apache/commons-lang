@@ -24,8 +24,6 @@ limitations under the License.
 
 <section name='Developer guide for Commons "Lang"'>
 
-
-<div align="center">
 <h1>The Commons <em>Lang</em> Package</h1>
 <h2>Developers Guide</h2>
 <br />
@@ -35,8 +33,6 @@ limitations under the License.
 <a href="#Javadoc">[Javadoc]</a>
 <a href="#Building">[Building]</a>
 <br /><br />
-</div>
-
 
 <a name="Introduction"></a>
 <h3>1.  INTRODUCTION</h3>
@@ -141,7 +137,7 @@ However, it's not something to get worked up about.  Lots of spelling difference
 <h3>5.BUILDING</h3>
 <h4>Building a Release</h4>
 <p>
-The currently targeted version of Java is 1.5. 
+The currently targeted version of Java is 1.6. 
 </p>
 <p>
 To build Lang:
