@@ -22,7 +22,6 @@ package org.apache.commons.lang3.reflect.testbed;
 public class StaticContainer {
     public static final Object IMMUTABLE_PUBLIC = "public";
     protected static final Object IMMUTABLE_PROTECTED = "protected";
-    @SuppressWarnings("unused")
     static final Object IMMUTABLE_PACKAGE = "";
     @SuppressWarnings("unused")
     private static final Object IMMUTABLE_PRIVATE = "private";

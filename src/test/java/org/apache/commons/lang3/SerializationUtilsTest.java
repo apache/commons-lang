@@ -418,7 +418,6 @@ public class SerializationUtilsTest {
 
 }
 
-@SuppressWarnings("serial")
 class ClassNotFoundSerialization implements Serializable
 {
 

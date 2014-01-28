@@ -20,6 +20,5 @@ package org.apache.commons.lang3.reflect.testbed;
  * @version $Id$
  */
 public class PublicChild extends Parent {
-    @SuppressWarnings("hiding") // deliberate reuse of variable name
     static final String VALUE = "child";
 }

@@ -19,7 +19,7 @@ package org.apache.commons.lang3.reflect.testbed;
 /**
  * @version $Id$
  */
-@SuppressWarnings({ "unused", "hiding" }) // deliberate re-use of variable names
+@SuppressWarnings({ "unused" }) // deliberate re-use of variable names
 public class PrivatelyShadowedChild extends Parent {
     private final String s = "ss";
     private final boolean b = true;

@@ -72,15 +72,21 @@ public class ObjectUtilsTest {
 
     @Test
     public void testFirstNonNull() {
-        assertEquals(null, ObjectUtils.firstNonNull(null, null));
+        // Cast to Object in line below ensures compiler doesn't complain of unchecked generic array creation
+        assertEquals(null, ObjectUtils.firstNonNull((Object) null, (Object) null));
         assertEquals("", ObjectUtils.firstNonNull(null, ""));
         final String firstNonNullGenerics = ObjectUtils.firstNonNull(null, null, "123", "456");
         assertEquals("123", firstNonNullGenerics);
         assertEquals("123", ObjectUtils.firstNonNull("123", null, "456", null));
-        assertEquals(null, ObjectUtils.firstNonNull());
+        assertEquals(null, ObjectUtils.firstNonNull(new Object[0]));
         assertSame(Boolean.TRUE, ObjectUtils.firstNonNull(Boolean.TRUE));
-        assertNull(ObjectUtils.firstNonNull());
-        assertNull(ObjectUtils.firstNonNull(null, null));
+        
+        // Explicitly pass in an empty array of Object type to ensure compiler doesn't complain of unchecked generic array creation
+        assertNull(ObjectUtils.firstNonNull(new Object[0]));
+        
+        // Cast to Object in line below ensures compiler doesn't complain of unchecked generic array creation
+        assertNull(ObjectUtils.firstNonNull((Object) null, (Object) null));
+        
 //        assertSame("123", ObjectUtils.firstNonNull(null, ObjectUtils.NULL, "123", "456"));
 //        assertSame("456", ObjectUtils.firstNonNull(ObjectUtils.NULL, "456", "123", null));
 //        assertNull(ObjectUtils.firstNonNull(null, null, ObjectUtils.NULL));
@@ -89,7 +95,6 @@ public class ObjectUtilsTest {
     }
 
     //-----------------------------------------------------------------------
-    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void testEquals() {
         assertTrue("ObjectUtils.equals(null, null) returned false", ObjectUtils.equals(null, null));
@@ -108,7 +113,6 @@ public class ObjectUtilsTest {
         assertFalse("ObjectUtils.notEqual(\"foo\", \"foo\") returned false", ObjectUtils.notEqual(FOO, FOO));
     }
 
-    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Test
     public void testHashCode() {
         assertEquals(0, ObjectUtils.hashCode(null));
@@ -129,7 +133,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testHashCodeMulti_multiple_likeList() {
-        final List<Object> list0 = new ArrayList<Object>(Arrays.asList());
+        final List<Object> list0 = new ArrayList<Object>(Arrays.asList(new Object[0]));
         assertEquals(list0.hashCode(), ObjectUtils.hashCodeMulti());
         
         final List<Object> list1 = new ArrayList<Object>(Arrays.asList("a"));
@@ -282,14 +286,12 @@ public class ObjectUtilsTest {
         }
     }
 
-    @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
     @Test
     public void testToString_Object() {
         assertEquals("", ObjectUtils.toString((Object) null) );
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE) );
     }
 
-    @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
     @Test
     public void testToString_ObjectString() {
         assertEquals(BAR, ObjectUtils.toString((Object) null, BAR) );

@@ -27,13 +27,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * Unit test for Tokenizer.
  * 
  */
-@SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class StrTokenizerTest {
 
     private static final String CSV_SIMPLE_FIXTURE = "A,b,c";
