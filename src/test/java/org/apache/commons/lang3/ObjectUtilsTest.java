@@ -72,13 +72,10 @@ public class ObjectUtilsTest {
 
     @Test
     public void testFirstNonNull() {
-        // Cast to Object in line below ensures compiler doesn't complain of unchecked generic array creation
-        assertEquals(null, ObjectUtils.firstNonNull((Object) null, (Object) null));
         assertEquals("", ObjectUtils.firstNonNull(null, ""));
         final String firstNonNullGenerics = ObjectUtils.firstNonNull(null, null, "123", "456");
         assertEquals("123", firstNonNullGenerics);
         assertEquals("123", ObjectUtils.firstNonNull("123", null, "456", null));
-        assertEquals(null, ObjectUtils.firstNonNull(new Object[0]));
         assertSame(Boolean.TRUE, ObjectUtils.firstNonNull(Boolean.TRUE));
         
         // Explicitly pass in an empty array of Object type to ensure compiler doesn't complain of unchecked generic array creation
