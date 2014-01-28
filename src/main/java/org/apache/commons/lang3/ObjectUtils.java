@@ -182,7 +182,6 @@ public class ObjectUtils {
      * @param object2  the second object, may be {@code null}
      * @return {@code false} if the values of both objects are the same
      */
-    @SuppressWarnings( "Deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     public static boolean notEqual(final Object object1, final Object object2) {
         return ObjectUtils.equals(object1, object2) == false;
     }
@@ -240,7 +239,6 @@ public class ObjectUtils {
         int hash = 1;
         if (objects != null) {
             for (final Object object : objects) {
-                @SuppressWarnings( "Deprecation" ) // ObjectUtils.hashCode(Object) has been deprecated in 3.2
                 int tmpHash = ObjectUtils.hashCode(object);
                 hash = hash * 31 + tmpHash;
             }

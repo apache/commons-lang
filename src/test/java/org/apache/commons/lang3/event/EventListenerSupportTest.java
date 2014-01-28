@@ -165,7 +165,6 @@ public class EventListenerSupportTest
     @Test
     public void testSubclassInvocationHandling() throws PropertyVetoException {
 
-        @SuppressWarnings("serial")
         final
         EventListenerSupport<VetoableChangeListener> eventListenerSupport = new EventListenerSupport<VetoableChangeListener>(
                 VetoableChangeListener.class) {

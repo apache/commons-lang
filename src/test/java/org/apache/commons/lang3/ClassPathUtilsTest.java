@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import org.apache.commons.lang3.text.WordUtils;
 import org.junit.Test;
 
 /**

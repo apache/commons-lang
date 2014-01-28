@@ -106,6 +106,7 @@ public class ValidateTest  {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    @SuppressWarnings("unused")
     @Test
     public void testNotNull1() {
         Validate.notNull(new Object());
@@ -122,6 +123,7 @@ public class ValidateTest  {
     }
 
     //-----------------------------------------------------------------------
+    @SuppressWarnings("unused")
     @Test
     public void testNotNull2() {
         Validate.notNull(new Object(), "MSG");

@@ -300,7 +300,7 @@ public class StringUtilsTest {
 //        assertNull(StringUtils.join(null)); // generates warning
         assertNull(StringUtils.join((Object[]) null)); // equivalent explicit cast
         // test additional varargs calls
-        assertEquals("", StringUtils.join()); // empty array
+        assertEquals("", StringUtils.join(new Object[0])); // empty array
         assertEquals("", StringUtils.join((Object) null)); // => new Object[]{null}
 
         assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST));
