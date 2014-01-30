@@ -671,11 +671,11 @@ public class FieldUtils {
      * @throws IllegalArgumentException
      *             if the field is {@code null}
      */
-    public static void removeFinalModifier(Field field)  {
+    public static void removeFinalModifier(Field field) {
         Validate.isTrue(field != null, "The field must not be null");
 
         try {
-            if(Modifier.isFinal(field.getModifiers())){
+            if (Modifier.isFinal(field.getModifiers())) {
                 Field modifiersField = Field.class.getDeclaredField("modifiers");
                 modifiersField.setAccessible(true);
                 modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
