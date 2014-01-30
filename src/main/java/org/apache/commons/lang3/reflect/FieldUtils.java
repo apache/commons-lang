@@ -565,7 +565,7 @@ public class FieldUtils {
         final Field field = getField(cls, fieldName, forceAccess);
         Validate.isTrue(field != null, "Cannot locate field %s on %s", fieldName, cls);
         // already forced access above, don't repeat it here:
-        writeStaticField(field, value);
+        writeStaticField(field, value, false);
     }
 
     /**
@@ -614,7 +614,7 @@ public class FieldUtils {
         final Field field = getDeclaredField(cls, fieldName, forceAccess);
         Validate.isTrue(field != null, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
         // already forced access above, don't repeat it here:
-        writeField(field, (Object) null, value);
+        writeField(field, (Object) null, value, false);
     }
 
     /**
@@ -734,7 +734,7 @@ public class FieldUtils {
         final Field field = getField(cls, fieldName, forceAccess);
         Validate.isTrue(field != null, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
         // already forced access above, don't repeat it here:
-        writeField(field, target, value);
+        writeField(field, target, value, false);
     }
 
     /**
