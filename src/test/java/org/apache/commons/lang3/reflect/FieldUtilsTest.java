@@ -1259,7 +1259,42 @@ public class FieldUtilsTest {
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         FieldUtils.removeFinalModifier(field);
+        // The field is no longer final
         assertFalse(Modifier.isFinal(field.getModifiers()));
         assertFalse(field.isAccessible());
     }
+    
+    @Test
+    public void testRemoveFinalModifierWithAccess() throws Exception {
+        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
+        assertFalse(field.isAccessible());
+        assertTrue(Modifier.isFinal(field.getModifiers()));
+        FieldUtils.removeFinalModifier(field, true);
+        // The field is no longer final
+        assertFalse(Modifier.isFinal(field.getModifiers()));
+        assertFalse(field.isAccessible());
+    }
+
+    @Test
+    public void testRemoveFinalModifierWithoutAccess() throws Exception {
+        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
+        assertFalse(field.isAccessible());
+        assertTrue(Modifier.isFinal(field.getModifiers()));
+        FieldUtils.removeFinalModifier(field, false);
+        // The field is STILL final because we did not force access
+        assertTrue(Modifier.isFinal(field.getModifiers()));
+        assertFalse(field.isAccessible());
+    }
+
+    @Test
+    public void testRemoveFinalModifierAccessNotNeeded() throws Exception {
+        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PACKAGE");
+        assertFalse(field.isAccessible());
+        assertTrue(Modifier.isFinal(field.getModifiers()));
+        FieldUtils.removeFinalModifier(field, false);
+        // The field is no longer final AND we did not need to force access
+        assertTrue(Modifier.isFinal(field.getModifiers()));
+        assertFalse(field.isAccessible());
+    }
+
 }
