@@ -784,6 +784,6 @@ public class FieldUtils {
         final Field field = getDeclaredField(cls, fieldName, forceAccess);
         Validate.isTrue(field != null, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
         // already forced access above, don't repeat it here:
-        writeField(field, target, value);
+        writeField(field, target, value, false);
     }
 }
