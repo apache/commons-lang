@@ -680,7 +680,11 @@ public class FieldUtils {
             if (Modifier.isFinal(field.getModifiers())) {
                 Field modifiersField = Field.class.getDeclaredField("modifiers");
                 modifiersField.setAccessible(true);
-                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+                try {
+                    modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+                } finally {
+                    modifiersField.setAccessible(false);
+                }
             }
         } catch (NoSuchFieldException ignored) {
             // The field class contains always a modifiers field
