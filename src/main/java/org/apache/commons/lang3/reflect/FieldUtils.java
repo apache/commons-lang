@@ -678,6 +678,7 @@ public class FieldUtils {
 
         try {
             if (Modifier.isFinal(field.getModifiers())) {
+                // Do all JREs implement Field with a private ivar called "modifiers"?
                 Field modifiersField = Field.class.getDeclaredField("modifiers");
                 modifiersField.setAccessible(true);
                 try {
