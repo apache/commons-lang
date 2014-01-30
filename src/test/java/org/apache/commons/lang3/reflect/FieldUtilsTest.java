@@ -46,7 +46,7 @@ public class FieldUtilsTest {
     private PublicChild publicChild;
     private PubliclyShadowedChild publiclyShadowedChild;
     private PrivatelyShadowedChild privatelyShadowedChild;
-    private final Class<?> parentClass = PublicChild.class.getSuperclass();
+    private final Class<? super PublicChild> parentClass = PublicChild.class.getSuperclass();
 
     @Before
     public void setUp() {
