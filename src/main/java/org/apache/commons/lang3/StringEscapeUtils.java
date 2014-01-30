@@ -523,7 +523,7 @@ public class StringEscapeUtils {
     public static final String escapeHtml3(final String input) {
         return ESCAPE_HTML3.translate(input);
     }
-                
+
     //-----------------------------------------------------------------------
     /**
      * <p>Unescapes a string containing entity escapes to a string
@@ -583,7 +583,6 @@ public class StringEscapeUtils {
     public static final String escapeXml(final String input) {
         return ESCAPE_XML.translate(input);
     }
-                
 
     //-----------------------------------------------------------------------
     /**
@@ -604,7 +603,6 @@ public class StringEscapeUtils {
     public static final String unescapeXml(final String input) {
         return UNESCAPE_XML.translate(input);
     }
-                
 
     //-----------------------------------------------------------------------
 
