@@ -49,20 +49,22 @@ abstract class MemberUtils {
      * sufficiently privileged code. Better workarounds would be gratefully
      * accepted.
      * @param o the AccessibleObject to set as accessible
+     * @return a boolean indicating whether the accessibility of the object was set to true.
      */
-    static void setAccessibleWorkaround(final AccessibleObject o) {
+    static boolean setAccessibleWorkaround(final AccessibleObject o) {
         if (o == null || o.isAccessible()) {
-            return;
+            return false;
         }
         final Member m = (Member) o;
-        if (Modifier.isPublic(m.getModifiers())
-                && isPackageAccess(m.getDeclaringClass().getModifiers())) {
+        if (!o.isAccessible() && Modifier.isPublic(m.getModifiers()) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
             try {
                 o.setAccessible(true);
+                return true;
             } catch (final SecurityException e) { // NOPMD
                 // ignore in favor of subsequent IllegalAccessException
             }
         }
+        return false;
     }
 
     /**
