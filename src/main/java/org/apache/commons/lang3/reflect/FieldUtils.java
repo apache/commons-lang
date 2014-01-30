@@ -667,7 +667,9 @@ public class FieldUtils {
 
     /**
      * Removes the final modifier from a {@link Field}.
-     * @param field to remove the final modifier
+     * 
+     * @param field
+     *            to remove the final modifier
      * @throws IllegalArgumentException
      *             if the field is {@code null}
      */
