@@ -1256,8 +1256,10 @@ public class FieldUtilsTest {
     @Test
     public void testRemoveFinalModifier() throws Exception {
         Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
+        assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         FieldUtils.removeFinalModifier(field);
         assertFalse(Modifier.isFinal(field.getModifiers()));
+        assertFalse(field.isAccessible());
     }
 }
