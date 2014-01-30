@@ -429,7 +429,7 @@ public class FieldUtils {
         final Field field = getField(cls, fieldName, forceAccess);
         Validate.isTrue(field != null, "Cannot locate field %s on %s" , fieldName, cls);
         // already forced access above, don't repeat it here:
-        return readField(field, target);
+        return readField(field, target, false);
     }
 
     /**
