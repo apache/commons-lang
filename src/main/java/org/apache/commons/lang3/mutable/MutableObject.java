@@ -100,9 +100,8 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
         if (this.getClass() == obj.getClass()) {
             final MutableObject<?> that = (MutableObject<?>) obj;
             return this.value.equals(that.value);
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
