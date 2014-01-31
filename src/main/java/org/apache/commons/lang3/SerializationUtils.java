@@ -111,6 +111,18 @@ public class SerializationUtils {
         }
     }
 
+    /**
+     * Performs a serialization roundtrip. Serializes and deserializes the given object, great for testing objects that
+     * implement {@link Serializable}.
+     * 
+     * @param msg
+     *            the object to roundtrip
+     * @return the serialized and deseralized object
+     */
+    public static <T extends Serializable> T roundtrip(final T msg) {
+        return SerializationUtils.deserialize(SerializationUtils.serialize(msg));
+    }
+
     // Serialize
     //-----------------------------------------------------------------------
     /**

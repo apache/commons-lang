@@ -271,6 +271,12 @@ public class SerializationUtilsTest {
         }
     }
     
+    @Test 
+    public void testRoundtrip() {
+        HashMap<Object, Object> newMap = SerializationUtils.roundtrip(iMap);
+        assertEquals(iMap, newMap);
+    }
+    
     //-----------------------------------------------------------------------
 
     @Test
