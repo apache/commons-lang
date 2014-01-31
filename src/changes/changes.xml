@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.3" date="TBA" description="Bugfix and Feature release">
+    <action issue="LANG-341" type="add" due-to="Vincent Ricard" dev="djones">Please add number to byte[] methods</action>
     <action issue="LANG-961" type="update" dev="ggregory">org.apache.commons.lang3.reflect.FieldUtils.removeFinalModifier(Field) does not clean up after itself</action>
     <action issue="LANG-958" type="update" dev="chas">FastDateParser javadoc incorrectly states that SimpleDateFormat is used internally</action>
     <action issue="LANG-637" type="add" dev="djones">There should be a DifferenceBuilder with a ReflectionDifferenceBuilder implementation</action>
