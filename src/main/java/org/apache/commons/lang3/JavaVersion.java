@@ -22,7 +22,7 @@ package org.apache.commons.lang3;
  * <em>java.specification.version</em> System property. </p>
  *
  * @since 3.0
- * @version $Id: $
+ * @version $Id$
  */
 public enum JavaVersion {
     

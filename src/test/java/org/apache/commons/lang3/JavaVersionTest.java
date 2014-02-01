@@ -35,7 +35,7 @@ import static org.apache.commons.lang3.JavaVersion.getJavaVersion;
 /**
  * Unit tests {@link org.apache.commons.lang3.JavaVersion}.
  *
- * @version $Id: JavaVersionTest.java 918366 2010-03-03 08:56:22Z bayard $
+ * @version $Id$
  */
 public class JavaVersionTest {
 
