@@ -16,7 +16,11 @@
  */
 package org.apache.commons.lang3.math;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -53,7 +57,7 @@ public class NumberUtilsTest {
         assertTrue("toInt(String) 1 failed", NumberUtils.toInt("12345") == 12345);
         assertTrue("toInt(String) 2 failed", NumberUtils.toInt("abc") == 0);
         assertTrue("toInt(empty) failed", NumberUtils.toInt("") == 0);
-        assertTrue("toInt(null) failed", NumberUtils.toInt((String) null) == 0);
+        assertTrue("toInt(null) failed", NumberUtils.toInt(null) == 0);
     }
 
     /**
@@ -77,7 +81,7 @@ public class NumberUtilsTest {
         assertTrue("toLong(Long.MAX_VALUE) failed", NumberUtils.toLong(Long.MAX_VALUE+"") == Long.MAX_VALUE);
         assertTrue("toLong(Long.MIN_VALUE) failed", NumberUtils.toLong(Long.MIN_VALUE+"") == Long.MIN_VALUE);
         assertTrue("toLong(empty) failed", NumberUtils.toLong("") == 0l);
-        assertTrue("toLong(null) failed", NumberUtils.toLong((String) null) == 0l);
+        assertTrue("toLong(null) failed", NumberUtils.toLong(null) == 0l);
     }
 
     /**
@@ -100,7 +104,7 @@ public class NumberUtilsTest {
         assertTrue("toFloat(Float.MAX_VALUE) failed", NumberUtils.toFloat(Float.MAX_VALUE+"") ==  Float.MAX_VALUE);
         assertTrue("toFloat(Float.MIN_VALUE) failed", NumberUtils.toFloat(Float.MIN_VALUE+"") == Float.MIN_VALUE);
         assertTrue("toFloat(empty) failed", NumberUtils.toFloat("") == 0.0f);
-        assertTrue("toFloat(null) failed", NumberUtils.toFloat((String) null) == 0.0f);
+        assertTrue("toFloat(null) failed", NumberUtils.toFloat(null) == 0.0f);
     }
 
     /**
@@ -136,7 +140,7 @@ public class NumberUtilsTest {
         assertTrue("toDouble(Double.MAX_VALUE) failed", NumberUtils.toDouble(Double.MAX_VALUE+"") == Double.MAX_VALUE);
         assertTrue("toDouble(Double.MIN_VALUE) failed", NumberUtils.toDouble(Double.MIN_VALUE+"") == Double.MIN_VALUE);
         assertTrue("toDouble(empty) failed", NumberUtils.toDouble("") == 0.0d);
-        assertTrue("toDouble(null) failed", NumberUtils.toDouble((String) null) == 0.0d);
+        assertTrue("toDouble(null) failed", NumberUtils.toDouble(null) == 0.0d);
     }
 
     /**
@@ -176,7 +180,7 @@ public class NumberUtilsTest {
         assertTrue("toShort(String) 1 failed", NumberUtils.toShort("12345") == 12345);
         assertTrue("toShort(String) 2 failed", NumberUtils.toShort("abc") == 0);
         assertTrue("toShort(empty) failed", NumberUtils.toShort("") == 0);
-        assertTrue("toShort(null) failed", NumberUtils.toShort((String) null) == 0);
+        assertTrue("toShort(null) failed", NumberUtils.toShort(null) == 0);
     }
 
     /**
@@ -1395,94 +1399,5 @@ public class NumberUtilsTest {
         final float[] bF = new float[] { Float.NaN, 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
         assertTrue(Float.isNaN(NumberUtils.max(bF)));
     }
-    
-    @Test
-    public void testByteArrayConversionArgChecking() throws Exception {
-        try {
-            NumberUtils.toShort(new byte[1]);
-            fail();
-        } catch (IllegalArgumentException e) {}
-        
-        try {
-            NumberUtils.toInt(new byte[3]);
-            fail();
-        } catch (IllegalArgumentException e) {}
-        
-        try {
-            NumberUtils.toLong(new byte[7]);
-            fail();
-        } catch (IllegalArgumentException e) {}
-        
-        try {
-            NumberUtils.toFloat(new byte[3]);
-            fail();
-        } catch (IllegalArgumentException e) {}
-        
-        try {
-            NumberUtils.toDouble(new byte[7]);
-            fail();
-        } catch (IllegalArgumentException e) {}        
-    }
-    
 
-    @Test
-	public void testShortByteArrayConversion() {
-		// tests symmetry
-		assertEquals((short) 1, NumberUtils.toShort(NumberUtils.toByteArray((short) 1)));
-		
-		assertEquals(0, NumberUtils.toShort((byte[]) null));
-		assertArrayEquals(new byte[] {(byte) 0x7F, (byte) 0xFF}, NumberUtils.toByteArray(Short.MAX_VALUE));
-		assertArrayEquals(new byte[2], NumberUtils.toByteArray((short) 0));
-		assertArrayEquals(new byte[] {(byte) 0xFF, (byte) 0xFF}, NumberUtils.toByteArray((short) -1));
-		assertArrayEquals(new byte[] {(byte) 0x80, (byte) 0x00}, NumberUtils.toByteArray(Short.MIN_VALUE));
-	}
-    
-
-    @Test
-	public void testIntByteArrayConversion() {
-		// tests symmetry
-		assertEquals(1, NumberUtils.toInt(NumberUtils.toByteArray(1)));
-		
-		assertEquals(0, NumberUtils.toInt((byte[]) null));
-        assertArrayEquals(new byte[] {(byte) 0x7F, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}, 
-                NumberUtils.toByteArray(Integer.MAX_VALUE));
-        assertArrayEquals(new byte[4], 
-                NumberUtils.toByteArray(0));
-        assertArrayEquals(new byte[] {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}, 
-                NumberUtils.toByteArray(-1));
-        assertArrayEquals(new byte[] {(byte) 0x80, (byte) 0x00, (byte) 0x00, (byte) 0x00}, 
-                NumberUtils.toByteArray(Integer.MIN_VALUE));		
-	}
-
-    @Test
-	public void testLongByteArrayConversion() {
-		// tests symmetry
-		assertEquals(1l, NumberUtils.toLong(NumberUtils.toByteArray(1l)));
-		
-		assertEquals(0, NumberUtils.toLong((byte[]) null));
-        assertArrayEquals(new byte[] {(byte) 0x7F, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}, 
-                NumberUtils.toByteArray(Long.MAX_VALUE));
-        assertArrayEquals(new byte[8], 
-                NumberUtils.toByteArray(0L));
-        assertArrayEquals(new byte[] {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}, 
-                NumberUtils.toByteArray(-1L));
-        assertArrayEquals(new byte[] {(byte) 0x80, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00}, 
-                NumberUtils.toByteArray(Long.MIN_VALUE));    		
-	}
-	
-    @Test
-	public void testDoubleByteArrayConversion() {
-		// tests symmetry
-        assertEquals(0, NumberUtils.toDouble((byte[]) null), 0);
-		assertEquals(0, Double.compare(NumberUtils.toDouble(NumberUtils.toByteArray(1.1d)), 1.1d));
-	}
-    
-    
-    @Test
-    public void testFloatByteArrayConversion() {
-        // tests symmetry
-        assertEquals(0, NumberUtils.toFloat((byte[]) null), 0);
-        assertEquals(0, Float.compare(NumberUtils.toFloat(NumberUtils.toByteArray(1.1f)), 1.1f));
-    }    
-    
 }
