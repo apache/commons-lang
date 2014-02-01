@@ -117,7 +117,7 @@ public class ConstantInitializerTest {
     public void testToString() {
         final String s = init.toString();
         final Pattern pattern = Pattern
-                .compile("ConstantInitializer@\\d+ \\[ object = " + VALUE
+                .compile("ConstantInitializer@-?\\d+ \\[ object = " + VALUE
                         + " \\]");
         assertTrue("Wrong string: " + s, pattern.matcher(s).matches());
     }
