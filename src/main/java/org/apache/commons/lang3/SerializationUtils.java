@@ -118,6 +118,7 @@ public class SerializationUtils {
      * @param msg
      *            the object to roundtrip
      * @return the serialized and deseralized object
+     * @since 3.3
      */
     public static <T extends Serializable> T roundtrip(final T msg) {
         return SerializationUtils.deserialize(SerializationUtils.serialize(msg));
