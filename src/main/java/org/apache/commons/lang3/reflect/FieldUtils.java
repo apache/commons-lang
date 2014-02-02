@@ -656,6 +656,7 @@ public class FieldUtils {
      *            to remove the final modifier
      * @throws IllegalArgumentException
      *             if the field is {@code null}
+     * @since 3.2
      */
     public static void removeFinalModifier(Field field) {
         removeFinalModifier(field, true);
