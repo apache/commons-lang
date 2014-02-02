@@ -673,6 +673,7 @@ public class FieldUtils {
      *            match {@code public} fields.
      * @throws IllegalArgumentException
      *             if the field is {@code null}
+     * @since 3.3
      */
     public static void removeFinalModifier(Field field, boolean forceAccess) {
         Validate.isTrue(field != null, "The field must not be null");
