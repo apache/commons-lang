@@ -44,6 +44,7 @@
     <action issue="LANG-834" type="add" dev="britter">Validate: add inclusiveBetween and exclusiveBetween overloads for primitive types</action>
     <action issue="LANG-900" type="add" dev="britter" due-to="Duncan Jones">New RandomUtils class</action>
     <action issue="LANG-915" type="fix" dev="britter" due-to="Sergio Fernández">Wrong locale handling in LocaleUtils.toLocale()</action>
+    <action issue="LANG-966" type="add" dev="ggregory">Add IBM iSeries 5 OS detection</action>
   </release>
 
   <release version="3.2.1" date="2014-01-05" description="Bug fix for 3.2">
