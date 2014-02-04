@@ -957,6 +957,18 @@ public class SystemUtils {
      * @since 2.0
      */
     public static final boolean IS_OS_HP_UX = getOSMatchesName("HP-UX");
+    
+    /**
+     * <p>
+     * Is {@code true} if this is IBM iSeries 5.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.3
+     */
+    public static final boolean IS_OS_ISERIES_5 = getOSMatchesName("i5/OS");
 
     /**
      * <p>
