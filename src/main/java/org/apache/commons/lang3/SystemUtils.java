@@ -968,7 +968,7 @@ public class SystemUtils {
      *
      * @since 3.3
      */
-    public static final boolean IS_OS_ISERIES_5 = getOSMatchesName("i5/OS");
+    public static final boolean IS_OS_ISERIES_5 = getOSMatchesName("OS/400");
 
     /**
      * <p>
