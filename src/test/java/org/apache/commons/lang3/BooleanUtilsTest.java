@@ -284,6 +284,8 @@ public class BooleanUtilsTest {
 
         assertEquals(null, BooleanUtils.toBooleanObject("ab"));
         assertEquals(null, BooleanUtils.toBooleanObject("yoo"));
+        assertEquals(null, BooleanUtils.toBooleanObject("true "));
+        assertEquals(null, BooleanUtils.toBooleanObject("ono"));
     }
     
     @Test
