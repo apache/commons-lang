@@ -389,6 +389,8 @@ public class ExtendedMessageFormat extends MessageFormat {
             case QUOTE:
                 getQuotedString(pattern, pos, false);
                 break;
+            default:
+                break;
             }
         }
         throw new IllegalArgumentException(
