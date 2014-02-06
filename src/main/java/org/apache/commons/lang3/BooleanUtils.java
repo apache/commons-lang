@@ -537,6 +537,8 @@ public class BooleanUtils {
      *   BooleanUtils.toBooleanObject("yes")   = Boolean.TRUE
      *   BooleanUtils.toBooleanObject("Y")     = Boolean.TRUE // i.e. Y[ES]
      *   BooleanUtils.toBooleanObject("blue")  = null
+     *   BooleanUtils.toBooleanObject("true ") = null // trailing space (too long)
+     *   BooleanUtils.toBooleanObject("ono")   = null // does not match on or no
      * </pre>
      *
      * @param str  the String to check; upper and lower case are treated as the same
