@@ -1073,6 +1073,8 @@ public class DateUtils {
                         offsetSet = true;
                     }
                     break;
+                default:
+                    break;
             }
             if (!offsetSet) {
                 final int min = val.getActualMinimum(aField[0]);
@@ -1194,6 +1196,8 @@ public class DateUtils {
                     case RANGE_WEEK_CENTER:
                         startCutoff = focus.get(Calendar.DAY_OF_WEEK) - 3;
                         endCutoff = focus.get(Calendar.DAY_OF_WEEK) + 3;
+                        break;
+                    default:
                         break;
                 }
                 break;
@@ -1693,6 +1697,8 @@ public class DateUtils {
                 break;
             case Calendar.MONTH:
                 result += ((calendar.get(Calendar.DAY_OF_MONTH) -1) * MILLIS_PER_DAY) / millisPerUnit;
+                break;
+            default:
                 break;
         }
 

@@ -346,6 +346,8 @@ public class FastDateParser implements DateParser, Serializable {
                   c = 'Q'; // appended below
                 }
                 break;
+            default:
+                break;
             }
             regex.append(c);
         }
