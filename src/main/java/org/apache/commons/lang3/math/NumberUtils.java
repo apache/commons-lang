@@ -677,7 +677,8 @@ public class NumberUtils {
 
     /**
      * <p>Convert a <code>String</code> to a <code>Integer</code>, handling
-     * hex and octal notations.</p>
+     * hex (0xhhhh) and octal (0dddd) notations.
+     * N.B. a leading zero means octal; spaces are not trimmed.</p>
      *
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      * 
@@ -695,7 +696,8 @@ public class NumberUtils {
 
     /**
      * <p>Convert a <code>String</code> to a <code>Long</code>; 
-     * since 3.1 it handles hex and octal notations.</p>
+     * since 3.1 it handles hex (0Xhhhh) and octal (0ddd) notations.
+     * N.B. a leading zero means octal; spaces are not trimmed.</p>
      * 
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      *
