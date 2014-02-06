@@ -150,6 +150,7 @@ public class LocaleUtils {
                     return new Locale(split[0], split[1], split[2]);
                 }
 
+                //$FALL-THROUGH$
             default:
                 throw new IllegalArgumentException("Invalid locale format: " + str);
         }
