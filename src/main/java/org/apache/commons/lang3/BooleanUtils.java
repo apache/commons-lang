@@ -627,6 +627,8 @@ public class BooleanUtils {
                 }
                 break;
             }
+        default:
+            break;
         }
 
         return null;
