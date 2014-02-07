@@ -7625,7 +7625,7 @@ public class StringUtils {
      *            the encoding to use, if null then use the platform default
      * @return a new String
      * @throws UnsupportedEncodingException
-     *             If the named charset is not supported
+     *             This exception is never thrown and should not be in the signature, it will be removed in 4.0.
      * @throws NullPointerException
      *             if the input is null
      * @since 3.2
