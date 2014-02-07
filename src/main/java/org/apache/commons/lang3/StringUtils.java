@@ -7627,7 +7627,7 @@ public class StringUtils {
      * @throws UnsupportedEncodingException
      *             This exception is never thrown and should not be in the signature, it will be removed in 4.0.
      * @throws NullPointerException
-     *             if the input is null
+     *             if {@code bytes} is null
      * @since 3.2
      */
     public static String toEncodedString(byte[] bytes, Charset charset) throws UnsupportedEncodingException {
