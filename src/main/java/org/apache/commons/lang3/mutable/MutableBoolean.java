@@ -89,6 +89,24 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
+     * Sets the value to true.
+     * 
+     * @since 3.3
+     */
+    public void setFalse() {
+        this.value = false;
+    }
+
+    /**
+     * Sets the value to false.
+     * 
+     * @since 3.3
+     */
+    public void setTrue() {
+        this.value = true;
+    }
+
+    /**
      * Sets the value from any Boolean instance.
      * 
      * @param value  the value to set, not null

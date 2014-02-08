@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.3" date="TBA" description="Bugfix and Feature release">
+    <action issue="LANG-970" type="add" dev="ggregory">Add APIs MutableBoolean setTrue() and setFalse()</action>
     <action issue="LANG-946" type="fix" dev="britter">ConstantInitializerTest fails when building with IBM JDK 7</action>
     <action issue="LANG-962" type="add" dev="ggregory">Add SerializationUtils.roundtrip(T extends Serializable) to serialize then deserialize</action>
     <action issue="LANG-961" type="update" dev="ggregory">org.apache.commons.lang3.reflect.FieldUtils.removeFinalModifier(Field) does not clean up after itself</action>

@@ -105,6 +105,12 @@ public class MutableBooleanTest {
         mutBool.setValue(true);
         assertTrue(mutBool.booleanValue());
 
+        mutBool.setFalse();
+        assertFalse(mutBool.booleanValue());
+
+        mutBool.setTrue();
+        assertTrue(mutBool.booleanValue());
+
     }
 
     @Test(expected=NullPointerException.class)
