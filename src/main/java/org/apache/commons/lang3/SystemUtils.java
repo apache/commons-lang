@@ -960,7 +960,7 @@ public class SystemUtils {
     
     /**
      * <p>
-     * Is {@code true} if this is IBM iSeries 5.
+     * Is {@code true} if this is IBM OS/400.
      * </p>
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
@@ -968,7 +968,7 @@ public class SystemUtils {
      *
      * @since 3.3
      */
-    public static final boolean IS_OS_ISERIES = getOSMatchesName("OS/400");
+    public static final boolean IS_OS_400 = getOSMatchesName("OS/400");
 
     /**
      * <p>
