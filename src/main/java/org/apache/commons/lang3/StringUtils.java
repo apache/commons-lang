@@ -7624,13 +7624,12 @@ public class StringUtils {
      * @param charset
      *            the encoding to use, if null then use the platform default
      * @return a new String
-     * @throws UnsupportedEncodingException
-     *             This exception is never thrown and should not be in the signature, it will be removed in 4.0.
      * @throws NullPointerException
      *             if {@code bytes} is null
      * @since 3.2
+     * @since 3.3 No longer throws {@link UnsupportedEncodingException}.
      */
-    public static String toEncodedString(byte[] bytes, Charset charset) throws UnsupportedEncodingException {
+    public static String toEncodedString(byte[] bytes, Charset charset) {
         return new String(bytes, charset != null ? charset : Charset.defaultCharset());
     }
 
