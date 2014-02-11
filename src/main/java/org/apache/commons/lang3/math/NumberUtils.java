@@ -1345,26 +1345,33 @@ public class NumberUtils {
         boolean foundDigit = false;
         // deal with any possible sign up front
         final int start = (chars[0] == '-') ? 1 : 0;
-        if (sz > start + 1 && chars[start] == '0'
-                           && 
-                           (
-                             (chars[start + 1] == 'x') || 
-                             (chars[start + 1] == 'X') 
-                           )
-           ) {
-            int i = start + 2;
-            if (i == sz) {
-                return false; // str == "0x"
-            }
-            // checking hex (it can't be anything else)
-            for (; i < chars.length; i++) {
-                if ((chars[i] < '0' || chars[i] > '9')
-                    && (chars[i] < 'a' || chars[i] > 'f')
-                    && (chars[i] < 'A' || chars[i] > 'F')) {
-                    return false;
+        if (sz > start + 1 && chars[start] == '0') { // leading 0
+            if (
+                 (chars[start + 1] == 'x') || 
+                 (chars[start + 1] == 'X') 
+            ) { // leading 0x/0X
+                int i = start + 2;
+                if (i == sz) {
+                    return false; // str == "0x"
                 }
-            }
-            return true;
+                // checking hex (it can't be anything else)
+                for (; i < chars.length; i++) {
+                    if ((chars[i] < '0' || chars[i] > '9')
+                        && (chars[i] < 'a' || chars[i] > 'f')
+                        && (chars[i] < 'A' || chars[i] > 'F')) {
+                        return false;
+                    }
+                }
+                return true;
+           } else { // leading 0, but not hex, must be octal
+               int i = start + 1;
+               for (; i < chars.length; i++) {
+                   if (chars[i] < '0' || chars[i] > '7') {
+                       return false;
+                   }
+               }
+               return true;               
+           }
         }
         sz--; // don't want to loop to the last char, check it afterwords
               // for type qualifiers

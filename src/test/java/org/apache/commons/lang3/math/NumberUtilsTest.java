@@ -1226,6 +1226,15 @@ public class NumberUtilsTest {
     }
 
     @Test
+    public void testLANG971() {
+        compareIsNumberWithCreateNumber("0085", false);
+        compareIsNumberWithCreateNumber("085", false);
+        compareIsNumberWithCreateNumber("08", false);
+        compareIsNumberWithCreateNumber("07", true);
+        compareIsNumberWithCreateNumber("00", true);
+    }
+
+    @Test
     public void testLANG972() {
         compareIsNumberWithCreateNumber("0xABCD", true);
         compareIsNumberWithCreateNumber("0XABCD", true);
