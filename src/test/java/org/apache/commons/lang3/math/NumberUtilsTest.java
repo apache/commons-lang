@@ -1225,6 +1225,12 @@ public class NumberUtilsTest {
         compareIsNumberWithCreateNumber("1.1L", false); // LANG-664
     }
 
+    @Test
+    public void testLANG972() {
+        compareIsNumberWithCreateNumber("0xABCD", true);
+        compareIsNumberWithCreateNumber("0XABCD", true);
+    }
+
     private void compareIsNumberWithCreateNumber(final String val, final boolean expected) {
         final boolean isValid = NumberUtils.isNumber(val);
         final boolean canCreate = checkCreateNumber(val);
