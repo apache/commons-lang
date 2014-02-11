@@ -1332,6 +1332,7 @@ public class NumberUtils {
      *
      * @param str  the <code>String</code> to check
      * @return <code>true</code> if the string is a correctly formatted number
+     * @since 3.3 the code supports hex {@code 0Xhhh} and octal {@code 0ddd} validation
      */
     public static boolean isNumber(final String str) {
         if (StringUtils.isEmpty(str)) {
