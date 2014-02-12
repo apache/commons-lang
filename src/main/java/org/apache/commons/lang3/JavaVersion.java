@@ -74,11 +74,11 @@ public enum JavaVersion {
     /**
      * The float value.
      */
-    private float value;
+    private final float value;
     /**
      * The standard name.
      */
-    private String name;
+    private final String name;
 
     /**
      * Constructor.

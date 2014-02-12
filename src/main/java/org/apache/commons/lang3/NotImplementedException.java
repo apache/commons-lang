@@ -45,7 +45,7 @@ public class NotImplementedException extends UnsupportedOperationException {
 
     private static final long serialVersionUID = 20131021L;
 
-    private String code;
+    private final String code;
 
     /**
      * Constructs a NotImplementedException.
@@ -54,7 +54,7 @@ public class NotImplementedException extends UnsupportedOperationException {
      * @since 3.2
      */
     public NotImplementedException(final String message) {
-        super(message);
+        this(message, (String) null);
     }
 
     /**
@@ -64,7 +64,7 @@ public class NotImplementedException extends UnsupportedOperationException {
      * @since 3.2
      */
     public NotImplementedException(final Throwable cause) {
-        super(cause);
+        this(cause, null);
     }
 
     /**
@@ -75,7 +75,7 @@ public class NotImplementedException extends UnsupportedOperationException {
      * @since 3.2
      */
     public NotImplementedException(final String message, final Throwable cause) {
-        super(message, cause);
+        this(message, cause, null);
     }
 
     /**

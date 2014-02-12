@@ -1085,7 +1085,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     //-----------------------------------------------------------------------
 
-    private static ConcurrentMap<TimeZoneDisplayKey, String> cTimeZoneDisplayCache =
+    private static final ConcurrentMap<TimeZoneDisplayKey, String> cTimeZoneDisplayCache =
         new ConcurrentHashMap<TimeZoneDisplayKey, String>(7);
     /**
      * <p>Gets the time zone display name, using a cache for performance.</p>

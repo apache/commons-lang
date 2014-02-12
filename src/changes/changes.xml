@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.3" date="TBA" description="Bugfix and Feature release">
+    <action issue="LANG-973" type="fix" dev="sebb">Make some private fields final</action>
     <action issue="LANG-971" type="fix" dev="sebb">NumberUtils#isNumber(String) fails to reject invalid Octal numbers</action>
     <action issue="LANG-972" type="fix" dev="sebb">NumberUtils#isNumber does not allow for hex 0XABCD</action>
     <action issue="LANG-969" type="fix" dev="ggregory" due-to="Matt Bishop">StringUtils.toEncodedString(byte[], Charset) needlessly throws UnsupportedEncodingException</action>
