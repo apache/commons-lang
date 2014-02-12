@@ -23,7 +23,7 @@ limitations under the License.
 <body>
 
 <section name="What's new in Commons Lang 2.5?">
-<p>Commons Lang 2.5 is out, and the obvious question is: <i>"So what? What's changed?"</i>.</p>
+<p>Commons Lang 2.5 is out, and the obvious question is: <em>"So what? What's changed?"</em>.</p>
 <p>This article aims to briefly cover the changes and save you from having to dig through each JIRA
 issue to see what went on in the two years of development between Lang 2.4 and 2.5.</p>
 <p>Two years?!? Yes, it's true. The reason is that 2.5 represents the backwards compatible changes in the 

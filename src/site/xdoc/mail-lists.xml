@@ -76,7 +76,7 @@ limitations under the License.
     <section name="Commons Lang Mailing Lists">
       <p>
         <strong>Please prefix the subject line of any messages for <a href="index.html">Commons Lang</a>
-        with <i>[lang]</i></strong> - <i>thanks!</i>
+        with <em>[lang]</em></strong> - <em>thanks!</em>
         <br />
         <br />
       </p>
@@ -137,7 +137,7 @@ limitations under the License.
           </td>
           <td><a href="mailto:issues-subscribe@commons.apache.org">Subscribe</a></td>
           <td><a href="mailto:issues-unsubscribe@commons.apache.org">Unsubscribe</a></td>
-          <td><i>read only</i></td>
+          <td><em>read only</em></td>
           <td><a href="http://mail-archives.apache.org/mod_mbox/commons-issues/">mail-archives.apache.org</a></td>
           <td><a href="http://markmail.org/list/org.apache.commons.issues/">markmail.org</a><br />
               <a href="http://www.mail-archive.com/issues@commons.apache.org/">www.mail-archive.com</a>
@@ -154,7 +154,7 @@ limitations under the License.
           </td>
           <td><a href="mailto:commits-subscribe@commons.apache.org">Subscribe</a></td>
           <td><a href="mailto:commits-unsubscribe@commons.apache.org">Unsubscribe</a></td>
-          <td><i>read only</i></td>
+          <td><em>read only</em></td>
           <td><a href="http://mail-archives.apache.org/mod_mbox/commons-commits/">mail-archives.apache.org</a></td>
           <td><a href="http://markmail.org/list/org.apache.commons.commits/">markmail.org</a><br />
               <a href="http://www.mail-archive.com/commits@commons.apache.org/">www.mail-archive.com</a>
@@ -187,7 +187,7 @@ limitations under the License.
           </td>
           <td><a class="externalLink" href="mailto:announce-subscribe@apache.org">Subscribe</a></td> 
           <td><a class="externalLink" href="mailto:announce-unsubscribe@apache.org">Unsubscribe</a></td> 
-          <td><i>read only</i></td>
+          <td><em>read only</em></td>
           <td><a class="externalLink" href="http://mail-archives.apache.org/mod_mbox/www-announce/">mail-archives.apache.org</a></td> 
           <td><a class="externalLink" href="http://markmail.org/list/org.apache.announce/">markmail.org</a><br />
               <a class="externalLink" href="http://old.nabble.com/Apache-News-and-Announce-f109.html">old.nabble.com</a><br />
