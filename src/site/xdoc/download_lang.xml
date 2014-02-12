@@ -60,7 +60,7 @@ limitations under the License.
       </p>
 
       <p>
-        You are currently using <b>[preferred]</b>.  If you
+        You are currently using <strong>[preferred]</strong>.  If you
         encounter a problem with this mirror, please select another
         mirror.  If all mirrors are failing, there are <i>backup</i>
         mirrors (at the end of the mirrors list) that should be
