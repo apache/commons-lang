@@ -491,7 +491,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     @SuppressWarnings("unchecked") // OK because we are creating an array with no entries
-    private static ConcurrentMap<Locale, Strategy>[] caches = new ConcurrentMap[Calendar.FIELD_COUNT];
+    private static final ConcurrentMap<Locale, Strategy>[] caches = new ConcurrentMap[Calendar.FIELD_COUNT];
 
     /**
      * Get a cache of Strategies for a particular field
