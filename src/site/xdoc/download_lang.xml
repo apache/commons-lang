@@ -62,7 +62,7 @@ limitations under the License.
       <p>
         You are currently using <strong>[preferred]</strong>.  If you
         encounter a problem with this mirror, please select another
-        mirror.  If all mirrors are failing, there are <i>backup</i>
+        mirror.  If all mirrors are failing, there are <em>backup</em>
         mirrors (at the end of the mirrors list) that should be
         available.
         <br></br>

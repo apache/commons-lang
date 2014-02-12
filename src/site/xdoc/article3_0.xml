@@ -23,7 +23,7 @@ limitations under the License.
 <body>
 
 <section name="What's new in Commons Lang 3.0?">
-<p>Commons Lang 3.0 is out, and the obvious question is: <i>"So what? What's changed?"</i>.</p>
+<p>Commons Lang 3.0 is out, and the obvious question is: <em>"So what? What's changed?"</em>.</p>
 <section name="The big story">
 <p>Lang is now Java 5 based. We've generified the API, moved certain APIs to support <code>varargs</code> and thrown out any features 
 that are now supported by Java itself. We've removed the deprecated parts of the API and have also removed some features that 
