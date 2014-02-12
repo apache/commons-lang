@@ -71,7 +71,7 @@ public abstract class ToStringStyle implements Serializable {
     private static final long serialVersionUID = -2587890625525655916L;
 
     /**
-     * The default toString style. Using the Using the <code>Person</code>
+     * The default toString style. Using the <code>Person</code>
      * example from {@link ToStringBuilder}, the output would look like this:
      *
      * <pre>
@@ -95,7 +95,7 @@ public abstract class ToStringStyle implements Serializable {
     public static final ToStringStyle MULTI_LINE_STYLE = new MultiLineToStringStyle();
 
     /**
-     * The no field names toString style. Using the Using the
+     * The no field names toString style. Using the
      * <code>Person</code> example from {@link ToStringBuilder}, the output
      * would look like this:
      *
@@ -118,7 +118,7 @@ public abstract class ToStringStyle implements Serializable {
     public static final ToStringStyle SHORT_PREFIX_STYLE = new ShortPrefixToStringStyle();
 
     /**
-     * The simple toString style. Using the Using the <code>Person</code>
+     * The simple toString style. Using the <code>Person</code>
      * example from {@link ToStringBuilder}, the output would look like this:
      *
      * <pre>
