@@ -441,11 +441,11 @@ public class FastDateParser implements DateParser, Serializable {
      * @param definingCalendar The calendar to obtain the short and long values
      * @return The Strategy that will handle parsing for the field
      */
-    private Strategy getStrategy(String formatField, final Calendar definingCalendar) {
+    private Strategy getStrategy(final String formatField, final Calendar definingCalendar) {
         switch(formatField.charAt(0)) {
         case '\'':
             if(formatField.length()>2) {
-                formatField= formatField.substring(1, formatField.length()-1);
+                return new CopyQuotedStrategy(formatField.substring(1, formatField.length()-1));
             }
             //$FALL-THROUGH$
         default:
