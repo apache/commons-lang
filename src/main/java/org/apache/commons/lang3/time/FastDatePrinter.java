@@ -1233,12 +1233,13 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * @param locale the timezone locale
          */
         TimeZoneDisplayKey(final TimeZone timeZone,
-                           final boolean daylight, int style, final Locale locale) {
+                           final boolean daylight, final int style, final Locale locale) {
             mTimeZone = timeZone;
             if (daylight) {
-                style |= 0x80000000;
+                mStyle = style | 0x80000000;
+            } else {
+                mStyle = style;
             }
-            mStyle = style;
             mLocale = locale;
         }
 
