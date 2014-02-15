@@ -291,6 +291,7 @@ public class StringEscapeUtilsTest {
     }
 
     @Test
+    @SuppressWarnings( "deprecation" ) // ESCAPE_XML has been replaced by ESCAPE_XML10 and ESCAPE_XML11 in 3.3
     public void testEscapeXml() throws Exception {
         assertEquals("&lt;abc&gt;", StringEscapeUtils.escapeXml("<abc>"));
         assertEquals("<abc>", StringEscapeUtils.unescapeXml("&lt;abc&gt;"));
@@ -326,6 +327,38 @@ public class StringEscapeUtilsTest {
         }
         assertEquals("XML was unescaped incorrectly", "<abc>", sw.toString() );
     }
+    
+    @Test
+    public void testEscapeXml10() throws Exception {
+        assertEquals("a&lt;b&gt;c&quot;d&apos;e&amp;f", StringEscapeUtils.escapeXml10("a<b>c\"d'e&f"));
+        assertEquals("XML 1.0 should not escape \t \n \r",
+                "a\tb\rc\nd", StringEscapeUtils.escapeXml10("a\tb\rc\nd"));
+        assertEquals("XML 1.0 should omit most #x0-x8 | #xb | #xc | #xe-#x19",
+                "ab", StringEscapeUtils.escapeXml10("a\u0000\u0001\u0008\u000b\u000c\u000e\u001fb"));
+        assertEquals("XML 1.0 should omit #xd800-#xdfff",
+                "a\ud7ff  \ue000b", StringEscapeUtils.escapeXml10("a\ud7ff\ud800 \udfff \ue000b"));
+        assertEquals("XML 1.0 should omit #xfffe | #xffff",
+                "a\ufffdb", StringEscapeUtils.escapeXml10("a\ufffd\ufffe\uffffb"));
+        assertEquals("XML 1.0 should escape #x7f-#x84 | #x86 - #x9f, for XML 1.1 compatibility",
+                "a\u007e&#127;&#132;\u0085&#134;&#159;\u00a0b", StringEscapeUtils.escapeXml10("a\u007e\u007f\u0084\u0085\u0086\u009f\u00a0b"));
+    }
+    
+    @Test
+    public void testEscapeXml11() throws Exception {
+        assertEquals("a&lt;b&gt;c&quot;d&apos;e&amp;f", StringEscapeUtils.escapeXml11("a<b>c\"d'e&f"));
+        assertEquals("XML 1.1 should not escape \t \n \r",
+                "a\tb\rc\nd", StringEscapeUtils.escapeXml11("a\tb\rc\nd"));
+        assertEquals("XML 1.1 should omit #x0",
+                "ab", StringEscapeUtils.escapeXml11("a\u0000b"));
+        assertEquals("XML 1.1 should escape #x1-x8 | #xb | #xc | #xe-#x19",
+                "a&#1;&#8;&#11;&#12;&#14;&#31;b", StringEscapeUtils.escapeXml11("a\u0001\u0008\u000b\u000c\u000e\u001fb"));
+        assertEquals("XML 1.1 should escape #x7F-#x84 | #x86-#x9F",
+                "a\u007e&#127;&#132;\u0085&#134;&#159;\u00a0b", StringEscapeUtils.escapeXml11("a\u007e\u007f\u0084\u0085\u0086\u009f\u00a0b"));
+        assertEquals("XML 1.1 should omit #xd800-#xdfff",
+                "a\ud7ff  \ue000b", StringEscapeUtils.escapeXml11("a\ud7ff\ud800 \udfff \ue000b"));
+        assertEquals("XML 1.1 should omit #xfffe | #xffff",
+                "a\ufffdb", StringEscapeUtils.escapeXml11("a\ufffd\ufffe\uffffb"));
+    }
 
     /**
      * Tests Supplementary characters. 
@@ -342,6 +375,7 @@ public class StringEscapeUtilsTest {
      * @see <a href="https://issues.apache.org/jira/browse/LANG-728">LANG-728</a>
      */
     @Test
+    @SuppressWarnings( "deprecation" ) // ESCAPE_XML has been replaced by ESCAPE_XML10 and ESCAPE_XML11 in 3.3
     public void testEscapeXmlSupplementaryCharacters() {
         final CharSequenceTranslator escapeXml = 
             StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE) );
@@ -354,6 +388,7 @@ public class StringEscapeUtilsTest {
     }
     
     @Test
+    @SuppressWarnings( "deprecation" ) // ESCAPE_XML has been replaced by ESCAPE_XML10 and ESCAPE_XML11 in 3.3
     public void testEscapeXmlAllCharacters() {
         // http://www.w3.org/TR/xml/#charsets says:
         // Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] /* any Unicode character,
@@ -534,6 +569,7 @@ public class StringEscapeUtilsTest {
      * Tests https://issues.apache.org/jira/browse/LANG-720
      */
     @Test
+    @SuppressWarnings( "deprecation" ) // escapeXml(String) has been replaced by escapeXml10(String) and escapeXml11(String) in 3.3
     public void testLang720() {
         final String input = new StringBuilder("\ud842\udfb7").append("A").toString();
         final String escaped = StringEscapeUtils.escapeXml(input);
