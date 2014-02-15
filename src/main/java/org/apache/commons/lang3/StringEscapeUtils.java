@@ -185,7 +185,7 @@ public class StringEscapeUtils {
                 out.write(StringUtils.replace(input.toString(), CSV_QUOTE_STR, CSV_QUOTE_STR + CSV_QUOTE_STR));
                 out.write(CSV_QUOTE);
             }
-            return input.length();
+            return Character.codePointCount(input, 0, input.length());
         }
     }
 
@@ -314,7 +314,7 @@ public class StringEscapeUtils {
 
             if ( input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE ) {
                 out.write(input.toString());
-                return input.length();
+                return Character.codePointCount(input, 0, input.length());
             }
 
             // strip quotes
@@ -326,7 +326,7 @@ public class StringEscapeUtils {
             } else {
                 out.write(input.toString());
             }
-            return input.length();
+            return Character.codePointCount(input, 0, input.length());
         }
     }
 
