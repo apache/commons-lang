@@ -60,9 +60,9 @@ limitations under the License.
       </p>
 
       <p>
-        You are currently using <strong>[preferred]</strong>.  If you
+        You are currently using <b>[preferred]</b>.  If you
         encounter a problem with this mirror, please select another
-        mirror.  If all mirrors are failing, there are <em>backup</em>
+        mirror.  If all mirrors are failing, there are <i>backup</i>
         mirrors (at the end of the mirrors list) that should be
         available.
         <br></br>
@@ -95,32 +95,32 @@ limitations under the License.
       </p>
     </subsection>
     </section>
-    <section name="Apache Commons Lang 3.2.1 (Java 6.0+)">
+    <section name="Apache Commons Lang 3.3 (Java 6.0+)">
       <subsection name="Binaries">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.2.1-bin.tar.gz">commons-lang3-3.2.1-bin.tar.gz</a></td>
-              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.2.1-bin.tar.gz.md5">md5</a></td>
-              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.2.1-bin.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.3-bin.tar.gz">commons-lang3-3.3-bin.tar.gz</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.3-bin.tar.gz.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.3-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.2.1-bin.zip">commons-lang3-3.2.1-bin.zip</a></td>
-              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.2.1-bin.zip.md5">md5</a></td>
-              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.2.1-bin.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.3-bin.zip">commons-lang3-3.3-bin.zip</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.3-bin.zip.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.3-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
       <subsection name="Source">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.2.1-src.tar.gz">commons-lang3-3.2.1-src.tar.gz</a></td>
-              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang3-3.2.1-src.tar.gz.md5">md5</a></td>
-              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang3-3.2.1-src.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.3-src.tar.gz">commons-lang3-3.3-src.tar.gz</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang3-3.3-src.tar.gz.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang3-3.3-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.2.1-src.zip">commons-lang3-3.2.1-src.zip</a></td>
-              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang3-3.2.1-src.zip.md5">md5</a></td>
-              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang3-3.2.1-src.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.3-src.zip">commons-lang3-3.3-src.zip</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang3-3.3-src.zip.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang3-3.3-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
