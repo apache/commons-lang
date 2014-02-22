@@ -2435,10 +2435,10 @@ public class StringUtilsTest {
     }
     
     /**
-     * Tests {@link StringUtils#toString(byte[], Charset)}
+     * Tests {@link StringUtils#toEncodedString(byte[], Charset)}
      * 
      * @throws UnsupportedEncodingException
-     * @see StringUtils#toString(byte[], Charset)
+     * @see StringUtils#toEncodedString(byte[], Charset)
      */
     @Test
     public void testToEncodedString() throws UnsupportedEncodingException {
