@@ -7051,11 +7051,15 @@ public class StringUtils {
 
         // If one or both of the sets of common characters is empty, then
         // there is no similarity between the two strings.
-        if (m1.length() == 0 || m2.length() == 0) return 0.0;
+        if (m1.length() == 0 || m2.length() == 0) {
+            return 0.0;
+        }
 
         // If the set of common characters is not the same size, then
         // there is no similarity between the two strings, either.
-        if (m1.length() != m2.length()) return 0.0;
+        if (m1.length() != m2.length()) {
+            return 0.0;
+        }
 
         // Calculate the number of transposition between the two sets
         // of common characters.

@@ -89,9 +89,23 @@ public class FastDateParser implements DateParser, Serializable {
      *  pattern
      * @param timeZone non-null time zone to use
      * @param locale non-null locale
-     * @param centuryStart The start of the century for 2 digit year parsing
      */
-    protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, Date centuryStart) {
+    protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale) {
+        this(pattern, timeZone, locale, null);
+    }
+
+    /**
+     * <p>Constructs a new FastDateParser.</p>
+     *
+     * @param pattern non-null {@link java.text.SimpleDateFormat} compatible
+     *  pattern
+     * @param timeZone non-null time zone to use
+     * @param locale non-null locale
+     * @param centuryStart The start of the century for 2 digit year parsing
+     *
+     * @since 3.3
+     */
+    protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
         this.pattern = pattern;
         this.timeZone = timeZone;
         this.locale = locale;
@@ -99,16 +113,16 @@ public class FastDateParser implements DateParser, Serializable {
         final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
         int centuryStartYear;
         if(centuryStart!=null) {
-        	definingCalendar.setTime(centuryStart);
-        	centuryStartYear= definingCalendar.get(Calendar.YEAR);
+            definingCalendar.setTime(centuryStart);
+            centuryStartYear= definingCalendar.get(Calendar.YEAR);
         }
         else if(locale.equals(JAPANESE_IMPERIAL)) {
-        	centuryStartYear= 0;
+            centuryStartYear= 0;
         }
         else {
-        	// from 80 years ago to 20 years from now
-        	definingCalendar.setTime(new Date());
-        	centuryStartYear= definingCalendar.get(Calendar.YEAR)-80;
+            // from 80 years ago to 20 years from now
+            definingCalendar.setTime(new Date());
+            centuryStartYear= definingCalendar.get(Calendar.YEAR)-80;
         }
         century= centuryStartYear / 100 * 100;
         startYear= centuryStartYear - century;
@@ -116,9 +130,11 @@ public class FastDateParser implements DateParser, Serializable {
         init(definingCalendar);
     }
 
-	/**
+    /**
      * Initialize derived fields from defining fields.
      * This is called from constructor and from readObject (de-serialization)
+     *
+     * @param definingCalendar the {@link java.util.Calendar} instance used to initialize this FastDateParser
      */
     private void init(Calendar definingCalendar) {
 
@@ -373,8 +389,8 @@ public class FastDateParser implements DateParser, Serializable {
      * @return A value between centuryStart(inclusive) to centuryStart+100(exclusive)
      */
     private int adjustYear(final int twoDigitYear) {
-		int trial= century + twoDigitYear;
-    	return twoDigitYear>=startYear ?trial :trial+100;
+        int trial= century + twoDigitYear;
+        return twoDigitYear>=startYear ?trial :trial+100;
     }
 
     /**

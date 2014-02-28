@@ -616,8 +616,6 @@
         <version>2.4</version>
         <configuration>
           <minSeverity>info</minSeverity>
-          <!-- Compare 3.2.1 against 3.1, since point releases never introduce API changes -->
-          <comparisonVersion>3.1</comparisonVersion>
         </configuration>
       </plugin>
       <plugin>

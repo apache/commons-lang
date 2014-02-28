@@ -22,7 +22,7 @@
    Build file for creating release candidates and releasing lang.
    $Id$
 -->
-<project name="release-lang" basedir="../../" xmlns:if="ant:if">
+<project name="release-lang" basedir="../../">
 
     <target name="-init">
         <property file="src/release-tools/build.properties" />
@@ -71,7 +71,7 @@
 
         <mvn goal="deploy">
             <arg value="-Prelease" />
-            <arg value="-Ptest-deploy" if:true="${test.run}"/>
+            <arg value="-Ptest-deploy" />
             <arg value="-Duser.name=${apache.id}" />
             <arg value="-Dgpg.passphrase=${gpg.pass}" />
         </mvn>
@@ -128,25 +128,8 @@
                  passphrase="${ssh.pass}"/>
     </target>
 
-    <target name="nexus-upload-test-run"
-            description="Creates all artifacts and deploys them to the target dir">
-        <antcall target="-build-maven-artifacts">
-            <param name="test.run" value="true"/>
-        </antcall>
-    </target>
-
-    <target name="nexus-upload"
-            description="Creates all artifacts and uploads them to Nexus">
-        <antcall target="-build-maven-artifacts">
-            <param name="test.run" value="false"/>
-        </antcall>
-    </target>
-
-    <target name="nexus-bundle"
+    <target name="nexus-bundle" depends="-build-maven-artifacts"
             description="Creates an upload bundle suitable for Nexus Snapshot Upload">
-        <antcall target="-build-maven-artifacts">
-            <param name="test.run" value="true"/>
-        </antcall>
         <jar destfile="target/upload-bundle.jar">
             <fileset dir="${repo.path}">
                 <include name="*.jar"/>
