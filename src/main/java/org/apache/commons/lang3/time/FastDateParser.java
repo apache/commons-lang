@@ -91,7 +91,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @param locale non-null locale
      * @param centuryStart The start of the century for 2 digit year parsing
      */
-    protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, Date centuryStart) {
+    protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
         this.pattern = pattern;
         this.timeZone = timeZone;
         this.locale = locale;
