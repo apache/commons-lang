@@ -133,6 +133,8 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Initialize derived fields from defining fields.
      * This is called from constructor and from readObject (de-serialization)
+     *
+     * @param definingCalendar the {@link java.util.Calendar} instance used to initialize this FastDateParser
      */
     private void init(Calendar definingCalendar) {
 
