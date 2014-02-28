@@ -89,7 +89,21 @@ public class FastDateParser implements DateParser, Serializable {
      *  pattern
      * @param timeZone non-null time zone to use
      * @param locale non-null locale
+     */
+    protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale) {
+        this(pattern, timeZone, locale, null);
+    }
+
+    /**
+     * <p>Constructs a new FastDateParser.</p>
+     *
+     * @param pattern non-null {@link java.text.SimpleDateFormat} compatible
+     *  pattern
+     * @param timeZone non-null time zone to use
+     * @param locale non-null locale
      * @param centuryStart The start of the century for 2 digit year parsing
+     *
+     * @since 3.3
      */
     protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
         this.pattern = pattern;
