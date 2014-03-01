@@ -666,7 +666,6 @@ public class StringEscapeUtils {
      * @deprecated use {@link #escapeXml10(java.lang.String)} or {@link #escapeXml11(java.lang.String)} instead.
      */
     @Deprecated
-    @SuppressWarnings( "deprecation" ) // ESCAPE_XML has been replaced by ESCAPE_XML10 and ESCAPE_XML11 in 3.3
     public static final String escapeXml(final String input) {
         return ESCAPE_XML.translate(input);
     }
