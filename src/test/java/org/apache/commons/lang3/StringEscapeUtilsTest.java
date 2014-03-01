@@ -557,12 +557,14 @@ public class StringEscapeUtilsTest {
      */
     @Test
     public void testLang708() throws IOException {
-        final String input = IOUtils.toString(new FileInputStream("src/test/resources/lang-708-input.txt"), "UTF-8");
+        final FileInputStream fis = new FileInputStream("src/test/resources/lang-708-input.txt");
+        final String input = IOUtils.toString(fis, "UTF-8");
         final String escaped = StringEscapeUtils.escapeEcmaScript(input);
         // just the end:
         assertTrue(escaped, escaped.endsWith("}]"));
         // a little more:
         assertTrue(escaped, escaped.endsWith("\"valueCode\\\":\\\"\\\"}]"));
+        fis.close();
     }
 
     /**
