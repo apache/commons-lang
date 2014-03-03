@@ -119,7 +119,7 @@ public class DurationFormatUtils {
      * @param padWithZeros  whether to pad the left hand side of numbers with 0's
      * @return the formatted duration, not null
      */
-    public static String formatDuration(long durationMillis, final String format, final boolean padWithZeros) {
+    public static String formatDuration(final long durationMillis, final String format, final boolean padWithZeros) {
 
         final Token[] tokens = lexx(format);
 
@@ -127,26 +127,23 @@ public class DurationFormatUtils {
         long hours        = 0;
         long minutes      = 0;
         long seconds      = 0;
-        long milliseconds = 0;
+        long milliseconds = durationMillis;
         
         if (Token.containsTokenWithValue(tokens, d) ) {
-            days = durationMillis / DateUtils.MILLIS_PER_DAY;
-            durationMillis = durationMillis - (days * DateUtils.MILLIS_PER_DAY);
+            days = milliseconds / DateUtils.MILLIS_PER_DAY;
+            milliseconds = milliseconds - (days * DateUtils.MILLIS_PER_DAY);
         }
         if (Token.containsTokenWithValue(tokens, H) ) {
-            hours = durationMillis / DateUtils.MILLIS_PER_HOUR;
-            durationMillis = durationMillis - (hours * DateUtils.MILLIS_PER_HOUR);
+            hours = milliseconds / DateUtils.MILLIS_PER_HOUR;
+            milliseconds = milliseconds - (hours * DateUtils.MILLIS_PER_HOUR);
         }
         if (Token.containsTokenWithValue(tokens, m) ) {
-            minutes = durationMillis / DateUtils.MILLIS_PER_MINUTE;
-            durationMillis = durationMillis - (minutes * DateUtils.MILLIS_PER_MINUTE);
+            minutes = milliseconds / DateUtils.MILLIS_PER_MINUTE;
+            milliseconds = milliseconds - (minutes * DateUtils.MILLIS_PER_MINUTE);
         }
         if (Token.containsTokenWithValue(tokens, s) ) {
-            seconds = durationMillis / DateUtils.MILLIS_PER_SECOND;
-            durationMillis = durationMillis - (seconds * DateUtils.MILLIS_PER_SECOND);
-        }
-        if (Token.containsTokenWithValue(tokens, S) ) {
-            milliseconds = durationMillis;
+            seconds = milliseconds / DateUtils.MILLIS_PER_SECOND;
+            milliseconds = milliseconds - (seconds * DateUtils.MILLIS_PER_SECOND);
         }
 
         return format(tokens, 0, 0, days, hours, minutes, seconds, milliseconds, padWithZeros);
