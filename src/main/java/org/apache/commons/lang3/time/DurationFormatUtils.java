@@ -113,8 +113,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats the time gap as a string, using the specified format.
-     * Padding the left hand side of numbers with zeroes is optional and 
-     * the timezone may be specified.</p>
+     * Padding the left hand side of numbers with zeroes is optional.</p>
      * 
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
