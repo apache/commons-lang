@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="TBA" description="TBA">
+    <action issue="LANG-981" type="fix" dev="sebb">DurationFormatUtils#lexx does not detect unmatched quote char</action>
     <action issue="LANG-984" type="fix" dev="sebb">DurationFormatUtils does not handle large durations correctly</action>
     <action issue="LANG-982" type="fix" dev="sebb">DurationFormatUtils.formatDuration(61999, "s.SSSS") - ms field size should be 4 digits</action>
     <action issue="LANG-978" type="fix" dev="sebb">Failing tests with Java 8 b128</action>
