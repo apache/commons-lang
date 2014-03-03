@@ -531,6 +531,18 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
+    public void testLANG982() { // More than 3 millisecond digits following a second
+        assertEquals("61.999", DurationFormatUtils.formatDuration(61999, "s.S"));
+        assertEquals("1 1999", DurationFormatUtils.formatDuration(61999, "m S"));
+        assertEquals("61.999", DurationFormatUtils.formatDuration(61999, "s.SSS"));
+        assertEquals("1 1999", DurationFormatUtils.formatDuration(61999, "m SSS"));
+        assertEquals("61.0999", DurationFormatUtils.formatDuration(61999, "s.SSSS"));
+        assertEquals("1 1999", DurationFormatUtils.formatDuration(61999, "m SSSS"));
+        assertEquals("61.00999", DurationFormatUtils.formatDuration(61999, "s.SSSSS"));
+        assertEquals("1 01999", DurationFormatUtils.formatDuration(61999, "m SSSSS"));
+    }
+
+    @Test
     public void testDurationsByBruteForce() {
         bruteForce(2006, 0, 1, "d", Calendar.DAY_OF_MONTH);
         bruteForce(2006, 0, 2, "d", Calendar.DAY_OF_MONTH);
