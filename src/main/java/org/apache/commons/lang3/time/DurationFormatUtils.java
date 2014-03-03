@@ -123,30 +123,30 @@ public class DurationFormatUtils {
 
         final Token[] tokens = lexx(format);
 
-        int days         = 0;
-        int hours        = 0;
-        int minutes      = 0;
-        int seconds      = 0;
-        int milliseconds = 0;
+        long days         = 0;
+        long hours        = 0;
+        long minutes      = 0;
+        long seconds      = 0;
+        long milliseconds = 0;
         
         if (Token.containsTokenWithValue(tokens, d) ) {
-            days = (int) (durationMillis / DateUtils.MILLIS_PER_DAY);
+            days = durationMillis / DateUtils.MILLIS_PER_DAY;
             durationMillis = durationMillis - (days * DateUtils.MILLIS_PER_DAY);
         }
         if (Token.containsTokenWithValue(tokens, H) ) {
-            hours = (int) (durationMillis / DateUtils.MILLIS_PER_HOUR);
+            hours = durationMillis / DateUtils.MILLIS_PER_HOUR;
             durationMillis = durationMillis - (hours * DateUtils.MILLIS_PER_HOUR);
         }
         if (Token.containsTokenWithValue(tokens, m) ) {
-            minutes = (int) (durationMillis / DateUtils.MILLIS_PER_MINUTE);
+            minutes = durationMillis / DateUtils.MILLIS_PER_MINUTE;
             durationMillis = durationMillis - (minutes * DateUtils.MILLIS_PER_MINUTE);
         }
         if (Token.containsTokenWithValue(tokens, s) ) {
-            seconds = (int) (durationMillis / DateUtils.MILLIS_PER_SECOND);
+            seconds = durationMillis / DateUtils.MILLIS_PER_SECOND;
             durationMillis = durationMillis - (seconds * DateUtils.MILLIS_PER_SECOND);
         }
         if (Token.containsTokenWithValue(tokens, S) ) {
-            milliseconds = (int) durationMillis;
+            milliseconds = durationMillis;
         }
 
         return format(tokens, 0, 0, days, hours, minutes, seconds, milliseconds, padWithZeros);
@@ -411,8 +411,8 @@ public class DurationFormatUtils {
      * @param padWithZeros  whether to pad
      * @return the formatted string
      */
-    static String format(final Token[] tokens, final int years, final int months, final int days, final int hours, final int minutes, final int seconds,
-            int milliseconds, final boolean padWithZeros) {
+    static String format(final Token[] tokens, final long years, final long months, final long days, final long hours, final long minutes, final long seconds,
+            long milliseconds, final boolean padWithZeros) {
         final StringBuilder buffer = new StringBuilder();
         boolean lastOutputSeconds = false;
         final int sz = tokens.length;
@@ -424,46 +424,44 @@ public class DurationFormatUtils {
                 buffer.append(value.toString());
             } else {
                 if (value == y) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(years), count, '0') : Integer
-                            .toString(years));
+                    buffer.append(paddedValue(years, padWithZeros, count));
                     lastOutputSeconds = false;
                 } else if (value == M) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(months), count, '0') : Integer
-                            .toString(months));
+                    buffer.append(paddedValue(months, padWithZeros, count));
                     lastOutputSeconds = false;
                 } else if (value == d) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(days), count, '0') : Integer
-                            .toString(days));
+                    buffer.append(paddedValue(days, padWithZeros, count));
                     lastOutputSeconds = false;
                 } else if (value == H) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(hours), count, '0') : Integer
-                            .toString(hours));
+                    buffer.append(paddedValue(hours, padWithZeros, count));
                     lastOutputSeconds = false;
                 } else if (value == m) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(minutes), count, '0') : Integer
-                            .toString(minutes));
+                    buffer.append(paddedValue(minutes, padWithZeros, count));
                     lastOutputSeconds = false;
                 } else if (value == s) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(seconds), count, '0') : Integer
-                            .toString(seconds));
+                    buffer.append(paddedValue(seconds, padWithZeros, count));
                     lastOutputSeconds = true;
                 } else if (value == S) {
                     if (lastOutputSeconds) {
                         milliseconds += 1000;
                         final String str = padWithZeros
-                                ? StringUtils.leftPad(Integer.toString(milliseconds), count, '0')
-                                : Integer.toString(milliseconds);
+                                ? StringUtils.leftPad(Long.toString(milliseconds), count, '0')
+                                : Long.toString(milliseconds);
                         buffer.append(str.substring(1));
                     } else {
-                        buffer.append(padWithZeros
-                                ? StringUtils.leftPad(Integer.toString(milliseconds), count, '0')
-                                : Integer.toString(milliseconds));
+                        buffer.append(paddedValue(milliseconds, padWithZeros, count));
                     }
                     lastOutputSeconds = false;
                 }
             }
         }
         return buffer.toString();
+    }
+
+    // Helper method to simplify repetive code in format method above
+    private static String paddedValue(final long value, final boolean padWithZeros, final int count) {
+        final String longString = Long.toString(value);
+        return padWithZeros ? StringUtils.leftPad(longString, count, '0') : longString;
     }
 
     static final Object y = "y";

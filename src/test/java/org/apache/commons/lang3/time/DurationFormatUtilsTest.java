@@ -519,7 +519,17 @@ public class DurationFormatUtilsTest {
                 new int[] { 1997, 1, 28, 0, 0, 0 }, "M d"); 
         
     }
-    
+
+    @Test
+    public void testLANG984() { // Long durations
+        assertEquals("0", DurationFormatUtils.formatDuration(0, "S"));
+        assertEquals(Integer.toString(Integer.MAX_VALUE), DurationFormatUtils.formatDuration(Integer.MAX_VALUE, "S"));
+        long maxIntPlus=Integer.MAX_VALUE;
+        maxIntPlus++;
+        assertEquals(Long.toString(maxIntPlus), DurationFormatUtils.formatDuration(maxIntPlus, "S"));
+        assertEquals(Long.toString(Long.MAX_VALUE), DurationFormatUtils.formatDuration(Long.MAX_VALUE, "S"));
+    }
+
     @Test
     public void testDurationsByBruteForce() {
         bruteForce(2006, 0, 1, "d", Calendar.DAY_OF_MONTH);
