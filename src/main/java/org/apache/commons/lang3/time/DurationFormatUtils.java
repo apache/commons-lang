@@ -478,17 +478,15 @@ public class DurationFormatUtils {
      * @return array of Token[]
      */
     static Token[] lexx(final String format) {
-        final char[] array = format.toCharArray();
-        final ArrayList<Token> list = new ArrayList<Token>(array.length);
+        final ArrayList<Token> list = new ArrayList<Token>(format.length());
 
         boolean inLiteral = false;
         // Although the buffer is stored in a Token, the Tokens are only
         // used internally, so cannot be accessed by other threads
         StringBuilder buffer = null;
         Token previous = null;
-        final int sz = array.length;
-        for (int i = 0; i < sz; i++) {
-            final char ch = array[i];
+        for (int i = 0; i < format.length(); i++) {
+            final char ch = format.charAt(i);
             if (inLiteral && ch != '\'') {
                 buffer.append(ch); // buffer can't be null if inLiteral is true
                 continue;
