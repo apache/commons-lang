@@ -36,8 +36,14 @@ import org.apache.commons.lang3.StringUtils;
  *  <tr><td>m</td><td>minutes</td></tr>
  *  <tr><td>s</td><td>seconds</td></tr>
  *  <tr><td>S</td><td>milliseconds</td></tr>
+ *  <tr><td>'text'</td><td>arbitrary text content</td></tr>
  * </table>
  *
+ * <b>Note: It's not currently possible to include a single-quote in a format.</b>
+ * <br/>
+ * Token values are printed using decimal digits.
+ * A token character can be repeated to ensure that the field occupies a certain minimum
+ * size. Values will be left-padded with 0 unless padding is disabled in the method invocation.
  * @since 2.1
  * @version $Id$
  */
@@ -92,8 +98,7 @@ public class DurationFormatUtils {
     }
 
     /**
-     * <p>Formats the time gap as a string, using the specified format, and padding with zeros and 
-     * using the default timezone.</p>
+     * <p>Formats the time gap as a string, using the specified format, and padding with zeros.</p>
      * 
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
