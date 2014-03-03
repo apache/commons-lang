@@ -279,6 +279,13 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
+    public void testFormatPeriodISOMethod() {
+        assertEquals("P0Y0M0DT0H0M0.000S", DurationFormatUtils.formatPeriodISO(0L, 0L));
+        assertEquals("P0Y0M0DT0H0M1.000S", DurationFormatUtils.formatPeriodISO(0L, 1000L));
+        assertEquals("P0Y0M0DT0H1M1.000S", DurationFormatUtils.formatPeriodISO(0L, 61000L));
+    }
+
+    @Test
     public void testFormatPeriod() {
         final Calendar cal1970 = Calendar.getInstance();
         cal1970.set(1970, 0, 1, 0, 0, 0);
