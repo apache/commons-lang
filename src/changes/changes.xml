@@ -21,6 +21,10 @@
   </properties>
   <body>
 
+  <release version="3.4" date="TBA" description="TBA">
+    <action issue="LANG-984" type="fix" dev="sebb">DurationFormatUtils does not handle large durations correctly</action>
+  </release>
+      
   <release version="3.3" date="TBA" description="Bug fixes and and new features including: DifferenceBuilder, ClassPathUtils, RandomUtils and Jaro-Winkler String distance metric">
     <action issue="LANG-621" type="fix" dev="kinow" due-to="Philip Hodges, Thomas Neidhart">ReflectionToStringBuilder.toString does not debug 3rd party object fields within 3rd party object</action>
     <action issue="LANG-955" type="add" dev="britter" due-to="Adam Hooper">Add methods for removing all invalid characters according to XML 1.0 and XML 1.1 in an input string to StringEscapeUtils</action>
