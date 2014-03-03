@@ -442,12 +442,10 @@ public class DurationFormatUtils {
                     buffer.append(paddedValue(seconds, padWithZeros, count));
                     lastOutputSeconds = true;
                 } else if (value == S) {
-                    if (lastOutputSeconds) {
-                        milliseconds += 1000;
-                        final String str = padWithZeros
-                                ? StringUtils.leftPad(Long.toString(milliseconds), count, '0')
-                                : Long.toString(milliseconds);
-                        buffer.append(str.substring(1));
+                    if (lastOutputSeconds) { 
+                        // ensure at least 3 digits are displayed even if padding is not selected
+                        int width = padWithZeros ? Math.max(3, count) : 3;
+                        buffer.append(paddedValue(milliseconds, true, width));
                     } else {
                         buffer.append(paddedValue(milliseconds, padWithZeros, count));
                     }
