@@ -553,7 +553,12 @@ public class DurationFormatUtilsTest {
         bruteForce(1969, 1, 28, "M", Calendar.MONTH);  // tests for 48 years
         //bruteForce(1996, 1, 29, "M", Calendar.MONTH);  // this will fail
     }
-    
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testLANG981() { // unmatched quote char in lexx
+        DurationFormatUtils.lexx("'yMdHms''S");
+    }
+
     private static final int FOUR_YEARS = 365 * 3 + 366;
     
     // Takes a minute to run, so generally turned off
