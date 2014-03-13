@@ -1690,13 +1690,15 @@ public class DateUtils {
         final long millisPerUnit = getMillisPerUnit(unit);
         long result = 0;
         
+        int offset = (unit == Calendar.DAY_OF_YEAR) ? 0 : 1;
+        
         // Fragments bigger than a day require a breakdown to days
         switch (fragment) {
             case Calendar.YEAR:
-                result += ((calendar.get(Calendar.DAY_OF_YEAR) -1) * MILLIS_PER_DAY) / millisPerUnit;
+                result += ((calendar.get(Calendar.DAY_OF_YEAR) - offset) * MILLIS_PER_DAY) / millisPerUnit;
                 break;
             case Calendar.MONTH:
-                result += ((calendar.get(Calendar.DAY_OF_MONTH) -1) * MILLIS_PER_DAY) / millisPerUnit;
+                result += ((calendar.get(Calendar.DAY_OF_MONTH) - offset) * MILLIS_PER_DAY) / millisPerUnit;
                 break;
             default:
                 break;
