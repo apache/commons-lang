@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>A suite of utilities surrounding the use of the
@@ -1288,7 +1289,7 @@ public class DateUtils {
      * @since 2.4
      */
     public static long getFragmentInMilliseconds(final Date date, final int fragment) {
-        return getFragment(date, fragment, Calendar.MILLISECOND);    
+        return getFragment(date, fragment, TimeUnit.MILLISECONDS);    
     }
     
     /**
@@ -1328,7 +1329,7 @@ public class DateUtils {
      * @since 2.4
      */
     public static long getFragmentInSeconds(final Date date, final int fragment) {
-        return getFragment(date, fragment, Calendar.SECOND);
+        return getFragment(date, fragment, TimeUnit.SECONDS);
     }
     
     /**
@@ -1368,7 +1369,7 @@ public class DateUtils {
      * @since 2.4
      */
     public static long getFragmentInMinutes(final Date date, final int fragment) {
-        return getFragment(date, fragment, Calendar.MINUTE);
+        return getFragment(date, fragment, TimeUnit.MINUTES);
     }
     
     /**
@@ -1408,7 +1409,7 @@ public class DateUtils {
      * @since 2.4
      */
     public static long getFragmentInHours(final Date date, final int fragment) {
-        return getFragment(date, fragment, Calendar.HOUR_OF_DAY);
+        return getFragment(date, fragment, TimeUnit.HOURS);
     }
     
     /**
@@ -1448,7 +1449,7 @@ public class DateUtils {
      * @since 2.4
      */
     public static long getFragmentInDays(final Date date, final int fragment) {
-        return getFragment(date, fragment, Calendar.DAY_OF_YEAR);
+        return getFragment(date, fragment, TimeUnit.DAYS);
     }
 
     /**
@@ -1488,7 +1489,7 @@ public class DateUtils {
      * @since 2.4
      */
   public static long getFragmentInMilliseconds(final Calendar calendar, final int fragment) {
-    return getFragment(calendar, fragment, Calendar.MILLISECOND);
+    return getFragment(calendar, fragment, TimeUnit.MILLISECONDS);
   }
     /**
      * <p>Returns the number of seconds within the 
@@ -1527,7 +1528,7 @@ public class DateUtils {
      * @since 2.4
      */
     public static long getFragmentInSeconds(final Calendar calendar, final int fragment) {
-        return getFragment(calendar, fragment, Calendar.SECOND);
+        return getFragment(calendar, fragment, TimeUnit.SECONDS);
     }
     
     /**
@@ -1567,7 +1568,7 @@ public class DateUtils {
      * @since 2.4
      */
     public static long getFragmentInMinutes(final Calendar calendar, final int fragment) {
-        return getFragment(calendar, fragment, Calendar.MINUTE);
+        return getFragment(calendar, fragment, TimeUnit.MINUTES);
     }
     
     /**
@@ -1607,7 +1608,7 @@ public class DateUtils {
      * @since 2.4
      */
     public static long getFragmentInHours(final Calendar calendar, final int fragment) {
-        return getFragment(calendar, fragment, Calendar.HOUR_OF_DAY);
+        return getFragment(calendar, fragment, TimeUnit.HOURS);
     }
     
     /**
@@ -1649,7 +1650,7 @@ public class DateUtils {
      * @since 2.4
      */
     public static long getFragmentInDays(final Calendar calendar, final int fragment) {
-        return getFragment(calendar, fragment, Calendar.DAY_OF_YEAR);
+        return getFragment(calendar, fragment, TimeUnit.DAYS);
     }
     
     /**
@@ -1657,13 +1658,13 @@ public class DateUtils {
      * 
      * @param date the date to work with, not null
      * @param fragment the Calendar field part of date to calculate 
-     * @param unit the {@code Calendar} field defining the unit
+     * @param unit the time unit
      * @return number of units within the fragment of the date
      * @throws IllegalArgumentException if the date is <code>null</code> or 
      * fragment is not supported
      * @since 2.4
      */
-    private static long getFragment(final Date date, final int fragment, final int unit) {
+    private static long getFragment(final Date date, final int fragment, final TimeUnit unit) {
         if(date == null) {
             throw  new IllegalArgumentException("The date must not be null");
         }
@@ -1677,28 +1678,28 @@ public class DateUtils {
      * 
      * @param calendar the calendar to work with, not null
      * @param fragment the Calendar field part of calendar to calculate 
-     * @param unit the {@code Calendar} field defining the unit
+     * @param unit the time unit
      * @return number of units within the fragment of the calendar
      * @throws IllegalArgumentException if the date is <code>null</code> or 
      * fragment is not supported
      * @since 2.4
      */
-    private static long getFragment(final Calendar calendar, final int fragment, final int unit) {
+    private static long getFragment(final Calendar calendar, final int fragment, final TimeUnit unit) {
         if(calendar == null) {
             throw  new IllegalArgumentException("The date must not be null"); 
         }
-        final long millisPerUnit = getMillisPerUnit(unit);
+
         long result = 0;
         
-        int offset = (unit == Calendar.DAY_OF_YEAR) ? 0 : 1;
+        int offset = (unit == TimeUnit.DAYS) ? 0 : 1;
         
         // Fragments bigger than a day require a breakdown to days
         switch (fragment) {
             case Calendar.YEAR:
-                result += ((calendar.get(Calendar.DAY_OF_YEAR) - offset) * MILLIS_PER_DAY) / millisPerUnit;
+                result += unit.convert(calendar.get(Calendar.DAY_OF_YEAR) - offset, TimeUnit.DAYS);
                 break;
             case Calendar.MONTH:
-                result += ((calendar.get(Calendar.DAY_OF_MONTH) - offset) * MILLIS_PER_DAY) / millisPerUnit;
+                result += unit.convert(calendar.get(Calendar.DAY_OF_MONTH) - offset, TimeUnit.DAYS);
                 break;
             default:
                 break;
@@ -1712,16 +1713,16 @@ public class DateUtils {
             // The rest of the valid cases
             case Calendar.DAY_OF_YEAR:
             case Calendar.DATE:
-                result += (calendar.get(Calendar.HOUR_OF_DAY) * MILLIS_PER_HOUR) / millisPerUnit;
+                result += unit.convert(calendar.get(Calendar.HOUR_OF_DAY), TimeUnit.HOURS);
                 //$FALL-THROUGH$
             case Calendar.HOUR_OF_DAY:
-                result += (calendar.get(Calendar.MINUTE) * MILLIS_PER_MINUTE) / millisPerUnit;
+                result += unit.convert(calendar.get(Calendar.MINUTE), TimeUnit.MINUTES);
                 //$FALL-THROUGH$
             case Calendar.MINUTE:
-                result += (calendar.get(Calendar.SECOND) * MILLIS_PER_SECOND) / millisPerUnit;
+                result += unit.convert(calendar.get(Calendar.SECOND), TimeUnit.SECONDS);
                 //$FALL-THROUGH$
             case Calendar.SECOND:
-                result += (calendar.get(Calendar.MILLISECOND) * 1) / millisPerUnit;
+                result += unit.convert(calendar.get(Calendar.MILLISECOND), TimeUnit.MILLISECONDS);
                 break;
             case Calendar.MILLISECOND: break;//never useful
                 default: throw new IllegalArgumentException("The fragment " + fragment + " is not supported");
@@ -1803,38 +1804,6 @@ public class DateUtils {
         return truncatedDate1.compareTo(truncatedDate2);
     }
 
-    /**
-     * Returns the number of milliseconds of a {@code Calendar} field, if this is a constant value.
-     * This handles millisecond, second, minute, hour and day (even though days can very in length).
-     * 
-     * @param unit  a {@code Calendar} field constant which is a valid unit for a fragment
-     * @return the number of milliseconds in the field
-     * @throws IllegalArgumentException if date can't be represented in milliseconds
-     * @since 2.4 
-     */
-    private static long getMillisPerUnit(final int unit) {
-        long result = Long.MAX_VALUE;
-        switch (unit) {
-            case Calendar.DAY_OF_YEAR:
-            case Calendar.DATE:
-                result = MILLIS_PER_DAY;
-                break;
-            case Calendar.HOUR_OF_DAY:
-                result = MILLIS_PER_HOUR;
-                break;
-            case Calendar.MINUTE:
-                result = MILLIS_PER_MINUTE;
-                break;
-            case Calendar.SECOND:
-                result = MILLIS_PER_SECOND;
-                break;
-            case Calendar.MILLISECOND:
-                result = 1;
-                break;
-            default: throw new IllegalArgumentException("The unit " + unit + " cannot be represented is milleseconds");
-        }
-        return result;
-    }
 
     //-----------------------------------------------------------------------
     /**
