@@ -21,7 +21,7 @@
   </properties>
   <body>
 
-  <release version="3.4" date="TBA" description="TBA">
+  <release version="3.3.1" date="TBA" description="Bugfix release for 3.3">
     <action issue="LANG-987" type="fix" dev="djones">DateUtils.getFragmentInDays(Date, Calendar.MONTH) returns wrong days</action>
     <action issue="LANG-983" type="fix" dev="sebb">DurationFormatUtils does not describe format string fully</action>
     <action issue="LANG-981" type="fix" dev="sebb">DurationFormatUtils#lexx does not detect unmatched quote char</action>
