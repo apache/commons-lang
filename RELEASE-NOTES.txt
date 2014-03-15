@@ -17,20 +17,32 @@ $Id$
 
 
                            Apache Commons Lang
-                               Version 3.3
+                               Version 3.3.1
                               Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 3.3 version of 
+This document contains the release notes for the 3.3.1 version of 
 Apache Commons Lang. Commons Lang is a set of utility functions and reusable 
-components that should be of use in any Java environment. Commons Lang 3.3
+components that should be of use in any Java environment. Commons Lang 3.3.1
 at least requires Java 6.0.
 
 For the advice on upgrading from 2.x to 3.x, see the following page: 
 
     http://commons.apache.org/lang/article3_0.html
+
+FIXED BUGS
+============
+
+o LANG-987:  DateUtils.getFragmentInDays(Date, Calendar.MONTH) returns wrong days
+o LANG-983:  DurationFormatUtils does not describe format string fully
+o LANG-981:  DurationFormatUtils#lexx does not detect unmatched quote char
+o LANG-984:  DurationFormatUtils does not handle large durations correctly
+o LANG-982:  DurationFormatUtils.formatDuration(61999, "s.SSSS") - ms field size should be 4 digits
+o LANG-978:  Failing tests with Java 8 b128
+
+                        Release Notes for version 3.3
 
 NEW FEATURES
 ==============
