@@ -43,8 +43,8 @@ Note that Lang 3.0 (and subsequent versions) use a different package (<em>org.ap
 <!-- ================================================== -->
 <section name="Documentation">
 <p>
-A getting started <a href="userguide.html">user guide</a> is available
-together with various <a href="project-reports.html">project reports</a>.
+The package descriptions in the <a href="javadocs/api-release/index.html">JavaDoc</a> give an overview of the available features
+and various <a href="project-reports.html">project reports</a> are provided.
 </p>
 <p>
 The JavaDoc API documents are available online:
