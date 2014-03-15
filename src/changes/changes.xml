@@ -28,7 +28,7 @@
     <action issue="LANG-984" type="fix" dev="sebb">DurationFormatUtils does not handle large durations correctly</action>
     <action issue="LANG-982" type="fix" dev="sebb">DurationFormatUtils.formatDuration(61999, "s.SSSS") - ms field size should be 4 digits</action>
     <action issue="LANG-978" type="fix" dev="sebb">Failing tests with Java 8 b128</action>
-    </release>
+  </release>
       
   <release version="3.3" date="2014-03-04" description="Bug fixes and and new features including: DifferenceBuilder, ClassPathUtils, RandomUtils and Jaro-Winkler String distance metric">
     <action issue="LANG-621" type="fix" dev="kinow" due-to="Philip Hodges, Thomas Neidhart">ReflectionToStringBuilder.toString does not debug 3rd party object fields within 3rd party object</action>
