@@ -4280,8 +4280,7 @@ public class ArrayUtils {
      * @param index  the position of the new object
      * @param element  the object to add
      * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index > array.length).
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt; array.length).
      * @throws IllegalArgumentException if both array and element are null
      */
     public static <T> T[] add(final T[] array, final int index, final T element) {
@@ -4322,8 +4321,7 @@ public class ArrayUtils {
      * @param index  the position of the new object
      * @param element  the object to add
      * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index > array.length).
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt; array.length).
      */
     public static boolean[] add(final boolean[] array, final int index, final boolean element) {
         return (boolean[]) add(array, index, Boolean.valueOf(element), Boolean.TYPE);
@@ -4355,7 +4353,7 @@ public class ArrayUtils {
      * @param element  the object to add
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index > array.length).
+     * (index &lt; 0 || index &gt; array.length).
      */
     public static char[] add(final char[] array, final int index, final char element) {
         return (char[]) add(array, index, Character.valueOf(element), Character.TYPE);
@@ -4386,7 +4384,7 @@ public class ArrayUtils {
      * @param element  the object to add
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index > array.length).
+     * (index &lt; 0 || index &gt; array.length).
      */
     public static byte[] add(final byte[] array, final int index, final byte element) {
         return (byte[]) add(array, index, Byte.valueOf(element), Byte.TYPE);
@@ -4417,7 +4415,7 @@ public class ArrayUtils {
      * @param element  the object to add
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index > array.length).
+     * (index &lt; 0 || index &gt; array.length).
      */
     public static short[] add(final short[] array, final int index, final short element) {
         return (short[]) add(array, index, Short.valueOf(element), Short.TYPE);
@@ -4448,7 +4446,7 @@ public class ArrayUtils {
      * @param element  the object to add
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index > array.length).
+     * (index &lt; 0 || index &gt; array.length).
      */
     public static int[] add(final int[] array, final int index, final int element) {
         return (int[]) add(array, index, Integer.valueOf(element), Integer.TYPE);
@@ -4479,7 +4477,7 @@ public class ArrayUtils {
      * @param element  the object to add
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index > array.length).
+     * (index &lt; 0 || index &gt; array.length).
      */
     public static long[] add(final long[] array, final int index, final long element) {
         return (long[]) add(array, index, Long.valueOf(element), Long.TYPE);
@@ -4510,7 +4508,7 @@ public class ArrayUtils {
      * @param element  the object to add
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index > array.length).
+     * (index &lt; 0 || index &gt; array.length).
      */
     public static float[] add(final float[] array, final int index, final float element) {
         return (float[]) add(array, index, Float.valueOf(element), Float.TYPE);
@@ -4541,7 +4539,7 @@ public class ArrayUtils {
      * @param element  the object to add
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index > array.length).
+     * (index &lt; 0 || index &gt; array.length).
      */
     public static double[] add(final double[] array, final int index, final double element) {
         return (double[]) add(array, index, Double.valueOf(element), Double.TYPE);
@@ -4606,7 +4604,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the element
      *         at the specified position.
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     @SuppressWarnings("unchecked") // remove() always creates an array of the same type as its input
@@ -4673,7 +4671,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the element
      *         at the specified position.
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static boolean[] remove(final boolean[] array, final int index) {
@@ -4738,7 +4736,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the element
      *         at the specified position.
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static byte[] remove(final byte[] array, final int index) {
@@ -4803,7 +4801,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the element
      *         at the specified position.
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static char[] remove(final char[] array, final int index) {
@@ -4868,7 +4866,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the element
      *         at the specified position.
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static double[] remove(final double[] array, final int index) {
@@ -4933,7 +4931,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the element
      *         at the specified position.
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static float[] remove(final float[] array, final int index) {
@@ -4998,7 +4996,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the element
      *         at the specified position.
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static int[] remove(final int[] array, final int index) {
@@ -5063,7 +5061,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the element
      *         at the specified position.
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static long[] remove(final long[] array, final int index) {
@@ -5128,7 +5126,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the element
      *         at the specified position.
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static short[] remove(final short[] array, final int index) {
@@ -5186,7 +5184,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the element
      *         at the specified position.
      * @throws IndexOutOfBoundsException if the index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     private static Object remove(final Object array, final int index) {
@@ -5227,7 +5225,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except those
      *         at the specified positions.
      * @throws IndexOutOfBoundsException if any index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     @SuppressWarnings("unchecked") // removeAll() always creates an array of the same type as its input
@@ -5320,7 +5318,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except those
      *         at the specified positions.
      * @throws IndexOutOfBoundsException if any index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static byte[] removeAll(final byte[] array, final int... indices) {
@@ -5409,7 +5407,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except those
      *         at the specified positions.
      * @throws IndexOutOfBoundsException if any index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static short[] removeAll(final short[] array, final int... indices) {
@@ -5498,7 +5496,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except those
      *         at the specified positions.
      * @throws IndexOutOfBoundsException if any index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static int[] removeAll(final int[] array, final int... indices) {
@@ -5587,7 +5585,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except those
      *         at the specified positions.
      * @throws IndexOutOfBoundsException if any index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static char[] removeAll(final char[] array, final int... indices) {
@@ -5676,7 +5674,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except those
      *         at the specified positions.
      * @throws IndexOutOfBoundsException if any index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static long[] removeAll(final long[] array, final int... indices) {
@@ -5765,7 +5763,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except those
      *         at the specified positions.
      * @throws IndexOutOfBoundsException if any index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static float[] removeAll(final float[] array, final int... indices) {
@@ -5854,7 +5852,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except those
      *         at the specified positions.
      * @throws IndexOutOfBoundsException if any index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static double[] removeAll(final double[] array, final int... indices) {
@@ -5939,7 +5937,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except those
      *         at the specified positions.
      * @throws IndexOutOfBoundsException if any index is out of range
-     * (index < 0 || index >= array.length), or if the array is {@code null}.
+     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static boolean[] removeAll(final boolean[] array, final int... indices) {
