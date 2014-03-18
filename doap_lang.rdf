@@ -40,6 +40,11 @@
     <release>
       <Version>
         <name>commons-lang</name>
+        <created>2014-03-18</created>
+        <revision>3.3.1</revision>
+      </Version>
+      <Version>
+        <name>commons-lang</name>
         <created>2014-03-04</created>
         <revision>3.3</revision>
       </Version>
