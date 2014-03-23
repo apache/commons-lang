@@ -19,7 +19,7 @@ package org.apache.commons.lang3;
 import java.util.Random;
 
 /**
- * Utility library that supplements the standard {@link Random} class.
+ * <p>Utility library that supplements the standard {@link Random} class.</p>
  * 
  * @since 3.3
  *
@@ -50,11 +50,14 @@ public class RandomUtils {
     }
 
     /**
-     * Creates a array of the specified length filled with random bytes.
+     * <p>
+     * Creates an array of random bytes.
+     * </p>
      * 
      * @param count
      *            the size of the returned array
      * @return the random byte array
+     * @throws IllegalArgumentException if {@code count} is negative
      */
     public static byte[] nextBytes(int count) {
         Validate.isTrue(count >= 0, "Count cannot be negative.");
@@ -65,14 +68,17 @@ public class RandomUtils {
     }
 
     /**
+     * <p>
      * Returns a random integer within the specified range.
+     * </p>
      * 
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
      * @param endExclusive
-     *            the upper bound (not included), must be non-negative
+     *            the upper bound (not included)
      * @throws IllegalArgumentException
-     *             if {@code startInclusive > endInclusive}
+     *             if {@code startInclusive > endExclusive} or if
+     *             {@code startInclusive} is negative
      * @return the random integer
      */
     public static int nextInt(int startInclusive, int endExclusive) {
@@ -88,14 +94,17 @@ public class RandomUtils {
     }
     
     /**
+     * <p>
      * Returns a random long within the specified range.
+     * </p>
      * 
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
      * @param endExclusive
-     *            the upper bound (not included), must be non-negative
+     *            the upper bound (not included)
      * @throws IllegalArgumentException
-     *             if {@code startInclusive > endInclusive}
+     *             if {@code startInclusive > endExclusive} or if
+     *             {@code startInclusive} is negative
      * @return the random long
      */
     public static long nextLong(long startInclusive, long endExclusive) {
@@ -112,14 +121,17 @@ public class RandomUtils {
     
     
     /**
+     * <p> 
      * Returns a random double within the specified range.
+     * </p>
      * 
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
      * @param endInclusive
-     *            the upper bound (included), must be non-negative
+     *            the upper bound (included)
      * @throws IllegalArgumentException
-     *             if {@code startInclusive > endInclusive}
+     *             if {@code startInclusive > endInclusive} or if
+     *             {@code startInclusive} is negative
      * @return the random double
      */
     public static double nextDouble(double startInclusive, double endInclusive) {
@@ -135,14 +147,17 @@ public class RandomUtils {
     }
     
     /**
+     * <p>
      * Returns a random float within the specified range.
+     * </p>
      * 
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
      * @param endInclusive
-     *            the upper bound (included), must be non-negative
+     *            the upper bound (included)
      * @throws IllegalArgumentException
-     *             if {@code startInclusive > endInclusive}
+     *             if {@code startInclusive > endInclusive} or if
+     *             {@code startInclusive} is negative
      * @return the random float
      */
     public static float nextFloat(float startInclusive, float endInclusive) {
