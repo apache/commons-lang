@@ -26,11 +26,12 @@ import java.util.UUID;
  * Static methods to convert a type into another, with endianness and bit ordering awareness.
  * </p>
  * <p>
- * The methods names follow a naming rule:</br>
+ * The methods names follow a naming rule:<br>
  * {@code <source type>[source endianness][source bit ordering]To<destination type>[destination endianness][destination bit ordering]}
  * </p>
  * <p>
  * Source/destination type fields is one of the following:
+ * </p>
  * <ul>
  * <li>binary: an array of booleans</li>
  * <li>byte or byteArray</li>
@@ -40,8 +41,9 @@ import java.util.UUID;
  * <li>hexDigit: a Char containing a hexadecimal digit (lowercase in destination)</li>
  * <li>uuid</li>
  * </ul>
+ * <p>
  * Endianness field: little endian is the default, in this case the field is absent. In case of
- * big endian, the field is "Be".</br> Bit ordering: Lsb0 is the default, in this case the field
+ * big endian, the field is "Be".<br> Bit ordering: Lsb0 is the default, in this case the field
  * is absent. In case of Msb0, the field is "Msb0".
  * </p>
  * <p>
