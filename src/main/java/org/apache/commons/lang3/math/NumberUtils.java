@@ -1364,7 +1364,8 @@ public class NumberUtils {
                     }
                 }
                 return true;
-           } else { // leading 0, but not hex, must be octal
+           } else if (Character.isDigit(chars[start + 1])) {
+               // leading 0, but not hex, must be octal
                int i = start + 1;
                for (; i < chars.length; i++) {
                    if (chars[i] < '0' || chars[i] > '7') {

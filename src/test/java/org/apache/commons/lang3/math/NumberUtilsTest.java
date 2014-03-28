@@ -1235,6 +1235,12 @@ public class NumberUtilsTest {
     }
 
     @Test
+    public void testLANG992() {
+        compareIsNumberWithCreateNumber("0.0", true);
+        compareIsNumberWithCreateNumber("0.4790", true);
+    }
+
+    @Test
     public void testLANG972() {
         compareIsNumberWithCreateNumber("0xABCD", true);
         compareIsNumberWithCreateNumber("0XABCD", true);
