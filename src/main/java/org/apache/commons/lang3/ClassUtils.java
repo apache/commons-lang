@@ -916,7 +916,7 @@ public class ClassUtils {
      * @throws NullPointerException if the class is null
      * @throws SecurityException if a security violation occurred
      * @throws NoSuchMethodException if the method is not found in the given class
-     *  or if the metothod doen't conform with the requirements
+     *  or if the method doesn't conform with the requirements
      */
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes)
             throws SecurityException, NoSuchMethodException {
