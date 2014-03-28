@@ -378,13 +378,13 @@ public class LocaleUtilsTest  {
      */
     @Test
     public void testThreeCharsLocale() {
-    	for (String str : Arrays.asList("udm", "tet")) {
-        	Locale locale = LocaleUtils.toLocale(str);
-        	assertNotNull(locale);
-        	assertEquals(str, locale.getLanguage());
-        	assertTrue(StringUtils.isBlank(locale.getCountry()));
-        	assertEquals(new Locale(str), locale);	
-    	}
+        for (String str : Arrays.asList("udm", "tet")) {
+            Locale locale = LocaleUtils.toLocale(str);
+            assertNotNull(locale);
+            assertEquals(str, locale.getLanguage());
+            assertTrue(StringUtils.isBlank(locale.getCountry()));
+            assertEquals(new Locale(str), locale);
+        }
     }
 
     //-----------------------------------------------------------------------
