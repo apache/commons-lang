@@ -71,7 +71,7 @@ o LANG-943:  Test DurationFormatUtilsTest.testEdgeDuration fails in
 o LANG-613:  ConstructorUtils.getAccessibleConstructor() Does Not Check the
              Accessibility of Enclosing Classes
 o LANG-951:  Fragments are wrong by 1 day when using fragment YEAR or MONTH.
-             Thanks to Sebastian Götz.
+             Thanks to Sebastian Götz. 
 o LANG-950:  FastDateParser does not handle two digit year parsing like
              SimpleDateFormat
 o LANG-949:  FastDateParserTest.testParses does not test FastDateParser
