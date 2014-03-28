@@ -1244,7 +1244,7 @@ public class ArrayUtilsTest  {
 
     }
 
-	@Test
+    @Test
     public void testSubarrayFloat() {
         final float[] nullArray = null;
         final float[] array = { 10, 11, 12, 13, 14, 15 };

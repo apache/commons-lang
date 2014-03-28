@@ -488,7 +488,7 @@ public class ExceptionUtilsTest {
      * of <code>Throwable</code>.
      */
     private static class ExceptionWithCause extends Exception {
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
         private Throwable cause;
 
@@ -518,7 +518,7 @@ public class ExceptionUtilsTest {
      * return value of <code>Throwable</code>.
      */
     private static class ExceptionWithoutCause extends Exception {
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
        @SuppressWarnings("unused")
         public void getTargetException() {
@@ -528,7 +528,7 @@ public class ExceptionUtilsTest {
     // Temporary classes to allow the nested exception code to be removed 
     // prior to a rewrite of this test class. 
     private static class NestableException extends Exception { 
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
         @SuppressWarnings("unused")
         public NestableException() { super(); }
