@@ -468,7 +468,7 @@ public class ClassUtils {
      * <p><strong>Since Lang 3.0,</strong> this method will default behavior for
      * calculating assignability between primitive and wrapper types <em>corresponding
      * to the running Java version</em>; i.e. autoboxing will be the default
-     * behavior in VMs running Java versions >= 1.5.</p>
+     * behavior in VMs running Java versions &gt; 1.5.</p>
      *
      * @param classArray  the array of Classes to check, may be {@code null}
      * @param toClassArray  the array of Classes to try to assign into, may be {@code null}
@@ -584,7 +584,7 @@ public class ClassUtils {
      * <p><strong>Since Lang 3.0,</strong> this method will default behavior for
      * calculating assignability between primitive and wrapper types <em>corresponding
      * to the running Java version</em>; i.e. autoboxing will be the default
-     * behavior in VMs running Java versions >= 1.5.</p>
+     * behavior in VMs running Java versions &gt; 1.5.</p>
      *
      * @param cls  the Class to check, may be null
      * @param toClass  the Class to try to assign into, returns false if null
@@ -901,12 +901,13 @@ public class ClassUtils {
      * it ensures that the returned Method is from a public class or interface and not
      * from an anonymous inner class. This means that the Method is invokable and
      * doesn't fall foul of Java bug
-     * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
+     * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).</p>
      *
-     *  <code><pre>Set set = Collections.unmodifiableSet(...);
+     *  <pre>
+     *  <code>Set set = Collections.unmodifiableSet(...);
      *  Method method = ClassUtils.getPublicMethod(set.getClass(), "isEmpty",  new Class[0]);
-     *  Object result = method.invoke(set, new Object[]);</pre></code>
-     * </p>
+     *  Object result = method.invoke(set, new Object[]);</code>
+     *  </pre>
      *
      * @param cls  the class to check, not null
      * @param methodName  the name of the method
