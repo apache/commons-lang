@@ -934,7 +934,7 @@ public class SystemUtils {
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
      *
-     * @since 3.4
+     * @since 3.3.2
      */
     public static final boolean IS_JAVA_1_8 = getJavaVersionMatches("1.8");
 
