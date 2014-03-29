@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.3.2" date="tba" description="tba">
+    <action issue="LANG-992" type="fix" dev="niallp">NumberUtils#isNumber() returns false for "0.0", "0.4790", et al</action>
     <action issue="LANG-989" type="add" dev="ggregory">Add org.apache.commons.lang3.SystemUtils.IS_JAVA_1_8</action>
   </release>
 
