@@ -112,7 +112,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * The {@code file.separator} System Property. 
+     * The {@code file.separator} System Property.
      * The file separator is:
      * <ul>
      * <li>{@code "/"}</code> on UNIX</li>
@@ -969,7 +969,7 @@ public class SystemUtils {
      * @since 2.0
      */
     public static final boolean IS_OS_HP_UX = getOSMatchesName("HP-UX");
-    
+
     /**
      * <p>
      * Is {@code true} if this is IBM OS/400.
