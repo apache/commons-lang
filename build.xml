@@ -122,7 +122,9 @@
                  bottom="Copyright &amp;copy; 2001-${current.year} - Apache Software Foundation"
                  use="true"
                  encoding="${compile.encoding}"
-                 source="${compile.source}">
+                 source="${compile.source}"
+                 additionalparam="-Xdoclint:none">
+                 <!-- Disable Xdoclint, until JavaDoc issues are fixed -->
             <classpath refid="compile.classpath"/>
             <link href="${jdk.javadoc}"/>
             <link href="${collections.javadoc}"/>
