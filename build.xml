@@ -110,17 +110,17 @@
         <tstamp>
             <format property="current.year" pattern="yyyy"/>
         </tstamp>
-        <javadoc sourcepath="${source.home}" 
-                 destdir="${build.home}/apidocs" 
-                 overview="${source.home}/org/apache/commons/lang3/overview.html" 
-                 packagenames="org.apache.commons.*" 
-                 excludepackagenames="${javadoc.excludepackagenames}" 
-                 author="false" 
-                 version="true" 
+        <javadoc sourcepath="${source.home}"
+                 destdir="${build.home}/apidocs"
+                 overview="${source.home}/org/apache/commons/lang3/overview.html"
+                 packagenames="org.apache.commons.*"
+                 excludepackagenames="${javadoc.excludepackagenames}"
+                 author="false"
+                 version="true"
                  doctitle="&lt;h1&gt;Commons Lang ${component.version}&lt;/h1&gt;"
-                 windowtitle="Lang ${component.version}" 
-                 bottom="Copyright &amp;copy; 2001-${current.year} - Apache Software Foundation" 
-                 use="true" 
+                 windowtitle="Lang ${component.version}"
+                 bottom="Copyright &amp;copy; 2001-${current.year} - Apache Software Foundation"
+                 use="true"
                  encoding="${compile.encoding}"
                  source="${compile.source}">
             <classpath refid="compile.classpath"/>
@@ -140,7 +140,7 @@
                 <attribute name="Specification-Version" value="${component.version}"/>
                 <attribute name="Specification-Vendor" value="The Apache Software Foundation"/>
                 <attribute name="Implementation-Title" value="Commons Lang"/>
-                <attribute name="Implementation-Version" value="${component.version}"/> 
+                <attribute name="Implementation-Version" value="${component.version}"/>
                 <attribute name="Implementation-Vendor" value="The Apache Software Foundation"/>
                 <attribute name="Implementation-Vendor-Id" value="org.apache"/>
                 <attribute name="X-Compile-Source-JDK" value="${compile.source}"/>
@@ -161,7 +161,7 @@
                 <attribute name="Specification-Version" value="${component.version}"/>
                 <attribute name="Specification-Vendor" value="The Apache Software Foundation"/>
                 <attribute name="Implementation-Title" value="Commons Lang API"/>
-                <attribute name="Implementation-Version" value="${component.version}"/> 
+                <attribute name="Implementation-Version" value="${component.version}"/>
                 <attribute name="Implementation-Vendor" value="The Apache Software Foundation"/>
                 <attribute name="Implementation-Vendor-Id" value="org.apache"/>
             </manifest>
@@ -180,7 +180,7 @@
                 <attribute name="Specification-Version" value="${component.version}"/>
                 <attribute name="Specification-Vendor" value="The Apache Software Foundation"/>
                 <attribute name="Implementation-Title" value="Commons Lang Source"/>
-                <attribute name="Implementation-Version" value="${component.version}"/> 
+                <attribute name="Implementation-Version" value="${component.version}"/>
                 <attribute name="Implementation-Vendor" value="The Apache Software Foundation"/>
                 <attribute name="Implementation-Vendor-Id" value="org.apache"/>
             </manifest>
