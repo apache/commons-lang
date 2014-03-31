@@ -684,13 +684,13 @@ public class DateUtils {
      * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a 
      * date that crosses this time would produce the following values:
+     * </p>
      * <ul>
      * <li>March 30, 2003 01:10 rounds to March 30, 2003 01:00</li>
      * <li>March 30, 2003 01:40 rounds to March 30, 2003 03:00</li>
      * <li>March 30, 2003 02:10 rounds to March 30, 2003 03:00</li>
      * <li>March 30, 2003 02:40 rounds to March 30, 2003 04:00</li>
      * </ul>
-     * </p>
      * 
      * @param date  the date to work with, not null
      * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
@@ -720,13 +720,13 @@ public class DateUtils {
      * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a 
      * date that crosses this time would produce the following values:
+     * </p>
      * <ul>
      * <li>March 30, 2003 01:10 rounds to March 30, 2003 01:00</li>
      * <li>March 30, 2003 01:40 rounds to March 30, 2003 03:00</li>
      * <li>March 30, 2003 02:10 rounds to March 30, 2003 03:00</li>
      * <li>March 30, 2003 02:40 rounds to March 30, 2003 04:00</li>
      * </ul>
-     * </p>
      * 
      * @param date  the date to work with, not null
      * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
@@ -756,13 +756,13 @@ public class DateUtils {
      * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a 
      * date that crosses this time would produce the following values:
+     * </p>
      * <ul>
      * <li>March 30, 2003 01:10 rounds to March 30, 2003 01:00</li>
      * <li>March 30, 2003 01:40 rounds to March 30, 2003 03:00</li>
      * <li>March 30, 2003 02:10 rounds to March 30, 2003 03:00</li>
      * <li>March 30, 2003 02:40 rounds to March 30, 2003 04:00</li>
      * </ul>
-     * </p>
      * 
      * @param date  the date to work with, either {@code Date} or {@code Calendar}, not null
      * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
@@ -1271,7 +1271,6 @@ public class DateUtils {
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
      * A fragment less than or equal to a SECOND field will return 0.</p> 
      * 
-     * <p>
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.SECOND as fragment will return 538</li>
      *  <li>January 6, 2008 7:15:10.538 with Calendar.SECOND as fragment will return 538</li>
@@ -1279,7 +1278,6 @@ public class DateUtils {
      *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
      *   (a millisecond cannot be split in milliseconds)</li>
      * </ul>
-     * </p>
      * 
      * @param date the date to work with, not null
      * @param fragment the {@code Calendar} field part of date to calculate 
@@ -1308,7 +1306,6 @@ public class DateUtils {
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
      * A fragment less than or equal to a SECOND field will return 0.</p> 
      * 
-     * <p>
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10
      *   (equivalent to deprecated date.getSeconds())</li>
@@ -1319,7 +1316,6 @@ public class DateUtils {
      *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
      *   (a millisecond cannot be split in seconds)</li>
      * </ul>
-     * </p>
      * 
      * @param date the date to work with, not null
      * @param fragment the {@code Calendar} field part of date to calculate 
@@ -1348,7 +1344,6 @@ public class DateUtils {
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
      * A fragment less than or equal to a MINUTE field will return 0.</p> 
      * 
-     * <p>
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15
      *   (equivalent to deprecated date.getMinutes())</li>
@@ -1359,7 +1354,6 @@ public class DateUtils {
      *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
      *   (a millisecond cannot be split in minutes)</li>
      * </ul>
-     * </p>
      * 
      * @param date the date to work with, not null
      * @param fragment the {@code Calendar} field part of date to calculate 
@@ -1388,7 +1382,6 @@ public class DateUtils {
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
      * A fragment less than or equal to a HOUR field will return 0.</p> 
      * 
-     * <p>
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7
      *   (equivalent to deprecated date.getHours())</li>
@@ -1399,7 +1392,6 @@ public class DateUtils {
      *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
      *   (a millisecond cannot be split in hours)</li>
      * </ul>
-     * </p>
      * 
      * @param date the date to work with, not null
      * @param fragment the {@code Calendar} field part of date to calculate 
@@ -1428,7 +1420,6 @@ public class DateUtils {
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
      * A fragment less than or equal to a DAY field will return 0.</p> 
      *  
-     * <p>
      * <ul>
      *  <li>January 28, 2008 with Calendar.MONTH as fragment will return 28
      *   (equivalent to deprecated date.getDay())</li>
@@ -1439,7 +1430,6 @@ public class DateUtils {
      *  <li>January 28, 2008 with Calendar.MILLISECOND as fragment will return 0
      *   (a millisecond cannot be split in days)</li>
      * </ul>
-     * </p>
      * 
      * @param date the date to work with, not null
      * @param fragment the {@code Calendar} field part of date to calculate 
@@ -1468,7 +1458,6 @@ public class DateUtils {
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
      * A fragment less than or equal to a MILLISECOND field will return 0.</p> 
      * 
-     * <p>
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.SECOND as fragment will return 538
      *   (equivalent to calendar.get(Calendar.MILLISECOND))</li>
@@ -1479,7 +1468,6 @@ public class DateUtils {
      *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
      *   (a millisecond cannot be split in milliseconds)</li>
      * </ul>
-     * </p>
      * 
      * @param calendar the calendar to work with, not null
      * @param fragment the {@code Calendar} field part of calendar to calculate 
@@ -1507,7 +1495,6 @@ public class DateUtils {
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
      * A fragment less than or equal to a SECOND field will return 0.</p> 
      * 
-     * <p>
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10
      *   (equivalent to calendar.get(Calendar.SECOND))</li>
@@ -1518,7 +1505,6 @@ public class DateUtils {
      *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
      *   (a millisecond cannot be split in seconds)</li>
      * </ul>
-     * </p>
      * 
      * @param calendar the calendar to work with, not null
      * @param fragment the {@code Calendar} field part of calendar to calculate 
@@ -1547,7 +1533,6 @@ public class DateUtils {
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
      * A fragment less than or equal to a MINUTE field will return 0.</p> 
      * 
-     * <p>
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15
      *   (equivalent to calendar.get(Calendar.MINUTES))</li>
@@ -1558,7 +1543,6 @@ public class DateUtils {
      *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
      *   (a millisecond cannot be split in minutes)</li>
      * </ul>
-     * </p>
      * 
      * @param calendar the calendar to work with, not null
      * @param fragment the {@code Calendar} field part of calendar to calculate 
@@ -1587,7 +1571,6 @@ public class DateUtils {
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
      * A fragment less than or equal to a HOUR field will return 0.</p> 
      *  
-     * <p>
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7
      *   (equivalent to calendar.get(Calendar.HOUR_OF_DAY))</li>
@@ -1598,7 +1581,6 @@ public class DateUtils {
      *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
      *   (a millisecond cannot be split in hours)</li>
      * </ul>
-     * </p>
      *  
      * @param calendar the calendar to work with, not null
      * @param fragment the {@code Calendar} field part of calendar to calculate 
@@ -1627,7 +1609,6 @@ public class DateUtils {
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
      * A fragment less than or equal to a DAY field will return 0.</p> 
      * 
-     * <p>
      * <ul>
      *  <li>January 28, 2008 with Calendar.MONTH as fragment will return 28
      *   (equivalent to calendar.get(Calendar.DAY_OF_MONTH))</li>
@@ -1640,7 +1621,6 @@ public class DateUtils {
      *  <li>January 28, 2008 with Calendar.MILLISECOND as fragment will return 0
      *   (a millisecond cannot be split in days)</li>
      * </ul>
-     * </p>
      * 
      * @param calendar the calendar to work with, not null
      * @param fragment the {@code Calendar} field part of calendar to calculate 

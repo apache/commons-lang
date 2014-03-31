@@ -40,6 +40,7 @@ package org.apache.commons.lang3.concurrent;
  * As an usage example consider that we have a class {@code ComplexObject} whose
  * instantiation is a complex operation. In order to apply lazy initialization
  * to this class, a subclass of {@code LazyInitializer} has to be created:
+ * </p>
  *
  * <pre>
  * public class ComplexObjectInitializer extends LazyInitializer&lt;ComplexObject&gt; {
@@ -50,9 +51,11 @@ package org.apache.commons.lang3.concurrent;
  * }
  * </pre>
  *
+ * <p>
  * Access to the data object is provided through the {@code get()} method. So,
  * code that wants to obtain the {@code ComplexObject} instance would simply
  * look like this:
+ * </p>
  *
  * <pre>
  * // Create an instance of the lazy initializer
@@ -62,7 +65,6 @@ package org.apache.commons.lang3.concurrent;
  * ComplexObject cobj = initializer.get();
  * </pre>
  *
- * </p>
  * <p>
  * If multiple threads call the {@code get()} method when the object has not yet
  * been created, they are blocked until initialization completes. The algorithm

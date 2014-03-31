@@ -241,7 +241,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param value  the double value to convert
      * @return a new fraction instance that is close to the value
-     * @throws ArithmeticException if <code>|value| > Integer.MAX_VALUE</code> 
+     * @throws ArithmeticException if <code>|value| &gt; Integer.MAX_VALUE</code> 
      *  or <code>value = NaN</code>
      * @throws ArithmeticException if the calculated denominator is <code>zero</code>
      * @throws ArithmeticException if the the algorithm does not converge
@@ -309,7 +309,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *  <li>'Y/Z'</li>
      *  <li>'X' (a simple whole number)</li>
      * </ol>
-     * and a .</p>
+     * <p>and a .</p>
      *
      * @param str  the string to parse, must not be <code>null</code>
      * @return the new <code>Fraction</code> instance
@@ -517,7 +517,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
 
     /**
      * <p>Gets a fraction that is the positive equivalent of this one.</p>
-     * <p>More precisely: <code>(fraction >= 0 ? this : -fraction)</code></p>
+     * <p>More precisely: <code>(fraction &gt;= 0 ? this : -fraction)</code></p>
      *
      * <p>The returned fraction is not reduced.</p>
      *

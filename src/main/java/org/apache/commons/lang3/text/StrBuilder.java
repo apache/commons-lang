@@ -32,6 +32,7 @@ import org.apache.commons.lang3.builder.Builder;
  * than StringBuffer.
  * <p>
  * The main differences from StringBuffer/StringBuilder are:
+ * </p>
  * <ul>
  * <li>Not synchronized</li>
  * <li>Not final</li>
@@ -49,7 +50,6 @@ import org.apache.commons.lang3.builder.Builder;
  *   <li>size/clear/isEmpty - collections style API methods</li>
  *  </ul>
  * </li>
- * </ul>
  * <li>Views
  *  <ul>
  *   <li>asTokenizer - uses the internal buffer as the source of a StrTokenizer</li>
@@ -1302,8 +1302,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * <p>
      * This method is useful for adding a separator each time around the
      * loop except the first.
+     * </p>
      * <pre>
-     * for (int i = 0; i < list.size(); i++) {
+     * for (int i = 0; i &lt; list.size(); i++) {
      *   appendSeparator(",", i);
      *   append(list.get(i));
      * }
@@ -1329,8 +1330,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * <p>
      * This method is useful for adding a separator each time around the
      * loop except the first.
+     * </p>
      * <pre>
-     * for (int i = 0; i < list.size(); i++) {
+     * for (int i = 0; i &lt; list.size(); i++) {
      *   appendSeparator(",", i);
      *   append(list.get(i));
      * }

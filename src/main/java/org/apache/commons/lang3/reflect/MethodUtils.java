@@ -454,15 +454,17 @@ public class MethodUtils {
      * Compatible parameters mean that every method parameter is assignable from 
      * the given parameters.
      * In other words, it finds a method with the given name 
-     * that will take the parameters given.<p>
+     * that will take the parameters given.</p>
      *
      * <p>This method is used by 
      * {@link 
      * #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
+     * </p>
      *
      * <p>This method can match primitive parameter by passing in wrapper classes.
      * For example, a {@code Boolean} will match a primitive {@code boolean}
      * parameter.
+     * </p>
      *
      * @param cls find method in this class
      * @param methodName find method with this name
@@ -503,7 +505,7 @@ public class MethodUtils {
      * Get the hierarchy of overridden methods down to {@code result} respecting generics.
      * @param method lowest to consider
      * @param interfacesBehavior whether to search interfaces, {@code null} {@code implies} false
-     * @return Set<Method> in ascending order from sub- to superclass
+     * @return Set&lt;Method&gt; in ascending order from sub- to superclass
      * @throws NullPointerException if the specified method is {@code null}
      * @since 3.2
      */

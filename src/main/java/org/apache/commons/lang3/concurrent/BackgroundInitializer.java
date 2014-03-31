@@ -41,6 +41,7 @@ import java.util.concurrent.Future;
  * initialization can be implemented, and a result object can be returned. With
  * this method in place the basic usage of this class is as follows (where
  * {@code MyBackgroundInitializer} is a concrete subclass):
+ * </p>
  *
  * <pre>
  * MyBackgroundInitializer initializer = new MyBackgroundInitializer();
@@ -51,7 +52,6 @@ import java.util.concurrent.Future;
  * Object result = initializer.get();
  * </pre>
  *
- * </p>
  * <p>
  * After the construction of a {@code BackgroundInitializer} object its
  * {@link #start()} method has to be called. This starts the background

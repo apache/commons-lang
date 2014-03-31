@@ -448,7 +448,7 @@ public class FieldUtils {
     }
 
     /**
-     * <p<>Gets a {@link Field} value by name. Only the class of the specified object will be considered.
+     * Gets a {@link Field} value by name. Only the class of the specified object will be considered.
      * 
      * @param target
      *            the object to reflect, must not be {@code null}

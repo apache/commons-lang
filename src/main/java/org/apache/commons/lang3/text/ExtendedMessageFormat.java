@@ -36,7 +36,7 @@ import org.apache.commons.lang3.Validate;
  * parsed from the message pattern.  In this way custom patterns can be specified,
  * and the formats supported by <code>java.text.MessageFormat</code> can be overridden
  * at the format and/or format style level (see MessageFormat).  A "format element"
- * embedded in the message pattern is specified (<b>()?</b> signifies optionality):<br />
+ * embedded in the message pattern is specified (<b>()?</b> signifies optionality):<br>
  * <code>{</code><i>argument-number</i><b>(</b><code>,</code><i>format-name</i><b>
  * (</b><code>,</code><i>format-style</i><b>)?)?</b><code>}</code>
  *
@@ -55,14 +55,13 @@ import org.apache.commons.lang3.Validate;
  * <code>UnsupportedOperationException</code> if called.
  * </p>
  *
- * <p>Limitations inherited from <code>java.text.MessageFormat</code>:
+ * <p>Limitations inherited from <code>java.text.MessageFormat</code>:</p>
  * <ul>
  * <li>When using "choice" subformats, support for nested formatting instructions is limited
  *     to that provided by the base class.</li>
  * <li>Thread-safety of <code>Format</code>s, including <code>MessageFormat</code> and thus
  *     <code>ExtendedMessageFormat</code>, is not guaranteed.</li>
  * </ul>
- * </p>
  *
  * @since 2.4
  * @version $Id$

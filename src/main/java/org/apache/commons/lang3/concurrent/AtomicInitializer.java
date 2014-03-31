@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * This class maintains a member field of type {@code AtomicReference}. It
  * implements the following algorithm to create and initialize an object in its
  * {@link #get()} method:
+ * </p>
  * <ul>
  * <li>First it is checked whether the {@code AtomicReference} variable contains
  * already a value. If this is the case, the value is directly returned.</li>
@@ -39,7 +40,6 @@ import java.util.concurrent.atomic.AtomicReference;
  * in it and returned by this method.</li>
  * <li>Otherwise the value stored in the {@code AtomicReference} is returned.</li>
  * </ul>
- * </p>
  * <p>
  * Because atomic variables are used this class does not need any
  * synchronization. So there is no danger of deadlock, and access to the managed

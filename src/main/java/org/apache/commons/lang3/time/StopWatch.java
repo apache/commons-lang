@@ -44,9 +44,9 @@ package org.apache.commons.lang3.time;
  * </p>
  * 
  * <p>
- * 1. split(), suspend(), or stop() cannot be invoked twice<br />
- * 2. unsplit() may only be called if the watch has been split()<br />
- * 3. resume() may only be called if the watch has been suspend()<br />
+ * 1. split(), suspend(), or stop() cannot be invoked twice<br>
+ * 2. unsplit() may only be called if the watch has been split()<br>
+ * 3. resume() may only be called if the watch has been suspend()<br>
  * 4. start() cannot be called twice without calling reset()
  * </p>
  * 

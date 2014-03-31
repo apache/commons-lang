@@ -420,8 +420,8 @@ public class StringEscapeUtils {
      * <p>{@code StringEscapeUtils} instances should NOT be constructed in
      * standard programming.</p>
      *
-     * <p>Instead, the class should be used as:
-     * <pre>StringEscapeUtils.escapeJava("foo");</pre></p>
+     * <p>Instead, the class should be used as:</p>
+     * <pre>StringEscapeUtils.escapeJava("foo");</pre>
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
@@ -443,12 +443,11 @@ public class StringEscapeUtils {
      * <p>The only difference between Java strings and JavaScript strings
      * is that in JavaScript, a single quote and forward-slash (/) are escaped.</p>
      *
-     * <p>Example:
+     * <p>Example:</p>
      * <pre>
      * input string: He didn't say, "Stop!"
      * output string: He didn't say, \"Stop!\"
      * </pre>
-     * </p>
      *
      * @param input  String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
@@ -470,12 +469,11 @@ public class StringEscapeUtils {
      *
      * <p>Note that EcmaScript is best known by the JavaScript and ActionScript dialects. </p>
      *
-     * <p>Example:
+     * <p>Example:</p>
      * <pre>
      * input string: He didn't say, "Stop!"
      * output string: He didn\'t say, \"Stop!\"
      * </pre>
-     * </p>
      *
      * @param input  String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
@@ -499,12 +497,11 @@ public class StringEscapeUtils {
      *
      * <p>See http://www.ietf.org/rfc/rfc4627.txt for further details. </p>
      *
-     * <p>Example:
+     * <p>Example:</p>
      * <pre>
      * input string: He didn't say, "Stop!"
      * output string: He didn't say, \"Stop!\"
      * </pre>
-     * </p>
      *
      * @param input  String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
@@ -570,7 +567,7 @@ public class StringEscapeUtils {
      * <p>
      * For example:
      * </p> 
-     * <p><code>"bread" & "butter"</code></p>
+     * <p><code>"bread" &amp; "butter"</code></p>
      * becomes:
      * <p>
      * <code>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</code>.
@@ -648,7 +645,7 @@ public class StringEscapeUtils {
     /**
      * <p>Escapes the characters in a {@code String} using XML entities.</p>
      *
-     * <p>For example: <tt>"bread" & "butter"</tt> =>
+     * <p>For example: <tt>"bread" &amp; "butter"</tt> =&gt;
      * <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
      * </p>
      *
@@ -673,7 +670,7 @@ public class StringEscapeUtils {
     /**
      * <p>Escapes the characters in a {@code String} using XML entities.</p>
      *
-     * <p>For example: <tt>"bread" & "butter"</tt> =>
+     * <p>For example: <tt>"bread" &amp; "butter"</tt> =&gt;
      * <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
      * </p>
      *
@@ -705,7 +702,7 @@ public class StringEscapeUtils {
     /**
      * <p>Escapes the characters in a {@code String} using XML entities.</p>
      *
-     * <p>For example: <tt>"bread" & "butter"</tt> =>
+     * <p>For example: <tt>"bread" &amp; "butter"</tt> =&gt;
      * <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
      * </p>
      *
@@ -762,13 +759,11 @@ public class StringEscapeUtils {
      *
      * <p>If the value contains a comma, newline or double quote, then the
      *    String value is returned enclosed in double quotes.</p>
-     * </p>
      *
      * <p>Any double quote characters in the value are escaped with another double quote.</p>
      *
      * <p>If the value does not contain a comma, newline or double quote, then the
      *    String value is returned unchanged.</p>
-     * </p>
      *
      * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
      * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.
@@ -794,7 +789,6 @@ public class StringEscapeUtils {
      *
      * <p>If the value is not enclosed in double quotes, or is and does not contain a 
      *    comma, newline or double quote, then the String value is returned unchanged.</p>
-     * </p>
      *
      * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
      * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.

@@ -121,7 +121,7 @@ public abstract class StrLookup<V> {
      * The {@link #lookup(String)} method always returns a String, regardless of
      * the underlying data, by converting it as necessary. For example:
      * <pre>
-     * Map<String, Object> map = new HashMap<String, Object>();
+     * Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
      * map.put("number", Integer.valueOf(2));
      * assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
      * </pre>

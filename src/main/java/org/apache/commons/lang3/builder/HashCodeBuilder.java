@@ -560,7 +560,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * that represent <code>false</code>.
      * </p>
      * <p>
-     * This is in accordance with the <quote>Effective Java</quote> design.
+     * This is in accordance with the <i>Effective Java</i> design.
      * </p>
      *
      * @param value

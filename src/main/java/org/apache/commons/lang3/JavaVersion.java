@@ -95,7 +95,7 @@ public enum JavaVersion {
     /**
      * <p>Whether this version of Java is at least the version of Java passed in.</p>
      *
-     * <p>For example:<br />
+     * <p>For example:<br>
      *  {@code myVersion.atLeast(JavaVersion.JAVA_1_4)}<p>
      *
      * @param requiredVersion  the version to check against, not null

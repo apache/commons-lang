@@ -35,6 +35,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * <p>
  * This class provides some frequently needed configuration options for the
  * threads it creates. These are the following:
+ * </p>
  * <ul>
  * <li>A name pattern for the threads created by this factory can be specified.
  * This is often useful if an application uses multiple executor services for
@@ -56,7 +57,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * <li>The {@code UncaughtExceptionHandler} for the thread. This handler is
  * called if an uncaught exception occurs within the thread.</li>
  * </ul>
- * </p>
  * <p>
  * {@code BasicThreadFactory} wraps another thread factory which actually
  * creates new threads. The configuration options are set on the threads created
@@ -70,6 +70,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * the configuration options an application is interested in need to be set. The
  * following example shows how a {@code BasicThreadFactory} is created and
  * installed in an {@code ExecutorService}:
+ * </p>
  *
  * <pre>
  * // Create a factory that produces daemon threads with a naming pattern and
@@ -82,7 +83,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * // Create an executor service for single-threaded execution
  * ExecutorService exec = Executors.newSingleThreadExecutor(factory);
  * </pre>
- * </p>
  *
  * @since 3.0
  * @version $Id$

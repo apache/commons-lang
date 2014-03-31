@@ -706,7 +706,7 @@ public class StringUtils {
     /**
      * <p>Strips any of a set of characters from the start and end of every
      * String in an array.</p>
-     * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <p>A new array is returned each time, except for length zero.
      * A {@code null} array will return {@code null}.
@@ -3981,10 +3981,10 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input; or the empty string
      * if {@code endIndex - startIndex <= 0}. The number of joined entries is given by
      * {@code endIndex - startIndex}
-     * @throws ArrayIndexOutOfBoundsException ife<br/>
-     * {@code startIndex < 0} or <br/>
-     * {@code startIndex >= array.length()} or <br/>
-     * {@code endIndex < 0} or <br/>
+     * @throws ArrayIndexOutOfBoundsException ife<br>
+     * {@code startIndex < 0} or <br>
+     * {@code startIndex >= array.length()} or <br>
+     * {@code endIndex < 0} or <br>
      * {@code endIndex > array.length()}
      */
     public static String join(final Object[] array, String separator, final int startIndex, final int endIndex) {
@@ -4842,7 +4842,7 @@ public class StringUtils {
      * <p>Replaces multiple characters in a String in one go.
      * This method can also be used to delete characters.</p>
      *
-     * <p>For example:<br />
+     * <p>For example:<br>
      * <code>replaceChars(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;) = jelly</code>.</p>
      *
      * <p>A {@code null} string input returns {@code null}.
@@ -5457,7 +5457,7 @@ public class StringUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Centers a String in a larger String of size {@code size}
-     * using the space character (' ').<p>
+     * using the space character (' ').</p>
      *
      * <p>If the size is less than the String length, the String is returned.
      * A {@code null} String returns {@code null}.
@@ -6323,7 +6323,7 @@ public class StringUtils {
      * <p>Abbreviates a String using ellipses. This will turn
      * "Now is the time for all good men" into "Now is the time for..."</p>
      *
-     * <p>Specifically:
+     * <p>Specifically:</p>
      * <ul>
      *   <li>If {@code str} is less than {@code maxWidth} characters
      *       long, return it.</li>
@@ -6333,7 +6333,6 @@ public class StringUtils {
      *   <li>In no case will it return a String of length greater than
      *       {@code maxWidth}.</li>
      * </ul>
-     * </p>
      *
      * <pre>
      * StringUtils.abbreviate(null, *)      = null
@@ -6423,7 +6422,7 @@ public class StringUtils {
      * <p>Abbreviates a String to the length passed, replacing the middle characters with the supplied
      * replacement String.</p>
      *
-     * <p>This abbreviation only occurs if the following criteria is met:
+     * <p>This abbreviation only occurs if the following criteria is met:</p>
      * <ul>
      * <li>Neither the String for abbreviation nor the replacement String are null or empty </li>
      * <li>The length to truncate to is less than the length of the supplied String</li>
@@ -6431,7 +6430,7 @@ public class StringUtils {
      * <li>The abbreviated String will have enough room for the length supplied replacement String
      * and the first and last characters of the supplied String for abbreviation</li>
      * </ul>
-     * Otherwise, the returned String will be the same as the supplied String for abbreviation.
+     * <p>Otherwise, the returned String will be the same as the supplied String for abbreviation.
      * </p>
      *
      * <pre>
@@ -6562,7 +6561,7 @@ public class StringUtils {
      * CharSequences begin to differ.</p>
      *
      * <p>For example,
-     * <code>indexOfDifference(new String[] {"i am a machine", "i am a robot"}) -> 7</code></p>
+     * <code>indexOfDifference(new String[] {"i am a machine", "i am a robot"}) -&gt; 7</code></p>
      *
      * <pre>
      * StringUtils.indexOfDifference(null) = -1
@@ -6652,7 +6651,7 @@ public class StringUtils {
      * characters that is common to all of them.</p>
      *
      * <p>For example,
-     * <code>getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) -> "i am a "</code></p>
+     * <code>getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) -&gt; "i am a "</code></p>
      *
      * <pre>
      * StringUtils.getCommonPrefix(null) = ""
@@ -6997,7 +6996,7 @@ public class StringUtils {
      * StringUtils.getJaroWinklerDistance("hippo", "zzzzzzzz") = 0.0
      * StringUtils.getJaroWinklerDistance("hello", "hallo")    = 0.88
      * StringUtils.getJaroWinklerDistance("ABC Corporation", "ABC Corp") = 0.91
-     * StringUtils.getJaroWinklerDistance("D N H Enterprises Inc", "D & H Enterprises, Inc.") = 0.93
+     * StringUtils.getJaroWinklerDistance("D N H Enterprises Inc", "D &amp; H Enterprises, Inc.") = 0.93
      * StringUtils.getJaroWinklerDistance("My Gym Children's Fitness Center", "My Gym. Childrens Fitness") = 0.94
      * StringUtils.getJaroWinklerDistance("PENNSYLVANIA", "PENNCISYLVNIA")    = 0.9
      * </pre>
@@ -7335,8 +7334,8 @@ public class StringUtils {
      * href="http://www.w3.org/TR/REC-xml/#NT-S">S</a> production, which is S ::= (#x20 | #x9 | #xD | #xA)+
      * <p>
      * Java's regexp pattern \s defines whitespace as [ \t\n\x0B\f\r]
-     * <p>
-     * For reference:
+     *
+     * <p>For reference:</p>
      * <ul>
      * <li>\x0B = vertical tab</li>
      * <li>\f = #xC = form feed</li>
@@ -7345,7 +7344,7 @@ public class StringUtils {
      * <li>#xA = \n</li>
      * <li>#xD = \r</li>
      * </ul>
-     * </p>
+     *
      * <p>
      * The difference is that Java's whitespace includes vertical tab and form feed, which this functional will also
      * normalize. Additionally <code>{@link #trim(String)}</code> removes control characters (char &lt;= 32) from both

@@ -45,6 +45,7 @@ import java.util.concurrent.ExecutorService;
  * initializer's {@link #get()} method can be called (which may block until
  * background execution is complete). The following code fragment shows a
  * typical usage example:
+ * </p>
  *
  * <pre>
  * // a Callable that performs a complex computation
@@ -59,7 +60,6 @@ import java.util.concurrent.ExecutorService;
  * Integer result = initializer.get();
  * </pre>
  *
- * </p>
  *
  * @since 3.0
  * @version $Id$
