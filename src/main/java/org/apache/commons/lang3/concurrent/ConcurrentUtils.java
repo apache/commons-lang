@@ -212,6 +212,7 @@ public class ConcurrentUtils {
      * present. This method works similar to the {@code putIfAbsent()} method of
      * the {@code ConcurrentMap} interface, but the value returned is different.
      * Basically, this method is equivalent to the following code fragment:
+     * </p>
      *
      * <pre>
      * if (!map.containsKey(key)) {
@@ -222,6 +223,7 @@ public class ConcurrentUtils {
      * }
      * </pre>
      *
+     * <p>
      * except that the action is performed atomically. So this method always
      * returns the value which is stored in the map.
      * </p>

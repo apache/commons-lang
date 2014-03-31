@@ -465,7 +465,7 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the end text to output when a <code>Collection</code>,
+     * <p>Gets the end text to output when a <code>Collection</code>,
      * <code>Map</code> or <code>Array</code> size is output.</p>
      *
      * <p>This is output after the size value.</p>

@@ -50,6 +50,7 @@ import java.util.concurrent.TimeUnit;
  * </p>
  * <p>
  * A thread class for performing database queries could look as follows:
+ * </p>
  *
  * <pre>
  * public class StatisticsThread extends Thread {
@@ -74,9 +75,11 @@ import java.util.concurrent.TimeUnit;
  * }
  * </pre>
  *
+ * <p>
  * The following code fragment shows how a {@code TimedSemaphore} is created
  * that allows only 10 operations per second and passed to the statistics
  * thread:
+ * </p>
  *
  * <pre>
  * TimedSemaphore sem = new TimedSemaphore(1, TimeUnit.SECOND, 10);
@@ -84,7 +87,6 @@ import java.util.concurrent.TimeUnit;
  * thread.start();
  * </pre>
  *
- * </p>
  * <p>
  * When creating an instance the time period for the semaphore must be
  * specified. {@code TimedSemaphore} uses an executor service with a

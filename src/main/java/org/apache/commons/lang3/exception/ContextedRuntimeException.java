@@ -48,7 +48,10 @@ import org.apache.commons.lang3.tuple.Pair;
  *          .addContextValue("Previous Balance", previousBalance)
  *   }
  * }
- * </pre> or improve diagnose data at a higher level:
+ * </pre>
+ * <p>
+ * or improve diagnose data at a higher level:
+ * </p>
  * <pre>
  *   try {
  *     ...
@@ -62,8 +65,9 @@ import org.apache.commons.lang3.tuple.Pair;
  *   }
  * }
  * </pre>
- * </p><p>
+ * <p>
  * The output in a printStacktrace() (which often is written to a log) would look something like the following:
+ * </p>
  * <pre>
  * org.apache.commons.lang3.exception.ContextedRuntimeException: java.lang.Exception: Error posting account transaction
  *  Exception Context:
@@ -76,7 +80,6 @@ import org.apache.commons.lang3.tuple.Pair;
  *  at org.apache.commons.lang3.exception.ContextedRuntimeExceptionTest.testAddValue(ContextedExceptionTest.java:88)
  *  ..... (rest of trace)
  * </pre>
- * </p>
  * 
  * @see ContextedException
  * @since 3.0

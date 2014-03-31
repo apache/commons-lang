@@ -61,7 +61,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * This tokenizer has the following properties and options:
  *
- * <table>
+ * <table summary="Tokenizer Properties">
  *  <tr>
  *   <th>Property</th><th>Type</th><th>Default</th>
  *  </tr>

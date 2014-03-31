@@ -61,11 +61,11 @@ import org.apache.commons.lang3.ClassUtils;
  * </pre>
  * <p>
  * A subclass can control field output by overriding the methods:
+ * </p>
  * <ul>
  * <li>{@link #accept(java.lang.reflect.Field)}</li>
  * <li>{@link #getValue(java.lang.reflect.Field)}</li>
  * </ul>
- * </p>
  * <p>
  * For example, this method does <i>not</i> include the <code>password</code> field in the returned <code>String</code>:
  * </p>

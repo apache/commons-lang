@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * <p>Assists with the serialization process and performs additional functionality based
  * on serialization.</p>
- * <p>
+ *
  * <ul>
  * <li>Deep clone using serialization
  * <li>Serialize managing finally and IOException

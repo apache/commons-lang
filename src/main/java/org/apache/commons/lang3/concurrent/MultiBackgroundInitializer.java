@@ -42,6 +42,7 @@ import java.util.concurrent.ExecutorService;
  * <p>
  * The typical usage scenario for {@code MultiBackgroundInitializer} is as
  * follows:
+ * </p>
  * <ul>
  * <li>Create a new instance of the class. Optionally pass in a pre-configured
  * {@code ExecutorService}. Alternatively {@code MultiBackgroundInitializer} can
@@ -59,7 +60,6 @@ import java.util.concurrent.ExecutorService;
  * initialization. It also stores information about exceptions that have
  * occurred.</li>
  * </ul>
- * </p>
  * <p>
  * {@code MultiBackgroundInitializer} starts a special controller task that
  * starts all {@code BackgroundInitializer} objects added to the instance.

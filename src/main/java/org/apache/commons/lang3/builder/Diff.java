@@ -88,13 +88,12 @@ public abstract class Diff<T> extends Pair<T, T> {
     /**
      * <p>
      * Returns a {@code String} representation of the {@code Diff}, with the
-     * following format:
+     * following format:</p>
      * 
      * <pre>
      * [fieldname: left-value, right-value]
      * </pre>
      * 
-     * </p>
      * 
      * @return the string representation
      */

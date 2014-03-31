@@ -48,6 +48,7 @@ import org.apache.commons.lang3.SystemUtils;
  *
  * <p>If you want to format the output of certain objects, such as dates, you
  * must create a subclass and override a method.
+ * </p>
  * <pre>
  * public class MyStyle extends ToStringStyle {
  *   protected void appendDetail(StringBuffer buffer, String fieldName, Object value) {
@@ -58,7 +59,6 @@ import org.apache.commons.lang3.SystemUtils;
  *   }
  * }
  * </pre>
- * </p>
  *
  * @since 1.0
  * @version $Id$
@@ -298,7 +298,7 @@ public abstract class ToStringStyle implements Serializable {
     private String nullText = "<null>";
 
     /**
-     * The summary size text start <code>'<size'</code>.
+     * The summary size text start <code>'&lt;size'</code>.
      */
     private String sizeStartText = "<size=";
 
@@ -608,7 +608,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append to the <code>toString</code> a <code>Map<code>.</p>
+     * <p>Append to the <code>toString</code> a <code>Map</code>.</p>
      *
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param fieldName  the field name, typically not used as already appended
@@ -1526,7 +1526,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append to the <code>toString<code> the field end.</p>
+     * <p>Append to the <code>toString</code> the field end.</p>
      *
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param fieldName  the field name, typically not used as already appended
@@ -1544,7 +1544,7 @@ public abstract class ToStringStyle implements Serializable {
      * <p>The output consists of a prefix, the passed in size
      * and a suffix.</p>
      *
-     * <p>The default format is <code>'&lt;size=n&gt;'<code>.</p>
+     * <p>The default format is <code>'&lt;size=n&gt;'</code>.</p>
      *
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param fieldName  the field name, typically not used as already appended

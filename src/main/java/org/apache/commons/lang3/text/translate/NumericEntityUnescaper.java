@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 
 /**
- * Translate XML numeric entities of the form &#[xX]?\d+;? to 
+ * Translate XML numeric entities of the form &amp;#[xX]?\d+;? to 
  * the specific codepoint.
  *
  * Note that the semi-colon is optional.

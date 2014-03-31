@@ -753,8 +753,8 @@ public class TypeUtils {
      * instance, this method will determine that both of the parameters for the
      * interface {@link Map} are {@link Object} for the subtype
      * {@link java.util.Properties Properties} even though the subtype does not
-     * directly implement the {@code Map} interface.<p> </p>This method
-     * returns {@code null} if {@code type} is not assignable to
+     * directly implement the {@code Map} interface.</p>
+     * <p>This method returns {@code null} if {@code type} is not assignable to
      * {@code toClass}. It returns an empty map if none of the classes or
      * interfaces in its inheritance hierarchy specify any type arguments.</p>
      * <p>A side effect of this method is that it also retrieves the type
@@ -1110,12 +1110,12 @@ public class TypeUtils {
      * <pre>&lt;K extends java.util.Collection&lt;String&gt; &amp;
      * java.util.List&lt;String&gt;&gt;</pre>
      *
+     * <p>
      * since {@code List} is a subinterface of {@code Collection},
      * this method will return the bounds as if the declaration had been:
+     * </p>
      *
      * <pre>&lt;K extends java.util.List&lt;String&gt;&gt;</pre>
-     *
-     * </p>
      *
      * @param bounds an array of types representing the upper bounds of either
      * {@link WildcardType} or {@link TypeVariable}, not {@code null}.

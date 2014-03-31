@@ -27,7 +27,7 @@ import org.apache.commons.lang3.ArrayUtils;
 /** 
  * Assists in implementing {@link java.lang.Comparable#compareTo(Object)} methods.
  *
- * It is consistent with <code>equals(Object)</code> and
+ * <p>It is consistent with <code>equals(Object)</code> and
  * <code>hashcode()</code> built with {@link EqualsBuilder} and
  * {@link HashCodeBuilder}.</p>
  *

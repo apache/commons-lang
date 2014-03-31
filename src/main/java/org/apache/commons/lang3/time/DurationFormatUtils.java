@@ -27,7 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * <p>Duration formatting utilities and constants. The following table describes the tokens 
  * used in the pattern language for formatting. </p>
- * <table border="1">
+ * <table border="1" summary="Pattern Tokens">
  *  <tr><th>character</th><th>duration element</th></tr>
  *  <tr><td>y</td><td>years</td></tr>
  *  <tr><td>M</td><td>months</td></tr>
@@ -40,7 +40,7 @@ import org.apache.commons.lang3.StringUtils;
  * </table>
  *
  * <b>Note: It's not currently possible to include a single-quote in a format.</b>
- * <br/>
+ * <br>
  * Token values are printed using decimal digits.
  * A token character can be repeated to ensure that the field occupies a certain minimum
  * size. Values will be left-padded with 0 unless padding is disabled in the method invocation.
@@ -252,9 +252,9 @@ public class DurationFormatUtils {
      * <p>When calculating the difference between months/days, it chooses to 
      * calculate months first. So when working out the number of months and 
      * days between January 15th and March 10th, it choose 1 month and 
-     * 23 days gained by choosing January->February = 1 month and then 
+     * 23 days gained by choosing January-&gt;February = 1 month and then 
      * calculating days forwards, and not the 1 month and 26 days gained by 
-     * choosing March -> February = 1 month and then calculating days 
+     * choosing March -&gt; February = 1 month and then calculating days 
      * backwards. </p>
      *
      * <p>For more control, the <a href="http://joda-time.sf.net/">Joda-Time</a>
