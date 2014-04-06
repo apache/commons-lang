@@ -1,18 +1,31 @@
                            Apache Commons Lang
-                               Version 3.3.1
+                               Version 3.3.2
                               Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 3.3.1 version of 
+This document contains the release notes for the 3.3.2 version of
 Apache Commons Lang. Commons Lang is a set of utility functions and reusable 
-components that should be of use in any Java environment. Commons Lang 3.3.1
+components that should be of use in any Java environment. Commons Lang 3.3.2
 at least requires Java 6.0.
 
 For the advice on upgrading from 2.x to 3.x, see the following page: 
 
     http://commons.apache.org/lang/article3_0.html
+
+
+NEW FEATURES
+==============
+
+o LANG-989:  Add org.apache.commons.lang3.SystemUtils.IS_JAVA_1_8
+
+FIXED BUGS
+============
+
+o LANG-992:  NumberUtils#isNumber() returns false for "0.0", "0.4790", et al
+
+                        Release Notes for version 3.3.1
 
 FIXED BUGS
 ============
