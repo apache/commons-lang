@@ -71,7 +71,10 @@ The code base is monitored by a Sonar instance running on <a href="https://analy
 <li>Examine the <a href="article3_0.html">2.x to 3.0 upgrade notes</a></li>
 <li>Compare major versions via the <a href="lang2-lang3-clirr-report.html">Lang2 to Lang3 Clirr report</a></li>
 </ul>
-
+<p><em>Special note on 3.3.2 and Java 8:</em> Due to the addition of <a href="http://openjdk.java.net/jeps/172">DocLint</a>
+to the JavaDoc tool <code>mvn site</code> will currently fail because the test code contains malformed JavaDoc comments.
+If you want to build the site yourself use Java 6 or Java 7 or deactivate DocLint by configuring the Maven JavaDoc with
+<code>&lt;additionalparam&gt;-Xdoclint:none&lt;&#47;additionalparam&gt;</code>.</p>
 <p>
 Alternatively you can pull it from the central Maven repositories:
 <pre>
