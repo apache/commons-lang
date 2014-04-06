@@ -574,7 +574,7 @@ public class ToStringBuilderTest {
 
     /**
      * Test a nasty combination of arrays and Objects pointing to each other.
-     * objects[0] -> SimpleReflectionTestFixture[ o -> objects ]
+     * objects[0] -&gt; SimpleReflectionTestFixture[ o -&gt; objects ]
      *
      * @throws Exception
      */

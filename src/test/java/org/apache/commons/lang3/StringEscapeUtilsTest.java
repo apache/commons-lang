@@ -369,7 +369,8 @@ public class StringEscapeUtilsTest {
      * Supplementary characters are those Unicode characters that have code points higher than the characters in
      * the Basic Multilingual Plane (BMP). In UTF-16 a supplementary character is encoded using two 16-bit surrogate code points from the
      * BMP. Because of this, some people think that supplementary characters need to be represented using two escapes, but this is incorrect
-     * - you must use the single, code point value for that character. For example, use &#x233B4; rather than &#xD84C;&#xDFB4;.
+     * - you must use the single, code point value for that character. For example, use &amp;&#35;x233B4&#59; rather than
+     * &amp;&#35;xD84C&#59;&amp;&#35;xDFB4&#59;.
      * </blockquote>
      * @see <a href="http://www.w3.org/International/questions/qa-escapes">Using character escapes in markup and CSS</a>
      * @see <a href="https://issues.apache.org/jira/browse/LANG-728">LANG-728</a>
