@@ -212,7 +212,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @param formatElementIndex format element index
      * @param newFormat the new format
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException always thrown since this isn't supported by ExtendMessageFormat
      */
     @Override
     public void setFormat(final int formatElementIndex, final Format newFormat) {
@@ -224,7 +224,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @param argumentIndex argument index
      * @param newFormat the new format
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException always thrown since this isn't supported by ExtendMessageFormat
      */
     @Override
     public void setFormatByArgumentIndex(final int argumentIndex, final Format newFormat) {
@@ -235,7 +235,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Throws UnsupportedOperationException - see class Javadoc for details.
      *
      * @param newFormats new formats
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException always thrown since this isn't supported by ExtendMessageFormat
      */
     @Override
     public void setFormats(final Format[] newFormats) {
@@ -246,7 +246,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Throws UnsupportedOperationException - see class Javadoc for details.
      *
      * @param newFormats new formats
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException always thrown since this isn't supported by ExtendMessageFormat
      */
     @Override
     public void setFormatsByArgumentIndex(final Format[] newFormats) {
