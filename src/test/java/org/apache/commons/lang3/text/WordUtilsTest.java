@@ -71,6 +71,12 @@ public class WordUtilsTest {
         expected = "Click here," + systemNewLine + "http://commons.apache.org," + systemNewLine 
             + "to jump to the" + systemNewLine + "commons website";
         assertEquals(expected, WordUtils.wrap(input, 20));
+        
+        // leading spaces on a new line are stripped
+        // trailing spaces are not stripped
+        input = "word1             word2                        word3";
+        expected = "word1  " + systemNewLine + "word2  " + systemNewLine + "word3";
+        assertEquals(expected, WordUtils.wrap(input, 7));
     }
     
     @Test
