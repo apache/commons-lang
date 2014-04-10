@@ -161,14 +161,13 @@ public class CharSequenceUtils {
     static char[] toCharArray(final CharSequence cs) {
         if (cs instanceof String) {
             return ((String) cs).toCharArray();
-        } else {
-            final int sz = cs.length();
-            final char[] array = new char[cs.length()];
-            for (int i = 0; i < sz; i++) {
-                array[i] = cs.charAt(i);
-            }
-            return array;
         }
+        final int sz = cs.length();
+        final char[] array = new char[cs.length()];
+        for (int i = 0; i < sz; i++) {
+            array[i] = cs.charAt(i);
+        }
+        return array;
     }
 
     /**
