@@ -26,6 +26,8 @@ package org.apache.commons.lang3;
  */
 public class CharSequenceUtils {
 
+    private static final int NOT_FOUND = -1;
+
     /**
      * <p>{@code CharSequenceUtils} instances should NOT be constructed in
      * standard programming. </p>
@@ -79,7 +81,7 @@ public class CharSequenceUtils {
                 return i;
             }
         }
-        return -1;
+        return NOT_FOUND;
     }
 
     /**
@@ -118,7 +120,7 @@ public class CharSequenceUtils {
         }
         final int sz = cs.length();
         if (start < 0) {
-            return -1;
+            return NOT_FOUND;
         }
         if (start >= sz) {
             start = sz - 1;
@@ -128,7 +130,7 @@ public class CharSequenceUtils {
                 return i;
             }
         }
-        return -1;
+        return NOT_FOUND;
     }
 
     /**
