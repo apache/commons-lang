@@ -17,10 +17,10 @@
 package org.apache.commons.lang3;
 
 /**
- * <p>Operations on {@link java.lang.CharSequence} that are
+ * <p>Operations on {@link CharSequence} that are
  * {@code null} safe.</p>
  *
- * @see java.lang.CharSequence
+ * @see CharSequence
  * @since 3.0
  * @version $Id$
  */
