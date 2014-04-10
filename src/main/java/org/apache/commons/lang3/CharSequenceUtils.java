@@ -69,18 +69,17 @@ public class CharSequenceUtils {
     static int indexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {
             return ((String) cs).indexOf(searchChar, start);
-        } else {
-            final int sz = cs.length();
-            if (start < 0) {
-                start = 0;
-            }
-            for (int i = start; i < sz; i++) {
-                if (cs.charAt(i) == searchChar) {
-                    return i;
-                }
-            }
-            return -1;
         }
+        final int sz = cs.length();
+        if (start < 0) {
+            start = 0;
+        }
+        for (int i = start; i < sz; i++) {
+            if (cs.charAt(i) == searchChar) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
