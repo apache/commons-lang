@@ -183,10 +183,14 @@ public class WordUtils {
         int offset = 0;
         final StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
         
-        while (inputLineLength - offset > wrapLength) {
+        while (offset < inputLineLength) {
             if (str.charAt(offset) == ' ') {
                 offset++;
                 continue;
+            }
+            // only last line without leading spaces is left
+            if(inputLineLength - offset <= wrapLength) {
+                break;
             }
             int spaceToWrapAt = str.lastIndexOf(' ', wrapLength + offset);
 
