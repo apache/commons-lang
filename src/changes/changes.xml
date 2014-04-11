@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-995" type="fix" dev="britter" due-to="Andrey Khobnya">Fix bug with stripping spaces on last line in WordUtils.wrap()</action>
   </release>
 
   <release version="3.3.2" date="2014-04-09" description="Bugfix for a bug in NumberUtils introduced in 3.3.1">
