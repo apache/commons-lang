@@ -157,7 +157,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         while (pos.getIndex() < pattern.length()) {
             switch (c[pos.getIndex()]) {
             case QUOTE:
-                appendQuotedString(pattern, pos, stripCustom, true);
+                appendQuotedString(pattern, pos, stripCustom, false);
                 break;
             case START_FE:
                 fmtCount++;
@@ -476,6 +476,12 @@ public class ExtendedMessageFormat extends MessageFormat {
      */
     private StringBuilder appendQuotedString(final String pattern, final ParsePosition pos,
             final StringBuilder appendTo, final boolean escapingOn) {
+        // handle quote character at the beginning of the string
+        if(appendTo != null) {
+            appendTo.append(QUOTE);
+        }
+        next(pos);
+
         final int start = pos.getIndex();
         final char[] c = pattern.toCharArray();
         if (escapingOn && c[start] == QUOTE) {
