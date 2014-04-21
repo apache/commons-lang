@@ -457,7 +457,15 @@ public class DurationFormatUtils {
         return buffer.toString();
     }
 
-    // Helper method to simplify repetive code in format method above
+    /**
+     * <p>Converts a {@code long} to a {@code String} with optional
+     * zero padding.</p>
+     *
+     * @param value the value to convert
+     * @param padWithZeros whether to pad with zeroes
+     * @param count the size to pad to (ignored if {@code padWithZeros} is false)
+     * @return the string result
+     */
     private static String paddedValue(final long value, final boolean padWithZeros, final int count) {
         final String longString = Long.toString(value);
         return padWithZeros ? StringUtils.leftPad(longString, count, '0') : longString;
