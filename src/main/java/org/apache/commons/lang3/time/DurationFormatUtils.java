@@ -416,9 +416,7 @@ public class DurationFormatUtils {
             long milliseconds, final boolean padWithZeros) {
         final StringBuilder buffer = new StringBuilder();
         boolean lastOutputSeconds = false;
-        final int sz = tokens.length;
-        for (int i = 0; i < sz; i++) {
-            final Token token = tokens[i];
+        for (final Token token : tokens) {
             final Object value = token.getValue();
             final int count = token.getCount();
             if (value instanceof StringBuilder) {
@@ -443,7 +441,7 @@ public class DurationFormatUtils {
                     buffer.append(paddedValue(seconds, padWithZeros, count));
                     lastOutputSeconds = true;
                 } else if (value == S) {
-                    if (lastOutputSeconds) { 
+                    if (lastOutputSeconds) {
                         // ensure at least 3 digits are displayed even if padding is not selected
                         int width = padWithZeros ? Math.max(3, count) : 3;
                         buffer.append(paddedValue(milliseconds, true, width));
@@ -572,9 +570,8 @@ public class DurationFormatUtils {
          * @return boolean <code>true</code> if contained
          */
         static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
-            final int sz = tokens.length;
-            for (int i = 0; i < sz; i++) {
-                if (tokens[i].getValue() == value) {
+            for (Token token : tokens) {
+                if (token.getValue() == value) {
                     return true;
                 }
             }
