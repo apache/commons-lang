@@ -25,6 +25,7 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -586,6 +587,7 @@ public class FastDateParser implements DateParser, Serializable {
      private static class TextStrategy extends Strategy {
         private final int field;
         private final Map<String, Integer> keyValues;
+        private final Map<String, Integer> lKeyValues;
 
         /**
          * Construct a Strategy that parses a Text field
@@ -596,6 +598,11 @@ public class FastDateParser implements DateParser, Serializable {
         TextStrategy(final int field, final Calendar definingCalendar, final Locale locale) {
             this.field= field;
             this.keyValues= getDisplayNames(field, definingCalendar, locale);
+            this.lKeyValues= new HashMap<String,Integer>();
+
+            for(Map.Entry<String, Integer> entry : keyValues.entrySet()) {
+            	lKeyValues.put(entry.getKey().toLowerCase(), entry.getValue());
+            }
         }
 
         /**
@@ -603,7 +610,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         boolean addRegex(final FastDateParser parser, final StringBuilder regex) {
-            regex.append('(');
+            regex.append("((?i)(?u)");
             for(final String textKeyValue : keyValues.keySet()) {
                 escapeRegex(regex, textKeyValue, false).append('|');
             }
@@ -616,7 +623,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
-            final Integer iVal = keyValues.get(value);
+            final Integer iVal = lKeyValues.get(value.toLowerCase());
             if(iVal == null) {
                 final StringBuilder sb= new StringBuilder(value);
                 sb.append(" not in (");

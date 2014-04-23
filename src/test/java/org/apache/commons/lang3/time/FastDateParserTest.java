@@ -540,4 +540,16 @@ public class FastDateParserTest {
         final DateParser parser= getInstance(yMdHmsSZ, REYKJAVIK);
         assertEquals(REYKJAVIK, parser.getTimeZone());
     }
+    
+    @Test
+    public void testLang996() throws ParseException {
+        Calendar expected = Calendar.getInstance(NEW_YORK, Locale.US);
+        expected.clear();
+        expected.set(2014, 4, 14);
+
+        final DateParser fdp = getInstance("ddMMMyyyy", NEW_YORK, Locale.US);        
+        assertEquals(expected.getTime(), fdp.parse("14may2014"));
+        assertEquals(expected.getTime(), fdp.parse("14MAY2014"));
+        assertEquals(expected.getTime(), fdp.parse("14May2014"));
+    }
 }
