@@ -586,6 +586,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
      private static class TextStrategy extends Strategy {
         private final int field;
+        private final Locale locale;
         private final Map<String, Integer> keyValues;
         private final Map<String, Integer> lKeyValues;
 
@@ -597,11 +598,12 @@ public class FastDateParser implements DateParser, Serializable {
          */
         TextStrategy(final int field, final Calendar definingCalendar, final Locale locale) {
             this.field= field;
+            this.locale= locale;
             this.keyValues= getDisplayNames(field, definingCalendar, locale);
             this.lKeyValues= new HashMap<String,Integer>();
 
             for(Map.Entry<String, Integer> entry : keyValues.entrySet()) {
-            	lKeyValues.put(entry.getKey().toLowerCase(), entry.getValue());
+            	lKeyValues.put(entry.getKey().toLowerCase(locale), entry.getValue());
             }
         }
 
@@ -623,7 +625,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
-            final Integer iVal = lKeyValues.get(value.toLowerCase());
+            final Integer iVal = lKeyValues.get(value.toLowerCase(locale));
             if(iVal == null) {
                 final StringBuilder sb= new StringBuilder(value);
                 sb.append(" not in (");

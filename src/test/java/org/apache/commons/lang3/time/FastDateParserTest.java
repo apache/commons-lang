@@ -325,11 +325,16 @@ public class FastDateParserTest {
 
     private void checkParse(final Locale locale, final Calendar cal, final SimpleDateFormat sdf, final DateParser fdf) throws ParseException {
         final String formattedDate= sdf.format(cal.getTime());
-        final Date expectedTime = sdf.parse(formattedDate);
-        final Date actualTime = fdf.parse(formattedDate);
-        assertEquals(locale.toString()+" "+formattedDate
-                +"\n",expectedTime, actualTime);
+        checkParse(locale, sdf, fdf, formattedDate);
+        checkParse(locale, sdf, fdf, formattedDate.toLowerCase(locale));
+        checkParse(locale, sdf, fdf, formattedDate.toUpperCase(locale));
     }
+
+	private void checkParse(final Locale locale, final SimpleDateFormat sdf, final DateParser fdf, final String formattedDate) throws ParseException {
+		final Date expectedTime = sdf.parse(formattedDate);
+        final Date actualTime = fdf.parse(formattedDate);
+        assertEquals(locale.toString()+" "+formattedDate +"\n",expectedTime, actualTime);
+	}
 
     @Test
     public void testParseNumerics() throws ParseException {
@@ -362,8 +367,15 @@ public class FastDateParserTest {
         testSdfAndFdp("''yyyyMMdd'A''B'HHmmssSSS''", "'20030210A'B153320989'", false); // OK
         testSdfAndFdp("''''yyyyMMdd'A''B'HHmmssSSS''", "''20030210A'B153320989'", false); // OK
         testSdfAndFdp("'$\\Ed'" ,"$\\Ed", false); // OK
+        
+        // quoted charaters are case sensitive
+        testSdfAndFdp("'QED'", "QED", false);
+        testSdfAndFdp("'QED'", "qed", true);
+        // case sensitive after insensitive Month field
+        testSdfAndFdp("yyyy-MM-dd 'QED'", "2003-02-10 QED", false);
+        testSdfAndFdp("yyyy-MM-dd 'QED'", "2003-02-10 qed", true);
     }
-
+    
     @Test
     public void testLANG_832() throws Exception {
         testSdfAndFdp("'d'd" ,"d3", false); // OK
