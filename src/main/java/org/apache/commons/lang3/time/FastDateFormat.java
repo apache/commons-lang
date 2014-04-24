@@ -30,6 +30,16 @@ import java.util.TimeZone;
  * <p>FastDateFormat is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
  *
+ * <p>To obtain an instance of FastDateFormat, use one of the static factory methods: 
+ * {@link #getInstance(String, TimeZone, Locale)}, {@link #getDateInstance(int, TimeZone, Locale)}, 
+ * {@link #getTimeInstance(int, TimeZone, Locale)}, or {@link #getDateTimeInstance(int, int, TimeZone, Locale)} 
+ * </p>
+ * 
+ * <p>Since FastDateFormat is thread safe, you can use a static member instance:</p>
+ * <code>
+ *   private static final FastDateFormat DATE_FORMATTER = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.SHORT);
+ * </code>
+ * 
  * <p>This class can be used as a direct replacement to
  * {@code SimpleDateFormat} in most formatting and parsing situations.
  * This class is especially useful in multi-threaded server environments.
