@@ -38,6 +38,14 @@ import org.apache.commons.lang3.Validate;
  * <p>FastDatePrinter is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
  *
+ * <p>To obtain a proxy to a FastDatePrinter, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} 
+ * or another variation of the factory methods of {@link FastDateFormat}.</p>
+ * 
+ * <p>Since FastDatePrinter is thread safe, you can use a static member instance:</p>
+ * <code>
+ *     private static final DatePrinter DATE_PRINTER = FastDateFormat.getInstance("yyyy-MM-dd");
+ * </code>
+ * 
  * <p>This class can be used as a direct replacement to
  * {@code SimpleDateFormat} in most formatting situations.
  * This class is especially useful in multi-threaded server environments.
