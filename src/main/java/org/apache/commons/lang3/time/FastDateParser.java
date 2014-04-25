@@ -595,7 +595,6 @@ public class FastDateParser implements DateParser, Serializable {
      private static class CaseInsensitiveTextStrategy extends Strategy {
         private final int field;
         private final Locale locale;
-        private final Map<String, Integer> keyValues;
         private final Map<String, Integer> lKeyValues;
 
         /**
@@ -607,7 +606,7 @@ public class FastDateParser implements DateParser, Serializable {
         CaseInsensitiveTextStrategy(final int field, final Calendar definingCalendar, final Locale locale) {
             this.field= field;
             this.locale= locale;
-            this.keyValues= getDisplayNames(field, definingCalendar, locale);
+            Map<String, Integer> keyValues = getDisplayNames(field, definingCalendar, locale);
             this.lKeyValues= new HashMap<String,Integer>();
 
             for(Map.Entry<String, Integer> entry : keyValues.entrySet()) {
@@ -621,7 +620,7 @@ public class FastDateParser implements DateParser, Serializable {
         @Override
         boolean addRegex(final FastDateParser parser, final StringBuilder regex) {
             regex.append("((?iu)");
-            for(final String textKeyValue : keyValues.keySet()) {
+            for(final String textKeyValue : lKeyValues.keySet()) {
                 escapeRegex(regex, textKeyValue, false).append('|');
             }
             regex.setCharAt(regex.length()-1, ')');
@@ -637,7 +636,7 @@ public class FastDateParser implements DateParser, Serializable {
             if(iVal == null) {
                 final StringBuilder sb= new StringBuilder(value);
                 sb.append(" not in (");
-                for(final String textKeyValue : keyValues.keySet()) {
+                for(final String textKeyValue : lKeyValues.keySet()) {
                     sb.append(textKeyValue).append(' ');
                 }
                 sb.setCharAt(sb.length()-1, ')');
