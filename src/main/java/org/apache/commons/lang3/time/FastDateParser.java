@@ -620,7 +620,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         boolean addRegex(final FastDateParser parser, final StringBuilder regex) {
-            regex.append("((?i)(?u)");
+            regex.append("((?iu)");
             for(final String textKeyValue : keyValues.keySet()) {
                 escapeRegex(regex, textKeyValue, false).append('|');
             }
