@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-996" type="fix" dev="chas">FastDateParser should be case insensitive</action>
     <action issue="LANG-995" type="fix" dev="britter" due-to="Andrey Khobnya">Fix bug with stripping spaces on last line in WordUtils.wrap()</action>
   </release>
 
