@@ -544,7 +544,7 @@ public class FastDateParser implements DateParser, Serializable {
         if(strategy==null) {
             strategy= field==Calendar.ZONE_OFFSET
                     ? new TimeZoneStrategy(locale)
-                    : new TextStrategy(field, definingCalendar, locale);
+                    : new CaseInsensitiveTextStrategy(field, definingCalendar, locale);
             final Strategy inCache= cache.putIfAbsent(locale, strategy);
             if(inCache!=null) {
                 return inCache;
@@ -592,7 +592,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * A strategy that handles a text field in the parsing pattern
      */
-     private static class TextStrategy extends Strategy {
+     private static class CaseInsensitiveTextStrategy extends Strategy {
         private final int field;
         private final Locale locale;
         private final Map<String, Integer> keyValues;
@@ -604,7 +604,7 @@ public class FastDateParser implements DateParser, Serializable {
          * @param definingCalendar  The Calendar to use
          * @param locale  The Locale to use
          */
-        TextStrategy(final int field, final Calendar definingCalendar, final Locale locale) {
+        CaseInsensitiveTextStrategy(final int field, final Calendar definingCalendar, final Locale locale) {
             this.field= field;
             this.locale= locale;
             this.keyValues= getDisplayNames(field, definingCalendar, locale);
