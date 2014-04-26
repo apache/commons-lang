@@ -16,9 +16,11 @@
  */
 package org.apache.commons.lang3.text;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Serializable;
 import java.io.Writer;
+import java.nio.CharBuffer;
 import java.util.Iterator;
 import java.util.List;
 
@@ -419,6 +421,48 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             throw new StringIndexOutOfBoundsException("end < start");
         }
         System.arraycopy(buffer, startIndex, destination, destinationIndex, endIndex - startIndex);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * If possible, reads chars from the provided {@link Readable} directly into underlying
+     * character buffer without making extra copies.
+     *
+     * @param readable  object to read from
+     * @return the number of characters read
+     * @throws IOException if an I/O error occurs
+     *
+     * @since 3.4
+     * @see #appendTo(Appendable)
+     */
+    public int readFrom(final Readable readable) throws IOException {
+        final int oldSize = size;
+        if (readable instanceof Reader) {
+            final Reader r = (Reader) readable;
+            ensureCapacity(size + 1);
+            int read;
+            while ((read = r.read(buffer, size, buffer.length - size)) != -1) {
+                size += read;
+                ensureCapacity(size + 1);
+            }
+        } else if (readable instanceof CharBuffer) {
+            final CharBuffer cb = (CharBuffer) readable;
+            final int remaining = cb.remaining();
+            ensureCapacity(size + remaining);
+            cb.get(buffer, size, remaining);
+            size += remaining;
+        } else {
+            while (true) {
+                ensureCapacity(size + 1);
+                final CharBuffer buf = CharBuffer.wrap(buffer, size, buffer.length - size);
+                final int read = readable.read(buf);
+                if (read == -1) {
+                    break;
+                }
+                size += read;
+            }
+        }
+        return size - oldSize;
     }
 
     //-----------------------------------------------------------------------
@@ -2608,6 +2652,32 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public Writer asWriter() {
         return new StrBuilderWriter();
+    }
+
+    /**
+     * Appends current contents of this <code>StrBuilder</code> to the
+     * provided {@link Appendable}.
+     * <p>
+     * This method tries to avoid doing any extra copies of contents.
+     *
+     * @param appendable  the appendable to append data to
+     * @throws IOException  if an I/O error occurs
+     *
+     * @since 3.4
+     * @see #readFrom(Readable)
+     */
+    public void appendTo(final Appendable appendable) throws IOException {
+        if (appendable instanceof Writer) {
+            ((Writer) appendable).write(buffer, 0, size);
+        } else if (appendable instanceof StringBuilder) {
+            ((StringBuilder) appendable).append(buffer, 0, size);
+        } else if (appendable instanceof StringBuffer) {
+            ((StringBuffer) appendable).append(buffer, 0, size);
+        } else if (appendable instanceof CharBuffer) {
+            ((CharBuffer) appendable).put(buffer, 0, size);
+        } else {
+            appendable.append(this);
+        }
     }
 
     //-----------------------------------------------------------------------
