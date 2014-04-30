@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1001" type="fix" dev="ggregory" due-to="Michael Osipov">ISO 8601 misspelled throughout the Javadocs</action>
     <action issue="LANG-994" type="add" dev="britter" due-to="Mikhail Mazursky">Add zero copy read method to StrBuilder</action>
     <action issue="LANG-993" type="add" dev="britter" due-to="Mikhail Mazursky">Add zero copy write method to StrBuilder</action>
     <action issue="LANG-998" type="update" dev="chas">Javadoc is not clear on preferred pattern to instantiate FastDateParser / FastDatePrinter</action>
