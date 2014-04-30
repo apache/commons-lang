@@ -61,7 +61,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Pattern used with <code>FastDateFormat</code> and <code>SimpleDateFormat</code>
-     * for the ISO8601 period format used in durations.</p>
+     * for the ISO 8601 period format used in durations.</p>
      * 
      * @see org.apache.commons.lang3.time.FastDateFormat
      * @see java.text.SimpleDateFormat
@@ -72,7 +72,7 @@ public class DurationFormatUtils {
     /**
      * <p>Formats the time gap as a string.</p>
      * 
-     * <p>The format used is ISO8601-like:
+     * <p>The format used is ISO 8601-like:
      * <i>H</i>:<i>m</i>:<i>s</i>.<i>S</i>.</p>
      * 
      * @param durationMillis  the duration to format
@@ -85,7 +85,7 @@ public class DurationFormatUtils {
     /**
      * <p>Formats the time gap as a string.</p>
      * 
-     * <p>The format used is the ISO8601 period format.</p>
+     * <p>The format used is the ISO 8601 period format.</p>
      * 
      * <p>This method formats durations using the days and lower fields of the
      * ISO format pattern, such as P7D6TH5M4.321S.</p>
@@ -221,7 +221,7 @@ public class DurationFormatUtils {
     /**
      * <p>Formats the time gap as a string.</p>
      * 
-     * <p>The format used is the ISO8601 period format.</p>
+     * <p>The format used is the ISO 8601 period format.</p>
      * 
      * @param startMillis  the start of the duration to format
      * @param endMillis  the end of the duration to format

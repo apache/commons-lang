@@ -407,7 +407,7 @@ public class StopWatch {
      * </p>
      * 
      * <p>
-     * The format used is ISO8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * The format used is ISO 8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
      * </p>
      * 
      * @return the time as a String
@@ -423,7 +423,7 @@ public class StopWatch {
      * </p>
      * 
      * <p>
-     * The format used is ISO8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * The format used is ISO 8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
      * </p>
      * 
      * @return the split time as a String

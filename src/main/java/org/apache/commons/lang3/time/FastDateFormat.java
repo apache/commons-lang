@@ -57,7 +57,7 @@ import java.util.TimeZone;
  * This pattern letter can be used here (on all JDK versions).</p>
  *
  * <p>In addition, the pattern {@code 'ZZ'} has been made to represent
- * ISO8601 full format time zones (eg. {@code +08:00} or {@code -11:00}).
+ * ISO 8601 full format time zones (eg. {@code +08:00} or {@code -11:00}).
  * This introduces a minor incompatibility with Java 1.4, but at a gain of
  * useful functionality.</p>
  *
