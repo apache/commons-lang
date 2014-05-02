@@ -101,29 +101,7 @@ public class DurationFormatUtilsTest {
         assertEquals("2 days 1 hour 12 minutes 0 seconds", text);
         for (int i = 2; i < 31; i++) {
             text = DurationFormatUtils.formatDurationWords(i * 24 * 60 * 60 * 1000L, false, false);
-            // assertEquals(i + " days 0 hours 0 minutes 0 seconds", text);
-            //            
-            // junit.framework.ComparisonFailure: expected:<25 days 0 hours 0 minutes 0...> but was:<-24 days -17 hours
-            // -2 minutes -47...>
-            // at junit.framework.Assert.assertEquals(Assert.java:81)
-            // at junit.framework.Assert.assertEquals(Assert.java:87)
-            // at
-            // org.apache.commons.lang.time.DurationFormatUtilsTest.testFormatDurationWords(DurationFormatUtilsTest.java:124)
-            // at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-            // at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
-            // at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
-            // at java.lang.reflect.Method.invoke(Method.java:324)
-            // at junit.framework.TestCase.runTest(TestCase.java:154)
-            // at junit.framework.TestCase.runBare(TestCase.java:127)
-            // at junit.framework.TestResult$1.protect(TestResult.java:106)
-            // at junit.framework.TestResult.runProtected(TestResult.java:124)
-            // at junit.framework.TestResult.run(TestResult.java:109)
-            // at junit.framework.TestCase.run(TestCase.java:118)
-            // at junit.framework.TestSuite.runTest(TestSuite.java:208)
-            // at junit.framework.TestSuite.run(TestSuite.java:203)
-            // at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:478)
-            // at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:344)
-            // at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:196)
+            assertEquals(i + " days 0 hours 0 minutes 0 seconds", text);
         }
     }
 
