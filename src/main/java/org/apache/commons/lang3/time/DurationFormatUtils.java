@@ -124,6 +124,9 @@ public class DurationFormatUtils {
      * @return the formatted duration, not null
      */
     public static String formatDuration(final long durationMillis, final String format, final boolean padWithZeros) {
+        if(durationMillis < 0) {
+            throw new IllegalArgumentException("Duration must not be less than 0");
+        }
 
         final Token[] tokens = lexx(format);
 
@@ -269,6 +272,9 @@ public class DurationFormatUtils {
      */
     public static String formatPeriod(final long startMillis, final long endMillis, final String format, final boolean padWithZeros, 
             final TimeZone timezone) {
+        if(startMillis > endMillis) {
+            throw new IllegalArgumentException("endMillis must be greater than startMillis");
+        }
 
         // Used to optimise for differences under 28 days and 
         // called formatDuration(millis, format); however this did not work 
