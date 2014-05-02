@@ -592,11 +592,4 @@ public class DurationFormatUtilsTest {
         }
     }
 
-    private void assertArrayEquals(final DurationFormatUtils.Token[] obj1, final DurationFormatUtils.Token[] obj2) {
-        assertEquals("Arrays are unequal length. ", obj1.length, obj2.length);
-        for (int i = 0; i < obj1.length; i++) {
-            assertTrue("Index " + i + " not equal, " + obj1[i] + " vs " + obj2[i], obj1[i].equals(obj2[i]));
-        }
-    }
-
 }
