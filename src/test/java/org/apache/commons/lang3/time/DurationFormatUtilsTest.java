@@ -157,6 +157,11 @@ public class DurationFormatUtilsTest {
         assertEquals("1 day 1 hour 1 minute 1 second", text);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatNegativeDurationWords() throws Exception {
+        DurationFormatUtils.formatDurationWords(-5000, true, true);
+    }
+
     @Test
     public void testFormatDurationHMS() {
         long time = 0;
@@ -187,6 +192,11 @@ public class DurationFormatUtilsTest {
         assertEquals("1:02:12.789", DurationFormatUtils.formatDurationHMS(time));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatNegativeDurationHMS() throws Exception {
+        DurationFormatUtils.formatDurationHMS(-5000);
+    }
+
     @Test
     public void testFormatDurationISO() {
         assertEquals("P0Y0M0DT0H0M0.000S", DurationFormatUtils.formatDurationISO(0L));
@@ -194,6 +204,11 @@ public class DurationFormatUtilsTest {
         assertEquals("P0Y0M0DT0H0M0.010S", DurationFormatUtils.formatDurationISO(10L));
         assertEquals("P0Y0M0DT0H0M0.100S", DurationFormatUtils.formatDurationISO(100L));
         assertEquals("P0Y0M0DT0H1M15.321S", DurationFormatUtils.formatDurationISO(75321L));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatNegativeDurationISO() throws Exception {
+        DurationFormatUtils.formatDurationISO(-5000);
     }
 
     @Test
@@ -234,6 +249,11 @@ public class DurationFormatUtilsTest {
         assertEquals("0 0 " + days, DurationFormatUtils.formatDuration(duration, "y M d"));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatNegativeDuration() throws Exception {
+        DurationFormatUtils.formatDuration(-5000, "S", true);
+    }
+
     @Test
     public void testFormatPeriodISO() {
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
@@ -260,6 +280,11 @@ public class DurationFormatUtilsTest {
         assertEquals("P1Y1M2DT10H30M0.000S", text);
         // want a way to say 'don't print the seconds in format()' or other fields for that matter:
         // assertEquals("P1Y2M3DT10H30M", text);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatPeriodISOStartGreaterEnd() throws Exception {
+        DurationFormatUtils.formatPeriodISO(5000, 2000);
     }
 
     @Test
@@ -321,6 +346,11 @@ public class DurationFormatUtilsTest {
         assertEquals("48", DurationFormatUtils.formatPeriod(time1970, time, "M"));
         assertEquals("48", DurationFormatUtils.formatPeriod(time1970, time, "MM"));
         assertEquals("048", DurationFormatUtils.formatPeriod(time1970, time, "MMM"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatPeriodeStartGreaterEnd() throws Exception {
+        DurationFormatUtils.formatPeriod(5000, 2500, "yy/MM");
     }
 
     @Test
