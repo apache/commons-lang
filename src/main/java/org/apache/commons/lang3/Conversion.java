@@ -1051,7 +1051,7 @@ public class Conversion {
         long out = dstInit;
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + dstPos;
+            shift = i + dstPos;
             final long bits = (src[i + srcPos] ? 1L : 0) << shift;
             final long mask = 0x1L << shift;
             out = (out & ~mask) | bits;
@@ -1087,7 +1087,7 @@ public class Conversion {
         int out = dstInit;
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + dstPos;
+            shift = i + dstPos;
             final int bits = (src[i + srcPos] ? 1 : 0) << shift;
             final int mask = 0x1 << shift;
             out = (out & ~mask) | bits;
@@ -1124,7 +1124,7 @@ public class Conversion {
         short out = dstInit;
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + dstPos;
+            shift = i + dstPos;
             final int bits = (src[i + srcPos] ? 1 : 0) << shift;
             final int mask = 0x1 << shift;
             out = (short)((out & ~mask) | bits);
@@ -1160,7 +1160,7 @@ public class Conversion {
         byte out = dstInit;
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + dstPos;
+            shift = i + dstPos;
             final int bits = (src[i + srcPos] ? 1 : 0) << shift;
             final int mask = 0x1 << shift;
             out = (byte)((out & ~mask) | bits);
@@ -1558,7 +1558,7 @@ public class Conversion {
         }
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + srcPos;
+            shift = i + srcPos;
             dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
         }
         return dst;
@@ -1592,7 +1592,7 @@ public class Conversion {
         }
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + srcPos;
+            shift = i + srcPos;
             dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
         }
         return dst;
@@ -1625,9 +1625,9 @@ public class Conversion {
                 "nBools-1+srcPos is greather or equal to than 16");
         }
         int shift = 0;
-        assert ((nBools - 1) * 1 < 16 - srcPos);
+        assert ((nBools - 1) < 16 - srcPos);
         for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + srcPos;
+            shift = i + srcPos;
             dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
         }
         return dst;
@@ -1660,7 +1660,7 @@ public class Conversion {
         }
         int shift = 0;
         for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + srcPos;
+            shift = i + srcPos;
             dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
         }
         return dst;
