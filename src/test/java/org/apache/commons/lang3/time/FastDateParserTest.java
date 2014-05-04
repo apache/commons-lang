@@ -329,11 +329,11 @@ public class FastDateParserTest {
         checkParse(locale, sdf, fdf, formattedDate.toUpperCase(locale));
     }
 
-	private void checkParse(final Locale locale, final SimpleDateFormat sdf, final DateParser fdf, final String formattedDate) throws ParseException {
-		final Date expectedTime = sdf.parse(formattedDate);
+    private void checkParse(final Locale locale, final SimpleDateFormat sdf, final DateParser fdf, final String formattedDate) throws ParseException {
+        final Date expectedTime = sdf.parse(formattedDate);
         final Date actualTime = fdf.parse(formattedDate);
         assertEquals(locale.toString()+" "+formattedDate +"\n",expectedTime, actualTime);
-	}
+    }
 
     @Test
     public void testParseNumerics() throws ParseException {
