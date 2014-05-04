@@ -929,7 +929,7 @@ public class NumberUtils {
      * <p>Returns the maximum value in an array.</p>
      * 
      * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
+     * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
@@ -952,7 +952,7 @@ public class NumberUtils {
      * <p>Returns the maximum value in an array.</p>
      * 
      * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
+     * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
@@ -975,7 +975,7 @@ public class NumberUtils {
      * <p>Returns the maximum value in an array.</p>
      * 
      * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
+     * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
@@ -998,7 +998,7 @@ public class NumberUtils {
      * <p>Returns the maximum value in an array.</p>
      * 
      * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
+     * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
@@ -1021,7 +1021,7 @@ public class NumberUtils {
      * <p>Returns the maximum value in an array.</p>
      * 
      * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
+     * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      * @see IEEE754rUtils#max(double[]) IEEE754rUtils for a version of this method that handles NaN differently
@@ -1048,7 +1048,7 @@ public class NumberUtils {
      * <p>Returns the maximum value in an array.</p>
      * 
      * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
+     * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      * @see IEEE754rUtils#max(float[]) IEEE754rUtils for a version of this method that handles NaN differently
