@@ -388,7 +388,6 @@ public class FastDateParserTest {
 
     private void testSdfAndFdp(final String format, final String date, final boolean shouldFail)
             throws Exception {
-        final boolean debug = false;
         Date dfdp = null;
         Date dsdf = null;
         Throwable f = null;
@@ -406,9 +405,6 @@ public class FastDateParserTest {
             if (!shouldFail) {
                 throw e;
             }
-            if (debug) {
-                System.out.println("sdf:"+format+"/"+date+"=>"+e);
-            }
         }
 
         try {
@@ -422,16 +418,10 @@ public class FastDateParserTest {
             if (!shouldFail) {
                 throw e;
             }
-            if (debug) {
-                System.out.println("fdf:"+format+"/"+date+"=>"+e);
-            }
         }
         // SDF and FDF should produce equivalent results
         assertTrue("Should both or neither throw Exceptions", (f==null)==(s==null));
         assertEquals("Parsed dates should be equal", dsdf, dfdp);
-        if (debug) {
-            System.out.println(format + "," + date + " => " + dsdf);
-        }
     }
 
     @Test
