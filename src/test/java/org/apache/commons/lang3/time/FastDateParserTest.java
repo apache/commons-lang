@@ -219,7 +219,6 @@ public class FastDateParserTest {
             final Date out = fdp.parse(fmt);
             assertEquals(locale.toString()+" "+in+" "+ format+ " "+tz.getID(), in, out);
         } catch (final ParseException pe) {
-            System.out.println(fmt+" "+locale.toString()+" "+year+" "+ format+ " "+tz.getID());
             if (year >= 1868 || !locale.getCountry().equals("JP")) {// LANG-978
                 throw pe;
             }
