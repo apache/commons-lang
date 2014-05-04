@@ -589,13 +589,6 @@ public class StringUtils {
         return stripEnd(str, stripChars);
     }
     
-    public static void main(String[] args) {
-    	
-    	System.out.println(StringUtils.strip("  abcyx", "xyz"));
-    	System.out.println(StringUtils.stripStart("  abcyx", "xyz"));
-    	System.out.println(StringUtils.stripEnd("  abcyx", "xyz"));
-	}
-
     /**
      * <p>Strips any of a set of characters from the start of a String.</p>
      *
