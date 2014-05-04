@@ -52,7 +52,7 @@ public class StopWatchTest  {
     public void testStopWatchSimpleGet(){
         final StopWatch watch = new StopWatch();
         assertEquals(0, watch.getTime());
-        assertEquals("0:00:00.000", watch.toString());
+        assertEquals("00:00:00.000", watch.toString());
         
         watch.start();
             try {Thread.sleep(500);} catch (final InterruptedException ex) {}
@@ -74,7 +74,7 @@ public class StopWatchTest  {
         final long totalTime = watch.getTime();
 
         assertEquals("Formatted split string not the correct length", 
-                     splitStr.length(), 11);
+                     splitStr.length(), 12);
         assertTrue(splitTime >= 500);
         assertTrue(splitTime < 700);
         assertTrue(totalTime >= 1500);

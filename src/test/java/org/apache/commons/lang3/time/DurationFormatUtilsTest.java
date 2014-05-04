@@ -165,31 +165,31 @@ public class DurationFormatUtilsTest {
     @Test
     public void testFormatDurationHMS() {
         long time = 0;
-        assertEquals("0:00:00.000", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:00.000", DurationFormatUtils.formatDurationHMS(time));
 
         time = 1;
-        assertEquals("0:00:00.001", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:00.001", DurationFormatUtils.formatDurationHMS(time));
 
         time = 15;
-        assertEquals("0:00:00.015", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:00.015", DurationFormatUtils.formatDurationHMS(time));
 
         time = 165;
-        assertEquals("0:00:00.165", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:00.165", DurationFormatUtils.formatDurationHMS(time));
 
         time = 1675;
-        assertEquals("0:00:01.675", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:01.675", DurationFormatUtils.formatDurationHMS(time));
 
         time = 13465;
-        assertEquals("0:00:13.465", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:13.465", DurationFormatUtils.formatDurationHMS(time));
 
         time = 72789;
-        assertEquals("0:01:12.789", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:01:12.789", DurationFormatUtils.formatDurationHMS(time));
 
         time = 12789 + 32 * 60000;
-        assertEquals("0:32:12.789", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:32:12.789", DurationFormatUtils.formatDurationHMS(time));
 
         time = 12789 + 62 * 60000;
-        assertEquals("1:02:12.789", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("01:02:12.789", DurationFormatUtils.formatDurationHMS(time));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -367,13 +367,13 @@ public class DurationFormatUtilsTest {
 
         // tests the ISO 8601-like
         assertArrayEquals(new DurationFormatUtils.Token[]{
-            new DurationFormatUtils.Token(DurationFormatUtils.H, 1),
+            new DurationFormatUtils.Token(DurationFormatUtils.H, 2),
             new DurationFormatUtils.Token(new StringBuilder(":"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.m, 2),
             new DurationFormatUtils.Token(new StringBuilder(":"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.s, 2),
             new DurationFormatUtils.Token(new StringBuilder("."), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.S, 3)}, DurationFormatUtils.lexx("H:mm:ss.SSS"));
+            new DurationFormatUtils.Token(DurationFormatUtils.S, 3)}, DurationFormatUtils.lexx("HH:mm:ss.SSS"));
 
         // test the iso extended format
         assertArrayEquals(new DurationFormatUtils.Token[]{
