@@ -72,15 +72,14 @@ public class DurationFormatUtils {
     /**
      * <p>Formats the time gap as a string.</p>
      * 
-     * <p>The format used is ISO 8601-like:
-     * <i>H</i>:<i>m</i>:<i>s</i>.<i>S</i>.</p>
-     * 
+     * <p>The format used is ISO 8601-like: {@code HH:mm:ss.SSS}.</p>
+     *
      * @param durationMillis  the duration to format
      * @return the formatted duration, not null
      * @throws java.lang.IllegalArgumentException if durationMillis is negative
      */
     public static String formatDurationHMS(final long durationMillis) {
-        return formatDuration(durationMillis, "H:mm:ss.SSS");
+        return formatDuration(durationMillis, "HH:mm:ss.SSS");
     }
 
     /**
