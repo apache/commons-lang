@@ -2454,41 +2454,4 @@ public class StringUtilsTest {
         expectedBytes = expectedString.getBytes(encoding);
         assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.forName(encoding)));
     }
-    
-    // -----------------------------------------------------------------------
-	
- 	@Test
- 	public void testWrap_StringChar() {
- 		assertNull(StringUtils.wrap(null, null));
- 		assertNull(StringUtils.wrap(null, '\0'));
- 		assertNull(StringUtils.wrap(null, '1'));
- 		
- 		assertEquals(null, StringUtils.wrap(null, null));
- 		assertEquals("", StringUtils.wrap("", '\0'));
- 		assertEquals("xabx", StringUtils.wrap("ab", 'x'));
- 		assertEquals("\"ab\"", StringUtils.wrap("ab", '\"'));
- 		assertEquals("\"\"ab\"\"", StringUtils.wrap("\"ab\"", '\"'));
- 		assertEquals("'ab'", StringUtils.wrap("ab", '\''));
- 		assertEquals("''abcd''", StringUtils.wrap("'abcd'", '\''));
- 		assertEquals("'\"abcd\"'", StringUtils.wrap("\"abcd\"", '\''));
- 		assertEquals("\"'abcd'\"", StringUtils.wrap("'abcd'", '\"'));
- 	}
-
- 	@Test
- 	public void testWrap_StringString() {
- 		assertNull(StringUtils.wrap(null, null));
- 		assertNull(StringUtils.wrap(null, "")); 
- 		assertNull(StringUtils.wrap(null, "1"));
-
- 		assertEquals(null, StringUtils.wrap(null, null));
- 		assertEquals("", StringUtils.wrap("", ""));
- 		assertEquals("ab", StringUtils.wrap("ab", null));
- 		assertEquals("xabx", StringUtils.wrap("ab", "x"));
- 		assertEquals("\"ab\"", StringUtils.wrap("ab", "\""));
- 		assertEquals("\"\"ab\"\"", StringUtils.wrap("\"ab\"", "\""));
- 		assertEquals("'ab'", StringUtils.wrap("ab", "'"));
- 		assertEquals("''abcd''", StringUtils.wrap("'abcd'", "'"));
- 		assertEquals("'\"abcd\"'", StringUtils.wrap("\"abcd\"", "'"));
- 		assertEquals("\"'abcd'\"", StringUtils.wrap("'abcd'", "\""));
- 	}
 }
