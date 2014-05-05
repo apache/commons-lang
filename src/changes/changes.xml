@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1005" type="update" dev="britter" due-to="Michael Osipov">Extend DurationFormatUtils#formatDurationISO default pattern to match #formatDurationHMS</action>
     <action issue="LANG-1007" type="update" dev="britter" due-to="Thiago Andrade">Fixing NumberUtils JAVADoc comments for max methods</action>
   	<action issue="LANG-731" type="update" dev="djones">Better Javadoc for BitField class</action>
     <action issue="LANG-1004" type="update" dev="britter" due-to="Michael Osipov">DurationFormatUtils#formatDurationHMS implementation does not correspond to Javadoc and vice versa</action>
