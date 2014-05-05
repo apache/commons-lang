@@ -588,7 +588,7 @@ public class StringUtils {
         str = stripStart(str, stripChars);
         return stripEnd(str, stripChars);
     }
-
+    
     /**
      * <p>Strips any of a set of characters from the start of a String.</p>
      *
@@ -7636,4 +7636,73 @@ public class StringUtils {
         return new String(bytes, charset != null ? charset : Charset.defaultCharset());
     }
 
+    /**
+     * <p>
+     * Wrapps a String with a char.
+     * <p>
+     * 
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
+     * 
+     * <pre>
+     * StringUtils.wrap(null, *)   = null
+     * StringUtils.wrap("", *)     = ""
+     * StringUtils.wrap("ab", '\0')  = "ab"
+     * StringUtils.wrap("ab", 'x')  = "xabx"
+     * StringUtils.wrap("ab", '\'')   = "'ab'"
+     * StringUtils.wrap("\"ab\"", '\"') = "\"ab\""
+     * </pre>
+     * 
+     * @param str
+     *            the String to be wrapper, may be null
+     * @param wrapWith
+     *            the char that will wrap str
+     * @return wrapped String, {@code null} if null String input
+     * @since 3.3
+     */
+    public static String wrap(String str, char wrapWith) {
+
+        if (isEmpty(str) || wrapWith == '\0')
+            return str;
+
+        return wrapWith + str + wrapWith;
+    }
+
+    /**
+     * <p>
+     * Wrapps a String with another String.
+     * <p>
+     * 
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
+     * 
+     * <pre>
+     * StringUtils.wrap(null, *)   = null
+     * StringUtils.wrap("", *)     = ""
+     * StringUtils.wrap("ab", null)   = "ab"
+     * StringUtils.wrap("ab", "x")  = "xabx"
+     * StringUtils.wrap("ab", "\"")   = "\"ab\""
+     * StringUtils.wrap("\"ab\"", "\"") = "\"\"ab\"\""
+     * StringUtils.wrap("ab", "'")   = "'ab'"
+     * StringUtils.wrap("'abcd'", "'") = "''abcd''"
+     * StringUtils.wrap("\"abcd\"", "'") = "'\"abcd\"'"
+     * StringUtils.wrap("'abcd'", "\"") = "\"'abcd'\""
+     * </pre>
+     * 
+     * @param str
+     *            the String to be wrapper, may be null
+     * @param wrapWith
+     *            the String that will wrap str
+     * @return wrapped String, {@code null} if null String input
+     * @since 3.3
+     */
+    public static String wrap(String str, String wrapWith) {
+
+        if (isEmpty(str) || isEmpty(wrapWith))
+            return str;
+
+        return wrapWith.concat(str).concat(wrapWith);
+    }
 }
