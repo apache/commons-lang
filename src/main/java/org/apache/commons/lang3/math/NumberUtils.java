@@ -799,6 +799,19 @@ public class NumberUtils {
     
         return min;
     }
+    
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     * 
+     * @param varargs of float values, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static long minVA(final long... number) {
+    	
+    	return min(number);
+    }
 
     /**
      * <p>Returns the minimum value in an array.</p>
@@ -826,6 +839,19 @@ public class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
+     * @param varargs of int values, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static int minVA(final int... number) {
+    	
+    	return min(number);
+    }
+    
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -849,6 +875,19 @@ public class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
+     * @param varargs of short values, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static short minVA(final short... number) {
+    	
+    	return min(number);
+    }
+    
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -869,6 +908,19 @@ public class NumberUtils {
         return min;
     }
 
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     * 
+     * @param varargs of byte values, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static byte minVA(final byte... number) {
+    	
+    	return min(number);
+    }
+    
      /**
      * <p>Returns the minimum value in an array.</p>
      * 
@@ -899,6 +951,19 @@ public class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
+     * @param varargs of double values, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static double minVA(final double... number) {
+    	
+    	return min(number);
+    }
+    
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -923,6 +988,19 @@ public class NumberUtils {
         return min;
     }
 
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     * 
+     * @param varargs of float values, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static float minVA(final float... number) {
+    	
+    	return min(number);
+    }
+    
     // Max in array
     //--------------------------------------------------------------------
     /**
@@ -947,6 +1025,19 @@ public class NumberUtils {
 
         return max;
     }
+    
+    /**
+     * <p>Returns the maximum value in an varargs array.</p>
+     * 
+     * @param varargs of long values, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static long maxVA(final long... number) {
+    	
+    	return max(number);
+    }
 
     /**
      * <p>Returns the maximum value in an array.</p>
@@ -969,6 +1060,19 @@ public class NumberUtils {
         }
     
         return max;
+    }
+    
+    /**
+     * <p>Returns the maximum value in an varargs array.</p>
+     * 
+     * @param varargs of int values, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static int maxVA(final int... number) {
+    	
+    	return max(number);
     }
 
     /**
@@ -993,6 +1097,19 @@ public class NumberUtils {
     
         return max;
     }
+    
+    /**
+     * <p>Returns the maximum value in an varargs array.</p>
+     * 
+     * @param varargs of short values, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static short maxVA(final short... number) {
+    	
+    	return max(number);
+    }
 
     /**
      * <p>Returns the maximum value in an array.</p>
@@ -1015,6 +1132,19 @@ public class NumberUtils {
         }
     
         return max;
+    }
+    
+    /**
+     * <p>Returns the maximum value in an varargs array.</p>
+     * 
+     * @param varargs of byte values, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static byte maxVA(final byte... number) {
+    	
+    	return max(number);
     }
 
     /**
@@ -1043,6 +1173,19 @@ public class NumberUtils {
     
         return max;
     }
+    
+    /**
+     * <p>Returns the maximum value in an varargs array.</p>
+     * 
+     * @param varargs of double values, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static double maxVA(final double... number) {
+    	
+    	return max(number);
+    }
 
     /**
      * <p>Returns the maximum value in an array.</p>
@@ -1069,6 +1212,19 @@ public class NumberUtils {
         }
 
         return max;
+    }
+    
+    /**
+     * <p>Returns the maximum value in an varargs array.</p>
+     * 
+     * @param varargs of float values, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static float maxVA(final float... number) {
+    	
+    	return max(number);
     }
 
     /**
