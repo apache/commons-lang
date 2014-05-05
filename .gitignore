@@ -1,6 +1,5 @@
 # Maven build files
 target
-bin
 *.log
 maven-eclipse.xml
 build.properties
