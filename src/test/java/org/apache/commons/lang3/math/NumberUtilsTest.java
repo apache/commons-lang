@@ -502,32 +502,6 @@ public class NumberUtilsTest {
         assertEquals(-10, NumberUtils.min(new long[] { -10, -5, 0, 5, 10 }));
         assertEquals(-10, NumberUtils.min(new long[] { -5, 0, -10, 5, 10 }));
     }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVALong_nullArray() {
-    	NumberUtils.minVA((long[]) null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVALong_emptyArray() {
-    	NumberUtils.minVA(new long[0]);
-    }
-    
-    @Test
-    public void testMinVALong() {
-    	assertEquals(
-    			"minVA(long...) failed for array length 1",
-    			5L,
-    			NumberUtils.minVA(5L));
-    	
-    	assertEquals(
-    			"minVA(long...) failed for array length 2",
-    			6L,
-    			NumberUtils.minVA(6L, 9L));
-    	
-    	assertEquals(-10L, NumberUtils.minVA(-10L, -5L, 0L, 5L, 10L));
-    	assertEquals(-10L, NumberUtils.minVA(-5L, 0L, -10L, 5L, 10L));
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMinInt_nullArray() {
@@ -553,32 +527,6 @@ public class NumberUtilsTest {
 
         assertEquals(-10, NumberUtils.min(new int[] { -10, -5, 0, 5, 10 }));
         assertEquals(-10, NumberUtils.min(new int[] { -5, 0, -10, 5, 10 }));
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVAInt_nullArray() {
-    	NumberUtils.minVA((int[]) null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVAInt_emptyArray() {
-    	NumberUtils.minVA(new int[0]);
-    }
-    
-    @Test
-    public void testMinVAInt() {
-    	assertEquals(
-    			"minVA(int...) failed for array length 1",
-    			5,
-    			NumberUtils.minVA(5));
-    	
-    	assertEquals(
-    			"minVA(int...) failed for array length 2",
-    			6,
-    			NumberUtils.minVA(6, 9));
-    	
-    	assertEquals(-10, NumberUtils.minVA(-10, -5, 0, 5, 10));
-    	assertEquals(-10, NumberUtils.minVA(-5, 0, -10, 5, 10));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -606,32 +554,6 @@ public class NumberUtilsTest {
         assertEquals(-10, NumberUtils.min(new short[] { -10, -5, 0, 5, 10 }));
         assertEquals(-10, NumberUtils.min(new short[] { -5, 0, -10, 5, 10 }));
     }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVAShort_nullArray() {
-    	NumberUtils.minVA((short[]) null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVAShort_emptyArray() {
-    	NumberUtils.minVA(new short[0]);
-    }
-    
-    @Test
-    public void testMinVAShort() {
-    	assertEquals(
-    			"minVA(short...) failed for array length 1",
-    			(short) 5,
-    			NumberUtils.minVA((short) 5));
-    	
-    	assertEquals(
-    			"minVA(short...) failed for array length 2",
-    			(short) 6,
-    			NumberUtils.minVA((short) 6, 9));
-    	
-    	assertEquals((short) -10, NumberUtils.minVA((short) -10, (short) -5, (short) 0, (short) 5, (short) 10));
-    	assertEquals((short) -10, NumberUtils.minVA((short) -5, (short) 0, (short) -10, (short) 5, (short) 10));
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMinByte_nullArray() {
@@ -657,32 +579,6 @@ public class NumberUtilsTest {
 
         assertEquals(-10, NumberUtils.min(new byte[] { -10, -5, 0, 5, 10 }));
         assertEquals(-10, NumberUtils.min(new byte[] { -5, 0, -10, 5, 10 }));
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVAByte_nullArray() {
-    	NumberUtils.minVA((byte[]) null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVAByte_emptyArray() {
-    	NumberUtils.minVA(new byte[0]);
-    }
-    
-    @Test
-    public void testMinVAByte() {
-    	assertEquals(
-    			"minVA(byte...) failed for array length 1",
-    			(byte) 5,
-    			NumberUtils.minVA((byte) 5));
-    	
-    	assertEquals(
-    			"minVA(byte...) failed for array length 2",
-    			(byte) 6,
-    			NumberUtils.minVA((byte) 6, (byte) 9));
-    	
-    	assertEquals((byte) -10, NumberUtils.minVA((byte) -10, (byte) -5, (byte) 0, (byte) 5, (byte) 10));
-    	assertEquals((byte) -10, NumberUtils.minVA((byte) -5, (byte) 0, (byte) -10, (byte) 5, (byte) 10));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -717,39 +613,6 @@ public class NumberUtilsTest {
         assertEquals(-10, NumberUtils.min(new double[] { -10, -5, 0, 5, 10 }), 0.0001);
         assertEquals(-10, NumberUtils.min(new double[] { -5, 0, -10, 5, 10 }), 0.0001);
     }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVADouble_nullArray() {
-    	NumberUtils.minVA((double[]) null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVADouble_emptyArray() {
-    	NumberUtils.minVA(new double[0]);
-    }
-    
-    @Test
-    public void testMinVADouble() {
-    	assertEquals(
-    			"minVA(double...) failed for array length 1",
-    			5.12,
-    			NumberUtils.minVA(5.12),
-    			0);
-    	
-    	assertEquals(
-    			"minVA(double...) failed for array length 2",
-    			6.23,
-    			NumberUtils.minVA(6.23, 9.34),
-    			0);
-    	
-    	assertEquals(
-    			"minVA(double[]) failed for array length 5",
-    			-10.45,
-    			NumberUtils.minVA(-10.45, -5.56, 0, 5.67, 10.78),
-    			0);
-    	assertEquals((double) -10, NumberUtils.minVA((double) -10, (double) -5, (double) 0, (double) 5, (double) 10), 0.0001);
-    	assertEquals((double) -10, NumberUtils.minVA((double) -5, (double) 0, (double) -10, (double) 5, (double) 10), 0.0001);
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMinFloat_nullArray() {
@@ -783,39 +646,6 @@ public class NumberUtilsTest {
         assertEquals(-10, NumberUtils.min(new float[] { -10, -5, 0, 5, 10 }), 0.0001f);
         assertEquals(-10, NumberUtils.min(new float[] { -5, 0, -10, 5, 10 }), 0.0001f);
     }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVAFloat_nullArray() {
-    	NumberUtils.minVA((float[]) null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMinVAFloat_emptyArray() {
-    	NumberUtils.minVA(new float[0]);
-    }
-    
-    @Test
-    public void testMinVAFloat() {
-    	assertEquals(
-    			"minVA(float...) failed for array length 1",
-    			5.9f,
-    			NumberUtils.minVA(5.9f),
-    			0);
-    	
-    	assertEquals(
-    			"minVA(float...) failed for array length 2",
-    			6.8f,
-    			NumberUtils.minVA(6.8f, 9.7f),
-    			0);
-    	
-    	assertEquals(
-    			"minVA(float...) failed for array length 5",
-    			-10.6f,
-    			NumberUtils.minVA(-10.6f, -5.5f, 0, 5.4f, 10.3f),
-    			0);
-    	assertEquals(-10, NumberUtils.minVA((float) -10, (float) -5, (float) 0, (float) 5, (float) 10), 0.0001f);
-    	assertEquals(-10, NumberUtils.minVA((float) -5, (float) 0, (float) -10, (float) 5, (float) 10), 0.0001f);
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMaxLong_nullArray() {
@@ -845,41 +675,6 @@ public class NumberUtilsTest {
             NumberUtils.max(new long[] { -10, -5, 0, 5, 10 }));
         assertEquals(10, NumberUtils.max(new long[] { -10, -5, 0, 5, 10 }));
         assertEquals(10, NumberUtils.max(new long[] { -5, 0, 10, 5, -10 }));
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVA_noArgs() {
-    	NumberUtils.maxVA();
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVALong_nullArray() {
-        NumberUtils.maxVA();
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVALong_emptyArray() {
-        NumberUtils.maxVA(new long[0]);
-    }
-    
-    @Test
-    public void testMaxVALong() {
-        assertEquals(
-            "maxVA(long...) failed for array length 1",
-            5L,
-            NumberUtils.maxVA(5L));
-
-        assertEquals(
-            "maxVA(long...) failed for array length 2",
-            9L,
-            NumberUtils.maxVA(6L, 9L));
-
-        assertEquals(
-            "maxVA(long...) failed for array length 5",
-            10L,
-            NumberUtils.maxVA(-10L, -5L, 0L, 5L, 10L));
-        assertEquals(10L, NumberUtils.maxVA(-10L, -5L, 0L, 5L, 10L));
-        assertEquals(10L, NumberUtils.maxVA(-5L, 0L, 10L, 5L, -10L));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -911,36 +706,6 @@ public class NumberUtilsTest {
         assertEquals(10, NumberUtils.max(new int[] { -10, -5, 0, 5, 10 }));
         assertEquals(10, NumberUtils.max(new int[] { -5, 0, 10, 5, -10 }));
     }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVAInt_nullArray() {
-    	NumberUtils.maxVA((int[]) null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVAInt_emptyArray() {
-    	NumberUtils.maxVA(new int[0]);
-    }
-    
-    @Test
-    public void testMaxVAInt() {
-    	assertEquals(
-    			"maxVA(int...) failed for array length 1",
-    			5,
-    			NumberUtils.maxVA(5));
-    	
-    	assertEquals(
-    			"maxVA(int...) failed for array length 2",
-    			9,
-    			NumberUtils.maxVA(6, 9));
-    	
-    	assertEquals(
-    			"maxVA(int...) failed for array length 5",
-    			10,
-    			NumberUtils.maxVA(-10, -5, 0, 5, 10));
-    	assertEquals(10, NumberUtils.maxVA(-10, -5, 0, 5, 10));
-    	assertEquals(10, NumberUtils.maxVA(-5, 0, 10, 5, -10));
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMaxShort_nullArray() {
@@ -971,36 +736,6 @@ public class NumberUtilsTest {
         assertEquals(10, NumberUtils.max(new short[] { -10, -5, 0, 5, 10 }));
         assertEquals(10, NumberUtils.max(new short[] { -5, 0, 10, 5, -10 }));
     }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVAShort_nullArray() {
-    	NumberUtils.maxVA((short[]) null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVAShort_emptyArray() {
-    	NumberUtils.maxVA(new short[0]);
-    }
-    
-    @Test
-    public void testMaxVAShort() {
-    	assertEquals(
-    			"maxVA(short...) failed for array length 1",
-    			(short) 5,
-    			NumberUtils.maxVA((short) 5));
-    	
-    	assertEquals(
-    			"maxVA(short...) failed for array length 2",
-    			(short) 9,
-    			NumberUtils.maxVA((short) 6, (short) 9));
-    	
-    	assertEquals(
-    			"maxVA(short...) failed for array length 5",
-    			(short) 10,
-    			NumberUtils.maxVA((short) -10, (short) -5, (short) 0, (short) 5, (short) 10));
-    	assertEquals((short) 10, NumberUtils.maxVA((short) -10, (short) -5, (short) 0, (short) 5, (short) 10));
-    	assertEquals((short) 10, NumberUtils.maxVA((short) -5, (short) 0, (short) 10, (short) 5, (short) -10));
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMaxByte_nullArray() {
@@ -1030,36 +765,6 @@ public class NumberUtilsTest {
             NumberUtils.max(new byte[] { -10, -5, 0, 5, 10 }));
         assertEquals(10, NumberUtils.max(new byte[] { -10, -5, 0, 5, 10 }));
         assertEquals(10, NumberUtils.max(new byte[] { -5, 0, 10, 5, -10 }));
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVAByte_nullArray() {
-    	NumberUtils.maxVA((byte[]) null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVAByte_emptyArray() {
-    	NumberUtils.maxVA(new byte[0]);
-    }
-    
-    @Test
-    public void testMaxVAByte() {
-    	assertEquals(
-    			"maxVA(byte...) failed for array length 1",
-    			(byte) 5,
-    			NumberUtils.maxVA((byte) 5));
-    	
-    	assertEquals(
-    			"maxVA(byte...) failed for array length 2",
-    			(byte) 9,
-    			NumberUtils.maxVA((byte) 6, (byte) 9));
-    	
-    	assertEquals(
-    			"maxVA(byte...) failed for array length 5",
-    			(byte) 10,
-    			NumberUtils.maxVA((byte) -10, (byte) -5, (byte) 0, (byte) 5, (byte) 10));
-    	assertEquals((byte) 10, NumberUtils.maxVA((byte) -10, (byte) -5, (byte) 0, (byte) 5, (byte) 10));
-    	assertEquals((byte) 10, NumberUtils.maxVA((byte) -5, (byte) 0, (byte) 10, (byte) 5, (byte) -10));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -1105,50 +810,6 @@ public class NumberUtilsTest {
         assertEquals(10, NumberUtils.max(new double[] { -10, -5, 0, 5, 10 }), 0.0001);
         assertEquals(10, NumberUtils.max(new double[] { -5, 0, 10, 5, -10 }), 0.0001);
     }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVADouble_nullArray() {
-        NumberUtils.maxVA((double[]) null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVADouble_emptyArray() {
-        NumberUtils.maxVA(new double[0]);
-    }
-    
-    @Test
-    public void testMaxVADouble() {
-        final double[] d = null;
-        try {
-            NumberUtils.maxVA(d);
-            fail("No exception was thrown for null input.");
-        } catch (final IllegalArgumentException ex) {}
-
-        try {
-            NumberUtils.maxVA(new double[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (final IllegalArgumentException ex) {}
-
-        assertEquals(
-            "maxVA(double...) failed for array length 1",
-            (double) 5.1f,
-            NumberUtils.maxVA((double) 5.1f),
-            0);
-
-        assertEquals(
-            "maxVA(double...) failed for array length 2",
-            (double) 9.2f,
-            NumberUtils.maxVA((double) 6.3f, (double) 9.2f),
-            0);
-
-        assertEquals(
-            "maxVA(double...) failed for float length 5",
-            (double) 10.4f,
-            NumberUtils.maxVA((double) -10.5f, (double) -5.6f, (double) 0, (double) 5.7f, (double) 10.4f),
-            0);
-        assertEquals((double) 10, NumberUtils.maxVA((double) -10, (double) -5, (double) 0, (double) 5, (double) 10), 0.0001);
-        assertEquals((double) 10, NumberUtils.maxVA((double) -5, (double) 0, (double) 10, (double) 5, (double) -10), 0.0001);
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMaxFloat_nullArray() {
@@ -1181,39 +842,6 @@ public class NumberUtilsTest {
             0);
         assertEquals(10, NumberUtils.max(new float[] { -10, -5, 0, 5, 10 }), 0.0001f);
         assertEquals(10, NumberUtils.max(new float[] { -5, 0, 10, 5, -10 }), 0.0001f);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVAFloat_nullArray() {
-    	NumberUtils.maxVA((float[]) null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testMaxVAFloat_emptyArray() {
-    	NumberUtils.maxVA(new float[0]);
-    }
-    
-    @Test
-    public void testMaxVAFloat() {
-    	assertEquals(
-    			"maxVA(float...) failed for array length 1",
-    			5.1f,
-    			NumberUtils.maxVA(new float[] { 5.1f }),
-    			0);
-    	
-    	assertEquals(
-    			"maxVA(float...) failed for array length 2",
-    			9.2f,
-    			NumberUtils.maxVA(new float[] { 6.3f, 9.2f }),
-    			0);
-    	
-    	assertEquals(
-    			"maxVA(float...) failed for float length 5",
-    			10.4f,
-    			NumberUtils.maxVA(-10.5f, -5.6f, 0, 5.7f, 10.4f),
-    			0);
-    	assertEquals(10, NumberUtils.maxVA((float) (float) -10, (float) -5, (float) 0, (float) 5, (float) 10), 0.0001f);
-    	assertEquals(10, NumberUtils.maxVA((float) -5, (float) 0, (float) 10, (float) 5, (float) -10), 0.0001f);
     }
 
     @Test
