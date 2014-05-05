@@ -390,7 +390,7 @@ public class DurationFormatUtilsTest {
             new DurationFormatUtils.Token(new StringBuilder("M"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.s, 1),
             new DurationFormatUtils.Token(new StringBuilder("."), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.S, 1),
+            new DurationFormatUtils.Token(DurationFormatUtils.S, 3),
             new DurationFormatUtils.Token(new StringBuilder("S"), 1)}, DurationFormatUtils
                 .lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN));
 
