@@ -21,8 +21,8 @@ package org.apache.commons.lang3.tuple;
  * 
  * <p>Although the implementation is immutable, there is no restriction on the objects
  * that may be stored. If mutable objects are stored in the triple, then the triple
- * itself effectively becomes mutable. The class is also not {@code final}, so a subclass
- * could add undesirable behaviour.</p>
+ * itself effectively becomes mutable. The class is also {@code final}, so a subclass
+ * can not add undesirable behaviour.</p>
  * 
  * <p>#ThreadSafe# if all three objects are thread-safe</p>
  *
