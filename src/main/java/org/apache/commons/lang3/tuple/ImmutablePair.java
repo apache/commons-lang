@@ -21,8 +21,8 @@ package org.apache.commons.lang3.tuple;
  * 
  * <p>Although the implementation is immutable, there is no restriction on the objects
  * that may be stored. If mutable objects are stored in the pair, then the pair
- * itself effectively becomes mutable. The class is also not {@code final}, so a subclass
- * could add undesirable behaviour.</p>
+ * itself effectively becomes mutable. The class is also {@code final}, so a subclass
+ * can not add undesirable behaviour.</p>
  * 
  * <p>#ThreadSafe# if both paired objects are thread-safe</p>
  *
