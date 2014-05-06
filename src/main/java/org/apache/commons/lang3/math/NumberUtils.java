@@ -780,56 +780,20 @@ public class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static long min(final long[] array) {
+    public static long min(final long... number) {
         // Validates input
-        validateArray(array);
+        validateArray(number);
     
         // Finds and returns min
-        long min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] < min) {
-                min = array[i];
-            }
-        }
-    
-        return min;
-    }
-    
-    /**
-     * <p>Returns the minimum value in an array.</p>
-     * 
-     * @param varargs of float values, must not be null or empty
-     * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     */
-    public static long minVA(final long... number) {
-    	
-    	return min(number);
-    }
-
-    /**
-     * <p>Returns the minimum value in an array.</p>
-     * 
-     * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     */
-    public static int min(final int[] array) {
-        // Validates input
-        validateArray(array);
-    
-        // Finds and returns min
-        int min = array[0];
-        for (int j = 1; j < array.length; j++) {
-            if (array[j] < min) {
-                min = array[j];
+        long min = number[0];
+        for (int i = 1; i < number.length; i++) {
+            if (number[i] < min) {
+                min = number[i];
             }
         }
     
@@ -839,33 +803,20 @@ public class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param varargs of int values, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static int minVA(final int... number) {
-    	
-    	return min(number);
-    }
-    
-    /**
-     * <p>Returns the minimum value in an array.</p>
-     * 
-     * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     */
-    public static short min(final short[] array) {
+    public static int min(final int... number) {
         // Validates input
-        validateArray(array);
+        validateArray(number);
     
         // Finds and returns min
-        short min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] < min) {
-                min = array[i];
+        int min = number[0];
+        for (int j = 1; j < number.length; j++) {
+            if (number[j] < min) {
+                min = number[j];
             }
         }
     
@@ -875,33 +826,20 @@ public class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param varargs of short values, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static short minVA(final short... number) {
-    	
-    	return min(number);
-    }
-    
-    /**
-     * <p>Returns the minimum value in an array.</p>
-     * 
-     * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     */
-    public static byte min(final byte[] array) {
+    public static short min(final short... number) {
         // Validates input
-        validateArray(array);
+        validateArray(number);
     
         // Finds and returns min
-        byte min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] < min) {
-                min = array[i];
+        short min = number[0];
+        for (int i = 1; i < number.length; i++) {
+            if (number[i] < min) {
+                min = number[i];
             }
         }
     
@@ -911,37 +849,47 @@ public class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param varargs of byte values, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static byte minVA(final byte... number) {
-    	
-    	return min(number);
+    public static byte min(final byte... number) {
+        // Validates input
+        validateArray(number);
+    
+        // Finds and returns min
+        byte min = number[0];
+        for (int i = 1; i < number.length; i++) {
+            if (number[i] < min) {
+                min = number[i];
+            }
+        }
+    
+        return min;
     }
     
      /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     * @see IEEE754rUtils#min(double[]) IEEE754rUtils for a version of this method that handles NaN differently
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
+     * @see IEEE754rUtils#min(double...) IEEE754rUtils for a version of this method that handles NaN differently
      */
-    public static double min(final double[] array) {
+    public static double min(final double... number) {
         // Validates input
-        validateArray(array);
+        validateArray(number);
     
         // Finds and returns min
-        double min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (Double.isNaN(array[i])) {
+        double min = number[0];
+        for (int i = 1; i < number.length; i++) {
+            if (Double.isNaN(number[i])) {
                 return Double.NaN;
             }
-            if (array[i] < min) {
-                min = array[i];
+            if (number[i] < min) {
+                min = number[i];
             }
         }
     
@@ -951,75 +899,49 @@ public class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param varargs of double values, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
+     * @see IEEE754rUtils#min(float...) IEEE754rUtils for a version of this method that handles NaN differently
      */
-    public static double minVA(final double... number) {
-    	
-    	return min(number);
-    }
-    
-    /**
-     * <p>Returns the minimum value in an array.</p>
-     * 
-     * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     * @see IEEE754rUtils#min(float[]) IEEE754rUtils for a version of this method that handles NaN differently
-     */
-    public static float min(final float[] array) {
+    public static float min(final float... number) {
         // Validates input
-        validateArray(array);
+        validateArray(number);
     
         // Finds and returns min
-        float min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (Float.isNaN(array[i])) {
+        float min = number[0];
+        for (int i = 1; i < number.length; i++) {
+            if (Float.isNaN(number[i])) {
                 return Float.NaN;
             }
-            if (array[i] < min) {
-                min = array[i];
+            if (number[i] < min) {
+                min = number[i];
             }
         }
     
         return min;
     }
 
-    /**
-     * <p>Returns the minimum value in an array.</p>
-     * 
-     * @param varargs of float values, must not be null or empty
-     * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     */
-    public static float minVA(final float... number) {
-    	
-    	return min(number);
-    }
-    
     // Max in array
     //--------------------------------------------------------------------
     /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static long max(final long[] array) {
+    public static long max(final long... number) {
         // Validates input
-        validateArray(array);
+        validateArray(number);
 
         // Finds and returns max
-        long max = array[0];
-        for (int j = 1; j < array.length; j++) {
-            if (array[j] > max) {
-                max = array[j];
+        long max = number[0];
+        for (int j = 1; j < number.length; j++) {
+            if (number[j] > max) {
+                max = number[j];
             }
         }
 
@@ -1027,35 +949,22 @@ public class NumberUtils {
     }
     
     /**
-     * <p>Returns the maximum value in an varargs array.</p>
-     * 
-     * @param varargs of long values, must not be null or empty
-     * @return the maximum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     */
-    public static long maxVA(final long... number) {
-    	
-    	return max(number);
-    }
-
-    /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static int max(final int[] array) {
+    public static int max(final int... number) {
         // Validates input
-        validateArray(array);
+        validateArray(number);
     
         // Finds and returns max
-        int max = array[0];
-        for (int j = 1; j < array.length; j++) {
-            if (array[j] > max) {
-                max = array[j];
+        int max = number[0];
+        for (int j = 1; j < number.length; j++) {
+            if (number[j] > max) {
+                max = number[j];
             }
         }
     
@@ -1063,35 +972,22 @@ public class NumberUtils {
     }
     
     /**
-     * <p>Returns the maximum value in an varargs array.</p>
-     * 
-     * @param varargs of int values, must not be null or empty
-     * @return the maximum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     */
-    public static int maxVA(final int... number) {
-    	
-    	return max(number);
-    }
-
-    /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static short max(final short[] array) {
+    public static short max(final short... number) {
         // Validates input
-        validateArray(array);
+        validateArray(number);
     
         // Finds and returns max
-        short max = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] > max) {
-                max = array[i];
+        short max = number[0];
+        for (int i = 1; i < number.length; i++) {
+            if (number[i] > max) {
+                max = number[i];
             }
         }
     
@@ -1099,35 +995,22 @@ public class NumberUtils {
     }
     
     /**
-     * <p>Returns the maximum value in an varargs array.</p>
-     * 
-     * @param varargs of short values, must not be null or empty
-     * @return the maximum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     */
-    public static short maxVA(final short... number) {
-    	
-    	return max(number);
-    }
-
-    /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static byte max(final byte[] array) {
+    public static byte max(final byte... number) {
         // Validates input
-        validateArray(array);
+        validateArray(number);
     
         // Finds and returns max
-        byte max = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] > max) {
-                max = array[i];
+        byte max = number[0];
+        for (int i = 1; i < number.length; i++) {
+            if (number[i] > max) {
+                max = number[i];
             }
         }
     
@@ -1135,96 +1018,57 @@ public class NumberUtils {
     }
     
     /**
-     * <p>Returns the maximum value in an varargs array.</p>
-     * 
-     * @param varargs of byte values, must not be null or empty
-     * @return the maximum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     */
-    public static byte maxVA(final byte... number) {
-    	
-    	return max(number);
-    }
-
-    /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     * @see IEEE754rUtils#max(double[]) IEEE754rUtils for a version of this method that handles NaN differently
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
+     * @see IEEE754rUtils#max(double...) IEEE754rUtils for a version of this method that handles NaN differently
      */
-    public static double max(final double[] array) {
+    public static double max(final double... number) {
         // Validates input
-        validateArray(array);
+        validateArray(number);
 
         // Finds and returns max
-        double max = array[0];
-        for (int j = 1; j < array.length; j++) {
-            if (Double.isNaN(array[j])) {
+        double max = number[0];
+        for (int j = 1; j < number.length; j++) {
+            if (Double.isNaN(number[j])) {
                 return Double.NaN;
             }
-            if (array[j] > max) {
-                max = array[j];
+            if (number[j] > max) {
+                max = number[j];
             }
         }
     
         return max;
     }
     
-    /**
-     * <p>Returns the maximum value in an varargs array.</p>
-     * 
-     * @param varargs of double values, must not be null or empty
-     * @return the maximum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     */
-    public static double maxVA(final double... number) {
-    	
-    	return max(number);
-    }
-
     /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     * @see IEEE754rUtils#max(float[]) IEEE754rUtils for a version of this method that handles NaN differently
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
+     * @see IEEE754rUtils#max(float...) IEEE754rUtils for a version of this method that handles NaN differently
      */
-    public static float max(final float[] array) {
+    public static float max(final float... number) {
         // Validates input
-        validateArray(array);
+        validateArray(number);
 
         // Finds and returns max
-        float max = array[0];
-        for (int j = 1; j < array.length; j++) {
-            if (Float.isNaN(array[j])) {
+        float max = number[0];
+        for (int j = 1; j < number.length; j++) {
+            if (Float.isNaN(number[j])) {
                 return Float.NaN;
             }
-            if (array[j] > max) {
-                max = array[j];
+            if (number[j] > max) {
+                max = number[j];
             }
         }
 
         return max;
-    }
-    
-    /**
-     * <p>Returns the maximum value in an varargs array.</p>
-     * 
-     * @param varargs of float values, must not be null or empty
-     * @return the maximum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
-     */
-    public static float maxVA(final float... number) {
-    	
-    	return max(number);
     }
 
     /**
