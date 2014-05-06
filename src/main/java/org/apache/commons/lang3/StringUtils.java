@@ -7671,7 +7671,7 @@ public class StringUtils {
 
     /**
      * <p>
-     * Wrapps a String with another String.
+     * Wraps a String with another String.
      * <p>
      * 
      * <p>
