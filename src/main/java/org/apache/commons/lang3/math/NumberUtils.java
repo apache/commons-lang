@@ -1323,9 +1323,13 @@ public class NumberUtils {
     /**
      * <p>Checks whether the String a valid Java number.</p>
      *
-     * <p>Valid numbers include hexadecimal marked with the <code>0x</code>
-     * qualifier, scientific notation and numbers marked with a type
-     * qualifier (e.g. 123L).</p>
+     * <p>Valid numbers include hexadecimal marked with the <code>0x</code> or
+     * <code>0X</code> qualifier, octal numbers, scientific notation and numbers 
+     * marked with a type qualifier (e.g. 123L).</p>
+     * 
+     * <p>Non-hexadecimal strings beginning with a leading zero are
+     * treated as octal values. Thus the string <code>09</code> will return
+     * <code>false</code>, since <code>9</code> is not a valid octal value.</p>
      *
      * <p><code>Null</code> and empty String will return
      * <code>false</code>.</p>
