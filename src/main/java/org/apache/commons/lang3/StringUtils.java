@@ -7647,7 +7647,7 @@ public class StringUtils {
      * StringUtils.wrap("ab", '\0')     = "ab"
      * StringUtils.wrap("ab", 'x')      = "xabx"
      * StringUtils.wrap("ab", '\'')     = "'ab'"
-     * StringUtils.wrap("\"ab\"", '\"') = "\"ab\""
+     * StringUtils.wrap("\"ab\"", '\"') = "\"\"ab\"\""
      * </pre>
      * 
      * @param str
