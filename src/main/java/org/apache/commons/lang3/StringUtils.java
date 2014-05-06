@@ -7638,27 +7638,23 @@ public class StringUtils {
 
     /**
      * <p>
-     * Wraps a String with a char.
+     * Wraps a string with a char.
      * <p>
-     * 
-     * <p>
-     * A {@code null} input String returns {@code null}.
-     * </p>
      * 
      * <pre>
-     * StringUtils.wrap(null, *)   = null
-     * StringUtils.wrap("", *)     = ""
-     * StringUtils.wrap("ab", '\0')  = "ab"
-     * StringUtils.wrap("ab", 'x')  = "xabx"
-     * StringUtils.wrap("ab", '\'')   = "'ab'"
+     * StringUtils.wrap(null, *)        = null
+     * StringUtils.wrap("", *)          = ""
+     * StringUtils.wrap("ab", '\0')     = "ab"
+     * StringUtils.wrap("ab", 'x')      = "xabx"
+     * StringUtils.wrap("ab", '\'')     = "'ab'"
      * StringUtils.wrap("\"ab\"", '\"') = "\"ab\""
      * </pre>
      * 
      * @param str
-     *            the String to be wrapper, may be null
+     *            the string to be wrapped, may be {@code null}
      * @param wrapWith
-     *            the char that will wrap str
-     * @return wrapped String, {@code null} if null String input
+     *            the char that will wrap {@code str}
+     * @return the wrapped string, or {@code null} if {@code str==null}
      * @since 3.4
      */
     public static String wrap(String str, char wrapWith) {
