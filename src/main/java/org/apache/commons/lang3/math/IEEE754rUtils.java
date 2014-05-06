@@ -29,23 +29,23 @@ public class IEEE754rUtils {
      /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static double min(final double[] array) {
+    public static double min(final double... number) {
         // Validates input
-        if (array == null) {
+        if (number == null) {
             throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
+        } else if (number.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
     
         // Finds and returns min
-        double min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            min = min(array[i], min);
+        double min = number[0];
+        for (int i = 1; i < number.length; i++) {
+            min = min(number[i], min);
         }
     
         return min;
@@ -54,23 +54,23 @@ public class IEEE754rUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static float min(final float[] array) {
+    public static float min(final float... number) {
         // Validates input
-        if (array == null) {
+        if (number == null) {
             throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
+        } else if (number.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
     
         // Finds and returns min
-        float min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            min = min(array[i], min);
+        float min = number[0];
+        for (int i = 1; i < number.length; i++) {
+            min = min(number[i], min);
         }
     
         return min;
@@ -147,23 +147,23 @@ public class IEEE754rUtils {
     /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static double max(final double[] array) {
+    public static double max(final double... number) {
         // Validates input
-        if (array== null) {
+        if (number == null) {
             throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
+        } else if (number.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
     
         // Finds and returns max
-        double max = array[0];
-        for (int j = 1; j < array.length; j++) {
-            max = max(array[j], max);
+        double max = number[0];
+        for (int j = 1; j < number.length; j++) {
+            max = max(number[j], max);
         }
     
         return max;
@@ -172,23 +172,23 @@ public class IEEE754rUtils {
     /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array, must not be null or empty
+     * @param number an varargs array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws IllegalArgumentException if <code>number</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>number</code> is empty
      */
-    public static float max(final float[] array) {
+    public static float max(final float... number) {
         // Validates input
-        if (array == null) {
+        if (number == null) {
             throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
+        } else if (number.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
 
         // Finds and returns max
-        float max = array[0];
-        for (int j = 1; j < array.length; j++) {
-            max = max(array[j], max);
+        float max = number[0];
+        for (int j = 1; j < number.length; j++) {
+            max = max(number[j], max);
         }
 
         return max;
