@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-999" type="add" dev="britter" due-to="Ben Ripkens">Add fuzzy String matching logic to StringUtils</action>
     <action issue="LANG-1006" type="update" dev="britter" due-to="Thiago Andrade">Add wrap (with String or char) to StringUtils</action>
     <action issue="LANG-1005" type="update" dev="britter" due-to="Michael Osipov">Extend DurationFormatUtils#formatDurationISO default pattern to match #formatDurationHMS</action>
     <action issue="LANG-1007" type="update" dev="britter" due-to="Thiago Andrade">Fixing NumberUtils JAVADoc comments for max methods</action>

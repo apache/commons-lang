@@ -2018,6 +2018,37 @@ public class StringUtilsTest {
             StringUtils.getJaroWinklerDistance(null, "clear");
     }
 
+    @Test
+    public void testGetFuzzyDistance() throws Exception {
+        assertEquals(0, StringUtils.getFuzzyDistance("", "", Locale.ENGLISH));
+        assertEquals(0, StringUtils.getFuzzyDistance("Workshop", "b", Locale.ENGLISH));
+        assertEquals(1, StringUtils.getFuzzyDistance("Room", "o", Locale.ENGLISH));
+        assertEquals(1, StringUtils.getFuzzyDistance("Workshop", "w", Locale.ENGLISH));
+        assertEquals(2, StringUtils.getFuzzyDistance("Workshop", "ws", Locale.ENGLISH));
+        assertEquals(4, StringUtils.getFuzzyDistance("Workshop", "wo", Locale.ENGLISH));
+        assertEquals(3, StringUtils.getFuzzyDistance("Apache Software Foundation", "asf", Locale.ENGLISH));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFuzzyDistance_NullNullNull() throws Exception {
+        StringUtils.getFuzzyDistance(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFuzzyDistance_StringNullLoclae() throws Exception {
+        StringUtils.getFuzzyDistance(" ", null, Locale.ENGLISH);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFuzzyDistance_NullStringLocale() throws Exception {
+        StringUtils.getFuzzyDistance(null, "clear", Locale.ENGLISH);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFuzzyDistance_StringStringNull() throws Exception {
+        StringUtils.getFuzzyDistance(" ", "clear", null);
+    }
+
     /**
      * A sanity check for {@link StringUtils#EMPTY}.
      */
