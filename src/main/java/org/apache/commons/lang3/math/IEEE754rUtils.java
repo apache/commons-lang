@@ -33,8 +33,9 @@ public class IEEE754rUtils {
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
+      * @since 3.4 Changed signature from min(double[]) to min(double...)
      */
-    public static double min(final double[] array) {
+    public static double min(final double... array) {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
@@ -58,8 +59,9 @@ public class IEEE754rUtils {
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
+     * @since 3.4 Changed signature from min(float[]) to min(float...)
      */
-    public static float min(final float[] array) {
+    public static float min(final float... array) {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
@@ -151,8 +153,9 @@ public class IEEE754rUtils {
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
+     * @since 3.4 Changed signature from max(double[]) to max(double...)
      */
-    public static double max(final double[] array) {
+    public static double max(final double... array) {
         // Validates input
         if (array== null) {
             throw new IllegalArgumentException("The Array must not be null");
@@ -176,8 +179,9 @@ public class IEEE754rUtils {
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
+     * @since 3.4 Changed signature from max(float[]) to max(float...)
      */
-    public static float max(final float[] array) {
+    public static float max(final float... array) {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
