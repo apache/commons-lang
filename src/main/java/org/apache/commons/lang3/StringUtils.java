@@ -7738,8 +7738,9 @@ public class StringUtils {
      */
     public static String wrap(String str, char wrapWith) {
 
-        if (isEmpty(str) || wrapWith == '\0')
+        if (isEmpty(str) || wrapWith == '\0') {
             return str;
+        }
 
         return wrapWith + str + wrapWith;
     }
@@ -7775,8 +7776,9 @@ public class StringUtils {
      */
     public static String wrap(String str, String wrapWith) {
 
-        if (isEmpty(str) || isEmpty(wrapWith))
+        if (isEmpty(str) || isEmpty(wrapWith)) {
             return str;
+        }
 
         return wrapWith.concat(str).concat(wrapWith);
     }
