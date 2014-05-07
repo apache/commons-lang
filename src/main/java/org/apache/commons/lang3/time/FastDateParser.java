@@ -610,7 +610,7 @@ public class FastDateParser implements DateParser, Serializable {
             this.lKeyValues= new HashMap<String,Integer>();
 
             for(Map.Entry<String, Integer> entry : keyValues.entrySet()) {
-            	lKeyValues.put(entry.getKey().toLowerCase(locale), entry.getValue());
+                lKeyValues.put(entry.getKey().toLowerCase(locale), entry.getValue());
             }
         }
 
