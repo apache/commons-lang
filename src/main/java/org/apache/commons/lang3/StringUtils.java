@@ -7073,7 +7073,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Determine the fuzzy score which indicates the similarity between two Strings.</p>
+     * <p>Find the Fuzzy Distance which indicates the similarity score between two Strings.</p>
      *
      * <p>This string matching algorithm is similar to the algorithms of editors such as Sublime Text,
      * TextMate, Atom and others. One point is given for every matched character. Subsequent
