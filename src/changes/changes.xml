@@ -25,7 +25,7 @@
     <action issue="LANG-1006" type="update" dev="britter" due-to="Thiago Andrade">Add wrap (with String or char) to StringUtils</action>
     <action issue="LANG-1005" type="update" dev="britter" due-to="Michael Osipov">Extend DurationFormatUtils#formatDurationISO default pattern to match #formatDurationHMS</action>
     <action issue="LANG-1007" type="update" dev="britter" due-to="Thiago Andrade">Fixing NumberUtils JAVADoc comments for max methods</action>
-  	<action issue="LANG-731" type="update" dev="djones">Better Javadoc for BitField class</action>
+    <action issue="LANG-731" type="update" dev="djones">Better Javadoc for BitField class</action>
     <action issue="LANG-1004" type="update" dev="britter" due-to="Michael Osipov">DurationFormatUtils#formatDurationHMS implementation does not correspond to Javadoc and vice versa</action>
     <action issue="LANG-1003" type="update" dev="britter">DurationFormatUtils are not able to handle negative durations/periods</action>
     <action issue="LANG-1001" type="fix" dev="ggregory" due-to="Michael Osipov">ISO 8601 misspelled throughout the Javadocs</action>
