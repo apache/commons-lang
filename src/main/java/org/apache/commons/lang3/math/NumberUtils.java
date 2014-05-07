@@ -1329,7 +1329,8 @@ public class NumberUtils {
      * 
      * <p>Non-hexadecimal strings beginning with a leading zero are
      * treated as octal values. Thus the string <code>09</code> will return
-     * <code>false</code>, since <code>9</code> is not a valid octal value.</p>
+     * <code>false</code>, since <code>9</code> is not a valid octal value.
+     * However, numbers beginning with {@code 0.} are treated as decimal.</p>
      *
      * <p><code>Null</code> and empty String will return
      * <code>false</code>.</p>
