@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>
@@ -536,12 +537,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the number is even
      */
     public HashCodeBuilder(final int initialOddNumber, final int multiplierOddNumber) {
-        if (initialOddNumber % 2 == 0) {
-            throw new IllegalArgumentException("HashCodeBuilder requires an odd initial value");
-        }
-        if (multiplierOddNumber % 2 == 0) {
-            throw new IllegalArgumentException("HashCodeBuilder requires an odd multiplier");
-        }
+        Validate.isTrue(initialOddNumber % 2 != 0, "HashCodeBuilder requires an odd initial value");
+        Validate.isTrue(multiplierOddNumber % 2 != 0, "HashCodeBuilder requires an odd multiplier");
         iConstant = multiplierOddNumber;
         iTotal = initialOddNumber;
     }
