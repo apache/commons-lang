@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.math;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  * <p>Provides IEEE-754r variants of NumberUtils methods. </p>
  *
@@ -39,9 +41,9 @@ public class IEEE754rUtils {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        } 
+        Validate.isTrue(array.length != 0, "Array cannot be empty.");
+        
     
         // Finds and returns min
         double min = array[0];
@@ -65,10 +67,9 @@ public class IEEE754rUtils {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
-    
+        } 
+        Validate.isTrue(array.length != 0, "Array cannot be empty.");
+        
         // Finds and returns min
         float min = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -159,10 +160,9 @@ public class IEEE754rUtils {
         // Validates input
         if (array== null) {
             throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
-    
+        }         
+        Validate.isTrue(array.length != 0, "Array cannot be empty.");
+        
         // Finds and returns max
         double max = array[0];
         for (int j = 1; j < array.length; j++) {
@@ -185,10 +185,9 @@ public class IEEE754rUtils {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
-
+        } 
+        Validate.isTrue(array.length != 0, "Array cannot be empty.");
+        
         // Finds and returns max
         float max = array[0];
         for (int j = 1; j < array.length; j++) {

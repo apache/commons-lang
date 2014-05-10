@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>Provides extra functionality for Java Number classes.</p>
@@ -1092,9 +1093,8 @@ public class NumberUtils {
     private static void validateArray(final Object array) {
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
-        } else if (Array.getLength(array) == 0) {
-            throw new IllegalArgumentException("Array cannot be empty.");
-        }
+        }        
+        Validate.isTrue(Array.getLength(array) != 0, "Array cannot be empty.");        
     }
      
     // 3 param min
