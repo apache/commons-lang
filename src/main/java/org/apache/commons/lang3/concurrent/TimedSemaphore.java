@@ -21,6 +21,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  * <p>
  * A specialized <em>semaphore</em> implementation that provides a number of
@@ -201,9 +203,7 @@ public class TimedSemaphore {
      */
     public TimedSemaphore(final ScheduledExecutorService service, final long timePeriod,
             final TimeUnit timeUnit, final int limit) {
-        if (timePeriod <= 0) {
-            throw new IllegalArgumentException("Time period must be greater 0!");
-        }
+        Validate.inclusiveBetween(1, Long.MAX_VALUE, timePeriod, "Time period must be greater than 0!");
 
         period = timePeriod;
         unit = timeUnit;

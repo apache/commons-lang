@@ -21,6 +21,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  * <p>
  * An utility class providing functionality related to the {@code
@@ -141,12 +143,10 @@ public class ConcurrentUtils {
      * checked exception
      */
     static Throwable checkedException(final Throwable ex) {
-        if (ex != null && !(ex instanceof RuntimeException)
-                && !(ex instanceof Error)) {
-            return ex;
-        } else {
-            throw new IllegalArgumentException("Not a checked exception: " + ex);
-        }
+        Validate.isTrue(ex != null && !(ex instanceof RuntimeException)
+                && !(ex instanceof Error), "Not a checked exception: " + ex);
+        
+        return ex;
     }
 
     /**
