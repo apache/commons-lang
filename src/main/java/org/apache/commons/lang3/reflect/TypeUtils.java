@@ -1623,8 +1623,8 @@ public class TypeUtils {
     private static boolean equals(WildcardType w, Type t) {
         if (t instanceof WildcardType) {
             final WildcardType other = (WildcardType) t;
-            return equals(w.getLowerBounds(), other.getLowerBounds())
-                && equals(TypeUtils.getImplicitUpperBounds(w), TypeUtils.getImplicitUpperBounds(other));
+            return equals(getImplicitLowerBounds(w), getImplicitLowerBounds(other))
+                && equals(getImplicitUpperBounds(w), getImplicitUpperBounds(other));
         }
         return true;
     }
@@ -1808,9 +1808,9 @@ public class TypeUtils {
         final StringBuilder buf = new StringBuilder().append('?');
         final Type[] lowerBounds = w.getLowerBounds();
         final Type[] upperBounds = w.getUpperBounds();
-        if (lowerBounds.length > 0) {
+        if (lowerBounds.length > 1 || lowerBounds.length == 1 && lowerBounds[0] != null) {
             appendAllTo(buf.append(" super "), " & ", lowerBounds);
-        } else if (!(upperBounds.length == 1 && Object.class.equals(upperBounds[0]))) {
+        } else if (upperBounds.length > 1 || upperBounds.length == 1 && !Object.class.equals(upperBounds[0])) {
             appendAllTo(buf.append(" extends "), " & ", upperBounds);
         }
         return buf.toString();
