@@ -6435,10 +6435,10 @@ public class StringUtils {
      * <pre>
      * StringUtils.truncate(null, *)      = null
      * StringUtils.truncate("", 4)        = ""
+     * StringUtils.truncate("abcdefg", 4) = "abcd"
      * StringUtils.truncate("abcdefg", 6) = "abcdef"
      * StringUtils.truncate("abcdefg", 7) = "abcdefg"
      * StringUtils.truncate("abcdefg", 8) = "abcdefg"
-     * StringUtils.truncate("abcdefg", 4) = "abcd"
      * StringUtils.truncate("abcdefg", -1) = IllegalArgumentException
      * </pre>
      *
