@@ -6446,20 +6446,18 @@ public class StringUtils {
      * @param maxWidth  maximum length of result String, must be positive
      * @return truncated String, {@code null} if null String input
      * @throws IllegalArgumentException if the width is negative
-     * @since 2.0
+     * @since 4.0
      */
     public static String truncate(final String str, final int maxWidth) {
         return truncate(str, 0, maxWidth);
     }
 
     /**
-     * <p>Abbreviates a String using ellipses. This will turn
-     * "Now is the time for all good men" into "...is the time for..."</p>
+     * <p>Truncates a String. This will turn
+     * "Now is the time for all good men" into "is the time for all"</p>
      *
      * <p>Works like {@code truncate(String, int)}, but allows you to specify
-     * a "left edge" offset.  Note that this left edge is not necessarily going to
-     * be the leftmost character in the result, or the first character following the
-     * ellipses, but it will appear somewhere in the result.
+     * a "left edge" offset.
      *
      * <p>In no case will it return a String of length greater than
      * {@code maxWidth}.</p>
@@ -6497,17 +6495,17 @@ public class StringUtils {
      *
      * @param str  the String to check, may be null
      * @param offset  left edge of source String
-     * @param maxWidth  maximum length of result String, must be at least 4
-     * @return abbreviated String, {@code null} if null String input
-     * @throws IllegalArgumentException if the width is too small
-     * @since 2.0
+     * @param maxWidth  maximum length of result String, must be positive
+     * @return truncated String, {@code null} if null String input
+     * @throws IllegalArgumentException if the width is negative
+     * @since 4.0
      */
     public static String truncate(final String str, int offset, final int maxWidth) {
         if (str == null) {
             return null;
         }
         if (maxWidth < 0) {
-            throw new IllegalArgumentException("Minimum width cannot be negative");
+            throw new IllegalArgumentException("Max width cannot be negative");
         }
         if (offset < 0) {
             offset = 0;
