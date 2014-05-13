@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
@@ -696,6 +697,30 @@ public class TypeUtilsTest<B> {
         final Field cClass = AClass.class.getField("cClass");
         Assert.assertTrue(TypeUtils.equals(((ParameterizedType) cClass.getGenericType()).getActualTypeArguments()[0],
             simpleWildcard));
+        Assert.assertEquals(String.format("? extends %s", String.class.getName()), TypeUtils.toString(simpleWildcard));
+        Assert.assertEquals(String.format("? extends %s", String.class.getName()), simpleWildcard.toString());
+    }
+
+    @Test
+    public void testUnboundedWildcardType() {
+        final WildcardType unbounded = TypeUtils.wildcardType().withLowerBounds((Type) null).withUpperBounds().build();
+        Assert.assertTrue(TypeUtils.equals(TypeUtils.WILDCARD_ALL, unbounded));
+        Assert.assertArrayEquals(new Type[] { Object.class }, TypeUtils.getImplicitUpperBounds(unbounded));
+        Assert.assertArrayEquals(new Type[] { null }, TypeUtils.getImplicitLowerBounds(unbounded));
+        Assert.assertEquals("?", TypeUtils.toString(unbounded));
+        Assert.assertEquals("?", unbounded.toString());
+    }
+
+    @Test
+    public void testLowerBoundedWildcardType() {
+       final WildcardType lowerBounded = TypeUtils.wildcardType().withLowerBounds(java.sql.Date.class).build();
+       Assert.assertEquals(String.format("? super %s", java.sql.Date.class.getName()), TypeUtils.toString(lowerBounded));
+       Assert.assertEquals(String.format("? super %s", java.sql.Date.class.getName()), lowerBounded.toString());
+
+       final TypeVariable<Class<Iterable>> iterableT0 = Iterable.class.getTypeParameters()[0];
+       final WildcardType lowerTypeVariable = TypeUtils.wildcardType().withLowerBounds(iterableT0).build();
+       Assert.assertEquals(String.format("? super %s", iterableT0.getName()), TypeUtils.toString(lowerTypeVariable));
+       Assert.assertEquals(String.format("? super %s", iterableT0.getName()), lowerTypeVariable.toString());
     }
 
     @Test
