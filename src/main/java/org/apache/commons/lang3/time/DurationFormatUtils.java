@@ -23,6 +23,7 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>Duration formatting utilities and constants. The following table describes the tokens 
@@ -127,9 +128,7 @@ public class DurationFormatUtils {
      * @throws java.lang.IllegalArgumentException if durationMillis is negative
      */
     public static String formatDuration(final long durationMillis, final String format, final boolean padWithZeros) {
-        if(durationMillis < 0) {
-            throw new IllegalArgumentException("durationMillis must not be negative");
-        }
+        Validate.inclusiveBetween(0, Long.MAX_VALUE, durationMillis, "durationMillis must not be negative");        
 
         final Token[] tokens = lexx(format);
 
@@ -279,9 +278,8 @@ public class DurationFormatUtils {
      */
     public static String formatPeriod(final long startMillis, final long endMillis, final String format, final boolean padWithZeros, 
             final TimeZone timezone) {
-        if(startMillis > endMillis) {
-            throw new IllegalArgumentException("startMillis must not be greater than endMillis");
-        }
+        Validate.isTrue(startMillis <= endMillis, "startMillis must not be greater than endMillis");
+        
 
         // Used to optimise for differences under 28 days and 
         // called formatDuration(millis, format); however this did not work 
