@@ -206,6 +206,32 @@ public class ObjectUtils {
         // hashCode(Object) retained for performance, as hash code is often critical
         return obj == null ? 0 : obj.hashCode();
     }
+    /**
+     * <p>verifies if the object is null.</p>
+     * <pre>
+     * ObjectUtils.isNull(null) = true
+     * ObjectUtils.isNull("")   = false
+     * </pre>
+     * @param obj the object to be scanned
+     * @since 3.3
+     * @return {@code false} if null or {@code true} if not null 
+     */
+    public static boolean isNull(final Object obj) {
+    	return obj == null;
+    }
+    /**
+     * <p>verifies if the object is not null.</p>
+     * <pre>
+     * ObjectUtils.isNotNull(null) = false
+     * ObjectUtils.isNotNull("")   = true
+     * </pre>
+     * @param obj the object to be scanned
+     * @since 3.3
+     * @return {@code true} if not null or {@code false} if null 
+     */
+    public static boolean isNotNull(final Object obj) {
+    	return obj != null;
+    }
 
     @Override
     public String toString() {
