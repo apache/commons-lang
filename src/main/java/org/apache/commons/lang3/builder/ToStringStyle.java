@@ -93,6 +93,20 @@ public abstract class ToStringStyle implements Serializable {
      * </pre>
      */
     public static final ToStringStyle MULTI_LINE_STYLE = new MultiLineToStringStyle();
+    
+    /**
+     * The JSON toString style. Using the <code>Person</code>
+     * example from {@link ToStringBuilder}, the output would look like this:
+     *
+     * <pre>
+     * Person@182f0db[
+     *   name=John Doe
+     *   age=33
+     *   smoker=false
+     * ]
+     * </pre>
+     */
+    public static final ToStringStyle JSON_STYLE = new JsonToStringStyle();
 
     /**
      * The no field names toString style. Using the Using the
@@ -2277,6 +2291,92 @@ public abstract class ToStringStyle implements Serializable {
             return ToStringStyle.MULTI_LINE_STYLE;
         }
 
+    }
+    
+    //----------------------------------------------------------------------------
+    
+    /**
+     * <p><code>ToStringStyle</code> that outputs with JSON format.</p>
+     *
+     * <p>This is an inner class rather than using
+     * <code>StandardToStringStyle</code> to ensure its immutability.</p>
+     */
+    private static final class JsonToStringStyle extends ToStringStyle {
+        
+        private static final long serialVersionUID = 1L;
+        
+        /**
+         * The summary size text start <code>'&gt;'</code>.
+         */
+        private String FIELD_NAME_PREFIX = "\"";
+        
+        /**
+         * <p>Constructor.</p>
+         *
+         * <p>Use the static constant rather than instantiating.</p>
+         */
+        JsonToStringStyle() {
+            super();
+            
+            this.setUseClassName(false);
+            this.setUseIdentityHashCode(false);
+
+            this.setContentStart("{");
+            this.setContentEnd("}");
+
+            this.setArrayStart("[");
+            this.setArrayEnd("]");
+
+            this.setFieldSeparator(",");
+            this.setFieldNameValueSeparator(":");
+
+            this.setNullText("null");
+            
+            this.setSummaryObjectStartText("");
+            this.setSummaryObjectEndText("");
+            
+            this.setSizeStartText("size=");
+            this.setSizeEndText("");
+        }
+        
+        @Override
+        protected void appendFieldStart(StringBuffer buffer, String fieldName) {
+            
+            super.appendFieldStart(buffer, FIELD_NAME_PREFIX + fieldName + FIELD_NAME_PREFIX);
+        }
+        
+        @Override
+        protected void appendDetail(StringBuffer buffer, String fieldName, Object value) {
+
+            if (value == null) {
+                
+                appendNullText(buffer, fieldName);
+                return;
+            }
+
+            if (value.getClass() == String.class) {
+                
+                appendValueAsString(buffer, (String)value);
+                return;
+            }
+            
+            buffer.append(value);
+        }
+
+        private void appendValueAsString(StringBuffer buffer, String value) {
+            
+            buffer.append("\"" + value + "\"");
+        }
+
+        /**
+         * <p>Ensure <code>Singleton</code> after serialization.</p>
+         *
+         * @return the singleton
+         */
+        private Object readResolve() {
+            return ToStringStyle.JSON_STYLE;
+        }
+        
     }
 
 }
