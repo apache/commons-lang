@@ -19,6 +19,7 @@ package org.apache.commons.lang3.builder;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
@@ -34,6 +35,7 @@ import org.junit.Test;
 public class JsonToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
+
     @Before
     public void setUp() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.JSON_STYLE);
@@ -45,24 +47,23 @@ public class JsonToStringStyleTest {
     }
 
     // ----------------------------------------------------------------
-    
+
     @Test
     public void testNull() {
-        
+
         assertEquals(String.valueOf((Object) null),
                 new ToStringBuilder(null).toString());
     }
 
     @Test
     public void testBlank() {
-        
-        assertEquals("{}",
-                new ToStringBuilder(base).toString());
+
+        assertEquals("{}", new ToStringBuilder(base).toString());
     }
 
     @Test
     public void testAppendSuper() {
-        
+
         assertEquals(
                 "{}",
                 new ToStringBuilder(base).appendSuper(
@@ -70,12 +71,9 @@ public class JsonToStringStyleTest {
                         .toString());
         assertEquals(
                 "{}",
-                new ToStringBuilder(base)
-                        .appendSuper(
-                                "Integer@8888[" + SystemUtils.LINE_SEPARATOR
-                                        + "  null"
-                                        + SystemUtils.LINE_SEPARATOR + "]")
-                        .toString());
+                new ToStringBuilder(base).appendSuper(
+                        "Integer@8888[" + SystemUtils.LINE_SEPARATOR + "  null"
+                                + SystemUtils.LINE_SEPARATOR + "]").toString());
 
         assertEquals(
                 "{\"a\":\"hello\"}",
@@ -83,79 +81,106 @@ public class JsonToStringStyleTest {
                         .appendSuper(
                                 "Integer@8888[" + SystemUtils.LINE_SEPARATOR
                                         + "]").append("a", "hello").toString());
-        
+
         assertEquals(
                 "{\"a\":\"hello\"}",
                 new ToStringBuilder(base)
                         .appendSuper(
                                 "Integer@8888[" + SystemUtils.LINE_SEPARATOR
-                                        + "  null"
-                                        + SystemUtils.LINE_SEPARATOR + "]")
-                        .append("a", "hello").toString());
-        
-        assertEquals("{\"a\":\"hello\"}",
-                new ToStringBuilder(base)
-                        .appendSuper(null).append("a", "hello").toString());
+                                        + "  null" + SystemUtils.LINE_SEPARATOR
+                                        + "]").append("a", "hello").toString());
+
+        assertEquals("{\"a\":\"hello\"}", new ToStringBuilder(base)
+                .appendSuper(null).append("a", "hello").toString());
     }
 
     @Test
     public void testObject() {
-        
+
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
-        
-        assertEquals("{\"null\":null}", new ToStringBuilder(base)
-                .append((Object) null).toString());
-        
-        assertEquals("{\"null\":3}", new ToStringBuilder(base)
-                .append(i3).toString());
-        
-        assertEquals("{\"a\":null}", new ToStringBuilder(base)
-                .append("a", (Object) null).toString());
-        
-        assertEquals("{\"a\":3}", new ToStringBuilder(base)
-                .append("a", i3).toString());
-        
-        assertEquals("{\"a\":3,\"b\":4}", new ToStringBuilder(base)
-                .append("a", i3).append("b", i4).toString());
-        
-        assertEquals("{\"a\":Integer}",
+
+        assertEquals("{\"null\":null}",
+                new ToStringBuilder(base).append((Object) null).toString());
+
+        assertEquals("{\"null\":3}", new ToStringBuilder(base).append(i3)
+                .toString());
+
+        assertEquals("{\"a\":null}",
+                new ToStringBuilder(base).append("a", (Object) null).toString());
+
+        assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", i3)
+                .toString());
+
+        assertEquals("{\"a\":3,\"b\":4}",
+                new ToStringBuilder(base).append("a", i3).append("b", i4)
+                        .toString());
+
+        assertEquals("{\"a\":\"<Integer>\"}",
                 new ToStringBuilder(base).append("a", i3, false).toString());
-        
-        assertEquals("{\"a\":}",
+
+        assertEquals(
+                "{\"a\":\"<size=0>\"}",
                 new ToStringBuilder(base).append("a", new ArrayList<Object>(),
                         false).toString());
-        
-//        assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  a=[]"
-//                + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base)
-//                .append("a", new ArrayList<Object>(), true).toString());
-//        assertEquals(
-//                baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  a=<size=0>"
-//                        + SystemUtils.LINE_SEPARATOR + "]",
-//                new ToStringBuilder(base).append("a",
-//                        new HashMap<Object, Object>(), false).toString());
-//        assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  a={}"
-//                + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base)
-//                .append("a", new HashMap<Object, Object>(), true).toString());
-//        assertEquals(
-//                baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  a=<size=0>"
-//                        + SystemUtils.LINE_SEPARATOR + "]",
-//                new ToStringBuilder(base).append("a", (Object) new String[0],
-//                        false).toString());
-//        assertEquals(baseStr + "[" + SystemUtils.LINE_SEPARATOR + "  a={}"
-//                + SystemUtils.LINE_SEPARATOR + "]", new ToStringBuilder(base)
-//                .append("a", (Object) new String[0], true).toString());
+
+        assertEquals(
+                "{\"a\":[]}",
+                new ToStringBuilder(base).append("a", new ArrayList<Object>(),
+                        true).toString());
+
+        assertEquals(
+                "{\"a\":\"<size=0>\"}",
+                new ToStringBuilder(base).append("a",
+                        new HashMap<Object, Object>(), false).toString());
+
+        assertEquals(
+                "{\"a\":{}}",
+                new ToStringBuilder(base).append("a",
+                        new HashMap<Object, Object>(), true).toString());
+
+        assertEquals(
+                "{\"a\":\"<size=0>\"}",
+                new ToStringBuilder(base).append("a", (Object) new String[0],
+                        false).toString());
+
+        assertEquals(
+                "{\"a\":[]}",
+                new ToStringBuilder(base).append("a", (Object) new String[0],
+                        true).toString());
+
+        assertEquals(
+                "{\"a\":\"<size=3>\"}",
+                new ToStringBuilder(base).append("a",
+                        (Object) new int[] { 1, 2, 3 }, false).toString());
+
+        assertEquals(
+                "{\"a\":[1,2,3]}",
+                new ToStringBuilder(base).append("a",
+                        (Object) new int[] { 1, 2, 3 }, true).toString());
+
+        assertEquals(
+                "{\"a\":\"<size=4>\"}",
+                new ToStringBuilder(base).append("a",
+                        (Object) new String[] { "v", "x", "y", "z" }, false)
+                        .toString());
+
+        assertEquals(
+                "{\"a\":[\"v\",\"x\",\"y\",\"z\"]}",
+                new ToStringBuilder(base).append("a",
+                        (Object) new String[] { "v", "x", "y", "z" }, true)
+                        .toString());
     }
 
     @Test
     public void testPerson() {
-        
+
         final Person p = new Person();
-        
+
         p.name = "Jane Doe";
         p.age = 25;
         p.smoker = true;
-        
+
         assertEquals(
                 "{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true}",
                 new ToStringBuilder(p).append("name", p.name)
@@ -165,73 +190,74 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testLong() {
-        
-        assertEquals("{\"null\":3}", new ToStringBuilder(base)
-                .append(3L).toString());
-        
-        assertEquals("{\"a\":3}", new ToStringBuilder(base)
-                .append("a", 3L).toString());
-        
-        assertEquals("{\"a\":3,\"b\":4}", new ToStringBuilder(base)
-                .append("a", 3L).append("b", 4L).toString());
+
+        assertEquals("{\"null\":3}", new ToStringBuilder(base).append(3L)
+                .toString());
+
+        assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", 3L)
+                .toString());
+
+        assertEquals("{\"a\":3,\"b\":4}",
+                new ToStringBuilder(base).append("a", 3L).append("b", 4L)
+                        .toString());
     }
 
     @Test
     public void testObjectArray() {
-        
+
         Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
-        
-        assertEquals("{\"null\":[null,5,[3,6]]}",
-                new ToStringBuilder(base).append(array).toString());
-        
-        assertEquals("{\"null\":[null,5,[3,6]]}",
-                new ToStringBuilder(base).append((Object) array).toString());
-        
+
+        assertEquals("{\"null\":[null,5,[3,6]]}", new ToStringBuilder(base)
+                .append(array).toString());
+
+        assertEquals("{\"null\":[null,5,[3,6]]}", new ToStringBuilder(base)
+                .append((Object) array).toString());
+
         array = null;
-        
-        assertEquals("{\"null\":null}", 
-                new ToStringBuilder(base).append(array).toString());
-        
-        assertEquals("{\"null\":null}", 
+
+        assertEquals("{\"null\":null}", new ToStringBuilder(base).append(array)
+                .toString());
+
+        assertEquals("{\"null\":null}",
                 new ToStringBuilder(base).append((Object) array).toString());
     }
 
     @Test
     public void testLongArray() {
-        
+
         long[] array = new long[] { 1, 2, -3, 4 };
-        
+
         assertEquals("{\"null\":[1,2,-3,4]}",
                 new ToStringBuilder(base).append(array).toString());
-        
+
         assertEquals("{\"null\":[1,2,-3,4]}",
                 new ToStringBuilder(base).append((Object) array).toString());
-        
+
         array = null;
-        
-        assertEquals("{\"null\":null}", 
-                new ToStringBuilder(base).append(array).toString());
-        
-        assertEquals("{\"null\":null}", 
+
+        assertEquals("{\"null\":null}", new ToStringBuilder(base).append(array)
+                .toString());
+
+        assertEquals("{\"null\":null}",
                 new ToStringBuilder(base).append((Object) array).toString());
     }
 
     @Test
     public void testLongArrayArray() {
-        
+
         long[][] array = new long[][] { { 1, 2 }, null, { 5 } };
-        
-        assertEquals("{\"null\":[[1,2],null,[5]]}",
-                new ToStringBuilder(base).append(array).toString());
-        
-        assertEquals("{\"null\":[[1,2],null,[5]]}",
-                new ToStringBuilder(base).append((Object) array).toString());
-        
+
+        assertEquals("{\"null\":[[1,2],null,[5]]}", new ToStringBuilder(base)
+                .append(array).toString());
+
+        assertEquals("{\"null\":[[1,2],null,[5]]}", new ToStringBuilder(base)
+                .append((Object) array).toString());
+
         array = null;
-        
-        assertEquals("{\"null\":null}",
-                new ToStringBuilder(base).append(array).toString());
-        
+
+        assertEquals("{\"null\":null}", new ToStringBuilder(base).append(array)
+                .toString());
+
         assertEquals("{\"null\":null}",
                 new ToStringBuilder(base).append((Object) array).toString());
     }
