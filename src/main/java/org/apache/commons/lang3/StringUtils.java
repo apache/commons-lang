@@ -7718,7 +7718,7 @@ public class StringUtils {
     /**
      * <p>
      * Wraps a string with a char.
-     * <p>
+     * </p>
      * 
      * <pre>
      * StringUtils.wrap(null, *)        = null
@@ -7748,7 +7748,7 @@ public class StringUtils {
     /**
      * <p>
      * Wraps a String with another String.
-     * <p>
+     * </p>
      * 
      * <p>
      * A {@code null} input String returns {@code null}.
