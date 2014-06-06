@@ -1046,6 +1046,30 @@ public class ValidateTest  {
     }
     
     @Test
+    public void testIsInstanceOf_withMessageArgs() {
+        Validate.isInstanceOf(String.class, "hi", "Error %s=%s", "Name", "Value");
+        Validate.isInstanceOf(Integer.class, 1, "Error %s=%s", "Name", "Value");
+        try {
+            Validate.isInstanceOf(List.class, "hi", "Error %s=%s", "Name", "Value");
+            fail("Expecting IllegalArgumentException");
+        } catch(final IllegalArgumentException e) {
+            assertEquals("Error Name=Value", e.getMessage());
+        }
+        try {
+            Validate.isInstanceOf(List.class, "hi", "Error %s=%s", List.class, "Value");
+            fail("Expecting IllegalArgumentException");
+        } catch(final IllegalArgumentException e) {
+            assertEquals("Error interface java.util.List=Value", e.getMessage());
+        }
+        try {
+            Validate.isInstanceOf(List.class, "hi", "Error %s=%s", List.class, null);
+            fail("Expecting IllegalArgumentException");
+        } catch(final IllegalArgumentException e) {
+            assertEquals("Error interface java.util.List=null", e.getMessage());
+        }
+    }
+    
+    @Test
     public void testIsAssignable() {
         Validate.isAssignableFrom(CharSequence.class, String.class);
         Validate.isAssignableFrom(AbstractList.class, ArrayList.class);
