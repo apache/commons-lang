@@ -400,64 +400,25 @@ public class Conversion {
         if (src[srcPos + 3]) {
             if (src[srcPos + 2]) {
                 if (src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'f';
-                    } else {
-                        return '7';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return 'b';
-                    } else {
-                        return '3';
-                    }
+                    return src[srcPos] ? 'f' : '7';
                 }
-            } else {
-                if (src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'd';
-                    } else {
-                        return '5';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return '9';
-                    } else {
-                        return '1';
-                    }
-                }
+                return src[srcPos] ? 'b' : '3';
             }
-        } else {
-            if (src[srcPos + 2]) {
-                if (src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'e';
-                    } else {
-                        return '6';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return 'a';
-                    } else {
-                        return '2';
-                    }
-                }
-            } else {
-                if (src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'c';
-                    } else {
-                        return '4';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return '8';
-                    } else {
-                        return '0';
-                    }
-                }
+            if (src[srcPos + 1]) {
+                return src[srcPos] ? 'd' : '5';
             }
+            return src[srcPos] ? '9' : '1';
         }
+        if (src[srcPos + 2]) {
+            if (src[srcPos + 1]) {
+                return src[srcPos] ? 'e' : '6';
+            }
+            return src[srcPos] ? 'a' : '2';
+        }
+        if (src[srcPos + 1]) {
+            return src[srcPos] ? 'c' : '4';
+        }
+        return src[srcPos] ? '8' : '0';
     }
 
     /**
