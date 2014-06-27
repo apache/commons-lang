@@ -334,11 +334,10 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             pos = str.indexOf('/');
             if (pos < 0) {
                 throw new NumberFormatException("The fraction could not be parsed as the format X Y/Z");
-            } else {
-                final int numer = Integer.parseInt(str.substring(0, pos));
-                final int denom = Integer.parseInt(str.substring(pos + 1));
-                return getFraction(whole, numer, denom);
             }
+            final int numer = Integer.parseInt(str.substring(0, pos));
+            final int denom = Integer.parseInt(str.substring(pos + 1));
+            return getFraction(whole, numer, denom);
         }
 
         // parse Y/Z format
@@ -346,11 +345,10 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (pos < 0) {
             // simple whole number
             return getFraction(Integer.parseInt(str), 1);
-        } else {
-            final int numer = Integer.parseInt(str.substring(0, pos));
-            final int denom = Integer.parseInt(str.substring(pos + 1));
-            return getFraction(numer, denom);
         }
+        final int numer = Integer.parseInt(str.substring(0, pos));
+        final int denom = Integer.parseInt(str.substring(pos + 1));
+        return getFraction(numer, denom);
     }
 
     // Accessors
@@ -495,9 +493,8 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         }
         if (numerator<0) {
             return new Fraction(-denominator, -numerator);
-        } else {
-            return new Fraction(denominator, numerator);
         }
+        return new Fraction(denominator, numerator);
     }
 
     /**
@@ -557,9 +554,8 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             final Fraction f = this.multiplyBy(this);
             if (power % 2 == 0) { // if even...
                 return f.pow(power/2);
-            } else { // if odd...
-                return f.pow(power/2).multiplyBy(this);
             }
+            return f.pow(power/2).multiplyBy(this);
         }
     }
 
