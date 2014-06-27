@@ -324,49 +324,25 @@ public class Conversion {
         if (src.length > srcPos + 3 && src[srcPos + 3]) {
             if (src.length > srcPos + 2 && src[srcPos + 2]) {
                 if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'f';
-                    }
-                    return 'e';
+                    return src[srcPos] ? 'f' : 'e';
                 }
-                if (src[srcPos]) {
-                    return 'd';
-                }
-                return 'c';
+                return src[srcPos] ? 'd' : 'c';
             }
             if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                if (src[srcPos]) {
-                    return 'b';
-                }
-                return 'a';
+                return src[srcPos] ? 'b' : 'a';
             }
-            if (src[srcPos]) {
-                return '9';
-            }
-            return '8';
+            return src[srcPos] ? '9' : '8';
         }
         if (src.length > srcPos + 2 && src[srcPos + 2]) {
             if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                if (src[srcPos]) {
-                    return '7';
-                }
-                return '6';
+                return src[srcPos] ? '7' : '6';
             }
-            if (src[srcPos]) {
-                return '5';
-            }
-            return '4';
+            return src[srcPos] ? '5' : '4';
         }
         if (src.length > srcPos + 1 && src[srcPos + 1]) {
-            if (src[srcPos]) {
-                return '3';
-            }
-            return '2';
+            return src[srcPos] ? '3' : '2';
         }
-        if (src[srcPos]) {
-            return '1';
-        }
-        return '0';
+        return src[srcPos] ? '1' : '0';
     }
 
     /**
