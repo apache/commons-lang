@@ -34,7 +34,7 @@ public class DiffTest {
     private static class BooleanDiff extends Diff<Boolean> {        
         private static final long serialVersionUID = 1L;
 
-        protected BooleanDiff(String fieldName) {
+        protected BooleanDiff(final String fieldName) {
             super(fieldName);        
         }
 

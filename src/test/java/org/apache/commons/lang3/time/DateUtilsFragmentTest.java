@@ -533,7 +533,7 @@ testResult);
 
     @Test
     public void testMinutesOfYearWithWrongOffsetBugWithCalendar() {
-        Calendar c = Calendar.getInstance();
+        final Calendar c = Calendar.getInstance();
         c.set(Calendar.MONTH, Calendar.JANUARY);
         c.set(Calendar.DAY_OF_YEAR, 1);
         c.set(Calendar.HOUR_OF_DAY, 0);

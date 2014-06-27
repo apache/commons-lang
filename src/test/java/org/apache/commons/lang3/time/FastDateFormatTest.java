@@ -255,7 +255,7 @@ public class FastDateFormatTest {
      */
     @Test
     public void testLang954() throws Exception {
-        String pattern = "yyyy-MM-dd'T'";
+        final String pattern = "yyyy-MM-dd'T'";
         FastDateFormat.getInstance(pattern);
     }
 

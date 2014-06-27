@@ -188,8 +188,8 @@ public class FastDateParserTest {
         assertEquals(cal.getTime(), H.parse("2010-08-01 12:33:20"));
     }
 
-    private Calendar getEraStart(int year, TimeZone zone, Locale locale) {
-        Calendar cal = Calendar.getInstance(zone, locale);
+    private Calendar getEraStart(int year, final TimeZone zone, final Locale locale) {
+        final Calendar cal = Calendar.getInstance(zone, locale);
         cal.clear();
 
         // http://docs.oracle.com/javase/6/docs/technotes/guides/intl/calendar.doc.html
@@ -209,7 +209,7 @@ public class FastDateParserTest {
         return cal;
     }
 
-    private void validateSdfFormatFdpParseEquality(String format, Locale locale, TimeZone tz, DateParser fdp, Date in, int year, Date cs) throws ParseException {
+    private void validateSdfFormatFdpParseEquality(final String format, final Locale locale, final TimeZone tz, final DateParser fdp, final Date in, final int year, final Date cs) throws ParseException {
         final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
         if (format.equals(SHORT_FORMAT)) {
             sdf.set2DigitYearStart( cs );
@@ -232,12 +232,12 @@ public class FastDateParserTest {
             for(final Locale locale : Locale.getAvailableLocales()) {
                 for(final TimeZone tz :  new TimeZone[]{NEW_YORK, REYKJAVIK, GMT}) {
                      for(final int year : new int[]{2003, 1940, 1868, 1867, 1, -1, -1940}) {
-                        Calendar cal= getEraStart(year, tz, locale);
-                        Date centuryStart= cal.getTime();
+                        final Calendar cal= getEraStart(year, tz, locale);
+                        final Date centuryStart= cal.getTime();
 
                         cal.set(Calendar.MONTH, 1);
                         cal.set(Calendar.DAY_OF_MONTH, 10);
-                        Date in= cal.getTime();
+                        final Date in= cal.getTime();
 
                         final FastDateParser fdp= new FastDateParser(format, tz, locale, centuryStart);
                         validateSdfFormatFdpParseEquality(format, locale, tz, fdp, in, year, centuryStart);
@@ -544,7 +544,7 @@ public class FastDateParserTest {
     
     @Test
     public void testLang996() throws ParseException {
-        Calendar expected = Calendar.getInstance(NEW_YORK, Locale.US);
+        final Calendar expected = Calendar.getInstance(NEW_YORK, Locale.US);
         expected.clear();
         expected.set(2014, 4, 14);
 

@@ -193,7 +193,7 @@ public class FieldUtils {
      *             if the class is {@code null}
      * @since 3.2
      */
-    public static Field[] getAllFields(Class<?> cls) {
+    public static Field[] getAllFields(final Class<?> cls) {
         final List<Field> allFieldsList = getAllFieldsList(cls);
         return allFieldsList.toArray(new Field[allFieldsList.size()]);
     }
@@ -208,13 +208,13 @@ public class FieldUtils {
      *             if the class is {@code null}
      * @since 3.2
      */
-    public static List<Field> getAllFieldsList(Class<?> cls) {
+    public static List<Field> getAllFieldsList(final Class<?> cls) {
         Validate.isTrue(cls != null, "The class must not be null");
         final List<Field> allFields = new ArrayList<Field>();
         Class<?> currentClass = cls;
         while (currentClass != null) {
             final Field[] declaredFields = currentClass.getDeclaredFields();
-            for (Field field : declaredFields) {
+            for (final Field field : declaredFields) {
                 allFields.add(field);
             }
             currentClass = currentClass.getSuperclass();
@@ -658,7 +658,7 @@ public class FieldUtils {
      *             if the field is {@code null}
      * @since 3.2
      */
-    public static void removeFinalModifier(Field field) {
+    public static void removeFinalModifier(final Field field) {
         removeFinalModifier(field, true);
     }
 
@@ -675,13 +675,13 @@ public class FieldUtils {
      *             if the field is {@code null}
      * @since 3.3
      */
-    public static void removeFinalModifier(Field field, boolean forceAccess) {
+    public static void removeFinalModifier(final Field field, final boolean forceAccess) {
         Validate.isTrue(field != null, "The field must not be null");
 
         try {
             if (Modifier.isFinal(field.getModifiers())) {
                 // Do all JREs implement Field with a private ivar called "modifiers"?
-                Field modifiersField = Field.class.getDeclaredField("modifiers");
+                final Field modifiersField = Field.class.getDeclaredField("modifiers");
                 final boolean doForceAccess = forceAccess && !modifiersField.isAccessible();
                 if (doForceAccess) {
                     modifiersField.setAccessible(true);
@@ -694,9 +694,9 @@ public class FieldUtils {
                     }
                 }
             }
-        } catch (NoSuchFieldException ignored) {
+        } catch (final NoSuchFieldException ignored) {
             // The field class contains always a modifiers field
-        } catch (IllegalAccessException ignored) {
+        } catch (final IllegalAccessException ignored) {
             // The modifiers field is made accessible
         }
     }

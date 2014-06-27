@@ -22,7 +22,7 @@ package org.apache.commons.lang3.reflect.testbed;
  */
 public class StringParameterizedChild extends GenericParent<String> {
     @Override
-    public void consume(String t) {
+    public void consume(final String t) {
         super.consume(t);
     }
 }

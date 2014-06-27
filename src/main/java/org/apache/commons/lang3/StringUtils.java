@@ -255,11 +255,11 @@ public class StringUtils {
      * @return {@code true} if any of the CharSequences are empty or null
      * @since 3.2
      */
-    public static boolean isAnyEmpty(CharSequence... css) {
+    public static boolean isAnyEmpty(final CharSequence... css) {
       if (ArrayUtils.isEmpty(css)) {
         return true;
       }
-      for (CharSequence cs : css){
+      for (final CharSequence cs : css){
         if (isEmpty(cs)) {
           return true;
         }
@@ -284,7 +284,7 @@ public class StringUtils {
      * @return {@code true} if none of the CharSequences are empty or null
      * @since 3.2
      */
-    public static boolean isNoneEmpty(CharSequence... css) {
+    public static boolean isNoneEmpty(final CharSequence... css) {
       return !isAnyEmpty(css);
     }    
     /**
@@ -355,11 +355,11 @@ public class StringUtils {
      * @return {@code true} if any of the CharSequences are blank or null or whitespace only
      * @since 3.2
      */
-    public static boolean isAnyBlank(CharSequence... css) {
+    public static boolean isAnyBlank(final CharSequence... css) {
       if (ArrayUtils.isEmpty(css)) {
         return true;
       }
-      for (CharSequence cs : css){
+      for (final CharSequence cs : css){
         if (isBlank(cs)) {
           return true;
         }
@@ -385,7 +385,7 @@ public class StringUtils {
      * @return {@code true} if none of the CharSequences are blank or null or whitespace only
      * @since 3.2
      */
-    public static boolean isNoneBlank(CharSequence... css) {
+    public static boolean isNoneBlank(final CharSequence... css) {
       return !isAnyBlank(css);
     }
 
@@ -4041,6 +4041,7 @@ public class StringUtils {
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
             @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
+            final
             String result = ObjectUtils.toString(first);
             return result;
         }
@@ -5689,7 +5690,7 @@ public class StringUtils {
             return str;
         }
 
-        char firstChar = str.charAt(0);
+        final char firstChar = str.charAt(0);
         if (Character.isTitleCase(firstChar)) {
             // already capitalized
             return str;
@@ -5727,7 +5728,7 @@ public class StringUtils {
             return str;
         }
 
-        char firstChar = str.charAt(0);
+        final char firstChar = str.charAt(0);
         if (Character.isLowerCase(firstChar)) {
             // already uncapitalized
             return str;
@@ -7126,11 +7127,11 @@ public class StringUtils {
         int previousMatchingCharacterIndex = Integer.MIN_VALUE;
 
         for (int queryIndex = 0; queryIndex < queryLowerCase.length(); queryIndex++) {
-            char queryChar = queryLowerCase.charAt(queryIndex);
+            final char queryChar = queryLowerCase.charAt(queryIndex);
 
             boolean termCharacterMatchFound = false;
             for (; termIndex < termLowerCase.length() && !termCharacterMatchFound; termIndex++) {
-                char termChar = termLowerCase.charAt(termIndex);
+                final char termChar = termLowerCase.charAt(termIndex);
 
                 if (queryChar == termChar) {
                     // simple character matches result in one point
@@ -7191,7 +7192,7 @@ public class StringUtils {
      * @param second The second string.
      * @return The number of transposition between the two strings.
      */
-    private static int transpositions(CharSequence first, CharSequence second) {
+    private static int transpositions(final CharSequence first, final CharSequence second) {
         int transpositions = 0;
         for (int i = 0; i < first.length(); i++) {
             if (first.charAt(i) != second.charAt(i)) {
@@ -7208,7 +7209,7 @@ public class StringUtils {
      * @param second The second string.
      * @return A number between 0 and 4.
      */
-    private static int commonPrefixLength(CharSequence first, CharSequence second) {
+    private static int commonPrefixLength(final CharSequence first, final CharSequence second) {
         final int result = getCommonPrefix(first.toString(), second.toString()).length();
 
         // Limit the result to 4.
@@ -7714,7 +7715,7 @@ public class StringUtils {
      * @since 3.2
      * @since 3.3 No longer throws {@link UnsupportedEncodingException}.
      */
-    public static String toEncodedString(byte[] bytes, Charset charset) {
+    public static String toEncodedString(final byte[] bytes, final Charset charset) {
         return new String(bytes, charset != null ? charset : Charset.defaultCharset());
     }
 
@@ -7739,7 +7740,7 @@ public class StringUtils {
      * @return the wrapped string, or {@code null} if {@code str==null}
      * @since 3.4
      */
-    public static String wrap(String str, char wrapWith) {
+    public static String wrap(final String str, final char wrapWith) {
 
         if (isEmpty(str) || wrapWith == '\0') {
             return str;
@@ -7777,7 +7778,7 @@ public class StringUtils {
      * @return wrapped String, {@code null} if null String input
      * @since 3.4
      */
-    public static String wrap(String str, String wrapWith) {
+    public static String wrap(final String str, final String wrapWith) {
 
         if (isEmpty(str) || isEmpty(wrapWith)) {
             return str;

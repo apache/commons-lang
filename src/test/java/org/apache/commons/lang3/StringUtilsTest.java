@@ -55,7 +55,7 @@ public class StringUtilsTest {
     static {
         String ws = "";
         String nws = "";
-        String hs = String.valueOf(((char) 160));
+        final String hs = String.valueOf(((char) 160));
         String tr = "";
         String ntr = "";
         for (int i = 0; i < Character.MAX_VALUE; i++) {

@@ -239,7 +239,7 @@ public class ObjectUtils {
         int hash = 1;
         if (objects != null) {
             for (final Object object : objects) {
-                int tmpHash = ObjectUtils.hashCode(object);
+                final int tmpHash = ObjectUtils.hashCode(object);
                 hash = hash * 31 + tmpHash;
             }
         }

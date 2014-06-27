@@ -127,7 +127,7 @@ public class ClassUtils {
         m.put("char", "C");
         m.put("void", "V");
         final Map<String, String> r = new HashMap<String, String>();
-        for (Map.Entry<String, String> e : m.entrySet()) {
+        for (final Map.Entry<String, String> e : m.entrySet()) {
             r.put(e.getValue(), e.getKey());
         }
         abbreviationMap = Collections.unmodifiableMap(m);
@@ -1158,7 +1158,7 @@ public class ClassUtils {
      * @return Iterable an Iterable over the class hierarchy of the given class
      * @since 3.2
      */
-    public static Iterable<Class<?>> hierarchy(final Class<?> type, Interfaces interfacesBehavior) {
+    public static Iterable<Class<?>> hierarchy(final Class<?> type, final Interfaces interfacesBehavior) {
         final Iterable<Class<?>> classes = new Iterable<Class<?>>() {
     
             @Override
@@ -1219,8 +1219,8 @@ public class ClassUtils {
                         return nextSuperclass;
                     }
     
-                    private void walkInterfaces(Set<Class<?>> addTo, Class<?> c) {
-                        for (Class<?> iface : c.getInterfaces()) {
+                    private void walkInterfaces(final Set<Class<?>> addTo, final Class<?> c) {
+                        for (final Class<?> iface : c.getInterfaces()) {
                             if (!seenInterfaces.contains(iface)) {
                                 addTo.add(iface);
                             }

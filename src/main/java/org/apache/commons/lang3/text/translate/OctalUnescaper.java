@@ -37,12 +37,12 @@ public class OctalUnescaper extends CharSequenceTranslator {
      */
     @Override
     public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
-        int remaining = input.length() - index - 1; // how many characters left, ignoring the first \
-        StringBuilder builder = new StringBuilder();
+        final int remaining = input.length() - index - 1; // how many characters left, ignoring the first \
+        final StringBuilder builder = new StringBuilder();
         if(input.charAt(index) == '\\' && remaining > 0 && isOctalDigit(input.charAt(index + 1)) ) {
-            int next = index + 1;
-            int next2 = index + 2;
-            int next3 = index + 3;
+            final int next = index + 1;
+            final int next2 = index + 2;
+            final int next3 = index + 3;
 
             // we know this is good as we checked it in the if block above
             builder.append(input.charAt(next));
@@ -65,7 +65,7 @@ public class OctalUnescaper extends CharSequenceTranslator {
      * @param ch the char to check
      * @return true if the given char is the character representation of one of the digits from 0 to 7
      */
-    private boolean isOctalDigit(char ch) {
+    private boolean isOctalDigit(final char ch) {
         return ch >= '0' && ch <= '7';
     }
 
@@ -74,7 +74,7 @@ public class OctalUnescaper extends CharSequenceTranslator {
      * @param ch the char to check
      * @return true if the given char is the character representation of one of the digits from 0 to 3
      */
-    private boolean isZeroToThree(char ch) {
+    private boolean isZeroToThree(final char ch) {
         return ch >= '0' && ch <= '3';
     }
 }

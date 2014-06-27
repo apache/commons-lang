@@ -145,7 +145,7 @@ public class FastDateParser implements DateParser, Serializable {
      *
      * @param definingCalendar the {@link java.util.Calendar} instance used to initialize this FastDateParser
      */
-    private void init(Calendar definingCalendar) {
+    private void init(final Calendar definingCalendar) {
 
         final StringBuilder regex= new StringBuilder();
         final List<Strategy> collector = new ArrayList<Strategy>();
@@ -398,7 +398,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @return A value between centuryStart(inclusive) to centuryStart+100(exclusive)
      */
     private int adjustYear(final int twoDigitYear) {
-        int trial= century + twoDigitYear;
+        final int trial= century + twoDigitYear;
         return twoDigitYear>=startYear ?trial :trial+100;
     }
 
@@ -606,10 +606,10 @@ public class FastDateParser implements DateParser, Serializable {
         CaseInsensitiveTextStrategy(final int field, final Calendar definingCalendar, final Locale locale) {
             this.field= field;
             this.locale= locale;
-            Map<String, Integer> keyValues = getDisplayNames(field, definingCalendar, locale);
+            final Map<String, Integer> keyValues = getDisplayNames(field, definingCalendar, locale);
             this.lKeyValues= new HashMap<String,Integer>();
 
-            for(Map.Entry<String, Integer> entry : keyValues.entrySet()) {
+            for(final Map.Entry<String, Integer> entry : keyValues.entrySet()) {
                 lKeyValues.put(entry.getKey().toLowerCase(locale), entry.getValue());
             }
         }
@@ -751,7 +751,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         TimeZoneStrategy(final Locale locale) {
             final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
-            for (String[] zone : zones) {
+            for (final String[] zone : zones) {
                 if (zone[ID].startsWith("GMT")) {
                     continue;
                 }

@@ -392,7 +392,7 @@ public class MethodUtilsTest {
                 new MethodDescriptor(GenericParent.class, "consume", GenericParent.class.getTypeParameters()[0]),
                 new MethodDescriptor(GenericConsumer.class, "consume", GenericConsumer.class.getTypeParameters()[0]))
                 .iterator();
-        for (Method m : MethodUtils.getOverrideHierarchy(method, Interfaces.INCLUDE)) {
+        for (final Method m : MethodUtils.getOverrideHierarchy(method, Interfaces.INCLUDE)) {
             assertTrue(expected.hasNext());
             final MethodDescriptor md = expected.next();
             assertEquals(md.declaringClass, m.getDeclaringClass());
@@ -412,7 +412,7 @@ public class MethodUtilsTest {
             Arrays.asList(new MethodDescriptor(StringParameterizedChild.class, "consume", String.class),
                 new MethodDescriptor(GenericParent.class, "consume", GenericParent.class.getTypeParameters()[0]))
                 .iterator();
-        for (Method m : MethodUtils.getOverrideHierarchy(method, Interfaces.EXCLUDE)) {
+        for (final Method m : MethodUtils.getOverrideHierarchy(method, Interfaces.EXCLUDE)) {
             assertTrue(expected.hasNext());
             final MethodDescriptor md = expected.next();
             assertEquals(md.declaringClass, m.getDeclaringClass());
@@ -466,7 +466,7 @@ public class MethodUtilsTest {
         final String name;
         final Type[] parameterTypes;
 
-        MethodDescriptor(Class<?> declaringClass, String name, Type... parameterTypes) {
+        MethodDescriptor(final Class<?> declaringClass, final String name, final Type... parameterTypes) {
             this.declaringClass = declaringClass;
             this.name = name;
             this.parameterTypes = parameterTypes;

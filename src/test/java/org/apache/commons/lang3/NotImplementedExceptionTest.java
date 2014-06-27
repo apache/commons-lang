@@ -29,9 +29,9 @@ public class NotImplementedExceptionTest {
 
     @Test
     public void testConstructors() {
-        Throwable nested = new RuntimeException();
-        String message = "Not Implemented";
-        String code = "CODE";
+        final Throwable nested = new RuntimeException();
+        final String message = "Not Implemented";
+        final String code = "CODE";
 
         NotImplementedException nie = new NotImplementedException(message);
         assertCorrect("Issue in (String)", nie, message, null, null);
@@ -47,7 +47,7 @@ public class NotImplementedExceptionTest {
         assertCorrect("Issue in (String, Throwable, String)", nie, message, nested, code);
     }
 
-    private void assertCorrect(String assertMessage, NotImplementedException nie, String message, Throwable nested, String code) {
+    private void assertCorrect(final String assertMessage, final NotImplementedException nie, final String message, final Throwable nested, final String code) {
         assertNotNull(assertMessage + ": target is null", nie);
         assertEquals(assertMessage + ": Message not equal", message, nie.getMessage());
         assertEquals(assertMessage + ": Nested throwable not equal", nested, nie.getCause());

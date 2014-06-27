@@ -424,7 +424,7 @@ public class DurationFormatUtils {
      * @return the formatted string
      */
     static String format(final Token[] tokens, final long years, final long months, final long days, final long hours, final long minutes, final long seconds,
-            long milliseconds, final boolean padWithZeros) {
+            final long milliseconds, final boolean padWithZeros) {
         final StringBuilder buffer = new StringBuilder();
         boolean lastOutputSeconds = false;
         for (final Token token : tokens) {
@@ -454,7 +454,7 @@ public class DurationFormatUtils {
                 } else if (value == S) {
                     if (lastOutputSeconds) {
                         // ensure at least 3 digits are displayed even if padding is not selected
-                        int width = padWithZeros ? Math.max(3, count) : 3;
+                        final int width = padWithZeros ? Math.max(3, count) : 3;
                         buffer.append(paddedValue(milliseconds, true, width));
                     } else {
                         buffer.append(paddedValue(milliseconds, padWithZeros, count));
@@ -581,7 +581,7 @@ public class DurationFormatUtils {
          * @return boolean <code>true</code> if contained
          */
         static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
-            for (Token token : tokens) {
+            for (final Token token : tokens) {
                 if (token.getValue() == value) {
                     return true;
                 }
