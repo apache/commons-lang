@@ -328,9 +328,8 @@ public class SerializationUtils {
                     final Class<?> cls = primitiveTypes.get(name);
                     if (cls != null) {
                         return cls;
-                    } else {
-                        throw cnfe;
                     }
+                    throw cnfe;
                 }
             }
         }
