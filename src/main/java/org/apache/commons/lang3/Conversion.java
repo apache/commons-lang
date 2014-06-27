@@ -65,6 +65,24 @@ import java.util.UUID;
  */
 
 public class Conversion {
+    
+    private static final boolean[] TTTT = new boolean[] { true, true, true, true };
+    private static final boolean[] FTTT = new boolean[] { false, true, true, true };
+    private static final boolean[] TFTT = new boolean[] { true, false, true, true };
+    private static final boolean[] FFTT = new boolean[] { false, false, true, true };
+    private static final boolean[] TTFT = new boolean[] { true, true, false, true };
+    private static final boolean[] FTFT = new boolean[] { false, true, false, true };
+    private static final boolean[] TFFT = new boolean[] { true, false, false, true };
+    private static final boolean[] FFFT = new boolean[] { false, false, false, true };
+    private static final boolean[] TTTF = new boolean[] { true, true, true, false };
+    private static final boolean[] FTTF = new boolean[] { false, true, true, false };
+    private static final boolean[] TFTF = new boolean[] { true, false, true, false };
+    private static final boolean[] FFTF = new boolean[] { false, false, true, false };
+    private static final boolean[] TTFF = new boolean[] { true, true, false, false };
+    private static final boolean[] FTFF = new boolean[] { false, true, false, false };
+    private static final boolean[] TFFF = new boolean[] { true, false, false, false };
+    private static final boolean[] FFFF = new boolean[] { false, false, false, false };
+
     /**
      * <p>
      * Converts a hexadecimal digit into an int using the default (Lsb0) bit ordering.
@@ -162,43 +180,43 @@ public class Conversion {
     public static boolean[] hexDigitToBinary(final char hexDigit) {
         switch (hexDigit) {
         case '0':
-            return new boolean[]{false, false, false, false};
+            return FFFF;
         case '1':
-            return new boolean[]{true, false, false, false};
+            return TFFF;
         case '2':
-            return new boolean[]{false, true, false, false};
+            return FTFF;
         case '3':
-            return new boolean[]{true, true, false, false};
+            return TTFF;
         case '4':
-            return new boolean[]{false, false, true, false};
+            return FFTF;
         case '5':
-            return new boolean[]{true, false, true, false};
+            return TFTF;
         case '6':
-            return new boolean[]{false, true, true, false};
+            return FTTF;
         case '7':
-            return new boolean[]{true, true, true, false};
+            return TTTF;
         case '8':
-            return new boolean[]{false, false, false, true};
+            return FFFT;
         case '9':
-            return new boolean[]{true, false, false, true};
+            return TFFT;
         case 'a':// fall through
         case 'A':
-            return new boolean[]{false, true, false, true};
+            return FTFT;
         case 'b':// fall through
         case 'B':
-            return new boolean[]{true, true, false, true};
+            return TTFT;
         case 'c':// fall through
         case 'C':
-            return new boolean[]{false, false, true, true};
+            return FFTT;
         case 'd':// fall through
         case 'D':
-            return new boolean[]{true, false, true, true};
+            return TFTT;
         case 'e':// fall through
         case 'E':
-            return new boolean[]{false, true, true, true};
+            return FTTT;
         case 'f':// fall through
         case 'F':
-            return new boolean[]{true, true, true, true};
+            return TTTT;
         default:
             throw new IllegalArgumentException("Cannot interpret '"
                 + hexDigit
@@ -222,43 +240,43 @@ public class Conversion {
     public static boolean[] hexDigitMsb0ToBinary(final char hexDigit) {
         switch (hexDigit) {
         case '0':
-            return new boolean[]{false, false, false, false};
+            return FFFF;
         case '1':
-            return new boolean[]{false, false, false, true};
+            return FFFT;
         case '2':
-            return new boolean[]{false, false, true, false};
+            return FFTF;
         case '3':
-            return new boolean[]{false, false, true, true};
+            return FFTT;
         case '4':
-            return new boolean[]{false, true, false, false};
+            return FTFF;
         case '5':
-            return new boolean[]{false, true, false, true};
+            return FTFT;
         case '6':
-            return new boolean[]{false, true, true, false};
+            return FTTF;
         case '7':
-            return new boolean[]{false, true, true, true};
+            return FTTT;
         case '8':
-            return new boolean[]{true, false, false, false};
+            return TFFF;
         case '9':
-            return new boolean[]{true, false, false, true};
+            return TFFT;
         case 'a':// fall through
         case 'A':
-            return new boolean[]{true, false, true, false};
+            return TFTF;
         case 'b':// fall through
         case 'B':
-            return new boolean[]{true, false, true, true};
+            return TFTT;
         case 'c':// fall through
         case 'C':
-            return new boolean[]{true, true, false, false};
+            return TTFF;
         case 'd':// fall through
         case 'D':
-            return new boolean[]{true, true, false, true};
+            return TTFT;
         case 'e':// fall through
         case 'E':
-            return new boolean[]{true, true, true, false};
+            return TTTF;
         case 'f':// fall through
         case 'F':
-            return new boolean[]{true, true, true, true};
+            return TTTT;
         default:
             throw new IllegalArgumentException("Cannot interpret '"
                 + hexDigit
