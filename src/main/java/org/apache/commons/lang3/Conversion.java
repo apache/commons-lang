@@ -308,62 +308,47 @@ public class Conversion {
                 if (src.length > srcPos + 1 && src[srcPos + 1]) {
                     if (src[srcPos]) {
                         return 'f';
-                    } else {
-                        return 'e';
                     }
-                } else {
-                    if (src[srcPos]) {
-                        return 'd';
-                    } else {
-                        return 'c';
-                    }
+                    return 'e';
                 }
-            } else {
-                if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'b';
-                    } else {
-                        return 'a';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return '9';
-                    } else {
-                        return '8';
-                    }
+                if (src[srcPos]) {
+                    return 'd';
                 }
+                return 'c';
             }
-        } else {
-            if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return '7';
-                    } else {
-                        return '6';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return '5';
-                    } else {
-                        return '4';
-                    }
+            if (src.length > srcPos + 1 && src[srcPos + 1]) {
+                if (src[srcPos]) {
+                    return 'b';
                 }
-            } else {
-                if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return '3';
-                    } else {
-                        return '2';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return '1';
-                    } else {
-                        return '0';
-                    }
-                }
+                return 'a';
             }
+            if (src[srcPos]) {
+                return '9';
+            }
+            return '8';
         }
+        if (src.length > srcPos + 2 && src[srcPos + 2]) {
+            if (src.length > srcPos + 1 && src[srcPos + 1]) {
+                if (src[srcPos]) {
+                    return '7';
+                }
+                return '6';
+            }
+            if (src[srcPos]) {
+                return '5';
+            }
+            return '4';
+        }
+        if (src.length > srcPos + 1 && src[srcPos + 1]) {
+            if (src[srcPos]) {
+                return '3';
+            }
+            return '2';
+        }
+        if (src[srcPos]) {
+            return '1';
+        }
+        return '0';
     }
 
     /**
