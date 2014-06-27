@@ -98,9 +98,7 @@ public class Conversion {
     public static int hexDigitToInt(final char hexDigit) {
         final int digit = Character.digit(hexDigit, 16);
         if (digit < 0) {
-            throw new IllegalArgumentException("Cannot interpret '"
-                + hexDigit
-                + "' as a hexadecimal digit");
+            throw new IllegalArgumentException("Cannot interpret '" + hexDigit + "' as a hexadecimal digit");
         }
         return digit;
     }
