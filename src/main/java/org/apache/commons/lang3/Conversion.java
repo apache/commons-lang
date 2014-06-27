@@ -466,64 +466,25 @@ public class Conversion {
         if (src[srcPos]) {
             if (src.length > srcPos + 1 && src[srcPos + 1]) {
                 if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return 'f';
-                    } else {
-                        return 'e';
-                    }
-                } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return 'd';
-                    } else {
-                        return 'c';
-                    }
+                    return src.length > srcPos + 3 && src[srcPos + 3] ? 'f' : 'e';
                 }
-            } else {
-                if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return 'b';
-                    } else {
-                        return 'a';
-                    }
-                } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return '9';
-                    } else {
-                        return '8';
-                    }
-                }
+                return src.length > srcPos + 3 && src[srcPos + 3] ? 'd' : 'c';
             }
-        } else {
-            if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return '7';
-                    } else {
-                        return '6';
-                    }
-                } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return '5';
-                    } else {
-                        return '4';
-                    }
-                }
-            } else {
-                if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return '3';
-                    } else {
-                        return '2';
-                    }
-                } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return '1';
-                    } else {
-                        return '0';
-                    }
-                }
+            if (src.length > srcPos + 2 && src[srcPos + 2]) {
+                return src.length > srcPos + 3 && src[srcPos + 3] ? 'b' : 'a';
             }
+            return src.length > srcPos + 3 && src[srcPos + 3] ? '9' : '8';
         }
+        if (src.length > srcPos + 1 && src[srcPos + 1]) {
+            if (src.length > srcPos + 2 && src[srcPos + 2]) {
+                return src.length > srcPos + 3 && src[srcPos + 3] ? '7' : '6';
+            }
+            return src.length > srcPos + 3 && src[srcPos + 3] ? '5' : '4';
+        }
+        if (src.length > srcPos + 2 && src[srcPos + 2]) {
+            return src.length > srcPos + 3 && src[srcPos + 3] ? '3' : '2';
+        }
+        return src.length > srcPos + 3 && src[srcPos + 3] ? '1' : '0';
     }
 
     /**
