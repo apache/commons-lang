@@ -111,9 +111,8 @@ public class EventUtils {
             if (eventTypes.isEmpty() || eventTypes.contains(method.getName())) {
                 if (hasMatchingParametersMethod(method)) {
                     return MethodUtils.invokeMethod(target, methodName, parameters);
-                } else {
-                    return MethodUtils.invokeMethod(target, methodName);
                 }
+                return MethodUtils.invokeMethod(target, methodName);
             }
             return null;
         }
