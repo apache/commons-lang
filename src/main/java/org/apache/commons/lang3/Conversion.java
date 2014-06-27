@@ -392,10 +392,7 @@ public class Conversion {
             throw new IllegalArgumentException("src.length>8: src.length=" + src.length);
         }
         if (src.length - srcPos < 4) {
-            throw new IllegalArgumentException("src.length-srcPos<4: src.length="
-                + src.length
-                + ", srcPos="
-                + srcPos);
+            throw new IllegalArgumentException("src.length-srcPos<4: src.length=" + src.length + ", srcPos=" + srcPos);
         }
         if (src[srcPos + 3]) {
             if (src[srcPos + 2]) {
