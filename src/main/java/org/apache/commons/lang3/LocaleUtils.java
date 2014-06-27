@@ -129,9 +129,8 @@ public class LocaleUtils {
             case 0:
                 if (StringUtils.isAllLowerCase(str) && (len == 2 || len == 3)) {
                     return new Locale(str);
-                } else {
-                    throw new IllegalArgumentException("Invalid locale format: " + str);
                 }
+            throw new IllegalArgumentException("Invalid locale format: " + str);
                 
             case 1:
                 if (StringUtils.isAllLowerCase(split[0]) &&
