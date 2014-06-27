@@ -865,10 +865,9 @@ public class StrSubstitutor {
                                 priorVariables
                                         .remove(priorVariables.size() - 1);
                                 break;
-                            } else {
-                                nestedVarCount--;
-                                pos += endMatchLen;
                             }
+                            nestedVarCount--;
+                            pos += endMatchLen;
                         }
                     }
                 }
