@@ -138,9 +138,8 @@ public class LocaleUtils {
                     (split[0].length() == 2 || split[0].length() == 3) &&
                      split[1].length() == 2 && StringUtils.isAllUpperCase(split[1])) {
                     return new Locale(split[0], split[1]);
-                } else {
-                    throw new IllegalArgumentException("Invalid locale format: " + str);
                 }
+            throw new IllegalArgumentException("Invalid locale format: " + str);
 
             case 2:
                 if (StringUtils.isAllLowerCase(split[0]) && 
