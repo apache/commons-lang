@@ -266,7 +266,7 @@ public class EnumUtils {
      */
     public static <E extends Enum<E>> EnumSet<E> processBitVectors(final Class<E> enumClass, final long... values) {
         final EnumSet<E> results = EnumSet.noneOf(asEnum(enumClass));
-        long[] lvalues = ArrayUtils.clone(Validate.notNull(values));
+        final long[] lvalues = ArrayUtils.clone(Validate.notNull(values));
         ArrayUtils.reverse(lvalues);
         for (final E constant : enumClass.getEnumConstants()) {
             final int block = constant.ordinal() / Long.SIZE;

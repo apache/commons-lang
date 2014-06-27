@@ -56,7 +56,7 @@ public abstract class Diff<T> extends Pair<T, T> {
      * @param fieldName
      *            the name of the field
      */
-    protected Diff(String fieldName) {
+    protected Diff(final String fieldName) {
         this.type = ObjectUtils.defaultIfNull(
                 TypeUtils.getTypeArguments(getClass(), Diff.class).get(
                         Diff.class.getTypeParameters()[0]), Object.class);
@@ -112,7 +112,7 @@ public abstract class Diff<T> extends Pair<T, T> {
      * @return nothing
      */
     @Override
-    public final T setValue(T value) {
+    public final T setValue(final T value) {
         throw new UnsupportedOperationException("Cannot alter Diff object.");
     }
 }

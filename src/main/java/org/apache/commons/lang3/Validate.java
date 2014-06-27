@@ -940,7 +940,7 @@ public class Validate {
     * @since 3.3
     */
     @SuppressWarnings("boxing")
-    public static void inclusiveBetween(long start, long end, long value) {
+    public static void inclusiveBetween(final long start, final long end, final long value) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
             throw new IllegalArgumentException(String.format(DEFAULT_INCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
@@ -963,7 +963,7 @@ public class Validate {
     *
     * @since 3.3
     */
-    public static void inclusiveBetween(long start, long end, long value, String message) {
+    public static void inclusiveBetween(final long start, final long end, final long value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
             throw new IllegalArgumentException(String.format(message));
@@ -984,7 +984,7 @@ public class Validate {
     * @since 3.3
     */
     @SuppressWarnings("boxing")
-    public static void inclusiveBetween(double start, double end, double value) {
+    public static void inclusiveBetween(final double start, final double end, final double value) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
             throw new IllegalArgumentException(String.format(DEFAULT_INCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
@@ -1007,7 +1007,7 @@ public class Validate {
     *
     * @since 3.3
     */
-    public static void inclusiveBetween(double start, double end, double value, String message) {
+    public static void inclusiveBetween(final double start, final double end, final double value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
             throw new IllegalArgumentException(String.format(message));
@@ -1078,7 +1078,7 @@ public class Validate {
     * @since 3.3
     */
     @SuppressWarnings("boxing")
-    public static void exclusiveBetween(long start, long end, long value) {
+    public static void exclusiveBetween(final long start, final long end, final long value) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
             throw new IllegalArgumentException(String.format(DEFAULT_EXCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
@@ -1101,7 +1101,7 @@ public class Validate {
     *
     * @since 3.3
     */
-    public static void exclusiveBetween(long start, long end, long value, String message) {
+    public static void exclusiveBetween(final long start, final long end, final long value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
             throw new IllegalArgumentException(String.format(message));
@@ -1122,7 +1122,7 @@ public class Validate {
     * @since 3.3
     */
     @SuppressWarnings("boxing")
-    public static void exclusiveBetween(double start, double end, double value) {
+    public static void exclusiveBetween(final double start, final double end, final double value) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
             throw new IllegalArgumentException(String.format(DEFAULT_EXCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
@@ -1145,7 +1145,7 @@ public class Validate {
     *
     * @since 3.3
     */
-    public static void exclusiveBetween(double start, double end, double value, String message) {
+    public static void exclusiveBetween(final double start, final double end, final double value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
             throw new IllegalArgumentException(String.format(message));

@@ -93,7 +93,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testNextBytes() throws Exception {
-        byte[] result = RandomUtils.nextBytes(20);
+        final byte[] result = RandomUtils.nextBytes(20);
         assertEquals(20, result.length);
     }
 
@@ -110,7 +110,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testNextInt() throws Exception {
-        int result = RandomUtils.nextInt(33, 42);
+        final int result = RandomUtils.nextInt(33, 42);
         assertTrue(result >= 33 && result < 42);
     }
     
@@ -135,7 +135,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testNextDouble() throws Exception {
-        double result = RandomUtils.nextDouble(33d, 42d);
+        final double result = RandomUtils.nextDouble(33d, 42d);
         assertTrue(result >= 33d && result <= 42d);
     }
     
@@ -144,7 +144,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testNextFloat() throws Exception {
-        double result = RandomUtils.nextFloat(33f, 42f);
+        final double result = RandomUtils.nextFloat(33f, 42f);
         assertTrue(result >= 33f && result <= 42f);
     }    
 
@@ -161,7 +161,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testNextLong() throws Exception {
-        long result = RandomUtils.nextLong(33L, 42L);
+        final long result = RandomUtils.nextLong(33L, 42L);
         assertTrue(result >= 33L && result < 42L);
     }
     
@@ -171,7 +171,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testExtremeRangeInt() throws Exception {
-        int result = RandomUtils.nextInt(0, Integer.MAX_VALUE);
+        final int result = RandomUtils.nextInt(0, Integer.MAX_VALUE);
         assertTrue(result >= 0 && result < Integer.MAX_VALUE);
     }
     
@@ -180,7 +180,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testExtremeRangeLong() throws Exception {
-        long result = RandomUtils.nextLong(0, Long.MAX_VALUE);
+        final long result = RandomUtils.nextLong(0, Long.MAX_VALUE);
         assertTrue(result >= 0 && result < Long.MAX_VALUE);
     }    
     
@@ -189,7 +189,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testExtremeRangeFloat() throws Exception {
-        float result = RandomUtils.nextFloat(0, Float.MAX_VALUE);
+        final float result = RandomUtils.nextFloat(0, Float.MAX_VALUE);
         assertTrue(result >= 0f && result <= Float.MAX_VALUE);
     }    
     
@@ -198,7 +198,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testExtremeRangeDouble() throws Exception {
-        double result = RandomUtils.nextDouble(0, Double.MAX_VALUE);
+        final double result = RandomUtils.nextDouble(0, Double.MAX_VALUE);
         assertTrue(result >= 0 && result <= Double.MAX_VALUE);
     }    
 }

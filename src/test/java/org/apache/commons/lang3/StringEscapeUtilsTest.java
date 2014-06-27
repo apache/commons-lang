@@ -219,7 +219,7 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testEscapeHtml() {
-        for (String[] element : HTML_ESCAPES) {
+        for (final String[] element : HTML_ESCAPES) {
             final String message = element[0];
             final String expected = element[1];
             final String original = element[2];
@@ -236,7 +236,7 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testUnescapeHtml4() {
-        for (String[] element : HTML_ESCAPES) {
+        for (final String[] element : HTML_ESCAPES) {
             final String message = element[0];
             final String expected = element[2];
             final String original = element[1];
@@ -584,9 +584,9 @@ public class StringEscapeUtilsTest {
      */
     @Test
     public void testLang911() {
-        String bellsTest = "\ud83d\udc80\ud83d\udd14";
-        String value = StringEscapeUtils.escapeJava(bellsTest);
-        String valueTest = StringEscapeUtils.unescapeJava(value);
+        final String bellsTest = "\ud83d\udc80\ud83d\udd14";
+        final String value = StringEscapeUtils.escapeJava(bellsTest);
+        final String valueTest = StringEscapeUtils.unescapeJava(value);
         assertEquals(bellsTest, valueTest);
     }
 
@@ -610,8 +610,8 @@ public class StringEscapeUtilsTest {
 
         assertEquals("He didn't say, \\\"stop!\\\"", StringEscapeUtils.escapeJson("He didn't say, \"stop!\""));
 
-        String expected = "\\\"foo\\\" isn't \\\"bar\\\". specials: \\b\\r\\n\\f\\t\\\\\\/";
-        String input ="\"foo\" isn't \"bar\". specials: \b\r\n\f\t\\/";
+        final String expected = "\\\"foo\\\" isn't \\\"bar\\\". specials: \\b\\r\\n\\f\\t\\\\\\/";
+        final String input ="\"foo\" isn't \"bar\". specials: \b\r\n\f\t\\/";
 
         assertEquals(expected, StringEscapeUtils.escapeJson(input));
     }

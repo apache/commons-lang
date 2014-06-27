@@ -1255,7 +1255,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testRemoveFinalModifier() throws Exception {
-        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
+        final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         FieldUtils.removeFinalModifier(field);
@@ -1266,7 +1266,7 @@ public class FieldUtilsTest {
     
     @Test
     public void testRemoveFinalModifierWithAccess() throws Exception {
-        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
+        final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         FieldUtils.removeFinalModifier(field, true);
@@ -1277,7 +1277,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testRemoveFinalModifierWithoutAccess() throws Exception {
-        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
+        final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         FieldUtils.removeFinalModifier(field, false);
@@ -1288,7 +1288,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testRemoveFinalModifierAccessNotNeeded() throws Exception {
-        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PACKAGE");
+        final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PACKAGE");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         FieldUtils.removeFinalModifier(field, false);

@@ -121,9 +121,9 @@ public class NumberUtilsTest {
      */
     @Test
     public void testStringCreateNumberEnsureNoPrecisionLoss(){
-        String shouldBeFloat = "1.23";
-        String shouldBeDouble = "3.40282354e+38";
-        String shouldBeBigDecimal = "1.797693134862315759e+308";
+        final String shouldBeFloat = "1.23";
+        final String shouldBeDouble = "3.40282354e+38";
+        final String shouldBeBigDecimal = "1.797693134862315759e+308";
         
         assertTrue(NumberUtils.createNumber(shouldBeFloat) instanceof Float);
         assertTrue(NumberUtils.createNumber(shouldBeDouble) instanceof Double);

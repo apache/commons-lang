@@ -101,8 +101,8 @@ public class StrBuilderTest {
     public void testReadFromReader() throws Exception {
         String s = "";
         for (int i = 0; i < 100; ++i) {
-            StrBuilder sb = new StrBuilder();
-            int len = sb.readFrom(new StringReader(s));
+            final StrBuilder sb = new StrBuilder();
+            final int len = sb.readFrom(new StringReader(s));
 
             assertEquals(s.length(), len);
             assertEquals(s, sb.toString());
@@ -113,7 +113,7 @@ public class StrBuilderTest {
 
     @Test
     public void testReadFromReaderAppendsToEnd() throws Exception {
-        StrBuilder sb = new StrBuilder("Test");
+        final StrBuilder sb = new StrBuilder("Test");
         sb.readFrom(new StringReader(" 123"));
         assertEquals("Test 123", sb.toString());
     }
@@ -122,8 +122,8 @@ public class StrBuilderTest {
     public void testReadFromCharBuffer() throws Exception {
         String s = "";
         for (int i = 0; i < 100; ++i) {
-            StrBuilder sb = new StrBuilder();
-            int len = sb.readFrom(CharBuffer.wrap(s));
+            final StrBuilder sb = new StrBuilder();
+            final int len = sb.readFrom(CharBuffer.wrap(s));
 
             assertEquals(s.length(), len);
             assertEquals(s, sb.toString());
@@ -134,7 +134,7 @@ public class StrBuilderTest {
 
     @Test
     public void testReadFromCharBufferAppendsToEnd() throws Exception {
-        StrBuilder sb = new StrBuilder("Test");
+        final StrBuilder sb = new StrBuilder("Test");
         sb.readFrom(CharBuffer.wrap(" 123"));
         assertEquals("Test 123", sb.toString());
     }
@@ -143,8 +143,8 @@ public class StrBuilderTest {
     public void testReadFromReadable() throws Exception {
         String s = "";
         for (int i = 0; i < 100; ++i) {
-            StrBuilder sb = new StrBuilder();
-            int len = sb.readFrom(new MockReadable(s));
+            final StrBuilder sb = new StrBuilder();
+            final int len = sb.readFrom(new MockReadable(s));
 
             assertEquals(s.length(), len);
             assertEquals(s, sb.toString());
@@ -155,7 +155,7 @@ public class StrBuilderTest {
 
     @Test
     public void testReadFromReadableAppendsToEnd() throws Exception {
-        StrBuilder sb = new StrBuilder("Test");
+        final StrBuilder sb = new StrBuilder("Test");
         sb.readFrom(new MockReadable(" 123"));
         assertEquals("Test 123", sb.toString());
     }

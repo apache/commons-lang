@@ -123,8 +123,8 @@ public class LocaleUtils {
             return new Locale("", str.substring(1, 3), str.substring(4));
         }
         
-        String[] split = str.split("_", -1);
-        int occurrences = split.length -1;
+        final String[] split = str.split("_", -1);
+        final int occurrences = split.length -1;
         switch (occurrences) {
             case 0:
                 if (StringUtils.isAllLowerCase(str) && (len == 2 || len == 3)) {

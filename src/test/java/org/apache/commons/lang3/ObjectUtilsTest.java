@@ -264,7 +264,7 @@ public class ObjectUtilsTest {
             final Appendable appendable = new StringBuilder();
             ObjectUtils.identityToString(appendable, i);
             assertEquals(expected, appendable.toString());
-        } catch(IOException ex) {
+        } catch(final IOException ex) {
             fail("IOException unexpected");
         }
         
@@ -272,14 +272,14 @@ public class ObjectUtilsTest {
             ObjectUtils.identityToString((Appendable)null, "tmp");
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
         }
         
         try {
             ObjectUtils.identityToString((Appendable)(new StringBuilder()), null);
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
         }
     }
 

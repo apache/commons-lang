@@ -439,7 +439,7 @@ public class MethodUtils {
                      */
                 }
                 // Recursively check our parent interfaces
-                Method method = getAccessibleMethodFromInterfaceNest(interfaces[i],
+                final Method method = getAccessibleMethodFromInterfaceNest(interfaces[i],
                         methodName, parameterTypes);
                 if (method != null) {
                     return method;
@@ -509,7 +509,7 @@ public class MethodUtils {
      * @throws NullPointerException if the specified method is {@code null}
      * @since 3.2
      */
-    public static Set<Method> getOverrideHierarchy(final Method method, Interfaces interfacesBehavior) {
+    public static Set<Method> getOverrideHierarchy(final Method method, final Interfaces interfacesBehavior) {
         Validate.notNull(method);
         final Set<Method> result = new LinkedHashSet<Method>();
         result.add(method);

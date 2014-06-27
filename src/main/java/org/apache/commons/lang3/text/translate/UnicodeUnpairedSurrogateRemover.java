@@ -30,7 +30,7 @@ public class UnicodeUnpairedSurrogateRemover extends CodePointTranslator {
      * {@inheritDoc}
      */
     @Override
-    public boolean translate(int codepoint, Writer out) throws IOException {
+    public boolean translate(final int codepoint, final Writer out) throws IOException {
         if (codepoint >= Character.MIN_SURROGATE && codepoint <= Character.MAX_SURROGATE) {
             // It's a surrogate. Write nothing and say we've translated.
             return true;

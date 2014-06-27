@@ -1671,7 +1671,7 @@ public class DateUtils {
 
         long result = 0;
         
-        int offset = (unit == TimeUnit.DAYS) ? 0 : 1;
+        final int offset = (unit == TimeUnit.DAYS) ? 0 : 1;
         
         // Fragments bigger than a day require a breakdown to days
         switch (fragment) {

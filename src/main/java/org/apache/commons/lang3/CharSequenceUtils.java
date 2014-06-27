@@ -193,8 +193,8 @@ public class CharSequenceUtils {
         int tmpLen = length;
 
         while (tmpLen-- > 0) {
-            char c1 = cs.charAt(index1++);
-            char c2 = substring.charAt(index2++);
+            final char c1 = cs.charAt(index1++);
+            final char c2 = substring.charAt(index2++);
 
             if (c1 == c2) {
                 continue;

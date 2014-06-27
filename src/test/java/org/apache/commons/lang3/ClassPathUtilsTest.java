@@ -53,8 +53,8 @@ public class ClassPathUtilsTest {
 
     @Test
     public void testToFullyQualifiedNameClassString() throws Exception {
-        String expected = "org.apache.commons.lang3.Test.properties";
-        String actual = ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, "Test.properties");
+        final String expected = "org.apache.commons.lang3.Test.properties";
+        final String actual = ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, "Test.properties");
 
         assertEquals(expected, actual);
     }
@@ -71,8 +71,8 @@ public class ClassPathUtilsTest {
 
     @Test
     public void testToFullyQualifiedNamePackageString() throws Exception {
-        String expected = "org.apache.commons.lang3.Test.properties";
-        String actual = ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class.getPackage(), "Test.properties");
+        final String expected = "org.apache.commons.lang3.Test.properties";
+        final String actual = ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class.getPackage(), "Test.properties");
 
         assertEquals(expected, actual);
     }
@@ -89,8 +89,8 @@ public class ClassPathUtilsTest {
 
     @Test
     public void testToFullyQualifiedPathClass() throws Exception {
-        String expected = "org/apache/commons/lang3/Test.properties";
-        String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, "Test.properties");
+        final String expected = "org/apache/commons/lang3/Test.properties";
+        final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, "Test.properties");
 
         assertEquals(expected, actual);
     }
@@ -107,8 +107,8 @@ public class ClassPathUtilsTest {
 
     @Test
     public void testToFullyQualifiedPathPackage() throws Exception {
-        String expected = "org/apache/commons/lang3/Test.properties";
-        String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class.getPackage(), "Test.properties");
+        final String expected = "org/apache/commons/lang3/Test.properties";
+        final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class.getPackage(), "Test.properties");
 
         assertEquals(expected, actual);
     }

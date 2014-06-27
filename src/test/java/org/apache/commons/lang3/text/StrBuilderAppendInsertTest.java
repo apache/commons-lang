@@ -1049,8 +1049,8 @@ public class StrBuilderAppendInsertTest {
         sb = new StrBuilder();
         sb.append("Hi %s %,d", "Alice", 5000);
         // group separator depends on system locale
-        char groupingSeparator = DecimalFormatSymbols.getInstance().getGroupingSeparator();
-        String expected = "Hi Alice 5" + groupingSeparator + "000";
+        final char groupingSeparator = DecimalFormatSymbols.getInstance().getGroupingSeparator();
+        final String expected = "Hi Alice 5" + groupingSeparator + "000";
         assertEquals(expected, sb.toString());
     }
 
