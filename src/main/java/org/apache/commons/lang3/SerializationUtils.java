@@ -92,8 +92,7 @@ public class SerializationUtils {
              * is of the same type as the original serialized object
              */
             @SuppressWarnings("unchecked") // see above
-            final
-            T readObject = (T) in.readObject();
+            final T readObject = (T) in.readObject();
             return readObject;
 
         } catch (final ClassNotFoundException ex) {
