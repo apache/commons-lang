@@ -176,43 +176,43 @@ public class Conversion {
     public static boolean[] hexDigitToBinary(final char hexDigit) {
         switch (hexDigit) {
         case '0':
-            return FFFF;
+            return FFFF.clone();
         case '1':
-            return TFFF;
+            return TFFF.clone();
         case '2':
-            return FTFF;
+            return FTFF.clone();
         case '3':
-            return TTFF;
+            return TTFF.clone();
         case '4':
-            return FFTF;
+            return FFTF.clone();
         case '5':
-            return TFTF;
+            return TFTF.clone();
         case '6':
-            return FTTF;
+            return FTTF.clone();
         case '7':
-            return TTTF;
+            return TTTF.clone();
         case '8':
-            return FFFT;
+            return FFFT.clone();
         case '9':
-            return TFFT;
+            return TFFT.clone();
         case 'a':// fall through
         case 'A':
-            return FTFT;
+            return FTFT.clone();
         case 'b':// fall through
         case 'B':
-            return TTFT;
+            return TTFT.clone();
         case 'c':// fall through
         case 'C':
-            return FFTT;
+            return FFTT.clone();
         case 'd':// fall through
         case 'D':
-            return TFTT;
+            return TFTT.clone();
         case 'e':// fall through
         case 'E':
-            return FTTT;
+            return FTTT.clone();
         case 'f':// fall through
         case 'F':
-            return TTTT;
+            return TTTT.clone();
         default:
             throw new IllegalArgumentException("Cannot interpret '" + hexDigit + "' as a hexadecimal digit");
         }
@@ -234,43 +234,43 @@ public class Conversion {
     public static boolean[] hexDigitMsb0ToBinary(final char hexDigit) {
         switch (hexDigit) {
         case '0':
-            return FFFF;
+            return FFFF.clone();
         case '1':
-            return FFFT;
+            return FFFT.clone();
         case '2':
-            return FFTF;
+            return FFTF.clone();
         case '3':
-            return FFTT;
+            return FFTT.clone();
         case '4':
-            return FTFF;
+            return FTFF.clone();
         case '5':
-            return FTFT;
+            return FTFT.clone();
         case '6':
-            return FTTF;
+            return FTTF.clone();
         case '7':
-            return FTTT;
+            return FTTT.clone();
         case '8':
-            return TFFF;
+            return TFFF.clone();
         case '9':
-            return TFFT;
+            return TFFT.clone();
         case 'a':// fall through
         case 'A':
-            return TFTF;
+            return TFTF.clone();
         case 'b':// fall through
         case 'B':
-            return TFTT;
+            return TFTT.clone();
         case 'c':// fall through
         case 'C':
-            return TTFF;
+            return TTFF.clone();
         case 'd':// fall through
         case 'D':
-            return TTFT;
+            return TTFT.clone();
         case 'e':// fall through
         case 'E':
-            return TTTF;
+            return TTTF.clone();
         case 'f':// fall through
         case 'F':
-            return TTTT;
+            return TTTT.clone();
         default:
             throw new IllegalArgumentException("Cannot interpret '" + hexDigit + "' as a hexadecimal digit");
         }
