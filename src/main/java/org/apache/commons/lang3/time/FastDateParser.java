@@ -422,6 +422,7 @@ public class FastDateParser implements DateParser, Serializable {
      * A strategy to parse a single field from the parsing pattern
      */
     private static abstract class Strategy {
+        
         /**
          * Is this field a number?
          * The default implementation returns false.
@@ -431,6 +432,7 @@ public class FastDateParser implements DateParser, Serializable {
         boolean isNumber() {
             return false;
         }
+        
         /**
          * Set the Calendar with the parsed field.
          *
@@ -443,6 +445,7 @@ public class FastDateParser implements DateParser, Serializable {
         void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
 
         }
+        
         /**
          * Generate a <code>Pattern</code> regular expression to the <code>StringBuilder</code>
          * which will accept this field
