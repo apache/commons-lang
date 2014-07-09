@@ -1468,19 +1468,20 @@ public class NumberUtils {
     }
     
     /**
-     * <p>Checks whether the String is a parseable number.</p>
+     * <p>Checks whether the given String is a parsable number.</p>
      *
-     * <p>Parseable numbers include those Strings understood by <code>Integer.parseInt(String)</code>,
-     * <code>Long.parseLong(String)</code>, <code>Float.parseFloat(String)</code> or
-     * <code>Double.parseDouble(String)</code>.</p>
+     * <p>Parsable numbers include those Strings understood by {@link Integer#parseInt(String)},
+     * {@link Long#parseLong(String)}, {@link Float#parseFloat(String)} or
+     * {@link Double#parseDouble(String)}. This method can be used instead of catching {@link java.text.ParseException}
+     * when calling one of those methods.</p>
      *
-     * <p>Hexadecimal and scientific notations are <strong>not</strong> considered parseable.
+     * <p>Hexadecimal and scientific notations are <strong>not</strong> considered parsable.
      * See {@link #isNumber(String)} on those cases.</p>
      *
-     * <p><code>Null</code> and empty String will return <code>false</code>.</p>
+     * <p>{@code Null} and empty String will return <code>false</code>.</p>
      *
-     * @param str the <code>String</code> to check.
-     * @return <code>true</code> if the string is a parseable number.
+     * @param str the String to check.
+     * @return {@code true} if the string is a parsable number.
      * @since 3.4
      */
     public static boolean isParsable(final String str) {
