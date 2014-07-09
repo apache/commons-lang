@@ -1254,6 +1254,22 @@ public class NumberUtilsTest {
         }
         fail("Expecting "+ expected + " for isNumber/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
     }
+    
+    @Test
+    public void testIsParsable() {
+        assertFalse( NumberUtils.isParsable(null) );
+        assertFalse( NumberUtils.isParsable("") );
+        assertFalse( NumberUtils.isParsable("0xC1AB") );
+        assertFalse( NumberUtils.isParsable("65CBA2") );
+        assertFalse( NumberUtils.isParsable("pendro") );
+        assertFalse( NumberUtils.isParsable("64,2") );
+        assertFalse( NumberUtils.isParsable("64.2.2") );
+        assertFalse( NumberUtils.isParsable("64.") );
+        assertFalse( NumberUtils.isParsable("64L") );
+        assertTrue( NumberUtils.isParsable("64.2") );
+        assertTrue( NumberUtils.isParsable("64") );
+        assertTrue(NumberUtils.isParsable("018"));
+    }
 
     private boolean checkCreateNumber(final String val) {
         try {
