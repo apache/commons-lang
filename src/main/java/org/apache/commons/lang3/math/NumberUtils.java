@@ -1466,5 +1466,28 @@ public class NumberUtils {
         // found digit it to make sure weird stuff like '.' and '1E-' doesn't pass
         return !allowSigns && foundDigit;
     }
+    
+    /**
+     * <p>Checks whether the String is a parseable number.</p>
+     *
+     * <p>Parseable numbers include those Strings understood by <code>Integer.parseInt(String)</code>,
+     * <code>Long.parseLong(String)</code>, <code>Float.parseFloat(String)</code> or
+     * <code>Double.parseDouble(String)</code>.</p>
+     *
+     * <p>Hexadecimal and scientific notations are <strong>not</strong> considered parseable.
+     * See {@link #isNumber(String)} on those cases.</p>
+     *
+     * <p><code>Null</code> and empty String will return <code>false</code>.</p>
+     *
+     * @param str the <code>String</code> to check.
+     * @return <code>true</code> if the string is a parseable number.
+     * @since 3.4
+     */
+    public static boolean isParsable(final String str) {
+        if( StringUtils.endsWith( str, "." ) ) {
+            return false;
+        }
+        return isDigits( StringUtils.replaceOnce( str, ".", StringUtils.EMPTY ) );
+    }
 
 }
