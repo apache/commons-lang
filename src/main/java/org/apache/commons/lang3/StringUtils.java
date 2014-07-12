@@ -235,7 +235,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from isNotEmpty(String) to isNotEmpty(CharSequence)
      */
     public static boolean isNotEmpty(final CharSequence cs) {
-        return !StringUtils.isEmpty(cs);
+        return !isEmpty(cs);
     }
        
     /**
@@ -334,7 +334,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from isNotBlank(String) to isNotBlank(CharSequence)
      */
     public static boolean isNotBlank(final CharSequence cs) {
-        return !StringUtils.isBlank(cs);
+        return !isBlank(cs);
     }
     
         /**
@@ -6243,7 +6243,7 @@ public class StringUtils {
      * @see StringUtils#defaultString(String, String)
      */
     public static <T extends CharSequence> T defaultIfBlank(final T str, final T defaultStr) {
-        return StringUtils.isBlank(str) ? defaultStr : str;
+        return isBlank(str) ? defaultStr : str;
     }
 
     /**
@@ -6265,7 +6265,7 @@ public class StringUtils {
      * @see StringUtils#defaultString(String, String)
      */
     public static <T extends CharSequence> T defaultIfEmpty(final T str, final T defaultStr) {
-        return StringUtils.isEmpty(str) ? defaultStr : str;
+        return isEmpty(str) ? defaultStr : str;
     }
 
     // Reversing
@@ -7316,7 +7316,7 @@ public class StringUtils {
             return false;
         }
         for (final CharSequence searchString : searchStrings) {
-            if (StringUtils.startsWith(string, searchString)) {
+            if (startsWith(string, searchString)) {
                 return true;
             }
         }
@@ -7473,7 +7473,7 @@ public class StringUtils {
             return false;
         }
         for (final CharSequence searchString : searchStrings) {
-            if (StringUtils.endsWith(string, searchString)) {
+            if (endsWith(string, searchString)) {
                 return true;
             }
         }
