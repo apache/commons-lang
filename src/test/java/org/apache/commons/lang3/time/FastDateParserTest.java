@@ -77,6 +77,12 @@ public class FastDateParserTest {
 
     /**
      * Override this method in derived tests to change the construction of instances
+     *
+     * @param format the format string to use
+     * @param timeZone the time zone to use
+     * @param locale the locale to use
+     *
+     * @return the DateParser instance to use for testing
      */
     protected DateParser getInstance(final String format, final TimeZone timeZone, final Locale locale) {
         return new FastDateParser(format, timeZone, locale, null);
@@ -436,7 +442,7 @@ public class FastDateParserTest {
 
     /**
      * Test case for {@link FastDateParser#FastDateParser(String, TimeZone, Locale)}.
-     * @throws ParseException
+     * @throws ParseException so we don't have to catch it
      */
     @Test
     public void testShortDateStyleWithLocales() throws ParseException {
@@ -453,7 +459,7 @@ public class FastDateParserTest {
 
     /**
      * Tests that pre-1000AD years get padded with yyyy
-     * @throws ParseException
+     * @throws ParseException so we don't have to catch it
      */
     @Test
     public void testLowYearPadding() throws ParseException {
@@ -471,9 +477,6 @@ public class FastDateParserTest {
         assertEquals(cal.getTime(), parser.parse("0999/01/01"));
     }
 
-    /**
-     * @throws ParseException
-     */
     @Test
     public void testMilleniumBug() throws ParseException {
         final DateParser parser = getInstance(DMY_DOT);

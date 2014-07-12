@@ -78,7 +78,7 @@ public class DateUtilsRoundingTest {
     /**
      * Tests DateUtils.round()-method with Calendar.Year
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -95,7 +95,7 @@ public class DateUtilsRoundingTest {
      * Includes rounding months with 28, 29, 30 and 31 days
      * Includes rounding to January 1
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -139,7 +139,7 @@ public class DateUtilsRoundingTest {
      * Includes rounding months with 28, 29, 30 and 31 days, each with first and second half 
      * Includes rounding to January 1
      *      
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -207,7 +207,7 @@ public class DateUtilsRoundingTest {
      * Includes rounding the extremes of one day 
      * Includes rounding to January 1
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -232,7 +232,7 @@ public class DateUtilsRoundingTest {
      * Includes rounding the extremes of one day 
      * Includes rounding to January 1
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -257,7 +257,7 @@ public class DateUtilsRoundingTest {
      * Includes rounding the extremes of both AM and PM of one day 
      * Includes rounding to January 1
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -289,7 +289,7 @@ public class DateUtilsRoundingTest {
      * Includes rounding the extremes of one hour 
      * Includes rounding to January 1
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -314,7 +314,7 @@ public class DateUtilsRoundingTest {
      * Includes rounding the extremes of one hour 
      * Includes rounding to January 1
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -339,7 +339,7 @@ public class DateUtilsRoundingTest {
      * Includes rounding the extremes of one minute 
      * Includes rounding to January 1
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -364,7 +364,7 @@ public class DateUtilsRoundingTest {
      * Includes rounding the extremes of one second 
      * Includes rounding to January 1
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -389,7 +389,7 @@ public class DateUtilsRoundingTest {
      * Includes rounding the extremes of one second 
      * Includes rounding to January 1
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -410,7 +410,7 @@ public class DateUtilsRoundingTest {
     /**
      * Test DateUtils.truncate()-method with Calendar.YEAR
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -423,7 +423,7 @@ public class DateUtilsRoundingTest {
     /**
      * Test DateUtils.truncate()-method with Calendar.MONTH
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -438,7 +438,7 @@ public class DateUtilsRoundingTest {
      * Test DateUtils.truncate()-method with DateUtils.SEMI_MONTH
      * Includes truncating months with 28, 29, 30 and 31 days, each with first and second half
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -491,7 +491,7 @@ public class DateUtilsRoundingTest {
     /**
      * Test DateUtils.truncate()-method with Calendar.DATE
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -504,7 +504,7 @@ public class DateUtilsRoundingTest {
     /**
      * Test DateUtils.truncate()-method with Calendar.DAY_OF_MONTH
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -518,7 +518,7 @@ public class DateUtilsRoundingTest {
      * Test DateUtils.truncate()-method with Calendar.AM_PM
      * Includes truncating the extremes of both AM and PM of one day 
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -537,7 +537,7 @@ public class DateUtilsRoundingTest {
     /**
      * Test DateUtils.truncate()-method with Calendar.HOUR
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -550,7 +550,7 @@ public class DateUtilsRoundingTest {
     /**
      * Test DateUtils.truncate()-method with Calendar.HOUR_OF_DAY
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -563,7 +563,7 @@ public class DateUtilsRoundingTest {
     /**
      * Test DateUtils.truncate()-method with Calendar.MINUTE
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -576,7 +576,7 @@ public class DateUtilsRoundingTest {
     /**
      * Test DateUtils.truncate()-method with Calendar.SECOND
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -589,7 +589,7 @@ public class DateUtilsRoundingTest {
     /**
      * Test DateUtils.truncate()-method with Calendar.SECOND
      * 
-     * @throws Exception
+     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
@@ -607,7 +607,7 @@ public class DateUtilsRoundingTest {
      * @param roundedUpDate the next rounded date after <strong>roundedDownDate</strong> when using <strong>calendarField</strong>
      * @param roundedDownDate the result if <strong>lastRoundDownDate</strong> was rounded with <strong>calendarField</strong>
      * @param lastRoundDownDate rounding this value with <strong>calendarField</strong> will result in <strong>roundedDownDate</strong>
-     * @param calendarField
+     * @param calendarField a Calendar.field value
      * @since 3.0
      */
     protected void baseRoundTest(final Date roundedUpDate, final Date roundedDownDate, final Date lastRoundDownDate, final int calendarField) {
@@ -694,9 +694,9 @@ public class DateUtilsRoundingTest {
      * Any January 1 could be considered as the ultimate extreme.
      * Instead of comparing the results if the input has a difference of 1 millisecond we check the output to be exactly January first. 
      * 
-     * @param minDate
-     * @param maxDate
-     * @param calendarField
+     * @param minDate the lower bound
+     * @param maxDate the upper bound
+     * @param calendarField a Calendar.field value
      * @since 3.0
      */
     protected void roundToJanuaryFirst(final Date minDate, final Date maxDate, final int calendarField) {

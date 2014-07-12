@@ -200,6 +200,8 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests handleCause() if the cause is an error.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testHandleCauseError() throws ConcurrentException {
@@ -214,6 +216,8 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests handleCause() if the cause is an unchecked exception.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testHandleCauseUncheckedException() throws ConcurrentException {
@@ -244,6 +248,8 @@ public class ConcurrentUtilsTest {
      * Tests handleCause() for a null parameter or a null cause. In this case
      * the method should do nothing. We can only test that no exception is
      * thrown.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testHandleCauseNull() throws ConcurrentException {
@@ -308,6 +314,8 @@ public class ConcurrentUtilsTest {
     //-----------------------------------------------------------------------
     /**
      * Tests initialize() for a null argument.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testInitializeNull() throws ConcurrentException {
@@ -316,6 +324,8 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests a successful initialize() operation.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testInitialize() throws ConcurrentException {
@@ -341,6 +351,8 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests a successful initializeUnchecked() operation.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testInitializeUnchecked() throws ConcurrentException {
@@ -358,6 +370,8 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests whether exceptions are correctly handled by initializeUnchecked().
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testInitializeUncheckedEx() throws ConcurrentException {
@@ -380,6 +394,8 @@ public class ConcurrentUtilsTest {
     //-----------------------------------------------------------------------
     /**
      * Tests constant future.
+     *
+     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
     public void testConstantFuture_Integer() throws Exception {
@@ -396,6 +412,8 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests constant future.
+     *
+     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
     public void testConstantFuture_null() throws Exception {
@@ -449,6 +467,8 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests createIfAbsent() if the key is found in the map.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testCreateIfAbsentKeyPresent() throws ConcurrentException {
@@ -469,6 +489,8 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests createIfAbsent() if the map does not contain the key in question.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testCreateIfAbsentKeyNotPresent() throws ConcurrentException {
@@ -489,6 +511,8 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests createIfAbsent() if a null map is passed in.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testCreateIfAbsentNullMap() throws ConcurrentException {
@@ -504,6 +528,8 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests createIfAbsent() if a null initializer is passed in.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testCreateIfAbsentNullInit() throws ConcurrentException {
@@ -532,6 +558,8 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests createIfAbsentUnchecked() if an exception is thrown.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testCreateIfAbsentUncheckedException()

@@ -468,6 +468,8 @@ public class ObjectUtilsTest {
 
     /**
      * Tests {@link ObjectUtils#clone(Object)} with an uncloneable object.
+     *
+     * @throws java.lang.Throwable because we expect this to fail
      */
     @Test(expected = NoSuchMethodException.class)
     public void testCloneOfUncloneable() throws Throwable {
@@ -518,6 +520,8 @@ public class ObjectUtilsTest {
 
     /**
      * Tests {@link ObjectUtils#cloneIfPossible(Object)} with an uncloneable object.
+     *
+     * @throws java.lang.Throwable because we expect this to fail
      */
     @Test(expected = NoSuchMethodException.class)
     public void testPossibleCloneOfUncloneable() throws Throwable {

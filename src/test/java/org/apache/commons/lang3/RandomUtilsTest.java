@@ -84,7 +84,7 @@ public class RandomUtilsTest {
      * Tests a zero byte array length.
      */
     @Test
-    public void testZeroLengthNextBytes() throws Exception {
+    public void testZeroLengthNextBytes() {
         assertArrayEquals(new byte[0], RandomUtils.nextBytes(0));
     }
 
@@ -92,7 +92,7 @@ public class RandomUtilsTest {
      * Tests random byte array.
      */
     @Test
-    public void testNextBytes() throws Exception {
+    public void testNextBytes() {
         final byte[] result = RandomUtils.nextBytes(20);
         assertEquals(20, result.length);
     }
@@ -101,7 +101,7 @@ public class RandomUtilsTest {
      * Test next int range with minimal range.
      */
     @Test
-    public void testNextIntMinimalRange() throws Exception {
+    public void testNextIntMinimalRange() {
         assertEquals(42, RandomUtils.nextInt(42, 42));
     }
     
@@ -109,7 +109,7 @@ public class RandomUtilsTest {
      * Tests next int range.
      */
     @Test
-    public void testNextInt() throws Exception {
+    public void testNextInt() {
         final int result = RandomUtils.nextInt(33, 42);
         assertTrue(result >= 33 && result < 42);
     }
@@ -118,7 +118,7 @@ public class RandomUtilsTest {
      * Test next double range with minimal range.
      */
     @Test
-    public void testNextDoubleMinimalRange() throws Exception {
+    public void testNextDoubleMinimalRange() {
         assertEquals(42.1, RandomUtils.nextDouble(42.1, 42.1), DELTA);
     }    
     
@@ -126,7 +126,7 @@ public class RandomUtilsTest {
      * Test next float range with minimal range.
      */
     @Test
-    public void testNextFloatMinimalRange() throws Exception {
+    public void testNextFloatMinimalRange() {
         assertEquals(42.1f, RandomUtils.nextFloat(42.1f, 42.1f), DELTA);
     }     
     
@@ -134,7 +134,7 @@ public class RandomUtilsTest {
      * Tests next double range.
      */
     @Test
-    public void testNextDouble() throws Exception {
+    public void testNextDouble() {
         final double result = RandomUtils.nextDouble(33d, 42d);
         assertTrue(result >= 33d && result <= 42d);
     }
@@ -143,7 +143,7 @@ public class RandomUtilsTest {
      * Tests next float range.
      */
     @Test
-    public void testNextFloat() throws Exception {
+    public void testNextFloat() {
         final double result = RandomUtils.nextFloat(33f, 42f);
         assertTrue(result >= 33f && result <= 42f);
     }    
@@ -152,7 +152,7 @@ public class RandomUtilsTest {
      * Test next long range with minimal range.
      */
     @Test
-    public void testNextLongMinimalRange() throws Exception {
+    public void testNextLongMinimalRange() {
         assertEquals(42L, RandomUtils.nextLong(42L, 42L));
     }
     
@@ -160,7 +160,7 @@ public class RandomUtilsTest {
      * Tests next long range.
      */
     @Test
-    public void testNextLong() throws Exception {
+    public void testNextLong() {
         final long result = RandomUtils.nextLong(33L, 42L);
         assertTrue(result >= 33L && result < 42L);
     }
@@ -170,7 +170,7 @@ public class RandomUtilsTest {
      * Tests extreme range.
      */
     @Test
-    public void testExtremeRangeInt() throws Exception {
+    public void testExtremeRangeInt() {
         final int result = RandomUtils.nextInt(0, Integer.MAX_VALUE);
         assertTrue(result >= 0 && result < Integer.MAX_VALUE);
     }
@@ -179,7 +179,7 @@ public class RandomUtilsTest {
      * Tests extreme range.
      */
     @Test
-    public void testExtremeRangeLong() throws Exception {
+    public void testExtremeRangeLong() {
         final long result = RandomUtils.nextLong(0, Long.MAX_VALUE);
         assertTrue(result >= 0 && result < Long.MAX_VALUE);
     }    
@@ -188,7 +188,7 @@ public class RandomUtilsTest {
      * Tests extreme range.
      */
     @Test
-    public void testExtremeRangeFloat() throws Exception {
+    public void testExtremeRangeFloat() {
         final float result = RandomUtils.nextFloat(0, Float.MAX_VALUE);
         assertTrue(result >= 0f && result <= Float.MAX_VALUE);
     }    
@@ -197,7 +197,7 @@ public class RandomUtilsTest {
      * Tests extreme range.
      */
     @Test
-    public void testExtremeRangeDouble() throws Exception {
+    public void testExtremeRangeDouble() {
         final double result = RandomUtils.nextDouble(0, Double.MAX_VALUE);
         assertTrue(result >= 0 && result <= Double.MAX_VALUE);
     }    

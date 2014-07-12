@@ -50,6 +50,9 @@ public class AtomicSafeInitializerTest extends
 
     /**
      * Tests that initialize() is called only once.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because {@link #testGetConcurrent()} may throw it
+     * @throws java.lang.InterruptedException because {@link #testGetConcurrent()} may throw it
      */
     @Test
     public void testNumberOfInitializeInvocations() throws ConcurrentException,

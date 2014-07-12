@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
@@ -510,18 +511,16 @@ public class StringEscapeUtilsTest {
 
     /**
      * Tests // https://issues.apache.org/jira/browse/LANG-480
-     * 
-     * @throws java.io.UnsupportedEncodingException
      */
     @Test
-    public void testEscapeHtmlHighUnicode() throws java.io.UnsupportedEncodingException {
+    public void testEscapeHtmlHighUnicode() {
         // this is the utf8 representation of the character:
         // COUNTING ROD UNIT DIGIT THREE
         // in Unicode
         // codepoint: U+1D362
         final byte[] data = new byte[] { (byte)0xF0, (byte)0x9D, (byte)0x8D, (byte)0xA2 };
 
-        final String original = new String(data, "UTF8");
+        final String original = new String(data, Charset.forName("UTF8"));
 
         final String escaped = StringEscapeUtils.escapeHtml4( original );
         assertEquals( "High Unicode should not have been escaped", original, escaped);

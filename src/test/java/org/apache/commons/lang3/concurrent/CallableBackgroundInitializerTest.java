@@ -66,6 +66,8 @@ public class CallableBackgroundInitializerTest  {
 
     /**
      * Tests the implementation of initialize().
+     *
+     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
     public void testInitialize() throws Exception {
