@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.nio.charset.Charset;
 import java.util.Random;
 
 import org.junit.Test;
@@ -334,16 +335,14 @@ public class RandomStringUtilsTest {
      * can be converted to UTF-8 and back without loss.
      *
      * @see <a href="http://issues.apache.org/jira/browse/LANG-100">LANG-100</a>
-     *
-     * @throws Exception
      */
     @Test
-    public void testLang100() throws Exception {
+    public void testLang100() {
         final int size = 5000;
-        final String encoding = "UTF-8";
+        final Charset charset = Charset.forName("UTF-8");
         final String orig = RandomStringUtils.random(size);
-        final byte[] bytes = orig.getBytes(encoding);
-        final String copy = new String(bytes, encoding);
+        final byte[] bytes = orig.getBytes(charset);
+        final String copy = new String(bytes, charset);
 
         // for a verbose compare:
         for (int i=0; i < orig.length() && i < copy.length(); i++) {

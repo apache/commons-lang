@@ -68,6 +68,8 @@ public class ConstantInitializerTest {
 
     /**
      * Tests whether get() returns the correct object.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
     public void testGet() throws ConcurrentException {

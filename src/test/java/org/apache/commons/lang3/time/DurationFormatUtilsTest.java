@@ -112,7 +112,7 @@ public class DurationFormatUtilsTest {
     }
 
     /**
-     * Tests that "1 <unit>s" gets converted to "1 <unit>" but that "11 <unit>s" is left alone.
+     * Tests that "1 &lt;unit&gt;s" gets converted to "1 &lt;unit&gt;" but that "11 &lt;unit&gt;s" is left alone.
      */
     @Test
     public void testFormatDurationPluralWords() {

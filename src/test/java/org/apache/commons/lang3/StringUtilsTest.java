@@ -2316,22 +2316,21 @@ public class StringUtilsTest {
 
     /**
      * Tests {@link StringUtils#toString(byte[], String)}
-     * 
-     * @throws UnsupportedEncodingException
+     *
+     * @throws java.io.UnsupportedEncodingException because the method under test max throw it
      * @see StringUtils#toString(byte[], String)
      */
     @Test
     public void testToString() throws UnsupportedEncodingException {
         final String expectedString = "The quick brown fox jumped over the lazy dog.";
-        String encoding = SystemUtils.FILE_ENCODING;
-        byte[] expectedBytes = expectedString.getBytes(encoding);
+        byte[] expectedBytes = expectedString.getBytes(Charset.defaultCharset());
         // sanity check start
         assertArrayEquals(expectedBytes, expectedString.getBytes());
         // sanity check end
         assertEquals(expectedString, StringUtils.toString(expectedBytes, null));
-        assertEquals(expectedString, StringUtils.toString(expectedBytes, encoding));
-        encoding = "UTF-16";
-        expectedBytes = expectedString.getBytes(encoding);
+        assertEquals(expectedString, StringUtils.toString(expectedBytes, SystemUtils.FILE_ENCODING));
+        String encoding = "UTF-16";
+        expectedBytes = expectedString.getBytes(Charset.forName(encoding));
         assertEquals(expectedString, StringUtils.toString(expectedBytes, encoding));
     }
     
@@ -2349,11 +2348,9 @@ public class StringUtilsTest {
     
     /**
      * Tests LANG-858.
-     * 
-     * @throws Exception
      */
     @Test
-    public void testEscapeSurrogatePairsLang858() throws Exception {
+    public void testEscapeSurrogatePairsLang858() {
         assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeJava("\uDBFF\uDFFD"));       //fail LANG-858
         assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeEcmaScript("\uDBFF\uDFFD")); //fail LANG-858
     }
@@ -2468,21 +2465,20 @@ public class StringUtilsTest {
     /**
      * Tests {@link StringUtils#toEncodedString(byte[], Charset)}
      * 
-     * @throws UnsupportedEncodingException
      * @see StringUtils#toEncodedString(byte[], Charset)
      */
     @Test
-    public void testToEncodedString() throws UnsupportedEncodingException {
+    public void testToEncodedString() {
         final String expectedString = "The quick brown fox jumped over the lazy dog.";
         String encoding = SystemUtils.FILE_ENCODING;
-        byte[] expectedBytes = expectedString.getBytes(encoding);
+        byte[] expectedBytes = expectedString.getBytes(Charset.defaultCharset());
         // sanity check start
         assertArrayEquals(expectedBytes, expectedString.getBytes());
         // sanity check end
         assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.defaultCharset()));
         assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.forName(encoding)));
         encoding = "UTF-16";
-        expectedBytes = expectedString.getBytes(encoding);
+        expectedBytes = expectedString.getBytes(Charset.forName(encoding));
         assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.forName(encoding)));
     }
     
