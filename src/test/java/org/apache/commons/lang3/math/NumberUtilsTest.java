@@ -1268,7 +1268,12 @@ public class NumberUtilsTest {
         assertFalse( NumberUtils.isParsable("64L") );
         assertTrue( NumberUtils.isParsable("64.2") );
         assertTrue( NumberUtils.isParsable("64") );
-        assertTrue(NumberUtils.isParsable("018"));
+        assertTrue( NumberUtils.isParsable("018") );
+        assertTrue( NumberUtils.isParsable(".18") );
+        assertTrue( NumberUtils.isParsable("-65") );
+        assertTrue( NumberUtils.isParsable("-018") );
+        assertTrue( NumberUtils.isParsable("-018.2") );
+        assertTrue( NumberUtils.isParsable("-.236") );
     }
 
     private boolean checkCreateNumber(final String val) {

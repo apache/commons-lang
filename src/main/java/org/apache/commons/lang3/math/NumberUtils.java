@@ -1488,7 +1488,11 @@ public class NumberUtils {
         if( StringUtils.endsWith( str, "." ) ) {
             return false;
         }
-        return isDigits( StringUtils.replaceOnce( str, ".", StringUtils.EMPTY ) );
+        if( StringUtils.startsWith( str, "-" ) ) {
+            return isDigits( StringUtils.replaceOnce( StringUtils.substring( str, 1 ), ".", StringUtils.EMPTY ) );
+        } else {
+            return isDigits( StringUtils.replaceOnce( str, ".", StringUtils.EMPTY ) );
+        }
     }
 
 }
