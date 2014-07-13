@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,12 +101,26 @@ public class JsonToStringStyleTest {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
 
-        assertEquals("{\"null\":null}",
-                new ToStringBuilder(base).append((Object) null).toString());
+        try {
+            
+            assertEquals("{\"null\":null}",
+                    new ToStringBuilder(base).append((Object) null).toString());
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
 
-        assertEquals("{\"null\":3}", new ToStringBuilder(base).append(i3)
+        try {
+            
+            assertEquals("{\"null\":3}", new ToStringBuilder(base).append(i3)
                 .toString());
-
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
+        
         assertEquals("{\"a\":null}",
                 new ToStringBuilder(base).append("a", (Object) null).toString());
 
@@ -191,9 +206,16 @@ public class JsonToStringStyleTest {
     @Test
     public void testLong() {
 
-        assertEquals("{\"null\":3}", new ToStringBuilder(base).append(3L)
-                .toString());
-
+        try {
+            
+            assertEquals("{\"null\":3}", new ToStringBuilder(base).append(3L)
+                    .toString());
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
+        
         assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", 3L)
                 .toString());
 
@@ -207,19 +229,47 @@ public class JsonToStringStyleTest {
 
         Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
 
-        assertEquals("{\"null\":[null,5,[3,6]]}", new ToStringBuilder(base)
-                .append(array).toString());
+        try {
+            
+            assertEquals("{\"null\":[null,5,[3,6]]}", new ToStringBuilder(base)
+                    .append(array).toString());
+            
+            fail("Should have generated UnsupportedOperationException");
+        
+        } catch (UnsupportedOperationException e) {
+        }
 
-        assertEquals("{\"null\":[null,5,[3,6]]}", new ToStringBuilder(base)
+        try {
+            
+            assertEquals("{\"null\":[null,5,[3,6]]}", new ToStringBuilder(base)
                 .append((Object) array).toString());
+        
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
 
         array = null;
+        
+        try {
+            
+            assertEquals("{\"null\":null}", new ToStringBuilder(base).append(array)
+                    .toString());
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
 
-        assertEquals("{\"null\":null}", new ToStringBuilder(base).append(array)
-                .toString());
-
-        assertEquals("{\"null\":null}",
+        try {
+            
+            assertEquals("{\"null\":null}",
                 new ToStringBuilder(base).append((Object) array).toString());
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
     }
 
     @Test
@@ -227,19 +277,47 @@ public class JsonToStringStyleTest {
 
         long[] array = new long[] { 1, 2, -3, 4 };
 
-        assertEquals("{\"null\":[1,2,-3,4]}",
+        try {
+            
+            assertEquals("{\"null\":[1,2,-3,4]}",
                 new ToStringBuilder(base).append(array).toString());
 
-        assertEquals("{\"null\":[1,2,-3,4]}",
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
+        
+        try {
+            
+            assertEquals("{\"null\":[1,2,-3,4]}",
                 new ToStringBuilder(base).append((Object) array).toString());
 
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
+        
         array = null;
 
-        assertEquals("{\"null\":null}", new ToStringBuilder(base).append(array)
+        try {
+            
+            assertEquals("{\"null\":null}", new ToStringBuilder(base).append(array)
                 .toString());
 
-        assertEquals("{\"null\":null}",
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
+        
+        try {
+            
+            assertEquals("{\"null\":null}",
                 new ToStringBuilder(base).append((Object) array).toString());
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
     }
 
     @Test
@@ -247,19 +325,47 @@ public class JsonToStringStyleTest {
 
         long[][] array = new long[][] { { 1, 2 }, null, { 5 } };
 
-        assertEquals("{\"null\":[[1,2],null,[5]]}", new ToStringBuilder(base)
+        try {
+            
+            assertEquals("{\"null\":[[1,2],null,[5]]}", new ToStringBuilder(base)
                 .append(array).toString());
+        
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
 
-        assertEquals("{\"null\":[[1,2],null,[5]]}", new ToStringBuilder(base)
+        try {
+            
+            assertEquals("{\"null\":[[1,2],null,[5]]}", new ToStringBuilder(base)
                 .append((Object) array).toString());
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
 
         array = null;
 
-        assertEquals("{\"null\":null}", new ToStringBuilder(base).append(array)
+        try {
+            
+            assertEquals("{\"null\":null}", new ToStringBuilder(base).append(array)
                 .toString());
+        
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
 
-        assertEquals("{\"null\":null}",
+        try {
+            
+            assertEquals("{\"null\":null}",
                 new ToStringBuilder(base).append((Object) array).toString());
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
     }
 
 }

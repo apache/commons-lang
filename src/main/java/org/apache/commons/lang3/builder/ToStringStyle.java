@@ -274,22 +274,7 @@ public abstract class ToStringStyle implements Serializable {
      * Whether the field separator should be added after any other fields.
      */
     private boolean fieldSeparatorAtEnd = false;
-    
-    /**
-     * The field name when is null. Default is <code>null</code>.
-     */
-    private String nullFieldName = null;
-    
-    /**
-     * The field text start <code>""</code>.
-     */
-    private String fieldNameAtStart = "";
 
-    /**
-     * The field text end <code>""</code>.
-     */
-    private String fieldNameAtEnd = "";
-    
     /**
      * The field separator <code>','</code>.
      */
@@ -1548,14 +1533,8 @@ public abstract class ToStringStyle implements Serializable {
      * @param fieldName  the field name
      */
     protected void appendFieldStart(final StringBuffer buffer, final String fieldName) {
-        
-        String localFieldName = fieldName == null ? nullFieldName : fieldName;
-        
-        if (useFieldNames && localFieldName != null) {
-            
-            buffer.append(fieldNameAtStart);
-            buffer.append(localFieldName);
-            buffer.append(fieldNameAtEnd);
+        if (useFieldNames && fieldName != null) {
+            buffer.append(fieldName);
             buffer.append(fieldNameValueSeparator);
         }
     }
@@ -1908,76 +1887,6 @@ public abstract class ToStringStyle implements Serializable {
         this.fieldNameValueSeparator = fieldNameValueSeparator;
     }
 
-    //---------------------------------------------------------------------
-    
-    /**
-     * <p>Gets the value for when field name is <code>null</code>.</p>
-     *
-     * @return the current value for when field name is <code>null</code>
-     */
-    protected String getNullFieldName() {
-        return nullFieldName;
-    }
-
-    /**
-     * <p>Sets the value for when field name is <code>null</code>.</p>
-     *
-     * <p><code>null</code> is accepted.</p>
-     *
-     * @param nullFieldName  the new value for when field name is <code>null</code>
-     */
-    protected void setNullFieldName(String nullFieldName) {
-        this.nullFieldName = nullFieldName;
-    }
-    
-    /**
-     * <p>Gets the field text at start.</p>
-     *
-     * @return the current field text at start
-     */
-    protected String getFieldNameAtStart() {
-        return fieldNameAtStart;
-    }
-
-    /**
-     * <p>Sets the field text at start.</p>
-     *
-     * <p><code>null</code> is accepted, but will be converted to
-     * an empty String.</p>
-     *
-     * @param fieldNameAtStart  the new field text at start
-     */
-    protected void setFieldNameAtStart(String fieldNameAtStart) {
-        if (fieldNameAtStart == null) {
-            fieldNameAtStart = "";
-        }
-        this.fieldNameAtStart = fieldNameAtStart;
-    }
-    
-    /**
-     * <p>Gets the field text at end.</p>
-     *
-     * @return the current field text at end
-     */
-    protected String getFieldNameAtEnd() {
-        return fieldNameAtEnd;
-    }
-
-    /**
-     * <p>Sets the field text at end.</p>
-     *
-     * <p><code>null</code> is accepted, but will be converted to
-     * an empty String.</p>
-     *
-     * @param fieldNameAtEnd  the new field text at end
-     */
-    protected void setFieldNameAtEnd(String fieldNameAtEnd) {
-        if (fieldNameAtEnd == null) {
-            fieldNameAtEnd = "";
-        }
-        this.fieldNameAtEnd = fieldNameAtEnd;
-    }
-    
     //---------------------------------------------------------------------
 
     /**
@@ -2397,6 +2306,11 @@ public abstract class ToStringStyle implements Serializable {
         private static final long serialVersionUID = 1L;
         
         /**
+         * The summary size text start <code>'&gt;'</code>.
+         */
+        private String FIELD_NAME_PREFIX = "\"";
+        
+        /**
          * <p>Constructor.</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
@@ -2415,11 +2329,6 @@ public abstract class ToStringStyle implements Serializable {
 
             this.setFieldSeparator(",");
             this.setFieldNameValueSeparator(":");
-            
-            this.setNullFieldName("null");
-            
-            this.setFieldNameAtStart("\"");
-            this.setFieldNameAtEnd("\"");
 
             this.setNullText("null");
             
@@ -2431,20 +2340,31 @@ public abstract class ToStringStyle implements Serializable {
         }
         
         @Override
+        protected void appendFieldStart(StringBuffer buffer, String fieldName) {
+            
+            if (fieldName == null) {
+                throw new UnsupportedOperationException("FieldName cannot be null");
+            }
+            
+            super.appendFieldStart(buffer, FIELD_NAME_PREFIX + fieldName + FIELD_NAME_PREFIX);
+        }
+        
+        @Override
         protected void appendDetail(StringBuffer buffer, String fieldName, Object value) {
 
             if (value == null) {
                 
                 appendNullText(buffer, fieldName);
-                
-            } else if (value instanceof String) {
+                return;
+            }
+
+            if (value.getClass() == String.class) {
                 
                 appendValueAsString(buffer, (String)value);
-                
-            } else {
-                
-                buffer.append(value);
+                return;
             }
+            
+            buffer.append(value);
         }
 
         private void appendValueAsString(StringBuffer buffer, String value) {
