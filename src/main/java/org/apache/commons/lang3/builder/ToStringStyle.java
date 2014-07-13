@@ -99,11 +99,11 @@ public abstract class ToStringStyle implements Serializable {
      * example from {@link ToStringBuilder}, the output would look like this:
      *
      * <pre>
-     * Person@182f0db[
-     *   name=John Doe
-     *   age=33
-     *   smoker=false
-     * ]
+     * {
+     *   "name": "John Doe",
+     *   "age": 33,
+     *   "smoker": true
+     * }
      * </pre>
      */
     public static final ToStringStyle JSON_STYLE = new JsonToStringStyle();
