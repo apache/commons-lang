@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1021" type="add" dev="britter" due-to="Alexander Müller">Provide methods to retrieve all fields/methods annotated with a specific type</action>
     <action issue="LANG-1026" type="update" dev="britter" due-to="Alex Yursha">Bring static method references in StringUtils to consistent style</action>
     <action issue="LANG-1016" type="add" dev="britter" due-to="Juan Pablo Santos Rodríguez">NumberUtils#isParsable method(s)</action>
     <action issue="LANG-1017" type="update" dev="britter" due-to="Christoph Schneegans">Use non-ASCII digits in Javadoc examples for StringUtils.isNumeric</action>

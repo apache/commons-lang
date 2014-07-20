@@ -20,6 +20,7 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -220,6 +221,45 @@ public class FieldUtils {
             currentClass = currentClass.getSuperclass();
         }
         return allFields;
+    }
+
+    /**
+     * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
+     * @param cls
+     *            the {@link Class} to query
+     * @param annotationCls
+     *            the {@link Annotation} that must be present on a field to be matched
+     * @return an array of Fields (possibly empty).
+     * @throws IllegalArgumentException
+     *            if the class or annotation are {@code null}
+     * @since 3.4
+     */
+    public static Field[] getFieldsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+        final List<Field> annotatedFieldsList = getFieldsListWithAnnotation(cls, annotationCls);
+        return annotatedFieldsList.toArray(new Field[annotatedFieldsList.size()]);
+    }
+
+    /**
+     * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
+     * @param cls
+     *            the {@link Class} to query
+     * @param annotationCls
+     *            the {@link Annotation} that must be present on a field to be matched
+     * @return a list of Fields (possibly empty).
+     * @throws IllegalArgumentException
+     *            if the class or annotation are {@code null}
+     * @since 3.4
+     */
+    public static List<Field> getFieldsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+        Validate.isTrue(annotationCls != null, "The annotation class must not be null");
+        final List<Field> allFields = getAllFieldsList(cls);
+        final List<Field> annotatedFields = new ArrayList<Field>();
+        for (final Field field : allFields) {
+            if (field.getAnnotation(annotationCls) != null) {
+                annotatedFields.add(field);
+            }
+        }
+        return annotatedFields;
     }
 
     /**

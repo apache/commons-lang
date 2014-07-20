@@ -16,14 +16,17 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -544,6 +547,46 @@ public class MethodUtils {
             result.add(m);
         }
         return result;
+    }
+
+    /**
+     * Gets all methods of the given class that are annotated with the given annotation.
+     * @param cls
+     *            the {@link Class} to query
+     * @param annotationCls
+     *            the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
+     * @return an array of Methods (possibly empty).
+     * @throws IllegalArgumentException
+     *            if the class or annotation are {@code null}
+     * @since 3.4
+     */
+    public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+        final List<Method> annotatedMethodsList = getMethodsListWithAnnotation(cls, annotationCls);
+        return annotatedMethodsList.toArray(new Method[annotatedMethodsList.size()]);
+    }
+
+    /**
+     * Gets all methods of the given class that are annotated with the given annotation.
+     * @param cls
+     *            the {@link Class} to query
+     * @param annotationCls
+     *            the {@link Annotation} that must be present on a method to be matched
+     * @return a list of Methods (possibly empty).
+     * @throws IllegalArgumentException
+     *            if the class or annotation are {@code null}
+     * @since 3.4
+     */
+    public static List<Method> getMethodsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+        Validate.isTrue(cls != null, "The class must not be null");
+        Validate.isTrue(annotationCls != null, "The annotation class must not be null");
+        final Method[] allMethods = cls.getMethods();
+        final List<Method> annotatedMethods = new ArrayList<Method>();
+        for (final Method method : allMethods) {
+            if (method.getAnnotation(annotationCls) != null) {
+                annotatedMethods.add(method);
+            }
+        }
+        return annotatedMethods;
     }
 
 }
