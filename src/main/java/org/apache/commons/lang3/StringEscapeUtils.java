@@ -645,8 +645,8 @@ public class StringEscapeUtils {
     /**
      * <p>Escapes the characters in a {@code String} using XML entities.</p>
      *
-     * <p>For example: <tt>"bread" &amp; "butter"</tt> =&gt;
-     * <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
+     * <p>For example: {@code "bread" & "butter"} =&gt;
+     * {@code &quot;bread&quot; &amp; &quot;butter&quot;}.
      * </p>
      *
      * <p>Supports only the five basic XML entities (gt, lt, quot, amp, apos).
@@ -670,8 +670,8 @@ public class StringEscapeUtils {
     /**
      * <p>Escapes the characters in a {@code String} using XML entities.</p>
      *
-     * <p>For example: <tt>"bread" &amp; "butter"</tt> =&gt;
-     * <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
+     * <p>For example: {@code "bread" & "butter"} =&gt;
+     * {@code &quot;bread&quot; &amp; &quot;butter&quot;}.
      * </p>
      *
      * <p>Note that XML 1.0 is a text-only format: it cannot represent control
@@ -702,8 +702,8 @@ public class StringEscapeUtils {
     /**
      * <p>Escapes the characters in a {@code String} using XML entities.</p>
      *
-     * <p>For example: <tt>"bread" &amp; "butter"</tt> =&gt;
-     * <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
+     * <p>For example: {@code "bread" & "butter"} =&gt;
+     * {@code &quot;bread&quot; &amp; &quot;butter&quot;}.
      * </p>
      *
      * <p>XML 1.1 can represent certain control characters, but it cannot represent
