@@ -69,7 +69,17 @@ public enum JavaVersion {
     /**
      * Java 1.8.
      */
-    JAVA_1_8(1.8f, "1.8");
+    JAVA_1_8(1.8f, "1.8"),
+
+    /**
+     * Java 1.9.
+     */
+    JAVA_1_9(1.9f, "1.9"),
+
+    /**
+     * Java 1.x, x > 9. Mainly introduced to avoid to break when a new version of Java is used.
+     */
+    JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
 
     /**
      * The float value.
@@ -147,9 +157,21 @@ public enum JavaVersion {
             return JAVA_1_7;
         } else if ("1.8".equals(nom)) {
             return JAVA_1_8;
-        } else {
+        } else if ("1.9".equals(nom)) {
+            return JAVA_1_9;
+        }
+        if (nom == null) {
             return null;
         }
+        final float v = toFloatVersion(nom);
+        if ((v - 1.) < 1.) { // then we need to check decimals > .9
+            final int firstComma = Math.max(nom.indexOf('.'), nom.indexOf(','));
+            final int end = Math.max(nom.length(), nom.indexOf(',', firstComma));
+            if (Float.parseFloat(nom.substring(firstComma + 1, end)) > .9f) {
+                return JAVA_RECENT;
+            }
+        }
+        return null;
     }
 
     //-----------------------------------------------------------------------
@@ -165,4 +187,24 @@ public enum JavaVersion {
         return name;
     }
 
+    // upper bound of java version considering 2. or current is the higher
+    private static float maxVersion() {
+        final float v = toFloatVersion(System.getProperty("java.version", "2.0"));
+        if (v > 0) {
+            return v;
+        }
+        return 2f;
+    }
+
+    private static float toFloatVersion(final String name) {
+        final String[] toParse = name.split("\\.");
+        if (toParse.length >= 2) {
+            try {
+                return Float.parseFloat(toParse[0] + '.' + toParse[1]);
+            } catch (final NumberFormatException nfe) {
+                // no-op, let use default
+            }
+        }
+        return -1;
+    }
 }
