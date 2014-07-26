@@ -77,7 +77,7 @@ public enum JavaVersion {
     JAVA_1_9(1.9f, "1.9"),
 
     /**
-     * Java 1.x, x > 9. Mainly introduced to avoid to break when a new version of Java is used.
+     * Java 1.x, x &gt; 9. Mainly introduced to avoid to break when a new version of Java is used.
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
 
