@@ -604,7 +604,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>2.5.2</version>
+        <version>3.0.0</version>
         <configuration>
           <threshold>Normal</threshold>
           <effort>Default</effort>
@@ -614,19 +614,19 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.5.1</version>
+        <version>2.6</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>clirr-maven-plugin</artifactId>
-        <version>2.4</version>
+        <version>2.6.1</version>
         <configuration>
           <minSeverity>info</minSeverity>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.2</version>
         <configuration>
           <targetJdk>${maven.compile.target}</targetJdk>
         </configuration>
