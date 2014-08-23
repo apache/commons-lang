@@ -1084,12 +1084,14 @@ public class FieldUtilsTest {
         field = parentClass.getDeclaredField("i");
         try {
             FieldUtils.writeField(field, publicChild, Integer.valueOf(Integer.MAX_VALUE));
+            fail("Expected IllegalAccessException");
         } catch (final IllegalAccessException e) {
             // pass
         }
         field = parentClass.getDeclaredField("d");
         try {
             FieldUtils.writeField(field, publicChild, Double.valueOf(Double.MAX_VALUE));
+            fail("Expected IllegalAccessException");
         } catch (final IllegalAccessException e) {
             // pass
         }
