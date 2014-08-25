@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1020" type="update" dev="britter" due-to="Libor Ondrusek">Improve performance of normalize space</action>
     <action issue="LANG-1033" type="add" dev="ggregory">Add StringUtils.countMatches(CharSequence, char)</action>
     <action issue="LANG-1027" type="update" dev="rmannibucau">org.apache.commons.lang3.SystemUtils#isJavaVersionAtLeast should return true by default</action>
     <action issue="LANG-1021" type="add" dev="britter" due-to="Alexander Müller">Provide methods to retrieve all fields/methods annotated with a specific type</action>
