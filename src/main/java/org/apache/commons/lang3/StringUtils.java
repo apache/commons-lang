@@ -173,16 +173,6 @@ public class StringUtils {
     private static final int PAD_LIMIT = 8192;
 
     /**
-     * A regex pattern for recognizing blocks of whitespace characters.
-     * The apparent convolutedness of the pattern serves the purpose of
-     * ignoring "blocks" consisting of only a single space:  the pattern
-     * is used only to normalize whitespace, condensing "blocks" down to a
-     * single space, thus matching the same would likely cause a great
-     * many noop replacements.
-     */
-    private static final Pattern WHITESPACE_PATTERN = Pattern.compile("(?: |\\u00A0|\\s|[\\s&&[^ ]])\\s*");
-
-    /**
      * <p>{@code StringUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * {@code StringUtils.trim(" foo ");}.</p>
@@ -7477,10 +7467,34 @@ public class StringUtils {
      * @since 3.0
      */
     public static String normalizeSpace(final String str) {
-        if (str == null) {
-            return null;
+        // LANG-1020: Improved performance significantly normalizing manually instead of using regex
+        // See https://github.com/librucha/commons-lang-normalizespaces-benchmark for performance test
+        if (isEmpty(str)) {
+            return str;
         }
-        return WHITESPACE_PATTERN.matcher(trim(str)).replaceAll(SPACE);
+        final int size = str.length();
+        final char[] newChars = new char[size];
+        int count = 0;
+        int whitespacesCount = 0;
+        boolean startWhitespaces = true;
+        for (int i = 0; i < size; i++) {
+            char actualChar = str.charAt(i);
+            boolean isWhitespace = Character.isWhitespace(actualChar);
+            if (!isWhitespace) {
+                startWhitespaces = false;
+                newChars[count++] = (actualChar == 160 ? 32 : actualChar);
+                whitespacesCount = 0;
+            } else {
+                if (whitespacesCount == 0 && !startWhitespaces) {
+                    newChars[count++] = SPACE.charAt(0);
+                }
+                whitespacesCount++;
+            }
+        }
+        if (startWhitespaces) {
+            return EMPTY;
+        }
+        return new String(newChars, 0, count - (whitespacesCount > 0 ? 1 : 0));
     }
 
     /**
