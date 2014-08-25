@@ -7467,7 +7467,7 @@ public class StringUtils {
      * @since 3.0
      */
     public static String normalizeSpace(final String str) {
-        // LANG-1020: Improved performance significantly normalizing manually instead of using regex
+        // LANG-1020: Improved performance significantly by normalizing manually instead of using regex
         // See https://github.com/librucha/commons-lang-normalizespaces-benchmark for performance test
         if (isEmpty(str)) {
             return str;
