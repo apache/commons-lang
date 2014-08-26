@@ -7806,16 +7806,16 @@ public class StringUtils {
      * </p>
      * 
      * <pre>
-     * StringUtils.wrap(null, *)   = null
-     * StringUtils.wrap("", *)     = ""
-     * StringUtils.wrap("ab", null)   = "ab"
-     * StringUtils.wrap("ab", "x")  = "xabx"
-     * StringUtils.wrap("ab", "\"")   = "\"ab\""
-     * StringUtils.wrap("\"ab\"", "\"") = "\"\"ab\"\""
-     * StringUtils.wrap("ab", "'")   = "'ab'"
-     * StringUtils.wrap("'abcd'", "'") = "''abcd''"
+     * StringUtils.wrap(null, *)         = null
+     * StringUtils.wrap("", *)           = ""
+     * StringUtils.wrap("ab", null)      = "ab"
+     * StringUtils.wrap("ab", "x")       = "xabx"
+     * StringUtils.wrap("ab", "\"")      = "\"ab\""
+     * StringUtils.wrap("\"ab\"", "\"")  = "\"\"ab\"\""
+     * StringUtils.wrap("ab", "'")       = "'ab'"
+     * StringUtils.wrap("'abcd'", "'")   = "''abcd''"
      * StringUtils.wrap("\"abcd\"", "'") = "'\"abcd\"'"
-     * StringUtils.wrap("'abcd'", "\"") = "\"'abcd'\""
+     * StringUtils.wrap("'abcd'", "\"")  = "\"'abcd'\""
      * </pre>
      * 
      * @param str
