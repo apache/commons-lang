@@ -1489,7 +1489,7 @@ public class NumberUtils {
             return false;
         }
         if( StringUtils.startsWith( str, "-" ) ) {
-            return isDigits( StringUtils.replaceOnce( StringUtils.substring( str, 1 ), ".", StringUtils.EMPTY ) );
+            return isDigits( StringUtils.replaceOnce( str.substring(1), ".", StringUtils.EMPTY ) );
         } else {
             return isDigits( StringUtils.replaceOnce( str, ".", StringUtils.EMPTY ) );
         }
