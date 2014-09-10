@@ -68,7 +68,8 @@ import org.apache.commons.lang3.tuple.Pair;
  * <code>reflectionEquals</code>, uses <code>AccessibleObject.setAccessible</code> to
  * change the visibility of the fields. This will fail under a security
  * manager, unless the appropriate permissions are set up correctly. It is
- * also slower than testing explicitly.</p>
+ * also slower than testing explicitly.  Non-primitive fields are compared using 
+ * <code>equals()</code>.</p>
  *
  * <p> A typical invocation for this method would look like:</p>
  * <pre>
@@ -232,8 +233,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly.</p>
-     *
+     * not as efficient as testing explicitly. Non-primitive fields are compared using 
+     * <code>equals()</code>.</p>
+     * 
      * <p>Transient members will be not be tested, as they are likely derived
      * fields, and not part of the value of the Object.</p>
      *
@@ -255,7 +257,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly.</p>
+     * not as efficient as testing explicitly. Non-primitive fields are compared using 
+     * <code>equals()</code>.</p>
      *
      * <p>Transient members will be not be tested, as they are likely derived
      * fields, and not part of the value of the Object.</p>
@@ -278,7 +281,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly.</p>
+     * not as efficient as testing explicitly. Non-primitive fields are compared using 
+     * <code>equals()</code>.</p>
      *
      * <p>If the TestTransients parameter is set to <code>true</code>, transient
      * members will be tested, otherwise they are ignored, as they are likely
@@ -302,7 +306,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly.</p>
+     * not as efficient as testing explicitly. Non-primitive fields are compared using 
+     * <code>equals()</code>.</p>
      *
      * <p>If the testTransients parameter is set to <code>true</code>, transient
      * members will be tested, otherwise they are ignored, as they are likely
