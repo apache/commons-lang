@@ -40,6 +40,12 @@ import java.util.concurrent.TimeUnit;
  * Since a date without a year is not a valid date, you have to decide in what
  * kind of date-field you want your result, for instance milliseconds or days.
  * </p>
+ * <p>
+ * Several methods are provided for adding to {@code Date} objects, of the form 
+ * {@code addXXX(Date date, int amount)}. It is important to note these methods 
+ * use a {@code Calendar} internally (with default timezone and locale) and may
+ * be affected by changes to daylight saving time (DST).
+ * </p>
  *
  * @since 2.0
  * @version $Id$
