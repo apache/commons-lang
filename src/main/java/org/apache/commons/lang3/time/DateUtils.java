@@ -117,20 +117,24 @@ public class DateUtils {
     public static final int RANGE_MONTH_MONDAY = 6;
 
     /**
-     * Constant marker for truncating.
-     * @since 3.0
+     * Calendar modification types.
      */
-    private static final int MODIFY_TRUNCATE = 0;
-    /**
-     * Constant marker for rounding.
-     * @since 3.0
-     */
-    private static final int MODIFY_ROUND = 1;
-    /**
-     * Constant marker for ceiling.
-     * @since 3.0
-     */
-    private static final int MODIFY_CEILING = 2;
+    private static enum ModifyType {
+        /**
+         * Truncation.
+         */
+        TRUNCATE,
+        
+        /**
+         * Rounding. 
+         */
+        ROUND,
+        
+        /**
+         * Ceiling. 
+         */
+        CEILING
+    }
 
     /**
      * <p>{@code DateUtils} instances should NOT be constructed in
@@ -709,7 +713,7 @@ public class DateUtils {
         }
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
-        modify(gval, field, MODIFY_ROUND);
+        modify(gval, field, ModifyType.ROUND);
         return gval.getTime();
     }
 
@@ -745,7 +749,7 @@ public class DateUtils {
             throw new IllegalArgumentException("The date must not be null");
         }
         final Calendar rounded = (Calendar) date.clone();
-        modify(rounded, field, MODIFY_ROUND);
+        modify(rounded, field, ModifyType.ROUND);
         return rounded;
     }
 
@@ -812,7 +816,7 @@ public class DateUtils {
         }
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
-        modify(gval, field, MODIFY_TRUNCATE);
+        modify(gval, field, ModifyType.TRUNCATE);
         return gval.getTime();
     }
 
@@ -836,7 +840,7 @@ public class DateUtils {
             throw new IllegalArgumentException("The date must not be null");
         }
         final Calendar truncated = (Calendar) date.clone();
-        modify(truncated, field, MODIFY_TRUNCATE);
+        modify(truncated, field, ModifyType.TRUNCATE);
         return truncated;
     }
 
@@ -892,7 +896,7 @@ public class DateUtils {
         }
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
-        modify(gval, field, MODIFY_CEILING);
+        modify(gval, field, ModifyType.CEILING);
         return gval.getTime();
     }
 
@@ -917,7 +921,7 @@ public class DateUtils {
             throw new IllegalArgumentException("The date must not be null");
         }
         final Calendar ceiled = (Calendar) date.clone();
-        modify(ceiled, field, MODIFY_CEILING);
+        modify(ceiled, field, ModifyType.CEILING);
         return ceiled;
     }
 
@@ -960,7 +964,7 @@ public class DateUtils {
      * @param modType  type to truncate, round or ceiling
      * @throws ArithmeticException if the year is over 280 million
      */
-    private static void modify(final Calendar val, final int field, final int modType) {
+    private static void modify(final Calendar val, final int field, final ModifyType modType) {
         if (val.get(Calendar.YEAR) > 280000000) {
             throw new ArithmeticException("Calendar value too large for accurate calculations");
         }
@@ -981,7 +985,7 @@ public class DateUtils {
 
         // truncate milliseconds
         final int millisecs = val.get(Calendar.MILLISECOND);
-        if (MODIFY_TRUNCATE == modType || millisecs < 500) {
+        if (ModifyType.TRUNCATE == modType || millisecs < 500) {
             time = time - millisecs;
         }
         if (field == Calendar.SECOND) {
@@ -990,7 +994,7 @@ public class DateUtils {
 
         // truncate seconds
         final int seconds = val.get(Calendar.SECOND);
-        if (!done && (MODIFY_TRUNCATE == modType || seconds < 30)) {
+        if (!done && (ModifyType.TRUNCATE == modType || seconds < 30)) {
             time = time - (seconds * 1000L);
         }
         if (field == Calendar.MINUTE) {
@@ -999,7 +1003,7 @@ public class DateUtils {
 
         // truncate minutes
         final int minutes = val.get(Calendar.MINUTE);
-        if (!done && (MODIFY_TRUNCATE == modType || minutes < 30)) {
+        if (!done && (ModifyType.TRUNCATE == modType || minutes < 30)) {
             time = time - (minutes * 60000L);
         }
 
@@ -1015,7 +1019,7 @@ public class DateUtils {
             for (final int element : aField) {
                 if (element == field) {
                     //This is our field... we stop looping
-                    if (modType == MODIFY_CEILING || (modType == MODIFY_ROUND && roundUp)) {
+                    if (modType == ModifyType.CEILING || (modType == ModifyType.ROUND && roundUp)) {
                         if (field == DateUtils.SEMI_MONTH) {
                             //This is a special case that's hard to generalize
                             //If the date is 1, we round up to 16, otherwise
