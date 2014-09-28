@@ -16,10 +16,7 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -285,5 +282,18 @@ public class FastDatePrinterTest {
         final String expectedValue = sdf.format(cal.getTime());
         final String actualValue = FastDateFormat.getInstance(pattern).format(cal);
         assertEquals(expectedValue, actualValue);
+    }
+    
+    @Test
+    public void testTimeZoneAsZ() throws Exception {
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        FastDateFormat noColonFormat = FastDateFormat.getInstance("Z");
+        assertEquals("+0000", noColonFormat.format(c));
+        
+        FastDateFormat isoFormat = FastDateFormat.getInstance("ZZ");
+        assertEquals("Z", isoFormat.format(c));
+        
+        FastDateFormat colonFormat = FastDateFormat.getInstance("ZZZ");
+        assertEquals("+00:00", colonFormat.format(c));
     }
 }

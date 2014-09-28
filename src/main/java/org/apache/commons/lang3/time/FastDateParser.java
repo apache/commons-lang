@@ -513,6 +513,10 @@ public class FastDateParser implements DateParser, Serializable {
         case 'y':
             return formatField.length()>2 ?LITERAL_YEAR_STRATEGY :ABBREVIATED_YEAR_STRATEGY;
         case 'Z':
+            if (formatField.equals("ZZ")) {
+                return ISO_8601_STRATEGY;
+            }
+            //$FALL-THROUGH$
         case 'z':
             return getLocaleSpecificStrategy(Calendar.ZONE_OFFSET, definingCalendar);
         }
@@ -814,6 +818,32 @@ public class FastDateParser implements DateParser, Serializable {
             cal.setTimeZone(tz);
         }
     }
+    
+    private static class ISO8601TimeZoneStrategy extends Strategy {
+        // Z, +hh, -hh, +hhmm, -hhmm, +hh:mm or -hh:mm 
+        private static final String PATTERN = "(Z|(?:[+-]\\d{2}(?::?\\d{2})?))";
+        
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        boolean addRegex(FastDateParser parser, StringBuilder regex) {
+            regex.append(PATTERN);
+            return true;
+        }
+        
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        void setCalendar(FastDateParser parser, Calendar cal, String value) {
+            if (value.equals("Z")) {
+                cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+            } else {
+                cal.setTimeZone(TimeZone.getTimeZone("GMT" + value));
+            }
+        }
+    }
 
     private static final Strategy NUMBER_MONTH_STRATEGY = new NumberStrategy(Calendar.MONTH) {
         @Override
@@ -844,4 +874,5 @@ public class FastDateParser implements DateParser, Serializable {
     private static final Strategy MINUTE_STRATEGY = new NumberStrategy(Calendar.MINUTE);
     private static final Strategy SECOND_STRATEGY = new NumberStrategy(Calendar.SECOND);
     private static final Strategy MILLISECOND_STRATEGY = new NumberStrategy(Calendar.MILLISECOND);
+    private static final Strategy ISO_8601_STRATEGY = new ISO8601TimeZoneStrategy();
 }
