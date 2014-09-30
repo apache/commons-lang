@@ -436,7 +436,12 @@ public class MethodUtilsTest {
                 MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation"),
                 MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")
         };
-        assertArrayEquals(annotatedMethods, MethodUtils.getMethodsWithAnnotation(MethodUtilsTest.class, Annotated.class));
+        Method[] methodArray = MethodUtils.getMethodsWithAnnotation(MethodUtilsTest.class, Annotated.class);
+        List<Method> methodList = Arrays.asList(methodArray);
+        assertTrue(methodList.contains(annotatedMethods[0]));
+        assertTrue(methodList.contains(annotatedMethods[1]));
+        assertEquals(2, methodArray.length); // there are two methods in annotatedMethods
+        assertEquals(2, methodList.size());
     }
 
     @Test(expected = IllegalArgumentException.class)
