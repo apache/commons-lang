@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import static org.hamcrest.Matchers.hasItemInArray;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -23,6 +25,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -432,11 +435,11 @@ public class MethodUtilsTest {
     @Annotated
     public void testGetMethodsWithAnnotation() throws NoSuchMethodException {
         assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class));
-        final Method[] annotatedMethods = new Method[]{
-                MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation"),
-                MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")
-        };
-        assertArrayEquals(annotatedMethods, MethodUtils.getMethodsWithAnnotation(MethodUtilsTest.class, Annotated.class));
+
+        Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(MethodUtilsTest.class, Annotated.class);
+        assertEquals(2, methodsWithAnnotation.length);
+        assertThat(methodsWithAnnotation, hasItemInArray(MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation")));
+        assertThat(methodsWithAnnotation, hasItemInArray(MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -458,14 +461,13 @@ public class MethodUtilsTest {
     @Annotated
     public void testGetMethodsListWithAnnotation() throws NoSuchMethodException {
         assertEquals(0, MethodUtils.getMethodsListWithAnnotation(Object.class, Annotated.class).size());
-        final List<Method> annotatedMethods = Arrays.asList(
+
+        final List<Method> methodWithAnnotation = MethodUtils.getMethodsListWithAnnotation(MethodUtilsTest.class, Annotated.class);
+        assertEquals(2, methodWithAnnotation.size());
+        assertThat(methodWithAnnotation, hasItems(
                 MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation"),
                 MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")
-        );
-        final List<Method> methodUtilsTestAnnotatedFields = MethodUtils.getMethodsListWithAnnotation(MethodUtilsTest.class, Annotated.class);
-        assertEquals(annotatedMethods.size(), methodUtilsTestAnnotatedFields.size());
-        assertTrue(methodUtilsTestAnnotatedFields.contains(annotatedMethods.get(0)));
-        assertTrue(methodUtilsTestAnnotatedFields.contains(annotatedMethods.get(1)));
+        ));
     }
 
     @Test(expected = IllegalArgumentException.class)
