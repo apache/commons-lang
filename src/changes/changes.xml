@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1041" type="fix" dev="britter" due-to="Alexandre Bartel">Fix MethodUtilsTest so it does not depend on JDK method ordering</action>
     <action issue="LANG-827" type="update" dev="djones">CompareToBuilder's doc doesn't specify precedence of fields it uses in performing comparisons</action>
     <action issue="LANG-1000" type="fix" dev="djones">ParseException when trying to parse UTC dates with Z as zone designator using DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT</action>
     <action issue="LANG-1035" type="fix" dev="djones">Javadoc for EqualsBuilder.reflectionEquals() is unclear</action>
