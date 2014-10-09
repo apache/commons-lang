@@ -47,6 +47,8 @@
     <action issue="LANG-998" type="update" dev="chas">Javadoc is not clear on preferred pattern to instantiate FastDateParser / FastDatePrinter</action>
     <action issue="LANG-996" type="fix" dev="chas">FastDateParser should be case insensitive</action>
     <action issue="LANG-995" type="fix" dev="britter" due-to="Andrey Khobnya">Fix bug with stripping spaces on last line in WordUtils.wrap()</action>
+    <action issue="LANG-1044" type="add" dev="ggregory">Add method org.apache.commons.lang3.reflect.MethodUtils.invokeExactMethod(Object, String)</action>
+    <action issue="LANG-1045" type="add" dev="ggregory">Add method org.apache.commons.lang3.reflect.MethodUtils.invokeMethod(Object, String)</action>
   </release>
 
   <release version="3.3.2" date="2014-04-09" description="Bugfix for a bug in NumberUtils introduced in 3.3.1">
