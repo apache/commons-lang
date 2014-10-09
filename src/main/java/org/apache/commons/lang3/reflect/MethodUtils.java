@@ -191,6 +191,7 @@ public class MethodUtils {
      *
      * @param object invoke method on this object
      * @param methodName get method with this name
+     * @param args use these arguments - treat null as empty array
      * @return The value returned by the invoked method
      *
      * @throws NoSuchMethodException if there is no such accessible method
