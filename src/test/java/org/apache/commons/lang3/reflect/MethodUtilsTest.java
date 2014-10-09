@@ -156,6 +156,7 @@ public class MethodUtilsTest {
     public void testInvokeMethod() throws Exception {
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo",
                 (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
+        assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo"));
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo",
                 (Object[]) null));
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo", 
@@ -180,6 +181,7 @@ public class MethodUtilsTest {
     public void testInvokeExactMethod() throws Exception {
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo",
                 (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
+        assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo"));
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo",
                 (Object[]) null));
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo", 

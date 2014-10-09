@@ -71,6 +71,30 @@ public class MethodUtils {
     }
 
     /**
+     * <p>Invokes a named method without parameters.</p>
+     *
+     * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
+     *
+     * <p>This is a convenient wrapper for
+     * {@link #invokeMethod(Object object,String methodName, Object[] args, Class[] parameterTypes)}.
+     * </p>
+     *
+     * @param object invoke method on this object
+     * @param methodName get method with this name
+     * @return The value returned by the invoked method
+     *
+     * @throws NoSuchMethodException if there is no such accessible method
+     * @throws InvocationTargetException wraps an exception thrown by the method invoked
+     * @throws IllegalAccessException if the requested method is not accessible via reflection
+     *  
+     *  @since 3.4
+     */
+    public static Object invokeMethod(final Object object, final String methodName) throws NoSuchMethodException,
+            IllegalAccessException, InvocationTargetException {
+        return invokeMethod(object, methodName, ArrayUtils.EMPTY_OBJECT_ARRAY, null);
+    }
+
+    /**
      * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
@@ -144,7 +168,29 @@ public class MethodUtils {
      *
      * @param object invoke method on this object
      * @param methodName get method with this name
-     * @param args use these arguments - treat {@code null} as empty array
+     * @return The value returned by the invoked method
+     *
+     * @throws NoSuchMethodException if there is no such accessible method
+     * @throws InvocationTargetException wraps an exception thrown by the
+     *  method invoked
+     * @throws IllegalAccessException if the requested method is not accessible
+     *  via reflection
+     *  
+     *  @since 3.4
+     */
+    public static Object invokeExactMethod(final Object object, final String methodName) throws NoSuchMethodException,
+            IllegalAccessException, InvocationTargetException {
+        return invokeExactMethod(object, methodName, ArrayUtils.EMPTY_OBJECT_ARRAY, null);
+    }
+
+    /**
+     * <p>Invokes a method with no parameters.</p>
+     *
+     * <p>This uses reflection to invoke the method obtained from a call to
+     * {@link #getAccessibleMethod}(Class,String,Class[])}.</p>
+     *
+     * @param object invoke method on this object
+     * @param methodName get method with this name
      * @return The value returned by the invoked method
      *
      * @throws NoSuchMethodException if there is no such accessible method
