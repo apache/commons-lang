@@ -6151,7 +6151,10 @@ public class StringUtils {
      * StringUtils.isAllLowerCase("")     = false
      * StringUtils.isAllLowerCase("  ")   = false
      * StringUtils.isAllLowerCase("abc")  = true
-     * StringUtils.isAllLowerCase("abC") = false
+     * StringUtils.isAllLowerCase("abC")  = false
+     * StringUtils.isAllLowerCase("ab c") = false
+     * StringUtils.isAllLowerCase("ab1c") = false
+     * StringUtils.isAllLowerCase("ab/c") = false
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
@@ -6183,7 +6186,10 @@ public class StringUtils {
      * StringUtils.isAllUpperCase("")     = false
      * StringUtils.isAllUpperCase("  ")   = false
      * StringUtils.isAllUpperCase("ABC")  = true
-     * StringUtils.isAllUpperCase("aBC") = false
+     * StringUtils.isAllUpperCase("aBC")  = false
+     * StringUtils.isAllUpperCase("A C")  = false
+     * StringUtils.isAllUpperCase("A1C")  = false
+     * StringUtils.isAllUpperCase("A/C")  = false
      * </pre>
      *
      * @param cs the CharSequence to check, may be null

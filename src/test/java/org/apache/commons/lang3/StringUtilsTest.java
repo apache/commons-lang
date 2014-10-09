@@ -2066,9 +2066,14 @@ public class StringUtilsTest {
     public void testIsAllLowerCase() {
         assertFalse(StringUtils.isAllLowerCase(null));
         assertFalse(StringUtils.isAllLowerCase(StringUtils.EMPTY));
+        assertFalse(StringUtils.isAllLowerCase("  "));
         assertTrue(StringUtils.isAllLowerCase("abc"));
         assertFalse(StringUtils.isAllLowerCase("abc "));
+        assertFalse(StringUtils.isAllLowerCase("abc\n"));
         assertFalse(StringUtils.isAllLowerCase("abC"));
+        assertFalse(StringUtils.isAllLowerCase("ab c"));
+        assertFalse(StringUtils.isAllLowerCase("ab1c"));
+        assertFalse(StringUtils.isAllLowerCase("ab/c"));
     }
 
     /**
@@ -2078,9 +2083,14 @@ public class StringUtilsTest {
     public void testIsAllUpperCase() {
         assertFalse(StringUtils.isAllUpperCase(null));
         assertFalse(StringUtils.isAllUpperCase(StringUtils.EMPTY));
+        assertFalse(StringUtils.isAllUpperCase("  "));
         assertTrue(StringUtils.isAllUpperCase("ABC"));
         assertFalse(StringUtils.isAllUpperCase("ABC "));
+        assertFalse(StringUtils.isAllUpperCase("ABC\n"));
         assertFalse(StringUtils.isAllUpperCase("aBC"));
+        assertFalse(StringUtils.isAllUpperCase("A C"));
+        assertFalse(StringUtils.isAllUpperCase("A1C"));
+        assertFalse(StringUtils.isAllUpperCase("A/C"));
     }
 
     @Test
