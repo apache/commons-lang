@@ -1495,4 +1495,55 @@ public class NumberUtils {
         }
     }
 
+    /**
+     * <p>Compares to {@code int} values numerically. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code int} to compare
+     * @param y the second {@code int} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     */
+    public static int compare(int x, int y) {
+        return (x < y) ? -1 : ((x == y) ? 0 : 1);
+    }
+
+    /**
+     * <p>Compares to {@code long} values numerically. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code long} to compare
+     * @param y the second {@code long} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     */
+    public static int compare(long x, long y) {
+        return (x < y) ? -1 : ((x == y) ? 0 : 1);
+    }
+
+    /**
+     * <p>Compares to {@code short} values numerically. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code short} to compare
+     * @param y the second {@code short} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     */
+    public static int compare(short x, short y) {
+        return (x < y) ? -1 : ((x == y) ? 0 : 1);
+    }
+
+    /**
+     * <p>Compares to {@code byte} values numerically. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code byte} to compare
+     * @param y the second {@code byte} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     */
+    public static int compare(byte x, byte y) {
+        return x-y;
+    }
 }
