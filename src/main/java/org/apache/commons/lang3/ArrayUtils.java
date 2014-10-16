@@ -470,7 +470,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Object[] nullToEmpty(final Object[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_OBJECT_ARRAY;
         }
         return array;
@@ -490,7 +490,7 @@ public class ArrayUtils {
      * @since 3.2
      */
     public static Class<?>[] nullToEmpty(final Class<?>[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_CLASS_ARRAY;
         }
         return array;
@@ -510,7 +510,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static String[] nullToEmpty(final String[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_STRING_ARRAY;
         }
         return array;
@@ -530,7 +530,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static long[] nullToEmpty(final long[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_LONG_ARRAY;
         }
         return array;
@@ -550,7 +550,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static int[] nullToEmpty(final int[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_INT_ARRAY;
         }
         return array;
@@ -570,7 +570,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static short[] nullToEmpty(final short[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_SHORT_ARRAY;
         }
         return array;
@@ -590,7 +590,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static char[] nullToEmpty(final char[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_CHAR_ARRAY;
         }
         return array;
@@ -610,7 +610,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static byte[] nullToEmpty(final byte[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_BYTE_ARRAY;
         }
         return array;
@@ -630,7 +630,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static double[] nullToEmpty(final double[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_DOUBLE_ARRAY;
         }
         return array;
@@ -650,7 +650,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static float[] nullToEmpty(final float[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_FLOAT_ARRAY;
         }
         return array;
@@ -670,7 +670,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static boolean[] nullToEmpty(final boolean[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_BOOLEAN_ARRAY;
         }
         return array;
@@ -690,7 +690,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Long[] nullToEmpty(final Long[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_LONG_OBJECT_ARRAY;
         }
         return array;
@@ -710,7 +710,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Integer[] nullToEmpty(final Integer[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_INTEGER_OBJECT_ARRAY;
         }
         return array;
@@ -730,7 +730,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Short[] nullToEmpty(final Short[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_SHORT_OBJECT_ARRAY;
         }
         return array;
@@ -750,7 +750,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Character[] nullToEmpty(final Character[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_CHARACTER_OBJECT_ARRAY;
         }
         return array;
@@ -770,7 +770,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Byte[] nullToEmpty(final Byte[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_BYTE_OBJECT_ARRAY;
         }
         return array;
@@ -790,7 +790,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Double[] nullToEmpty(final Double[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_DOUBLE_OBJECT_ARRAY;
         }
         return array;
@@ -810,7 +810,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Float[] nullToEmpty(final Float[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_FLOAT_OBJECT_ARRAY;
         }
         return array;
@@ -830,7 +830,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Boolean[] nullToEmpty(final Boolean[] array) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return EMPTY_BOOLEAN_OBJECT_ARRAY;
         }
         return array;
