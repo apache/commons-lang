@@ -354,5 +354,11 @@ public class CharUtilsTest {
             }
         }
     }
-    
+
+    @Test
+    public void testCompare() {
+        assertTrue(CharUtils.compare('a', 'b') < 0);
+        assertTrue(CharUtils.compare('c', 'c') == 0);
+        assertTrue(CharUtils.compare('c', 'a') > 0);
+    }
 }

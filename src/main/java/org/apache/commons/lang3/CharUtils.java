@@ -535,5 +535,17 @@ public class CharUtils {
     public static boolean isAsciiAlphanumeric(final char ch) {
         return isAsciiAlpha(ch) || isAsciiNumeric(ch);
     }
-    
+
+    /**
+     * <p>Compares to {@code char} values numerically. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code char} to compare
+     * @param y the second {@code char} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     */
+    public static int compare(char x, char y) {
+        return x-y;
+    }
 }
