@@ -363,6 +363,31 @@ public class ArrayUtilsTest  {
 
     //-----------------------------------------------------------------------
 
+    private class TestClass{}
+
+    @Test
+    public void testNullToEmptyGenericNull() {
+        TestClass[] output = ArrayUtils.nullToEmpty(null, TestClass[].class);
+
+        assertTrue(output != null);
+        assertTrue(output.length == 0);
+    }
+
+    @Test
+    public void testNullToEmptyGenericEmpty() {
+        TestClass[] input = new TestClass[]{};
+        TestClass[] output = ArrayUtils.nullToEmpty(input, TestClass[].class);
+
+        assertSame(input, output);
+    }
+
+    @Test
+    public void testNullToEmptyGeneric() {
+        TestClass[] input = new TestClass[]{new TestClass(), new TestClass()};
+        TestClass[] output = ArrayUtils.nullToEmpty(input, TestClass[].class);
+
+        assertSame(input, output);
+    }
 
     @Test
     public void testNullToEmptyBooleanNull() throws Exception {

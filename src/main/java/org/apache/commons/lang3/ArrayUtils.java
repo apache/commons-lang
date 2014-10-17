@@ -462,6 +462,23 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
      *
+     * @param array  the array to check for {@code null} or empty
+     * @param type   the class representation of the desired array
+     * @return the same array, {@code public static} empty array if {@code null}
+     */
+    public static <T> T[] nullToEmpty(final T[] array, final Class<T[]> type) {
+        if(array == null) {
+            return type.cast(Array.newInstance(type.getComponentType(), 0));
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a {@code null}
+     * reference to an empty one.</p>
+     *
+     * <p>This method returns an empty array for a {@code null} input array.</p>
+     *
      * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
