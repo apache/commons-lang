@@ -766,7 +766,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 buffer.append((char)(value / 10 + '0'));
                 buffer.append((char)(value % 10 + '0'));
             } else {
-                buffer.append(Integer.toString(value));
+                buffer.append(value);
             }
         }
     }
@@ -853,6 +853,16 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             appendTo(buffer, calendar.get(mField));
         }
 
+        final static int [] sizeTable = { 9, 99, 999, 9999, 99999, 999999, 9999999,
+                99999999, 999999999, Integer.MAX_VALUE };
+
+        // Requires positive x
+        static int stringSize(int x) {
+            for (int i=0; ; i++)
+                if (x <= sizeTable[i])
+                    return i+1;
+        }
+
         /**
          * {@inheritDoc}
          */
@@ -870,12 +880,12 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                     digits = 3;
                 } else {
                     Validate.isTrue(value > -1, "Negative values should not be possible", value);
-                    digits = Integer.toString(value).length();
+                    digits = stringSize(value);
                 }
                 for (int i = mSize; --i >= digits; ) {
                     buffer.append('0');
                 }
-                buffer.append(Integer.toString(value));
+                buffer.append(value);
             }
         }
     }
@@ -920,7 +930,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 buffer.append((char)(value / 10 + '0'));
                 buffer.append((char)(value % 10 + '0'));
             } else {
-                buffer.append(Integer.toString(value));
+                buffer.append(value);
             }
         }
     }
