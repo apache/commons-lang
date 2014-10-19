@@ -1359,4 +1359,31 @@ public class NumberUtilsTest {
         assertTrue(Float.isNaN(NumberUtils.max(bF)));
     }
 
+    @Test
+    public void compareInt() {
+        assertTrue(NumberUtils.compare(-3, 0) < 0);
+        assertTrue(NumberUtils.compare(113, 113)==0);
+        assertTrue(NumberUtils.compare(213, 32) > 0);
+    }
+
+    @Test
+    public void compareLong() {
+        assertTrue(NumberUtils.compare(-3L, 0L) < 0);
+        assertTrue(NumberUtils.compare(113L, 113L)==0);
+        assertTrue(NumberUtils.compare(213L, 32L) > 0);
+    }
+
+    @Test
+    public void compareShort() {
+        assertTrue(NumberUtils.compare((short)-3, (short)0) < 0);
+        assertTrue(NumberUtils.compare((short)113, (short)113)==0);
+        assertTrue(NumberUtils.compare((short)213, (short)32) > 0);
+    }
+
+    @Test
+    public void compareByte() {
+        assertTrue(NumberUtils.compare((byte)-3, (byte)0) < 0);
+        assertTrue(NumberUtils.compare((byte)113, (byte)113)==0);
+        assertTrue(NumberUtils.compare((byte)123, (byte)32) > 0);
+    }
 }

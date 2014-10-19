@@ -1006,5 +1006,13 @@ public class BooleanUtilsTest {
                     Boolean.TRUE })
                     .booleanValue());
     }
+
+    @Test
+    public void testCompare(){
+        assertTrue(BooleanUtils.compare(true, false) > 0);
+        assertTrue(BooleanUtils.compare(true, true) == 0);
+        assertTrue(BooleanUtils.compare(false, false) == 0);
+        assertTrue(BooleanUtils.compare(false, true) < 0);
+    }
     
 }
