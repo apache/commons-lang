@@ -1085,4 +1085,25 @@ public class BooleanUtils {
         }
     }
 
+    /**
+     * <p>Compares two {@code boolean} values. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code boolean} to compare
+     * @param y the second {@code boolean} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code !x && y}; and
+     *         a value greater than {@code 0} if {@code x && !y}
+     * @since 3.4
+     */
+    public static int compare(boolean x, boolean y) {
+        if (x == y) {
+            return 0;
+        }
+        if (x) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
 }
