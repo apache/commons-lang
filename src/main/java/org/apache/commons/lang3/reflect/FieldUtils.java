@@ -20,6 +20,7 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -84,6 +85,7 @@ public class FieldUtils {
     public static Field getField(final Class<?> cls, final String fieldName, final boolean forceAccess) {
         Validate.isTrue(cls != null, "The class must not be null");
         Validate.isTrue(StringUtils.isNotBlank(fieldName), "The field name must not be blank/empty");
+        // FIXME is this workaround still needed? lang requires Java 6
         // Sun Java 1.3 has a bugged implementation of getField hence we write the
         // code ourselves
 
@@ -193,7 +195,7 @@ public class FieldUtils {
      *             if the class is {@code null}
      * @since 3.2
      */
-    public static Field[] getAllFields(Class<?> cls) {
+    public static Field[] getAllFields(final Class<?> cls) {
         final List<Field> allFieldsList = getAllFieldsList(cls);
         return allFieldsList.toArray(new Field[allFieldsList.size()]);
     }
@@ -208,18 +210,57 @@ public class FieldUtils {
      *             if the class is {@code null}
      * @since 3.2
      */
-    public static List<Field> getAllFieldsList(Class<?> cls) {
+    public static List<Field> getAllFieldsList(final Class<?> cls) {
         Validate.isTrue(cls != null, "The class must not be null");
         final List<Field> allFields = new ArrayList<Field>();
         Class<?> currentClass = cls;
         while (currentClass != null) {
             final Field[] declaredFields = currentClass.getDeclaredFields();
-            for (Field field : declaredFields) {
+            for (final Field field : declaredFields) {
                 allFields.add(field);
             }
             currentClass = currentClass.getSuperclass();
         }
         return allFields;
+    }
+
+    /**
+     * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
+     * @param cls
+     *            the {@link Class} to query
+     * @param annotationCls
+     *            the {@link Annotation} that must be present on a field to be matched
+     * @return an array of Fields (possibly empty).
+     * @throws IllegalArgumentException
+     *            if the class or annotation are {@code null}
+     * @since 3.4
+     */
+    public static Field[] getFieldsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+        final List<Field> annotatedFieldsList = getFieldsListWithAnnotation(cls, annotationCls);
+        return annotatedFieldsList.toArray(new Field[annotatedFieldsList.size()]);
+    }
+
+    /**
+     * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
+     * @param cls
+     *            the {@link Class} to query
+     * @param annotationCls
+     *            the {@link Annotation} that must be present on a field to be matched
+     * @return a list of Fields (possibly empty).
+     * @throws IllegalArgumentException
+     *            if the class or annotation are {@code null}
+     * @since 3.4
+     */
+    public static List<Field> getFieldsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+        Validate.isTrue(annotationCls != null, "The annotation class must not be null");
+        final List<Field> allFields = getAllFieldsList(cls);
+        final List<Field> annotatedFields = new ArrayList<Field>();
+        for (final Field field : allFields) {
+            if (field.getAnnotation(annotationCls) != null) {
+                annotatedFields.add(field);
+            }
+        }
+        return annotatedFields;
     }
 
     /**
@@ -448,7 +489,7 @@ public class FieldUtils {
     }
 
     /**
-     * <p<>Gets a {@link Field} value by name. Only the class of the specified object will be considered.
+     * Gets a {@link Field} value by name. Only the class of the specified object will be considered.
      * 
      * @param target
      *            the object to reflect, must not be {@code null}
@@ -658,7 +699,7 @@ public class FieldUtils {
      *             if the field is {@code null}
      * @since 3.2
      */
-    public static void removeFinalModifier(Field field) {
+    public static void removeFinalModifier(final Field field) {
         removeFinalModifier(field, true);
     }
 
@@ -675,13 +716,13 @@ public class FieldUtils {
      *             if the field is {@code null}
      * @since 3.3
      */
-    public static void removeFinalModifier(Field field, boolean forceAccess) {
+    public static void removeFinalModifier(final Field field, final boolean forceAccess) {
         Validate.isTrue(field != null, "The field must not be null");
 
         try {
             if (Modifier.isFinal(field.getModifiers())) {
                 // Do all JREs implement Field with a private ivar called "modifiers"?
-                Field modifiersField = Field.class.getDeclaredField("modifiers");
+                final Field modifiersField = Field.class.getDeclaredField("modifiers");
                 final boolean doForceAccess = forceAccess && !modifiersField.isAccessible();
                 if (doForceAccess) {
                     modifiersField.setAccessible(true);
@@ -694,9 +735,9 @@ public class FieldUtils {
                     }
                 }
             }
-        } catch (NoSuchFieldException ignored) {
+        } catch (final NoSuchFieldException ignored) {
             // The field class contains always a modifiers field
-        } catch (IllegalAccessException ignored) {
+        } catch (final IllegalAccessException ignored) {
             // The modifiers field is made accessible
         }
     }

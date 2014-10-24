@@ -26,11 +26,12 @@ import java.util.UUID;
  * Static methods to convert a type into another, with endianness and bit ordering awareness.
  * </p>
  * <p>
- * The methods names follow a naming rule:</br>
+ * The methods names follow a naming rule:<br>
  * {@code <source type>[source endianness][source bit ordering]To<destination type>[destination endianness][destination bit ordering]}
  * </p>
  * <p>
  * Source/destination type fields is one of the following:
+ * </p>
  * <ul>
  * <li>binary: an array of booleans</li>
  * <li>byte or byteArray</li>
@@ -40,8 +41,9 @@ import java.util.UUID;
  * <li>hexDigit: a Char containing a hexadecimal digit (lowercase in destination)</li>
  * <li>uuid</li>
  * </ul>
+ * <p>
  * Endianness field: little endian is the default, in this case the field is absent. In case of
- * big endian, the field is "Be".</br> Bit ordering: Lsb0 is the default, in this case the field
+ * big endian, the field is "Be".<br> Bit ordering: Lsb0 is the default, in this case the field
  * is absent. In case of Msb0, the field is "Msb0".
  * </p>
  * <p>
@@ -63,6 +65,24 @@ import java.util.UUID;
  */
 
 public class Conversion {
+    
+    private static final boolean[] TTTT = new boolean[] { true, true, true, true };
+    private static final boolean[] FTTT = new boolean[] { false, true, true, true };
+    private static final boolean[] TFTT = new boolean[] { true, false, true, true };
+    private static final boolean[] FFTT = new boolean[] { false, false, true, true };
+    private static final boolean[] TTFT = new boolean[] { true, true, false, true };
+    private static final boolean[] FTFT = new boolean[] { false, true, false, true };
+    private static final boolean[] TFFT = new boolean[] { true, false, false, true };
+    private static final boolean[] FFFT = new boolean[] { false, false, false, true };
+    private static final boolean[] TTTF = new boolean[] { true, true, true, false };
+    private static final boolean[] FTTF = new boolean[] { false, true, true, false };
+    private static final boolean[] TFTF = new boolean[] { true, false, true, false };
+    private static final boolean[] FFTF = new boolean[] { false, false, true, false };
+    private static final boolean[] TTFF = new boolean[] { true, true, false, false };
+    private static final boolean[] FTFF = new boolean[] { false, true, false, false };
+    private static final boolean[] TFFF = new boolean[] { true, false, false, false };
+    private static final boolean[] FFFF = new boolean[] { false, false, false, false };
+
     /**
      * <p>
      * Converts a hexadecimal digit into an int using the default (Lsb0) bit ordering.
@@ -78,9 +98,7 @@ public class Conversion {
     public static int hexDigitToInt(final char hexDigit) {
         final int digit = Character.digit(hexDigit, 16);
         if (digit < 0) {
-            throw new IllegalArgumentException("Cannot interpret '"
-                + hexDigit
-                + "' as a hexadecimal digit");
+            throw new IllegalArgumentException("Cannot interpret '" + hexDigit + "' as a hexadecimal digit");
         }
         return digit;
     }
@@ -138,9 +156,7 @@ public class Conversion {
         case 'F':
             return 0xF;
         default:
-            throw new IllegalArgumentException("Cannot interpret '"
-                + hexDigit
-                + "' as a hexadecimal digit");
+            throw new IllegalArgumentException("Cannot interpret '" + hexDigit + "' as a hexadecimal digit");
         }
     }
 
@@ -160,47 +176,45 @@ public class Conversion {
     public static boolean[] hexDigitToBinary(final char hexDigit) {
         switch (hexDigit) {
         case '0':
-            return new boolean[]{false, false, false, false};
+            return FFFF.clone();
         case '1':
-            return new boolean[]{true, false, false, false};
+            return TFFF.clone();
         case '2':
-            return new boolean[]{false, true, false, false};
+            return FTFF.clone();
         case '3':
-            return new boolean[]{true, true, false, false};
+            return TTFF.clone();
         case '4':
-            return new boolean[]{false, false, true, false};
+            return FFTF.clone();
         case '5':
-            return new boolean[]{true, false, true, false};
+            return TFTF.clone();
         case '6':
-            return new boolean[]{false, true, true, false};
+            return FTTF.clone();
         case '7':
-            return new boolean[]{true, true, true, false};
+            return TTTF.clone();
         case '8':
-            return new boolean[]{false, false, false, true};
+            return FFFT.clone();
         case '9':
-            return new boolean[]{true, false, false, true};
+            return TFFT.clone();
         case 'a':// fall through
         case 'A':
-            return new boolean[]{false, true, false, true};
+            return FTFT.clone();
         case 'b':// fall through
         case 'B':
-            return new boolean[]{true, true, false, true};
+            return TTFT.clone();
         case 'c':// fall through
         case 'C':
-            return new boolean[]{false, false, true, true};
+            return FFTT.clone();
         case 'd':// fall through
         case 'D':
-            return new boolean[]{true, false, true, true};
+            return TFTT.clone();
         case 'e':// fall through
         case 'E':
-            return new boolean[]{false, true, true, true};
+            return FTTT.clone();
         case 'f':// fall through
         case 'F':
-            return new boolean[]{true, true, true, true};
+            return TTTT.clone();
         default:
-            throw new IllegalArgumentException("Cannot interpret '"
-                + hexDigit
-                + "' as a hexadecimal digit");
+            throw new IllegalArgumentException("Cannot interpret '" + hexDigit + "' as a hexadecimal digit");
         }
     }
 
@@ -220,47 +234,45 @@ public class Conversion {
     public static boolean[] hexDigitMsb0ToBinary(final char hexDigit) {
         switch (hexDigit) {
         case '0':
-            return new boolean[]{false, false, false, false};
+            return FFFF.clone();
         case '1':
-            return new boolean[]{false, false, false, true};
+            return FFFT.clone();
         case '2':
-            return new boolean[]{false, false, true, false};
+            return FFTF.clone();
         case '3':
-            return new boolean[]{false, false, true, true};
+            return FFTT.clone();
         case '4':
-            return new boolean[]{false, true, false, false};
+            return FTFF.clone();
         case '5':
-            return new boolean[]{false, true, false, true};
+            return FTFT.clone();
         case '6':
-            return new boolean[]{false, true, true, false};
+            return FTTF.clone();
         case '7':
-            return new boolean[]{false, true, true, true};
+            return FTTT.clone();
         case '8':
-            return new boolean[]{true, false, false, false};
+            return TFFF.clone();
         case '9':
-            return new boolean[]{true, false, false, true};
+            return TFFT.clone();
         case 'a':// fall through
         case 'A':
-            return new boolean[]{true, false, true, false};
+            return TFTF.clone();
         case 'b':// fall through
         case 'B':
-            return new boolean[]{true, false, true, true};
+            return TFTT.clone();
         case 'c':// fall through
         case 'C':
-            return new boolean[]{true, true, false, false};
+            return TTFF.clone();
         case 'd':// fall through
         case 'D':
-            return new boolean[]{true, true, false, true};
+            return TTFT.clone();
         case 'e':// fall through
         case 'E':
-            return new boolean[]{true, true, true, false};
+            return TTTF.clone();
         case 'f':// fall through
         case 'F':
-            return new boolean[]{true, true, true, true};
+            return TTTT.clone();
         default:
-            throw new IllegalArgumentException("Cannot interpret '"
-                + hexDigit
-                + "' as a hexadecimal digit");
+            throw new IllegalArgumentException("Cannot interpret '" + hexDigit + "' as a hexadecimal digit");
         }
     }
 
@@ -304,64 +316,25 @@ public class Conversion {
         if (src.length > srcPos + 3 && src[srcPos + 3]) {
             if (src.length > srcPos + 2 && src[srcPos + 2]) {
                 if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'f';
-                    } else {
-                        return 'e';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return 'd';
-                    } else {
-                        return 'c';
-                    }
+                    return src[srcPos] ? 'f' : 'e';
                 }
-            } else {
-                if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'b';
-                    } else {
-                        return 'a';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return '9';
-                    } else {
-                        return '8';
-                    }
-                }
+                return src[srcPos] ? 'd' : 'c';
             }
-        } else {
-            if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return '7';
-                    } else {
-                        return '6';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return '5';
-                    } else {
-                        return '4';
-                    }
-                }
-            } else {
-                if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return '3';
-                    } else {
-                        return '2';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return '1';
-                    } else {
-                        return '0';
-                    }
-                }
+            if (src.length > srcPos + 1 && src[srcPos + 1]) {
+                return src[srcPos] ? 'b' : 'a';
             }
+            return src[srcPos] ? '9' : '8';
         }
+        if (src.length > srcPos + 2 && src[srcPos + 2]) {
+            if (src.length > srcPos + 1 && src[srcPos + 1]) {
+                return src[srcPos] ? '7' : '6';
+            }
+            return src[srcPos] ? '5' : '4';
+        }
+        if (src.length > srcPos + 1 && src[srcPos + 1]) {
+            return src[srcPos] ? '3' : '2';
+        }
+        return src[srcPos] ? '1' : '0';
     }
 
     /**
@@ -405,72 +378,30 @@ public class Conversion {
             throw new IllegalArgumentException("src.length>8: src.length=" + src.length);
         }
         if (src.length - srcPos < 4) {
-            throw new IllegalArgumentException("src.length-srcPos<4: src.length="
-                + src.length
-                + ", srcPos="
-                + srcPos);
+            throw new IllegalArgumentException("src.length-srcPos<4: src.length=" + src.length + ", srcPos=" + srcPos);
         }
         if (src[srcPos + 3]) {
             if (src[srcPos + 2]) {
                 if (src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'f';
-                    } else {
-                        return '7';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return 'b';
-                    } else {
-                        return '3';
-                    }
+                    return src[srcPos] ? 'f' : '7';
                 }
-            } else {
-                if (src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'd';
-                    } else {
-                        return '5';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return '9';
-                    } else {
-                        return '1';
-                    }
-                }
+                return src[srcPos] ? 'b' : '3';
             }
-        } else {
-            if (src[srcPos + 2]) {
-                if (src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'e';
-                    } else {
-                        return '6';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return 'a';
-                    } else {
-                        return '2';
-                    }
-                }
-            } else {
-                if (src[srcPos + 1]) {
-                    if (src[srcPos]) {
-                        return 'c';
-                    } else {
-                        return '4';
-                    }
-                } else {
-                    if (src[srcPos]) {
-                        return '8';
-                    } else {
-                        return '0';
-                    }
-                }
+            if (src[srcPos + 1]) {
+                return src[srcPos] ? 'd' : '5';
             }
+            return src[srcPos] ? '9' : '1';
         }
+        if (src[srcPos + 2]) {
+            if (src[srcPos + 1]) {
+                return src[srcPos] ? 'e' : '6';
+            }
+            return src[srcPos] ? 'a' : '2';
+        }
+        if (src[srcPos + 1]) {
+            return src[srcPos] ? 'c' : '4';
+        }
+        return src[srcPos] ? '8' : '0';
     }
 
     /**
@@ -521,64 +452,25 @@ public class Conversion {
         if (src[srcPos]) {
             if (src.length > srcPos + 1 && src[srcPos + 1]) {
                 if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return 'f';
-                    } else {
-                        return 'e';
-                    }
-                } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return 'd';
-                    } else {
-                        return 'c';
-                    }
+                    return src.length > srcPos + 3 && src[srcPos + 3] ? 'f' : 'e';
                 }
-            } else {
-                if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return 'b';
-                    } else {
-                        return 'a';
-                    }
-                } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return '9';
-                    } else {
-                        return '8';
-                    }
-                }
+                return src.length > srcPos + 3 && src[srcPos + 3] ? 'd' : 'c';
             }
-        } else {
-            if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return '7';
-                    } else {
-                        return '6';
-                    }
-                } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return '5';
-                    } else {
-                        return '4';
-                    }
-                }
-            } else {
-                if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return '3';
-                    } else {
-                        return '2';
-                    }
-                } else {
-                    if (src.length > srcPos + 3 && src[srcPos + 3]) {
-                        return '1';
-                    } else {
-                        return '0';
-                    }
-                }
+            if (src.length > srcPos + 2 && src[srcPos + 2]) {
+                return src.length > srcPos + 3 && src[srcPos + 3] ? 'b' : 'a';
             }
+            return src.length > srcPos + 3 && src[srcPos + 3] ? '9' : '8';
         }
+        if (src.length > srcPos + 1 && src[srcPos + 1]) {
+            if (src.length > srcPos + 2 && src[srcPos + 2]) {
+                return src.length > srcPos + 3 && src[srcPos + 3] ? '7' : '6';
+            }
+            return src.length > srcPos + 3 && src[srcPos + 3] ? '5' : '4';
+        }
+        if (src.length > srcPos + 2 && src[srcPos + 2]) {
+            return src.length > srcPos + 3 && src[srcPos + 3] ? '3' : '2';
+        }
+        return src.length > srcPos + 3 && src[srcPos + 3] ? '1' : '0';
     }
 
     /**
@@ -681,17 +573,17 @@ public class Conversion {
      * @throws NullPointerException if {@code src} is {@code null}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nInts > src.length}
      */
-    public static long intArrayToLong(final int[] src, final int srcPos, final long dstInit, final int dstPos, final int nInts) {
+    public static long intArrayToLong(final int[] src, final int srcPos, final long dstInit, final int dstPos,
+            final int nInts) {
         if ((src.length == 0 && srcPos == 0) || 0 == nInts) {
             return dstInit;
         }
         if ((nInts - 1) * 32 + dstPos >= 64) {
-            throw new IllegalArgumentException(
-                "(nInts-1)*32+dstPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nInts-1)*32+dstPos is greather or equal to than 64");
         }
         long out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nInts; i++ ) {
+        for (int i = 0; i < nInts; i++) {
             shift = i * 32 + dstPos;
             final long bits = ((0xffffffffL & src[i + srcPos]) << shift);
             final long mask = 0xffffffffL << shift;
@@ -718,17 +610,16 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nShorts > src.length}
      */
     public static long shortArrayToLong(final short[] src, final int srcPos, final long dstInit, final int dstPos,
-        final int nShorts) {
+            final int nShorts) {
         if ((src.length == 0 && srcPos == 0) || 0 == nShorts) {
             return dstInit;
         }
         if ((nShorts - 1) * 16 + dstPos >= 64) {
-            throw new IllegalArgumentException(
-                "(nShorts-1)*16+dstPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nShorts-1)*16+dstPos is greather or equal to than 64");
         }
         long out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nShorts; i++ ) {
+        for (int i = 0; i < nShorts; i++) {
             shift = i * 16 + dstPos;
             final long bits = (0xffffL & src[i + srcPos]) << shift;
             final long mask = 0xffffL << shift;
@@ -755,17 +646,16 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nShorts > src.length}
      */
     public static int shortArrayToInt(final short[] src, final int srcPos, final int dstInit, final int dstPos,
-        final int nShorts) {
+            final int nShorts) {
         if ((src.length == 0 && srcPos == 0) || 0 == nShorts) {
             return dstInit;
         }
         if ((nShorts - 1) * 16 + dstPos >= 32) {
-            throw new IllegalArgumentException(
-                "(nShorts-1)*16+dstPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nShorts-1)*16+dstPos is greather or equal to than 32");
         }
         int out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nShorts; i++ ) {
+        for (int i = 0; i < nShorts; i++) {
             shift = i * 16 + dstPos;
             final int bits = (0xffff & src[i + srcPos]) << shift;
             final int mask = 0xffff << shift;
@@ -792,17 +682,16 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBytes > src.length}
      */
     public static long byteArrayToLong(final byte[] src, final int srcPos, final long dstInit, final int dstPos,
-        final int nBytes) {
+            final int nBytes) {
         if ((src.length == 0 && srcPos == 0) || 0 == nBytes) {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 64) {
-            throw new IllegalArgumentException(
-                "(nBytes-1)*8+dstPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greather or equal to than 64");
         }
         long out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nBytes; i++ ) {
+        for (int i = 0; i < nBytes; i++) {
             shift = i * 8 + dstPos;
             final long bits = (0xffL & src[i + srcPos]) << shift;
             final long mask = 0xffL << shift;
@@ -828,17 +717,17 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+dstPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBytes > src.length}
      */
-    public static int byteArrayToInt(final byte[] src, final int srcPos, final int dstInit, final int dstPos, final int nBytes) {
+    public static int byteArrayToInt(final byte[] src, final int srcPos, final int dstInit, final int dstPos,
+            final int nBytes) {
         if ((src.length == 0 && srcPos == 0) || 0 == nBytes) {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 32) {
-            throw new IllegalArgumentException(
-                "(nBytes-1)*8+dstPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greather or equal to than 32");
         }
         int out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nBytes; i++ ) {
+        for (int i = 0; i < nBytes; i++) {
             shift = i * 8 + dstPos;
             final int bits = (0xff & src[i + srcPos]) << shift;
             final int mask = 0xff << shift;
@@ -865,21 +754,20 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBytes > src.length}
      */
     public static short byteArrayToShort(final byte[] src, final int srcPos, final short dstInit, final int dstPos,
-        final int nBytes) {
+            final int nBytes) {
         if ((src.length == 0 && srcPos == 0) || 0 == nBytes) {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 16) {
-            throw new IllegalArgumentException(
-                "(nBytes-1)*8+dstPos is greather or equal to than 16");
+            throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greather or equal to than 16");
         }
         short out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nBytes; i++ ) {
+        for (int i = 0; i < nBytes; i++) {
             shift = i * 8 + dstPos;
             final int bits = (0xff & src[i + srcPos]) << shift;
             final int mask = 0xff << shift;
-            out = (short)((out & ~mask) | bits);
+            out = (short) ((out & ~mask) | bits);
         }
         return out;
     }
@@ -899,17 +787,17 @@ public class Conversion {
      * @return a long containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 64}
      */
-    public static long hexToLong(final String src, final int srcPos, final long dstInit, final int dstPos, final int nHex) {
+    public static long hexToLong(final String src, final int srcPos, final long dstInit, final int dstPos,
+            final int nHex) {
         if (0 == nHex) {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 64) {
-            throw new IllegalArgumentException(
-                "(nHexs-1)*4+dstPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 64");
         }
         long out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nHex; i++ ) {
+        for (int i = 0; i < nHex; i++) {
             shift = i * 4 + dstPos;
             final long bits = (0xfL & hexDigitToInt(src.charAt(i + srcPos))) << shift;
             final long mask = 0xfL << shift;
@@ -938,12 +826,11 @@ public class Conversion {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 32) {
-            throw new IllegalArgumentException(
-                "(nHexs-1)*4+dstPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 32");
         }
         int out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nHex; i++ ) {
+        for (int i = 0; i < nHex; i++) {
             shift = i * 4 + dstPos;
             final int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
             final int mask = 0xf << shift;
@@ -967,21 +854,21 @@ public class Conversion {
      * @return a short containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 16}
      */
-    public static short hexToShort(final String src, final int srcPos, final short dstInit, final int dstPos, final int nHex) {
+    public static short hexToShort(final String src, final int srcPos, final short dstInit, final int dstPos,
+            final int nHex) {
         if (0 == nHex) {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 16) {
-            throw new IllegalArgumentException(
-                "(nHexs-1)*4+dstPos is greather or equal to than 16");
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 16");
         }
         short out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nHex; i++ ) {
+        for (int i = 0; i < nHex; i++) {
             shift = i * 4 + dstPos;
             final int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
             final int mask = 0xf << shift;
-            out = (short)((out & ~mask) | bits);
+            out = (short) ((out & ~mask) | bits);
         }
         return out;
     }
@@ -1001,21 +888,21 @@ public class Conversion {
      * @return a byte containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 8}
      */
-    public static byte hexToByte(final String src, final int srcPos, final byte dstInit, final int dstPos, final int nHex) {
+    public static byte hexToByte(final String src, final int srcPos, final byte dstInit, final int dstPos,
+            final int nHex) {
         if (0 == nHex) {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 8) {
-            throw new IllegalArgumentException(
-                "(nHexs-1)*4+dstPos is greather or equal to than 8");
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 8");
         }
         byte out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nHex; i++ ) {
+        for (int i = 0; i < nHex; i++) {
             shift = i * 4 + dstPos;
             final int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
             final int mask = 0xf << shift;
-            out = (byte)((out & ~mask) | bits);
+            out = (byte) ((out & ~mask) | bits);
         }
         return out;
     }
@@ -1038,18 +925,17 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
     public static long binaryToLong(final boolean[] src, final int srcPos, final long dstInit, final int dstPos,
-        final int nBools) {
+            final int nBools) {
         if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 64) {
-            throw new IllegalArgumentException(
-                "nBools-1+dstPos is greather or equal to than 64");
+            throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 64");
         }
         long out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + dstPos;
+        for (int i = 0; i < nBools; i++) {
+            shift = i + dstPos;
             final long bits = (src[i + srcPos] ? 1L : 0) << shift;
             final long mask = 0x1L << shift;
             out = (out & ~mask) | bits;
@@ -1074,18 +960,18 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
-    public static int binaryToInt(final boolean[] src, final int srcPos, final int dstInit, final int dstPos, final int nBools) {
+    public static int binaryToInt(final boolean[] src, final int srcPos, final int dstInit, final int dstPos,
+            final int nBools) {
         if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 32) {
-            throw new IllegalArgumentException(
-                "nBools-1+dstPos is greather or equal to than 32");
+            throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 32");
         }
         int out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + dstPos;
+        for (int i = 0; i < nBools; i++) {
+            shift = i + dstPos;
             final int bits = (src[i + srcPos] ? 1 : 0) << shift;
             final int mask = 0x1 << shift;
             out = (out & ~mask) | bits;
@@ -1111,21 +997,20 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
     public static short binaryToShort(final boolean[] src, final int srcPos, final short dstInit, final int dstPos,
-        final int nBools) {
+            final int nBools) {
         if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 16) {
-            throw new IllegalArgumentException(
-                "nBools-1+dstPos is greather or equal to than 16");
+            throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 16");
         }
         short out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + dstPos;
+        for (int i = 0; i < nBools; i++) {
+            shift = i + dstPos;
             final int bits = (src[i + srcPos] ? 1 : 0) << shift;
             final int mask = 0x1 << shift;
-            out = (short)((out & ~mask) | bits);
+            out = (short) ((out & ~mask) | bits);
         }
         return out;
     }
@@ -1148,7 +1033,7 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
     public static byte binaryToByte(final boolean[] src, final int srcPos, final byte dstInit, final int dstPos,
-        final int nBools) {
+            final int nBools) {
         if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
             return dstInit;
         }
@@ -1157,11 +1042,11 @@ public class Conversion {
         }
         byte out = dstInit;
         int shift = 0;
-        for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + dstPos;
+        for (int i = 0; i < nBools; i++) {
+            shift = i + dstPos;
             final int bits = (src[i + srcPos] ? 1 : 0) << shift;
             final int mask = 0x1 << shift;
-            out = (byte)((out & ~mask) | bits);
+            out = (byte) ((out & ~mask) | bits);
         }
         return out;
     }
@@ -1183,18 +1068,18 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nInts-1)*32+srcPos >= 64}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nInts > dst.length}
      */
-    public static int[] longToIntArray(final long src, final int srcPos, final int[] dst, final int dstPos, final int nInts) {
+    public static int[] longToIntArray(final long src, final int srcPos, final int[] dst, final int dstPos,
+            final int nInts) {
         if (0 == nInts) {
             return dst;
         }
         if ((nInts - 1) * 32 + srcPos >= 64) {
-            throw new IllegalArgumentException(
-                "(nInts-1)*32+srcPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nInts-1)*32+srcPos is greather or equal to than 64");
         }
         int shift = 0;
-        for (int i = 0; i < nInts; i++ ) {
+        for (int i = 0; i < nInts; i++) {
             shift = i * 32 + srcPos;
-            dst[dstPos + i] = (int)(0xffffffff & (src >> shift));
+            dst[dstPos + i] = (int) (0xffffffff & (src >> shift));
         }
         return dst;
     }
@@ -1217,18 +1102,17 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nShorts > dst.length}
      */
     public static short[] longToShortArray(final long src, final int srcPos, final short[] dst, final int dstPos,
-        final int nShorts) {
+            final int nShorts) {
         if (0 == nShorts) {
             return dst;
         }
         if ((nShorts - 1) * 16 + srcPos >= 64) {
-            throw new IllegalArgumentException(
-                "(nShorts-1)*16+srcPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nShorts-1)*16+srcPos is greather or equal to than 64");
         }
         int shift = 0;
-        for (int i = 0; i < nShorts; i++ ) {
+        for (int i = 0; i < nShorts; i++) {
             shift = i * 16 + srcPos;
-            dst[dstPos + i] = (short)(0xffff & (src >> shift));
+            dst[dstPos + i] = (short) (0xffff & (src >> shift));
         }
         return dst;
     }
@@ -1251,18 +1135,17 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nShorts > dst.length}
      */
     public static short[] intToShortArray(final int src, final int srcPos, final short[] dst, final int dstPos,
-        final int nShorts) {
+            final int nShorts) {
         if (0 == nShorts) {
             return dst;
         }
         if ((nShorts - 1) * 16 + srcPos >= 32) {
-            throw new IllegalArgumentException(
-                "(nShorts-1)*16+srcPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nShorts-1)*16+srcPos is greather or equal to than 32");
         }
         int shift = 0;
-        for (int i = 0; i < nShorts; i++ ) {
+        for (int i = 0; i < nShorts; i++) {
             shift = i * 16 + srcPos;
-            dst[dstPos + i] = (short)(0xffff & (src >> shift));
+            dst[dstPos + i] = (short) (0xffff & (src >> shift));
         }
         return dst;
     }
@@ -1285,18 +1168,17 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBytes > dst.length}
      */
     public static byte[] longToByteArray(final long src, final int srcPos, final byte[] dst, final int dstPos,
-        final int nBytes) {
+            final int nBytes) {
         if (0 == nBytes) {
             return dst;
         }
         if ((nBytes - 1) * 8 + srcPos >= 64) {
-            throw new IllegalArgumentException(
-                "(nBytes-1)*8+srcPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greather or equal to than 64");
         }
         int shift = 0;
-        for (int i = 0; i < nBytes; i++ ) {
+        for (int i = 0; i < nBytes; i++) {
             shift = i * 8 + srcPos;
-            dst[dstPos + i] = (byte)(0xff & (src >> shift));
+            dst[dstPos + i] = (byte) (0xff & (src >> shift));
         }
         return dst;
     }
@@ -1318,18 +1200,18 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBytes > dst.length}
      */
-    public static byte[] intToByteArray(final int src, final int srcPos, final byte[] dst, final int dstPos, final int nBytes) {
+    public static byte[] intToByteArray(final int src, final int srcPos, final byte[] dst, final int dstPos,
+            final int nBytes) {
         if (0 == nBytes) {
             return dst;
         }
         if ((nBytes - 1) * 8 + srcPos >= 32) {
-            throw new IllegalArgumentException(
-                "(nBytes-1)*8+srcPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greather or equal to than 32");
         }
         int shift = 0;
-        for (int i = 0; i < nBytes; i++ ) {
+        for (int i = 0; i < nBytes; i++) {
             shift = i * 8 + srcPos;
-            dst[dstPos + i] = (byte)(0xff & (src >> shift));
+            dst[dstPos + i] = (byte) (0xff & (src >> shift));
         }
         return dst;
     }
@@ -1352,18 +1234,17 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBytes > dst.length}
      */
     public static byte[] shortToByteArray(final short src, final int srcPos, final byte[] dst, final int dstPos,
-        final int nBytes) {
+            final int nBytes) {
         if (0 == nBytes) {
             return dst;
         }
         if ((nBytes - 1) * 8 + srcPos >= 16) {
-            throw new IllegalArgumentException(
-                "(nBytes-1)*8+srcPos is greather or equal to than 16");
+            throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greather or equal to than 16");
         }
         int shift = 0;
-        for (int i = 0; i < nBytes; i++ ) {
+        for (int i = 0; i < nBytes; i++) {
             shift = i * 8 + srcPos;
-            dst[dstPos + i] = (byte)(0xff & (src >> shift));
+            dst[dstPos + i] = (byte) (0xff & (src >> shift));
         }
         return dst;
     }
@@ -1384,20 +1265,20 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 64}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
      */
-    public static String longToHex(final long src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
+    public static String longToHex(final long src, final int srcPos, final String dstInit, final int dstPos,
+            final int nHexs) {
         if (0 == nHexs) {
             return dstInit;
         }
         if ((nHexs - 1) * 4 + srcPos >= 64) {
-            throw new IllegalArgumentException(
-                "(nHexs-1)*4+srcPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 64");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         int append = sb.length();
-        for (int i = 0; i < nHexs; i++ ) {
+        for (int i = 0; i < nHexs; i++) {
             shift = i * 4 + srcPos;
-            final int bits = (int)(0xF & (src >> shift));
+            final int bits = (int) (0xF & (src >> shift));
             if (dstPos + i == append) {
                 ++append;
                 sb.append(intToHexDigit(bits));
@@ -1424,18 +1305,18 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 32}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
      */
-    public static String intToHex(final int src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
+    public static String intToHex(final int src, final int srcPos, final String dstInit, final int dstPos,
+            final int nHexs) {
         if (0 == nHexs) {
             return dstInit;
         }
         if ((nHexs - 1) * 4 + srcPos >= 32) {
-            throw new IllegalArgumentException(
-                "(nHexs-1)*4+srcPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 32");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         int append = sb.length();
-        for (int i = 0; i < nHexs; i++ ) {
+        for (int i = 0; i < nHexs; i++) {
             shift = i * 4 + srcPos;
             final int bits = 0xF & (src >> shift);
             if (dstPos + i == append) {
@@ -1464,18 +1345,18 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 16}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
      */
-    public static String shortToHex(final short src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
+    public static String shortToHex(final short src, final int srcPos, final String dstInit, final int dstPos,
+            final int nHexs) {
         if (0 == nHexs) {
             return dstInit;
         }
         if ((nHexs - 1) * 4 + srcPos >= 16) {
-            throw new IllegalArgumentException(
-                "(nHexs-1)*4+srcPos is greather or equal to than 16");
+            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 16");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         int append = sb.length();
-        for (int i = 0; i < nHexs; i++ ) {
+        for (int i = 0; i < nHexs; i++) {
             shift = i * 4 + srcPos;
             final int bits = 0xF & (src >> shift);
             if (dstPos + i == append) {
@@ -1504,18 +1385,18 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 8}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
      */
-    public static String byteToHex(final byte src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
+    public static String byteToHex(final byte src, final int srcPos, final String dstInit, final int dstPos,
+            final int nHexs) {
         if (0 == nHexs) {
             return dstInit;
         }
         if ((nHexs - 1) * 4 + srcPos >= 8) {
-            throw new IllegalArgumentException(
-                "(nHexs-1)*4+srcPos is greather or equal to than 8");
+            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 8");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
         int shift = 0;
         int append = sb.length();
-        for (int i = 0; i < nHexs; i++ ) {
+        for (int i = 0; i < nHexs; i++) {
             shift = i * 4 + srcPos;
             final int bits = 0xF & (src >> shift);
             if (dstPos + i == append) {
@@ -1546,17 +1427,16 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
     public static boolean[] longToBinary(final long src, final int srcPos, final boolean[] dst, final int dstPos,
-        final int nBools) {
+            final int nBools) {
         if (0 == nBools) {
             return dst;
         }
         if (nBools - 1 + srcPos >= 64) {
-            throw new IllegalArgumentException(
-                "nBools-1+srcPos is greather or equal to than 64");
+            throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 64");
         }
         int shift = 0;
-        for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + srcPos;
+        for (int i = 0; i < nBools; i++) {
+            shift = i + srcPos;
             dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
         }
         return dst;
@@ -1580,17 +1460,16 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
     public static boolean[] intToBinary(final int src, final int srcPos, final boolean[] dst, final int dstPos,
-        final int nBools) {
+            final int nBools) {
         if (0 == nBools) {
             return dst;
         }
         if (nBools - 1 + srcPos >= 32) {
-            throw new IllegalArgumentException(
-                "nBools-1+srcPos is greather or equal to than 32");
+            throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 32");
         }
         int shift = 0;
-        for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + srcPos;
+        for (int i = 0; i < nBools; i++) {
+            shift = i + srcPos;
             dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
         }
         return dst;
@@ -1614,18 +1493,17 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
     public static boolean[] shortToBinary(final short src, final int srcPos, final boolean[] dst, final int dstPos,
-        final int nBools) {
+            final int nBools) {
         if (0 == nBools) {
             return dst;
         }
         if (nBools - 1 + srcPos >= 16) {
-            throw new IllegalArgumentException(
-                "nBools-1+srcPos is greather or equal to than 16");
+            throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 16");
         }
         int shift = 0;
-        assert ((nBools - 1) * 1 < 16 - srcPos);
-        for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + srcPos;
+        assert ((nBools - 1) < 16 - srcPos);
+        for (int i = 0; i < nBools; i++) {
+            shift = i + srcPos;
             dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
         }
         return dst;
@@ -1649,7 +1527,7 @@ public class Conversion {
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
     public static boolean[] byteToBinary(final byte src, final int srcPos, final boolean[] dst, final int dstPos,
-        final int nBools) {
+            final int nBools) {
         if (0 == nBools) {
             return dst;
         }
@@ -1657,8 +1535,8 @@ public class Conversion {
             throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 8");
         }
         int shift = 0;
-        for (int i = 0; i < nBools; i++ ) {
-            shift = i * 1 + srcPos;
+        for (int i = 0; i < nBools; i++) {
+            shift = i + srcPos;
             dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
         }
         return dst;
@@ -1711,7 +1589,6 @@ public class Conversion {
         if (src.length - srcPos < 16) {
             throw new IllegalArgumentException("Need at least 16 bytes for UUID");
         }
-        return new UUID(byteArrayToLong(src, srcPos, 0, 0, 8), byteArrayToLong(
-            src, srcPos + 8, 0, 0, 8));
+        return new UUID(byteArrayToLong(src, srcPos, 0, 0, 8), byteArrayToLong(src, srcPos + 8, 0, 0, 8));
     }
 }

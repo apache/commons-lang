@@ -38,6 +38,14 @@ import org.apache.commons.lang3.Validate;
  * <p>FastDatePrinter is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
  *
+ * <p>To obtain a proxy to a FastDatePrinter, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} 
+ * or another variation of the factory methods of {@link FastDateFormat}.</p>
+ * 
+ * <p>Since FastDatePrinter is thread safe, you can use a static member instance:</p>
+ * <code>
+ *     private static final DatePrinter DATE_PRINTER = FastDateFormat.getInstance("yyyy-MM-dd");
+ * </code>
+ * 
  * <p>This class can be used as a direct replacement to
  * {@code SimpleDateFormat} in most formatting situations.
  * This class is especially useful in multi-threaded server environments.
@@ -53,7 +61,7 @@ import org.apache.commons.lang3.Validate;
  * This pattern letter can be used here (on all JDK versions).</p>
  *
  * <p>In addition, the pattern {@code 'ZZ'} has been made to represent
- * ISO8601 full format time zones (eg. {@code +08:00} or {@code -11:00}).
+ * ISO 8601 full format time zones (eg. {@code +08:00} or {@code -11:00}).
  * This introduces a minor incompatibility with Java 1.4, but at a gain of
  * useful functionality.</p>
  *
@@ -266,6 +274,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             case 'Z': // time zone (value)
                 if (tokenLen == 1) {
                     rule = TimeZoneNumberRule.INSTANCE_NO_COLON;
+                } else if (tokenLen == 2) {
+                    rule = TimeZoneNumberRule.INSTANCE_ISO_8601;
                 } else {
                     rule = TimeZoneNumberRule.INSTANCE_COLON;
                 }
@@ -1085,7 +1095,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     //-----------------------------------------------------------------------
 
-    private static ConcurrentMap<TimeZoneDisplayKey, String> cTimeZoneDisplayCache =
+    private static final ConcurrentMap<TimeZoneDisplayKey, String> cTimeZoneDisplayCache =
         new ConcurrentHashMap<TimeZoneDisplayKey, String>(7);
     /**
      * <p>Gets the time zone display name, using a cache for performance.</p>
@@ -1165,18 +1175,22 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * or {@code +/-HH:MM}.</p>
      */
     private static class TimeZoneNumberRule implements Rule {
-        static final TimeZoneNumberRule INSTANCE_COLON = new TimeZoneNumberRule(true);
-        static final TimeZoneNumberRule INSTANCE_NO_COLON = new TimeZoneNumberRule(false);
+        static final TimeZoneNumberRule INSTANCE_COLON = new TimeZoneNumberRule(true, false);
+        static final TimeZoneNumberRule INSTANCE_NO_COLON = new TimeZoneNumberRule(false, false);
+        static final TimeZoneNumberRule INSTANCE_ISO_8601 = new TimeZoneNumberRule(true, true);
 
         final boolean mColon;
+        final boolean mISO8601;
 
         /**
          * Constructs an instance of {@code TimeZoneNumberRule} with the specified properties.
          *
          * @param colon add colon between HH and MM in the output if {@code true}
+         * @param iso8601 create an ISO 8601 format output
          */
-        TimeZoneNumberRule(final boolean colon) {
+        TimeZoneNumberRule(final boolean colon, final boolean iso8601) {
             mColon = colon;
+            mISO8601 = iso8601;
         }
 
         /**
@@ -1192,6 +1206,11 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public void appendTo(final StringBuffer buffer, final Calendar calendar) {
+            if (mISO8601 && calendar.getTimeZone().getID().equals("UTC")) {
+                buffer.append("Z");
+                return;
+            }
+            
             int offset = calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET);
 
             if (offset < 0) {
@@ -1233,12 +1252,13 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * @param locale the timezone locale
          */
         TimeZoneDisplayKey(final TimeZone timeZone,
-                           final boolean daylight, int style, final Locale locale) {
+                           final boolean daylight, final int style, final Locale locale) {
             mTimeZone = timeZone;
             if (daylight) {
-                style |= 0x80000000;
+                mStyle = style | 0x80000000;
+            } else {
+                mStyle = style;
             }
-            mStyle = style;
             mLocale = locale;
         }
 

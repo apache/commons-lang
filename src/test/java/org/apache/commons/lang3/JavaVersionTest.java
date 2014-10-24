@@ -19,6 +19,8 @@
 package org.apache.commons.lang3;
 
 import org.junit.Test;
+
+import static org.apache.commons.lang3.JavaVersion.JAVA_RECENT;
 import static org.junit.Assert.*;
 import static org.apache.commons.lang3.JavaVersion.JAVA_0_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
@@ -29,6 +31,7 @@ import static org.apache.commons.lang3.JavaVersion.JAVA_1_5;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_6;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_7;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_8;
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_9;
 import static org.apache.commons.lang3.JavaVersion.get;
 import static org.apache.commons.lang3.JavaVersion.getJavaVersion;
 
@@ -50,7 +53,9 @@ public class JavaVersionTest {
         assertEquals("1.6 failed", JAVA_1_6, get("1.6"));
         assertEquals("1.7 failed", JAVA_1_7, get("1.7"));
         assertEquals("1.8 failed", JAVA_1_8, get("1.8"));
-        assertNull("1.9 unexpectedly worked", get("1.9"));
+        assertEquals("1.9 failed", JAVA_1_9, get("1.9"));
+        assertEquals("1.10 failed", JAVA_RECENT, get("1.10"));
+        // assertNull("2.10 unexpectedly worked", get("2.10"));
         assertEquals("Wrapper method failed", get("1.5"), getJavaVersion("1.5"));
     }
 

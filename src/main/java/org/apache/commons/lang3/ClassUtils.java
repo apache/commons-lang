@@ -127,7 +127,7 @@ public class ClassUtils {
         m.put("char", "C");
         m.put("void", "V");
         final Map<String, String> r = new HashMap<String, String>();
-        for (Map.Entry<String, String> e : m.entrySet()) {
+        for (final Map.Entry<String, String> e : m.entrySet()) {
             r.put(e.getValue(), e.getKey());
         }
         abbreviationMap = Collections.unmodifiableMap(m);
@@ -468,7 +468,7 @@ public class ClassUtils {
      * <p><strong>Since Lang 3.0,</strong> this method will default behavior for
      * calculating assignability between primitive and wrapper types <em>corresponding
      * to the running Java version</em>; i.e. autoboxing will be the default
-     * behavior in VMs running Java versions >= 1.5.</p>
+     * behavior in VMs running Java versions &gt; 1.5.</p>
      *
      * @param classArray  the array of Classes to check, may be {@code null}
      * @param toClassArray  the array of Classes to try to assign into, may be {@code null}
@@ -584,7 +584,7 @@ public class ClassUtils {
      * <p><strong>Since Lang 3.0,</strong> this method will default behavior for
      * calculating assignability between primitive and wrapper types <em>corresponding
      * to the running Java version</em>; i.e. autoboxing will be the default
-     * behavior in VMs running Java versions >= 1.5.</p>
+     * behavior in VMs running Java versions &gt; 1.5.</p>
      *
      * @param cls  the Class to check, may be null
      * @param toClass  the Class to try to assign into, returns false if null
@@ -901,12 +901,13 @@ public class ClassUtils {
      * it ensures that the returned Method is from a public class or interface and not
      * from an anonymous inner class. This means that the Method is invokable and
      * doesn't fall foul of Java bug
-     * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
+     * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).</p>
      *
-     *  <code><pre>Set set = Collections.unmodifiableSet(...);
+     *  <pre>
+     *  <code>Set set = Collections.unmodifiableSet(...);
      *  Method method = ClassUtils.getPublicMethod(set.getClass(), "isEmpty",  new Class[0]);
-     *  Object result = method.invoke(set, new Object[]);</pre></code>
-     * </p>
+     *  Object result = method.invoke(set, new Object[]);</code>
+     *  </pre>
      *
      * @param cls  the class to check, not null
      * @param methodName  the name of the method
@@ -915,7 +916,7 @@ public class ClassUtils {
      * @throws NullPointerException if the class is null
      * @throws SecurityException if a security violation occurred
      * @throws NoSuchMethodException if the method is not found in the given class
-     *  or if the metothod doen't conform with the requirements
+     *  or if the method doesn't conform with the requirements
      */
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes)
             throws SecurityException, NoSuchMethodException {
@@ -1108,33 +1109,31 @@ public class ClassUtils {
         className = StringUtils.deleteWhitespace(className);
         if (className == null) {
             return null;
+        }
+        int dim = 0;
+        while (className.startsWith("[")) {
+            dim++;
+            className = className.substring(1);
+        }
+        if (dim < 1) {
+            return className;
+        }
+        if (className.startsWith("L")) {
+            className = className.substring(
+                1,
+                className.endsWith(";")
+                    ? className.length() - 1
+                    : className.length());
         } else {
-            int dim = 0;
-            while (className.startsWith("[")) {
-                dim++;
-                className = className.substring(1);
-            }
-            if (dim < 1) {
-                return className;
-            } else {
-                if (className.startsWith("L")) {
-                    className = className.substring(
-                        1,
-                        className.endsWith(";")
-                            ? className.length() - 1
-                            : className.length());
-                } else {
-                    if (className.length() > 0) {
-                        className = reverseAbbreviationMap.get(className.substring(0, 1));
-                    }
-                }
-                final StringBuilder canonicalClassNameBuffer = new StringBuilder(className);
-                for (int i = 0; i < dim; i++) {
-                    canonicalClassNameBuffer.append("[]");
-                }
-                return canonicalClassNameBuffer.toString();
+            if (className.length() > 0) {
+                className = reverseAbbreviationMap.get(className.substring(0, 1));
             }
         }
+        final StringBuilder canonicalClassNameBuffer = new StringBuilder(className);
+        for (int i = 0; i < dim; i++) {
+            canonicalClassNameBuffer.append("[]");
+        }
+        return canonicalClassNameBuffer.toString();
     }
 
     /**
@@ -1157,7 +1156,7 @@ public class ClassUtils {
      * @return Iterable an Iterable over the class hierarchy of the given class
      * @since 3.2
      */
-    public static Iterable<Class<?>> hierarchy(final Class<?> type, Interfaces interfacesBehavior) {
+    public static Iterable<Class<?>> hierarchy(final Class<?> type, final Interfaces interfacesBehavior) {
         final Iterable<Class<?>> classes = new Iterable<Class<?>>() {
     
             @Override
@@ -1218,8 +1217,8 @@ public class ClassUtils {
                         return nextSuperclass;
                     }
     
-                    private void walkInterfaces(Set<Class<?>> addTo, Class<?> c) {
-                        for (Class<?> iface : c.getInterfaces()) {
+                    private void walkInterfaces(final Set<Class<?>> addTo, final Class<?> c) {
+                        for (final Class<?> iface : c.getInterfaces()) {
                             if (!seenInterfaces.contains(iface)) {
                                 addTo.add(iface);
                             }

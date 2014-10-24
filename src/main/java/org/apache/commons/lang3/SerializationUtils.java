@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * <p>Assists with the serialization process and performs additional functionality based
  * on serialization.</p>
- * <p>
+ *
  * <ul>
  * <li>Deep clone using serialization
  * <li>Serialize managing finally and IOException
@@ -92,8 +92,7 @@ public class SerializationUtils {
              * is of the same type as the original serialized object
              */
             @SuppressWarnings("unchecked") // see above
-            final
-            T readObject = (T) in.readObject();
+            final T readObject = (T) in.readObject();
             return readObject;
 
         } catch (final ClassNotFoundException ex) {
@@ -114,7 +113,9 @@ public class SerializationUtils {
     /**
      * Performs a serialization roundtrip. Serializes and deserializes the given object, great for testing objects that
      * implement {@link Serializable}.
-     * 
+     *
+     * @param <T>
+     *           the type of the object involved
      * @param msg
      *            the object to roundtrip
      * @return the serialized and deseralized object
@@ -326,9 +327,8 @@ public class SerializationUtils {
                     final Class<?> cls = primitiveTypes.get(name);
                     if (cls != null) {
                         return cls;
-                    } else {
-                        throw cnfe;
                     }
+                    throw cnfe;
                 }
             }
         }

@@ -112,13 +112,14 @@ public class SystemUtils {
 
     /**
      * <p>
-     * The {@code file.separator} System Property. 
+     * The {@code file.separator} System Property.
      * The file separator is:
-     * <ul>
-     * <li>{@code "/"}</code> on UNIX</li>
-     * <li>{@code "\"}</code> on Windows.</li>
-     * </ul>
      * </p>
+     * <ul>
+     * <li>{@code "/"} on UNIX</li>
+     * <li>{@code "\"} on Windows.</li>
+     * </ul>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -926,6 +927,18 @@ public class SystemUtils {
      */
     public static final boolean IS_JAVA_1_7 = getJavaVersionMatches("1.7");
 
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 1.8 (also 1.8.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.3.2
+     */
+    public static final boolean IS_JAVA_1_8 = getJavaVersionMatches("1.8");
+
     // Operating system checks
     // -----------------------------------------------------------------------
     // These MUST be declared after those above as they depend on the
@@ -957,10 +970,10 @@ public class SystemUtils {
      * @since 2.0
      */
     public static final boolean IS_OS_HP_UX = getOSMatchesName("HP-UX");
-    
+
     /**
      * <p>
-     * Is {@code true} if this is IBM iSeries 5.
+     * Is {@code true} if this is IBM OS/400.
      * </p>
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
@@ -968,7 +981,7 @@ public class SystemUtils {
      *
      * @since 3.3
      */
-    public static final boolean IS_OS_ISERIES_5 = getOSMatchesName("i5/OS");
+    public static final boolean IS_OS_400 = getOSMatchesName("OS/400");
 
     /**
      * <p>

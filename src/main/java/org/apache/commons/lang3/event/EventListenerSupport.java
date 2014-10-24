@@ -33,18 +33,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.apache.commons.lang3.Validate;
 
 /**
- * An EventListenerSupport object can be used to manage a list of event
+ * <p>An EventListenerSupport object can be used to manage a list of event
  * listeners of a particular type. The class provides
  * {@link #addListener(Object)} and {@link #removeListener(Object)} methods
  * for registering listeners, as well as a {@link #fire()} method for firing
  * events to the listeners.
+ * </p>
  *
- * <p/>
+ * <p>
  * To use this class, suppose you want to support ActionEvents.  You would do:
- * <code><pre>
+ * </p>
+ * <pre><code>
  * public class MyActionEventSource
  * {
- *   private EventListenerSupport<ActionListener> actionListeners =
+ *   private EventListenerSupport&lt;ActionListener&gt; actionListeners =
  *       EventListenerSupport.create(ActionListener.class);
  *
  *   public void someMethodThatFiresAction()
@@ -53,10 +55,12 @@ import org.apache.commons.lang3.Validate;
  *     actionListeners.fire().actionPerformed(e);
  *   }
  * }
- * </pre></code>
+ * </code></pre>
  *
+ * <p>
  * Serializing an {@link EventListenerSupport} instance will result in any
  * non-{@link Serializable} listeners being silently dropped.
+ * </p>
  *
  * @param <L> the type of event listener that is supported by this proxy.
  *

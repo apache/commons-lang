@@ -265,7 +265,7 @@ public class ObjectUtils {
         int hash = 1;
         if (objects != null) {
             for (final Object object : objects) {
-                int tmpHash = ObjectUtils.hashCode(object);
+                final int tmpHash = ObjectUtils.hashCode(object);
                 hash = hash * 31 + tmpHash;
             }
         }
@@ -312,7 +312,7 @@ public class ObjectUtils {
      *
      * @param appendable  the appendable to append to
      * @param object  the object to create a toString for
-     * @throws IOException 
+     * @throws IOException if an I/O error occurs
      * @since 3.2
      */
     public static void identityToString(final Appendable appendable, final Object object) throws IOException {
@@ -508,8 +508,8 @@ public class ObjectUtils {
      * @param <T> type of the values processed by this method
      * @param c1  the first comparable, may be null
      * @param c2  the second comparable, may be null
-     * @return a negative value if c1 < c2, zero if c1 = c2
-     *  and a positive value if c1 > c2
+     * @return a negative value if c1 &lt; c2, zero if c1 = c2
+     *  and a positive value if c1 &gt; c2
      */
     public static <T extends Comparable<? super T>> int compare(final T c1, final T c2) {
         return compare(c1, c2, false);
@@ -524,8 +524,8 @@ public class ObjectUtils {
      * @param nullGreater if true {@code null} is considered greater
      *  than a non-{@code null} value or if false {@code null} is
      *  considered less than a Non-{@code null} value
-     * @return a negative value if c1 < c2, zero if c1 = c2
-     *  and a positive value if c1 > c2
+     * @return a negative value if c1 &lt; c2, zero if c1 = c2
+     *  and a positive value if c1 &gt; c2
      * @see java.util.Comparator#compare(Object, Object)
      */
     public static <T extends Comparable<? super T>> int compare(final T c1, final T c2, final boolean nullGreater) {

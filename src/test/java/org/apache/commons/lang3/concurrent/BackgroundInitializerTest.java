@@ -108,7 +108,7 @@ public class BackgroundInitializerTest {
      * setExternalExecutor() method.
      */
     @Test
-    public void testSetExternalExecutor() throws Exception {
+    public void testSetExternalExecutor() {
         final ExecutorService exec = Executors.newCachedThreadPool();
         try {
             final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
@@ -126,6 +126,8 @@ public class BackgroundInitializerTest {
 
     /**
      * Tests that setting an executor after start() causes an exception.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the test implementation may throw it
      */
     @Test
     public void testSetExternalExecutorAfterStart() throws ConcurrentException {
@@ -155,6 +157,8 @@ public class BackgroundInitializerTest {
 
     /**
      * Tests calling get() before start(). This should cause an exception.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the test implementation may throw it
      */
     @Test(expected=IllegalStateException.class)
     public void testGetBeforeStart() throws ConcurrentException {
@@ -167,7 +171,7 @@ public class BackgroundInitializerTest {
      * exception.
      */
     @Test
-    public void testGetRuntimeException() throws Exception {
+    public void testGetRuntimeException() {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         final RuntimeException rex = new RuntimeException();
         init.ex = rex;
@@ -185,7 +189,7 @@ public class BackgroundInitializerTest {
      * exception.
      */
     @Test
-    public void testGetCheckedException() throws Exception {
+    public void testGetCheckedException() {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         final Exception ex = new Exception();
         init.ex = ex;
@@ -200,9 +204,11 @@ public class BackgroundInitializerTest {
 
     /**
      * Tests the get() method if waiting for the initialization is interrupted.
+     *
+     * @throws java.lang.InterruptedException because we're making use of Java's concurrent API
      */
     @Test
-    public void testGetInterruptedException() throws Exception {
+    public void testGetInterruptedException() throws InterruptedException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl(
                 exec);
@@ -289,6 +295,8 @@ public class BackgroundInitializerTest {
         /**
          * Records this invocation. Optionally throws an exception or sleeps a
          * while.
+         *
+         * @throws Exception in case of an error
          */
         @Override
         protected Integer initialize() throws Exception {

@@ -16,12 +16,16 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import static org.hamcrest.Matchers.hasItemInArray;
+import static org.hamcrest.Matchers.hasItems;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -30,6 +34,7 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -37,6 +42,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.Mutable;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
+import org.apache.commons.lang3.reflect.testbed.Annotated;
 import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
@@ -150,6 +156,7 @@ public class MethodUtilsTest {
     public void testInvokeMethod() throws Exception {
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo",
                 (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
+        assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo"));
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo",
                 (Object[]) null));
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo", 
@@ -174,6 +181,7 @@ public class MethodUtilsTest {
     public void testInvokeExactMethod() throws Exception {
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo",
                 (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
+        assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo"));
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo",
                 (Object[]) null));
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo", 
@@ -392,7 +400,7 @@ public class MethodUtilsTest {
                 new MethodDescriptor(GenericParent.class, "consume", GenericParent.class.getTypeParameters()[0]),
                 new MethodDescriptor(GenericConsumer.class, "consume", GenericConsumer.class.getTypeParameters()[0]))
                 .iterator();
-        for (Method m : MethodUtils.getOverrideHierarchy(method, Interfaces.INCLUDE)) {
+        for (final Method m : MethodUtils.getOverrideHierarchy(method, Interfaces.INCLUDE)) {
             assertTrue(expected.hasNext());
             final MethodDescriptor md = expected.next();
             assertEquals(md.declaringClass, m.getDeclaringClass());
@@ -412,7 +420,7 @@ public class MethodUtilsTest {
             Arrays.asList(new MethodDescriptor(StringParameterizedChild.class, "consume", String.class),
                 new MethodDescriptor(GenericParent.class, "consume", GenericParent.class.getTypeParameters()[0]))
                 .iterator();
-        for (Method m : MethodUtils.getOverrideHierarchy(method, Interfaces.EXCLUDE)) {
+        for (final Method m : MethodUtils.getOverrideHierarchy(method, Interfaces.EXCLUDE)) {
             assertTrue(expected.hasNext());
             final MethodDescriptor md = expected.next();
             assertEquals(md.declaringClass, m.getDeclaringClass());
@@ -423,6 +431,60 @@ public class MethodUtilsTest {
             }
         }
         assertFalse(expected.hasNext());
+    }
+
+    @Test
+    @Annotated
+    public void testGetMethodsWithAnnotation() throws NoSuchMethodException {
+        assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class));
+
+        Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(MethodUtilsTest.class, Annotated.class);
+        assertEquals(2, methodsWithAnnotation.length);
+        assertThat(methodsWithAnnotation, hasItemInArray(MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation")));
+        assertThat(methodsWithAnnotation, hasItemInArray(MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetMethodsWithAnnotationIllegalArgumentException1() {
+        MethodUtils.getMethodsWithAnnotation(FieldUtilsTest.class, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetMethodsWithAnnotationIllegalArgumentException2() {
+        MethodUtils.getMethodsWithAnnotation(null, Annotated.class);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetMethodsWithAnnotationIllegalArgumentException3() {
+        MethodUtils.getMethodsWithAnnotation(null, null);
+    }
+
+    @Test
+    @Annotated
+    public void testGetMethodsListWithAnnotation() throws NoSuchMethodException {
+        assertEquals(0, MethodUtils.getMethodsListWithAnnotation(Object.class, Annotated.class).size());
+
+        final List<Method> methodWithAnnotation = MethodUtils.getMethodsListWithAnnotation(MethodUtilsTest.class, Annotated.class);
+        assertEquals(2, methodWithAnnotation.size());
+        assertThat(methodWithAnnotation, hasItems(
+                MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation"),
+                MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")
+        ));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetMethodsListWithAnnotationIllegalArgumentException1() {
+        MethodUtils.getMethodsListWithAnnotation(FieldUtilsTest.class, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetMethodsListWithAnnotationIllegalArgumentException2() {
+        MethodUtils.getMethodsListWithAnnotation(null, Annotated.class);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetMethodsListWithAnnotationIllegalArgumentException3() {
+        MethodUtils.getMethodsListWithAnnotation(null, null);
     }
     
     private void expectMatchingAccessibleMethodParameterTypes(final Class<?> cls,
@@ -466,7 +528,7 @@ public class MethodUtilsTest {
         final String name;
         final Type[] parameterTypes;
 
-        MethodDescriptor(Class<?> declaringClass, String name, Type... parameterTypes) {
+        MethodDescriptor(final Class<?> declaringClass, final String name, final Type... parameterTypes) {
             this.declaringClass = declaringClass;
             this.name = name;
             this.parameterTypes = parameterTypes;

@@ -24,9 +24,11 @@ import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.EntityArrays;
 import org.apache.commons.lang3.text.translate.JavaUnicodeEscaper;
 import org.apache.commons.lang3.text.translate.LookupTranslator;
+import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
 import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 import org.apache.commons.lang3.text.translate.OctalUnescaper;
 import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
+import org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover;
 
 /**
  * <p>Escapes and unescapes {@code String}s for
@@ -111,11 +113,93 @@ public class StringEscapeUtils {
      * as the foundation for a custom translator. 
      *
      * @since 3.0
+     * @deprecated use {@link #ESCAPE_XML10} or {@link #ESCAPE_XML11} instead.
      */
+    @Deprecated
     public static final CharSequenceTranslator ESCAPE_XML = 
         new AggregateTranslator(
             new LookupTranslator(EntityArrays.BASIC_ESCAPE()),
             new LookupTranslator(EntityArrays.APOS_ESCAPE())
+        );
+    
+    /**
+     * Translator object for escaping XML 1.0.
+     * 
+     * While {@link #escapeXml10(String)} is the expected method of use, this
+     * object allows the XML escaping functionality to be used
+     * as the foundation for a custom translator.
+     *
+     * @since 3.3
+     */
+    public static final CharSequenceTranslator ESCAPE_XML10 =
+        new AggregateTranslator(
+            new LookupTranslator(EntityArrays.BASIC_ESCAPE()),
+            new LookupTranslator(EntityArrays.APOS_ESCAPE()),
+            new LookupTranslator(
+                    new String[][] {
+                            { "\u0000", "" },
+                            { "\u0001", "" },
+                            { "\u0002", "" },
+                            { "\u0003", "" },
+                            { "\u0004", "" },
+                            { "\u0005", "" },
+                            { "\u0006", "" },
+                            { "\u0007", "" },
+                            { "\u0008", "" },
+                            { "\u000b", "" },
+                            { "\u000c", "" },
+                            { "\u000e", "" },
+                            { "\u000f", "" },
+                            { "\u0010", "" },
+                            { "\u0011", "" },
+                            { "\u0012", "" },
+                            { "\u0013", "" },
+                            { "\u0014", "" },
+                            { "\u0015", "" },
+                            { "\u0016", "" },
+                            { "\u0017", "" },
+                            { "\u0018", "" },
+                            { "\u0019", "" },
+                            { "\u001a", "" },
+                            { "\u001b", "" },
+                            { "\u001c", "" },
+                            { "\u001d", "" },
+                            { "\u001e", "" },
+                            { "\u001f", "" },
+                            { "\ufffe", "" },
+                            { "\uffff", "" }
+                    }),
+            NumericEntityEscaper.between(0x7f, 0x84),
+            NumericEntityEscaper.between(0x86, 0x9f),
+            new UnicodeUnpairedSurrogateRemover()
+        );
+    
+    /**
+     * Translator object for escaping XML 1.1.
+     * 
+     * While {@link #escapeXml11(String)} is the expected method of use, this
+     * object allows the XML escaping functionality to be used
+     * as the foundation for a custom translator.
+     *
+     * @since 3.3
+     */
+    public static final CharSequenceTranslator ESCAPE_XML11 =
+        new AggregateTranslator(
+            new LookupTranslator(EntityArrays.BASIC_ESCAPE()),
+            new LookupTranslator(EntityArrays.APOS_ESCAPE()),
+            new LookupTranslator(
+                    new String[][] {
+                            { "\u0000", "" },
+                            { "\u000b", "&#11;" },
+                            { "\u000c", "&#12;" },
+                            { "\ufffe", "" },
+                            { "\uffff", "" }
+                    }),
+            NumericEntityEscaper.between(0x1, 0x8),
+            NumericEntityEscaper.between(0xe, 0x1f),
+            NumericEntityEscaper.between(0x7f, 0x84),
+            NumericEntityEscaper.between(0x86, 0x9f),
+            new UnicodeUnpairedSurrogateRemover()
         );
 
     /**
@@ -185,7 +269,7 @@ public class StringEscapeUtils {
                 out.write(StringUtils.replace(input.toString(), CSV_QUOTE_STR, CSV_QUOTE_STR + CSV_QUOTE_STR));
                 out.write(CSV_QUOTE);
             }
-            return input.length();
+            return Character.codePointCount(input, 0, input.length());
         }
     }
 
@@ -314,7 +398,7 @@ public class StringEscapeUtils {
 
             if ( input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE ) {
                 out.write(input.toString());
-                return input.length();
+                return Character.codePointCount(input, 0, input.length());
             }
 
             // strip quotes
@@ -326,7 +410,7 @@ public class StringEscapeUtils {
             } else {
                 out.write(input.toString());
             }
-            return input.length();
+            return Character.codePointCount(input, 0, input.length());
         }
     }
 
@@ -336,8 +420,8 @@ public class StringEscapeUtils {
      * <p>{@code StringEscapeUtils} instances should NOT be constructed in
      * standard programming.</p>
      *
-     * <p>Instead, the class should be used as:
-     * <pre>StringEscapeUtils.escapeJava("foo");</pre></p>
+     * <p>Instead, the class should be used as:</p>
+     * <pre>StringEscapeUtils.escapeJava("foo");</pre>
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
@@ -359,12 +443,11 @@ public class StringEscapeUtils {
      * <p>The only difference between Java strings and JavaScript strings
      * is that in JavaScript, a single quote and forward-slash (/) are escaped.</p>
      *
-     * <p>Example:
+     * <p>Example:</p>
      * <pre>
      * input string: He didn't say, "Stop!"
      * output string: He didn't say, \"Stop!\"
      * </pre>
-     * </p>
      *
      * @param input  String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
@@ -386,12 +469,11 @@ public class StringEscapeUtils {
      *
      * <p>Note that EcmaScript is best known by the JavaScript and ActionScript dialects. </p>
      *
-     * <p>Example:
+     * <p>Example:</p>
      * <pre>
      * input string: He didn't say, "Stop!"
      * output string: He didn\'t say, \"Stop!\"
      * </pre>
-     * </p>
      *
      * @param input  String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
@@ -415,12 +497,11 @@ public class StringEscapeUtils {
      *
      * <p>See http://www.ietf.org/rfc/rfc4627.txt for further details. </p>
      *
-     * <p>Example:
+     * <p>Example:</p>
      * <pre>
      * input string: He didn't say, "Stop!"
      * output string: He didn't say, \"Stop!\"
      * </pre>
-     * </p>
      *
      * @param input  String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
@@ -486,7 +567,7 @@ public class StringEscapeUtils {
      * <p>
      * For example:
      * </p> 
-     * <p><code>"bread" & "butter"</code></p>
+     * <p><code>"bread" &amp; "butter"</code></p>
      * becomes:
      * <p>
      * <code>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</code>.
@@ -530,12 +611,12 @@ public class StringEscapeUtils {
      * containing the actual Unicode characters corresponding to the
      * escapes. Supports HTML 4.0 entities.</p>
      *
-     * <p>For example, the string "&amp;lt;Fran&amp;ccedil;ais&amp;gt;"
-     * will become "&lt;Fran&ccedil;ais&gt;"</p>
+     * <p>For example, the string {@code "&lt;Fran&ccedil;ais&gt;"}
+     * will become {@code "<Français>"}</p>
      *
      * <p>If an entity is unrecognized, it is left alone, and inserted
-     * verbatim into the result string. e.g. "&amp;gt;&amp;zzzz;x" will
-     * become "&gt;&amp;zzzz;x".</p>
+     * verbatim into the result string. e.g. {@code "&gt;&zzzz;x"} will
+     * become {@code ">&zzzz;x"}.</p>
      *
      * @param input  the {@code String} to unescape, may be null
      * @return a new unescaped {@code String}, {@code null} if null string input
@@ -564,8 +645,8 @@ public class StringEscapeUtils {
     /**
      * <p>Escapes the characters in a {@code String} using XML entities.</p>
      *
-     * <p>For example: <tt>"bread" & "butter"</tt> =>
-     * <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
+     * <p>For example: {@code "bread" & "butter"} =&gt;
+     * {@code &quot;bread&quot; &amp; &quot;butter&quot;}.
      * </p>
      *
      * <p>Supports only the five basic XML entities (gt, lt, quot, amp, apos).
@@ -579,9 +660,73 @@ public class StringEscapeUtils {
      * @param input  the {@code String} to escape, may be null
      * @return a new escaped {@code String}, {@code null} if null string input
      * @see #unescapeXml(java.lang.String)
+     * @deprecated use {@link #escapeXml10(java.lang.String)} or {@link #escapeXml11(java.lang.String)} instead.
      */
+    @Deprecated
     public static final String escapeXml(final String input) {
         return ESCAPE_XML.translate(input);
+    }
+
+    /**
+     * <p>Escapes the characters in a {@code String} using XML entities.</p>
+     *
+     * <p>For example: {@code "bread" & "butter"} =&gt;
+     * {@code &quot;bread&quot; &amp; &quot;butter&quot;}.
+     * </p>
+     *
+     * <p>Note that XML 1.0 is a text-only format: it cannot represent control
+     * characters or unpaired Unicode surrogate codepoints, even after escaping.
+     * {@code escapeXml10} will remove characters that do not fit in the
+     * following ranges:</p>
+     * 
+     * <p>{@code #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]}</p>
+     * 
+     * <p>Though not strictly necessary, {@code escapeXml10} will escape
+     * characters in the following ranges:</p>
+     * 
+     * <p>{@code [#x7F-#x84] | [#x86-#x9F]}</p>
+     * 
+     * <p>The returned string can be inserted into a valid XML 1.0 or XML 1.1
+     * document. If you want to allow more non-text characters in an XML 1.1
+     * document, use {@link #escapeXml11(String)}.</p>
+     *
+     * @param input  the {@code String} to escape, may be null
+     * @return a new escaped {@code String}, {@code null} if null string input
+     * @see #unescapeXml(java.lang.String)
+     * @since 3.3
+     */
+    public static String escapeXml10(final String input) {
+        return ESCAPE_XML10.translate(input);
+    }
+    
+    /**
+     * <p>Escapes the characters in a {@code String} using XML entities.</p>
+     *
+     * <p>For example: {@code "bread" & "butter"} =&gt;
+     * {@code &quot;bread&quot; &amp; &quot;butter&quot;}.
+     * </p>
+     *
+     * <p>XML 1.1 can represent certain control characters, but it cannot represent
+     * the null byte or unpaired Unicode surrogate codepoints, even after escaping.
+     * {@code escapeXml11} will remove characters that do not fit in the following
+     * ranges:</p>
+     * 
+     * <p>{@code [#x1-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]}</p>
+     * 
+     * <p>{@code escapeXml11} will escape characters in the following ranges:</p>
+     * 
+     * <p>{@code [#x1-#x8] | [#xB-#xC] | [#xE-#x1F] | [#x7F-#x84] | [#x86-#x9F]}</p>
+     * 
+     * <p>The returned string can be inserted into a valid XML 1.1 document. Do not
+     * use it for XML 1.0 documents.</p>
+     *
+     * @param input  the {@code String} to escape, may be null
+     * @return a new escaped {@code String}, {@code null} if null string input
+     * @see #unescapeXml(java.lang.String)
+     * @since 3.3
+     */
+    public static String escapeXml11(final String input) {
+        return ESCAPE_XML11.translate(input);
     }
 
     //-----------------------------------------------------------------------
@@ -599,6 +744,8 @@ public class StringEscapeUtils {
      * @param input  the {@code String} to unescape, may be null
      * @return a new unescaped {@code String}, {@code null} if null string input
      * @see #escapeXml(String)
+     * @see #escapeXml10(String)
+     * @see #escapeXml11(String)
      */
     public static final String unescapeXml(final String input) {
         return UNESCAPE_XML.translate(input);
@@ -612,13 +759,11 @@ public class StringEscapeUtils {
      *
      * <p>If the value contains a comma, newline or double quote, then the
      *    String value is returned enclosed in double quotes.</p>
-     * </p>
      *
      * <p>Any double quote characters in the value are escaped with another double quote.</p>
      *
      * <p>If the value does not contain a comma, newline or double quote, then the
      *    String value is returned unchanged.</p>
-     * </p>
      *
      * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
      * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.
@@ -644,7 +789,6 @@ public class StringEscapeUtils {
      *
      * <p>If the value is not enclosed in double quotes, or is and does not contain a 
      *    comma, newline or double quote, then the String value is returned unchanged.</p>
-     * </p>
      *
      * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
      * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.

@@ -44,9 +44,9 @@ package org.apache.commons.lang3.time;
  * </p>
  * 
  * <p>
- * 1. split(), suspend(), or stop() cannot be invoked twice<br />
- * 2. unsplit() may only be called if the watch has been split()<br />
- * 3. resume() may only be called if the watch has been suspend()<br />
+ * 1. split(), suspend(), or stop() cannot be invoked twice<br>
+ * 2. unsplit() may only be called if the watch has been split()<br>
+ * 3. resume() may only be called if the watch has been suspend()<br>
  * 4. start() cannot be called twice without calling reset()
  * </p>
  * 
@@ -407,7 +407,7 @@ public class StopWatch {
      * </p>
      * 
      * <p>
-     * The format used is ISO8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * The format used is ISO 8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
      * </p>
      * 
      * @return the time as a String
@@ -423,7 +423,7 @@ public class StopWatch {
      * </p>
      * 
      * <p>
-     * The format used is ISO8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * The format used is ISO 8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
      * </p>
      * 
      * @return the split time as a String

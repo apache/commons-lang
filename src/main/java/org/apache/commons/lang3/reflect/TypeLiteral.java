@@ -56,6 +56,7 @@ import org.apache.commons.lang3.Validate;
  * <pre>
  * List&lt;String&gt; listOfString = typesafe.obtain(new TypeLiteral&lt;List&lt;String&gt;&gt;() {}, ...);
  * </pre>
+ * <p>
  * This has the effect of "jumping up" a level to tie a {@code java.lang.reflect.Type}
  * to a type variable while simultaneously making it short work to obtain a
  * {@code Type} instance for any given type, inline.
@@ -63,10 +64,10 @@ import org.apache.commons.lang3.Validate;
  * <p>Additionally {@link TypeLiteral} implements the {@link Typed} interface which
  * is a generalization of this concept, and which may be implemented in custom classes.
  * It is suggested that APIs be defined in terms of the interface, in the following manner:
+ * </p>
  * <pre>
  *   &lt;T&gt; T obtain(Typed&lt;T&gt; typed, ...);
  * </pre>
- * </p>
  *
  * @version $Id$
  * @since 3.2
@@ -95,7 +96,7 @@ public abstract class TypeLiteral<T> implements Typed<T> {
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (obj == this) {
             return true;
         }

@@ -81,7 +81,7 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     public void testContextedExceptionStringThrowableContext() {
         // Use an anonymous subclass to make sure users can provide custom implementations
         exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), 
-        		new DefaultExceptionContext() {private static final long serialVersionUID = 1L;});
+        new DefaultExceptionContext() {private static final long serialVersionUID = 1L;});
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
         assertTrue(trace.indexOf("ContextedException")>=0);

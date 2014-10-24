@@ -54,10 +54,10 @@ public class WordUtils {
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>
      *
-     * <table border="1">
+     * <table border="1" summary="Wrap Results">
      *  <tr>
      *   <th>input</th>
-     *   <th>wrapLenght</th>
+     *   <th>wrapLength</th>
      *   <th>result</th>
      *  </tr>
      *  <tr>
@@ -103,7 +103,7 @@ public class WordUtils {
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>
      *
-     * <table border="1">
+     * <table border="1" summary="Wrap Results">
      *  <tr>
      *   <th>input</th>
      *   <th>wrapLenght</th>
@@ -183,10 +183,14 @@ public class WordUtils {
         int offset = 0;
         final StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
         
-        while (inputLineLength - offset > wrapLength) {
+        while (offset < inputLineLength) {
             if (str.charAt(offset) == ' ') {
                 offset++;
                 continue;
+            }
+            // only last line without leading spaces is left
+            if(inputLineLength - offset <= wrapLength) {
+                break;
             }
             int spaceToWrapAt = str.lastIndexOf(' ', wrapLength + offset);
 

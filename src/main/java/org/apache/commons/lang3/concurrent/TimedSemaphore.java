@@ -21,6 +21,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  * <p>
  * A specialized <em>semaphore</em> implementation that provides a number of
@@ -50,6 +52,7 @@ import java.util.concurrent.TimeUnit;
  * </p>
  * <p>
  * A thread class for performing database queries could look as follows:
+ * </p>
  *
  * <pre>
  * public class StatisticsThread extends Thread {
@@ -74,9 +77,11 @@ import java.util.concurrent.TimeUnit;
  * }
  * </pre>
  *
+ * <p>
  * The following code fragment shows how a {@code TimedSemaphore} is created
  * that allows only 10 operations per second and passed to the statistics
  * thread:
+ * </p>
  *
  * <pre>
  * TimedSemaphore sem = new TimedSemaphore(1, TimeUnit.SECOND, 10);
@@ -84,7 +89,6 @@ import java.util.concurrent.TimeUnit;
  * thread.start();
  * </pre>
  *
- * </p>
  * <p>
  * When creating an instance the time period for the semaphore must be
  * specified. {@code TimedSemaphore} uses an executor service with a
@@ -199,9 +203,7 @@ public class TimedSemaphore {
      */
     public TimedSemaphore(final ScheduledExecutorService service, final long timePeriod,
             final TimeUnit timeUnit, final int limit) {
-        if (timePeriod <= 0) {
-            throw new IllegalArgumentException("Time period must be greater 0!");
-        }
+        Validate.inclusiveBetween(1, Long.MAX_VALUE, timePeriod, "Time period must be greater than 0!");
 
         period = timePeriod;
         unit = timeUnit;

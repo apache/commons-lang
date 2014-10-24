@@ -17,14 +17,16 @@
 package org.apache.commons.lang3;
 
 /**
- * <p>Operations on {@link java.lang.CharSequence} that are
+ * <p>Operations on {@link CharSequence} that are
  * {@code null} safe.</p>
  *
- * @see java.lang.CharSequence
+ * @see CharSequence
  * @since 3.0
  * @version $Id$
  */
 public class CharSequenceUtils {
+
+    private static final int NOT_FOUND = -1;
 
     /**
      * <p>{@code CharSequenceUtils} instances should NOT be constructed in
@@ -69,18 +71,17 @@ public class CharSequenceUtils {
     static int indexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {
             return ((String) cs).indexOf(searchChar, start);
-        } else {
-            final int sz = cs.length();
-            if (start < 0) {
-                start = 0;
-            }
-            for (int i = start; i < sz; i++) {
-                if (cs.charAt(i) == searchChar) {
-                    return i;
-                }
-            }
-            return -1;
         }
+        final int sz = cs.length();
+        if (start < 0) {
+            start = 0;
+        }
+        for (int i = start; i < sz; i++) {
+            if (cs.charAt(i) == searchChar) {
+                return i;
+            }
+        }
+        return NOT_FOUND;
     }
 
     /**
@@ -116,21 +117,20 @@ public class CharSequenceUtils {
     static int lastIndexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {
             return ((String) cs).lastIndexOf(searchChar, start);
-        } else {
-            final int sz = cs.length();
-            if (start < 0) {
-                return -1;
-            }
-            if (start >= sz) {
-                start = sz - 1;
-            }
-            for (int i = start; i >= 0; --i) {
-                if (cs.charAt(i) == searchChar) {
-                    return i;
-                }
-            }
-            return -1;
         }
+        final int sz = cs.length();
+        if (start < 0) {
+            return NOT_FOUND;
+        }
+        if (start >= sz) {
+            start = sz - 1;
+        }
+        for (int i = start; i >= 0; --i) {
+            if (cs.charAt(i) == searchChar) {
+                return i;
+            }
+        }
+        return NOT_FOUND;
     }
 
     /**
@@ -163,14 +163,13 @@ public class CharSequenceUtils {
     static char[] toCharArray(final CharSequence cs) {
         if (cs instanceof String) {
             return ((String) cs).toCharArray();
-        } else {
-            final int sz = cs.length();
-            final char[] array = new char[cs.length()];
-            for (int i = 0; i < sz; i++) {
-                array[i] = cs.charAt(i);
-            }
-            return array;
         }
+        final int sz = cs.length();
+        final char[] array = new char[cs.length()];
+        for (int i = 0; i < sz; i++) {
+            array[i] = cs.charAt(i);
+        }
+        return array;
     }
 
     /**
@@ -188,31 +187,30 @@ public class CharSequenceUtils {
             final CharSequence substring, final int start, final int length)    {
         if (cs instanceof String && substring instanceof String) {
             return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
-        } else {
-            int index1 = thisStart;
-            int index2 = start;
-            int tmpLen = length;
+        }
+        int index1 = thisStart;
+        int index2 = start;
+        int tmpLen = length;
 
-            while (tmpLen-- > 0) {
-                char c1 = cs.charAt(index1++);
-                char c2 = substring.charAt(index2++);
+        while (tmpLen-- > 0) {
+            final char c1 = cs.charAt(index1++);
+            final char c2 = substring.charAt(index2++);
 
-                if (c1 == c2) {
-                    continue;
-                }
-
-                if (!ignoreCase) {
-                    return false;
-                }
-
-                // The same check as in String.regionMatches():
-                if (Character.toUpperCase(c1) != Character.toUpperCase(c2)
-                        && Character.toLowerCase(c1) != Character.toLowerCase(c2)) {
-                    return false;
-                }
+            if (c1 == c2) {
+                continue;
             }
 
-            return true;
+            if (!ignoreCase) {
+                return false;
+            }
+
+            // The same check as in String.regionMatches():
+            if (Character.toUpperCase(c1) != Character.toUpperCase(c2)
+                    && Character.toLowerCase(c1) != Character.toLowerCase(c2)) {
+                return false;
+            }
         }
+
+        return true;
     }
 }

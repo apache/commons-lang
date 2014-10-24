@@ -43,8 +43,10 @@ public class FieldUtilsTest {
     static final Double D0 = Double.valueOf(0.0);
     static final Double D1 = Double.valueOf(1.0);
 
+    @Annotated
     private PublicChild publicChild;
     private PubliclyShadowedChild publiclyShadowedChild;
+    @Annotated
     private PrivatelyShadowedChild privatelyShadowedChild;
     private final Class<? super PublicChild> parentClass = PublicChild.class.getSuperclass();
 
@@ -164,6 +166,59 @@ public class FieldUtilsTest {
         allFieldsInteger.addAll(fieldsNumber);
         assertEquals(allFieldsInteger, FieldUtils.getAllFieldsList(Integer.class));
         assertEquals(5, FieldUtils.getAllFieldsList(PublicChild.class).size());
+    }
+
+    @Test
+    public void testGetFieldsWithAnnotation() throws NoSuchFieldException {
+        assertArrayEquals(new Field[0], FieldUtils.getFieldsWithAnnotation(Object.class, Annotated.class));
+        final Field[] annotatedFields = new Field[]{
+                FieldUtilsTest.class.getDeclaredField("publicChild"),
+                FieldUtilsTest.class.getDeclaredField("privatelyShadowedChild")
+        };
+        assertArrayEquals(annotatedFields, FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, Annotated.class));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFieldsWithAnnotationIllegalArgumentException1() {
+        FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFieldsWithAnnotationIllegalArgumentException2() {
+        FieldUtils.getFieldsWithAnnotation(null, Annotated.class);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFieldsWithAnnotationIllegalArgumentException3() {
+        FieldUtils.getFieldsWithAnnotation(null, null);
+    }
+
+    @Test
+    public void testGetFieldsListWithAnnotation() throws NoSuchFieldException {
+        assertEquals(0, FieldUtils.getFieldsListWithAnnotation(Object.class, Annotated.class).size());
+        final List<Field> annotatedFields = Arrays.asList(
+                FieldUtilsTest.class.getDeclaredField("publicChild"),
+                FieldUtilsTest.class.getDeclaredField("privatelyShadowedChild")
+        );
+        final List<Field> fieldUtilsTestAnnotatedFields = FieldUtils.getFieldsListWithAnnotation(FieldUtilsTest.class, Annotated.class);
+        assertEquals(annotatedFields.size(),fieldUtilsTestAnnotatedFields.size());
+        assertTrue(fieldUtilsTestAnnotatedFields.contains(annotatedFields.get(0)));
+        assertTrue(fieldUtilsTestAnnotatedFields.contains(annotatedFields.get(1)));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFieldsListWithAnnotationIllegalArgumentException1() {
+        FieldUtils.getFieldsListWithAnnotation(FieldUtilsTest.class, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFieldsListWithAnnotationIllegalArgumentException2() {
+        FieldUtils.getFieldsListWithAnnotation(null, Annotated.class);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFieldsListWithAnnotationIllegalArgumentException3() {
+        FieldUtils.getFieldsListWithAnnotation(null, null);
     }
 
     @Test
@@ -818,28 +873,28 @@ public class FieldUtilsTest {
         assertEquals("new", StaticContainer.getMutablePrivate());
         field = StaticContainer.class.getDeclaredField("IMMUTABLE_PUBLIC");
         try {
-        FieldUtils.writeStaticField(field, "new", true);
+            FieldUtils.writeStaticField(field, "new", true);
             fail("Expected IllegalAccessException");
         } catch (final IllegalAccessException e) {
             // pass
         }
         field = StaticContainer.class.getDeclaredField("IMMUTABLE_PROTECTED");
         try {
-        FieldUtils.writeStaticField(field, "new", true);
+            FieldUtils.writeStaticField(field, "new", true);
             fail("Expected IllegalAccessException");
         } catch (final IllegalAccessException e) {
             // pass
         }
         field = StaticContainer.class.getDeclaredField("IMMUTABLE_PACKAGE");
         try {
-        FieldUtils.writeStaticField(field, "new", true);
+            FieldUtils.writeStaticField(field, "new", true);
             fail("Expected IllegalAccessException");
         } catch (final IllegalAccessException e) {
             // pass
         }
         field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE");
         try {
-        FieldUtils.writeStaticField(field, "new", true);
+            FieldUtils.writeStaticField(field, "new", true);
             fail("Expected IllegalAccessException");
         } catch (final IllegalAccessException e) {
             // pass
@@ -1029,12 +1084,14 @@ public class FieldUtilsTest {
         field = parentClass.getDeclaredField("i");
         try {
             FieldUtils.writeField(field, publicChild, Integer.valueOf(Integer.MAX_VALUE));
+            fail("Expected IllegalAccessException");
         } catch (final IllegalAccessException e) {
             // pass
         }
         field = parentClass.getDeclaredField("d");
         try {
             FieldUtils.writeField(field, publicChild, Double.valueOf(Double.MAX_VALUE));
+            fail("Expected IllegalAccessException");
         } catch (final IllegalAccessException e) {
             // pass
         }
@@ -1255,7 +1312,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testRemoveFinalModifier() throws Exception {
-        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
+        final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         FieldUtils.removeFinalModifier(field);
@@ -1266,7 +1323,7 @@ public class FieldUtilsTest {
     
     @Test
     public void testRemoveFinalModifierWithAccess() throws Exception {
-        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
+        final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         FieldUtils.removeFinalModifier(field, true);
@@ -1277,7 +1334,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testRemoveFinalModifierWithoutAccess() throws Exception {
-        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
+        final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         FieldUtils.removeFinalModifier(field, false);
@@ -1288,7 +1345,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testRemoveFinalModifierAccessNotNeeded() throws Exception {
-        Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PACKAGE");
+        final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PACKAGE");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         FieldUtils.removeFinalModifier(field, false);

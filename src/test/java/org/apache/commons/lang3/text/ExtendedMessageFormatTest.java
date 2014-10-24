@@ -394,7 +394,7 @@ public class ExtendedMessageFormatTest {
      * {@link Format} implementation which converts to lower case.
      */
     private static class LowerCaseFormat extends Format {
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
         @Override
         public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
@@ -408,7 +408,7 @@ public class ExtendedMessageFormatTest {
      * {@link Format} implementation which converts to upper case.
      */
     private static class UpperCaseFormat extends Format {
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
         @Override
         public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
@@ -457,7 +457,7 @@ public class ExtendedMessageFormatTest {
      * Alternative ExtendedMessageFormat impl.
      */
     private static class OtherExtendedMessageFormat extends ExtendedMessageFormat {
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
         public OtherExtendedMessageFormat(final String pattern, final Locale locale,
                 final Map<String, ? extends FormatFactory> registry) {

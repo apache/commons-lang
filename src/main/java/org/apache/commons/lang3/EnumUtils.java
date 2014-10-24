@@ -264,13 +264,13 @@ public class EnumUtils {
      * @throws IllegalArgumentException if {@code enumClass} is not an enum class
      * @since 3.2
      */
-    public static <E extends Enum<E>> EnumSet<E> processBitVectors(final Class<E> enumClass, long... values) {
+    public static <E extends Enum<E>> EnumSet<E> processBitVectors(final Class<E> enumClass, final long... values) {
         final EnumSet<E> results = EnumSet.noneOf(asEnum(enumClass));
-        values = ArrayUtils.clone(Validate.notNull(values));
-        ArrayUtils.reverse(values);
+        final long[] lvalues = ArrayUtils.clone(Validate.notNull(values));
+        ArrayUtils.reverse(lvalues);
         for (final E constant : enumClass.getEnumConstants()) {
             final int block = constant.ordinal() / Long.SIZE;
-            if (block < values.length && (values[block] & 1 << (constant.ordinal() % Long.SIZE)) != 0) {
+            if (block < lvalues.length && (lvalues[block] & 1 << (constant.ordinal() % Long.SIZE)) != 0) {
                 results.add(constant);
             }
         }
@@ -288,8 +288,8 @@ public class EnumUtils {
      */
     private static <E extends Enum<E>> Class<E> checkBitVectorable(final Class<E> enumClass) {
         final E[] constants = asEnum(enumClass).getEnumConstants();
-        Validate.isTrue(constants.length <= Long.SIZE, CANNOT_STORE_S_S_VALUES_IN_S_BITS, constants.length,
-            enumClass.getSimpleName(), Long.SIZE);
+        Validate.isTrue(constants.length <= Long.SIZE, CANNOT_STORE_S_S_VALUES_IN_S_BITS, 
+            Integer.valueOf(constants.length), enumClass.getSimpleName(), Integer.valueOf(Long.SIZE));
 
         return enumClass;
     }

@@ -396,7 +396,7 @@ public class ToStringBuilderTest {
      * Test an array element pointing to its container.
      */
     @Test
-    public void testReflectionArrayCycle() throws Exception {
+    public void testReflectionArrayCycle() {
         final Object[] objects = new Object[1];
         objects[0] = objects;
         assertEquals(
@@ -408,7 +408,7 @@ public class ToStringBuilderTest {
      * Test an array element pointing to its container.
      */
     @Test
-    public void testReflectionArrayCycleLevel2() throws Exception {
+    public void testReflectionArrayCycleLevel2() {
         final Object[] objects = new Object[1];
         final Object[] objectsLevel2 = new Object[1];
         objects[0] = objectsLevel2;
@@ -522,11 +522,9 @@ public class ToStringBuilderTest {
 
     /**
      * Test an Object pointing to itself, the simplest test.
-     *
-     * @throws Exception
      */
     @Test
-    public void testSimpleReflectionObjectCycle() throws Exception {
+    public void testSimpleReflectionObjectCycle() {
         final SimpleReflectionTestFixture simple = new SimpleReflectionTestFixture();
         simple.o = simple;
         assertEquals(this.toBaseString(simple) + "[o=" + this.toBaseString(simple) + "]", simple.toString());
@@ -534,11 +532,9 @@ public class ToStringBuilderTest {
 
     /**
      * Test a class that defines an ivar pointing to itself.
-     *
-     * @throws Exception
      */
     @Test
-    public void testSelfInstanceVarReflectionObjectCycle() throws Exception {
+    public void testSelfInstanceVarReflectionObjectCycle() {
         final SelfInstanceVarReflectionTestFixture test = new SelfInstanceVarReflectionTestFixture();
         assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + "]", test.toString());
     }
@@ -546,11 +542,9 @@ public class ToStringBuilderTest {
     /**
      * Test a class that defines an ivar pointing to itself.  This test was
      * created to show that handling cyclical object resulted in a missing endFieldSeparator call.
-     *
-     * @throws Exception
      */
     @Test
-    public void testSelfInstanceTwoVarsReflectionObjectCycle() throws Exception {
+    public void testSelfInstanceTwoVarsReflectionObjectCycle() {
         final SelfInstanceTwoVarsReflectionTestFixture test = new SelfInstanceTwoVarsReflectionTestFixture();
         assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + ",otherType=" + test.getOtherType().toString() + "]", test.toString());
     }
@@ -558,11 +552,9 @@ public class ToStringBuilderTest {
 
     /**
      * Test Objects pointing to each other.
-     *
-     * @throws Exception
      */
     @Test
-    public void testReflectionObjectCycle() throws Exception {
+    public void testReflectionObjectCycle() {
         final ReflectionTestCycleA a = new ReflectionTestCycleA();
         final ReflectionTestCycleB b = new ReflectionTestCycleB();
         a.b = b;
@@ -574,12 +566,10 @@ public class ToStringBuilderTest {
 
     /**
      * Test a nasty combination of arrays and Objects pointing to each other.
-     * objects[0] -> SimpleReflectionTestFixture[ o -> objects ]
-     *
-     * @throws Exception
+     * objects[0] -&gt; SimpleReflectionTestFixture[ o -&gt; objects ]
      */
     @Test
-    public void testReflectionArrayAndObjectCycle() throws Exception {
+    public void testReflectionArrayAndObjectCycle() {
         final Object[] objects = new Object[1];
         final SimpleReflectionTestFixture simple = new SimpleReflectionTestFixture(objects);
         objects[0] = simple;
@@ -985,6 +975,7 @@ public class ToStringBuilderTest {
      * <p>If the style is <code>null</code>, the default
      * <code>ToStringStyle</code> is used.</p>
      *
+     * @param <T> the type of the output object
      * @param object  the Object to be output
      * @param style  the style of the <code>toString</code> to create,
      *  may be <code>null</code>

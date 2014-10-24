@@ -533,7 +533,7 @@ testResult);
 
     @Test
     public void testMinutesOfYearWithWrongOffsetBugWithCalendar() {
-        Calendar c = Calendar.getInstance();
+        final Calendar c = Calendar.getInstance();
         c.set(Calendar.MONTH, Calendar.JANUARY);
         c.set(Calendar.DAY_OF_YEAR, 1);
         c.set(Calendar.HOUR_OF_DAY, 0);
@@ -560,5 +560,33 @@ testResult);
         assertEquals( hours +(((aCalendar.get(Calendar.DAY_OF_YEAR) - 1) * DateUtils.MILLIS_PER_DAY))
                         / DateUtils.MILLIS_PER_HOUR,
                 testResult);
+    }
+    
+    @Test
+    public void testDaysOfMonthWithCalendar() throws Exception {
+        final long testResult = DateUtils.getFragmentInDays(aCalendar, Calendar.MONTH);
+        assertEquals(days, testResult);
+    }
+    
+    @Test
+    public void testDaysOfMonthWithDate() throws Exception {
+        final long testResult = DateUtils.getFragmentInDays(aDate, Calendar.MONTH);
+        final Calendar cal = Calendar.getInstance();
+        cal.setTime(aDate);
+        assertEquals(cal.get(Calendar.DAY_OF_MONTH), testResult);
+    }    
+    
+    @Test
+    public void testDaysOfYearWithCalendar() throws Exception {
+        final long testResult = DateUtils.getFragmentInDays(aCalendar, Calendar.YEAR);
+        assertEquals(aCalendar.get(Calendar.DAY_OF_YEAR), testResult);
+    }
+    
+    @Test
+    public void testDaysOfYearWithDate() throws Exception {
+        final long testResult = DateUtils.getFragmentInDays(aDate, Calendar.YEAR);
+        final Calendar cal = Calendar.getInstance();
+        cal.setTime(aDate);
+        assertEquals(cal.get(Calendar.DAY_OF_YEAR), testResult);
     }
 }

@@ -28,7 +28,7 @@
  *
  * <pre>
  * <code>
- * public interface ConcurrentInitializer<T> {
+ * public interface ConcurrentInitializer&lt;T&gt; {
  *    T get() throws ConcurrentException;
  * }
  * </code>
@@ -64,7 +64,7 @@
  *
  * <pre>
  * <code>
- * public class MessagingServiceInitializer extends LazyInitializer<MessagingService> {
+ * public class MessagingServiceInitializer extends LazyInitializer&lt;MessagingService&gt; {
  *   protected MessagingService initialize() throws ConcurrentException {
  *     // Do all necessary steps to create and initialize the service object
  *     MessagingService service = ...
@@ -81,9 +81,9 @@
  * <code>
  * public class ServerThread implements Runnable {
  *  // The initializer for obtaining the messaging service.
- *  private final ConcurrentInitializer<MessagingService> initializer;
+ *  private final ConcurrentInitializer&lt;MessagingService&gt; initializer;
  *
- *  public ServerThread(ConcurrentInitializer<MessagingService> init) {
+ *  public ServerThread(ConcurrentInitializer&lt;MessagingService&gt; init) {
  *    initializer = init;
  *  }
  *
@@ -145,7 +145,7 @@
  *
  * <pre>
  * <code>
- * public class URLLoader extends BackgroundInitializer<String> {
+ * public class URLLoader extends BackgroundInitializer&lt;String&gt; {
  *   // The URL to be loaded.
  *   private final URL url;
  *

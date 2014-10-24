@@ -23,11 +23,12 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>Duration formatting utilities and constants. The following table describes the tokens 
  * used in the pattern language for formatting. </p>
- * <table border="1">
+ * <table border="1" summary="Pattern Tokens">
  *  <tr><th>character</th><th>duration element</th></tr>
  *  <tr><td>y</td><td>years</td></tr>
  *  <tr><td>M</td><td>months</td></tr>
@@ -36,8 +37,14 @@ import org.apache.commons.lang3.StringUtils;
  *  <tr><td>m</td><td>minutes</td></tr>
  *  <tr><td>s</td><td>seconds</td></tr>
  *  <tr><td>S</td><td>milliseconds</td></tr>
+ *  <tr><td>'text'</td><td>arbitrary text content</td></tr>
  * </table>
  *
+ * <b>Note: It's not currently possible to include a single-quote in a format.</b>
+ * <br>
+ * Token values are printed using decimal digits.
+ * A token character can be repeated to ensure that the field occupies a certain minimum
+ * size. Values will be left-padded with 0 unless padding is disabled in the method invocation.
  * @since 2.1
  * @version $Id$
  */
@@ -55,45 +62,45 @@ public class DurationFormatUtils {
 
     /**
      * <p>Pattern used with <code>FastDateFormat</code> and <code>SimpleDateFormat</code>
-     * for the ISO8601 period format used in durations.</p>
+     * for the ISO 8601 period format used in durations.</p>
      * 
      * @see org.apache.commons.lang3.time.FastDateFormat
      * @see java.text.SimpleDateFormat
      */
-    public static final String ISO_EXTENDED_FORMAT_PATTERN = "'P'yyyy'Y'M'M'd'DT'H'H'm'M's.S'S'";
+    public static final String ISO_EXTENDED_FORMAT_PATTERN = "'P'yyyy'Y'M'M'd'DT'H'H'm'M's.SSS'S'";
 
     //-----------------------------------------------------------------------
     /**
      * <p>Formats the time gap as a string.</p>
      * 
-     * <p>The format used is ISO8601-like:
-     * <i>H</i>:<i>m</i>:<i>s</i>.<i>S</i>.</p>
-     * 
+     * <p>The format used is ISO 8601-like: {@code HH:mm:ss.SSS}.</p>
+     *
      * @param durationMillis  the duration to format
      * @return the formatted duration, not null
+     * @throws java.lang.IllegalArgumentException if durationMillis is negative
      */
     public static String formatDurationHMS(final long durationMillis) {
-        return formatDuration(durationMillis, "H:mm:ss.SSS");
+        return formatDuration(durationMillis, "HH:mm:ss.SSS");
     }
 
     /**
      * <p>Formats the time gap as a string.</p>
      * 
-     * <p>The format used is the ISO8601 period format.</p>
+     * <p>The format used is the ISO 8601 period format.</p>
      * 
      * <p>This method formats durations using the days and lower fields of the
      * ISO format pattern, such as P7D6TH5M4.321S.</p>
      * 
      * @param durationMillis  the duration to format
      * @return the formatted duration, not null
+     * @throws java.lang.IllegalArgumentException if durationMillis is negative
      */
     public static String formatDurationISO(final long durationMillis) {
         return formatDuration(durationMillis, ISO_EXTENDED_FORMAT_PATTERN, false);
     }
 
     /**
-     * <p>Formats the time gap as a string, using the specified format, and padding with zeros and 
-     * using the default timezone.</p>
+     * <p>Formats the time gap as a string, using the specified format, and padding with zeros.</p>
      * 
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
@@ -101,6 +108,7 @@ public class DurationFormatUtils {
      * @param durationMillis  the duration to format
      * @param format  the way in which to format the duration, not null
      * @return the formatted duration, not null
+     * @throws java.lang.IllegalArgumentException if durationMillis is negative
      */
     public static String formatDuration(final long durationMillis, final String format) {
         return formatDuration(durationMillis, format, true);
@@ -108,8 +116,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats the time gap as a string, using the specified format.
-     * Padding the left hand side of numbers with zeroes is optional and 
-     * the timezone may be specified.</p>
+     * Padding the left hand side of numbers with zeroes is optional.</p>
      * 
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
@@ -118,35 +125,34 @@ public class DurationFormatUtils {
      * @param format  the way in which to format the duration, not null
      * @param padWithZeros  whether to pad the left hand side of numbers with 0's
      * @return the formatted duration, not null
+     * @throws java.lang.IllegalArgumentException if durationMillis is negative
      */
-    public static String formatDuration(long durationMillis, final String format, final boolean padWithZeros) {
+    public static String formatDuration(final long durationMillis, final String format, final boolean padWithZeros) {
+        Validate.inclusiveBetween(0, Long.MAX_VALUE, durationMillis, "durationMillis must not be negative");        
 
         final Token[] tokens = lexx(format);
 
-        int days         = 0;
-        int hours        = 0;
-        int minutes      = 0;
-        int seconds      = 0;
-        int milliseconds = 0;
+        long days         = 0;
+        long hours        = 0;
+        long minutes      = 0;
+        long seconds      = 0;
+        long milliseconds = durationMillis;
         
         if (Token.containsTokenWithValue(tokens, d) ) {
-            days = (int) (durationMillis / DateUtils.MILLIS_PER_DAY);
-            durationMillis = durationMillis - (days * DateUtils.MILLIS_PER_DAY);
+            days = milliseconds / DateUtils.MILLIS_PER_DAY;
+            milliseconds = milliseconds - (days * DateUtils.MILLIS_PER_DAY);
         }
         if (Token.containsTokenWithValue(tokens, H) ) {
-            hours = (int) (durationMillis / DateUtils.MILLIS_PER_HOUR);
-            durationMillis = durationMillis - (hours * DateUtils.MILLIS_PER_HOUR);
+            hours = milliseconds / DateUtils.MILLIS_PER_HOUR;
+            milliseconds = milliseconds - (hours * DateUtils.MILLIS_PER_HOUR);
         }
         if (Token.containsTokenWithValue(tokens, m) ) {
-            minutes = (int) (durationMillis / DateUtils.MILLIS_PER_MINUTE);
-            durationMillis = durationMillis - (minutes * DateUtils.MILLIS_PER_MINUTE);
+            minutes = milliseconds / DateUtils.MILLIS_PER_MINUTE;
+            milliseconds = milliseconds - (minutes * DateUtils.MILLIS_PER_MINUTE);
         }
         if (Token.containsTokenWithValue(tokens, s) ) {
-            seconds = (int) (durationMillis / DateUtils.MILLIS_PER_SECOND);
-            durationMillis = durationMillis - (seconds * DateUtils.MILLIS_PER_SECOND);
-        }
-        if (Token.containsTokenWithValue(tokens, S) ) {
-            milliseconds = (int) durationMillis;
+            seconds = milliseconds / DateUtils.MILLIS_PER_SECOND;
+            milliseconds = milliseconds - (seconds * DateUtils.MILLIS_PER_SECOND);
         }
 
         return format(tokens, 0, 0, days, hours, minutes, seconds, milliseconds, padWithZeros);
@@ -162,6 +168,7 @@ public class DurationFormatUtils {
      * @param suppressLeadingZeroElements  suppresses leading 0 elements
      * @param suppressTrailingZeroElements  suppresses trailing 0 elements
      * @return the formatted text in days/hours/minutes/seconds, not null
+     * @throws java.lang.IllegalArgumentException if durationMillis is negative
      */
     public static String formatDurationWords(
         final long durationMillis,
@@ -220,11 +227,12 @@ public class DurationFormatUtils {
     /**
      * <p>Formats the time gap as a string.</p>
      * 
-     * <p>The format used is the ISO8601 period format.</p>
+     * <p>The format used is the ISO 8601 period format.</p>
      * 
      * @param startMillis  the start of the duration to format
      * @param endMillis  the end of the duration to format
      * @return the formatted duration, not null
+     * @throws java.lang.IllegalArgumentException if startMillis is greater than endMillis
      */
     public static String formatPeriodISO(final long startMillis, final long endMillis) {
         return formatPeriod(startMillis, endMillis, ISO_EXTENDED_FORMAT_PATTERN, false, TimeZone.getDefault());
@@ -238,6 +246,7 @@ public class DurationFormatUtils {
      * @param endMillis  the end of the duration
      * @param format  the way in which to format the duration, not null
      * @return the formatted duration, not null
+     * @throws java.lang.IllegalArgumentException if startMillis is greater than endMillis
      */
     public static String formatPeriod(final long startMillis, final long endMillis, final String format) {
         return formatPeriod(startMillis, endMillis, format, true, TimeZone.getDefault());
@@ -251,9 +260,9 @@ public class DurationFormatUtils {
      * <p>When calculating the difference between months/days, it chooses to 
      * calculate months first. So when working out the number of months and 
      * days between January 15th and March 10th, it choose 1 month and 
-     * 23 days gained by choosing January->February = 1 month and then 
+     * 23 days gained by choosing January-&gt;February = 1 month and then 
      * calculating days forwards, and not the 1 month and 26 days gained by 
-     * choosing March -> February = 1 month and then calculating days 
+     * choosing March -&gt; February = 1 month and then calculating days 
      * backwards. </p>
      *
      * <p>For more control, the <a href="http://joda-time.sf.net/">Joda-Time</a>
@@ -265,9 +274,12 @@ public class DurationFormatUtils {
      * @param padWithZeros  whether to pad the left hand side of numbers with 0's
      * @param timezone  the millis are defined in
      * @return the formatted duration, not null
+     * @throws java.lang.IllegalArgumentException if startMillis is greater than endMillis
      */
     public static String formatPeriod(final long startMillis, final long endMillis, final String format, final boolean padWithZeros, 
             final TimeZone timezone) {
+        Validate.isTrue(startMillis <= endMillis, "startMillis must not be greater than endMillis");
+        
 
         // Used to optimise for differences under 28 days and 
         // called formatDuration(millis, format); however this did not work 
@@ -411,59 +423,61 @@ public class DurationFormatUtils {
      * @param padWithZeros  whether to pad
      * @return the formatted string
      */
-    static String format(final Token[] tokens, final int years, final int months, final int days, final int hours, final int minutes, final int seconds,
-            int milliseconds, final boolean padWithZeros) {
+    static String format(final Token[] tokens, final long years, final long months, final long days, final long hours, final long minutes, final long seconds,
+            final long milliseconds, final boolean padWithZeros) {
         final StringBuilder buffer = new StringBuilder();
         boolean lastOutputSeconds = false;
-        final int sz = tokens.length;
-        for (int i = 0; i < sz; i++) {
-            final Token token = tokens[i];
+        for (final Token token : tokens) {
             final Object value = token.getValue();
             final int count = token.getCount();
             if (value instanceof StringBuilder) {
                 buffer.append(value.toString());
             } else {
                 if (value == y) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(years), count, '0') : Integer
-                            .toString(years));
+                    buffer.append(paddedValue(years, padWithZeros, count));
                     lastOutputSeconds = false;
                 } else if (value == M) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(months), count, '0') : Integer
-                            .toString(months));
+                    buffer.append(paddedValue(months, padWithZeros, count));
                     lastOutputSeconds = false;
                 } else if (value == d) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(days), count, '0') : Integer
-                            .toString(days));
+                    buffer.append(paddedValue(days, padWithZeros, count));
                     lastOutputSeconds = false;
                 } else if (value == H) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(hours), count, '0') : Integer
-                            .toString(hours));
+                    buffer.append(paddedValue(hours, padWithZeros, count));
                     lastOutputSeconds = false;
                 } else if (value == m) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(minutes), count, '0') : Integer
-                            .toString(minutes));
+                    buffer.append(paddedValue(minutes, padWithZeros, count));
                     lastOutputSeconds = false;
                 } else if (value == s) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(seconds), count, '0') : Integer
-                            .toString(seconds));
+                    buffer.append(paddedValue(seconds, padWithZeros, count));
                     lastOutputSeconds = true;
                 } else if (value == S) {
                     if (lastOutputSeconds) {
-                        milliseconds += 1000;
-                        final String str = padWithZeros
-                                ? StringUtils.leftPad(Integer.toString(milliseconds), count, '0')
-                                : Integer.toString(milliseconds);
-                        buffer.append(str.substring(1));
+                        // ensure at least 3 digits are displayed even if padding is not selected
+                        final int width = padWithZeros ? Math.max(3, count) : 3;
+                        buffer.append(paddedValue(milliseconds, true, width));
                     } else {
-                        buffer.append(padWithZeros
-                                ? StringUtils.leftPad(Integer.toString(milliseconds), count, '0')
-                                : Integer.toString(milliseconds));
+                        buffer.append(paddedValue(milliseconds, padWithZeros, count));
                     }
                     lastOutputSeconds = false;
                 }
             }
         }
         return buffer.toString();
+    }
+
+    /**
+     * <p>Converts a {@code long} to a {@code String} with optional
+     * zero padding.</p>
+     *
+     * @param value the value to convert
+     * @param padWithZeros whether to pad with zeroes
+     * @param count the size to pad to (ignored if {@code padWithZeros} is false)
+     * @return the string result
+     */
+    private static String paddedValue(final long value, final boolean padWithZeros, final int count) {
+        final String longString = Long.toString(value);
+        return padWithZeros ? StringUtils.leftPad(longString, count, '0') : longString;
     }
 
     static final Object y = "y";
@@ -481,17 +495,15 @@ public class DurationFormatUtils {
      * @return array of Token[]
      */
     static Token[] lexx(final String format) {
-        final char[] array = format.toCharArray();
-        final ArrayList<Token> list = new ArrayList<Token>(array.length);
+        final ArrayList<Token> list = new ArrayList<Token>(format.length());
 
         boolean inLiteral = false;
         // Although the buffer is stored in a Token, the Tokens are only
         // used internally, so cannot be accessed by other threads
         StringBuilder buffer = null;
         Token previous = null;
-        final int sz = array.length;
-        for (int i = 0; i < sz; i++) {
-            final char ch = array[i];
+        for (int i = 0; i < format.length(); i++) {
+            final char ch = format.charAt(i);
             if (inLiteral && ch != '\'') {
                 buffer.append(ch); // buffer can't be null if inLiteral is true
                 continue;
@@ -549,6 +561,9 @@ public class DurationFormatUtils {
                 buffer = null;
             }
         }
+        if (inLiteral) { // i.e. we have not found the end of the literal
+            throw new IllegalArgumentException("Unmatched quote in format: " + format);
+        }
         return list.toArray(new Token[list.size()]);
     }
 
@@ -566,9 +581,8 @@ public class DurationFormatUtils {
          * @return boolean <code>true</code> if contained
          */
         static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
-            final int sz = tokens.length;
-            for (int i = 0; i < sz; i++) {
-                if (tokens[i].getValue() == value) {
+            for (final Token token : tokens) {
+                if (token.getValue() == value) {
                     return true;
                 }
             }

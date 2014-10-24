@@ -96,6 +96,8 @@ public class TimedSemaphoreTest {
 
     /**
      * Tests starting the timer.
+     *
+     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
     public void testStartTimer() throws InterruptedException {
@@ -160,6 +162,8 @@ public class TimedSemaphoreTest {
     /**
      * Tests the shutdown() method for a shared executor after the task was
      * started. In this case the task must be canceled.
+     *
+     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
     public void testShutdownSharedExecutorTask() throws InterruptedException {
@@ -179,6 +183,8 @@ public class TimedSemaphoreTest {
 
     /**
      * Tests multiple invocations of the shutdown() method.
+     *
+     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
     public void testShutdownMultipleTimes() throws InterruptedException {
@@ -199,6 +205,8 @@ public class TimedSemaphoreTest {
 
     /**
      * Tests the acquire() method if a limit is set.
+     *
+     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
     public void testAcquireLimit() throws InterruptedException {
@@ -236,6 +244,8 @@ public class TimedSemaphoreTest {
      * This method starts a number of threads that all invoke the semaphore. The
      * semaphore's limit is set to 1, so in each period only a single thread can
      * acquire the semaphore.
+     *
+     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
     public void testAcquireMultipleThreads() throws InterruptedException {
@@ -271,6 +281,8 @@ public class TimedSemaphoreTest {
      * Tests the acquire() method if no limit is set. A test thread is started
      * that calls the semaphore a large number of times. Even if the semaphore's
      * period does not end, the thread should never block.
+     *
+     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
     public void testAcquireNoLimit() throws InterruptedException {
@@ -291,6 +303,8 @@ public class TimedSemaphoreTest {
 
     /**
      * Tries to call acquire() after shutdown(). This should cause an exception.
+     *
+     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test(expected = IllegalStateException.class)
     public void testPassAfterShutdown() throws InterruptedException {
@@ -304,6 +318,8 @@ public class TimedSemaphoreTest {
      * period is set to a very short time. A background thread calls the
      * semaphore a large number of times. While it runs at last one end of a
      * period should be reached.
+     *
+     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
     public void testAcquireMultiplePeriods() throws InterruptedException {
@@ -321,6 +337,8 @@ public class TimedSemaphoreTest {
 
     /**
      * Tests the methods for statistics.
+     *
+     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
     public void testGetAverageCallsPerPeriod() throws InterruptedException {
@@ -345,6 +363,8 @@ public class TimedSemaphoreTest {
 
     /**
      * Tests whether the available non-blocking calls can be queried.
+     *
+     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
     public void testGetAvailablePermits() throws InterruptedException {
@@ -403,6 +423,8 @@ public class TimedSemaphoreTest {
 
         /**
          * Invokes the latch if one is set.
+         *
+         * @throws java.lang.InterruptedException because it is declared that way in TimedSemaphore
          */
         @Override
         public synchronized void acquire() throws InterruptedException {

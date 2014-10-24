@@ -276,7 +276,7 @@ public class ObjectUtilsTest {
             final Appendable appendable = new StringBuilder();
             ObjectUtils.identityToString(appendable, i);
             assertEquals(expected, appendable.toString());
-        } catch(IOException ex) {
+        } catch(final IOException ex) {
             fail("IOException unexpected");
         }
         
@@ -284,14 +284,14 @@ public class ObjectUtilsTest {
             ObjectUtils.identityToString((Appendable)null, "tmp");
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
         }
         
         try {
             ObjectUtils.identityToString((Appendable)(new StringBuilder()), null);
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
         }
     }
 
@@ -480,6 +480,8 @@ public class ObjectUtilsTest {
 
     /**
      * Tests {@link ObjectUtils#clone(Object)} with an uncloneable object.
+     *
+     * @throws java.lang.Throwable because we expect this to fail
      */
     @Test(expected = NoSuchMethodException.class)
     public void testCloneOfUncloneable() throws Throwable {
@@ -530,6 +532,8 @@ public class ObjectUtilsTest {
 
     /**
      * Tests {@link ObjectUtils#cloneIfPossible(Object)} with an uncloneable object.
+     *
+     * @throws java.lang.Throwable because we expect this to fail
      */
     @Test(expected = NoSuchMethodException.class)
     public void testPossibleCloneOfUncloneable() throws Throwable {

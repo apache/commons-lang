@@ -68,8 +68,8 @@ public class DiffBuilder implements Builder<DiffResult> {
 
     private final List<Diff<?>> diffs;
     private final boolean objectsTriviallyEqual;
-    private final Object lhs;
-    private final Object rhs;
+    private final Object left;
+    private final Object right;
     private final ToStringStyle style;
 
     /**
@@ -103,8 +103,8 @@ public class DiffBuilder implements Builder<DiffResult> {
         }
 
         this.diffs = new ArrayList<Diff<?>>();
-        this.lhs = lhs;
-        this.rhs = rhs;
+        this.left = lhs;
+        this.right = rhs;
         this.style = style;
 
         // Don't compare any fields if objects equal
@@ -908,7 +908,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     @Override
     public DiffResult build() {
-        return new DiffResult(lhs, rhs, diffs, style);
+        return new DiffResult(left, right, diffs, style);
     }
 
 }

@@ -17,12 +17,18 @@
 
 package org.apache.commons.lang3.time;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
 import java.util.TimeZone;
+
+import org.junit.Test;
 
 /**
  * TestCase for DurationFormatUtils.
@@ -101,34 +107,12 @@ public class DurationFormatUtilsTest {
         assertEquals("2 days 1 hour 12 minutes 0 seconds", text);
         for (int i = 2; i < 31; i++) {
             text = DurationFormatUtils.formatDurationWords(i * 24 * 60 * 60 * 1000L, false, false);
-            // assertEquals(i + " days 0 hours 0 minutes 0 seconds", text);
-            //            
-            // junit.framework.ComparisonFailure: expected:<25 days 0 hours 0 minutes 0...> but was:<-24 days -17 hours
-            // -2 minutes -47...>
-            // at junit.framework.Assert.assertEquals(Assert.java:81)
-            // at junit.framework.Assert.assertEquals(Assert.java:87)
-            // at
-            // org.apache.commons.lang.time.DurationFormatUtilsTest.testFormatDurationWords(DurationFormatUtilsTest.java:124)
-            // at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-            // at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
-            // at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
-            // at java.lang.reflect.Method.invoke(Method.java:324)
-            // at junit.framework.TestCase.runTest(TestCase.java:154)
-            // at junit.framework.TestCase.runBare(TestCase.java:127)
-            // at junit.framework.TestResult$1.protect(TestResult.java:106)
-            // at junit.framework.TestResult.runProtected(TestResult.java:124)
-            // at junit.framework.TestResult.run(TestResult.java:109)
-            // at junit.framework.TestCase.run(TestCase.java:118)
-            // at junit.framework.TestSuite.runTest(TestSuite.java:208)
-            // at junit.framework.TestSuite.run(TestSuite.java:203)
-            // at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:478)
-            // at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:344)
-            // at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:196)
+            assertEquals(i + " days 0 hours 0 minutes 0 seconds", text);
         }
     }
 
     /**
-     * Tests that "1 <unit>s" gets converted to "1 <unit>" but that "11 <unit>s" is left alone.
+     * Tests that "1 &lt;unit&gt;s" gets converted to "1 &lt;unit&gt;" but that "11 &lt;unit&gt;s" is left alone.
      */
     @Test
     public void testFormatDurationPluralWords() {
@@ -173,34 +157,44 @@ public class DurationFormatUtilsTest {
         assertEquals("1 day 1 hour 1 minute 1 second", text);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatNegativeDurationWords() throws Exception {
+        DurationFormatUtils.formatDurationWords(-5000, true, true);
+    }
+
     @Test
     public void testFormatDurationHMS() {
         long time = 0;
-        assertEquals("0:00:00.000", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:00.000", DurationFormatUtils.formatDurationHMS(time));
 
         time = 1;
-        assertEquals("0:00:00.001", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:00.001", DurationFormatUtils.formatDurationHMS(time));
 
         time = 15;
-        assertEquals("0:00:00.015", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:00.015", DurationFormatUtils.formatDurationHMS(time));
 
         time = 165;
-        assertEquals("0:00:00.165", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:00.165", DurationFormatUtils.formatDurationHMS(time));
 
         time = 1675;
-        assertEquals("0:00:01.675", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:01.675", DurationFormatUtils.formatDurationHMS(time));
 
         time = 13465;
-        assertEquals("0:00:13.465", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:00:13.465", DurationFormatUtils.formatDurationHMS(time));
 
         time = 72789;
-        assertEquals("0:01:12.789", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:01:12.789", DurationFormatUtils.formatDurationHMS(time));
 
         time = 12789 + 32 * 60000;
-        assertEquals("0:32:12.789", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("00:32:12.789", DurationFormatUtils.formatDurationHMS(time));
 
         time = 12789 + 62 * 60000;
-        assertEquals("1:02:12.789", DurationFormatUtils.formatDurationHMS(time));
+        assertEquals("01:02:12.789", DurationFormatUtils.formatDurationHMS(time));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatNegativeDurationHMS() throws Exception {
+        DurationFormatUtils.formatDurationHMS(-5000);
     }
 
     @Test
@@ -210,6 +204,11 @@ public class DurationFormatUtilsTest {
         assertEquals("P0Y0M0DT0H0M0.010S", DurationFormatUtils.formatDurationISO(10L));
         assertEquals("P0Y0M0DT0H0M0.100S", DurationFormatUtils.formatDurationISO(100L));
         assertEquals("P0Y0M0DT0H1M15.321S", DurationFormatUtils.formatDurationISO(75321L));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatNegativeDurationISO() throws Exception {
+        DurationFormatUtils.formatDurationISO(-5000);
     }
 
     @Test
@@ -250,6 +249,11 @@ public class DurationFormatUtilsTest {
         assertEquals("0 0 " + days, DurationFormatUtils.formatDuration(duration, "y M d"));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatNegativeDuration() throws Exception {
+        DurationFormatUtils.formatDuration(-5000, "S", true);
+    }
+
     @Test
     public void testFormatPeriodISO() {
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
@@ -276,6 +280,18 @@ public class DurationFormatUtilsTest {
         assertEquals("P1Y1M2DT10H30M0.000S", text);
         // want a way to say 'don't print the seconds in format()' or other fields for that matter:
         // assertEquals("P1Y2M3DT10H30M", text);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatPeriodISOStartGreaterEnd() throws Exception {
+        DurationFormatUtils.formatPeriodISO(5000, 2000);
+    }
+
+    @Test
+    public void testFormatPeriodISOMethod() {
+        assertEquals("P0Y0M0DT0H0M0.000S", DurationFormatUtils.formatPeriodISO(0L, 0L));
+        assertEquals("P0Y0M0DT0H0M1.000S", DurationFormatUtils.formatPeriodISO(0L, 1000L));
+        assertEquals("P0Y0M0DT0H1M1.000S", DurationFormatUtils.formatPeriodISO(0L, 61000L));
     }
 
     @Test
@@ -332,6 +348,11 @@ public class DurationFormatUtilsTest {
         assertEquals("048", DurationFormatUtils.formatPeriod(time1970, time, "MMM"));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testFormatPeriodeStartGreaterEnd() throws Exception {
+        DurationFormatUtils.formatPeriod(5000, 2500, "yy/MM");
+    }
+
     @Test
     public void testLexx() {
         // tests each constant
@@ -344,15 +365,15 @@ public class DurationFormatUtilsTest {
             new DurationFormatUtils.Token(DurationFormatUtils.s, 1),
             new DurationFormatUtils.Token(DurationFormatUtils.S, 1)}, DurationFormatUtils.lexx("yMdHmsS"));
 
-        // tests the ISO8601-like
+        // tests the ISO 8601-like
         assertArrayEquals(new DurationFormatUtils.Token[]{
-            new DurationFormatUtils.Token(DurationFormatUtils.H, 1),
+            new DurationFormatUtils.Token(DurationFormatUtils.H, 2),
             new DurationFormatUtils.Token(new StringBuilder(":"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.m, 2),
             new DurationFormatUtils.Token(new StringBuilder(":"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.s, 2),
             new DurationFormatUtils.Token(new StringBuilder("."), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.S, 3)}, DurationFormatUtils.lexx("H:mm:ss.SSS"));
+            new DurationFormatUtils.Token(DurationFormatUtils.S, 3)}, DurationFormatUtils.lexx("HH:mm:ss.SSS"));
 
         // test the iso extended format
         assertArrayEquals(new DurationFormatUtils.Token[]{
@@ -369,7 +390,7 @@ public class DurationFormatUtilsTest {
             new DurationFormatUtils.Token(new StringBuilder("M"), 1),
             new DurationFormatUtils.Token(DurationFormatUtils.s, 1),
             new DurationFormatUtils.Token(new StringBuilder("."), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.S, 1),
+            new DurationFormatUtils.Token(DurationFormatUtils.S, 3),
             new DurationFormatUtils.Token(new StringBuilder("S"), 1)}, DurationFormatUtils
                 .lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN));
 
@@ -519,7 +540,29 @@ public class DurationFormatUtilsTest {
                 new int[] { 1997, 1, 28, 0, 0, 0 }, "M d"); 
         
     }
-    
+
+    @Test
+    public void testLANG984() { // Long durations
+        assertEquals("0", DurationFormatUtils.formatDuration(0, "S"));
+        assertEquals(Integer.toString(Integer.MAX_VALUE), DurationFormatUtils.formatDuration(Integer.MAX_VALUE, "S"));
+        long maxIntPlus=Integer.MAX_VALUE;
+        maxIntPlus++;
+        assertEquals(Long.toString(maxIntPlus), DurationFormatUtils.formatDuration(maxIntPlus, "S"));
+        assertEquals(Long.toString(Long.MAX_VALUE), DurationFormatUtils.formatDuration(Long.MAX_VALUE, "S"));
+    }
+
+    @Test
+    public void testLANG982() { // More than 3 millisecond digits following a second
+        assertEquals("61.999", DurationFormatUtils.formatDuration(61999, "s.S"));
+        assertEquals("1 1999", DurationFormatUtils.formatDuration(61999, "m S"));
+        assertEquals("61.999", DurationFormatUtils.formatDuration(61999, "s.SSS"));
+        assertEquals("1 1999", DurationFormatUtils.formatDuration(61999, "m SSS"));
+        assertEquals("61.0999", DurationFormatUtils.formatDuration(61999, "s.SSSS"));
+        assertEquals("1 1999", DurationFormatUtils.formatDuration(61999, "m SSSS"));
+        assertEquals("61.00999", DurationFormatUtils.formatDuration(61999, "s.SSSSS"));
+        assertEquals("1 01999", DurationFormatUtils.formatDuration(61999, "m SSSSS"));
+    }
+
     @Test
     public void testDurationsByBruteForce() {
         bruteForce(2006, 0, 1, "d", Calendar.DAY_OF_MONTH);
@@ -531,7 +574,12 @@ public class DurationFormatUtilsTest {
         bruteForce(1969, 1, 28, "M", Calendar.MONTH);  // tests for 48 years
         //bruteForce(1996, 1, 29, "M", Calendar.MONTH);  // this will fail
     }
-    
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testLANG981() { // unmatched quote char in lexx
+        DurationFormatUtils.lexx("'yMdHms''S");
+    }
+
     private static final int FOUR_YEARS = 365 * 3 + 366;
     
     // Takes a minute to run, so generally turned off
@@ -577,13 +625,6 @@ public class DurationFormatUtilsTest {
             assertEquals(expected, result);
         } else {
             assertEquals(message, expected, result);
-        }
-    }
-
-    private void assertArrayEquals(final DurationFormatUtils.Token[] obj1, final DurationFormatUtils.Token[] obj2) {
-        assertEquals("Arrays are unequal length. ", obj1.length, obj2.length);
-        for (int i = 0; i < obj1.length; i++) {
-            assertTrue("Index " + i + " not equal, " + obj1[i] + " vs " + obj2[i], obj1[i].equals(obj2[i]));
         }
     }
 

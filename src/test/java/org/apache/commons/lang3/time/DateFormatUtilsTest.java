@@ -17,10 +17,13 @@
 package org.apache.commons.lang3.time;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -103,7 +106,7 @@ public class DateFormatUtilsTest {
     }
     
     @Test
-    public void testDateTimeISO(){
+    public void testDateTimeISO() throws Exception {
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         final Calendar cal = Calendar.getInstance(timeZone);
         cal.set(2002,1,23,9,11,12);
@@ -124,6 +127,14 @@ public class DateFormatUtilsTest {
         assertEquals("2002-02-23T09:11:12-03:00", text);
         text = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(cal);
         assertEquals("2002-02-23T09:11:12-03:00", text);
+        
+        Calendar utcCal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        utcCal.set(2002, 1, 23, 9, 11, 12);
+        utcCal.set(Calendar.MILLISECOND, 0);
+        text = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(utcCal);
+        assertEquals("2002-02-23T09:11:12Z", text);
+        Date date = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.parse(text);
+        assertEquals(utcCal.getTime(), date);
     }
 
     @Test
@@ -249,4 +260,9 @@ public class DateFormatUtilsTest {
     }
     */
 
+    @Test
+    public void testLANG1000() throws Exception {
+        String date = "2013-11-18T12:48:05Z";
+        DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.parse(date);
+    }
 }

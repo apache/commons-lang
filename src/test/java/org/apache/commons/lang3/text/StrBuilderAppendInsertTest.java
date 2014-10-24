@@ -548,7 +548,7 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_FormattedString() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
             @Override
             public StrBuilder append(final String str) {
@@ -586,7 +586,7 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_String() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
             @Override
             public StrBuilder append(final String str) {
@@ -610,7 +610,7 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_String_int_int() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
             @Override
             public StrBuilder append(final String str, final int startIndex, final int length) {
@@ -634,7 +634,7 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_StringBuffer() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
             @Override
             public StrBuilder append(final StringBuffer str) {
@@ -658,7 +658,7 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_StringBuilder() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
             @Override
             public StrBuilder append(final StringBuilder str) {
@@ -682,7 +682,7 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_StringBuffer_int_int() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
             @Override
             public StrBuilder append(final StringBuffer str, final int startIndex, final int length) {
@@ -706,7 +706,7 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_StringBuilder_int_int() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
             @Override
             public StrBuilder append(final StringBuilder str, final int startIndex, final int length) {
@@ -730,7 +730,7 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_StrBuilder() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
             @Override
             public StrBuilder append(final StrBuilder str) {
@@ -754,7 +754,7 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_StrBuilder_int_int() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
             @Override
             public StrBuilder append(final StrBuilder str, final int startIndex, final int length) {
@@ -778,7 +778,7 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_CharArray() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
             @Override
             public StrBuilder append(final char[] str) {
@@ -802,7 +802,7 @@ public class StrBuilderAppendInsertTest {
     public void testAppendln_CharArray_int_int() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
             @Override
             public StrBuilder append(final char[] str, final int startIndex, final int length) {
@@ -1049,8 +1049,8 @@ public class StrBuilderAppendInsertTest {
         sb = new StrBuilder();
         sb.append("Hi %s %,d", "Alice", 5000);
         // group separator depends on system locale
-        char groupingSeparator = DecimalFormatSymbols.getInstance().getGroupingSeparator();
-        String expected = "Hi Alice 5" + groupingSeparator + "000";
+        final char groupingSeparator = DecimalFormatSymbols.getInstance().getGroupingSeparator();
+        final String expected = "Hi Alice 5" + groupingSeparator + "000";
         assertEquals(expected, sb.toString());
     }
 

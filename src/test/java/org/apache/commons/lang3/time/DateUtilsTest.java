@@ -650,6 +650,8 @@ public class DateUtilsTest {
     //-----------------------------------------------------------------------
     /**
      * Tests various values with the round method
+     *
+     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
     public void testRound() throws Exception {
@@ -874,6 +876,8 @@ public class DateUtilsTest {
     /**
      * Tests the Changes Made by LANG-346 to the DateUtils.modify() private method invoked
      * by DateUtils.round().
+     *
+     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
     public void testRoundLang346() throws Exception
@@ -937,6 +941,8 @@ public class DateUtilsTest {
 
     /**
      * Tests various values with the trunc method
+     *
+     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
     public void testTruncate() throws Exception {
@@ -1130,6 +1136,8 @@ public class DateUtilsTest {
     /**
      * Tests for LANG-59
      *
+     * @throws java.lang.Exception so we don't have to catch it
+     *
      * see http://issues.apache.org/jira/browse/LANG-59
      */
     @Test
@@ -1219,6 +1227,8 @@ public class DateUtilsTest {
     
     /**
      * Tests various values with the ceiling method
+     *
+     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
     public void testCeil() throws Exception {
@@ -1469,6 +1479,8 @@ public class DateUtilsTest {
 
     /**
      * Tests the iterator exceptions
+     *
+     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
     public void testIteratorEx() throws Exception {
@@ -1495,6 +1507,8 @@ public class DateUtilsTest {
 
     /**
      * Tests the calendar iterator for week ranges
+     *
+     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
     public void testWeekIterator() throws Exception {
@@ -1542,6 +1556,8 @@ public class DateUtilsTest {
             
     /**
      * Tests the calendar iterator for month-based ranges
+     *
+     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
     public void testMonthIterator() throws Exception {

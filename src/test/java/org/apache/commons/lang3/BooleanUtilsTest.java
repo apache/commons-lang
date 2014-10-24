@@ -284,6 +284,8 @@ public class BooleanUtilsTest {
 
         assertEquals(null, BooleanUtils.toBooleanObject("ab"));
         assertEquals(null, BooleanUtils.toBooleanObject("yoo"));
+        assertEquals(null, BooleanUtils.toBooleanObject("true "));
+        assertEquals(null, BooleanUtils.toBooleanObject("ono"));
     }
     
     @Test
@@ -1003,6 +1005,14 @@ public class BooleanUtilsTest {
                     Boolean.TRUE,
                     Boolean.TRUE })
                     .booleanValue());
+    }
+
+    @Test
+    public void testCompare(){
+        assertTrue(BooleanUtils.compare(true, false) > 0);
+        assertTrue(BooleanUtils.compare(true, true) == 0);
+        assertTrue(BooleanUtils.compare(false, false) == 0);
+        assertTrue(BooleanUtils.compare(false, true) < 0);
     }
     
 }

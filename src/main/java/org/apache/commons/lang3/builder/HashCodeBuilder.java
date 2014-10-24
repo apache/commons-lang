@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>
@@ -98,6 +99,16 @@ import org.apache.commons.lang3.ArrayUtils;
  * @version $Id$
  */
 public class HashCodeBuilder implements Builder<Integer> {
+    /**
+     * The default initial value to use in reflection hash code building.
+     */
+    private static final int DEFAULT_INITIAL_VALUE = 17;
+    
+    /**
+     * The default multipler value to use in reflection hash code building.
+     */
+    private static final int DEFAULT_MULTIPLIER_VALUE = 37;
+    
     /**
      * <p>
      * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
@@ -199,7 +210,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * This method uses reflection to build a valid hash code.
+     * Uses reflection to build a valid hash code from the fields of {@code object}.
      * </p>
      *
      * <p>
@@ -223,7 +234,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * @param initialNonZeroOddNumber
-     *            a non-zero, odd number used as the initial value
+     *            a non-zero, odd number used as the initial value. This will be the returned
+     *            value if no fields are found to include in the hash code
      * @param multiplierNonZeroOddNumber
      *            a non-zero, odd number used as the multiplier
      * @param object
@@ -240,7 +252,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * This method uses reflection to build a valid hash code.
+     * Uses reflection to build a valid hash code from the fields of {@code object}.
      * </p>
      *
      * <p>
@@ -264,7 +276,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * @param initialNonZeroOddNumber
-     *            a non-zero, odd number used as the initial value
+     *            a non-zero, odd number used as the initial value. This will be the returned
+     *            value if no fields are found to include in the hash code
      * @param multiplierNonZeroOddNumber
      *            a non-zero, odd number used as the multiplier
      * @param object
@@ -284,7 +297,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * This method uses reflection to build a valid hash code.
+     * Uses reflection to build a valid hash code from the fields of {@code object}.
      * </p>
      *
      * <p>
@@ -311,7 +324,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @param <T>
      *            the type of the object involved
      * @param initialNonZeroOddNumber
-     *            a non-zero, odd number used as the initial value
+     *            a non-zero, odd number used as the initial value. This will be the returned
+     *            value if no fields are found to include in the hash code
      * @param multiplierNonZeroOddNumber
      *            a non-zero, odd number used as the multiplier
      * @param object
@@ -347,7 +361,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * This method uses reflection to build a valid hash code.
+     * Uses reflection to build a valid hash code from the fields of {@code object}.
      * </p>
      *
      * <p>
@@ -366,7 +380,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * <p>
-     * Static fields will not be tested. Superclass fields will be included.
+     * Static fields will not be tested. Superclass fields will be included. If no fields are found to include
+     * in the hash code, the result of this method will be constant.
      * </p>
      *
      * @param object
@@ -378,12 +393,13 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the object is <code>null</code>
      */
     public static int reflectionHashCode(final Object object, final boolean testTransients) {
-        return reflectionHashCode(17, 37, object, testTransients, null);
+        return reflectionHashCode(DEFAULT_INITIAL_VALUE, DEFAULT_MULTIPLIER_VALUE, object, 
+                testTransients, null);
     }
 
     /**
      * <p>
-     * This method uses reflection to build a valid hash code.
+     * Uses reflection to build a valid hash code from the fields of {@code object}.
      * </p>
      *
      * <p>
@@ -402,7 +418,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * <p>
-     * Static fields will not be tested. Superclass fields will be included.
+     * Static fields will not be tested. Superclass fields will be included. If no fields are found to include
+     * in the hash code, the result of this method will be constant.
      * </p>
      *
      * @param object
@@ -421,7 +438,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * This method uses reflection to build a valid hash code.
+     * Uses reflection to build a valid hash code from the fields of {@code object}.
      * </p>
      *
      * <p>
@@ -440,7 +457,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * <p>
-     * Static fields will not be tested. Superclass fields will be included.
+     * Static fields will not be tested. Superclass fields will be included. If no fields are found to include
+     * in the hash code, the result of this method will be constant.
      * </p>
      *
      * @param object
@@ -452,7 +470,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the object is <code>null</code>
      */
     public static int reflectionHashCode(final Object object, final String... excludeFields) {
-        return reflectionHashCode(17, 37, object, false, null, excludeFields);
+        return reflectionHashCode(DEFAULT_INITIAL_VALUE, DEFAULT_MULTIPLIER_VALUE, object, false, 
+                null, excludeFields);
     }
 
     /**
@@ -536,12 +555,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the number is even
      */
     public HashCodeBuilder(final int initialOddNumber, final int multiplierOddNumber) {
-        if (initialOddNumber % 2 == 0) {
-            throw new IllegalArgumentException("HashCodeBuilder requires an odd initial value");
-        }
-        if (multiplierOddNumber % 2 == 0) {
-            throw new IllegalArgumentException("HashCodeBuilder requires an odd multiplier");
-        }
+        Validate.isTrue(initialOddNumber % 2 != 0, "HashCodeBuilder requires an odd initial value");
+        Validate.isTrue(multiplierOddNumber % 2 != 0, "HashCodeBuilder requires an odd multiplier");
         iConstant = multiplierOddNumber;
         iTotal = initialOddNumber;
     }
@@ -560,7 +575,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * that represent <code>false</code>.
      * </p>
      * <p>
-     * This is in accordance with the <quote>Effective Java</quote> design.
+     * This is in accordance with the <i>Effective Java</i> design.
      * </p>
      *
      * @param value

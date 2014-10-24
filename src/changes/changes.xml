@@ -21,7 +21,60 @@
   </properties>
   <body>
 
-  <release version="3.3" date="TBA" description="Bugfix and Feature release">
+  <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-536" type="add" dev="djones" due-to="James Sawle">Add isSorted() to ArrayUtils</action>
+    <action issue="LANG-1041" type="fix" dev="britter" due-to="Alexandre Bartel">Fix MethodUtilsTest so it does not depend on JDK method ordering</action>
+    <action issue="LANG-827" type="update" dev="djones">CompareToBuilder's doc doesn't specify precedence of fields it uses in performing comparisons</action>
+    <action issue="LANG-1000" type="fix" dev="djones">ParseException when trying to parse UTC dates with Z as zone designator using DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT</action>
+    <action issue="LANG-1035" type="fix" dev="djones">Javadoc for EqualsBuilder.reflectionEquals() is unclear</action>
+    <action issue="LANG-1020" type="update" dev="britter" due-to="Libor Ondrusek">Improve performance of normalize space</action>
+    <action issue="LANG-1033" type="add" dev="ggregory">Add StringUtils.countMatches(CharSequence, char)</action>
+    <action issue="LANG-1027" type="update" dev="rmannibucau">org.apache.commons.lang3.SystemUtils#isJavaVersionAtLeast should return true by default</action>
+    <action issue="LANG-1021" type="add" dev="britter" due-to="Alexander Müller">Provide methods to retrieve all fields/methods annotated with a specific type</action>
+    <action issue="LANG-1026" type="update" dev="britter" due-to="Alex Yursha">Bring static method references in StringUtils to consistent style</action>
+    <action issue="LANG-1016" type="add" dev="britter" due-to="Juan Pablo Santos Rodríguez">NumberUtils#isParsable method(s)</action>
+    <action issue="LANG-1017" type="update" dev="britter" due-to="Christoph Schneegans">Use non-ASCII digits in Javadoc examples for StringUtils.isNumeric</action>
+    <action issue="LANG-1008" type="update" dev="britter" due-to="Thiago Andrade">Change min/max methods in NumberUtils/IEEE754rUtils from array input parameters to varargs</action>
+    <action issue="LANG-999" type="add" dev="britter" due-to="Ben Ripkens">Add fuzzy String matching logic to StringUtils</action>
+    <action issue="LANG-1006" type="update" dev="britter" due-to="Thiago Andrade">Add wrap (with String or char) to StringUtils</action>
+    <action issue="LANG-1005" type="update" dev="britter" due-to="Michael Osipov">Extend DurationFormatUtils#formatDurationISO default pattern to match #formatDurationHMS</action>
+    <action issue="LANG-1007" type="update" dev="britter" due-to="Thiago Andrade">Fixing NumberUtils JAVADoc comments for max methods</action>
+    <action issue="LANG-731" type="update" dev="djones">Better Javadoc for BitField class</action>
+    <action issue="LANG-1004" type="update" dev="britter" due-to="Michael Osipov">DurationFormatUtils#formatDurationHMS implementation does not correspond to Javadoc and vice versa</action>
+    <action issue="LANG-1003" type="update" dev="britter">DurationFormatUtils are not able to handle negative durations/periods</action>
+    <action issue="LANG-1001" type="fix" dev="ggregory" due-to="Michael Osipov">ISO 8601 misspelled throughout the Javadocs</action>
+    <action issue="LANG-994" type="add" dev="britter" due-to="Mikhail Mazursky">Add zero copy read method to StrBuilder</action>
+    <action issue="LANG-993" type="add" dev="britter" due-to="Mikhail Mazursky">Add zero copy write method to StrBuilder</action>
+    <action issue="LANG-998" type="update" dev="chas">Javadoc is not clear on preferred pattern to instantiate FastDateParser / FastDatePrinter</action>
+    <action issue="LANG-996" type="fix" dev="chas">FastDateParser should be case insensitive</action>
+    <action issue="LANG-995" type="fix" dev="britter" due-to="Andrey Khobnya">Fix bug with stripping spaces on last line in WordUtils.wrap()</action>
+    <action issue="LANG-1044" type="add" dev="ggregory">Add method org.apache.commons.lang3.reflect.MethodUtils.invokeExactMethod(Object, String)</action>
+    <action issue="LANG-1045" type="add" dev="ggregory">Add method org.apache.commons.lang3.reflect.MethodUtils.invokeMethod(Object, String)</action>
+  </release>
+
+  <release version="3.3.2" date="2014-04-09" description="Bugfix for a bug in NumberUtils introduced in 3.3.1">
+    <action issue="LANG-992" type="fix" dev="niallp">NumberUtils#isNumber() returns false for "0.0", "0.4790", et al</action>
+    <action issue="LANG-989" type="add" dev="ggregory">Add org.apache.commons.lang3.SystemUtils.IS_JAVA_1_8</action>
+  </release>
+
+  <release version="3.3.1" date="2014-03-18" description="Bugfix release for 3.3">
+    <action issue="LANG-987" type="fix" dev="djones">DateUtils.getFragmentInDays(Date, Calendar.MONTH) returns wrong days</action>
+    <action issue="LANG-983" type="fix" dev="sebb">DurationFormatUtils does not describe format string fully</action>
+    <action issue="LANG-981" type="fix" dev="sebb">DurationFormatUtils#lexx does not detect unmatched quote char</action>
+    <action issue="LANG-984" type="fix" dev="sebb">DurationFormatUtils does not handle large durations correctly</action>
+    <action issue="LANG-982" type="fix" dev="sebb">DurationFormatUtils.formatDuration(61999, "s.SSSS") - ms field size should be 4 digits</action>
+    <action issue="LANG-978" type="fix" dev="sebb">Failing tests with Java 8 b128</action>
+  </release>
+
+  <release version="3.3" date="2014-03-04" description="Bug fixes and and new features including: DifferenceBuilder, ClassPathUtils, RandomUtils and Jaro-Winkler String distance metric">
+    <action issue="LANG-621" type="fix" dev="kinow" due-to="Philip Hodges, Thomas Neidhart">ReflectionToStringBuilder.toString does not debug 3rd party object fields within 3rd party object</action>
+    <action issue="LANG-955" type="add" dev="britter" due-to="Adam Hooper">Add methods for removing all invalid characters according to XML 1.0 and XML 1.1 in an input string to StringEscapeUtils</action>
+    <action issue="LANG-977" type="fix" dev="britter" due-to="Chris Karcher">NumericEntityEscaper incorrectly encodes supplementary characters</action>
+    <action issue="LANG-973" type="fix" dev="sebb">Make some private fields final</action>
+    <action issue="LANG-971" type="fix" dev="sebb">NumberUtils#isNumber(String) fails to reject invalid Octal numbers</action>
+    <action issue="LANG-972" type="fix" dev="sebb">NumberUtils#isNumber does not allow for hex 0XABCD</action>
+    <action issue="LANG-969" type="fix" dev="ggregory" due-to="Matt Bishop">StringUtils.toEncodedString(byte[], Charset) needlessly throws UnsupportedEncodingException</action>
+    <action issue="LANG-970" type="add" dev="ggregory">Add APIs MutableBoolean setTrue() and setFalse()</action>
     <action issue="LANG-946" type="fix" dev="britter">ConstantInitializerTest fails when building with IBM JDK 7</action>
     <action issue="LANG-962" type="add" dev="ggregory">Add SerializationUtils.roundtrip(T extends Serializable) to serialize then deserialize</action>
     <action issue="LANG-961" type="update" dev="ggregory">org.apache.commons.lang3.reflect.FieldUtils.removeFinalModifier(Field) does not clean up after itself</action>
@@ -44,7 +97,7 @@
     <action issue="LANG-834" type="add" dev="britter">Validate: add inclusiveBetween and exclusiveBetween overloads for primitive types</action>
     <action issue="LANG-900" type="add" dev="britter" due-to="Duncan Jones">New RandomUtils class</action>
     <action issue="LANG-915" type="fix" dev="britter" due-to="Sergio Fernández">Wrong locale handling in LocaleUtils.toLocale()</action>
-    <action issue="LANG-966" type="add" dev="ggregory">Add IBM iSeries 5 OS detection</action>
+    <action issue="LANG-966" type="add" dev="ggregory">Add IBM OS/400 detection</action>
   </release>
 
   <release version="3.2.1" date="2014-01-05" description="Bug fix for 3.2">
@@ -81,7 +134,7 @@
     <action issue="LANG-887" type="fix">FastDateFormat does not use the locale specific cache correctly</action>
     <action issue="LANG-884" type="update">Simplify FastDateFormat; eliminate boxing</action>
     <action issue="LANG-882" type="update">LookupTranslator now works with implementations of CharSequence other than String</action>
-    <action issue="LANG-754" type="fix">ClassUtils.getShortName(String) will now only do a reverse lookup for array types</action>  
+    <action issue="LANG-754" type="fix">ClassUtils.getShortName(String) will now only do a reverse lookup for array types</action>
     <action issue="LANG-886" type="add">Added CharSetUtils.containsAny(String, String)</action>
     <action issue="LANG-846" type="update">Provide CharSequenceUtils.regionMatches with a proper green implementation instead of inefficiently converting to Strings</action>
     <action issue="LANG-797" type="add">Added escape/unescapeJson to StringEscapeUtils</action>
@@ -101,7 +154,7 @@
     <action issue="LANG-849" type="fix">FastDateFormat and FastDatePrinter generates Date objects wastefully</action>
     <action issue="LANG-845" type="fix">Spelling fixes</action>
     <action issue="LANG-844" type="fix">Fix examples contained in javadoc of StringUtils.center methods</action>
-    <action issue="LANG-841" type="add">Add StringUtils API to call String.replaceAll in DOTALL a.k.a. single-line mode</action>    
+    <action issue="LANG-841" type="add">Add StringUtils API to call String.replaceAll in DOTALL a.k.a. single-line mode</action>
     <action issue="LANG-839" type="update">ArrayUtils removeElements methods use unnecessary HashSet</action>
     <action issue="LANG-838" type="update">ArrayUtils removeElements methods clone temporary index arrays unnecessarily</action>
     <action issue="LANG-832" type="fix">FastDateParser does not handle unterminated quotes correctly</action>
@@ -119,8 +172,8 @@
     <action issue="LANG-805" type="fix">RandomStringUtils.random(count, 0, 0, false, false, universe, random) always throws java.lang.ArrayIndexOutOfBoundsException</action>
     <action issue="LANG-802" type="fix">LocaleUtils - unnecessary recursive call in SyncAvoid class.</action>
     <action issue="LANG-800" type="fix">Javadoc bug in DateUtils#ceiling for Calendar and Object versions.</action>
-    <action issue="LANG-799" type="update">DateUtils#parseDate uses default locale; add Locale support</action>  
-    <action issue="LANG-798" type="update">Use generics in SerializationUtils</action>  
+    <action issue="LANG-799" type="update">DateUtils#parseDate uses default locale; add Locale support</action>
+    <action issue="LANG-798" type="update">Use generics in SerializationUtils</action>
     <action issue="LANG-788" type="fix">SerializationUtils throws ClassNotFoundException when cloning primitive classes</action>
     <action issue="LANG-786" type="fix">StringUtils equals() relies on undefined behavior</action>
     <action issue="LANG-783" type="fix">Documentation bug: StringUtils.split</action>
@@ -138,7 +191,7 @@
     <action issue="LANG-462" type="add">FastDateFormat supports parse methods</action>
   </release>
 
-  <release version="3.1" date="2011-11-14" description="November release">      
+  <release version="3.1" date="2011-11-14" description="November release">
     <action type="add" issue="LANG-760">Add API StringUtils.toString(byte[] intput, String charsetName)</action>
     <action type="update" issue="LANG-758">Add an example with whitespace in StringUtils.defaultIfEmpty</action>
     <action type="add" issue="LANG-756">Add APIs ClassUtils.isPrimitiveWrapper(Class&lt;?&gt;) and isPrimitiveOrWrapper(Class&lt;?&gt;)</action>
@@ -154,7 +207,7 @@
     <action type="add" issue="LANG-695">SystemUtils.IS_OS_UNIX doesn't recognize FreeBSD as a Unix system</action>
   </release>
 
-  <release version="3.0.1" date="2011-08-09" description="August release">  
+  <release version="3.0.1" date="2011-08-09" description="August release">
     <action type="fix" issue="LANG-626">SerializationUtils.clone: Fallback to context classloader if class not found in current classloader.</action>
     <action type="fix" issue="LANG-727">ToStringBuilderTest.testReflectionHierarchyArrayList fails with IBM JDK 6.</action>
     <action type="fix" issue="LANG-720">StringEscapeUtils.escapeXml(input) wrong when input contains characters in Supplementary Planes.</action>
@@ -172,7 +225,7 @@
     <action type="fix" issue="LANG-738">Use internal Java's Number caches instead creating new objects.</action>
   </release>
 
-  <release version="3.0" date="2011-07-18" description="Backwards incompatible update of Commons Lang to Java 5">  
+  <release version="3.0" date="2011-07-18" description="Backwards incompatible update of Commons Lang to Java 5">
     <action type="fix" issue="LANG-720">StringEscapeUtils.escapeXml(input) outputs wrong results when an input contains characters in Supplementary Planes.</action>
     <action type="update" issue="LANG-718">build.xml Java 1.5+ updates.</action>
     <action type="fix" issue="LANG-716">swapCase and *capitalize speedups.</action>

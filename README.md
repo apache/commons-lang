@@ -32,7 +32,7 @@ Alternatively you can pull it from the central Maven repositories:
 ```xml
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-lang3</artifactId>
-  <version>3.2.1</version>
+  <version>3.3.2</version>
 ```
 
 License

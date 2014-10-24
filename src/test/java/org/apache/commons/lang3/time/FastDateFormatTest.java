@@ -254,8 +254,8 @@ public class FastDateFormatTest {
      * According to LANG-954 (https://issues.apache.org/jira/browse/LANG-954) this is broken in Android 2.1.
      */
     @Test
-    public void testLang954() throws Exception {
-        String pattern = "yyyy-MM-dd'T'";
+    public void testLang954() {
+        final String pattern = "yyyy-MM-dd'T'";
         FastDateFormat.getInstance(pattern);
     }
 

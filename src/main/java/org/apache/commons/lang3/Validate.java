@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
  * as defined by the Java platform. For example:</p>
  *
  * <pre>
- * Validate.isTrue(i > 0, "The value must be greater than zero: %d", i);
+ * Validate.isTrue(i &gt; 0, "The value must be greater than zero: %d", i);
  * Validate.notNull(surname, "The surname must not be %s", null);
  * </pre>
  *
@@ -88,7 +88,7 @@ public class Validate {
      * validating according to an arbitrary boolean expression, such as validating a
      * primitive number or using your own custom validation expression.</p>
      *
-     * <pre>Validate.isTrue(i > 0.0, "The value must be greater than zero: %d", i);</pre>
+     * <pre>Validate.isTrue(i &gt; 0.0, "The value must be greater than zero: &#37;d", i);</pre>
      *
      * <p>For performance reasons, the long value is passed as a separate parameter and
      * appended to the exception message only in the case of an error.</p>
@@ -113,7 +113,7 @@ public class Validate {
      * validating according to an arbitrary boolean expression, such as validating a
      * primitive number or using your own custom validation expression.</p>
      *
-     * <pre>Validate.isTrue(d > 0.0, "The value must be greater than zero: %s", d);</pre>
+     * <pre>Validate.isTrue(d &gt; 0.0, "The value must be greater than zero: &#37;s", d);</pre>
      *
      * <p>For performance reasons, the double value is passed as a separate parameter and
      * appended to the exception message only in the case of an error.</p>
@@ -139,7 +139,7 @@ public class Validate {
      * primitive number or using your own custom validation expression.</p>
      *
      * <pre>
-     * Validate.isTrue(i >= min && i <= max, "The value must be between %d and %d", min, max);
+     * Validate.isTrue(i &gt;= min &amp;&amp; i &lt;= max, "The value must be between &#37;d and &#37;d", min, max);
      * Validate.isTrue(myObject.isOk(), "The object is not okay");</pre>
      *
      * @param expression  the boolean expression to check
@@ -163,7 +163,7 @@ public class Validate {
      * primitive number or using your own custom validation expression.</p>
      *
      * <pre>
-     * Validate.isTrue(i > 0);
+     * Validate.isTrue(i &gt; 0);
      * Validate.isTrue(myObject.isOk());</pre>
      *
      * <p>The message of the exception is &quot;The validated expression is
@@ -516,7 +516,7 @@ public class Validate {
     /**
      * <p>Validate that the specified argument array is neither
      * {@code null} nor contains any elements that are {@code null};
-     * otherwise throwing an exception.
+     * otherwise throwing an exception.</p>
      *
      * <pre>Validate.noNullElements(myArray);</pre>
      *
@@ -525,7 +525,7 @@ public class Validate {
      *
      * <p>If the array has a {@code null} element, then the message in the
      * exception is &quot;The validated array contains null element at index:
-     * &quot followed by the index.</p>
+     * &quot; followed by the index.</p>
      *
      * @param <T> the array type
      * @param array  the array to check, validated not null by this method
@@ -588,7 +588,7 @@ public class Validate {
      *
      * <p>If the array has a {@code null} element, then the message in the
      * exception is &quot;The validated iterable contains null element at index:
-     * &quot followed by the index.</p>
+     * &quot; followed by the index.</p>
      *
      * @param <T> the iterable type
      * @param iterable  the iterable to check, validated not null by this method
@@ -787,7 +787,7 @@ public class Validate {
      * primitive number or using your own custom validation expression.</p>
      *
      * <pre>
-     * Validate.validState(field > 0);
+     * Validate.validState(field &gt; 0);
      * Validate.validState(this.isOk());</pre>
      *
      * <p>The message of the exception is &quot;The validated state is
@@ -940,7 +940,7 @@ public class Validate {
     * @since 3.3
     */
     @SuppressWarnings("boxing")
-    public static void inclusiveBetween(long start, long end, long value) {
+    public static void inclusiveBetween(final long start, final long end, final long value) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
             throw new IllegalArgumentException(String.format(DEFAULT_INCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
@@ -963,7 +963,7 @@ public class Validate {
     *
     * @since 3.3
     */
-    public static void inclusiveBetween(long start, long end, long value, String message) {
+    public static void inclusiveBetween(final long start, final long end, final long value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
             throw new IllegalArgumentException(String.format(message));
@@ -984,7 +984,7 @@ public class Validate {
     * @since 3.3
     */
     @SuppressWarnings("boxing")
-    public static void inclusiveBetween(double start, double end, double value) {
+    public static void inclusiveBetween(final double start, final double end, final double value) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
             throw new IllegalArgumentException(String.format(DEFAULT_INCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
@@ -1007,7 +1007,7 @@ public class Validate {
     *
     * @since 3.3
     */
-    public static void inclusiveBetween(double start, double end, double value, String message) {
+    public static void inclusiveBetween(final double start, final double end, final double value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
             throw new IllegalArgumentException(String.format(message));
@@ -1078,7 +1078,7 @@ public class Validate {
     * @since 3.3
     */
     @SuppressWarnings("boxing")
-    public static void exclusiveBetween(long start, long end, long value) {
+    public static void exclusiveBetween(final long start, final long end, final long value) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
             throw new IllegalArgumentException(String.format(DEFAULT_EXCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
@@ -1101,7 +1101,7 @@ public class Validate {
     *
     * @since 3.3
     */
-    public static void exclusiveBetween(long start, long end, long value, String message) {
+    public static void exclusiveBetween(final long start, final long end, final long value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
             throw new IllegalArgumentException(String.format(message));
@@ -1122,7 +1122,7 @@ public class Validate {
     * @since 3.3
     */
     @SuppressWarnings("boxing")
-    public static void exclusiveBetween(double start, double end, double value) {
+    public static void exclusiveBetween(final double start, final double end, final double value) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
             throw new IllegalArgumentException(String.format(DEFAULT_EXCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
@@ -1145,7 +1145,7 @@ public class Validate {
     *
     * @since 3.3
     */
-    public static void exclusiveBetween(double start, double end, double value, String message) {
+    public static void exclusiveBetween(final double start, final double end, final double value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
             throw new IllegalArgumentException(String.format(message));

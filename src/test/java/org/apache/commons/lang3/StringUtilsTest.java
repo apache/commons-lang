@@ -55,7 +55,7 @@ public class StringUtilsTest {
     static {
         String ws = "";
         String nws = "";
-        String hs = String.valueOf(((char) 160));
+        final String hs = String.valueOf(((char) 160));
         String tr = "";
         String ntr = "";
         for (int i = 0; i < Character.MAX_VALUE; i++) {
@@ -2018,6 +2018,37 @@ public class StringUtilsTest {
             StringUtils.getJaroWinklerDistance(null, "clear");
     }
 
+    @Test
+    public void testGetFuzzyDistance() throws Exception {
+        assertEquals(0, StringUtils.getFuzzyDistance("", "", Locale.ENGLISH));
+        assertEquals(0, StringUtils.getFuzzyDistance("Workshop", "b", Locale.ENGLISH));
+        assertEquals(1, StringUtils.getFuzzyDistance("Room", "o", Locale.ENGLISH));
+        assertEquals(1, StringUtils.getFuzzyDistance("Workshop", "w", Locale.ENGLISH));
+        assertEquals(2, StringUtils.getFuzzyDistance("Workshop", "ws", Locale.ENGLISH));
+        assertEquals(4, StringUtils.getFuzzyDistance("Workshop", "wo", Locale.ENGLISH));
+        assertEquals(3, StringUtils.getFuzzyDistance("Apache Software Foundation", "asf", Locale.ENGLISH));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFuzzyDistance_NullNullNull() throws Exception {
+        StringUtils.getFuzzyDistance(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFuzzyDistance_StringNullLoclae() throws Exception {
+        StringUtils.getFuzzyDistance(" ", null, Locale.ENGLISH);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFuzzyDistance_NullStringLocale() throws Exception {
+        StringUtils.getFuzzyDistance(null, "clear", Locale.ENGLISH);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetFuzzyDistance_StringStringNull() throws Exception {
+        StringUtils.getFuzzyDistance(" ", "clear", null);
+    }
+
     /**
      * A sanity check for {@link StringUtils#EMPTY}.
      */
@@ -2035,9 +2066,14 @@ public class StringUtilsTest {
     public void testIsAllLowerCase() {
         assertFalse(StringUtils.isAllLowerCase(null));
         assertFalse(StringUtils.isAllLowerCase(StringUtils.EMPTY));
+        assertFalse(StringUtils.isAllLowerCase("  "));
         assertTrue(StringUtils.isAllLowerCase("abc"));
         assertFalse(StringUtils.isAllLowerCase("abc "));
+        assertFalse(StringUtils.isAllLowerCase("abc\n"));
         assertFalse(StringUtils.isAllLowerCase("abC"));
+        assertFalse(StringUtils.isAllLowerCase("ab c"));
+        assertFalse(StringUtils.isAllLowerCase("ab1c"));
+        assertFalse(StringUtils.isAllLowerCase("ab/c"));
     }
 
     /**
@@ -2047,9 +2083,14 @@ public class StringUtilsTest {
     public void testIsAllUpperCase() {
         assertFalse(StringUtils.isAllUpperCase(null));
         assertFalse(StringUtils.isAllUpperCase(StringUtils.EMPTY));
+        assertFalse(StringUtils.isAllUpperCase("  "));
         assertTrue(StringUtils.isAllUpperCase("ABC"));
         assertFalse(StringUtils.isAllUpperCase("ABC "));
+        assertFalse(StringUtils.isAllUpperCase("ABC\n"));
         assertFalse(StringUtils.isAllUpperCase("aBC"));
+        assertFalse(StringUtils.isAllUpperCase("A C"));
+        assertFalse(StringUtils.isAllUpperCase("A1C"));
+        assertFalse(StringUtils.isAllUpperCase("A/C"));
     }
 
     @Test
@@ -2285,22 +2326,21 @@ public class StringUtilsTest {
 
     /**
      * Tests {@link StringUtils#toString(byte[], String)}
-     * 
-     * @throws UnsupportedEncodingException
+     *
+     * @throws java.io.UnsupportedEncodingException because the method under test max throw it
      * @see StringUtils#toString(byte[], String)
      */
     @Test
     public void testToString() throws UnsupportedEncodingException {
         final String expectedString = "The quick brown fox jumped over the lazy dog.";
-        String encoding = SystemUtils.FILE_ENCODING;
-        byte[] expectedBytes = expectedString.getBytes(encoding);
+        byte[] expectedBytes = expectedString.getBytes(Charset.defaultCharset());
         // sanity check start
         assertArrayEquals(expectedBytes, expectedString.getBytes());
         // sanity check end
         assertEquals(expectedString, StringUtils.toString(expectedBytes, null));
-        assertEquals(expectedString, StringUtils.toString(expectedBytes, encoding));
-        encoding = "UTF-16";
-        expectedBytes = expectedString.getBytes(encoding);
+        assertEquals(expectedString, StringUtils.toString(expectedBytes, SystemUtils.FILE_ENCODING));
+        String encoding = "UTF-16";
+        expectedBytes = expectedString.getBytes(Charset.forName(encoding));
         assertEquals(expectedString, StringUtils.toString(expectedBytes, encoding));
     }
     
@@ -2318,11 +2358,9 @@ public class StringUtilsTest {
     
     /**
      * Tests LANG-858.
-     * 
-     * @throws Exception
      */
     @Test
-    public void testEscapeSurrogatePairsLang858() throws Exception {
+    public void testEscapeSurrogatePairsLang858() {
         assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeJava("\uDBFF\uDFFD"));       //fail LANG-858
         assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeEcmaScript("\uDBFF\uDFFD")); //fail LANG-858
     }
@@ -2435,23 +2473,59 @@ public class StringUtilsTest {
     }
     
     /**
-     * Tests {@link StringUtils#toString(byte[], Charset)}
+     * Tests {@link StringUtils#toEncodedString(byte[], Charset)}
      * 
-     * @throws UnsupportedEncodingException
-     * @see StringUtils#toString(byte[], Charset)
+     * @see StringUtils#toEncodedString(byte[], Charset)
      */
     @Test
-    public void testToEncodedString() throws UnsupportedEncodingException {
+    public void testToEncodedString() {
         final String expectedString = "The quick brown fox jumped over the lazy dog.";
         String encoding = SystemUtils.FILE_ENCODING;
-        byte[] expectedBytes = expectedString.getBytes(encoding);
+        byte[] expectedBytes = expectedString.getBytes(Charset.defaultCharset());
         // sanity check start
         assertArrayEquals(expectedBytes, expectedString.getBytes());
         // sanity check end
         assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.defaultCharset()));
         assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.forName(encoding)));
         encoding = "UTF-16";
-        expectedBytes = expectedString.getBytes(encoding);
+        expectedBytes = expectedString.getBytes(Charset.forName(encoding));
         assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.forName(encoding)));
+    }
+    
+    // -----------------------------------------------------------------------
+
+    @Test
+    public void testWrap_StringChar() {
+        assertNull(StringUtils.wrap(null, null));
+        assertNull(StringUtils.wrap(null, '\0'));
+        assertNull(StringUtils.wrap(null, '1'));
+
+        assertEquals(null, StringUtils.wrap(null, null));
+        assertEquals("", StringUtils.wrap("", '\0'));
+        assertEquals("xabx", StringUtils.wrap("ab", 'x'));
+        assertEquals("\"ab\"", StringUtils.wrap("ab", '\"'));
+        assertEquals("\"\"ab\"\"", StringUtils.wrap("\"ab\"", '\"'));
+        assertEquals("'ab'", StringUtils.wrap("ab", '\''));
+        assertEquals("''abcd''", StringUtils.wrap("'abcd'", '\''));
+        assertEquals("'\"abcd\"'", StringUtils.wrap("\"abcd\"", '\''));
+        assertEquals("\"'abcd'\"", StringUtils.wrap("'abcd'", '\"'));
+    }
+
+    @Test
+    public void testWrap_StringString() {
+        assertNull(StringUtils.wrap(null, null));
+        assertNull(StringUtils.wrap(null, ""));
+        assertNull(StringUtils.wrap(null, "1"));
+
+        assertEquals(null, StringUtils.wrap(null, null));
+        assertEquals("", StringUtils.wrap("", ""));
+        assertEquals("ab", StringUtils.wrap("ab", null));
+        assertEquals("xabx", StringUtils.wrap("ab", "x"));
+        assertEquals("\"ab\"", StringUtils.wrap("ab", "\""));
+        assertEquals("\"\"ab\"\"", StringUtils.wrap("\"ab\"", "\""));
+        assertEquals("'ab'", StringUtils.wrap("ab", "'"));
+        assertEquals("''abcd''", StringUtils.wrap("'abcd'", "'"));
+        assertEquals("'\"abcd\"'", StringUtils.wrap("\"abcd\"", "'"));
+        assertEquals("\"'abcd'\"", StringUtils.wrap("'abcd'", "\""));
     }
 }

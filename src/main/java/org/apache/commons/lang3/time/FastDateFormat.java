@@ -30,6 +30,16 @@ import java.util.TimeZone;
  * <p>FastDateFormat is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
  *
+ * <p>To obtain an instance of FastDateFormat, use one of the static factory methods: 
+ * {@link #getInstance(String, TimeZone, Locale)}, {@link #getDateInstance(int, TimeZone, Locale)}, 
+ * {@link #getTimeInstance(int, TimeZone, Locale)}, or {@link #getDateTimeInstance(int, int, TimeZone, Locale)} 
+ * </p>
+ * 
+ * <p>Since FastDateFormat is thread safe, you can use a static member instance:</p>
+ * <code>
+ *   private static final FastDateFormat DATE_FORMATTER = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.SHORT);
+ * </code>
+ * 
  * <p>This class can be used as a direct replacement to
  * {@code SimpleDateFormat} in most formatting and parsing situations.
  * This class is especially useful in multi-threaded server environments.
@@ -47,7 +57,7 @@ import java.util.TimeZone;
  * This pattern letter can be used here (on all JDK versions).</p>
  *
  * <p>In addition, the pattern {@code 'ZZ'} has been made to represent
- * ISO8601 full format time zones (eg. {@code +08:00} or {@code -11:00}).
+ * ISO 8601 full format time zones (eg. {@code +08:00} or {@code -11:00}).
  * This introduces a minor incompatibility with Java 1.4, but at a gain of
  * useful functionality.</p>
  *
@@ -366,7 +376,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @throws NullPointerException if pattern, timeZone, or locale is null.
      */
     protected FastDateFormat(final String pattern, final TimeZone timeZone, final Locale locale) {
-    	this(pattern, timeZone, locale, null);
+        this(pattern, timeZone, locale, null);
     }
 
     // Constructor

@@ -121,9 +121,9 @@ public class NumberUtilsTest {
      */
     @Test
     public void testStringCreateNumberEnsureNoPrecisionLoss(){
-        String shouldBeFloat = "1.23";
-        String shouldBeDouble = "3.40282354e+38";
-        String shouldBeBigDecimal = "1.797693134862315759e+308";
+        final String shouldBeFloat = "1.23";
+        final String shouldBeDouble = "3.40282354e+38";
+        final String shouldBeBigDecimal = "1.797693134862315759e+308";
         
         assertTrue(NumberUtils.createNumber(shouldBeFloat) instanceof Float);
         assertTrue(NumberUtils.createNumber(shouldBeDouble) instanceof Double);
@@ -1175,146 +1175,105 @@ public class NumberUtilsTest {
      */
     @Test
     public void testIsNumber() {
-        String val = "12345";
-        assertTrue("isNumber(String) 1 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 1 failed", checkCreateNumber(val));
-        val = "1234.5";
-        assertTrue("isNumber(String) 2 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 2 failed", checkCreateNumber(val));
-        val = ".12345";
-        assertTrue("isNumber(String) 3 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 3 failed", checkCreateNumber(val));
-        val = "1234E5";
-        assertTrue("isNumber(String) 4 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 4 failed", checkCreateNumber(val));
-        val = "1234E+5";
-        assertTrue("isNumber(String) 5 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 5 failed", checkCreateNumber(val));
-        val = "1234E-5";
-        assertTrue("isNumber(String) 6 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 6 failed", checkCreateNumber(val));
-        val = "123.4E5";
-        assertTrue("isNumber(String) 7 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 7 failed", checkCreateNumber(val));
-        val = "-1234";
-        assertTrue("isNumber(String) 8 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 8 failed", checkCreateNumber(val));
-        val = "-1234.5";
-        assertTrue("isNumber(String) 9 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 9 failed", checkCreateNumber(val));
-        val = "-.12345";
-        assertTrue("isNumber(String) 10 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 10 failed", checkCreateNumber(val));
-        val = "-1234E5";
-        assertTrue("isNumber(String) 11 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 11 failed", checkCreateNumber(val));
-        val = "0";
-        assertTrue("isNumber(String) 12 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 12 failed", checkCreateNumber(val));
-        val = "-0";
-        assertTrue("isNumber(String) 13 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 13 failed", checkCreateNumber(val));
-        val = "01234";
-        assertTrue("isNumber(String) 14 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 14 failed", checkCreateNumber(val));
-        val = "-01234";
-        assertTrue("isNumber(String) 15 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 15 failed", checkCreateNumber(val));
-        val = "0xABC123";
-        assertTrue("isNumber(String) 16 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 16 failed", checkCreateNumber(val));
-        val = "0x0";
-        assertTrue("isNumber(String) 17 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 17 failed", checkCreateNumber(val));
-        val = "123.4E21D";
-        assertTrue("isNumber(String) 19 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 19 failed", checkCreateNumber(val));
-        val = "-221.23F";
-        assertTrue("isNumber(String) 20 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 20 failed", checkCreateNumber(val));
-        val = "22338L";
-        assertTrue("isNumber(String) 21 failed", NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 21 failed", checkCreateNumber(val));
-        val = null;
-        assertTrue("isNumber(String) 1 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 1 Neg failed", !checkCreateNumber(val));
-        val = "";
-        assertTrue("isNumber(String) 2 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 2 Neg failed", !checkCreateNumber(val));
-        val = "--2.3";
-        assertTrue("isNumber(String) 3 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 3 Neg failed", !checkCreateNumber(val));
-        val = ".12.3";
-        assertTrue("isNumber(String) 4 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 4 Neg failed", !checkCreateNumber(val));
-        val = "-123E";
-        assertTrue("isNumber(String) 5 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 5 Neg failed", !checkCreateNumber(val));
-        val = "-123E+-212";
-        assertTrue("isNumber(String) 6 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 6 Neg failed", !checkCreateNumber(val));
-        val = "-123E2.12";
-        assertTrue("isNumber(String) 7 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 7 Neg failed", !checkCreateNumber(val));
-        val = "0xGF";
-        assertTrue("isNumber(String) 8 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 8 Neg failed", !checkCreateNumber(val));
-        val = "0xFAE-1";
-        assertTrue("isNumber(String) 9 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 9 Neg failed", !checkCreateNumber(val));
-        val = ".";
-        assertTrue("isNumber(String) 10 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 10 Neg failed", !checkCreateNumber(val));
-        val = "-0ABC123";
-        assertTrue("isNumber(String) 11 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 11 Neg failed", !checkCreateNumber(val));
-        val = "123.4E-D";
-        assertTrue("isNumber(String) 12 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 12 Neg failed", !checkCreateNumber(val));
-        val = "123.4ED";
-        assertTrue("isNumber(String) 13 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 13 Neg failed", !checkCreateNumber(val));
-        val = "1234E5l";
-        assertTrue("isNumber(String) 14 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 14 Neg failed", !checkCreateNumber(val));
-        val = "11a";
-        assertTrue("isNumber(String) 15 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 15 Neg failed", !checkCreateNumber(val));
-        val = "1a";
-        assertTrue("isNumber(String) 16 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 16 Neg failed", !checkCreateNumber(val));
-        val = "a";
-        assertTrue("isNumber(String) 17 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 17 Neg failed", !checkCreateNumber(val));
-        val = "11g";
-        assertTrue("isNumber(String) 18 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 18 Neg failed", !checkCreateNumber(val));
-        val = "11z";
-        assertTrue("isNumber(String) 19 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 19 Neg failed", !checkCreateNumber(val));
-        val = "11def";
-        assertTrue("isNumber(String) 20 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 20 Neg failed", !checkCreateNumber(val));
-        val = "11d11";
-        assertTrue("isNumber(String) 21 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 21 Neg failed", !checkCreateNumber(val));
-        val = "11 11";
-        assertTrue("isNumber(String) 22 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 22 Neg failed", !checkCreateNumber(val));
-        val = " 1111";
-        assertTrue("isNumber(String) 23 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 23 Neg failed", !checkCreateNumber(val));
-        val = "1111 ";
-        assertTrue("isNumber(String) 24 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 24 Neg failed", !checkCreateNumber(val));
+        compareIsNumberWithCreateNumber("12345", true);
+        compareIsNumberWithCreateNumber("1234.5", true);
+        compareIsNumberWithCreateNumber(".12345", true);
+        compareIsNumberWithCreateNumber("1234E5", true);
+        compareIsNumberWithCreateNumber("1234E+5", true);
+        compareIsNumberWithCreateNumber("1234E-5", true);
+        compareIsNumberWithCreateNumber("123.4E5", true);
+        compareIsNumberWithCreateNumber("-1234", true);
+        compareIsNumberWithCreateNumber("-1234.5", true);
+        compareIsNumberWithCreateNumber("-.12345", true);
+        compareIsNumberWithCreateNumber("-1234E5", true);
+        compareIsNumberWithCreateNumber("0", true);
+        compareIsNumberWithCreateNumber("-0", true);
+        compareIsNumberWithCreateNumber("01234", true);
+        compareIsNumberWithCreateNumber("-01234", true);
+        compareIsNumberWithCreateNumber("-0xABC123", true);
+        compareIsNumberWithCreateNumber("-0x0", true);
+        compareIsNumberWithCreateNumber("123.4E21D", true);
+        compareIsNumberWithCreateNumber("-221.23F", true);
+        compareIsNumberWithCreateNumber("22338L", true);
 
-        // LANG-521
-        val = "2.";
-        assertTrue("isNumber(String) LANG-521 failed", NumberUtils.isNumber(val));
+        compareIsNumberWithCreateNumber(null, false);
+        compareIsNumberWithCreateNumber("", false);
+        compareIsNumberWithCreateNumber("--2.3", false);
+        compareIsNumberWithCreateNumber(".12.3", false);
+        compareIsNumberWithCreateNumber("-123E", false);
+        compareIsNumberWithCreateNumber("-123E+-212", false);
+        compareIsNumberWithCreateNumber("-123E2.12", false);
+        compareIsNumberWithCreateNumber("0xGF", false);
+        compareIsNumberWithCreateNumber("0xFAE-1", false);
+        compareIsNumberWithCreateNumber(".", false);
+        compareIsNumberWithCreateNumber("-0ABC123", false);
+        compareIsNumberWithCreateNumber("123.4E-D", false);
+        compareIsNumberWithCreateNumber("123.4ED", false);
+        compareIsNumberWithCreateNumber("1234E5l", false);
+        compareIsNumberWithCreateNumber("11a", false);
+        compareIsNumberWithCreateNumber("1a", false);
+        compareIsNumberWithCreateNumber("a", false);
+        compareIsNumberWithCreateNumber("11g", false);
+        compareIsNumberWithCreateNumber("11z", false);
+        compareIsNumberWithCreateNumber("11def", false);
+        compareIsNumberWithCreateNumber("11d11", false);
+        compareIsNumberWithCreateNumber("11 11", false);
+        compareIsNumberWithCreateNumber(" 1111", false);
+        compareIsNumberWithCreateNumber("1111 ", false);
 
-        // LANG-664
-        val = "1.1L";
-        assertFalse("isNumber(String) LANG-664 failed", NumberUtils.isNumber(val));
+        compareIsNumberWithCreateNumber("2.", true); // LANG-521
+        compareIsNumberWithCreateNumber("1.1L", false); // LANG-664
+    }
+
+    @Test
+    public void testLANG971() {
+        compareIsNumberWithCreateNumber("0085", false);
+        compareIsNumberWithCreateNumber("085", false);
+        compareIsNumberWithCreateNumber("08", false);
+        compareIsNumberWithCreateNumber("07", true);
+        compareIsNumberWithCreateNumber("00", true);
+    }
+
+    @Test
+    public void testLANG992() {
+        compareIsNumberWithCreateNumber("0.0", true);
+        compareIsNumberWithCreateNumber("0.4790", true);
+    }
+
+    @Test
+    public void testLANG972() {
+        compareIsNumberWithCreateNumber("0xABCD", true);
+        compareIsNumberWithCreateNumber("0XABCD", true);
+    }
+
+    private void compareIsNumberWithCreateNumber(final String val, final boolean expected) {
+        final boolean isValid = NumberUtils.isNumber(val);
+        final boolean canCreate = checkCreateNumber(val);
+        if (isValid == expected && canCreate == expected) {
+            return;
+        }
+        fail("Expecting "+ expected + " for isNumber/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
+    }
+    
+    @Test
+    public void testIsParsable() {
+        assertFalse( NumberUtils.isParsable(null) );
+        assertFalse( NumberUtils.isParsable("") );
+        assertFalse( NumberUtils.isParsable("0xC1AB") );
+        assertFalse( NumberUtils.isParsable("65CBA2") );
+        assertFalse( NumberUtils.isParsable("pendro") );
+        assertFalse( NumberUtils.isParsable("64,2") );
+        assertFalse( NumberUtils.isParsable("64.2.2") );
+        assertFalse( NumberUtils.isParsable("64.") );
+        assertFalse( NumberUtils.isParsable("64L") );
+        assertTrue( NumberUtils.isParsable("64.2") );
+        assertTrue( NumberUtils.isParsable("64") );
+        assertTrue( NumberUtils.isParsable("018") );
+        assertTrue( NumberUtils.isParsable(".18") );
+        assertTrue( NumberUtils.isParsable("-65") );
+        assertTrue( NumberUtils.isParsable("-018") );
+        assertTrue( NumberUtils.isParsable("-018.2") );
+        assertTrue( NumberUtils.isParsable("-.236") );
     }
 
     private boolean checkCreateNumber(final String val) {
@@ -1400,4 +1359,31 @@ public class NumberUtilsTest {
         assertTrue(Float.isNaN(NumberUtils.max(bF)));
     }
 
+    @Test
+    public void compareInt() {
+        assertTrue(NumberUtils.compare(-3, 0) < 0);
+        assertTrue(NumberUtils.compare(113, 113)==0);
+        assertTrue(NumberUtils.compare(213, 32) > 0);
+    }
+
+    @Test
+    public void compareLong() {
+        assertTrue(NumberUtils.compare(-3L, 0L) < 0);
+        assertTrue(NumberUtils.compare(113L, 113L)==0);
+        assertTrue(NumberUtils.compare(213L, 32L) > 0);
+    }
+
+    @Test
+    public void compareShort() {
+        assertTrue(NumberUtils.compare((short)-3, (short)0) < 0);
+        assertTrue(NumberUtils.compare((short)113, (short)113)==0);
+        assertTrue(NumberUtils.compare((short)213, (short)32) > 0);
+    }
+
+    @Test
+    public void compareByte() {
+        assertTrue(NumberUtils.compare((byte)-3, (byte)0) < 0);
+        assertTrue(NumberUtils.compare((byte)113, (byte)113)==0);
+        assertTrue(NumberUtils.compare((byte)123, (byte)32) > 0);
+    }
 }

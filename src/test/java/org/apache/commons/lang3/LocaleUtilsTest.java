@@ -378,13 +378,13 @@ public class LocaleUtilsTest  {
      */
     @Test
     public void testThreeCharsLocale() {
-    	for (String str : Arrays.asList("udm", "tet")) {
-        	Locale locale = LocaleUtils.toLocale(str);
-        	assertNotNull(locale);
-        	assertEquals(str, locale.getLanguage());
-        	assertTrue(StringUtils.isBlank(locale.getCountry()));
-        	assertEquals(new Locale(str), locale);	
-    	}
+        for (final String str : Arrays.asList("udm", "tet")) {
+            final Locale locale = LocaleUtils.toLocale(str);
+            assertNotNull(locale);
+            assertEquals(str, locale.getLanguage());
+            assertTrue(StringUtils.isBlank(locale.getCountry()));
+            assertEquals(new Locale(str), locale);
+        }
     }
 
     //-----------------------------------------------------------------------
@@ -554,11 +554,11 @@ public class LocaleUtilsTest  {
 
     @Test
     public void testParseAllLocales() {
-        Locale[] locales = Locale.getAvailableLocales();
+        final Locale[] locales = Locale.getAvailableLocales();
         int failures = 0;
-        for (Locale l : locales) {
+        for (final Locale l : locales) {
             // Check if it's possible to recreate the Locale using just the standard constructor
-            Locale locale = new Locale(l.getLanguage(), l.getCountry(), l.getVariant());
+            final Locale locale = new Locale(l.getLanguage(), l.getCountry(), l.getVariant());
             if (l.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales
                 String str = l.toString();
                 // Look for the script/extension suffix
@@ -572,12 +572,12 @@ public class LocaleUtilsTest  {
                         System.out.println("Should not have parsed: " + str);
                         failures++;
                         continue; // try next Locale
-                    } catch (IllegalArgumentException iae) {
+                    } catch (final IllegalArgumentException iae) {
                         // expected; try without suffix
                         str = str.substring(0, suff);
                     }
                 }
-                Locale loc = LocaleUtils.toLocale(str);
+                final Locale loc = LocaleUtils.toLocale(str);
                 if (!l.equals(loc)) {
                     System.out.println("Failed to parse: " + str);
                     failures++;

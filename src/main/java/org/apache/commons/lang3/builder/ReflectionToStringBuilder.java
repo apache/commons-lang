@@ -61,11 +61,11 @@ import org.apache.commons.lang3.ClassUtils;
  * </pre>
  * <p>
  * A subclass can control field output by overriding the methods:
+ * </p>
  * <ul>
  * <li>{@link #accept(java.lang.reflect.Field)}</li>
  * <li>{@link #getValue(java.lang.reflect.Field)}</li>
  * </ul>
- * </p>
  * <p>
  * For example, this method does <i>not</i> include the <code>password</code> field in the returned <code>String</code>:
  * </p>
@@ -81,7 +81,12 @@ import org.apache.commons.lang3.ClassUtils;
  * <p>
  * The exact format of the <code>toString</code> is determined by the {@link ToStringStyle} passed into the constructor.
  * </p>
- * 
+ *
+ * <p>
+ * <b>Note:</b> the default {@link ToStringStyle} will only do a "shallow" formatting, i.e. composed objects are not
+ * further traversed. To get "deep" formatting, use an instance of {@link RecursiveToStringStyle}.
+ * </p>
+ *
  * @since 2.0
  * @version $Id$
  */

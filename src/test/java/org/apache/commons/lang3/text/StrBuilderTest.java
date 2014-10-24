@@ -19,8 +19,13 @@ package org.apache.commons.lang3.text;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.CharBuffer;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -89,6 +94,84 @@ public class StrBuilderTest {
         assertSame(sb, sb.clear());
         assertSame(sb, sb.reverse());
         assertSame(sb, sb.trim());
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
+    public void testReadFromReader() throws Exception {
+        String s = "";
+        for (int i = 0; i < 100; ++i) {
+            final StrBuilder sb = new StrBuilder();
+            final int len = sb.readFrom(new StringReader(s));
+
+            assertEquals(s.length(), len);
+            assertEquals(s, sb.toString());
+
+            s += Integer.toString(i);
+        }
+    }
+
+    @Test
+    public void testReadFromReaderAppendsToEnd() throws Exception {
+        final StrBuilder sb = new StrBuilder("Test");
+        sb.readFrom(new StringReader(" 123"));
+        assertEquals("Test 123", sb.toString());
+    }
+
+    @Test
+    public void testReadFromCharBuffer() throws Exception {
+        String s = "";
+        for (int i = 0; i < 100; ++i) {
+            final StrBuilder sb = new StrBuilder();
+            final int len = sb.readFrom(CharBuffer.wrap(s));
+
+            assertEquals(s.length(), len);
+            assertEquals(s, sb.toString());
+
+            s += Integer.toString(i);
+        }
+    }
+
+    @Test
+    public void testReadFromCharBufferAppendsToEnd() throws Exception {
+        final StrBuilder sb = new StrBuilder("Test");
+        sb.readFrom(CharBuffer.wrap(" 123"));
+        assertEquals("Test 123", sb.toString());
+    }
+
+    @Test
+    public void testReadFromReadable() throws Exception {
+        String s = "";
+        for (int i = 0; i < 100; ++i) {
+            final StrBuilder sb = new StrBuilder();
+            final int len = sb.readFrom(new MockReadable(s));
+
+            assertEquals(s.length(), len);
+            assertEquals(s, sb.toString());
+
+            s += Integer.toString(i);
+        }
+    }
+
+    @Test
+    public void testReadFromReadableAppendsToEnd() throws Exception {
+        final StrBuilder sb = new StrBuilder("Test");
+        sb.readFrom(new MockReadable(" 123"));
+        assertEquals("Test 123", sb.toString());
+    }
+
+    private static class MockReadable implements Readable {
+
+        private final CharBuffer src;
+
+        public MockReadable(final String src) {
+            this.src = CharBuffer.wrap(src);
+        }
+
+        @Override
+        public int read(final CharBuffer cb) throws IOException {
+            return src.read(cb);
+        }
     }
 
     //-----------------------------------------------------------------------
@@ -1855,4 +1938,48 @@ public class StrBuilderTest {
         assertEquals(sb.toString(), sb.build());
     }
 
+    //-----------------------------------------------------------------------
+    @Test
+    public void testAppendToWriter() throws Exception {
+        final StrBuilder sb = new StrBuilder("1234567890");
+        final StringWriter writer = new StringWriter();
+        writer.append("Test ");
+
+        sb.appendTo(writer);
+
+        assertEquals("Test 1234567890", writer.toString());
+    }
+
+    @Test
+    public void testAppendToStringBuilder() throws Exception {
+        final StrBuilder sb = new StrBuilder("1234567890");
+        final StringBuilder builder = new StringBuilder("Test ");
+
+        sb.appendTo(builder);
+
+        assertEquals("Test 1234567890", builder.toString());
+    }
+
+    @Test
+    public void testAppendToStringBuffer() throws Exception {
+        final StrBuilder sb = new StrBuilder("1234567890");
+        final StringBuffer buffer = new StringBuffer("Test ");
+
+        sb.appendTo(buffer);
+
+        assertEquals("Test 1234567890", buffer.toString());
+    }
+
+    @Test
+    public void testAppendToCharBuffer() throws Exception {
+        final StrBuilder sb = new StrBuilder("1234567890");
+        final String text = "Test ";
+        final CharBuffer buffer = CharBuffer.allocate(sb.size() + text.length());
+        buffer.put(text);
+
+        sb.appendTo(buffer);
+
+        buffer.flip();
+        assertEquals("Test 1234567890", buffer.toString());
+    }
 }

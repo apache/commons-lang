@@ -140,25 +140,26 @@ public final class Range<T> implements Serializable {
      *
      * @param element1  the first element, not null
      * @param element2  the second element, not null
-     * @param comparator  the comparator to be used, null for natural ordering
+     * @param comp  the comparator to be used, null for natural ordering
      */
     @SuppressWarnings("unchecked")
-    private Range(final T element1, final T element2, Comparator<T> comparator) {
+    private Range(final T element1, final T element2, final Comparator<T> comp) {
         if (element1 == null || element2 == null) {
             throw new IllegalArgumentException("Elements in a range must not be null: element1=" +
                                                element1 + ", element2=" + element2);
         }
-        if (comparator == null) {
-            comparator = ComparableComparator.INSTANCE;
+        if (comp == null) {
+            this.comparator = ComparableComparator.INSTANCE;
+        } else {
+            this.comparator = comp;            
         }
-        if (comparator.compare(element1, element2) < 1) {
+        if (this.comparator.compare(element1, element2) < 1) {
             this.minimum = element1;
             this.maximum = element2;
         } else {
             this.minimum = element2;
             this.maximum = element1;
         }
-        this.comparator = comparator;
     }
 
     // Accessors
