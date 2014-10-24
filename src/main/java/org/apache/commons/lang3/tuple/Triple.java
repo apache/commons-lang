@@ -139,8 +139,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      */
     @Override
     public String toString() {
-        return new StringBuilder().append('(').append(getLeft()).append(',').append(getMiddle()).append(',')
-            .append(getRight()).append(')').toString();
+        return "(" + getLeft() + ',' + getMiddle() + ',' + getRight() + ')';
     }
 
     /**

@@ -80,11 +80,7 @@ public class ClassPathUtils {
     public static String toFullyQualifiedName(final Package context, final String resourceName) {
         Validate.notNull(context, "Parameter '%s' must not be null!", "context" );
         Validate.notNull(resourceName, "Parameter '%s' must not be null!", "resourceName");
-        final StringBuilder sb = new StringBuilder();
-        sb.append(context.getName());
-        sb.append(".");
-        sb.append(resourceName);
-        return sb.toString();
+        return context.getName() + "." + resourceName;
     }
 
     /**
@@ -129,11 +125,7 @@ public class ClassPathUtils {
     public static String toFullyQualifiedPath(final Package context, final String resourceName) {
         Validate.notNull(context, "Parameter '%s' must not be null!", "context" );
         Validate.notNull(resourceName, "Parameter '%s' must not be null!", "resourceName");
-        final StringBuilder sb = new StringBuilder();
-        sb.append(context.getName().replace('.', '/'));
-        sb.append("/");
-        sb.append(resourceName);
-        return sb.toString();
+        return context.getName().replace('.', '/') + '/' + resourceName;
     }
 
 }

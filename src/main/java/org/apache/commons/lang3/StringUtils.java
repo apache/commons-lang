@@ -4950,11 +4950,7 @@ public class StringUtils {
             start = end;
             end = temp;
         }
-        return new StringBuilder(len + start - end + overlay.length() + 1)
-            .append(str.substring(0, start))
-            .append(overlay)
-            .append(str.substring(end))
-            .toString();
+        return str.substring(0, start) + overlay + str.substring(end);
     }
 
     // Chomping
@@ -5686,10 +5682,7 @@ public class StringUtils {
             return str;
         }
 
-        return new StringBuilder(strLen)
-            .append(Character.toTitleCase(firstChar))
-            .append(str.substring(1))
-            .toString();
+        return String.valueOf(Character.toTitleCase(firstChar)) + str.substring(1);
     }
 
     /**
@@ -5724,10 +5717,7 @@ public class StringUtils {
             return str;
         }
 
-        return new StringBuilder(strLen)
-            .append(Character.toLowerCase(firstChar))
-            .append(str.substring(1))
-            .toString();
+        return String.valueOf(Character.toLowerCase(firstChar)) + str.substring(1);
     }
 
     /**
@@ -6493,12 +6483,7 @@ public class StringUtils {
         final int startOffset = targetSting/2+targetSting%2;
         final int endOffset = str.length()-targetSting/2;
 
-        final StringBuilder builder = new StringBuilder(length);
-        builder.append(str.substring(0,startOffset));
-        builder.append(middle);
-        builder.append(str.substring(endOffset));
-
-        return builder.toString();
+        return str.substring(0, startOffset) + middle + str.substring(endOffset);
     }
 
     // Difference

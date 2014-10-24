@@ -159,7 +159,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      */
     @Override
     public String toString() {
-        return new StringBuilder().append('(').append(getLeft()).append(',').append(getRight()).append(')').toString();
+        return "(" + getLeft() + ',' + getRight() + ')';
     }
 
     /**

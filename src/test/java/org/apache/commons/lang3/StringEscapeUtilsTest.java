@@ -573,7 +573,7 @@ public class StringEscapeUtilsTest {
     @Test
     @SuppressWarnings( "deprecation" ) // escapeXml(String) has been replaced by escapeXml10(String) and escapeXml11(String) in 3.3
     public void testLang720() {
-        final String input = new StringBuilder("\ud842\udfb7").append("A").toString();
+        final String input = "\ud842\udfb7" + 'A';
         final String escaped = StringEscapeUtils.escapeXml(input);
         assertEquals(input, escaped);
     }

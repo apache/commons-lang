@@ -63,7 +63,7 @@ public class ObjectUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testDefaultIfNull() {
+    public void testIsNull() {
         final Object o = FOO;
         final Object dflt = BAR;
         assertSame("dflt was not returned when o was null", dflt, ObjectUtils.defaultIfNull(null, dflt));
@@ -114,18 +114,6 @@ public class ObjectUtilsTest {
     public void testHashCode() {
         assertEquals(0, ObjectUtils.hashCode(null));
         assertEquals("a".hashCode(), ObjectUtils.hashCode("a"));
-    }
-    
-    @Test
-    public void testIsNull() {
-        assertTrue(ObjectUtils.isNull(null));
-        assertFalse(ObjectUtils.isNull(""));
-    }
-    
-    @Test
-    public void testIsNotNull() {
-        assertFalse(ObjectUtils.isNotNull(null));
-        assertTrue(ObjectUtils.isNotNull(""));
     }
 
     @Test
