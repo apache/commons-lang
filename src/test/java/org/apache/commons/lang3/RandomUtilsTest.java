@@ -16,11 +16,12 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for {@link RandomUtils}
@@ -200,5 +201,15 @@ public class RandomUtilsTest {
     public void testExtremeRangeDouble() {
         final double result = RandomUtils.nextDouble(0, Double.MAX_VALUE);
         assertTrue(result >= 0 && result <= Double.MAX_VALUE);
-    }    
+    }
+
+    @Test
+    public void testNextEnum() {
+        TestEnum randomEnum = RandomUtils.nextEnum(TestEnum.class);
+        Assert.assertTrue(Arrays.asList(TestEnum.values()).contains(randomEnum));
+    }
+
+    private enum TestEnum {
+        VALUE1, VALUE2, VALUE3
+    }
 }
