@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1064" type="fix" dev="djones" due-to="B.J. Herbison">StringUtils.abbreviate description doesn't agree with the examples</action>
     <action issue="LANG-1052" type="add" dev="britter" due-to="Jan Matèrne">Multiline recursive to string style</action>
     <action issue="LANG-536" type="add" dev="djones" due-to="James Sawle">Add isSorted() to ArrayUtils</action>
     <action issue="LANG-1041" type="fix" dev="britter" due-to="Alexandre Bartel">Fix MethodUtilsTest so it does not depend on JDK method ordering</action>
