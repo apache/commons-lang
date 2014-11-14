@@ -6358,8 +6358,8 @@ public class StringUtils {
      *
      * <p>Specifically:</p>
      * <ul>
-     *   <li>If {@code str} is less than {@code maxWidth} characters
-     *       long, return it.</li>
+     *   <li>If the number of characters in {@code str} is less than or equal to 
+     *       {@code maxWidth}, return {@code str}.</li>
      *   <li>Else abbreviate it to {@code (substring(str, 0, max-3) + "...")}.</li>
      *   <li>If {@code maxWidth} is less than {@code 4}, throw an
      *       {@code IllegalArgumentException}.</li>
