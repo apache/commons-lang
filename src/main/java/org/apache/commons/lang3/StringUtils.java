@@ -4142,6 +4142,39 @@ public class StringUtils {
         return join(iterable.iterator(), separator);
     }
 
+	/**
+	 * <p>Joins the elements of the provided varargs into a
+	 * single String containing the provided elements.</p>
+	 *
+	 * <p>No delimiter is added before or after the list.
+	 * A {@code null} separator is the same as an empty String ("").</p>
+	 *
+	 * @param separator the separator character to use, null treated as ""
+	 * @param objects the varargs providing the values to join together
+	 * @return the joined String
+	 * @throws java.lang.IllegalArgumentException if a null varargs is provided
+	 */
+	public static String joinWith(final String separator, Object... objects) {
+		if(objects == null) {
+			throw new IllegalArgumentException("Object varargs must not be null");
+		}
+
+		String sanitizedSeparator = defaultString(separator, StringUtils.EMPTY);
+
+		StringBuilder result = new StringBuilder();
+
+		Iterator<Object> iterator = Arrays.asList(objects).iterator();
+		while(iterator.hasNext()) {
+			result.append(iterator.next());
+
+			if(iterator.hasNext()) {
+				result.append(sanitizedSeparator);
+			}
+		}
+
+		return result.toString();
+	}
+
     // Delete
     //-----------------------------------------------------------------------
     /**

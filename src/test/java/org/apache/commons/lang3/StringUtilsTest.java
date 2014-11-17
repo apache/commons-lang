@@ -37,7 +37,9 @@ import java.util.Iterator;
 import java.util.Locale;
 
 import org.apache.commons.lang3.text.WordUtils;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils}.
@@ -46,6 +48,9 @@ import org.junit.Test;
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class StringUtilsTest {
+
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
     
     static final String WHITESPACE;
     static final String NON_WHITESPACE;
@@ -452,6 +457,24 @@ public class StringUtilsTest {
 
         assertEquals(TEXT_LIST, StringUtils.join(Arrays.asList(ARRAY_LIST), SEPARATOR));
     }
+
+	@Test
+	public void testJoinWith() {
+		expectedException.expect(IllegalArgumentException.class);
+		StringUtils.joinWith(",", null);
+		expectedException.expectMessage("Object varargs must not be null");
+		expectedException = ExpectedException.none();
+
+		assertEquals("", StringUtils.joinWith(",", new Object[0]));		// empty array
+		assertEquals("", StringUtils.joinWith(",", NULL_ARRAY_LIST));
+		assertEquals("null", StringUtils.joinWith(",", NULL_TO_STRING_LIST));
+
+		assertEquals("a,b,c", StringUtils.joinWith(",", new String[] {"a", "b", "c"}));
+		assertEquals("null,a,", StringUtils.joinWith(",", new String[] {null, "a", ""}));
+
+		assertEquals("ab", StringUtils.joinWith(null, "a", "b"));
+	}
+
 
     @Test
     public void testSplit_String() {
