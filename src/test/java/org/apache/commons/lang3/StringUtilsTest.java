@@ -1868,14 +1868,11 @@ public class StringUtilsTest {
         assertEquals("abc", StringUtils.truncate("abcdefghij", 3));
         assertEquals("abcdef", StringUtils.truncate("abcdefghij", 6));
         
-        try {
-            @SuppressWarnings("unused")
-            final
-            String res = StringUtils.truncate("abcdefghij", -1);
-            fail("StringUtils.truncate expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            // empty
-        }
+        assertEquals("", StringUtils.truncate("abcdefghij", 0));
+        assertEquals("", StringUtils.truncate("abcdefghij", -1));
+        assertEquals("", StringUtils.truncate("abcdefghij", -10));
+        assertEquals("", StringUtils.truncate("abcdefghij", -100));
+        assertEquals("", StringUtils.truncate("abcdefghij", Integer.MIN_VALUE));
         
         assertEquals("abcdefghij", StringUtils.truncate("abcdefghijklmno", 10));
         assertEquals("abcdefghijklmno", StringUtils.truncate("abcdefghijklmno", Integer.MAX_VALUE));
@@ -1892,14 +1889,11 @@ public class StringUtilsTest {
         assertEquals("abc", StringUtils.truncate("abcdefghij", 0, 3));
         assertEquals("fghij", StringUtils.truncate("abcdefghij", 5, 6));
         
-        try {
-            @SuppressWarnings("unused")
-            final
-            String res = StringUtils.truncate("abcdefghij", 0, -1);
-            fail("StringUtils.truncate expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-                // empty
-        }
+        assertEquals("", StringUtils.truncate("abcdefghij", 0, 0));
+        assertEquals("", StringUtils.truncate("abcdefghij", 0, -1));
+        assertEquals("", StringUtils.truncate("abcdefghij", 0, -10));
+        assertEquals("", StringUtils.truncate("abcdefghij", 0, -100));
+        assertEquals("", StringUtils.truncate("abcdefghij", 0, Integer.MIN_VALUE));
         
         final String raspberry = "raspberry peach";
         assertEquals("peach", StringUtils.truncate(raspberry, 10, 15));

@@ -6439,16 +6439,15 @@ public class StringUtils {
      * StringUtils.truncate("abcdefg", 6) = "abcdef"
      * StringUtils.truncate("abcdefg", 7) = "abcdefg"
      * StringUtils.truncate("abcdefg", 8) = "abcdefg"
-     * StringUtils.truncate("abcdefg", -1) = IllegalArgumentException
+     * StringUtils.truncate("abcdefg", -1) = ""
      * </pre>
      *
      * @param str  the String to check, may be null
      * @param maxWidth  maximum length of result String, must be positive
      * @return truncated String, {@code null} if null String input
-     * @throws IllegalArgumentException if the width is negative
      * @since 4.0
      */
-    public static String truncate(final String str, final int maxWidth) {
+    public static String truncate(final String str, int maxWidth) {
         return truncate(str, 0, maxWidth);
     }
 
@@ -6490,28 +6489,27 @@ public class StringUtils {
      * StringUtils.truncate("abcdefghijklmno", 15, 1) = ""
      * StringUtils.truncate("abcdefghijklmno", 15, Integer.MAX_VALUE) = ""
      * StringUtils.truncate("abcdefghijklmno", Integer.MAX_VALUE, Integer.MAX_VALUE) = ""
-     * StringUtils.truncate("abcdefghij", 0, -1) = IllegalArgumentException
+     * StringUtils.truncate("abcdefghij", 0, -1) = ""
      * </pre>
      *
      * @param str  the String to check, may be null
      * @param offset  left edge of source String
      * @param maxWidth  maximum length of result String, must be positive
      * @return truncated String, {@code null} if null String input
-     * @throws IllegalArgumentException if the width is negative
      * @since 4.0
      */
-    public static String truncate(final String str, int offset, final int maxWidth) {
+    public static String truncate(final String str, int offset, int maxWidth) {
         if (str == null) {
             return null;
         }
         if (maxWidth < 0) {
-            throw new IllegalArgumentException("Max width cannot be negative");
+            maxWidth = 0;
         }
         if (offset < 0) {
             offset = 0;
         }
         if (offset > str.length()) {
-            return "";
+            return EMPTY;
         }
         if (str.length() > maxWidth) {
             int ix = offset + maxWidth > str.length() ? str.length() : offset + maxWidth;
