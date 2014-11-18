@@ -460,19 +460,22 @@ public class StringUtilsTest {
 
 	@Test
 	public void testJoinWith() {
-		expectedException.expect(IllegalArgumentException.class);
-		StringUtils.joinWith(",", null);
-		expectedException.expectMessage("Object varargs must not be null");
-		expectedException = ExpectedException.none();
-
 		assertEquals("", StringUtils.joinWith(",", new Object[0]));		// empty array
-		assertEquals("", StringUtils.joinWith(",", NULL_ARRAY_LIST));
+		assertEquals("null", StringUtils.joinWith(",", NULL_ARRAY_LIST));
 		assertEquals("null", StringUtils.joinWith(",", NULL_TO_STRING_LIST));
 
 		assertEquals("a,b,c", StringUtils.joinWith(",", new String[] {"a", "b", "c"}));
 		assertEquals("null,a,", StringUtils.joinWith(",", new String[] {null, "a", ""}));
 
 		assertEquals("ab", StringUtils.joinWith(null, "a", "b"));
+	}
+
+	@Test
+	public void testJoinWithThrowsException() {
+		expectedException.expect(IllegalArgumentException.class);
+		expectedException.expectMessage("Object varargs must not be null");
+
+		StringUtils.joinWith(",", null);
 	}
 
 
