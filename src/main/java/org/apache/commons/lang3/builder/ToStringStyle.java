@@ -91,6 +91,7 @@ public abstract class ToStringStyle implements Serializable {
      *   smoker=false
      * ]
      * </pre>
+     * 
      */
     public static final ToStringStyle MULTI_LINE_STYLE = new MultiLineToStringStyle();
     
@@ -105,6 +106,14 @@ public abstract class ToStringStyle implements Serializable {
      *   "smoker": true
      * }
      * </pre>
+     * 
+     * <strong>Note:</strong> Since field names are mandatory in JSON, this ToStringStyle will throw an 
+     * {@link UnsupportedOperationException} if no field name is passed in while appending. Furthermore 
+     * This ToStringStyle will only generate valid JSON if referenced objects also produce JSON when calling
+     * {@code toString()} on them.
+     * 
+     * @since 3.4
+     * @see <a href="http://json.org">json.org</a> 
      */
     public static final ToStringStyle JSON_STYLE = new JsonToStringStyle();
 
@@ -2343,7 +2352,7 @@ public abstract class ToStringStyle implements Serializable {
         protected void appendFieldStart(StringBuffer buffer, String fieldName) {
             
             if (fieldName == null) {
-                throw new UnsupportedOperationException("FieldName cannot be null");
+                throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
             }
             
             super.appendFieldStart(buffer, FIELD_NAME_PREFIX + fieldName + FIELD_NAME_PREFIX);
