@@ -734,7 +734,7 @@ public class NumberUtils {
             negate = true;
             pos = 1;
         }
-        if (str.startsWith("0x", pos) || str.startsWith("0x", pos)) { // hex
+        if (str.startsWith("0x", pos) || str.startsWith("0X", pos)) { // hex
             radix = 16;
             pos += 2;
         } else if (str.startsWith("#", pos)) { // alternative hex (allowed by Long/Integer)
