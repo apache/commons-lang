@@ -126,65 +126,108 @@ public class JsonToStringStyleTest {
 
         assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", i3)
                 .toString());
-
+        
         assertEquals("{\"a\":3,\"b\":4}",
                 new ToStringBuilder(base).append("a", i3).append("b", i4)
                         .toString());
 
-        assertEquals("{\"a\":\"<Integer>\"}",
+        try {
+            assertEquals("{\"a\":\"<Integer>\"}",
                 new ToStringBuilder(base).append("a", i3, false).toString());
-
-        assertEquals(
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
+    
+        try {
+            
+            assertEquals(
                 "{\"a\":\"<size=0>\"}",
                 new ToStringBuilder(base).append("a", new ArrayList<Object>(),
                         false).toString());
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
 
         assertEquals(
                 "{\"a\":[]}",
                 new ToStringBuilder(base).append("a", new ArrayList<Object>(),
                         true).toString());
+        
+        try {
 
-        assertEquals(
+            assertEquals(
                 "{\"a\":\"<size=0>\"}",
                 new ToStringBuilder(base).append("a",
                         new HashMap<Object, Object>(), false).toString());
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
 
         assertEquals(
-                "{\"a\":{}}",
-                new ToStringBuilder(base).append("a",
-                        new HashMap<Object, Object>(), true).toString());
+            "{\"a\":{}}",
+            new ToStringBuilder(base).append("a",
+                    new HashMap<Object, Object>(), true).toString());
 
-        assertEquals(
+        try {
+            
+            assertEquals(
                 "{\"a\":\"<size=0>\"}",
                 new ToStringBuilder(base).append("a", (Object) new String[0],
                         false).toString());
-
+        
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
+        
         assertEquals(
-                "{\"a\":[]}",
-                new ToStringBuilder(base).append("a", (Object) new String[0],
-                        true).toString());
+            "{\"a\":[]}",
+            new ToStringBuilder(base).append("a", (Object) new String[0],
+                    true).toString());
 
-        assertEquals(
+        try {
+            
+            assertEquals(
                 "{\"a\":\"<size=3>\"}",
                 new ToStringBuilder(base).append("a",
                         (Object) new int[] { 1, 2, 3 }, false).toString());
+            
+            fail("Should have generated UnsupportedOperationException");
+            
+        } catch (UnsupportedOperationException e) {
+        }
 
+            
         assertEquals(
-                "{\"a\":[1,2,3]}",
-                new ToStringBuilder(base).append("a",
-                        (Object) new int[] { 1, 2, 3 }, true).toString());
+            "{\"a\":[1,2,3]}",
+            new ToStringBuilder(base).append("a",
+                    (Object) new int[] { 1, 2, 3 }, true).toString());
 
-        assertEquals(
+        try {
+            
+            assertEquals(
                 "{\"a\":\"<size=4>\"}",
                 new ToStringBuilder(base).append("a",
                         (Object) new String[] { "v", "x", "y", "z" }, false)
                         .toString());
+        
+            fail("Should have generated UnsupportedOperationException");
+        
+        } catch (UnsupportedOperationException e) {
+        }
 
+            
         assertEquals(
-                "{\"a\":[\"v\",\"x\",\"y\",\"z\"]}",
-                new ToStringBuilder(base).append("a",
-                        (Object) new String[] { "v", "x", "y", "z" }, true)
-                        .toString());
+            "{\"a\":[\"v\",\"x\",\"y\",\"z\"]}",
+            new ToStringBuilder(base).append("a",
+                    (Object) new String[] { "v", "x", "y", "z" }, true)
+                    .toString());
     }
 
     @Test
