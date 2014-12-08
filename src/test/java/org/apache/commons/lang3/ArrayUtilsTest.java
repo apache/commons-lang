@@ -32,7 +32,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
@@ -41,6 +43,9 @@ import org.junit.Test;
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class ArrayUtilsTest  {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     //-----------------------------------------------------------------------
     @Test
@@ -387,6 +392,15 @@ public class ArrayUtilsTest  {
         TestClass[] output = ArrayUtils.nullToEmpty(input, TestClass[].class);
 
         assertSame(input, output);
+    }
+
+    @Test
+    public void testNulltOEmptyGenericNullType() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("The Type must not be null");
+
+        TestClass[] input = new TestClass[]{};
+        ArrayUtils.nullToEmpty(input, null);
     }
 
     @Test

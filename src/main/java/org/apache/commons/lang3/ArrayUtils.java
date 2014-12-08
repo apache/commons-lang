@@ -465,9 +465,13 @@ public class ArrayUtils {
      * @param array  the array to check for {@code null} or empty
      * @param type   the class representation of the desired array
      * @return the same array, {@code public static} empty array if {@code null}
+     * @throws IllegalArgumentException if the type argument is null
      */
     public static <T> T[] nullToEmpty(final T[] array, final Class<T[]> type) {
-        if(array == null) {
+        if(type == null) {
+            throw new IllegalArgumentException("The Type must not be null");
+        }
+        else if(array == null) {
             return type.cast(Array.newInstance(type.getComponentType(), 0));
         }
         return array;
