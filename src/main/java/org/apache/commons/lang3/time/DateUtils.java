@@ -1794,6 +1794,31 @@ public class DateUtils {
         return truncatedDate1.compareTo(truncatedDate2);
     }
 
+    /**
+     * <p>Merges two {@code java.util.Date}s; with the date information taken
+     * from the first object and the time information taken from the second object.</p>
+     *
+     * @param date the {@code Date} from where the date information is taken, not <code>null</code>
+     * @param time the {@code Date} from where the time information is taken, not <code>null</code>
+     * @return a new {@code Date} comprised of the date and time from the provided values
+     * @throws java.lang.IllegalArgumentException if any argument is <code>null</code>
+     */
+    public static Date merge(Date date, Date time) {
+        if(date == null || time == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+
+        Calendar mergedDate = DateUtils.toCalendar(date);
+
+        Calendar calendarTime = DateUtils.toCalendar(time);
+        mergedDate.set(Calendar.HOUR, calendarTime.get(Calendar.HOUR));
+        mergedDate.set(Calendar.MINUTE, calendarTime.get(Calendar.MINUTE));
+        mergedDate.set(Calendar.SECOND, calendarTime.get(Calendar.SECOND));
+        mergedDate.set(Calendar.MILLISECOND, calendarTime.get(Calendar.MILLISECOND));
+
+        return mergedDate.getTime();
+    }
+
 
     //-----------------------------------------------------------------------
     /**

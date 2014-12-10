@@ -43,13 +43,18 @@ import junit.framework.AssertionFailedError;
 import org.apache.commons.lang3.SystemUtils;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.DateUtils}.
  *
  */
 public class DateUtilsTest {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     private static final long MILLIS_TEST;
     static {
@@ -1640,6 +1645,42 @@ public class DateUtilsTest {
         } finally {
             Locale.setDefault(dflt);            
         }
+    }
+
+    @Test
+    public void testMerge() {
+        Calendar date = new GregorianCalendar(2014, 1, 1, 12, 12, 12);
+        date.set(Calendar.MILLISECOND, 1234);
+
+        Calendar time = new GregorianCalendar(2015, 2, 2, 1, 1, 1);
+        time.set(Calendar.MILLISECOND, 123);
+
+        Date result = DateUtils.merge(date.getTime(), time.getTime());
+
+        Calendar calendarResult = DateUtils.toCalendar(result);
+        assertEquals(2014, calendarResult.get(Calendar.YEAR));
+        assertEquals(1, calendarResult.get(Calendar.MONTH));
+        assertEquals(1, calendarResult.get(Calendar.DAY_OF_MONTH));
+        assertEquals(1, calendarResult.get(Calendar.HOUR));
+        assertEquals(1, calendarResult.get(Calendar.MINUTE));
+        assertEquals(1, calendarResult.get(Calendar.SECOND));
+        assertEquals(123, calendarResult.get(Calendar.MILLISECOND));
+    }
+
+    @Test
+    public void testMergeThrowsExceptionWhenNullDate() throws Exception {
+        this.expectedException.expect(IllegalArgumentException.class);
+        this.expectedException.expectMessage("The date must not be null");
+
+        DateUtils.merge(null, new Date());
+    }
+
+    @Test
+    public void testMergeThrowsExceptionWhenNullTime() throws Exception {
+        this.expectedException.expect(IllegalArgumentException.class);
+        this.expectedException.expectMessage("The date must not be null");
+
+        DateUtils.merge(new Date(), null);
     }
     
     /**
