@@ -1199,6 +1199,8 @@ public class NumberUtilsTest {
 
         compareIsNumberWithCreateNumber(null, false);
         compareIsNumberWithCreateNumber("", false);
+        compareIsNumberWithCreateNumber(" ", false);
+        compareIsNumberWithCreateNumber("\r\n\t", false);
         compareIsNumberWithCreateNumber("--2.3", false);
         compareIsNumberWithCreateNumber(".12.3", false);
         compareIsNumberWithCreateNumber("-123E", false);
