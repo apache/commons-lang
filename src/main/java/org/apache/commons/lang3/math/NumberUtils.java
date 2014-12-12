@@ -1344,7 +1344,7 @@ public class NumberUtils {
      * <code>false</code>, since <code>9</code> is not a valid octal value.
      * However, numbers beginning with {@code 0.} are treated as decimal.</p>
      *
-     * <p><code>Null</code> and empty String will return
+     * <p><code>null</code> and empty/blank {@code String} will return
      * <code>false</code>.</p>
      *
      * @param str  the <code>String</code> to check
