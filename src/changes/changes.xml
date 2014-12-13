@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1077" type="fix" dev="kinow" due-to="haiyang li">StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) != 3 in StringUtils</action>
     <action issue="LANG-1072" type="fix" dev="sebb" due-to="haiyang li">Duplicated "0x" check in createBigInteger in NumberUtils</action>
     <action issue="LANG-1064" type="fix" dev="djones" due-to="B.J. Herbison">StringUtils.abbreviate description doesn't agree with the examples</action>
     <action issue="LANG-1052" type="add" dev="britter" due-to="Jan Matèrne">Multiline recursive to string style</action>

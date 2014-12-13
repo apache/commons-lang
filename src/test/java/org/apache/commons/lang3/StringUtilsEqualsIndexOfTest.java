@@ -1006,6 +1006,9 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(7, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 8));
         assertEquals(8, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 9));
         assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 10));
+
+        assertEquals(3, StringUtils.ordinalIndexOf("aaaaaa", "aa", 2));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaa", "aa", 3));
     }
 
 }

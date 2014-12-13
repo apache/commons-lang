@@ -1023,9 +1023,9 @@ public class StringUtils {
         int index = lastIndex ? str.length() : INDEX_NOT_FOUND;
         do {
             if (lastIndex) {
-                index = CharSequenceUtils.lastIndexOf(str, searchStr, index - 1);
+                index = CharSequenceUtils.lastIndexOf(str, searchStr, index - searchStr.length());
             } else {
-                index = CharSequenceUtils.indexOf(str, searchStr, index + 1);
+                index = CharSequenceUtils.indexOf(str, searchStr, index + searchStr.length());
             }
             if (index < 0) {
                 return index;
