@@ -4008,7 +4008,7 @@ public class ArrayUtils {
     public static <T> T[] add(final T[] array, final T element) {
         Class<?> type;
         if (array != null){
-            type = array.getClass();
+            type = array.getClass().getComponentType();
         } else if (element != null) {
             type = element.getClass();
         } else {
