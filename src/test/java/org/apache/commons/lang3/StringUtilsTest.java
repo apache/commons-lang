@@ -461,11 +461,11 @@ public class StringUtilsTest {
 	@Test
 	public void testJoinWith() {
 		assertEquals("", StringUtils.joinWith(",", new Object[0]));		// empty array
-		assertEquals("null", StringUtils.joinWith(",", NULL_ARRAY_LIST));
-		assertEquals("null", StringUtils.joinWith(",", NULL_TO_STRING_LIST));
+		assertEquals("", StringUtils.joinWith(",", NULL_ARRAY_LIST));
+        assertEquals("null", StringUtils.joinWith(",", NULL_TO_STRING_LIST));   //toString method prints 'null'
 
 		assertEquals("a,b,c", StringUtils.joinWith(",", new String[] {"a", "b", "c"}));
-		assertEquals("null,a,", StringUtils.joinWith(",", new String[] {null, "a", ""}));
+		assertEquals(",a,", StringUtils.joinWith(",", new String[] {null, "a", ""}));
 
 		assertEquals("ab", StringUtils.joinWith(null, "a", "b"));
 	}
