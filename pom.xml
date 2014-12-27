@@ -615,8 +615,6 @@
         <artifactId>findbugs-maven-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
-          <threshold>Normal</threshold>
-          <effort>Default</effort>
           <excludeFilterFile>${basedir}/findbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
       </plugin>
