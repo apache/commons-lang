@@ -609,7 +609,7 @@
           </reportSet>
         </reportSets>
       </plugin>
-      <!-- Requires setting 'export MAVEN_OPTS="-Xmx512m" ' -->
+      <!-- Requires setting 'export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m" ' -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
