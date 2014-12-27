@@ -213,6 +213,21 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.containsAny(CharU20000, CharU20001));
         assertFalse(StringUtils.containsAny(CharU20001, CharU20000));
     }
+    
+    @Test
+    public void testContainsAny_StringStringArray() {
+        assertFalse(StringUtils.containsAny(null, (String[]) null));
+        assertFalse(StringUtils.containsAny(null, new String[0]));
+        assertFalse(StringUtils.containsAny(null, new String[] { "hello" }));
+        assertFalse(StringUtils.containsAny("", (String[]) null));
+        assertFalse(StringUtils.containsAny("", new String[0]));
+        assertFalse(StringUtils.containsAny("", new String[] { "hello" }));
+        assertFalse(StringUtils.containsAny("hello, goodbye", (String[]) null));
+        assertFalse(StringUtils.containsAny("hello, goodbye", new String[0]));
+        assertTrue(StringUtils.containsAny("hello, goodbye", new String[] { "hello", "goodbye" }));
+        assertTrue(StringUtils.containsAny("hello, goodbye", new String[] { "hello", "Goodbye" }));
+        assertFalse(StringUtils.containsAny("hello, goodbye", new String[] { "Hello", "Goodbye" }));
+    }
 
     @Test
     public void testContainsIgnoreCase_LocaleIndependence() {
