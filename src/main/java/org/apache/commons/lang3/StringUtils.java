@@ -1670,6 +1670,31 @@ public class StringUtils {
         return containsAny(cs, CharSequenceUtils.toCharArray(searchChars));
     }
 
+    /**
+     * <p>Checks if the CharSequence contains any of the CharSequences in the given array.</p>
+     *
+     * <p>
+     * A {@code null} CharSequence will return {@code false}. A {@code null} or zero
+     * length search array will return {@code false}.
+     * </p>
+     * 
+     * @param cs The CharSequence to check, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.4
+     */
+    public static boolean containsAny(CharSequence cs, CharSequence... searchCharSequences) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
+            return false;
+        }
+        for (int i = 0; i < searchCharSequences.length; i++) {
+            if (contains(cs, searchCharSequences[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // IndexOfAnyBut chars
     //-----------------------------------------------------------------------
     /**
