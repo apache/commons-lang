@@ -2319,7 +2319,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.MULTI_LINE_STYLE;
+            return ToStringStyle.NO_CLASS_NAME_STYLE;
         }
 
     }
