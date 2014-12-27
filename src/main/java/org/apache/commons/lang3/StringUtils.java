@@ -1687,8 +1687,8 @@ public class StringUtils {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
             return false;
         }
-        for (int i = 0; i < searchCharSequences.length; i++) {
-            if (contains(cs, searchCharSequences[i])) {
+        for (CharSequence searchCharSequence : searchCharSequences) {
+            if (contains(cs, searchCharSequence)) {
                 return true;
             }
         }
