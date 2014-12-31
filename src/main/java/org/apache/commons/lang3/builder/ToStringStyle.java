@@ -71,7 +71,7 @@ public abstract class ToStringStyle implements Serializable {
     private static final long serialVersionUID = -2587890625525655916L;
 
     /**
-     * The default toString style. Using the Using the <code>Person</code>
+     * The default toString style. Using the <code>Person</code>
      * example from {@link ToStringBuilder}, the output would look like this:
      *
      * <pre>
@@ -95,7 +95,7 @@ public abstract class ToStringStyle implements Serializable {
     public static final ToStringStyle MULTI_LINE_STYLE = new MultiLineToStringStyle();
 
     /**
-     * The no field names toString style. Using the Using the
+     * The no field names toString style. Using the
      * <code>Person</code> example from {@link ToStringBuilder}, the output
      * would look like this:
      *
@@ -118,7 +118,7 @@ public abstract class ToStringStyle implements Serializable {
     public static final ToStringStyle SHORT_PREFIX_STYLE = new ShortPrefixToStringStyle();
 
     /**
-     * The simple toString style. Using the Using the <code>Person</code>
+     * The simple toString style. Using the <code>Person</code>
      * example from {@link ToStringBuilder}, the output would look like this:
      *
      * <pre>
@@ -126,6 +126,18 @@ public abstract class ToStringStyle implements Serializable {
      * </pre>
      */
     public static final ToStringStyle SIMPLE_STYLE = new SimpleToStringStyle();
+
+    /**
+     * The no class name toString style. Using the <code>Person</code>
+     * example from {@link ToStringBuilder}, the output would look like this:
+     *
+     * <pre>
+     * [name=John Doe,age=33,smoker=false]
+     * </pre>
+     *
+     * @since 3.4
+     */
+    public static final ToStringStyle NO_CLASS_NAME_STYLE = new NoClassNameToStringStyle();
 
     /**
      * <p>
@@ -2275,6 +2287,41 @@ public abstract class ToStringStyle implements Serializable {
          */
         private Object readResolve() {
             return ToStringStyle.MULTI_LINE_STYLE;
+        }
+
+    }
+
+    //----------------------------------------------------------------------------
+
+    /**
+     * <p><code>ToStringStyle</code> that does not print out the classname
+     * and identity hashcode but prints content start and field names.</p>
+     *
+     * <p>This is an inner class rather than using
+     * <code>StandardToStringStyle</code> to ensure its immutability.</p>
+     */
+    private static final class NoClassNameToStringStyle extends ToStringStyle {
+
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * <p>Constructor.</p>
+         *
+         * <p>Use the static constant rather than instantiating.</p>
+         */
+        NoClassNameToStringStyle() {
+            super();
+            this.setUseClassName(false);
+            this.setUseIdentityHashCode(false);
+        }
+
+        /**
+         * <p>Ensure <code>Singleton</code> after serialization.</p>
+         *
+         * @return the singleton
+         */
+        private Object readResolve() {
+            return ToStringStyle.NO_CLASS_NAME_STYLE;
         }
 
     }
