@@ -144,11 +144,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@link ToStringBuilder}, the output would look like this:
      *
      * <pre>
-     * {
-     *   "name": "John Doe",
-     *   "age": 33,
-     *   "smoker": true
-     * }
+     * {"name": "John Doe", "age": 33, "smoker": true}
      * </pre>
      *
      * <strong>Note:</strong> Since field names are mandatory in JSON, this
