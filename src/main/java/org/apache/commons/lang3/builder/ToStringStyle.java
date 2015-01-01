@@ -126,6 +126,17 @@ public abstract class ToStringStyle implements Serializable {
      * </pre>
      */
     public static final ToStringStyle SIMPLE_STYLE = new SimpleToStringStyle();
+    
+    
+    /**
+     * The JSON toString style. Using the <code>Person</code> example
+     * from {@link ToStringBuilder}, the output would look like this:
+     *
+     * <pre>
+     * {"name":"John Doe","age":33,"smoker":false}
+     * </pre>
+     */
+    public static final ToStringStyle JSON_STYLE = new JsonToStringStyle();    
 
     /**
      * The no class name toString style. Using the <code>Person</code>
