@@ -86,6 +86,9 @@ public class JsonToStringStyleTest {
                                         + "]").append("a", "hello").toString());
         assertEquals("{\"a\":\"hello\"}", new ToStringBuilder(base)
                 .appendSuper(null).append("a", "hello").toString());
+
+        assertEquals("{\"a\":\"hello\",\"b\":\"world\"}", new ToStringBuilder(base)
+                .appendSuper("{\"a\":\"hello\"}").append("b", "world").toString());
     }
 
     @Test
