@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1015" type="add" dev="britter" due-to="Thiago Andrade">Add JsonToStringStyle implementation to ToStringStyle</action>
     <action issue="LANG-1080" type="add" dev="britter" due-to="Innokenty Shuvalov">Add NoClassNameToStringStyle implementation of ToStringStyle</action>
     <action issue="LANG-1071" type="update" dev="britter" due-to="Arno Noordover">Fix wrong examples in JavaDoc of StringUtils.replaceEachRepeatedly(...), StringUtils.replaceEach(...)</action>
     <action issue="LANG-883" type="add" dev="britter" due-to="Daniel Stewart">Add StringUtils.containsAny(CharSequence, CharSequence...) method</action>
