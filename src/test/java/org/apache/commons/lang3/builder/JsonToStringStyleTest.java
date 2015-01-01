@@ -51,8 +51,7 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testNull() {
-        assertEquals(String.valueOf((Object) null),
-                new ToStringBuilder(null).toString());
+        assertEquals("null", new ToStringBuilder(null).toString());
     }
 
     @Test
