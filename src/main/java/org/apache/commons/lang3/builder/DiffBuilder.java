@@ -842,6 +842,10 @@ public class DiffBuilder implements Builder<DiffResult> {
         }
 
         // Not array type
+        if (left != null ? left.equals(right) : right.equals(left)) {
+            return this;
+        }
+
         diffs.add(new Diff<Object>(fieldName) {
             private static final long serialVersionUID = 1L;
 

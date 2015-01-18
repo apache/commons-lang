@@ -32,6 +32,31 @@ public class DiffBuilderTest {
     
     private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
 
+    private static class IdentifiableTest {
+        private Integer id;
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null) { return false; }
+            if (obj == this) { return true; }
+            if (obj.getClass() != getClass()) {
+                return false;
+            }
+            IdentifiableTest rhs = (IdentifiableTest) obj;
+
+            return new EqualsBuilder()
+                .append(id, rhs.id)
+                .isEquals();
+        }
+
+        @Override
+        public int hashCode() {
+            return new HashCodeBuilder(17, 37)
+                .append(id)
+                .toHashCode();
+        }
+    }
+
     private static class TypeTestClass implements Diffable<TypeTestClass> {
         private ToStringStyle style = SHORT_STYLE;
         private boolean booleanField = true;
@@ -321,14 +346,49 @@ public class DiffBuilderTest {
     
     @Test
     public void testObjectsEqual() throws Exception {        
-        final TypeTestClass class1 = new TypeTestClass();
-        final TypeTestClass class2 = new TypeTestClass();
-        class1.objectField = "Some string";
-        class2.objectField = "Some string";
-        final DiffResult list = class1.diff(class2);
-        assertEquals(0, list.getNumberOfDiffs());
+        // Same (left == right).
+        final String string1 = "Some string";
+        final TypeTestClass left1 = new TypeTestClass();
+        left1.objectField = string1;
+        final TypeTestClass right1 = new TypeTestClass();
+        right1.objectField = string1;
+        final DiffResult list1 = left1.diff(right1);
+        assertEquals(0, list1.getNumberOfDiffs());
+
+        // Same (left == right).
+        final IdentifiableTest id2 = new IdentifiableTest();
+        id2.id = 2;
+        final TypeTestClass left2 = new TypeTestClass();
+        left2.objectField = id2;
+        final TypeTestClass right2 = new TypeTestClass();
+        right2.objectField = id2;
+        final DiffResult list2 = left2.diff(right2);
+        assertEquals(0, list2.getNumberOfDiffs());
+
+        // Not same, but equal (left.equals(right)).
+        final IdentifiableTest id3a = new IdentifiableTest();
+        id3a.id = 3;
+        final TypeTestClass left3 = new TypeTestClass();
+        left3.objectField = id3a;
+        final IdentifiableTest id3b = new IdentifiableTest();
+        id3b.id = 3;
+        final TypeTestClass right3 = new TypeTestClass();
+        right3.objectField = id3b;
+        final DiffResult list3 = left3.diff(right3);
+        assertEquals(0, list3.getNumberOfDiffs());
+
+        // Not same or equal.
+        final IdentifiableTest id4a = new IdentifiableTest();
+        id4a.id = 4;
+        final TypeTestClass left4 = new TypeTestClass();
+        left4.objectField = id4a;
+        final IdentifiableTest id4b = new IdentifiableTest();
+        id4b.id = 100;
+        final TypeTestClass right4 = new TypeTestClass();
+        right4.objectField = id4b;
+        final DiffResult list4 = left4.diff(right4);
+        assertEquals(1, list4.getNumberOfDiffs());
     }
-    
     
     @Test
     public void testObjectArray() throws Exception {
