@@ -122,7 +122,7 @@ public class SerializationUtils {
      * @since 3.3
      */
     public static <T extends Serializable> T roundtrip(final T msg) {
-        return (T) SerializationUtils.deserialize(SerializationUtils.serialize(msg));
+        return SerializationUtils.deserialize(SerializationUtils.serialize(msg));
     }
 
     // Serialize
