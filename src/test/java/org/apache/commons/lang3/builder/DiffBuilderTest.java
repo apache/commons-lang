@@ -18,6 +18,8 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
@@ -318,18 +320,50 @@ public class DiffBuilderTest {
         assertEquals(class1.objectField, diff.getLeft());
         assertEquals(class2.objectField, diff.getRight());                
     }
-    
+
+    /** Test that "left" and "right" are the same instance and are equal. */
     @Test
-    public void testObjectsEqual() throws Exception {        
-        final TypeTestClass class1 = new TypeTestClass();
-        final TypeTestClass class2 = new TypeTestClass();
-        class1.objectField = "Some string";
-        class2.objectField = "Some string";
-        final DiffResult list = class1.diff(class2);
+    public void testObjectsSameAndEqual() throws Exception {
+        final Integer sameObject = 1;
+        final TypeTestClass left = new TypeTestClass();
+        left.objectField = sameObject;
+        final TypeTestClass right = new TypeTestClass();
+        right.objectField = sameObject;
+        assertTrue(left.objectField == right.objectField);
+        assertTrue(left.objectField.equals(right.objectField));
+
+        final DiffResult list = left.diff(right);
         assertEquals(0, list.getNumberOfDiffs());
     }
-    
-    
+
+    /** Test that "left" and "right" are the same instance but are equal. */
+    @Test
+    public void testObjectsNotSameButEqual() throws Exception {
+        final TypeTestClass left = new TypeTestClass();
+        left.objectField = new Integer(1);
+        final TypeTestClass right = new TypeTestClass();
+        right.objectField = new Integer(1);
+        assertFalse(left.objectField == right.objectField);
+        assertTrue(left.objectField.equals(right.objectField));
+
+        final DiffResult list = left.diff(right);
+        assertEquals(0, list.getNumberOfDiffs());
+    }
+
+    /** Test that "left" and "right" are not the same instance and are not equal. */
+    @Test
+    public void testObjectsNotSameNorEqual() throws Exception {
+        final TypeTestClass left = new TypeTestClass();
+        left.objectField = 4;
+        final TypeTestClass right = new TypeTestClass();
+        right.objectField = 100;
+        assertFalse(left.objectField == right.objectField);
+        assertFalse(left.objectField.equals(right.objectField));
+
+        final DiffResult list = left.diff(right);
+        assertEquals(1, list.getNumberOfDiffs());
+    }
+
     @Test
     public void testObjectArray() throws Exception {
         final TypeTestClass class1 = new TypeTestClass();
