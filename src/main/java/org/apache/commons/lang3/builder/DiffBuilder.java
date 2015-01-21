@@ -842,7 +842,7 @@ public class DiffBuilder implements Builder<DiffResult> {
         }
 
         // Not array type
-        if (left != null ? left.equals(right) : right.equals(left)) {
+        if (lhs != null ? lhs.equals(rhs) : rhs.equals(lhs)) {
             return this;
         }
 
