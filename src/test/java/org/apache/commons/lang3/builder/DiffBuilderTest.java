@@ -321,10 +321,9 @@ public class DiffBuilderTest {
         assertEquals(class2.objectField, diff.getRight());                
     }
 
+    /** Test that "left" and "right" are the same instance and are equal. */
     @Test
     public void testObjectsSameAndEqual() throws Exception {
-        // left.objectField == right.objectField
-        // left.objectField.equals( right.objectField )
         final Integer sameObject = 1;
         final TypeTestClass left = new TypeTestClass();
         left.objectField = sameObject;
@@ -337,10 +336,9 @@ public class DiffBuilderTest {
         assertEquals(0, list.getNumberOfDiffs());
     }
 
+    /** Test that "left" and "right" are the same instance but are equal. */
     @Test
     public void testObjectsNotSameButEqual() throws Exception {
-        // left.objectField != right.objectField
-        // left.objectField.equals( right.objectField )
         final TypeTestClass left = new TypeTestClass();
         left.objectField = new Integer(1);
         final TypeTestClass right = new TypeTestClass();
@@ -352,10 +350,9 @@ public class DiffBuilderTest {
         assertEquals(0, list.getNumberOfDiffs());
     }
 
+    /** Test that "left" and "right" are not the same instance and are not equal. */
     @Test
     public void testObjectsNotSameNorEqual() throws Exception {
-        // left.objectField != right.objectField
-        // !left.objectField.equals( right.objectField )
         final TypeTestClass left = new TypeTestClass();
         left.objectField = 4;
         final TypeTestClass right = new TypeTestClass();
