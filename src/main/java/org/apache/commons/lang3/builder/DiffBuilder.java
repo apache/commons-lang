@@ -90,11 +90,18 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @param style
      *            the style will use when outputting the objects, {@code null}
      *            uses the default
+     * @param testTriviallyEqual
+     *            If true, this will test if lhs and rhs are the same or equal.
+     *            All of the append(fieldName, lhs, rhs) methods will abort
+     *            without creating a field {@link Diff} if the trivially equal
+     *            test is enabled and returns true.  The result of this test
+     *            is never changed throughout the life of this {@link DiffBuilder}.
      * @throws IllegalArgumentException
      *             if {@code lhs} or {@code rhs} is {@code null}
      */
     public DiffBuilder(final Object lhs, final Object rhs,
-            final ToStringStyle style) {
+            final ToStringStyle style, final boolean testTriviallyEqual) {
+
         if (lhs == null) {
             throw new IllegalArgumentException("lhs cannot be null");
         }
@@ -108,7 +115,39 @@ public class DiffBuilder implements Builder<DiffResult> {
         this.style = style;
 
         // Don't compare any fields if objects equal
-        this.objectsTriviallyEqual = (lhs == rhs || lhs.equals(rhs));
+        this.objectsTriviallyEqual = testTriviallyEqual && (lhs == rhs || lhs.equals(rhs));
+    }
+
+    /**
+     * <p>
+     * Constructs a builder for the specified objects with the specified style.
+     * </p>
+     * 
+     * <p>
+     * If {@code lhs == rhs} or {@code lhs.equals(rhs)} then the builder will
+     * not evaluate any calls to {@code append(...)} and will return an empty
+     * {@link DiffResult} when {@link #build()} is executed.
+     * </p>
+     * 
+     * <p>
+     * This delegates to {@link #DiffBuilder(Object, Object, ToStringStyle, boolean testTriviallyEqual)}
+     * with the testTriviallyEqual flag enabled.
+     * </p>
+     *
+     * @param lhs
+     *            {@code this} object
+     * @param rhs
+     *            the object to diff against
+     * @param style
+     *            the style will use when outputting the objects, {@code null}
+     *            uses the default
+     * @throws IllegalArgumentException
+     *             if {@code lhs} or {@code rhs} is {@code null}
+     */
+    public DiffBuilder(final Object lhs, final Object rhs,
+            final ToStringStyle style) {
+
+            this(lhs, rhs, style, true);
     }
 
     /**
