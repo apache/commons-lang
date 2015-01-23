@@ -100,9 +100,10 @@ class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
     }
 
     /**
-     * Creates a string(buffer) responsible for the indenting.
+     * Creates a StringBuilder responsible for the indenting.
+     * 
      * @param spaces how far to indent
-     * @return
+     * @return a StringBuilder with {spaces} leading space characters.
      */
     private StringBuilder spacer(int spaces) {
         StringBuilder sb = new StringBuilder();
