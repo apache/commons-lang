@@ -53,6 +53,12 @@ public abstract class StrLookup<V> {
         return NONE_LOOKUP;
     }
 
+    /**
+     * Creates a copy of the given properties instance.
+     * 
+     * @param input the Properties instance to copy.
+     * @return a copy of {@code input}.
+     */
     private static Properties copyProperties(Properties input) {
         if (input == null) {
             return null;
