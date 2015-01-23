@@ -98,6 +98,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      *            is never changed throughout the life of this {@link DiffBuilder}.
      * @throws IllegalArgumentException
      *             if {@code lhs} or {@code rhs} is {@code null}
+     * @since 3.4
      */
     public DiffBuilder(final Object lhs, final Object rhs,
             final ToStringStyle style, final boolean testTriviallyEqual) {
