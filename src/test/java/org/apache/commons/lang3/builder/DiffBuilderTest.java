@@ -16,10 +16,13 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.hamcrest.Matcher;
 import org.junit.Test;
 
 
@@ -412,4 +415,44 @@ public class DiffBuilderTest {
         list = class1.diff(class1);
         assertEquals(ToStringStyle.MULTI_LINE_STYLE, list.getToStringStyle());
     }
+
+    @Test
+    public void testTriviallyEqualTestDisabled() {
+        final Matcher<Integer> equalToOne = equalTo(1);
+
+        // Constructor's arguments are not trivially equal, but not testing for that.
+        DiffBuilder explicitTestAndNotEqual1 = new DiffBuilder(1, 2, null, false);
+        explicitTestAndNotEqual1.append("letter", "X", "Y");
+        assertThat(explicitTestAndNotEqual1.build().getNumberOfDiffs(), equalToOne);
+
+        // Constructor's arguments are trivially equal, but not testing for that.
+        DiffBuilder explicitTestAndNotEqual2 = new DiffBuilder(1, 1, null, false);
+        // This append(f, l, r) will not abort early.
+        explicitTestAndNotEqual2.append("letter", "X", "Y");
+        assertThat(explicitTestAndNotEqual2.build().getNumberOfDiffs(), equalToOne);
+    }
+
+    @Test
+    public void testTriviallyEqualTestEnabled() {
+        final Matcher<Integer> equalToZero = equalTo(0);
+        final Matcher<Integer> equalToOne = equalTo(1);
+
+        // The option to test if trivially equal is enabled by default.
+        DiffBuilder implicitTestAndEqual = new DiffBuilder(1, 1, null);
+        // This append(f, l, r) will abort without creating a Diff for letter.
+        implicitTestAndEqual.append("letter", "X", "Y");
+        assertThat(implicitTestAndEqual.build().getNumberOfDiffs(), equalToZero);
+
+        DiffBuilder implicitTestAndNotEqual = new DiffBuilder(1, 2, null);
+        // This append(f, l, r) will not abort early
+        // because the constructor's arguments were not trivially equal.
+        implicitTestAndNotEqual.append("letter", "X", "Y");
+        assertThat(implicitTestAndNotEqual.build().getNumberOfDiffs(), equalToOne);
+
+        // This is explicitly enabling the trivially equal test.
+        DiffBuilder explicitTestAndEqual = new DiffBuilder(1, 1, null, true);
+        explicitTestAndEqual.append("letter", "X", "Y");
+        assertThat(explicitTestAndEqual.build().getNumberOfDiffs(), equalToZero);
+    }
+
 }
