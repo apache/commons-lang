@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1082" type="add" dev="britter" due-to="Jonathan Baker">Add option to disable the "objectsTriviallyEqual" test in DiffBuilder</action>
     <action issue="LANG-1083" type="fix" dev="britter" due-to="Jonathan Baker">Add (T) casts to get unit tests to pass in old JDK</action>
     <action issue="LANG-1015" type="add" dev="britter" due-to="Thiago Andrade">Add JsonToStringStyle implementation to ToStringStyle</action>
     <action issue="LANG-1080" type="add" dev="britter" due-to="Innokenty Shuvalov">Add NoClassNameToStringStyle implementation of ToStringStyle</action>
