@@ -2577,8 +2577,13 @@ public abstract class ToStringStyle implements Serializable {
             buffer.append(value);
         }
 
+        /**
+         * Appends the given String in parenthesis to the given StringBuffer.
+         * 
+         * @param buffer the StringBuffer to append the value to.
+         * @param value the value to append.
+         */
         private void appendValueAsString(StringBuffer buffer, String value) {
-
             buffer.append("\"" + value + "\"");
         }
 
