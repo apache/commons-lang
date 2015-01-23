@@ -16,7 +16,9 @@
  */
 package org.apache.commons.lang3.text;
 
+import java.util.Enumeration;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Lookup a String key to a String value.
@@ -39,24 +41,7 @@ public abstract class StrLookup<V> {
     /**
      * Lookup that always returns null.
      */
-    private static final StrLookup<String> NONE_LOOKUP;
-    /**
-     * Lookup that uses System properties.
-     */
-    private static final StrLookup<String> SYSTEM_PROPERTIES_LOOKUP;
-    static {
-        NONE_LOOKUP = new MapStrLookup<String>(null);
-        StrLookup<String> lookup = null;
-        try {
-            final Map<?, ?> propMap = System.getProperties();
-            @SuppressWarnings("unchecked") // System property keys and values are always Strings
-            final Map<String, String> properties = (Map<String, String>) propMap;
-            lookup = new MapStrLookup<String>(properties);
-        } catch (final SecurityException ex) {
-            lookup = NONE_LOOKUP;
-        }
-        SYSTEM_PROPERTIES_LOOKUP = lookup;
-    }
+    private static final StrLookup<String> NONE_LOOKUP = new MapStrLookup<String>(null);
 
     //-----------------------------------------------------------------------
     /**
@@ -68,9 +53,26 @@ public abstract class StrLookup<V> {
         return NONE_LOOKUP;
     }
 
+    private static Properties copyProperties(Properties input) {
+        if (input == null) {
+            return null;
+        }
+
+        Properties output = new Properties();
+        @SuppressWarnings("unchecked") // Property names are Strings.
+        Enumeration<String> propertyNames = (Enumeration<String>) input.propertyNames();
+
+        while (propertyNames.hasMoreElements()) {
+            String propertyName = propertyNames.nextElement();
+            output.setProperty(propertyName, input.getProperty(propertyName));
+        }
+
+        return output;
+    }
+
     /**
-     * Returns a lookup which uses {@link System#getProperties() System properties}
-     * to lookup the key to value.
+     * Returns a new lookup which uses a copy of the current
+     * {@link System#getProperties() System properties}.
      * <p>
      * If a security manager blocked access to system properties, then null will
      * be returned from every lookup.
@@ -80,7 +82,19 @@ public abstract class StrLookup<V> {
      * @return a lookup using system properties, not null
      */
     public static StrLookup<String> systemPropertiesLookup() {
-        return SYSTEM_PROPERTIES_LOOKUP;
+        Properties systemProperties = null;
+
+        try {
+            systemProperties = System.getProperties();
+        } catch (final SecurityException ex) {
+            // Squelched.  All lookup(String) will return null.
+        }
+
+        Properties properties = copyProperties(systemProperties);
+        @SuppressWarnings("unchecked") // System property keys and values are always Strings
+        final Map<String, String> propertiesMap = (Map) properties;
+
+        return new MapStrLookup<String>(propertiesMap);
     }
 
     /**
