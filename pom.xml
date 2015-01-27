@@ -616,7 +616,8 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <!-- Use version from parent pom as that is adjusted according to the Java version used to run Maven -->
+        <version>${commons.findbugs.version}</version>
         <configuration>
           <excludeFilterFile>${basedir}/findbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
