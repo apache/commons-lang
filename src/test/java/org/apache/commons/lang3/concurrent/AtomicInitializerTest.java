@@ -16,12 +16,29 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import org.junit.Test;
+
 /**
  * Test class for {@code AtomicInitializer}.
  *
  * @version $Id$
  */
 public class AtomicInitializerTest extends AbstractConcurrentInitializerTest {
+    private Exception testCauseException;
+    private String testExceptionMessage;
+
+    public AtomicInitializerTest() {
+        testExceptionMessage = "x-test-exception-message-x";
+        testCauseException = new Exception(testExceptionMessage);
+    }
+
+    @Test
+    public void testGetConcurrentWithException ()
+            throws ConcurrentException, InterruptedException {
+
+        super.testGetConcurrentWithException(testExceptionMessage, testCauseException);
+    }
+
     /**
      * Returns the initializer to be tested.
      *
@@ -35,5 +52,21 @@ public class AtomicInitializerTest extends AbstractConcurrentInitializerTest {
                 return new Object();
             }
         };
+    }
+
+    @Override
+    protected ConcurrentInitializer<Object> createExceptionThrowingInitializer() {
+        return new ExceptionThrowingAtomicSafeInitializerTestImpl();
+    }
+
+    /**
+     * A concrete test implementation of {@code AtomicSafeInitializer}.  This
+     * implementation always throws an exception.
+     */
+    private class ExceptionThrowingAtomicSafeInitializerTestImpl extends AtomicSafeInitializer<Object> {
+        @Override
+        protected Object initialize() throws ConcurrentException {
+            throw new ConcurrentException(testExceptionMessage, testCauseException);
+        }
     }
 }

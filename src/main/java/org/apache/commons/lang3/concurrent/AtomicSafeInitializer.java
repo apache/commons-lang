@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -62,20 +63,44 @@ public abstract class AtomicSafeInitializer<T> implements
     /** Holds the reference to the managed object. */
     private final AtomicReference<T> reference = new AtomicReference<T>();
 
+    /** Holds the exception that terminated the initialize() method, if an exception was thrown */
+    private final AtomicReference<ConcurrentException> referenceExc = new AtomicReference<ConcurrentException>();
+
+    /** Latch for those threads waiting for initialization to complete. */
+    private final CountDownLatch latch = new CountDownLatch(1);
+
     /**
      * Get (and initialize, if not initialized yet) the required object
      *
      * @return lazily initialized object
      * @throws ConcurrentException if the initialization of the object causes an
-     * exception
+     * exception or the thread is interrupted waiting for another thread to
+     * complete the initialization
      */
     @Override
     public final T get() throws ConcurrentException {
         T result;
 
-        while ((result = reference.get()) == null) {
+        if ((result = reference.get()) == null) {
             if (factory.compareAndSet(null, this)) {
-                reference.set(initialize());
+                try {
+                    reference.set(result = initialize());
+                } catch ( ConcurrentException exc ) {
+                    referenceExc.set(exc);
+                    throw exc;
+                } finally {
+                    latch.countDown();
+                }
+            } else {
+                try {
+                    latch.await();
+                    if ( referenceExc.get() != null ) {
+                        throw new ConcurrentException(referenceExc.get().getMessage(), referenceExc.get().getCause());
+                    }
+                    result = reference.get();
+                } catch (InterruptedException intExc) {
+                    throw new ConcurrentException(intExc);
+                }
             }
         }
 
