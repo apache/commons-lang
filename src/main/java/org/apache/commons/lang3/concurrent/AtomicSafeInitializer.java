@@ -56,8 +56,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public abstract class AtomicSafeInitializer<T> implements
         ConcurrentInitializer<T> {
     /** A guard which ensures that initialize() is called only once. */
-    private final AtomicReference<AtomicSafeInitializer<T>> factory =
-            new AtomicReference<AtomicSafeInitializer<T>>();
+    private boolean initActive;
 
     /** Holds the reference to the managed object. */
     private final AtomicReference<T> reference = new AtomicReference<T>();
@@ -73,10 +72,29 @@ public abstract class AtomicSafeInitializer<T> implements
     public final T get() throws ConcurrentException {
         T result;
 
-        while ((result = reference.get()) == null) {
-            if (factory.compareAndSet(null, this)) {
-                reference.set(initialize());
+        synchronized ( reference ) {
+            result = reference.get();
+            if ( result == null ) {
+                if ( initActive ) {
+                    try {
+                        reference.wait();
+                        result = reference.get();
+                    } catch (InterruptedException intExc) {
+                        throw new ConcurrentException(intExc);
+                    }
+                } else {
+                    initActive = true;
+                }
             }
+        }
+
+        if ( result == null ) {
+            result = initialize();
+            reference.set(result);
+            synchronized ( reference ) {
+                reference.notifyAll();
+            }
+            initActive = false;
         }
 
         return result;
