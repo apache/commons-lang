@@ -99,7 +99,7 @@ public abstract class AtomicSafeInitializer<T> implements
                     }
                     result = reference.get();
                 } catch (InterruptedException intExc) {
-                    throw new ConcurrentException(intExc);
+                    throw new ConcurrentException("interrupted waiting for initialization to complete", intExc);
                 }
             }
         }

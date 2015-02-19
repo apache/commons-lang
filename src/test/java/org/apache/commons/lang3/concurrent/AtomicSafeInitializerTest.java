@@ -16,13 +16,16 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Test class for {@code AtomicSafeInitializer}.
@@ -160,6 +163,7 @@ public class AtomicSafeInitializerTest extends
             assertTrue(execThread2.isCaughtException());
             Exception exc = (Exception) execThread2.getResult();
             assertTrue(exc.getCause() instanceof InterruptedException);
+            assertEquals("interrupted waiting for initialization to complete", exc.getMessage());
         } else {
             assertFalse(execThread2.isCaughtException());
             assertSame(initializer.getAnswer(), execThread2.getResult());
