@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.concurrent;
 
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test class for {@code LazyInitializer}.
@@ -26,10 +27,16 @@ import org.junit.Before;
 public class LazyInitializerTest extends AbstractConcurrentInitializerTest {
     /** The initializer to be tested. */
     private LazyInitializerTestImpl initializer;
+    private ExceptionThrowingLazyInitializerTestImpl exceptionThrowingInitializer;
+    private Exception testCauseException;
+    private String testExceptionMessage;
 
     @Before
     public void setUp() throws Exception {
         initializer = new LazyInitializerTestImpl();
+        exceptionThrowingInitializer = new ExceptionThrowingLazyInitializerTestImpl();
+        testExceptionMessage = "x-test-exception-message-x";
+        testCauseException = new Exception(testExceptionMessage);
     }
 
     /**
@@ -43,6 +50,18 @@ public class LazyInitializerTest extends AbstractConcurrentInitializerTest {
         return initializer;
     }
 
+    @Override
+    protected ConcurrentInitializer<Object> createExceptionThrowingInitializer() {
+        return exceptionThrowingInitializer;
+    }
+
+    @Test
+    public void testGetConcurrentWithException ()
+            throws ConcurrentException, InterruptedException {
+
+        super.testGetConcurrentWithException(testExceptionMessage, testCauseException);
+    }
+
     /**
      * A test implementation of LazyInitializer. This class creates a plain
      * Object. As Object does not provide a specific equals() method, it is easy
@@ -53,6 +72,18 @@ public class LazyInitializerTest extends AbstractConcurrentInitializerTest {
         @Override
         protected Object initialize() {
             return new Object();
+        }
+    }
+
+
+    /**
+     * A concrete test implementation of {@code AtomicSafeInitializer}.  This
+     * implementation always throws an exception.
+     */
+    private class ExceptionThrowingLazyInitializerTestImpl extends LazyInitializer<Object> {
+        @Override
+        protected Object initialize() throws ConcurrentException {
+            throw new ConcurrentException(testExceptionMessage, testCauseException);
         }
     }
 }
