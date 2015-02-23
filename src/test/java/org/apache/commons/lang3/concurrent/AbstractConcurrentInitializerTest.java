@@ -18,6 +18,8 @@ package org.apache.commons.lang3.concurrent;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -72,7 +74,41 @@ public abstract class AbstractConcurrentInitializerTest {
     @Test
     public void testGetConcurrent() throws ConcurrentException,
             InterruptedException {
-        final ConcurrentInitializer<Object> initializer = createInitializer();
+
+        this.testGetConcurrentOptionallyWithException(false, null, null);
+    }
+
+    /**
+     * Tests the handling of exceptions thrown on the initialized when multiple threads execute concurrently.
+     * Always an exception with the same message and cause should be thrown.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it
+     * @throws java.lang.InterruptedException because the threading API my throw it
+     */
+    public void testGetConcurrentWithException(String expectedMessage,
+                                               Exception expectedCause)
+            throws ConcurrentException, InterruptedException {
+
+        this.testGetConcurrentOptionallyWithException(true, expectedMessage, expectedCause);
+    }
+
+    /**
+     * Tests whether get() can be invoked from multiple threads concurrently.  Supports the exception-handling case
+     * and the normal, non-exception case.
+     *
+     * Always the same object should be returned, or an exception with the same message and cause should be thrown.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it
+     * @throws java.lang.InterruptedException because the threading API my throw it
+     */
+    protected void testGetConcurrentOptionallyWithException(boolean expectExceptions, String expectedMessage,
+                                                            Exception expectedCause)
+            throws ConcurrentException, InterruptedException {
+
+        final ConcurrentInitializer<Object> initializer = expectExceptions ?
+                createExceptionThrowingInitializer() :
+                createInitializer();
+
         final int threadCount = 20;
         final CountDownLatch startLatch = new CountDownLatch(1);
         class GetThread extends Thread {
@@ -106,9 +142,18 @@ public abstract class AbstractConcurrentInitializerTest {
         }
 
         // check results
-        final Object managedObject = initializer.get();
-        for (final GetThread t : threads) {
-            assertEquals("Wrong object", managedObject, t.object);
+        if ( expectExceptions ) {
+            for (GetThread t : threads) {
+                assertTrue(t.object instanceof Exception);
+                Exception exc = (Exception) t.object;
+                assertEquals(expectedMessage, exc.getMessage());
+                assertSame(expectedCause, exc.getCause());
+            }
+        } else {
+            final Object managedObject = initializer.get();
+            for (final GetThread t : threads) {
+                assertEquals("Wrong object", managedObject, t.object);
+            }
         }
     }
 
@@ -119,4 +164,12 @@ public abstract class AbstractConcurrentInitializerTest {
      * @return the initializer object to be tested
      */
     protected abstract ConcurrentInitializer<Object> createInitializer();
+
+    /**
+     * Creates a {@link ConcurrentInitializer} object that always throws
+     * exceptions.
+     *
+     * @return
+     */
+    protected abstract ConcurrentInitializer<Object> createExceptionThrowingInitializer();
 }
