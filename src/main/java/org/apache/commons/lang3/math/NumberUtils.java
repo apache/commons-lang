@@ -503,16 +503,16 @@ public class NumberUtils {
             } else {
                 dec = str.substring(decPos + 1);
             }
-            mant = str.substring(0, decPos);
+            mant = getMantissa(str, decPos);
             numDecimals = dec.length(); // gets number of digits past the decimal to ensure no loss of precision for floating point numbers.
         } else {
             if (expPos > -1) {
                 if (expPos > str.length()) { // prevents double exponent causing IOOBE
                     throw new NumberFormatException(str + " is not a valid number.");
                 }
-                mant = str.substring(0, expPos);
+                mant = getMantissa(str, expPos);
             } else {
-                mant = str;
+                mant = getMantissa(str);
             }
             dec = null;
         }
@@ -621,6 +621,34 @@ public class NumberUtils {
         }
 
         return createBigDecimal(str);
+    }
+
+    /**
+     * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
+     *
+     * <p>Returns mantissa of the given number.</p>
+     * 
+     * @param str the string representation of the number
+     * @return mantissa of the given number
+     */
+    private static String getMantissa(final String str) {
+        return getMantissa(str, str.length());
+    }
+
+    /**
+     * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
+     *
+     * <p>Returns mantissa of the given number.</p>
+     * 
+     * @param str the string representation of the number
+     * @param stopPos the position of the exponent or decimal point
+     * @return mantissa of the given number
+     */
+    private static String getMantissa(final String str, final int stopPos) {
+        final char firstChar = str.charAt(0);
+        final boolean hasSign = (firstChar == '-' || firstChar == '+');
+
+        return hasSign ? str.substring(1, stopPos) : str.substring(0, stopPos);
     }
 
     /**
