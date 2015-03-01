@@ -58,12 +58,12 @@ public class StrLookupTest  {
         final String osName = "os.name";
         final String originalOsName = System.getProperty(osName);
 
-        StrLookup properties1 = StrLookup.systemPropertiesLookup();
+        StrLookup<String> properties1 = StrLookup.systemPropertiesLookup();
         assertEquals(originalOsName, properties1.lookup(osName));
 
         final String differentOsName = "HAL-9000";
         System.setProperty(osName, differentOsName);
-        StrLookup properties2 = StrLookup.systemPropertiesLookup();
+        StrLookup<String> properties2 = StrLookup.systemPropertiesLookup();
 
         assertEquals(originalOsName, properties1.lookup(osName));
         assertEquals(differentOsName, properties2.lookup(osName));
