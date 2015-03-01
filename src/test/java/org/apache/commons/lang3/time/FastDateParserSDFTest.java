@@ -26,7 +26,7 @@ public class FastDateParserSDFTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object [][]{
                 // General Time zone tests
-                {"z yyyy", "GMT 2010",       Locale.UK, true}, // no offset specified, but seems to be allowed
+                {"z yyyy", "GMT 2010",       Locale.UK, true}, // no offset specified, but this is allowed as a TimeZone name
                 {"z yyyy", "GMT-123 2010",   Locale.UK, false},
                 {"z yyyy", "GMT-1234 2010",  Locale.UK, false},
                 {"z yyyy", "GMT-12:34 2010", Locale.UK, true},
