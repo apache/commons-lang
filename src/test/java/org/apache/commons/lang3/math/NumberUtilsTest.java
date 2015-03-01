@@ -245,6 +245,19 @@ public class NumberUtilsTest {
         assertNotNull(bigNum);
         assertEquals(BigDecimal.class, bigNum.getClass());
     }
+    
+    @Test
+    public void testLang1087(){
+        // no sign cases
+        assertEquals(Float.class, NumberUtils.createNumber("0.0").getClass());
+        assertEquals(Float.valueOf("0.0"), NumberUtils.createNumber("0.0"));
+        // explicit positive sign cases
+        assertEquals(Float.class, NumberUtils.createNumber("+0.0").getClass());
+        assertEquals(Float.valueOf("+0.0"), NumberUtils.createNumber("+0.0"));
+        // negative sign cases
+        assertEquals(Float.class, NumberUtils.createNumber("-0.0").getClass());
+        assertEquals(Float.valueOf("-0.0"), NumberUtils.createNumber("-0.0"));
+    }
 
     @Test
     public void TestLang747() {

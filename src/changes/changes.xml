@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1087" type="fix" dev="britter" due-to="Renat Zhilkibaev">NumberUtils#createNumber() returns positive BigDecimal when negative Float is expected</action>
     <action issue="LANG-1081" type="fix" dev="britter" due-to="Jonathan Baker">DiffBuilder.append(String, Object left, Object right) does not do a left.equals(right) check</action>
     <action issue="LANG-1055" type="fix" dev="britter" due-to="Jonathan Baker">StrSubstitutor.replaceSystemProperties does not work consistently</action>
     <action issue="LANG-1082" type="add" dev="britter" due-to="Jonathan Baker">Add option to disable the "objectsTriviallyEqual" test in DiffBuilder</action>
