@@ -780,7 +780,8 @@ public class FastDateParser implements DateParser, Serializable {
             }
 
             final StringBuilder sb= new StringBuilder();
-            sb.append("(GMT[+\\-]\\d{0,1}\\d{2}|[+\\-]\\d{2}:?\\d{2}|");
+            sb.append("(GMT[+-]\\d{1,2}:\\d{2}").append('|');
+            sb.append("[+-]\\d{4}").append('|');
             for(final String id : tzNames.keySet()) {
                 escapeRegex(sb, id, false).append('|');
             }
