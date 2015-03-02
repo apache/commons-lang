@@ -487,7 +487,7 @@ public class FastDateParser implements DateParser, Serializable {
         case 'G':
             return getLocaleSpecificStrategy(Calendar.ERA, definingCalendar);
         case 'H':  // Hour in day (0-23)
-            return MODULO_HOUR_OF_DAY_STRATEGY;
+            return HOUR_OF_DAY_STRATEGY;
         case 'K':  // Hour in am/pm (0-11) 
             return HOUR_STRATEGY;
         case 'M':
@@ -501,9 +501,9 @@ public class FastDateParser implements DateParser, Serializable {
         case 'd':
             return DAY_OF_MONTH_STRATEGY;
         case 'h':  // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
-            return MODULO_HOUR_STRATEGY;
+            return HOUR12_STRATEGY;
         case 'k':  // Hour in day (1-24), i.e. midnight is 24, not 0
-            return HOUR_OF_DAY_STRATEGY;
+            return HOUR24_OF_DAY_STRATEGY;
         case 'm':
             return MINUTE_STRATEGY;
         case 's':
@@ -859,16 +859,16 @@ public class FastDateParser implements DateParser, Serializable {
     private static final Strategy DAY_OF_MONTH_STRATEGY = new NumberStrategy(Calendar.DAY_OF_MONTH);
     private static final Strategy DAY_OF_WEEK_IN_MONTH_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK_IN_MONTH);
     private static final Strategy HOUR_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY);
-    private static final Strategy MODULO_HOUR_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY) {
+    private static final Strategy HOUR24_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY) {
         @Override
         int modify(final int iValue) {
-            return iValue%24;
+            return iValue == 24 ? 0 : iValue;
         }
     };
-    private static final Strategy MODULO_HOUR_STRATEGY = new NumberStrategy(Calendar.HOUR) {
+    private static final Strategy HOUR12_STRATEGY = new NumberStrategy(Calendar.HOUR) {
         @Override
         int modify(final int iValue) {
-            return iValue%12;
+            return iValue == 12 ? 0 : iValue;
         }
     };
     private static final Strategy HOUR_STRATEGY = new NumberStrategy(Calendar.HOUR);

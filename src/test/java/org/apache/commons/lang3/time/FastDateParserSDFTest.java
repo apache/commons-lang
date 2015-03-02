@@ -38,6 +38,52 @@ public class FastDateParserSDFTest {
                 // year tests
                 { "MM/dd/yyyy", "01/11/12",  Locale.UK, true},
                 { "MM/dd/yy", "01/11/12",    Locale.UK, true},
+
+                // LANG-1089
+                { "HH", "00",    Locale.UK, true}, // Hour in day (0-23)
+                { "KK", "00",    Locale.UK, true}, // Hour in am/pm (0-11)
+                { "hh", "00",    Locale.UK, true}, // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
+                { "kk", "00",    Locale.UK, true}, // Hour in day (1-24), i.e. midnight is 24, not 0
+
+                { "HH", "01",    Locale.UK, true}, // Hour in day (0-23)
+                { "KK", "01",    Locale.UK, true}, // Hour in am/pm (0-11)
+                { "hh", "01",    Locale.UK, true}, // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
+                { "kk", "01",    Locale.UK, true}, // Hour in day (1-24), i.e. midnight is 24, not 0
+
+                { "HH", "11",    Locale.UK, true}, // Hour in day (0-23)
+                { "KK", "11",    Locale.UK, true}, // Hour in am/pm (0-11)
+                { "hh", "11",    Locale.UK, true}, // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
+                { "kk", "11",    Locale.UK, true}, // Hour in day (1-24), i.e. midnight is 24, not 0
+
+                { "HH", "12",    Locale.UK, true}, // Hour in day (0-23)
+                { "KK", "12",    Locale.UK, true}, // Hour in am/pm (0-11)
+                { "hh", "12",    Locale.UK, true}, // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
+                { "kk", "12",    Locale.UK, true}, // Hour in day (1-24), i.e. midnight is 24, not 0
+
+                { "HH", "13",    Locale.UK, true}, // Hour in day (0-23)
+                { "KK", "13",    Locale.UK, true}, // Hour in am/pm (0-11)
+                { "hh", "13",    Locale.UK, true}, // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
+                { "kk", "13",    Locale.UK, true}, // Hour in day (1-24), i.e. midnight is 24, not 0
+
+                { "HH", "23",    Locale.UK, true}, // Hour in day (0-23)
+                { "KK", "23",    Locale.UK, true}, // Hour in am/pm (0-11)
+                { "hh", "23",    Locale.UK, true}, // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
+                { "kk", "23",    Locale.UK, true}, // Hour in day (1-24), i.e. midnight is 24, not 0
+
+                { "HH", "24",    Locale.UK, true}, // Hour in day (0-23)
+                { "KK", "24",    Locale.UK, true}, // Hour in am/pm (0-11)
+                { "hh", "24",    Locale.UK, true}, // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
+                { "kk", "24",    Locale.UK, true}, // Hour in day (1-24), i.e. midnight is 24, not 0
+
+                { "HH", "25",    Locale.UK, true}, // Hour in day (0-23)
+                { "KK", "25",    Locale.UK, true}, // Hour in am/pm (0-11)
+                { "hh", "25",    Locale.UK, true}, // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
+                { "kk", "25",    Locale.UK, true}, // Hour in day (1-24), i.e. midnight is 24, not 0
+
+                { "HH", "48",    Locale.UK, true}, // Hour in day (0-23)
+                { "KK", "48",    Locale.UK, true}, // Hour in am/pm (0-11)
+                { "hh", "48",    Locale.UK, true}, // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
+                { "kk", "48",    Locale.UK, true}, // Hour in day (1-24), i.e. midnight is 24, not 0
                 });
     }
 
