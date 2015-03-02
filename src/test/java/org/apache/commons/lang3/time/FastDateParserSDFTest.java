@@ -107,6 +107,7 @@ public class FastDateParserSDFTest {
     private final String input;
     private final Locale locale;
     private final boolean valid;
+    private final TimeZone timeZone = TimeZone.getDefault();
 
     public FastDateParserSDFTest(String format, String input, Locale locale, boolean valid) {
         this.format = format;
@@ -117,30 +118,24 @@ public class FastDateParserSDFTest {
 
     @Test
     public void testOriginal() throws Exception {
-        final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
-        final TimeZone timeZone = TimeZone.getDefault();
-        final DateParser fdf = new FastDateParser(format, timeZone, locale);
-        checkParse(locale, sdf, fdf, input);
+        checkParse(input);
     }
 
     @Test
     public void testUpperCase() throws Exception {
-        final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
-        final TimeZone timeZone = TimeZone.getDefault();
-        final DateParser fdf = new FastDateParser(format, timeZone , locale);
-        checkParse(locale, sdf, fdf, input.toUpperCase(locale));
+        checkParse(input.toUpperCase(locale));
     }
 
     @Test
     @Ignore // not currently supported
     public void testLowerCase() throws Exception {
-        final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
-        final TimeZone timeZone = TimeZone.getDefault();
-        final DateParser fdf = new FastDateParser(format, timeZone , locale);
-        checkParse(locale, sdf, fdf, input.toLowerCase(locale));
+        checkParse(input.toLowerCase(locale));
     }
 
-    private void checkParse(final Locale locale, final SimpleDateFormat sdf, final DateParser fdf, final String formattedDate) throws ParseException {
+    private void checkParse(final String formattedDate) throws ParseException {
+        final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
+        sdf.setTimeZone(timeZone);
+        final DateParser fdf = new FastDateParser(format, timeZone, locale);
         Date expectedTime=null;
         Class<?> sdfE = null;
         try {
