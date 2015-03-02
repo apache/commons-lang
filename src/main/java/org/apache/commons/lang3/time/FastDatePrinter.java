@@ -53,7 +53,7 @@ import org.apache.commons.lang3.Validate;
  * nor will it be as Sun have closed the bug/RFE.
  * </p>
  *
- * <p>Only formatting is supported, but all patterns are compatible with
+ * <p>Only formatting is supported by this class, but all patterns are compatible with
  * SimpleDateFormat (except time zones and some year patterns - see below).</p>
  *
  * <p>Java 1.4 introduced a new pattern letter, {@code 'Z'}, to represent
@@ -73,6 +73,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @version $Id$
  * @since 3.2
+ * @see FastDateParser
  */
 public class FastDatePrinter implements DatePrinter, Serializable {
     // A lot of the speed in this class comes from caching, but some comes
