@@ -57,14 +57,17 @@ import java.util.regex.Pattern;
  * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4228335">bug</a>/RFE.
  * </p>
  *
- * <p>Only parsing is supported, but all patterns are compatible with
+ * <p>Only parsing is supported by this class, but all patterns are compatible with
  * SimpleDateFormat.</p>
+ *
+ * <p>The class operates in lenient mode, so for example a time of 90 minutes is treated as 1 hour 30 minutes.</p>
  *
  * <p>Timing tests indicate this class is as about as fast as SimpleDateFormat
  * in single thread applications and about 25% faster in multi-thread applications.</p>
  *
  * @version $Id$
  * @since 3.2
+ * @see FastDatePrinter
  */
 public class FastDateParser implements DateParser, Serializable {
     /**
