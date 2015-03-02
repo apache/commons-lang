@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1090" type="fix" dev="sebb">FastDateParser does not set error indication in ParsePosition</action>
     <action issue="LANG-1089" type="fix" dev="sebb">FastDateParser does not handle excess hours as per SimpleDateFormat</action>
     <action issue="LANG-1061" type="fix" dev="sebb" due-to="dmeneses">FastDateParser error - timezones not handled correctly</action>
     <action issue="LANG-1087" type="fix" dev="britter" due-to="Renat Zhilkibaev">NumberUtils#createNumber() returns positive BigDecimal when negative Float is expected</action>

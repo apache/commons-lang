@@ -311,8 +311,17 @@ public class FastDateParser implements DateParser, Serializable {
         return parse(source, pos);
     }
 
-    /* (non-Javadoc)
+    /**
+     * This implementation updates the ParsePosition if the parse succeeeds.
+     * However, unlike the method {@link java.text.SimpleDateFormat#parse(String, ParsePosition)}
+     * it is not able to set the error Index - i.e. {@link ParsePosition#getErrorIndex()} -  if the parse fails.
+     * <p>
+     * To determine if the parse has succeeded, the caller must check if the current parse position
+     * given by {@link ParsePosition#getIndex()} has been updated. If the input buffer has been fully
+     * parsed, then the index will point to just after the end of the input buffer.
+     *
      * @see org.apache.commons.lang3.time.DateParser#parse(java.lang.String, java.text.ParsePosition)
+     * {@inheritDoc}
      */
     @Override
     public Date parse(final String source, final ParsePosition pos) {

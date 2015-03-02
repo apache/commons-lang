@@ -19,6 +19,7 @@ package org.apache.commons.lang3.time;
 import static org.junit.Assert.*;
 
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -122,14 +123,30 @@ public class FastDateParserSDFTest {
     }
 
     @Test
+    public void testOriginalPP() throws Exception {
+        checkParsePosition(input);
+    }
+
+    @Test
     public void testUpperCase() throws Exception {
         checkParse(input.toUpperCase(locale));
+    }
+
+    @Test
+    public void testUpperCasePP() throws Exception {
+        checkParsePosition(input.toUpperCase(locale));
     }
 
     @Test
     @Ignore // not currently supported
     public void testLowerCase() throws Exception {
         checkParse(input.toLowerCase(locale));
+    }
+
+    @Test
+    @Ignore // not currently supported
+    public void testLowerCasePP() throws Exception {
+        checkParsePosition(input.toLowerCase(locale));
     }
 
     private void checkParse(final String formattedDate) throws ParseException {
@@ -171,5 +188,46 @@ public class FastDateParserSDFTest {
         } else {
             assertEquals(locale.toString()+" "+formattedDate + " expected same Exception ", sdfE, fdfE);            
         }
+    }
+    private void checkParsePosition(final String formattedDate) throws ParseException {
+        final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
+        sdf.setTimeZone(timeZone);
+        final DateParser fdf = new FastDateParser(format, timeZone, locale);
+
+        ParsePosition sdfP = new ParsePosition(0);
+        Date expectedTime = sdf.parse(formattedDate, sdfP);
+        if (valid) {
+            assertEquals("Expected SDF error index -1 ", -1, sdfP.getErrorIndex());
+            final int endIndex = sdfP.getIndex();
+            final int length = formattedDate.length();
+            if (endIndex != length) {
+                // Error in test data
+                throw new RuntimeException("Test data error: expected SDF parse to consume entire string; endindex " + endIndex + " != " + length);                
+            }
+        } else {
+            final int errorIndex = sdfP.getErrorIndex();
+            if (errorIndex == -1) {
+                throw new RuntimeException("Test data error: expected SDF parse to fail, but got " + expectedTime);                
+            }
+        }
+
+        final ParsePosition fdfP = new ParsePosition(0);
+        Date actualTime = fdf.parse(formattedDate, fdfP);
+        final int fdferrorIndex = fdfP.getErrorIndex();
+        if (valid) {
+            assertEquals("Expected FDF error index -1 ", -1, fdferrorIndex);
+            final int endIndex = fdfP.getIndex();
+            final int length = formattedDate.length();
+            assertEquals("Expected FDF to parse full string " + fdfP, length, endIndex);
+            assertEquals(locale.toString()+" "+formattedDate +"\n",expectedTime, actualTime);            
+        } else {
+            final int endIndex = fdfP.getIndex();
+            if (endIndex != -0) {
+                fail("Expected FDF parse to fail, but got " + fdfP);                
+            }
+            if (fdferrorIndex != -1) {
+                assertEquals("FDF error index should match SDF index (if it is set)", sdfP.getErrorIndex(), fdferrorIndex);
+            }
+        }        
     }
 }
