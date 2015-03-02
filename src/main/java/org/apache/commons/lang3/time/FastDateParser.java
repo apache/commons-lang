@@ -486,9 +486,9 @@ public class FastDateParser implements DateParser, Serializable {
             return DAY_OF_WEEK_IN_MONTH_STRATEGY;
         case 'G':
             return getLocaleSpecificStrategy(Calendar.ERA, definingCalendar);
-        case 'H':
+        case 'H':  // Hour in day (0-23)
             return MODULO_HOUR_OF_DAY_STRATEGY;
-        case 'K':
+        case 'K':  // Hour in am/pm (0-11) 
             return HOUR_STRATEGY;
         case 'M':
             return formatField.length()>=3 ?getLocaleSpecificStrategy(Calendar.MONTH, definingCalendar) :NUMBER_MONTH_STRATEGY;
@@ -500,9 +500,9 @@ public class FastDateParser implements DateParser, Serializable {
             return getLocaleSpecificStrategy(Calendar.AM_PM, definingCalendar);
         case 'd':
             return DAY_OF_MONTH_STRATEGY;
-        case 'h':
+        case 'h':  // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
             return MODULO_HOUR_STRATEGY;
-        case 'k':
+        case 'k':  // Hour in day (1-24), i.e. midnight is 24, not 0
             return HOUR_OF_DAY_STRATEGY;
         case 'm':
             return MINUTE_STRATEGY;
