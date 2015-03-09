@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.annotation.ToEqualsExclude;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
@@ -406,7 +407,8 @@ public class EqualsBuilder implements Builder<Boolean> {
                 if (!ArrayUtils.contains(excludeFields, f.getName())
                     && (f.getName().indexOf('$') == -1)
                     && (useTransients || !Modifier.isTransient(f.getModifiers()))
-                    && (!Modifier.isStatic(f.getModifiers()))) {
+                    && (!Modifier.isStatic(f.getModifiers()))
+                    && (!f.isAnnotationPresent(ToEqualsExclude.class))) {
                     try {
                         builder.append(f.get(lhs), f.get(rhs));
                     } catch (final IllegalAccessException e) {

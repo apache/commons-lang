@@ -26,6 +26,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.annotation.ToHashCodeExclude;
 
 /**
  * <p>
@@ -182,7 +183,8 @@ public class HashCodeBuilder implements Builder<Integer> {
                 if (!ArrayUtils.contains(excludeFields, field.getName())
                     && (field.getName().indexOf('$') == -1)
                     && (useTransients || !Modifier.isTransient(field.getModifiers()))
-                    && (!Modifier.isStatic(field.getModifiers()))) {
+                    && (!Modifier.isStatic(field.getModifiers()))
+                    && (!field.isAnnotationPresent(ToHashCodeExclude.class))) {
                     try {
                         final Object fieldValue = field.get(object);
                         builder.append(fieldValue);
