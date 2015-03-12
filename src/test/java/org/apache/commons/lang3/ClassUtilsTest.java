@@ -232,6 +232,42 @@ public class ClassUtilsTest  {
 
     // -------------------------------------------------------------------------
     @Test
+    public void test_getAbbreviatedName_Class() {
+        assertEquals("", ClassUtils.getAbbreviatedName((Class<?>)null, 1));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName(String.class, 1));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName(String.class, 5));
+        assertEquals("j.lang.String", ClassUtils.getAbbreviatedName(String.class, 13));
+        assertEquals("j.lang.String", ClassUtils.getAbbreviatedName(String.class, 15));
+        assertEquals("java.lang.String", ClassUtils.getAbbreviatedName(String.class, 20));
+    }
+
+    @Test
+    public void test_getAbbreviatedName_Class_Exceptions() {
+        try {
+            ClassUtils.getAbbreviatedName(String.class, 0);
+            fail("ClassUtils.getAbbreviatedName() should fail with an "
+                + "IllegalArgumentException for a len value of 0.");
+        } catch (final Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            ClassUtils.getAbbreviatedName(String.class, -10);
+            fail("ClassUtils.getAbbreviatedName() should fail with an "
+                + "IllegalArgumentException for negative values of len.");
+        } catch (final Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
+
+    @Test
+    public void test_getAbbreviatedName_String() {
+        assertEquals("", ClassUtils.getAbbreviatedName((String)null, 1));
+        assertEquals("WithoutPackage", ClassUtils.getAbbreviatedName("WithoutPackage", 1));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", 1));
+    }
+
+    // -------------------------------------------------------------------------
+    @Test
     public void test_getAllSuperclasses_Class() {
         final List<?> list = ClassUtils.getAllSuperclasses(CY.class);
         assertEquals(2, list.size());
