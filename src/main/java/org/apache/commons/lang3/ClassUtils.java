@@ -323,7 +323,7 @@ public class ClassUtils {
      * @param len  the desired length of the abbreviated name
      * @return the abbreviated name or an empty string
      * @throws IllegalArgumentException if len <= 0
-     * @see getAbbreviatedName(String, int)
+     * @see #getAbbreviatedName(String, int)
      * @since 3.4
      */
     public static String getAbbreviatedName(final Class<?> cls, int len) {
