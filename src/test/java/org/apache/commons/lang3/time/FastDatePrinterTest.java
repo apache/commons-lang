@@ -259,27 +259,7 @@ public class FastDatePrinterTest {
         final DatePrinter printer= getInstance(YYYY_MM_DD, NEW_YORK);
         assertEquals(NEW_YORK, printer.getTimeZone());
     }
-    
-    @Test
-    public void testCalendarTimezoneRespected() {
-        final String[] availableZones = TimeZone.getAvailableIDs();
 
-        for (final String zone : availableZones) {
-            TimeZone anotherZone = TimeZone.getTimeZone(zone);
-
-            assertNotNull("Cannot find another timezone", anotherZone);
-            
-            final String pattern = "h:mma z";
-            final Calendar cal = Calendar.getInstance(anotherZone);
-
-            final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-            sdf.setTimeZone(anotherZone);
-            final String expectedValue = sdf.format(cal.getTime());
-            final String actualValue = FastDateFormat.getInstance(pattern).format(cal);
-            assertEquals(expectedValue, actualValue);
-        }
-    }
-    
     @Test
     public void testTimeZoneAsZ() throws Exception {
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
