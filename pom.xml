@@ -632,7 +632,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.3</version>
+        <version>3.4</version>
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>
