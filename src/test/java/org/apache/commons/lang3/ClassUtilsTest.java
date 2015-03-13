@@ -196,7 +196,7 @@ public class ClassUtilsTest  {
     public void test_getPackageName_Class() {
         assertEquals("java.lang", ClassUtils.getPackageName(String.class));
         assertEquals("java.util", ClassUtils.getPackageName(Map.Entry.class));
-        assertEquals("", ClassUtils.getPackageName((Class<?>)null));
+        assertEquals("", ClassUtils.getPackageName((Class<?>) null));
 
         // LANG-535
         assertEquals("java.lang", ClassUtils.getPackageName(String[].class));
@@ -218,7 +218,8 @@ public class ClassUtilsTest  {
         
         // On-the-fly types
         class Named {}
-        assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(new Object(){}.getClass()));
+        assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(new Object() {
+        }.getClass()));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(Named.class));
     }
 
@@ -226,7 +227,7 @@ public class ClassUtilsTest  {
     public void test_getPackageName_String() {
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(ClassUtils.class.getName()));
         assertEquals("java.util", ClassUtils.getPackageName(Map.Entry.class.getName()));
-        assertEquals("", ClassUtils.getPackageName((String)null));
+        assertEquals("", ClassUtils.getPackageName((String) null));
         assertEquals("", ClassUtils.getPackageName(""));
     }
 
@@ -241,27 +242,19 @@ public class ClassUtilsTest  {
         assertEquals("java.lang.String", ClassUtils.getAbbreviatedName(String.class, 20));
     }
 
-    @Test
-    public void test_getAbbreviatedName_Class_Exceptions() {
-        try {
-            ClassUtils.getAbbreviatedName(String.class, 0);
-            fail("ClassUtils.getAbbreviatedName() should fail with an "
-                + "IllegalArgumentException for a len value of 0.");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            ClassUtils.getAbbreviatedName(String.class, -10);
-            fail("ClassUtils.getAbbreviatedName() should fail with an "
-                + "IllegalArgumentException for negative values of len.");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
+    @Test(expected = IllegalArgumentException.class)
+    public void test_getAbbreviatedName_Class_ZeroLen() {
+        ClassUtils.getAbbreviatedName(String.class, 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_getAbbreviatedName_Class_NegativeLen() {
+        ClassUtils.getAbbreviatedName(String.class, -10);
     }
 
     @Test
     public void test_getAbbreviatedName_String() {
-        assertEquals("", ClassUtils.getAbbreviatedName((String)null, 1));
+        assertEquals("", ClassUtils.getAbbreviatedName((String) null, 1));
         assertEquals("WithoutPackage", ClassUtils.getAbbreviatedName("WithoutPackage", 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", 1));
     }
