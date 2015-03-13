@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1092" type="add" dev="britter">Wrong formating of time zones with daylight saving time in FastDatePrinter</action>
     <action issue="LANG-877" type="add" dev="britter" due-to="Fabian Lange">Performance improvements for StringEscapeUtils</action>
     <action issue="LANG-1093" type="add" dev="britter" due-to="Fabian Lange">Add ClassUtils.getAbbreviatedName()</action>
     <action issue="LANG-1090" type="fix" dev="sebb">FastDateParser does not set error indication in ParsePosition</action>

@@ -1162,8 +1162,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public void appendTo(final StringBuffer buffer, final Calendar calendar) {
             final TimeZone zone = calendar.getTimeZone();
-            if (zone.useDaylightTime()
-                    && calendar.get(Calendar.DST_OFFSET) != 0) {
+            if (calendar.get(Calendar.DST_OFFSET) != 0) {
                 buffer.append(getTimeZoneDisplay(zone, true, mStyle, mLocale));
             } else {
                 buffer.append(getTimeZoneDisplay(zone, false, mStyle, mLocale));
