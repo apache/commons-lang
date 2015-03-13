@@ -263,23 +263,20 @@ public class FastDatePrinterTest {
     @Test
     public void testCalendarTimezoneRespected() {
         final String[] availableZones = TimeZone.getAvailableIDs();
-        final TimeZone currentZone = TimeZone.getDefault();
-        
-        for (final String zone : availableZones) {
-            if (!zone.equals(currentZone.getID())) {
-                TimeZone anotherZone = TimeZone.getTimeZone(zone);
 
-                assertNotNull("Cannot find another timezone", anotherZone);
-                
-                final String pattern = "h:mma z";
-                final Calendar cal = Calendar.getInstance(anotherZone);
-                
-                final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-                sdf.setTimeZone(anotherZone);
-                final String expectedValue = sdf.format(cal.getTime());
-                final String actualValue = FastDateFormat.getInstance(pattern).format(cal);
-                assertEquals(expectedValue, actualValue);
-            }
+        for (final String zone : availableZones) {
+            TimeZone anotherZone = TimeZone.getTimeZone(zone);
+
+            assertNotNull("Cannot find another timezone", anotherZone);
+            
+            final String pattern = "h:mma z";
+            final Calendar cal = Calendar.getInstance(anotherZone);
+
+            final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+            sdf.setTimeZone(anotherZone);
+            final String expectedValue = sdf.format(cal.getTime());
+            final String actualValue = FastDateFormat.getInstance(pattern).format(cal);
+            assertEquals(expectedValue, actualValue);
         }
     }
     
