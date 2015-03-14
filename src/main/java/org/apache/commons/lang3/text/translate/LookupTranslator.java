@@ -18,6 +18,7 @@ package org.apache.commons.lang3.text.translate;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -28,34 +29,53 @@ import java.util.HashMap;
  */
 public class LookupTranslator extends CharSequenceTranslator {
 
-    private final HashMap<String, CharSequence> lookupMap;
+    private static class Translation {
+        String match;
+        String replacement;
+
+        public Translation(String match, String replacement) {
+          this.match = match;
+          this.replacement = replacement;
+        }
+    }
+
+    private final HashMap<Character, HashMap<Integer, ArrayList<Translation>>> byFirstChar;
     private final int shortest;
     private final int longest;
 
     /**
      * Define the lookup table to be used in translation
      *
-     * Note that, as of Lang 3.1, the key to the lookup table is converted to a 
-     * java.lang.String, while the value remains as a java.lang.CharSequence. 
-     * This is because we need the key to support hashCode and equals(Object), 
-     * allowing it to be the key for a HashMap. See LANG-882.
-     *
      * @param lookup CharSequence[][] table of size [*][2]
      */
     public LookupTranslator(final CharSequence[]... lookup) {
-        lookupMap = new HashMap<String, CharSequence>();
+        byFirstChar = new HashMap<Character, HashMap<Integer, ArrayList<Translation>>>();
         int _shortest = Integer.MAX_VALUE;
         int _longest = 0;
         if (lookup != null) {
             for (final CharSequence[] seq : lookup) {
-                this.lookupMap.put(seq[0].toString(), seq[1]);
-                final int sz = seq[0].length();
-                if (sz < _shortest) {
-                    _shortest = sz;
+                String match = seq[0].toString();
+                String replacement = seq[1].toString();
+                int len = match.length();
+                if (len < _shortest) {
+                    _shortest = len;
                 }
-                if (sz > _longest) {
-                    _longest = sz;
+                if (len > _longest) {
+                    _longest = len;
                 }
+                Character firstChar = match.charAt(0);
+                HashMap<Integer, ArrayList<Translation>> byLen = byFirstChar.get(firstChar);
+                if (byLen == null) {
+                    byLen = new HashMap<Integer, ArrayList<Translation>>();
+                    byFirstChar.put(firstChar, byLen);
+                }
+                ArrayList<Translation> translations = byLen.get(len);
+                if (translations == null) {
+                    translations = new ArrayList<Translation>();
+                    byLen.put(len, translations);
+                }
+
+                translations.add(new Translation(match, replacement));
             }
         }
         shortest = _shortest;
@@ -71,15 +91,40 @@ public class LookupTranslator extends CharSequenceTranslator {
         if (index + longest > input.length()) {
             max = input.length() - index;
         }
-        // descend so as to get a greedy algorithm
-        for (int i = max; i >= shortest; i--) {
-            final CharSequence subSeq = input.subSequence(index, index + i);
-            final CharSequence result = lookupMap.get(subSeq.toString());
-            if (result != null) {
-                out.write(result.toString());
-                return i;
+
+        HashMap<Integer, ArrayList<Translation>> byLen = byFirstChar.get(input.charAt(index));
+        if (byLen != null) {
+
+            // Implement greedy algorithm by trying descending length
+            for (int len = max; len >= shortest; len--) {
+                ArrayList<Translation> translations = byLen.get(len);
+                if (translations != null) {
+                    // iterate over all replacements check if they match
+                    for (Translation translation : translations) {
+                        if (translationMatches(translation, input, index)) {
+                          out.write(translation.replacement);
+                          return len;
+                        }
+                    }
+                }
             }
         }
         return 0;
+    }
+
+    private boolean translationMatches(Translation translation, CharSequence input, int index) {
+        String match = translation.match;
+        // translation match is checked against input. Doing this char by char is more efficient
+        // than getting a substring and hashing it (which would always need to allocate substrings).
+        if (input instanceof String) {
+            // for Strings startsWith is slightly faster when match is longer than 1
+            return ((String) input).startsWith(match, index);
+        }
+        for (int i = 0; i < match.length(); i++) {
+            if (input.charAt(index + i) != match.charAt(i)) {
+              return false;
+            }
+        }
+        return true;
     }
 }
