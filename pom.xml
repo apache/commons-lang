@@ -469,6 +469,15 @@
     <contributor>
       <name>Jonathan Baker</name>
     </contributor>
+    <contributor>
+      <name>Mikhail Mazursky</name>
+    </contributor>
+    <contributor>
+      <name>Fabian Lange</name>
+    </contributor>
+    <contributor>
+      <name>Michał Kordas</name>
+    </contributor>
   </contributors>
 
   <!-- Lang should depend on very little -->
