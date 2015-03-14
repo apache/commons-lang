@@ -505,7 +505,10 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     public StrBuilder append(final Object obj) {
         if (obj == null) {
             return appendNull();
-        } 
+        }
+        if (obj instanceof CharSequence) {
+            return append((CharSequence) obj);
+        }
         return append(obj.toString());        
     }
 
@@ -521,7 +524,19 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     public StrBuilder append(final CharSequence seq) {
         if (seq == null) {
             return appendNull();
-        } 
+        }
+        if (seq instanceof StrBuilder) {
+            return append((StrBuilder) seq);
+        }
+        if (seq instanceof StringBuilder) {
+            return append((StringBuilder) seq);
+        }
+        if (seq instanceof StringBuffer) {
+            return append((StringBuffer) seq);
+        }
+        if (seq instanceof CharBuffer) {
+            return append((CharBuffer) seq);
+        }
         return append(seq.toString());        
     }
 
@@ -604,6 +619,62 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder append(final String format, final Object... objs) {
         return append(String.format(format, objs));
+    }
+
+    /**
+     * Appends the contents of a char buffer to this string builder.
+     * Appending null will call {@link #appendNull()}.
+     *
+     * @param buf  the char buffer to append
+     * @return this, to enable chaining
+     * @since 3.4
+     */
+    public StrBuilder append(final CharBuffer buf) {
+        if (buf == null) {
+            return appendNull();
+        }
+        if (buf.hasArray()) {
+            final int length = buf.remaining();
+            final int len = length();
+            ensureCapacity(len + length);
+            System.arraycopy(buf.array(), buf.arrayOffset() + buf.position(), buffer, len, length);
+            size += length;
+        } else {
+            append(buf.toString());
+        }
+        return this;
+    }
+
+    /**
+     * Appends the contents of a char buffer to this string builder.
+     * Appending null will call {@link #appendNull()}.
+     *
+     * @param buf  the char buffer to append
+     * @param startIndex  the start index, inclusive, must be valid
+     * @param length  the length to append, must be valid
+     * @return this, to enable chaining
+     * @since 3.4
+     */
+    public StrBuilder append(final CharBuffer buf, final int startIndex, final int length) {
+        if (buf == null) {
+            return appendNull();
+        }
+        if (buf.hasArray()) {
+            final int totalLength = buf.remaining();
+            if (startIndex < 0 || startIndex > totalLength) {
+                throw new StringIndexOutOfBoundsException("startIndex must be valid");
+            }
+            if (length < 0 || (startIndex + length) > totalLength) {
+                throw new StringIndexOutOfBoundsException("length must be valid");
+            }
+            final int len = length();
+            ensureCapacity(len + length);
+            System.arraycopy(buf.array(), buf.arrayOffset() + buf.position() + startIndex, buffer, len, length);
+            size += length;
+        } else {
+            append(buf.toString(), startIndex, length);
+        }
+        return this;
     }
 
     /**
