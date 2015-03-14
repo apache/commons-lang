@@ -1940,6 +1940,21 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
+    public void testAppendCharBuffer() {
+        final StrBuilder sb1 = new StrBuilder();
+        final CharBuffer buf = CharBuffer.allocate(10);
+        buf.append("0123456789");
+        buf.flip();
+        sb1.append(buf);
+        assertEquals("0123456789", sb1.toString());
+
+        final StrBuilder sb2 = new StrBuilder();
+        sb2.append(buf, 1, 8);
+        assertEquals("12345678", sb2.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
     public void testAppendToWriter() throws Exception {
         final StrBuilder sb = new StrBuilder("1234567890");
         final StringWriter writer = new StringWriter();
