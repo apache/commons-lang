@@ -19,6 +19,7 @@ package org.apache.commons.lang3.text.translate;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Translates a value using a lookup table.
@@ -29,6 +30,7 @@ import java.util.HashMap;
 public class LookupTranslator extends CharSequenceTranslator {
 
     private final HashMap<String, CharSequence> lookupMap;
+    private final HashSet<Character> prefixSet;
     private final int shortest;
     private final int longest;
 
@@ -44,11 +46,13 @@ public class LookupTranslator extends CharSequenceTranslator {
      */
     public LookupTranslator(final CharSequence[]... lookup) {
         lookupMap = new HashMap<String, CharSequence>();
+        prefixSet = new HashSet<Character>();
         int _shortest = Integer.MAX_VALUE;
         int _longest = 0;
         if (lookup != null) {
             for (final CharSequence[] seq : lookup) {
                 this.lookupMap.put(seq[0].toString(), seq[1]);
+                this.prefixSet.add(seq[0].charAt(0));
                 final int sz = seq[0].length();
                 if (sz < _shortest) {
                     _shortest = sz;
@@ -71,10 +75,17 @@ public class LookupTranslator extends CharSequenceTranslator {
         if (index + longest > input.length()) {
             max = input.length() - index;
         }
+
+        if (!prefixSet.contains(input.charAt(index))) {
+            // no translation exists for the input at position index
+            return 0;
+        }
+
         // descend so as to get a greedy algorithm
         for (int i = max; i >= shortest; i--) {
             final CharSequence subSeq = input.subSequence(index, index + i);
             final CharSequence result = lookupMap.get(subSeq.toString());
+
             if (result != null) {
                 out.write(result.toString());
                 return i;
