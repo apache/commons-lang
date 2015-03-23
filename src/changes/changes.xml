@@ -22,8 +22,8 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
-    <action issue="LANG-1100" type="update" dev="chas" due-to="mbracher">Avoid memory allocation when using date formating to StringBuffer</action>
     <action issue="LANG-1101" type="update" dev="chas">FastDateParser and FastDatePrinter support 'X' format</action>
+    <action issue="LANG-1100" type="update" dev="chas" due-to="mbracher">Avoid memory allocation when using date formating to StringBuffer</action>
     <action issue="LANG-935" type="update" dev="britter" due-to="Fabian Lange, Thomas Neidhart">Possible performance improvement on string escape functions</action>
     <action issue="LANG-948" type="fix" dev="britter" due-to="Andrey Khobnya">Exception while using ExtendedMessageFormat and escaping braces</action>
     <action issue="LANG-1098" type="update" dev="britter" due-to="Mikhail Mazurskiy, Fabian Lange">Avoid String allocation in StrBuilder.append(CharSequence)</action>
