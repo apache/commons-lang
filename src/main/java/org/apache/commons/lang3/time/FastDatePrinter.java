@@ -32,8 +32,6 @@ import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.apache.commons.lang3.Validate;
-
 /**
  * <p>FastDatePrinter is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
@@ -778,10 +776,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             if (value < 10) {
                 buffer.append((char)(value + '0'));
             } else if (value < 100) {
-                buffer.append((char)(value / 10 + '0'));
-                buffer.append((char)(value % 10 + '0'));
+                appendDigits(buffer, value);
             } else {
-                buffer.append(Integer.toString(value));
+                buffer.append(value);
             }
         }
     }
@@ -856,7 +853,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public int estimateLength() {
-            return 4;
+            return mSize;
         }
 
         /**
@@ -871,24 +868,15 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * {@inheritDoc}
          */
         @Override
-        public final void appendTo(final StringBuffer buffer, final int value) {
-            if (value < 100) {
-                for (int i = mSize; --i >= 2; ) {
-                    buffer.append('0');
-                }
-                appendDigits(buffer, value);
-            } else {
-                int digits;
-                if (value < 1000) {
-                    digits = 3;
-                } else {
-                    Validate.isTrue(value > -1, "Negative values should not be possible", value);
-                    digits = Integer.toString(value).length();
-                }
-                for (int i = mSize; --i >= digits; ) {
-                    buffer.append('0');
-                }
-                buffer.append(Integer.toString(value));
+        public final void appendTo(final StringBuffer buffer, int value) {
+            // pad the buffer with adequate zeros
+            for(int digit = 0; digit<mSize; ++digit) {
+                buffer.append('0');                
+            }
+            // backfill the buffer with non-zero digits
+            int index = buffer.length();
+            for( ; value>0; value /= 10) {
+                buffer.setCharAt(--index, (char)('0' + value % 10));
             }
         }
     }
@@ -932,7 +920,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             if (value < 100) {
                 appendDigits(buffer, value);
             } else {
-                buffer.append(Integer.toString(value));
+                buffer.append(value);
             }
         }
     }
