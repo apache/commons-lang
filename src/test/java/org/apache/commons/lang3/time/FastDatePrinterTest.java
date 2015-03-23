@@ -310,7 +310,6 @@ public class FastDatePrinterTest {
         final String three;
     }
 
-
     @Test
     public void test1806() throws ParseException {
         for (Expected1806 trial : Expected1806.values()) {
@@ -325,5 +324,17 @@ public class FastDatePrinterTest {
             printer = getInstance("XXX", trial.zone);
             assertEquals(trial.three, printer.format(cal));
         }
+    }
+    
+    @Test
+    public void testLang1103() throws ParseException {
+        Calendar cal = Calendar.getInstance(SWEDEN);
+        cal.set(Calendar.DAY_OF_MONTH, 2);
+
+        assertEquals("2", getInstance("d", SWEDEN).format(cal));
+        assertEquals("02", getInstance("dd", SWEDEN).format(cal));
+        assertEquals("002", getInstance("ddd", SWEDEN).format(cal));
+        assertEquals("0002", getInstance("dddd", SWEDEN).format(cal));
+        assertEquals("00002", getInstance("ddddd", SWEDEN).format(cal));
     }
 }
