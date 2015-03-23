@@ -1858,7 +1858,7 @@ public class ArrayUtils {
      *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
-     * @param offset1 the index of the second element to swap
+     * @param offset2 the index of the second element to swap
      * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final Object[] array, int offset1, int offset2) {
@@ -1875,7 +1875,7 @@ public class ArrayUtils {
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
-     * @param offset1 the index of the second element to swap
+     * @param offset2 the index of the second element to swap
      * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final long[] array, int offset1, int offset2) {
@@ -1892,7 +1892,7 @@ public class ArrayUtils {
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
-     * @param offset1 the index of the second element to swap
+     * @param offset2 the index of the second element to swap
      * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final int[] array, int offset1, int offset2) {
@@ -1909,7 +1909,7 @@ public class ArrayUtils {
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
-     * @param offset1 the index of the second element to swap
+     * @param offset2 the index of the second element to swap
      * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final short[] array, int offset1, int offset2) {
@@ -1926,7 +1926,7 @@ public class ArrayUtils {
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
-     * @param offset1 the index of the second element to swap
+     * @param offset2 the index of the second element to swap
      * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final char[] array, int offset1, int offset2) {
@@ -1943,7 +1943,7 @@ public class ArrayUtils {
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
-     * @param offset1 the index of the second element to swap
+     * @param offset2 the index of the second element to swap
      * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final byte[] array, int offset1, int offset2) {
@@ -1960,7 +1960,7 @@ public class ArrayUtils {
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
-     * @param offset1 the index of the second element to swap
+     * @param offset2 the index of the second element to swap
      * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final double[] array, int offset1, int offset2) {
@@ -1977,7 +1977,7 @@ public class ArrayUtils {
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
-     * @param offset1 the index of the second element to swap
+     * @param offset2 the index of the second element to swap
      * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final float[] array, int offset1, int offset2) {
@@ -1994,7 +1994,7 @@ public class ArrayUtils {
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
-     * @param offset1 the index of the second element to swap
+     * @param offset2 the index of the second element to swap
      * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final boolean[] array, int offset1, int offset2) {
@@ -2011,7 +2011,7 @@ public class ArrayUtils {
      * 
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
-     * @param offset1 the index of the second element in the series to swap
+     * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
@@ -2033,7 +2033,7 @@ public class ArrayUtils {
      * 
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
-     * @param offset1 the index of the second element in the series to swap
+     * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
@@ -2056,7 +2056,7 @@ public class ArrayUtils {
      * 
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
-     * @param offset1 the index of the second element in the series to swap
+     * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
@@ -2078,7 +2078,7 @@ public class ArrayUtils {
      * 
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
-     * @param offset1 the index of the second element in the series to swap
+     * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
@@ -2100,7 +2100,7 @@ public class ArrayUtils {
      * 
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
-     * @param offset1 the index of the second element in the series to swap
+     * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
@@ -2122,7 +2122,7 @@ public class ArrayUtils {
      * 
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
-     * @param offset1 the index of the second element in the series to swap
+     * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
@@ -2144,7 +2144,7 @@ public class ArrayUtils {
      * 
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
-     * @param offset1 the index of the second element in the series to swap
+     * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
@@ -2166,7 +2166,7 @@ public class ArrayUtils {
      * 
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
-     * @param offset1 the index of the second element in the series to swap
+     * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
@@ -2188,7 +2188,7 @@ public class ArrayUtils {
     * 
     * @param array the array to swap, may be {@code null}
     * @param offset1 the index of the first element in the series to swap
-    * @param offset1 the index of the second element in the series to swap
+    * @param offset2 the index of the second element in the series to swap
     * @param len the number of elements to swap starting with the given indices
     * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
     */
