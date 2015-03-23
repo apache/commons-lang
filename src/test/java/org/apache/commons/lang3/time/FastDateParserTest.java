@@ -558,62 +558,62 @@ public class FastDateParserTest {
         assertEquals(expected.getTime(), fdp.parse("14May2014"));
     }
     
-	@Test(expected = IllegalArgumentException.class)
-	public void test1806Argument() {
-		getInstance("XXXX");
-	}
+    @Test(expected = IllegalArgumentException.class)
+    public void test1806Argument() {
+        getInstance("XXXX");
+    }
 
-	private static Calendar initializeCalendar(TimeZone tz) {
-		Calendar cal = Calendar.getInstance(tz);
-		cal.set(Calendar.YEAR, 2001);
-		cal.set(Calendar.MONTH, 1); // not daylight savings
-		cal.set(Calendar.DAY_OF_MONTH, 4);
-		cal.set(Calendar.HOUR_OF_DAY, 12);
-		cal.set(Calendar.MINUTE, 8);
-		cal.set(Calendar.SECOND, 56);
-		cal.set(Calendar.MILLISECOND, 235);
-		return cal;
-	}
+    private static Calendar initializeCalendar(TimeZone tz) {
+        Calendar cal = Calendar.getInstance(tz);
+        cal.set(Calendar.YEAR, 2001);
+        cal.set(Calendar.MONTH, 1); // not daylight savings
+        cal.set(Calendar.DAY_OF_MONTH, 4);
+        cal.set(Calendar.HOUR_OF_DAY, 12);
+        cal.set(Calendar.MINUTE, 8);
+        cal.set(Calendar.SECOND, 56);
+        cal.set(Calendar.MILLISECOND, 235);
+        return cal;
+    }
 
-	private static enum Expected1806 {
-		India(INDIA, "+05", "+0530", "+05:30", true), 
-		Greenwich(GMT, "Z", "Z", "Z", false), 
-		NewYork(NEW_YORK, "-05", "-0500", "-05:00", false);
+    private static enum Expected1806 {
+        India(INDIA, "+05", "+0530", "+05:30", true), 
+        Greenwich(GMT, "Z", "Z", "Z", false), 
+        NewYork(NEW_YORK, "-05", "-0500", "-05:00", false);
 
-		private Expected1806(TimeZone zone, String one, String two, String three, boolean hasHalfHourOffset) {
-			this.zone = zone;
-			this.one = one;
-			this.two = two;
-			this.three = three;
-			this.offset = hasHalfHourOffset ?30*60*1000 :0;
-		}
+        private Expected1806(TimeZone zone, String one, String two, String three, boolean hasHalfHourOffset) {
+            this.zone = zone;
+            this.one = one;
+            this.two = two;
+            this.three = three;
+            this.offset = hasHalfHourOffset ?30*60*1000 :0;
+        }
 
-		final TimeZone zone;
-		final String one;
-		final String two;
-		final String three;
-		final long offset;
-	}
-	
-	@Test
-	public void test1806() throws ParseException {
-		String formatStub = "yyyy-MM-dd'T'HH:mm:ss.SSS";
-		String dateStub = "2001-02-04T12:08:56.235";
-		
-		for (Expected1806 trial : Expected1806.values()) {
-			Calendar cal = initializeCalendar(trial.zone);
+        final TimeZone zone;
+        final String one;
+        final String two;
+        final String three;
+        final long offset;
+    }
+    
+    @Test
+    public void test1806() throws ParseException {
+        String formatStub = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+        String dateStub = "2001-02-04T12:08:56.235";
+        
+        for (Expected1806 trial : Expected1806.values()) {
+            Calendar cal = initializeCalendar(trial.zone);
 
-			String message = trial.zone.getDisplayName()+";";
-			
-			DateParser parser = getInstance(formatStub+"X", trial.zone);
-			assertEquals(message+trial.one, cal.getTime().getTime(), parser.parse(dateStub+trial.one).getTime()-trial.offset);
+            String message = trial.zone.getDisplayName()+";";
+            
+            DateParser parser = getInstance(formatStub+"X", trial.zone);
+            assertEquals(message+trial.one, cal.getTime().getTime(), parser.parse(dateStub+trial.one).getTime()-trial.offset);
 
-			parser = getInstance(formatStub+"XX", trial.zone);
-			assertEquals(message+trial.two, cal.getTime(), parser.parse(dateStub+trial.two));
+            parser = getInstance(formatStub+"XX", trial.zone);
+            assertEquals(message+trial.two, cal.getTime(), parser.parse(dateStub+trial.two));
 
-			parser = getInstance(formatStub+"XXX", trial.zone);
-			assertEquals(message+trial.three, cal.getTime(), parser.parse(dateStub+trial.three));
-		}
-	}
+            parser = getInstance(formatStub+"XXX", trial.zone);
+            assertEquals(message+trial.three, cal.getTime(), parser.parse(dateStub+trial.three));
+        }
+    }
 
 }

@@ -99,7 +99,7 @@ public class FastDateParser implements DateParser, Serializable {
      * 
      * Use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} or another variation of the 
      * factory methods of {@link FastDateFormat} to get a cached FastDateParser instance.
-	 *
+     *
      * @param pattern non-null {@link java.text.SimpleDateFormat} compatible
      *  pattern
      * @param timeZone non-null time zone to use
@@ -529,7 +529,7 @@ public class FastDateParser implements DateParser, Serializable {
         case 'y':
             return formatField.length()>2 ?LITERAL_YEAR_STRATEGY :ABBREVIATED_YEAR_STRATEGY;
         case 'X':
-        	return ISO8601TimeZoneStrategy.getStrategy(formatField.length());
+            return ISO8601TimeZoneStrategy.getStrategy(formatField.length());
         case 'Z':
             if (formatField.equals("ZZ")) {
                 return ISO_8601_STRATEGY;
@@ -840,10 +840,10 @@ public class FastDateParser implements DateParser, Serializable {
     
     private static class ISO8601TimeZoneStrategy extends Strategy {
         // Z, +hh, -hh, +hhmm, -hhmm, +hh:mm or -hh:mm 
-    	private final String pattern;
+        private final String pattern;
         
         ISO8601TimeZoneStrategy(String pattern) {
-        	this.pattern = pattern;
+            this.pattern = pattern;
         }
         
         /**
@@ -871,18 +871,18 @@ public class FastDateParser implements DateParser, Serializable {
         private static final Strategy ISO_8601_2_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}\\d{2}))");
         private static final Strategy ISO_8601_3_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}(?::)\\d{2}))");
 
-		static Strategy getStrategy(int tokenLen) {
-    		switch(tokenLen) {
-    		case 1:
-    			return ISO_8601_1_STRATEGY;
-    		case 2:
-    			return ISO_8601_2_STRATEGY;
-    		case 3:
-    			return ISO_8601_3_STRATEGY;
-    		default:
-    			throw new IllegalArgumentException("invalid number of X");    				
-    		}
-		}
+        static Strategy getStrategy(int tokenLen) {
+            switch(tokenLen) {
+            case 1:
+                return ISO_8601_1_STRATEGY;
+            case 2:
+                return ISO_8601_2_STRATEGY;
+            case 3:
+                return ISO_8601_3_STRATEGY;
+            default:
+                throw new IllegalArgumentException("invalid number of X");                    
+            }
+        }
     }
 
     private static final Strategy NUMBER_MONTH_STRATEGY = new NumberStrategy(Calendar.MONTH) {

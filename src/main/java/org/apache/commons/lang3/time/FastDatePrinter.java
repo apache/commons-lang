@@ -272,7 +272,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 rule = selectNumberRule(Calendar.HOUR, tokenLen);
                 break;
             case 'X': // ISO 8601 
-            	rule = Iso8601_Rule.getRule(tokenLen);
+                rule = Iso8601_Rule.getRule(tokenLen);
                 break;    
             case 'z': // time zone (text)
                 if (tokenLen >= 4) {
@@ -590,10 +590,10 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         init();
     }
 
-	private static void appendDigits(final StringBuffer buffer, final int value) {
-		buffer.append((char)(value / 10 + '0'));
-		buffer.append((char)(value % 10 + '0'));
-	}
+    private static void appendDigits(final StringBuffer buffer, final int value) {
+        buffer.append((char)(value / 10 + '0'));
+        buffer.append((char)(value % 10 + '0'));
+    }
 
     // Rules
     //-----------------------------------------------------------------------
@@ -824,7 +824,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             if (value < 10) {
                 buffer.append((char)(value + '0'));
             } else {
-            	appendDigits(buffer, value);
+                appendDigits(buffer, value);
             }
         }
     }
@@ -1130,7 +1130,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         return value;
     }
 
-	/**
+    /**
      * <p>Inner class to output a time zone name.</p>
      */
     private static class TimeZoneNameRule implements Rule {
@@ -1246,26 +1246,26 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * or {@code +/-HH:MM}.</p>
      */
     private static class Iso8601_Rule implements Rule {
-    	
-    	// Sign TwoDigitHours or Z
+        
+        // Sign TwoDigitHours or Z
         static final Iso8601_Rule ISO8601_HOURS = new Iso8601_Rule(3);       
-    	// Sign TwoDigitHours Minutes or Z
+        // Sign TwoDigitHours Minutes or Z
         static final Iso8601_Rule ISO8601_HOURS_MINUTES = new Iso8601_Rule(5);
-    	// Sign TwoDigitHours : Minutes or Z
+        // Sign TwoDigitHours : Minutes or Z
         static final Iso8601_Rule ISO8601_HOURS_COLON_MINUTES = new Iso8601_Rule(6);
 
         static Iso8601_Rule getRule(int tokenLen) {
-    		switch(tokenLen) {
-    		case 1:
-    			return Iso8601_Rule.ISO8601_HOURS;
-    		case 2:
-    			return Iso8601_Rule.ISO8601_HOURS_MINUTES;
-    		case 3:
-    			return Iso8601_Rule.ISO8601_HOURS_COLON_MINUTES;
-    		default:
-    			throw new IllegalArgumentException("invalid number of X");    				
-    		}
-    	}    	
+            switch(tokenLen) {
+            case 1:
+                return Iso8601_Rule.ISO8601_HOURS;
+            case 2:
+                return Iso8601_Rule.ISO8601_HOURS_MINUTES;
+            case 3:
+                return Iso8601_Rule.ISO8601_HOURS_COLON_MINUTES;
+            default:
+                throw new IllegalArgumentException("invalid number of X");                    
+            }
+        }        
         
         final int length;
 
@@ -1275,7 +1275,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * @param length The number of characters in output (unless Z is output)
          */
         Iso8601_Rule(final int length) {
-        	this.length = length;
+            this.length = length;
         }
 
         /**
@@ -1292,7 +1292,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public void appendTo(final StringBuffer buffer, final Calendar calendar) {
             int zoneOffset = calendar.get(Calendar.ZONE_OFFSET);
-			if (zoneOffset == 0) {
+            if (zoneOffset == 0) {
                 buffer.append("Z");
                 return;
             }
@@ -1310,7 +1310,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             appendDigits(buffer, hours);
 
             if (length<5) {
-            	return;
+                return;
             }
             
             if (length==6) {
