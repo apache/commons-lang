@@ -2123,9 +2123,21 @@ public class ArrayUtilsTest  {
     public void testSwapChar() {
         char[] array = new char[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 2);
-        assertEquals(3, array[0]);
-        assertEquals(2, array[1]);
-        assertEquals(1, array[2]);
+        assertArrayEquals(new char[] {3, 2, 1}, array);
+        
+        array = new char[] {1, 2, 3};
+        ArrayUtils.swap(array, 0, 0);
+        assertArrayEquals(new char[] {1, 2, 3}, array);
+        
+        array = new char[] {1, 2, 3};
+        ArrayUtils.swap(array, 1, 0);
+        assertArrayEquals(new char[] {2, 1, 3}, array);
+    }
+    
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void testSwapCharOutOfBounds() {
+        char[] array = new char[] {1, 2, 3};
+        ArrayUtils.swap(array, 0, 5);
     }
 
     @Test
