@@ -2134,12 +2134,6 @@ public class ArrayUtilsTest  {
         assertArrayEquals(new char[] {2, 1, 3}, array);
     }
     
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapCharOutOfBounds() {
-        char[] array = new char[] {1, 2, 3};
-        ArrayUtils.swap(array, 0, 5);
-    }
-
     @Test
     public void testSwapCharRange() {
         char[] array = new char[] {1, 2, 3, 4};
@@ -2241,6 +2235,18 @@ public class ArrayUtilsTest  {
         assertEquals(4, array[1]);
         assertEquals(1, array[2]);
         assertEquals(2, array[3]);
+    }
+    
+    @Test
+    public void testSwapIntExchangedOffsets() {
+        int[] array;
+        array = new int[] {1, 2, 3};
+        ArrayUtils.swap(array, 0, 1, 2);
+        assertArrayEquals(new int[] {2, 3, 1}, array);
+        
+        array = new int[] {1, 2, 3};
+        ArrayUtils.swap(array, 1, 0, 2);
+        assertArrayEquals(new int[] {2, 3, 1}, array);
     }
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
