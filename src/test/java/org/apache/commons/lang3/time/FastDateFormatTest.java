@@ -196,7 +196,7 @@ public class FastDateFormatTest {
         assertEquals(sdf.toPattern(), format.getPattern());
         
         assertEquals(Locale.getDefault(), format.getLocale());
-        assertEquals(TimeZone.getDefault(), format.getTimeZone());        
+        assertEquals(TimeZone.getDefault(), format.getTimeZone());
     }
 
     @Test
@@ -208,7 +208,7 @@ public class FastDateFormatTest {
         
         assertFalse(shortShort.equals(shortLong));
         assertFalse(shortShort.equals(longShort));
-        assertFalse(shortShort.equals(longLong));      
+        assertFalse(shortShort.equals(longLong));
         assertFalse(shortLong.equals(longShort));
         assertFalse(shortLong.equals(longLong));
         assertFalse(longShort.equals(longLong));
@@ -308,11 +308,14 @@ public class FastDateFormatTest {
                             e.printStackTrace();
                         }
                     }
-                }                
+                }
             });
         }
-        pool.shutdown();                        
-        if(!pool.awaitTermination(20, TimeUnit.SECONDS)) {
+        pool.shutdown();
+        // depending on the performance of the machine used to run the parsing,
+        // the tests can run for a while. It should however complete within
+        // 30 seconds. Might need increase on very slow machines.
+        if(!pool.awaitTermination(30, TimeUnit.SECONDS)) {
             pool.shutdownNow();
             fail("did not complete tasks");
         }

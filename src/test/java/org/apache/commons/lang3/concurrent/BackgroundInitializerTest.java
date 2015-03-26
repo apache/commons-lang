@@ -17,7 +17,9 @@
 package org.apache.commons.lang3.concurrent;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -66,7 +68,7 @@ public class BackgroundInitializerTest {
      * Tests whether an external executor is correctly detected.
      */
     @Test
-    public void testGetActiveExecutorExternal() {
+    public void testGetActiveExecutorExternal() throws InterruptedException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
             final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl(
@@ -76,6 +78,7 @@ public class BackgroundInitializerTest {
             checkInitialize(init);
         } finally {
             exec.shutdown();
+            exec.awaitTermination(1, TimeUnit.SECONDS);
         }
     }
 
@@ -130,14 +133,18 @@ public class BackgroundInitializerTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the test implementation may throw it
      */
     @Test
-    public void testSetExternalExecutorAfterStart() throws ConcurrentException {
+    public void testSetExternalExecutorAfterStart() throws ConcurrentException, InterruptedException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
+        ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
-            init.setExternalExecutor(Executors.newSingleThreadExecutor());
+            init.setExternalExecutor(exec);
             fail("Could set executor after start()!");
         } catch (final IllegalStateException istex) {
             init.get();
+        } finally {
+            exec.shutdown();
+            exec.awaitTermination(1, TimeUnit.SECONDS);
         }
     }
 
@@ -235,7 +242,7 @@ public class BackgroundInitializerTest {
         getThread.interrupt();
         latch1.await();
         exec.shutdownNow();
-        exec.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+        exec.awaitTermination(1, TimeUnit.SECONDS);
         assertNotNull("No interrupted exception", iex.get());
     }
 

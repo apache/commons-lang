@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -152,7 +153,7 @@ public class MultiBackgroundInitializerTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testInitializeExternalExec() throws ConcurrentException {
+    public void testInitializeExternalExec() throws ConcurrentException, InterruptedException {
         final ExecutorService exec = Executors.newCachedThreadPool();
         try {
             initializer = new MultiBackgroundInitializer(exec);
@@ -162,6 +163,7 @@ public class MultiBackgroundInitializerTest {
             assertFalse("Executor was shutdown", exec.isShutdown());
         } finally {
             exec.shutdown();
+            exec.awaitTermination(1, TimeUnit.SECONDS);
         }
     }
 
@@ -172,7 +174,7 @@ public class MultiBackgroundInitializerTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testInitializeChildWithExecutor() throws ConcurrentException {
+    public void testInitializeChildWithExecutor() throws ConcurrentException, InterruptedException {
         final String initExec = "childInitializerWithExecutor";
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
@@ -187,6 +189,7 @@ public class MultiBackgroundInitializerTest {
             checkChild(c2, exec);
         } finally {
             exec.shutdown();
+            exec.awaitTermination(1, TimeUnit.SECONDS);
         }
     }
 
