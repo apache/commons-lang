@@ -322,7 +322,7 @@ public class ClassUtils {
      * @param cls  the class to get the abbreviated name for, may be {@code null}
      * @param len  the desired length of the abbreviated name
      * @return the abbreviated name or an empty string
-     * @throws IllegalArgumentException if len <= 0
+     * @throws IllegalArgumentException if len &lt;= 0
      * @see #getAbbreviatedName(String, int)
      * @since 3.4
      */
@@ -345,7 +345,7 @@ public class ClassUtils {
      * length.</p>
      *
      * <p>The following table illustrates the algorithm:</p>
-     * <table>
+     * <table summary="abbreviation examples">
      * <tr><td>className</td><td>len</td><td>return</td></tr>
      * <tr><td>              null</td><td> 1</td><td>""</td></tr>
      * <tr><td>"java.lang.String"</td><td> 5</td><td>"j.l.String"</td></tr>
@@ -355,7 +355,7 @@ public class ClassUtils {
      * @param className  the className to get the abbreviated name for, may be {@code null}
      * @param len  the desired length of the abbreviated name
      * @return the abbreviated name or an empty string
-     * @throws IllegalArgumentException if len <= 0
+     * @throws IllegalArgumentException if len &lt;= 0
      * @since 3.4
      */
     public static String getAbbreviatedName(String className, int len) {
