@@ -373,6 +373,33 @@ public class SystemUtilsTest {
     }
 
     @Test
+    public void testMatchOSMajorMinorVersion() {
+        String osName = "Mac OS X";
+        String osVersion = null;
+        assertFalse(SystemUtils.isOSMajorMinorVersionMatch(osName, osVersion, "Mac OS X", "10.10"));
+        osVersion = "10.10";
+        assertTrue(SystemUtils.isOSMajorMinorVersionMatch(osName, osVersion, "Mac OS X", "10.10"));
+        assertFalse(SystemUtils.isOSMajorMinorVersionMatch(osName, osVersion, "Mac OS X", "10.1"));
+        osVersion = "10.1";
+        assertFalse(SystemUtils.isOSMajorMinorVersionMatch(osName, osVersion, "Mac OS X", "10.10"));
+        assertTrue(SystemUtils.isOSMajorMinorVersionMatch(osName, osVersion, "Mac OS X", "10.1"));
+        osVersion = "10.10.1";
+        assertTrue(SystemUtils.isOSMajorMinorVersionMatch(osName, osVersion, "Mac OS X", "10.10"));
+        osVersion = "10.10.10";
+        assertTrue(SystemUtils.isOSMajorMinorVersionMatch(osName, osVersion, "Mac OS X", "10.10"));
+    }
+
+
+    @Test
+    public void testNotConfuseMacOSXPumaAndYosemite() {
+        if (SystemUtils.IS_OS_MAC_OSX_YOSEMITE) {
+            assertFalse(SystemUtils.IS_OS_MAC_OSX_PUMA);
+        } else if (SystemUtils.IS_OS_MAC_OSX_PUMA) {
+            assertFalse(SystemUtils.IS_OS_MAC_OSX_YOSEMITE);
+        }
+    }
+
+    @Test
     public void testJavaAwtHeadless() {
         final boolean atLeastJava14 = SystemUtils.isJavaVersionAtLeast(JAVA_1_4);
         final String expectedStringValue = System.getProperty("java.awt.headless");

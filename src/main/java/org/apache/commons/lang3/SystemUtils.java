@@ -1033,6 +1033,138 @@ public class SystemUtils {
 
     /**
      * <p>
+     * Is {@code true} if this is Mac OS X Cheetah.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+
+    public static final boolean IS_OS_MAC_OSX_CHEETAH = getOSMajorMinorVersionMatches("Mac OS X", "10.0");
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Puma.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_PUMA = getOSMajorMinorVersionMatches("Mac OS X", "10.1");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Jaguar.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_JAGUAR = getOSMajorMinorVersionMatches("Mac OS X", "10.2");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Panther.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_PANTHER = getOSMajorMinorVersionMatches("Mac OS X", "10.3");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Tiger.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_TIGER = getOSMajorMinorVersionMatches("Mac OS X", "10.4");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Leopard.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_LEOPARD = getOSMajorMinorVersionMatches("Mac OS X", "10.5");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Snow Leopard.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_SNOW_LEOPARD = getOSMajorMinorVersionMatches("Mac OS X", "10.6");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Lion.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_LION = getOSMajorMinorVersionMatches("Mac OS X", "10.7");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Mountain Lion.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_MOUNTAIN_LION = getOSMajorMinorVersionMatches("Mac OS X", "10.8");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Mavericks.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_MAVERICKS = getOSMajorMinorVersionMatches("Mac OS X", "10.9");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Yosemite.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_YOSEMITE = getOSMajorMinorVersionMatches("Mac OS X", "10.10");
+
+    /**
+     * <p>
      * Is {@code true} if this is FreeBSD.
      * </p>
      * <p>
@@ -1318,6 +1450,10 @@ public class SystemUtils {
         return isOSMatch(OS_NAME, OS_VERSION, osNamePrefix, osVersionPrefix);
     }
 
+    static boolean getOSMajorMinorVersionMatches(final String osNamePrefix, final String osVersionPrefix) {
+        return isOSMajorMinorVersionMatch(OS_NAME, OS_VERSION, osNamePrefix, osVersionPrefix);
+    }
+
     /**
      * Decides if the operating system matches.
      *
@@ -1430,6 +1566,26 @@ public class SystemUtils {
             return false;
         }
         return version.startsWith(versionPrefix);
+    }
+
+    /**
+     * Decides if the operating system and its major and minor version matches.
+     *
+     * <p>
+     * This method is package private instead of private to support unit test invocation.
+     * </p>
+     *
+     * @param osName the actual OS name
+     * @param osVersion the actual OS version
+     * @param osNamePrefix the prefix for the expected OS name
+     * @param osVersionPrefix the expected major and minor OS version, e.g. "10.10"
+     * @return true if matches, or false if not or can't determine
+     */
+    static boolean isOSMajorMinorVersionMatch(final String osName, final String osVersion, final String osNamePrefix, final String osVersionPrefix) {
+        if (osName == null || osVersion == null) {
+            return false;
+        }
+        return osName.startsWith(osNamePrefix) && osVersion.matches(osVersionPrefix + "(\\.\\d+)?");
     }
 
     /**
