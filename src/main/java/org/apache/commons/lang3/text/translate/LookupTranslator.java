@@ -29,7 +29,7 @@ import java.util.HashSet;
  */
 public class LookupTranslator extends CharSequenceTranslator {
 
-    private final HashMap<String, CharSequence> lookupMap;
+    private final HashMap<String, String> lookupMap;
     private final HashSet<Character> prefixSet;
     private final int shortest;
     private final int longest;
@@ -37,21 +37,20 @@ public class LookupTranslator extends CharSequenceTranslator {
     /**
      * Define the lookup table to be used in translation
      *
-     * Note that, as of Lang 3.1, the key to the lookup table is converted to a 
-     * java.lang.String, while the value remains as a java.lang.CharSequence. 
-     * This is because we need the key to support hashCode and equals(Object), 
-     * allowing it to be the key for a HashMap. See LANG-882.
+     * Note that, as of Lang 3.1, the key to the lookup table is converted to a
+     * java.lang.String. This is because we need the key to support hashCode and
+     * equals(Object), allowing it to be the key for a HashMap. See LANG-882.
      *
      * @param lookup CharSequence[][] table of size [*][2]
      */
     public LookupTranslator(final CharSequence[]... lookup) {
-        lookupMap = new HashMap<String, CharSequence>();
+        lookupMap = new HashMap<String, String>();
         prefixSet = new HashSet<Character>();
         int _shortest = Integer.MAX_VALUE;
         int _longest = 0;
         if (lookup != null) {
             for (final CharSequence[] seq : lookup) {
-                this.lookupMap.put(seq[0].toString(), seq[1]);
+                this.lookupMap.put(seq[0].toString(), seq[1].toString());
                 this.prefixSet.add(seq[0].charAt(0));
                 final int sz = seq[0].length();
                 if (sz < _shortest) {
@@ -71,24 +70,21 @@ public class LookupTranslator extends CharSequenceTranslator {
      */
     @Override
     public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
-        int max = longest;
-        if (index + longest > input.length()) {
-            max = input.length() - index;
-        }
+        // check if translation exists for the input at position index
+        if (prefixSet.contains(input.charAt(index))) {
+            int max = longest;
+            if (index + longest > input.length()) {
+                max = input.length() - index;
+            }
+            // implement greedy algorithm by trying maximum match first
+            for (int i = max; i >= shortest; i--) {
+                final CharSequence subSeq = input.subSequence(index, index + i);
+                final String result = lookupMap.get(subSeq.toString());
 
-        if (!prefixSet.contains(input.charAt(index))) {
-            // no translation exists for the input at position index
-            return 0;
-        }
-
-        // descend so as to get a greedy algorithm
-        for (int i = max; i >= shortest; i--) {
-            final CharSequence subSeq = input.subSequence(index, index + i);
-            final CharSequence result = lookupMap.get(subSeq.toString());
-
-            if (result != null) {
-                out.write(result.toString());
-                return i;
+                if (result != null) {
+                    out.write(result);
+                    return i;
+                }
             }
         }
         return 0;
