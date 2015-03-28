@@ -1,0 +1,161 @@
+<!--
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+ -->
+<!--
+   Build file for creating release candidates and releasing lang.
+   $Id$
+-->
+<project name="release-lang" basedir="../../">
+
+    <target name="-init">
+        <property file="src/release-tools/build.properties" />
+        <property file="default.properties" />
+        <!-- provide some defaults -->
+        <property name="release.path" value="${user.home}/lang-rc" />
+        <property name="apache.id" value="dev@commons.apache.org" />
+        <property name="ssh.keyfile" value="${user.home}/.ssh/id_rsa"/>
+        <property name="release.url" value="https://dist.apache.org/repos/dist/dev/commons/lang" />
+
+        <macrodef name="mvn">
+            <attribute name="goal"/>
+            <element name="more-args" implicit="true" optional="true"/>
+            <sequential>
+                <exec executable="mvn">
+                    <arg value="@{goal}" />
+                    <more-args/>
+                </exec>
+            </sequential>
+        </macrodef>
+
+        <available property="dist-dir-exists?"
+                   file="${release.path}"
+                   type="dir"/>
+    </target>
+
+    <target name="pre-rc" depends="-init"
+            description="Prepares the download page and the release notes for rolling out a RC">
+        <mvn goal="changes:announcement-generate">
+            <arg value="-Prelease-notes"/>
+        </mvn>
+        <mvn goal="commons:download-page">
+            <arg value="-Dcommons.componentid=lang"/>
+        </mvn>
+    </target>
+
+    <target name="-clear-local-repo" depends="-init">
+        <property name="repo.path" value="${user.home}/.m2/repository/org/apache/commons/${component.name}/${component.version}" />
+        <delete dir="${repo.path}" />
+    </target>
+
+    <target name="-build-maven-artifacts" depends="-clear-local-repo">
+        <input message="Please enter gpg passphrase..." addproperty="gpg.pass">
+            <handler type="secure" />
+        </input>
+
+        <mvn goal="deploy">
+            <arg value="-Prelease" />
+            <arg value="-Ptest-deploy" />
+            <arg value="-Duser.name=${apache.id}" />
+            <arg value="-Dgpg.passphrase=${gpg.pass}" />
+        </mvn>
+    </target>
+
+    <target name="-populate-dist-repo"
+            depends="-build-maven-artifacts, -prepare-dist-area">
+        <copy todir="${release.path}/binaries">
+            <fileset dir="${repo.path}">
+                <include name="*bin.zip*" />
+                <include name="*bin.tar.gz*"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${release.path}/source">
+            <fileset dir="${repo.path}">
+                <include name="*src.zip*" />
+                <include name="*src.tar.gz*"/>
+            </fileset>
+        </copy>
+
+        <copy file="RELEASE-NOTES.txt" todir="${release.path}" />
+    </target>
+
+    <target name="rc" description="Create the RC"
+            depends="-populate-dist-repo, -create-site"/>
+
+    <target name="-create-site" depends="-init">
+        <echo message="Creating site" />
+        <mvn goal="site"/>
+    </target>
+
+    <target name="upload-site" depends="-init"
+            description="Uploads and publishes the site to the RM's apache webspace">
+        <zip destfile="target/site.zip">
+            <zipfileset dir="target/site" prefix="${final.name}"/>
+        </zip>
+
+        <input message="Please enter ssh passphrase..." addproperty="ssh.pass">
+            <handler type="secure" />
+        </input>
+
+        <scp localFile="target/site.zip"
+             remoteToDir="${apache.id}@people.apache.org:."
+             keyfile="${ssh.keyfile}"
+             passphrase="${ssh.pass}"/>
+        <sshexec username="${apache.id}" host="people.apache.org"
+                 command="unzip -d public_html site.zip"
+                 keyfile="${ssh.keyfile}"
+                 passphrase="${ssh.pass}"/>
+        <sshexec username="${apache.id}" host="people.apache.org"
+                 command="rm site.zip"
+                 keyfile="${ssh.keyfile}"
+                 passphrase="${ssh.pass}"/>
+    </target>
+
+    <target name="nexus-bundle" depends="-build-maven-artifacts"
+            description="Creates an upload bundle suitable for Nexus Snapshot Upload">
+        <jar destfile="target/upload-bundle.jar">
+            <fileset dir="${repo.path}">
+                <include name="*.jar"/>
+                <include name="*.jar.asc"/>
+                <include name="*.pom"/>
+                <include name="*.pom.asc"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="-prepare-dist-area" depends="-checkout-dist, -update-dist"/>
+
+    <target name="-checkout-dist" depends="-init" unless="dist-dir-exists?">
+        <echo message="Checking out ${release.url} -> ${release.path}"/>
+        <exec executable="svn">
+            <arg value="co" />
+            <arg value="${release.url}" />
+            <arg value="${release.path}" />
+        </exec>
+    </target>
+
+    <target name="-update-dist" depends="-init" if="dist-dir-exists?">
+        <echo message="Updating ${release.path}"/>
+        <exec executable="svn" dir="${release.path}">
+            <arg value="up" />
+        </exec>
+    </target>
+
+</project>

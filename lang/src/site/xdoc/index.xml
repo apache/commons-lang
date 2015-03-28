@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<document>
+ <properties>
+  <title>Home</title>
+  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+ </properties>
+<body>
+<!-- ================================================== -->
+<section name="Commons Lang">
+
+<p>
+The standard Java libraries fail to provide enough methods for
+manipulation of its core classes. Apache Commons Lang provides
+these extra methods.
+</p>
+
+<p>
+Lang provides a host of helper utilities for the java.lang API, notably
+String manipulation methods, basic numerical methods, object reflection, concurrency, creation and serialization
+and System properties. Additionally it contains basic enhancements to java.util.Date and a series of utilities dedicated to help with
+building methods, such as hashCode, toString and equals.
+</p>
+<p>
+Note that Lang 3.0 (and subsequent versions) use a different package (<em>org.apache.commons.lang3</em>) than the previous versions (<em>org.apache.commons.lang</em>), allowing it to be used at the same time as an earlier version.
+</p>
+</section>
+<!-- ================================================== -->
+<section name="Documentation">
+<p>
+The package descriptions in the <a href="javadocs/api-release/index.html">JavaDoc</a> give an overview of the available features
+and various <a href="project-reports.html">project reports</a> are provided.
+</p>
+<p>
+The JavaDoc API documents are available online:
+</p>
+<ul>
+<li>The <a href="javadocs/api-3.4/index.html">current stable release 3.4</a> [Java 6.0+]</li>
+<li>The <a href="javadocs/api-2.6/index.html">legacy release 2.6</a> [Java 1.2+]</li>
+<li>Older releases - see the <a href="release-history.html">Release History</a> page</li>
+</ul>
+<p>
+The <a href="source-repository.html">subversion repository</a> can be
+<a href="http://svn.apache.org/viewvc/commons/proper/lang/trunk/">browsed</a>, or you can browse/contribute via <a href="https://github.com/apache/commons-lang">GitHub</a>.
+</p>
+<p>
+The code base is monitored by a Sonar instance running on <a href="https://analysis.apache.org/dashboard/index/72046">analysis.apache.org</a>.
+</p>
+</section>
+<!-- ================================================== -->
+<section name="Release Information">
+<p>The latest stable release of Lang is 3.4. You may: </p>
+<ul>
+<li>Download <a href="http://commons.apache.org/lang/download_lang.cgi">3.4</a></li>
+<li>Read the <a href="release-notes/RELEASE-NOTES-3.4.txt">3.4 release notes</a></li>
+<li>Examine the <a href="article3_0.html">2.x to 3.0 upgrade notes</a></li>
+<li>Compare major versions via the <a href="lang2-lang3-clirr-report.html">Lang2 to Lang3 Clirr report</a></li>
+</ul>
+<p>
+Alternatively you can pull it from the central Maven repositories:
+<pre>
+  &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+  &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+  &lt;version&gt;3.4&lt;/version&gt;
+</pre>
+</p>
+
+<p>
+For information on previous releases see the <a href="release-history.html">Release History</a>, and to download previous releases see the <a href="http://archive.apache.org/dist/commons/lang/">Commons Lang Archive</a>.
+</p>
+</section>
+<!-- ================================================== -->
+<section name="Getting Involved">
+<p>
+The <a href="mail-lists.html">commons developer mailing list</a> is the main channel of communication for contributors. Please remember that the lists are shared between all commons components, so prefix your email by [lang]. </p>
+<p>You can also visit the #apache-commons IRC channel on irc.freenode.net or peruse <a href="issue-tracking.html">JIRA</a>. Specific links of interest for JIRA are:</p>
+<ul>
+<li>Ideas looking for code: <a href="https://issues.apache.org/jira/issues/?jql=project%20%3D%20LANG%20AND%20resolution%20%3D%20Unresolved%20AND%20fixVersion%20%3D%20%22Patch%20Needed%22%20ORDER%20BY%20priority%20DESC">Patch Needed</a></li>
+<li>Issues with patches, looking for reviews: <a href="https://issues.apache.org/jira/issues/?jql=fixVersion%20%3D%20%22Review%20Patch%22%20AND%20project%20%3D%20LANG%20AND%20resolution%20%3D%20Unresolved%20ORDER%20BY%20priority%20DESC">Review Patch</a></li>
+</ul>
+<p>Alternatively you can go through the <em>Needs Work</em> tags in the <a href="taglist.html">TagList report</a>.</p>
+<p>If you'd like to offer up pull requests via GitHub rather than applying patches to JIRA, we have a <a href="https://github.com/apache/commons-lang/">GitHub mirror</a>. </p>
+</section>
+<!-- ================================================== -->
+<section name="Support">
+<p>
+The <a href="mail-lists.html">commons mailing lists</a> act as the main support forum.
+The user list is suitable for most library usage queries.
+The dev list is intended for the development discussion.
+Please remember that the lists are shared between all commons components,
+so prefix your email by [lang].
+</p>
+<p>
+Bug reports and enhancements are also welcomed via the <a href="issue-tracking.html">JIRA</a> issue tracker.
+Please read the instructions carefully.
+</p>
+</section>
+<!-- ================================================== -->
+</body>
+</document>

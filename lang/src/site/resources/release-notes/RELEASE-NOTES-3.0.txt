@@ -1,0 +1,155 @@
+$Id: RELEASE-NOTES.txt 1144999 2011-07-11 01:02:13Z ggregory $
+
+                        Commons Lang Package
+                            Version 3.0
+                           Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for the 3.0 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.0 now targets Java 5.0, making use of features that arrived with Java 5.0 such as generics, 
+variable arguments, autoboxing, concurrency and formatted output.
+
+For the latest advice on upgrading, see the following page: 
+
+    http://commons.apache.org/lang/article3_0.html
+
+ADDITIONS IN 3.0
+================
+
+    [LANG-276] MutableBigDecimal and MutableBigInteger.
+    [LANG-285] Wish : method unaccent.
+    [LANG-358] ObjectUtils.coalesce.
+    [LANG-386] LeftOf/RightOfNumber in Range convenience methods necessary.
+    [LANG-435] Add ClassUtils.isAssignable() variants with autoboxing.
+    [LANG-444] StringUtils.emptyToNull.
+    [LANG-482] Enhance StrSubstitutor to support nested ${var-${subvr}} expansion
+    [LANG-482] StrSubstitutor now supports substitution in variable names.
+    [LANG-496] A generic implementation of the Lazy initialization pattern.
+    [LANG-497] Addition of ContextedException and ContextedRuntimeException.
+    [LANG-498] Add StringEscapeUtils.escapeText() methods.
+    [LANG-499] Add support for the handling of ExecutionExceptions.
+    [LANG-501] Add support for background initialization.
+    [LANG-529] Add a concurrent package.
+    [LANG-533] Validate: support for validating blank strings.
+    [LANG-537] Add ArrayUtils.toArray to create generic arrays.
+    [LANG-545] Add ability to create a Future for a constant.
+    [LANG-546] Add methods to Validate to check whether the index is valid for the array/list/string.
+    [LANG-553] Add TypeUtils class to provide utility code for working with generic types.
+    [LANG-559] Added isAssignableFrom and isInstanceOf validation methods.
+    [LANG-559] Added validState validation method.
+    [LANG-560] New TimedSemaphore class.
+    [LANG-582] Provide an implementation of the ThreadFactory interface.
+    [LANG-588] Create a basic Pair<L, R> class.
+    [LANG-594] DateUtils equal & compare functions up to most significant field.
+    [LANG-601] Add Builder Interface / Update Builders to Implement It.
+    [LANG-609] Support lazy initialization using atomic variables
+    [LANG-610] Extend exception handling in ConcurrentUtils to runtime exceptions.
+    [LANG-614] StringUtils.endsWithAny method
+    [LANG-640] Add normalizeSpace to StringUtils
+    [LANG-644] Provide documentation about the new concurrent package
+    [LANG-649] BooleanUtils.toBooleanObject to support single character input
+    [LANG-651] Add AnnotationUtils
+    [LANG-653] Provide a very basic ConcurrentInitializer implementation
+    [LANG-655] Add StringUtils.defaultIfBlank()
+    [LANG-667] Add a Null-safe compare() method to ObjectUtils
+    [LANG-676] Documented potential NPE if auto-boxing occurs for some BooleanUtils methods
+    [LANG-678] Add support for ConcurrentMap.putIfAbsent()
+    [LANG-692] Add hashCodeMulti varargs method
+    [LANG-697] Add FormattableUtils class
+    [LANG-684] Levenshtein Distance Within a Given Threshold
+
+REMOVALS IN 3.0
+===============
+
+    [LANG-438] Remove @deprecateds.
+    [LANG-492] Remove code handled now by the JDK.
+    [LANG-493] Remove code that does not hold enough value to remain.
+    [LANG-590] Remove JDK 1.2/1.3 bug handling in StringUtils.indexOf(String, String, int).
+    [LANG-673] WordUtils.abbreviate() removed
+    [LANG-691] Removed DateUtils.UTC_TIME_ZONE
+
+IMPROVEMENTS IN 3.0
+===================
+
+    [LANG-290] EnumUtils for JDK 5.0.
+    [LANG-336] Finally start using generics.
+    [LANG-355] StrBuilder should implement CharSequence and Appendable.
+    [LANG-396] Investigate for vararg usages.
+    [LANG-424] Improve Javadoc for StringUtils class.
+    [LANG-458] Refactor Validate.java to eliminate code redundancy.
+    [LANG-479] Document where in SVN trunk is.
+    [LANG-504] bring ArrayUtils.isEmpty to the generics world.
+    [LANG-505] Rewrite StringEscapeUtils.
+    [LANG-507] StringEscapeUtils.unescapeJava should support \u+ notation.
+    [LANG-510] Convert StringUtils API to take CharSequence.
+    [LANG-513] Better EnumUtils.
+    [LANG-528] Mutable classes should implement an appropriately typed Mutable interface.
+    [LANG-539] Compile commons.lang for CDC 1.1/Foundation 1.1.
+    [LANG-540] Make NumericEntityEscaper immutable.
+    [LANG-541] Replace StringBuffer with StringBuilder.
+    [LANG-548] Use Iterable on API instead of Collection.
+    [LANG-551] Replace Range classes with generic version.
+    [LANG-562] Change Maven groupId.
+    [LANG-563] Change Java package name.
+    [LANG-570] Do the test cases really still require main() and suite() methods?.
+    [LANG-579] Add new Validate methods.
+    [LANG-599] ClassUtils.getClass(): Allow Dots as Inner Class Separators.
+    [LANG-605] DefaultExceptionContext overwrites values in recursive situations.
+    [LANG-668] Change ObjectUtils min() & max() functions to use varargs rather than just two parameters
+    [LANG-681] Push down WordUtils to "text" sub-package.
+    [LANG-711] Add includeantruntime=false to javac targets to quell warnings in ant 1.8.1 and better (and modest performance gain).
+    [LANG-713] Increase test coverage of FieldUtils read methods and tweak javadoc.
+    [LANG-718] build.xml Java 1.5+ updates.
+
+BUG FIXES IN 3.0
+================
+
+    [LANG-11]  Depend on JDK 1.5+.
+    [LANG-302] StrBuilder does not implement clone().
+    [LANG-339] StringEscapeUtils.escapeHtml() escapes multibyte characters like Chinese, Japanese, etc.
+    [LANG-369] ExceptionUtils not thread-safe.
+    [LANG-418] Javadoc incorrect for StringUtils.endsWithIgnoreCase.
+    [LANG-428] StringUtils.isAlpha, isAlphanumeric and isNumeric now return false for ""
+    [LANG-439] StringEscapeUtils.escapeHTML() does not escape chars (0x00-0x20).
+    [LANG-448] Lower Ascii Characters don't get encoded by Entities.java.
+    [LANG-468] JDK 1.5 build/runtime failure on LANG-393 (EqualsBuilder).
+    [LANG-474] Fixes for thread safety.
+    [LANG-478] StopWatch does not resist to system time changes.
+    [LANG-480] StringEscapeUtils.escapeHtml incorrectly converts unicode characters above U+00FFFF into 2 characters.
+    [LANG-481] Possible race-conditions in hashCode of the range classes.
+    [LANG-564] Improve StrLookup API documentation.
+    [LANG-568] @SuppressWarnings("unchecked") is used too generally.
+    [LANG-571] ArrayUtils.add(T[] array, T element) can create unexpected ClassCastException.
+    [LANG-585] exception.DefaultExceptionContext.getFormattedExceptionMessage catches Throwable.
+    [LANG-596] StrSubstitutor should also handle the default properties of a java.util.Properties class
+    [LANG-600] Javadoc is incorrect for public static int lastIndexOf(String str, String searchStr).
+    [LANG-602] ContextedRuntimeException no longer an 'unchecked' exception.
+    [LANG-606] EqualsBuilder causes StackOverflowException.
+    [LANG-608] Some StringUtils methods should take an int character instead of char to use String API features.
+    [LANG-617] StringEscapeUtils.escapeXML() can't process UTF-16 supplementary characters
+    [LANG-624] SystemUtils.getJavaVersionAsFloat throws StringIndexOutOfBoundsException on Android runtime/Dalvik VM
+    [LANG-629] Charset may not be threadsafe, because the HashSet is not synch.
+    [LANG-638] NumberUtils createNumber throws a StringIndexOutOfBoundsException when argument containing "e" and "E" is passed in
+    [LANG-643] Javadoc StringUtils.left() claims to throw on negative len, but doesn't
+    [LANG-645] FastDateFormat.format() outputs incorrect week of year because locale isn't respected
+    [LANG-646] StringEscapeUtils.unescapeJava doesn't handle octal escapes and Unicode with extra u
+    [LANG-656] Example StringUtils.indexOfAnyBut("zzabyycdxx", '') = 0 incorrect
+    [LANG-658] Some Entitys like &Ouml; are not matched properly against its ISO8859-1 representation
+    [LANG-659] EntityArrays typo: {"\u2122", "&minus;"}, // minus sign, U+2212 ISOtech
+    [LANG-66]  StringEscaper.escapeXml() escapes characters > 0x7f.
+    [LANG-662] org.apache.commons.lang3.math.Fraction does not reduce (Integer.MIN_VALUE, 2^k)
+    [LANG-663] org.apache.commons.lang3.math.Fraction does not always succeed in multiplyBy and divideBy
+    [LANG-664] NumberUtils.isNumber(String) is not right when the String is "1.1L"
+    [LANG-672] Doc bug in DateUtils#ceiling
+    [LANG-677] DateUtils.isSameLocalTime compares using 12 hour clock and not 24 hour
+    [LANG-685] EqualsBuilder synchronizes on HashCodeBuilder.
+    [LANG-703] StringUtils.join throws NPE when toString returns null for one of objects in collection
+    [LANG-710] StringIndexOutOfBoundsException when calling unescapeHtml4("&#03")
+    [LANG-714] StringUtils doc/comment spelling fixes.
+	[LANG-715] CharSetUtils.squeeze() speedup.
+    [LANG-716] swapCase and *capitalize speedups.

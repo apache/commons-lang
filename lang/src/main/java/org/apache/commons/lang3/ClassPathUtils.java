@@ -1,0 +1,139 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.lang3;
+
+/**
+ * Operations regarding the classpath.
+ *
+ * <p>The methods of this class do not allow {@code null} inputs.</p>
+ *
+ * @since 3.3
+ * @version $Id$
+ */
+//@Immutable
+public class ClassPathUtils {
+
+    /**
+     * <p>{@code ClassPathUtils} instances should NOT be constructed in
+     * standard programming. Instead, the class should be used as
+     * {@code ClassPathUtils.toFullyQualifiedName(MyClass.class, "MyClass.properties");}.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
+     */
+    public ClassPathUtils() {
+        super();
+    }
+
+    /**
+     * Returns the fully qualified name for the resource with name {@code resourceName} relative to the given context.
+     *
+     * <p>Note that this method does not check whether the resource actually exists.
+     * It only constructs the name.
+     * Null inputs are not allowed.</p>
+     *
+     * <pre>
+     * ClassPathUtils.toFullyQualifiedName(StringUtils.class, "StringUtils.properties") = "org.apache.commons.lang3.StringUtils.properties"
+     * </pre>
+     *
+     * @param context The context for constructing the name.
+     * @param resourceName the resource name to construct the fully qualified name for.
+     * @return the fully qualified name of the resource with name {@code resourceName}.
+     * @throws java.lang.NullPointerException if either {@code context} or {@code resourceName} is null.
+     */
+    public static String toFullyQualifiedName(final Class<?> context, final String resourceName) {
+        Validate.notNull(context, "Parameter '%s' must not be null!", "context" );
+        Validate.notNull(resourceName, "Parameter '%s' must not be null!", "resourceName");
+        return toFullyQualifiedName(context.getPackage(), resourceName);
+    }
+
+    /**
+     * Returns the fully qualified name for the resource with name {@code resourceName} relative to the given context.
+     *
+     * <p>Note that this method does not check whether the resource actually exists.
+     * It only constructs the name.
+     * Null inputs are not allowed.</p>
+     *
+     * <pre>
+     * ClassPathUtils.toFullyQualifiedName(StringUtils.class.getPackage(), "StringUtils.properties") = "org.apache.commons.lang3.StringUtils.properties"
+     * </pre>
+     *
+     * @param context The context for constructing the name.
+     * @param resourceName the resource name to construct the fully qualified name for.
+     * @return the fully qualified name of the resource with name {@code resourceName}.
+     * @throws java.lang.NullPointerException if either {@code context} or {@code resourceName} is null.
+     */
+    public static String toFullyQualifiedName(final Package context, final String resourceName) {
+        Validate.notNull(context, "Parameter '%s' must not be null!", "context" );
+        Validate.notNull(resourceName, "Parameter '%s' must not be null!", "resourceName");
+        final StringBuilder sb = new StringBuilder();
+        sb.append(context.getName());
+        sb.append(".");
+        sb.append(resourceName);
+        return sb.toString();
+    }
+
+    /**
+     * Returns the fully qualified path for the resource with name {@code resourceName} relative to the given context.
+     *
+     * <p>Note that this method does not check whether the resource actually exists.
+     * It only constructs the path.
+     * Null inputs are not allowed.</p>
+     *
+     * <pre>
+     * ClassPathUtils.toFullyQualifiedPath(StringUtils.class, "StringUtils.properties") = "org/apache/commons/lang3/StringUtils.properties"
+     * </pre>
+     *
+     * @param context The context for constructing the path.
+     * @param resourceName the resource name to construct the fully qualified path for.
+     * @return the fully qualified path of the resource with name {@code resourceName}.
+     * @throws java.lang.NullPointerException if either {@code context} or {@code resourceName} is null.
+     */
+    public static String toFullyQualifiedPath(final Class<?> context, final String resourceName) {
+        Validate.notNull(context, "Parameter '%s' must not be null!", "context" );
+        Validate.notNull(resourceName, "Parameter '%s' must not be null!", "resourceName");
+        return toFullyQualifiedPath(context.getPackage(), resourceName);
+    }
+
+
+    /**
+     * Returns the fully qualified path for the resource with name {@code resourceName} relative to the given context.
+     *
+     * <p>Note that this method does not check whether the resource actually exists.
+     * It only constructs the path.
+     * Null inputs are not allowed.</p>
+     *
+     * <pre>
+     * ClassPathUtils.toFullyQualifiedPath(StringUtils.class.getPackage(), "StringUtils.properties") = "org/apache/commons/lang3/StringUtils.properties"
+     * </pre>
+     *
+     * @param context The context for constructing the path.
+     * @param resourceName the resource name to construct the fully qualified path for.
+     * @return the fully qualified path of the resource with name {@code resourceName}.
+     * @throws java.lang.NullPointerException if either {@code context} or {@code resourceName} is null.
+     */
+    public static String toFullyQualifiedPath(final Package context, final String resourceName) {
+        Validate.notNull(context, "Parameter '%s' must not be null!", "context" );
+        Validate.notNull(resourceName, "Parameter '%s' must not be null!", "resourceName");
+        final StringBuilder sb = new StringBuilder();
+        sb.append(context.getName().replace('.', '/'));
+        sb.append("/");
+        sb.append(resourceName);
+        return sb.toString();
+    }
+
+}

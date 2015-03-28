@@ -1,0 +1,146 @@
+$Id: RELEASE-NOTES.txt,v 1.4 2002/09/25 10:29:56 scolebourne Exp $
+
+			Commons Lang Package
+			   Version 1.0
+			    Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for this version of the Commons
+Lang package. Commons Lang is a set of utility functions and reusable 
+components that should be a help in any Java environment.
+
+NEW FEATURES:
+
+Since the release of the b1 package the following have been added:
+
+lang.
+    SystemUtils: 
+      Brings together many system specific variables under one easy component.
+
+exception.
+    ExceptionUtils: 
+      Provides helpful static functions for dealing with Exceptions.
+    NestableError : 
+      Adds nesting ability to Errors.
+
+enum sub-package: 
+    A solid version of the typical Java translation of a C enum.
+
+builder sub-package: 
+    A series of helpers for handling standard Object methods such as equals,
+    toString, compareTo and hashCode in a professional manner.
+
+
+BUG FIXES:
+
+StringUtils.stripStart and stripEnd were improved to match their Javadoc. 
+StringUtils.convertUnicodeToNative and convertNativeToUnicode both removed. 
+    Both methods did not work properly.
+
+
+DEPRECATIONS:
+
+Much of the exception subpackage was reworked between 1.0-b1 and 1.0. Apart 
+from this the API should have a high level of backward compatibility.
+
+
+CHANGES:   [In 'diff' format]
+
+Jar changes
+===========
+> org.apache.commons.lang.exception.ExceptionUtils
+> org.apache.commons.lang.exception.NestableError
+> org.apache.commons.lang.ObjectUtils$Null
+> org.apache.commons.lang.ObjectUtils$1
+> org.apache.commons.lang.enum.Enum$Entry
+> org.apache.commons.lang.enum.Enum$1
+> org.apache.commons.lang.enum.Enum
+> org.apache.commons.lang.enum.EnumUtils
+> org.apache.commons.lang.enum.ValuedEnum
+> org.apache.commons.lang.builder.CompareToBuilder
+> org.apache.commons.lang.builder.EqualsBuilder
+> org.apache.commons.lang.builder.HashCodeBuilder
+> org.apache.commons.lang.builder.StandardToStringStyle
+> org.apache.commons.lang.builder.ToStringStyle$DefaultToStringStyle
+> org.apache.commons.lang.builder.ToStringStyle$NoFieldNameToStringStyle
+> org.apache.commons.lang.builder.ToStringStyle$SimpleToStringStyle
+> org.apache.commons.lang.builder.ToStringStyle$MultiLineToStringStyle
+> org.apache.commons.lang.builder.ToStringStyle$1
+> org.apache.commons.lang.builder.ToStringStyle
+> org.apache.commons.lang.builder.ToStringBuilder
+> org.apache.commons.lang.SystemUtils
+
+
+Class changes
+=============
+org.apache.commons.lang.exception.Nestable
+--------------------
+<     public abstract int getLength();
+>     public abstract int getThrowableCount();
+<     public abstract int indexOfThrowable(int, java.lang.Class);
+---
+>     public abstract int indexOfThrowable(java.lang.Class, int);
+>     public abstract void printStackTrace(java.io.PrintStream);
+
+org.apache.commons.lang.exception.NestableDelegate
+--------------------
+<     int getLength();
+<     java.lang.String getMessage(java.lang.String);
+>     java.lang.String getMessage(java.lang.String);
+>     java.lang.String getMessages()[];
+>     int getThrowableCount();
+<     java.lang.String getMessages()[];
+<     int indexOfThrowable(int, java.lang.Class);
+---
+>     int indexOfThrowable(java.lang.Class, int);
+
+org.apache.commons.lang.exception.NestableException
+--------------------
+<     public int getLength();
+>     public java.lang.String getMessage(int);
+>     public int getThrowableCount();
+<     public java.lang.String getMessage(int);
+<     public int indexOfThrowable(int, java.lang.Class);
+---
+>     public int indexOfThrowable(java.lang.Class, int);
+
+org.apache.commons.lang.exception.NestableRuntimeException
+--------------------
+<     public int getLength();
+>     public java.lang.String getMessage(int);
+>     public int getThrowableCount();
+<     public java.lang.String getMessage(int);
+<     public int indexOfThrowable(int, java.lang.Class);
+---
+>     public int indexOfThrowable(java.lang.Class, int);
+
+org.apache.commons.lang.NumberUtils
+--------------------
+>     public static long minimum(long, long, long);
+>     public static long maximum(long, long, long);
+>     public static int compare(double, double);
+>     public static int compare(float, float);
+
+org.apache.commons.lang.ObjectUtils
+--------------------
+>     public static final org.apache.commons.lang.ObjectUtils.Null NULL;
+>     public org.apache.commons.lang.ObjectUtils();
+>     public static java.lang.String identityToString(java.lang.Object);
+>     static {};
+>     public static class org.apache.commons.lang.ObjectUtils. Null extends java.lang.Object implements java.io.Serializable 
+
+org.apache.commons.lang.RandomStringUtils
+--------------------
+>     public org.apache.commons.lang.RandomStringUtils();
+
+org.apache.commons.lang.StringUtils
+--------------------
+>     public org.apache.commons.lang.StringUtils();
+<     public static java.lang.String stackTrace(java.lang.Throwable);
+<     public static java.lang.String convertUnicodeToNative(java.lang.String, java.lang.String) throws java.io.IOException;
+<     public static java.lang.String convertNativeToUnicode(java.lang.String, java.lang.String) throws java.io.IOException;
+---
+>     public static boolean containsOnly(java.lang.String, char[]);
+

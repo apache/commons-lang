@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<document>
+ <properties>
+  <title>2.2 Release Notes</title>
+  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+ </properties>
+<body>
+
+<section name="Lang 2.2 Release Notes">
+<p>
+These are the release notes and advice for upgrading Commons-Lang from
+version 2.1 to version 2.2.
+<source>
+INTRODUCTION:
+
+This document contains the release notes for the 2.2 version of Apache Jakarta Commons Lang.
+Commons Lang is a set of utility functions and reusable components that
+should be of use in any Java environment.
+
+INCOMPATIBLE CHANGES WITH VERSION 2.1:
+
+- None
+
+DEPRECATIONS FROM 2.1 to 2.2:
+
+- None
+
+BUG FIXES IN 2.2:
+
+<a href="https://issues.apache.org/jira/browse/LANG-2">LANG-2</a>    javadoc example for StringUtils.splitByWholeSeparator incorrect
+<a href="https://issues.apache.org/jira/browse/LANG-3">LANG-3</a>    PADDING array in StringUtils overflows on '\uffff'
+<a href="https://issues.apache.org/jira/browse/LANG-10">LANG-10</a>   [patch] ClassUtils.primitiveToWrapper and Void
+<a href="https://issues.apache.org/jira/browse/LANG-21">LANG-21</a>   escapeXML() -&gt; Not escaping low characters
+<a href="https://issues.apache.org/jira/browse/LANG-25">LANG-25</a>   DurationFormatUtils.formatDurationISO() javadoc is missing T in duration string between date and time part
+<a href="https://issues.apache.org/jira/browse/LANG-37">LANG-37</a>   unit test for org.apache.commons.lang.text.StrBuilder
+<a href="https://issues.apache.org/jira/browse/LANG-42">LANG-42</a>   EqualsBuilder.append(Object[], Object[]) crashes with a NullPointerException if an element of the first array is null
+<a href="https://issues.apache.org/jira/browse/LANG-45">LANG-45</a>   StrBuilderTest#testReplaceStringString fails.
+<a href="https://issues.apache.org/jira/browse/LANG-50">LANG-50</a>   Replace Clover with Cobertura
+<a href="https://issues.apache.org/jira/browse/LANG-59">LANG-59</a>   DateUtils.truncate method is buggy when dealing with DST switching hours
+<a href="https://issues.apache.org/jira/browse/LANG-100">LANG-100</a>  RandomStringUtils.random() family of methods create invalid Unicode sequences
+<a href="https://issues.apache.org/jira/browse/LANG-105">LANG-105</a>  ExceptionUtils goes into infinite loop in getThrowables is throwable.getCause() == throwable
+<a href="https://issues.apache.org/jira/browse/LANG-106">LANG-106</a>  StringUtils#getLevenshteinDistance() performance is sub-optimal
+<a href="https://issues.apache.org/jira/browse/LANG-112">LANG-112</a>  Wrong length check in StrTokenizer.StringMatcher
+<a href="https://issues.apache.org/jira/browse/LANG-117">LANG-117</a>  FastDateFormat: wrong format for date "01.01.1000"
+<a href="https://issues.apache.org/jira/browse/LANG-122">LANG-122</a>  EscapeUtil.escapeHtml() should clarify that it does not escape ' chars to &apos;
+<a href="https://issues.apache.org/jira/browse/LANG-123">LANG-123</a>  Unclear javadoc for DateUtils.iterator()
+<a href="https://issues.apache.org/jira/browse/LANG-127">LANG-127</a>  Minor tweak to fix of bug # 26616
+<a href="https://issues.apache.org/jira/browse/LANG-130">LANG-130</a>  Memory "leak" in StringUtils
+<a href="https://issues.apache.org/jira/browse/LANG-140">LANG-140</a>  DurationFormatUtils.formatPeriod() returns the wrong result
+<a href="https://issues.apache.org/jira/browse/LANG-141">LANG-141</a>  Fraction.toProperString() returns -1/1 for -1
+<a href="https://issues.apache.org/jira/browse/LANG-148">LANG-148</a>  Performance modifications on StringUtils.replace
+<a href="https://issues.apache.org/jira/browse/LANG-150">LANG-150</a>  StringEscapeUtils.unescapeHtml skips first entity after standalone ampersand
+<a href="https://issues.apache.org/jira/browse/LANG-152">LANG-152</a>  DurationFormatUtils.formatDurationWords "11 &lt;units&gt;" gets converted to "11 &lt;unit&gt;"
+<a href="https://issues.apache.org/jira/browse/LANG-259">LANG-259</a>  ValuedEnum.compareTo(Object other) not typesafe - it easily could be...
+<a href="https://issues.apache.org/jira/browse/LANG-261">LANG-261</a>  Error in an example in the javadoc of the StringUtils.splitPreserveAllTokens() method
+<a href="https://issues.apache.org/jira/browse/LANG-264">LANG-264</a>  ToStringBuilder/HashCodeBuilder javadoc code examples
+<a href="https://issues.apache.org/jira/browse/LANG-271">LANG-271</a>  LocaleUtils test fails under Mustang
+<a href="https://issues.apache.org/jira/browse/LANG-272">LANG-272</a>  Minor build and checkstyle changes
+<a href="https://issues.apache.org/jira/browse/LANG-277">LANG-277</a>  Javadoc errors on StringUtils.splitPreserveAllTokens(String, char)
+<a href="https://issues.apache.org/jira/browse/LANG-278">LANG-278</a>  javadoc for StringUtils.removeEnd is incorrect
+
+IMPROVEMENTS IN 2.2:
+
+<a href="https://issues.apache.org/jira/browse/LANG-159">LANG-159</a>  Add WordUtils.getInitials(String)
+<a href="https://issues.apache.org/jira/browse/LANG-161">LANG-161</a>  Add methods and tests to StrBuilder
+<a href="https://issues.apache.org/jira/browse/LANG-162">LANG-162</a>  replace() length calculation improvement
+<a href="https://issues.apache.org/jira/browse/LANG-165">LANG-165</a>  parseDate with TimeZone
+<a href="https://issues.apache.org/jira/browse/LANG-166">LANG-166</a>  New interpolation features
+<a href="https://issues.apache.org/jira/browse/LANG-169">LANG-169</a>  Implementation of escape/unescapeHtml methods with Writer
+<a href="https://issues.apache.org/jira/browse/LANG-176">LANG-176</a>  CompareToBuilder excludeFields for reflection method
+<a href="https://issues.apache.org/jira/browse/LANG-186">LANG-186</a>  Request for MutableBoolean implementation
+<a href="https://issues.apache.org/jira/browse/LANG-194">LANG-194</a>  add generic add method to DateUtils
+<a href="https://issues.apache.org/jira/browse/LANG-198">LANG-198</a>  New method for EqualsBuilder
+<a href="https://issues.apache.org/jira/browse/LANG-212">LANG-212</a>  New ExceptionUtils method setCause()
+<a href="https://issues.apache.org/jira/browse/LANG-216">LANG-216</a>  Provides a Class.getPublicMethod which returns public invocable Method
+<a href="https://issues.apache.org/jira/browse/LANG-217">LANG-217</a>  Add Mutable&lt;Type&gt; to&lt;Type&gt;() methods.
+<a href="https://issues.apache.org/jira/browse/LANG-220">LANG-220</a>  Tokenizer Enhancements: reset input string, static CSV/TSV factories
+<a href="https://issues.apache.org/jira/browse/LANG-226">LANG-226</a>  Using ReflectionToStringBuilder and excluding secure fields
+<a href="https://issues.apache.org/jira/browse/LANG-242">LANG-242</a>  Trivial cleanup of javadoc in various files
+<a href="https://issues.apache.org/jira/browse/LANG-246">LANG-246</a>  CompositeFormat
+<a href="https://issues.apache.org/jira/browse/LANG-250">LANG-250</a>  Performance boost for RandomStringUtils
+<a href="https://issues.apache.org/jira/browse/LANG-254">LANG-254</a>  Enhanced Class.forName version
+<a href="https://issues.apache.org/jira/browse/LANG-260">LANG-260</a>  StringEscapeUtils should expose escape*() methods taking Writer argument
+<a href="https://issues.apache.org/jira/browse/LANG-263">LANG-263</a>  Add StringUtils.containsIgnoreCase(...)
+<a href="https://issues.apache.org/jira/browse/LANG-267">LANG-267</a>  Support char array converters on ArrayUtils
+<a href="https://issues.apache.org/jira/browse/LANG-270">LANG-270</a>  minor javadoc improvements for StringUtils.stripXxx() methods
+          New ExceptionUtils methods getMessage/getRootCauseMessage
+
+</source>
+</p>
+</section>
+
+</body>
+</document>

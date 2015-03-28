@@ -1,0 +1,97 @@
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<document>
+<properties>
+<title>Proposal for Lang Package</title>
+</properties>
+<body>
+
+
+<section name="Proposal for Lang Package">
+
+
+
+<subsection name="(0) Rationale">
+
+<p>The standard Java libraries fail to provide enough methods for 
+manipulation of its main components. The <em>Lang</em> Package provides 
+these extra methods. There are other classes which might justifiably 
+be included in java.lang someday, this package also provides for them.</p>
+
+
+</subsection>
+<subsection name="(1) Scope of the Package">
+
+<p>This proposal is to create a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so 
+standard as to justify existence in java.lang. The <em>Lang</em> Package 
+also applies to primitives and arrays.</p>
+
+
+</subsection>
+<subsection name="(1.5) Interaction With Other Packages">
+
+<p><em>Lang</em> relies only on standard JDK 1.2 (or later) APIs for
+production deployment.  It utilizes the JUnit unit testing framework for
+developing and executing unit tests, but this is of interest only to
+developers of the component.  Lang will be a dependency for
+several existing components in the open source world.</p>
+
+<p>No external configuration files are utilized.</p>
+
+
+</subsection>
+<subsection name="(2) Initial Source of the Package">
+
+<p>The initial classes came from the Commons.Util subproject.</p>
+
+<p>The proposed package name for the new component is
+<code>org.apache.commons.lang</code>.</p>
+
+
+</subsection>
+<subsection name="(3)  Required Jakarta-Commons Resources">
+
+<ul>
+<li>CVS Repository - New directory <code>lang</code> in the
+    <code>jakarta-commons</code> CVS repository.</li>
+<li>Mailing List - Discussions will take place on the general
+    <em>dev@commons.apache.org</em> mailing list.  To help
+    list subscribers identify messages of interest, it is suggested that
+    the message subject of messages about this component be prefixed with
+    [lang].</li>
+<li>Bugzilla - New component "Lang" under the "Commons" product
+    category, with appropriate version identifiers as needed.</li>
+<li>Jyve FAQ - New category "commons-lang" (when available).</li>
+</ul>
+
+
+</subsection>
+<subsection name="(4) Initial Committers">
+
+<p>The initial committers on the Lang component shall be as follows:
+<ul>
+<li>Henri Yandell (bayard)</li>
+<li>Daniel Rall (dlr)</li>
+<li>Stephen Colebourne (scolebourne)</li>
+</ul>
+</p>
+
+</subsection>
+</section>
+</body>
+</document>

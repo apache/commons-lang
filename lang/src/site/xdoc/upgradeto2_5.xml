@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<document>
+ <properties>
+  <title>2.5 Release Notes</title>
+  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+ </properties>
+<body>
+
+<section name="Lang 2.5 Release Notes">
+<p>
+These are the release notes and advice for upgrading Commons-Lang from
+version 2.4 to version 2.5. <br/><br/>See '<a href="article2_5.html">What's new in 2.5?</a>' for more information.
+<source>
+INTRODUCTION:
+
+This document contains the release notes for the 2.5 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any Java environment.
+
+Lang 2.5 no longer attempts to target the Java 1.2 environment and now targets Java 1.3.
+
+IMPROVEMENTS IN 2.5
+===================
+
+    * [LANG-583] - ArrayUtils - add isNotEmpty() methods
+    * [LANG-534] - ArrayUtils - add nullToEmpty() methods
+    * [LANG-454] - CharRange - provide an iterator that lets you walk the chars in the range
+    * [LANG-514] - CharRange - add more readable static builder methods
+    * [        ] - ClassUtils - new isAssignable() methods with autoboxing
+    * [LANG-535] - ClassUtils - add support to getShortClassName and getPackageName for arrays
+    * [LANG-434] - DateUtils - add ceiling() method
+    * [LANG-486] - DateUtils - add parseDateStrictly() method
+    * [LANG-466] - EqualsBuilder - add reset() method
+    * [LANG-461] - NumberUtils - add toByte() and toShort() methods
+    * [LANG-522] - Mutable numbers - add string constructors
+    * [        ] - MutableBoolean - add toBoolean(), isTrue() and isFalse() methods
+    * [LANG-422] - StrBuilder - add appendSeparator() methods with an alternative default separator if the StrBuilder is currently empty
+    * [LANG-555] - SystemUtils - add IS_OS_WINDOWS_7 constant
+    * [LANG-554] - SystemUtils - add IS_JAVA_1_7 constant for JDK 1.7
+    * [LANG-405] - StringUtils - add abbreviateMiddle() method
+    * [LANG-569] - StringUtils - add indexOfIgnoreCase() and lastIndexOfIgnoreCase() methods
+    * [LANG-471] - StringUtils - add isAllUpperCase() and isAllLowerCase() methods
+    * [LANG-469] - StringUtils - add lastOrdinalIndexOf() method to complement the existing ordinalIndexOf() method
+    * [LANG-348] - StringUtils - add repeat() method
+    * [LANG-445] - StringUtils - add startsWithAny() method
+    * [LANG-430] - StringUtils - add upperCase(String, Locale) and lowerCase(String, Locale) methods
+    * [LANG-416] - New Reflection package containing ConstructorUtils, FieldUtils, MemberUtils and MethodUtils
+
+BUG FIXES IN 2.5
+================
+
+    * [LANG-494] - CharSet - Synchronizing the COMMON Map so that getInstance doesn't miss a put from a subclass in another thread
+    * [LANG-500] - ClassUtils - improving performance of getAllInterfaces
+    * [LANG-587] - ClassUtils - toClass() throws NullPointerException on null array element
+    * [LANG-530] - DateUtils - Fix parseDate() cannot parse ISO8601 dates produced by FastDateFormat
+    * [LANG-440] - DateUtils - round() doesn't work correct for Calendar.AM_PM
+    * [LANG-443] - DateUtils - improve tests
+    * [LANG-204] - Entities - multithreaded initialization
+    * [LANG-506] - Entities - missing final modifiers; thread-safety issues
+    * [LANG-76]  - EnumUtils - getEnum() doesn't work well in 1.5+
+    * [LANG-584] - ExceptionUtils - use immutable lock target
+    * [LANG-477] - ExtendedMessageFormat - OutOfMemory with a pattern containing single quotes
+    * [LANG-538] - FastDateFormat - call getTime() on a calendar to ensure timezone is in the right state
+    * [LANG-547] - FastDateFormat - Remove unused field
+    * [LANG-511] - LocaleUtils - initialization of available locales can be deferred
+    * [LANG-457] - NumberUtils - createNumber() thows a StringIndexOutOfBoundsException for "l"
+    * [LANG-521] - NumberUtils - isNumber(String) and createNumber(String) both modified to support '2.'
+    * [LANG-432] - StringUtils - improve handling of case-insensitive Strings
+    * [LANG-552] - StringUtils - replaceEach() no longer NPEs when null appears in the last String[]
+    * [LANG-460] - StringUtils - correct JavaDocs for startsWith() and startsWithIgnoreCase()
+    * [LANG-421] - StringEscapeUtils - escapeJava() escapes '/' characters
+    * [LANG-450] - StringEscapeUtils - change escapeJavaStyleString() to throw UnhandledException instead swallowing IOException
+    * [LANG-419] - WordUtils - fix StringIndexOutOfBoundsException when lower is greater than the String length
+    * [LANG-523] - StrBuilder - Performance improvement by doubling the size of the String in ensureCapacity
+    * [LANG-575] - Compare, Equals and HashCode builders - use ArrayUtils to avoid creating a temporary List
+    * [LANG-467] - EqualsBuilder - removing the special handling of BigDecimal (LANG-393) to use compareTo 
+    * [LANG-574] - HashCodeBuilder - Performance improvement: check for isArray to short-circuit the 9 instanceof checks
+    * [LANG-520] - HashCodeBuilder - Changing the hashCode() method to return toHashCode()
+    * [LANG-459] - HashCodeBuilder - reflectionHashCode() can generate incorrect hashcodes
+    * [LANG-586] - HashCodeBuilder and ToStringStyle - use of ThreadLocal causes memory leaks in container environments
+    * [LANG-487] - ToStringBuilder - make default style thread-safe
+    * [LANG-472] - RandomUtils - nextLong() always produces even numbers
+    * [LANG-592] - RandomUtils - RandomUtils tests are failing frequently
+
+</source>
+</p>
+</section>
+
+</body>
+</document>

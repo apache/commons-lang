@@ -1,0 +1,661 @@
+$Id: RELEASE-NOTES.txt 137634 2003-08-19 02:39:59Z bayard $
+
+                        Commons Lang Package
+                            Version 2.0
+                           Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for this version of the Commons
+Lang package. Commons Lang is a set of utility functions and reusable 
+components that should be a help in any Java environment.
+
+This release has involved a major clean and tidy exercise.
+Javadoc and Tests are now much more thorough.
+All methods should now be much clearer in what they do in unusual cases.
+
+
+INCOMPATIBLE CHANGES:
+Some StringUtils methods have changed functionality from 1.0:
+    isEmpty()
+    chomp(String)
+    chomp(String,String)
+    swapCase(String)
+Numerous other methods have changed null handling to accept nulls gracefully.
+As with all major version releases, check your code for incompatibilities.
+
+
+NEW FEATURES:
+
+Since the release of the 1.0 package the following classes have been added:
+
+lang package:
+    ArrayUtils
+    BitField
+    BooleanUtils
+    CharRange (previously package scoped)
+    ClassUtils
+    StringEscapeUtils
+    WordUtils
+    IllegalClassException
+    IncompleteArgumentException
+    NotImplementedException
+    NullArgumentException
+    SerializationException
+    UnhandledException
+    Validate
+
+
+math sub-package:
+    IntRange
+    LongRange
+    Range
+    DoubleRange
+    JVMRandom
+    NumberRange
+    FloatRange
+    NumberUtils
+    Fraction
+    RandomUtils
+
+time sub-package: 
+    DateFormatUtils
+    FastDateFormat
+    DateUtils
+    StopWatch
+
+Since the release of the 1.0 package the following classes have been changed:
+
+lang:
+    CharSet:
+        Added factory method, equals and hashCode().
+        Better defined and tested the set syntax.
+    CharSetUtils:
+        added keep method:  keep any characters specified in the CharSet string
+    RandomStringUtils:
+        random method:  overloaded to allow passing in of a Random class
+    SerializationUtils:
+        added empty constructor
+    StringUtils:
+        isEmpty() changed to not trim
+        chomp() changed to be more like Perl.
+        swapCase() no longer word based, but no difference if you pass in ASCII
+        Various methods changed in the handling of null (less exceptions).
+        Many new methods.
+        Various methods deprecated.
+    SystemUtils:
+        isJavaVersionAtLeast(int) added. getJavaVersion() deprecated.
+        host of new constants.
+
+enum:
+    Enum:
+        getEnumClass(Class) added
+    EnumUtils:
+        Removed irrelevant Comparable/Serializable interfaces.
+
+exception:
+    NestableDelegate:
+        Gained many new methods for dissecting an Exception.
+    ExceptionUtils:
+        Gained many new methods to improve handling of nested stack traces.
+        
+builder:
+    ReflectionToStringBuilder:
+        Handy class added for creating default toStrings.
+    All other builder classes received a set of new methods.
+
+
+BUG FIXES:
+
+ID Sev Pri Plt Owner State Result Summary 
+13367  [PATCH] StringUtil enhancement  
+13391  Javadoc nit  
+13771  Additional Lang Method Suggestions  
+14306  NullPointerException in CompareToBuilder  
+14357  static option for reversing the stacktrace  
+14447  ToStringBuilder doesn't work well in subclasses  
+14883  StringUtils.countMatches loops forever if substring empty  
+14884  NumberRange inaccurate for Long, etc.  
+14985  More flexibility for getRootCause in ExceptionUtils  
+15154  SystemUtils.IS_JAVA_1_5 Javadoc is wrong  
+15257  Hierarchy support in ToStringBuilder.reflectionToString()  
+15438  ArrayUtils.contains()  
+15439  Enum does not support inner sub-classes  
+15986  Infinite loop in ToStringBuilder.reflectionToString for inne  
+16076  Example in Javadoc for ToStringBuilder wrong for append.  
+16193  Hierarchy support in EqualsBuilder.reflectionEquals()  
+16202  typo in the javadoc example code  
+16204  Infinite loop in StringUtils.replace(text, repl, with) + FIX  
+16227  Added class hierarchy support to CompareToBuilder.reflectionC  
+16228  Added class hierarchy support to HashCodeBuilder.reflectionHa  
+16284  MethodUtils: Removed unused code/unused local vars.  
+16341  No Javadoc for NestableDelegate  
+16622  Removed compile warning in FastDateFormat  
+16669  JavaDoc Errata  
+16676  StackOverflow due to ToStringBuilder  
+16689  ExceptionUtils new methods.  
+16690  Specify initial size for Enum's HashMap.  
+16787  Removed compile warning in ObjectUtils  
+17250  [Lang] Should ToStringBuilder.reflectionToString handle arra  
+17654  EnumUtils nit: The import java.io.Serializable is never used  
+17882  Add join(..., char c) to StringUtils (and some performance f  
+18077  StringUtils.chomp does not match Perl  
+18723  RandomStringUtils infloops with length < 1  
+18836  test.lang fails if compiled with non iso-8859-1 locales  
+18948  Resurrect the WordWrapUtils from commons-sandbox/utils  
+19296  [Lang] What to do with FastDateFormat unused private constru  
+19364  [Lang] time unit tests fail on Sundays  
+19756  [lang] java.lang.ExceptionInInitializerError thrown by JVMRa  
+19880  [lang] patch and test case fixing problem with RandomStringU  
+20165  [LANG] SystemUtils does not play nice in an Applet  
+20538  [lang] NumberUtils.isNumber allows illegal trailing characte  
+20592  [lang] RandomStringUtils.randomAlpha methods omit 'z'  
+20603  [lang] Make NestableDelegate methods public instead of packa  
+20632  Refactored reflection feature of ToStringBuilder into new Re  
+20652  StringUtils.chopNewLine - StringIndexOutOfBoundsException  
+21021  [PATCH] reduce object creation in ToStringBuilder  
+21068  [lang] [PATCH] NumberUtils min/max, BooleanUtils.xor, and Ar  
+21099  [lang][PATCH] Unused field 'startFinal' in DateIterator  
+21715  The javadoc says "Mac" instead of "OS/2"
+21734  [PATCH] all NumberUtils.createXXX(String) methods handle null
+21750  [lang] StringUtils javadoc and test enhancements
+21758  [lang] lang.builder classes javadoc edits (mostly typo fixes)
+21797  [lang] Add javadoc examples and tests for StringUtils
+21809  [lang] maven-beta10 checkstyle problem
+21904  NumberUtils.createBigDecimal("") NPE in Sun 1.3.1_08
+21952  [lang] Improved tests, javadoc for CharSetUtils, StringEscapeUtils
+22091  Adding tolerance to double[] search methods in ArrayUtils
+22094  A small, but important javadoc fix for Fraction proper whole/numerator
+22095  [lang] Javadoc, tests improvements for CharSet, CharSetUtils
+22098  [lang] Improve util.Validate tests
+22245  [lang] test.time fails in Japanese (non-us) locale.
+22286  [lang] Missing @since tags
+22367  Typo in documentation
+22386  [lang] Improve javadoc and overflow behavior of Fraction
+
+
+DEPRECATIONS:
+
+lang:
+    NumberRange:
+        now deprecated, see math subpackage
+    NumberUtils:
+        now deprecated, see math subpackage
+
+
+CHANGES:   [In 'diff' format]
+
+Jar changes
+===========
+> org.apache.commons.lang.math.Range
+> org.apache.commons.lang.math.FloatRange
+> org.apache.commons.lang.math.NumberUtils
+> org.apache.commons.lang.math.JVMRandom
+> org.apache.commons.lang.math.IntRange
+> org.apache.commons.lang.math.LongRange
+> org.apache.commons.lang.math.DoubleRange
+> org.apache.commons.lang.math.NumberRange
+> org.apache.commons.lang.math.Fraction
+> org.apache.commons.lang.math.RandomUtils
+> org.apache.commons.lang.time.FastDateFormat
+> org.apache.commons.lang.time.DateUtils$DateIterator
+> org.apache.commons.lang.time.DateUtils
+> org.apache.commons.lang.time.FastDateFormat$UnpaddedMonthField
+> org.apache.commons.lang.time.FastDateFormat$StringLiteral
+> org.apache.commons.lang.time.FastDateFormat$TwelveHourField
+> org.apache.commons.lang.time.FastDateFormat$NumberRule
+> org.apache.commons.lang.time.FastDateFormat$CharacterLiteral
+> org.apache.commons.lang.time.FastDateFormat$TimeZoneNumberRule
+> org.apache.commons.lang.time.FastDateFormat$TimeZoneNameRule
+> org.apache.commons.lang.time.DateFormatUtils
+> org.apache.commons.lang.time.FastDateFormat$TwoDigitMonthField
+> org.apache.commons.lang.time.DurationFormatUtils
+> org.apache.commons.lang.time.FastDateFormat$TimeZoneDisplayKey
+> org.apache.commons.lang.time.FastDateFormat$UnpaddedNumberField
+> org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+> org.apache.commons.lang.time.StopWatch
+> org.apache.commons.lang.time.FastDateFormat$TwentyFourHourField
+> org.apache.commons.lang.time.FastDateFormat$Rule
+> org.apache.commons.lang.time.FastDateFormat$TwoDigitNumberField
+> org.apache.commons.lang.time.FastDateFormat$TextField
+> org.apache.commons.lang.time.FastDateFormat$Pair
+> org.apache.commons.lang.time.FastDateFormat$TwoDigitYearField
+> org.apache.commons.lang.util.IdentifierUtils$StringNumericIdentifierFactory
+> org.apache.commons.lang.util.IdentifierUtils$StringSessionIdentifierFactory
+> org.apache.commons.lang.util.IdentifierUtils$LongNumericIdentifierFactory
+> org.apache.commons.lang.util.IdentifierUtils$StringAlphanumericIdentifierFactory
+> org.apache.commons.lang.util.Validate
+> org.apache.commons.lang.util.LongIdentifierFactory
+> org.apache.commons.lang.util.IdentifierUtils$1
+> org.apache.commons.lang.util.StringIdentifierFactory
+> org.apache.commons.lang.util.IdentifierUtils
+> org.apache.commons.lang.util.IdentifierFactory
+> org.apache.commons.lang.util.BitField
+> org.apache.commons.lang.Entities
+> org.apache.commons.lang.Entities$LookupEntityMap
+> org.apache.commons.lang.NotImplementedException
+> org.apache.commons.lang.NullArgumentException
+< org.apache.commons.lang.ObjectUtils$1
+---
+> org.apache.commons.lang.StringPrintWriter
+> org.apache.commons.lang.UnhandledException
+> org.apache.commons.lang.Entities$HashEntityMap
+> org.apache.commons.lang.Entities$ArrayEntityMap
+> org.apache.commons.lang.Entities$EntityMap
+> org.apache.commons.lang.IntHashMap
+> org.apache.commons.lang.BooleanUtils
+> org.apache.commons.lang.IncompleteArgumentException
+> org.apache.commons.lang.Entities$PrimitiveEntityMap
+> org.apache.commons.lang.Entities$TreeEntityMap
+> org.apache.commons.lang.WordUtils
+> org.apache.commons.lang.StringEscapeUtils
+> org.apache.commons.lang.ArrayUtils
+> org.apache.commons.lang.Entities$BinaryEntityMap
+> org.apache.commons.lang.ClassUtils
+> org.apache.commons.lang.IntHashMap$Entry
+> org.apache.commons.lang.IllegalClassException
+> org.apache.commons.lang.builder.ReflectionToStringBuilder$1
+> org.apache.commons.lang.builder.ReflectionToStringBuilder
+> org.apache.commons.lang.Entities$MapIntMap
+
+
+Class changes
+=============
+org.apache.commons.lang.enum.EnumUtils
+--------------------
+< public abstract class org.apache.commons.lang.enum.EnumUtils extends java.lang.Object implements java.lang.Comparable, java.io.Serializable {
+---
+> public class org.apache.commons.lang.enum.EnumUtils extends java.lang.Object {
+>     public org.apache.commons.lang.enum.EnumUtils();
+
+org.apache.commons.lang.enum.Enum$Entry
+--------------------
+>     final java.util.Map unmodifiableMap;
+>     final java.util.List unmodifiableList;
+
+org.apache.commons.lang.enum.Enum
+--------------------
+>     protected transient java.lang.String iToString;
+>     static java.lang.Class class$org$apache$commons$lang$enum$ValuedEnum;
+>     public java.lang.Class getEnumClass();
+
+org.apache.commons.lang.enum.ValuedEnum
+--------------------
+>     static {};
+
+org.apache.commons.lang.StringUtils
+--------------------
+>     public static final java.lang.String EMPTY;
+>     public static boolean isEmpty(java.lang.String);
+>     public static boolean isNotEmpty(java.lang.String);
+>     public static boolean isBlank(java.lang.String);
+>     public static boolean isNotBlank(java.lang.String);
+<     public static java.lang.String deleteSpaces(java.lang.String);
+<     public static java.lang.String deleteWhitespace(java.lang.String);
+<     public static boolean isNotEmpty(java.lang.String);
+<     public static boolean isEmpty(java.lang.String);
+---
+>     public static java.lang.String trimToNull(java.lang.String);
+>     public static java.lang.String trimToEmpty(java.lang.String);
+>     public static java.lang.String strip(java.lang.String);
+>     public static java.lang.String stripToNull(java.lang.String);
+>     public static java.lang.String stripToEmpty(java.lang.String);
+>     public static java.lang.String strip(java.lang.String, java.lang.String);
+>     public static java.lang.String stripStart(java.lang.String, java.lang.String);
+>     public static java.lang.String stripEnd(java.lang.String, java.lang.String);
+>     public static java.lang.String stripAll(java.lang.String[])[];
+>     public static java.lang.String stripAll(java.lang.String[], java.lang.String)[];
+>     public static int indexOf(java.lang.String, char);
+>     public static int indexOf(java.lang.String, char, int);
+>     public static int indexOf(java.lang.String, java.lang.String);
+>     public static int indexOf(java.lang.String, java.lang.String, int);
+>     public static int lastIndexOf(java.lang.String, char);
+>     public static int lastIndexOf(java.lang.String, char, int);
+>     public static int lastIndexOf(java.lang.String, java.lang.String);
+>     public static int lastIndexOf(java.lang.String, java.lang.String, int);
+>     public static boolean contains(java.lang.String, char);
+>     public static boolean contains(java.lang.String, java.lang.String);
+>     public static int indexOfAny(java.lang.String, char[]);
+>     public static int indexOfAny(java.lang.String, java.lang.String);
+>     public static int indexOfAnyBut(java.lang.String, char[]);
+>     public static int indexOfAnyBut(java.lang.String, java.lang.String);
+>     public static boolean containsOnly(java.lang.String, char[]);
+>     public static boolean containsOnly(java.lang.String, java.lang.String);
+>     public static boolean containsNone(java.lang.String, char[]);
+>     public static boolean containsNone(java.lang.String, java.lang.String);
+>     public static java.lang.String substringBefore(java.lang.String, java.lang.String);
+>     public static java.lang.String substringAfter(java.lang.String, java.lang.String);
+>     public static java.lang.String substringBeforeLast(java.lang.String, java.lang.String);
+>     public static java.lang.String substringAfterLast(java.lang.String, java.lang.String);
+>     public static java.lang.String substringBetween(java.lang.String, java.lang.String);
+>     public static java.lang.String substringBetween(java.lang.String, java.lang.String, java.lang.String);
+>     public static java.lang.String getNestedString(java.lang.String, java.lang.String);
+>     public static java.lang.String getNestedString(java.lang.String, java.lang.String, java.lang.String);
+>     public static java.lang.String split(java.lang.String, char)[];
+>     public static java.lang.String join(java.lang.Object[]);
+>     public static java.lang.String join(java.lang.Object[], char);
+>     public static java.lang.String join(java.util.Iterator, char);
+>     public static java.lang.String deleteSpaces(java.lang.String);
+>     public static java.lang.String deleteWhitespace(java.lang.String);
+>     public static java.lang.String replaceChars(java.lang.String, char, char);
+>     public static java.lang.String replaceChars(java.lang.String, java.lang.String, java.lang.String);
+<     public static java.lang.String center(java.lang.String, int);
+<     public static java.lang.String center(java.lang.String, int, java.lang.String);
+---
+>     public static java.lang.String overlay(java.lang.String, java.lang.String, int, int);
+>     public static java.lang.String rightPad(java.lang.String, int, char);
+>     public static java.lang.String leftPad(java.lang.String, int, char);
+<     public static java.lang.String strip(java.lang.String);
+<     public static java.lang.String strip(java.lang.String, java.lang.String);
+<     public static java.lang.String stripAll(java.lang.String[])[];
+<     public static java.lang.String stripAll(java.lang.String[], java.lang.String)[];
+<     public static java.lang.String stripEnd(java.lang.String, java.lang.String);
+<     public static java.lang.String stripStart(java.lang.String, java.lang.String);
+---
+>     public static java.lang.String center(java.lang.String, int);
+>     public static java.lang.String center(java.lang.String, int, char);
+>     public static java.lang.String center(java.lang.String, int, java.lang.String);
+<     public static java.lang.String uncapitalise(java.lang.String);
+---
+>     public static java.lang.String capitalize(java.lang.String);
+>     public static java.lang.String uncapitalize(java.lang.String);
+>     public static java.lang.String uncapitalise(java.lang.String);
+<     public static java.lang.String getNestedString(java.lang.String, java.lang.String);
+<     public static java.lang.String getNestedString(java.lang.String, java.lang.String, java.lang.String);
+>     public static boolean isWhitespace(java.lang.String);
+>     public static java.lang.String reverseDelimited(java.lang.String, char);
+>     public static java.lang.String abbreviate(java.lang.String, int);
+>     public static java.lang.String abbreviate(java.lang.String, int, int);
+>     public static java.lang.String difference(java.lang.String, java.lang.String);
+>     public static int differenceAt(java.lang.String, java.lang.String);
+<     public static boolean containsOnly(java.lang.String, char[]);
+---
+>     static {};
+
+org.apache.commons.lang.ObjectUtils
+--------------------
+>     public static java.lang.StringBuffer appendIdentityToString(java.lang.StringBuffer, java.lang.Object);
+>     public static java.lang.String toString(java.lang.Object);
+>     public static java.lang.String toString(java.lang.Object, java.lang.String);
+<         org.apache.commons.lang.ObjectUtils.Null(org.apache.commons.lang.ObjectUtils$1);
+---
+>         org.apache.commons.lang.ObjectUtils.Null();
+>         static {};
+
+org.apache.commons.lang.exception.NestableDelegate
+--------------------
+>     public static boolean topDown;
+>     public static boolean trimStackFrames;
+<     org.apache.commons.lang.exception.NestableDelegate(org.apache.commons.lang.exception.Nestable);
+<     java.lang.String getMessage(int);
+<     java.lang.String getMessage(java.lang.String);
+<     java.lang.String getMessages()[];
+<     java.lang.Throwable getThrowable(int);
+<     int getThrowableCount();
+<     java.lang.Throwable getThrowables()[];
+<     int indexOfThrowable(java.lang.Class, int);
+---
+>     public org.apache.commons.lang.exception.NestableDelegate(org.apache.commons.lang.exception.Nestable);
+>     public java.lang.String getMessage(int);
+>     public java.lang.String getMessage(java.lang.String);
+>     public java.lang.String getMessages()[];
+>     public java.lang.Throwable getThrowable(int);
+>     public int getThrowableCount();
+>     public java.lang.Throwable getThrowables()[];
+>     public int indexOfThrowable(java.lang.Class, int);
+>     protected java.lang.String getStackFrames(java.lang.Throwable)[];
+>     protected void trimStackFrames(java.util.List);
+
+org.apache.commons.lang.exception.ExceptionUtils
+--------------------
+<     protected static final java.lang.String CAUSE_METHOD_NAMES[];
+<     protected static final java.lang.Object CAUSE_METHOD_PARAMS[];
+---
+>     static final java.lang.String WRAPPED_MARKER;
+<     protected org.apache.commons.lang.exception.ExceptionUtils();
+---
+>     public org.apache.commons.lang.exception.ExceptionUtils();
+>     public static void addCauseMethodName(java.lang.String);
+>     public static boolean isThrowableNested();
+>     public static boolean isNestedThrowable(java.lang.Throwable);
+>     public static void printRootCauseStackTrace(java.lang.Throwable);
+>     public static void printRootCauseStackTrace(java.lang.Throwable, java.io.PrintStream);
+>     public static void printRootCauseStackTrace(java.lang.Throwable, java.io.PrintWriter);
+>     public static java.lang.String getRootCauseStackTrace(java.lang.Throwable)[];
+>     public static void removeCommonFrames(java.util.List, java.util.List);
+>     public static java.lang.String getFullStackTrace(java.lang.Throwable);
+>     static java.util.List getStackFrameList(java.lang.Throwable);
+
+org.apache.commons.lang.CharRange
+--------------------
+< class org.apache.commons.lang.CharRange extends java.lang.Object {
+---
+> public final class org.apache.commons.lang.CharRange extends java.lang.Object implements java.io.Serializable {
+>     public org.apache.commons.lang.CharRange(char,boolean);
+<     public org.apache.commons.lang.CharRange(java.lang.String,java.lang.String);
+---
+>     public org.apache.commons.lang.CharRange(char,char,boolean);
+<     public void setStart(char);
+<     public void setEnd(char);
+<     public boolean isRange();
+<     public boolean inRange(char);
+<     public void setNegated(boolean);
+---
+>     public boolean contains(char);
+>     public boolean contains(org.apache.commons.lang.CharRange);
+>     public boolean equals(java.lang.Object);
+>     public int hashCode();
+>     static {};
+
+org.apache.commons.lang.ObjectUtils$1
+--------------------
+< Compiled from ObjectUtils.java
+< class org.apache.commons.lang.ObjectUtils$1 extends java.lang.Object {
+< }
+---
+> Class 'org.apache.commons.lang.ObjectUtils$1' has been removed
+
+org.apache.commons.lang.ObjectUtils$Null
+--------------------
+<     org.apache.commons.lang.ObjectUtils.Null(org.apache.commons.lang.ObjectUtils$1);
+---
+>     org.apache.commons.lang.ObjectUtils.Null();
+>     static {};
+
+org.apache.commons.lang.SystemUtils
+--------------------
+>     public static final java.lang.String FILE_ENCODING;
+>     public static final java.lang.String JAVA_RUNTIME_NAME;
+>     public static final java.lang.String JAVA_RUNTIME_VERSION;
+>     public static final java.lang.String JAVA_VM_INFO;
+>     public static final java.lang.String USER_COUNTRY;
+>     public static final java.lang.String USER_LANGUAGE;
+>     public static final float JAVA_VERSION_FLOAT;
+>     public static final int JAVA_VERSION_INT;
+>     public static final boolean IS_OS_AIX;
+>     public static final boolean IS_OS_HP_UX;
+>     public static final boolean IS_OS_IRIX;
+>     public static final boolean IS_OS_LINUX;
+>     public static final boolean IS_OS_MAC;
+>     public static final boolean IS_OS_MAC_OSX;
+>     public static final boolean IS_OS_OS2;
+>     public static final boolean IS_OS_SOLARIS;
+>     public static final boolean IS_OS_SUN_OS;
+>     public static final boolean IS_OS_WINDOWS;
+>     public static final boolean IS_OS_WINDOWS_2000;
+>     public static final boolean IS_OS_WINDOWS_95;
+>     public static final boolean IS_OS_WINDOWS_98;
+>     public static final boolean IS_OS_WINDOWS_ME;
+>     public static final boolean IS_OS_WINDOWS_NT;
+>     public static final boolean IS_OS_WINDOWS_XP;
+>     public static boolean isJavaVersionAtLeast(int);
+
+org.apache.commons.lang.SerializationUtils
+--------------------
+>     public org.apache.commons.lang.SerializationUtils();
+
+org.apache.commons.lang.RandomStringUtils
+--------------------
+>     public static java.lang.String random(int, int, int, boolean, boolean, char[], java.util.Random);
+
+org.apache.commons.lang.CharSet
+--------------------
+< public class org.apache.commons.lang.CharSet extends java.lang.Object {
+---
+> public class org.apache.commons.lang.CharSet extends java.lang.Object implements java.io.Serializable {
+>     public static final org.apache.commons.lang.CharSet EMPTY;
+>     public static final org.apache.commons.lang.CharSet ASCII_ALPHA;
+>     public static final org.apache.commons.lang.CharSet ASCII_ALPHA_LOWER;
+>     public static final org.apache.commons.lang.CharSet ASCII_ALPHA_UPPER;
+>     public static final org.apache.commons.lang.CharSet ASCII_NUMERIC;
+>     protected static final java.util.Map COMMON;
+>     public static org.apache.commons.lang.CharSet getInstance(java.lang.String);
+>     protected org.apache.commons.lang.CharSet(java.lang.String);
+<     public boolean contains(char);
+>     public org.apache.commons.lang.CharRange getCharRanges()[];
+>     public boolean contains(char);
+>     public boolean equals(java.lang.Object);
+>     public int hashCode();
+>     static {};
+
+org.apache.commons.lang.CharSetUtils
+--------------------
+>     public static java.lang.String keep(java.lang.String, java.lang.String);
+>     public static java.lang.String keep(java.lang.String, java.lang.String[]);
+
+org.apache.commons.lang.builder.ToStringBuilder
+--------------------
+<     public org.apache.commons.lang.builder.ToStringBuilder(java.lang.Object);
+<     public org.apache.commons.lang.builder.ToStringBuilder(java.lang.Object,org.apache.commons.lang.builder.ToStringStyle);
+<     public org.apache.commons.lang.builder.ToStringBuilder(java.lang.Object,org.apache.commons.lang.builder.ToStringStyle,java.lang.StringBuffer);
+<     public static void setDefaultStyle(org.apache.commons.lang.builder.ToStringStyle);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.Object);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, java.lang.Object);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, java.lang.Object, boolean);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(long);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, long);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(int);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, int);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(short);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, short);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(char);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, char);
+---
+>     public static java.lang.String reflectionToString(java.lang.Object, org.apache.commons.lang.builder.ToStringStyle, boolean, java.lang.Class);
+>     public static void setDefaultStyle(org.apache.commons.lang.builder.ToStringStyle);
+>     public org.apache.commons.lang.builder.ToStringBuilder(java.lang.Object);
+>     public org.apache.commons.lang.builder.ToStringBuilder(java.lang.Object,org.apache.commons.lang.builder.ToStringStyle);
+>     public org.apache.commons.lang.builder.ToStringBuilder(java.lang.Object,org.apache.commons.lang.builder.ToStringStyle,java.lang.StringBuffer);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(boolean);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(boolean[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, byte);
+---
+>     public org.apache.commons.lang.builder.ToStringBuilder append(byte[]);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(char);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(char[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, double);
+---
+>     public org.apache.commons.lang.builder.ToStringBuilder append(double[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, float);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(boolean);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, boolean);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.Object[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, java.lang.Object[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, java.lang.Object[], boolean);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(long[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, long[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, long[], boolean);
+---
+>     public org.apache.commons.lang.builder.ToStringBuilder append(float[]);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(int);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, int[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, int[], boolean);
+---
+>     public org.apache.commons.lang.builder.ToStringBuilder append(long);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(long[]);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.Object);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.Object[]);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(short);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, short[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, short[], boolean);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(char[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, char[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, char[], boolean);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(byte[]);
+---
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, boolean);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, boolean[]);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, boolean[], boolean);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, byte);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(double[]);
+---
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, char);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, char[]);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, char[], boolean);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, double);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(float[]);
+---
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, float);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(boolean[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, boolean[]);
+<     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, boolean[], boolean);
+---
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, int);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, int[]);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, int[], boolean);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, long);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, long[]);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, long[], boolean);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, java.lang.Object);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, java.lang.Object, boolean);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, java.lang.Object[]);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, java.lang.Object[], boolean);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, short);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, short[]);
+>     public org.apache.commons.lang.builder.ToStringBuilder append(java.lang.String, short[], boolean);
+>     public org.apache.commons.lang.builder.ToStringBuilder appendAsObjectToString(java.lang.Object);
+>     public org.apache.commons.lang.builder.ToStringBuilder appendSuper(java.lang.String);
+>     public org.apache.commons.lang.builder.ToStringBuilder appendToString(java.lang.String);
+>     public org.apache.commons.lang.builder.ToStringStyle getStyle();
+>     public java.lang.Object getObject();
+
+org.apache.commons.lang.builder.StandardToStringStyle
+--------------------
+>     public boolean isUseShortClassName();
+>     public void setUseShortClassName(boolean);
+>     public boolean isFieldSeparatorAtStart();
+>     public void setFieldSeparatorAtStart(boolean);
+>     public boolean isFieldSeparatorAtEnd();
+>     public void setFieldSeparatorAtEnd(boolean);
+
+org.apache.commons.lang.builder.ToStringStyle
+--------------------
+>     public void appendSuper(java.lang.StringBuffer, java.lang.String);
+>     public void appendToString(java.lang.StringBuffer, java.lang.String);
+>     protected void removeLastFieldSeparator(java.lang.StringBuffer);
+>     protected void reflectionAppendArrayDetail(java.lang.StringBuffer, java.lang.String, java.lang.Object);
+>     protected boolean isUseShortClassName();
+>     protected void setUseShortClassName(boolean);
+>     protected boolean isFieldSeparatorAtStart();
+>     protected void setFieldSeparatorAtStart(boolean);
+>     protected boolean isFieldSeparatorAtEnd();
+>     protected void setFieldSeparatorAtEnd(boolean);
+
+org.apache.commons.lang.builder.HashCodeBuilder
+--------------------
+>     public static int reflectionHashCode(int, int, java.lang.Object, boolean, java.lang.Class);
+>     public org.apache.commons.lang.builder.HashCodeBuilder appendSuper(int);
+
+org.apache.commons.lang.builder.CompareToBuilder
+--------------------
+>     public static int reflectionCompare(java.lang.Object, java.lang.Object, boolean, java.lang.Class);
+>     public org.apache.commons.lang.builder.CompareToBuilder appendSuper(int);
+>     public org.apache.commons.lang.builder.CompareToBuilder append(java.lang.Object, java.lang.Object, java.util.Comparator);
+>     public org.apache.commons.lang.builder.CompareToBuilder append(java.lang.Object[], java.lang.Object[], java.util.Comparator);
+
+org.apache.commons.lang.builder.EqualsBuilder
+--------------------
+>     public static boolean reflectionEquals(java.lang.Object, java.lang.Object, boolean, java.lang.Class);
+>     public org.apache.commons.lang.builder.EqualsBuilder appendSuper(boolean);
+

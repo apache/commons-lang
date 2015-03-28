@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<document>
+ <properties>
+  <title>Home</title>
+  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+ </properties>
+<body>
+<!-- ================================================== -->
+<section name="Commons Lang Release History">
+
+<!-- TODO: Add the Java version for each release -->
+
+<table>
+<tr><th>Version</th><th>Release date</th><th>Javadoc</th><th>Release notes</th></tr>
+<tr><td>3.3.2</td><td>09/Apr/14</td><td><a href="javadocs/api-3.3.2/">api-3.3.2</a></td><td><a href="release-notes/RELEASE-NOTES-3.3.2.txt">release notes for 3.3.2</a></td></tr>
+<tr><td>3.3.1</td><td>18/Mar/14</td><td><a href="javadocs/api-3.3.1/">api-3.3.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.3.1.txt">release notes for 3.3.1</a></td></tr>
+<tr><td>3.3</td><td>04/Mar/14</td><td><a href="javadocs/api-3.3/">api-3.3</a></td><td><a href="release-notes/RELEASE-NOTES-3.3.txt">release notes for 3.3</a></td></tr>
+<tr><td>3.2.1</td><td>05/Jan/14</td><td><a href="javadocs/api-3.2.1/">api-3.2.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.2.1.txt">release notes for 3.2.1</a></td></tr>
+<tr><td>3.2</td><td>01/Jan/14</td><td><a href="javadocs/api-3.2/">api-3.2</a></td><td><a href="release-notes/RELEASE-NOTES-3.2.txt">release notes for 3.2</a></td></tr>
+<tr><td>3.1</td><td>14/Nov/11</td><td><a href="javadocs/api-3.1/">api-3.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.1.txt">release notes for 3.1</a></td></tr>
+<tr><td>3.0.1</td><td>9/Aug/11</td><td><a href="javadocs/api-3.0.1/">api-3.0.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.0.1.txt">release notes for 3.0.1</a></td></tr>
+<tr><td>3.0</td><td>18/Jul/11</td><td><a href="javadocs/api-3.0/">api-3.0</a></td><td><a href="release-notes/RELEASE-NOTES-3.0.txt">release notes for 3.0</a></td></tr>
+<tr><td>2.6</td><td>16/Jan/11</td><td><a href="javadocs/api-2.6/">api-2.6</a></td><td><a href="release-notes/RELEASE-NOTES-2.6.txt">release notes for 2.6</a></td></tr>
+<tr><td>2.5</td><td>23/Feb/10</td><td><a href="javadocs/api-2.5/">api-2.5</a></td><td><a href="release-notes/RELEASE-NOTES-2.5.txt">release notes for 2.5</a></td></tr>
+<tr><td>2.4</td><td>18/Mar/08</td><td><a href="javadocs/api-2.4/">api-2.4</a></td><td><a href="release-notes/RELEASE-NOTES-2.4.txt">release notes for 2.4</a></td></tr>
+<tr><td>2.3</td><td>13/Feb/07</td><td><a href="javadocs/api-2.3/">api-2.3</a></td><td><a href="release-notes/RELEASE-NOTES-2.3.txt">release notes for 2.3</a></td></tr>
+<tr><td>2.2</td><td>04/Oct/06</td><td><a href="javadocs/api-2.2/">api-2.2</a></td><td><a href="release-notes/RELEASE-NOTES-2.2.txt">release notes for 2.2</a></td></tr>
+<tr><td>2.1</td><td>13/Jun/06</td><td><a href="javadocs/api-2.1/">api-2.1</a></td><td><a href="release-notes/RELEASE-NOTES-2.1.txt">release notes for 2.1</a></td></tr>
+<tr><td>2.0</td><td>02/Sep/03</td><td><a href="javadocs/api-2.0/">api-2.0</a></td><td><a href="release-notes/RELEASE-NOTES-2.0.txt">release notes for 2.0</a></td></tr>
+<tr><td>1.0.1</td><td>25/Nov/02</td><td><a href="javadocs/api-1.0.1/">api-1.0.1</a></td><td><a href="release-notes/RELEASE-NOTES-1.0.1.txt">release notes for 1.0.1</a></td></tr>
+<tr><td>1.0</td><td>04/Oct/02</td><td><a href="javadocs/api-1.0/">api-1.0</a></td><td><a href="release-notes/RELEASE-NOTES-1.0.txt">release notes for 1.0</a></td></tr>
+</table>
+
+</section>
+<!-- ================================================== -->
+</body>
+</document>
