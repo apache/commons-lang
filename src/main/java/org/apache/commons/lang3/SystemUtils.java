@@ -1053,8 +1053,8 @@ public class SystemUtils {
      *
      * @since 3.4
      */
+    public static final boolean IS_OS_MAC_OSX_CHEETAH = getOSMatches("Mac OS X", "10.0");
 
-    public static final boolean IS_OS_MAC_OSX_CHEETAH = getOSMajorMinorVersionMatches("Mac OS X", "10.0");
     /**
      * <p>
      * Is {@code true} if this is Mac OS X Puma.
@@ -1065,7 +1065,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_PUMA = getOSMajorMinorVersionMatches("Mac OS X", "10.1");
+    public static final boolean IS_OS_MAC_OSX_PUMA = getOSMatches("Mac OS X", "10.1");
 
     /**
      * <p>
@@ -1077,7 +1077,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_JAGUAR = getOSMajorMinorVersionMatches("Mac OS X", "10.2");
+    public static final boolean IS_OS_MAC_OSX_JAGUAR = getOSMatches("Mac OS X", "10.2");
 
     /**
      * <p>
@@ -1089,7 +1089,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_PANTHER = getOSMajorMinorVersionMatches("Mac OS X", "10.3");
+    public static final boolean IS_OS_MAC_OSX_PANTHER = getOSMatches("Mac OS X", "10.3");
 
     /**
      * <p>
@@ -1101,7 +1101,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_TIGER = getOSMajorMinorVersionMatches("Mac OS X", "10.4");
+    public static final boolean IS_OS_MAC_OSX_TIGER = getOSMatches("Mac OS X", "10.4");
 
     /**
      * <p>
@@ -1113,7 +1113,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_LEOPARD = getOSMajorMinorVersionMatches("Mac OS X", "10.5");
+    public static final boolean IS_OS_MAC_OSX_LEOPARD = getOSMatches("Mac OS X", "10.5");
 
     /**
      * <p>
@@ -1125,7 +1125,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_SNOW_LEOPARD = getOSMajorMinorVersionMatches("Mac OS X", "10.6");
+    public static final boolean IS_OS_MAC_OSX_SNOW_LEOPARD = getOSMatches("Mac OS X", "10.6");
 
     /**
      * <p>
@@ -1137,7 +1137,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_LION = getOSMajorMinorVersionMatches("Mac OS X", "10.7");
+    public static final boolean IS_OS_MAC_OSX_LION = getOSMatches("Mac OS X", "10.7");
 
     /**
      * <p>
@@ -1149,7 +1149,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_MOUNTAIN_LION = getOSMajorMinorVersionMatches("Mac OS X", "10.8");
+    public static final boolean IS_OS_MAC_OSX_MOUNTAIN_LION = getOSMatches("Mac OS X", "10.8");
 
     /**
      * <p>
@@ -1161,7 +1161,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_MAVERICKS = getOSMajorMinorVersionMatches("Mac OS X", "10.9");
+    public static final boolean IS_OS_MAC_OSX_MAVERICKS = getOSMatches("Mac OS X", "10.9");
 
     /**
      * <p>
@@ -1173,7 +1173,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_YOSEMITE = getOSMajorMinorVersionMatches("Mac OS X", "10.10");
+    public static final boolean IS_OS_MAC_OSX_YOSEMITE = getOSMatches("Mac OS X", "10.10");
 
     /**
      * <p>
@@ -1462,10 +1462,6 @@ public class SystemUtils {
         return isOSMatch(OS_NAME, OS_VERSION, osNamePrefix, osVersionPrefix);
     }
 
-    static boolean getOSMajorMinorVersionMatches(final String osNamePrefix, final String osVersionPrefix) {
-        return isOSMajorMinorVersionMatch(OS_NAME, OS_VERSION, osNamePrefix, osVersionPrefix);
-    }
-
     /**
      * Decides if the operating system matches.
      *
@@ -1581,26 +1577,6 @@ public class SystemUtils {
     }
 
     /**
-     * Decides if the operating system and its major and minor version matches.
-     *
-     * <p>
-     * This method is package private instead of private to support unit test invocation.
-     * </p>
-     *
-     * @param osName the actual OS name
-     * @param osVersion the actual OS version
-     * @param osNamePrefix the prefix for the expected OS name
-     * @param osVersionPrefix the expected major and minor OS version, e.g. "10.10"
-     * @return true if matches, or false if not or can't determine
-     */
-    static boolean isOSMajorMinorVersionMatch(final String osName, final String osVersion, final String osNamePrefix, final String osVersionPrefix) {
-        if (osName == null || osVersion == null) {
-            return false;
-        }
-        return osName.startsWith(osNamePrefix) && osVersion.matches(osVersionPrefix + "(\\.\\d+)?");
-    }
-
-    /**
      * Decides if the operating system matches.
      * <p>
      * This method is package private instead of private to support unit test invocation.
@@ -1635,7 +1611,7 @@ public class SystemUtils {
         }
         return osName.startsWith(osNamePrefix);
     }
-    
+
     /**
      * Decides if the operating system version matches.
      * <p>
