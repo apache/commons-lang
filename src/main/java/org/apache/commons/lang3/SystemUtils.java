@@ -1448,7 +1448,7 @@ public class SystemUtils {
         if (osName == null || osVersion == null) {
             return false;
         }
-        return osName.startsWith(osNamePrefix) && osVersion.startsWith(osVersionPrefix);
+        return isOSNameMatch(osName, osNamePrefix) && osVersion.startsWith(osVersionPrefix);
     }
 
     /**
