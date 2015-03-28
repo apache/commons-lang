@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
+    <action issue="LANG-1103" type="add" dev="britter">Add SystemUtils.IS_JAVA_1_9</action>
     <action issue="LANG-1102" type="update" dev="britter">Make logic for comparing OS versions in SystemUtils smarter</action>
     <action issue="LANG-1091" type="update" dev="britter" due-to="Fabian Lange">Shutdown thread pools in test cases</action>
     <action issue="LANG-1101" type="update" dev="chas">FastDateParser and FastDatePrinter support 'X' format</action>
