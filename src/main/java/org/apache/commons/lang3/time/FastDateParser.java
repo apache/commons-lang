@@ -841,7 +841,11 @@ public class FastDateParser implements DateParser, Serializable {
     private static class ISO8601TimeZoneStrategy extends Strategy {
         // Z, +hh, -hh, +hhmm, -hhmm, +hh:mm or -hh:mm 
         private final String pattern;
-        
+
+        /**
+         * Construct a Strategy that parses a TimeZone
+         * @param pattern The Pattern
+         */
         ISO8601TimeZoneStrategy(String pattern) {
             this.pattern = pattern;
         }
@@ -871,6 +875,13 @@ public class FastDateParser implements DateParser, Serializable {
         private static final Strategy ISO_8601_2_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}\\d{2}))");
         private static final Strategy ISO_8601_3_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}(?::)\\d{2}))");
 
+        /**
+         * Factory method for ISO8601TimeZoneStrategies.
+         * 
+         * @param tokenLen a token indicating the length of the TimeZone String to be formatted.
+         * @return a ISO8601TimeZoneStrategy that can format TimeZone String of length {@code tokenLen}. If no such
+         *          strategy exists, an IllegalArgumentException will be thrown.
+         */
         static Strategy getStrategy(int tokenLen) {
             switch(tokenLen) {
             case 1:
@@ -880,7 +891,7 @@ public class FastDateParser implements DateParser, Serializable {
             case 3:
                 return ISO_8601_3_STRATEGY;
             default:
-                throw new IllegalArgumentException("invalid number of X");                    
+                throw new IllegalArgumentException("invalid number of X");
             }
         }
     }

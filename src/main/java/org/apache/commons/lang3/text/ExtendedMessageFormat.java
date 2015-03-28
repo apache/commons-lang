@@ -71,7 +71,6 @@ public class ExtendedMessageFormat extends MessageFormat {
     private static final int HASH_SEED = 31;
 
     private static final String DUMMY_PATTERN = "";
-    private static final String ESCAPED_QUOTE = "''";
     private static final char START_FMT = ',';
     private static final char END_FE = '}';
     private static final char START_FE = '{';

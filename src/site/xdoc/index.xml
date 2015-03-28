@@ -50,7 +50,7 @@ and various <a href="project-reports.html">project reports</a> are provided.
 The JavaDoc API documents are available online:
 </p>
 <ul>
-<li>The <a href="javadocs/api-3.3.2/index.html">current stable release 3.3.2</a> [Java 6.0+]</li>
+<li>The <a href="javadocs/api-3.4/index.html">current stable release 3.4</a> [Java 6.0+]</li>
 <li>The <a href="javadocs/api-2.6/index.html">legacy release 2.6</a> [Java 1.2+]</li>
 <li>Older releases - see the <a href="release-history.html">Release History</a> page</li>
 </ul>
@@ -64,10 +64,10 @@ The code base is monitored by a Sonar instance running on <a href="https://analy
 </section>
 <!-- ================================================== -->
 <section name="Release Information">
-<p>The latest stable release of Lang is 3.3.2. You may: </p>
+<p>The latest stable release of Lang is 3.4. You may: </p>
 <ul>
-<li>Download <a href="http://commons.apache.org/lang/download_lang.cgi">3.3.2</a></li>
-<li>Read the <a href="release-notes/RELEASE-NOTES-3.3.2.txt">3.3.2 release notes</a></li>
+<li>Download <a href="http://commons.apache.org/lang/download_lang.cgi">3.4</a></li>
+<li>Read the <a href="release-notes/RELEASE-NOTES-3.4.txt">3.4 release notes</a></li>
 <li>Examine the <a href="article3_0.html">2.x to 3.0 upgrade notes</a></li>
 <li>Compare major versions via the <a href="lang2-lang3-clirr-report.html">Lang2 to Lang3 Clirr report</a></li>
 </ul>
@@ -76,7 +76,7 @@ Alternatively you can pull it from the central Maven repositories:
 <pre>
   &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
   &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
-  &lt;version&gt;3.3.2&lt;/version&gt;
+  &lt;version&gt;3.4&lt;/version&gt;
 </pre>
 </p>
 

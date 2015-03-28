@@ -207,11 +207,6 @@ public class ObjectUtils {
         return obj == null ? 0 : obj.hashCode();
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
     /**
      * <p>Gets the hash code for multiple objects.</p>
      * 
@@ -231,7 +226,7 @@ public class ObjectUtils {
      * @param objects  the objects to obtain the hash code of, may be {@code null}
      * @return the hash code of the objects, or zero if null
      * @since 3.0
-     * @deprecated this method has been replaced by {@code java.util.Objects.hash(Object...)} in Java 7 an will be
+     * @deprecated this method has been replaced by {@code java.util.Objects.hash(Object...)} in Java 7 and will be
      * removed in future releases.
      */
     @Deprecated

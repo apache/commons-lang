@@ -939,6 +939,18 @@ public class SystemUtils {
      */
     public static final boolean IS_JAVA_1_8 = getJavaVersionMatches("1.8");
 
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 1.9 (also 1.9.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_JAVA_1_9 = getJavaVersionMatches("1.9");
+
     // Operating system checks
     // -----------------------------------------------------------------------
     // These MUST be declared after those above as they depend on the
@@ -1604,7 +1616,7 @@ public class SystemUtils {
         if (osName == null || osVersion == null) {
             return false;
         }
-        return osName.startsWith(osNamePrefix) && osVersion.startsWith(osVersionPrefix);
+        return isOSNameMatch(osName, osNamePrefix) && isOSVersionMatch(osVersion, osVersionPrefix);
     }
 
     /**
@@ -1622,6 +1634,32 @@ public class SystemUtils {
             return false;
         }
         return osName.startsWith(osNamePrefix);
+    }
+    
+    /**
+     * Decides if the operating system version matches.
+     * <p>
+     * This method is package private instead of private to support unit test invocation.
+     * </p>
+     *
+     * @param osVersion the actual OS version
+     * @param osVersionPrefix the prefix for the expected OS version
+     * @return true if matches, or false if not or can't determine
+     */
+    static boolean isOSVersionMatch(final String osVersion, final String osVersionPrefix) {
+        if (StringUtils.isEmpty(osVersion)) {
+            return false;
+        }
+        // Compare parts of the version string instead of using String.startsWith(String) because otherwise
+        // osVersionPrefix 10.1 would also match osVersion 10.10
+        String[] versionPrefixParts = osVersionPrefix.split("\\.");
+        String[] versionParts = osVersion.split("\\.");
+        for (int i = 0; i < Math.min(versionPrefixParts.length, versionParts.length); i++) {
+            if (!versionPrefixParts[i].equals(versionParts[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // -----------------------------------------------------------------------
