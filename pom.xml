@@ -45,9 +45,9 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/lang/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/lang/trunk</developerConnection>
-    <url>http://svn.apache.org/viewvc/commons/proper/lang/trunk</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/lang/tags/LANG_3_4_RC1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/lang/tags/LANG_3_4_RC1</developerConnection>
+    <url>http://svn.apache.org/viewvc/commons/proper/lang/tags/LANG_3_4_RC1</url>
   </scm>
 
   <developers>
