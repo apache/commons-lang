@@ -588,6 +588,12 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         init();
     }
 
+    /**
+     * Appends digits to the given buffer.
+     * 
+     * @param buffer the buffer to append to.
+     * @param value the value to append digits from.
+     */
     private static void appendDigits(final StringBuffer buffer, final int value) {
         buffer.append((char)(value / 10 + '0'));
         buffer.append((char)(value % 10 + '0'));
@@ -1242,6 +1248,13 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         // Sign TwoDigitHours : Minutes or Z
         static final Iso8601_Rule ISO8601_HOURS_COLON_MINUTES = new Iso8601_Rule(6);
 
+        /**
+         * Factory method for Iso8601_Rules.
+         *
+         * @param tokenLen a token indicating the length of the TimeZone String to be formatted.
+         * @return a Iso8601_Rule that can format TimeZone String of length {@code tokenLen}. If no such
+         *          rule exists, an IllegalArgumentException will be thrown.
+         */
         static Iso8601_Rule getRule(int tokenLen) {
             switch(tokenLen) {
             case 1:
