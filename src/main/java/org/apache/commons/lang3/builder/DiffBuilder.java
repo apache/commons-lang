@@ -882,7 +882,7 @@ public class DiffBuilder implements Builder<DiffResult> {
         }
 
         // Not array type
-        if (lhs != null ? lhs.equals(rhs) : rhs.equals(lhs)) {
+        if (lhs != null && lhs.equals(rhs)) {
             return this;
         }
 
