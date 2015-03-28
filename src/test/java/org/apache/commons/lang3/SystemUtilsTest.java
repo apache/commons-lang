@@ -19,9 +19,13 @@
 
 package org.apache.commons.lang3;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -29,6 +33,7 @@ import java.lang.reflect.Modifier;
 import java.util.Locale;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.SystemUtils}.
@@ -208,7 +213,7 @@ public class SystemUtilsTest {
             assertTrue(SystemUtils.IS_OS_UNIX);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
         } else {
-            System.out.println("Can't test IS_OS value: "+osName);
+            fail("Can't test IS_OS value: " + osName);
         }
     }
 
