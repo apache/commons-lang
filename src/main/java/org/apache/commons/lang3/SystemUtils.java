@@ -939,6 +939,18 @@ public class SystemUtils {
      */
     public static final boolean IS_JAVA_1_8 = getJavaVersionMatches("1.8");
 
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 1.9 (also 1.9.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_JAVA_1_9 = getJavaVersionMatches("1.9");
+
     // Operating system checks
     // -----------------------------------------------------------------------
     // These MUST be declared after those above as they depend on the
