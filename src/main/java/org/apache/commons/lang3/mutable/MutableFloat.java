@@ -298,8 +298,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      */
     @Override
     public int compareTo(final MutableFloat other) {
-        final float anotherVal = other.value;
-        return Float.compare(value, anotherVal);
+        return Float.compare(this.value, other.value);
     }
 
     //-----------------------------------------------------------------------
