@@ -378,6 +378,45 @@ public class SystemUtilsTest {
     }
 
     @Test
+    public void testOsVersionMatches() throws Exception {
+        String osVersion = null;
+        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
+
+        osVersion = "";
+        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
+
+        osVersion = "10";
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
+
+        osVersion = "10.1";
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
+        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
+        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
+
+        osVersion = "10.1.1";
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
+        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
+        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
+
+        osVersion = "10.10";
+        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
+        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
+
+        osVersion = "10.10.1";
+        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
+        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
+        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
+    }
+
+    @Test
     public void testJavaAwtHeadless() {
         final boolean atLeastJava14 = SystemUtils.isJavaVersionAtLeast(JAVA_1_4);
         final String expectedStringValue = System.getProperty("java.awt.headless");
