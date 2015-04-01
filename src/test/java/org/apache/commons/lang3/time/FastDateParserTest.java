@@ -42,8 +42,8 @@ import org.junit.Test;
  * @since 3.2
  */
 public class FastDateParserTest {
-    private static final String SHORT_FORMAT_NOERA = "y/M/d/h/a/m/s/E/Z";
-    private static final String LONG_FORMAT_NOERA = "yyyy/MMMM/dddd/hhhh/mmmm/ss/aaaa/EEEE/ZZZZ";
+    private static final String SHORT_FORMAT_NOERA = "y/M/d/h/a/m/s/E";
+    private static final String LONG_FORMAT_NOERA = "yyyy/MMMM/dddd/hhhh/mmmm/ss/aaaa/EEEE";
     private static final String SHORT_FORMAT = "G/" + SHORT_FORMAT_NOERA;
     private static final String LONG_FORMAT = "GGGG/" + LONG_FORMAT_NOERA;
 
@@ -218,6 +218,7 @@ public class FastDateParserTest {
 
     private void validateSdfFormatFdpParseEquality(final String format, final Locale locale, final TimeZone tz, final DateParser fdp, final Date in, final int year, final Date cs) throws ParseException {
         final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
+        sdf.setTimeZone(tz);
         if (format.equals(SHORT_FORMAT)) {
             sdf.set2DigitYearStart( cs );
         }
@@ -253,6 +254,29 @@ public class FastDateParserTest {
             }
         }
     }
+
+    // we cannot use historic dates to test timezone parsing, some timezones have second offsets
+    // as well as hours and minutes which makes the z formats a low fidelity round trip
+    @Test
+    public void testTzParses() throws Exception {
+        // Check that all Locales can parse the time formats we use
+    	for(final Locale locale : Locale.getAvailableLocales()) {
+    		final FastDateParser fdp= new FastDateParser("yyyy/MM/dd z", TimeZone.getDefault(), locale);
+
+    		for(final TimeZone tz :  new TimeZone[]{NEW_YORK, REYKJAVIK, GMT}) {
+    			final Calendar cal= Calendar.getInstance(tz, locale);
+    			cal.clear();
+    			cal.set(Calendar.YEAR, 2000);
+    			cal.set(Calendar.MONTH, 1);
+    			cal.set(Calendar.DAY_OF_MONTH, 10);
+    			final Date expected= cal.getTime();
+
+    			final Date actual = fdp.parse("2000/02/10 "+tz.getDisplayName(locale));
+    			Assert.assertEquals("tz:"+tz.getID()+" locale:"+locale.getDisplayName(), expected, actual);
+    		}
+    	}
+    }
+
 
     @Test
     public void testLocales_Long_AD() throws Exception {
