@@ -37,13 +37,41 @@ public class ThreadUtils {
 
     private static final Thread[] EMPTY_THREAD_ARRAY = new Thread[0];
 
+
     /**
-     * Return the thread with the specified id if they belong to a thread group with the specified group name
+     * Return the active thread with the specified id if it belong's to the specified thread group
+     *
+     * @param threadId The thread id
+     * @param threadGroup The thread group
+     * @return The thread which belongs to a specified thread group and the thread's id match the specified id.
+     * {@code null} is returned if no such thread exists
+     * @throws IllegalArgumentException if the specified id is zero or negative or the group is null
+     * @throws  SecurityException
+     *          if the current thread cannot access the system thread group
+     *
+     * @throws  SecurityException  if the current thread cannot modify
+     *          thread groups from this thread's thread group up to the system thread group
+     */
+    public static Thread findThreadById(final long threadId, final ThreadGroup threadGroup) {
+        if (threadGroup == null) {
+            throw new IllegalArgumentException("The threadGroup must not be null");
+        }
+
+        final Thread thread = findThreadById(threadId);
+
+        if(thread != null && threadGroup.equals(thread.getThreadGroup())) {
+            return thread;
+        }
+        return null;
+    }
+
+    /**
+     * Return the active thread with the specified id if it belong's to a thread group with the specified group name
      *
      * @param threadId The thread id
      * @param threadGroupName The thread group name
-     * @return The threads which belongs to a thread group with the specified group name and a thread name matching the specified id.
-     * An empty array is returned if no such thread exists
+     * @return The threads which belongs to a thread group with the specified group name and the thread's id match the specified id.
+     * {@code null} is returned if no such thread exists
      * @throws IllegalArgumentException if the specified id is zero or negative or the group name is null
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
@@ -52,22 +80,65 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Thread findThreadById(final long threadId, final String threadGroupName) {
-        final Thread thread = findThreadById(threadId);
-
-        if(thread == null) {
-            return null;
+        if (threadGroupName == null) {
+            throw new IllegalArgumentException("The threadGroupName must not be null");
         }
 
-        final Thread[] threads = findThreadsByName(thread.getName(), threadGroupName);
-        return threads.length==0?null:threads[0];
+        final Thread thread = findThreadById(threadId);
+
+        if(thread != null && thread.getThreadGroup() != null && thread.getThreadGroup().getName().equals(threadGroupName)) {
+            return thread;
+        }
+        return null;
     }
 
     /**
-     * Return the threads with the specified name if they belong to a thread group with the specified group name
+     * Return active threads with the specified name if they belong to a specified thread group
+     *
+     * @param threadName The thread name
+     * @param threadGroupName The thread group
+     * @return The threads which belongs to a thread group and the thread's name match the specified name,
+     * An empty array is returned if no such thread exists
+     * @throws IllegalArgumentException if the specified thread name or group is null
+     * @throws  SecurityException
+     *          if the current thread cannot access the system thread group
+     *
+     * @throws  SecurityException  if the current thread cannot modify
+     *          thread groups from this thread's thread group up to the system thread group
+     */
+    public static Thread[] findThreadsByName(final String threadName, final ThreadGroup threadGroup) {
+        if (threadName == null) {
+            throw new IllegalArgumentException("The threadName must not be null");
+        }
+        if (threadGroup == null) {
+            throw new IllegalArgumentException("The threadGroupName must not be null");
+        }
+
+        final Thread[] threads = findThreadsByName(threadName);
+
+        if(threads.length == 0) {
+            return EMPTY_THREAD_ARRAY;
+        }
+
+        final List<Thread> matchedThreads = new ArrayList<Thread>();
+
+        for (int i = 0; i < threads.length; i++) {
+            final Thread thread = threads[i];
+
+            if(thread != null && threadGroup.equals(thread.getThreadGroup())) {
+                matchedThreads.add(thread);
+            }
+
+        }
+        return matchedThreads.toArray(new Thread[matchedThreads.size()]);
+    }
+
+    /**
+     * Return active threads with the specified name if they belong to a thread group with the specified group name
      *
      * @param threadName The thread name
      * @param threadGroupName The thread group name
-     * @return The threads which belongs to a thread group with the specified group name and a thread name matching the specified name,
+     * @return The threads which belongs to a thread group with the specified group name and the thread's name match the specified name,
      * An empty array is returned if no such thread exists
      * @throws IllegalArgumentException if the specified thread name or group name is null
      * @throws  SecurityException
@@ -109,7 +180,7 @@ public class ThreadUtils {
     }
 
     /**
-     * Return the thread groups with the specified group name
+     * Return active thread groups with the specified group name
      *
      * @param threadGroupName The thread group name
      * @return the thread groups with the specified group name or an empty array if no such thread group exists
@@ -146,18 +217,18 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static ThreadGroup[] getAllThreadGroups() {
-        final ThreadGroup rootThreadGroup = getSystemThreadGroup();
-        int estimatedThreadGroupCount = rootThreadGroup.activeGroupCount();
+        final ThreadGroup systemThreadGroup = getSystemThreadGroup();
+        int estimatedThreadGroupCount = systemThreadGroup.activeGroupCount();
         int threadGroupCount = 0;
         ThreadGroup[] threadGroups;
         do {
             estimatedThreadGroupCount *= 2;
             threadGroups = new ThreadGroup[estimatedThreadGroupCount];
-            threadGroupCount = rootThreadGroup.enumerate(threadGroups);
+            threadGroupCount = systemThreadGroup.enumerate(threadGroups);
         } while (threadGroupCount == estimatedThreadGroupCount);
 
         final ThreadGroup[] allGroups = new ThreadGroup[threadGroupCount+1];
-        allGroups[0] = rootThreadGroup;
+        allGroups[0] = systemThreadGroup;
         System.arraycopy(threadGroups, 0, allGroups, 1, threadGroupCount);
         return allGroups;
     }
@@ -188,21 +259,21 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Thread[] getAllThreads() {
-        final ThreadGroup rootThreadGroup = getSystemThreadGroup();
-        int estimatedThreadCount = rootThreadGroup.activeCount();
+        final ThreadGroup systemThreadGroup = getSystemThreadGroup();
+        int estimatedThreadCount = systemThreadGroup.activeCount();
         int threadCount = 0;
         Thread[] threads;
         do {
             estimatedThreadCount *= 2;
             threads = new Thread[estimatedThreadCount];
-            threadCount = rootThreadGroup.enumerate(threads);
+            threadCount = systemThreadGroup.enumerate(threads);
         } while (threadCount == estimatedThreadCount);
 
         return Arrays.copyOf(threads, threadCount);
     }
 
     /**
-     * Return the threads with the specified name
+     * Return actve threads with the specified name
      *
      * @param threadName The thread name
      * @return The threads with the specified name or an empty array if no such thread exists
@@ -229,7 +300,7 @@ public class ThreadUtils {
     }
 
     /**
-     * Return the thread with the specified id
+     * Return the active thread with the specified id
      *
      * @param threadId The thread id
      * @return The thread with the specified id or {@code null} if no such thread exists
