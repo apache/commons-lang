@@ -120,7 +120,7 @@ public class ThreadUtils {
             return EMPTY_THREAD_ARRAY;
         }
 
-        final List<Thread> matchedThreads = new ArrayList<Thread>();
+        final List<Thread> matchedThreads = new ArrayList<Thread>(threads.length);
 
         for (int i = 0; i < threads.length; i++) {
             final Thread thread = threads[i];
@@ -154,11 +154,6 @@ public class ThreadUtils {
         if (threadGroupName == null) {
             throw new IllegalArgumentException("The threadGroupName must not be null");
         }
-        final ThreadGroup[] threadGroups = findThreadGroupsByName(threadGroupName);
-
-        if(threadGroups.length == 0) {
-            return EMPTY_THREAD_ARRAY;
-        }
 
         final Thread[] threads = findThreadsByName(threadName);
 
@@ -166,12 +161,11 @@ public class ThreadUtils {
             return EMPTY_THREAD_ARRAY;
         }
 
-        final List<Thread> matchedThreads = new ArrayList<Thread>();
+        final List<Thread> matchedThreads = new ArrayList<Thread>(threads.length);
 
         for (int i = 0; i < threads.length; i++) {
             final Thread thread = threads[i];
-
-            if(thread != null && ArrayUtils.contains(threadGroups, thread.getThreadGroup())) {
+            if(thread != null && thread.getThreadGroup() != null && threadGroupName.equals(thread.getThreadGroup().getName())) {
                 matchedThreads.add(thread);
             }
 
@@ -195,15 +189,26 @@ public class ThreadUtils {
         if (threadGroupName == null) {
             throw new IllegalArgumentException("The threadGroupName must not be null");
         }
-        final ThreadGroup[] allThreadGroups = getAllThreadGroups();
-        final List<ThreadGroup> threadGroups = new ArrayList<ThreadGroup>();
-        for (int i = 0; i < allThreadGroups.length; i++) {
-            final ThreadGroup threadGroup = allThreadGroups[i];
-            if (threadGroup != null && threadGroupName.equals(threadGroup.getName())) {
-                threadGroups.add(threadGroup);
+        final List<ThreadGroup> matchingThreadGroups = new ArrayList<ThreadGroup>();
+
+        final ThreadGroup systemThreadGroup = getSystemThreadGroup();
+        int estimatedThreadGroupCount = systemThreadGroup.activeGroupCount();
+        int threadGroupCount = 0;
+        ThreadGroup[] threadGroups;
+        do {
+            estimatedThreadGroupCount *= 2;
+            threadGroups = new ThreadGroup[estimatedThreadGroupCount];
+            threadGroupCount = systemThreadGroup.enumerate(threadGroups);
+            for (int i=0; i< threadGroupCount; i++) {
+                final ThreadGroup threadGroup = threadGroups[i];
+                if (threadGroup != null && threadGroupName.equals(threadGroup.getName())) {
+                    matchingThreadGroups.add(threadGroup);
+                }
             }
-        }
-        return threadGroups.toArray(new ThreadGroup[threadGroups.size()]);
+            //return value of enumerate() must be strictly less than the array size according to javadoc
+        } while (threadGroupCount >= estimatedThreadGroupCount);
+
+        return matchingThreadGroups.toArray(new ThreadGroup[matchingThreadGroups.size()]);
     }
 
     /**
@@ -225,7 +230,8 @@ public class ThreadUtils {
             estimatedThreadGroupCount *= 2;
             threadGroups = new ThreadGroup[estimatedThreadGroupCount];
             threadGroupCount = systemThreadGroup.enumerate(threadGroups);
-        } while (threadGroupCount == estimatedThreadGroupCount);
+            //return value of enumerate() must be strictly less than the array size according to javadoc
+        } while (threadGroupCount >= estimatedThreadGroupCount);
 
         final ThreadGroup[] allGroups = new ThreadGroup[threadGroupCount+1];
         allGroups[0] = systemThreadGroup;
@@ -267,13 +273,14 @@ public class ThreadUtils {
             estimatedThreadCount *= 2;
             threads = new Thread[estimatedThreadCount];
             threadCount = systemThreadGroup.enumerate(threads);
-        } while (threadCount == estimatedThreadCount);
+            //return value of enumerate() must be strictly less than the array size according to javadoc
+        } while (threadCount >= estimatedThreadCount);
 
         return Arrays.copyOf(threads, threadCount);
     }
 
     /**
-     * Return actve threads with the specified name
+     * Return active threads with the specified name
      *
      * @param threadName The thread name
      * @return The threads with the specified name or an empty array if no such thread exists
@@ -288,15 +295,27 @@ public class ThreadUtils {
         if (threadName == null) {
             throw new IllegalArgumentException("The threadName must not be null");
         }
-        final Thread[] allThreads = getAllThreads();
-        final List<Thread> threads = new ArrayList<Thread>();
-        for (int i = 0; i < allThreads.length; i++) {
-            final Thread thread = allThreads[i];
-            if (thread != null && threadName.equals(thread.getName())) {
-                threads.add(thread);
+        final List<Thread> matchingThreads = new ArrayList<Thread>();
+
+        final ThreadGroup systemThreadGroup = getSystemThreadGroup();
+        int estimatedThreadCount = systemThreadGroup.activeCount();
+        int threadCount = 0;
+        Thread[] threads;
+        do {
+            estimatedThreadCount *= 2;
+            threads = new Thread[estimatedThreadCount];
+            threadCount = systemThreadGroup.enumerate(threads);
+
+            for (int i = 0; i< threadCount; i++) {
+                final Thread thread = threads[i];
+                if (thread != null && threadName.equals(thread.getName())) {
+                    matchingThreads.add(thread);
+                }
             }
-        }
-        return threads.toArray(new Thread[threads.size()]);
+            //return value of enumerate() must be strictly less than the array size according to javadoc
+        } while (threadCount >= estimatedThreadCount);
+
+        return matchingThreads.toArray(new Thread[ matchingThreads.size()]);
     }
 
     /**
@@ -315,13 +334,25 @@ public class ThreadUtils {
         if (threadId <= 0) {
             throw new IllegalArgumentException("The threadId must be greater than zero");
         }
-        final Thread[] allThreads = getAllThreads();
-        for (int i = 0; i < allThreads.length; i++) {
-            final Thread thread = allThreads[i];
-            if (thread != null && threadId == thread.getId()) {
-                return thread;
+
+        final ThreadGroup systemThreadGroup = getSystemThreadGroup();
+        int estimatedThreadCount = systemThreadGroup.activeCount();
+        int threadCount = 0;
+        Thread[] threads;
+        do {
+            estimatedThreadCount *= 2;
+            threads = new Thread[estimatedThreadCount];
+            threadCount = systemThreadGroup.enumerate(threads);
+
+            for (int i = 0; i< threadCount; i++) {
+                final Thread thread = threads[i];
+                if (thread != null && threadId == thread.getId()) {
+                    return thread;
+                }
             }
-        }
+            //return value of enumerate() must be strictly less than the array size according to javadoc
+        } while (threadCount >= estimatedThreadCount);
+
         return null;
     }
 
