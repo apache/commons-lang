@@ -60,6 +60,8 @@ o LANG-1045: Add method MethodUtils.invokeMethod(Object, String)
 FIXED BUGS
 ============
 
+o LANG-794:  SystemUtils.IS_OS_WINDOWS_2008, VISTA are incorrect. Thanks to
+             Timo Kockert.
 o LANG-1104: Parse test fails for TimeZone America/Sao_Paulo
 o LANG-948:  Exception while using ExtendedMessageFormat and escaping braces.
              Thanks to Andrey Khobnya.

@@ -1150,7 +1150,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_2000 = getOSMatches(OS_NAME_WINDOWS_PREFIX, "5.0");
+    public static final boolean IS_OS_WINDOWS_2000 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 2000");
 
     /**
      * <p>
@@ -1162,11 +1162,11 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_WINDOWS_2003 = getOSMatches(OS_NAME_WINDOWS_PREFIX, "5.2");
+    public static final boolean IS_OS_WINDOWS_2003 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 2003");
 
     /**
      * <p>
-     * Is {@code true} if this is Windows 2008.
+     * Is {@code true} if this is Windows Server 2008.
      * </p>
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
@@ -1174,7 +1174,19 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_WINDOWS_2008 = getOSMatches(OS_NAME_WINDOWS_PREFIX + " Server 2008", "6.1");
+    public static final boolean IS_OS_WINDOWS_2008 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " Server 2008");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Windows Server 2012.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_WINDOWS_2012 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " Server 2012");
 
     /**
      * <p>
@@ -1186,8 +1198,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_95 = getOSMatches(OS_NAME_WINDOWS_PREFIX + " 9", "4.0");
-    // Java 1.2 running on Windows98 returns 'Windows 95', hence the above
+    public static final boolean IS_OS_WINDOWS_95 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 95");
 
     /**
      * <p>
@@ -1199,8 +1210,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_98 = getOSMatches(OS_NAME_WINDOWS_PREFIX + " 9", "4.1");
-    // Java 1.2 running on Windows98 returns 'Windows 95', hence the above
+    public static final boolean IS_OS_WINDOWS_98 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 98");
 
     /**
      * <p>
@@ -1212,8 +1222,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_ME = getOSMatches(OS_NAME_WINDOWS_PREFIX, "4.9");
-    // Java 1.2 running on WindowsME may return 'Windows 95', hence the above
+    public static final boolean IS_OS_WINDOWS_ME = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " Me");
 
     /**
      * <p>
@@ -1226,7 +1235,6 @@ public class SystemUtils {
      * @since 2.0
      */
     public static final boolean IS_OS_WINDOWS_NT = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " NT");
-    // Windows 2000 returns 'Windows 2000' but may suffer from same Java1.2 problem
 
     /**
      * <p>
@@ -1238,7 +1246,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_XP = getOSMatches(OS_NAME_WINDOWS_PREFIX, "5.1");
+    public static final boolean IS_OS_WINDOWS_XP = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " XP");
 
     // -----------------------------------------------------------------------
     /**
@@ -1251,7 +1259,7 @@ public class SystemUtils {
      *
      * @since 2.4
      */
-    public static final boolean IS_OS_WINDOWS_VISTA = getOSMatches(OS_NAME_WINDOWS_PREFIX, "6.0");
+    public static final boolean IS_OS_WINDOWS_VISTA = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " Vista");
 
     /**
      * <p>
@@ -1263,7 +1271,7 @@ public class SystemUtils {
      *
      * @since 3.0
      */
-    public static final boolean IS_OS_WINDOWS_7 = getOSMatches(OS_NAME_WINDOWS_PREFIX, "6.1");
+    public static final boolean IS_OS_WINDOWS_7 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 7");
 
     /**
      * <p>
@@ -1275,7 +1283,7 @@ public class SystemUtils {
      *
      * @since 3.2
      */
-    public static final boolean IS_OS_WINDOWS_8 = getOSMatches(OS_NAME_WINDOWS_PREFIX, "6.2");
+    public static final boolean IS_OS_WINDOWS_8 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 8");
 
     /**
      * <p>
