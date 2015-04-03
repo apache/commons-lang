@@ -19,7 +19,7 @@ COMPATIBILITY
 =============
 
 Commons Lang 3.4 is fully binary compatible to the last release and can 
-therefore be used as a drop in replacement for 3.3.1. Note that the value of 
+therefore be used as a drop in replacement for 3.3.2. Note that the value of 
 org.apache.commons.lang3.time.DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN
 has changed, which may affect clients using the constant. Furthermore the
 constant is used internally in 
