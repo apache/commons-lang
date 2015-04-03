@@ -15,6 +15,19 @@ For the advice on upgrading from 2.x to 3.x, see the following page:
     http://commons.apache.org/lang/article3_0.html
 
 
+COMPATIBILITY
+=============
+
+Commons Lang 3.4 is fully binary compatible to the last release and can 
+therefore be used as a drop in replacement for 3.3.1. Note that the value of 
+org.apache.commons.lang3.time.DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN
+has changed, which may affect clients using the constant. Furthermore the
+constant is used internally in 
+o DurationFormatUtils.formatDurationISO(long)
+o DurationFormatUtils.formatPeriodISO(long, long)
+
+For more information see https://issues.apache.org/jira/browse/LANG-1000.
+
 NEW FEATURES
 ==============
 
