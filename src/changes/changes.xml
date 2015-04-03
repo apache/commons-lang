@@ -22,7 +22,7 @@
   <body>
 
   <release version="3.4" date="tba" description="tba">
-    <action issue="LANG-794" type="add" dev="britter" due-to="Timo Kockert">Support OS X versions in SystemUtils</action>
+    <action issue="LANG-821" type="add" dev="britter" due-to="Timo Kockert">Support OS X versions in SystemUtils</action>
     <action issue="LANG-794" type="fix" dev="britter" due-to="Timo Kockert">SystemUtils.IS_OS_WINDOWS_2008, VISTA are incorrect</action>
     <action issue="LANG-1104" type="fix" dev="chas">Parse test fails for TimeZone America/Sao_Paulo</action>
     <action issue="LANG-1103" type="add" dev="britter">Add SystemUtils.IS_JAVA_1_9</action>
