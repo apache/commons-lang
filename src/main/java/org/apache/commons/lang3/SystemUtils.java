@@ -1045,6 +1045,138 @@ public class SystemUtils {
 
     /**
      * <p>
+     * Is {@code true} if this is Mac OS X Cheetah.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_CHEETAH = getOSMatches("Mac OS X", "10.0");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Puma.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_PUMA = getOSMatches("Mac OS X", "10.1");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Jaguar.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_JAGUAR = getOSMatches("Mac OS X", "10.2");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Panther.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_PANTHER = getOSMatches("Mac OS X", "10.3");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Tiger.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_TIGER = getOSMatches("Mac OS X", "10.4");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Leopard.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_LEOPARD = getOSMatches("Mac OS X", "10.5");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Snow Leopard.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_SNOW_LEOPARD = getOSMatches("Mac OS X", "10.6");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Lion.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_LION = getOSMatches("Mac OS X", "10.7");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Mountain Lion.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_MOUNTAIN_LION = getOSMatches("Mac OS X", "10.8");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Mavericks.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_MAVERICKS = getOSMatches("Mac OS X", "10.9");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Yosemite.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_YOSEMITE = getOSMatches("Mac OS X", "10.10");
+
+    /**
+     * <p>
      * Is {@code true} if this is FreeBSD.
      * </p>
      * <p>
@@ -1487,7 +1619,7 @@ public class SystemUtils {
         }
         return osName.startsWith(osNamePrefix);
     }
-    
+
     /**
      * Decides if the operating system version matches.
      * <p>
