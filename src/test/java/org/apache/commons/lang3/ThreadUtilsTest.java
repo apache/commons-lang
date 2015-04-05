@@ -91,12 +91,12 @@ public class ThreadUtilsTest {
 
     @Test
     public void testNoThread() throws InterruptedException {
-        assertEquals(0, ThreadUtils.findThreadsByName("some_thread_which_does_not_exist_18762ZucTT").length);
+        assertEquals(0, ThreadUtils.findThreadsByName("some_thread_which_does_not_exist_18762ZucTT").size());
     }
 
     @Test
     public void testNoThreadGroup() throws InterruptedException {
-        assertEquals(0, ThreadUtils.findThreadGroupsByName("some_thread_group_which_does_not_exist_18762ZucTTII").length);
+        assertEquals(0, ThreadUtils.findThreadGroupsByName("some_thread_group_which_does_not_exist_18762ZucTTII").size());
     }
 
     @Test
@@ -109,12 +109,12 @@ public class ThreadUtilsTest {
 
     @Test
     public void testAtLeastOneThreadExists() throws InterruptedException {
-        assertTrue(ThreadUtils.getAllThreads().length > 0);
+        assertTrue(ThreadUtils.getAllThreads().size() > 0);
     }
 
     @Test
     public void testAtLeastOneThreadGroupExists() throws InterruptedException {
-        assertTrue(ThreadUtils.getAllThreadGroups().length > 0);
+        assertTrue(ThreadUtils.getAllThreadGroups().size() > 0);
     }
 
     @Test
@@ -125,7 +125,7 @@ public class ThreadUtilsTest {
         try {
             t1.start();
             alsot1.start();
-            assertEquals(2, ThreadUtils.findThreadsByName("thread1_XXOOLL__").length);
+            assertEquals(2, ThreadUtils.findThreadsByName("thread1_XXOOLL__").size());
         } finally {
             t1.interrupt();
             alsot1.interrupt();
@@ -142,7 +142,7 @@ public class ThreadUtilsTest {
         try {
             t1.start();
             t2.start();
-            assertEquals(1, ThreadUtils.findThreadsByName("thread2_XXOOLL__").length);
+            assertEquals(1, ThreadUtils.findThreadsByName("thread2_XXOOLL__").size());
         } finally {
             t1.interrupt();
             t2.interrupt();
@@ -194,13 +194,13 @@ public class ThreadUtilsTest {
         try {
             t1.start();
             t2.start();
-            assertEquals(1, ThreadUtils.findThreadsByName("thread1_XXOOPP__").length);
-            assertEquals(1, ThreadUtils.findThreadsByName("thread1_XXOOPP__","thread_group_DDZZ99__").length);
-            assertEquals(1, ThreadUtils.findThreadsByName("thread2_XXOOPP__","thread_group_DDZZ99__").length);
-            assertEquals(0, ThreadUtils.findThreadsByName("thread1_XXOOPP__","non_existent_thread_group_JJHHZZ__").length);
-            assertEquals(0, ThreadUtils.findThreadsByName("non_existent_thread_BBDDWW__","thread_group_DDZZ99__").length);
-            assertEquals(1, ThreadUtils.findThreadGroupsByName("thread_group_DDZZ99__").length);
-            assertEquals(0, ThreadUtils.findThreadGroupsByName("non_existent_thread_group_JJHHZZ__").length);
+            assertEquals(1, ThreadUtils.findThreadsByName("thread1_XXOOPP__").size());
+            assertEquals(1, ThreadUtils.findThreadsByName("thread1_XXOOPP__","thread_group_DDZZ99__").size());
+            assertEquals(1, ThreadUtils.findThreadsByName("thread2_XXOOPP__","thread_group_DDZZ99__").size());
+            assertEquals(0, ThreadUtils.findThreadsByName("thread1_XXOOPP__","non_existent_thread_group_JJHHZZ__").size());
+            assertEquals(0, ThreadUtils.findThreadsByName("non_existent_thread_BBDDWW__","thread_group_DDZZ99__").size());
+            assertEquals(1, ThreadUtils.findThreadGroupsByName("thread_group_DDZZ99__").size());
+            assertEquals(0, ThreadUtils.findThreadGroupsByName("non_existent_thread_group_JJHHZZ__").size());
             assertNotNull(ThreadUtils.findThreadById(t1.getId(),threadGroup));
         } finally {
             t1.interrupt();
@@ -222,17 +222,17 @@ public class ThreadUtilsTest {
         try {
             t1.start();
             t2.start();
-            assertEquals(1, ThreadUtils.findThreadsByName("thread1_XXOOPP__").length);
-            assertEquals(1, ThreadUtils.findThreadsByName("thread1_XXOOPP__",threadGroup).length);
-            assertEquals(1, ThreadUtils.findThreadsByName("thread2_XXOOPP__",threadGroup).length);
-            assertEquals(0, ThreadUtils.findThreadsByName("thread1_XXOOPP__",deadThreadGroup).length);
+            assertEquals(1, ThreadUtils.findThreadsByName("thread1_XXOOPP__").size());
+            assertEquals(1, ThreadUtils.findThreadsByName("thread1_XXOOPP__",threadGroup).size());
+            assertEquals(1, ThreadUtils.findThreadsByName("thread2_XXOOPP__",threadGroup).size());
+            assertEquals(0, ThreadUtils.findThreadsByName("thread1_XXOOPP__",deadThreadGroup).size());
         } finally {
             t1.interrupt();
             t2.interrupt();
             t1.join();
             t2.join();
             threadGroup.destroy();
-            assertEquals(0, ThreadUtils.findThreadsByName("thread2_XXOOPP__",threadGroup).length);
+            assertEquals(0, ThreadUtils.findThreadsByName("thread2_XXOOPP__",threadGroup).size());
         }
     }
 

@@ -18,6 +18,8 @@ package org.apache.commons.lang3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,8 +37,7 @@ import java.util.List;
  */
 public class ThreadUtils {
 
-    private static final Thread[] EMPTY_THREAD_ARRAY = new Thread[0];
-
+    private static final int ENUMERATION_GUESS_EXTRA = 3;
 
     /**
      * Return the active thread with the specified id if it belong's to the specified thread group
@@ -98,7 +99,7 @@ public class ThreadUtils {
      * @param threadName The thread name
      * @param threadGroupName The thread group
      * @return The threads which belongs to a thread group and the thread's name match the specified name,
-     * An empty array is returned if no such thread exists
+     * An empty collection is returned if no such thread exists. The collection returned is always unmodifiable.
      * @throws IllegalArgumentException if the specified thread name or group is null
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
@@ -106,7 +107,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Thread[] findThreadsByName(final String threadName, final ThreadGroup threadGroup) {
+    public static Collection<Thread> findThreadsByName(final String threadName, final ThreadGroup threadGroup) {
         if (threadName == null) {
             throw new IllegalArgumentException("The threadName must not be null");
         }
@@ -114,23 +115,21 @@ public class ThreadUtils {
             throw new IllegalArgumentException("The threadGroupName must not be null");
         }
 
-        final Thread[] threads = findThreadsByName(threadName);
+        final Collection<Thread> threads = findThreadsByName(threadName);
 
-        if(threads.length == 0) {
-            return EMPTY_THREAD_ARRAY;
+        if(threads.isEmpty()) {
+            return Collections.EMPTY_LIST;
         }
 
-        final List<Thread> matchedThreads = new ArrayList<Thread>(threads.length);
+        final List<Thread> matchingThreads = new ArrayList<Thread>(threads.size());
 
-        for (int i = 0; i < threads.length; i++) {
-            final Thread thread = threads[i];
-
+        for (final Thread thread:threads) {
             if(thread != null && threadGroup.equals(thread.getThreadGroup())) {
-                matchedThreads.add(thread);
+                matchingThreads.add(thread);
             }
 
         }
-        return matchedThreads.toArray(new Thread[matchedThreads.size()]);
+        return Collections.unmodifiableCollection(matchingThreads);
     }
 
     /**
@@ -139,7 +138,7 @@ public class ThreadUtils {
      * @param threadName The thread name
      * @param threadGroupName The thread group name
      * @return The threads which belongs to a thread group with the specified group name and the thread's name match the specified name,
-     * An empty array is returned if no such thread exists
+     * An empty collection is returned if no such thread exists. The collection returned is always unmodifiable.
      * @throws IllegalArgumentException if the specified thread name or group name is null
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
@@ -147,7 +146,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Thread[] findThreadsByName(final String threadName, final String threadGroupName) {
+    public static Collection<Thread> findThreadsByName(final String threadName, final String threadGroupName) {
         if (threadName == null) {
             throw new IllegalArgumentException("The threadName must not be null");
         }
@@ -155,29 +154,28 @@ public class ThreadUtils {
             throw new IllegalArgumentException("The threadGroupName must not be null");
         }
 
-        final Thread[] threads = findThreadsByName(threadName);
+        final Collection<Thread> threads = findThreadsByName(threadName);
 
-        if(threads.length == 0) {
-            return EMPTY_THREAD_ARRAY;
+        if(threads.size() == 0) {
+            return Collections.EMPTY_LIST;
         }
 
-        final List<Thread> matchedThreads = new ArrayList<Thread>(threads.length);
+        final List<Thread> matchingThreads = new ArrayList<Thread>(threads.size());
 
-        for (int i = 0; i < threads.length; i++) {
-            final Thread thread = threads[i];
+        for (final Thread thread:threads) {
             if(thread != null && thread.getThreadGroup() != null && threadGroupName.equals(thread.getThreadGroup().getName())) {
-                matchedThreads.add(thread);
+                matchingThreads.add(thread);
             }
 
         }
-        return matchedThreads.toArray(new Thread[matchedThreads.size()]);
+        return Collections.unmodifiableCollection(matchingThreads);
     }
 
     /**
      * Return active thread groups with the specified group name
      *
      * @param threadGroupName The thread group name
-     * @return the thread groups with the specified group name or an empty array if no such thread group exists
+     * @return the thread groups with the specified group name or an empty collection if no such thread group exists. The collection returned is always unmodifiable.
      * @throws IllegalArgumentException if group name is null
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
@@ -185,17 +183,18 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static ThreadGroup[] findThreadGroupsByName(final String threadGroupName) {
+    public static Collection<ThreadGroup> findThreadGroupsByName(final String threadGroupName) {
         if (threadGroupName == null) {
             throw new IllegalArgumentException("The threadGroupName must not be null");
         }
-        final List<ThreadGroup> matchingThreadGroups = new ArrayList<ThreadGroup>();
 
         final ThreadGroup systemThreadGroup = getSystemThreadGroup();
-        int estimatedThreadGroupCount = systemThreadGroup.activeGroupCount();
+        int estimatedThreadGroupCount = systemThreadGroup.activeGroupCount() + ENUMERATION_GUESS_EXTRA;
+        final List<ThreadGroup> matchingThreadGroups = new ArrayList<ThreadGroup>(estimatedThreadGroupCount * 2);
         int threadGroupCount = 0;
         ThreadGroup[] threadGroups;
         do {
+            matchingThreadGroups.clear();
             estimatedThreadGroupCount *= 2;
             threadGroups = new ThreadGroup[estimatedThreadGroupCount];
             threadGroupCount = systemThreadGroup.enumerate(threadGroups);
@@ -208,22 +207,22 @@ public class ThreadUtils {
             //return value of enumerate() must be strictly less than the array size according to javadoc
         } while (threadGroupCount >= estimatedThreadGroupCount);
 
-        return matchingThreadGroups.toArray(new ThreadGroup[matchingThreadGroups.size()]);
+        return Collections.unmodifiableCollection(matchingThreadGroups);
     }
 
     /**
      * Return all active thread groups including the system thread group (A thread group is active if it has been not destroyed)
      *
-     * @return all thread groups including the system thread group
+     * @return all thread groups including the system thread group. The collection returned is always unmodifiable.
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
      *
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static ThreadGroup[] getAllThreadGroups() {
+    public static Collection<ThreadGroup> getAllThreadGroups() {
         final ThreadGroup systemThreadGroup = getSystemThreadGroup();
-        int estimatedThreadGroupCount = systemThreadGroup.activeGroupCount();
+        int estimatedThreadGroupCount = systemThreadGroup.activeGroupCount() + ENUMERATION_GUESS_EXTRA;
         int threadGroupCount = 0;
         ThreadGroup[] threadGroups;
         do {
@@ -236,7 +235,7 @@ public class ThreadUtils {
         final ThreadGroup[] allGroups = new ThreadGroup[threadGroupCount+1];
         allGroups[0] = systemThreadGroup;
         System.arraycopy(threadGroups, 0, allGroups, 1, threadGroupCount);
-        return allGroups;
+        return Collections.unmodifiableCollection(Arrays.asList(allGroups));
     }
 
     /**
@@ -257,16 +256,16 @@ public class ThreadUtils {
     /**
      * Return all active threads (A thread is active if it has been started and has not yet died)
      *
-     * @return all active threads
+     * @return all active threads. The collection returned is always unmodifiable.
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
      *
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Thread[] getAllThreads() {
+    public static Collection<Thread> getAllThreads() {
         final ThreadGroup systemThreadGroup = getSystemThreadGroup();
-        int estimatedThreadCount = systemThreadGroup.activeCount();
+        int estimatedThreadCount = systemThreadGroup.activeCount() + ENUMERATION_GUESS_EXTRA;
         int threadCount = 0;
         Thread[] threads;
         do {
@@ -276,14 +275,14 @@ public class ThreadUtils {
             //return value of enumerate() must be strictly less than the array size according to javadoc
         } while (threadCount >= estimatedThreadCount);
 
-        return Arrays.copyOf(threads, threadCount);
+        return Collections.unmodifiableCollection(Arrays.asList(Arrays.copyOf(threads, threadCount)));
     }
 
     /**
      * Return active threads with the specified name
      *
      * @param threadName The thread name
-     * @return The threads with the specified name or an empty array if no such thread exists
+     * @return The threads with the specified name or an empty collection if no such thread exists. The collection returned is always unmodifiable.
      * @throws IllegalArgumentException if the specified name is null
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
@@ -291,17 +290,18 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Thread[] findThreadsByName(final String threadName) {
+    public static Collection<Thread> findThreadsByName(final String threadName) {
         if (threadName == null) {
             throw new IllegalArgumentException("The threadName must not be null");
         }
-        final List<Thread> matchingThreads = new ArrayList<Thread>();
 
         final ThreadGroup systemThreadGroup = getSystemThreadGroup();
-        int estimatedThreadCount = systemThreadGroup.activeCount();
+        int estimatedThreadCount = systemThreadGroup.activeCount() + ENUMERATION_GUESS_EXTRA;
+        final List<Thread> matchingThreads = new ArrayList<Thread>(estimatedThreadCount * 2);
         int threadCount = 0;
         Thread[] threads;
         do {
+            matchingThreads.clear();
             estimatedThreadCount *= 2;
             threads = new Thread[estimatedThreadCount];
             threadCount = systemThreadGroup.enumerate(threads);
@@ -315,7 +315,7 @@ public class ThreadUtils {
             //return value of enumerate() must be strictly less than the array size according to javadoc
         } while (threadCount >= estimatedThreadCount);
 
-        return matchingThreads.toArray(new Thread[ matchingThreads.size()]);
+        return Collections.unmodifiableCollection(matchingThreads);
     }
 
     /**
@@ -336,7 +336,7 @@ public class ThreadUtils {
         }
 
         final ThreadGroup systemThreadGroup = getSystemThreadGroup();
-        int estimatedThreadCount = systemThreadGroup.activeCount();
+        int estimatedThreadCount = systemThreadGroup.activeCount() + ENUMERATION_GUESS_EXTRA;
         int threadCount = 0;
         Thread[] threads;
         do {
