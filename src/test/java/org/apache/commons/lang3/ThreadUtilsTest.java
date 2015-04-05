@@ -28,6 +28,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import org.junit.Test;
@@ -113,8 +116,8 @@ public class ThreadUtilsTest {
     }
 
     @Test
-    public void testAtLeastOneThreadGroupExists() throws InterruptedException {
-        assertTrue(ThreadUtils.getAllThreadGroups().size() > 0);
+    public void testAtLeastTwoThreadGroupsExists() throws InterruptedException {
+        assertTrue(ThreadUtils.getAllThreadGroups().size() > 1);
     }
 
     @Test
@@ -268,6 +271,83 @@ public class ThreadUtilsTest {
         assertTrue(Modifier.isPublic(ThreadUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(ThreadUtils.class.getModifiers()));
     }
+
+    @Test
+    public void testP() throws Exception {
+        final ThreadGroup threadGroup1 = new ThreadGroup("thread_group_1__");
+        final ThreadGroup threadGroup2 = new ThreadGroup("thread_group_2__");
+        final ThreadGroup threadGroup3 = new ThreadGroup(threadGroup2, "thread_group_3__");
+        final ThreadGroup threadGroup4 = new ThreadGroup(threadGroup2, "thread_group_4__");
+        final ThreadGroup threadGroup5 = new ThreadGroup(threadGroup1, "thread_group_5__");
+        final ThreadGroup threadGroup6 = new ThreadGroup(threadGroup4, "thread_group_6__");
+        final List<ThreadGroup> threadGroups = Arrays.asList(threadGroup1,threadGroup2,threadGroup3,threadGroup4,threadGroup5,threadGroup6);
+
+        final Thread t1 = new TestThread("thread1_X__");
+        final Thread t2 = new TestThread(threadGroup1, "thread2_X__");
+        final Thread t3 = new TestThread(threadGroup2, "thread3_X__");
+        final Thread t4 = new TestThread(threadGroup3, "thread4_X__");
+        final Thread t5 = new TestThread(threadGroup4, "thread5_X__");
+        final Thread t6 = new TestThread(threadGroup5, "thread6_X__");
+        final Thread t7 = new TestThread(threadGroup6, "thread7_X__");
+        final Thread t8 = new TestThread(threadGroup4, "thread8_X__");
+        final Thread t9 = new TestThread(threadGroup6, "thread9_X__");
+        final Thread t10 = new TestThread(threadGroup3, "thread10_X__");
+        final List<Thread> threads = Arrays.asList(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10);
+
+        try {
+            for (final Iterator iterator = threads.iterator(); iterator.hasNext();) {
+                final Thread thread = (Thread) iterator.next();
+                thread.start();
+            }
+            //new ThreadUtils.ThreadGroupHolder(ThreadUtils.getSystemThreadGroup()).accept(new PrintVisitor());
+
+            assertTrue(ThreadUtils.getAllThreadGroups().size() >= 8);
+            assertTrue(ThreadUtils.getAllThreads().size() >= 11);
+           
+        }finally {
+            for (final Iterator iterator = threads.iterator(); iterator.hasNext();) {
+                final Thread thread = (Thread) iterator.next();
+                thread.interrupt();
+                thread.join();
+            }
+            for (final Iterator iterator = threadGroups.iterator(); iterator.hasNext();) {
+                final ThreadGroup threadGroup = (ThreadGroup) iterator.next();
+                if(!threadGroup.isDestroyed())
+                threadGroup.destroy();
+            }
+        }
+    }
+    
+    /*public static class PrintVisitor implements Visitor
+    {
+        private int depth = 0;
+
+        @Override
+        public boolean visitEnter(final ThreadGroupHolder threadGroup) {
+            indent();
+            System.out.println("- TG "+threadGroup.getThreadGroup().getName());
+            depth++;
+            return true;
+        }
+
+        @Override
+        public boolean visitLeave(final ThreadGroupHolder threadGroup) {
+            depth--;
+            return true;
+        }
+
+        @Override
+        public boolean visit(final ThreadHolder thread) {
+            indent();
+            System.out.println("- T ["+thread.getThread().getState()+"] " +thread.getThread().getId()+" ("+thread.getThread().getName()+")");
+            return true;
+        }
+
+        private void indent() {
+            System.out.print(StringUtils.repeat(' ', depth));
+        }
+
+    }*/
 
     private static class TestThread extends Thread {
         private final CountDownLatch latch = new CountDownLatch(1);

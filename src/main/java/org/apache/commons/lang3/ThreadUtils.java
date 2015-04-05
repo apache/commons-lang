@@ -17,7 +17,6 @@
 package org.apache.commons.lang3;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -57,9 +56,7 @@ public class ThreadUtils {
         if (threadGroup == null) {
             throw new IllegalArgumentException("The threadGroup must not be null");
         }
-
         final Thread thread = findThreadById(threadId);
-
         if(thread != null && threadGroup.equals(thread.getThreadGroup())) {
             return thread;
         }
@@ -84,9 +81,7 @@ public class ThreadUtils {
         if (threadGroupName == null) {
             throw new IllegalArgumentException("The threadGroupName must not be null");
         }
-
         final Thread thread = findThreadById(threadId);
-
         if(thread != null && thread.getThreadGroup() != null && thread.getThreadGroup().getName().equals(threadGroupName)) {
             return thread;
         }
@@ -114,22 +109,9 @@ public class ThreadUtils {
         if (threadGroup == null) {
             throw new IllegalArgumentException("The threadGroupName must not be null");
         }
-
-        final Collection<Thread> threads = findThreadsByName(threadName);
-
-        if(threads.isEmpty()) {
-            return Collections.EMPTY_LIST;
-        }
-
-        final List<Thread> matchingThreads = new ArrayList<Thread>(threads.size());
-
-        for (final Thread thread:threads) {
-            if(thread != null && threadGroup.equals(thread.getThreadGroup())) {
-                matchingThreads.add(thread);
-            }
-
-        }
-        return Collections.unmodifiableCollection(matchingThreads);
+        final NameNameVisitor nameNameVisitor = new NameNameVisitor(threadName, threadGroup);
+        new ThreadUtils.ThreadGroupHolder(ThreadUtils.getSystemThreadGroup()).accept(nameNameVisitor);
+        return Collections.unmodifiableCollection(nameNameVisitor.getResult());
     }
 
     /**
@@ -153,22 +135,9 @@ public class ThreadUtils {
         if (threadGroupName == null) {
             throw new IllegalArgumentException("The threadGroupName must not be null");
         }
-
-        final Collection<Thread> threads = findThreadsByName(threadName);
-
-        if(threads.size() == 0) {
-            return Collections.EMPTY_LIST;
-        }
-
-        final List<Thread> matchingThreads = new ArrayList<Thread>(threads.size());
-
-        for (final Thread thread:threads) {
-            if(thread != null && thread.getThreadGroup() != null && threadGroupName.equals(thread.getThreadGroup().getName())) {
-                matchingThreads.add(thread);
-            }
-
-        }
-        return Collections.unmodifiableCollection(matchingThreads);
+        final NameNameVisitor nameNameVisitor = new NameNameVisitor(threadName, threadGroupName);
+        new ThreadUtils.ThreadGroupHolder(ThreadUtils.getSystemThreadGroup()).accept(nameNameVisitor);
+        return Collections.unmodifiableCollection(nameNameVisitor.getResult());
     }
 
     /**
@@ -187,27 +156,9 @@ public class ThreadUtils {
         if (threadGroupName == null) {
             throw new IllegalArgumentException("The threadGroupName must not be null");
         }
-
-        final ThreadGroup systemThreadGroup = getSystemThreadGroup();
-        int estimatedThreadGroupCount = systemThreadGroup.activeGroupCount() + ENUMERATION_GUESS_EXTRA;
-        final List<ThreadGroup> matchingThreadGroups = new ArrayList<ThreadGroup>(estimatedThreadGroupCount * 2);
-        int threadGroupCount = 0;
-        ThreadGroup[] threadGroups;
-        do {
-            matchingThreadGroups.clear();
-            estimatedThreadGroupCount *= 2;
-            threadGroups = new ThreadGroup[estimatedThreadGroupCount];
-            threadGroupCount = systemThreadGroup.enumerate(threadGroups);
-            for (int i=0; i< threadGroupCount; i++) {
-                final ThreadGroup threadGroup = threadGroups[i];
-                if (threadGroup != null && threadGroupName.equals(threadGroup.getName())) {
-                    matchingThreadGroups.add(threadGroup);
-                }
-            }
-            //return value of enumerate() must be strictly less than the array size according to javadoc
-        } while (threadGroupCount >= estimatedThreadGroupCount);
-
-        return Collections.unmodifiableCollection(matchingThreadGroups);
+        final NameVisitor nameVisitor = new NameVisitor(true, threadGroupName);
+        new ThreadUtils.ThreadGroupHolder(ThreadUtils.getSystemThreadGroup()).accept(nameVisitor);
+        return Collections.unmodifiableCollection(nameVisitor.getResult());
     }
 
     /**
@@ -221,21 +172,9 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Collection<ThreadGroup> getAllThreadGroups() {
-        final ThreadGroup systemThreadGroup = getSystemThreadGroup();
-        int estimatedThreadGroupCount = systemThreadGroup.activeGroupCount() + ENUMERATION_GUESS_EXTRA;
-        int threadGroupCount = 0;
-        ThreadGroup[] threadGroups;
-        do {
-            estimatedThreadGroupCount *= 2;
-            threadGroups = new ThreadGroup[estimatedThreadGroupCount];
-            threadGroupCount = systemThreadGroup.enumerate(threadGroups);
-            //return value of enumerate() must be strictly less than the array size according to javadoc
-        } while (threadGroupCount >= estimatedThreadGroupCount);
-
-        final ThreadGroup[] allGroups = new ThreadGroup[threadGroupCount+1];
-        allGroups[0] = systemThreadGroup;
-        System.arraycopy(threadGroups, 0, allGroups, 1, threadGroupCount);
-        return Collections.unmodifiableCollection(Arrays.asList(allGroups));
+        final NameVisitor nameVisitor = new NameVisitor(true, null);
+        new ThreadUtils.ThreadGroupHolder(ThreadUtils.getSystemThreadGroup()).accept(nameVisitor);
+        return Collections.unmodifiableCollection(nameVisitor.getResult());
     }
 
     /**
@@ -264,18 +203,9 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Collection<Thread> getAllThreads() {
-        final ThreadGroup systemThreadGroup = getSystemThreadGroup();
-        int estimatedThreadCount = systemThreadGroup.activeCount() + ENUMERATION_GUESS_EXTRA;
-        int threadCount = 0;
-        Thread[] threads;
-        do {
-            estimatedThreadCount *= 2;
-            threads = new Thread[estimatedThreadCount];
-            threadCount = systemThreadGroup.enumerate(threads);
-            //return value of enumerate() must be strictly less than the array size according to javadoc
-        } while (threadCount >= estimatedThreadCount);
-
-        return Collections.unmodifiableCollection(Arrays.asList(Arrays.copyOf(threads, threadCount)));
+        final NameVisitor nameVisitor = new NameVisitor(false, null);
+        new ThreadUtils.ThreadGroupHolder(ThreadUtils.getSystemThreadGroup()).accept(nameVisitor);
+        return Collections.unmodifiableCollection(nameVisitor.getResult());
     }
 
     /**
@@ -294,28 +224,9 @@ public class ThreadUtils {
         if (threadName == null) {
             throw new IllegalArgumentException("The threadName must not be null");
         }
-
-        final ThreadGroup systemThreadGroup = getSystemThreadGroup();
-        int estimatedThreadCount = systemThreadGroup.activeCount() + ENUMERATION_GUESS_EXTRA;
-        final List<Thread> matchingThreads = new ArrayList<Thread>(estimatedThreadCount * 2);
-        int threadCount = 0;
-        Thread[] threads;
-        do {
-            matchingThreads.clear();
-            estimatedThreadCount *= 2;
-            threads = new Thread[estimatedThreadCount];
-            threadCount = systemThreadGroup.enumerate(threads);
-
-            for (int i = 0; i< threadCount; i++) {
-                final Thread thread = threads[i];
-                if (thread != null && threadName.equals(thread.getName())) {
-                    matchingThreads.add(thread);
-                }
-            }
-            //return value of enumerate() must be strictly less than the array size according to javadoc
-        } while (threadCount >= estimatedThreadCount);
-
-        return Collections.unmodifiableCollection(matchingThreads);
+        final NameVisitor nameVisitor = new NameVisitor(false, threadName);
+        new ThreadUtils.ThreadGroupHolder(ThreadUtils.getSystemThreadGroup()).accept(nameVisitor);
+        return Collections.unmodifiableCollection(nameVisitor.getResult());
     }
 
     /**
@@ -334,26 +245,9 @@ public class ThreadUtils {
         if (threadId <= 0) {
             throw new IllegalArgumentException("The threadId must be greater than zero");
         }
-
-        final ThreadGroup systemThreadGroup = getSystemThreadGroup();
-        int estimatedThreadCount = systemThreadGroup.activeCount() + ENUMERATION_GUESS_EXTRA;
-        int threadCount = 0;
-        Thread[] threads;
-        do {
-            estimatedThreadCount *= 2;
-            threads = new Thread[estimatedThreadCount];
-            threadCount = systemThreadGroup.enumerate(threads);
-
-            for (int i = 0; i< threadCount; i++) {
-                final Thread thread = threads[i];
-                if (thread != null && threadId == thread.getId()) {
-                    return thread;
-                }
-            }
-            //return value of enumerate() must be strictly less than the array size according to javadoc
-        } while (threadCount >= estimatedThreadCount);
-
-        return null;
+        final IdVisitor idVisitor = new IdVisitor(threadId);
+        new ThreadUtils.ThreadGroupHolder(ThreadUtils.getSystemThreadGroup()).accept(idVisitor);
+        return idVisitor.getThread();
     }
 
     /**
@@ -367,6 +261,211 @@ public class ThreadUtils {
      */
     public ThreadUtils() {
         super();
+    }
+
+    //Hierarchical Visitor Pattern
+    //make public?
+    private static interface Visitable {
+        public boolean accept(Visitor visitor);
+    }
+
+    private static final class ThreadHolder implements Visitable {
+        private final Thread thread;
+
+        public Thread getThread() {
+            return thread;
+        }
+
+        @Override
+        public boolean accept(final Visitor visitor)
+        {
+            return visitor.visit(this);
+        }
+
+        public ThreadHolder(final Thread thread) {
+            if(thread == null) {
+                throw new IllegalArgumentException("thread must not be null");
+            }
+            this.thread = thread;
+        }
+    }
+
+    private static final class ThreadGroupHolder implements Visitable {
+        private final ThreadGroup threadGroup;
+
+        public ThreadGroupHolder(final ThreadGroup threadGroup) {
+            if(threadGroup == null) {
+                throw new IllegalArgumentException("thread group must not be null");
+            }
+            this.threadGroup = threadGroup;
+        }
+
+        public ThreadGroup getThreadGroup() {
+            return threadGroup;
+        }
+
+        @Override
+        public boolean accept(final Visitor v)
+        {
+            if (v.visitEnter(this))
+            {
+                int estimatedThreadCount = threadGroup.activeCount() + ENUMERATION_GUESS_EXTRA;
+                int threadCount = 0;
+                Thread[] threads;
+                do {
+                    estimatedThreadCount *= 2;
+                    threads = new Thread[estimatedThreadCount];
+                    threadCount = threadGroup.enumerate(threads, false);
+                    //return value of enumerate() must be strictly less than the array size according to javadoc
+                } while (threadCount >= estimatedThreadCount);
+
+                for (int i = 0; i < threadCount; i++) {
+                    final Thread thread = threads[i];
+                    if(!(new ThreadHolder(thread).accept(v))) {
+                        break;
+                    }
+                }
+
+                int estimatedThreadGroupCount = threadGroup.activeGroupCount() + ENUMERATION_GUESS_EXTRA;
+                int threadGroupCount = 0;
+                ThreadGroup[] threadGroups;
+                do {
+                    estimatedThreadGroupCount *= 2;
+                    threadGroups = new ThreadGroup[estimatedThreadGroupCount];
+                    threadGroupCount = threadGroup.enumerate(threadGroups, false);
+                    //return value of enumerate() must be strictly less than the array size according to javadoc
+                } while (threadGroupCount >= estimatedThreadGroupCount);
+
+                for (int i = 0; i < threadGroupCount; i++) {
+                    final ThreadGroup threadGroup = threadGroups[i];
+                    if (!(new ThreadGroupHolder(threadGroup)).accept(v)) {
+                        break;
+                    }
+                }
+            }
+            return v.visitLeave( this );
+        }
+    }
+
+    private static interface Visitor
+    {
+        boolean visitEnter(ThreadGroupHolder threadGroup); // going into a branch
+        boolean visitLeave(ThreadGroupHolder threadGroup); // coming out
+        boolean visit(ThreadHolder thread);
+    }
+
+
+    //private visitors, not for the public
+    private static class IdVisitor implements Visitor {
+        private Thread thread;
+        private final long threadId;
+
+        public IdVisitor(final long threadId) {
+            this.threadId = threadId;
+        }
+
+        public Thread getThread() {
+            return thread;
+        }
+
+        @Override
+        public boolean visitLeave(final ThreadGroupHolder threadGroup) {
+            return thread==null;
+        }
+
+        @Override
+        public boolean visitEnter(final ThreadGroupHolder threadGroup) {
+            return thread==null;
+        }
+
+        @Override
+        public boolean visit(final ThreadHolder thread) {
+            if(thread.getThread().getId() == threadId) {
+                this.thread = thread.getThread();
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    private static class NameVisitor implements Visitor {
+        private final boolean lookingForThreadGroup;
+        private final String name;
+        private final List result = new ArrayList();
+
+        public NameVisitor(final boolean lookingForThreadGroup, final String name) {
+            this.lookingForThreadGroup = lookingForThreadGroup;
+            this.name = name;
+        }
+
+        @Override
+        public boolean visitLeave(final ThreadGroupHolder threadGroup) {
+            return true;
+        }
+
+        @Override
+        public boolean visitEnter(final ThreadGroupHolder threadGroup) {
+            if(lookingForThreadGroup && (name == null || threadGroup.getThreadGroup().getName().equals(name))) {
+                result.add(threadGroup.getThreadGroup());
+            }
+            return true;
+        }
+
+        @Override
+        public boolean visit(final ThreadHolder thread) {
+            if(!lookingForThreadGroup && ( name == null || thread.getThread().getName().equals(name))) {
+                result.add(thread.getThread());
+            }
+            return true;
+        }
+
+        public List getResult() {
+            return result;
+        }
+    }
+
+    private static class NameNameVisitor implements Visitor {
+        private final String threadName;
+        private final String threadGroupName;
+        private final ThreadGroup threadGroup;
+        private final List result = new ArrayList();
+
+        public NameNameVisitor(final String threadName, final String threadGroupName) {
+            this.threadName = threadName;
+            this.threadGroupName = threadGroupName;
+            this.threadGroup = null;
+        }
+
+        public NameNameVisitor(final String threadName, final ThreadGroup threadGroup) {
+            this.threadName = threadName;
+            this.threadGroup = threadGroup;
+            this.threadGroupName = null;
+        }
+
+        @Override
+        public boolean visitLeave(final ThreadGroupHolder threadGroup) {
+            return true;
+        }
+
+        @Override
+        public boolean visitEnter(final ThreadGroupHolder threadGroup) {
+            return true;
+        }
+
+        @Override
+        public boolean visit(final ThreadHolder thread) {
+            if(threadGroup == null && thread.getThread().getName().equals(threadName) && thread.getThread().getThreadGroup().getName().equals(threadGroupName)) {
+                result.add(thread.getThread());
+            }else if(threadGroup != null && thread.getThread().getName().equals(threadName) && thread.getThread().getThreadGroup().equals(threadGroup)) {
+                result.add(thread.getThread());
+            }
+            return true;
+        }
+
+        public List getResult() {
+            return result;
+        }
     }
 
 }
