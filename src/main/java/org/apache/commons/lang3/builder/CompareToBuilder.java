@@ -323,7 +323,7 @@ public class CompareToBuilder implements Builder<Integer> {
         for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
             final Field f = fields[i];
             if (!ArrayUtils.contains(excludeFields, f.getName())
-                && (f.getName().indexOf('$') == -1)
+                && (!f.getName().contains("$"))
                 && (useTransients || !Modifier.isTransient(f.getModifiers()))
                 && (!Modifier.isStatic(f.getModifiers()))) {
                 try {
