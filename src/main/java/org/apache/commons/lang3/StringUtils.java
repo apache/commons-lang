@@ -7006,7 +7006,7 @@ public class StringUtils {
 
             // compute stripe indices, constrain to array size
             final int min = Math.max(1, j - threshold);
-            final int max = (j > Integer.MAX_VALUE - threshold) ? n : Math.min(n, j + threshold);
+            final int max = j > Integer.MAX_VALUE - threshold ? n : Math.min(n, j + threshold);
 
             // the stripe may lead off of the table if s and t are of different sizes
             if (min > max) {
@@ -7109,7 +7109,7 @@ public class StringUtils {
         }
 
         // Calculate the half length() distance of the shorter String.
-        final int halflength = (shorter.length() / 2) + 1;
+        final int halflength = shorter.length() / 2 + 1;
 
         // Find the set of matching characters between the shorter and longer strings. Note that
         // the set of matching characters may be different depending on the order of the strings.
