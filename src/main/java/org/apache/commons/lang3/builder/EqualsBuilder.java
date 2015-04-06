@@ -436,7 +436,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @since 2.0
      */
     public EqualsBuilder appendSuper(final boolean superEquals) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         isEquals = superEquals;
@@ -454,7 +454,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final Object lhs, final Object rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         if (lhs == rhs) {
@@ -509,7 +509,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final long lhs, final long rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         isEquals = lhs == rhs;
@@ -524,7 +524,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final int lhs, final int rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         isEquals = lhs == rhs;
@@ -539,7 +539,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final short lhs, final short rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         isEquals = lhs == rhs;
@@ -554,7 +554,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final char lhs, final char rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         isEquals = lhs == rhs;
@@ -569,7 +569,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final byte lhs, final byte rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         isEquals = lhs == rhs;
@@ -590,7 +590,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final double lhs, final double rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         return append(Double.doubleToLongBits(lhs), Double.doubleToLongBits(rhs));
@@ -610,7 +610,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final float lhs, final float rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         return append(Float.floatToIntBits(lhs), Float.floatToIntBits(rhs));
@@ -624,7 +624,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
       */
     public EqualsBuilder append(final boolean lhs, final boolean rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         isEquals = lhs == rhs;
@@ -642,7 +642,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final Object[] lhs, final Object[] rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         if (lhs == rhs) {
@@ -673,7 +673,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final long[] lhs, final long[] rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         if (lhs == rhs) {
@@ -704,7 +704,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final int[] lhs, final int[] rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         if (lhs == rhs) {
@@ -735,7 +735,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final short[] lhs, final short[] rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         if (lhs == rhs) {
@@ -766,7 +766,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final char[] lhs, final char[] rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         if (lhs == rhs) {
@@ -797,7 +797,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final byte[] lhs, final byte[] rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         if (lhs == rhs) {
@@ -828,7 +828,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final double[] lhs, final double[] rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         if (lhs == rhs) {
@@ -859,7 +859,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final float[] lhs, final float[] rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         if (lhs == rhs) {
@@ -890,7 +890,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final boolean[] lhs, final boolean[] rhs) {
-        if (isEquals == false) {
+        if (!isEquals) {
             return this;
         }
         if (lhs == rhs) {
