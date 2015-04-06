@@ -857,8 +857,7 @@ public class DateUtilsTest {
      * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
-    public void testRoundLang346() throws Exception
-    {
+    public void testRoundLang346() throws Exception {
         TimeZone.setDefault(defaultZone);
         dateTimeParser.setTimeZone(defaultZone);
         final Calendar testCalendar = Calendar.getInstance();
