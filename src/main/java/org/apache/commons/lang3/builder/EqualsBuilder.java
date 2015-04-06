@@ -409,9 +409,9 @@ public class EqualsBuilder implements Builder<Boolean> {
             for (int i = 0; i < fields.length && builder.isEquals; i++) {
                 final Field f = fields[i];
                 if (!ArrayUtils.contains(excludeFields, f.getName())
-                    && (!f.getName().contains("$"))
+                    && !f.getName().contains("$")
                     && (useTransients || !Modifier.isTransient(f.getModifiers()))
-                    && (!Modifier.isStatic(f.getModifiers()))) {
+                    && !Modifier.isStatic(f.getModifiers())) {
                     try {
                         builder.append(f.get(lhs), f.get(rhs));
                     } catch (final IllegalAccessException e) {
@@ -512,7 +512,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (isEquals == false) {
             return this;
         }
-        isEquals = (lhs == rhs);
+        isEquals = lhs == rhs;
         return this;
     }
 
@@ -527,7 +527,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (isEquals == false) {
             return this;
         }
-        isEquals = (lhs == rhs);
+        isEquals = lhs == rhs;
         return this;
     }
 
@@ -542,7 +542,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (isEquals == false) {
             return this;
         }
-        isEquals = (lhs == rhs);
+        isEquals = lhs == rhs;
         return this;
     }
 
@@ -557,7 +557,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (isEquals == false) {
             return this;
         }
-        isEquals = (lhs == rhs);
+        isEquals = lhs == rhs;
         return this;
     }
 
@@ -572,7 +572,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (isEquals == false) {
             return this;
         }
-        isEquals = (lhs == rhs);
+        isEquals = lhs == rhs;
         return this;
     }
 
@@ -627,7 +627,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (isEquals == false) {
             return this;
         }
-        isEquals = (lhs == rhs);
+        isEquals = lhs == rhs;
         return this;
     }
 
