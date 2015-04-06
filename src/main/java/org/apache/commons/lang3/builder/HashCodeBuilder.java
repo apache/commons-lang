@@ -190,7 +190,7 @@ public class HashCodeBuilder implements Builder<Integer> {
             AccessibleObject.setAccessible(fields, true);
             for (final Field field : fields) {
                 if (!ArrayUtils.contains(excludeFields, field.getName())
-                    && (field.getName().indexOf('$') == -1)
+                    && (!field.getName().contains("$"))
                     && (useTransients || !Modifier.isTransient(field.getModifiers()))
                     && (!Modifier.isStatic(field.getModifiers()))) {
                     try {

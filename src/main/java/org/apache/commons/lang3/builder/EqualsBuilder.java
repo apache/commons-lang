@@ -409,7 +409,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             for (int i = 0; i < fields.length && builder.isEquals; i++) {
                 final Field f = fields[i];
                 if (!ArrayUtils.contains(excludeFields, f.getName())
-                    && (f.getName().indexOf('$') == -1)
+                    && (!f.getName().contains("$"))
                     && (useTransients || !Modifier.isTransient(f.getModifiers()))
                     && (!Modifier.isStatic(f.getModifiers()))) {
                     try {
