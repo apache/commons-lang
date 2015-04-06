@@ -575,7 +575,7 @@ public class Conversion {
      */
     public static long intArrayToLong(final int[] src, final int srcPos, final long dstInit, final int dstPos,
             final int nInts) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nInts) {
+        if (src.length == 0 && srcPos == 0 || 0 == nInts) {
             return dstInit;
         }
         if ((nInts - 1) * 32 + dstPos >= 64) {
@@ -585,7 +585,7 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nInts; i++) {
             shift = i * 32 + dstPos;
-            final long bits = ((0xffffffffL & src[i + srcPos]) << shift);
+            final long bits = (0xffffffffL & src[i + srcPos]) << shift;
             final long mask = 0xffffffffL << shift;
             out = (out & ~mask) | bits;
         }
@@ -611,7 +611,7 @@ public class Conversion {
      */
     public static long shortArrayToLong(final short[] src, final int srcPos, final long dstInit, final int dstPos,
             final int nShorts) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nShorts) {
+        if (src.length == 0 && srcPos == 0 || 0 == nShorts) {
             return dstInit;
         }
         if ((nShorts - 1) * 16 + dstPos >= 64) {
@@ -647,7 +647,7 @@ public class Conversion {
      */
     public static int shortArrayToInt(final short[] src, final int srcPos, final int dstInit, final int dstPos,
             final int nShorts) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nShorts) {
+        if (src.length == 0 && srcPos == 0 || 0 == nShorts) {
             return dstInit;
         }
         if ((nShorts - 1) * 16 + dstPos >= 32) {
@@ -683,7 +683,7 @@ public class Conversion {
      */
     public static long byteArrayToLong(final byte[] src, final int srcPos, final long dstInit, final int dstPos,
             final int nBytes) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBytes) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 64) {
@@ -719,7 +719,7 @@ public class Conversion {
      */
     public static int byteArrayToInt(final byte[] src, final int srcPos, final int dstInit, final int dstPos,
             final int nBytes) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBytes) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 32) {
@@ -755,7 +755,7 @@ public class Conversion {
      */
     public static short byteArrayToShort(final byte[] src, final int srcPos, final short dstInit, final int dstPos,
             final int nBytes) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBytes) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 16) {
@@ -926,7 +926,7 @@ public class Conversion {
      */
     public static long binaryToLong(final boolean[] src, final int srcPos, final long dstInit, final int dstPos,
             final int nBools) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 64) {
@@ -962,7 +962,7 @@ public class Conversion {
      */
     public static int binaryToInt(final boolean[] src, final int srcPos, final int dstInit, final int dstPos,
             final int nBools) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 32) {
@@ -998,7 +998,7 @@ public class Conversion {
      */
     public static short binaryToShort(final boolean[] src, final int srcPos, final short dstInit, final int dstPos,
             final int nBools) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 16) {
@@ -1034,7 +1034,7 @@ public class Conversion {
      */
     public static byte binaryToByte(final boolean[] src, final int srcPos, final byte dstInit, final int dstPos,
             final int nBools) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 8) {
@@ -1437,7 +1437,7 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBools; i++) {
             shift = i + srcPos;
-            dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
+            dst[dstPos + i] = (0x1 & (src >> shift)) != 0;
         }
         return dst;
     }
@@ -1470,7 +1470,7 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBools; i++) {
             shift = i + srcPos;
-            dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
+            dst[dstPos + i] = (0x1 & (src >> shift)) != 0;
         }
         return dst;
     }
@@ -1501,10 +1501,10 @@ public class Conversion {
             throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 16");
         }
         int shift = 0;
-        assert ((nBools - 1) < 16 - srcPos);
+        assert (nBools - 1) < 16 - srcPos;
         for (int i = 0; i < nBools; i++) {
             shift = i + srcPos;
-            dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
+            dst[dstPos + i] = (0x1 & (src >> shift)) != 0;
         }
         return dst;
     }
@@ -1537,7 +1537,7 @@ public class Conversion {
         int shift = 0;
         for (int i = 0; i < nBools; i++) {
             shift = i + srcPos;
-            dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
+            dst[dstPos + i] = (0x1 & (src >> shift)) != 0;
         }
         return dst;
     }
