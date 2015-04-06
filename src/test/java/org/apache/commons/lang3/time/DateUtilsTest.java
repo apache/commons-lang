@@ -37,9 +37,6 @@ import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
 import junit.framework.AssertionFailedError;
-
-import org.apache.commons.lang3.SystemUtils;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -164,12 +161,13 @@ public class DateUtilsTest {
         assertTrue(DateUtils.isSameDay(datea, dateb));
         dateb = new GregorianCalendar(2005, 6, 10, 13, 45).getTime();
         assertFalse(DateUtils.isSameDay(datea, dateb));
-        try {
-            DateUtils.isSameDay((Date) null, (Date) null);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
     }
-    
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsDameDay_DateNullNull() throws Exception {
+        DateUtils.isSameDay((Date) null, (Date) null);
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testIsSameDay_Cal() {
@@ -182,12 +180,13 @@ public class DateUtilsTest {
         assertTrue(DateUtils.isSameDay(cala, calb));
         calb.add(Calendar.YEAR, 1);
         assertFalse(DateUtils.isSameDay(cala, calb));
-        try {
-            DateUtils.isSameDay((Calendar) null, (Calendar) null);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
     }
-    
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameDay_CalNullNull() throws Exception {
+        DateUtils.isSameDay((Calendar) null, (Calendar) null);
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testIsSameInstant_Date() {
@@ -200,12 +199,13 @@ public class DateUtilsTest {
         assertTrue(DateUtils.isSameInstant(datea, dateb));
         dateb = new GregorianCalendar(2005, 6, 10, 13, 45).getTime();
         assertFalse(DateUtils.isSameInstant(datea, dateb));
-        try {
-            DateUtils.isSameInstant((Date) null, (Date) null);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
     }
-    
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameInstant_DateNullNull() throws Exception {
+        DateUtils.isSameInstant((Date) null, (Date) null);
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testIsSameInstant_Cal() {
@@ -219,12 +219,13 @@ public class DateUtilsTest {
         
         calb.set(2004, 6, 9, 11, 45, 0);
         assertTrue(DateUtils.isSameInstant(cala, calb));
-        try {
-            DateUtils.isSameInstant((Calendar) null, (Calendar) null);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
     }
-    
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameInstant_CalNullNull() throws Exception {
+        DateUtils.isSameInstant((Calendar) null, (Calendar) null);
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testIsSameLocalTime_Cal() {
@@ -246,12 +247,13 @@ public class DateUtilsTest {
         
         calb.set(2004, 6, 9, 11, 45, 0);
         assertFalse(DateUtils.isSameLocalTime(cala, calb));
-        try {
-            DateUtils.isSameLocalTime((Calendar) null, (Calendar) null);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
     }
-    
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameLocalTime_CalNullNull() throws Exception {
+        DateUtils.isSameLocalTime((Calendar) null, (Calendar) null);
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testParseDate() throws Exception {
@@ -268,27 +270,34 @@ public class DateUtilsTest {
         dateStr = "19721203";
         date = DateUtils.parseDate(dateStr, parsers);
         assertEquals(cal.getTime(), date);
-        
-        try {
-            DateUtils.parseDate("PURPLE", parsers);
-            fail();
-        } catch (final ParseException ex) {}
-        try {
-            DateUtils.parseDate("197212AB", parsers);
-            fail();
-        } catch (final ParseException ex) {}
-        try {
-            DateUtils.parseDate(null, parsers);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.parseDate(dateStr, (String[]) null);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.parseDate(dateStr, new String[0]);
-            fail();
-        } catch (final ParseException ex) {}
+    }
+
+    @Test(expected = ParseException.class)
+    public void testParseDate_NoDateString() throws Exception {
+        final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        DateUtils.parseDate("PURPLE", parsers);
+    }
+
+    @Test(expected = ParseException.class)
+    public void testParseDate_InvalidDateString() throws Exception {
+        final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        DateUtils.parseDate("197212AB", parsers);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseDate_Null() throws Exception {
+        final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        DateUtils.parseDate(null, parsers);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParse_NullParsers() throws Exception {
+        DateUtils.parseDate("19721203", (String[]) null);
+    }
+    
+    @Test(expected = ParseException.class)
+    public void testParse_EmptyParsers() throws Exception {
+        DateUtils.parseDate("19721203");
     }
 
     // LANG-486
