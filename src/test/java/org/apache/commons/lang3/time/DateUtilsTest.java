@@ -491,7 +491,7 @@ public class DateUtilsTest {
         assertDate(result, 2000, 1, 5, 4, 3, 2, 1);
 
         try {
-            result = DateUtils.setMonths(BASE_DATE, 12);
+            DateUtils.setMonths(BASE_DATE, 12);
             fail("DateUtils.setMonths did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
 
@@ -512,7 +512,7 @@ public class DateUtilsTest {
         assertDate(result, 2000, 6, 29, 4, 3, 2, 1);
 
         try {
-            result = DateUtils.setDays(BASE_DATE, 32);
+            DateUtils.setDays(BASE_DATE, 32);
             fail("DateUtils.setDays did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
 
@@ -533,7 +533,7 @@ public class DateUtilsTest {
         assertDate(result, 2000, 6, 5, 23, 3, 2, 1);
 
         try {
-            result = DateUtils.setHours(BASE_DATE, 24);
+            DateUtils.setHours(BASE_DATE, 24);
             fail("DateUtils.setHours did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
 
@@ -554,7 +554,7 @@ public class DateUtilsTest {
         assertDate(result, 2000, 6, 5, 4, 59, 2, 1);
 
         try {
-            result = DateUtils.setMinutes(BASE_DATE, 60);
+            DateUtils.setMinutes(BASE_DATE, 60);
             fail("DateUtils.setMinutes did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
 
@@ -575,7 +575,7 @@ public class DateUtilsTest {
         assertDate(result, 2000, 6, 5, 4, 3, 59, 1);
 
         try {
-            result = DateUtils.setSeconds(BASE_DATE, 60);
+            DateUtils.setSeconds(BASE_DATE, 60);
             fail("DateUtils.setSeconds did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
 
@@ -596,7 +596,7 @@ public class DateUtilsTest {
         assertDate(result, 2000, 6, 5, 4, 3, 2, 999);
 
         try {
-            result = DateUtils.setMilliseconds(BASE_DATE, 1000);
+            DateUtils.setMilliseconds(BASE_DATE, 1000);
             fail("DateUtils.setMilliseconds did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
 
