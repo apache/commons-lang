@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -830,28 +828,24 @@ public class DateUtilsTest {
         assertEquals("round MET date across DST change-over",
                 dateTimeParser.parse("March 30, 2003 01:00:00.000"),
                 DateUtils.round((Object) cal4, Calendar.HOUR_OF_DAY));
-        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round(date5, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round((Object) cal5, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round(date6, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round((Object) cal6, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.round(date7, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY));
-        } else {
-            this.warn("WARNING: Some date rounding tests not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
-        }
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.round(date5, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.round((Object) cal5, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.round(date6, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.round((Object) cal6, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                DateUtils.round(date7, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY));
         TimeZone.setDefault(defaultZone);
         dateTimeParser.setTimeZone(defaultZone);
     }
@@ -1125,11 +1119,6 @@ public class DateUtilsTest {
      */
     @Test
     public void testTruncateLang59() throws Exception {
-        if (!SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
-            this.warn("WARNING: Test for LANG-59 not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
-            return;
-        }
-
         // Set TimeZone to Mountain Time
         final TimeZone MST_MDT = TimeZone.getTimeZone("MST7MDT");
         TimeZone.setDefault(MST_MDT);
@@ -1417,28 +1406,24 @@ public class DateUtilsTest {
         assertEquals("ceiling MET date across DST change-over",
                 dateTimeParser.parse("March 30, 2003 03:00:00.000"),
                 DateUtils.ceiling((Object) cal4, Calendar.HOUR_OF_DAY));
-        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.ceiling(date5, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.ceiling((Object) cal5, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling(date6, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling((Object) cal6, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling(date7, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling((Object) cal7, Calendar.HOUR_OF_DAY));
-        } else {
-            this.warn("WARNING: Some date ceiling tests not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
-        }
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.ceiling(date5, Calendar.HOUR_OF_DAY));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.ceiling((Object) cal5, Calendar.HOUR_OF_DAY));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                DateUtils.ceiling(date6, Calendar.HOUR_OF_DAY));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                DateUtils.ceiling((Object) cal6, Calendar.HOUR_OF_DAY));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                DateUtils.ceiling(date7, Calendar.HOUR_OF_DAY));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                DateUtils.ceiling((Object) cal7, Calendar.HOUR_OF_DAY));
         TimeZone.setDefault(defaultZone);
         dateTimeParser.setTimeZone(defaultZone);
         
