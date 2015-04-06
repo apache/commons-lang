@@ -61,36 +61,35 @@ public class DateUtilsTest {
         BASE_DATE = cal.getTime();
     }
 
-    DateFormat dateParser = null;
-    DateFormat dateTimeParser = null;
-    DateFormat timeZoneDateParser = null;
-    Date dateAmPm1 = null;
-    Date dateAmPm2 = null;
-    Date dateAmPm3 = null;
-    Date dateAmPm4 = null;
-    Date date0 = null;
-    Date date1 = null;
-    Date date2 = null;
-    Date date3 = null;
-    Date date4 = null;
-    Date date5 = null;
-    Date date6 = null;
-    Date date7 = null;
-    Date date8 = null;
-    Calendar calAmPm1 = null;
-    Calendar calAmPm2 = null;
-    Calendar calAmPm3 = null;
-    Calendar calAmPm4 = null;
-    Calendar cal1 = null;
-    Calendar cal2 = null;
-    Calendar cal3 = null;
-    Calendar cal4 = null;
-    Calendar cal5 = null;
-    Calendar cal6 = null;
-    Calendar cal7 = null;
-    Calendar cal8 = null;
-    TimeZone zone = null;
-    TimeZone defaultZone = null;
+    private DateFormat dateParser = null;
+    private DateFormat dateTimeParser = null;
+    private Date dateAmPm1 = null;
+    private Date dateAmPm2 = null;
+    private Date dateAmPm3 = null;
+    private Date dateAmPm4 = null;
+    private Date date0 = null;
+    private Date date1 = null;
+    private Date date2 = null;
+    private Date date3 = null;
+    private Date date4 = null;
+    private Date date5 = null;
+    private Date date6 = null;
+    private Date date7 = null;
+    private Date date8 = null;
+    private Calendar calAmPm1 = null;
+    private Calendar calAmPm2 = null;
+    private Calendar calAmPm3 = null;
+    private Calendar calAmPm4 = null;
+    private Calendar cal1 = null;
+    private Calendar cal2 = null;
+    private Calendar cal3 = null;
+    private Calendar cal4 = null;
+    private Calendar cal5 = null;
+    private Calendar cal6 = null;
+    private Calendar cal7 = null;
+    private Calendar cal8 = null;
+    private TimeZone zone = null;
+    private TimeZone defaultZone = null;
 
     @Before
     public void setUp() throws Exception {
