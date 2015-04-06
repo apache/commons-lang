@@ -290,6 +290,7 @@ public class DateUtilsTest {
             fail();
         } catch (final ParseException ex) {}
     }
+
     // LANG-486
     @Test
     public void testParseDateWithLeniency() throws Exception {
@@ -301,7 +302,7 @@ public class DateUtilsTest {
         assertEquals(cal.getTime(), date);
         
         try {
-            date = DateUtils.parseDateStrictly(dateStr, parsers);
+            DateUtils.parseDateStrictly(dateStr, parsers);
             fail();
         } catch (final ParseException ex) {}
     }
