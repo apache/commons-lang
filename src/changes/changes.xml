@@ -21,6 +21,10 @@
   </properties>
   <body>
 
+  <release version="3.5" date="tba" description="tba">
+  
+  </release>
+
   <release version="3.4" date="2014-04-06" description="Feature and bugfix release">
     <action issue="LANG-821" type="add" dev="britter" due-to="Timo Kockert">Support OS X versions in SystemUtils</action>
     <action issue="LANG-794" type="fix" dev="britter" due-to="Timo Kockert">SystemUtils.IS_OS_WINDOWS_2008, VISTA are incorrect</action>
