@@ -1227,12 +1227,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final Object[] array1, final Object[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1245,12 +1240,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final long[] array1, final long[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1263,12 +1253,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final int[] array1, final int[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1281,12 +1266,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final short[] array1, final short[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1299,12 +1279,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final char[] array1, final char[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1317,12 +1292,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final byte[] array1, final byte[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1335,12 +1305,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final double[] array1, final double[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1353,12 +1318,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final float[] array1, final float[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1371,12 +1331,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final boolean[] array1, final boolean[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     //-----------------------------------------------------------------------
