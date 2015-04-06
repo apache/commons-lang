@@ -92,11 +92,8 @@ public class DateUtilsTest {
     TimeZone zone = null;
     TimeZone defaultZone = null;
 
-
     @Before
     public void setUp() throws Exception {
-
-
         dateParser = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
         dateTimeParser = new SimpleDateFormat("MMM dd, yyyy H:mm:ss.SSS", Locale.ENGLISH);
 
