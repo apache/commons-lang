@@ -141,4 +141,17 @@
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
 
+  <!-- Reason: Internal class that is used only as a key for an internal FormatCache. For this reason we can
+   be sure, that equals will never be called with null or types other than MultipartKey.
+  -->
+  <Match>
+    <Class name="org.apache.commons.lang3.time.FormatCache$MultipartKey" />
+    <Method name="equals" />
+    <Bug pattern="BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS" />
+  </Match>
+  <Match>
+    <Class name="org.apache.commons.lang3.time.FormatCache$MultipartKey" />
+    <Method name="equals" />
+    <Bug pattern="NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT" />
+  </Match>
 </FindBugsFilter>
