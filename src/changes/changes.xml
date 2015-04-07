@@ -22,7 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
-  
+    <action issue="LANG-1107" type="update" dev="chas">Fix parsing edge cases in FastDateParser</action>
   </release>
 
   <release version="3.4" date="2014-04-06" description="Feature and bugfix release">
