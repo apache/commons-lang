@@ -16,7 +16,7 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -25,9 +25,15 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
@@ -36,9 +42,6 @@ import org.junit.rules.ExpectedException;
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class ArrayUtilsTest  {
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
 
     //-----------------------------------------------------------------------
     @Test
@@ -387,11 +390,8 @@ public class ArrayUtilsTest  {
         assertSame(input, output);
     }
 
-    @Test
-    public void testNulltOEmptyGenericNullType() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("The Type must not be null");
-
+    @Test(expected=IllegalArgumentException.class)
+    public void testNullToEmptyGenericNullType() {
         TestClass[] input = new TestClass[]{};
         ArrayUtils.nullToEmpty(input, null);
     }
