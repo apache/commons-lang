@@ -24,8 +24,8 @@ import org.junit.Test;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -146,26 +146,36 @@ public class FieldUtilsTest {
         FieldUtils.getField(PublicChild.class, " ", true);
     }
 
+    private Field[] allPublicChildFields() {
+        Class<? super PublicChild> parentClass = PublicChild.class.getSuperclass();
+		final Field[] fieldsParent =  parentClass.getDeclaredFields();
+        assertArrayEquals(fieldsParent, FieldUtils.getAllFields(parentClass));
+
+		final Field[] fieldsPublicChild = PublicChild.class.getDeclaredFields();
+        return ArrayUtils.addAll(fieldsPublicChild, fieldsParent);
+    }
+
+    private Field[] allIntegerFields() {
+        final Field[] fieldsNumber = Number.class.getDeclaredFields();
+        assertArrayEquals(Number.class.getDeclaredFields(), FieldUtils.getAllFields(Number.class));
+        final Field[] fieldsInteger = Integer.class.getDeclaredFields();
+        return ArrayUtils.addAll(fieldsInteger, fieldsNumber);
+    }
+    
     @Test
     public void testGetAllFields() {
         assertArrayEquals(new Field[0], FieldUtils.getAllFields(Object.class));
-        final Field[] fieldsNumber = Number.class.getDeclaredFields();
-        assertArrayEquals(fieldsNumber, FieldUtils.getAllFields(Number.class));
-        final Field[] fieldsInteger = Integer.class.getDeclaredFields();
-        assertArrayEquals(ArrayUtils.addAll(fieldsInteger, fieldsNumber), FieldUtils.getAllFields(Integer.class));
-        assertEquals(5, FieldUtils.getAllFields(PublicChild.class).length);
+        assertArrayEquals(allIntegerFields(), FieldUtils.getAllFields(Integer.class));
+        
+        assertArrayEquals(allPublicChildFields(), FieldUtils.getAllFields(PublicChild.class));
     }
 
     @Test
     public void testGetAllFieldsList() {
-        assertEquals(0, FieldUtils.getAllFieldsList(Object.class).size());
-        final List<Field> fieldsNumber = Arrays.asList(Number.class.getDeclaredFields());
-        assertEquals(fieldsNumber, FieldUtils.getAllFieldsList(Number.class));
-        final List<Field> fieldsInteger = Arrays.asList(Integer.class.getDeclaredFields());
-        final List<Field> allFieldsInteger = new ArrayList<Field>(fieldsInteger);
-        allFieldsInteger.addAll(fieldsNumber);
-        assertEquals(allFieldsInteger, FieldUtils.getAllFieldsList(Integer.class));
-        assertEquals(5, FieldUtils.getAllFieldsList(PublicChild.class).size());
+        assertEquals(Collections.emptyList(), FieldUtils.getAllFieldsList(Object.class));
+        assertEquals(Arrays.asList(allIntegerFields()), FieldUtils.getAllFieldsList(Integer.class));
+        
+        assertEquals(Arrays.asList(allPublicChildFields()), FieldUtils.getAllFieldsList(PublicChild.class));
     }
 
     @Test

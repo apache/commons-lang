@@ -590,6 +590,18 @@ public class StrSubstitutorTest {
     }
 
     /**
+     * Test for LANG-1055: StrSubstitutor.replaceSystemProperties does not work consistently
+     */
+    @Test
+    public void testLANG1055() {
+        System.setProperty("test_key",  "test_value");
+
+        String expected = StrSubstitutor.replace("test_key=${test_key}", System.getProperties());
+        String actual = StrSubstitutor.replaceSystemProperties("test_key=${test_key}");
+        assertEquals(expected, actual);
+    }
+
+    /**
      * Test the replace of a properties object
      */
     @Test

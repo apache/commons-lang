@@ -190,9 +190,9 @@ public class DateUtils {
         if (cal1 == null || cal2 == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        return (cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
+        return cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
                 cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
+                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
     //-----------------------------------------------------------------------
@@ -249,14 +249,14 @@ public class DateUtils {
         if (cal1 == null || cal2 == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        return (cal1.get(Calendar.MILLISECOND) == cal2.get(Calendar.MILLISECOND) &&
+        return cal1.get(Calendar.MILLISECOND) == cal2.get(Calendar.MILLISECOND) &&
                 cal1.get(Calendar.SECOND) == cal2.get(Calendar.SECOND) &&
                 cal1.get(Calendar.MINUTE) == cal2.get(Calendar.MINUTE) &&
                 cal1.get(Calendar.HOUR_OF_DAY) == cal2.get(Calendar.HOUR_OF_DAY) &&
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
                 cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
-                cal1.getClass() == cal2.getClass());
+                cal1.getClass() == cal2.getClass();
     }
 
     //-----------------------------------------------------------------------
@@ -1019,7 +1019,7 @@ public class DateUtils {
             for (final int element : aField) {
                 if (element == field) {
                     //This is our field... we stop looping
-                    if (modType == ModifyType.CEILING || (modType == ModifyType.ROUND && roundUp)) {
+                    if (modType == ModifyType.CEILING || modType == ModifyType.ROUND && roundUp) {
                         if (field == DateUtils.SEMI_MONTH) {
                             //This is a special case that's hard to generalize
                             //If the date is 1, we round up to 16, otherwise

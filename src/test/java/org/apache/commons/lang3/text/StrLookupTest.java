@@ -54,6 +54,22 @@ public class StrLookupTest  {
     }
 
     @Test
+    public void testSystemPropertiesLookupNotSingleton() {
+        final String osName = "os.name";
+        final String originalOsName = System.getProperty(osName);
+
+        StrLookup<String> properties1 = StrLookup.systemPropertiesLookup();
+        assertEquals(originalOsName, properties1.lookup(osName));
+
+        final String differentOsName = "HAL-9000";
+        System.setProperty(osName, differentOsName);
+        StrLookup<String> properties2 = StrLookup.systemPropertiesLookup();
+
+        assertEquals(originalOsName, properties1.lookup(osName));
+        assertEquals(differentOsName, properties2.lookup(osName));
+    }
+
+    @Test
     public void testMapLookup() {
         final Map<String, Object> map = new HashMap<String, Object>();
         map.put("key", "value");

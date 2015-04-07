@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,6 +31,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Assert;
@@ -42,8 +44,8 @@ import org.junit.Test;
  * @since 3.2
  */
 public class FastDateParserTest {
-    private static final String SHORT_FORMAT_NOERA = "y/M/d/h/a/m/s/E/Z";
-    private static final String LONG_FORMAT_NOERA = "yyyy/MMMM/dddd/hhhh/mmmm/ss/aaaa/EEEE/ZZZZ";
+    private static final String SHORT_FORMAT_NOERA = "y/M/d/h/a/m/s/E";
+    private static final String LONG_FORMAT_NOERA = "yyyy/MMMM/dddd/hhhh/mmmm/ss/aaaa/EEEE";
     private static final String SHORT_FORMAT = "G/" + SHORT_FORMAT_NOERA;
     private static final String LONG_FORMAT = "GGGG/" + LONG_FORMAT_NOERA;
 
@@ -56,6 +58,7 @@ public class FastDateParserTest {
     private static final TimeZone REYKJAVIK = TimeZone.getTimeZone("Atlantic/Reykjavik");
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
     private static final TimeZone GMT = TimeZone.getTimeZone("GMT");
+    private static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
 
     private static final Locale SWEDEN = new Locale("sv", "SE");
 
@@ -217,6 +220,7 @@ public class FastDateParserTest {
 
     private void validateSdfFormatFdpParseEquality(final String format, final Locale locale, final TimeZone tz, final DateParser fdp, final Date in, final int year, final Date cs) throws ParseException {
         final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
+        sdf.setTimeZone(tz);
         if (format.equals(SHORT_FORMAT)) {
             sdf.set2DigitYearStart( cs );
         }
@@ -252,6 +256,29 @@ public class FastDateParserTest {
             }
         }
     }
+
+    // we cannot use historic dates to test timezone parsing, some timezones have second offsets
+    // as well as hours and minutes which makes the z formats a low fidelity round trip
+    @Test
+    public void testTzParses() throws Exception {
+        // Check that all Locales can parse the time formats we use
+        for(final Locale locale : Locale.getAvailableLocales()) {
+            final FastDateParser fdp= new FastDateParser("yyyy/MM/dd z", TimeZone.getDefault(), locale);
+
+            for(final TimeZone tz :  new TimeZone[]{NEW_YORK, REYKJAVIK, GMT}) {
+                final Calendar cal= Calendar.getInstance(tz, locale);
+                cal.clear();
+                cal.set(Calendar.YEAR, 2000);
+                cal.set(Calendar.MONTH, 1);
+                cal.set(Calendar.DAY_OF_MONTH, 10);
+                final Date expected= cal.getTime();
+
+                final Date actual = fdp.parse("2000/02/10 "+tz.getDisplayName(locale));
+                Assert.assertEquals("tz:"+tz.getID()+" locale:"+locale.getDisplayName(), expected, actual);
+            }
+        }
+    }
+
 
     @Test
     public void testLocales_Long_AD() throws Exception {
@@ -556,4 +583,78 @@ public class FastDateParserTest {
         assertEquals(expected.getTime(), fdp.parse("14MAY2014"));
         assertEquals(expected.getTime(), fdp.parse("14May2014"));
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void test1806Argument() {
+        getInstance("XXXX");
+    }
+
+    private static Calendar initializeCalendar(TimeZone tz) {
+        Calendar cal = Calendar.getInstance(tz);
+        cal.set(Calendar.YEAR, 2001);
+        cal.set(Calendar.MONTH, 1); // not daylight savings
+        cal.set(Calendar.DAY_OF_MONTH, 4);
+        cal.set(Calendar.HOUR_OF_DAY, 12);
+        cal.set(Calendar.MINUTE, 8);
+        cal.set(Calendar.SECOND, 56);
+        cal.set(Calendar.MILLISECOND, 235);
+        return cal;
+    }
+
+    private static enum Expected1806 {
+        India(INDIA, "+05", "+0530", "+05:30", true), 
+        Greenwich(GMT, "Z", "Z", "Z", false), 
+        NewYork(NEW_YORK, "-05", "-0500", "-05:00", false);
+
+        private Expected1806(TimeZone zone, String one, String two, String three, boolean hasHalfHourOffset) {
+            this.zone = zone;
+            this.one = one;
+            this.two = two;
+            this.three = three;
+            this.offset = hasHalfHourOffset ?30*60*1000 :0;
+        }
+
+        final TimeZone zone;
+        final String one;
+        final String two;
+        final String three;
+        final long offset;
+    }
+    
+    @Test
+    public void test1806() throws ParseException {
+        String formatStub = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+        String dateStub = "2001-02-04T12:08:56.235";
+        
+        for (Expected1806 trial : Expected1806.values()) {
+            Calendar cal = initializeCalendar(trial.zone);
+
+            String message = trial.zone.getDisplayName()+";";
+            
+            DateParser parser = getInstance(formatStub+"X", trial.zone);
+            assertEquals(message+trial.one, cal.getTime().getTime(), parser.parse(dateStub+trial.one).getTime()-trial.offset);
+
+            parser = getInstance(formatStub+"XX", trial.zone);
+            assertEquals(message+trial.two, cal.getTime(), parser.parse(dateStub+trial.two));
+
+            parser = getInstance(formatStub+"XXX", trial.zone);
+            assertEquals(message+trial.three, cal.getTime(), parser.parse(dateStub+trial.three));
+        }
+    }
+
+    @Test
+    public void testTimeZoneStrategyPattern() {
+        Pattern tz = Pattern.compile(FastDateParser.TimeZoneStrategy.TZ_DATABASE);
+        Assert.assertFalse(tz.matcher("GMT-1234").matches());
+
+        for (Locale locale : Locale.getAvailableLocales()) {
+            final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
+            for (final String[] zone : zones) {
+                for (String zoneExpr : zone) {
+                    Assert.assertTrue(locale.getDisplayName() + ":" + zoneExpr, tz.matcher(zoneExpr).matches());
+                }
+            }
+        }
+    }
+
 }

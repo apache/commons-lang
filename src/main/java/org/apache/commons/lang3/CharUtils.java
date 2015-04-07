@@ -31,6 +31,8 @@ public class CharUtils {
     
     private static final String[] CHAR_STRING_ARRAY = new String[128];
     
+    private static final char[] HEX_DIGITS = new char[] {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+
     /**
      * {@code \u000a} linefeed LF ('\n').
      * 
@@ -350,14 +352,13 @@ public class CharUtils {
      * @return the escaped Unicode string
      */
     public static String unicodeEscaped(final char ch) {
-        if (ch < 0x10) {
-            return "\\u000" + Integer.toHexString(ch);
-        } else if (ch < 0x100) {
-            return "\\u00" + Integer.toHexString(ch);
-        } else if (ch < 0x1000) {
-            return "\\u0" + Integer.toHexString(ch);
-        }
-        return "\\u" + Integer.toHexString(ch);
+        StringBuilder sb = new StringBuilder(6);
+        sb.append("\\u");
+        sb.append(HEX_DIGITS[(ch >> 12) & 15]);
+        sb.append(HEX_DIGITS[(ch >> 8) & 15]);
+        sb.append(HEX_DIGITS[(ch >> 4) & 15]);
+        sb.append(HEX_DIGITS[(ch) & 15]);
+        return sb.toString();
     }
     
     /**
@@ -535,5 +536,18 @@ public class CharUtils {
     public static boolean isAsciiAlphanumeric(final char ch) {
         return isAsciiAlpha(ch) || isAsciiNumeric(ch);
     }
-    
+
+    /**
+     * <p>Compares two {@code char} values numerically. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code char} to compare
+     * @param y the second {@code char} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
+     */
+    public static int compare(char x, char y) {
+        return x-y;
+    }
 }

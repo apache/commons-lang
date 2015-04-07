@@ -503,16 +503,16 @@ public class NumberUtils {
             } else {
                 dec = str.substring(decPos + 1);
             }
-            mant = str.substring(0, decPos);
+            mant = getMantissa(str, decPos);
             numDecimals = dec.length(); // gets number of digits past the decimal to ensure no loss of precision for floating point numbers.
         } else {
             if (expPos > -1) {
                 if (expPos > str.length()) { // prevents double exponent causing IOOBE
                     throw new NumberFormatException(str + " is not a valid number.");
                 }
-                mant = str.substring(0, expPos);
+                mant = getMantissa(str, expPos);
             } else {
-                mant = str;
+                mant = getMantissa(str);
             }
             dec = null;
         }
@@ -626,6 +626,34 @@ public class NumberUtils {
     /**
      * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
      *
+     * <p>Returns mantissa of the given number.</p>
+     * 
+     * @param str the string representation of the number
+     * @return mantissa of the given number
+     */
+    private static String getMantissa(final String str) {
+        return getMantissa(str, str.length());
+    }
+
+    /**
+     * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
+     *
+     * <p>Returns mantissa of the given number.</p>
+     * 
+     * @param str the string representation of the number
+     * @param stopPos the position of the exponent or decimal point
+     * @return mantissa of the given number
+     */
+    private static String getMantissa(final String str, final int stopPos) {
+        final char firstChar = str.charAt(0);
+        final boolean hasSign = (firstChar == '-' || firstChar == '+');
+
+        return hasSign ? str.substring(1, stopPos) : str.substring(0, stopPos);
+    }
+
+    /**
+     * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
+     *
      * <p>Returns <code>true</code> if s is <code>null</code>.</p>
      * 
      * @param str  the String to check
@@ -734,7 +762,7 @@ public class NumberUtils {
             negate = true;
             pos = 1;
         }
-        if (str.startsWith("0x", pos) || str.startsWith("0x", pos)) { // hex
+        if (str.startsWith("0x", pos) || str.startsWith("0X", pos)) { // hex
             radix = 16;
             pos += 2;
         } else if (str.startsWith("#", pos)) { // alternative hex (allowed by Long/Integer)
@@ -1344,7 +1372,7 @@ public class NumberUtils {
      * <code>false</code>, since <code>9</code> is not a valid octal value.
      * However, numbers beginning with {@code 0.} are treated as decimal.</p>
      *
-     * <p><code>Null</code> and empty String will return
+     * <p><code>null</code> and empty/blank {@code String} will return
      * <code>false</code>.</p>
      *
      * @param str  the <code>String</code> to check
@@ -1495,4 +1523,80 @@ public class NumberUtils {
         }
     }
 
+    /**
+     * <p>Compares two {@code int} values numerically. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code int} to compare
+     * @param y the second {@code int} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
+     */
+    public static int compare(int x, int y) {
+        if (x == y) {
+            return 0;
+        }
+        if (x < y) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    /**
+     * <p>Compares to {@code long} values numerically. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code long} to compare
+     * @param y the second {@code long} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
+     */
+    public static int compare(long x, long y) {
+        if (x == y) {
+            return 0;
+        }
+        if (x < y) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    /**
+     * <p>Compares to {@code short} values numerically. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code short} to compare
+     * @param y the second {@code short} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
+     */
+    public static int compare(short x, short y) {
+        if (x == y) {
+            return 0;
+        }
+        if (x < y) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    /**
+     * <p>Compares two {@code byte} values numerically. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code byte} to compare
+     * @param y the second {@code byte} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
+     */
+    public static int compare(byte x, byte y) {
+        return x-y;
+    }
 }

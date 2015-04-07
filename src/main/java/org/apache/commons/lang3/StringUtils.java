@@ -1023,9 +1023,9 @@ public class StringUtils {
         int index = lastIndex ? str.length() : INDEX_NOT_FOUND;
         do {
             if (lastIndex) {
-                index = CharSequenceUtils.lastIndexOf(str, searchStr, index - 1);
+                index = CharSequenceUtils.lastIndexOf(str, searchStr, index - searchStr.length());
             } else {
-                index = CharSequenceUtils.indexOf(str, searchStr, index + 1);
+                index = CharSequenceUtils.indexOf(str, searchStr, index + searchStr.length());
             }
             if (index < 0) {
                 return index;
@@ -1668,6 +1668,41 @@ public class StringUtils {
             return false;
         }
         return containsAny(cs, CharSequenceUtils.toCharArray(searchChars));
+    }
+
+    /**
+     * <p>Checks if the CharSequence contains any of the CharSequences in the given array.</p>
+     *
+     * <p>
+     * A {@code null} CharSequence will return {@code false}. A {@code null} or zero
+     * length search array will return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)            = false
+     * StringUtils.containsAny("", *)              = false
+     * StringUtils.containsAny(*, null)            = false
+     * StringUtils.containsAny(*, [])              = false
+     * StringUtils.containsAny("abcd", "ab", "cd") = false
+     * StringUtils.containsAny("abc", "d", "abc")  = true
+     * </pre>
+     *
+     * 
+     * @param cs The CharSequence to check, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.4
+     */
+    public static boolean containsAny(CharSequence cs, CharSequence... searchCharSequences) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
+            return false;
+        }
+        for (CharSequence searchCharSequence : searchCharSequences) {
+            if (contains(cs, searchCharSequence)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // IndexOfAnyBut chars
@@ -4585,20 +4620,18 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     *  StringUtils.replaceEach(null, *, *, *) = null
-     *  StringUtils.replaceEach("", *, *, *) = ""
-     *  StringUtils.replaceEach("aba", null, null, *) = "aba"
-     *  StringUtils.replaceEach("aba", new String[0], null, *) = "aba"
-     *  StringUtils.replaceEach("aba", null, new String[0], *) = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, null, *) = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""}, *) = "b"
-     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"}, *) = "aba"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}, *) = "wcte"
+     *  StringUtils.replaceEachRepeatedly(null, *, *) = null
+     *  StringUtils.replaceEachRepeatedly("", *, *) = ""
+     *  StringUtils.replaceEachRepeatedly("aba", null, null) = "aba"
+     *  StringUtils.replaceEachRepeatedly("aba", new String[0], null) = "aba"
+     *  StringUtils.replaceEachRepeatedly("aba", null, new String[0]) = "aba"
+     *  StringUtils.replaceEachRepeatedly("aba", new String[]{"a"}, null) = "aba"
+     *  StringUtils.replaceEachRepeatedly("aba", new String[]{"a"}, new String[]{""}) = "b"
+     *  StringUtils.replaceEachRepeatedly("aba", new String[]{null}, new String[]{"a"}) = "aba"
+     *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}) = "wcte"
      *  (example of how it repeats)
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false) = "dcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true) = "tcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, true) = IllegalStateException
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, false) = "dcabe"
+     *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}) = "tcte"
+     *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}) = IllegalStateException
      * </pre>
      *
      * @param text
@@ -4626,7 +4659,9 @@ public class StringUtils {
 
     /**
      * <p>
-     * Replaces all occurrences of Strings within another String.
+     * Replace all occurrences of Strings within another String.
+     * This is a private recursive helper method for {@link #replaceEachRepeatedly(String, String[], String[])} and
+     * {@link #replaceEach(String, String[], String[])}
      * </p>
      *
      * <p>
@@ -4636,19 +4671,19 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     *  StringUtils.replaceEach(null, *, *, *) = null
-     *  StringUtils.replaceEach("", *, *, *) = ""
-     *  StringUtils.replaceEach("aba", null, null, *) = "aba"
-     *  StringUtils.replaceEach("aba", new String[0], null, *) = "aba"
-     *  StringUtils.replaceEach("aba", null, new String[0], *) = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, null, *) = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""}, *) = "b"
-     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"}, *) = "aba"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}, *) = "wcte"
+     *  StringUtils.replaceEach(null, *, *, *, *) = null
+     *  StringUtils.replaceEach("", *, *, *, *) = ""
+     *  StringUtils.replaceEach("aba", null, null, *, *) = "aba"
+     *  StringUtils.replaceEach("aba", new String[0], null, *, *) = "aba"
+     *  StringUtils.replaceEach("aba", null, new String[0], *, *) = "aba"
+     *  StringUtils.replaceEach("aba", new String[]{"a"}, null, *, *) = "aba"
+     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""}, *, >=0) = "b"
+     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"}, *, >=0) = "aba"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}, *, >=0) = "wcte"
      *  (example of how it repeats)
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false) = "dcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true) = "tcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *) = IllegalStateException
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false, >=0) = "dcte"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true, >=2) = "tcte"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *, *) = IllegalStateException
      * </pre>
      *
      * @param text
@@ -6358,8 +6393,8 @@ public class StringUtils {
      *
      * <p>Specifically:</p>
      * <ul>
-     *   <li>If {@code str} is less than {@code maxWidth} characters
-     *       long, return it.</li>
+     *   <li>If the number of characters in {@code str} is less than or equal to 
+     *       {@code maxWidth}, return {@code str}.</li>
      *   <li>Else abbreviate it to {@code (substring(str, 0, max-3) + "...")}.</li>
      *   <li>If {@code maxWidth} is less than {@code 4}, throw an
      *       {@code IllegalArgumentException}.</li>
@@ -6971,7 +7006,7 @@ public class StringUtils {
 
             // compute stripe indices, constrain to array size
             final int min = Math.max(1, j - threshold);
-            final int max = (j > Integer.MAX_VALUE - threshold) ? n : Math.min(n, j + threshold);
+            final int max = j > Integer.MAX_VALUE - threshold ? n : Math.min(n, j + threshold);
 
             // the stripe may lead off of the table if s and t are of different sizes
             if (min > max) {
@@ -7074,7 +7109,7 @@ public class StringUtils {
         }
 
         // Calculate the half length() distance of the shorter String.
-        final int halflength = (shorter.length() / 2) + 1;
+        final int halflength = shorter.length() / 2 + 1;
 
         // Find the set of matching characters between the shorter and longer strings. Note that
         // the set of matching characters may be different depending on the order of the strings.

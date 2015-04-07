@@ -22,12 +22,12 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>34</version>
+    <version>37</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-lang3</artifactId>
-  <version>3.4-SNAPSHOT</version>
+  <version>3.5-SNAPSHOT</version>
   <name>Apache Commons Lang</name>
 
   <inceptionYear>2001</inceptionYear>
@@ -35,7 +35,7 @@
   Apache Commons Lang, a package of Java utility classes for the
   classes that are in java.lang's hierarchy, or are considered to be so
   standard as to justify existence in java.lang.
-</description>
+  </description>
 
   <url>http://commons.apache.org/proper/commons-lang/</url>
 
@@ -374,6 +374,9 @@
       <name>Scott Sanders</name>
     </contributor>
     <contributor>
+      <name>James Sawle</name>
+    </contributor>
+    <contributor>
       <name>Ralph Schaer</name>
     </contributor>
     <contributor>
@@ -463,6 +466,18 @@
     <contributor>
       <name>Thiago Andrade</name>
     </contributor>
+    <contributor>
+      <name>Jonathan Baker</name>
+    </contributor>
+    <contributor>
+      <name>Mikhail Mazursky</name>
+    </contributor>
+    <contributor>
+      <name>Fabian Lange</name>
+    </contributor>
+    <contributor>
+      <name>Michał Kordas</name>
+    </contributor>
   </contributors>
 
   <!-- Lang should depend on very little -->
@@ -470,7 +485,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -490,7 +505,7 @@
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>3.2</version>
+      <version>3.3.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -519,7 +534,7 @@
     -->
     <commons.componentid>lang3</commons.componentid>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.3.2</commons.release.version>
+    <commons.release.version>3.4</commons.release.version>
     <commons.release.desc>(Java 6.0+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
@@ -593,7 +608,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.13</version>
+        <version>2.15</version>
         <configuration>
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <enableRulesSummary>false</enableRulesSummary>
@@ -606,21 +621,15 @@
           </reportSet>
         </reportSets>
       </plugin>
-      <!-- Requires setting 'export MAVEN_OPTS="-Xmx512m" ' -->
+      <!-- Requires setting 'export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m" ' -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <!-- Use version from parent pom as that is adjusted according to the Java version used to run Maven -->
+        <version>${commons.findbugs.version}</version>
         <configuration>
-          <threshold>Normal</threshold>
-          <effort>Default</effort>
           <excludeFilterFile>${basedir}/findbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.6</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -632,9 +641,9 @@
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.2</version>
+        <version>3.4</version>
         <configuration>
-          <targetJdk>${maven.compile.target}</targetJdk>
+          <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>
         <reportSets>
           <reportSet>
@@ -693,7 +702,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>javancss-maven-plugin</artifactId>
-        <version>2.0</version>
+        <version>2.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.rat</groupId>
@@ -723,7 +732,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-antrun-plugin</artifactId>
-            <version>1.7</version>
+            <version>1.8</version>
             <executions>
               <execution>
                 <id>prepare-checkout</id>

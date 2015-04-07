@@ -34,6 +34,8 @@
                 <include>build.xml</include>
                 <include>default.properties</include>
                 <include>build.properties.sample</include>
+                <include>README.md</include>
+                <include>CONTRIBUTING.md</include>
             </includes>
         </fileSet>
         <fileSet>

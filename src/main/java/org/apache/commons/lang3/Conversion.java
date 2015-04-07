@@ -575,17 +575,16 @@ public class Conversion {
      */
     public static long intArrayToLong(final int[] src, final int srcPos, final long dstInit, final int dstPos,
             final int nInts) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nInts) {
+        if (src.length == 0 && srcPos == 0 || 0 == nInts) {
             return dstInit;
         }
         if ((nInts - 1) * 32 + dstPos >= 64) {
             throw new IllegalArgumentException("(nInts-1)*32+dstPos is greather or equal to than 64");
         }
         long out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nInts; i++) {
-            shift = i * 32 + dstPos;
-            final long bits = ((0xffffffffL & src[i + srcPos]) << shift);
+            final int shift = i * 32 + dstPos;
+            final long bits = (0xffffffffL & src[i + srcPos]) << shift;
             final long mask = 0xffffffffL << shift;
             out = (out & ~mask) | bits;
         }
@@ -611,16 +610,15 @@ public class Conversion {
      */
     public static long shortArrayToLong(final short[] src, final int srcPos, final long dstInit, final int dstPos,
             final int nShorts) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nShorts) {
+        if (src.length == 0 && srcPos == 0 || 0 == nShorts) {
             return dstInit;
         }
         if ((nShorts - 1) * 16 + dstPos >= 64) {
             throw new IllegalArgumentException("(nShorts-1)*16+dstPos is greather or equal to than 64");
         }
         long out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nShorts; i++) {
-            shift = i * 16 + dstPos;
+            final int shift = i * 16 + dstPos;
             final long bits = (0xffffL & src[i + srcPos]) << shift;
             final long mask = 0xffffL << shift;
             out = (out & ~mask) | bits;
@@ -647,16 +645,15 @@ public class Conversion {
      */
     public static int shortArrayToInt(final short[] src, final int srcPos, final int dstInit, final int dstPos,
             final int nShorts) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nShorts) {
+        if (src.length == 0 && srcPos == 0 || 0 == nShorts) {
             return dstInit;
         }
         if ((nShorts - 1) * 16 + dstPos >= 32) {
             throw new IllegalArgumentException("(nShorts-1)*16+dstPos is greather or equal to than 32");
         }
         int out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nShorts; i++) {
-            shift = i * 16 + dstPos;
+            final int shift = i * 16 + dstPos;
             final int bits = (0xffff & src[i + srcPos]) << shift;
             final int mask = 0xffff << shift;
             out = (out & ~mask) | bits;
@@ -683,16 +680,15 @@ public class Conversion {
      */
     public static long byteArrayToLong(final byte[] src, final int srcPos, final long dstInit, final int dstPos,
             final int nBytes) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBytes) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 64) {
             throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greather or equal to than 64");
         }
         long out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nBytes; i++) {
-            shift = i * 8 + dstPos;
+            final int shift = i * 8 + dstPos;
             final long bits = (0xffL & src[i + srcPos]) << shift;
             final long mask = 0xffL << shift;
             out = (out & ~mask) | bits;
@@ -719,16 +715,15 @@ public class Conversion {
      */
     public static int byteArrayToInt(final byte[] src, final int srcPos, final int dstInit, final int dstPos,
             final int nBytes) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBytes) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 32) {
             throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greather or equal to than 32");
         }
         int out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nBytes; i++) {
-            shift = i * 8 + dstPos;
+            final int shift = i * 8 + dstPos;
             final int bits = (0xff & src[i + srcPos]) << shift;
             final int mask = 0xff << shift;
             out = (out & ~mask) | bits;
@@ -755,16 +750,15 @@ public class Conversion {
      */
     public static short byteArrayToShort(final byte[] src, final int srcPos, final short dstInit, final int dstPos,
             final int nBytes) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBytes) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 16) {
             throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greather or equal to than 16");
         }
         short out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nBytes; i++) {
-            shift = i * 8 + dstPos;
+            final int shift = i * 8 + dstPos;
             final int bits = (0xff & src[i + srcPos]) << shift;
             final int mask = 0xff << shift;
             out = (short) ((out & ~mask) | bits);
@@ -796,9 +790,8 @@ public class Conversion {
             throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 64");
         }
         long out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nHex; i++) {
-            shift = i * 4 + dstPos;
+            final int shift = i * 4 + dstPos;
             final long bits = (0xfL & hexDigitToInt(src.charAt(i + srcPos))) << shift;
             final long mask = 0xfL << shift;
             out = (out & ~mask) | bits;
@@ -829,9 +822,8 @@ public class Conversion {
             throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 32");
         }
         int out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nHex; i++) {
-            shift = i * 4 + dstPos;
+            final int shift = i * 4 + dstPos;
             final int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
             final int mask = 0xf << shift;
             out = (out & ~mask) | bits;
@@ -863,9 +855,8 @@ public class Conversion {
             throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 16");
         }
         short out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nHex; i++) {
-            shift = i * 4 + dstPos;
+            final int shift = i * 4 + dstPos;
             final int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
             final int mask = 0xf << shift;
             out = (short) ((out & ~mask) | bits);
@@ -897,9 +888,8 @@ public class Conversion {
             throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 8");
         }
         byte out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nHex; i++) {
-            shift = i * 4 + dstPos;
+            final int shift = i * 4 + dstPos;
             final int bits = (0xf & hexDigitToInt(src.charAt(i + srcPos))) << shift;
             final int mask = 0xf << shift;
             out = (byte) ((out & ~mask) | bits);
@@ -926,16 +916,15 @@ public class Conversion {
      */
     public static long binaryToLong(final boolean[] src, final int srcPos, final long dstInit, final int dstPos,
             final int nBools) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 64) {
             throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 64");
         }
         long out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nBools; i++) {
-            shift = i + dstPos;
+            final int shift = i + dstPos;
             final long bits = (src[i + srcPos] ? 1L : 0) << shift;
             final long mask = 0x1L << shift;
             out = (out & ~mask) | bits;
@@ -962,16 +951,15 @@ public class Conversion {
      */
     public static int binaryToInt(final boolean[] src, final int srcPos, final int dstInit, final int dstPos,
             final int nBools) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 32) {
             throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 32");
         }
         int out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nBools; i++) {
-            shift = i + dstPos;
+            final int shift = i + dstPos;
             final int bits = (src[i + srcPos] ? 1 : 0) << shift;
             final int mask = 0x1 << shift;
             out = (out & ~mask) | bits;
@@ -998,16 +986,15 @@ public class Conversion {
      */
     public static short binaryToShort(final boolean[] src, final int srcPos, final short dstInit, final int dstPos,
             final int nBools) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 16) {
             throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 16");
         }
         short out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nBools; i++) {
-            shift = i + dstPos;
+            final int shift = i + dstPos;
             final int bits = (src[i + srcPos] ? 1 : 0) << shift;
             final int mask = 0x1 << shift;
             out = (short) ((out & ~mask) | bits);
@@ -1034,16 +1021,15 @@ public class Conversion {
      */
     public static byte binaryToByte(final boolean[] src, final int srcPos, final byte dstInit, final int dstPos,
             final int nBools) {
-        if ((src.length == 0 && srcPos == 0) || 0 == nBools) {
+        if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 8) {
             throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 8");
         }
         byte out = dstInit;
-        int shift = 0;
         for (int i = 0; i < nBools; i++) {
-            shift = i + dstPos;
+            final int shift = i + dstPos;
             final int bits = (src[i + srcPos] ? 1 : 0) << shift;
             final int mask = 0x1 << shift;
             out = (byte) ((out & ~mask) | bits);
@@ -1076,9 +1062,8 @@ public class Conversion {
         if ((nInts - 1) * 32 + srcPos >= 64) {
             throw new IllegalArgumentException("(nInts-1)*32+srcPos is greather or equal to than 64");
         }
-        int shift = 0;
         for (int i = 0; i < nInts; i++) {
-            shift = i * 32 + srcPos;
+            final int shift = i * 32 + srcPos;
             dst[dstPos + i] = (int) (0xffffffff & (src >> shift));
         }
         return dst;
@@ -1109,9 +1094,8 @@ public class Conversion {
         if ((nShorts - 1) * 16 + srcPos >= 64) {
             throw new IllegalArgumentException("(nShorts-1)*16+srcPos is greather or equal to than 64");
         }
-        int shift = 0;
         for (int i = 0; i < nShorts; i++) {
-            shift = i * 16 + srcPos;
+            final int shift = i * 16 + srcPos;
             dst[dstPos + i] = (short) (0xffff & (src >> shift));
         }
         return dst;
@@ -1142,9 +1126,8 @@ public class Conversion {
         if ((nShorts - 1) * 16 + srcPos >= 32) {
             throw new IllegalArgumentException("(nShorts-1)*16+srcPos is greather or equal to than 32");
         }
-        int shift = 0;
         for (int i = 0; i < nShorts; i++) {
-            shift = i * 16 + srcPos;
+            final int shift = i * 16 + srcPos;
             dst[dstPos + i] = (short) (0xffff & (src >> shift));
         }
         return dst;
@@ -1175,9 +1158,8 @@ public class Conversion {
         if ((nBytes - 1) * 8 + srcPos >= 64) {
             throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greather or equal to than 64");
         }
-        int shift = 0;
         for (int i = 0; i < nBytes; i++) {
-            shift = i * 8 + srcPos;
+            final int shift = i * 8 + srcPos;
             dst[dstPos + i] = (byte) (0xff & (src >> shift));
         }
         return dst;
@@ -1208,9 +1190,8 @@ public class Conversion {
         if ((nBytes - 1) * 8 + srcPos >= 32) {
             throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greather or equal to than 32");
         }
-        int shift = 0;
         for (int i = 0; i < nBytes; i++) {
-            shift = i * 8 + srcPos;
+            final int shift = i * 8 + srcPos;
             dst[dstPos + i] = (byte) (0xff & (src >> shift));
         }
         return dst;
@@ -1241,9 +1222,8 @@ public class Conversion {
         if ((nBytes - 1) * 8 + srcPos >= 16) {
             throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greather or equal to than 16");
         }
-        int shift = 0;
         for (int i = 0; i < nBytes; i++) {
-            shift = i * 8 + srcPos;
+            final int shift = i * 8 + srcPos;
             dst[dstPos + i] = (byte) (0xff & (src >> shift));
         }
         return dst;
@@ -1274,10 +1254,9 @@ public class Conversion {
             throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 64");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
-        int shift = 0;
         int append = sb.length();
         for (int i = 0; i < nHexs; i++) {
-            shift = i * 4 + srcPos;
+            final int shift = i * 4 + srcPos;
             final int bits = (int) (0xF & (src >> shift));
             if (dstPos + i == append) {
                 ++append;
@@ -1314,10 +1293,9 @@ public class Conversion {
             throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 32");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
-        int shift = 0;
         int append = sb.length();
         for (int i = 0; i < nHexs; i++) {
-            shift = i * 4 + srcPos;
+            final int shift = i * 4 + srcPos;
             final int bits = 0xF & (src >> shift);
             if (dstPos + i == append) {
                 ++append;
@@ -1354,10 +1332,9 @@ public class Conversion {
             throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 16");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
-        int shift = 0;
         int append = sb.length();
         for (int i = 0; i < nHexs; i++) {
-            shift = i * 4 + srcPos;
+            final int shift = i * 4 + srcPos;
             final int bits = 0xF & (src >> shift);
             if (dstPos + i == append) {
                 ++append;
@@ -1394,10 +1371,9 @@ public class Conversion {
             throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 8");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
-        int shift = 0;
         int append = sb.length();
         for (int i = 0; i < nHexs; i++) {
-            shift = i * 4 + srcPos;
+            final int shift = i * 4 + srcPos;
             final int bits = 0xF & (src >> shift);
             if (dstPos + i == append) {
                 ++append;
@@ -1434,10 +1410,9 @@ public class Conversion {
         if (nBools - 1 + srcPos >= 64) {
             throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 64");
         }
-        int shift = 0;
         for (int i = 0; i < nBools; i++) {
-            shift = i + srcPos;
-            dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
+            final int shift = i + srcPos;
+            dst[dstPos + i] = (0x1 & (src >> shift)) != 0;
         }
         return dst;
     }
@@ -1467,10 +1442,9 @@ public class Conversion {
         if (nBools - 1 + srcPos >= 32) {
             throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 32");
         }
-        int shift = 0;
         for (int i = 0; i < nBools; i++) {
-            shift = i + srcPos;
-            dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
+            final int shift = i + srcPos;
+            dst[dstPos + i] = (0x1 & (src >> shift)) != 0;
         }
         return dst;
     }
@@ -1500,11 +1474,10 @@ public class Conversion {
         if (nBools - 1 + srcPos >= 16) {
             throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 16");
         }
-        int shift = 0;
-        assert ((nBools - 1) < 16 - srcPos);
+        assert (nBools - 1) < 16 - srcPos;
         for (int i = 0; i < nBools; i++) {
-            shift = i + srcPos;
-            dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
+            final int shift = i + srcPos;
+            dst[dstPos + i] = (0x1 & (src >> shift)) != 0;
         }
         return dst;
     }
@@ -1534,10 +1507,9 @@ public class Conversion {
         if (nBools - 1 + srcPos >= 8) {
             throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 8");
         }
-        int shift = 0;
         for (int i = 0; i < nBools; i++) {
-            shift = i + srcPos;
-            dst[dstPos + i] = ((0x1 & (src >> shift)) != 0);
+            final int shift = i + srcPos;
+            dst[dstPos + i] = (0x1 & (src >> shift)) != 0;
         }
         return dst;
     }

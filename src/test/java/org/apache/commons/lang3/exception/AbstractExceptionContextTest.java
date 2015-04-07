@@ -178,7 +178,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     public void testJavaSerialization() {
         exceptionContext.setContextValue("test Poorly written obj", "serializable replacement");
         
-        final T clone = SerializationUtils.deserialize(SerializationUtils.serialize(exceptionContext));
+        final T clone = (T) SerializationUtils.deserialize(SerializationUtils.serialize(exceptionContext));
         assertEquals(exceptionContext.getFormattedExceptionMessage(null), clone.getFormattedExceptionMessage(null));
     }
 }

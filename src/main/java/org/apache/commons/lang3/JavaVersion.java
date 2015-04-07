@@ -187,7 +187,11 @@ public enum JavaVersion {
         return name;
     }
 
-    // upper bound of java version considering 2. or current is the higher
+    /**
+     * Gets the Java Version from the system or 2.0 if the {@code java.version} system property is not set.
+     * 
+     * @return the value of {@code java.version} system property or 2.0 if it is not set.
+     */
     private static float maxVersion() {
         final float v = toFloatVersion(System.getProperty("java.version", "2.0"));
         if (v > 0) {
@@ -196,8 +200,14 @@ public enum JavaVersion {
         return 2f;
     }
 
-    private static float toFloatVersion(final String name) {
-        final String[] toParse = name.split("\\.");
+    /**
+     * Parses a float value from a String.
+     * 
+     * @param value the String to parse.
+     * @return the float value represented by teh string or -1 if the given String can not be parsed.
+     */
+    private static float toFloatVersion(final String value) {
+        final String[] toParse = value.split("\\.");
         if (toParse.length >= 2) {
             try {
                 return Float.parseFloat(toParse[0] + '.' + toParse[1]);
