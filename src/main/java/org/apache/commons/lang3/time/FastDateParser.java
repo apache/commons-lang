@@ -744,13 +744,9 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * A strategy that handles a timezone field in the parsing pattern
      */
-    static class TimeZoneStrategy extends Strategy {
-        private static final String RFC_822_TIME_ZONE = "[+-]\\d{4}";
-        private static final String GMT_OPTION= "GMT[+-]\\d{1,2}:\\d{2}";
-        // see http://www.iana.org/time-zones and http://cldr.unicode.org/translation/timezones
-        static final String TZ_DATABASE= "(?:\\p{L}[\\p{L}\\p{Mc}\\p{Nd}\\p{Zs}\\p{P}&&[^-]]*-?\\p{Zs}?)*";
-        private static final String VALID_TZ = "((?iu)"+RFC_822_TIME_ZONE+"|"+GMT_OPTION+"|"+TZ_DATABASE+")";
-        
+    private static class TimeZoneStrategy extends Strategy {
+
+        private final String validTimeZoneChars;
         private final SortedMap<String, TimeZone> tzNames= new TreeMap<String, TimeZone>(String.CASE_INSENSITIVE_ORDER);
 
         /**
@@ -781,6 +777,9 @@ public class FastDateParser implements DateParser, Serializable {
         TimeZoneStrategy(final Locale locale) {
             final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
             for (final String[] zone : zones) {
+                if (zone[ID].startsWith("GMT")) {
+                    continue;
+                }
                 final TimeZone tz = TimeZone.getTimeZone(zone[ID]);
                 if (!tzNames.containsKey(zone[LONG_STD])){
                     tzNames.put(zone[LONG_STD], tz);
@@ -796,7 +795,16 @@ public class FastDateParser implements DateParser, Serializable {
                         tzNames.put(zone[SHORT_DST], tz);
                     }
                 }
-            }            
+            }
+
+            final StringBuilder sb= new StringBuilder();
+            sb.append("(GMT[+-]\\d{1,2}:\\d{2}").append('|');
+            sb.append("[+-]\\d{4}").append('|');
+            for(final String id : tzNames.keySet()) {
+                escapeRegex(sb, id, false).append('|');
+            }
+            sb.setCharAt(sb.length()-1, ')');
+            validTimeZoneChars= sb.toString();
         }
 
         /**
@@ -804,7 +812,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         boolean addRegex(final FastDateParser parser, final StringBuilder regex) {
-            regex.append(VALID_TZ);
+            regex.append(validTimeZoneChars);
             return true;
         }
 
@@ -817,8 +825,8 @@ public class FastDateParser implements DateParser, Serializable {
             if(value.charAt(0)=='+' || value.charAt(0)=='-') {
                 tz= TimeZone.getTimeZone("GMT"+value);
             }
-            else if(value.regionMatches(true, 0, "GMT", 0, 3)) {
-                tz= TimeZone.getTimeZone(value.toUpperCase());
+            else if(value.startsWith("GMT")) {
+                tz= TimeZone.getTimeZone(value);
             }
             else {
                 tz= tzNames.get(value);
