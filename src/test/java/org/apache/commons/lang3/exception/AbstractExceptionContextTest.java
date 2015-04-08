@@ -18,7 +18,9 @@ package org.apache.commons.lang3.exception;
 
 import org.junit.Test;
 import org.junit.Before;
+
 import static org.junit.Assert.*;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
@@ -178,6 +180,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     public void testJavaSerialization() {
         exceptionContext.setContextValue("test Poorly written obj", "serializable replacement");
         
+        @SuppressWarnings("unchecked")
         final T clone = (T) SerializationUtils.deserialize(SerializationUtils.serialize(exceptionContext));
         assertEquals(exceptionContext.getFormattedExceptionMessage(null), clone.getFormattedExceptionMessage(null));
     }
