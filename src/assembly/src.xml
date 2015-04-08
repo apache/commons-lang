@@ -24,6 +24,7 @@
     <fileSets>
         <fileSet>
             <includes>
+                <include>.travis.yml</include>
                 <include>checkstyle.xml</include>
                 <include>findbugs-exclude-filter.xml</include>
                 <include>LICENSE.txt</include>
