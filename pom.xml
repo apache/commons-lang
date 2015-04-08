@@ -637,14 +637,6 @@
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>pmd</report>
-              <report>cpd</report>
-            </reports>
-          </reportSet>
-        </reportSets>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
