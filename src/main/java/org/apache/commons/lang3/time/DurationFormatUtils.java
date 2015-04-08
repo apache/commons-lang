@@ -433,25 +433,25 @@ public class DurationFormatUtils {
             if (value instanceof StringBuilder) {
                 buffer.append(value.toString());
             } else {
-                if (value == y) {
+                if (value.equals(y)) {
                     buffer.append(paddedValue(years, padWithZeros, count));
                     lastOutputSeconds = false;
-                } else if (value == M) {
+                } else if (value.equals(M)) {
                     buffer.append(paddedValue(months, padWithZeros, count));
                     lastOutputSeconds = false;
-                } else if (value == d) {
+                } else if (value.equals(d)) {
                     buffer.append(paddedValue(days, padWithZeros, count));
                     lastOutputSeconds = false;
-                } else if (value == H) {
+                } else if (value.equals(H)) {
                     buffer.append(paddedValue(hours, padWithZeros, count));
                     lastOutputSeconds = false;
-                } else if (value == m) {
+                } else if (value.equals(m)) {
                     buffer.append(paddedValue(minutes, padWithZeros, count));
                     lastOutputSeconds = false;
-                } else if (value == s) {
+                } else if (value.equals(s)) {
                     buffer.append(paddedValue(seconds, padWithZeros, count));
                     lastOutputSeconds = true;
-                } else if (value == S) {
+                } else if (value.equals(S)) {
                     if (lastOutputSeconds) {
                         // ensure at least 3 digits are displayed even if padding is not selected
                         final int width = padWithZeros ? Math.max(3, count) : 3;
@@ -551,7 +551,7 @@ public class DurationFormatUtils {
             }
 
             if (value != null) {
-                if (previous != null && previous.getValue() == value) {
+                if (previous != null && previous.getValue().equals(value)) {
                     previous.increment();
                 } else {
                     final Token token = new Token(value);
