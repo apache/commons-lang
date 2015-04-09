@@ -297,8 +297,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      */
     @Override
     public int compareTo(final MutableDouble other) {
-        final double anotherVal = other.value;
-        return Double.compare(value, anotherVal);
+        return Double.compare(this.value, other.value);
     }
 
     //-----------------------------------------------------------------------

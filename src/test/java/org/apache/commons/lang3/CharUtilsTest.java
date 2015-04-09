@@ -194,6 +194,7 @@ public class CharUtilsTest {
     @Test
     public void testToUnicodeEscaped_char() {
         assertEquals("\\u0041", CharUtils.unicodeEscaped('A'));
+        assertEquals("\\u004c", CharUtils.unicodeEscaped('L'));
        
         for (int i = 0; i < 196; i++) {
             final String str = CharUtils.unicodeEscaped((char) i);

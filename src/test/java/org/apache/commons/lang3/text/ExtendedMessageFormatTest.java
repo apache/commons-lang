@@ -90,6 +90,22 @@ public class ExtendedMessageFormatTest {
     }
 
     /**
+     * Test Bug LANG-948 - Exception while using ExtendedMessageFormat and escaping braces
+     */
+    @Test
+    public void testEscapedBraces_LANG_948() {
+        // message without placeholder because braces are escaped by quotes 
+        final String pattern = "Message without placeholders '{}'";
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
+        assertEquals("Message without placeholders {}", emf.format(new Object[] {"DUMMY"}));
+
+        // message with placeholder because quotes are escaped by quotes 
+        final String pattern2 = "Message with placeholder ''{0}''";
+        final ExtendedMessageFormat emf2 = new ExtendedMessageFormat(pattern2, registry);
+        assertEquals("Message with placeholder 'DUMMY'", emf2.format(new Object[] {"DUMMY"}));
+    }
+
+    /**
      * Test extended and built in formats.
      */
     @Test

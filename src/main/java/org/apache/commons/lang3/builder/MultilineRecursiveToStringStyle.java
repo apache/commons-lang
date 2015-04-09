@@ -21,9 +21,9 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
- * <p>Works with {@link ToStringBuilder} to create a "deep" <code>toString</code>. 
+ * <p>Works with {@link ToStringBuilder} to create a "deep" <code>toString</code>.
  * But instead a single line like the {@link RecursiveToStringStyle} this creates a multiline String 
- * similar to the {@link ToStringStyle.MultiLineToStringStyle}.</p>
+ * similar to the {@link ToStringStyle#MULTI_LINE_STYLE}.</p>
  * 
  * <p>To use this class write code as follows:</p>
  *
@@ -100,9 +100,10 @@ class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
     }
 
     /**
-     * Creates a string(buffer) responsible for the indenting.
+     * Creates a StringBuilder responsible for the indenting.
+     * 
      * @param spaces how far to indent
-     * @return
+     * @return a StringBuilder with {spaces} leading space characters.
      */
     private StringBuilder spacer(int spaces) {
         StringBuilder sb = new StringBuilder();

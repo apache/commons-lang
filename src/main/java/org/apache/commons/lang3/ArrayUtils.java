@@ -464,6 +464,30 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
      *
+     * @param array  the array to check for {@code null} or empty
+     * @param type   the class representation of the desired array
+     * @return the same array, {@code public static} empty array if {@code null}
+     * @throws IllegalArgumentException if the type argument is null
+     * @since 3.5
+     */
+    public static <T> T[] nullToEmpty(final T[] array, final Class<T[]> type) {
+        if(type == null) {
+            throw new IllegalArgumentException("The type must not be null");
+        }
+
+        if(array == null) {
+            return type.cast(Array.newInstance(type.getComponentType(), 0));
+        }
+        return array;
+    }    
+    
+    
+    /**
+     * <p>Defensive programming technique to change a {@code null}
+     * reference to an empty one.</p>
+     *
+     * <p>This method returns an empty array for a {@code null} input array.</p>
+     *
      * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
@@ -1227,12 +1251,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final Object[] array1, final Object[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1245,12 +1264,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final long[] array1, final long[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1263,12 +1277,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final int[] array1, final int[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1281,12 +1290,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final short[] array1, final short[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1299,12 +1303,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final char[] array1, final char[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1317,12 +1316,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final byte[] array1, final byte[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1335,12 +1329,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final double[] array1, final double[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1353,12 +1342,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final float[] array1, final float[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     /**
@@ -1371,12 +1355,7 @@ public class ArrayUtils {
      *  {@code null} as an empty array
      */
     public static boolean isSameLength(final boolean[] array1, final boolean[] array2) {
-        if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
-        }
-        return true;
+        return getLength(array1) == getLength(array2);
     }
 
     //-----------------------------------------------------------------------
@@ -3498,7 +3477,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final Object[] array) {
-        return array == null || array.length == 0;
+        return getLength(array) == 0;
     }
 
     /**
@@ -3509,7 +3488,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final long[] array) {
-        return array == null || array.length == 0;
+        return getLength(array) == 0;
     }
 
     /**
@@ -3520,7 +3499,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final int[] array) {
-        return array == null || array.length == 0;
+        return getLength(array) == 0;
     }
 
     /**
@@ -3531,7 +3510,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final short[] array) {
-        return array == null || array.length == 0;
+        return getLength(array) == 0;
     }
 
     /**
@@ -3542,7 +3521,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final char[] array) {
-        return array == null || array.length == 0;
+        return getLength(array) == 0;
     }
 
     /**
@@ -3553,7 +3532,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final byte[] array) {
-        return array == null || array.length == 0;
+        return getLength(array) == 0;
     }
 
     /**
@@ -3564,7 +3543,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final double[] array) {
-        return array == null || array.length == 0;
+        return getLength(array) == 0;
     }
 
     /**
@@ -3575,7 +3554,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final float[] array) {
-        return array == null || array.length == 0;
+        return getLength(array) == 0;
     }
 
     /**
@@ -3586,7 +3565,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final boolean[] array) {
-        return array == null || array.length == 0;
+        return getLength(array) == 0;
     }
 
     // ----------------------------------------------------------------------
@@ -3599,7 +3578,7 @@ public class ArrayUtils {
      * @since 2.5
      */
      public static <T> boolean isNotEmpty(final T[] array) {
-         return (array != null && array.length != 0);
+         return !isEmpty(array);
      }
 
     /**
@@ -3610,7 +3589,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static boolean isNotEmpty(final long[] array) {
-        return (array != null && array.length != 0);
+        return !isEmpty(array);
     }
 
     /**
@@ -3621,7 +3600,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static boolean isNotEmpty(final int[] array) {
-        return (array != null && array.length != 0);
+        return !isEmpty(array);
     }
 
     /**
@@ -3632,7 +3611,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static boolean isNotEmpty(final short[] array) {
-        return (array != null && array.length != 0);
+        return !isEmpty(array);
     }
 
     /**
@@ -3643,7 +3622,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static boolean isNotEmpty(final char[] array) {
-        return (array != null && array.length != 0);
+        return !isEmpty(array);
     }
 
     /**
@@ -3654,7 +3633,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static boolean isNotEmpty(final byte[] array) {
-        return (array != null && array.length != 0);
+        return !isEmpty(array);
     }
 
     /**
@@ -3665,7 +3644,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static boolean isNotEmpty(final double[] array) {
-        return (array != null && array.length != 0);
+        return !isEmpty(array);
     }
 
     /**
@@ -3676,7 +3655,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static boolean isNotEmpty(final float[] array) {
-        return (array != null && array.length != 0);
+        return !isEmpty(array);
     }
 
     /**
@@ -3687,7 +3666,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static boolean isNotEmpty(final boolean[] array) {
-        return (array != null && array.length != 0);
+        return !isEmpty(array);
     }
 
     /**
@@ -4008,7 +3987,7 @@ public class ArrayUtils {
     public static <T> T[] add(final T[] array, final T element) {
         Class<?> type;
         if (array != null){
-            type = array.getClass();
+            type = array.getClass().getComponentType();
         } else if (element != null) {
             type = element.getClass();
         } else {
@@ -6339,5 +6318,276 @@ public class ArrayUtils {
             previous = current;
         }
         return true;
+    }
+
+    /**
+     * <p>
+     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
+     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
+     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * </p>
+     * 
+     * @param element the element to remove
+     * @param array the input array
+     * 
+     * @return A new array containing the existing elements except the occurrences of the specified element.
+     * @since 3.5
+     */
+    public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
+        int index = indexOf(array, element);
+        if (index == INDEX_NOT_FOUND) {
+            return clone(array);
+        }
+        
+        int[] indices = new int[array.length - index];
+        indices[0] = index;
+        int count = 1;
+        
+        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
+            indices[count++] = index;
+        }
+        
+        return removeAll(array, Arrays.copyOf(indices, count));        
+    }
+
+    /**
+     * <p>
+     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
+     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
+     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * </p>
+     * 
+     * @param element the element to remove
+     * @param array the input array
+     * 
+     * @return A new array containing the existing elements except the occurrences of the specified element.
+     * @since 3.5
+     */
+    public static char[] removeAllOccurences(final char[] array, final char element) {
+        int index = indexOf(array, element);
+        if (index == INDEX_NOT_FOUND) {
+            return clone(array);
+        }
+        
+        int[] indices = new int[array.length - index];
+        indices[0] = index;
+        int count = 1;
+        
+        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
+            indices[count++] = index;
+        }
+        
+        return removeAll(array, Arrays.copyOf(indices, count));        
+    }
+
+    /**
+     * <p>
+     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
+     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
+     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * </p>
+     * 
+     * @param element the element to remove
+     * @param array the input array
+     * 
+     * @return A new array containing the existing elements except the occurrences of the specified element.
+     * @since 3.5
+     */
+    public static byte[] removeAllOccurences(final byte[] array, final byte element) {
+        int index = indexOf(array, element);
+        if (index == INDEX_NOT_FOUND) {
+            return clone(array);
+        }
+        
+        int[] indices = new int[array.length - index];
+        indices[0] = index;
+        int count = 1;
+        
+        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
+            indices[count++] = index;
+        }
+        
+        return removeAll(array, Arrays.copyOf(indices, count));
+    }
+
+    /**
+     * <p>
+     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
+     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
+     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * </p>
+     * 
+     * @param element the element to remove
+     * @param array the input array
+     * 
+     * @return A new array containing the existing elements except the occurrences of the specified element.
+     * @since 3.5
+     */
+    public static short[] removeAllOccurences(final short[] array, final short element) {
+        int index = indexOf(array, element);
+        if (index == INDEX_NOT_FOUND) {
+            return clone(array);
+        }
+        
+        int[] indices = new int[array.length - index];
+        indices[0] = index;
+        int count = 1;
+        
+        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
+            indices[count++] = index;
+        }
+        
+        return removeAll(array, Arrays.copyOf(indices, count));
+    }
+
+    /**
+     * <p>
+     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
+     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
+     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * </p>
+     * 
+     * @param element the element to remove
+     * @param array the input array
+     * 
+     * @return A new array containing the existing elements except the occurrences of the specified element.
+     * @since 3.5
+     */
+    public static int[] removeAllOccurences(final int[] array, final int element) {
+        int index = indexOf(array, element);
+        if (index == INDEX_NOT_FOUND) {
+            return clone(array);
+        }
+        
+        int[] indices = new int[array.length - index];
+        indices[0] = index;
+        int count = 1;
+        
+        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
+            indices[count++] = index;
+        }
+        
+        return removeAll(array, Arrays.copyOf(indices, count));
+    }
+
+    /**
+     * <p>
+     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
+     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
+     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * </p>
+     * 
+     * @param element the element to remove
+     * @param array the input array
+     * 
+     * @return A new array containing the existing elements except the occurrences of the specified element.
+     * @since 3.5
+     */
+    public static long[] removeAllOccurences(final long[] array, final long element) {
+        int index = indexOf(array, element);
+        if (index == INDEX_NOT_FOUND) {
+            return clone(array);
+        }
+        
+        int[] indices = new int[array.length - index];
+        indices[0] = index;
+        int count = 1;
+        
+        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
+            indices[count++] = index;
+        }
+        
+        return removeAll(array, Arrays.copyOf(indices, count));
+    }
+
+    /**
+     * <p>
+     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
+     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
+     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * </p>
+     * 
+     * @param element the element to remove
+     * @param array the input array
+     * 
+     * @return A new array containing the existing elements except the occurrences of the specified element.
+     * @since 3.5
+     */
+    public static float[] removeAllOccurences(final float[] array, final float element) {
+        int index = indexOf(array, element);
+        if (index == INDEX_NOT_FOUND) {
+            return clone(array);
+        }
+        
+        int[] indices = new int[array.length - index];
+        indices[0] = index;
+        int count = 1;
+        
+        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
+            indices[count++] = index;
+        }
+        
+        return removeAll(array, Arrays.copyOf(indices, count));
+    }
+
+    /**
+     * <p>
+     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
+     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
+     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * </p>
+     * 
+     * @param element the element to remove
+     * @param array the input array
+     * 
+     * @return A new array containing the existing elements except the occurrences of the specified element.
+     * @since 3.5
+     */
+    public static double[] removeAllOccurences(final double[] array, final double element) {
+        int index = indexOf(array, element);
+        if (index == INDEX_NOT_FOUND) {
+            return clone(array);
+        }
+        
+        int[] indices = new int[array.length - index];
+        indices[0] = index;
+        int count = 1;
+        
+        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
+            indices[count++] = index;
+        }
+        
+        return removeAll(array, Arrays.copyOf(indices, count));
+    }
+
+    /**
+     * <p>
+     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
+     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
+     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * </p>
+     * 
+     * @param <T> the type of object in the array
+     * @param element the element to remove
+     * @param array the input array
+     * 
+     * @return A new array containing the existing elements except the occurrences of the specified element.
+     * @since 3.5
+     */
+    public static <T> T[] removeAllOccurences(final T[] array, final T element) {
+        int index = indexOf(array, element);
+        if (index == INDEX_NOT_FOUND) {
+            return clone(array);
+        }
+        
+        int[] indices = new int[array.length - index];
+        indices[0] = index;
+        int count = 1;
+        
+        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
+            indices[count++] = index;
+        }
+        
+        return removeAll(array, Arrays.copyOf(indices, count));
     }
 }

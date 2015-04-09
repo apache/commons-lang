@@ -245,6 +245,19 @@ public class NumberUtilsTest {
         assertNotNull(bigNum);
         assertEquals(BigDecimal.class, bigNum.getClass());
     }
+    
+    @Test
+    public void testLang1087(){
+        // no sign cases
+        assertEquals(Float.class, NumberUtils.createNumber("0.0").getClass());
+        assertEquals(Float.valueOf("0.0"), NumberUtils.createNumber("0.0"));
+        // explicit positive sign cases
+        assertEquals(Float.class, NumberUtils.createNumber("+0.0").getClass());
+        assertEquals(Float.valueOf("+0.0"), NumberUtils.createNumber("+0.0"));
+        // negative sign cases
+        assertEquals(Float.class, NumberUtils.createNumber("-0.0").getClass());
+        assertEquals(Float.valueOf("-0.0"), NumberUtils.createNumber("-0.0"));
+    }
 
     @Test
     public void TestLang747() {
@@ -427,6 +440,7 @@ public class NumberUtilsTest {
         // Funky whitespaces
         this.testCreateBigIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
         assertEquals("createBigInteger(String) failed", new BigInteger("255"), NumberUtils.createBigInteger("0xff"));
+        assertEquals("createBigInteger(String) failed", new BigInteger("255"), NumberUtils.createBigInteger("0Xff"));
         assertEquals("createBigInteger(String) failed", new BigInteger("255"), NumberUtils.createBigInteger("#ff"));
         assertEquals("createBigInteger(String) failed", new BigInteger("-255"), NumberUtils.createBigInteger("-0xff"));
         assertEquals("createBigInteger(String) failed", new BigInteger("255"), NumberUtils.createBigInteger("0377"));
@@ -1198,6 +1212,8 @@ public class NumberUtilsTest {
 
         compareIsNumberWithCreateNumber(null, false);
         compareIsNumberWithCreateNumber("", false);
+        compareIsNumberWithCreateNumber(" ", false);
+        compareIsNumberWithCreateNumber("\r\n\t", false);
         compareIsNumberWithCreateNumber("--2.3", false);
         compareIsNumberWithCreateNumber(".12.3", false);
         compareIsNumberWithCreateNumber("-123E", false);

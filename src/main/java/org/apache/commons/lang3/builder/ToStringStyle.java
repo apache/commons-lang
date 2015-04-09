@@ -71,7 +71,7 @@ public abstract class ToStringStyle implements Serializable {
     private static final long serialVersionUID = -2587890625525655916L;
 
     /**
-     * The default toString style. Using the Using the <code>Person</code>
+     * The default toString style. Using the <code>Person</code>
      * example from {@link ToStringBuilder}, the output would look like this:
      *
      * <pre>
@@ -95,7 +95,7 @@ public abstract class ToStringStyle implements Serializable {
     public static final ToStringStyle MULTI_LINE_STYLE = new MultiLineToStringStyle();
 
     /**
-     * The no field names toString style. Using the Using the
+     * The no field names toString style. Using the
      * <code>Person</code> example from {@link ToStringBuilder}, the output
      * would look like this:
      *
@@ -118,7 +118,7 @@ public abstract class ToStringStyle implements Serializable {
     public static final ToStringStyle SHORT_PREFIX_STYLE = new ShortPrefixToStringStyle();
 
     /**
-     * The simple toString style. Using the Using the <code>Person</code>
+     * The simple toString style. Using the <code>Person</code>
      * example from {@link ToStringBuilder}, the output would look like this:
      *
      * <pre>
@@ -126,6 +126,37 @@ public abstract class ToStringStyle implements Serializable {
      * </pre>
      */
     public static final ToStringStyle SIMPLE_STYLE = new SimpleToStringStyle();
+
+    /**
+     * The no class name toString style. Using the <code>Person</code>
+     * example from {@link ToStringBuilder}, the output would look like this:
+     *
+     * <pre>
+     * [name=John Doe,age=33,smoker=false]
+     * </pre>
+     *
+     * @since 3.4
+     */
+    public static final ToStringStyle NO_CLASS_NAME_STYLE = new NoClassNameToStringStyle();
+
+    /**
+     * The JSON toString style. Using the <code>Person</code> example from
+     * {@link ToStringBuilder}, the output would look like this:
+     *
+     * <pre>
+     * {"name": "John Doe", "age": 33, "smoker": true}
+     * </pre>
+     *
+     * <strong>Note:</strong> Since field names are mandatory in JSON, this
+     * ToStringStyle will throw an {@link UnsupportedOperationException} if no
+     * field name is passed in while appending. Furthermore This ToStringStyle
+     * will only generate valid JSON if referenced objects also produce JSON
+     * when calling {@code toString()} on them.
+     *
+     * @since 3.4
+     * @see <a href="http://json.org">json.org</a>
+     */
+    public static final ToStringStyle JSON_STYLE = new JsonToStringStyle();
 
     /**
      * <p>
@@ -2279,4 +2310,305 @@ public abstract class ToStringStyle implements Serializable {
 
     }
 
+    //----------------------------------------------------------------------------
+
+    /**
+     * <p><code>ToStringStyle</code> that does not print out the classname
+     * and identity hashcode but prints content start and field names.</p>
+     *
+     * <p>This is an inner class rather than using
+     * <code>StandardToStringStyle</code> to ensure its immutability.</p>
+     */
+    private static final class NoClassNameToStringStyle extends ToStringStyle {
+
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * <p>Constructor.</p>
+         *
+         * <p>Use the static constant rather than instantiating.</p>
+         */
+        NoClassNameToStringStyle() {
+            super();
+            this.setUseClassName(false);
+            this.setUseIdentityHashCode(false);
+        }
+
+        /**
+         * <p>Ensure <code>Singleton</code> after serialization.</p>
+         *
+         * @return the singleton
+         */
+        private Object readResolve() {
+            return ToStringStyle.NO_CLASS_NAME_STYLE;
+        }
+
+    }
+
+    // ----------------------------------------------------------------------------
+
+    /**
+     * <p>
+     * <code>ToStringStyle</code> that outputs with JSON format.
+     * </p>
+     *
+     * <p>
+     * This is an inner class rather than using
+     * <code>StandardToStringStyle</code> to ensure its immutability.
+     * </p>
+     */
+    private static final class JsonToStringStyle extends ToStringStyle {
+
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * The summary size text start <code>'&gt;'</code>.
+         */
+        private String FIELD_NAME_PREFIX = "\"";
+
+        /**
+         * <p>
+         * Constructor.
+         * </p>
+         *
+         * <p>
+         * Use the static constant rather than instantiating.
+         * </p>
+         */
+        JsonToStringStyle() {
+            super();
+
+            this.setUseClassName(false);
+            this.setUseIdentityHashCode(false);
+
+            this.setContentStart("{");
+            this.setContentEnd("}");
+
+            this.setArrayStart("[");
+            this.setArrayEnd("]");
+
+            this.setFieldSeparator(",");
+            this.setFieldNameValueSeparator(":");
+
+            this.setNullText("null");
+
+            this.setSummaryObjectStartText("\"<");
+            this.setSummaryObjectEndText(">\"");
+
+            this.setSizeStartText("\"<size=");
+            this.setSizeEndText(">\"");
+        }
+
+        @Override
+        public void append(StringBuffer buffer, String fieldName,
+                           Object[] array, Boolean fullDetail) {
+
+            if (fieldName == null) {
+                throw new UnsupportedOperationException(
+                        "Field names are mandatory when using JsonToStringStyle");
+            }
+            if (!isFullDetail(fullDetail)){
+                throw new UnsupportedOperationException(
+                        "FullDetail must be true when using JsonToStringStyle");
+            }
+
+            super.append(buffer, fieldName, array, fullDetail);
+        }
+
+        @Override
+        public void append(StringBuffer buffer, String fieldName, long[] array,
+                           Boolean fullDetail) {
+
+            if (fieldName == null) {
+                throw new UnsupportedOperationException(
+                        "Field names are mandatory when using JsonToStringStyle");
+            }
+            if (!isFullDetail(fullDetail)){
+                throw new UnsupportedOperationException(
+                        "FullDetail must be true when using JsonToStringStyle");
+            }
+
+            super.append(buffer, fieldName, array, fullDetail);
+        }
+
+        @Override
+        public void append(StringBuffer buffer, String fieldName, int[] array,
+                           Boolean fullDetail) {
+
+            if (fieldName == null) {
+                throw new UnsupportedOperationException(
+                        "Field names are mandatory when using JsonToStringStyle");
+            }
+            if (!isFullDetail(fullDetail)){
+                throw new UnsupportedOperationException(
+                        "FullDetail must be true when using JsonToStringStyle");
+            }
+
+            super.append(buffer, fieldName, array, fullDetail);
+        }
+
+        @Override
+        public void append(StringBuffer buffer, String fieldName,
+                           short[] array, Boolean fullDetail) {
+
+            if (fieldName == null) {
+                throw new UnsupportedOperationException(
+                        "Field names are mandatory when using JsonToStringStyle");
+            }
+            if (!isFullDetail(fullDetail)){
+                throw new UnsupportedOperationException(
+                        "FullDetail must be true when using JsonToStringStyle");
+            }
+
+            super.append(buffer, fieldName, array, fullDetail);
+        }
+
+        @Override
+        public void append(StringBuffer buffer, String fieldName, byte[] array,
+                           Boolean fullDetail) {
+
+            if (fieldName == null) {
+                throw new UnsupportedOperationException(
+                        "Field names are mandatory when using JsonToStringStyle");
+            }
+            if (!isFullDetail(fullDetail)){
+                throw new UnsupportedOperationException(
+                        "FullDetail must be true when using JsonToStringStyle");
+            }
+
+            super.append(buffer, fieldName, array, fullDetail);
+        }
+
+        @Override
+        public void append(StringBuffer buffer, String fieldName, char[] array,
+                           Boolean fullDetail) {
+
+            if (fieldName == null) {
+                throw new UnsupportedOperationException(
+                        "Field names are mandatory when using JsonToStringStyle");
+            }
+            if (!isFullDetail(fullDetail)){
+                throw new UnsupportedOperationException(
+                        "FullDetail must be true when using JsonToStringStyle");
+            }
+
+            super.append(buffer, fieldName, array, fullDetail);
+        }
+
+        @Override
+        public void append(StringBuffer buffer, String fieldName,
+                           double[] array, Boolean fullDetail) {
+
+            if (fieldName == null) {
+                throw new UnsupportedOperationException(
+                        "Field names are mandatory when using JsonToStringStyle");
+            }
+            if (!isFullDetail(fullDetail)){
+                throw new UnsupportedOperationException(
+                        "FullDetail must be true when using JsonToStringStyle");
+            }
+
+            super.append(buffer, fieldName, array, fullDetail);
+        }
+
+        @Override
+        public void append(StringBuffer buffer, String fieldName,
+                           float[] array, Boolean fullDetail) {
+
+            if (fieldName == null) {
+                throw new UnsupportedOperationException(
+                        "Field names are mandatory when using JsonToStringStyle");
+            }
+            if (!isFullDetail(fullDetail)){
+                throw new UnsupportedOperationException(
+                        "FullDetail must be true when using JsonToStringStyle");
+            }
+
+            super.append(buffer, fieldName, array, fullDetail);
+        }
+
+        @Override
+        public void append(StringBuffer buffer, String fieldName,
+                           boolean[] array, Boolean fullDetail) {
+
+            if (fieldName == null) {
+                throw new UnsupportedOperationException(
+                        "Field names are mandatory when using JsonToStringStyle");
+            }
+            if (!isFullDetail(fullDetail)){
+                throw new UnsupportedOperationException(
+                        "FullDetail must be true when using JsonToStringStyle");
+            }
+
+            super.append(buffer, fieldName, array, fullDetail);
+        }
+
+        @Override
+        public void append(StringBuffer buffer, String fieldName, Object value,
+                           Boolean fullDetail) {
+
+            if (fieldName == null) {
+                throw new UnsupportedOperationException(
+                        "Field names are mandatory when using JsonToStringStyle");
+            }
+            if (!isFullDetail(fullDetail)){
+                throw new UnsupportedOperationException(
+                        "FullDetail must be true when using JsonToStringStyle");
+            }
+
+            super.append(buffer, fieldName, value, fullDetail);
+        }
+
+        @Override
+        protected void appendDetail(StringBuffer buffer, String fieldName, Object value) {
+
+            if (value == null) {
+
+                appendNullText(buffer, fieldName);
+                return;
+            }
+
+            if (value.getClass() == String.class) {
+
+                appendValueAsString(buffer, (String)value);
+                return;
+            }
+
+            buffer.append(value);
+        }
+
+        /**
+         * Appends the given String in parenthesis to the given StringBuffer.
+         * 
+         * @param buffer the StringBuffer to append the value to.
+         * @param value the value to append.
+         */
+        private void appendValueAsString(StringBuffer buffer, String value) {
+            buffer.append("\"" + value + "\"");
+        }
+
+        @Override
+        protected void appendFieldStart(StringBuffer buffer, String fieldName) {
+
+            if (fieldName == null) {
+                throw new UnsupportedOperationException(
+                        "Field names are mandatory when using JsonToStringStyle");
+            }
+
+            super.appendFieldStart(buffer, FIELD_NAME_PREFIX + fieldName
+                    + FIELD_NAME_PREFIX);
+        }
+
+        /**
+         * <p>
+         * Ensure <code>Singleton</code> after serialization.
+         * </p>
+         *
+         * @return the singleton
+         */
+        private Object readResolve() {
+            return ToStringStyle.JSON_STYLE;
+        }
+
+    }
 }

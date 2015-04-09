@@ -121,8 +121,9 @@ public class SerializationUtils {
      * @return the serialized and deseralized object
      * @since 3.3
      */
+    @SuppressWarnings("unchecked") // OK, because we serialized a type `T`
     public static <T extends Serializable> T roundtrip(final T msg) {
-        return SerializationUtils.deserialize(SerializationUtils.serialize(msg));
+        return (T) SerializationUtils.deserialize(SerializationUtils.serialize(msg));
     }
 
     // Serialize

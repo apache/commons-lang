@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
@@ -47,11 +48,13 @@ public class CallableBackgroundInitializerTest  {
      * class.
      */
     @Test
-    public void testInitExecutor() {
+    public void testInitExecutor() throws InterruptedException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         final CallableBackgroundInitializer<Integer> init = new CallableBackgroundInitializer<Integer>(
                 new TestCallable(), exec);
         assertEquals("Executor not set", exec, init.getExternalExecutor());
+        exec.shutdown();
+        exec.awaitTermination(1, TimeUnit.SECONDS);
     }
 
     /**
@@ -59,9 +62,15 @@ public class CallableBackgroundInitializerTest  {
      * This should cause an exception.
      */
     @Test(expected=IllegalArgumentException.class)
-    public void testInitExecutorNullCallable() {
+    public void testInitExecutorNullCallable() throws InterruptedException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
-        new CallableBackgroundInitializer<Integer>(null, exec);
+        try {
+            new CallableBackgroundInitializer<Integer>(null, exec);
+        } finally {
+            exec.shutdown();
+            exec.awaitTermination(1, TimeUnit.SECONDS);
+        }
+        
     }
 
     /**

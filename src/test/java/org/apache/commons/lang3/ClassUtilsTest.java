@@ -196,7 +196,7 @@ public class ClassUtilsTest  {
     public void test_getPackageName_Class() {
         assertEquals("java.lang", ClassUtils.getPackageName(String.class));
         assertEquals("java.util", ClassUtils.getPackageName(Map.Entry.class));
-        assertEquals("", ClassUtils.getPackageName((Class<?>)null));
+        assertEquals("", ClassUtils.getPackageName((Class<?>) null));
 
         // LANG-535
         assertEquals("java.lang", ClassUtils.getPackageName(String[].class));
@@ -218,7 +218,8 @@ public class ClassUtilsTest  {
         
         // On-the-fly types
         class Named {}
-        assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(new Object(){}.getClass()));
+        assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(new Object() {
+        }.getClass()));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(Named.class));
     }
 
@@ -226,8 +227,36 @@ public class ClassUtilsTest  {
     public void test_getPackageName_String() {
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(ClassUtils.class.getName()));
         assertEquals("java.util", ClassUtils.getPackageName(Map.Entry.class.getName()));
-        assertEquals("", ClassUtils.getPackageName((String)null));
+        assertEquals("", ClassUtils.getPackageName((String) null));
         assertEquals("", ClassUtils.getPackageName(""));
+    }
+
+    // -------------------------------------------------------------------------
+    @Test
+    public void test_getAbbreviatedName_Class() {
+        assertEquals("", ClassUtils.getAbbreviatedName((Class<?>)null, 1));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName(String.class, 1));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName(String.class, 5));
+        assertEquals("j.lang.String", ClassUtils.getAbbreviatedName(String.class, 13));
+        assertEquals("j.lang.String", ClassUtils.getAbbreviatedName(String.class, 15));
+        assertEquals("java.lang.String", ClassUtils.getAbbreviatedName(String.class, 20));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_getAbbreviatedName_Class_ZeroLen() {
+        ClassUtils.getAbbreviatedName(String.class, 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_getAbbreviatedName_Class_NegativeLen() {
+        ClassUtils.getAbbreviatedName(String.class, -10);
+    }
+
+    @Test
+    public void test_getAbbreviatedName_String() {
+        assertEquals("", ClassUtils.getAbbreviatedName((String) null, 1));
+        assertEquals("WithoutPackage", ClassUtils.getAbbreviatedName("WithoutPackage", 1));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", 1));
     }
 
     // -------------------------------------------------------------------------

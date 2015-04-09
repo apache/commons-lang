@@ -32,13 +32,11 @@ import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.apache.commons.lang3.Validate;
-
 /**
  * <p>FastDatePrinter is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
  *
- * <p>To obtain a proxy to a FastDatePrinter, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} 
+ * <p>To obtain a FastDatePrinter, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} 
  * or another variation of the factory methods of {@link FastDateFormat}.</p>
  * 
  * <p>Since FastDatePrinter is thread safe, you can use a static member instance:</p>
@@ -53,7 +51,7 @@ import org.apache.commons.lang3.Validate;
  * nor will it be as Sun have closed the bug/RFE.
  * </p>
  *
- * <p>Only formatting is supported, but all patterns are compatible with
+ * <p>Only formatting is supported by this class, but all patterns are compatible with
  * SimpleDateFormat (except time zones and some year patterns - see below).</p>
  *
  * <p>Java 1.4 introduced a new pattern letter, {@code 'Z'}, to represent
@@ -64,6 +62,10 @@ import org.apache.commons.lang3.Validate;
  * ISO 8601 full format time zones (eg. {@code +08:00} or {@code -11:00}).
  * This introduces a minor incompatibility with Java 1.4, but at a gain of
  * useful functionality.</p>
+ * 
+ * <p>Starting with JDK7, ISO 8601 support was added using the pattern {@code 'X'}.
+ * To maintain compatibility, {@code 'ZZ'} will continue to be supported, but using
+ * one of the {@code 'X'} formats is recommended.
  *
  * <p>Javadoc cites for the year pattern: <i>For formatting, if the number of
  * pattern letters is 2, the year is truncated to 2 digits; otherwise it is
@@ -73,6 +75,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @version $Id$
  * @since 3.2
+ * @see FastDateParser
  */
 public class FastDatePrinter implements DatePrinter, Serializable {
     // A lot of the speed in this class comes from caching, but some comes
@@ -136,6 +139,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     //-----------------------------------------------------------------------
     /**
      * <p>Constructs a new FastDatePrinter.</p>
+     * Use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}  or another variation of the 
+     * factory methods of {@link FastDateFormat} to get a cached FastDatePrinter instance.
      *
      * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern
      * @param timeZone  non-null time zone to use
@@ -264,6 +269,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             case 'K': // hour in am/pm (0..11)
                 rule = selectNumberRule(Calendar.HOUR, tokenLen);
                 break;
+            case 'X': // ISO 8601 
+                rule = Iso8601_Rule.getRule(tokenLen);
+                break;    
             case 'z': // time zone (text)
                 if (tokenLen >= 4) {
                     rule = new TimeZoneNameRule(mTimeZone, mLocale, TimeZone.LONG);
@@ -580,6 +588,17 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         init();
     }
 
+    /**
+     * Appends digits to the given buffer.
+     * 
+     * @param buffer the buffer to append to.
+     * @param value the value to append digits from.
+     */
+    private static void appendDigits(final StringBuffer buffer, final int value) {
+        buffer.append((char)(value / 10 + '0'));
+        buffer.append((char)(value % 10 + '0'));
+    }
+
     // Rules
     //-----------------------------------------------------------------------
     /**
@@ -587,7 +606,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     private interface Rule {
         /**
-         * Returns the estimated lentgh of the result.
+         * Returns the estimated length of the result.
          *
          * @return the estimated length
          */
@@ -763,10 +782,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             if (value < 10) {
                 buffer.append((char)(value + '0'));
             } else if (value < 100) {
-                buffer.append((char)(value / 10 + '0'));
-                buffer.append((char)(value % 10 + '0'));
+                appendDigits(buffer, value);
             } else {
-                buffer.append(Integer.toString(value));
+                buffer.append(value);
             }
         }
     }
@@ -809,8 +827,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             if (value < 10) {
                 buffer.append((char)(value + '0'));
             } else {
-                buffer.append((char)(value / 10 + '0'));
-                buffer.append((char)(value % 10 + '0'));
+                appendDigits(buffer, value);
             }
         }
     }
@@ -842,7 +859,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public int estimateLength() {
-            return 4;
+            return mSize;
         }
 
         /**
@@ -857,25 +874,15 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * {@inheritDoc}
          */
         @Override
-        public final void appendTo(final StringBuffer buffer, final int value) {
-            if (value < 100) {
-                for (int i = mSize; --i >= 2; ) {
-                    buffer.append('0');
-                }
-                buffer.append((char)(value / 10 + '0'));
-                buffer.append((char)(value % 10 + '0'));
-            } else {
-                int digits;
-                if (value < 1000) {
-                    digits = 3;
-                } else {
-                    Validate.isTrue(value > -1, "Negative values should not be possible", value);
-                    digits = Integer.toString(value).length();
-                }
-                for (int i = mSize; --i >= digits; ) {
-                    buffer.append('0');
-                }
-                buffer.append(Integer.toString(value));
+        public final void appendTo(final StringBuffer buffer, int value) {
+            // pad the buffer with adequate zeros
+            for(int digit = 0; digit<mSize; ++digit) {
+                buffer.append('0');                
+            }
+            // backfill the buffer with non-zero digits
+            int index = buffer.length();
+            for( ; value>0; value /= 10) {
+                buffer.setCharAt(--index, (char)('0' + value % 10));
             }
         }
     }
@@ -917,10 +924,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public final void appendTo(final StringBuffer buffer, final int value) {
             if (value < 100) {
-                buffer.append((char)(value / 10 + '0'));
-                buffer.append((char)(value % 10 + '0'));
+                appendDigits(buffer, value);
             } else {
-                buffer.append(Integer.toString(value));
+                buffer.append(value);
             }
         }
     }
@@ -959,8 +965,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public final void appendTo(final StringBuffer buffer, final int value) {
-            buffer.append((char)(value / 10 + '0'));
-            buffer.append((char)(value % 10 + '0'));
+            appendDigits(buffer, value);
         }
     }
 
@@ -998,8 +1003,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public final void appendTo(final StringBuffer buffer, final int value) {
-            buffer.append((char)(value / 10 + '0'));
-            buffer.append((char)(value % 10 + '0'));
+            appendDigits(buffer, value);
         }
     }
 
@@ -1161,8 +1165,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public void appendTo(final StringBuffer buffer, final Calendar calendar) {
             final TimeZone zone = calendar.getTimeZone();
-            if (zone.useDaylightTime()
-                    && calendar.get(Calendar.DST_OFFSET) != 0) {
+            if (calendar.get(Calendar.DST_OFFSET) != 0) {
                 buffer.append(getTimeZoneDisplay(zone, true, mStyle, mLocale));
             } else {
                 buffer.append(getTimeZoneDisplay(zone, false, mStyle, mLocale));
@@ -1178,7 +1181,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         static final TimeZoneNumberRule INSTANCE_COLON = new TimeZoneNumberRule(true, false);
         static final TimeZoneNumberRule INSTANCE_NO_COLON = new TimeZoneNumberRule(false, false);
         static final TimeZoneNumberRule INSTANCE_ISO_8601 = new TimeZoneNumberRule(true, true);
-
+        
         final boolean mColon;
         final boolean mISO8601;
 
@@ -1221,16 +1224,102 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             }
 
             final int hours = offset / (60 * 60 * 1000);
-            buffer.append((char)(hours / 10 + '0'));
-            buffer.append((char)(hours % 10 + '0'));
+            appendDigits(buffer, hours);
 
             if (mColon) {
                 buffer.append(':');
             }
 
             final int minutes = offset / (60 * 1000) - 60 * hours;
-            buffer.append((char)(minutes / 10 + '0'));
-            buffer.append((char)(minutes % 10 + '0'));
+            appendDigits(buffer, minutes);
+        }
+    }
+
+    /**
+     * <p>Inner class to output a time zone as a number {@code +/-HHMM}
+     * or {@code +/-HH:MM}.</p>
+     */
+    private static class Iso8601_Rule implements Rule {
+        
+        // Sign TwoDigitHours or Z
+        static final Iso8601_Rule ISO8601_HOURS = new Iso8601_Rule(3);       
+        // Sign TwoDigitHours Minutes or Z
+        static final Iso8601_Rule ISO8601_HOURS_MINUTES = new Iso8601_Rule(5);
+        // Sign TwoDigitHours : Minutes or Z
+        static final Iso8601_Rule ISO8601_HOURS_COLON_MINUTES = new Iso8601_Rule(6);
+
+        /**
+         * Factory method for Iso8601_Rules.
+         *
+         * @param tokenLen a token indicating the length of the TimeZone String to be formatted.
+         * @return a Iso8601_Rule that can format TimeZone String of length {@code tokenLen}. If no such
+         *          rule exists, an IllegalArgumentException will be thrown.
+         */
+        static Iso8601_Rule getRule(int tokenLen) {
+            switch(tokenLen) {
+            case 1:
+                return Iso8601_Rule.ISO8601_HOURS;
+            case 2:
+                return Iso8601_Rule.ISO8601_HOURS_MINUTES;
+            case 3:
+                return Iso8601_Rule.ISO8601_HOURS_COLON_MINUTES;
+            default:
+                throw new IllegalArgumentException("invalid number of X");                    
+            }
+        }        
+        
+        final int length;
+
+        /**
+         * Constructs an instance of {@code Iso8601_Rule} with the specified properties.
+         *
+         * @param length The number of characters in output (unless Z is output)
+         */
+        Iso8601_Rule(final int length) {
+            this.length = length;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public int estimateLength() {
+            return length;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void appendTo(final StringBuffer buffer, final Calendar calendar) {
+            int zoneOffset = calendar.get(Calendar.ZONE_OFFSET);
+            if (zoneOffset == 0) {
+                buffer.append("Z");
+                return;
+            }
+            
+            int offset = zoneOffset + calendar.get(Calendar.DST_OFFSET);
+
+            if (offset < 0) {
+                buffer.append('-');
+                offset = -offset;
+            } else {
+                buffer.append('+');
+            }
+
+            final int hours = offset / (60 * 60 * 1000);
+            appendDigits(buffer, hours);
+
+            if (length<5) {
+                return;
+            }
+            
+            if (length==6) {
+                buffer.append(':');
+            }
+
+            final int minutes = offset / (60 * 1000) - 60 * hours;
+            appendDigits(buffer, minutes);
         }
     }
 
