@@ -16,14 +16,8 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.apache.commons.lang3.text.WordUtils;
+import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
@@ -36,10 +30,14 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Locale;
 
-import org.apache.commons.lang3.text.WordUtils;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils}.
@@ -48,15 +46,42 @@ import org.junit.rules.ExpectedException;
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class StringUtilsTest {
-
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
     
     static final String WHITESPACE;
     static final String NON_WHITESPACE;
     static final String HARD_SPACE;
     static final String TRIMMABLE;
     static final String NON_TRIMMABLE;
+    private static final String[] ARRAY_LIST = { "foo", "bar", "baz" };
+    private static final String[] EMPTY_ARRAY_LIST = {};
+    private static final String[] NULL_ARRAY_LIST = {null};
+    private static final Object[] NULL_TO_STRING_LIST = {
+        new Object(){
+            @Override
+            public String toString() {
+                return null;
+            }
+        }
+    };
+    private static final String[] MIXED_ARRAY_LIST = {null, "", "foo"};
+    private static final Object[] MIXED_TYPE_LIST = {"foo", Long.valueOf(2L)};
+    private static final long[] LONG_PRIM_LIST = {1, 2};
+    private static final int[] INT_PRIM_LIST = {1, 2};
+    private static final byte[] BYTE_PRIM_LIST = {1, 2};
+    private static final short[] SHORT_PRIM_LIST = {1, 2};
+    private static final char[] CHAR_PRIM_LIST = {'1', '2'};
+    private static final float[] FLOAT_PRIM_LIST = {1, 2};
+    private static final double[] DOUBLE_PRIM_LIST = {1, 2};
+    private static final String SEPARATOR = ",";
+    private static final char   SEPARATOR_CHAR = ';';
+    private static final String TEXT_LIST = "foo,bar,baz";
+    private static final String TEXT_LIST_CHAR = "foo;bar;baz";
+    private static final String TEXT_LIST_NOSEP = "foobarbaz";
+    private static final String FOO_UNCAP = "foo";
+    private static final String FOO_CAP = "Foo";
+    private static final String SENTENCE_UNCAP = "foo bar baz";
+    private static final String SENTENCE_CAP = "Foo Bar Baz";
+
     static {
         String ws = "";
         String nws = "";
@@ -82,40 +107,6 @@ public class StringUtilsTest {
         TRIMMABLE = tr;
         NON_TRIMMABLE = ntr;
     }
-
-    private static final String[] ARRAY_LIST = { "foo", "bar", "baz" };
-    private static final String[] EMPTY_ARRAY_LIST = {};
-    private static final String[] NULL_ARRAY_LIST = {null};
-    private static final Object[] NULL_TO_STRING_LIST = {
-        new Object(){
-            @Override
-            public String toString() {
-                return null;
-            }
-        }
-    };
-    private static final String[] MIXED_ARRAY_LIST = {null, "", "foo"};
-    private static final Object[] MIXED_TYPE_LIST = {"foo", Long.valueOf(2L)};
-    private static final long[] LONG_PRIM_LIST = {1, 2};
-    private static final int[] INT_PRIM_LIST = {1, 2};
-    private static final byte[] BYTE_PRIM_LIST = {1, 2};
-    private static final short[] SHORT_PRIM_LIST = {1, 2};
-    private static final char[] CHAR_PRIM_LIST = {'1', '2'};
-    private static final float[] FLOAT_PRIM_LIST = {1, 2};
-    private static final double[] DOUBLE_PRIM_LIST = {1, 2};
-
-    private static final String SEPARATOR = ",";
-    private static final char   SEPARATOR_CHAR = ';';
-
-    private static final String TEXT_LIST = "foo,bar,baz";
-    private static final String TEXT_LIST_CHAR = "foo;bar;baz";
-    private static final String TEXT_LIST_NOSEP = "foobarbaz";
-
-    private static final String FOO_UNCAP = "foo";
-    private static final String FOO_CAP = "Foo";
-
-    private static final String SENTENCE_UNCAP = "foo bar baz";
-    private static final String SENTENCE_CAP = "Foo Bar Baz";
 
     //-----------------------------------------------------------------------
     @Test
@@ -470,11 +461,8 @@ public class StringUtilsTest {
 		assertEquals("ab", StringUtils.joinWith(null, "a", "b"));
 	}
 
-	@Test
-	public void testJoinWithThrowsException() {
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Object varargs must not be null");
-
+    @Test(expected = IllegalArgumentException.class)
+    public void testJoinWithThrowsException() {
 		StringUtils.joinWith(",", null);
 	}
 

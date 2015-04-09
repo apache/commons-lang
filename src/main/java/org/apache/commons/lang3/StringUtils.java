@@ -17,7 +17,6 @@
 package org.apache.commons.lang3;
 
 import java.io.UnsupportedEncodingException;
-
 import java.nio.charset.Charset;
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
@@ -4173,7 +4171,7 @@ public class StringUtils {
 
 		Iterator<Object> iterator = Arrays.asList(objects).iterator();
 		while(iterator.hasNext()) {
-            result.append(Objects.toString(iterator.next(), StringUtils.EMPTY));
+            result.append(StringUtils.defaultString(iterator.next().toString()));
 
 			if(iterator.hasNext()) {
 				result.append(sanitizedSeparator);
