@@ -468,6 +468,7 @@ public class ArrayUtils {
      * @param type   the class representation of the desired array
      * @return the same array, {@code public static} empty array if {@code null}
      * @throws IllegalArgumentException if the type argument is null
+     * @since 3.5
      */
     public static <T> T[] nullToEmpty(final T[] array, final Class<T[]> type) {
         if(type == null) {
