@@ -16,7 +16,7 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -25,7 +25,15 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
 
-import org.junit.Test;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
@@ -356,6 +364,37 @@ public class ArrayUtilsTest  {
 
     //-----------------------------------------------------------------------
 
+    private class TestClass{}
+
+    @Test
+    public void testNullToEmptyGenericNull() {
+        TestClass[] output = ArrayUtils.nullToEmpty(null, TestClass[].class);
+
+        assertTrue(output != null);
+        assertTrue(output.length == 0);
+    }
+
+    @Test
+    public void testNullToEmptyGenericEmpty() {
+        TestClass[] input = new TestClass[]{};
+        TestClass[] output = ArrayUtils.nullToEmpty(input, TestClass[].class);
+
+        assertSame(input, output);
+    }
+
+    @Test
+    public void testNullToEmptyGeneric() {
+        TestClass[] input = new TestClass[]{new TestClass(), new TestClass()};
+        TestClass[] output = ArrayUtils.nullToEmpty(input, TestClass[].class);
+
+        assertSame(input, output);
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testNullToEmptyGenericNullType() {
+        TestClass[] input = new TestClass[]{};
+        ArrayUtils.nullToEmpty(input, null);
+    }
 
     @Test
     public void testNullToEmptyBooleanNull() throws Exception {
