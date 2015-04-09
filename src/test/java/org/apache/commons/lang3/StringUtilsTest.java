@@ -463,7 +463,7 @@ public class StringUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testJoinWithThrowsException() {
-		StringUtils.joinWith(",", null);
+        StringUtils.joinWith(",", null);
 	}
 
 
