@@ -18,10 +18,7 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Modifier;
 
@@ -466,4 +463,14 @@ public class CharSetTest  {
         assertTrue(ArrayUtils.contains(array, CharRange.isIn('0', '9')));
     }
     
+    @Test
+    public void testJavadocExamples() throws Exception {
+        assertFalse(CharSet.getInstance("^a-c").contains('a'));
+        assertTrue(CharSet.getInstance("^a-c").contains('d'));
+        assertTrue(CharSet.getInstance("^^a-c").contains('a'));
+        assertFalse(CharSet.getInstance("^^a-c").contains('^'));
+        assertTrue(CharSet.getInstance("^a-cd-f").contains('d'));
+        assertTrue(CharSet.getInstance("a-c^").contains('^'));
+        assertTrue(CharSet.getInstance("^", "a-c").contains('^'));        
+    }
 }
