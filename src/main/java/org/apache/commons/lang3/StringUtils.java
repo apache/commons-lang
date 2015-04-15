@@ -5716,15 +5716,16 @@ public class StringUtils {
         }
 
         final char firstChar = str.charAt(0);
-        if (Character.isTitleCase(firstChar)) {
+        final char newChar = Character.toUpperCase(firstChar);
+        if (firstChar == newChar) {
             // already capitalized
             return str;
         }
 
-        return new StringBuilder(strLen)
-            .append(Character.toTitleCase(firstChar))
-            .append(str.substring(1))
-            .toString();
+        char[] newChars = new char[strLen];
+        newChars[0] = newChar;
+        str.getChars(1,strLen, newChars, 1);
+        return String.valueOf(newChars);
     }
 
     /**
@@ -5755,15 +5756,16 @@ public class StringUtils {
         }
 
         final char firstChar = str.charAt(0);
-        if (Character.isLowerCase(firstChar)) {
+        final char newChar = Character.toLowerCase(firstChar);
+        if (firstChar == newChar) {
             // already uncapitalized
             return str;
         }
 
-        return new StringBuilder(strLen)
-            .append(Character.toLowerCase(firstChar))
-            .append(str.substring(1))
-            .toString();
+        char[] newChars = new char[strLen];
+        newChars[0] = newChar;
+        str.getChars(1,strLen, newChars, 1);
+        return String.valueOf(newChars);
     }
 
     /**
