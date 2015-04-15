@@ -5728,7 +5728,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Uncapitalizes a String changing the first letter to title case as
+     * <p>Uncapitalizes a String, changing the first letter to lower case as
      * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
      *
      * <p>For a word based algorithm, see {@link org.apache.commons.lang3.text.WordUtils#uncapitalize(String)}.
@@ -5737,6 +5737,7 @@ public class StringUtils {
      * <pre>
      * StringUtils.uncapitalize(null)  = null
      * StringUtils.uncapitalize("")    = ""
+     * StringUtils.uncapitalize("cat") = "cat"
      * StringUtils.uncapitalize("Cat") = "cat"
      * StringUtils.uncapitalize("CAT") = "cAT"
      * </pre>

@@ -115,6 +115,7 @@ public class CharSet implements Serializable {
      *  <li>Negated single character, such as "^a"
      *  <li>Ordinary single character, such as "a"
      * </ol>
+     * 
      * <p>Matching works left to right. Once a match is found the
      * search starts again from the next character.</p>
      *
@@ -128,7 +129,24 @@ public class CharSet implements Serializable {
      * as the "a-e" and "e-a" are the same.</p>
      *
      * <p>The set of characters represented is the union of the specified ranges.</p>
+     * 
+     * <p>There are two ways to add a literal negation character ({@code ^}):</p>
+     * <ul>
+     *     <li>As the last character in a string, e.g. {@code CharSet.getInstance("a-z^")}</li>
+     *     <li>As a separate element, e.g. {@code CharSet.getInstance("^","a-z")}</li>
+     * </ul>
      *
+     * <p>Examples using the negation character:</p>
+     * <pre>
+     *     CharSet.getInstance("^a-c").contains('a') = false
+     *     CharSet.getInstance("^a-c").contains('d') = true
+     *     CharSet.getInstance("^^a-c").contains('a') = true // (only '^' is negated)
+     *     CharSet.getInstance("^^a-c").contains('^') = false
+     *     CharSet.getInstance("^a-cd-f").contains('d') = true 
+     *     CharSet.getInstance("a-c^").contains('^') = true
+     *     CharSet.getInstance("^", "a-c").contains('^') = true
+     * </pre>
+     * 
      * <p>All CharSet objects returned by this method will be immutable.</p>
      *
      * @param setStrs  Strings to merge into the set, may be null

@@ -267,6 +267,11 @@ public class StringUtilsTest {
                      "foo test thing", StringUtils.lowerCase("fOo test THING", Locale.ENGLISH) );
         assertEquals("lowerCase(empty-string, Locale) failed",
                      "", StringUtils.lowerCase("", Locale.ENGLISH) );
+        
+        // Examples from uncapitalize Javadoc
+        assertEquals("cat", StringUtils.uncapitalize("cat"));
+        assertEquals("cat", StringUtils.uncapitalize("Cat")); 
+        assertEquals("cAT", StringUtils.uncapitalize("CAT"));         
     }
 
     @Test
