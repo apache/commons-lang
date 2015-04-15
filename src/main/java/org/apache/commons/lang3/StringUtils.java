@@ -4206,7 +4206,7 @@ public class StringUtils {
 
 		Iterator<Object> iterator = Arrays.asList(objects).iterator();
 		while(iterator.hasNext()) {
-            result.append(StringUtils.defaultString(iterator.next().toString()));
+            result.append(ObjectUtils.toString(iterator.next()));
 
 			if(iterator.hasNext()) {
 				result.append(sanitizedSeparator);
