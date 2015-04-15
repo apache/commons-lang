@@ -87,4 +87,26 @@ public class MemoizerTest {
 		assertEquals(answer, memoizer.compute(input));
 	}
 
+
+	@Test(expected = RuntimeException.class)
+	public void testWhenComputableThrowsRuntimeException() throws Exception {
+		Integer input = 1;
+		Memoizer<Integer, Integer> memoizer = new Memoizer<Integer, Integer>(computable);
+		RuntimeException runtimeException = new RuntimeException("Some runtime exception");
+		expect(computable.compute(input)).andThrow(runtimeException);
+		replay(computable);
+
+		memoizer.compute(input);
+	}
+
+	@Test(expected = Error.class)
+	public void testWhenComputableThrowsError() throws Exception {
+		Integer input = 1;
+		Memoizer<Integer, Integer> memoizer = new Memoizer<Integer, Integer>(computable);
+		Error error = new Error();
+		expect(computable.compute(input)).andThrow(error);
+		replay(computable);
+
+		memoizer.compute(input);
+	}
 }
