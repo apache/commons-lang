@@ -466,4 +466,14 @@ public class CharSetTest  {
         assertTrue(ArrayUtils.contains(array, CharRange.isIn('0', '9')));
     }
     
+    @Test
+    public void testJavadocExamples() throws Exception {
+        assertFalse(CharSet.getInstance("^a-c").contains('a'));
+        assertTrue(CharSet.getInstance("^a-c").contains('d'));
+        assertTrue(CharSet.getInstance("^^a-c").contains('a'));
+        assertFalse(CharSet.getInstance("^^a-c").contains('^'));
+        assertTrue(CharSet.getInstance("^a-cd-f").contains('d'));
+        assertTrue(CharSet.getInstance("a-c^").contains('^'));
+        assertTrue(CharSet.getInstance("^", "a-c").contains('^'));        
+    }
 }
