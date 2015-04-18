@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1112" type="update" dev="britter">MultilineRecursiveToStringStyle largely unusable due to being package-private.</action>
     <action issue="LANG-1058" type="update" dev="djones" due-to="Leo Wang">StringUtils.uncapitalize performance improvement</action>
     <action issue="LANG-1069" type="update" dev="djones" due-to="Arno Noordover">CharSet.getInstance documentation does not clearly explain how to include negation character in set</action>
     <action issue="LANG-1050" type="add" dev="djones" due-to="James Sawle">Change nullToEmpty methods to generics</action>
