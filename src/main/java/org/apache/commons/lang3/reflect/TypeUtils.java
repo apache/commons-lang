@@ -1626,7 +1626,7 @@ public class TypeUtils {
             return equals(getImplicitLowerBounds(w), getImplicitLowerBounds(other))
                 && equals(getImplicitUpperBounds(w), getImplicitUpperBounds(other));
         }
-        return true;
+        return false;
     }
 
     /**
