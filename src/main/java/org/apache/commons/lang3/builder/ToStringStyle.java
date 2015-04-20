@@ -2560,6 +2560,11 @@ public abstract class ToStringStyle implements Serializable {
         }
 
         @Override
+        protected void appendDetail(StringBuffer buffer, String fieldName, char value) {
+            appendValueAsString(buffer, String.valueOf(value));
+        }
+        
+        @Override
         protected void appendDetail(StringBuffer buffer, String fieldName, Object value) {
 
             if (value == null) {
@@ -2568,13 +2573,13 @@ public abstract class ToStringStyle implements Serializable {
                 return;
             }
 
-            if (value.getClass() == String.class) {
+            if (value instanceof Number || value.getClass() == Boolean.class) {
 
-                appendValueAsString(buffer, (String)value);
+                buffer.append(value);
                 return;
             }
 
-            buffer.append(value);
+            appendValueAsString(buffer, value.toString());
         }
 
         /**
