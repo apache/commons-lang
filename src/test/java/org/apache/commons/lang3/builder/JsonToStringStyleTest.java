@@ -21,6 +21,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Date;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
@@ -91,6 +92,39 @@ public class JsonToStringStyleTest {
                 .appendSuper("{\"a\":\"hello\"}").append("b", "world").toString());
     }
 
+    @Test
+    public void testChar() {
+    
+        try {
+            new ToStringBuilder(base).append('A').toString();
+            fail("Should have generated UnsupportedOperationException");
+        } catch (UnsupportedOperationException e) {
+        }
+        
+        assertEquals("{\"a\":\"A\"}", new ToStringBuilder(base).append("a", 'A')
+                .toString());
+        assertEquals("{\"a\":\"A\",\"b\":\"B\"}", new ToStringBuilder(base).append("a", 'A').append("b", 'B')
+                .toString());
+    }
+    
+    @Test
+    public void testDate() {
+        
+        final Date now = new Date();
+        final Date after_now = new Date(System.currentTimeMillis() + 1);
+        
+        try {
+            new ToStringBuilder(base).append(now).toString();
+            fail("Should have generated UnsupportedOperationException");
+        } catch (UnsupportedOperationException e) {
+        }
+        
+        assertEquals("{\"now\":\"" + now.toString() +"\"}", new ToStringBuilder(base).append("now", now)
+                .toString());
+        assertEquals("{\"now\":\"" + now.toString() +"\",\"after\":\"" + after_now.toString() + "\"}", new ToStringBuilder(base).append("now", now).append("after", after_now)
+                .toString());
+    }
+    
     @Test
     public void testObject() {
 
