@@ -33,6 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+import org.apache.commons.lang3.ThreadUtils.AlwaysTruePredicate;
 import org.junit.Test;
 
 /**
@@ -92,6 +93,21 @@ public class ThreadUtilsTest {
         ThreadUtils.findThreadById(Thread.currentThread().getId(), (String) null);
     }
 
+    @Test(expected=IllegalArgumentException.class)
+    public void testThreadgroupsNullParent() throws InterruptedException {
+        ThreadUtils.selectThreadGroups(null, true, ThreadUtils.ALWAYS_TRUE_PREDICATE);
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testThreadgroupsNullPredicate() throws InterruptedException {
+        ThreadUtils.selectThreadGroups(null);
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testThreadsNullPredicate() throws InterruptedException {
+        ThreadUtils.selectThreads(null);
+    }
+
     @Test
     public void testNoThread() throws InterruptedException {
         assertEquals(0, ThreadUtils.findThreadsByName("some_thread_which_does_not_exist_18762ZucTT").size());
@@ -116,8 +132,8 @@ public class ThreadUtilsTest {
     }
 
     @Test
-    public void testAtLeastTwoThreadGroupsExists() throws InterruptedException {
-        assertTrue(ThreadUtils.getAllThreadGroups().size() > 1);
+    public void testAtLeastOneThreadGroupsExists() throws InterruptedException {
+        assertTrue(ThreadUtils.getAllThreadGroups().size() > 0);
     }
 
     @Test
@@ -273,7 +289,7 @@ public class ThreadUtilsTest {
     }
 
     @Test
-    public void testP() throws Exception {
+    public void testComplexThreadGroups() throws Exception {
         final ThreadGroup threadGroup1 = new ThreadGroup("thread_group_1__");
         final ThreadGroup threadGroup2 = new ThreadGroup("thread_group_2__");
         final ThreadGroup threadGroup3 = new ThreadGroup(threadGroup2, "thread_group_3__");
@@ -299,10 +315,11 @@ public class ThreadUtilsTest {
                 final Thread thread = (Thread) iterator.next();
                 thread.start();
             }
-            //new ThreadUtils.ThreadGroupHolder(ThreadUtils.getSystemThreadGroup()).accept(new PrintVisitor());
-
-            assertTrue(ThreadUtils.getAllThreadGroups().size() >= 8);
+            assertTrue(ThreadUtils.getAllThreadGroups().size() >= 7);
             assertTrue(ThreadUtils.getAllThreads().size() >= 11);
+            assertTrue(ThreadUtils.selectThreads(ThreadUtils.ALWAYS_TRUE_PREDICATE).size() >= 11);
+            assertEquals(1, ThreadUtils.findThreadsByName(t4.getName(), threadGroup3.getName()).size());
+            assertEquals(0, ThreadUtils.findThreadsByName(t4.getName(), threadGroup2.getName()).size());
            
         }finally {
             for (final Iterator iterator = threads.iterator(); iterator.hasNext();) {
@@ -318,36 +335,6 @@ public class ThreadUtilsTest {
         }
     }
     
-    /*public static class PrintVisitor implements Visitor
-    {
-        private int depth = 0;
-
-        @Override
-        public boolean visitEnter(final ThreadGroupHolder threadGroup) {
-            indent();
-            System.out.println("- TG "+threadGroup.getThreadGroup().getName());
-            depth++;
-            return true;
-        }
-
-        @Override
-        public boolean visitLeave(final ThreadGroupHolder threadGroup) {
-            depth--;
-            return true;
-        }
-
-        @Override
-        public boolean visit(final ThreadHolder thread) {
-            indent();
-            System.out.println("- T ["+thread.getThread().getState()+"] " +thread.getThread().getId()+" ("+thread.getThread().getName()+")");
-            return true;
-        }
-
-        private void indent() {
-            System.out.print(StringUtils.repeat(' ', depth));
-        }
-
-    }*/
 
     private static class TestThread extends Thread {
         private final CountDownLatch latch = new CountDownLatch(1);
