@@ -16,8 +16,14 @@
  */
 package org.apache.commons.lang3;
 
-import org.apache.commons.lang3.text.WordUtils;
-import org.junit.Test;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
@@ -30,14 +36,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Locale;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.apache.commons.lang3.text.WordUtils;
+import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils}.
@@ -52,6 +52,33 @@ public class StringUtilsTest {
     static final String HARD_SPACE;
     static final String TRIMMABLE;
     static final String NON_TRIMMABLE;
+
+    static {
+        String ws = "";
+        String nws = "";
+        final String hs = String.valueOf(((char) 160));
+        String tr = "";
+        String ntr = "";
+        for (int i = 0; i < Character.MAX_VALUE; i++) {
+            if (Character.isWhitespace((char) i)) {
+                ws += String.valueOf((char) i);
+                if (i > 32) {
+                    ntr += String.valueOf((char) i);
+                }
+            } else if (i < 40) {
+                nws += String.valueOf((char) i);
+            }
+        }
+        for (int i = 0; i <= 32; i++) {
+            tr += String.valueOf((char) i);
+        }
+        WHITESPACE = ws;
+        NON_WHITESPACE = nws;
+        HARD_SPACE = hs;
+        TRIMMABLE = tr;
+        NON_TRIMMABLE = ntr;
+    }
+    
     private static final String[] ARRAY_LIST = { "foo", "bar", "baz" };
     private static final String[] EMPTY_ARRAY_LIST = {};
     private static final String[] NULL_ARRAY_LIST = {null};
@@ -82,31 +109,6 @@ public class StringUtilsTest {
     private static final String SENTENCE_UNCAP = "foo bar baz";
     private static final String SENTENCE_CAP = "Foo Bar Baz";
 
-    static {
-        String ws = "";
-        String nws = "";
-        final String hs = String.valueOf(((char) 160));
-        String tr = "";
-        String ntr = "";
-        for (int i = 0; i < Character.MAX_VALUE; i++) {
-            if (Character.isWhitespace((char) i)) {
-                ws += String.valueOf((char) i);
-                if (i > 32) {
-                    ntr += String.valueOf((char) i);
-                }
-            } else if (i < 40) {
-                nws += String.valueOf((char) i);
-            }
-        }
-        for (int i = 0; i <= 32; i++) {
-            tr += String.valueOf((char) i);
-        }
-        WHITESPACE = ws;
-        NON_WHITESPACE = nws;
-        HARD_SPACE = hs;
-        TRIMMABLE = tr;
-        NON_TRIMMABLE = ntr;
-    }
 
     //-----------------------------------------------------------------------
     @Test
