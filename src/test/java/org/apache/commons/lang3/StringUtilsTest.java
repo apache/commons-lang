@@ -1375,6 +1375,13 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testRepeat_CharInt() {
+        assertEquals("zzz", StringUtils.repeat('z', 3));
+        assertEquals("", StringUtils.repeat('z', 0));
+        assertEquals("", StringUtils.repeat('z', -2));
+    }
+
+    @Test
     public void testChop() {
 
         final String[][] chopCases = {
