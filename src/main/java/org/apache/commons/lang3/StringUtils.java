@@ -4176,12 +4176,12 @@ public class StringUtils {
         return join(iterable.iterator(), separator);
     }
 
-	/**
-	 * <p>Joins the elements of the provided varargs into a
-	 * single String containing the provided elements.</p>
-	 *
-	 * <p>No delimiter is added before or after the list.
-	 * {@code null} elements and separator are treated as empty Strings ("").</p>
+    /**
+     * <p>Joins the elements of the provided varargs into a
+     * single String containing the provided elements.</p>
+     *
+     * <p>No delimiter is added before or after the list.
+     * {@code null} elements and separator are treated as empty Strings ("").</p>
      *
      * <pre>
      * StringUtils.joinWith(",", {"a", "b"})        = "a,b"
@@ -4189,32 +4189,32 @@ public class StringUtils {
      * StringUtils.joinWith(",", {"a", null, "b"})  = "a,,b"
      * StringUtils.joinWith(null, {"a", "b"})       = "ab"
      * </pre>
-	 *
-	 * @param separator the separator character to use, null treated as ""
-	 * @param objects the varargs providing the values to join together. {@code null} elements are treated as ""
-	 * @return the joined String.
-	 * @throws java.lang.IllegalArgumentException if a null varargs is provided
-	 */
-	public static String joinWith(final String separator, Object... objects) {
-		if(objects == null) {
-			throw new IllegalArgumentException("Object varargs must not be null");
-		}
+     *
+     * @param separator the separator character to use, null treated as ""
+     * @param objects the varargs providing the values to join together. {@code null} elements are treated as ""
+     * @return the joined String.
+     * @throws java.lang.IllegalArgumentException if a null varargs is provided
+     */
+    public static String joinWith(final String separator, Object... objects) {
+        if (objects == null) {
+            throw new IllegalArgumentException("Object varargs must not be null");
+        }
 
-		String sanitizedSeparator = defaultString(separator, StringUtils.EMPTY);
+        String sanitizedSeparator = defaultString(separator, StringUtils.EMPTY);
 
-		StringBuilder result = new StringBuilder();
+        StringBuilder result = new StringBuilder();
 
-		Iterator<Object> iterator = Arrays.asList(objects).iterator();
-		while(iterator.hasNext()) {
+        Iterator<Object> iterator = Arrays.asList(objects).iterator();
+        while (iterator.hasNext()) {
             result.append(ObjectUtils.toString(iterator.next()));
 
-			if(iterator.hasNext()) {
-				result.append(sanitizedSeparator);
-			}
-		}
+            if (iterator.hasNext()) {
+                result.append(sanitizedSeparator);
+            }
+        }
 
-		return result.toString();
-	}
+        return result.toString();
+    }
 
     // Delete
     //-----------------------------------------------------------------------
