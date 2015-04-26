@@ -74,6 +74,8 @@ import java.util.regex.Pattern;
  *      - checks the characters in a String</li>
  *  <li><b>DefaultString</b>
  *      - protects against a null input String</li>
+ *  <li><b>Rotate</b>
+ *      - rotate (circular shift) a String</li>
  *  <li><b>Reverse/ReverseDelimited</b>
  *      - reverses a String</li>
  *  <li><b>Abbreviate</b>
@@ -6333,6 +6335,50 @@ public class StringUtils {
      */
     public static <T extends CharSequence> T defaultIfEmpty(final T str, final T defaultStr) {
         return isEmpty(str) ? defaultStr : str;
+    }
+
+    // Rotating (circular shift)
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Rotate (circular shift) a String of {@code shift} characters.</p>
+     * <ul>
+     *  <li>If {@code shift > 0}, right circular shift (ex : ABCDEF =&gt; FABCDE)</li>
+     *  <li>If {@code shift < 0}, left circular shift (ex : ABCDEF =&gt; BCDEFA)</li>
+     * </ul>
+     *
+     * <pre>
+     * StringUtils.rotate(null, *)        = null
+     * StringUtils.rotate("", *)          = ""
+     * StringUtils.rotate("abcdefg", 0)   = "abcdefg"
+     * StringUtils.rotate("abcdefg", 2)   = "fgabcde"
+     * StringUtils.rotate("abcdefg", -2)  = "cdefgab"
+     * StringUtils.rotate("abcdefg", 7)   = "abcdefg"
+     * StringUtils.rotate("abcdefg", -7)  = "abcdefg"
+     * StringUtils.rotate("abcdefg", 9)   = "fgabcde"
+     * StringUtils.rotate("abcdefg", -9)  = "cdefgab"
+     * </pre>
+     *
+     * @param str  the String to rotate, may be null
+     * @param shift  number of time to shift (positive : right shift, negative : left shift)
+     * @return the rotated String,
+     *          or the original String if {@code shift == 0},
+     *          or {@code null} if null String input
+     */
+    public static String rotate(String str, int shift) {
+        if (str == null) {
+            return null;
+        }
+
+        final int strLen = str.length();
+        if (shift == 0 || strLen == 0 || shift % strLen == 0) {
+            return str;
+        }
+
+        final StringBuilder builder = new StringBuilder(strLen);
+        final int offset = - (shift % strLen);
+        builder.append(substring(str, offset));
+        builder.append(substring(str, 0, offset));
+        return builder.toString();
     }
 
     // Reversing
