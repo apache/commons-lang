@@ -1627,6 +1627,22 @@ public class StringUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
+    public void testRotate_StringInt() {
+        assertEquals(null, StringUtils.rotate(null, 1));
+        assertEquals("", StringUtils.rotate("", 1));
+        assertEquals("abcdefg", StringUtils.rotate("abcdefg", 0));
+        assertEquals("fgabcde", StringUtils.rotate("abcdefg", 2));
+        assertEquals("cdefgab", StringUtils.rotate("abcdefg", -2));
+        assertEquals("abcdefg", StringUtils.rotate("abcdefg", 7));
+        assertEquals("abcdefg", StringUtils.rotate("abcdefg", -7));
+        assertEquals("fgabcde", StringUtils.rotate("abcdefg", 9));
+        assertEquals("cdefgab", StringUtils.rotate("abcdefg", -9));
+        assertEquals("efgabcd", StringUtils.rotate("abcdefg", 17));
+        assertEquals("defgabc", StringUtils.rotate("abcdefg", -17));
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
     public void testReverse_String() {
         assertNull(StringUtils.reverse(null) );
         assertEquals("", StringUtils.reverse("") );
