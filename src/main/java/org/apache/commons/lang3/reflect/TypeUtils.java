@@ -1500,7 +1500,7 @@ public class TypeUtils {
         }
         Validate.noNullElements(typeArguments, "null type argument at index %s");
         Validate.isTrue(raw.getTypeParameters().length == typeArguments.length,
-            "invalid number of type parameters specified: expected %s, got %s", raw.getTypeParameters().length,
+            "invalid number of type parameters specified: expected %d, got %d", raw.getTypeParameters().length,
             typeArguments.length);
 
         return new ParameterizedTypeImpl(raw, useOwner, typeArguments);
