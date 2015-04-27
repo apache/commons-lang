@@ -390,7 +390,9 @@ public class DateUtils {
             String str2 = str;
             // LANG-530 - need to make sure 'ZZ' output doesn't hit SimpleDateFormat as it will ParseException
             if (parsePattern.endsWith("ZZ")) {
-                str2 = str.replaceAll("([-+][0-9][0-9]):([0-9][0-9])$", "$1$2"); 
+                str2 = str.replaceAll("([-+][0-9][0-9]):([0-9][0-9])$", "$1$2");
+                // LANG-1116 'Z' is also a supported timezone.
+                str2 = str2.replaceAll("Z$", "+0000");
             }
 
             final Date date = parser.parse(str2, pos);
