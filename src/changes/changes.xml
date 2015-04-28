@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1119" type="add" dev="britter" due-to="Loic Guibert">Add rotate(string, int) method to StringUtils</action>
     <action issue="LANG-1118" type="fix" dev="britter" due-to="Loic Guibert">StringUtils.repeat('z', -1) throws NegativeArraySizeException</action>
     <action issue="LANG-1099" type="add" dev="britter" due-to="Adrian Ber">Add swap and shift operations for arrays to ArrayUtils</action>
     <action issue="LANG-979" type="update" dev="britter" due-to="Bruno P. Kinoshita">TypeUtils.parameterizeWithOwner - wrong format descriptor for "invalid number of type parameters".</action>
