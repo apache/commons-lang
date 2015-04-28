@@ -1353,6 +1353,7 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.repeat("ab", 0));
         assertEquals("", StringUtils.repeat("", 3));
         assertEquals("aaa", StringUtils.repeat("a", 3));
+        assertEquals("", StringUtils.repeat("a", -2));
         assertEquals("ababab", StringUtils.repeat("ab", 3));
         assertEquals("abcabcabc", StringUtils.repeat("abc", 3));
         final String str = StringUtils.repeat("a", 10000);  // bigger than pad limit
@@ -1372,6 +1373,13 @@ public class StringUtilsTest {
         assertEquals("xx", StringUtils.repeat("", "x", 3));
 
         assertEquals("?, ?, ?", StringUtils.repeat("?", ", ", 3));
+    }
+
+    @Test
+    public void testRepeat_CharInt() {
+        assertEquals("zzz", StringUtils.repeat('z', 3));
+        assertEquals("", StringUtils.repeat('z', 0));
+        assertEquals("", StringUtils.repeat('z', -2));
     }
 
     @Test
