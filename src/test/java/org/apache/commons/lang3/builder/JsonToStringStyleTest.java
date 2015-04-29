@@ -90,6 +90,39 @@ public class JsonToStringStyleTest {
         assertEquals("{\"a\":\"hello\",\"b\":\"world\"}", new ToStringBuilder(base)
                 .appendSuper("{\"a\":\"hello\"}").append("b", "world").toString());
     }
+    
+    @Test
+    public void testChar() {
+    
+        try {
+            new ToStringBuilder(base).append('A').toString();
+            fail("Should have generated UnsupportedOperationException");
+        } catch (UnsupportedOperationException e) {
+        }
+        
+        assertEquals("{\"a\":\"A\"}", new ToStringBuilder(base).append("a", 'A')
+                .toString());
+        assertEquals("{\"a\":\"A\",\"b\":\"B\"}", new ToStringBuilder(base).append("a", 'A').append("b", 'B')
+                .toString());
+    }
+    
+    @Test
+    public void testDate() {
+        
+        final Date now = new Date();
+        final Date after_now = new Date(System.currentTimeMillis() + 1);
+        
+        try {
+            new ToStringBuilder(base).append(now).toString();
+            fail("Should have generated UnsupportedOperationException");
+        } catch (UnsupportedOperationException e) {
+        }
+        
+        assertEquals("{\"now\":\"" + now.toString() +"\"}", new ToStringBuilder(base).append("now", now)
+                .toString());
+        assertEquals("{\"now\":\"" + now.toString() +"\",\"after\":\"" + after_now.toString() + "\"}", new ToStringBuilder(base).append("now", now).append("after", after_now)
+                .toString());
+    }
 
     @Test
     public void testObject() {
