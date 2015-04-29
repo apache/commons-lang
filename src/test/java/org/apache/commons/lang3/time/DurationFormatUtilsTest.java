@@ -236,11 +236,11 @@ public class DurationFormatUtilsTest {
         assertEquals("01:00", DurationFormatUtils.formatDuration(duration, "mm:ss"));
 
         final Calendar base = Calendar.getInstance();
-        base.set(2000, 0, 1, 0, 0, 0);
+        base.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
         base.set(Calendar.MILLISECOND, 0);
 
         final Calendar cal = Calendar.getInstance();
-        cal.set(2003, 1, 1, 0, 0, 0);
+        cal.set(2003, Calendar.FEBRUARY, 1, 0, 0, 0);
         cal.set(Calendar.MILLISECOND, 0);
         duration = cal.getTime().getTime() - base.getTime().getTime(); // duration from 2000-01-01 to cal
         // don't use 1970 in test as time zones were less reliable in 1970 than now
@@ -258,11 +258,11 @@ public class DurationFormatUtilsTest {
     public void testFormatPeriodISO() {
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         final Calendar base = Calendar.getInstance(timeZone);
-        base.set(1970, 0, 1, 0, 0, 0);
+        base.set(1970, Calendar.JANUARY, 1, 0, 0, 0);
         base.set(Calendar.MILLISECOND, 0);
 
         final Calendar cal = Calendar.getInstance(timeZone);
-        cal.set(2002, 1, 23, 9, 11, 12);
+        cal.set(2002, Calendar.FEBRUARY, 23, 9, 11, 12);
         cal.set(Calendar.MILLISECOND, 1);
         String text;
         // repeat a test from testDateTimeISO to compare extended and not extended.
@@ -273,7 +273,7 @@ public class DurationFormatUtilsTest {
                 DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN, false, timeZone);
         assertEquals("P32Y1M22DT9H11M12.001S", text);
         // test fixture from example in http://www.w3.org/TR/xmlschema-2/#duration
-        cal.set(1971, 1, 3, 10, 30, 0);
+        cal.set(1971, Calendar.FEBRUARY, 3, 10, 30, 0);
         cal.set(Calendar.MILLISECOND, 0);
         text = DurationFormatUtils.formatPeriod(base.getTime().getTime(), cal.getTime().getTime(),
                 DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN, false, timeZone);
@@ -297,7 +297,7 @@ public class DurationFormatUtilsTest {
     @Test
     public void testFormatPeriod() {
         final Calendar cal1970 = Calendar.getInstance();
-        cal1970.set(1970, 0, 1, 0, 0, 0);
+        cal1970.set(1970, Calendar.JANUARY, 1, 0, 0, 0);
         cal1970.set(Calendar.MILLISECOND, 0);
         final long time1970 = cal1970.getTime().getTime();
 
@@ -323,21 +323,21 @@ public class DurationFormatUtilsTest {
         assertEquals("01:00", DurationFormatUtils.formatPeriod(time1970, time, "mm:ss"));
 
         final Calendar cal = Calendar.getInstance();
-        cal.set(1973, 6, 1, 0, 0, 0);
+        cal.set(1973, Calendar.JULY, 1, 0, 0, 0);
         cal.set(Calendar.MILLISECOND, 0);
         time = cal.getTime().getTime();
         assertEquals("36", DurationFormatUtils.formatPeriod(time1970, time, "yM"));
         assertEquals("3 years 6 months", DurationFormatUtils.formatPeriod(time1970, time, "y' years 'M' months'"));
         assertEquals("03/06", DurationFormatUtils.formatPeriod(time1970, time, "yy/MM"));
 
-        cal.set(1973, 10, 1, 0, 0, 0);
+        cal.set(1973, Calendar.NOVEMBER, 1, 0, 0, 0);
         cal.set(Calendar.MILLISECOND, 0);
         time = cal.getTime().getTime();
         assertEquals("310", DurationFormatUtils.formatPeriod(time1970, time, "yM"));
         assertEquals("3 years 10 months", DurationFormatUtils.formatPeriod(time1970, time, "y' years 'M' months'"));
         assertEquals("03/10", DurationFormatUtils.formatPeriod(time1970, time, "yy/MM"));
 
-        cal.set(1974, 0, 1, 0, 0, 0);
+        cal.set(1974, Calendar.JANUARY, 1, 0, 0, 0);
         cal.set(Calendar.MILLISECOND, 0);
         time = cal.getTime().getTime();
         assertEquals("40", DurationFormatUtils.formatPeriod(time1970, time, "yM"));
@@ -423,10 +423,10 @@ public class DurationFormatUtilsTest {
     @Test
     public void testLANG815() {
         final Calendar calendar = Calendar.getInstance();
-        calendar.set(2012, 6, 30, 0, 0, 0);
+        calendar.set(2012, Calendar.JULY, 30, 0, 0, 0);
         final long startMillis = calendar.getTimeInMillis();
 
-        calendar.set(2012, 8, 8);
+        calendar.set(2012, Calendar.SEPTEMBER, 8);
         final long endMillis = calendar.getTimeInMillis();
 
         assertEquals("1 9", DurationFormatUtils.formatPeriod(startMillis, endMillis, "M d"));

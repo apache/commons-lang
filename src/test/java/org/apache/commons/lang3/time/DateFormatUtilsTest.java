@@ -16,9 +16,10 @@
  */
 package org.apache.commons.lang3.time;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -26,6 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import org.junit.Test;
 
 /**
  * TestCase for DateFormatUtils.
@@ -48,7 +51,7 @@ public class DateFormatUtilsTest {
     @Test
     public void testFormat() {
         final Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        c.set(2005,0,1,12,0,0);
+        c.set(2005, Calendar.JANUARY, 1, 12, 0, 0);
         c.setTimeZone(TimeZone.getDefault());
         final StringBuilder buffer = new StringBuilder ();
         final int year = c.get(Calendar.YEAR);
@@ -72,7 +75,7 @@ public class DateFormatUtilsTest {
     @Test
     public void testFormatCalendar() {
         final Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        c.set(2005,0,1,12,0,0);
+        c.set(2005, Calendar.JANUARY, 1, 12, 0, 0);
         c.setTimeZone(TimeZone.getDefault());
         final StringBuilder buffer = new StringBuilder ();
         final int year = c.get(Calendar.YEAR);
@@ -95,7 +98,7 @@ public class DateFormatUtilsTest {
     @Test
     public void testFormatUTC() {
         final Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        c.set(2005,0,1,12,0,0);
+        c.set(2005, Calendar.JANUARY, 1, 12, 0, 0);
         assertEquals ("2005-01-01T12:00:00", DateFormatUtils.formatUTC(c.getTime(), DateFormatUtils.ISO_DATETIME_FORMAT.getPattern()));
         
         assertEquals ("2005-01-01T12:00:00", DateFormatUtils.formatUTC(c.getTime().getTime(), DateFormatUtils.ISO_DATETIME_FORMAT.getPattern()));
@@ -109,7 +112,7 @@ public class DateFormatUtilsTest {
     public void testDateTimeISO() throws Exception {
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         final Calendar cal = Calendar.getInstance(timeZone);
-        cal.set(2002,1,23,9,11,12);
+        cal.set(2002, Calendar.FEBRUARY, 23, 9, 11, 12);
         String text = DateFormatUtils.format(cal.getTime(), 
                         DateFormatUtils.ISO_DATETIME_FORMAT.getPattern(), timeZone);
         assertEquals("2002-02-23T09:11:12", text);
@@ -129,7 +132,7 @@ public class DateFormatUtilsTest {
         assertEquals("2002-02-23T09:11:12-03:00", text);
         
         Calendar utcCal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        utcCal.set(2002, 1, 23, 9, 11, 12);
+        utcCal.set(2002, Calendar.FEBRUARY, 23, 9, 11, 12);
         utcCal.set(Calendar.MILLISECOND, 0);
         text = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(utcCal);
         assertEquals("2002-02-23T09:11:12Z", text);
@@ -141,7 +144,7 @@ public class DateFormatUtilsTest {
     public void testDateISO(){
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         final Calendar cal = Calendar.getInstance(timeZone);
-        cal.set(2002,1,23,10,11,12);
+        cal.set(2002, Calendar.FEBRUARY, 23, 10, 11, 12);
         String text = DateFormatUtils.format(cal.getTime(), 
                         DateFormatUtils.ISO_DATE_FORMAT.getPattern(), timeZone);
         assertEquals("2002-02-23", text);
@@ -165,7 +168,7 @@ public class DateFormatUtilsTest {
     public void testTimeISO(){
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         final Calendar cal = Calendar.getInstance(timeZone);
-        cal.set(2002,1,23,10,11,12);
+        cal.set(2002, Calendar.FEBRUARY, 23, 10, 11, 12);
         String text = DateFormatUtils.format(cal.getTime(), 
                         DateFormatUtils.ISO_TIME_FORMAT.getPattern(), timeZone);
         assertEquals("T10:11:12", text);
@@ -189,7 +192,7 @@ public class DateFormatUtilsTest {
     public void testTimeNoTISO(){
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         final Calendar cal = Calendar.getInstance(timeZone);
-        cal.set(2002,1,23,10,11,12);
+        cal.set(2002, Calendar.FEBRUARY, 23, 10, 11, 12);
         String text = DateFormatUtils.format(cal.getTime(), 
                         DateFormatUtils.ISO_TIME_NO_T_FORMAT.getPattern(), timeZone);
         assertEquals("10:11:12", text);
@@ -213,7 +216,7 @@ public class DateFormatUtilsTest {
     public void testSMTP(){
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         final Calendar cal = Calendar.getInstance(timeZone);
-        cal.set(2003,5,8,10,11,12);
+        cal.set(2003, Calendar.JUNE, 8, 10, 11, 12);
         String text = DateFormatUtils.format(cal.getTime(), 
                         DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(), timeZone,
                         DateFormatUtils.SMTP_DATETIME_FORMAT.getLocale());
