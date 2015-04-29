@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1114" type="fix" dev="britter" due-to="Andy Coates">TypeUtils.ParameterizedType#equals doesn't work with wildcard types</action>
     <action issue="LANG-979" type="update" dev="britter" due-to="Bruno P. Kinoshita">TypeUtils.parameterizeWithOwner - wrong format descriptor for "invalid number of type parameters".</action>
     <action issue="LANG-1112" type="update" dev="britter">MultilineRecursiveToStringStyle largely unusable due to being package-private.</action>
     <action issue="LANG-1058" type="update" dev="djones" due-to="Leo Wang">StringUtils.uncapitalize performance improvement</action>
