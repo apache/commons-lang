@@ -1681,8 +1681,5 @@ public class DateUtilsTest {
         }
     }
 
-    void warn(final String msg) {
-        System.err.println(msg);
-    }
 }
 
