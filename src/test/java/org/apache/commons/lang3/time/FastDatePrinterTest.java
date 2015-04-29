@@ -16,7 +16,9 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -80,7 +82,7 @@ public class FastDatePrinterTest {
             TimeZone.setDefault(NEW_YORK);
 
             final GregorianCalendar cal1 = new GregorianCalendar(2003, 0, 10, 15, 33, 20);
-            final GregorianCalendar cal2 = new GregorianCalendar(2003, 6, 10, 9, 00, 00);
+            final GregorianCalendar cal2 = new GregorianCalendar(2003, 6, 10, 9, 0, 0);
             final Date date1 = cal1.getTime();
             final Date date2 = cal2.getTime();
             final long millis1 = date1.getTime();
@@ -135,7 +137,7 @@ public class FastDatePrinterTest {
         final Locale usLocale = Locale.US;
         final Locale swedishLocale = new Locale("sv", "SE");
         final Calendar cal = Calendar.getInstance();
-        cal.set(2004, 1, 3);
+        cal.set(2004, Calendar.FEBRUARY, 3);
         DatePrinter fdf = getDateInstance(FastDateFormat.SHORT, usLocale);
         assertEquals("2/3/04", fdf.format(cal));
 
@@ -152,13 +154,13 @@ public class FastDatePrinterTest {
         final Calendar cal = Calendar.getInstance();
         final DatePrinter format = getInstance(YYYY_MM_DD);
 
-        cal.set(1,0,1);
+        cal.set(1, Calendar.JANUARY, 1);
         assertEquals("0001/01/01", format.format(cal));
-        cal.set(10,0,1);
+        cal.set(10, Calendar.JANUARY, 1);
         assertEquals("0010/01/01", format.format(cal));
-        cal.set(100,0,1);
+        cal.set(100, Calendar.JANUARY, 1);
         assertEquals("0100/01/01", format.format(cal));
-        cal.set(999,0,1);
+        cal.set(999, Calendar.JANUARY, 1);
         assertEquals("0999/01/01", format.format(cal));
     }
     /**
@@ -169,7 +171,7 @@ public class FastDatePrinterTest {
         final Calendar cal = Calendar.getInstance();
         final DatePrinter format = getInstance("dd.MM.yyyy");
 
-        cal.set(1000,0,1);
+        cal.set(1000, Calendar.JANUARY, 1);
         assertEquals("01.01.1000", format.format(cal));
     }
 
@@ -182,18 +184,18 @@ public class FastDatePrinterTest {
         final Calendar cal = Calendar.getInstance();
         final DatePrinter format = getInstance(YYYY_MM_DD);
 
-        cal.set(2004,11,31);
+        cal.set(2004, Calendar.DECEMBER, 31);
         assertEquals("2004/12/31", format.format(cal));
-        cal.set(999,11,31);
+        cal.set(999, Calendar.DECEMBER, 31);
         assertEquals("0999/12/31", format.format(cal));
-        cal.set(1,2,2);
+        cal.set(1, Calendar.MARCH, 2);
         assertEquals("0001/03/02", format.format(cal));
     }
 
     @Test
     public void testLang303() {
         final Calendar cal = Calendar.getInstance();
-        cal.set(2004, 11, 31);
+        cal.set(2004, Calendar.DECEMBER, 31);
 
         DatePrinter format = getInstance(YYYY_MM_DD);
         final String output = format.format(cal);
@@ -208,7 +210,7 @@ public class FastDatePrinterTest {
         // for the unit test to work in any time zone, constructing with GMT-8 rather than default locale time zone
         final GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT-8"));
         cal.clear();
-        cal.set(2009, 9, 16, 8, 42, 16);
+        cal.set(2009, Calendar.OCTOBER, 16, 8, 42, 16);
 
         final DatePrinter format = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone("GMT"));
         assertEquals("dateTime", "2009-10-16T16:42:16.000Z", format.format(cal.getTime()));
@@ -220,7 +222,7 @@ public class FastDatePrinterTest {
         final Locale locale = new Locale("sv", "SE");
 
         final Calendar cal = Calendar.getInstance();
-        cal.set(2010, 0, 1, 12, 0, 0);
+        cal.set(2010, Calendar.JANUARY, 1, 12, 0, 0);
         final Date d = cal.getTime();
 
         final DatePrinter fdf = getInstance("EEEE', week 'ww", locale);
