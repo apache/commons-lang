@@ -117,7 +117,7 @@ public class FastDateParserTest {
     public void testParseZone() throws ParseException {
         final Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
         cal.clear();
-        cal.set(2003, 6, 10, 16, 33, 20);
+        cal.set(2003, Calendar.JULY, 10, 16, 33, 20);
 
         final DateParser fdf = getInstance(yMdHmsSZ, NEW_YORK, Locale.US);
 
@@ -127,12 +127,12 @@ public class FastDateParserTest {
         assertEquals(cal.getTime(), fdf.parse("2003-07-10T16:33:20.000 EDT"));
 
         cal.setTimeZone(TimeZone.getTimeZone("GMT-3"));
-        cal.set(2003, 1, 10, 9, 0, 0);
+        cal.set(2003, Calendar.FEBRUARY, 10, 9, 0, 0);
 
         assertEquals(cal.getTime(), fdf.parse("2003-02-10T09:00:00.000 -0300"));
 
         cal.setTimeZone(TimeZone.getTimeZone("GMT+5"));
-        cal.set(2003, 1, 10, 15, 5, 6);
+        cal.set(2003, Calendar.FEBRUARY, 10, 15, 5, 6);
 
         assertEquals(cal.getTime(), fdf.parse("2003-02-10T15:05:06.000 +0500"));
     }
@@ -141,7 +141,7 @@ public class FastDateParserTest {
     public void testParseLongShort() throws ParseException {
         final Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
         cal.clear();
-        cal.set(2003, 1, 10, 15, 33, 20);
+        cal.set(2003, Calendar.FEBRUARY, 10, 15, 33, 20);
         cal.set(Calendar.MILLISECOND, 989);
         cal.setTimeZone(NEW_YORK);
 
@@ -170,25 +170,25 @@ public class FastDateParserTest {
         final DateParser k = getInstance("yyyy-MM-dd kk:mm:ss", NEW_YORK, Locale.US);
         final DateParser H = getInstance("yyyy-MM-dd HH:mm:ss", NEW_YORK, Locale.US);
 
-        cal.set(2010, 7, 1, 0, 33, 20);
+        cal.set(2010, Calendar.AUGUST, 1, 0, 33, 20);
         assertEquals(cal.getTime(), h.parse("2010-08-01 12 AM 33:20"));
         assertEquals(cal.getTime(), K.parse("2010-08-01 0 AM 33:20"));
         assertEquals(cal.getTime(), k.parse("2010-08-01 00:33:20"));
         assertEquals(cal.getTime(), H.parse("2010-08-01 00:33:20"));
 
-        cal.set(2010, 7, 1, 3, 33, 20);
+        cal.set(2010, Calendar.AUGUST, 1, 3, 33, 20);
         assertEquals(cal.getTime(), h.parse("2010-08-01 3 AM 33:20"));
         assertEquals(cal.getTime(), K.parse("2010-08-01 3 AM 33:20"));
         assertEquals(cal.getTime(), k.parse("2010-08-01 03:33:20"));
         assertEquals(cal.getTime(), H.parse("2010-08-01 03:33:20"));
 
-        cal.set(2010, 7, 1, 15, 33, 20);
+        cal.set(2010, Calendar.AUGUST, 1, 15, 33, 20);
         assertEquals(cal.getTime(), h.parse("2010-08-01 3 PM 33:20"));
         assertEquals(cal.getTime(), K.parse("2010-08-01 3 PM 33:20"));
         assertEquals(cal.getTime(), k.parse("2010-08-01 15:33:20"));
         assertEquals(cal.getTime(), H.parse("2010-08-01 15:33:20"));
 
-        cal.set(2010, 7, 1, 12, 33, 20);
+        cal.set(2010, Calendar.AUGUST, 1, 12, 33, 20);
         assertEquals(cal.getTime(), h.parse("2010-08-01 12 PM 33:20"));
         assertEquals(cal.getTime(), K.parse("2010-08-01 0 PM 33:20"));
         assertEquals(cal.getTime(), k.parse("2010-08-01 12:33:20"));
@@ -322,7 +322,7 @@ public class FastDateParserTest {
 
         final Calendar cal= Calendar.getInstance(GMT);
         cal.clear();
-        cal.set(2003, 1, 10);
+        cal.set(2003, Calendar.FEBRUARY, 10);
         if (eraBC) {
             cal.set(Calendar.ERA, GregorianCalendar.BC);
         }
@@ -370,7 +370,7 @@ public class FastDateParserTest {
     public void testParseNumerics() throws ParseException {
         final Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
         cal.clear();
-        cal.set(2003, 1, 10, 15, 33, 20);
+        cal.set(2003, Calendar.FEBRUARY, 10, 15, 33, 20);
         cal.set(Calendar.MILLISECOND, 989);
 
         final DateParser fdf = getInstance("yyyyMMddHHmmssSSS", NEW_YORK, Locale.US);
@@ -381,7 +381,7 @@ public class FastDateParserTest {
     public void testQuotes() throws ParseException {
         final Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
         cal.clear();
-        cal.set(2003, 1, 10, 15, 33, 20);
+        cal.set(2003, Calendar.FEBRUARY, 10, 15, 33, 20);
         cal.set(Calendar.MILLISECOND, 989);
 
         final DateParser fdf = getInstance("''yyyyMMdd'A''B'HHmmssSSS''", NEW_YORK, Locale.US);
@@ -459,7 +459,7 @@ public class FastDateParserTest {
     public void testDayOf() throws ParseException {
         final Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
         cal.clear();
-        cal.set(2003, 1, 10);
+        cal.set(2003, Calendar.FEBRUARY, 10);
 
         final DateParser fdf = getInstance("W w F D y", NEW_YORK, Locale.US);
         assertEquals(cal.getTime(), fdf.parse("3 7 2 41 03"));
@@ -475,7 +475,7 @@ public class FastDateParserTest {
         final Calendar cal = Calendar.getInstance();
         cal.clear();
 
-        cal.set(2004, 1, 3);
+        cal.set(2004, Calendar.FEBRUARY, 3);
         assertEquals(cal.getTime(), fdf.parse("2/3/04"));
 
         fdf = getDateInstance(FastDateFormat.SHORT, SWEDEN);
@@ -492,13 +492,13 @@ public class FastDateParserTest {
         final Calendar cal = Calendar.getInstance();
         cal.clear();
 
-        cal.set(1,0,1);
+        cal.set(1, Calendar.JANUARY, 1);
         assertEquals(cal.getTime(), parser.parse("0001/01/01"));
-        cal.set(10,0,1);
+        cal.set(10, Calendar.JANUARY, 1);
         assertEquals(cal.getTime(), parser.parse("0010/01/01"));
-        cal.set(100,0,1);
+        cal.set(100, Calendar.JANUARY, 1);
         assertEquals(cal.getTime(), parser.parse("0100/01/01"));
-        cal.set(999,0,1);
+        cal.set(999, Calendar.JANUARY, 1);
         assertEquals(cal.getTime(), parser.parse("0999/01/01"));
     }
 
@@ -508,7 +508,7 @@ public class FastDateParserTest {
         final Calendar cal = Calendar.getInstance();
         cal.clear();
 
-        cal.set(1000,0,1);
+        cal.set(1000, Calendar.JANUARY, 1);
         assertEquals(cal.getTime(), parser.parse("01.01.1000"));
     }
 
@@ -516,7 +516,7 @@ public class FastDateParserTest {
     public void testLang303() throws ParseException {
         DateParser parser = getInstance(YMD_SLASH);
         final Calendar cal = Calendar.getInstance();
-        cal.set(2004, 11, 31);
+        cal.set(2004, Calendar.DECEMBER, 31);
 
         final Date date = parser.parse("2004/11/31");
 
@@ -530,7 +530,7 @@ public class FastDateParserTest {
 
         final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-8"));
         cal.clear();
-        cal.set(2009, 9, 16, 8, 42, 16);
+        cal.set(2009, Calendar.OCTOBER, 16, 8, 42, 16);
 
         assertEquals(cal.getTime(), parser.parse("2009-10-16T16:42:16.000Z"));
     }
@@ -574,7 +574,7 @@ public class FastDateParserTest {
     public void testLang996() throws ParseException {
         final Calendar expected = Calendar.getInstance(NEW_YORK, Locale.US);
         expected.clear();
-        expected.set(2014, 4, 14);
+        expected.set(2014, Calendar.MAY, 14);
 
         final DateParser fdp = getInstance("ddMMMyyyy", NEW_YORK, Locale.US);        
         assertEquals(expected.getTime(), fdp.parse("14may2014"));
