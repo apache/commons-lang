@@ -75,7 +75,7 @@ public class FastDateParser implements DateParser, Serializable {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     static final Locale JAPANESE_IMPERIAL = new Locale("ja","JP","JP");
 
@@ -85,6 +85,7 @@ public class FastDateParser implements DateParser, Serializable {
     private final Locale locale;
     private final int century;
     private final int startYear;
+    private final boolean lenient;
 
     // derived fields
     private transient Pattern parsePattern;
@@ -106,7 +107,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @param locale non-null locale
      */
     protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale) {
-        this(pattern, timeZone, locale, null);
+        this(pattern, timeZone, locale, null, true);
     }
 
     /**
@@ -121,11 +122,31 @@ public class FastDateParser implements DateParser, Serializable {
      * @since 3.3
      */
     protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
+        this(pattern, timeZone, locale, centuryStart, true);
+    }
+
+    /**
+     * <p>Constructs a new FastDateParser.</p>
+     *
+     * @param pattern non-null {@link java.text.SimpleDateFormat} compatible
+     *  pattern
+     * @param timeZone non-null time zone to use
+     * @param locale non-null locale
+     * @param centuryStart The start of the century for 2 digit year parsing
+     * @param lenient if true, non-standard values for Calendar fields should be accepted;
+     * if false, non-standard values will cause a ParseException to be thrown {@link CalendaretLenient(boolean)}
+     *
+     * @since 3.5
+     */
+    protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale,
+            final Date centuryStart, final boolean lenient) {
         this.pattern = pattern;
         this.timeZone = timeZone;
         this.locale = locale;
+        this.lenient = lenient;
 
         final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
+
         int centuryStartYear;
         if(centuryStart!=null) {
             definingCalendar.setTime(centuryStart);
@@ -336,6 +357,7 @@ public class FastDateParser implements DateParser, Serializable {
         // timing tests indicate getting new instance is 19% faster than cloning
         final Calendar cal= Calendar.getInstance(timeZone, locale);
         cal.clear();
+        cal.setLenient(lenient);
 
         for(int i=0; i<strategies.length;) {
             final Strategy strategy= strategies[i++];

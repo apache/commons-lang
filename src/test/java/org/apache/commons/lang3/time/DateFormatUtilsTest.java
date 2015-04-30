@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -267,5 +268,21 @@ public class DateFormatUtilsTest {
     public void testLANG1000() throws Exception {
         String date = "2013-11-18T12:48:05Z";
         DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.parse(date);
+    }
+
+    @Test
+    public void testLang530() throws ParseException {
+        TimeZone save = TimeZone.getDefault();
+        try {
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+            final Date d = new Date();
+            final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
+            final Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });
+            // the format loses milliseconds so have to reintroduce them
+            assertEquals("Date not equal to itself ISO formatted and parsed", d.getTime(), d2.getTime() + d.getTime() % 1000);
+        }
+        finally {
+            TimeZone.setDefault(save);
+        }
     }
 }
