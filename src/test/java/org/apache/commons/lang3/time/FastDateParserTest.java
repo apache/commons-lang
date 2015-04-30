@@ -639,4 +639,32 @@ public class FastDateParserTest {
             assertEquals(message+trial.three, cal.getTime(), parser.parse(dateStub+trial.three));
         }
     }
+
+    @Test
+    public void testLang1121() throws ParseException {
+        TimeZone kst = TimeZone.getTimeZone("KST");
+        final DateParser fdp = FastDateFormat.getInstance("yyyyMMdd", kst, Locale.KOREA);
+
+        try {
+            fdp.parse("2015");
+            Assert.fail("expected parse exception");
+        } catch (ParseException pe) {
+        }
+
+        // Wed Apr 29 00:00:00 KST 2015
+        Date actual = fdp.parse("20150429");
+        final Calendar cal = Calendar.getInstance(kst, Locale.KOREA);
+        cal.clear();
+        cal.set(2015, 3, 29);
+        Date expected = cal.getTime();
+        Assert.assertEquals(expected, actual);
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+        df.setTimeZone(kst);
+        expected = df.parse("20150429113100");
+
+        // Thu Mar 16 00:00:00 KST 81724
+        actual = fdp.parse("20150429113100");
+        Assert.assertEquals(expected, actual);
+    }
 }
