@@ -1199,11 +1199,15 @@ public class DateUtilsTest {
     // http://issues.apache.org/jira/browse/LANG-530
     @Test
     public void testLang530() throws ParseException {
-        final Date d = new Date();
-        final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
-        final Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });
-        // the format loses milliseconds so have to reintroduce them
-        assertEquals("Date not equal to itself ISO formatted and parsed", d.getTime(), d2.getTime() + d.getTime() % 1000); 
+        for (final String timezoneId : TimeZone.getAvailableIDs()) {
+            final TimeZone timezone = TimeZone.getTimeZone(timezoneId);
+            final Calendar calendar = new GregorianCalendar(timezone);
+
+            final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(calendar);
+            final Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });
+            // the format loses milliseconds so have to reintroduce them
+            assertEquals("Date not equal to itself ISO formatted and parsed", calendar.getTimeInMillis(), d2.getTime() + calendar.getTimeInMillis() % 1000); 
+        }
     }
     
     /**
