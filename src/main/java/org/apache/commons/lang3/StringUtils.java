@@ -3277,6 +3277,164 @@ public class StringUtils {
         return list.toArray(new String[list.size()]);
     }
 
+    /**
+     * <p>Split a String into an array, using an array of fixed string lengths.</p>
+     *
+     * <p>If not null String input, the returned array size is same as the input lengths array.</p>
+     *
+     * <p>A null input String returns {@code null}.
+     * A {@code null} or empty input lengths array returns an empty array.
+     * A {@code 0} in the input lengths array results in en empty string.</p>
+     *
+     * <p>Extra characters are ignored (ie String length greater than sum of split lengths).
+     * All empty substrings other than zero length requested, are returned {@code null}.</p>
+     *
+     * <pre>
+     * StringUtils.splitByLength(null, *)      = null
+     * StringUtils.splitByLength("abc")        = []
+     * StringUtils.splitByLength("abc", null)  = []
+     * StringUtils.splitByLength("abc", [])    = []
+     * StringUtils.splitByLength("", 2, 4, 1)  = [null, null, null]
+     *
+     * StringUtils.splitByLength("abcdefg", 2, 4, 1)     = ["ab", "cdef", "g"]
+     * StringUtils.splitByLength("abcdefghij", 2, 4, 1)  = ["ab", "cdef", "g"]
+     * StringUtils.splitByLength("abcdefg", 2, 4, 5)     = ["ab", "cdef", "g"]
+     * StringUtils.splitByLength("abcdef", 2, 4, 1)      = ["ab", "cdef", null]
+     *
+     * StringUtils.splitByLength(" abcdef", 2, 4, 1)     = [" a", "bcde", "f"]
+     * StringUtils.splitByLength("abcdef ", 2, 4, 1)     = ["ab", "cdef", " "]
+     * StringUtils.splitByLength("abcdefg", 2, 4, 0, 1)  = ["ab", "cdef", "", "g"]
+     * StringUtils.splitByLength("abcdefg", -1)          = {@link IllegalArgumentException}
+     * </pre>
+     *
+     * @param str  the String to parse, may be null
+     * @param lengths  the string lengths where to cut, may be null, must not be negative
+     * @return an array of splitted Strings, {@code null} if null String input
+     * @throws IllegalArgumentException
+     *             if one of the lengths is negative
+     */
+    public static String[] splitByLength(String str, int ... lengths) {
+        if (str == null) {
+            return null;
+        }
+        if (lengths == null || lengths.length == 0) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        String[] splittedStrings = new String[lengths.length];
+        int index = 0;
+        int start = 0;
+        int end = 0;
+        for (int length : lengths) {
+            if (length < 0) {
+                throw new IllegalArgumentException("Lengths must not be negative");
+            }
+            if (length == 0) {
+                splittedStrings[index] = EMPTY;
+            } else {
+                end += length;
+                String substring = substring(str, start, end);
+                splittedStrings[index] = defaultIfEmpty(substring, null);
+                start = end;
+            }
+            index++;
+        }
+        return splittedStrings;
+    }
+
+    /**
+     * <p>Split a String into an array, using an array of fixed string lengths repeated as
+     * many times as necessary to reach the String end.</p>
+     *
+     * <p>If not null String input, the returned array size is a multiple of the input lengths array.</p>
+     *
+     * <p>A null input String returns {@code null}.
+     * A {@code null} or empty input lengths array returns an empty array.
+     * A {@code 0} in the input lengths array results in en empty string.</p>
+     *
+     * <p>All empty substrings other than zero length requested and following substrings,
+     * are returned {@code null}.</p>
+     *
+     * <pre>
+     * StringUtils.splitByLengthRepeated(null, *)      = null
+     * StringUtils.splitByLengthRepeated("abc")        = []
+     * StringUtils.splitByLengthRepeated("abc", null)  = []
+     * StringUtils.splitByLengthRepeated("abc", [])    = []
+     * StringUtils.splitByLengthRepeated("", 2, 4, 1)  = [null, null, null]
+     *
+     * StringUtils.splitByLengthRepeated("abcdefghij", 2, 3)     = ["ab", "cde", "fg", "hij"]
+     * StringUtils.splitByLengthRepeated("abcdefgh", 2, 3)       = ["ab", "cde", "fg", "h"]
+     * StringUtils.splitByLengthRepeated("abcdefg", 2, 3)        = ["ab", "cde", "fg", null]
+     *
+     * StringUtils.splitByLengthRepeated(" abcdef", 2, 3)        = [" a", "bcd", "ef", null]
+     * StringUtils.splitByLengthRepeated("abcdef ", 2, 3)        = ["ab", "cde", "f ", null]
+     * StringUtils.splitByLengthRepeated("abcdef", 2, 3, 0, 1)   = ["ab", "cde", "", "f"]
+     * StringUtils.splitByLengthRepeated("abcdefg", 2, 3, 0, 1)  = ["ab", "cde", "", "f",
+     *                                                              "g", null, null, null]
+     * StringUtils.splitByLengthRepeated("abcdefgh", 2, 0, 1, 0) = ["ab", "", "c", "",
+     *                                                              "de", "", "f", "",
+     *                                                              "gh", "", null, null]
+     * StringUtils.splitByLengthRepeated("abcdefg", 2, 0, 1, 0) = ["ab", "", "c", "",
+     *                                                              "de", "", "f", "",
+     *                                                              "g", null, null, null]
+     * StringUtils.splitByLengthRepeated("abcdefg", -1)          = {@link IllegalArgumentException}
+     * StringUtils.splitByLengthRepeated("abcdefg", 0, 0)        = {@link IllegalArgumentException}
+     * </pre>
+     *
+     * @param str  the String to parse, may be null
+     * @param lengths  the string lengths where to cut, may be null, must not be negative
+     * @return an array of splitted Strings, {@code null} if null String input
+     * @throws IllegalArgumentException
+     *             if one of the lengths is negative or if lengths sum is less than 1
+     */
+    public static String[] splitByLengthRepeatedly(String str, int... lengths) {
+        if (str == null) {
+            return null;
+        }
+        if (lengths == null || lengths.length == 0) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+
+        // Calculating of lengths sum
+        int lengthsSum = 0;
+        for (int length : lengths) {
+            if (length < 0) {
+                throw new IllegalArgumentException("Lengths must not be negative");
+            }
+            lengthsSum += length;
+        }
+        if (lengthsSum <= 0) {
+            throw new IllegalArgumentException("Lengths sum must be greater than 0");
+        }
+
+        // Determining how many time we have to repeat de lengths array over the given String
+        final int strLen = str.length();
+        final int lengthRepeatCount
+            = strLen == 0
+                ? 1
+                : (strLen / lengthsSum + (strLen % lengthsSum == 0 ? 0 : 1));
+
+        // Loop over given String to extract splitted substrings
+        String[] splittedStrings = new String[lengthRepeatCount * lengths.length];
+        int lengthIndex = 0;
+        int splittedIndex = 0;
+        int start = 0;
+        int end = 0;
+        while (start <= strLen && splittedIndex < splittedStrings.length) {
+            int length = lengths[lengthIndex];
+            if (length == 0) {
+                splittedStrings[splittedIndex] = EMPTY;
+            } else {
+                end += length;
+                String substring = substring(str, start, end);
+                splittedStrings[splittedIndex] = defaultIfEmpty(substring, null);
+                start = end;
+            }
+            splittedIndex++;
+            lengthIndex = splittedIndex % lengths.length;
+        }
+        return splittedStrings;
+    }
+
     // Joining
     //-----------------------------------------------------------------------
     /**

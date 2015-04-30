@@ -1107,6 +1107,77 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testSplitByLength() {
+        assertNull(StringUtils.splitByLength(null, 2, 4, 1));
+        assertArrayEquals(new String[0], StringUtils.splitByLength("abc"));
+        assertArrayEquals(new String[0], StringUtils.splitByLength("abc", new int[0]));
+        assertArrayEquals(new String[0], StringUtils.splitByLength("abc", null));
+        assertArrayEquals(new String[]{ null, null, null }, StringUtils.splitByLength("", 2, 4, 1));
+
+        assertArrayEquals(new String[]{ "ab", "cdef", "g" }, StringUtils.splitByLength("abcdefg", 2, 4, 1));
+        assertArrayEquals(new String[]{ "ab", "cdef", "g" }, StringUtils.splitByLength("abcdefghij", 2, 4, 1));
+        assertArrayEquals(new String[]{ "ab", "cdef", "g" }, StringUtils.splitByLength("abcdefg", 2, 4, 5));
+        assertArrayEquals(new String[]{ "ab", "cdef", null }, StringUtils.splitByLength("abcdef", 2, 4, 1));
+
+        assertArrayEquals(new String[]{ " a", "bcde", "f" }, StringUtils.splitByLength(" abcdefg", 2, 4, 1));
+        assertArrayEquals(new String[]{ "ab", "cdef", " " }, StringUtils.splitByLength("abcdef ", 2, 4, 1));
+        assertArrayEquals(new String[]{ "ab", "cdef", "", "g" }, StringUtils.splitByLength("abcdefg", 2, 4, 0, 1));
+        try {
+            StringUtils.splitByLength("abcdefg", -1);
+            fail("StringUtils.splitByLength expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            // empty
+        }
+    }
+
+    @Test
+    public void testSplitByLengthRepeated() {
+        assertNull(StringUtils.splitByLengthRepeatedly(null, 2, 4, 1));
+        assertArrayEquals(new String[0], StringUtils.splitByLengthRepeatedly("abc"));
+        assertArrayEquals(new String[0], StringUtils.splitByLengthRepeatedly("abc", new int[0]));
+        assertArrayEquals(new String[0], StringUtils.splitByLengthRepeatedly("abc", null));
+        assertArrayEquals(new String[]{ null, null, null }, StringUtils.splitByLengthRepeatedly("", 2, 4, 1));
+
+        assertArrayEquals(new String[]{ "ab", "cde", "fg", "hij" }, StringUtils.splitByLengthRepeatedly("abcdefghij", 2, 3));
+        assertArrayEquals(new String[]{ "ab", "cde", "fg", "h" }, StringUtils.splitByLengthRepeatedly("abcdefgh", 2, 3));
+        assertArrayEquals(new String[]{ "ab", "cde", "fg", null }, StringUtils.splitByLengthRepeatedly("abcdefg", 2, 3));
+
+        assertArrayEquals(new String[]{ " a", "bcd", "ef", null }, StringUtils.splitByLengthRepeatedly(" abcdef", 2, 3));
+        assertArrayEquals(new String[]{ "ab", "cde", "f ", null }, StringUtils.splitByLengthRepeatedly("abcdef ", 2, 3));
+        assertArrayEquals(new String[]{ "ab", "cde", "", "f" }, StringUtils.splitByLengthRepeatedly("abcdef", 2, 3, 0, 1));
+        assertArrayEquals(new String[]{ "ab", "cde", "", "f",
+                                        "g", null, null, null},
+                          StringUtils.splitByLengthRepeatedly("abcdefg", 2, 3, 0, 1));
+        assertArrayEquals(new String[]{ "ab", "", "c", "",
+                                        "de", "", "f", "",
+                                        "gh", "", null, null },
+                          StringUtils.splitByLengthRepeatedly("abcdefgh", 2, 0, 1, 0));
+        assertArrayEquals(new String[]{ "ab", "", "c", "",
+                                        "de", "", "f", "",
+                                        "g", null, null, null },
+                          StringUtils.splitByLengthRepeatedly("abcdefg", 2, 0, 1, 0));
+
+        try {
+            StringUtils.splitByLengthRepeatedly("abcdefg", -1);
+            fail("StringUtils.splitByLengthRepeated expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            // empty
+        }
+        try {
+            StringUtils.splitByLengthRepeatedly("abcdefg", 0, 0);
+            fail("StringUtils.splitByLengthRepeated expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            // empty
+        }
+        try {
+            StringUtils.splitByLengthRepeatedly("abcdefg", 0);
+            fail("StringUtils.splitByLengthRepeated expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            // empty
+        }
+    }
+
+    @Test
     public void testDeleteWhitespace_String() {
         assertNull(StringUtils.deleteWhitespace(null));
         assertEquals("", StringUtils.deleteWhitespace(""));
