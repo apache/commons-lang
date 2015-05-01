@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-456" type="fix" dev="britter" due-to="Bob Fields, Woosan Ko, Bruno P. Kinoshita">HashCodeBuilder throws StackOverflowError in bidirectional navigable association</action>
     <action issue="LANG-1126" type="fix" dev="britter">DateFormatUtilsTest.testSMTP depends on the default Locale</action>
     <action issue="LANG-1123" type="fix" dev="chas" due-to="Christian P. Momon">Unit test FastDatePrinterTimeZonesTest needs a timezone set</action>
     <action issue="LANG-916" type="fix" dev="chas" due-to="Christian P. Momon">CLONE - DateFormatUtils.format does not correctly change Calendar TimeZone in certain situations</action>
