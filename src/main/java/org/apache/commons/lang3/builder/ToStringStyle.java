@@ -2583,15 +2583,22 @@ public abstract class ToStringStyle implements Serializable {
             }
 
             final String valueAsString = value.toString();
-            if (valueAsString.startsWith(getContentStart())
-                    && valueAsString.endsWith(getContentEnd())
-                    || valueAsString.startsWith(getArrayStart())
-                    && valueAsString.startsWith(getArrayEnd())) {
+            if (isJsonObject(valueAsString) || isJsonArray(valueAsString)) {
                 buffer.append(value);
                 return;
             }
 
             appendDetail(buffer, fieldName, valueAsString);
+        }
+
+        private boolean isJsonArray(String valueAsString) {
+            return valueAsString.startsWith(getArrayStart())
+                    && valueAsString.startsWith(getArrayEnd());
+        }
+
+        private boolean isJsonObject(String valueAsString) {
+            return valueAsString.startsWith(getContentStart())
+                    && valueAsString.endsWith(getContentEnd());
         }
 
         /**
