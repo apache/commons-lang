@@ -232,17 +232,17 @@ public class JsonToStringStyleTest {
     
     @Test
     public void testNestingPerson() {
-    	final Person p = new Person(){
-    		public String toString(){
-    			return new ToStringBuilder(this).append("name", this.name)
-                .append("age", this.age).append("smoker", this.smoker)
-                .toString();
-    		}
-    	};
-    	p.name = "Jane Doe";
+        final Person p = new Person(){
+            public String toString(){
+                return new ToStringBuilder(this).append("name", this.name)
+                    .append("age", this.age).append("smoker", this.smoker)
+                    .toString();
+            }
+        };
+        p.name = "Jane Doe";
         p.age = 25;
         p.smoker = true;
-        
+
         final NestingPerson nestP = new NestingPerson();
         nestP.pid="#1@Jane";
         nestP.person = p;
