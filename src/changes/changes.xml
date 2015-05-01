@@ -24,7 +24,7 @@
   <release version="3.5" date="tba" description="tba">
     <action issue="LANG-1126" type="fix" dev="britter">DateFormatUtilsTest.testSMTP depends on the default Locale</action>
     <action issue="LANG-1123" type="fix" dev="chas" due-to="Christian P. Momon">Unit test FastDatePrinterTimeZonesTest needs a timezone set</action>
-    <action issue="LANG-916" type="fix" dev="chas" due-to="Christian P. Momon">DateUtilsTest.testLang530 fails for some timezones</action>
+    <action issue="LANG-916" type="fix" dev="chas" due-to="Christian P. Momon">CLONE - DateFormatUtils.format does not correctly change Calendar TimeZone in certain situations</action>
     <action issue="LANG-1116" type="fix" dev="chas" due-to="Aaron Sheldon">DateUtilsTest.testLang530 fails for some timezones</action>
     <action issue="LANG-1114" type="fix" dev="britter" due-to="Andy Coates">TypeUtils.ParameterizedType#equals doesn't work with wildcard types</action>
     <action issue="LANG-1119" type="add" dev="britter" due-to="Loic Guibert">Add rotate(string, int) method to StringUtils</action>
