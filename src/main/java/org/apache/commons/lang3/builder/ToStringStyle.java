@@ -2573,13 +2573,28 @@ public abstract class ToStringStyle implements Serializable {
                 return;
             }
 
-            if (value instanceof Number || value.getClass() == Boolean.class) {
+            if (value instanceof String || value instanceof Character) {
 
-                buffer.append(value);
+            	appendValueAsString(buffer, value.toString());
                 return;
             }
-
-            appendValueAsString(buffer, value.toString());
+            
+            if (value instanceof Number || value instanceof Boolean) {
+            
+            	buffer.append(value);
+            	return;
+            }
+            
+            final String try_value_str = value.toString();
+            if (try_value_str.startsWith(getContentStart()) && try_value_str.endsWith(getContentEnd())
+                    || try_value_str.startsWith(getArrayStart()) && try_value_str.startsWith(getArrayEnd())
+                ) {
+                
+            	buffer.append(value);
+            	return;
+            }
+            
+            appendDetail(buffer, fieldName, try_value_str);
         }
 
         /**
