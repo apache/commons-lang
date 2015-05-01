@@ -111,7 +111,7 @@ public class JsonToStringStyleTest {
     public void testDate() {
         
         final Date now = new Date();
-        final Date after_now = new Date(System.currentTimeMillis() + 1);
+        final Date afterNow = new Date(System.currentTimeMillis() + 1);
         
         try {
             new ToStringBuilder(base).append(now).toString();
@@ -121,7 +121,7 @@ public class JsonToStringStyleTest {
         
         assertEquals("{\"now\":\"" + now.toString() +"\"}", new ToStringBuilder(base).append("now", now)
                 .toString());
-        assertEquals("{\"now\":\"" + now.toString() +"\",\"after\":\"" + after_now.toString() + "\"}", new ToStringBuilder(base).append("now", now).append("after", after_now)
+        assertEquals("{\"now\":\"" + now.toString() +"\",\"after\":\"" + afterNow.toString() + "\"}", new ToStringBuilder(base).append("now", now).append("after", afterNow)
                 .toString());
     }
 

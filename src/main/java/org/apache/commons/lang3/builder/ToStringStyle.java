@@ -2585,16 +2585,16 @@ public abstract class ToStringStyle implements Serializable {
             	return;
             }
             
-            final String try_value_str = value.toString();
-            if (try_value_str.startsWith(getContentStart()) && try_value_str.endsWith(getContentEnd())
-                    || try_value_str.startsWith(getArrayStart()) && try_value_str.startsWith(getArrayEnd())
+            final String valueAsString = value.toString();
+            if (valueAsString.startsWith(getContentStart()) && valueAsString.endsWith(getContentEnd())
+                    || valueAsString.startsWith(getArrayStart()) && valueAsString.startsWith(getArrayEnd())
                 ) {
                 
             	buffer.append(value);
             	return;
             }
             
-            appendDetail(buffer, fieldName, try_value_str);
+            appendDetail(buffer, fieldName, valueAsString);
         }
 
         /**
