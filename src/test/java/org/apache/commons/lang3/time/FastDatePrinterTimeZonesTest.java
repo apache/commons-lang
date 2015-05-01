@@ -57,7 +57,7 @@ public class FastDatePrinterTimeZonesTest {
         final SimpleDateFormat sdf = new SimpleDateFormat(PATTERN);
         sdf.setTimeZone(timeZone);
         final String expectedValue = sdf.format(cal.getTime());
-        final String actualValue = FastDateFormat.getInstance(PATTERN).format(cal);
+        final String actualValue = FastDateFormat.getInstance(PATTERN, this.timeZone).format(cal);
         assertEquals(expectedValue, actualValue);
     }
 

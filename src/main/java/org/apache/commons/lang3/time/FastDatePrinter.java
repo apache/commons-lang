@@ -477,7 +477,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public StringBuffer format(final Calendar calendar, final StringBuffer buf) {
-        return applyRules(calendar, buf);
+        // do not pass in calendar directly, this will cause TimeZone of FastDatePrinter to be ignored
+        return format(calendar.getTime(), buf);
     }
 
     /**

@@ -266,7 +266,7 @@ public class DurationFormatUtilsTest {
         cal.set(Calendar.MILLISECOND, 1);
         String text;
         // repeat a test from testDateTimeISO to compare extended and not extended.
-        text = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(cal);
+        text = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), timeZone);
         assertEquals("2002-02-23T09:11:12-03:00", text);
         // test fixture is the same as above, but now with extended format.
         text = DurationFormatUtils.formatPeriod(base.getTime().getTime(), cal.getTime().getTime(),

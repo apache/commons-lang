@@ -214,7 +214,7 @@ public class FastDatePrinterTest {
 
         final DatePrinter format = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone("GMT"));
         assertEquals("dateTime", "2009-10-16T16:42:16.000Z", format.format(cal.getTime()));
-        assertEquals("dateTime", "2009-10-16T08:42:16.000Z", format.format(cal));
+        assertEquals("dateTime", "2009-10-16T16:42:16.000Z", format.format(cal));
     }
 
     @Test
@@ -338,5 +338,33 @@ public class FastDatePrinterTest {
         assertEquals("002", getInstance("ddd", SWEDEN).format(cal));
         assertEquals("0002", getInstance("dddd", SWEDEN).format(cal));
         assertEquals("00002", getInstance("ddddd", SWEDEN).format(cal));
+    }
+
+    /**
+     * According to LANG-916 (https://issues.apache.org/jira/browse/LANG-916),
+     * the format method did contain a bug: it did not use the TimeZone data.
+     *
+     * This method test that the bug is fixed.
+     */
+    @Test
+    public void testLang916() throws Exception {
+
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        cal.clear();
+        cal.set(2009, 9, 16, 8, 42, 16);
+
+        // calendar fast.
+        {
+            String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Europe/Paris")).format(cal);
+            assertEquals("calendar", "2009-10-16T08:42:16 +0200", value);
+        }
+        {
+            String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Asia/Kolkata")).format(cal);
+            assertEquals("calendar", "2009-10-16T12:12:16 +0530", value);
+        }
+        {
+            String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Europe/London")).format(cal);
+            assertEquals("calendar", "2009-10-16T07:42:16 +0100", value);
+        }
     }
 }
