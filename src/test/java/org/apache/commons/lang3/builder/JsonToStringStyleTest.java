@@ -229,6 +229,30 @@ public class JsonToStringStyleTest {
                         .append("age", p.age).append("smoker", p.smoker)
                         .toString());
     }
+    
+    @Test
+    public void testNestingPerson() {
+    	final Person p = new Person(){
+    		public String toString(){
+    			return new ToStringBuilder(this).append("name", this.name)
+                .append("age", this.age).append("smoker", this.smoker)
+                .toString();
+    		}
+    	};
+    	p.name = "Jane Doe";
+        p.age = 25;
+        p.smoker = true;
+        
+        final NestingPerson nestP = new NestingPerson();
+        nestP.pid="#1@Jane";
+        nestP.person = p;
+
+        assertEquals(
+                "{\"pid\":\"#1@Jane\",\"person\":{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true}}",
+                new ToStringBuilder(nestP).append("pid", nestP.pid)
+                        .append("person", nestP.person)
+                        .toString());
+    }
 
     @Test
     public void testLong() {
@@ -336,5 +360,21 @@ public class JsonToStringStyleTest {
             fail("Should have generated UnsupportedOperationException");
         } catch (UnsupportedOperationException e) {
         }
+    }
+    
+    /**
+     * An object with nested object structures used to test {@link JsonToStringStyle}.
+     * 
+     */
+    static class NestingPerson {
+        /**
+         * Test String field.
+         */
+        String pid;
+
+        /**
+         * Test nested object field.
+         */
+        Person person;
     }
 }
