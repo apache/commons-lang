@@ -166,17 +166,23 @@ public class DateFormatUtilsTest {
     }
 
     @Test
-    public void testSMTP(){
-        TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
-        Calendar june = createJuneTestDate(timeZone);
-        
-        assertFormats("Sun, 08 Jun 2003 10:11:12 -0300", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
-                timeZone, june);
-
-        timeZone = TimeZone.getTimeZone("UTC");
-        june = createJuneTestDate(timeZone);
-        assertFormats("Sun, 08 Jun 2003 10:11:12 +0000", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
-                timeZone, june);
+    public void testSMTP() {
+        Locale defaultLocale = Locale.getDefault();
+        try {
+            Locale.setDefault(Locale.ENGLISH);
+            TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+            Calendar june = createJuneTestDate(timeZone);
+            
+            assertFormats("Sun, 08 Jun 2003 10:11:12 -0300", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
+                    timeZone, june);
+    
+            timeZone = TimeZone.getTimeZone("UTC");
+            june = createJuneTestDate(timeZone);
+            assertFormats("Sun, 08 Jun 2003 10:11:12 +0000", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
+                    timeZone, june);
+        } finally {
+            Locale.setDefault(defaultLocale);
+        }
     }
 
     /*
