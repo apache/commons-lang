@@ -17,12 +17,12 @@ limitations under the License.
 -->
 <document>
  <properties>
-  <title>Home</title>
+  <title>Release History</title>
   <author email="dev@commons.apache.org">Commons Documentation Team</author>
  </properties>
 <body>
 <!-- ================================================== -->
-  <section name="Commons Lang Release History">
+  <section name="Release History">
 
   This page contains information about all Apache Commons Lang releases.
 
