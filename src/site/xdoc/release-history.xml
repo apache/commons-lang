@@ -26,7 +26,7 @@ limitations under the License.
 
   This page contains information about all Apache Commons Lang releases.
 
-    <subsection name="org.apache.commons:commmons-lang3:3.x">
+    <subsection name="org.apache.commons:commons-lang3:3.x">
       <table>
         <tr>
           <th>Version</th><th>Release date</th><th>Required Java Version</th><th>Javadoc</th><th>Release notes</th>
@@ -61,7 +61,7 @@ limitations under the License.
       </table>
     </subsection>
 
-    <subsection name="commons-lang:commmons-lang:2.x">
+    <subsection name="commons-lang:commons-lang:2.x">
       <table>
         <tr>
           <th>Version</th><th>Release date</th><th>Required Java Version</th><th>Javadoc</th><th>Release notes</th>
@@ -90,7 +90,7 @@ limitations under the License.
       </table>
     </subsection>
 
-    <subsection name="commons-lang:commmons-lang:1.x">
+    <subsection name="commons-lang:commons-lang:1.x">
       <table>
         <tr>
           <th>Version</th><th>Release date</th><th>Required Java Version</th><th>Javadoc</th><th>Release notes</th>
