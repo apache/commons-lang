@@ -2568,32 +2568,29 @@ public abstract class ToStringStyle implements Serializable {
         protected void appendDetail(StringBuffer buffer, String fieldName, Object value) {
 
             if (value == null) {
-
                 appendNullText(buffer, fieldName);
                 return;
             }
 
             if (value instanceof String || value instanceof Character) {
-
-            	appendValueAsString(buffer, value.toString());
+                appendValueAsString(buffer, value.toString());
                 return;
             }
-            
+
             if (value instanceof Number || value instanceof Boolean) {
-            
-            	buffer.append(value);
-            	return;
+                buffer.append(value);
+                return;
             }
-            
+
             final String valueAsString = value.toString();
-            if (valueAsString.startsWith(getContentStart()) && valueAsString.endsWith(getContentEnd())
-                    || valueAsString.startsWith(getArrayStart()) && valueAsString.startsWith(getArrayEnd())
-                ) {
-                
-            	buffer.append(value);
-            	return;
+            if (valueAsString.startsWith(getContentStart())
+                    && valueAsString.endsWith(getContentEnd())
+                    || valueAsString.startsWith(getArrayStart())
+                    && valueAsString.startsWith(getArrayEnd())) {
+                buffer.append(value);
+                return;
             }
-            
+
             appendDetail(buffer, fieldName, valueAsString);
         }
 
