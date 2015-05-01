@@ -145,38 +145,44 @@ public class DateFormatUtilsTest {
     }
 
     @Test
-    public void testDateISO(){
+    public void testDateISO() {
         testGmtMinus3("2002-02-23", DateFormatUtils.ISO_DATE_FORMAT.getPattern());
         testGmtMinus3("2002-02-23-03:00", DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.getPattern());
         testUTC("2002-02-23Z", DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.getPattern());
     }
 
     @Test
-    public void testTimeISO(){
+    public void testTimeISO() {
         testGmtMinus3("T09:11:12", DateFormatUtils.ISO_TIME_FORMAT.getPattern());
         testGmtMinus3("T09:11:12-03:00", DateFormatUtils.ISO_TIME_TIME_ZONE_FORMAT.getPattern());
         testUTC("T09:11:12Z", DateFormatUtils.ISO_TIME_TIME_ZONE_FORMAT.getPattern());
     }
 
     @Test
-    public void testTimeNoTISO(){
+    public void testTimeNoTISO() {
         testGmtMinus3("09:11:12", DateFormatUtils.ISO_TIME_NO_T_FORMAT.getPattern());
         testGmtMinus3("09:11:12-03:00", DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern());
         testUTC("09:11:12Z", DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern());
     }
 
     @Test
-    public void testSMTP(){
-        TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
-        Calendar june = createJuneTestDate(timeZone);
-        
-        assertFormats("Sun, 08 Jun 2003 10:11:12 -0300", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
-                timeZone, june);
-
-        timeZone = TimeZone.getTimeZone("UTC");
-        june = createJuneTestDate(timeZone);
-        assertFormats("Sun, 08 Jun 2003 10:11:12 +0000", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
-                timeZone, june);
+    public void testSMTP() {
+        Locale defaultLocale = Locale.getDefault();
+        try {
+            Locale.setDefault(Locale.ENGLISH);
+            TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+            Calendar june = createJuneTestDate(timeZone);
+            
+            assertFormats("Sun, 08 Jun 2003 10:11:12 -0300", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
+                    timeZone, june);
+    
+            timeZone = TimeZone.getTimeZone("UTC");
+            june = createJuneTestDate(timeZone);
+            assertFormats("Sun, 08 Jun 2003 10:11:12 +0000", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
+                    timeZone, june);
+        } finally {
+            Locale.setDefault(defaultLocale);
+        }
     }
 
     /*
