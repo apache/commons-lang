@@ -29,6 +29,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.test.DefaultLocale;
+import org.apache.commons.lang3.test.DefaultTimeZone;
 import org.junit.Test;
 
 /**
@@ -167,22 +169,21 @@ public class DateFormatUtilsTest {
 
     @Test
     public void testSMTP() {
-        Locale defaultLocale = Locale.getDefault();
-        try {
-            Locale.setDefault(Locale.ENGLISH);
-            TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
-            Calendar june = createJuneTestDate(timeZone);
-            
-            assertFormats("Sun, 08 Jun 2003 10:11:12 -0300", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
-                    timeZone, june);
-    
-            timeZone = TimeZone.getTimeZone("UTC");
-            june = createJuneTestDate(timeZone);
-            assertFormats("Sun, 08 Jun 2003 10:11:12 +0000", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
-                    timeZone, june);
-        } finally {
-            Locale.setDefault(defaultLocale);
-        }
+        new DefaultLocale<RuntimeException>(Locale.ENGLISH) {
+            @Override
+            public void test() {
+                TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+                Calendar june = createJuneTestDate(timeZone);
+
+                assertFormats("Sun, 08 Jun 2003 10:11:12 -0300", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
+                        timeZone, june);
+
+                timeZone = TimeZone.getTimeZone("UTC");
+                june = createJuneTestDate(timeZone);
+                assertFormats("Sun, 08 Jun 2003 10:11:12 +0000", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
+                        timeZone, june);
+            }
+        };
     }
 
     /*
@@ -221,18 +222,16 @@ public class DateFormatUtilsTest {
 
     @Test
     public void testLang530() throws ParseException {
-        TimeZone save = TimeZone.getDefault();
-        try {
-            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-            final Date d = new Date();
-            final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
-            final Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });
-            // the format loses milliseconds so have to reintroduce them
-            assertEquals("Date not equal to itself ISO formatted and parsed", d.getTime(), d2.getTime() + d.getTime() % 1000);
-        }
-        finally {
-            TimeZone.setDefault(save);
-        }
+        new DefaultTimeZone<ParseException>(TimeZone.getTimeZone("UTC")) {
+            @Override
+            public void test() throws ParseException {
+                final Date d = new Date();
+                final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
+                final Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });
+                // the format loses milliseconds so have to reintroduce them
+                assertEquals("Date not equal to itself ISO formatted and parsed", d.getTime(), d2.getTime() + d.getTime() % 1000);
+            }
+        };
     }
 
     /**
