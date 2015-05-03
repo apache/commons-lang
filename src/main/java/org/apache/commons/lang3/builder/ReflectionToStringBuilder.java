@@ -494,6 +494,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             // Reject fields from the getExcludeFieldNames list.
             return false;
         }
+        if(field.isAnnotationPresent(ToStringExclude.class)) {
+            return false;
+        }
         return true;
     }
 

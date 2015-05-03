@@ -622,4 +622,51 @@ public class HashCodeBuilderTest {
                      hcb.toHashCode(), hcb.hashCode());
     }
 
+    static class TestObjectHashCodeExclude {
+        @HashCodeExclude
+        private int a;
+        private int b;
+
+        public TestObjectHashCodeExclude(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        public int getA() {
+            return a;
+        }
+
+        public int getB() {
+            return b;
+        }
+    }
+
+    static class TestObjectHashCodeExclude2 {
+        @HashCodeExclude
+        private int a;
+        @HashCodeExclude
+        private int b;
+
+        public TestObjectHashCodeExclude2(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        public int getA() {
+            return a;
+        }
+
+        public int getB() {
+            return b;
+        }
+    }
+
+    @Test
+    public void testToHashCodeExclude() {
+        TestObjectHashCodeExclude one = new TestObjectHashCodeExclude(1, 2);
+        TestObjectHashCodeExclude2 two = new TestObjectHashCodeExclude2(1, 2);
+        assertEquals(17 * 37 + 2, HashCodeBuilder.reflectionHashCode(one));
+        assertEquals(17, HashCodeBuilder.reflectionHashCode(two));
+    }
+
 }

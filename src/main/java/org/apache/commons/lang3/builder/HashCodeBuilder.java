@@ -192,7 +192,8 @@ public class HashCodeBuilder implements Builder<Integer> {
                 if (!ArrayUtils.contains(excludeFields, field.getName())
                     && !field.getName().contains("$")
                     && (useTransients || !Modifier.isTransient(field.getModifiers()))
-                    && !Modifier.isStatic(field.getModifiers())) {
+                    && (!Modifier.isStatic(field.getModifiers()))
+                    && (!field.isAnnotationPresent(HashCodeExclude.class))) {
                     try {
                         final Object fieldValue = field.get(object);
                         builder.append(fieldValue);
