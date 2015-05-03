@@ -23,8 +23,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
-import org.apache.commons.lang3.test.DefaultLocale;
+import org.apache.commons.lang3.time.TestLocale;
 import org.hamcrest.core.IsNot;
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -33,6 +34,10 @@ import org.junit.Test;
  * @version $Id$
  */
 public class StringUtilsEqualsIndexOfTest  {
+
+    @Rule
+    public TestLocale locale = TestLocale.usingDefaultLocale();
+
     private static final String BAR = "bar";
     /**
      * Supplementary character U+20000
@@ -246,22 +251,17 @@ public class StringUtilsEqualsIndexOfTest  {
             { "\u00DF", "SS" },
         };
 
-        new DefaultLocale<RuntimeException>(Locale.ENGLISH) {
-            @Override
-            public void test() {
-                for (final Locale locale : locales) {
-                    Locale.setDefault(locale);
-                    for (int j = 0; j < tdata.length; j++) {
-                        assertTrue(Locale.getDefault() + ": " + j + " " + tdata[j][0] + " " + tdata[j][1], StringUtils
-                                .containsIgnoreCase(tdata[j][0], tdata[j][1]));
-                    }
-                    for (int j = 0; j < fdata.length; j++) {
-                        assertFalse(Locale.getDefault() + ": " + j + " " + fdata[j][0] + " " + fdata[j][1], StringUtils
-                                .containsIgnoreCase(fdata[j][0], fdata[j][1]));
-                    }
-                }
+        for (final Locale testLocale : locales) {
+            locale.setLocale(testLocale);
+            for (int j = 0; j < tdata.length; j++) {
+                assertTrue(Locale.getDefault() + ": " + j + " " + tdata[j][0] + " " + tdata[j][1], StringUtils
+                        .containsIgnoreCase(tdata[j][0], tdata[j][1]));
             }
-        };
+            for (int j = 0; j < fdata.length; j++) {
+                assertFalse(Locale.getDefault() + ": " + j + " " + fdata[j][0] + " " + fdata[j][1], StringUtils
+                        .containsIgnoreCase(fdata[j][0], fdata[j][1]));
+            }
+        }
     }
 
     @Test
