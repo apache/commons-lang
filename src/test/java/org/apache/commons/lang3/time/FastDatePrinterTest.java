@@ -47,7 +47,7 @@ public class FastDatePrinterTest {
     private static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
     private static final Locale SWEDEN = new Locale("sv", "SE");
 
-        DatePrinter getInstance(final String format) {
+    DatePrinter getInstance(final String format) {
         return getInstance(format, TimeZone.getDefault(), Locale.getDefault());
     }
 
