@@ -17,8 +17,10 @@
 
 package org.apache.commons.lang3.builder;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Assert;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertThat;
+
 import org.junit.Test;
 
 /**
@@ -47,10 +49,10 @@ public class ReflectionToStringBuilderExcludeWithAnnotationTest {
     public void test_toStringExclude() {
         final String toString = ReflectionToStringBuilder.toString(new TestFixture());
 
-        Assert.assertEquals(ArrayUtils.INDEX_NOT_FOUND, toString.indexOf(SECRET_FIELD));
-        Assert.assertEquals(ArrayUtils.INDEX_NOT_FOUND, toString.indexOf(SECRET_VALUE));
-        Assert.assertTrue(toString.indexOf(NOT_SECRET_FIELD) > ArrayUtils.INDEX_NOT_FOUND);
-        Assert.assertTrue(toString.indexOf(NOT_SECRET_VALUE) > ArrayUtils.INDEX_NOT_FOUND);
+        assertThat(toString, not(containsString(SECRET_FIELD)));
+        assertThat(toString, not(containsString(SECRET_VALUE)));
+        assertThat(toString, containsString(NOT_SECRET_FIELD));
+        assertThat(toString, containsString(NOT_SECRET_VALUE));
     }
 
 }
