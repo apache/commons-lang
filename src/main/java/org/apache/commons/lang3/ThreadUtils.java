@@ -127,8 +127,9 @@ public class ThreadUtils {
         }
 
         final Collection<Thread> result = new ArrayList<Thread>();
+        NamePredicate threadNamePredicate = null;
         for(final ThreadGroup group : findThreadGroups(new NamePredicate(threadGroupName))) {
-            result.addAll(findThreads(group, false, new NamePredicate(threadName)));
+            result.addAll(findThreads(group, false, threadNamePredicate==null?(threadNamePredicate=new NamePredicate(threadName)):threadNamePredicate));
         }
         return Collections.unmodifiableCollection(result);
     }
@@ -223,7 +224,7 @@ public class ThreadUtils {
     public static Thread findThreadById(final long threadId) {
         final Collection<Thread> result = findThreads(new ThreadIdPredicate(threadId));
 
-        if(!result.iterator().hasNext()) {
+        if(result.isEmpty()) {
             return null;
         } else {
             return result.iterator().next();
@@ -406,7 +407,6 @@ public class ThreadUtils {
             throw new IllegalArgumentException("The predicate must not be null");
         }
 
-        final List<Thread> result = new ArrayList<Thread>();
         int count = group.activeCount();
         Thread[] threads;
         do {
@@ -414,6 +414,7 @@ public class ThreadUtils {
             count = group.enumerate(threads, recurse);
         } while (count >= threads.length);
 
+        final List<Thread> result = new ArrayList<Thread>(count);
         for (int i = 0; i < count; ++i) {
             if (predicate.test(threads[i])) {
                 result.add(threads[i]);
@@ -440,7 +441,7 @@ public class ThreadUtils {
         if (predicate == null) {
             throw new IllegalArgumentException("The predicate must not be null");
         }
-        final List<ThreadGroup> result = new ArrayList<ThreadGroup>();
+        
         int count = group.activeGroupCount();
         ThreadGroup[] threadGroups;
         do {
@@ -449,6 +450,7 @@ public class ThreadUtils {
         }
         while(count >= threadGroups.length);
 
+        final List<ThreadGroup> result = new ArrayList<ThreadGroup>(count);
         for(int i = 0; i<count; ++i) {
             if(predicate.test(threadGroups[i])) {
                 result.add(threadGroups[i]);

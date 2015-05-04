@@ -296,7 +296,9 @@ public class ThreadUtilsTest {
         final ThreadGroup threadGroup4 = new ThreadGroup(threadGroup2, "thread_group_4__");
         final ThreadGroup threadGroup5 = new ThreadGroup(threadGroup1, "thread_group_5__");
         final ThreadGroup threadGroup6 = new ThreadGroup(threadGroup4, "thread_group_6__");
-        final List<ThreadGroup> threadGroups = Arrays.asList(threadGroup1,threadGroup2,threadGroup3,threadGroup4,threadGroup5,threadGroup6);
+        final ThreadGroup threadGroup7 = new ThreadGroup(threadGroup4, "thread_group_7__");
+        final ThreadGroup threadGroup7Doubled = new ThreadGroup(threadGroup4, "thread_group_7__");
+        final List<ThreadGroup> threadGroups = Arrays.asList(threadGroup1,threadGroup2,threadGroup3,threadGroup4,threadGroup5,threadGroup6, threadGroup7, threadGroup7Doubled);
 
         final Thread t1 = new TestThread("thread1_X__");
         final Thread t2 = new TestThread(threadGroup1, "thread2_X__");
@@ -308,7 +310,9 @@ public class ThreadUtilsTest {
         final Thread t8 = new TestThread(threadGroup4, "thread8_X__");
         final Thread t9 = new TestThread(threadGroup6, "thread9_X__");
         final Thread t10 = new TestThread(threadGroup3, "thread10_X__");
-        final List<Thread> threads = Arrays.asList(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10);
+        final Thread t11 = new TestThread(threadGroup7, "thread11_X__");
+        final Thread t11Doubled = new TestThread(threadGroup7Doubled, "thread11_X__");
+        final List<Thread> threads = Arrays.asList(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10, t11, t11Doubled);
 
         try {
             for (final Iterator iterator = threads.iterator(); iterator.hasNext();) {
@@ -320,7 +324,7 @@ public class ThreadUtilsTest {
             assertTrue(ThreadUtils.findThreads(ThreadUtils.ALWAYS_TRUE_PREDICATE).size() >= 11);
             assertEquals(1, ThreadUtils.findThreadsByName(t4.getName(), threadGroup3.getName()).size());
             assertEquals(0, ThreadUtils.findThreadsByName(t4.getName(), threadGroup2.getName()).size());
-           
+            assertEquals(2, ThreadUtils.findThreadsByName(t11.getName(), threadGroup7.getName()).size());
         }finally {
             for (final Iterator iterator = threads.iterator(); iterator.hasNext();) {
                 final Thread thread = (Thread) iterator.next();
