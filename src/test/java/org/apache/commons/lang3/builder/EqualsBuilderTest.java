@@ -1150,5 +1150,37 @@ public class EqualsBuilderTest {
         assertTrue(EqualsBuilder.reflectionEquals(d1, d3));
     }
 
+    static class TestObjectEqualsExclude {
+        @EqualsExclude
+        private int a;
+        private int b;
+
+        public TestObjectEqualsExclude(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        public int getA() {
+            return a;
+        }
+
+        public int getB() {
+            return b;
+        }
+    }
+
+    @Test
+    public void testToEqualsExclude() {
+        TestObjectEqualsExclude one = new TestObjectEqualsExclude(1, 2);
+        TestObjectEqualsExclude two = new TestObjectEqualsExclude(1, 3);
+
+        assertFalse(EqualsBuilder.reflectionEquals(one, two));
+
+        one = new TestObjectEqualsExclude(1, 2);
+        two = new TestObjectEqualsExclude(2, 2);
+
+        assertTrue(EqualsBuilder.reflectionEquals(one, two));
+    }
+
 }
 

@@ -411,7 +411,8 @@ public class EqualsBuilder implements Builder<Boolean> {
                 if (!ArrayUtils.contains(excludeFields, f.getName())
                     && !f.getName().contains("$")
                     && (useTransients || !Modifier.isTransient(f.getModifiers()))
-                    && !Modifier.isStatic(f.getModifiers())) {
+                    && (!Modifier.isStatic(f.getModifiers()))
+                    && (!f.isAnnotationPresent(EqualsExclude.class))) {
                     try {
                         builder.append(f.get(lhs), f.get(rhs));
                     } catch (final IllegalAccessException e) {
