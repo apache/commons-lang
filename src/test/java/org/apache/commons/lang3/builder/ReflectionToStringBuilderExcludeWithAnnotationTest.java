@@ -46,17 +46,11 @@ public class ReflectionToStringBuilderExcludeWithAnnotationTest {
     @Test
     public void test_toStringExclude() {
         final String toString = ReflectionToStringBuilder.toString(new TestFixture());
-        this.validateSecretFieldAbsent(toString);
-    }
 
-    private void validateNonSecretField(final String toString) {
+        Assert.assertEquals(ArrayUtils.INDEX_NOT_FOUND, toString.indexOf(SECRET_FIELD));
+        Assert.assertEquals(ArrayUtils.INDEX_NOT_FOUND, toString.indexOf(SECRET_VALUE));
         Assert.assertTrue(toString.indexOf(NOT_SECRET_FIELD) > ArrayUtils.INDEX_NOT_FOUND);
         Assert.assertTrue(toString.indexOf(NOT_SECRET_VALUE) > ArrayUtils.INDEX_NOT_FOUND);
     }
 
-    private void validateSecretFieldAbsent(final String toString) {
-        Assert.assertEquals(ArrayUtils.INDEX_NOT_FOUND, toString.indexOf(SECRET_FIELD));
-        Assert.assertEquals(ArrayUtils.INDEX_NOT_FOUND, toString.indexOf(SECRET_VALUE));
-        this.validateNonSecretField(toString);
-    }
 }
