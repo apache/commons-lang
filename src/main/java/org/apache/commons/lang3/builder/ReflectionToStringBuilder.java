@@ -79,6 +79,10 @@ import org.apache.commons.lang3.ClassUtils;
  * }
  * </pre>
  * <p>
+ * Alternatively the {@link ToStringExclude} annotation can be used to exclude fields from being incorporated in the 
+ * result.
+ * </p>
+ * <p>
  * The exact format of the <code>toString</code> is determined by the {@link ToStringStyle} passed into the constructor.
  * </p>
  *
@@ -113,6 +117,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *             if the Object is <code>null</code>
+     *
+     * @see ToStringExclude
      */
     public static String toString(final Object object) {
         return toString(object, null, false, false, null);
@@ -145,6 +151,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *             if the Object or <code>ToStringStyle</code> is <code>null</code>
+     *
+     * @see ToStringExclude
      */
     public static String toString(final Object object, final ToStringStyle style) {
         return toString(object, style, false, false, null);
@@ -183,6 +191,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *             if the Object is <code>null</code>
+     *
+     * @see ToStringExclude
      */
     public static String toString(final Object object, final ToStringStyle style, final boolean outputTransients) {
         return toString(object, style, outputTransients, false, null);
@@ -228,6 +238,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *             if the Object is <code>null</code>
+     * 
+     * @see ToStringExclude
      * @since 2.1
      */
     public static String toString(final Object object, final ToStringStyle style, final boolean outputTransients, final boolean outputStatics) {
@@ -279,6 +291,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *             if the Object is <code>null</code>
+     * 
+     * @see ToStringExclude
      * @since 2.1
      */
     public static <T> String toString(

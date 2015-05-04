@@ -19,13 +19,15 @@ package org.apache.commons.lang3.builder;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Use this annotation to builds a hash code excluding the annotated field.
+ * Use this annotation to exclude a field from being being used by
+ * the various <code>reflectionHashcode</code> methods defined on
+ * {@link HashCodeBuilder}.
  */
-@Retention(RUNTIME)
+@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface HashCodeExclude {
 

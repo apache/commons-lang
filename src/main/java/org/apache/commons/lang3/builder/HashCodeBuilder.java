@@ -94,6 +94,9 @@ import org.apache.commons.lang3.Validate;
  *   return HashCodeBuilder.reflectionHashCode(this);
  * }
  * </pre>
+ * 
+ * <p>The {@link HashCodeExclude} annotation can be used to exclude fields from being
+ * used by the <code>reflectionHashCode</code> methods.</p>
  *
  * @since 1.0
  * @version $Id$
@@ -246,6 +249,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the Object is <code>null</code>
      * @throws IllegalArgumentException
      *             if the number is zero or even
+     *
+     * @see HashCodeExclude
      */
     public static int reflectionHashCode(final int initialNonZeroOddNumber, final int multiplierNonZeroOddNumber, final Object object) {
         return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, false, null);
@@ -290,6 +295,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the Object is <code>null</code>
      * @throws IllegalArgumentException
      *             if the number is zero or even
+     *
+     * @see HashCodeExclude
      */
     public static int reflectionHashCode(final int initialNonZeroOddNumber, final int multiplierNonZeroOddNumber, final Object object,
             final boolean testTransients) {
@@ -342,6 +349,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the Object is <code>null</code>
      * @throws IllegalArgumentException
      *             if the number is zero or even
+     *
+     * @see HashCodeExclude
      * @since 2.0
      */
     public static <T> int reflectionHashCode(final int initialNonZeroOddNumber, final int multiplierNonZeroOddNumber, final T object,
@@ -392,6 +401,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @return int hash code
      * @throws IllegalArgumentException
      *             if the object is <code>null</code>
+     *
+     * @see HashCodeExclude
      */
     public static int reflectionHashCode(final Object object, final boolean testTransients) {
         return reflectionHashCode(DEFAULT_INITIAL_VALUE, DEFAULT_MULTIPLIER_VALUE, object, 
@@ -430,6 +441,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @return int hash code
      * @throws IllegalArgumentException
      *             if the object is <code>null</code>
+     *
+     * @see HashCodeExclude
      */
     public static int reflectionHashCode(final Object object, final Collection<String> excludeFields) {
         return reflectionHashCode(object, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
@@ -469,6 +482,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @return int hash code
      * @throws IllegalArgumentException
      *             if the object is <code>null</code>
+     *
+     * @see HashCodeExclude
      */
     public static int reflectionHashCode(final Object object, final String... excludeFields) {
         return reflectionHashCode(DEFAULT_INITIAL_VALUE, DEFAULT_MULTIPLIER_VALUE, object, false, 
