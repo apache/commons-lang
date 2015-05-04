@@ -23,7 +23,6 @@ import org.junit.Test;
 
 /**
  * Test class for ToStringExclude annotation
- * @author Felipe Adorno (felipeadsc@gmail.com)
  * @version $Id$
  */
 public class ReflectionToStringBuilderExcludeWithAnnotationTest {

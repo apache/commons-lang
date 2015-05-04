@@ -24,7 +24,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Use this annotation to builds a String excluding the annotated field.
- * @author Felipe Adorno (felipeadsc@gmail.com)
  */
 @Retention(RUNTIME)
 @Target(ElementType.FIELD)
