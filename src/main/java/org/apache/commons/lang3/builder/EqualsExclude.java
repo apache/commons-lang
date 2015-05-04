@@ -23,7 +23,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to builds a equals excluding the annotated field.
+ * Use this annotation to exclude a field from being being used by
+ * the various <code>reflectionEquals</code> methods defined on
+ * {@link EqualsBuilder}.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

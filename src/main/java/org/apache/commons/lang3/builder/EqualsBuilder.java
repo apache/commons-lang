@@ -77,6 +77,9 @@ import org.apache.commons.lang3.tuple.Pair;
  *   return EqualsBuilder.reflectionEquals(this, obj);
  * }
  * </pre>
+ * 
+ * <p>The {@link EqualsExclude} annotation can be used to exclude fields from being
+ * used by the <code>reflectionEquals</code> methods.</p>
  *
  * @since 1.0
  * @version $Id$
@@ -245,6 +248,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param excludeFields  Collection of String field names to exclude from testing
      * @return <code>true</code> if the two Objects have tested equals.
+     * 
+     * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final Collection<String> excludeFields) {
         return reflectionEquals(lhs, rhs, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
@@ -269,6 +274,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param excludeFields  array of field names to exclude from testing
      * @return <code>true</code> if the two Objects have tested equals.
+     * 
+     * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final String... excludeFields) {
         return reflectionEquals(lhs, rhs, false, null, excludeFields);
@@ -294,6 +301,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param testTransients  whether to include transient fields
      * @return <code>true</code> if the two Objects have tested equals.
+     * 
+     * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final boolean testTransients) {
         return reflectionEquals(lhs, rhs, testTransients, null);
@@ -324,6 +333,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      *  may be <code>null</code>
      * @param excludeFields  array of field names to exclude from testing
      * @return <code>true</code> if the two Objects have tested equals.
+     * 
+     * @see EqualsExclude
      * @since 2.0
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final boolean testTransients, final Class<?> reflectUpToClass,
