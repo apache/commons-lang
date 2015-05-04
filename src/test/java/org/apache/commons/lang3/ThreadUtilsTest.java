@@ -333,12 +333,13 @@ public class ThreadUtilsTest {
             }
             for (final Iterator iterator = threadGroups.iterator(); iterator.hasNext();) {
                 final ThreadGroup threadGroup = (ThreadGroup) iterator.next();
-                if(!threadGroup.isDestroyed())
-                threadGroup.destroy();
+                if(!threadGroup.isDestroyed()) {
+                    threadGroup.destroy();
+                }
             }
         }
     }
-    
+
 
     private static class TestThread extends Thread {
         private final CountDownLatch latch = new CountDownLatch(1);

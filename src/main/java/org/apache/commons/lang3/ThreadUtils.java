@@ -126,10 +126,16 @@ public class ThreadUtils {
             throw new IllegalArgumentException("The thread group name must not be null");
         }
 
+        final Collection<ThreadGroup> threadGroups = findThreadGroups(new NamePredicate(threadGroupName));
+
+        if(threadGroups.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
+
         final Collection<Thread> result = new ArrayList<Thread>();
-        NamePredicate threadNamePredicate = null;
-        for(final ThreadGroup group : findThreadGroups(new NamePredicate(threadGroupName))) {
-            result.addAll(findThreads(group, false, threadNamePredicate==null?(threadNamePredicate=new NamePredicate(threadName)):threadNamePredicate));
+        final NamePredicate threadNamePredicate = new NamePredicate(threadName);
+        for(final ThreadGroup group : threadGroups) {
+            result.addAll(findThreads(group, false, threadNamePredicate));
         }
         return Collections.unmodifiableCollection(result);
     }
@@ -264,7 +270,7 @@ public class ThreadUtils {
      */
     //if java minimal version for lang becomes 1.8 extend this interface from java.util.function.Predicate
     public static interface ThreadGroupPredicate /*extends java.util.function.Predicate<ThreadGroup>*/{
-        
+
         /**
          * Evaluates this predicate on the given threadgroup.
          * @param threadGroup the threadgroup
@@ -295,7 +301,6 @@ public class ThreadUtils {
         public boolean test(@SuppressWarnings("unused") final Thread thread) {
             return true;
         }
-
     }
 
     /**
@@ -307,7 +312,7 @@ public class ThreadUtils {
 
         /**
          * Predicate constructor
-         * 
+         *
          * @param name thread or threadgroup name
          * @throws IllegalArgumentException if the name is {@code null}
          */
@@ -339,7 +344,7 @@ public class ThreadUtils {
 
         /**
          * Predicate constructor
-         * 
+         *
          * @param threadId the threadId to match
          * @throws IllegalArgumentException if the threadId is zero or negative
          */
@@ -359,10 +364,10 @@ public class ThreadUtils {
 
     /**
      * Select all active threads which match the given predicate.
-     * 
+     *
      * @param predicate the predicate
      * @return An unmodifiable {@code Collection} of active threads matching the given predicate
-     * 
+     *
      * @throws IllegalArgumentException if the predicate is null
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
@@ -375,7 +380,7 @@ public class ThreadUtils {
 
     /**
      * Select all active threadgroups which match the given predicate.
-     * 
+     *
      * @param predicate
      * @return An unmodifiable {@code Collection} of active threadgroups matching the given predicate
      * @throws IllegalArgumentException if the predicate is null
@@ -390,9 +395,9 @@ public class ThreadUtils {
 
     /**
      * Select all active threads which match the given predicate and which belongs to the given thread group (or one of its subgroups).
-     * 
+     *
      * @param group the thread group
-     * @param recurse if {@code true} then evaluate the predicate recursively on all threads in all subgroups of the given group 
+     * @param recurse if {@code true} then evaluate the predicate recursively on all threads in all subgroups of the given group
      * @param predicate the predicate
      * @return An unmodifiable {@code Collection} of active threads which match the given predicate and which belongs to the given thread group
      * @throws IllegalArgumentException if the given group or predicate is null
@@ -410,8 +415,9 @@ public class ThreadUtils {
         int count = group.activeCount();
         Thread[] threads;
         do {
-            threads = new Thread[count + (count >> 1) + 1];
+            threads = new Thread[count + (count / 2) + 1]; //slightly grow the array size
             count = group.enumerate(threads, recurse);
+            //return value of enumerate() must be strictly less than the array size according to javadoc
         } while (count >= threads.length);
 
         final List<Thread> result = new ArrayList<Thread>(count);
@@ -425,9 +431,9 @@ public class ThreadUtils {
 
     /**
      * Select all active threadgroups which match the given predicate and which is a subgroup of the given thread group (or one of its subgroups).
-     * 
+     *
      * @param group the thread group
-     * @param recurse if {@code true} then evaluate the predicate recursively on all threadgroups in all subgroups of the given group 
+     * @param recurse if {@code true} then evaluate the predicate recursively on all threadgroups in all subgroups of the given group
      * @param predicate the predicate
      * @return An unmodifiable {@code Collection} of active threadgroups which match the given predicate and which is a subgroup of the given thread group
      * @throws IllegalArgumentException if the given group or predicate is null
@@ -441,17 +447,17 @@ public class ThreadUtils {
         if (predicate == null) {
             throw new IllegalArgumentException("The predicate must not be null");
         }
-        
+
         int count = group.activeGroupCount();
         ThreadGroup[] threadGroups;
         do {
-            threadGroups = new ThreadGroup[count + (count>>1) + 1];
+            threadGroups = new ThreadGroup[count + (count / 2) + 1]; //slightly grow the array size
             count = group.enumerate(threadGroups, recurse);
-        }
-        while(count >= threadGroups.length);
+            //return value of enumerate() must be strictly less than the array size according to javadoc
+        } while(count >= threadGroups.length);
 
         final List<ThreadGroup> result = new ArrayList<ThreadGroup>(count);
-        for(int i = 0; i<count; ++i) {
+        for(int i = 0; i < count; ++i) {
             if(predicate.test(threadGroups[i])) {
                 result.add(threadGroups[i]);
             }
