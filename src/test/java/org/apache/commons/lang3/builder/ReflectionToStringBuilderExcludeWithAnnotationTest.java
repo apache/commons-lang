@@ -31,28 +31,28 @@ public class ReflectionToStringBuilderExcludeWithAnnotationTest {
 
     class TestFixture {
         @ToStringExclude
-        private final String secretField = SECRET_VALUE;
+        private final String excludedField = EXCLUDED_FIELD_VALUE;
 
         @SuppressWarnings("unused")
-        private final String showField = NOT_SECRET_VALUE;
+        private final String includedField = INCLUDED_FIELD_VALUE;
     }
 
-    private static final String NOT_SECRET_FIELD = "showField";
+    private static final String INCLUDED_FIELD_NAME = "includedField";
 
-    private static final String NOT_SECRET_VALUE = "Hello World!";
+    private static final String INCLUDED_FIELD_VALUE = "Hello World!";
 
-    private static final String SECRET_FIELD = "secretField";
+    private static final String EXCLUDED_FIELD_NAME = "excludedField";
 
-    private static final String SECRET_VALUE = "secret value";
+    private static final String EXCLUDED_FIELD_VALUE = "excluded field value";
 
     @Test
     public void test_toStringExclude() {
         final String toString = ReflectionToStringBuilder.toString(new TestFixture());
 
-        assertThat(toString, not(containsString(SECRET_FIELD)));
-        assertThat(toString, not(containsString(SECRET_VALUE)));
-        assertThat(toString, containsString(NOT_SECRET_FIELD));
-        assertThat(toString, containsString(NOT_SECRET_VALUE));
+        assertThat(toString, not(containsString(EXCLUDED_FIELD_NAME)));
+        assertThat(toString, not(containsString(EXCLUDED_FIELD_VALUE)));
+        assertThat(toString, containsString(INCLUDED_FIELD_NAME));
+        assertThat(toString, containsString(INCLUDED_FIELD_VALUE));
     }
 
 }
