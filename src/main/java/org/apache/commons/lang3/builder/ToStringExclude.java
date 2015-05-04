@@ -20,12 +20,12 @@ package org.apache.commons.lang3.builder;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Use this annotation to builds a String excluding the annotated field.
  */
-@Retention(RUNTIME)
+@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface ToStringExclude {
 
