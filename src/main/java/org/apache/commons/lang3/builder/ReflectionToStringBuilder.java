@@ -333,7 +333,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
                 list.add(e.toString());
             }
         }
-        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+        return list.toArray(new String[list.size()]);
     }
 
 
