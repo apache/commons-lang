@@ -4207,7 +4207,9 @@ public class StringUtils {
 
         final Iterator<Object> iterator = Arrays.asList(objects).iterator();
         while (iterator.hasNext()) {
-            result.append(ObjectUtils.toString(iterator.next()));
+            @SuppressWarnings("deprecation") // o.k. to use as long as we do not require java 7 or greater
+            final String value = ObjectUtils.toString(iterator.next());
+            result.append(value);
 
             if (iterator.hasNext()) {
                 result.append(sanitizedSeparator);
