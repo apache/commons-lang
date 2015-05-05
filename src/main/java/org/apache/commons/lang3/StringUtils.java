@@ -4197,16 +4197,16 @@ public class StringUtils {
      * @return the joined String.
      * @throws java.lang.IllegalArgumentException if a null varargs is provided
      */
-    public static String joinWith(final String separator, Object... objects) {
+    public static String joinWith(final String separator, final Object... objects) {
         if (objects == null) {
             throw new IllegalArgumentException("Object varargs must not be null");
         }
 
-        String sanitizedSeparator = defaultString(separator, StringUtils.EMPTY);
+        final String sanitizedSeparator = defaultString(separator, StringUtils.EMPTY);
 
-        StringBuilder result = new StringBuilder();
+        final StringBuilder result = new StringBuilder();
 
-        Iterator<Object> iterator = Arrays.asList(objects).iterator();
+        final Iterator<Object> iterator = Arrays.asList(objects).iterator();
         while (iterator.hasNext()) {
             result.append(ObjectUtils.toString(iterator.next()));
 
