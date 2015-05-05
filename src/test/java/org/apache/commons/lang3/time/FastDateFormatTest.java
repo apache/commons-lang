@@ -35,6 +35,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.apache.commons.lang3.test.SwitchDefaults;
+import org.apache.commons.lang3.test.SystemDefaults;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -47,10 +49,7 @@ import org.junit.Test;
 public class FastDateFormatTest {
 
     @Rule
-    public TestLocale locale = TestLocale.usingDefaultLocale();
-
-    @Rule
-    public TestTimeZone timeZone = TestTimeZone.usingDefaultTimeZone();
+    public SwitchDefaults defaults = new SwitchDefaults();
 
     /*
      * Only the cache methods need to be tested here.  
@@ -77,10 +76,9 @@ public class FastDateFormatTest {
         assertEquals(TimeZone.getDefault(), format2.getTimeZone());
     }
 
+    @SystemDefaults(timezone="America/New_York", locale="en_US")
     @Test
     public void test_getInstance_String_TimeZone() {
-        locale.setLocale(Locale.US);
-        timeZone.setTimeZone("America/New_York");
 
         final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
                 TimeZone.getTimeZone("Atlantic/Reykjavik"));
@@ -98,10 +96,9 @@ public class FastDateFormatTest {
         assertNotSame(format4, format6);
     }
 
+    @SystemDefaults(locale="en_US")
     @Test
     public void test_getInstance_String_Locale() {
-        locale.setLocale(Locale.US);
-
         final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
         final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy");
         final FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
@@ -111,43 +108,39 @@ public class FastDateFormatTest {
         assertEquals(Locale.GERMANY, format1.getLocale());
     }
 
+    @SystemDefaults(locale="en_US")
     @Test
     public void test_changeDefault_Locale_DateInstance() {
-        locale.setLocale(Locale.US);
-
         final FastDateFormat format1 = FastDateFormat.getDateInstance(FastDateFormat.FULL, Locale.GERMANY);
         final FastDateFormat format2 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
         Locale.setDefault(Locale.GERMANY);
         final FastDateFormat format3 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
 
         assertSame(Locale.GERMANY, format1.getLocale());
-        assertSame(Locale.US, format2.getLocale());
+        assertEquals(Locale.US, format2.getLocale());
         assertSame(Locale.GERMANY, format3.getLocale());
         assertNotSame(format1, format2);
         assertNotSame(format2, format3);
     }
 
+    @SystemDefaults(locale="en_US")
     @Test
     public void test_changeDefault_Locale_DateTimeInstance() {
-        locale.setLocale(Locale.US);
-
         final FastDateFormat format1 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL, Locale.GERMANY);
         final FastDateFormat format2 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
         Locale.setDefault(Locale.GERMANY);
         final FastDateFormat format3 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
 
         assertSame(Locale.GERMANY, format1.getLocale());
-        assertSame(Locale.US, format2.getLocale());
+        assertEquals(Locale.US, format2.getLocale());
         assertSame(Locale.GERMANY, format3.getLocale());
         assertNotSame(format1, format2);
         assertNotSame(format2, format3);
     }
 
+    @SystemDefaults(locale="en_US", timezone="America/New_York")
     @Test
     public void test_getInstance_String_TimeZone_Locale() {
-        locale.setLocale(Locale.US);
-        timeZone.setTimeZone("America/New_York");
-
         final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
                 TimeZone.getTimeZone("Atlantic/Reykjavik"), Locale.GERMANY);
         final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);

@@ -23,7 +23,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
-import org.apache.commons.lang3.time.TestLocale;
+import org.apache.commons.lang3.test.SwitchDefaults;
+import org.apache.commons.lang3.test.SystemDefaults;
 import org.hamcrest.core.IsNot;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,7 +37,7 @@ import org.junit.Test;
 public class StringUtilsEqualsIndexOfTest  {
 
     @Rule
-    public TestLocale locale = TestLocale.usingDefaultLocale();
+    public SwitchDefaults defaults = new SwitchDefaults();
 
     private static final String BAR = "bar";
     /**
@@ -235,6 +236,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.containsAny("hello, goodbye", new String[] { "Hello", "Goodbye" }));
     }
 
+    @SystemDefaults(locale="de_DE")
     @Test
     public void testContainsIgnoreCase_LocaleIndependence() {
         final Locale[] locales = { Locale.ENGLISH, new Locale("tr"), Locale.getDefault() };
@@ -252,7 +254,7 @@ public class StringUtilsEqualsIndexOfTest  {
         };
 
         for (final Locale testLocale : locales) {
-            locale.setLocale(testLocale);
+            Locale.setDefault(testLocale);
             for (int j = 0; j < tdata.length; j++) {
                 assertTrue(Locale.getDefault() + ": " + j + " " + tdata[j][0] + " " + tdata[j][1], StringUtils
                         .containsIgnoreCase(tdata[j][0], tdata[j][1]));
