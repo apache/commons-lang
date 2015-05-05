@@ -2841,10 +2841,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof StrBuilder) {
-            return equals((StrBuilder) obj);
-        }
-        return false;
+        return obj instanceof StrBuilder && equals((StrBuilder) obj);
     }
 
     /**
