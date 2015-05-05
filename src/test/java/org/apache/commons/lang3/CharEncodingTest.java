@@ -29,7 +29,6 @@ import org.junit.Test;
  * Tests CharEncoding.
  * 
  * @see CharEncoding
- * @version $Id$
  */
 public class CharEncodingTest  {
 

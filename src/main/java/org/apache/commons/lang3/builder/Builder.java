@@ -75,7 +75,6 @@ package org.apache.commons.lang3.builder;
  * @param <T> the type of object that the builder will construct or compute.
  * 
  * @since 3.0
- * @version $Id$
  */
 public interface Builder<T> {
 

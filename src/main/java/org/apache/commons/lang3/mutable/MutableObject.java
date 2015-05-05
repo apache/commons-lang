@@ -24,7 +24,6 @@ import java.io.Serializable;
  * 
  * @param <T> the type to set and get 
  * @since 2.1
- * @version $Id$
  */
 public class MutableObject<T> implements Mutable<T>, Serializable {
 

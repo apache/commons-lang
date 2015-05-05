@@ -25,7 +25,6 @@ import java.io.Writer;
  * without the +.
  * 
  * @since 3.0
- * @version $Id$
  */
 public class UnicodeUnescaper extends CharSequenceTranslator {
 

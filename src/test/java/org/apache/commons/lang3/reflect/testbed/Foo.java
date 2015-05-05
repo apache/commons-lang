@@ -17,7 +17,6 @@
 package org.apache.commons.lang3.reflect.testbed;
 
 /**
- * @version $Id$
  */
 public interface Foo {
     public static final String VALUE = "foo";

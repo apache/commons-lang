@@ -23,7 +23,6 @@ import java.io.Writer;
  * Translates codepoints to their Unicode escaped value.
  *
  * @since 3.0
- * @version $Id$
  */
 public class UnicodeEscaper extends CodePointTranslator {
 

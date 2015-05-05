@@ -31,7 +31,6 @@ import org.apache.commons.lang3.SystemUtils;
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.StrBuilder}.
  *
- * @version $Id$
  */
 public class StrBuilderAppendInsertTest {
 

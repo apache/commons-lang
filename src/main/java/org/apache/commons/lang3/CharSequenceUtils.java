@@ -22,7 +22,6 @@ package org.apache.commons.lang3;
  *
  * @see CharSequence
  * @since 3.0
- * @version $Id$
  */
 public class CharSequenceUtils {
 

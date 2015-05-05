@@ -92,7 +92,6 @@ import org.apache.commons.lang3.ClassUtils;
  * </p>
  *
  * @since 2.0
- * @version $Id$
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
 

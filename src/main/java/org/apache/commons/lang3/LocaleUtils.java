@@ -34,7 +34,6 @@ import java.util.concurrent.ConcurrentMap;
  * Each method documents its behaviour in more detail.</p>
  *
  * @since 2.2
- * @version $Id$
  */
 public class LocaleUtils {
 

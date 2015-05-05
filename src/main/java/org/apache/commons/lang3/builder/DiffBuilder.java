@@ -58,7 +58,6 @@ import org.apache.commons.lang3.ArrayUtils;
  * </p>
  * 
  * @since 3.3
- * @version $Id$
  * @see Diffable
  * @see Diff
  * @see DiffResult

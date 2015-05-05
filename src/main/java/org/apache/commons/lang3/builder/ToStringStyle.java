@@ -61,7 +61,6 @@ import org.apache.commons.lang3.SystemUtils;
  * </pre>
  *
  * @since 1.0
- * @version $Id$
  */
 public abstract class ToStringStyle implements Serializable {
 

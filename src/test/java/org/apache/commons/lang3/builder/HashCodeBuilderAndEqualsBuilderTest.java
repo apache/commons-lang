@@ -25,7 +25,6 @@ import org.junit.Test;
  * {@link org.apache.commons.lang3.builder.EqualsBuilderTest} to insure that equal
  * objects must have equal hash codes.
  * 
- * @version $Id$
  */
 public class HashCodeBuilderAndEqualsBuilderTest {
 

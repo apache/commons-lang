@@ -23,7 +23,6 @@ import org.junit.Test;
 /**
  * Test case for ToStringStyle.
  * 
- * @version $Id$
  */
 public class ToStringStyleTest {
 

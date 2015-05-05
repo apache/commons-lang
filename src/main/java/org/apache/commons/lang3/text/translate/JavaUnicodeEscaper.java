@@ -20,7 +20,6 @@ package org.apache.commons.lang3.text.translate;
  * Translates codepoints to their Unicode escaped value suitable for Java source.
  * 
  * @since 3.2
- * @version $Id$
  */
 public class JavaUnicodeEscaper extends UnicodeEscaper {
 

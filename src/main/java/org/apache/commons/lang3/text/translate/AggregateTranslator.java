@@ -26,7 +26,6 @@ import org.apache.commons.lang3.ArrayUtils;
  * the first translator consumes codepoints from the input.
  * 
  * @since 3.0
- * @version $Id$
  */
 public class AggregateTranslator extends CharSequenceTranslator {
 

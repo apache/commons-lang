@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
  * If these do not suffice, you can subclass and implement your own matcher.
  *
  * @since 2.2
- * @version $Id$
  */
 public abstract class StrMatcher {
 

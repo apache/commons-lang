@@ -27,7 +27,6 @@ import org.apache.commons.lang3.Validate;
  * <p>Provides extra functionality for Java Number classes.</p>
  *
  * @since 2.0
- * @version $Id$
  */
 public class NumberUtils {
     

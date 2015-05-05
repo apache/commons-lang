@@ -28,7 +28,6 @@ import org.junit.Test;
 /**
  * Test the Triple class.
  *
- * @version $Id$
  */
 public class TripleTest {
 

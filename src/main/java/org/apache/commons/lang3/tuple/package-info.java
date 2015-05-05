@@ -18,6 +18,5 @@
  * Tuple classes, starting with a Pair class in version 3.0.
  *
  * @since 3.0
- * @version $Id$
  */
 package org.apache.commons.lang3.tuple;

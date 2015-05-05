@@ -120,6 +120,5 @@
  * <p>The {@link org.apache.commons.lang3.BitField} class provides a wrapper class around the classic bitmask integer, whilst the {@link org.apache.commons.lang3.Validate} class may be used for assertions (remember, we support Java 1.2). </p>
  *
  * @since 1.0
- * @version $Id$
  */
 package org.apache.commons.lang3;

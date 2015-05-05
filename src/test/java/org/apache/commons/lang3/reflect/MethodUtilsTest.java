@@ -51,7 +51,6 @@ import org.junit.Test;
 
 /**
  * Unit tests MethodUtils
- * @version $Id$
  */
 public class MethodUtilsTest {
   

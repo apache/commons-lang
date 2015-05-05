@@ -65,7 +65,6 @@ import org.apache.commons.lang3.Validate;
  * @param <L> the type of event listener that is supported by this proxy.
  *
  * @since 3.0
- * @version $Id$
  */
 public class EventListenerSupport<L> implements Serializable {
 

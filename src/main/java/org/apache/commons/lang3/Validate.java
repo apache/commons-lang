@@ -40,7 +40,6 @@ import java.util.regex.Pattern;
  * </pre>
  *
  * <p>#ThreadSafe#</p>
- * @version $Id$
  * @see java.lang.String#format(String, Object...)
  * @since 2.0
  */

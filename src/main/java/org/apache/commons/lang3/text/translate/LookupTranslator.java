@@ -25,7 +25,6 @@ import java.util.HashSet;
  * Translates a value using a lookup table.
  *
  * @since 3.0
- * @version $Id$
  */
 public class LookupTranslator extends CharSequenceTranslator {
 

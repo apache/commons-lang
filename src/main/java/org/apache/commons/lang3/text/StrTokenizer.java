@@ -83,7 +83,6 @@ import org.apache.commons.lang3.StringUtils;
  * </table>
  *
  * @since 2.2
- * @version $Id$
  */
 public class StrTokenizer implements ListIterator<String>, Cloneable {
 

@@ -80,7 +80,6 @@ import java.util.concurrent.Future;
  * </p>
  *
  * @since 3.0
- * @version $Id$
  * @param <T> the type of the object managed by this initializer class
  */
 public abstract class BackgroundInitializer<T> implements

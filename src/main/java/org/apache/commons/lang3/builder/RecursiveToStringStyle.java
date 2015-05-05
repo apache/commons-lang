@@ -49,7 +49,6 @@ import org.apache.commons.lang3.ClassUtils;
  * <code>Person@7f54[name=Stephen,age=29,smoker=false,job=Job@43cd2[title=Manager]]</code></p>
  * 
  * @since 3.2
- * @version $Id$
  */
 public class RecursiveToStringStyle extends ToStringStyle {
 

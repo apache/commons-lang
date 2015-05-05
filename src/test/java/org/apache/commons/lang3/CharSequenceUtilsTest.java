@@ -31,7 +31,6 @@ import org.junit.Test;
 /**
  * Tests CharSequenceUtils
  *
- * @version $Id: CharSequenceUtilsTest.java 1066341 2011-02-02 06:21:53Z bayard $
  */
 public class CharSequenceUtilsTest {
 

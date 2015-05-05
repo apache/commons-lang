@@ -28,7 +28,6 @@ import java.util.EnumSet;
  * Note that the semi-colon is optional.
  * 
  * @since 3.0
- * @version $Id$
  */
 public class NumericEntityUnescaper extends CharSequenceTranslator {
 

@@ -61,7 +61,6 @@ import java.util.UUID;
  * </p>
  * 
  * @since Lang 3.2
- * @version $Id$
  */
 
 public class Conversion {

@@ -33,7 +33,6 @@ import org.apache.commons.lang3.Validate;
  * and padding, and is not designed to allow generalised alternate formats.</p>
  * 
  * @since Lang 3.0
- * @version $Id$
  */
 public class FormattableUtils {
 

@@ -54,7 +54,6 @@ import org.apache.commons.lang3.Validate;
  * If this call fails then the method may fail.</p>
  *
  * @since 2.5
- * @version $Id$
  */
 public class MethodUtils {
 

@@ -23,7 +23,6 @@ import java.util.Random;
  * 
  * @since 3.3
  *
- * @version $Id$
  */
 public class RandomUtils {
 

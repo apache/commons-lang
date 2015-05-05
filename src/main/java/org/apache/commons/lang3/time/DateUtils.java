@@ -48,7 +48,6 @@ import java.util.concurrent.TimeUnit;
  * </p>
  *
  * @since 2.0
- * @version $Id$
  */
 public class DateUtils {
 

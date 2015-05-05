@@ -27,7 +27,6 @@ import org.apache.commons.lang3.math.NumberUtils;
  *
  * <p>#ThreadSafe#</p>
  * @since 2.0
- * @version $Id$
  */
 public class BooleanUtils {
 

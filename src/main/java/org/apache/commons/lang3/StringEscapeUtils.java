@@ -36,7 +36,6 @@ import org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover;
  *
  * <p>#ThreadSafe#</p>
  * @since 2.0
- * @version $Id$
  */
 public class StringEscapeUtils {
 

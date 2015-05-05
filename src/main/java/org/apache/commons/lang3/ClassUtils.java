@@ -42,7 +42,6 @@ import org.apache.commons.lang3.mutable.MutableObject;
  * {@code [I}. </p>
  *
  * @since 2.0
- * @version $Id$
  */
 public class ClassUtils {
     /**

@@ -29,7 +29,6 @@ import org.junit.Test;
 /**
  * Unit tests for WordUtils class.
  * 
- * @version $Id$
  */
 public class WordUtilsTest {
 

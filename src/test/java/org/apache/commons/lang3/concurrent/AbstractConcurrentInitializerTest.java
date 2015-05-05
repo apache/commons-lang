@@ -34,7 +34,6 @@ import org.junit.Test;
  * tests are executed.
  * </p>
  *
- * @version $Id$
  */
 public abstract class AbstractConcurrentInitializerTest {
     /**

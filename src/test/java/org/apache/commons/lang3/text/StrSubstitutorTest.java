@@ -36,7 +36,6 @@ import org.junit.Test;
 /**
  * Test class for StrSubstitutor.
  *
- * @version $Id$
  */
 public class StrSubstitutorTest {
 

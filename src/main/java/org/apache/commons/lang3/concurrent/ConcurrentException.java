@@ -30,7 +30,6 @@ package org.apache.commons.lang3.concurrent;
  * </p>
  *
  * @since 3.0
- * @version $Id$
  */
 public class ConcurrentException extends Exception {
     /**

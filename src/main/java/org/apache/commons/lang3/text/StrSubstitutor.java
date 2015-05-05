@@ -119,7 +119,6 @@ import org.apache.commons.lang3.StringUtils;
  * {@link #setEnableSubstitutionInVariables(boolean) enableSubstitutionInVariables}
  * property to <b>true</b>.
  *
- * @version $Id$
  * @since 2.2
  */
 public class StrSubstitutor {

@@ -32,7 +32,6 @@ import java.util.List;
  * </p>
  * 
  * @since 3.3
- * @version $Id$
  */
 public class DiffResult implements Iterable<Diff<?>> {
 

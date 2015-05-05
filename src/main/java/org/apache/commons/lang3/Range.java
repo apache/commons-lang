@@ -28,7 +28,6 @@ import java.util.Comparator;
  * <p>#ThreadSafe# if the objects and comparator are thread-safe</p>
  * 
  * @since 3.0
- * @version $Id$
  */
 public final class Range<T> implements Serializable {
 

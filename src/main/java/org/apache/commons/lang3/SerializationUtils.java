@@ -43,7 +43,6 @@ import java.util.Map;
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
- * @version $Id$
  */
 public class SerializationUtils {
 

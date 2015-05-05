@@ -27,7 +27,6 @@ import java.util.Locale;
  * is completely contextual, the API does not present two separate signatures.
  * 
  * @since 3.0
- * @version $Id$
  */
 public abstract class CharSequenceTranslator {
 

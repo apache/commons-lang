@@ -22,7 +22,6 @@ import static org.junit.Assert.*;
 /**
  * JUnit tests.
  * 
- * @version $Id$
  * @see MutableInt
  */
 public class MutableIntTest {

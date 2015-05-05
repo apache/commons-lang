@@ -22,7 +22,6 @@ package org.apache.commons.lang3.text.translate;
  * All arrays are of length [*][2].
  *
  * @since 3.0
- * @version $Id$
  */
 public class EntityArrays {
 

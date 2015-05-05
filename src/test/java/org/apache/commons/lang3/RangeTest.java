@@ -34,7 +34,6 @@ import org.junit.Test;
  * Tests the methods in the {@link org.apache.commons.lang3.Range} class.
  * </p>
  * 
- * @version $Id$
  */
 @SuppressWarnings("boxing")
 public class RangeTest {

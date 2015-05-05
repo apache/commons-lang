@@ -40,7 +40,6 @@ import org.apache.commons.lang3.text.StrBuilder;
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
- * @version $Id$
  */
 //@Immutable
 public class ObjectUtils {

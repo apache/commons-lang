@@ -22,7 +22,6 @@ import java.lang.reflect.Type;
  * Generalization of "has a type."
  * @see TypeLiteral
  * @since 3.2
- * @version $Id$
  */
 public interface Typed<T> {
 

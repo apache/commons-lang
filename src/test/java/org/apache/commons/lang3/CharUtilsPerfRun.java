@@ -54,7 +54,6 @@ run_inlined_CharUtils_isAsciiNumeric: 709 milliseconds.
 run_inlined_CharUtils_isAsciiNumeric: 84,420 milliseconds.
 
 
- * @version $Id$
  */
 public class CharUtilsPerfRun {
     final static String VERSION = "$Id$";

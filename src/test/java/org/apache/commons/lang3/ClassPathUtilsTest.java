@@ -27,7 +27,6 @@ import java.lang.reflect.Modifier;
 import org.junit.Test;
 
 /**
- * @version $Id$
  */
 public class ClassPathUtilsTest {
 

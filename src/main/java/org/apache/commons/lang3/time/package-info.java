@@ -24,6 +24,5 @@
  * <p>New in Lang 2.1 is the {@link org.apache.commons.lang3.time.DurationFormatUtils} class, which provides various methods for formatting durations.</p>
  *
  * @since 2.0
- * @version $Id$
  */
 package org.apache.commons.lang3.time;

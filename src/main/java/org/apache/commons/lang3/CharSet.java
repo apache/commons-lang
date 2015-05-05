@@ -30,7 +30,6 @@ import java.util.Set;
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
- * @version $Id$
  */
 public class CharSet implements Serializable {
 

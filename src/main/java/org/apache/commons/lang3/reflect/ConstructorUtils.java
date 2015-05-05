@@ -42,7 +42,6 @@ import org.apache.commons.lang3.Validate;
  * fails then a warning will be logged and the method may fail.</p>
  *
  * @since 2.5
- * @version $Id$
  */
 public class ConstructorUtils {
 

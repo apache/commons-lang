@@ -75,7 +75,6 @@ package org.apache.commons.lang3.concurrent;
  * </p>
  *
  * @since 3.0
- * @version $Id$
  * @param <T> the type of the object managed by this initializer class
  */
 public abstract class LazyInitializer<T> implements ConcurrentInitializer<T> {

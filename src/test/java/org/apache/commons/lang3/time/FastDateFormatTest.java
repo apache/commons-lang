@@ -42,7 +42,6 @@ import org.junit.Test;
  * Unit tests {@link org.apache.commons.lang3.time.FastDateFormat}.
  *
  * @since 2.0
- * @version $Id$
  */
 public class FastDateFormatTest {
 

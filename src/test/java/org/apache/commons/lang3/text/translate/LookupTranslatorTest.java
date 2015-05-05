@@ -26,7 +26,6 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.LookupTranslator}.
- * @version $Id$
  */
 public class LookupTranslatorTest  {
 

@@ -35,7 +35,6 @@ import org.apache.commons.lang3.SystemUtils;
  * <code>Throwable</code> objects.</p>
  *
  * @since 1.0
- * @version $Id$
  */
 public class ExceptionUtils {
     

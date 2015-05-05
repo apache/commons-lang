@@ -25,7 +25,6 @@ import org.junit.Test;
 /**
  * Tests for {@link RandomUtils}
  *
- * @version $Id$
  */
 public class RandomUtilsTest {
 

@@ -17,7 +17,6 @@
 package org.apache.commons.lang3.reflect.testbed;
 
 /**
- * @version $Id$
  */
 class Parent implements Foo {
     public String s = "s";

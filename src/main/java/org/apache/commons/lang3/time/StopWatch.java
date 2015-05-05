@@ -53,7 +53,6 @@ package org.apache.commons.lang3.time;
  * <p>This class is not thread-safe</p>
  * 
  * @since 2.0
- * @version $Id$
  */
 public class StopWatch {
 

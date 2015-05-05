@@ -92,7 +92,6 @@ import java.util.concurrent.ExecutorService;
  * </p>
  *
  * @since 3.0
- * @version $Id$
  */
 public class MultiBackgroundInitializer
         extends

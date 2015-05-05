@@ -36,7 +36,6 @@ import java.util.Locale;
  * A month with 31 days will be rounded up from the 17th
  * 
  * @since 3.0
- * @version $Id$
  */
 public class DateUtilsRoundingTest {
 

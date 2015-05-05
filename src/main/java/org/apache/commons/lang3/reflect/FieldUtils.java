@@ -34,7 +34,6 @@ import java.util.List;
  * changed that shouldn't be. This facility should be used with care.
  * 
  * @since 2.5
- * @version $Id$
  */
 public class FieldUtils {
 

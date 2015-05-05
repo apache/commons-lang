@@ -22,7 +22,6 @@ import static org.junit.Assert.*;
 /**
  * JUnit tests.
  * 
- * @version $Id$
  * @see MutableLong
  */
 public class MutableLongTest {

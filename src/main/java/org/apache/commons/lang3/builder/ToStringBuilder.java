@@ -84,7 +84,6 @@ import org.apache.commons.lang3.ObjectUtils;
  * the {@link ToStringStyle} passed into the constructor.</p>
  *
  * @since 1.0
- * @version $Id$
  */
 public class ToStringBuilder implements Builder<String> {
 

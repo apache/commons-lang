@@ -32,7 +32,6 @@ import org.apache.commons.lang3.mutable.MutableObject;
 
 /**
  * Unit tests ConstructorUtils
- * @version $Id$
  */
 public class ConstructorUtilsTest {
     public static class TestBean {

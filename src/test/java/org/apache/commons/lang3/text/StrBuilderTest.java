@@ -33,7 +33,6 @@ import org.apache.commons.lang3.ArrayUtils;
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.StrBuilder}.
  * 
- * @version $Id$
  */
 public class StrBuilderTest {
 

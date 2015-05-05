@@ -24,7 +24,6 @@ import org.apache.commons.lang3.Validate;
  * <p>See: <a href="http://en.wikipedia.org/wiki/IEEE_754r">http://en.wikipedia.org/wiki/IEEE_754r</a></p>
  *
  * @since 2.4
- * @version $Id$
  */
 public class IEEE754rUtils {
     

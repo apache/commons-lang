@@ -42,7 +42,6 @@ import org.apache.commons.lang3.builder.Builder;
  * generics. </p>
  *
  * @since 3.0
- * @version $Id$
  */
 public class TypeUtils {
 

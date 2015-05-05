@@ -34,7 +34,6 @@ import org.junit.Test;
 /**
  * Test class for TimedSemaphore.
  *
- * @version $Id$
  */
 public class TimedSemaphoreTest {
     /** Constant for the time period. */

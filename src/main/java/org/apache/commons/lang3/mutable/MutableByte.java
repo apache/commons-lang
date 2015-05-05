@@ -25,7 +25,6 @@ import org.apache.commons.lang3.math.NumberUtils;
  * 
  * @see Byte
  * @since 2.1
- * @version $Id$
  */
 public class MutableByte extends Number implements Comparable<MutableByte>, Mutable<Number> {
 

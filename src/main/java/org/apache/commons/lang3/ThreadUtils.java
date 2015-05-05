@@ -32,7 +32,6 @@ import java.util.List;
  * @see java.lang.Thread
  * @see java.lang.ThreadGroup
  * @since 3.5
- * @version $Id$
  */
 public class ThreadUtils {
 

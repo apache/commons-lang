@@ -41,7 +41,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * <p>#ThreadSafe#</p>
  *
  * @since 3.0
- * @version $Id$
  */
 public class AnnotationUtils {
 

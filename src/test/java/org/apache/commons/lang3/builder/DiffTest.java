@@ -24,7 +24,6 @@ import org.junit.Test;
 /**
  * Unit tests {@link Diff}.
  *
- * @version $Id$
  */
 public class DiffTest {
 

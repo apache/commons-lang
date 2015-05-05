@@ -20,6 +20,5 @@
  * These classes are not thread-safe.</p>
  *
  * @since 2.1
- * @version $Id$
  */
 package org.apache.commons.lang3.mutable;

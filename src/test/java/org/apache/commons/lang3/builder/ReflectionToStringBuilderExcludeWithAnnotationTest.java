@@ -25,7 +25,6 @@ import org.junit.Test;
 
 /**
  * Test class for ToStringExclude annotation
- * @version $Id$
  */
 public class ReflectionToStringBuilderExcludeWithAnnotationTest {
 

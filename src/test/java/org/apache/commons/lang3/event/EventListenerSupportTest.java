@@ -38,7 +38,6 @@ import org.junit.Test;
 
 /**
  * @since 3.0
- * @version $Id$
  */
 public class EventListenerSupportTest 
 {

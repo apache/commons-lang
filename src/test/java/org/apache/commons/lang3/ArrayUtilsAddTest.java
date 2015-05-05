@@ -31,7 +31,6 @@ import org.junit.Test;
 /**
  * Tests ArrayUtils add methods.
  *
- * @version $Id$
  */
 public class ArrayUtilsAddTest {
 

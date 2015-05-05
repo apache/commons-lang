@@ -65,7 +65,6 @@ import java.util.regex.Pattern;
  * <p>Timing tests indicate this class is as about as fast as SimpleDateFormat
  * in single thread applications and about 25% faster in multi-thread applications.</p>
  *
- * @version $Id$
  * @since 3.2
  * @see FastDatePrinter
  */

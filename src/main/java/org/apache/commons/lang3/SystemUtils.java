@@ -31,7 +31,6 @@ import java.io.File;
  * </p>
  *
  * @since 1.0
- * @version $Id$
  */
 public class SystemUtils {
 

@@ -22,7 +22,6 @@ import static org.junit.Assert.*;
 /**
  * JUnit tests.
  * 
- * @version $Id$
  * @see MutableFloat
  */
 public class MutableFloatTest {

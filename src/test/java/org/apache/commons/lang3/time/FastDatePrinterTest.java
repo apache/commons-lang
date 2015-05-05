@@ -36,7 +36,6 @@ import org.junit.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.time.FastDatePrinter}.
  *
- * @version $Id$
  * @since 3.0
  */
 public class FastDatePrinterTest {

@@ -30,7 +30,6 @@ import java.math.BigInteger;
  * equivalent, please see the Commons Math BigFraction class. </p>
  *
  * @since 2.0
- * @version $Id$
  */
 public final class Fraction extends Number implements Comparable<Fraction> {
 

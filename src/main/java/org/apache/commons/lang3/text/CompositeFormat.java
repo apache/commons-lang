@@ -26,7 +26,6 @@ import java.text.ParsePosition;
  * example of use for this would be a webapp where data is taken in one way and
  * stored in a database another way.
  * 
- * @version $Id$
  */
 public class CompositeFormat extends Format {
 

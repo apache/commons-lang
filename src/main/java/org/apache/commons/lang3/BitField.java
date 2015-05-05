@@ -69,7 +69,6 @@ package org.apache.commons.lang3;
  *</pre>
  *
  * @since 2.0
- * @version $Id$
  */
 public class BitField {
     

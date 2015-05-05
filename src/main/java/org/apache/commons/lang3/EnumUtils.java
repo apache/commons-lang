@@ -30,7 +30,6 @@ import java.util.Map;
  * <p>#ThreadSafe#</p>
  *
  * @since 3.0
- * @version $Id$
  */
 public class EnumUtils {
 

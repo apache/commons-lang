@@ -29,6 +29,5 @@
  * @see java.lang.Comparable#compareTo(Object)
  *
  * @since 1.0
- * @version $Id$
  */
 package org.apache.commons.lang3.builder;

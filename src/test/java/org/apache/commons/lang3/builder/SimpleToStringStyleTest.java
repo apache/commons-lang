@@ -29,7 +29,6 @@ import org.junit.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.SimpleToStringStyleTest}.
  *
- * @version $Id$
  */
 public class SimpleToStringStyleTest {
 

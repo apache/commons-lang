@@ -42,7 +42,6 @@ import org.junit.Test;
 
 /**
  * Test TypeUtils
- * @version $Id$
  */
 @SuppressWarnings({ "unchecked", "unused" , "rawtypes" })
 //raw types, where used, are used purposely

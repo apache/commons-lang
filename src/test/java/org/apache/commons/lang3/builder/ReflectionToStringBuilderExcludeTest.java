@@ -27,7 +27,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 /**
- * @version $Id$
  */
 public class ReflectionToStringBuilderExcludeTest {
 

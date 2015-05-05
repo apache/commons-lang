@@ -28,7 +28,6 @@ import org.junit.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.EqualsBuilder}.
  *
- * @version $Id$
  */
 public class EqualsBuilderTest {
 

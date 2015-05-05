@@ -82,7 +82,6 @@ import org.apache.commons.lang3.tuple.Pair;
  * used by the <code>reflectionEquals</code> methods.</p>
  *
  * @since 1.0
- * @version $Id$
  */
 public class EqualsBuilder implements Builder<Boolean> {
 

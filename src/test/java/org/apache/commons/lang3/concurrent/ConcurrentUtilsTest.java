@@ -35,7 +35,6 @@ import org.junit.Test;
 /**
  * Test class for {@link ConcurrentUtils}.
  *
- * @version $Id$
  */
 public class ConcurrentUtilsTest {
     /**

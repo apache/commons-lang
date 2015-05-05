@@ -34,7 +34,6 @@ import java.util.Properties;
  * key as a primary key, and looked up the value on demand from the database
  *
  * @since 2.2
- * @version $Id$
  */
 public abstract class StrLookup<V> {
 

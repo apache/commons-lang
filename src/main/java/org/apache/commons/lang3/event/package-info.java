@@ -18,6 +18,5 @@
  * Provides some useful event-based utilities.
  *
  * @since 3.0
- * @version $Id$
  */
 package org.apache.commons.lang3.event;

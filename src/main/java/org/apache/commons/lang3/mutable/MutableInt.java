@@ -25,7 +25,6 @@ import org.apache.commons.lang3.math.NumberUtils;
  * 
  * @see Integer
  * @since 2.1
- * @version $Id$
  */
 public class MutableInt extends Number implements Comparable<MutableInt>, Mutable<Number> {
 

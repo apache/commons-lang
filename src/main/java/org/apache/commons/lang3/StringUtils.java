@@ -111,7 +111,6 @@ import java.util.regex.Pattern;
  * <p>#ThreadSafe#</p>
  * @see java.lang.String
  * @since 1.0
- * @version $Id$
  */
 //@Immutable
 public class StringUtils {

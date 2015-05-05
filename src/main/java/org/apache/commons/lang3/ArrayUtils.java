@@ -41,7 +41,6 @@ import org.apache.commons.lang3.mutable.MutableInt;
  *
  * <p>#ThreadSafe#</p>
  * @since 2.0
- * @version $Id$
  */
 public class ArrayUtils {
 

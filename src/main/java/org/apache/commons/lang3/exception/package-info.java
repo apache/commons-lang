@@ -22,6 +22,5 @@
  * and examination routines.</p>
  *
  * @since 1.0
- * @version $Id$
  */
 package org.apache.commons.lang3.exception;

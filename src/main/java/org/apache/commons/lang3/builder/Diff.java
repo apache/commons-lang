@@ -39,7 +39,6 @@ import org.apache.commons.lang3.tuple.Pair;
  *            between primitive objects are stored as their Object wrapper
  *            equivalent.
  * @since 3.3
- * @version $Id$
  */
 public abstract class Diff<T> extends Pair<T, T> {
 

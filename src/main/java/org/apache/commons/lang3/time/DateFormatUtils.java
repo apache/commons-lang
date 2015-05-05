@@ -31,7 +31,6 @@ import java.util.TimeZone;
  * override any previously called Calendar.clear() calls. See LANG-755.</p>
  *
  * @since 2.0
- * @version $Id$
  */
 public class DateFormatUtils {
 

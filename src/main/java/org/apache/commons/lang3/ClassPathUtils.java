@@ -22,7 +22,6 @@ package org.apache.commons.lang3;
  * <p>The methods of this class do not allow {@code null} inputs.</p>
  *
  * @since 3.3
- * @version $Id$
  */
 //@Immutable
 public class ClassPathUtils {

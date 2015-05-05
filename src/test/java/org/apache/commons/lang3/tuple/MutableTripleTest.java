@@ -30,7 +30,6 @@ import org.junit.Test;
 
 /**
  * Test the MutableTriple class.
- * @version $Id$
  */
 public class MutableTripleTest {
 

@@ -30,7 +30,6 @@ import org.junit.Test;
 /**
  * Unit tests {@link Conversion}.
  * 
- * @version $Id$
  */
 public class ConversionTest {
 

@@ -32,7 +32,6 @@ import java.nio.charset.IllegalCharsetNameException;
  *
  * @see <a href="http://download.oracle.com/javase/1.3/docs/guide/intl/encoding.doc.html">JRE character encoding names</a>
  * @since 2.1
- * @version $Id$
  */
 public class CharEncoding {
 

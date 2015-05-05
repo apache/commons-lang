@@ -39,7 +39,6 @@ import org.junit.Test;
  * 
  * Only limited testing can be performed.
  * 
- * @version $Id$
  */
 public class SystemUtilsTest {
 

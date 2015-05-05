@@ -27,7 +27,6 @@ import org.apache.commons.lang3.SystemUtils;
  * Each method documents its behaviour in more detail.</p>
  * 
  * @since 2.0
- * @version $Id$
  */
 public class WordUtils {
 

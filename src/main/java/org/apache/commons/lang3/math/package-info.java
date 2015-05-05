@@ -29,6 +29,5 @@
  * NumberUtils also has a related {@link org.apache.commons.lang3.math.NumberUtils#isNumber(String) isNumber(String)} method.</p>
  *
  * @since 2.0
- * @version $Id$
  */
 package org.apache.commons.lang3.math;

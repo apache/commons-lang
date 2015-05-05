@@ -31,7 +31,6 @@ import org.junit.Test;
 /**
  * Test the Pair class.
  * 
- * @version $Id$
  */
 public class PairTest {
 

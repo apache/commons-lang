@@ -99,7 +99,6 @@ import org.apache.commons.lang3.Validate;
  * used by the <code>reflectionHashCode</code> methods.</p>
  *
  * @since 1.0
- * @version $Id$
  */
 public class HashCodeBuilder implements Builder<Integer> {
     /**

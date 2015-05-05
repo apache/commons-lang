@@ -91,7 +91,6 @@ import org.apache.commons.lang3.ArrayUtils;
  * @see EqualsBuilder
  * @see HashCodeBuilder
  * @since 1.0
- * @version $Id$
  */
 public class CompareToBuilder implements Builder<Integer> {
     

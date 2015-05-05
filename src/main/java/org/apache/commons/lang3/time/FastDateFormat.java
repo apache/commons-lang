@@ -68,7 +68,6 @@ import java.util.TimeZone;
  * versions. FastDateFormat implements the behavior of Java 7.</p>
  *
  * @since 2.0
- * @version $Id$
  */
 public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**

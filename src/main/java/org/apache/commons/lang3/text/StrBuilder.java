@@ -72,7 +72,6 @@ import org.apache.commons.lang3.builder.Builder;
  * the interface. 
  *
  * @since 2.2
- * @version $Id$
  */
 public class StrBuilder implements CharSequence, Appendable, Serializable, Builder<String> {
 

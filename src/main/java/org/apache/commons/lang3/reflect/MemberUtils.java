@@ -27,7 +27,6 @@ import org.apache.commons.lang3.ClassUtils;
  * extracted and refactored from {@link MethodUtils} when it was imported from Commons BeanUtils.
  *
  * @since 2.5
- * @version $Id$
  */
 abstract class MemberUtils {
     // TODO extract an interface to implement compareParameterSets(...)?

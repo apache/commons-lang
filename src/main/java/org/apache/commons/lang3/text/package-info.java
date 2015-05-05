@@ -23,6 +23,5 @@
  * While somewhat ungainly, the <code>Str</code> prefix has been used to ensure we don't clash with any current or future standard Java classes. </p>
  *
  * @since 2.1
- * @version $Id$
  */
 package org.apache.commons.lang3.text;
