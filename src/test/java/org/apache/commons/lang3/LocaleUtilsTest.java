@@ -40,7 +40,6 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@link LocaleUtils}.
- *
  */
 public class LocaleUtilsTest  {
 

@@ -27,7 +27,6 @@ import org.junit.Test;
 
 /**
  * Test class for StrLookup.
- *
  */
 public class StrLookupTest  {
 

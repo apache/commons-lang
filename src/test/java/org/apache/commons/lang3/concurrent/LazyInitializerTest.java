@@ -20,7 +20,6 @@ import org.junit.Before;
 
 /**
  * Test class for {@code LazyInitializer}.
- *
  */
 public class LazyInitializerTest extends AbstractConcurrentInitializerTest {
     /** The initializer to be tested. */

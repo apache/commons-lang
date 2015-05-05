@@ -30,7 +30,6 @@ import org.junit.Test;
 
 /**
  * Tests CharSequenceUtils
- *
  */
 public class CharSequenceUtilsTest {
 

@@ -36,7 +36,6 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@link StringEscapeUtils}.
- *
  */
 public class StringEscapeUtilsTest {
     private final static String FOO = "foo";

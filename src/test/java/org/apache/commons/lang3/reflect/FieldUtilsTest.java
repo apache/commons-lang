@@ -33,7 +33,6 @@ import static org.junit.Assume.assumeNotNull;
 
 /**
  * Unit tests FieldUtils
- * 
  */
 public class FieldUtilsTest {
 

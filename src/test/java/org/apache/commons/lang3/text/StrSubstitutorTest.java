@@ -35,7 +35,6 @@ import org.junit.Test;
 
 /**
  * Test class for StrSubstitutor.
- *
  */
 public class StrSubstitutorTest {
 

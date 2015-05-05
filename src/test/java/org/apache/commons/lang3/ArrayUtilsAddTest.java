@@ -30,7 +30,6 @@ import org.junit.Test;
 
 /**
  * Tests ArrayUtils add methods.
- *
  */
 public class ArrayUtilsAddTest {
 

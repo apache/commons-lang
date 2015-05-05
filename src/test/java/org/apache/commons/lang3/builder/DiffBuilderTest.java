@@ -30,7 +30,6 @@ import org.junit.Test;
 
 /**
  * Unit tests {@link DiffBuilder}.
- *
  */
 public class DiffBuilderTest {
     

@@ -33,7 +33,6 @@ import org.junit.Test;
  * class have to create a {@link ConcurrentInitializer} object on which the
  * tests are executed.
  * </p>
- *
  */
 public abstract class AbstractConcurrentInitializerTest {
     /**

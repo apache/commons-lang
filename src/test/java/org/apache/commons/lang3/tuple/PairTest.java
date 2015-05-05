@@ -30,7 +30,6 @@ import org.junit.Test;
 
 /**
  * Test the Pair class.
- * 
  */
 public class PairTest {
 

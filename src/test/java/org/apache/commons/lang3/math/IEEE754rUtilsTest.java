@@ -24,7 +24,6 @@ import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.math.IEEE754rUtils}.
- *
  */
 public class IEEE754rUtilsTest  {
 

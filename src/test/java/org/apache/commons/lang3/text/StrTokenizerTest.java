@@ -30,7 +30,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Unit test for Tokenizer.
- * 
  */
 public class StrTokenizerTest {
 

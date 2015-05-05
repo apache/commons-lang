@@ -41,7 +41,6 @@ import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils}.
- *
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class StringUtilsTest {

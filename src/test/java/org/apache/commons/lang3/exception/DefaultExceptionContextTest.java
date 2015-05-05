@@ -21,7 +21,6 @@ import org.junit.Test;
 
 /**
  * JUnit tests for DefaultExceptionContext.
- *
  */
 public class DefaultExceptionContextTest extends AbstractExceptionContextTest<DefaultExceptionContext> {
     

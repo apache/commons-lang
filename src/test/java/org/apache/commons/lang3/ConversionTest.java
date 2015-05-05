@@ -29,7 +29,6 @@ import org.junit.Test;
 
 /**
  * Unit tests {@link Conversion}.
- * 
  */
 public class ConversionTest {
 

@@ -22,7 +22,6 @@ import org.apache.commons.lang3.text.StrBuilder;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - StartsWith/EndsWith methods
- *
  */
 public class StringUtilsStartsEndsWithTest {
     private static final String foo    = "foo";

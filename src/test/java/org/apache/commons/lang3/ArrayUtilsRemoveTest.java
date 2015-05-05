@@ -28,7 +28,6 @@ import org.junit.Test;
 
 /**
  * Tests ArrayUtils remove and removeElement methods.
- * 
  */
 public class ArrayUtilsRemoveTest {
 

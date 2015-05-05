@@ -23,7 +23,6 @@ import org.junit.Test;
 
 /**
  * Unit tests {@link Diff}.
- *
  */
 public class DiffTest {
 

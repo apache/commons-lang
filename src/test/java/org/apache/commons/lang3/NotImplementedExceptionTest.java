@@ -22,7 +22,6 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.NotImplementedException}.
- * 
  */
 public class NotImplementedExceptionTest {
 

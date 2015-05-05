@@ -35,7 +35,6 @@ import org.junit.Test;
 
 /**
  * TestCase for DateFormatUtils.
- *
  */
 public class DateFormatUtilsTest {
 

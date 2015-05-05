@@ -22,7 +22,6 @@ import org.junit.Test;
 
 /**
  * Test case for ToStringStyle.
- * 
  */
 public class ToStringStyleTest {
 

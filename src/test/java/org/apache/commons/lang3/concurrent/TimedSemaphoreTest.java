@@ -33,7 +33,6 @@ import org.junit.Test;
 
 /**
  * Test class for TimedSemaphore.
- *
  */
 public class TimedSemaphoreTest {
     /** Constant for the time period. */

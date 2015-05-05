@@ -28,7 +28,6 @@ import org.junit.Test;
 
 /**
  * Test cases for the {@link Fraction} class
- *
  */
 public class FractionTest  {
     

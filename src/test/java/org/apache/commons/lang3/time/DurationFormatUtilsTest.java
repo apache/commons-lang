@@ -32,7 +32,6 @@ import org.junit.Test;
 
 /**
  * TestCase for DurationFormatUtils.
- * 
  */
 public class DurationFormatUtilsTest {
 

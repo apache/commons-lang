@@ -24,7 +24,6 @@ import org.junit.Test;
 
 /**
  * Class to test BitField functionality
- *
  */
 public class BitFieldTest  {
 

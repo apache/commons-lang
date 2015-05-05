@@ -32,7 +32,6 @@ import org.junit.Test;
 
 /**
  * Test class for {@code BasicThreadFactory}.
- *
  */
 public class BasicThreadFactoryTest {
     /** Constant for the test naming pattern. */

@@ -25,7 +25,6 @@ import org.junit.Test;
 
 /**
  * Test class for {@code AtomicSafeInitializer}.
- *
  */
 public class AtomicSafeInitializerTest extends
         AbstractConcurrentInitializerTest {

@@ -29,7 +29,6 @@ import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
- *
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class ArrayUtilsTest  {

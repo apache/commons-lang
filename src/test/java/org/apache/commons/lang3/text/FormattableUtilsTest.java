@@ -25,7 +25,6 @@ import org.junit.Test;
 
 /**
  * Unit tests {@link FormattableUtils}.
- *
  */
 public class FormattableUtilsTest {
 

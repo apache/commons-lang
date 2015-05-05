@@ -23,7 +23,6 @@ import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
- *
  */
 public class StringUtilsIsTest  {
 
