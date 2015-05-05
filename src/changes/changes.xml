@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1130" type="fix" dev="britter">Fix critical issues reported by SonarQube</action>
     <action issue="LANG-1131" type="fix" dev="britter">StrBuilder.equals(StrBuilder) doesn't check for null inputs</action>
     <action issue="LANG-1105" type="add" dev="britter" due-to="Hendrik Saly">Add ThreadUtils - A utility class which provides helper methods related to java.lang.Thread</action>
     <action issue="LANG-1031" type="add" dev="britter" due-to="Felipe Adorno">Add annotations to exclude fields from ReflectionEqualsBuilder, ReflectionToStringBuilder and ReflectionHashCodeBuilder</action>
