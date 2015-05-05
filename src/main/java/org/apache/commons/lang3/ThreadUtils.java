@@ -128,7 +128,7 @@ public class ThreadUtils {
         final Collection<ThreadGroup> threadGroups = findThreadGroups(new NamePredicate(threadGroupName));
 
         if(threadGroups.isEmpty()) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
 
         final Collection<Thread> result = new ArrayList<Thread>();
@@ -292,12 +292,12 @@ public class ThreadUtils {
         }
 
         @Override
-        public boolean test(@SuppressWarnings("unused") final ThreadGroup threadGroup) {
+        public boolean test(final ThreadGroup threadGroup) {
             return true;
         }
 
         @Override
-        public boolean test(@SuppressWarnings("unused") final Thread thread) {
+        public boolean test(final Thread thread) {
             return true;
         }
     }
