@@ -1850,6 +1850,13 @@ public class StrBuilderTest {
         assertFalse(sb1.equals("abc"));
     }
 
+    @Test
+    public void test_LANG_1131_EqualsWithNullStrBuilder() throws Exception {
+        final StrBuilder sb = new StrBuilder();
+        final StrBuilder other = null;
+        assertFalse(sb.equals(other));
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testHashCode() {
