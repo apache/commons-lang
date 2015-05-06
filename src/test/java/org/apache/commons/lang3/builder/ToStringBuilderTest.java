@@ -1041,7 +1041,7 @@ public class ToStringBuilderTest {
         static final int staticInt2 = 67890;
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testReflectionNull() {
         assertEquals("<null>", ReflectionToStringBuilder.toString(null));
     }
