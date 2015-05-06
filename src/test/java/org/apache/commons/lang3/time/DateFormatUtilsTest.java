@@ -29,6 +29,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.test.SwitchDefaults;
+import org.apache.commons.lang3.test.SystemDefaults;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -39,9 +41,7 @@ import org.junit.Test;
 public class DateFormatUtilsTest {
 
     @Rule
-    public TestTimeZone timeZone = TestTimeZone.usingDefaultTimeZone();
-    @Rule 
-    public TestLocale locale = TestLocale.usingDefaultLocale();
+    public SwitchDefaults defaults = new SwitchDefaults();
     
     //-----------------------------------------------------------------------
     @Test
@@ -171,10 +171,9 @@ public class DateFormatUtilsTest {
         testUTC("09:11:12Z", DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern());
     }
 
+    @SystemDefaults(locale="en")
     @Test
     public void testSMTP() {
-        locale.setLocale(Locale.ENGLISH);
-
         TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         Calendar june = createJuneTestDate(timeZone);
 
@@ -221,10 +220,9 @@ public class DateFormatUtilsTest {
         DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.parse(date);
     }
 
+    @SystemDefaults(timezone="UTC")
     @Test
     public void testLang530() throws ParseException {
-        timeZone.setTimeZone("UTC");
-
         final Date d = new Date();
         final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
         final Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });

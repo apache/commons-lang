@@ -30,6 +30,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.SerializationUtils;
+import org.apache.commons.lang3.test.SwitchDefaults;
+import org.apache.commons.lang3.test.SystemDefaults;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -77,16 +79,11 @@ public class FastDatePrinterTest {
     }
 
     @Rule
-    public TestLocale locale = TestLocale.usingDefaultLocale();
+    public SwitchDefaults defaults = new SwitchDefaults();
 
-    @Rule
-    public TestTimeZone timeZone = TestTimeZone.usingDefaultTimeZone();
-
+    @SystemDefaults(timezone="America/New_York", locale="en_US")
     @Test
     public void testFormat() {
-        locale.setLocale(Locale.US);
-        timeZone.setTimeZone(NEW_YORK);
-
         final GregorianCalendar cal1 = new GregorianCalendar(2003, 0, 10, 15, 33, 20);
         final GregorianCalendar cal2 = new GregorianCalendar(2003, 6, 10, 9, 0, 0);
         final Date date1 = cal1.getTime();
@@ -267,10 +264,9 @@ public class FastDatePrinterTest {
         assertEquals(NEW_YORK, printer.getTimeZone());
     }
 
+    @SystemDefaults(timezone="UTC")
     @Test
     public void testTimeZoneAsZ() throws Exception {
-        timeZone.setTimeZone("UTC");
-
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         FastDateFormat noColonFormat = FastDateFormat.getInstance("Z");
         assertEquals("+0000", noColonFormat.format(c));
