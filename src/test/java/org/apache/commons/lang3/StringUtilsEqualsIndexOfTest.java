@@ -127,6 +127,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.containsAny("zzabyycdxx", new char[0]));
         assertTrue(StringUtils.containsAny("zzabyycdxx", new char[] { 'z', 'a' }));
         assertTrue(StringUtils.containsAny("zzabyycdxx", new char[] { 'b', 'y' }));
+        assertTrue(StringUtils.containsAny("zzabyycdxx", new char[] { 'z', 'y' }));
         assertFalse(StringUtils.containsAny("ab", new char[] { 'z' }));
     }
 
