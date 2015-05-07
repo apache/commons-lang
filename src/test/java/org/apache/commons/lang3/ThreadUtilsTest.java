@@ -174,7 +174,7 @@ public class ThreadUtilsTest {
         try {
             t1.start();
             t2.start();
-            assertEquals(t1.getName(), ThreadUtils.findThreadById(t1.getId()).getName());
+            assertSame(t1, ThreadUtils.findThreadById(t1.getId()));
             assertSame(t2, ThreadUtils.findThreadById(t2.getId()));
         } finally {
             t1.interrupt();
@@ -261,8 +261,8 @@ public class ThreadUtilsTest {
         try {
             t1.start();
             t2.start();
-            assertEquals(t1.getName(), ThreadUtils.findThreadById(t1.getId(),"thread_group_DDZZ99__").getName());
-            assertEquals(t2.getName(), ThreadUtils.findThreadById(t2.getId(),"thread_group_DDZZ99__").getName());
+            assertSame(t1, ThreadUtils.findThreadById(t1.getId(),"thread_group_DDZZ99__"));
+            assertSame(t2, ThreadUtils.findThreadById(t2.getId(),"thread_group_DDZZ99__"));
             assertNull(ThreadUtils.findThreadById(nonExistingId,"non_existent_thread_group_JJHHZZ__"));
             assertNull(ThreadUtils.findThreadById(nonExistingId,"thread_group_DDZZ99__"));
         } finally {
