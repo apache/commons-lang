@@ -226,6 +226,8 @@ public class StringUtilsEqualsIndexOfTest  {
         assertTrue(StringUtils.containsAny("hello, goodbye", new String[] { "hello", "goodbye" }));
         assertTrue(StringUtils.containsAny("hello, goodbye", new String[] { "hello", "Goodbye" }));
         assertFalse(StringUtils.containsAny("hello, goodbye", new String[] { "Hello", "Goodbye" }));
+        assertFalse(StringUtils.containsAny("hello, goodbye", new String[] { "Hello", null }));
+        assertFalse(StringUtils.containsAny("hello, null", new String[] { "Hello", null }));
     }
 
     @Test
