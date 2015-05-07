@@ -89,7 +89,7 @@ public class ThreadUtils {
      * Return active threads with the specified name if they belong to a specified thread group.
      *
      * @param threadName The thread name
-     * @param threadGroupName The thread group
+     * @param threadGroup The thread group
      * @return The threads which belongs to a thread group and the thread's name match the specified name,
      * An empty collection is returned if no such thread exists. The collection returned is always unmodifiable.
      * @throws IllegalArgumentException if the specified thread name or group is null
