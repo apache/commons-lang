@@ -1685,8 +1685,8 @@ public class StringUtils {
      * StringUtils.containsAny("", *)              = false
      * StringUtils.containsAny(*, null)            = false
      * StringUtils.containsAny(*, [])              = false
-     * StringUtils.containsAny("abcd", "ab", "cd") = false
      * StringUtils.containsAny("abcd", "ab", null) = false
+     * StringUtils.containsAny("abcd", "ab", "cd") = true
      * StringUtils.containsAny("abc", "d", "abc")  = true
      * </pre>
      *
