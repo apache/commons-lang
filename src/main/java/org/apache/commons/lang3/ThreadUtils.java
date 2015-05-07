@@ -380,7 +380,7 @@ public class ThreadUtils {
     /**
      * Select all active threadgroups which match the given predicate.
      *
-     * @param predicate
+     * @param predicate the predicate
      * @return An unmodifiable {@code Collection} of active threadgroups matching the given predicate
      * @throws IllegalArgumentException if the predicate is null
      * @throws  SecurityException
