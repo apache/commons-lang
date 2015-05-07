@@ -461,18 +461,18 @@ public class StringUtilsTest {
     @Test
     public void testJoinWith() {
         assertEquals("", StringUtils.joinWith(",", new Object[0]));        // empty array
-        assertEquals("", StringUtils.joinWith(",", NULL_ARRAY_LIST));
+        assertEquals("", StringUtils.joinWith(",", (Object[]) NULL_ARRAY_LIST));
         assertEquals("null", StringUtils.joinWith(",", NULL_TO_STRING_LIST));   //toString method prints 'null'
 
-        assertEquals("a,b,c", StringUtils.joinWith(",", new String[]{"a", "b", "c"}));
-        assertEquals(",a,", StringUtils.joinWith(",", new String[]{null, "a", ""}));
+        assertEquals("a,b,c", StringUtils.joinWith(",", new Object[]{"a", "b", "c"}));
+        assertEquals(",a,", StringUtils.joinWith(",", new Object[]{null, "a", ""}));
 
         assertEquals("ab", StringUtils.joinWith(null, "a", "b"));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testJoinWithThrowsException() {
-        StringUtils.joinWith(",", null);
+        StringUtils.joinWith(",", (Object[]) null);
     }
 
 
