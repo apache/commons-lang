@@ -2650,6 +2650,8 @@ public class ArrayUtils {
         if (offset < 0) {
             offset += n;
         }
+        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
+        // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             int n_offset = n - offset;
             
@@ -2708,6 +2710,8 @@ public class ArrayUtils {
         if (offset < 0) {
             offset += n;
         }
+        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
+        // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             int n_offset = n - offset;
             
@@ -2766,6 +2770,8 @@ public class ArrayUtils {
         if (offset < 0) {
             offset += n;
         }
+        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
+        // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             int n_offset = n - offset;
             
@@ -2824,6 +2830,8 @@ public class ArrayUtils {
         if (offset < 0) {
             offset += n;
         }
+        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
+        // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             int n_offset = n - offset;
             
@@ -2882,6 +2890,8 @@ public class ArrayUtils {
         if (offset < 0) {
             offset += n;
         }
+        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
+        // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             int n_offset = n - offset;
             
@@ -2940,6 +2950,8 @@ public class ArrayUtils {
         if (offset < 0) {
             offset += n;
         }
+        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
+        // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             int n_offset = n - offset;
             
@@ -2997,6 +3009,8 @@ public class ArrayUtils {
         if (offset < 0) {
             offset += n;
         }
+        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
+        // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             int n_offset = n - offset;
             
@@ -3054,6 +3068,8 @@ public class ArrayUtils {
         if (offset < 0) {
             offset += n;
         }
+        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
+        // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             int n_offset = n - offset;
             
@@ -3112,6 +3128,8 @@ public class ArrayUtils {
         if (offset < 0) {
             offset += n;
         }
+        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
+        // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             int n_offset = n - offset;
             

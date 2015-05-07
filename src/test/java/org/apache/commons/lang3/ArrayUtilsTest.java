@@ -2484,6 +2484,13 @@ public class ArrayUtilsTest  {
         assertEquals(4, array[1]);
         assertEquals(1, array[2]);
         assertEquals(2, array[3]);
+        array = new short[] {1, 2, 3, 4, 5};
+        ArrayUtils.shift(array, 2);
+        assertEquals(4, array[0]);
+        assertEquals(5, array[1]);
+        assertEquals(1, array[2]);
+        assertEquals(2, array[3]);
+        assertEquals(3, array[4]);
     }
 
     @Test
