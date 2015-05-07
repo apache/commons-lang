@@ -29,11 +29,9 @@ import static org.junit.Assert.assertTrue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-//import org.apache.commons.lang3.ThreadUtils.AlwaysTruePredicate;
 import org.junit.Test;
 
 /**
@@ -313,8 +311,7 @@ public class ThreadUtilsTest {
         final List<Thread> threads = Arrays.asList(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10, t11, t11Doubled);
 
         try {
-            for (final Iterator iterator = threads.iterator(); iterator.hasNext();) {
-                final Thread thread = (Thread) iterator.next();
+            for (final Thread thread : threads) {
                 thread.start();
             }
             assertTrue(ThreadUtils.getAllThreadGroups().size() >= 7);
@@ -324,14 +321,12 @@ public class ThreadUtilsTest {
             assertEquals(0, ThreadUtils.findThreadsByName(t4.getName(), threadGroup2.getName()).size());
             assertEquals(2, ThreadUtils.findThreadsByName(t11.getName(), threadGroup7.getName()).size());
         }finally {
-            for (final Iterator iterator = threads.iterator(); iterator.hasNext();) {
-                final Thread thread = (Thread) iterator.next();
+            for (final Thread thread : threads) {
                 thread.interrupt();
                 thread.join();
             }
-            for (final Iterator iterator = threadGroups.iterator(); iterator.hasNext();) {
-                final ThreadGroup threadGroup = (ThreadGroup) iterator.next();
-                if(!threadGroup.isDestroyed()) {
+            for (final ThreadGroup threadGroup : threadGroups) {
+                if (!threadGroup.isDestroyed()) {
                     threadGroup.destroy();
                 }
             }
