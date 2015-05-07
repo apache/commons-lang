@@ -362,6 +362,13 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     public static String toStringExclude(final Object object, final String... excludeFieldNames) {
         return new ReflectionToStringBuilder(object).setExcludeFieldNames(excludeFieldNames).toString();
     }
+    
+    private static Object checkNotNull(final Object obj) {
+        if (obj == null) {
+            throw new IllegalArgumentException("The Object passed in should not be null.");
+        }
+        return obj;
+    }
 
     /**
      * Whether or not to append static fields.
@@ -400,7 +407,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object passed in is <code>null</code>
      */
     public ReflectionToStringBuilder(final Object object) {
-        super(object);
+        super(checkNotNull(object));
     }
 
     /**
@@ -420,7 +427,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object passed in is <code>null</code>
      */
     public ReflectionToStringBuilder(final Object object, final ToStringStyle style) {
-        super(object, style);
+        super(checkNotNull(object), style);
     }
 
     /**
@@ -446,7 +453,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object passed in is <code>null</code>
      */
     public ReflectionToStringBuilder(final Object object, final ToStringStyle style, final StringBuffer buffer) {
-        super(object, style, buffer);
+        super(checkNotNull(object), style, buffer);
     }
 
     /**
@@ -471,7 +478,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     public <T> ReflectionToStringBuilder(
             final T object, final ToStringStyle style, final StringBuffer buffer,
             final Class<? super T> reflectUpToClass, final boolean outputTransients, final boolean outputStatics) {
-        super(object, style, buffer);
+        super(checkNotNull(object), style, buffer);
         this.setUpToClass(reflectUpToClass);
         this.setAppendTransients(outputTransients);
         this.setAppendStatics(outputStatics);
