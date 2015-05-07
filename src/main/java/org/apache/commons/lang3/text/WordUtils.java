@@ -565,6 +565,7 @@ public class WordUtils {
         return new String(buf, 0, count);
     }
 
+    //-----------------------------------------------------------------------
     /**
      * <p>Checks if the String contains all words in the given array.</p>
      *
@@ -587,12 +588,14 @@ public class WordUtils {
      * @param words The array of String words to search for, may be null
      * @return {@code true} if all search words are found, {@code false} otherwise
      */
-    public static boolean containsAllWords(String word, String... words) {
-        if (StringUtils.isEmpty(word) || ArrayUtils.isEmpty(words)
-                || (words.length == 1 && StringUtils.isBlank(words[0]))) {
+    public static boolean containsAllWords(CharSequence word, CharSequence... words) {
+        if (StringUtils.isEmpty(word) || ArrayUtils.isEmpty(words)) {
             return false;
         }
-        for (String w : words) {
+        for (CharSequence w : words) {
+            if (StringUtils.isBlank(w)) {
+                return false;
+            }
             Pattern p = Pattern.compile(".*\\b" + w + "\\b.*");
             if (!p.matcher(word).matches()) {
                 return false;

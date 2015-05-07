@@ -236,6 +236,7 @@ public class WordUtilsTest {
         assertFalse(WordUtils.containsAllWords("zzabyycdxx", "by"));
         assertTrue(WordUtils.containsAllWords("lorem ipsum dolor sit amet", "ipsum", "lorem", "dolor"));
         assertFalse(WordUtils.containsAllWords("lorem ipsum dolor sit amet", "ipsum", null, "lorem", "dolor"));
+        assertFalse(WordUtils.containsAllWords("lorem ipsum null dolor sit amet", "ipsum", null, "lorem", "dolor"));
         assertFalse(WordUtils.containsAllWords("ab", "b"));
         assertFalse(WordUtils.containsAllWords("ab", "z"));
     }
