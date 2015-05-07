@@ -1595,6 +1595,7 @@ public class StringUtils {
      * StringUtils.containsAny(*, [])                  = false
      * StringUtils.containsAny("zzabyycdxx",['z','a']) = true
      * StringUtils.containsAny("zzabyycdxx",['b','y']) = true
+     * StringUtils.containsAny("zzabyycdxx",['z','y']) = true
      * StringUtils.containsAny("aba", ['z'])           = false
      * </pre>
      *
@@ -1652,6 +1653,7 @@ public class StringUtils {
      * StringUtils.containsAny(*, "")              = false
      * StringUtils.containsAny("zzabyycdxx", "za") = true
      * StringUtils.containsAny("zzabyycdxx", "by") = true
+     * StringUtils.containsAny("zzabyycdxx", "zy") = true
      * StringUtils.containsAny("aba","z")          = false
      * </pre>
      *
@@ -1684,6 +1686,7 @@ public class StringUtils {
      * StringUtils.containsAny(*, null)            = false
      * StringUtils.containsAny(*, [])              = false
      * StringUtils.containsAny("abcd", "ab", "cd") = false
+     * StringUtils.containsAny("abcd", "ab", null) = false
      * StringUtils.containsAny("abc", "d", "abc")  = true
      * </pre>
      *
