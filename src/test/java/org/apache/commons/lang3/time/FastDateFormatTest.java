@@ -18,6 +18,7 @@ package org.apache.commons.lang3.time;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -34,8 +35,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.commons.lang3.test.DefaultLocale;
-import org.apache.commons.lang3.test.DefaultTimeZoneAndLocale;
+import org.apache.commons.lang3.test.SystemDefaultsSwitch;
+import org.apache.commons.lang3.test.SystemDefaults;
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -44,6 +46,9 @@ import org.junit.Test;
  * @since 2.0
  */
 public class FastDateFormatTest {
+
+    @Rule
+    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
 
     /*
      * Only the cache methods need to be tested here.  
@@ -70,104 +75,85 @@ public class FastDateFormatTest {
         assertEquals(TimeZone.getDefault(), format2.getTimeZone());
     }
 
+    @SystemDefaults(timezone="America/New_York", locale="en_US")
     @Test
     public void test_getInstance_String_TimeZone() {
-        new DefaultTimeZoneAndLocale<RuntimeException>(TimeZone.getTimeZone("America/New_York"), Locale.US) {
-            @Override
-            public void test() {
-                final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
-                        TimeZone.getTimeZone("Atlantic/Reykjavik"));
-                final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy");
-                final FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy", TimeZone.getDefault());
-                final FastDateFormat format4 = FastDateFormat.getInstance("MM/DD/yyyy", TimeZone.getDefault());
-                final FastDateFormat format5 = FastDateFormat.getInstance("MM-DD-yyyy", TimeZone.getDefault());
-                final FastDateFormat format6 = FastDateFormat.getInstance("MM-DD-yyyy");
 
-                assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
-                assertEquals(TimeZone.getTimeZone("Atlantic/Reykjavik"), format1.getTimeZone());
-                assertEquals(TimeZone.getDefault(), format2.getTimeZone());
-                assertSame(format3, format4);
-                assertTrue(format3 != format5); // -- junit 3.8 version -- assertFalse(format3 == format5);
-                assertTrue(format4 != format6); // -- junit 3.8 version -- assertFalse(format3 == format5);
-            }
-        };
+        final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
+                TimeZone.getTimeZone("Atlantic/Reykjavik"));
+        final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy");
+        final FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy", TimeZone.getDefault());
+        final FastDateFormat format4 = FastDateFormat.getInstance("MM/DD/yyyy", TimeZone.getDefault());
+        final FastDateFormat format5 = FastDateFormat.getInstance("MM-DD-yyyy", TimeZone.getDefault());
+        final FastDateFormat format6 = FastDateFormat.getInstance("MM-DD-yyyy");
+
+        assertNotSame(format1, format2);
+        assertEquals(TimeZone.getTimeZone("Atlantic/Reykjavik"), format1.getTimeZone());
+        assertEquals(TimeZone.getDefault(), format2.getTimeZone());
+        assertSame(format3, format4);
+        assertNotSame(format3, format5);
+        assertNotSame(format4, format6);
     }
 
+    @SystemDefaults(locale="en_US")
     @Test
     public void test_getInstance_String_Locale() {
-        new DefaultLocale<RuntimeException>(Locale.US) {
-            @Override
-            public void test() throws RuntimeException {
-                final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
-                final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy");
-                final FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
+        final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
+        final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy");
+        final FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
 
-                assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
-                assertSame(format1, format3);
-                assertEquals(Locale.GERMANY, format1.getLocale());
-            }
-        };
+        assertNotSame(format1, format2);
+        assertSame(format1, format3);
+        assertEquals(Locale.GERMANY, format1.getLocale());
     }
 
+    @SystemDefaults(locale="en_US")
     @Test
     public void test_changeDefault_Locale_DateInstance() {
-        new DefaultLocale<RuntimeException>(Locale.US) {
-            @Override
-            public void test() throws RuntimeException {
-                final FastDateFormat format1 = FastDateFormat.getDateInstance(FastDateFormat.FULL, Locale.GERMANY);
-                final FastDateFormat format2 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
-                Locale.setDefault(Locale.GERMANY);
-                final FastDateFormat format3 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
+        final FastDateFormat format1 = FastDateFormat.getDateInstance(FastDateFormat.FULL, Locale.GERMANY);
+        final FastDateFormat format2 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
+        Locale.setDefault(Locale.GERMANY);
+        final FastDateFormat format3 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
 
-                assertSame(Locale.GERMANY, format1.getLocale());
-                assertSame(Locale.US, format2.getLocale());
-                assertSame(Locale.GERMANY, format3.getLocale());
-                assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
-                assertTrue(format2 != format3);
-            }
-        };
+        assertSame(Locale.GERMANY, format1.getLocale());
+        assertEquals(Locale.US, format2.getLocale());
+        assertSame(Locale.GERMANY, format3.getLocale());
+        assertNotSame(format1, format2);
+        assertNotSame(format2, format3);
     }
 
+    @SystemDefaults(locale="en_US")
     @Test
     public void test_changeDefault_Locale_DateTimeInstance() {
-        new DefaultLocale<RuntimeException>(Locale.US) {
-            @Override
-            public void test() throws RuntimeException {
-                final FastDateFormat format1 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL, Locale.GERMANY);
-                final FastDateFormat format2 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
-                Locale.setDefault(Locale.GERMANY);
-                final FastDateFormat format3 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
+        final FastDateFormat format1 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL, Locale.GERMANY);
+        final FastDateFormat format2 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
+        Locale.setDefault(Locale.GERMANY);
+        final FastDateFormat format3 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
 
-                assertSame(Locale.GERMANY, format1.getLocale());
-                assertSame(Locale.US, format2.getLocale());
-                assertSame(Locale.GERMANY, format3.getLocale());
-                assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
-                assertTrue(format2 != format3);
-            }
-        };
+        assertSame(Locale.GERMANY, format1.getLocale());
+        assertEquals(Locale.US, format2.getLocale());
+        assertSame(Locale.GERMANY, format3.getLocale());
+        assertNotSame(format1, format2);
+        assertNotSame(format2, format3);
     }
 
+    @SystemDefaults(locale="en_US", timezone="America/New_York")
     @Test
     public void test_getInstance_String_TimeZone_Locale() {
-        new DefaultTimeZoneAndLocale<RuntimeException>(TimeZone.getTimeZone("America/New_York"), Locale.US) {
-            @Override
-            public void test() {
-                final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
-                        TimeZone.getTimeZone("Atlantic/Reykjavik"), Locale.GERMANY);
-                final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
-                final FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy",
-                        TimeZone.getDefault(), Locale.GERMANY);
+        final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
+                TimeZone.getTimeZone("Atlantic/Reykjavik"), Locale.GERMANY);
+        final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
+        final FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy",
+                TimeZone.getDefault(), Locale.GERMANY);
 
-                assertTrue(format1 != format2); // -- junit 3.8 version -- assertNotSame(format1, format2);
-                assertEquals(TimeZone.getTimeZone("Atlantic/Reykjavik"), format1.getTimeZone());
-                assertEquals(TimeZone.getDefault(), format2.getTimeZone());
-                assertEquals(TimeZone.getDefault(), format3.getTimeZone());
-                assertEquals(Locale.GERMANY, format1.getLocale());
-                assertEquals(Locale.GERMANY, format2.getLocale());
-                assertEquals(Locale.GERMANY, format3.getLocale());
-            }
-        };
-    }       
+        assertNotSame(format1, format2);
+        assertEquals(TimeZone.getTimeZone("Atlantic/Reykjavik"), format1.getTimeZone());
+        assertEquals(TimeZone.getDefault(), format2.getTimeZone());
+        assertEquals(TimeZone.getDefault(), format3.getTimeZone());
+        assertEquals(Locale.GERMANY, format1.getLocale());
+        assertEquals(Locale.GERMANY, format2.getLocale());
+        assertEquals(Locale.GERMANY, format3.getLocale());
+    }
 
     @Test
     public void testCheckDefaults() {

@@ -38,9 +38,11 @@ import java.util.TimeZone;
 
 import junit.framework.AssertionFailedError;
 
-import org.apache.commons.lang3.test.DefaultLocale;
+import org.apache.commons.lang3.test.SystemDefaultsSwitch;
+import org.apache.commons.lang3.test.SystemDefaults;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -57,6 +59,9 @@ public class DateUtilsTest {
         BASE_DATE = cal.getTime();
     }
 
+    @Rule
+    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
+    
     private DateFormat dateParser = null;
     private DateFormat dateTimeParser = null;
     private Date dateAmPm1 = null;
@@ -1560,59 +1565,39 @@ public class DateUtilsTest {
                 dateParser.parse("December 2, 2001"));
     }
 
+    @SystemDefaults(locale="en")
     @Test
     public void testLANG799_EN_OK() throws ParseException {
-        new DefaultLocale<ParseException>(Locale.ENGLISH){
-            @Override
-            public void test() throws ParseException {
-                DateUtils.parseDate("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
-                DateUtils.parseDateStrictly("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
-            }
-        };
+        DateUtils.parseDate("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
+        DateUtils.parseDateStrictly("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
     }
 
     // Parse German date with English Locale
-    @Test(expected=ParseException.class)
+    @SystemDefaults(locale="en")
+    @Test(expected = ParseException.class)
     public void testLANG799_EN_FAIL() throws ParseException {
-        new DefaultLocale<ParseException>(Locale.ENGLISH){
-            @Override
-            public void test() throws ParseException {
-                DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
-            }
-        };
+        DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
     }
 
+    @SystemDefaults(locale="de")
     @Test
     public void testLANG799_DE_OK() throws ParseException {
-        new DefaultLocale<ParseException>(Locale.GERMAN){
-            @Override
-            public void test() throws ParseException {
-                DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
-                DateUtils.parseDateStrictly("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
-            }
-        };
+        DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
+        DateUtils.parseDateStrictly("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
     }
 
     // Parse English date with German Locale
+    @SystemDefaults(locale="de")
     @Test(expected=ParseException.class)
     public void testLANG799_DE_FAIL() throws ParseException {
-        new DefaultLocale<ParseException>(Locale.GERMAN){
-            @Override
-            public void test() throws ParseException {
-                DateUtils.parseDate("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
-            }
-        };
+        DateUtils.parseDate("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
     }
     
     // Parse German date with English Locale, specifying German Locale override
+    @SystemDefaults(locale="en")
     @Test
     public void testLANG799_EN_WITH_DE_LOCALE() throws ParseException {
-        new DefaultLocale<ParseException>(Locale.ENGLISH){
-            @Override
-            public void test() throws ParseException {
-                DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", Locale.GERMAN, "EEE, dd MMM yyyy HH:mm:ss zzz");
-            }
-        };
+        DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", Locale.GERMAN, "EEE, dd MMM yyyy HH:mm:ss zzz");
     }
     
     /**

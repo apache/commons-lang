@@ -30,7 +30,7 @@
     <action issue="LANG-1131" type="fix" dev="britter">StrBuilder.equals(StrBuilder) doesn't check for null inputs</action>
     <action issue="LANG-1105" type="add" dev="britter" due-to="Hendrik Saly">Add ThreadUtils - A utility class which provides helper methods related to java.lang.Thread</action>
     <action issue="LANG-1031" type="add" dev="britter" due-to="Felipe Adorno">Add annotations to exclude fields from ReflectionEqualsBuilder, ReflectionToStringBuilder and ReflectionHashCodeBuilder</action>
-    <action issue="LANG-1127" type="add" dev="chas">Unit test helpers which set and reset default Locale and TimeZone</action>
+    <action issue="LANG-1127" type="add" dev="chas, britter">Use JUnit rules to set and reset the default Locale and TimeZone</action>
     <action issue="LANG-1128" type="fix" dev="britter" due-to="Jack Tan">JsonToStringStyle doesn't handle chars and objects correctly</action>
     <action issue="LANG-456" type="fix" dev="britter" due-to="Bob Fields, Woosan Ko, Bruno P. Kinoshita">HashCodeBuilder throws StackOverflowError in bidirectional navigable association</action>
     <action issue="LANG-1126" type="fix" dev="britter">DateFormatUtilsTest.testSMTP depends on the default Locale</action>
