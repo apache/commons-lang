@@ -1854,24 +1854,25 @@ public class ArrayUtils {
      *
      * <p>There is no special handling for multi-dimensional arrays.</p>
      *
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      * 
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap(["1", "2", "3"], 0, 2) -> ["3", "2", "1"]</li>
      *         <li>ArrayUtils.swap(["1", "2", "3"], 0, 0) -> ["1", "2", "3"]</li>
      *         <li>ArrayUtils.swap(["1", "2", "3"], 1, 0) -> ["2", "1", "3"]</li>
-     *         <li>ArrayUtils.swap(["1", "2", "3"], 0, 5) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap(["1", "2", "3"], 0, 5) -> ["1", "2", "3"]</li>
+     *         <li>ArrayUtils.swap(["1", "2", "3"], -1, 1) -> ["2", "1", "3"]</li>
      *     </ul>
      * </p>
      *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
-     * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final Object[] array, int offset1, int offset2) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1880,24 +1881,27 @@ public class ArrayUtils {
     /**
      * <p>Swaps two elements in the given array.</p>
      *
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>There is no special handling for multi-dimensional arrays.</p>
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([true, false, true], 0, 2) -> [true, false, true]</li>
      *         <li>ArrayUtils.swap([true, false, true], 0, 0) -> [true, false, true]</li>
      *         <li>ArrayUtils.swap([true, false, true], 1, 0) -> [false, true, true]</li>
-     *         <li>ArrayUtils.swap([true, false, true], 0, 5) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([true, false, true], 0, 5) -> [true, false, true]</li>
+     *         <li>ArrayUtils.swap([true, false, true], -1, 1) -> [false, true, true]</li>
      *     </ul>
      * </p>
      * 
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
-     * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final long[] array, int offset1, int offset2) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1906,24 +1910,25 @@ public class ArrayUtils {
     /**
      * <p>Swaps two elements in the given array.</p>
      *
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 2) -> [3, 2, 1]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 0) -> [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 1, 0) -> [2, 1, 3]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> [1, 2, 3]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -> [2, 1, 3]</li>
      *     </ul>
      * </p>
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
-     * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final int[] array, int offset1, int offset2) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1932,24 +1937,25 @@ public class ArrayUtils {
     /**
      * <p>Swaps two elements in the given array.</p>
      *
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 2) -> [3, 2, 1]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 0) -> [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 1, 0) -> [2, 1, 3]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> [1, 2, 3]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -> [2, 1, 3]</li>
      *     </ul>
      * </p>
      * 
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
-     * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final short[] array, int offset1, int offset2) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1958,24 +1964,25 @@ public class ArrayUtils {
     /**
      * <p>Swaps two elements in the given array.</p>
      *
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      * 
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 2) -> [3, 2, 1]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 0) -> [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 1, 0) -> [2, 1, 3]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> [1, 2, 3]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -> [2, 1, 3]</li>
      *     </ul>
      * </p>
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
-     * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final char[] array, int offset1, int offset2) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1984,24 +1991,25 @@ public class ArrayUtils {
     /**
      * <p>Swaps two elements in the given array.</p>
      *
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 2) -> [3, 2, 1]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 0) -> [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 1, 0) -> [2, 1, 3]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> [1, 2, 3]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -> [2, 1, 3]</li>
      *     </ul>
      * </p>
      * 
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
-     * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final byte[] array, int offset1, int offset2) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2010,24 +2018,25 @@ public class ArrayUtils {
     /**
      * <p>Swaps two elements in the given array.</p>
      *
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 2) -> [3, 2, 1]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 0) -> [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 1, 0) -> [2, 1, 3]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> [1, 2, 3]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -> [2, 1, 3]</li>
      *     </ul>
      * </p>
      * 
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
-     * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final double[] array, int offset1, int offset2) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2036,24 +2045,25 @@ public class ArrayUtils {
     /**
      * <p>Swaps two elements in the given array.</p>
      *
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 2) -> [3, 2, 1]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 0) -> [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 1, 0) -> [2, 1, 3]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> [1, 2, 3]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -> [2, 1, 3]</li>
      *     </ul>
      * </p>
      * 
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
-     * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final float[] array, int offset1, int offset2) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2062,24 +2072,25 @@ public class ArrayUtils {
     /**
      * <p>Swaps two elements in the given array.</p>
      *
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
-      * <p>Examples:
+     * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 2) -> [3, 2, 1]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 0) -> [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], 1, 0) -> [2, 1, 3]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -> [1, 2, 3]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -> [2, 1, 3]</li>
      *     </ul>
      * </p>
      * 
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
-     * @throws ArrayIndexOutOfBoundsException if one of the indices is out of range
      */
     public static void swap(final boolean[] array, int offset1, int offset2) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2088,45 +2099,19 @@ public class ArrayUtils {
     /**
      * <p>Swaps a series of elements in the given array.</p>
      * 
-     * <p>This method does nothing for a {@code null} input array.</p>
-     * 
-     * <p>Examples:
-     *     <ul>
-     *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 2, 1) -> ["3", "2", "1", "4"]</li>
-     *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 0, 1) -> ["1", "2", "3", "4"]</li>
-     *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 2, 0, 2) -> ["3", "4", "1", "2"]</li>
-     *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 3, 3) -> ArrayOutOfBoundsException</li>
-     *     </ul>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero). 
+     * If any of the sub-arrays to swap falls outside of the given array, 
+     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
      * </p>
-     * 
-     * @param array the array to swap, may be {@code null}
-     * @param offset1 the index of the first element in the series to swap
-     * @param offset2 the index of the second element in the series to swap
-     * @param len the number of elements to swap starting with the given indices
-     * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
-     */
-    public static void swap(final boolean[] array,  int offset1, int offset2, int len) {
-        if (array == null) {
-            return;
-        }
-        for (int i = 0; i < len; i++) {
-	        boolean aux = array[offset1 + i];
-	        array[offset1 + i] = array[offset2 + i];
-	        array[offset2 + i] = aux;
-    	}
-    }
-
-    /**
-     * <p>Swaps a series of elements in the given array.</p>
-     * 
-     * <p>This method does nothing for a {@code null} input array.</p>
      * 
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([true, false, true, false], 0, 2, 1) -> [true, false, true, false]</li>
      *         <li>ArrayUtils.swap([true, false, true, false], 0, 0, 1) -> [true, false, true, false]</li>
      *         <li>ArrayUtils.swap([true, false, true, false], 0, 2, 2) -> [true, false, true, false]</li>
-     *         <li>ArrayUtils.swap([true, false, true, false], 0, 5, 3) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([true, false, true, false], -3, 2, 2) -> [true, false, true, false]</li>
+     *         <li>ArrayUtils.swap([true, false, true, false], 0, 3, 3) -> [false, false, true, true]</li>
      *     </ul>
      * </p>
      * 
@@ -2134,31 +2119,84 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
-     * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
+     */
+    public static void swap(final boolean[] array,  int offset1, int offset2, int len) {
+        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+            return;
+        }
+        if (offset1 < 0) {
+            offset1 = 0;
+        }
+        if (offset2 < 0) {
+            offset2 = 0;
+        }
+        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
+        for (int i = 0; i < len; i++, offset1++, offset2++) {
+            boolean aux = array[offset1];
+            array[offset1] = array[offset2];
+            array[offset2] = aux;
+        }
+    }
+
+    /**
+     * <p>Swaps a series of elements in the given array.</p>
+     * 
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero). 
+     * If any of the sub-arrays to swap falls outside of the given array, 
+     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * </p>
+     * 
+     * <p>Examples:
+     *     <ul>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -> [3, 2, 1, 4]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -> [1, 2, 3, 4]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -> [3, 4, 1, 2]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -> [3, 4, 1, 2]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> [4, 2, 3, 1]</li>
+     *     </ul>
+     * </p>
+     * 
+     * @param array the array to swap, may be {@code null}
+     * @param offset1 the index of the first element in the series to swap
+     * @param offset2 the index of the second element in the series to swap
+     * @param len the number of elements to swap starting with the given indices
      */
 
     public static void swap(final byte[] array,  int offset1, int offset2, int len) {
-        if (array == null) {
+        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        for (int i = 0; i < len; i++) {
-            byte aux = array[offset1 + i];
-            array[offset1 + i] = array[offset2 + i];
-            array[offset2 + i] = aux;
+        if (offset1 < 0) {
+            offset1 = 0;
+        }
+        if (offset2 < 0) {
+            offset2 = 0;
+        }
+        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
+        for (int i = 0; i < len; i++, offset1++, offset2++) {
+            byte aux = array[offset1];
+            array[offset1] = array[offset2];
+            array[offset2] = aux;
         }
     }
 
     /**
      * <p>Swaps a series of elements in the given array.</p>
      * 
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero). 
+     * If any of the sub-arrays to swap falls outside of the given array, 
+     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * </p>
      * 
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -> [3, 2, 1, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -> [1, 2, 3, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -> [3, 4, 1, 2]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -> [3, 4, 1, 2]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> [4, 2, 3, 1]</li>
      *     </ul>
      * </p>
      * 
@@ -2166,30 +2204,41 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
-     * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
     public static void swap(final char[] array,  int offset1, int offset2, int len) {
-        if (array == null) {
+        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        for (int i = 0; i < len; i++) {
-            char aux = array[offset1 + i];
-            array[offset1 + i] = array[offset2 + i];
-            array[offset2 + i] = aux;
+        if (offset1 < 0) {
+            offset1 = 0;
+        }
+        if (offset2 < 0) {
+            offset2 = 0;
+        }
+        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
+        for (int i = 0; i < len; i++, offset1++, offset2++) {
+            char aux = array[offset1];
+            array[offset1] = array[offset2];
+            array[offset2] = aux;
         }
     }
 
     /**
      * <p>Swaps a series of elements in the given array.</p>
      * 
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero). 
+     * If any of the sub-arrays to swap falls outside of the given array, 
+     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * </p>
      * 
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -> [3, 2, 1, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -> [1, 2, 3, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -> [3, 4, 1, 2]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -> [3, 4, 1, 2]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> [4, 2, 3, 1]</li>
      *     </ul>
      * </p>
      * 
@@ -2197,30 +2246,41 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
-     * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
     public static void swap(final double[] array,  int offset1, int offset2, int len) {
-        if (array == null) {
+        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        for (int i = 0; i < len; i++) {
-            double aux = array[offset1 + i];
-            array[offset1 + i] = array[offset2 + i];
-            array[offset2 + i] = aux;
+        if (offset1 < 0) {
+            offset1 = 0;
+        }
+        if (offset2 < 0) {
+            offset2 = 0;
+        }
+        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
+        for (int i = 0; i < len; i++, offset1++, offset2++) {
+            double aux = array[offset1];
+            array[offset1] = array[offset2];
+            array[offset2] = aux;
         }
     }
 
     /**
      * <p>Swaps a series of elements in the given array.</p>
      * 
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero). 
+     * If any of the sub-arrays to swap falls outside of the given array, 
+     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * </p>
      * 
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -> [3, 2, 1, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -> [1, 2, 3, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -> [3, 4, 1, 2]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -> [3, 4, 1, 2]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> [4, 2, 3, 1]</li>
      *     </ul>
      * </p>
      * 
@@ -2228,30 +2288,42 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
-     * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
     public static void swap(final float[] array,  int offset1, int offset2, int len) {
-        if (array == null) {
+        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        for (int i = 0; i < len; i++) {
-            float aux = array[offset1 + i];
-            array[offset1 + i] = array[offset2 + i];
-            array[offset2 + i] = aux;
+        if (offset1 < 0) {
+            offset1 = 0;
         }
+        if (offset2 < 0) {
+            offset2 = 0;
+        }
+        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
+        for (int i = 0; i < len; i++, offset1++, offset2++) {
+            float aux = array[offset1];
+            array[offset1] = array[offset2];
+            array[offset2] = aux;
+        }
+
     }
 
     /**
      * <p>Swaps a series of elements in the given array.</p>
      * 
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero). 
+     * If any of the sub-arrays to swap falls outside of the given array, 
+     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * </p>
      * 
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -> [3, 2, 1, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -> [1, 2, 3, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -> [3, 4, 1, 2]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -> [3, 4, 1, 2]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> [4, 2, 3, 1]</li>
      *     </ul>
      * </p>
      * 
@@ -2259,30 +2331,41 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
-     * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
     public static void swap(final int[] array,  int offset1, int offset2, int len) {
-        if (array == null) {
+        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        for (int i = 0; i < len; i++) {
-            int aux = array[offset1 + i];
-            array[offset1 + i] = array[offset2 + i];
-            array[offset2 + i] = aux;
+        if (offset1 < 0) {
+            offset1 = 0;
+        }
+        if (offset2 < 0) {
+            offset2 = 0;
+        }
+        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
+        for (int i = 0; i < len; i++, offset1++, offset2++) {
+            int aux = array[offset1];
+            array[offset1] = array[offset2];
+            array[offset2] = aux;
         }
     }
 
     /**
      * <p>Swaps a series of elements in the given array.</p>
      * 
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero). 
+     * If any of the sub-arrays to swap falls outside of the given array, 
+     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * </p>
      * 
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -> [3, 2, 1, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -> [1, 2, 3, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -> [3, 4, 1, 2]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -> [3, 4, 1, 2]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> [4, 2, 3, 1]</li>
      *     </ul>
      * </p>
      * 
@@ -2290,30 +2373,41 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
-     * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
     public static void swap(final long[] array,  int offset1, int offset2, int len) {
-        if (array == null) {
+        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        for (int i = 0; i < len; i++) {
-            long aux = array[offset1 + i];
-            array[offset1 + i] = array[offset2 + i];
-            array[offset2 + i] = aux;
-    	}
+        if (offset1 < 0) {
+            offset1 = 0;
+        }
+        if (offset2 < 0) {
+            offset2 = 0;
+        }
+        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
+        for (int i = 0; i < len; i++, offset1++, offset2++) {
+            long aux = array[offset1];
+            array[offset1] = array[offset2];
+            array[offset2] = aux;
+        }
     }
 
     /**
      * <p>Swaps a series of elements in the given array.</p>
      * 
-     * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero). 
+     * If any of the sub-arrays to swap falls outside of the given array, 
+     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * </p>
      * 
      * <p>Examples:
      *     <ul>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -> [3, 2, 1, 4]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -> [1, 2, 3, 4]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -> [3, 4, 1, 2]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 2, 1) -> ["3", "2", "1", "4"]</li>
+     *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 0, 1) -> ["1", "2", "3", "4"]</li>
+     *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 2, 0, 2) -> ["3", "4", "1", "2"]</li>
+     *         <li>ArrayUtils.swap(["1", "2", "3", "4"], -3, 2, 2) -> ["3", "4", "1", "2"]</li>
+     *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 3, 3) -> ["4", "2", "3", "1"]</li>
      *     </ul>
      * </p>
      * 
@@ -2321,30 +2415,41 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
-     * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
      */
    public static void swap(final Object[] array,  int offset1, int offset2, int len) {
-        if (array == null) {
+        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        for (int i = 0; i < len; i++) {
-            Object aux = array[offset1 + i];
-            array[offset1 + i] = array[offset2 + i];
-            array[offset2 + i] = aux;
+        if (offset1 < 0) {
+            offset1 = 0;
+        }
+        if (offset2 < 0) {
+            offset2 = 0;
+        }
+        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
+        for (int i = 0; i < len; i++, offset1++, offset2++) {
+            Object aux = array[offset1];
+            array[offset1] = array[offset2];
+            array[offset2] = aux;
         }
     }
 
    /**
     * <p>Swaps a series of elements in the given array.</p>
     * 
-    * <p>This method does nothing for a {@code null} input array.</p>
+     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero). 
+     * If any of the sub-arrays to swap falls outside of the given array, 
+     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * </p>
      * 
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -> [3, 2, 1, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -> [1, 2, 3, 4]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -> [3, 4, 1, 2]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> ArrayOutOfBoundsException</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -> [3, 4, 1, 2]</li>
+     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -> [4, 2, 3, 1]</li>
      *     </ul>
      * </p>
     * 
@@ -2352,16 +2457,25 @@ public class ArrayUtils {
     * @param offset1 the index of the first element in the series to swap
     * @param offset2 the index of the second element in the series to swap
     * @param len the number of elements to swap starting with the given indices
-    * @throws ArrayIndexOutOfBoundsException if one of the indices (plus the length of the series to swap) is out of range
     */
     public static void swap(final short[] array,  int offset1, int offset2, int len) {
-        if (array == null) {
+        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        for (int i = 0; i < len; i++) {
-            short aux = array[offset1 + i];
-            array[offset1 + i] = array[offset2 + i];
-            array[offset2 + i] = aux;
+        if (offset1 < 0) {
+            offset1 = 0;
+        }
+        if (offset2 < 0) {
+            offset2 = 0;
+        }
+        if (offset1 == offset2) {
+            return;
+        }
+        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
+        for (int i = 0; i < len; i++, offset1++, offset2++) {
+            short aux = array[offset1];
+            array[offset1] = array[offset2];
+            array[offset2] = aux;
         }
     }
 
