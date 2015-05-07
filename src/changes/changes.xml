@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1122" type="fix" dev="britter" due-to="Adrian Ber">Inconsistent behavior of swap for malformed inputs</action>
     <action issue="LANG-1114" type="fix" dev="britter" due-to="Andy Coates">TypeUtils.ParameterizedType#equals doesn't work with wildcard types</action>
     <action issue="LANG-1119" type="add" dev="britter" due-to="Loic Guibert">Add rotate(string, int) method to StringUtils</action>
     <action issue="LANG-1118" type="fix" dev="britter" due-to="Loic Guibert">StringUtils.repeat('z', -1) throws NegativeArraySizeException</action>
