@@ -179,6 +179,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.containsAny("zzabyycdxx", ""));
         assertTrue(StringUtils.containsAny("zzabyycdxx", "za"));
         assertTrue(StringUtils.containsAny("zzabyycdxx", "by"));
+        assertTrue(StringUtils.containsAny("zzabyycdxx", "zy"));
         assertFalse(StringUtils.containsAny("ab", "z"));
     }
 

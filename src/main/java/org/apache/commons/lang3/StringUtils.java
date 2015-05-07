@@ -1652,6 +1652,7 @@ public class StringUtils {
      * StringUtils.containsAny(*, "")              = false
      * StringUtils.containsAny("zzabyycdxx", "za") = true
      * StringUtils.containsAny("zzabyycdxx", "by") = true
+     * StringUtils.containsAny("zzabyycdxx", "zy") = true
      * StringUtils.containsAny("aba","z")          = false
      * </pre>
      *
