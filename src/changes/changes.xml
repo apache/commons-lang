@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1132" type="add" dev="britter" due-to="Jack Tan">ReflectionToStringBuilder doesn't throw IllegalArgumentException when the constructor's object param is null</action>
     <action issue="LANG-701" type="add" dev="britter" due-to="James Sawle">StringUtils join with var args</action>
     <action issue="LANG-1130" type="fix" dev="britter">Fix critical issues reported by SonarQube</action>
     <action issue="LANG-1131" type="fix" dev="britter">StrBuilder.equals(StrBuilder) doesn't check for null inputs</action>
