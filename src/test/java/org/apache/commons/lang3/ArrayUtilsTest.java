@@ -2140,18 +2140,18 @@ public class ArrayUtilsTest  {
         assertEquals(4, array[1]);
         assertEquals(1, array[2]);
         assertEquals(2, array[3]);
-    }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapCharOutOfRange() {
-        char[] array = new char[] {1, 2, 3};
+        array = new char[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 3);
-    }
-
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapCharOutOfRangeLen() {
-        char[] array = new char[] {1, 2, 3};
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        
+        array = new char[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 2, 2);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
     }
     
     @Test
@@ -2171,18 +2171,18 @@ public class ArrayUtilsTest  {
         assertEquals(4, array[1], 0);
         assertEquals(1, array[2], 0);
         assertEquals(2, array[3], 0);
-    }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapFloatOutOfRange() {
-        float[] array = new float[] {1, 2, 3};
+        array = new float[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 3);
-    }
-
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapFloatOutOfRangeLen() {
-        float[] array = new float[] {1, 2, 3};
+        assertEquals(1, array[0], 0);
+        assertEquals(2, array[1], 0);
+        assertEquals(3, array[2], 0);
+        
+        array = new float[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 2, 2);
+        assertEquals(3, array[0], 0);
+        assertEquals(2, array[1], 0);
+        assertEquals(1, array[2], 0);
     }
     
     @Test
@@ -2202,18 +2202,18 @@ public class ArrayUtilsTest  {
         assertEquals(4, array[1], 0);
         assertEquals(1, array[2], 0);
         assertEquals(2, array[3], 0);
-    }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapDoubleOutOfRange() {
-        double[] array = new double[] {1, 2, 3};
+        array = new double[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 3);
-    }
-
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapDoubleOutOfRangeLen() {
-        double[] array = new double[] {1, 2, 3};
+        assertEquals(1, array[0], 0);
+        assertEquals(2, array[1], 0);
+        assertEquals(3, array[2], 0);
+        
+        array = new double[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 2, 2);
+        assertEquals(3, array[0], 0);
+        assertEquals(2, array[1], 0);
+        assertEquals(1, array[2], 0);
     }
     
     @Test
@@ -2233,6 +2233,18 @@ public class ArrayUtilsTest  {
         assertEquals(4, array[1]);
         assertEquals(1, array[2]);
         assertEquals(2, array[3]);
+        
+        array = new int[] {1, 2, 3};
+        ArrayUtils.swap(array, 3, 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        
+        array = new int[] {1, 2, 3};
+        ArrayUtils.swap(array, 0, 2, 2);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
     }
     
     @Test
@@ -2247,18 +2259,6 @@ public class ArrayUtilsTest  {
         assertArrayEquals(new int[] {2, 3, 1}, array);
     }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapIntOutOfRange() {
-        int[] array = new int[] {1, 2, 3};
-        ArrayUtils.swap(array, 0, 3);
-    }
-
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapIntOutOfRangeLen() {
-        int[] array = new int[] {1, 2, 3};
-        ArrayUtils.swap(array, 0, 2, 2);
-    }
-    
     @Test
     public void testSwapLong() {
         long[] array = new long[] {1, 2, 3};
@@ -2276,18 +2276,18 @@ public class ArrayUtilsTest  {
         assertEquals(4, array[1]);
         assertEquals(1, array[2]);
         assertEquals(2, array[3]);
-    }
-
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapLongOutOfRange() {
-        long[] array = new long[] {1, 2, 3};
+        
+        array = new long[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 3);
-    }
-
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapLongOutOfRangeLen() {
-        long[] array = new long[] {1, 2, 3};
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        
+        array = new long[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 2, 2);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
     }
 
     @Test
@@ -2307,18 +2307,21 @@ public class ArrayUtilsTest  {
         assertEquals("4", array[1]);
         assertEquals("1", array[2]);
         assertEquals("2", array[3]);
-    }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapObjectOutOfRange() {
-        String[] array = new String[] {"1", "2", "3"};
-        ArrayUtils.swap(array, 0, 3);
-    }
+        array = new String[] {"1", "2", "3", "4"};
+        ArrayUtils.swap(array, -1, 2, 3);
+        assertEquals("3", array[0]);
+        assertEquals("4", array[1]);
+        assertEquals("1", array[2]);
+        assertEquals("2", array[3]);
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testSwapObjectOutOfRangeLen() {
-        String[] array = new String[] {"1", "2", "3"};
-        ArrayUtils.swap(array, 0, 2, 2);
+        array = new String[] {"1", "2", "3", "4", "5"};
+        ArrayUtils.swap(array, -3, 2, 3);
+        assertEquals("3", array[0]);
+        assertEquals("4", array[1]);
+        assertEquals("5", array[2]);
+        assertEquals("2", array[3]);
+        assertEquals("1", array[4]);
     }
 
     //-----------------------------------------------------------------------
@@ -2479,6 +2482,13 @@ public class ArrayUtilsTest  {
         assertEquals(4, array[1]);
         assertEquals(1, array[2]);
         assertEquals(2, array[3]);
+        array = new short[] {1, 2, 3, 4, 5};
+        ArrayUtils.shift(array, 2);
+        assertEquals(4, array[0]);
+        assertEquals(5, array[1]);
+        assertEquals(1, array[2]);
+        assertEquals(2, array[3]);
+        assertEquals(3, array[4]);
     }
 
     @Test
