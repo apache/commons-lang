@@ -30,10 +30,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.SerializationUtils;
-import org.apache.commons.lang3.test.SwitchDefaults;
+import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.apache.commons.lang3.test.SystemDefaults;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -79,7 +77,7 @@ public class FastDatePrinterTest {
     }
 
     @Rule
-    public SwitchDefaults defaults = new SwitchDefaults();
+    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
 
     @SystemDefaults(timezone="America/New_York", locale="en_US")
     @Test

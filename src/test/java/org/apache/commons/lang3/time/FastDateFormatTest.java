@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.commons.lang3.test.SwitchDefaults;
+import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.apache.commons.lang3.test.SystemDefaults;
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,7 +49,7 @@ import org.junit.Test;
 public class FastDateFormatTest {
 
     @Rule
-    public SwitchDefaults defaults = new SwitchDefaults();
+    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
 
     /*
      * Only the cache methods need to be tested here.  

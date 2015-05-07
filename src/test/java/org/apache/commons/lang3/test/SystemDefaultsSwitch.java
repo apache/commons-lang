@@ -36,7 +36,7 @@ import org.junit.runners.model.Statement;
  * public class SystemDefaultsDependentTest {
  *
  *     {@literal@}Rule
- *     public SwitchDefaults locale = new SwitchDefaults();
+ *     public SystemDefaultsSwitch locale = new SystemDefaultsSwitch();
  *
  *     {@literal@}Test
  *     public void testThatWillExecuteWithTheDefaultLocaleAndTimeZone() {
@@ -57,7 +57,7 @@ import org.junit.runners.model.Statement;
  * }
  * </pre>
  */
-public class SwitchDefaults implements TestRule {
+public class SystemDefaultsSwitch implements TestRule {
     
     @Override
     public Statement apply(Statement stmt, Description description) {

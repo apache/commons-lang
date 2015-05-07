@@ -38,7 +38,7 @@ import java.util.TimeZone;
 
 import junit.framework.AssertionFailedError;
 
-import org.apache.commons.lang3.test.SwitchDefaults;
+import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.apache.commons.lang3.test.SystemDefaults;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -61,7 +61,7 @@ public class DateUtilsTest {
     }
 
     @Rule
-    public SwitchDefaults defaults = new SwitchDefaults();
+    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
     
     private DateFormat dateParser = null;
     private DateFormat dateTimeParser = null;

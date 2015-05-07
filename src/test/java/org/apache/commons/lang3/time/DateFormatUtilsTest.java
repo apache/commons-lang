@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.apache.commons.lang3.test.SwitchDefaults;
+import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.apache.commons.lang3.test.SystemDefaults;
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,7 +41,7 @@ import org.junit.Test;
 public class DateFormatUtilsTest {
 
     @Rule
-    public SwitchDefaults defaults = new SwitchDefaults();
+    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
     
     //-----------------------------------------------------------------------
     @Test
