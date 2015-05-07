@@ -58,46 +58,44 @@ import org.junit.runners.model.Statement;
  * </pre>
  */
 public class SwitchDefaults implements TestRule {
-
-
-
-	@Override
-	public Statement apply(Statement stmt, Description description) {
-    	SystemDefaults defaults = description.getAnnotation(SystemDefaults.class);
-    	if(defaults == null) {
-    		return stmt;
-    	}
-    	return applyTimeZone(defaults, applyLocale(defaults, stmt));
+    
+    @Override
+    public Statement apply(Statement stmt, Description description) {
+        SystemDefaults defaults = description.getAnnotation(SystemDefaults.class);
+        if (defaults == null) {
+            return stmt;
+        }
+        return applyTimeZone(defaults, applyLocale(defaults, stmt));
     }
 
-	private Statement applyTimeZone(SystemDefaults defaults, final Statement stmt) {
-    	if(defaults.timezone().isEmpty()) {
-    		return stmt;
-    	}
-    	
-    	final TimeZone newTimeZone = TimeZone.getTimeZone(defaults.timezone());
-    	
+    private Statement applyTimeZone(SystemDefaults defaults, final Statement stmt) {
+        if (defaults.timezone().isEmpty()) {
+            return stmt;
+        }
+
+        final TimeZone newTimeZone = TimeZone.getTimeZone(defaults.timezone());
+
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-            	TimeZone save = TimeZone.getDefault();
+                TimeZone save = TimeZone.getDefault();
                 try {
-                	TimeZone.setDefault(newTimeZone);
+                    TimeZone.setDefault(newTimeZone);
                     stmt.evaluate();
                 } finally {
-                	TimeZone.setDefault(save);
+                    TimeZone.setDefault(save);
                 }
             }
-        };    	
-	}
+        };
+    }
 
-	private Statement applyLocale(SystemDefaults defaults, final Statement stmt) {
-    	if(defaults.locale().isEmpty()) {
-    		return stmt;
-    	}
-    	
-    	final Locale newLocale = LocaleUtils.toLocale(defaults.locale());
-    	
+    private Statement applyLocale(SystemDefaults defaults, final Statement stmt) {
+        if (defaults.locale().isEmpty()) {
+            return stmt;
+        }
+
+        final Locale newLocale = LocaleUtils.toLocale(defaults.locale());
+
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
@@ -109,7 +107,7 @@ public class SwitchDefaults implements TestRule {
                     Locale.setDefault(save);
                 }
             }
-        };    	
-	}
+        };
+    }
 
 }

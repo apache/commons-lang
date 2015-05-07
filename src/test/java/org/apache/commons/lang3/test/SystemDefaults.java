@@ -29,12 +29,12 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SystemDefaults {
-	/**
-	 * The name of the Locale to be used while running a test method
-	 */
-	String locale() default "";
-	/**
-	 * The name of the TimeZone to be used while running a test method
-	 */
-	String timezone() default "";
+    /**
+     * The name of the Locale to be used while running a test method
+     */
+    String locale() default "";
+    /**
+     * The name of the TimeZone to be used while running a test method
+     */
+    String timezone() default "";
 }
