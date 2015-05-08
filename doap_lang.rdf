@@ -43,81 +43,113 @@
         <created>2015-04-06</created>
         <revision>3.4</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2014-04-09</created>
         <revision>3.3.2</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2014-03-18</created>
         <revision>3.3.1</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2014-03-04</created>
         <revision>3.3</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2014-01-05</created>
         <revision>3.2.1</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2014-01-01</created>
         <revision>3.2</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2011-11-14</created>
         <revision>3.1</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2011-07-18</created>
         <revision>3.0</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2011-01-17</created>
         <revision>2.6</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2010-02-25</created>
         <revision>2.5</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2008-03-18</created>
         <revision>2.4</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2007-02-13</created>
         <revision>2.3</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2006-10-04</created>
         <revision>2.2</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2005-06-12</created>
         <revision>2.1</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2003-09-02</created>
         <revision>2.0</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2002-11-25</created>
         <revision>1.0.1</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-lang</name>
         <created>2002-10-04</created>
