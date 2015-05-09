@@ -29,9 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.SortedMap;
 import java.util.TimeZone;
-import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
@@ -369,6 +367,30 @@ public class FastDateParser implements DateParser, Serializable {
     // Support for strategies
     //-----------------------------------------------------------------------
 
+    private static StringBuilder simpleQuote(final StringBuilder sb, final String value) {
+        for(int i= 0; i<value.length(); ++i) {
+            char c= value.charAt(i);
+            switch(c) {
+            case '\\':
+            case '^':
+            case '$':
+            case '.':
+            case '|':
+            case '?':
+            case '*':
+            case '+':
+            case '(':
+            case ')':
+            case '[':
+            case '{':
+                sb.append('\\');
+            default:
+                sb.append(c);
+            }
+        }
+        return sb;
+    }
+
     /**
      * Escape constant fields into regular expression
      * @param regex The destination regex
@@ -667,7 +689,7 @@ public class FastDateParser implements DateParser, Serializable {
         boolean addRegex(final FastDateParser parser, final StringBuilder regex) {
             regex.append("((?iu)");
             for(final String textKeyValue : lKeyValues.keySet()) {
-                escapeRegex(regex, textKeyValue, false).append('|');
+                simpleQuote(regex, textKeyValue).append('|');
             }
             regex.setCharAt(regex.length()-1, ')');
             return true;
@@ -768,56 +790,44 @@ public class FastDateParser implements DateParser, Serializable {
     static class TimeZoneStrategy extends Strategy {
         private static final String RFC_822_TIME_ZONE = "[+-]\\d{4}";
         private static final String GMT_OPTION= "GMT[+-]\\d{1,2}:\\d{2}";
-        // see http://www.iana.org/time-zones and http://cldr.unicode.org/translation/timezones
-        static final String TZ_DATABASE= "(?:\\p{L}[\\p{L}\\p{Mc}\\p{Nd}\\p{Zs}\\p{P}&&[^-]]*-?\\p{Zs}?)*";
-        private static final String VALID_TZ = "((?iu)"+RFC_822_TIME_ZONE+"|"+GMT_OPTION+"|"+TZ_DATABASE+")";
         
-        private final SortedMap<String, TimeZone> tzNames= new TreeMap<String, TimeZone>(String.CASE_INSENSITIVE_ORDER);
+        private final Locale locale;
+        private final Map<String, TimeZone> tzNames= new HashMap<String, TimeZone>();
+        private final String validTimeZoneChars;
 
         /**
          * Index of zone id
          */
         private static final int ID = 0;
-        /**
-         * Index of the long name of zone in standard time
-         */
-        private static final int LONG_STD = 1;
-        /**
-         * Index of the short name of zone in standard time
-         */
-        private static final int SHORT_STD = 2;
-        /**
-         * Index of the long name of zone in daylight saving time
-         */
-        private static final int LONG_DST = 3;
-        /**
-         * Index of the short name of zone in daylight saving time
-         */
-        private static final int SHORT_DST = 4;
 
         /**
          * Construct a Strategy that parses a TimeZone
          * @param locale The Locale
          */
         TimeZoneStrategy(final Locale locale) {
+            this.locale = locale;
+
+            final StringBuilder sb = new StringBuilder();
+            sb.append('(' + RFC_822_TIME_ZONE + "|(?iu)" + GMT_OPTION );
+
             final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
-            for (final String[] zone : zones) {
-                final TimeZone tz = TimeZone.getTimeZone(zone[ID]);
-                if (!tzNames.containsKey(zone[LONG_STD])){
-                    tzNames.put(zone[LONG_STD], tz);
+            for (final String[] zoneNames : zones) {
+                final String tzId = zoneNames[ID];
+                if (tzId.equalsIgnoreCase("GMT")) {
+                    continue;
                 }
-                if (!tzNames.containsKey(zone[SHORT_STD])){
-                    tzNames.put(zone[SHORT_STD], tz);
-                }
-                if (tz.useDaylightTime()) {
-                    if (!tzNames.containsKey(zone[LONG_DST])){
-                        tzNames.put(zone[LONG_DST], tz);
-                    }
-                    if (!tzNames.containsKey(zone[SHORT_DST])){
-                        tzNames.put(zone[SHORT_DST], tz);
+                final TimeZone tz = TimeZone.getTimeZone(tzId);
+                for(int i= 1; i<zoneNames.length; ++i) {
+                    String zoneName = zoneNames[i].toLowerCase(locale);
+                    if (!tzNames.containsKey(zoneName)){
+                        tzNames.put(zoneName, tz);
+                        simpleQuote(sb.append('|'), zoneName);
                     }
                 }
-            }            
+            }
+
+            sb.append(')');
+            validTimeZoneChars = sb.toString();
         }
 
         /**
@@ -825,7 +835,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         boolean addRegex(final FastDateParser parser, final StringBuilder regex) {
-            regex.append(VALID_TZ);
+            regex.append(validTimeZoneChars);
             return true;
         }
 
@@ -842,7 +852,7 @@ public class FastDateParser implements DateParser, Serializable {
                 tz= TimeZone.getTimeZone(value.toUpperCase());
             }
             else {
-                tz= tzNames.get(value);
+                tz= tzNames.get(value.toLowerCase(locale));
                 if(tz==null) {
                     throw new IllegalArgumentException(value + " is not a supported timezone name");
                 }

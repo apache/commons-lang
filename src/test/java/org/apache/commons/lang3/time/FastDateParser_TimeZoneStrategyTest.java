@@ -16,27 +16,33 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.text.DateFormatSymbols;
 import java.util.Locale;
-import java.util.regex.Pattern;
+import java.util.TimeZone;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class FastDateParser_TimeZoneStrategyTest {
 
     @Test
     public void testTimeZoneStrategyPattern() {
-        Pattern tz = Pattern.compile(FastDateParser.TimeZoneStrategy.TZ_DATABASE);
-        assertFalse(tz.matcher("GMT-1234").matches());
-
-        for (Locale locale : Locale.getAvailableLocales()) {
+        for(final Locale locale : Locale.getAvailableLocales()) {
+            final FastDateParser parser = new FastDateParser("z", TimeZone.getDefault(), locale);
             final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
-            for (final String[] zone : zones) {
-                for (String zoneExpr : zone) {
-                    assertTrue(locale.getDisplayName() + ":" + zoneExpr, tz.matcher(zoneExpr).matches());
+            for(final String[] zone :  zones) {
+                for(int t = 1; t<zone.length; ++t) {
+                    final String tzDisplay = zone[t];
+
+                    try {
+                        parser.parse(tzDisplay);
+                    }
+                    catch(Exception ex) {
+                        Assert.fail(tzDisplay
+                                + " Locale: " + locale.getDisplayName()
+                                + " TimeZone: " + zone[0]
+                                + " offset: " + t);
+                    }
                 }
             }
         }
