@@ -1568,7 +1568,7 @@ public class Validate {
      * @since 3.4
      */
     public static void different(final long reference, final long value) {
-        differentObj(reference, value, DEFAULT_DIFFERENT_EX_MESSAGE, value);
+        different(reference, value, DEFAULT_DIFFERENT_EX_MESSAGE, value);
     }
     
     /**
