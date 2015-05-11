@@ -41,6 +41,26 @@ import org.junit.Test;
  */
 public class EventListenerSupportTest 
 {
+    @Test
+    public void testAddListenerNoDuplicates() {
+        final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
+
+        final VetoableChangeListener[] listeners = listenerSupport.getListeners();
+        assertEquals(0, listeners.length);
+        assertEquals(VetoableChangeListener.class, listeners.getClass().getComponentType());
+        final VetoableChangeListener[] empty = listeners;
+        //for fun, show that the same empty instance is used 
+        assertSame(empty, listenerSupport.getListeners());
+
+        final VetoableChangeListener listener1 = EasyMock.createNiceMock(VetoableChangeListener.class);
+        listenerSupport.addListener(listener1);
+        assertEquals(1, listenerSupport.getListeners().length);
+        listenerSupport.addListener(listener1, false);
+        assertEquals(1, listenerSupport.getListeners().length);
+        listenerSupport.removeListener(listener1);
+        assertSame(empty, listenerSupport.getListeners());
+    }
+
     @Test(expected=NullPointerException.class)
     public void testAddNullListener()
     {
