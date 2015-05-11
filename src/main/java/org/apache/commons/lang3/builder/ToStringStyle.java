@@ -2355,6 +2355,9 @@ public abstract class ToStringStyle implements Serializable {
      * This is an inner class rather than using
      * <code>StandardToStringStyle</code> to ensure its immutability.
      * </p>
+     *
+     * @since 3.4
+     * @see <a href="http://json.org">json.org</a>
      */
     private static final class JsonToStringStyle extends ToStringStyle {
 
