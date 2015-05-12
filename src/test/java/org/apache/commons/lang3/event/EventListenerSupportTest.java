@@ -39,25 +39,42 @@ import org.junit.Test;
 /**
  * @since 3.0
  */
-public class EventListenerSupportTest 
-{
-    @Test(expected=NullPointerException.class)
-    public void testAddNullListener()
-    {
+public class EventListenerSupportTest {
+
+    @Test
+    public void testAddListenerNoDuplicates() {
+        final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
+
+        final VetoableChangeListener[] listeners = listenerSupport.getListeners();
+        assertEquals(0, listeners.length);
+        assertEquals(VetoableChangeListener.class, listeners.getClass().getComponentType());
+        final VetoableChangeListener[] empty = listeners;
+        //for fun, show that the same empty instance is used 
+        assertSame(empty, listenerSupport.getListeners());
+
+        final VetoableChangeListener listener1 = EasyMock.createNiceMock(VetoableChangeListener.class);
+        listenerSupport.addListener(listener1);
+        assertEquals(1, listenerSupport.getListeners().length);
+        listenerSupport.addListener(listener1, false);
+        assertEquals(1, listenerSupport.getListeners().length);
+        listenerSupport.removeListener(listener1);
+        assertSame(empty, listenerSupport.getListeners());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testAddNullListener() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         listenerSupport.addListener(null);
     }
 
-    @Test(expected=NullPointerException.class)
-    public void testRemoveNullListener()
-    {
+    @Test(expected = NullPointerException.class)
+    public void testRemoveNullListener() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         listenerSupport.removeListener(null);
     }
 
     @Test
-    public void testEventDispatchOrder() throws PropertyVetoException
-    {
+    public void testEventDispatchOrder() throws PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         final List<VetoableChangeListener> calledListeners = new ArrayList<VetoableChangeListener>();
 
@@ -71,24 +88,20 @@ public class EventListenerSupportTest
         assertSame(calledListeners.get(1), listener2);
     }
 
-    @Test(expected=IllegalArgumentException.class)
-    public void testCreateWithNonInterfaceParameter()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateWithNonInterfaceParameter() {
         EventListenerSupport.create(String.class);
     }
 
-    @Test(expected=NullPointerException.class)
-    public void testCreateWithNullParameter()
-    {
+    @Test(expected = NullPointerException.class)
+    public void testCreateWithNullParameter() {
         EventListenerSupport.create(null);
     }
 
     @Test
-    public void testRemoveListenerDuringEvent() throws PropertyVetoException
-    {
+    public void testRemoveListenerDuringEvent() throws PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        for (int i = 0; i < 10; ++i)
-        {
+        for (int i = 0; i < 10; ++i) {
             addDeregisterListener(listenerSupport);
         }
         assertEquals(listenerSupport.getListenerCount(), 10);
@@ -123,7 +136,7 @@ public class EventListenerSupportTest
     public void testSerialization() throws IOException, ClassNotFoundException, PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         listenerSupport.addListener(new VetoableChangeListener() {
-            
+
             @Override
             public void vetoableChange(final PropertyChangeEvent e) {
             }
@@ -198,25 +211,19 @@ public class EventListenerSupportTest
         EasyMock.verify(listener);
     }
 
-    private void addDeregisterListener(final EventListenerSupport<VetoableChangeListener> listenerSupport)
-    {
-        listenerSupport.addListener(new VetoableChangeListener()
-        {
+    private void addDeregisterListener(final EventListenerSupport<VetoableChangeListener> listenerSupport) {
+        listenerSupport.addListener(new VetoableChangeListener() {
             @Override
-            public void vetoableChange(final PropertyChangeEvent e)
-            {
+            public void vetoableChange(final PropertyChangeEvent e) {
                 listenerSupport.removeListener(this);
             }
         });
     }
 
-    private VetoableChangeListener createListener(final List<VetoableChangeListener> calledListeners)
-    {
-        return new VetoableChangeListener()
-        {
+    private VetoableChangeListener createListener(final List<VetoableChangeListener> calledListeners) {
+        return new VetoableChangeListener() {
             @Override
-            public void vetoableChange(final PropertyChangeEvent e)
-            {
+            public void vetoableChange(final PropertyChangeEvent e) {
                 calledListeners.add(this);
             }
         };
