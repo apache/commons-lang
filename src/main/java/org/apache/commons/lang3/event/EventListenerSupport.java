@@ -197,7 +197,7 @@ public class EventListenerSupport<L> implements Serializable {
         Validate.notNull(listener, "Listener object cannot be null.");
         if (allowDuplicate) {
             listeners.add(listener);
-        } else if (!allowDuplicate && !listeners.contains(listener)) {
+        } else if (!listeners.contains(listener)) {
             listeners.add(listener);
         }
     }
