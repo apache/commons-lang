@@ -61,6 +61,14 @@ public class ConstructorUtilsTest {
             toString = "(Object)";
         }
 
+        public TestBean(final String... s) {
+            toString = "(String...)";
+        }
+
+        public TestBean(final Integer i, String... s) {
+            toString = "(Integer, String...)";
+        }
+
         @Override
         public String toString() {
             return toString;
@@ -117,6 +125,10 @@ public class ConstructorUtilsTest {
                 TestBean.class, NumberUtils.LONG_ONE).toString());
         assertEquals("(double)", ConstructorUtils.invokeConstructor(
                 TestBean.class, NumberUtils.DOUBLE_ONE).toString());
+        assertEquals("(String...)", ConstructorUtils.invokeConstructor(
+                TestBean.class, "a", "b").toString());
+        assertEquals("(Integer, String...)", ConstructorUtils.invokeConstructor(
+                TestBean.class, NumberUtils.INTEGER_ONE, "a", "b").toString());
     }
 
     @Test
