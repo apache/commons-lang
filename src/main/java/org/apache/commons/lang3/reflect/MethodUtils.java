@@ -350,19 +350,40 @@ public class MethodUtils {
         return args;
     }
 
+    /**
+     * <p>Given an arguments array passed to a varargs method, return an array of arguments in the canonical form,
+     * i.e. an array with the declared number of parameters, and whose last parameter is an array of the varargs type.
+     * </p>
+     *
+     * @param args the array of arguments passed to the varags method
+     * @param methodParameterTypes the declared array of method parameter types
+     * @return an array of the variadic arguments passed to the method
+     */
     static Object[] getVarArgs(Object[] args, Class<?>[] methodParameterTypes) {
-        if(args.length == methodParameterTypes.length
+        if (args.length == methodParameterTypes.length
                 && args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1])) {
+            // The args array is already in the canonical form for the method.
             return args;
         }
 
+        // Construct a new array matching the method's declared parameter types.
         Object[] newArgs = new Object[methodParameterTypes.length];
+
+        // Copy the normal (non-varags) parameters
         System.arraycopy(args, 0, newArgs, 0, methodParameterTypes.length - 1);
+
+        // Construct a new array for the variadic parameters
         Class<?> varArgComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
         int varArgLength = args.length - methodParameterTypes.length + 1;
         Object varArgsArray = Array.newInstance(varArgComponentType, varArgLength);
-        newArgs[methodParameterTypes.length - 1] = varArgsArray;
+
+        // Copy the variadic arguments into the varags array.
         System.arraycopy(args, methodParameterTypes.length - 1, varArgsArray, 0, varArgLength);
+
+        // Store the varags array in the last position of the array to return
+        newArgs[methodParameterTypes.length - 1] = varArgsArray;
+
+        // Return the canonical varags array.
         return newArgs;
     }
 
