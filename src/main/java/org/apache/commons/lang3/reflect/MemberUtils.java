@@ -96,9 +96,9 @@ abstract class MemberUtils {
      * {@code left}/{@code right}
      * @return int consistent with {@code compare} semantics
      */
-    static int compareParameterTypes(final Class<?>[] left, final Class<?>[] right, final Class<?>[] actual) {
-        final float leftCost = getTotalTransformationCost(actual, left);
-        final float rightCost = getTotalTransformationCost(actual, right);
+    static int compareParameterTypes(final Class<?>[] left, final Class<?>[] right, final Class<?>[] actual, boolean leftIsVarArgs, boolean rightIsVarArgs) {
+        final float leftCost = getTotalTransformationCost(actual, left, leftIsVarArgs);
+        final float rightCost = getTotalTransformationCost(actual, right, rightIsVarArgs);
         return leftCost < rightCost ? -1 : rightCost < leftCost ? 1 : 0;
     }
 
@@ -109,13 +109,51 @@ abstract class MemberUtils {
      * @param destArgs The destination arguments
      * @return The total transformation cost
      */
-    private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Class<?>[] destArgs) {
+    private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Class<?>[] destArgs, boolean isVarArgs) {
+        // "source" and "destination" are the actual and declared args respectively.
+        // When isVarArgs is false, both arrays should have the same length.
+        // When isVarArgs is true, the lengths may differ, but there are different cases to consider:
+        // src.length+1 == dest.length:
+        //    No arguments were passed for the varargs parameter.
+        // src.length > dest.length:
+        //    Typical use of varargs with more than one varargs argument.
+        // src.length == dest.length && src is an array type
+        //    An explicit array was passed for the varargs parameter
+        // src.length == dest.length && src is not an array type.
+        //    A single argument was passed for the varargs parameter
         float totalCost = 0.0f;
-        for (int i = 0; i < srcArgs.length; i++) {
-            Class<?> srcClass, destClass;
-            srcClass = srcArgs[i];
-            destClass = destArgs[i];
-            totalCost += getObjectTransformationCost(srcClass, destClass);
+        long normalArgsLen = isVarArgs ? destArgs.length-1 : destArgs.length;
+        if (srcArgs.length < normalArgsLen)
+            return Float.MAX_VALUE;
+        for (int i = 0; i < normalArgsLen; i++) {
+            totalCost += getObjectTransformationCost(srcArgs[i], destArgs[i]);
+        }
+        if (isVarArgs) {
+            final float varArgsCost = 0.001f;
+            Class<?> destClass = destArgs[destArgs.length-1].getComponentType();
+            if (destClass == null) {
+                return Float.MAX_VALUE;
+            }
+            if (srcArgs.length > destArgs.length) {
+                for (int i = destArgs.length-1; i < srcArgs.length; i++) {
+                    Class<?> srcClass = srcArgs[i];
+                    totalCost += getObjectTransformationCost(srcClass, destClass) + varArgsCost;
+                }
+            }
+            else if (srcArgs.length==destArgs.length) {
+                if (srcArgs[srcArgs.length-1].isArray()) {
+                    Class<?> sourceClass = srcArgs[srcArgs.length-1].getComponentType();
+                    totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
+                }
+                else {
+                    totalCost += getObjectTransformationCost(srcArgs[srcArgs.length-1], destClass) + varArgsCost;
+                }
+            }
+            else {
+              // No source arguments were provided for the vararg parameter.
+              // This means we want the most generic matching type, not the most specific.
+              totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
+            }
         }
         return totalCost;
     }
