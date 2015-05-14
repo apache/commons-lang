@@ -93,6 +93,8 @@ abstract class MemberUtils {
      * @param left the "left" parameter set
      * @param right the "right" parameter set
      * @param actual the runtime parameter types to match against
+     * @param leftIsVarArgs True if the "left" parameter set is for a varags methods
+     * @param rightIsVarArgs True if the "right" parameter set is for a varags methods
      * {@code left}/{@code right}
      * @return int consistent with {@code compare} semantics
      */
@@ -107,52 +109,43 @@ abstract class MemberUtils {
      * source argument list.
      * @param srcArgs The source arguments
      * @param destArgs The destination arguments
+     * @param isVarArgs True if the destination arguments are for a varags methods
      * @return The total transformation cost
      */
     private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Class<?>[] destArgs, boolean isVarArgs) {
         // "source" and "destination" are the actual and declared args respectively.
-        // When isVarArgs is false, both arrays should have the same length.
-        // When isVarArgs is true, the lengths may differ, but there are different cases to consider:
-        // src.length+1 == dest.length:
-        //    No arguments were passed for the varargs parameter.
-        // src.length > dest.length:
-        //    Typical use of varargs with more than one varargs argument.
-        // src.length == dest.length && src is an array type
-        //    An explicit array was passed for the varargs parameter
-        // src.length == dest.length && src is not an array type.
-        //    A single argument was passed for the varargs parameter
         float totalCost = 0.0f;
-        long normalArgsLen = isVarArgs ? destArgs.length-1 : destArgs.length;
+        final long normalArgsLen = isVarArgs ? destArgs.length-1 : destArgs.length;
         if (srcArgs.length < normalArgsLen)
             return Float.MAX_VALUE;
         for (int i = 0; i < normalArgsLen; i++) {
             totalCost += getObjectTransformationCost(srcArgs[i], destArgs[i]);
         }
         if (isVarArgs) {
+            // When isVarArgs is true, srcArgs and dstArgs may differ in length.
+            // There are two special cases to consider:
+            final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
+            final boolean explicitArrayForVarags = (srcArgs.length == destArgs.length) && srcArgs[srcArgs.length-1].isArray();
+
             final float varArgsCost = 0.001f;
             Class<?> destClass = destArgs[destArgs.length-1].getComponentType();
             if (destClass == null) {
-                return Float.MAX_VALUE;
+                throw new IllegalArgumentException("isVarArgs is true, yet last declared argument is not an array");
             }
-            if (srcArgs.length > destArgs.length) {
+            if (noVarArgsPassed) {
+                // When no varargs passed, the best match is the most generic matching type, not the most specific.
+                totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
+            }
+            else if (explicitArrayForVarags) {
+                Class<?> sourceClass = srcArgs[srcArgs.length-1].getComponentType();
+                totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
+            }
+            else {
+                // This is typical varargs case.
                 for (int i = destArgs.length-1; i < srcArgs.length; i++) {
                     Class<?> srcClass = srcArgs[i];
                     totalCost += getObjectTransformationCost(srcClass, destClass) + varArgsCost;
                 }
-            }
-            else if (srcArgs.length==destArgs.length) {
-                if (srcArgs[srcArgs.length-1].isArray()) {
-                    Class<?> sourceClass = srcArgs[srcArgs.length-1].getComponentType();
-                    totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
-                }
-                else {
-                    totalCost += getObjectTransformationCost(srcArgs[srcArgs.length-1], destClass) + varArgsCost;
-                }
-            }
-            else {
-              // No source arguments were provided for the vararg parameter.
-              // This means we want the most generic matching type, not the most specific.
-              totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
             }
         }
         return totalCost;
