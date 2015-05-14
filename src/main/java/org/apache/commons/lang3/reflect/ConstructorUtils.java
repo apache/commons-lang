@@ -18,6 +18,7 @@ package org.apache.commons.lang3.reflect;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -113,6 +114,10 @@ public class ConstructorUtils {
         if (ctor == null) {
             throw new NoSuchMethodException(
                 "No such accessible constructor on object: " + cls.getName());
+        }
+        if (ctor.isVarArgs()) {
+            Class<?>[] methodParameterTypes = ctor.getParameterTypes();
+            args = MethodUtils.getVarArgs(args, methodParameterTypes);
         }
         return ctor.newInstance(args);
     }
@@ -258,14 +263,14 @@ public class ConstructorUtils {
         // return best match:
         for (Constructor<?> ctor : ctors) {
             // compare parameters
-            if (ClassUtils.isAssignable(parameterTypes, ctor.getParameterTypes(), true)) {
+            if (isMatchingMethod(ctor, parameterTypes)) {
                 // get accessible version of constructor
                 ctor = getAccessibleConstructor(ctor);
                 if (ctor != null) {
                     MemberUtils.setAccessibleWorkaround(ctor);
                     if (result == null
                             || MemberUtils.compareParameterTypes(ctor.getParameterTypes(), result
-                                    .getParameterTypes(), parameterTypes) < 0) {
+                                    .getParameterTypes(), parameterTypes, ctor.isVarArgs(), result.isVarArgs()) < 0) {
                         // temporary variable for annotation, see comment above (1)
                         @SuppressWarnings("unchecked")
                         final
@@ -276,6 +281,10 @@ public class ConstructorUtils {
             }
         }
         return result;
+    }
+
+    private static boolean isMatchingMethod(Constructor constructor, Class<?>[] parameterTypes) {
+        return MethodUtils.isMatchingMethod(parameterTypes, constructor.getParameterTypes(), constructor.isVarArgs());
     }
 
     /**
