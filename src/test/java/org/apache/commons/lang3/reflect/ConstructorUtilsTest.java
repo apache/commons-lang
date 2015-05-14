@@ -36,42 +36,56 @@ import org.apache.commons.lang3.mutable.MutableObject;
 public class ConstructorUtilsTest {
     public static class TestBean {
         private final String toString;
+        final String[] varArgs;
 
         public TestBean() {
             toString = "()";
+            varArgs = null;
         }
 
         public TestBean(final int i) {
             toString = "(int)";
+            varArgs = null;
         }
 
         public TestBean(final Integer i) {
             toString = "(Integer)";
+            varArgs = null;
         }
 
         public TestBean(final double d) {
             toString = "(double)";
+            varArgs = null;
         }
 
         public TestBean(final String s) {
             toString = "(String)";
+            varArgs = null;
         }
 
         public TestBean(final Object o) {
             toString = "(Object)";
+            varArgs = null;
         }
 
         public TestBean(final String... s) {
             toString = "(String...)";
+            varArgs = s;
         }
 
         public TestBean(final Integer i, String... s) {
             toString = "(Integer, String...)";
+            varArgs = s;
         }
 
         @Override
         public String toString() {
             return toString;
+        }
+
+        void verify(final String str, final String[] args) {
+          assertEquals(str, toString);
+          assertEquals(args, varArgs);
         }
     }
 
@@ -125,10 +139,12 @@ public class ConstructorUtilsTest {
                 TestBean.class, NumberUtils.LONG_ONE).toString());
         assertEquals("(double)", ConstructorUtils.invokeConstructor(
                 TestBean.class, NumberUtils.DOUBLE_ONE).toString());
-        assertEquals("(String...)", ConstructorUtils.invokeConstructor(
-                TestBean.class, "a", "b").toString());
-        assertEquals("(Integer, String...)", ConstructorUtils.invokeConstructor(
-                TestBean.class, NumberUtils.INTEGER_ONE, "a", "b").toString());
+        ConstructorUtils.invokeConstructor(TestBean.class, NumberUtils.INTEGER_ONE)
+          .verify("(Integer)", null);
+        ConstructorUtils.invokeConstructor(TestBean.class, "a", "b")
+          .verify("(String...)", new String[]{"a", "b"});
+        ConstructorUtils.invokeConstructor(TestBean.class, NumberUtils.INTEGER_ONE, "a", "b")
+          .verify("(Integer, String...)", new String[]{"a", "b"});
     }
 
     @Test
