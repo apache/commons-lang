@@ -17,7 +17,9 @@
 package org.apache.commons.lang3.reflect;
 
 import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import org.apache.commons.lang3.ClassUtils;
@@ -98,9 +100,9 @@ abstract class MemberUtils {
      * {@code left}/{@code right}
      * @return int consistent with {@code compare} semantics
      */
-    static int compareParameterTypes(final Class<?>[] left, final Class<?>[] right, final Class<?>[] actual, boolean leftIsVarArgs, boolean rightIsVarArgs) {
-        final float leftCost = getTotalTransformationCost(actual, left, leftIsVarArgs);
-        final float rightCost = getTotalTransformationCost(actual, right, rightIsVarArgs);
+    static int compareParameterTypes(final Executable left, final Executable right, final Class<?>[] actual) {
+        final float leftCost = getTotalTransformationCost(actual, left);
+        final float rightCost = getTotalTransformationCost(actual, right);
         return leftCost < rightCost ? -1 : rightCost < leftCost ? 1 : 0;
     }
 
@@ -112,7 +114,10 @@ abstract class MemberUtils {
      * @param isVarArgs True if the destination arguments are for a varags methods
      * @return The total transformation cost
      */
-    private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Class<?>[] destArgs, boolean isVarArgs) {
+    private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Executable executable) {
+        final Class<?>[] destArgs = executable.getParameterTypes();
+        final boolean isVarArgs = executable.isVarArgs();
+    
         // "source" and "destination" are the actual and declared args respectively.
         float totalCost = 0.0f;
         final long normalArgsLen = isVarArgs ? destArgs.length-1 : destArgs.length;
@@ -211,6 +216,33 @@ abstract class MemberUtils {
             }
         }
         return cost;
+    }
+    
+    
+    static Executable of(Method method) { return new Executable(method); }
+    static Executable of(Constructor constructor) { return new Executable(constructor); }
+
+    /**
+     * <p> A class providing a subset of the API of java.lang.reflect.Executable in Java 1.8,
+     * providing a common representation for function signatures for Constructors and Methods.</p>
+     */
+    static final class Executable {
+      private final Class<?>[] parameterTypes;
+      private final boolean  isVarArgs;
+      
+      private Executable(Method method) {
+        parameterTypes = method.getParameterTypes();
+        isVarArgs = method.isVarArgs();
+      }
+      
+      private Executable(Constructor constructor) {
+        parameterTypes = constructor.getParameterTypes();
+        isVarArgs = constructor.isVarArgs();
+      }
+      
+      public Class<?>[] getParameterTypes() { return parameterTypes; }
+
+      public boolean isVarArgs() { return isVarArgs; }
     }
 
 }

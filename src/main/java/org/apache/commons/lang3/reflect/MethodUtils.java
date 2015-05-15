@@ -582,11 +582,9 @@ public class MethodUtils {
                 // get accessible version of method
                 final Method accessibleMethod = getAccessibleMethod(method);
                 if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareParameterTypes(
-                            accessibleMethod.getParameterTypes(),
-                            bestMatch.getParameterTypes(),
-                            parameterTypes,
-                            methodIsVarArgs,
-                            bestIsVarArgs) < 0)) {
+                            MemberUtils.of(accessibleMethod),
+                            MemberUtils.of(bestMatch),
+                            parameterTypes) < 0)) {
                         bestMatch = accessibleMethod;
                         bestIsVarArgs = methodIsVarArgs;
                  }
