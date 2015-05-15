@@ -926,7 +926,7 @@ public class Validate {
      * @since 3.4
      */
     public static void notNaN(final double value, final String message, final Object... values) {
-        if (value != value) {
+        if (Double.isNaN(value)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -967,7 +967,7 @@ public class Validate {
      * @since 3.4
      */
     public static void finite(final double value, final String message, final Object... values) {
-        if (value != value || Double.isInfinite(value)) {
+        if (Double.isNaN(value) || Double.isInfinite(value)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -985,15 +985,15 @@ public class Validate {
      * greater than {@code min}&quot;.</p>
      * 
      * @param <T>  the type of the argument object
-     * @param min  the reference value
      * @param value  the object to validate
+     * @param min  the reference value
      * @throws IllegalArgumentException if {@code value} is smaller than or equal to {@code min}
      * @see #greaterObj(java.lang.Object, java.lang.Comparable, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static <T> void greaterObj(final T min, final Comparable<T> value) {
-        greaterObj(min, value, DEFAULT_GREATER_EX_MESSAGE, value, min);
+    public static <T> void greaterObj(final Comparable<T> value, final T min) {
+        greaterObj(value, min, DEFAULT_GREATER_EX_MESSAGE, value, min);
     }
     
     /**
@@ -1003,8 +1003,8 @@ public class Validate {
      * <pre>Validate.greaterObj(myObject, refObject, "The value must be greater than the reference");</pre>
      * 
      * @param <T>  the type of the argument object
-     * @param min  the reference value
      * @param value  the object to validate
+     * @param min  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is smaller than or equal to {@code min}
@@ -1012,7 +1012,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static <T> void greaterObj(final T min, final Comparable<T> value, final String message, final Object... values) {
+    public static <T> void greaterObj(final Comparable<T> value, final T min, final String message, final Object... values) {
         if (value.compareTo(min) <= 0) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1027,15 +1027,15 @@ public class Validate {
      * <p>The message of the exception is &quot;The value {@code value} is not 
      * greater than {@code min}&quot;.</p>
      * 
-     * @param min  the reference value
      * @param value  the value to validate
+     * @param min  the reference value
      * @throws IllegalArgumentException if {@code value} is smaller than or equal to {@code min}
      * @see #greater(long, long, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static void greater(final long min, final long value) {
-        greater(min, value, DEFAULT_GREATER_EX_MESSAGE, value, min);
+    public static void greater(final long value, final long min) {
+        greater(value, min, DEFAULT_GREATER_EX_MESSAGE, value, min);
     }
     
     /**
@@ -1044,8 +1044,8 @@ public class Validate {
      * 
      * <pre>Validate.greater(myLong, 0);</pre>
      * 
-     * @param min  the reference value
      * @param value  the value to validate
+     * @param min  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is smaller than or equal to {@code min}
@@ -1053,7 +1053,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static void greater(final long min, final long value, final String message, final Object... values) {
+    public static void greater(final long value, final long min, final String message, final Object... values) {
         if (value <= min) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1071,15 +1071,15 @@ public class Validate {
      * <p>The message of the exception is &quot;The value {@code value} is not 
      * greater than {@code min}&quot;.</p>
      * 
-     * @param min  the reference value
      * @param value  the value to validate
+     * @param min  the reference value
      * @throws IllegalArgumentException if {@code value} is smaller than or equal to {@code min}
      * @see #greater(double, double, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static void greater(final double min, final double value) {
-        greater(min, value, DEFAULT_GREATER_EX_MESSAGE, value, min);
+    public static void greater(final double value, final double min) {
+        greater(value, min, DEFAULT_GREATER_EX_MESSAGE, value, min);
     }
     
     /**
@@ -1091,8 +1091,8 @@ public class Validate {
      * 
      * <pre>Validate.greater(myDouble, 0.0);</pre>
      * 
-     * @param min  the reference value
      * @param value  the value to validate
+     * @param min  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is smaller than or equal to {@code min}
@@ -1100,7 +1100,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static void greater(final double min, final double value, final String message, final Object... values) {
+    public static void greater(final double value, final double min, final String message, final Object... values) {
         if (!(value > min)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1119,15 +1119,15 @@ public class Validate {
      * greater than or equal to {@code min}&quot;.</p>
      * 
      * @param <T>  the type of the argument object
-     * @param min  the reference value
      * @param value  the object to validate
+     * @param min  the reference value
      * @throws IllegalArgumentException if {@code value} is smaller than {@code min}
      * @see #greaterOrEqualObj(java.lang.Object, java.lang.Comparable, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static <T> void greaterOrEqualObj(final T min, final Comparable<T> value) {
-        greaterOrEqualObj(min, value, DEFAULT_GREATER_OR_EQUAL_EX_MESSAGE, value, min);
+    public static <T> void greaterOrEqualObj(final Comparable<T> value, final T min) {
+        greaterOrEqualObj(value, min, DEFAULT_GREATER_OR_EQUAL_EX_MESSAGE, value, min);
     }
     
     /**
@@ -1137,8 +1137,8 @@ public class Validate {
      * <pre>Validate.greaterOrEqualObj(myObject, refObject, "The value must be greater than the reference");</pre>
      * 
      * @param <T>  the type of the argument object
-     * @param min  the reference value
      * @param value  the object to validate
+     * @param min  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is smaller than {@code min}
@@ -1146,7 +1146,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static <T> void greaterOrEqualObj(final T min, final Comparable<T> value, final String message, final Object... values) {
+    public static <T> void greaterOrEqualObj(final Comparable<T> value, final T min, final String message, final Object... values) {
         if (value.compareTo(min) < 0) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1161,15 +1161,15 @@ public class Validate {
      * <p>The message of the exception is &quot;The value {@code value} is not 
      * greater than or equal to {@code min}&quot;.</p>
      * 
-     * @param min  the reference value
      * @param value  the value to validate
+     * @param min  the reference value
      * @throws IllegalArgumentException if {@code value} is smaller than {@code min}
      * @see #greaterOrEqual(long, long, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static void greaterOrEqual(final long min, final long value) {
-        greaterOrEqual(min, value, DEFAULT_GREATER_OR_EQUAL_EX_MESSAGE, value, min);
+    public static void greaterOrEqual(final long value, final long min) {
+        greaterOrEqual(value, min, DEFAULT_GREATER_OR_EQUAL_EX_MESSAGE, value, min);
     }
     
     /**
@@ -1178,8 +1178,8 @@ public class Validate {
      * 
      * <pre>Validate.greaterOrEqual(myLong, 0);</pre>
      * 
-     * @param min  the reference value
      * @param value  the value to validate
+     * @param min  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is smaller than {@code min}
@@ -1187,7 +1187,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static void greaterOrEqual(final long min, final long value, final String message, final Object... values) {
+    public static void greaterOrEqual(final long value, final long min, final String message, final Object... values) {
         if (value < min) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1205,15 +1205,15 @@ public class Validate {
      * <p>The message of the exception is &quot;The value {@code value} is not 
      * greater than or equal to {@code min}&quot;.</p>
      * 
-     * @param min  the reference value
      * @param value  the value to validate
+     * @param min  the reference value
      * @throws IllegalArgumentException if {@code value} is smaller than {@code min}
      * @see #greaterOrEqual(double, double, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static void greaterOrEqual(final double min, final double value) {
-        greaterOrEqual(min, value, DEFAULT_GREATER_OR_EQUAL_EX_MESSAGE, value, min);
+    public static void greaterOrEqual(final double value, final double min) {
+        greaterOrEqual(value, min, DEFAULT_GREATER_OR_EQUAL_EX_MESSAGE, value, min);
     }
     
     /**
@@ -1225,8 +1225,8 @@ public class Validate {
      * 
      * <pre>Validate.greaterOrEqual(myDouble, 0.0);</pre>
      * 
-     * @param min  the reference value
      * @param value  the value to validate
+     * @param min  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is smaller than {@code min}
@@ -1234,7 +1234,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static void greaterOrEqual(final double min, final double value, final String message, final Object... values) {
+    public static void greaterOrEqual(final double value, final double min, final String message, final Object... values) {
         if (!(value >= min)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1253,15 +1253,15 @@ public class Validate {
      * smaller than {@code max}&quot;.</p>
      * 
      * @param <T>  the type of the argument object
-     * @param max  the reference value
      * @param value  the object to validate
+     * @param max  the reference value
      * @throws IllegalArgumentException if {@code value} is greater than or equal to {@code max}
      * @see #smallerObj(java.lang.Object, java.lang.Comparable, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static <T> void smallerObj(final T max, final Comparable<T> value) {
-        smallerObj(max, value, DEFAULT_SMALLER_EX_MESSAGE, value, max);
+    public static <T> void smallerObj(final Comparable<T> value, final T max) {
+        smallerObj(value, max, DEFAULT_SMALLER_EX_MESSAGE, value, max);
     }
     
     /**
@@ -1271,8 +1271,8 @@ public class Validate {
      * <pre>Validate.smallerObj(myObject, refObject, "The value must be greater than the reference");</pre>
      * 
      * @param <T>  the type of the argument object
-     * @param max  the reference value
      * @param value  the object to validate
+     * @param max  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is greater than or equal to {@code max}
@@ -1280,7 +1280,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static <T> void smallerObj(final T max, final Comparable<T> value, final String message, final Object... values) {
+    public static <T> void smallerObj(final Comparable<T> value, final T max, final String message, final Object... values) {
         if (value.compareTo(max) >= 0) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1295,15 +1295,15 @@ public class Validate {
      * <p>The message of the exception is &quot;The value {@code value} is not 
      * smaller than {@code max}&quot;.</p>
      * 
-     * @param max  the reference value
      * @param value  the value to validate
+     * @param max  the reference value
      * @throws IllegalArgumentException if {@code value} is greater than or equal to {@code max}
      * @see #smaller(long, long, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static void smaller(final long max, final long value) {
-        smaller(max, value, DEFAULT_SMALLER_EX_MESSAGE, value, max);
+    public static void smaller(final long value, final long max) {
+        smaller(value, max, DEFAULT_SMALLER_EX_MESSAGE, value, max);
     }
     
     /**
@@ -1312,8 +1312,8 @@ public class Validate {
      * 
      * <pre>Validate.smaller(myLong, 0);</pre>
      * 
-     * @param max  the reference value
      * @param value  the value to validate
+     * @param max  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is greater than or equal to {@code max}
@@ -1321,7 +1321,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static void smaller(final long max, final long value, final String message, final Object... values) {
+    public static void smaller(final long value, final long max, final String message, final Object... values) {
         if (value >= max) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1339,15 +1339,15 @@ public class Validate {
      * <p>The message of the exception is &quot;The value {@code value} is not 
      * smaller than {@code max}&quot;.</p>
      * 
-     * @param max  the reference value
      * @param value  the value to validate
+     * @param max  the reference value
      * @throws IllegalArgumentException if {@code value} is greater than or equal to {@code max}
      * @see #smaller(double, double, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static void smaller(final double max, final double value) {
-        smaller(max, value, DEFAULT_SMALLER_EX_MESSAGE, value, max);
+    public static void smaller(final double value, final double max) {
+        smaller(value, max, DEFAULT_SMALLER_EX_MESSAGE, value, max);
     }
     
     /**
@@ -1359,8 +1359,8 @@ public class Validate {
      * 
      * <pre>Validate.smaller(myDouble, 0.0);</pre>
      * 
-     * @param max  the reference value
      * @param value  the value to validate
+     * @param max  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is greater than or equal to {@code max}
@@ -1368,7 +1368,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static void smaller(final double max, final double value, final String message, final Object... values) {
+    public static void smaller(final double value, final double max, final String message, final Object... values) {
         if (!(value < max)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1387,15 +1387,15 @@ public class Validate {
      * smaller than or equal to {@code max}&quot;.</p>
      * 
      * @param <T>  the type of the argument object
-     * @param max  the reference value
      * @param value  the object to validate
+     * @param max  the reference value
      * @throws IllegalArgumentException if {@code value} is greater than {@code max}
      * @see #smallerOrEqualObj(java.lang.Object, java.lang.Comparable, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static <T> void smallerOrEqualObj(final T max, final Comparable<T> value) {
-        smallerOrEqualObj(max, value, DEFAULT_SMALLER_OR_EQUAL_EX_MESSAGE, value, max);
+    public static <T> void smallerOrEqualObj(final Comparable<T> value, final T max) {
+        smallerOrEqualObj(value, max, DEFAULT_SMALLER_OR_EQUAL_EX_MESSAGE, value, max);
     }
     
     /**
@@ -1405,8 +1405,8 @@ public class Validate {
      * <pre>Validate.smallerOrEqualObj(myObject, refObject, "The value must be greater than the reference");</pre>
      * 
      * @param <T>  the type of the argument object
-     * @param max  the reference value
      * @param value  the object to validate
+     * @param max  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is greater than {@code max}
@@ -1414,7 +1414,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static <T> void smallerOrEqualObj(final T max, final Comparable<T> value, final String message, final Object... values) {
+    public static <T> void smallerOrEqualObj(final Comparable<T> value, final T max, final String message, final Object... values) {
         if (value.compareTo(max) > 0) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1429,15 +1429,15 @@ public class Validate {
      * <p>The message of the exception is &quot;The value {@code value} is not 
      * smaller than or equal to {@code max}&quot;.</p>
      * 
-     * @param max  the reference value
      * @param value  the value to validate
+     * @param max  the reference value
      * @throws IllegalArgumentException if {@code value} is greater than {@code max}
      * @see #smallerOrEqual(long, long, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static void smallerOrEqual(final long max, final long value) {
-        smallerOrEqual(max, value, DEFAULT_SMALLER_OR_EQUAL_EX_MESSAGE, value, max);
+    public static void smallerOrEqual(final long value, final long max) {
+        smallerOrEqual(value, max, DEFAULT_SMALLER_OR_EQUAL_EX_MESSAGE, value, max);
     }
     
     /**
@@ -1446,8 +1446,8 @@ public class Validate {
      * 
      * <pre>Validate.smallerOrEqual(myLong, 0);</pre>
      * 
-     * @param max  the reference value
      * @param value  the value to validate
+     * @param max  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is greater than {@code max}
@@ -1455,7 +1455,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static void smallerOrEqual(final long max, final long value, final String message, final Object... values) {
+    public static void smallerOrEqual(final long value, final long max, final String message, final Object... values) {
         if (value > max) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1473,15 +1473,15 @@ public class Validate {
      * <p>The message of the exception is &quot;The value {@code value} is not 
      * smaller than or equal to {@code max}&quot;.</p>
      * 
-     * @param max  the reference value
      * @param value  the value to validate
+     * @param max  the reference value
      * @throws IllegalArgumentException if {@code value} is greater than {@code max}
      * @see #smallerOrEqual(double, double, java.lang.String, java.lang.Object...) 
      * 
      * @since 3.4
      */
-    public static void smallerOrEqual(final double max, final double value) {
-        smallerOrEqual(max, value, DEFAULT_SMALLER_OR_EQUAL_EX_MESSAGE, value, max);
+    public static void smallerOrEqual(final double value, final double max) {
+        smallerOrEqual(value, max, DEFAULT_SMALLER_OR_EQUAL_EX_MESSAGE, value, max);
     }
     
     /**
@@ -1493,8 +1493,8 @@ public class Validate {
      * 
      * <pre>Validate.smallerOrEqual(myDouble, 0.0);</pre>
      * 
-     * @param max  the reference value
      * @param value  the value to validate
+     * @param max  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is greater than {@code max}
@@ -1502,7 +1502,7 @@ public class Validate {
      * 
      * @since 3.4
      */
-    public static void smallerOrEqual(final double max, final double value, final String message, final Object... values) {
+    public static void smallerOrEqual(final double value, final double max, final String message, final Object... values) {
         if (!(value <= max)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1512,8 +1512,11 @@ public class Validate {
     //---------------------------------------------------------------------------------
     
     /**
-     * <p>Validates that the specified argument is not equal to a given value
+     * <p>Validates that the specified argument is different from a given value
      * (reference); otherwise throwing an exception.</p>
+     * 
+     * <p>Two objects are considered different if 
+     * {@code value.compareTo(reference) != 0}</p>
      * 
      * <pre>Validate.differentObj(myObject, refObject);</pre>
      * 
@@ -1521,32 +1524,35 @@ public class Validate {
      * invalid&quot;.</p>
      * 
      * @param <T>  the type of the argument object
-     * @param reference  the reference value
      * @param value  the object to validate
+     * @param reference  the reference value
      * @throws IllegalArgumentException if {@code value} is equal to {@code reference}
      * 
      * @since 3.4
      */
-    public static <T> void differentObj(final T reference, final Comparable<T> value) {
-        differentObj(reference, value, DEFAULT_DIFFERENT_EX_MESSAGE, value);
+    public static <T> void differentObj(final Comparable<T> value, final T reference) {
+        differentObj(value, reference, DEFAULT_DIFFERENT_EX_MESSAGE, value);
     }
     
     /**
-     * <p>Validates that the specified argument is not equal to a given value
+     * <p>Validates that the specified argument is different from a given value
      * (reference); otherwise throwing an exception with the specified message.</p>
+     * 
+     * <p>Two objects are considered different if 
+     * {@code value.compareTo(reference) != 0}</p>
      * 
      * <pre>Validate.differentObj(myObject, refObject, "The value is invalid");</pre>
      * 
      * @param <T>  the type of the argument object
-     * @param reference  the reference value
      * @param value  the object to validate
+     * @param reference  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is equal to {@code reference}
      * 
      * @since 3.4
      */
-    public static <T> void differentObj(final T reference, final Comparable<T> value, final String message, final Object... values) {
+    public static <T> void differentObj(final Comparable<T> value, final T reference, final String message, final Object... values) {
         if (value.compareTo(reference) == 0) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1561,14 +1567,14 @@ public class Validate {
      * <p>The message of the exception is &quot;The value {@code value} is 
      * invalid&quot;.</p>
      * 
-     * @param reference  the reference value
      * @param value  the value to validate
+     * @param reference  the reference value
      * @throws IllegalArgumentException if {@code value} is equal to {@code reference}
      * 
      * @since 3.4
      */
-    public static void different(final long reference, final long value) {
-        different(reference, value, DEFAULT_DIFFERENT_EX_MESSAGE, value);
+    public static void different(final long value, final long reference) {
+        different(value, reference, DEFAULT_DIFFERENT_EX_MESSAGE, value);
     }
     
     /**
@@ -1577,15 +1583,15 @@ public class Validate {
      * 
      * <pre>Validate.different(myLong, 0, "The value is invalid");</pre>
      * 
-     * @param reference  the reference value
      * @param value  the value to validate
+     * @param reference  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is equal to {@code reference}
      * 
      * @since 3.4
      */
-    public static void different(final long reference, final long value, final String message, final Object... values) {
+    public static void different(final long value, final long reference, final String message, final Object... values) {
         if (value == reference) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -1602,14 +1608,14 @@ public class Validate {
      * <p>The message of the exception is &quot;The value {@code value} is 
      * invalid&quot;.</p>
      * 
-     * @param reference  the reference value
      * @param value  the value to validate
+     * @param reference  the reference value
      * @throws IllegalArgumentException if {@code value} is equal to {@code reference}
      * 
      * @since 3.4
      */
-    public static void different(final double reference, final double value) {
-        different(reference, value, DEFAULT_DIFFERENT_EX_MESSAGE, value);
+    public static void different(final double value, final double reference) {
+        different(value, reference, DEFAULT_DIFFERENT_EX_MESSAGE, value);
     }
     
     /**
@@ -1620,15 +1626,15 @@ public class Validate {
      * 
      * <pre>Validate.different(myDouble, 0.0, "The value is invalid");</pre>
      * 
-     * @param reference  the reference value
      * @param value  the value to validate
+     * @param reference  the reference value
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is equal to {@code reference}
      * 
      * @since 3.4
      */
-    public static void different(final double reference, final double value, final String message, final Object... values) {
+    public static void different(final double value, final double reference, final String message, final Object... values) {
         if (value == reference) {
             throw new IllegalArgumentException(String.format(message, values));
         }
