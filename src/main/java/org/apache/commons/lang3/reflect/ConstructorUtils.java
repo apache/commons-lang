@@ -263,7 +263,7 @@ public class ConstructorUtils {
         // return best match:
         for (Constructor<?> ctor : ctors) {
             // compare parameters
-            if (isMatchingMethod(ctor, parameterTypes)) {
+            if (MemberUtils.isMatchingExecutable(MemberUtils.of(ctor), parameterTypes)) {
                 // get accessible version of constructor
                 ctor = getAccessibleConstructor(ctor);
                 if (ctor != null) {
@@ -281,10 +281,6 @@ public class ConstructorUtils {
             }
         }
         return result;
-    }
-
-    private static boolean isMatchingMethod(Constructor constructor, Class<?>[] parameterTypes) {
-        return MethodUtils.isMatchingMethod(parameterTypes, constructor.getParameterTypes(), constructor.isVarArgs());
     }
 
     /**

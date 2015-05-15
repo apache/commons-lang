@@ -573,12 +573,11 @@ public class MethodUtils {
         }
         // search through all methods
         Method bestMatch = null;
-        boolean bestIsVarArgs = false;
         final Method[] methods = cls.getMethods();
         for (final Method method : methods) {
             // compare name and parameters
-            boolean methodIsVarArgs = method.isVarArgs();
-            if (method.getName().equals(methodName) && isMatchingMethod(method, parameterTypes, methodIsVarArgs)) {
+            if (method.getName().equals(methodName) && 
+                    MemberUtils.isMatchingExecutable(MemberUtils.of(method), parameterTypes)) {
                 // get accessible version of method
                 final Method accessibleMethod = getAccessibleMethod(method);
                 if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareParameterTypes(
@@ -586,7 +585,6 @@ public class MethodUtils {
                             MemberUtils.of(bestMatch),
                             parameterTypes) < 0)) {
                         bestMatch = accessibleMethod;
-                        bestIsVarArgs = methodIsVarArgs;
                  }
             }
         }
@@ -594,29 +592,6 @@ public class MethodUtils {
             MemberUtils.setAccessibleWorkaround(bestMatch);
         }
         return bestMatch;
-    }
-
-    private static boolean isMatchingMethod(Method method, Class<?>[] parameterTypes, boolean isVarArgs) {
-        return isMatchingMethod(parameterTypes, method.getParameterTypes(), isVarArgs);
-    }
-
-    static boolean isMatchingMethod(Class<?>[] parameterTypes, Class<?>[] methodParameterTypes, boolean isVarArgs) {
-        if (isVarArgs) {
-            int i;
-            for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
-                if (!ClassUtils.isAssignable(parameterTypes[i], methodParameterTypes[i], true)) {
-                    return false;
-                }
-            }
-            Class<?> varArgParameterType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
-            for (; i < parameterTypes.length; i++) {
-                if (!ClassUtils.isAssignable(parameterTypes[i], varArgParameterType, true)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true);
     }
 
     /**

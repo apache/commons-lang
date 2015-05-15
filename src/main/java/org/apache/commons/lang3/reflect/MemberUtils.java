@@ -134,9 +134,6 @@ abstract class MemberUtils {
 
             final float varArgsCost = 0.001f;
             Class<?> destClass = destArgs[destArgs.length-1].getComponentType();
-            if (destClass == null) {
-                throw new IllegalArgumentException("isVarArgs is true, yet last declared argument is not an array");
-            }
             if (noVarArgsPassed) {
                 // When no varargs passed, the best match is the most generic matching type, not the most specific.
                 totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
@@ -218,7 +215,26 @@ abstract class MemberUtils {
         return cost;
     }
     
-    
+    static boolean isMatchingExecutable(Executable method, Class<?>[] parameterTypes) {
+        final Class<?>[] methodParameterTypes = method.getParameterTypes();
+        if (method.isVarArgs()) {
+            int i;
+            for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
+                if (!ClassUtils.isAssignable(parameterTypes[i], methodParameterTypes[i], true)) {
+                    return false;
+                }
+            }
+            Class<?> varArgParameterType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
+            for (; i < parameterTypes.length; i++) {
+                if (!ClassUtils.isAssignable(parameterTypes[i], varArgParameterType, true)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true);
+    }
+
     static Executable of(Method method) { return new Executable(method); }
     static Executable of(Constructor constructor) { return new Executable(constructor); }
 
