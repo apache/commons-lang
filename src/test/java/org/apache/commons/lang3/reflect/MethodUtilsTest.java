@@ -46,6 +46,7 @@ import org.apache.commons.lang3.reflect.testbed.Annotated;
 import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -168,6 +169,34 @@ public class MethodUtilsTest {
         public static String numOverload(Integer... args) { return "Integer..."; }
         public static String numOverload(Long... args) { return "Long..."; }
         public static String numOverload(Number... args) { return "Number..."; }
+        
+        // These varOverloadEcho and varOverloadEchoStatic methods are designed to verify that
+        // not only is the correct overloaded variant invoked, but that the varags arguments
+        // are also delivered correctly to the method. 
+        public ImmutablePair<String, Object[]> varOverloadEcho(String... args) { 
+          return new ImmutablePair<String, Object[]>("String...", args);
+        }
+        public ImmutablePair<String, Object[]> varOverloadEcho(Number... args) { 
+          return new ImmutablePair<String, Object[]>("Number...", args);
+        }
+        
+        public static ImmutablePair<String, Object[]> varOverloadEchoStatic(String... args) { 
+          return new ImmutablePair<String, Object[]>("String...", args);
+        }
+        public static ImmutablePair<String, Object[]> varOverloadEchoStatic(Number... args) { 
+          return new ImmutablePair<String, Object[]>("Number...", args);
+        }
+        
+        static void verify(ImmutablePair<String, Object[]> a, ImmutablePair<String, Object[]> b) {
+          assertEquals(a.getLeft(), b.getLeft());
+          assertArrayEquals(a.getRight(), b.getRight());
+        }
+        
+        static void verify(ImmutablePair<String, Object[]> a, Object _b) {
+          final ImmutablePair<String, Object[]> b = (ImmutablePair<String, Object[]>) _b;
+          verify(a, b);
+        }
+        
     }
 
     private static class TestMutable implements Mutable<Object> {
@@ -299,6 +328,15 @@ public class MethodUtilsTest {
                 "a", "b", "c"));
         assertEquals("foo(int, String...)", MethodUtils.invokeMethod(testBean, "foo",
                 5, "a", "b", "c"));
+                
+        TestBean.verify(new ImmutablePair("String...", new String[]{"x", "y"}), 
+                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
+        TestBean.verify(new ImmutablePair("Number...", new Number[]{17, 23, 42}), 
+                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
+        TestBean.verify(new ImmutablePair("String...", new String[]{"x", "y"}), 
+                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", new String[]{"x", "y"}));
+        TestBean.verify(new ImmutablePair("Number...", new Number[]{17, 23, 42}), 
+                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", new Number[]{17, 23, 42}));
     }
 
     @Test
@@ -365,6 +403,15 @@ public class MethodUtilsTest {
                 TestBean.class, "bar", "a", "b"));
         assertEquals("bar(int, String...)", MethodUtils.invokeStaticMethod(
                 TestBean.class, "bar", NumberUtils.INTEGER_ONE, "a", "b"));
+
+        TestBean.verify(new ImmutablePair("String...", new String[]{"x", "y"}), 
+                        MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", "x", "y"));
+        TestBean.verify(new ImmutablePair("Number...", new Number[]{17, 23, 42}), 
+                        MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", 17, 23, 42));
+        TestBean.verify(new ImmutablePair("String...", new String[]{"x", "y"}), 
+                        MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", new String[]{"x", "y"}));
+        TestBean.verify(new ImmutablePair("Number...", new Number[]{17, 23, 42}), 
+                        MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", new Number[]{17, 23, 42}));
 
         try {
             MethodUtils.invokeStaticMethod(TestBean.class, "does_not_exist");
