@@ -577,15 +577,15 @@ public class MethodUtils {
         for (final Method method : methods) {
             // compare name and parameters
             if (method.getName().equals(methodName) && 
-                    MemberUtils.isMatchingExecutable(MemberUtils.of(method), parameterTypes)) {
+                    MemberUtils.isMatchingMethod(method, parameterTypes)) {
                 // get accessible version of method
                 final Method accessibleMethod = getAccessibleMethod(method);
-                if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareParameterTypes(
-                            MemberUtils.of(accessibleMethod),
-                            MemberUtils.of(bestMatch),
+                if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(
+                            accessibleMethod,
+                            bestMatch,
                             parameterTypes) < 0)) {
-                        bestMatch = accessibleMethod;
-                 }
+                    bestMatch = accessibleMethod;
+                }
             }
         }
         if (bestMatch != null) {

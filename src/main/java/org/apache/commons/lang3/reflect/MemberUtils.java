@@ -87,20 +87,50 @@ abstract class MemberUtils {
     }
 
     /**
-     * Compares the relative fitness of two sets of parameter types in terms of
-     * matching a third set of runtime parameter types, such that a list ordered
+     * Compares the relative fitness of two Constructors in terms of how well they
+     * match a set of runtime parameter types, such that a list ordered
      * by the results of the comparison would return the best match first
      * (least).
      *
-     * @param left the "left" parameter set
-     * @param right the "right" parameter set
+     * @param left the "left" Constructor
+     * @param right the "right" Constructor
      * @param actual the runtime parameter types to match against
-     * @param leftIsVarArgs True if the "left" parameter set is for a varags methods
-     * @param rightIsVarArgs True if the "right" parameter set is for a varags methods
      * {@code left}/{@code right}
      * @return int consistent with {@code compare} semantics
      */
-    static int compareParameterTypes(final Executable left, final Executable right, final Class<?>[] actual) {
+    static int compareConstructorFit(final Constructor left, final Constructor right, final Class<?>[] actual) {
+      return compareParameterTypes(Executable.of(left), Executable.of(right), actual);
+    }
+
+    /**
+     * Compares the relative fitness of two Methods in terms of how well they
+     * match a set of runtime parameter types, such that a list ordered
+     * by the results of the comparison would return the best match first
+     * (least).
+     *
+     * @param left the "left" Method
+     * @param right the "right" Method
+     * @param actual the runtime parameter types to match against
+     * {@code left}/{@code right}
+     * @return int consistent with {@code compare} semantics
+     */
+    static int compareMethodFit(final Method left, final Method right, final Class<?>[] actual) {
+      return compareParameterTypes(Executable.of(left), Executable.of(right), actual);
+    }
+
+    /**
+     * Compares the relative fitness of two Executables in terms of how well they
+     * match a set of runtime parameter types, such that a list ordered
+     * by the results of the comparison would return the best match first
+     * (least).
+     *
+     * @param left the "left" Executable
+     * @param right the "right" Executable
+     * @param actual the runtime parameter types to match against
+     * {@code left}/{@code right}
+     * @return int consistent with {@code compare} semantics
+     */
+    private static int compareParameterTypes(final Executable left, final Executable right, final Class<?>[] actual) {
         final float leftCost = getTotalTransformationCost(actual, left);
         final float rightCost = getTotalTransformationCost(actual, right);
         return leftCost < rightCost ? -1 : rightCost < leftCost ? 1 : 0;
@@ -215,7 +245,15 @@ abstract class MemberUtils {
         return cost;
     }
     
-    static boolean isMatchingExecutable(Executable method, Class<?>[] parameterTypes) {
+    static boolean isMatchingMethod(Method method, Class<?>[] parameterTypes) {
+      return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
+    }
+    
+    static boolean isMatchingConstructor(Constructor method, Class<?>[] parameterTypes) {
+      return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
+    }
+    
+    private static boolean isMatchingExecutable(Executable method, Class<?>[] parameterTypes) {
         final Class<?>[] methodParameterTypes = method.getParameterTypes();
         if (method.isVarArgs()) {
             int i;
@@ -235,17 +273,17 @@ abstract class MemberUtils {
         return ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true);
     }
 
-    static Executable of(Method method) { return new Executable(method); }
-    static Executable of(Constructor constructor) { return new Executable(constructor); }
-
     /**
      * <p> A class providing a subset of the API of java.lang.reflect.Executable in Java 1.8,
      * providing a common representation for function signatures for Constructors and Methods.</p>
      */
-    static final class Executable {
+    private static final class Executable {
       private final Class<?>[] parameterTypes;
       private final boolean  isVarArgs;
       
+      private static Executable of(Method method) { return new Executable(method); }
+      private static Executable of(Constructor constructor) { return new Executable(constructor); }
+
       private Executable(Method method) {
         parameterTypes = method.getParameterTypes();
         isVarArgs = method.isVarArgs();

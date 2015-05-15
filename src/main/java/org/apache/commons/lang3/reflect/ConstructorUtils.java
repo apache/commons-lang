@@ -263,14 +263,12 @@ public class ConstructorUtils {
         // return best match:
         for (Constructor<?> ctor : ctors) {
             // compare parameters
-            if (MemberUtils.isMatchingExecutable(MemberUtils.of(ctor), parameterTypes)) {
+            if (MemberUtils.isMatchingConstructor(ctor, parameterTypes)) {
                 // get accessible version of constructor
                 ctor = getAccessibleConstructor(ctor);
                 if (ctor != null) {
                     MemberUtils.setAccessibleWorkaround(ctor);
-                    if (result == null
-                            || MemberUtils.compareParameterTypes(MemberUtils.of(ctor), MemberUtils.of(result)
-                            , parameterTypes) < 0) {
+                    if (result == null || MemberUtils.compareConstructorFit(ctor, result, parameterTypes) < 0) {
                         // temporary variable for annotation, see comment above (1)
                         @SuppressWarnings("unchecked")
                         final
