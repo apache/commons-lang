@@ -32,10 +32,10 @@
         standard as to justify existence in java.lang.
     </description>
     <repository>
-      <SVNRepository>
-        <browse rdf:resource="http://svn.apache.org/viewvc/commons/proper/lang/trunk"/>
-        <location rdf:resource="http://svn.apache.org/repos/asf/commons/proper/lang"/>
-      </SVNRepository>
+      <GitRepository>
+        <browse rdf:resource="https://git-wip-us.apache.org/repos/asf?p=commons-lang.git"/>
+        <location rdf:resource="https://git-wip-us.apache.org/repos/asf/commons-lang.git"/>
+      </GitRepository>
     </repository>
     <release>
       <Version>
