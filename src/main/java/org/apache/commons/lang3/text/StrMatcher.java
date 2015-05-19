@@ -374,6 +374,12 @@ public abstract class StrMatcher {
             }
             return len;
         }
+        
+        @Override
+        public String toString() {
+            return super.toString() + ' ' + Arrays.toString(chars);
+        }
+
     }
 
     //-----------------------------------------------------------------------
