@@ -67,7 +67,7 @@ public class RecursiveToStringStyle extends ToStringStyle {
     }
 
     @Override
-    public void appendDetail(final StringBuffer buffer, final String fieldName, final Object value) {
+    public void appendDetail(final StringBuilder buffer, final String fieldName, final Object value) {
         if (!ClassUtils.isPrimitiveWrapper(value.getClass()) &&
             !String.class.equals(value.getClass()) &&
             accept(value.getClass())) {
@@ -78,7 +78,7 @@ public class RecursiveToStringStyle extends ToStringStyle {
     }
 
     @Override
-    protected void appendDetail(final StringBuffer buffer, final String fieldName, final Collection<?> coll) {
+    protected void appendDetail(final StringBuilder buffer, final String fieldName, final Collection<?> coll) {
         appendClassName(buffer, coll);
         appendIdentityHashCode(buffer, coll);
         appendDetail(buffer, fieldName, coll.toArray());

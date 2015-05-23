@@ -448,11 +448,11 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param style
      *            the style of the <code>toString</code> to create, may be <code>null</code>
      * @param buffer
-     *            the <code>StringBuffer</code> to populate, may be <code>null</code>
+     *            the <code>StringBuilder</code> to populate, may be <code>null</code>
      * @throws IllegalArgumentException
      *             if the Object passed in is <code>null</code>
      */
-    public ReflectionToStringBuilder(final Object object, final ToStringStyle style, final StringBuffer buffer) {
+    public ReflectionToStringBuilder(final Object object, final ToStringStyle style, final StringBuilder buffer) {
         super(checkNotNull(object), style, buffer);
     }
 
@@ -466,7 +466,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param style
      *            the style of the <code>toString</code> to create, may be <code>null</code>
      * @param buffer
-     *            the <code>StringBuffer</code> to populate, may be <code>null</code>
+     *            the <code>StringBuilder</code> to populate, may be <code>null</code>
      * @param reflectUpToClass
      *            the superclass to reflect up to (inclusive), may be <code>null</code>
      * @param outputTransients
@@ -476,7 +476,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @since 2.1
      */
     public <T> ReflectionToStringBuilder(
-            final T object, final ToStringStyle style, final StringBuffer buffer,
+            final T object, final ToStringStyle style, final StringBuilder buffer,
             final Class<? super T> reflectUpToClass, final boolean outputTransients, final boolean outputStatics) {
         super(checkNotNull(object), style, buffer);
         this.setUpToClass(reflectUpToClass);
@@ -630,7 +630,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return this
      */
     public ReflectionToStringBuilder reflectionAppendArray(final Object array) {
-        this.getStyle().reflectionAppendArrayDetail(this.getStringBuffer(), null, array);
+        this.getStyle().reflectionAppendArrayDetail(this.getStringBuilder(), null, array);
         return this;
     }
 

@@ -87,7 +87,7 @@ public class AnnotationUtils {
          * {@inheritDoc}
          */
         @Override
-        protected void appendDetail(final StringBuffer buffer, final String fieldName, Object value) {
+        protected void appendDetail(final StringBuilder buffer, final String fieldName, Object value) {
             if (value instanceof Annotation) {
                 value = AnnotationUtils.toString((Annotation) value);
             }
