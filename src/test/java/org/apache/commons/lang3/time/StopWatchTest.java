@@ -246,4 +246,11 @@ public class StopWatchTest  {
         assertTrue(watch.isStopped());
     }
 
+    @Test
+    public void testGetStartedInstance(){
+        final StopWatch startedInstance = StopWatch.newStartedInstance();
+        assertTrue(startedInstance.isStarted());
+        assertFalse(startedInstance.isSuspended());
+        assertFalse(startedInstance.isStopped());
+    }
 }
