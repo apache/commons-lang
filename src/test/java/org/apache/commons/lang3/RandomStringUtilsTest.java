@@ -16,18 +16,18 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
 import java.util.Random;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.RandomStringUtils}.
@@ -67,6 +67,15 @@ public class RandomStringUtilsTest {
 
         r1 = RandomStringUtils.randomAlphabetic(50);
         assertEquals("randomAlphabetic(50)", 50, r1.length());
+        for(int i = 0; i < r1.length(); i++) {
+            assertTrue("r1 contains alphabetic", Character.isLetter(r1.charAt(i)) && !Character.isDigit(r1.charAt(i)));
+        }
+        r2 = RandomStringUtils.randomAlphabetic(50);
+        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+
+        r1 = RandomStringUtils.randomAlphabetic(5,50);
+        assertTrue("greater than or equal to min randomAlphabetic(5,50)", r1.length() >= 5 );
+        assertTrue("less than or equal to max randomAlphabetic(5,50)", r1.length() <= 50 );
         for(int i = 0; i < r1.length(); i++) {
             assertTrue("r1 contains alphabetic", Character.isLetter(r1.charAt(i)) && !Character.isDigit(r1.charAt(i)));
         }

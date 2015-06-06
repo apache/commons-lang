@@ -95,6 +95,21 @@ public class RandomStringUtils {
     public static String randomAlphabetic(final int count) {
         return random(count, true, false);
     }
+
+    /**
+     * <p>Creates a random string whose length is the number of characters
+     * specified.</p>
+     *
+     * <p>Characters will be chosen from the set of alphabetic
+     * characters.</p>
+     *
+     * @param minLength the minimum length of random string to create
+     * @param maxLength the maximum length of random string to create
+     * @return the random string
+     */
+    public static String randomAlphabetic(final int minLength, final int maxLength) {
+        return random( RandomUtils.nextInt( minLength, maxLength ), true, false);
+    }
     
     /**
      * <p>Creates a random string whose length is the number of characters
