@@ -96,7 +96,7 @@ public abstract class StrLookup<V> {
         }
 
         Properties properties = copyProperties(systemProperties);
-        @SuppressWarnings("unchecked") // System property keys and values are always Strings
+        @SuppressWarnings({ "unchecked", "rawtypes" }) // System property keys and values are always Strings
         final Map<String, String> propertiesMap = (Map) properties;
 
         return new MapStrLookup<String>(propertiesMap);
