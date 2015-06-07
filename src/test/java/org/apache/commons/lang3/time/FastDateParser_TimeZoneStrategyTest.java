@@ -38,10 +38,13 @@ public class FastDateParser_TimeZoneStrategyTest {
                         parser.parse(tzDisplay);
                     }
                     catch(Exception ex) {
-                        Assert.fail(tzDisplay
-                                + " Locale: " + locale.getDisplayName()
+                        Assert.fail("'" + tzDisplay + "'"
+                                + " Locale: '" + locale.getDisplayName() + "'"
                                 + " TimeZone: " + zone[0]
-                                + " offset: " + t);
+                                + " offset: " + t
+                                + " defaultLocale: " + Locale.getDefault()
+                                + " defaultTimeZone: " + TimeZone.getDefault().getDisplayName()
+                                );
                     }
                 }
             }
