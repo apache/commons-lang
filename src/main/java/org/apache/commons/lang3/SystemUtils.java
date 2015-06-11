@@ -1248,7 +1248,20 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Is {@code true} if this is a UNIX like system, as in any of AIX, HP-UX, Irix, Linux, MacOSX, Solaris or SUN OS.
+     * Is {@code true} if this is zOS.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.5
+     */
+    public static final boolean IS_OS_ZOS = getOSArchContains("s390x");
+
+    /**
+     * <p>
+     * Is {@code true} if this is a UNIX like system, as in any of AIX,
+     * HP-UX, Irix, Linux, zOS, MacOSX, Solaris or SUN OS.
      * </p>
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
@@ -1256,7 +1269,8 @@ public class SystemUtils {
      *
      * @since 2.1
      */
-    public static final boolean IS_OS_UNIX = IS_OS_AIX || IS_OS_HP_UX || IS_OS_IRIX || IS_OS_LINUX || IS_OS_MAC_OSX
+    public static final boolean IS_OS_UNIX = IS_OS_AIX || IS_OS_HP_UX
+            || IS_OS_IRIX || IS_OS_LINUX || IS_OS_ZOS || IS_OS_MAC_OSX
             || IS_OS_SOLARIS || IS_OS_SUN_OS || IS_OS_FREE_BSD || IS_OS_OPEN_BSD || IS_OS_NET_BSD;
 
     /**
@@ -1479,6 +1493,16 @@ public class SystemUtils {
         return isOSNameMatch(OS_NAME, osNamePrefix);
     }
 
+    /**
+     * Decides if the OS architecture name contains archName.
+     *
+     * @param archName arch name
+     * @return true if contained, or false if not or can't determine
+     */
+    private static boolean getOSArchContains(final String archName) {
+        return isOSArchMatch(OS_ARCH, archName);
+    }
+
     // -----------------------------------------------------------------------
     /**
      * <p>
@@ -1617,6 +1641,24 @@ public class SystemUtils {
             return false;
         }
         return osName.startsWith(osNamePrefix);
+    }
+
+    /**
+     * Decides if the architecture matches.
+     * <p>
+     * This method is package private instead of private to support unit test invocation.
+     * </p>
+     *
+     * @param osArch the actual OS arch name
+     * @param archName the expected arch name
+     * @return true if contained, or false if not or can't determine
+     */
+    static boolean isOSArchMatch(final String osArch, final String
+            archName) {
+        if (osArch == null) {
+            return false;
+        }
+        return osArch.contains(archName);
     }
 
     /**

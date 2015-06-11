@@ -241,6 +241,17 @@ public class SystemUtilsTest {
     }
 
     @Test
+    public void testIS_zOS() {
+        final String osArch = System.getProperty("os.arch");
+        if (osArch == null) {
+            assertFalse(SystemUtils.IS_OS_ZOS);
+        } else if (osArch.contains("s390x")) {
+            assertFalse(SystemUtils.IS_OS_WINDOWS);
+            assertTrue(SystemUtils.IS_OS_ZOS);
+        }
+    }
+
+    @Test
     public void testJavaVersionMatches() {
         String javaVersion = null;
         assertFalse(SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
