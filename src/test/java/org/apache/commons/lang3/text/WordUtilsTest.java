@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
 /**
@@ -52,7 +53,7 @@ public class WordUtilsTest {
         assertEquals("", WordUtils.wrap("", -1));
         
         // normal
-        final String systemNewLine = System.getProperty("line.separator");
+        final String systemNewLine = SystemUtils.LINE_SEPARATOR;
         String input = "Here is one line of text that is going to be wrapped after 20 columns.";
         String expected = "Here is one line of" + systemNewLine + "text that is going" 
             + systemNewLine + "to be wrapped after" + systemNewLine + "20 columns.";
@@ -114,7 +115,7 @@ public class WordUtilsTest {
         assertEquals(expected, WordUtils.wrap(input, -1, "\n", false));
 
         // system newline char
-        final String systemNewLine = System.getProperty("line.separator");
+        final String systemNewLine = SystemUtils.LINE_SEPARATOR;
         input = "Here is one line of text that is going to be wrapped after 20 columns.";
         expected = "Here is one line of" + systemNewLine + "text that is going" + systemNewLine 
             + "to be wrapped after" + systemNewLine + "20 columns.";
