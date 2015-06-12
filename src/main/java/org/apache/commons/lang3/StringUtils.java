@@ -5738,8 +5738,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Capitalizes a String changing the first letter to title case as
-     * per {@link Character#toTitleCase(char)}. No other letters are changed.</p>
+     * <p>Capitalizes a String changing the first character to title case as
+     * per {@link Character#toTitleCase(char)}. No other characters are changed.</p>
      *
      * <p>For a word based algorithm, see {@link org.apache.commons.lang3.text.WordUtils#capitalize(String)}.
      * A {@code null} input String returns {@code null}.</p>
@@ -5777,8 +5777,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Uncapitalizes a String, changing the first letter to lower case as
-     * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
+     * <p>Uncapitalizes a String, changing the first character to lower case as
+     * per {@link Character#toLowerCase(char)}. No other characters are changed.</p>
      *
      * <p>For a word based algorithm, see {@link org.apache.commons.lang3.text.WordUtils#uncapitalize(String)}.
      * A {@code null} input String returns {@code null}.</p>
