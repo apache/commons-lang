@@ -249,6 +249,13 @@ public class StringUtilsTest {
                 FOO_CAP, StringUtils.capitalize(FOO_CAP));
         assertEquals("capitalize(string) failed",
                 FOO_CAP, StringUtils.capitalize(FOO_UNCAP));
+
+        // Javadoc examples
+        assertNull(StringUtils.capitalize(null));
+        assertEquals("", StringUtils.capitalize(""));
+        assertEquals("Cat", StringUtils.capitalize("cat"));
+        assertEquals("CAt", StringUtils.capitalize("cAt"));
+        assertEquals("'cat'", StringUtils.capitalize("'cat'"));
     }
 
     @Test

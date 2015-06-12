@@ -5749,6 +5749,7 @@ public class StringUtils {
      * StringUtils.capitalize("")    = ""
      * StringUtils.capitalize("cat") = "Cat"
      * StringUtils.capitalize("cAt") = "CAt"
+     * StringUtils.capitalize("'cat'") = "'cat'"
      * </pre>
      *
      * @param str the String to capitalize, may be null
