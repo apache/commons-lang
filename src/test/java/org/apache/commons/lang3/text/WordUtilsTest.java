@@ -281,6 +281,7 @@ public class WordUtilsTest {
         assertEquals("I", WordUtils.initials("I"));
         assertEquals("i", WordUtils.initials("i"));
         assertEquals("BJL", WordUtils.initials("Ben John Lee"));
+        assertEquals("BJL", WordUtils.initials("   Ben \n   John\tLee\t"));
         assertEquals("BJ", WordUtils.initials("Ben J.Lee"));
         assertEquals("BJ.L", WordUtils.initials(" Ben   John  . Lee"));
         assertEquals("iah1", WordUtils.initials("i am here 123"));
@@ -297,6 +298,7 @@ public class WordUtilsTest {
         assertEquals("i", WordUtils.initials("i", array));
         assertEquals("S", WordUtils.initials("SJC", array));
         assertEquals("BJL", WordUtils.initials("Ben John Lee", array));
+        assertEquals("BJL", WordUtils.initials("   Ben \n   John\tLee\t", array));
         assertEquals("BJ", WordUtils.initials("Ben J.Lee", array));
         assertEquals("BJ.L", WordUtils.initials(" Ben   John  . Lee", array));
         assertEquals("KO", WordUtils.initials("Kay O'Murphy", array));
@@ -310,6 +312,7 @@ public class WordUtilsTest {
         assertEquals("", WordUtils.initials("i", array));
         assertEquals("", WordUtils.initials("SJC", array));
         assertEquals("", WordUtils.initials("Ben John Lee", array));
+        assertEquals("", WordUtils.initials("   Ben \n   John\tLee\t", array));
         assertEquals("", WordUtils.initials("Ben J.Lee", array));
         assertEquals("", WordUtils.initials(" Ben   John  . Lee", array));
         assertEquals("", WordUtils.initials("Kay O'Murphy", array));
@@ -324,6 +327,7 @@ public class WordUtilsTest {
         assertEquals("S", WordUtils.initials("SJC", array));
         assertEquals("BJL", WordUtils.initials("Ben John Lee", array));
         assertEquals("BJ", WordUtils.initials("Ben J.Lee", array));
+        assertEquals("B\nJ", WordUtils.initials("   Ben \n   John\tLee\t", array));
         assertEquals("BJ.L", WordUtils.initials(" Ben   John  . Lee", array));
         assertEquals("KO", WordUtils.initials("Kay O'Murphy", array));
         assertEquals("iah1", WordUtils.initials("i am here 123", array));
