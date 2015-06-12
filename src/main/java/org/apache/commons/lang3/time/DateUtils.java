@@ -368,18 +368,21 @@ public class DateUtils {
         final TimeZone tz = TimeZone.getDefault();
         final Locale lcl = locale==null ?Locale.getDefault() : locale;
         final ParsePosition pos = new ParsePosition(0);
+        final Calendar calendar = Calendar.getInstance(tz, lcl);
+        calendar.setLenient(lenient);
 
         for (final String parsePattern : parsePatterns) {
-            FastDateParser fdp = new FastDateParser(parsePattern, tz, lcl, null, lenient);
+            FastDateParser fdp = new FastDateParser(parsePattern, tz, lcl);
+            calendar.clear();
             try {
-                Date date = fdp.parse(str, pos);
-                if (pos.getIndex() == str.length()) {
-                    return date;
+                if (fdp.parse(str, pos, calendar) && pos.getIndex()==str.length()) {
+                    return calendar.getTime();
                 }
-                pos.setIndex(0);
             }
-            catch(IllegalArgumentException iae) {
+            catch(IllegalArgumentException ignore) {
+                // leniency is preventing calendar from being set
             }
+            pos.setIndex(0);
         }
         throw new ParseException("Unable to parse the date: " + str, -1);
     }

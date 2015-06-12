@@ -35,8 +35,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.apache.commons.lang3.test.SystemDefaults;
+import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -230,7 +230,7 @@ public class FastDateFormatTest {
 
     @Test
     public void testParseSync() throws InterruptedException {
-        final String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS Z";
+        final String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";
         final FastDateFormat formatter= FastDateFormat.getInstance(pattern);
         
         final long sdfTime= measureTime(formatter, new SimpleDateFormat(pattern) {
