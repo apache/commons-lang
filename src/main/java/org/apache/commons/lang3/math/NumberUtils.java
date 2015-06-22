@@ -1511,15 +1511,38 @@ public class NumberUtils {
      * @return {@code true} if the string is a parsable number.
      * @since 3.4
      */
-    public static boolean isParsable(final String str) {
-        if( StringUtils.endsWith( str, "." ) ) {
+    public static boolean isParsable( final String str ) {
+        if( StringUtils.isEmpty( str ) ) {
             return false;
         }
-        if( StringUtils.startsWith( str, "-" ) ) {
-            return isDigits( StringUtils.replaceOnce( str.substring(1), ".", StringUtils.EMPTY ) );
-        } else {
-            return isDigits( StringUtils.replaceOnce( str, ".", StringUtils.EMPTY ) );
+        if( str.charAt( str.length() - 1 ) == '.' ) {
+            return false;
         }
+        if( str.charAt( 0 ) == '-' ) {
+            if( str.length() == 1 ) {
+                return false;
+            }
+            return withDecimalsParsing( str, 1 );
+        } else {
+            return withDecimalsParsing( str, 0 );
+        }
+    }
+
+    private static boolean withDecimalsParsing( final String str, final int beginIdx ) {
+        int decimalPoints = 0;
+        for( int i = beginIdx; i < str.length(); i++ ) {
+            final boolean isDecimalPoint = str.charAt( i ) == '.';
+            if( str.charAt( i ) == '.' ) {
+                decimalPoints++;
+            }
+            if( decimalPoints > 1 ) {
+                return false;
+            }
+            if ( !isDecimalPoint && !Character.isDigit( str.charAt( i ) ) ) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
