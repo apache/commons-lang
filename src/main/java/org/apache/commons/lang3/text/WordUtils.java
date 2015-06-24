@@ -234,7 +234,7 @@ public class WordUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Capitalizes all the whitespace separated words in a String.
-     * Only the first letter of each word is changed. To convert the 
+     * Only the first character of each word is changed. To convert the 
      * rest of each word to lowercase at the same time, 
      * use {@link #capitalizeFully(String)}.</p>
      *
@@ -260,7 +260,7 @@ public class WordUtils {
 
     /**
      * <p>Capitalizes all the delimiter separated words in a String.
-     * Only the first letter of each word is changed. To convert the 
+     * Only the first character of each word is changed. To convert the 
      * rest of each word to lowercase at the same time, 
      * use {@link #capitalizeFully(String, char[])}.</p>
      *
@@ -368,7 +368,7 @@ public class WordUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Uncapitalizes all the whitespace separated words in a String.
-     * Only the first letter of each word is changed.</p>
+     * Only the first character of each word is changed.</p>
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
@@ -389,7 +389,7 @@ public class WordUtils {
 
     /**
      * <p>Uncapitalizes all the whitespace separated words in a String.
-     * Only the first letter of each word is changed.</p>
+     * Only the first character of each word is changed.</p>
      *
      * <p>The delimiters represent a set of characters understood to separate words.
      * The first string character and the first non-delimiter character after a
@@ -486,10 +486,9 @@ public class WordUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Extracts the initial letters from each word in the String.</p>
+     * <p>Extracts the initial characters from each word in the String.</p>
      * 
-     * <p>The first letter of the string and all first letters after
-     * whitespace are returned as a new string.
+     * <p>All first characters after whitespace are returned as a new string.
      * Their case is not changed.</p>
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
@@ -512,10 +511,9 @@ public class WordUtils {
     }
 
     /**
-     * <p>Extracts the initial letters from each word in the String.</p>
+     * <p>Extracts the initial characters from each word in the String.</p>
      * 
-     * <p>The first letter of the string and all first letters after the
-     * defined delimiters are returned as a new string.
+     * <p>All first characters after the defined delimiters are returned as a new string.
      * Their case is not changed.</p>
      *
      * <p>If the delimiters array is null, then Whitespace is used.
@@ -534,7 +532,7 @@ public class WordUtils {
      * 
      * @param str  the String to get initials from, may be null
      * @param delimiters  set of characters to determine words, null means whitespace
-     * @return String of initial letters, <code>null</code> if null String input
+     * @return String of initial characters, <code>null</code> if null String input
      * @see #initials(String)
      * @since 2.2
      */

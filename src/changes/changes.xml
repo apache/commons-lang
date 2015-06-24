@@ -23,6 +23,8 @@
 
   <release version="3.5" date="tba" description="tba">
     <action issue="LANG-1141" type="fix" dev="oheger">StrLookup.systemPropertiesLookup() no longer reacts on changes on system properties</action>
+    <action issue="LANG-1147" type="fix" dev="sebb" due-to="Loic Guibert">EnumUtils *BitVector issue with more than 32 values Enum</action>
+    <action issue="LANG-1059" type="fix" dev="sebb" due-to="Colin Casey">Capitalize javadoc is incorrect</action>
     <action issue="LANG-1137" type="add" dev="britter" due-to="Matthew Aguirre">Add check for duplicate event listener in EventListenerSupport</action>
     <action issue="LANG-1133" type="bug" dev="chas" due-to="Pascal Schumacher">FastDateParser_TimeZoneStrategyTest#testTimeZoneStrategyPattern fails on Windows with German Locale</action>
     <action issue="LANG-1135" type="add" dev="britter" due-to="Eduardo Martins">Add method containsAllWords to WordUtils</action>
