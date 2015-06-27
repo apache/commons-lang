@@ -1788,11 +1788,11 @@ public class ArrayUtils {
      * @param array
      *            the array to reverse, may be {@code null}
      * @param startIndexInclusive
-     *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
+     *            the starting index. Under value (&lt;0) is promoted to 0, over value (&gt;array.length) results in no
      *            change.
      * @param endIndexExclusive
-     *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
-     *            change. Overvalue (&gt;array.length) is demoted to array length.
+     *            elements up to endIndex-1 are reversed in the array. Under value (&lt; start index) results in no
+     *            change. Over value (&gt;array.length) is demoted to array length.
      * @since 3.2
      */
     public static void reverse(final Object[] array, final int startIndexInclusive, final int endIndexExclusive) {
