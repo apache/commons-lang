@@ -16,9 +16,14 @@
  */
 package org.apache.commons.lang3;
 
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -298,6 +303,158 @@ public class RandomStringUtilsTest {
                  " -- repeated failures indicate a problem");
             }
         }  
+    }
+
+    @Test
+    public void testRandomAsciiRange() {
+        final int min = 1;
+        final int max = 10;
+        final String pattern = "^\\p{ASCII}{" + min + ',' + max + "}$";
+
+        int maxCreatedLength = min;
+        int minCreatedLength = max;
+        for (int i = 0; i < 1000; i++) {
+            final String s = RandomStringUtils.randomAscii(min, max);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
+            assertTrue(s, s.matches(pattern));
+
+            if( s.length() < minCreatedLength ) {
+                minCreatedLength = s.length();
+            }
+
+            if ( s.length() > maxCreatedLength ) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(min));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(max));
+    }
+
+    @Test
+    public void testRandomAlphabeticRange() {
+        final int min = 1;
+        final int max = 10;
+        final String pattern = "^\\p{Alpha}{" + min + ',' + max + "}$";
+
+        int maxCreatedLength = min;
+        int minCreatedLength = max;
+        for (int i = 0; i < 1000; i++) {
+            final String s = RandomStringUtils.randomAlphabetic(min, max);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
+            assertTrue(s, s.matches(pattern));
+
+            if( s.length() < minCreatedLength ) {
+                minCreatedLength = s.length();
+            }
+
+            if ( s.length() > maxCreatedLength ) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(min));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(max));
+    }
+
+    @Test
+    public void testRandomAlphanumericRange() {
+        final int min = 1;
+        final int max = 10;
+        final String pattern = "^\\p{Alnum}{" + min + ',' + max + "}$";
+
+        int maxCreatedLength = min;
+        int minCreatedLength = max;
+        for (int i = 0; i < 1000; i++) {
+            final String s = RandomStringUtils.randomAlphanumeric(min, max);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
+            assertTrue(s, s.matches(pattern));
+
+            if( s.length() < minCreatedLength ) {
+                minCreatedLength = s.length();
+            }
+
+            if ( s.length() > maxCreatedLength ) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(min));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(max));
+    }
+
+
+    @Test
+    public void testRandomGraphRange() {
+        final int min = 1;
+        final int max = 10;
+        final String pattern = "^\\p{Graph}{" + min + ',' + max + "}$";
+
+        int maxCreatedLength = min;
+        int minCreatedLength = max;
+        for (int i = 0; i < 1000; i++) {
+            final String s = RandomStringUtils.randomGraph(min, max);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
+            assertTrue(s, s.matches(pattern));
+
+            if( s.length() < minCreatedLength ) {
+                minCreatedLength = s.length();
+            }
+
+            if ( s.length() > maxCreatedLength ) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(min));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(max));
+    }
+
+    @Test
+         public void testRandomNumericRange() {
+        final int min = 1;
+        final int max = 10;
+        final String pattern = "^\\p{Digit}{" + min + ',' + max + "}$";
+
+        int maxCreatedLength = min;
+        int minCreatedLength = max;
+        for (int i = 0; i < 1000; i++) {
+            final String s = RandomStringUtils.randomNumeric(min, max);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
+            assertTrue(s, s.matches(pattern));
+
+            if( s.length() < minCreatedLength ) {
+                minCreatedLength = s.length();
+            }
+
+            if ( s.length() > maxCreatedLength ) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(min));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(max));
+    }
+
+
+    @Test
+    public void testRandomPrintRange() {
+        final int min = 1;
+        final int max = 10;
+        final String pattern = "^\\p{Print}{" + min + ',' + max + "}$";
+
+        int maxCreatedLength = min;
+        int minCreatedLength = max;
+        for (int i = 0; i < 1000; i++) {
+            final String s = RandomStringUtils.randomPrint(min, max);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
+            assertTrue(s, s.matches(pattern));
+
+            if( s.length() < minCreatedLength ) {
+                minCreatedLength = s.length();
+            }
+
+            if ( s.length() > maxCreatedLength ) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(min));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(max));
     }
     
     /** 
