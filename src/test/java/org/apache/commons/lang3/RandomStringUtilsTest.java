@@ -318,11 +318,11 @@ public class RandomStringUtilsTest {
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
             assertTrue(s, s.matches(pattern));
 
-            if( s.length() < minCreatedLength ) {
+            if (s.length() < minCreatedLength) {
                 minCreatedLength = s.length();
             }
 
-            if ( s.length() > maxCreatedLength ) {
+            if (s.length() > maxCreatedLength) {
                 maxCreatedLength = s.length();
             }
         }
@@ -343,11 +343,11 @@ public class RandomStringUtilsTest {
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
             assertTrue(s, s.matches(pattern));
 
-            if( s.length() < minCreatedLength ) {
+            if (s.length() < minCreatedLength) {
                 minCreatedLength = s.length();
             }
 
-            if ( s.length() > maxCreatedLength ) {
+            if (s.length() > maxCreatedLength) {
                 maxCreatedLength = s.length();
             }
         }
@@ -368,11 +368,11 @@ public class RandomStringUtilsTest {
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
             assertTrue(s, s.matches(pattern));
 
-            if( s.length() < minCreatedLength ) {
+            if (s.length() < minCreatedLength) {
                 minCreatedLength = s.length();
             }
 
-            if ( s.length() > maxCreatedLength ) {
+            if (s.length() > maxCreatedLength) {
                 maxCreatedLength = s.length();
             }
         }
@@ -394,11 +394,11 @@ public class RandomStringUtilsTest {
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
             assertTrue(s, s.matches(pattern));
 
-            if( s.length() < minCreatedLength ) {
+            if (s.length() < minCreatedLength) {
                 minCreatedLength = s.length();
             }
 
-            if ( s.length() > maxCreatedLength ) {
+            if (s.length() > maxCreatedLength) {
                 maxCreatedLength = s.length();
             }
         }
@@ -407,7 +407,7 @@ public class RandomStringUtilsTest {
     }
 
     @Test
-         public void testRandomNumericRange() {
+    public void testRandomNumericRange() {
         final int min = 1;
         final int max = 10;
         final String pattern = "^\\p{Digit}{" + min + ',' + max + "}$";
@@ -419,11 +419,11 @@ public class RandomStringUtilsTest {
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
             assertTrue(s, s.matches(pattern));
 
-            if( s.length() < minCreatedLength ) {
+            if (s.length() < minCreatedLength) {
                 minCreatedLength = s.length();
             }
 
-            if ( s.length() > maxCreatedLength ) {
+            if (s.length() > maxCreatedLength) {
                 maxCreatedLength = s.length();
             }
         }
@@ -445,11 +445,11 @@ public class RandomStringUtilsTest {
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max)));
             assertTrue(s, s.matches(pattern));
 
-            if( s.length() < minCreatedLength ) {
+            if (s.length() < minCreatedLength) {
                 minCreatedLength = s.length();
             }
 
-            if ( s.length() > maxCreatedLength ) {
+            if (s.length() > maxCreatedLength) {
                 maxCreatedLength = s.length();
             }
         }
