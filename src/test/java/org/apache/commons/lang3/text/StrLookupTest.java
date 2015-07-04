@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +22,7 @@ import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.junit.Test;
 
@@ -51,20 +52,45 @@ public class StrLookupTest  {
         }
     }
 
+    /**
+     * Tests that a lookup object for system properties can deal with a full
+     * replacement of the system properties object. This test is related to
+     * LANG-1055.
+     */
     @Test
-    public void testSystemPropertiesLookupNotSingleton() {
+    public void testSystemPropertiesLookupReplacedProperties() {
+        Properties oldProperties = System.getProperties();
         final String osName = "os.name";
-        final String originalOsName = System.getProperty(osName);
+        final String newOsName = oldProperties.getProperty(osName) + "_changed";
 
-        StrLookup<String> properties1 = StrLookup.systemPropertiesLookup();
-        assertEquals(originalOsName, properties1.lookup(osName));
+        StrLookup<String> sysLookup = StrLookup.systemPropertiesLookup();
+        Properties newProps = new Properties();
+        newProps.setProperty(osName, newOsName);
+        System.setProperties(newProps);
+        try {
+            assertEquals("Changed properties not detected", newOsName, sysLookup.lookup(osName));
+        } finally {
+            System.setProperties(oldProperties);
+        }
+    }
 
-        final String differentOsName = "HAL-9000";
-        System.setProperty(osName, differentOsName);
-        StrLookup<String> properties2 = StrLookup.systemPropertiesLookup();
+    /**
+     * Tests that a lookup object for system properties sees changes on system
+     * properties. This test is related to LANG-1141.
+     */
+    @Test
+    public void testSystemPropertiesLookupUpdatedProperty() {
+        final String osName = "os.name";
+        String oldOs = System.getProperty(osName);
+        final String newOsName = oldOs + "_changed";
 
-        assertEquals(originalOsName, properties1.lookup(osName));
-        assertEquals(differentOsName, properties2.lookup(osName));
+        StrLookup<String> sysLookup = StrLookup.systemPropertiesLookup();
+        System.setProperty(osName, newOsName);
+        try {
+            assertEquals("Changed properties not detected", newOsName, sysLookup.lookup(osName));
+        } finally {
+            System.setProperty(osName, oldOs);
+        }
     }
 
     @Test

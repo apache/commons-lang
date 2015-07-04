@@ -209,15 +209,37 @@ public class StringUtilsTest {
         assertTrue(StringUtils.isNoneBlank("foo", "bar"));
     }
 
-    //-----------------------------------------------------------------------
     @Test
-    public void testCaseFunctions() {
+    public void testUpperCase() {
         assertNull(StringUtils.upperCase(null));
         assertNull(StringUtils.upperCase(null, Locale.ENGLISH));
+        assertEquals("upperCase(String) failed",
+                "FOO TEST THING", StringUtils.upperCase("fOo test THING"));
+        assertEquals("upperCase(empty-string) failed",
+                "", StringUtils.upperCase(""));
+        assertEquals("upperCase(String, Locale) failed",
+                "FOO TEST THING", StringUtils.upperCase("fOo test THING", Locale.ENGLISH));
+        assertEquals("upperCase(empty-string, Locale) failed",
+                "", StringUtils.upperCase("", Locale.ENGLISH));
+    }
+
+    @Test
+    public void testLowerCase() {
         assertNull(StringUtils.lowerCase(null));
         assertNull(StringUtils.lowerCase(null, Locale.ENGLISH));
+        assertEquals("lowerCase(String) failed",
+                "foo test thing", StringUtils.lowerCase("fOo test THING"));
+        assertEquals("lowerCase(empty-string) failed",
+                "", StringUtils.lowerCase(""));
+        assertEquals("lowerCase(String, Locale) failed",
+                "foo test thing", StringUtils.lowerCase("fOo test THING", Locale.ENGLISH));
+        assertEquals("lowerCase(empty-string, Locale) failed",
+                "", StringUtils.lowerCase("", Locale.ENGLISH));
+    }
+
+    @Test
+    public void testCapitalize() {
         assertNull(StringUtils.capitalize(null));
-        assertNull(StringUtils.uncapitalize(null));
 
         assertEquals("capitalize(empty-string) failed",
                 "", StringUtils.capitalize(""));
@@ -228,6 +250,18 @@ public class StringUtilsTest {
         assertEquals("capitalize(string) failed",
                 FOO_CAP, StringUtils.capitalize(FOO_UNCAP));
 
+        // Javadoc examples
+        assertNull(StringUtils.capitalize(null));
+        assertEquals("", StringUtils.capitalize(""));
+        assertEquals("Cat", StringUtils.capitalize("cat"));
+        assertEquals("CAt", StringUtils.capitalize("cAt"));
+        assertEquals("'cat'", StringUtils.capitalize("'cat'"));
+    }
+
+    @Test
+    public void testUnCapitalize() {
+        assertNull(StringUtils.uncapitalize(null));
+
         assertEquals("uncapitalize(String) failed",
                 FOO_UNCAP, StringUtils.uncapitalize(FOO_CAP));
         assertEquals("uncapitalize(string) failed",
@@ -237,6 +271,14 @@ public class StringUtilsTest {
         assertEquals("uncapitalize(single-char-string) failed",
                 "x", StringUtils.uncapitalize("X"));
 
+        // Examples from uncapitalize Javadoc
+        assertEquals("cat", StringUtils.uncapitalize("cat"));
+        assertEquals("cat", StringUtils.uncapitalize("Cat"));
+        assertEquals("cAT", StringUtils.uncapitalize("CAT"));
+    }
+
+    @Test
+    public void testReCapitalize() {
         // reflection type of tests: Sentences.
         assertEquals("uncapitalize(capitalize(String)) failed",
                 SENTENCE_UNCAP, StringUtils.uncapitalize(StringUtils.capitalize(SENTENCE_UNCAP)));
@@ -248,29 +290,6 @@ public class StringUtilsTest {
                 FOO_UNCAP, StringUtils.uncapitalize(StringUtils.capitalize(FOO_UNCAP)));
         assertEquals("capitalize(uncapitalize(String)) failed",
                 FOO_CAP, StringUtils.capitalize(StringUtils.uncapitalize(FOO_CAP)));
-
-        assertEquals("upperCase(String) failed",
-                "FOO TEST THING", StringUtils.upperCase("fOo test THING"));
-        assertEquals("upperCase(empty-string) failed",
-                "", StringUtils.upperCase(""));
-        assertEquals("lowerCase(String) failed",
-                "foo test thing", StringUtils.lowerCase("fOo test THING"));
-        assertEquals("lowerCase(empty-string) failed",
-                "", StringUtils.lowerCase(""));
-
-        assertEquals("upperCase(String, Locale) failed",
-                "FOO TEST THING", StringUtils.upperCase("fOo test THING", Locale.ENGLISH));
-        assertEquals("upperCase(empty-string, Locale) failed",
-                "", StringUtils.upperCase("", Locale.ENGLISH));
-        assertEquals("lowerCase(String, Locale) failed",
-                "foo test thing", StringUtils.lowerCase("fOo test THING", Locale.ENGLISH));
-        assertEquals("lowerCase(empty-string, Locale) failed",
-                "", StringUtils.lowerCase("", Locale.ENGLISH));
-
-        // Examples from uncapitalize Javadoc
-        assertEquals("cat", StringUtils.uncapitalize("cat"));
-        assertEquals("cat", StringUtils.uncapitalize("Cat"));
-        assertEquals("cAT", StringUtils.uncapitalize("CAT"));
     }
 
     @Test
