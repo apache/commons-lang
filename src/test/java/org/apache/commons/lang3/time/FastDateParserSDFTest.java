@@ -16,7 +16,10 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -193,8 +196,9 @@ public class FastDateParserSDFTest {
 
         ParsePosition sdfP = new ParsePosition(0);
         Date expectedTime = sdf.parse(formattedDate, sdfP);
+        final int sdferrorIndex = sdfP.getErrorIndex();
         if (valid) {
-            assertEquals("Expected SDF error index -1 ", -1, sdfP.getErrorIndex());
+            assertEquals("Expected SDF error index -1 ", -1, sdferrorIndex);
             final int endIndex = sdfP.getIndex();
             final int length = formattedDate.length();
             if (endIndex != length) {
@@ -216,15 +220,11 @@ public class FastDateParserSDFTest {
             final int endIndex = fdfP.getIndex();
             final int length = formattedDate.length();
             assertEquals("Expected FDF to parse full string " + fdfP, length, endIndex);
-            assertEquals(locale.toString()+" "+formattedDate +"\n",expectedTime, actualTime);            
+            assertEquals(locale.toString()+" "+formattedDate +"\n", expectedTime, actualTime);
         } else {
-            final int endIndex = fdfP.getIndex();
-            if (endIndex != -0) {
-                fail("Expected FDF parse to fail, but got " + fdfP);                
-            }
-            if (fdferrorIndex != -1) {
-                assertEquals("FDF error index should match SDF index (if it is set)", sdfP.getErrorIndex(), fdferrorIndex);
-            }
+            assertNotEquals("Test data error: expected FDF parse to fail, but got " + actualTime, -1, fdferrorIndex);
+            assertTrue("FDF error index ("+ fdferrorIndex + ") should approxiamate SDF index (" + sdferrorIndex + ")",
+                    sdferrorIndex - fdferrorIndex <= 4);
         }        
     }
 }

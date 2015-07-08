@@ -31,6 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -325,7 +326,8 @@ public class FastDateParserTest {
         if (eraBC) {
             cal.set(Calendar.ERA, GregorianCalendar.BC);
         }
-        for(final Locale locale : Locale.getAvailableLocales()) {
+
+        for(final Locale locale : Locale.getAvailableLocales() ) {
             // ja_JP_JP cannot handle dates before 1868 properly
             if (eraBC && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
                 continue;
@@ -337,6 +339,28 @@ public class FastDateParserTest {
                 checkParse(locale, cal, sdf, fdf);
             } catch(final ParseException ex) {
                 Assert.fail("Locale "+locale+ " failed with "+format+" era "+(eraBC?"BC":"AD")+"\n" + trimMessage(ex.toString()));
+            }
+        }
+    }
+    
+    @Test
+    public void testJpLocales() {
+
+        final Calendar cal= Calendar.getInstance(GMT);
+        cal.clear();
+        cal.set(2003, Calendar.FEBRUARY, 10);
+        cal.set(Calendar.ERA, GregorianCalendar.BC);
+
+        final Locale locale = LocaleUtils.toLocale("zh"); {
+            // ja_JP_JP cannot handle dates before 1868 properly
+
+            final SimpleDateFormat sdf = new SimpleDateFormat(LONG_FORMAT, locale);
+            final DateParser fdf = getInstance(LONG_FORMAT, locale);
+
+            try {
+                checkParse(locale, cal, sdf, fdf);
+            } catch(final ParseException ex) {
+                Assert.fail("Locale "+locale+ " failed with "+LONG_FORMAT+"\n" + trimMessage(ex.toString()));
             }
         }
     }
@@ -441,7 +465,7 @@ public class FastDateParserTest {
             final DateParser fdp = getInstance(format, NEW_YORK, Locale.US);
             dfdp = fdp.parse(date);
             if (shouldFail) {
-                Assert.fail("Expected FDF failure, but got " + dfdp + " for ["+format+","+date+"] using "+((FastDateParser)fdp).getParsePattern());
+                Assert.fail("Expected FDF failure, but got " + dfdp + " for ["+format+","+date+"]");
             }
         } catch (final Exception e) {
             f = e;
