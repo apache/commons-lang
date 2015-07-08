@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1152" type="fix" dev="chas" due-to="Pas Filip">StringIndexOutOfBoundsException or field over-write for large year fields in FastDateParser</action>
     <action issue="LANG-1153" type="add" dev="chas">Implement ParsePosition api for FastDateParser</action>
     <action issue="LANG-1141" type="fix" dev="oheger">StrLookup.systemPropertiesLookup() no longer reacts on changes on system properties</action>
     <action issue="LANG-1147" type="fix" dev="sebb" due-to="Loic Guibert">EnumUtils *BitVector issue with more than 32 values Enum</action>

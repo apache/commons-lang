@@ -37,6 +37,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.lang3.test.SystemDefaults;
 import org.apache.commons.lang3.test.SystemDefaultsSwitch;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -291,4 +292,16 @@ public class FastDateFormatTest {
         assertEquals(0, failures.get());
         return totalElapsed.get();
     }
+    
+    @Test
+    public void testLANG_1152() {
+        TimeZone utc = TimeZone.getTimeZone("UTC");
+        Date date = new Date(Long.MAX_VALUE);
+
+        String dateAsString = FastDateFormat.getInstance("yyyy-MM-dd", utc, Locale.US).format(date);
+        Assert.assertEquals("292278994-08-17", dateAsString);
+
+        dateAsString = FastDateFormat.getInstance("dd/MM/yyyy", utc, Locale.US).format(date);
+        Assert.assertEquals("17/08/292278994", dateAsString);
+    }  
 }

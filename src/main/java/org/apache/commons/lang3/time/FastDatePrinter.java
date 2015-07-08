@@ -875,14 +875,21 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public final void appendTo(final StringBuffer buffer, int value) {
+            int first = buffer.length();
             // pad the buffer with adequate zeros
             for(int digit = 0; digit<mSize; ++digit) {
-                buffer.append('0');                
+                buffer.append('0');
             }
             // backfill the buffer with non-zero digits
             int index = buffer.length();
             for( ; value>0; value /= 10) {
-                buffer.setCharAt(--index, (char)('0' + value % 10));
+                char c= (char)('0' + value % 10);
+                if(--index<first) {
+                    buffer.insert(first, c);
+                }
+                else {
+                    buffer.setCharAt(index, c);
+                }
             }
         }
     }
