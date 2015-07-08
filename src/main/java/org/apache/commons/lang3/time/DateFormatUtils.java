@@ -39,29 +39,51 @@ public class DateFormatUtils {
      * This is private as it is mutable.
      */
     private static final TimeZone UTC_TIME_ZONE = TimeZone.getTimeZone("GMT");
+
     /**
      * ISO 8601 formatter for date-time without time zone.
      * The format used is {@code yyyy-MM-dd'T'HH:mm:ss}.
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
+     * @since 3.5
      */
-    public static final FastDateFormat ISO_DATETIME_FORMAT
+    public static final FastDateFormat ISO8601_DATETIME_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss");
+
+    /**
+     * @deprecated - as of 4.0, ISO_DATETIME_FORMAT will be replaced by ISO8601_DATETIME_FORMAT.
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_DATETIME_FORMAT = ISO8601_DATETIME_FORMAT;
 
     /**
      * ISO 8601 formatter for date-time with time zone.
      * The format used is {@code yyyy-MM-dd'T'HH:mm:ssZZ}.
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
+     * @since 3.5
      */
-    public static final FastDateFormat ISO_DATETIME_TIME_ZONE_FORMAT
+    public static final FastDateFormat ISO8601_DATETIME_TIME_ZONE_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZZ");
+
+    /**
+     * @deprecated - as of 4.0, ISO_DATETIME_TIME_ZONE_FORMAT will be replaced by ISO8601_DATETIME_TIME_ZONE_FORMAT.
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_DATETIME_TIME_ZONE_FORMAT = ISO8601_DATETIME_TIME_ZONE_FORMAT;
 
     /**
      * ISO 8601 formatter for date without time zone.
      * The format used is {@code yyyy-MM-dd}.
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
+     * @since 3.5
      */
-    public static final FastDateFormat ISO_DATE_FORMAT
+    public static final FastDateFormat ISO8601_DATE_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-dd");
+
+    /**
+     * @deprecated - as of 4.0, ISO_DATE_FORMAT will be replaced by ISO8601_DATE_FORMAT.
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_DATE_FORMAT = ISO8601_DATE_FORMAT;
 
     /**
      * ISO 8601-like formatter for date with time zone.
@@ -69,45 +91,64 @@ public class DateFormatUtils {
      * This pattern does not comply with the formal ISO 8601 specification
      * as the standard does not allow a time zone  without a time.
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
+     * 
+     * @deprecated - as of 4.0, ISO_DATE_TIME_ZONE_FORMAT will be removed.
      */
+    @Deprecated
     public static final FastDateFormat ISO_DATE_TIME_ZONE_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-ddZZ");
 
     /**
-     * ISO 8601 formatter for time without time zone.
+     * Non-compliant formatter for time without time zone. (ISO 8601 does not prefix 'T' for standalone time value)
      * The format used is {@code 'T'HH:mm:ss}.
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
+     * 
+     * @deprecated - as of 4.0, ISO_TIME_FORMAT will be removed.
      */
+    @Deprecated
     public static final FastDateFormat ISO_TIME_FORMAT
             = FastDateFormat.getInstance("'T'HH:mm:ss");
 
     /**
-     * ISO 8601 formatter for time with time zone.
+     * Non-compliant formatter for time with time zone. (ISO 8601 does not prefix 'T' for standalone time value)
      * The format used is {@code 'T'HH:mm:ssZZ}.
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
+     * 
+     * @deprecated - as of 4.0, ISO_TIME_TIME_ZONE_FORMAT will be removed.
      */
+    @Deprecated
     public static final FastDateFormat ISO_TIME_TIME_ZONE_FORMAT
             = FastDateFormat.getInstance("'T'HH:mm:ssZZ");
 
     /**
-     * ISO 8601-like formatter for time without time zone.
+     * ISO 8601 formatter for time without time zone.
      * The format used is {@code HH:mm:ss}.
-     * This pattern does not comply with the formal ISO 8601 specification
-     * as the standard requires the 'T' prefix for times.
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
+     * @since 3.5
      */
-    public static final FastDateFormat ISO_TIME_NO_T_FORMAT
+    public static final FastDateFormat ISO8601_TIME_FORMAT
             = FastDateFormat.getInstance("HH:mm:ss");
 
     /**
-     * ISO 8601-like formatter for time with time zone.
-     * The format used is {@code HH:mm:ssZZ}.
-     * This pattern does not comply with the formal ISO 8601 specification
-     * as the standard requires the 'T' prefix for times.
-     * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
+     * @deprecated - as of 4.0, ISO_TIME_NO_T_FORMAT will be replaced by ISO8601_TIME_FORMAT.
      */
-    public static final FastDateFormat ISO_TIME_NO_T_TIME_ZONE_FORMAT
+    @Deprecated
+    public static final FastDateFormat ISO_TIME_NO_T_FORMAT = ISO8601_TIME_FORMAT;
+
+    /**
+     * ISO 8601 formatter for time with time zone.
+     * The format used is {@code HH:mm:ssZZ}.
+     * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
+     * @since 3.5
+     */
+    public static final FastDateFormat ISO8601_TIME_TIME_ZONE_FORMAT
             = FastDateFormat.getInstance("HH:mm:ssZZ");
+
+    /**
+     * @deprecated - as of 4.0, ISO_TIME_NO_T_TIME_ZONE_FORMAT will be replaced by ISO8601_TIME_TIME_ZONE_FORMAT.
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_TIME_NO_T_TIME_ZONE_FORMAT = ISO8601_TIME_TIME_ZONE_FORMAT;
 
     /**
      * SMTP (and probably other) date headers.
