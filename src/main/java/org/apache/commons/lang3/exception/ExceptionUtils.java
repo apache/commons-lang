@@ -693,4 +693,70 @@ public class ExceptionUtils {
         return getMessage(root);
     }
 
+    /**
+     * Throw a checked exception without adding the exception to the throws
+     * clause of the calling method. This method prevents throws clause
+     * pollution and reduces the clutter of "Caused by" exceptions in the
+     * stacktrace.
+     * <p>
+     * The use of this technique may be controversial, but exceedingly useful to
+     * library developers.
+     * <code>
+     *  public int propagateExample { // note that there is no throws clause
+     *      try {
+     *          return invocation(); // throws IOException
+     *      } catch (Exception e) {
+     *          return ExceptionUtils.rethrow(e);  // propagates a checked exception
+     *      }
+     *  }
+     * </code>
+     * <p>
+     * This is an alternative to the more conservative approach of wrapping the
+     * checked exception in a RuntimeException:
+     * <code>
+     *  public int wrapExample { // note that there is no throws clause
+     *      try {
+     *          return invocation(); // throws IOException
+     *      } catch (Exception e) {
+     *          throw new UndeclaredThrowableException(e);  // wraps a checked exception
+     *      }
+     *  }
+     * </code>
+     * <p>
+     * One downside to using this approach is that the java compiler will not
+     * allow invoking code to specify a checked exception in a catch clause
+     * unless there is some code path within the try block that has invoked a
+     * method declared with that checked exception. If the invoking site wishes
+     * to catch the shaded checked exception, it must either invoke the shaded
+     * code through a method re-declaring the desired checked exception, or
+     * catch Exception and use the instanceof operator. Either of these
+     * techniques are required when interacting with non-java jvm code such as
+     * Jyton, Scala, or Groovy, since these languages do not consider any
+     * exceptions as checked.
+     * 
+     * @since 3.5
+     *
+     * @param throwable
+     *            The throwable to rethrow.
+     * @return R Never actually returns, this generic type matches any type
+     *         which the calling site requires. "Returning" the results of this
+     *         method, as done in the propagateExample above, will satisfy the
+     *         java compiler that all code paths return a value.
+     * @throws throwable
+     */
+    public static <R> R rethrow(Throwable throwable) {
+        // claim that the typeErasure invocation throws a RuntimeException
+        return ExceptionUtils.<R, RuntimeException> typeErasure(throwable);
+    }
+
+    /**
+     * Claim a Throwable is another Exception type using type erasure. This
+     * hides a checked exception from the java compiler, allowing a checked
+     * exception to be thrown without having the exception in the method's throw
+     * clause.
+     */
+    @SuppressWarnings("unchecked")
+    private static <R, T extends Throwable> R typeErasure(Throwable throwable) throws T {
+        throw (T) throwable;
+    }
 }

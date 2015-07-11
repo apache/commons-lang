@@ -16,17 +16,26 @@
  */
 package org.apache.commons.lang3.exception;
 
-import org.junit.After;
-import org.junit.Test;
-import org.junit.Before;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.List;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Tests {@link org.apache.commons.lang3.exception.ExceptionUtils}.
@@ -535,4 +544,47 @@ public class ExceptionUtilsTest {
         public NestableException(final Throwable t) { super(t); }
     }
 
+    @Test
+    public void testThrow() {
+        Exception expected = new InterruptedException();
+        try {
+            ExceptionUtils.rethrow(expected);
+            Assert.fail("Exception not thrown");
+        }
+        catch(Exception actual) {
+            Assert.assertSame(expected, actual);
+        }
+    }
+
+    @Test
+    public void testCatchTechniques() {
+        try {
+            throwsCheckedException();
+            Assert.fail("Exception not thrown");
+        }
+        catch(Exception ioe) {
+            assertTrue(ioe instanceof IOException);
+            assertEquals(1, ExceptionUtils.getThrowableCount(ioe));
+        }
+        
+        try {
+            redeclareCheckedException();
+            Assert.fail("Exception not thrown");
+        }
+        catch(IOException ioe) {
+            assertEquals(1, ExceptionUtils.getThrowableCount(ioe));
+        }
+    }
+
+    private static int redeclareCheckedException() throws IOException {
+        return throwsCheckedException();
+    }
+
+    private static int throwsCheckedException() {
+        try {
+            throw new IOException();
+        } catch (Exception e) {
+            return ExceptionUtils.rethrow(e);
+        }
+    }
 }

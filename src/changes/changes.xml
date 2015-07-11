@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1149" type="add" dev="chas" due-to="Gregory Zak">Ability to throw checked exceptions without declaring them</action>
     <action issue="LANG-1002" type="fix" dev="chas" due-to="Michael Osipov">Several predefined ISO FastDateFormats in DateFormatUtils are incorrect</action>
     <action issue="LANG-1152" type="fix" dev="chas" due-to="Pas Filip">StringIndexOutOfBoundsException or field over-write for large year fields in FastDateParser</action>
     <action issue="LANG-1153" type="add" dev="chas">Implement ParsePosition api for FastDateParser</action>
