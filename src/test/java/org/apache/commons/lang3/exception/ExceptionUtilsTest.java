@@ -587,4 +587,52 @@ public class ExceptionUtilsTest {
             return ExceptionUtils.rethrow(e);
         }
     }
+
+    public static class TestThrowable extends Throwable {
+        private static final long serialVersionUID = 1L;
+    }
+
+    @Test
+    public void testWrapAndUnwrapError() {
+        try {
+            ExceptionUtils.wrapAndThrow(new OutOfMemoryError());
+            Assert.fail("Error not thrown");
+        }
+        catch(Throwable t) {
+            Assert.assertTrue(ExceptionUtils.hasCause(t, Error.class));
+        }
+    }
+
+    @Test
+    public void testWrapAndUnwrapRuntimeException() {
+        try {
+            ExceptionUtils.wrapAndThrow(new IllegalArgumentException());
+            Assert.fail("RuntimeException not thrown");
+        }
+        catch(Throwable t) {
+            Assert.assertTrue(ExceptionUtils.hasCause(t, RuntimeException.class));
+        }
+    }
+
+    @Test
+    public void testWrapAndUnwrapCheckedException() {
+        try {
+            ExceptionUtils.wrapAndThrow(new IOException());
+            Assert.fail("Checked Exception not thrown");
+        }
+        catch(Throwable t) {
+            Assert.assertTrue(ExceptionUtils.hasCause(t, IOException.class));
+        }
+    }
+
+    @Test
+    public void testWrapAndUnwrapThrowable() {
+        try {
+            ExceptionUtils.wrapAndThrow(new TestThrowable());
+            Assert.fail("Checked Exception not thrown");
+        }
+        catch(Throwable t) {
+            Assert.assertTrue(ExceptionUtils.hasCause(t, TestThrowable.class));
+        }
+    }
 }

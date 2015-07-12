@@ -21,6 +21,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -717,6 +718,10 @@ public class ExceptionUtils {
      *  public int wrapExample { // note that there is no throws clause
      *      try {
      *          return invocation(); // throws IOException
+     *      } catch (Error e) {
+     *          throw e;
+     *      } catch (RuntimeException e) {
+     *          throw e;  // wraps a checked exception
      *      } catch (Exception e) {
      *          throw new UndeclaredThrowableException(e);  // wraps a checked exception
      *      }
@@ -735,13 +740,14 @@ public class ExceptionUtils {
      * exceptions as checked.
      * 
      * @since 3.5
+     * @see {{@link #wrapAndThrow(Throwable)}
      *
      * @param throwable
      *            The throwable to rethrow.
      * @return R Never actually returns, this generic type matches any type
      *         which the calling site requires. "Returning" the results of this
      *         method, as done in the propagateExample above, will satisfy the
-     *         java compiler that all code paths return a value.
+     *         java compiler requirement that all code paths return a value.
      * @throws throwable
      */
     public static <R> R rethrow(Throwable throwable) {
@@ -758,5 +764,58 @@ public class ExceptionUtils {
     @SuppressWarnings("unchecked")
     private static <R, T extends Throwable> R typeErasure(Throwable throwable) throws T {
         throw (T) throwable;
+    }
+
+    /**
+     * Throw a checked exception without adding the exception to the throws
+     * clause of the calling method. For checked exceptions, this method throws
+     * an UndeclaredThrowableException wrapping the checked exception. For
+     * Errors and RuntimeExceptions, the original exception is rethrown.
+     * <p>
+     * The downside to using this approach is that invoking code which needs to
+     * handle specific checked exceptions must sniff up the exception chain to
+     * determine if the caught exception was caused by the checked exception.
+     * 
+     * @since 3.5
+     * @see {{@link #rethrow(Throwable)}, {{@link #hasCause(Throwable, Class)}
+     * 
+     * @param throwable
+     *            The throwable to rethrow.
+     * @return R Never actually returns, this generic type matches any type
+     *         which the calling site requires. "Returning" the results of this
+     *         method, will satisfy the java compiler requirement that all code
+     *         paths return a value.
+     * @throws throwable
+     */
+    public static <R> R wrapAndThrow(Throwable throwable) {
+        if (throwable instanceof RuntimeException) {
+            throw (RuntimeException) throwable;
+        }
+        if (throwable instanceof Error) {
+            throw (Error) throwable;
+        }
+        throw new UndeclaredThrowableException(throwable);
+    }
+
+    /**
+     * Does the throwable's causal chain have an immediate or wrapped exception
+     * of the given type?
+     * 
+     * @since 3.5
+     * @see {{@link #wrapAndThrow(Throwable)}
+     * 
+     * @param chain
+     *            The root of a Throwable causal chain.
+     * @param type
+     *            The exception type to test.
+     * @return true, if chain is an instance of type or is an
+     *         UndeclaredThrowableException wrapping a cause.
+     */
+    public static boolean hasCause(Throwable chain,
+            Class<? extends Throwable> type) {
+        if (chain instanceof UndeclaredThrowableException) {
+            chain = chain.getCause();
+        }
+        return type.isInstance(chain);
     }
 }
