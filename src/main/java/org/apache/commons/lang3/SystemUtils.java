@@ -129,8 +129,11 @@ public class SystemUtils {
      * sync with that System property.
      * </p>
      *
+     * @deprecated Use {@link File#separator}, since it is guaranteed to be a
+     *             string containing a single character and it does not require a privilege check.
      * @since Java 1.1
      */
+    @Deprecated
     public static final String FILE_SEPARATOR = getSystemProperty("file.separator");
 
     /**
@@ -733,8 +736,11 @@ public class SystemUtils {
      * sync with that System property.
      * </p>
      *
+     * @deprecated Use {@link File#pathSeparator}, since it is guaranteed to be a
+     *             string containing a single character and it does not require a privilege check.
      * @since Java 1.1
      */
+    @Deprecated
     public static final String PATH_SEPARATOR = getSystemProperty("path.separator");
 
     /**
