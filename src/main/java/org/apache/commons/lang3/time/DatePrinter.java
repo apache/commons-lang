@@ -59,23 +59,27 @@ public interface DatePrinter {
     String format(Calendar calendar);
 
     /**
-     * <p>Formats a milliseond {@code long} value into the
+     * <p>Formats a millisecond {@code long} value into the
      * supplied {@code StringBuffer}.</p>
+     * @deprecated Use {{@link #format(long, Appendable)}.
      *
      * @param millis  the millisecond value to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
      */
+    @Deprecated
     StringBuffer format(long millis, StringBuffer buf);
 
     /**
      * <p>Formats a {@code Date} object into the
      * supplied {@code StringBuffer} using a {@code GregorianCalendar}.</p>
+     * @deprecated Use {{@link #format(Date, Appendable)}.
      *
      * @param date  the date to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
      */
+    @Deprecated
     StringBuffer format(Date date, StringBuffer buf);
 
     /**
@@ -83,12 +87,50 @@ public interface DatePrinter {
      * The TimeZone set on the Calendar is only used to adjust the time offset.
      * The TimeZone specified during the construction of the Parser will determine the TimeZone
      * used in the formatted string.
+     * @deprecated Use {{@link #format(Calendar, Appendable)}.
      *
      * @param calendar  the calendar to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
      */
+    @Deprecated
     StringBuffer format(Calendar calendar, StringBuffer buf);
+
+    /**
+     * <p>Formats a millisecond {@code long} value into the
+     * supplied {@code Appendable}.</p>
+     *
+     * @param millis  the millisecond value to format
+     * @param buf  the buffer to format into
+     * @return the specified string buffer
+     * @since 3.5
+     */
+    <B extends Appendable> B format(long millis, B buf);
+
+    /**
+     * <p>Formats a {@code Date} object into the
+     * supplied {@code Appendable} using a {@code GregorianCalendar}.</p>
+     *
+     * @param date  the date to format
+     * @param buf  the buffer to format into
+     * @return the specified string buffer
+     * @since 3.5
+     */
+    <B extends Appendable> B format(Date date, B buf);
+
+    /**
+     * <p>Formats a {@code Calendar} object into the supplied {@code Appendable}.</p>
+     * The TimeZone set on the Calendar is only used to adjust the time offset.
+     * The TimeZone specified during the construction of the Parser will determine the TimeZone
+     * used in the formatted string.
+     *
+     * @param calendar  the calendar to format
+     * @param buf  the buffer to format into
+     * @return the specified string buffer
+     * @since 3.5
+     */
+    <B extends Appendable> B format(Calendar calendar, B buf);
+
 
     // Accessors
     //-----------------------------------------------------------------------

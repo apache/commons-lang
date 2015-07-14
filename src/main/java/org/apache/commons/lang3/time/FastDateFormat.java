@@ -399,6 +399,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * <p>Formats a {@code Date}, {@code Calendar} or
      * {@code Long} (milliseconds) object.</p>
+     * This method is an implementation of {@link Format#format(Object, StringBuffer, FieldPosition)}
      *
      * @param obj  the object to format
      * @param toAppendTo  the buffer to append to
@@ -407,7 +408,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      */
     @Override
     public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
-        return printer.format(obj, toAppendTo, pos);
+        return toAppendTo.append(printer.format(obj));
     }
 
     /**
@@ -447,14 +448,60 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * <p>Formats a millisecond {@code long} value into the
      * supplied {@code StringBuffer}.</p>
+     * @deprecated Use {{@link #format(long, Appendable)}.
      *
      * @param millis  the millisecond value to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
      * @since 2.1
      */
+    @Deprecated
     @Override
     public StringBuffer format(final long millis, final StringBuffer buf) {
+        return printer.format(millis, buf);
+    }
+
+    /**
+     * <p>Formats a {@code Date} object into the
+     * supplied {@code StringBuffer} using a {@code GregorianCalendar}.</p>
+     * @deprecated Use {{@link #format(Date, Appendable)}.
+     *
+     * @param date  the date to format
+     * @param buf  the buffer to format into
+     * @return the specified string buffer
+     */
+    @Deprecated
+    @Override
+    public StringBuffer format(final Date date, final StringBuffer buf) {
+        return printer.format(date, buf);
+    }
+
+    /**
+     * <p>Formats a {@code Calendar} object into the
+     * supplied {@code StringBuffer}.</p>
+     * @deprecated Use {{@link #format(Calendar, Appendable)}.
+     *
+     * @param calendar  the calendar to format
+     * @param buf  the buffer to format into
+     * @return the specified string buffer
+     */
+    @Deprecated
+    @Override
+    public StringBuffer format(final Calendar calendar, final StringBuffer buf) {
+        return printer.format(calendar, buf);
+    }
+
+    /**
+     * <p>Formats a millisecond {@code long} value into the
+     * supplied {@code StringBuffer}.</p>
+     *
+     * @param millis  the millisecond value to format
+     * @param buf  the buffer to format into
+     * @return the specified string buffer
+     * @since 3.5
+     */
+    @Override
+    public <B extends Appendable> B format(final long millis, final B buf) {
         return printer.format(millis, buf);
     }
 
@@ -465,9 +512,10 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param date  the date to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
+     * @since 3.5
      */
     @Override
-    public StringBuffer format(final Date date, final StringBuffer buf) {
+    public <B extends Appendable> B format(final Date date, final B buf) {
         return printer.format(date, buf);
     }
 
@@ -478,9 +526,10 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param calendar  the calendar to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
-     */
+     * @since 3.5
+    */
     @Override
-    public StringBuffer format(final Calendar calendar, final StringBuffer buf) {
+    public <B extends Appendable> B format(final Calendar calendar, final B buf) {
         return printer.format(calendar, buf);
     }
 
@@ -597,18 +646,17 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
         return "FastDateFormat[" + printer.getPattern() + "," + printer.getLocale() + "," + printer.getTimeZone().getID() + "]";
     }
 
-
     /**
      * <p>Performs the formatting by applying the rules to the
      * specified calendar.</p>
+     * @deprecated Use {{@link #format(Calendar, Appendable)
      *
      * @param calendar  the calendar to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
      */
+    @Deprecated
     protected StringBuffer applyRules(final Calendar calendar, final StringBuffer buf) {
         return printer.applyRules(calendar, buf);
     }
-
-
 }

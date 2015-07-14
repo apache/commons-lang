@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -666,7 +667,7 @@ public class FastDateParserTest {
     @Test
     public void testLang1121() throws ParseException {
         TimeZone kst = TimeZone.getTimeZone("KST");
-        final DateParser fdp = FastDateFormat.getInstance("yyyyMMdd", kst, Locale.KOREA);
+        final DateParser fdp = getInstance("yyyyMMdd", kst, Locale.KOREA);
 
         try {
             fdp.parse("2015");
@@ -689,5 +690,16 @@ public class FastDateParserTest {
         // Thu Mar 16 00:00:00 KST 81724
         actual = fdp.parse("20150429113100");
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testParseOffset() throws ParseException {
+        DateParser parser = getInstance(YMD_SLASH);
+        final Date date = parser.parse("Today is 2015/07/04", new ParsePosition(9));
+
+        final Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.set(2015, Calendar.JULY, 4);
+        Assert.assertEquals(cal.getTime(), date);
     }
 }

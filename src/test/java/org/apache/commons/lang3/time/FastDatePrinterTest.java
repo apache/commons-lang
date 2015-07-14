@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
+import java.text.FieldPosition;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,8 +31,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.SerializationUtils;
-import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.apache.commons.lang3.test.SystemDefaults;
+import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -363,5 +364,59 @@ public class FastDatePrinterTest {
             String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Europe/London")).format(cal);
             assertEquals("calendar", "2009-10-16T07:42:16 +0100", value);
         }
+    }
+
+    @Test
+    public void testHourFormats() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        DatePrinter printer = getInstance("K k H h");
+
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        assertEquals("0 24 0 12", printer.format(calendar));
+
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        assertEquals("0 12 12 12", printer.format(calendar));
+
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        assertEquals("11 23 23 11", printer.format(calendar));
+    }
+
+    @Test
+    public void testStringBufferOptions() {
+        final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZone.getTimeZone("GMT"));
+        Calendar calendar = Calendar.getInstance();
+        StringBuffer sb = new StringBuffer();
+        String expected = format.format(calendar, sb, new FieldPosition(0)).toString();
+        sb.setLength(0);
+        assertEquals(expected, format.format(calendar, sb).toString());
+        sb.setLength(0);
+
+        Date date = calendar.getTime();
+        assertEquals(expected, format.format(date, sb, new FieldPosition(0)).toString());
+        sb.setLength(0);
+        assertEquals(expected, format.format(date, sb).toString());
+        sb.setLength(0);
+
+        long epoch = date.getTime();
+        assertEquals(expected, format.format(epoch, sb, new FieldPosition(0)).toString());
+        sb.setLength(0);
+        assertEquals(expected, format.format(epoch, sb).toString());
+    }
+
+    @Test
+    public void testAppendableOptions() {
+        final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZone.getTimeZone("GMT"));
+        Calendar calendar = Calendar.getInstance();
+        StringBuilder sb = new StringBuilder();
+        String expected = format.format(calendar, sb).toString();
+        sb.setLength(0);
+
+        Date date = calendar.getTime();
+        assertEquals(expected, format.format(date, sb).toString());
+        sb.setLength(0);
+
+        long epoch = date.getTime();
+        assertEquals(expected, format.format(epoch, sb).toString());
     }
 }

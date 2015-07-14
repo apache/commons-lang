@@ -23,8 +23,9 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.text.FieldPosition;
 import java.text.Format;
-import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -33,7 +34,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicLongArray;
 
 import org.apache.commons.lang3.test.SystemDefaults;
 import org.apache.commons.lang3.test.SystemDefaultsSwitch;
@@ -232,33 +233,43 @@ public class FastDateFormatTest {
     @Test
     public void testParseSync() throws InterruptedException {
         final String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";
-        final FastDateFormat formatter= FastDateFormat.getInstance(pattern);
-        
-        final long sdfTime= measureTime(formatter, new SimpleDateFormat(pattern) {
-                        private static final long serialVersionUID = 1L;  // because SimpleDateFormat is serializable
+        final SimpleDateFormat inner = new SimpleDateFormat(pattern);
+        final Format sdf= new Format() {
+            private static final long serialVersionUID = 1L;
 
-                        @Override
-                        public Object parseObject(final String formattedDate) throws ParseException {
-                            synchronized(this) {
-                                return super.parse(formattedDate);
-                            }
-                        }
-        });
-        
-        final long fdfTime= measureTime(formatter, FastDateFormat.getInstance(pattern));
-        
-        final String times= ">>FastDateFormatTest: FastDateParser:"+fdfTime+"  SimpleDateFormat:"+sdfTime;
-        System.out.println(times);
+            @Override
+            public StringBuffer format(Object obj,
+                    StringBuffer toAppendTo,
+                    FieldPosition fieldPosition) {
+                synchronized(this) {
+                    return inner.format(obj, toAppendTo, fieldPosition);
+                }
+            }
+
+            @Override
+            public Object parseObject(String source, ParsePosition pos) {
+                synchronized(this) {
+                    return inner.parseObject(source, pos);
+                }
+            }
+        };
+        final AtomicLongArray sdfTime= measureTime(sdf, sdf);
+
+        Format fdf = FastDateFormat.getInstance(pattern);
+        final AtomicLongArray fdfTime= measureTime(fdf, fdf);
+
+        System.out.println(">>FastDateFormatTest: FastDatePrinter:"+fdfTime.get(0)+"  SimpleDateFormat:"+sdfTime.get(0));
+        System.out.println(">>FastDateFormatTest: FastDateParser:"+fdfTime.get(1)+"  SimpleDateFormat:"+sdfTime.get(1));
     }
 
     final static private int NTHREADS= 10;
     final static private int NROUNDS= 10000;
     
-    private long measureTime(final Format formatter, final Format parser) throws InterruptedException {
+    private AtomicLongArray measureTime(final Format printer, final Format parser) throws InterruptedException {
         final ExecutorService pool = Executors.newFixedThreadPool(NTHREADS);
         final AtomicInteger failures= new AtomicInteger(0);
-        final AtomicLong totalElapsed= new AtomicLong(0);
-        
+        final AtomicLongArray totalElapsed= new AtomicLongArray(2);
+
         for(int i= 0; i<NTHREADS; ++i) {
             pool.submit(new Runnable() {
                 @Override
@@ -266,10 +277,15 @@ public class FastDateFormatTest {
                     for(int j= 0; j<NROUNDS; ++j) {
                         try {
                             final Date date= new Date();
-                            final String formattedDate= formatter.format(date);
-                            final long start= System.currentTimeMillis();        
+
+                            final long t0= System.currentTimeMillis();
+                            final String formattedDate= printer.format(date);
+                            totalElapsed.addAndGet(0, System.currentTimeMillis() - t0);
+
+                            final long t1 = System.currentTimeMillis();
                             final Object pd= parser.parseObject(formattedDate);
-                            totalElapsed.addAndGet(System.currentTimeMillis()-start);
+                            totalElapsed.addAndGet(1, System.currentTimeMillis() - t1);
+
                             if(!date.equals(pd)) {
                                 failures.incrementAndGet();
                             }
@@ -290,9 +306,9 @@ public class FastDateFormatTest {
             fail("did not complete tasks");
         }
         assertEquals(0, failures.get());
-        return totalElapsed.get();
+        return totalElapsed;
     }
-    
+
     @Test
     public void testLANG_1152() {
         TimeZone utc = TimeZone.getTimeZone("UTC");
