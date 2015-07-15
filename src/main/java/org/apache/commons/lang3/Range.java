@@ -445,18 +445,10 @@ public final class Range<T> implements Serializable {
      */
     @Override
     public String toString() {
-        String result = toString;
-        if (result == null) {
-            final StringBuilder buf = new StringBuilder(32);
-            buf.append('[');
-            buf.append(minimum);
-            buf.append("..");
-            buf.append(maximum);
-            buf.append(']');
-            result = buf.toString();
-            toString = result;
+        if (toString == null) {
+            toString = "[" + minimum + ".." + maximum + "]";
         }
-        return result;
+        return toString;
     }
 
     /**

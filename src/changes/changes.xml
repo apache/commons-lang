@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1057" type="update" dev="chas" dute-to="Otávio Santana">Replace StringBuilder with String concatenation for better optimization</action>
     <action issue="LANG-1075" type="update" dev="chas">Deprecate SystemUtils.FILE_SEPARATOR and SystemUtils.PATH_SEPARATOR</action>
     <action issue="LANG-1154" type="add" dev="chas" due-to="Gary Gregory">FastDateFormat APIs that use a StringBuilder</action>
     <action issue="LANG-1149" type="add" dev="chas" due-to="Gregory Zak">Ability to throw checked exceptions without declaring them</action>

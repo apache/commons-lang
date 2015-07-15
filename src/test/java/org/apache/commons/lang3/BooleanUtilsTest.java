@@ -319,7 +319,7 @@ public class BooleanUtilsTest {
         assertFalse(BooleanUtils.toBoolean("false"));
         assertFalse(BooleanUtils.toBoolean("a"));
         assertTrue(BooleanUtils.toBoolean("true")); // interned handled differently
-        assertTrue(BooleanUtils.toBoolean(new StringBuffer("tr").append("ue").toString()));
+        assertTrue(BooleanUtils.toBoolean(new StringBuilder("tr").append("ue").toString()));
         assertTrue(BooleanUtils.toBoolean("truE"));
         assertTrue(BooleanUtils.toBoolean("trUe"));
         assertTrue(BooleanUtils.toBoolean("trUE"));
