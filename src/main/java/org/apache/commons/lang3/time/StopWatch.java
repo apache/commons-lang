@@ -23,7 +23,7 @@ package org.apache.commons.lang3.time;
  * </p>
  * 
  * <p>
- * To start the watch, call {@link #start()}. At this point you can:
+ * To start the watch, call {@link #start()} or {@link StopWatch.createStarted()}. At this point you can:
  * </p>
  * <ul>
  * <li>{@link #split()} the watch to get the time whilst the watch continues in the background. {@link #unsplit()} will
@@ -57,6 +57,20 @@ package org.apache.commons.lang3.time;
 public class StopWatch {
 
     private static final long NANO_2_MILLIS = 1000000L;
+
+
+    /**
+     * Provides a started stopwatch for convenience.
+     *
+     * @return StopWatch a stopwatch that's already been started. 
+     *
+     * @since 3.5
+     */
+    public static StopWatch createStarted() {
+        StopWatch sw = new StopWatch();
+        sw.start();
+        return sw;
+    }
     
     /**
      * Enumeration type which indicates the status of stopwatch.

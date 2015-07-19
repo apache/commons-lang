@@ -45,6 +45,12 @@ public class StopWatchTest  {
         watch.reset();
         assertEquals(0, watch.getTime());
     }
+
+    @Test
+    public void testStopWatchStatic() {
+        final StopWatch watch = StopWatch.createStarted();
+        assertTrue(watch.isStarted());
+    }
     
     @Test
     public void testStopWatchSimpleGet(){
