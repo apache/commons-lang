@@ -250,6 +250,9 @@ public class StringUtilsTest {
         assertEquals("capitalize(string) failed",
                 FOO_CAP, StringUtils.capitalize(FOO_UNCAP));
 
+        assertEquals("capitalize(String) is not using TitleCase",
+                "\u01C8", StringUtils.capitalize("\u01C9"));
+
         // Javadoc examples
         assertNull(StringUtils.capitalize(null));
         assertEquals("", StringUtils.capitalize(""));

@@ -5765,7 +5765,7 @@ public class StringUtils {
         }
 
         final char firstChar = str.charAt(0);
-        final char newChar = Character.toUpperCase(firstChar);
+        final char newChar = Character.toTitleCase(firstChar);
         if (firstChar == newChar) {
             // already capitalized
             return str;
