@@ -9002,4 +9002,77 @@ public class StringUtils {
         return builder.toString();
     }
 
+
+    /**
+     * <p>
+     * Unwraps a given string from anther string
+     * </p>
+     *
+     * <pre>
+     * StringUtils.unwrap(null, null)         = null
+     * StringUtils.unwrap(null, "")           = null
+     * StringUtils.unwrap(null, "1")          = null
+     * StringUtils.unwrap("\'abc\'", "\'")    = "abc"
+     * StringUtils.unwrap("\"abc\"", "\"")    = "abc"
+     * StringUtils.unwrap("AABabcBAA", "AA")  = "BabcB"
+     * </pre>
+     *
+     * @param str
+     * 			the String to be unwrapped, can be null
+     * @param wrapToken
+     * 			the String used to unwrap
+     * @return unwrapped String or the original string if string is not quoted properly with the wrapToken
+     */
+    public static String unwrap(final String str, final String wrapToken){
+
+        if (isEmpty(str) || isEmpty(wrapToken)) {
+            return str;
+        }
+
+        int wrapLength = wrapToken.length();
+
+        if (startsWith(str, wrapToken) && endsWith(str, wrapToken)){
+            int startIndex = str.indexOf(wrapToken);
+            int endIndex = str.lastIndexOf(wrapToken);
+            if ( startIndex != -1 && endIndex != -1 ) {
+                return str.substring(startIndex + wrapLength, endIndex);
+            }
+        }
+        return str;
+    }
+
+    /**
+     * <p>
+     * Unwraps a given string from a character
+     * </p>
+     * 
+     * <pre>
+     * StringUtils.unwrap(null, null)         = null
+     * StringUtils.unwrap(null, '\0')         = null
+     * StringUtils.unwrap(null, '1')          = null
+     * StringUtils.unwrap("\'abc\'", '\'')    = "abc"
+     * StringUtils.unwrap("AABabcBAA", 'A')  = "ABabcBA"
+     * </pre>
+     *
+     * @param str
+     * 			the String to be unwrapped, can be null
+     * @param wrapChar
+     * 			the character used to unwrap
+     * @return unwrapped String or the original string if string is not quoted properly with the wrapChar
+     */
+    public static String unwrap(final String str, final char wrapChar){
+
+        if (isEmpty(str) || wrapChar == '\0') {
+            return str;
+        }
+
+        if (str.charAt(0) == wrapChar && str.charAt(str.length()-1) == wrapChar){
+            int startIndex = 0;
+            int endIndex = str.length()-1;
+            if ( startIndex != -1 && endIndex != -1 ) {
+                return str.substring(startIndex + 1, endIndex);
+            }
+        }
+        return str;
+    }
 }
