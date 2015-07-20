@@ -177,6 +177,22 @@ public class StopWatch {
 
     /**
      * <p>
+     * Get a started stopwatch
+     * </p>
+     *
+     * <p>
+     * This is a shortcut to create a stopwatch then start it.
+     * </p>
+     * @return
+     */
+    public static StopWatch newStartedInstance(){
+        StopWatch instance = new StopWatch();
+        instance.start();
+        return instance;
+    }
+
+    /**
+     * <p>
      * Start the stopwatch.
      * </p>
      * 
