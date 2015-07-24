@@ -1348,15 +1348,7 @@ public class NumberUtils {
      * @return <code>true</code> if str contains only Unicode numeric
      */
     public static boolean isDigits(final String str) {
-        if (StringUtils.isEmpty(str)) {
-            return false;
-        }
-        for (int i = 0; i < str.length(); i++) {
-            if (!Character.isDigit(str.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return StringUtils.isNumeric(str);
     }
 
     /**
