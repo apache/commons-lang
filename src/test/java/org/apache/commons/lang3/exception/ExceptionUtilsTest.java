@@ -584,7 +584,7 @@ public class ExceptionUtilsTest {
         try {
             throw new IOException();
         } catch (Exception e) {
-            return ExceptionUtils.rethrow(e);
+            return ExceptionUtils.<Integer>rethrow(e);
         }
     }
 
