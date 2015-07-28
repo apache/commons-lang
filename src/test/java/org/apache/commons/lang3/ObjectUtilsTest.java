@@ -89,6 +89,38 @@ public class ObjectUtilsTest {
         assertNull(ObjectUtils.firstNonNull((Object[]) null));
     }
 
+    /**
+     * Tests {@link ObjectUtils#anyNotNull(Object...)}.
+     */
+    @Test
+    public void testAnyNotNull() {
+        assertFalse(ObjectUtils.anyNotNull());
+        assertFalse(ObjectUtils.anyNotNull((Object) null));
+        assertFalse(ObjectUtils.anyNotNull((Object[]) null));
+        assertFalse(ObjectUtils.anyNotNull(null, null, null));
+
+        assertTrue(ObjectUtils.anyNotNull(FOO));
+        assertTrue(ObjectUtils.anyNotNull(null, FOO, null));
+        assertTrue(ObjectUtils.anyNotNull(null, null, null, null, FOO, BAR));
+    }
+
+    /**
+     * Tests {@link ObjectUtils#allNotNull(Object...)}.
+     */
+    @Test
+    public void testAllNotNull() {
+        assertFalse(ObjectUtils.allNotNull((Object) null));
+        assertFalse(ObjectUtils.allNotNull((Object[]) null));
+        assertFalse(ObjectUtils.allNotNull(null, null, null));
+        assertFalse(ObjectUtils.allNotNull(null, FOO, BAR));
+        assertFalse(ObjectUtils.allNotNull(FOO, BAR, null));
+        assertFalse(ObjectUtils.allNotNull(FOO, BAR, null, FOO, BAR));
+
+        assertTrue(ObjectUtils.allNotNull());
+        assertTrue(ObjectUtils.allNotNull(FOO));
+        assertTrue(ObjectUtils.allNotNull(FOO, BAR, 1, Boolean.TRUE, new Object(), new Object[]{}));
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testEquals() {
