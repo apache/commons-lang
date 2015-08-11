@@ -72,5 +72,108 @@ public class CharSequenceUtilsTest {
     public void testSubSequenceTooLong() {
         Assert.assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
     }
-    
+
+    static class TestData{
+        final String source;
+        final boolean ignoreCase;
+        final int toffset;
+        final String other;
+        final int ooffset;
+        final int len;
+        final boolean expected;
+        final Class<?> throwable;
+        TestData(String source, boolean ignoreCase, int toffset,
+                String other, int ooffset, int len, boolean expected){
+            this.source = source;
+            this.ignoreCase = ignoreCase;
+            this.toffset = toffset;
+            this.other = other;
+            this.ooffset = ooffset;
+            this.len = len;
+            this.expected = expected;
+            this.throwable = null;
+        }
+        TestData(String source, boolean ignoreCase, int toffset,
+                String other, int ooffset, int len, Class<?> throwable){
+            this.source = source;
+            this.ignoreCase = ignoreCase;
+            this.toffset = toffset;
+            this.other = other;
+            this.ooffset = ooffset;
+            this.len = len;
+            this.expected = false;
+            this.throwable = throwable;
+        }
+        public String toString(){
+            StringBuilder sb = new StringBuilder();
+            sb.append(source).append("[").append(toffset).append("]");
+            sb.append(ignoreCase? " caseblind ":" samecase ");
+            sb.append(other).append("[").append(ooffset).append("]");
+            sb.append(" ").append(len).append(" => ");
+            if (throwable != null) {
+                sb.append(throwable);
+            } else {
+                sb.append(expected);
+            }
+            return sb.toString();
+        }
+    }
+
+    private static final TestData[] TEST_DATA = {
+            //          Source  IgnoreCase Offset Other  Offset Length Result
+            new TestData("",    true,      -1,    "",    -1,    -1,    false),
+            new TestData("",    true,      0,     "",    0,     1,     false),
+            new TestData("a",   true,      0,     "abc", 0,     0,     true),
+            new TestData("a",   true,      0,     "abc", 0,     1,     true),
+            new TestData("a",   true,      0,     null,  0,     0,     NullPointerException.class),
+            new TestData(null,  true,      0,     null,  0,     0,     NullPointerException.class),
+            new TestData(null,  true,      0,     "",    0,     0,     NullPointerException.class),
+    };
+
+    private static abstract class RunTest {
+        
+        abstract boolean invoke();
+        
+        void run(TestData data, String id) {
+            if (data.throwable != null) {
+                try {
+                    invoke();
+                    Assert.fail(id + " Expected " + data.throwable);
+                } catch (Exception e) {
+                    if (!e.getClass().equals(data.throwable)) {
+                        Assert.fail(id + " Expected " + data.throwable + " got " + e.getClass());
+                    }
+                }
+            } else {
+                boolean stringCheck = invoke();
+                Assert.assertEquals(id + " Failed test " + data, data.expected, stringCheck);                
+            }
+        }
+        
+    }
+
+    @Test
+    public void testRegionMatches() {
+        for (final TestData data : TEST_DATA) {
+            new RunTest() {
+                @Override
+                boolean invoke() {
+                    return data.source.regionMatches(data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);                        
+                }
+            }.run(data, "String");
+            new RunTest() {
+                @Override
+                boolean invoke() {
+                    return CharSequenceUtils.regionMatches(data.source, data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);                        
+                }
+            }.run(data, "CSString");
+            new RunTest() {
+                @Override
+                boolean invoke() {
+                    return CharSequenceUtils.regionMatches(new StringBuilder(data.source), data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);             
+                }
+            }.run(data, "CSNonString");
+        }
+    }
+
 }

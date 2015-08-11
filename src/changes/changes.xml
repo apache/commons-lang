@@ -62,6 +62,7 @@
     <action issue="LANG-1074" type="add" dev="djones" due-to="Haiyang Li">Add a method to ArrayUtils for removing all occurrences of a given element</action>
     <action issue="LANG-1107" type="update" dev="chas">Fix parsing edge cases in FastDateParser</action>
     <action issue="LANG-1162" type="fix" dev="sebb">StringUtils#equals fails with Index OOBE on non-Strings with identical leading prefix</action>
+    <action issue="LANG-1163" type="fix" dev="sebb">There are no tests for CharSequenceUtils.regionMatches</action>
   </release>
 
   <release version="3.4" date="2014-04-06" description="Feature and bugfix release">
