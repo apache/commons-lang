@@ -61,21 +61,16 @@ public class CharSequenceUtilsTest {
         Assert.assertEquals("12", CharSequenceUtils.subSequence("012", 1));
         Assert.assertEquals("2", CharSequenceUtils.subSequence("012", 2));
         Assert.assertEquals(StringUtils.EMPTY, CharSequenceUtils.subSequence("012", 3));
-        //
-        // Exception expected
-        //
-        try {
-            Assert.assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
-            Assert.fail("Expected " + IndexOutOfBoundsException.class.getName());
-        } catch (final IndexOutOfBoundsException e) {
-            // Expected
-        }
-        try {
-            Assert.assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
-            Assert.fail("Expected " + IndexOutOfBoundsException.class.getName());
-        } catch (final IndexOutOfBoundsException e) {
-            // Expected
-        }
     }
 
+    @Test(expected=IndexOutOfBoundsException.class)
+    public void testSubSequenceNegativeStart() {
+        Assert.assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
+    }
+
+    @Test(expected=IndexOutOfBoundsException.class)
+    public void testSubSequenceTooLong() {
+        Assert.assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
+    }
+    
 }
