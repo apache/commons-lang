@@ -128,6 +128,12 @@ public class CharSequenceUtilsTest {
             new TestData("a",   true,      0,     null,  0,     0,     NullPointerException.class),
             new TestData(null,  true,      0,     null,  0,     0,     NullPointerException.class),
             new TestData(null,  true,      0,     "",    0,     0,     NullPointerException.class),
+            new TestData("Abc", true,      0,     "abc", 0,     3,     true),
+            new TestData("Abc", false,     0,     "abc", 0,     3,     false),
+            new TestData("Abc", true,      1,     "abc", 1,     2,     true),
+            new TestData("Abc", false,     1,     "abc", 1,     2,     true),
+            new TestData("Abcd",true,      1,     "abcD",1,     2,     true),
+            new TestData("Abcd",false,     1,     "abcD",1,     2,     true),
     };
 
     private static abstract class RunTest {
