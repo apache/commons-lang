@@ -788,10 +788,13 @@ public class StringUtils {
         if (cs1 == null || cs2 == null) {
             return false;
         }
+        if (cs1.length() != cs2.length()) {
+            return false;
+        }
         if (cs1 instanceof String && cs2 instanceof String) {
             return cs1.equals(cs2);
         }
-        return CharSequenceUtils.regionMatches(cs1, false, 0, cs2, 0, Math.max(cs1.length(), cs2.length()));
+        return CharSequenceUtils.regionMatches(cs1, false, 0, cs2, 0, cs1.length());
     }
 
     /**
@@ -6148,7 +6151,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isDigit(cs.charAt(i)) == false) {
+            if (!Character.isDigit(cs.charAt(i))) {
                 return false;
             }
         }
