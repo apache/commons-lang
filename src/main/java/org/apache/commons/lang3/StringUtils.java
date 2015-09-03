@@ -1008,6 +1008,65 @@ public class StringUtils {
         return str1.compareToIgnoreCase(str2);
     }
 
+    /**
+     * <p>Compares given <code>string</code> to a CharSequences vararg of <code>searchStrings</code>,
+     * returning {@code true} if the <code>string</code> is equal to any of the <code>searchStrings</code>.</p>
+     *
+     * <pre>
+     * StringUtils.equalsAny(null, null, null)    = true
+     * StringUtils.equalsAny(null, "abc", "def")  = false
+     * StringUtils.equalsAny("abc", null, "def")  = false
+     * StringUtils.equalsAny("abc", "abc", "def") = true
+     * StringUtils.equalsAny("abc", "ABC", "DEF") = false
+     * </pre>
+     *
+     * @param string to compare, may be {@code null}.
+     * @param searchStrings a vararg of strings, may be {@code null}.
+     * @return {@code true} if the string is equal (case-sensitive) to any other element of <code>searchStrings</code>;
+     * {@code false} if <code>searchStrings</code> is null or contains no matches.
+     * @since 3.5
+     */
+    public static boolean equalsAny(final CharSequence string, final CharSequence... searchStrings) {
+        if (ArrayUtils.isNotEmpty(searchStrings)) {
+            for (CharSequence next : searchStrings) {
+                if (equals(string, next)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * <p>Compares given <code>string</code> to a CharSequences vararg of <code>searchStrings</code>,
+     * returning {@code true} if the <code>string</code> is equal to any of the <code>searchStrings</code>, ignoring case.</p>
+     *
+     * <pre>
+     * StringUtils.equalsAnyIgnoreCase(null, null, null)    = true
+     * StringUtils.equalsAnyIgnoreCase(null, "abc", "def")  = false
+     * StringUtils.equalsAnyIgnoreCase("abc", null, "def")  = false
+     * StringUtils.equalsAnyIgnoreCase("abc", "abc", "def") = true
+     * StringUtils.equalsAnyIgnoreCase("abc", "ABC", "DEF") = true
+     * </pre>
+     *
+     * @param string to compare, may be {@code null}.
+     * @param searchStrings a vararg of strings, may be {@code null}.
+     * @return {@code true} if the string is equal (case-insensitive) to any other element of <code>searchStrings</code>;
+     * {@code false} if <code>searchStrings</code> is null or contains no matches.
+     * @since 3.5
+     */
+    public static boolean equalsAnyIgnoreCase(final CharSequence string, final CharSequence...searchStrings) {
+        if (ArrayUtils.isNotEmpty(searchStrings)) {
+            for (CharSequence next : searchStrings) {
+                if (equalsIgnoreCase(string, next)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     // IndexOf
     //-----------------------------------------------------------------------
     /**
