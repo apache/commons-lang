@@ -90,6 +90,15 @@ public class RandomUtils {
         
         return startInclusive + RANDOM.nextInt(endExclusive - startInclusive);
     }
+
+    /**
+     * <p> Returns a random int within 0 - Integer.MAX_VALUE </p>
+     *
+     * @see #nextInt()
+     */
+    public static int nextInt() {
+        return nextInt(0, Integer.MAX_VALUE);
+    }
     
     /**
      * <p>
@@ -115,8 +124,16 @@ public class RandomUtils {
         }
 
         return (long) nextDouble(startInclusive, endExclusive);
-    }    
-    
+    }
+
+    /**
+     * <p> Returns a random long within 0 - Long.MAX_VALUE </p>
+     *
+     * @see #nextLong()
+     */
+    public static long nextLong() {
+        return nextLong(0, Long.MAX_VALUE);
+    }
     
     /**
      * <p> 
@@ -136,14 +153,23 @@ public class RandomUtils {
         Validate.isTrue(endInclusive >= startInclusive,
                 "Start value must be smaller or equal to end value.");
         Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
-        
+
         if (startInclusive == endInclusive) {
             return startInclusive;
         }
         
         return startInclusive + ((endInclusive - startInclusive) * RANDOM.nextDouble());
     }
-    
+
+    /**
+     * <p> Returns a random double within 0 - Double.MAX_VALUE </p>
+     *
+     * @see #nextDouble()
+     */
+    public static double nextDouble() {
+        return nextDouble(0, Double.MAX_VALUE);
+    }
+
     /**
      * <p>
      * Returns a random float within the specified range.
@@ -168,5 +194,14 @@ public class RandomUtils {
         }
         
         return startInclusive + ((endInclusive - startInclusive) * RANDOM.nextFloat());
-    }    
+    }
+
+    /**
+     * <p> Returns a random float within 0 - Float.MAX_VALUE </p>
+     *
+     * @see #nextFloat()
+     */
+    public static float nextFloat() {
+        return nextFloat(0, Float.MAX_VALUE);
+    }
 }
