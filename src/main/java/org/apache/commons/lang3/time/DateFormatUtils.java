@@ -46,14 +46,14 @@ public class DateFormatUtils {
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
      * @since 3.5
      */
-    public static final FastDateFormat ISO8601_DATETIME_FORMAT
+    public static final FastDateFormat ISO_8601_EXTENDED_DATETIME_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss");
 
     /**
-     * @deprecated - as of 4.0, ISO_DATETIME_FORMAT will be replaced by ISO8601_DATETIME_FORMAT.
+     * @deprecated - as of 4.0, ISO_DATETIME_FORMAT will be replaced by ISO_8601_EXTENDED_DATETIME_FORMAT.
      */
     @Deprecated
-    public static final FastDateFormat ISO_DATETIME_FORMAT = ISO8601_DATETIME_FORMAT;
+    public static final FastDateFormat ISO_DATETIME_FORMAT = ISO_8601_EXTENDED_DATETIME_FORMAT;
 
     /**
      * ISO 8601 formatter for date-time with time zone.
@@ -61,14 +61,14 @@ public class DateFormatUtils {
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
      * @since 3.5
      */
-    public static final FastDateFormat ISO8601_DATETIME_TIME_ZONE_FORMAT
+    public static final FastDateFormat ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZZ");
 
     /**
-     * @deprecated - as of 4.0, ISO_DATETIME_TIME_ZONE_FORMAT will be replaced by ISO8601_DATETIME_TIME_ZONE_FORMAT.
+     * @deprecated - as of 4.0, ISO_DATETIME_TIME_ZONE_FORMAT will be replaced by ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.
      */
     @Deprecated
-    public static final FastDateFormat ISO_DATETIME_TIME_ZONE_FORMAT = ISO8601_DATETIME_TIME_ZONE_FORMAT;
+    public static final FastDateFormat ISO_DATETIME_TIME_ZONE_FORMAT = ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT;
 
     /**
      * ISO 8601 formatter for date without time zone.
@@ -76,14 +76,14 @@ public class DateFormatUtils {
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
      * @since 3.5
      */
-    public static final FastDateFormat ISO8601_DATE_FORMAT
+    public static final FastDateFormat ISO_8601_EXTENDED_DATE_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-dd");
 
     /**
-     * @deprecated - as of 4.0, ISO_DATE_FORMAT will be replaced by ISO8601_DATE_FORMAT.
+     * @deprecated - as of 4.0, ISO_DATE_FORMAT will be replaced by ISO_8601_EXTENDED_DATE_FORMAT.
      */
     @Deprecated
-    public static final FastDateFormat ISO_DATE_FORMAT = ISO8601_DATE_FORMAT;
+    public static final FastDateFormat ISO_DATE_FORMAT = ISO_8601_EXTENDED_DATE_FORMAT;
 
     /**
      * ISO 8601-like formatter for date with time zone.
@@ -126,14 +126,14 @@ public class DateFormatUtils {
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
      * @since 3.5
      */
-    public static final FastDateFormat ISO8601_TIME_FORMAT
+    public static final FastDateFormat ISO_8601_EXTENDED_TIME_FORMAT
             = FastDateFormat.getInstance("HH:mm:ss");
 
     /**
-     * @deprecated - as of 4.0, ISO_TIME_NO_T_FORMAT will be replaced by ISO8601_TIME_FORMAT.
+     * @deprecated - as of 4.0, ISO_TIME_NO_T_FORMAT will be replaced by ISO_8601_EXTENDED_TIME_FORMAT.
      */
     @Deprecated
-    public static final FastDateFormat ISO_TIME_NO_T_FORMAT = ISO8601_TIME_FORMAT;
+    public static final FastDateFormat ISO_TIME_NO_T_FORMAT = ISO_8601_EXTENDED_TIME_FORMAT;
 
     /**
      * ISO 8601 formatter for time with time zone.
@@ -141,14 +141,14 @@ public class DateFormatUtils {
      * This format uses the default TimeZone in effect at the time of loading DateFormatUtils class.
      * @since 3.5
      */
-    public static final FastDateFormat ISO8601_TIME_TIME_ZONE_FORMAT
+    public static final FastDateFormat ISO_8601_EXTENDED_TIME_TIME_ZONE_FORMAT
             = FastDateFormat.getInstance("HH:mm:ssZZ");
 
     /**
-     * @deprecated - as of 4.0, ISO_TIME_NO_T_TIME_ZONE_FORMAT will be replaced by ISO8601_TIME_TIME_ZONE_FORMAT.
+     * @deprecated - as of 4.0, ISO_TIME_NO_T_TIME_ZONE_FORMAT will be replaced by ISO_8601_EXTENDED_TIME_TIME_ZONE_FORMAT.
      */
     @Deprecated
-    public static final FastDateFormat ISO_TIME_NO_T_TIME_ZONE_FORMAT = ISO8601_TIME_TIME_ZONE_FORMAT;
+    public static final FastDateFormat ISO_TIME_NO_T_TIME_ZONE_FORMAT = ISO_8601_EXTENDED_TIME_TIME_ZONE_FORMAT;
 
     /**
      * SMTP (and probably other) date headers.
