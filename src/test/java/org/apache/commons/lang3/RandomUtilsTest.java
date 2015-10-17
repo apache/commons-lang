@@ -111,6 +111,16 @@ public class RandomUtilsTest {
         final int result = RandomUtils.nextInt(33, 42);
         assertTrue(result >= 33 && result < 42);
     }
+
+    /**
+     * Tests next double range, random result.
+     */
+    @Test
+    public void testNextIntRandomResult() {
+        int randomResult = RandomUtils.nextInt();
+        assertTrue(randomResult > 0);
+        assertTrue(randomResult < Integer.MAX_VALUE);
+    }
     
     /**
      * Test next double range with minimal range.
@@ -136,6 +146,16 @@ public class RandomUtilsTest {
         final double result = RandomUtils.nextDouble(33d, 42d);
         assertTrue(result >= 33d && result <= 42d);
     }
+
+    /**
+     * Tests next double range, random result.
+     */
+    @Test
+    public void testNextDoubleRandomResult() {
+        double randomResult = RandomUtils.nextDouble();
+        assertTrue(randomResult > 0);
+        assertTrue(randomResult < Double.MAX_VALUE);
+    }
     
     /**
      * Tests next float range.
@@ -144,7 +164,17 @@ public class RandomUtilsTest {
     public void testNextFloat() {
         final double result = RandomUtils.nextFloat(33f, 42f);
         assertTrue(result >= 33f && result <= 42f);
-    }    
+    }
+
+    /**
+     * Tests next float range, random result.
+     */
+    @Test
+    public void testNextFloatRandomResult() {
+        float randomResult = RandomUtils.nextFloat();
+        assertTrue(randomResult > 0);
+        assertTrue(randomResult < Float.MAX_VALUE);
+    }
 
     /**
      * Test next long range with minimal range.
@@ -162,7 +192,16 @@ public class RandomUtilsTest {
         final long result = RandomUtils.nextLong(33L, 42L);
         assertTrue(result >= 33L && result < 42L);
     }
-    
+
+    /**
+     * Tests next long range, random result.
+     */
+    @Test
+    public void testNextLongRandomResult() {
+        long randomResult = RandomUtils.nextLong();
+        assertTrue(randomResult > 0);
+        assertTrue(randomResult < Long.MAX_VALUE);
+    }
     
     /**
      * Tests extreme range.
