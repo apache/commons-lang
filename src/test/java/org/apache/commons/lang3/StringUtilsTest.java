@@ -2373,22 +2373,39 @@ public class StringUtilsTest {
     @Test
     public void testStringUtilsCharSequenceContract() {
         final Class<StringUtils> c = StringUtils.class;
+        // Methods that are expressly excluded from testStringUtilsCharSequenceContract()
+        final String[] excludeMethods = {
+            "public static int org.apache.commons.lang3.StringUtils.compare(java.lang.String,java.lang.String)",
+            "public static int org.apache.commons.lang3.StringUtils.compare(java.lang.String,java.lang.String,boolean)",
+            "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCase(java.lang.String,java.lang.String)",
+            "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCase(java.lang.String,java.lang.String,boolean)"
+        };
         final Method[] methods = c.getMethods();
+
         for (final Method m : methods) {
+            String methodStr = m.toString();
             if (m.getReturnType() == String.class || m.getReturnType() == String[].class) {
                 // Assume this is mutable and ensure the first parameter is not CharSequence.
                 // It may be String or it may be something else (String[], Object, Object[]) so 
                 // don't actively test for that.
                 final Class<?>[] params = m.getParameterTypes();
                 if (params.length > 0 && (params[0] == CharSequence.class || params[0] == CharSequence[].class)) {
-                    fail("The method " + m + " appears to be mutable in spirit and therefore must not accept a CharSequence");
+                    if (ArrayUtils.contains(excludeMethods, methodStr)) {
+                        System.out.println("The mutable method \"" + methodStr + "\" is expressly excluded from testStringUtilsCharSequenceContract()");
+                    } else {
+                        fail("The method \"" + methodStr + "\" appears to be mutable in spirit and therefore must not accept a CharSequence");
+                    }
                 }
             } else {
                 // Assume this is immutable in spirit and ensure the first parameter is not String.
                 // As above, it may be something other than CharSequence.
                 final Class<?>[] params = m.getParameterTypes();
                 if (params.length > 0 && (params[0] == String.class || params[0] == String[].class)) {
-                    fail("The method " + m + " appears to be immutable in spirit and therefore must not accept a String");
+                    if (ArrayUtils.contains(excludeMethods, methodStr)) {
+                        System.out.println("The immutable method \"" + methodStr + "\" is expressly excluded from testStringUtilsCharSequenceContract()");
+                    } else {
+                        fail("The method \"" + methodStr + "\" appears to be immutable in spirit and therefore must not accept a String");
+                    }
                 }
             }
         }
