@@ -32,8 +32,6 @@
                 <include>pom.xml</include>
                 <include>PROPOSAL.html</include>
                 <include>RELEASE-NOTES.txt</include>
-                <include>default.properties</include>
-                <include>build.properties.sample</include>
                 <include>README.md</include>
                 <include>CONTRIBUTING.md</include>
             </includes>
