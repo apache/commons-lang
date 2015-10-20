@@ -182,6 +182,15 @@
         <role>Java Developer</role>
       </roles>
     </developer>
+    <developer>
+      <name>Loic Guibert</name>
+      <id>lguibert</id>
+      <email>lguibert@apache.org</email>
+      <timezone>+4</timezone>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
   </developers>
   <contributors>
     <contributor>
