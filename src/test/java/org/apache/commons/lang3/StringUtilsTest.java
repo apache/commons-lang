@@ -2390,9 +2390,7 @@ public class StringUtilsTest {
                 // don't actively test for that.
                 final Class<?>[] params = m.getParameterTypes();
                 if (params.length > 0 && (params[0] == CharSequence.class || params[0] == CharSequence[].class)) {
-                    if (ArrayUtils.contains(excludeMethods, methodStr)) {
-                        System.out.println("The mutable method \"" + methodStr + "\" is expressly excluded from testStringUtilsCharSequenceContract()");
-                    } else {
+                    if (!ArrayUtils.contains(excludeMethods, methodStr)) {
                         fail("The method \"" + methodStr + "\" appears to be mutable in spirit and therefore must not accept a CharSequence");
                     }
                 }
@@ -2401,9 +2399,7 @@ public class StringUtilsTest {
                 // As above, it may be something other than CharSequence.
                 final Class<?>[] params = m.getParameterTypes();
                 if (params.length > 0 && (params[0] == String.class || params[0] == String[].class)) {
-                    if (ArrayUtils.contains(excludeMethods, methodStr)) {
-                        System.out.println("The immutable method \"" + methodStr + "\" is expressly excluded from testStringUtilsCharSequenceContract()");
-                    } else {
+                    if (!ArrayUtils.contains(excludeMethods, methodStr)) {
                         fail("The method \"" + methodStr + "\" appears to be immutable in spirit and therefore must not accept a String");
                     }
                 }
