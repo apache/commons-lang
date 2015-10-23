@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
  *      - checks if a String contains text</li>
  *  <li><b>Trim/Strip</b>
  *      - removes leading and trailing whitespace</li>
- *  <li><b>Equals</b>
+ *  <li><b>Equals/Compare</b>
  *      - compares two strings null-safe</li>
  *  <li><b>startsWith</b>
  *      - check if a String starts with a prefix null-safe</li>
@@ -828,6 +828,184 @@ public class StringUtils {
         } else {
             return CharSequenceUtils.regionMatches(str1, true, 0, str2, 0, str1.length());
         }
+    }
+
+    // Compare
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Compare two Strings lexicographically, as per {@link String#compareTo(String)}, returning :</p>
+     * <ul>
+     *  <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
+     *  <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
+     *  <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
+     * </ul>
+     *
+     * <p>This is a {@code null} safe version of :</p>
+     * <blockquote><pre>str1.compareTo(str2)</pre></blockquote>
+     *
+     * <p>{@code null} value is considered less than non-{@code null} value.
+     * Two {@code null} references are considered equal.</p>
+     *
+     * <pre>
+     * StringUtils.compare(null, null)   = 0
+     * StringUtils.compare(null , "a")   &lt; 0
+     * StringUtils.compare("a", null)    &gt; 0
+     * StringUtils.compare("abc", "abc") = 0
+     * StringUtils.compare("a", "b")     &lt; 0
+     * StringUtils.compare("b", "a")     &gt; 0
+     * StringUtils.compare("a", "B")     &gt; 0
+     * StringUtils.compare("ab", "abc")  &lt; 0
+     * </pre>
+     *
+     * @see #compare(String, String, boolean)
+     * @see String#compareTo(String)
+     * @param str1  the String to compare from
+     * @param str2  the String to compare to
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2}
+     * @since 3.5
+     */
+    public static int compare(final String str1, final String str2) {
+        return compare(str1, str2, true);
+    }
+
+    /**
+     * <p>Compare two Strings lexicographically, as per {@link String#compareTo(String)}, returning :</p>
+     * <ul>
+     *  <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
+     *  <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
+     *  <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
+     * </ul>
+     *
+     * <p>This is a {@code null} safe version of :</p>
+     * <blockquote><pre>str1.compareTo(str2)</pre></blockquote>
+     *
+     * <p>{@code null} inputs are handled according to the {@code nullIsLess} parameter.
+     * Two {@code null} references are considered equal.</p>
+     *
+     * <pre>
+     * StringUtils.compare(null, null, *)     = 0
+     * StringUtils.compare(null , "a", true)  &lt; 0
+     * StringUtils.compare(null , "a", false) &gt; 0
+     * StringUtils.compare("a", null, true)   &gt; 0
+     * StringUtils.compare("a", null, false)  &lt; 0
+     * StringUtils.compare("abc", "abc", *)   = 0
+     * StringUtils.compare("a", "b", *)       &lt; 0
+     * StringUtils.compare("b", "a", *)       &gt; 0
+     * StringUtils.compare("a", "B", *)       &gt; 0
+     * StringUtils.compare("ab", "abc", *)    &lt; 0
+     * </pre>
+     *
+     * @see String#compareTo(String)
+     * @param str1  the String to compare from
+     * @param str2  the String to compare to
+     * @param nullIsLess  whether consider {@code null} value less than non-{@code null} value
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2}
+     * @since 3.5
+     */
+    public static int compare(final String str1, final String str2, final boolean nullIsLess) {
+        if (str1 == str2) {
+            return 0;
+        }
+        if (str1 == null) {
+            return nullIsLess ? -1 : 1;
+        }
+        if (str2 == null) {
+            return nullIsLess ? 1 : - 1;
+        }
+        return str1.compareTo(str2);
+    }
+
+    /**
+     * <p>Compare two Strings lexicographically, ignoring case differences,
+     * as per {@link String#compareToIgnoreCase(String)}, returning :</p>
+     * <ul>
+     *  <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
+     *  <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
+     *  <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
+     * </ul>
+     *
+     * <p>This is a {@code null} safe version of :</p>
+     * <blockquote><pre>str1.compareToIgnoreCase(str2)</pre></blockquote>
+     *
+     * <p>{@code null} value is considered less than non-{@code null} value.
+     * Two {@code null} references are considered equal.
+     * Comparison is case insensitive.</p>
+     *
+     * <pre>
+     * StringUtils.compareIgnoreCase(null, null)   = 0
+     * StringUtils.compareIgnoreCase(null , "a")   &lt; 0
+     * StringUtils.compareIgnoreCase("a", null)    &gt; 0
+     * StringUtils.compareIgnoreCase("abc", "abc") = 0
+     * StringUtils.compareIgnoreCase("abc", "ABC") = 0
+     * StringUtils.compareIgnoreCase("a", "b")     &lt; 0
+     * StringUtils.compareIgnoreCase("b", "a")     &gt; 0
+     * StringUtils.compareIgnoreCase("a", "B")     &lt; 0
+     * StringUtils.compareIgnoreCase("A", "b")     &lt; 0
+     * StringUtils.compareIgnoreCase("ab", "ABC")  &lt; 0
+     * </pre>
+     *
+     * @see #compareIgnoreCase(String, String, boolean)
+     * @see String#compareToIgnoreCase(String)
+     * @param str1  the String to compare from
+     * @param str2  the String to compare to
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2},
+     *          ignoring case differences.
+     * @since 3.5
+     */
+    public static int compareIgnoreCase(final String str1, final String str2) {
+        return compareIgnoreCase(str1, str2, true);
+    }
+
+    /**
+     * <p>Compare two Strings lexicographically, ignoring case differences,
+     * as per {@link String#compareToIgnoreCase(String)}, returning :</p>
+     * <ul>
+     *  <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
+     *  <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
+     *  <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
+     * </ul>
+     *
+     * <p>This is a {@code null} safe version of :</p>
+     * <blockquote><pre>str1.compareToIgnoreCase(str2)</pre></blockquote>
+     *
+     * <p>{@code null} inputs are handled according to the {@code nullIsLess} parameter.
+     * Two {@code null} references are considered equal.
+     * Comparison is case insensitive.</p>
+     *
+     * <pre>
+     * StringUtils.compareIgnoreCase(null, null, *)     = 0
+     * StringUtils.compareIgnoreCase(null , "a", true)  &lt; 0
+     * StringUtils.compareIgnoreCase(null , "a", false) &gt; 0
+     * StringUtils.compareIgnoreCase("a", null, true)   &gt; 0
+     * StringUtils.compareIgnoreCase("a", null, false)  &lt; 0
+     * StringUtils.compareIgnoreCase("abc", "abc", *)   = 0
+     * StringUtils.compareIgnoreCase("abc", "ABC", *)   = 0
+     * StringUtils.compareIgnoreCase("a", "b", *)       &lt; 0
+     * StringUtils.compareIgnoreCase("b", "a", *)       &gt; 0
+     * StringUtils.compareIgnoreCase("a", "B", *)       &lt; 0
+     * StringUtils.compareIgnoreCase("A", "b", *)       &lt; 0
+     * StringUtils.compareIgnoreCase("ab", "abc", *)    &lt; 0
+     * </pre>
+     *
+     * @see String#compareToIgnoreCase(String)
+     * @param str1  the String to compare from
+     * @param str2  the String to compare to
+     * @param nullIsLess  whether consider {@code null} value less than non-{@code null} value
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2},
+     *          ignoring case differences.
+     * @since 3.5
+     */
+    public static int compareIgnoreCase(final String str1, final String str2, final boolean nullIsLess) {
+        if (str1 == str2) {
+            return 0;
+        }
+        if (str1 == null) {
+            return nullIsLess ? -1 : 1;
+        }
+        if (str2 == null) {
+            return nullIsLess ? 1 : - 1;
+        }
+        return str1.compareToIgnoreCase(str2);
     }
 
     // IndexOf

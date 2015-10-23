@@ -578,6 +578,75 @@ public class StringUtilsEqualsIndexOfTest  {
 
     //-----------------------------------------------------------------------
     @Test
+    public void testCompare_StringString() {
+        assertTrue(StringUtils.compare(null, null) == 0);
+        assertTrue(StringUtils.compare(null, "a") < 0);
+        assertTrue(StringUtils.compare("a", null) > 0);
+        assertTrue(StringUtils.compare("abc", "abc") == 0);
+        assertTrue(StringUtils.compare("a", "b") < 0);
+        assertTrue(StringUtils.compare("b", "a") > 0);
+        assertTrue(StringUtils.compare("a", "B") > 0);
+        assertTrue(StringUtils.compare("abc", "abd") < 0);
+        assertTrue(StringUtils.compare("ab", "abc") < 0);
+        assertTrue(StringUtils.compare("ab", "ab ") < 0);
+        assertTrue(StringUtils.compare("abc", "ab ") > 0);
+    }
+
+    @Test
+    public void testCompare_StringStringBoolean() {
+        assertTrue(StringUtils.compare(null, null, false) == 0);
+        assertTrue(StringUtils.compare(null, "a", true) < 0);
+        assertTrue(StringUtils.compare(null, "a", false) > 0);
+        assertTrue(StringUtils.compare("a", null, true) > 0);
+        assertTrue(StringUtils.compare("a", null, false) < 0);
+        assertTrue(StringUtils.compare("abc", "abc", false) == 0);
+        assertTrue(StringUtils.compare("a", "b", false) < 0);
+        assertTrue(StringUtils.compare("b", "a", false) > 0);
+        assertTrue(StringUtils.compare("a", "B", false) > 0);
+        assertTrue(StringUtils.compare("abc", "abd", false) < 0);
+        assertTrue(StringUtils.compare("ab", "abc", false) < 0);
+        assertTrue(StringUtils.compare("ab", "ab ", false) < 0);
+        assertTrue(StringUtils.compare("abc", "ab ", false) > 0);
+    }
+
+    @Test
+    public void testCompareIgnoreCase_StringString() {
+        assertTrue(StringUtils.compareIgnoreCase(null, null) == 0);
+        assertTrue(StringUtils.compareIgnoreCase(null, "a") < 0);
+        assertTrue(StringUtils.compareIgnoreCase("a", null) > 0);
+        assertTrue(StringUtils.compareIgnoreCase("abc", "abc") == 0);
+        assertTrue(StringUtils.compareIgnoreCase("abc", "ABC") == 0);
+        assertTrue(StringUtils.compareIgnoreCase("a", "b") < 0);
+        assertTrue(StringUtils.compareIgnoreCase("b", "a") > 0);
+        assertTrue(StringUtils.compareIgnoreCase("a", "B") < 0);
+        assertTrue(StringUtils.compareIgnoreCase("A", "b") < 0);
+        assertTrue(StringUtils.compareIgnoreCase("abc", "ABD") < 0);
+        assertTrue(StringUtils.compareIgnoreCase("ab", "ABC") < 0);
+        assertTrue(StringUtils.compareIgnoreCase("ab", "AB ") < 0);
+        assertTrue(StringUtils.compareIgnoreCase("abc", "AB ") > 0);
+    }
+
+    @Test
+    public void testCompareIgnoreCase_StringStringBoolean() {
+        assertTrue(StringUtils.compareIgnoreCase(null, null, false) == 0);
+        assertTrue(StringUtils.compareIgnoreCase(null, "a", true) < 0);
+        assertTrue(StringUtils.compareIgnoreCase(null, "a", false) > 0);
+        assertTrue(StringUtils.compareIgnoreCase("a", null, true) > 0);
+        assertTrue(StringUtils.compareIgnoreCase("a", null, false) < 0);
+        assertTrue(StringUtils.compareIgnoreCase("abc", "abc", false) == 0);
+        assertTrue(StringUtils.compareIgnoreCase("abc", "ABC", false) == 0);
+        assertTrue(StringUtils.compareIgnoreCase("a", "b", false) < 0);
+        assertTrue(StringUtils.compareIgnoreCase("b", "a", false) > 0);
+        assertTrue(StringUtils.compareIgnoreCase("a", "B", false) < 0);
+        assertTrue(StringUtils.compareIgnoreCase("A", "b", false) < 0);
+        assertTrue(StringUtils.compareIgnoreCase("abc", "ABD", false) < 0);
+        assertTrue(StringUtils.compareIgnoreCase("ab", "ABC", false) < 0);
+        assertTrue(StringUtils.compareIgnoreCase("ab", "AB ", false) < 0);
+        assertTrue(StringUtils.compareIgnoreCase("abc", "AB ", false) > 0);
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
     public void testIndexOf_char() {
         assertEquals(-1, StringUtils.indexOf(null, ' '));
         assertEquals(-1, StringUtils.indexOf("", ' '));

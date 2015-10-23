@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1171" type="add" dev="lguibert">Add compare methods in StringUtils</action>
     <action issue="LANG-1174" type="add" dev="britter" due-to="Punkratz312">Add sugar to RandomUtils</action>
     <action issue="LANG-1057" type="update" dev="chas" due-to="Otávio Santana">Replace StringBuilder with String concatenation for better optimization</action>
     <action issue="LANG-1075" type="update" dev="chas">Deprecate SystemUtils.FILE_SEPARATOR and SystemUtils.PATH_SEPARATOR</action>
