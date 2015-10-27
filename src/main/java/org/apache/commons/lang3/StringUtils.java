@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * <p>Operations on {@link java.lang.String} that are
@@ -4708,6 +4709,111 @@ public class StringUtils {
      */
     public static String removePattern(final String source, final String regex) {
         return replacePattern(source, regex, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Replaces each substring of the text String that matches the given regular expression
+     * with the given replacement.</p>
+     *
+     * This method is a {@code null} safe equivalent to:
+     * <ul>
+     *  <li>{@code text.replaceAll(regex, replacement)}</li>
+     *  <li>{@code Pattern.compile(regex).matcher(text).replaceAll(replacement)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <p>Unlike in the {@link #replacePattern(String, String, String)} method, the {@link Pattern#DOTALL} option
+     * is NOT automatically added.
+     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * DOTALL is also know as single-line mode in Perl.</p>
+     *
+     * <pre>
+     * StringUtils.replaceAll(null, *, *)       = null
+     * StringUtils.replaceAll("any", null, *)   = "any"
+     * StringUtils.replaceAll("any", *, null)   = "any"
+     * StringUtils.replaceAll("", "", "zzz")    = "zzz"
+     * StringUtils.replaceAll("", ".*", "zzz")  = "zzz"
+     * StringUtils.replaceAll("", ".+", "zzz")  = ""
+     * StringUtils.replaceAll("<__>\n<__>", "<.*>", "z")      = "z\nz"
+     * StringUtils.replaceAll("<__>\n<__>", "(?s)<.*>", "z")  = "z"
+     * StringUtils.replaceAll("ABCabc123", "[a-z]", "_")       = "ABC___123"
+     * StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
+     * StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
+     * StringUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
+     * </pre>
+     *
+     * @param text  text to search and replace in, may be null
+     * @param regex  the regular expression to which this string is to be matched
+     * @param replacement  the string to be substituted for each match
+     * @return  the text with any replacements processed,
+     *              {@code null} if null String input
+     *
+     * @throws  PatternSyntaxException
+     *              if the regular expression's syntax is invalid
+     *
+     * @see String#replaceAll(String, String)
+     * @see java.util.regex.Pattern
+     * @see java.util.regex.Pattern#DOTALL
+     * @since 3.5
+     */
+    public static String replaceAll(final String text, final String regex, final String replacement) {
+        if (text == null || regex == null|| replacement == null ) {
+            return text;
+        }
+        return text.replaceAll(regex, replacement);
+    }
+
+    /**
+     * <p>Replaces the first substring of the text string that matches the given regular expression
+     * with the given replacement.</p>
+     *
+     * This method is a {@code null} safe equivalent to:
+     * <ul>
+     *  <li>{@code text.replaceFirst(regex, replacement)}</li>
+     *  <li>{@code Pattern.compile(regex).matcher(text).replaceFirst(replacement)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
+     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * DOTALL is also know as single-line mode in Perl.</p>
+     *
+     * <pre>
+     * StringUtils.replaceFirst(null, *, *)       = null
+     * StringUtils.replaceFirst("any", null, *)   = "any"
+     * StringUtils.replaceFirst("any", *, null)   = "any"
+     * StringUtils.replaceFirst("", "", "zzz")    = "zzz"
+     * StringUtils.replaceFirst("", ".*", "zzz")  = "zzz"
+     * StringUtils.replaceFirst("", ".+", "zzz")  = ""
+     * StringUtils.replaceFirst("<__>\n<__>", "<.*>", "z")      = "z\n<__>"
+     * StringUtils.replaceFirst("<__>\n<__>", "(?s)<.*>", "z")  = "z"
+     * StringUtils.replaceFirst("ABCabc123", "[a-z]", "_")          = "ABC_bc123"
+     * StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "_")  = "ABC_123abc"
+     * StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "")   = "ABC123abc"
+     * StringUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum  dolor   sit"
+     * </pre>
+     *
+     * @param text  text to search and replace in, may be null
+     * @param regex  the regular expression to which this string is to be matched
+     * @param replacement  the string to be substituted for the first match
+     * @return  the text with the first replacement processed,
+     *              {@code null} if null String input
+     *
+     * @throws  PatternSyntaxException
+     *              if the regular expression's syntax is invalid
+     *
+     * @see String#replaceFirst(String, String)
+     * @see java.util.regex.Pattern
+     * @see java.util.regex.Pattern#DOTALL
+     * @since 3.5
+     */
+    public static String replaceFirst(final String text, final String regex, final String replacement) {
+        if (text == null || regex == null|| replacement == null ) {
+            return text;
+        }
+        return text.replaceFirst(regex, replacement);
     }
 
     /**
