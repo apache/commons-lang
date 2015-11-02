@@ -4671,13 +4671,30 @@ public class StringUtils {
     }
 
     /**
-     * Replaces each substring of the source String that matches the given regular expression with the given
-     * replacement using the {@link Pattern#DOTALL} option. DOTALL is also know as single-line mode in Perl. This call
-     * is also equivalent to:
+     * <p>Replaces each substring of the source String that matches the given regular expression with the given
+     * replacement using the {@link Pattern#DOTALL} option. DOTALL is also know as single-line mode in Perl.</p>
+     *
+     * This call is a {@code null} safe equivalent to:
      * <ul>
      * <li>{@code source.replaceAll(&quot;(?s)&quot; + regex, replacement)}</li>
      * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(source).replaceAll(replacement)}</li>
      * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.replacePattern(null, *, *)       = null
+     * StringUtils.replacePattern("any", null, *)   = "any"
+     * StringUtils.replacePattern("any", *, null)   = "any"
+     * StringUtils.replacePattern("", "", "zzz")    = "zzz"
+     * StringUtils.replacePattern("", ".*", "zzz")  = "zzz"
+     * StringUtils.replacePattern("", ".+", "zzz")  = ""
+     * StringUtils.replacePattern("<__>\n<__>", "<.*>", "z")       = "z"
+     * StringUtils.replacePattern("ABCabc123", "[a-z]", "_")       = "ABC___123"
+     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
+     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
+     * StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
+     * </pre>
      *
      * @param source
      *            the source string
@@ -4686,25 +4703,48 @@ public class StringUtils {
      * @param replacement
      *            the string to be substituted for each match
      * @return The resulting {@code String}
+     * @see #replaceAll(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
      * @since 3.2
+     * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
      */
     public static String replacePattern(final String source, final String regex, final String replacement) {
+        if (source == null || regex == null|| replacement == null ) {
+            return source;
+        }
         return Pattern.compile(regex, Pattern.DOTALL).matcher(source).replaceAll(replacement);
     }
 
     /**
-     * Removes each substring of the source String that matches the given regular expression using the DOTALL option.
+     * <p>Removes each substring of the source String that matches the given regular expression using the DOTALL option.
+     * </p>
+     *
+     * This call is a {@code null} safe equivalent to:
+     * <ul>
+     * <li>{@code source.replaceAll(&quot;(?s)&quot; + regex, StringUtils.EMPTY)}</li>
+     * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(source).replaceAll(StringUtils.EMPTY)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.removePattern(null, *)       = null
+     * StringUtils.removePattern("any", null)   = "any"
+     * StringUtils.removePattern("A<__>\n<__>B", "<.*>")  = "AB"
+     * StringUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
+     * </pre>
      *
      * @param source
      *            the source string
      * @param regex
      *            the regular expression to which this string is to be matched
      * @return The resulting {@code String}
+     * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
      * @since 3.2
+     * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
      */
     public static String removePattern(final String source, final String regex) {
         return replacePattern(source, regex, StringUtils.EMPTY);
@@ -4751,6 +4791,7 @@ public class StringUtils {
      * @throws  java.util.regex.PatternSyntaxException
      *              if the regular expression's syntax is invalid
      *
+     * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL

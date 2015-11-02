@@ -1189,12 +1189,40 @@ public class StringUtilsTest {
 
     @Test
     public void testReplacePattern() {
+        assertNull(StringUtils.replacePattern(null, "", ""));
+        assertEquals("any", StringUtils.replacePattern("any", null, ""));
+        assertEquals("any", StringUtils.replacePattern("any", "", null));
+
+        assertEquals("zzz", StringUtils.replacePattern("", "", "zzz"));
+        assertEquals("zzz", StringUtils.replacePattern("", ".*", "zzz"));
+        assertEquals("", StringUtils.replacePattern("", ".+", "zzz"));
+
+        assertEquals("z", StringUtils.replacePattern("<__>\n<__>", "<.*>", "z"));
+        assertEquals("z", StringUtils.replacePattern("<__>\\n<__>", "<.*>", "z"));
         assertEquals("X", StringUtils.replacePattern("<A>\nxy\n</A>", "<A>.*</A>", "X"));
+
+        assertEquals("ABC___123", StringUtils.replacePattern("ABCabc123", "[a-z]", "_"));
+        assertEquals("ABC_123", StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_"));
+        assertEquals("ABC123", StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", ""));
+        assertEquals("Lorem_ipsum_dolor_sit",
+                     StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
     }
 
     @Test
     public void testRemovePattern() {
+        assertNull(StringUtils.removePattern(null, ""));
+        assertEquals("any", StringUtils.removePattern("any", null));
+
+        assertEquals("", StringUtils.removePattern("", ""));
+        assertEquals("", StringUtils.removePattern("", ".*"));
+        assertEquals("", StringUtils.removePattern("", ".+"));
+
+        assertEquals("AB", StringUtils.removePattern("A<__>\n<__>B", "<.*>"));
+        assertEquals("AB", StringUtils.removePattern("A<__>\\n<__>B", "<.*>"));
         assertEquals("", StringUtils.removePattern("<A>x\\ny</A>", "<A>.*</A>"));
+        assertEquals("", StringUtils.removePattern("<A>\nxy\n</A>", "<A>.*</A>"));
+
+        assertEquals("ABC123", StringUtils.removePattern("ABCabc123", "[a-z]"));
     }
 
     @Test
