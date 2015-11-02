@@ -25,7 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 /**
  * <p>Operations on {@link java.lang.String} that are
@@ -4749,7 +4748,7 @@ public class StringUtils {
      * @return  the text with any replacements processed,
      *              {@code null} if null String input
      *
-     * @throws  PatternSyntaxException
+     * @throws  java.util.regex.PatternSyntaxException
      *              if the regular expression's syntax is invalid
      *
      * @see String#replaceAll(String, String)
@@ -4801,7 +4800,7 @@ public class StringUtils {
      * @return  the text with the first replacement processed,
      *              {@code null} if null String input
      *
-     * @throws  PatternSyntaxException
+     * @throws  java.util.regex.PatternSyntaxException
      *              if the regular expression's syntax is invalid
      *
      * @see String#replaceFirst(String, String)
