@@ -51,6 +51,7 @@ public class DateUtilsRoundingTest {
     Date targetMilliSecondDate;
 
     Calendar januaryOneCalendar;
+    @SuppressWarnings("deprecation")
     FastDateFormat fdf = DateFormatUtils.ISO_DATETIME_FORMAT;
 
 

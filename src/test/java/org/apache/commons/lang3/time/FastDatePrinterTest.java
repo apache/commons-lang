@@ -382,6 +382,7 @@ public class FastDatePrinterTest {
         assertEquals("11 23 23 11", printer.format(calendar));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testStringBufferOptions() {
         final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZone.getTimeZone("GMT"));

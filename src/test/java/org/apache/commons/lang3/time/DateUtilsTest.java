@@ -1203,6 +1203,7 @@ public class DateUtilsTest {
     }
 
     // http://issues.apache.org/jira/browse/LANG-530
+    @SuppressWarnings("deprecation")
     @Test
     public void testLang530() throws ParseException {
         final Date d = new Date();

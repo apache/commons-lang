@@ -37,6 +37,7 @@ import org.junit.Test;
 /**
  * TestCase for DateFormatUtils.
  */
+@SuppressWarnings("deprecation") // tests lots of deprecated items
 public class DateFormatUtilsTest {
 
     @Rule

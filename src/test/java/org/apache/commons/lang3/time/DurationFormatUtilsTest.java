@@ -253,6 +253,7 @@ public class DurationFormatUtilsTest {
         DurationFormatUtils.formatDuration(-5000, "S", true);
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testFormatPeriodISO() {
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
