@@ -4641,6 +4641,99 @@ public class StringUtils {
         return new String(chars, 0, pos);
     }
 
+    /**
+     * <p>Removes each substring of the text String that matches the given regular expression.</p>
+     *
+     * This method is a {@code null} safe equivalent to:
+     * <ul>
+     *  <li>{@code text.replaceAll(regex, StringUtils.EMPTY)}</li>
+     *  <li>{@code Pattern.compile(regex).matcher(text).replaceAll(StringUtils.EMPTY)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <p>Unlike in the {@link #removePattern(String, String)} method, the {@link Pattern#DOTALL} option
+     * is NOT automatically added.
+     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * DOTALL is also know as single-line mode in Perl.</p>
+     *
+     * <pre>
+     * StringUtils.removeAll(null, *)      = null
+     * StringUtils.removeAll("any", null)  = "any"
+     * StringUtils.removeAll("any", "")    = "any"
+     * StringUtils.removeAll("any", ".*")  = ""
+     * StringUtils.removeAll("any", ".+")  = ""
+     * StringUtils.removeAll("abc", ".?")  = ""
+     * StringUtils.removeAll("A<__>\n<__>B", "<.*>")      = "A\nB"
+     * StringUtils.removeAll("A<__>\n<__>B", "(?s)<.*>")  = "AB"
+     * StringUtils.removeAll("ABCabc123abc", "[a-z]")     = "ABC123"
+     * </pre>
+     *
+     * @param text  text to remove from, may be null
+     * @param regex  the regular expression to which this string is to be matched
+     * @return  the text with any removes processed,
+     *              {@code null} if null String input
+     *
+     * @throws  java.util.regex.PatternSyntaxException
+     *              if the regular expression's syntax is invalid
+     *
+     * @see #replaceAll(String, String, String)
+     * @see #removePattern(String, String)
+     * @see String#replaceAll(String, String)
+     * @see java.util.regex.Pattern
+     * @see java.util.regex.Pattern#DOTALL
+     * @since 3.5
+     */
+    public static String removeAll(final String text, final String regex) {
+        return replaceAll(text, regex, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Removes the first substring of the text string that matches the given regular expression.</p>
+     *
+     * This method is a {@code null} safe equivalent to:
+     * <ul>
+     *  <li>{@code text.replaceFirst(regex, StringUtils.EMPTY)}</li>
+     *  <li>{@code Pattern.compile(regex).matcher(text).replaceFirst(StringUtils.EMPTY)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
+     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * DOTALL is also know as single-line mode in Perl.</p>
+     *
+     * <pre>
+     * StringUtils.removeFirst(null, *)      = null
+     * StringUtils.removeFirst("any", null)  = "any"
+     * StringUtils.removeFirst("any", "")    = "any"
+     * StringUtils.removeFirst("any", ".*")  = ""
+     * StringUtils.removeFirst("any", ".+")  = ""
+     * StringUtils.removeFirst("abc", ".?")  = "bc"
+     * StringUtils.removeFirst("A<__>\n<__>B", "<.*>")      = "A\n<__>B"
+     * StringUtils.removeFirst("A<__>\n<__>B", "(?s)<.*>")  = "AB"
+     * StringUtils.removeFirst("ABCabc123", "[a-z]")          = "ABCbc123"
+     * StringUtils.removeFirst("ABCabc123abc", "[a-z]+")      = "ABC123abc"
+     * </pre>
+     *
+     * @param text  text to remove from, may be null
+     * @param regex  the regular expression to which this string is to be matched
+     * @return  the text with the first replacement processed,
+     *              {@code null} if null String input
+     *
+     * @throws  java.util.regex.PatternSyntaxException
+     *              if the regular expression's syntax is invalid
+     *
+     * @see #replaceFirst(String, String, String)
+     * @see String#replaceFirst(String, String)
+     * @see java.util.regex.Pattern
+     * @see java.util.regex.Pattern#DOTALL
+     * @since 3.5
+     */
+    public static String removeFirst(final String text, final String regex) {
+        return replaceFirst(text, regex, StringUtils.EMPTY);
+    }
+
     // Replacing
     //-----------------------------------------------------------------------
     /**

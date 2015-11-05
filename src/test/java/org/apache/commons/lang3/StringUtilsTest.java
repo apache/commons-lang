@@ -2382,6 +2382,51 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testRemoveAll() {
+        assertNull(StringUtils.removeAll(null, ""));
+        assertEquals("any", StringUtils.removeAll("any", null));
+
+        assertEquals("any", StringUtils.removeAll("any", ""));
+        assertEquals("", StringUtils.removeAll("any", ".*"));
+        assertEquals("", StringUtils.removeAll("any", ".+"));
+        assertEquals("", StringUtils.removeAll("any", ".?"));
+
+        assertEquals("A\nB", StringUtils.removeAll("A<__>\n<__>B", "<.*>"));
+        assertEquals("AB", StringUtils.removeAll("A<__>\n<__>B", "(?s)<.*>"));
+        assertEquals("ABC123", StringUtils.removeAll("ABCabc123abc", "[a-z]"));
+
+        try {
+            StringUtils.removeAll("any", "{badRegexSyntax}");
+            fail("StringUtils.removeAll expecting PatternSyntaxException");
+        } catch (final PatternSyntaxException ex) {
+            // empty
+        }
+    }
+
+    @Test
+    public void testRemoveFirst() {
+        assertNull(StringUtils.removeFirst(null, ""));
+        assertEquals("any", StringUtils.removeFirst("any", null));
+
+        assertEquals("any", StringUtils.removeFirst("any", ""));
+        assertEquals("", StringUtils.removeFirst("any", ".*"));
+        assertEquals("", StringUtils.removeFirst("any", ".+"));
+        assertEquals("bc", StringUtils.removeFirst("abc", ".?"));
+
+        assertEquals("A\n<__>B", StringUtils.removeFirst("A<__>\n<__>B", "<.*>"));
+        assertEquals("AB", StringUtils.removeFirst("A<__>\n<__>B", "(?s)<.*>"));
+        assertEquals("ABCbc123", StringUtils.removeFirst("ABCabc123", "[a-z]"));
+        assertEquals("ABC123abc", StringUtils.removeFirst("ABCabc123abc", "[a-z]+"));
+
+        try {
+            StringUtils.removeFirst("any", "{badRegexSyntax}");
+            fail("StringUtils.removeFirst expecting PatternSyntaxException");
+        } catch (final PatternSyntaxException ex) {
+            // empty
+        }
+    }
+
+    @Test
     public void testDifferenceAt_StringArray() {
         assertEquals(-1, StringUtils.indexOfDifference((String[]) null));
         assertEquals(-1, StringUtils.indexOfDifference(new String[]{}));
