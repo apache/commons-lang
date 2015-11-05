@@ -1226,7 +1226,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testReplaceAll_StringStringString() {
+    public void testReplaceAll() {
         assertNull(StringUtils.replaceAll(null, "", ""));
 
         assertEquals("any", StringUtils.replaceAll("any", null, ""));
@@ -1235,6 +1235,7 @@ public class StringUtilsTest {
         assertEquals("zzz", StringUtils.replaceAll("", "", "zzz"));
         assertEquals("zzz", StringUtils.replaceAll("", ".*", "zzz"));
         assertEquals("", StringUtils.replaceAll("", ".+", "zzz"));
+        assertEquals("ZZaZZbZZcZZ", StringUtils.replaceAll("abc", "", "ZZ"));
 
         assertEquals("z\nz", StringUtils.replaceAll("<__>\n<__>", "<.*>", "z"));
         assertEquals("z", StringUtils.replaceAll("<__>\n<__>", "(?s)<.*>", "z"));
@@ -1254,7 +1255,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testReplaceFirst_StringStringString() {
+    public void testReplaceFirst() {
         assertNull(StringUtils.replaceFirst(null, "", ""));
 
         assertEquals("any", StringUtils.replaceFirst("any", null, ""));
@@ -1263,6 +1264,7 @@ public class StringUtilsTest {
         assertEquals("zzz", StringUtils.replaceFirst("", "", "zzz"));
         assertEquals("zzz", StringUtils.replaceFirst("", ".*", "zzz"));
         assertEquals("", StringUtils.replaceFirst("", ".+", "zzz"));
+        assertEquals("ZZabc", StringUtils.replaceFirst("abc", "", "ZZ"));
 
         assertEquals("z\n<__>", StringUtils.replaceFirst("<__>\n<__>", "<.*>", "z"));
         assertEquals("z", StringUtils.replaceFirst("<__>\n<__>", "(?s)<.*>", "z"));
