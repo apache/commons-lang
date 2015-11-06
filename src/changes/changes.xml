@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1169" type="add" dev="lguibert" due-to="Rafal Glowinski, Robert Parr, Arman Sharif">Add StringUtils methods to compare a string to multiple strings</action>
     <action issue="LANG-1183" type="update" dev="lguibert">Making replacePattern/removePattern methods null safe in StringUtils</action>
     <action issue="LANG-1139" type="add" dev="lguibert">Add replace by regular expression methods in StringUtils</action>
     <action issue="LANG-1171" type="add" dev="lguibert">Add compare methods in StringUtils</action>
