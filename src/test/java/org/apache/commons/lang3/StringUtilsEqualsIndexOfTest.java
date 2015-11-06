@@ -595,6 +595,12 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.equalsAny(FOO, null, BAR));
         assertTrue(StringUtils.equalsAny(FOO, BAR, null, "", FOO, BAR));
         assertFalse(StringUtils.equalsAny(FOO, FOO.toUpperCase()));
+
+        assertFalse(StringUtils.equalsAny(null, (CharSequence[]) null));
+        assertTrue(StringUtils.equalsAny(FOO, new CustomCharSequence("foo")));
+        assertTrue(StringUtils.equalsAny(FOO, new StringBuilder("foo")));
+        assertFalse(StringUtils.equalsAny(FOO, new CustomCharSequence("fOo")));
+        assertFalse(StringUtils.equalsAny(FOO, new StringBuilder("fOo")));
     }
 
     @Test
@@ -617,6 +623,10 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, null, BAR));
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, BAR, null, "", FOO.toUpperCase(), BAR));
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO.toUpperCase()));
+
+        assertFalse(StringUtils.equalsAnyIgnoreCase(null, (CharSequence[]) null));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, new CustomCharSequence("fOo")));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, new StringBuilder("fOo")));
     }
 
     //-----------------------------------------------------------------------

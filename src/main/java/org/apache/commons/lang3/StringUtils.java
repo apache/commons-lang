@@ -1013,6 +1013,7 @@ public class StringUtils {
      * returning {@code true} if the <code>string</code> is equal to any of the <code>searchStrings</code>.</p>
      *
      * <pre>
+     * StringUtils.equalsAny(null, (CharSequence[]) null) = false
      * StringUtils.equalsAny(null, null, null)    = true
      * StringUtils.equalsAny(null, "abc", "def")  = false
      * StringUtils.equalsAny("abc", null, "def")  = false
@@ -1043,6 +1044,7 @@ public class StringUtils {
      * returning {@code true} if the <code>string</code> is equal to any of the <code>searchStrings</code>, ignoring case.</p>
      *
      * <pre>
+     * StringUtils.equalsAnyIgnoreCase(null, (CharSequence[]) null) = false
      * StringUtils.equalsAnyIgnoreCase(null, null, null)    = true
      * StringUtils.equalsAnyIgnoreCase(null, "abc", "def")  = false
      * StringUtils.equalsAnyIgnoreCase("abc", null, "def")  = false
