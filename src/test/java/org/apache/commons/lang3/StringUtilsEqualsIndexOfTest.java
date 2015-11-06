@@ -576,6 +576,59 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.equalsIgnoreCase("abcd","abcd "));
     }
 
+    @Test
+    public void testEqualsAny() {
+        assertFalse(StringUtils.equalsAny(FOO));
+        assertFalse(StringUtils.equalsAny(FOO, new String[]{}));
+
+        assertTrue(StringUtils.equalsAny(FOO, FOO));
+        assertTrue(StringUtils.equalsAny(FOO, BAR, new String(new char[] { 'f', 'o', 'o' })));
+        assertFalse(StringUtils.equalsAny(FOO, BAR, new String(new char[] { 'f', 'O', 'O' })));
+        assertFalse(StringUtils.equalsAny(FOO, BAR));
+        assertFalse(StringUtils.equalsAny(FOO, BAR, null));
+        assertFalse(StringUtils.equalsAny(null, FOO));
+        assertFalse(StringUtils.equalsAny(FOO, FOOBAR));
+        assertFalse(StringUtils.equalsAny(FOOBAR, FOO));
+
+        assertTrue(StringUtils.equalsAny(null, null, null));
+        assertFalse(StringUtils.equalsAny(null, FOO, BAR, FOOBAR));
+        assertFalse(StringUtils.equalsAny(FOO, null, BAR));
+        assertTrue(StringUtils.equalsAny(FOO, BAR, null, "", FOO, BAR));
+        assertFalse(StringUtils.equalsAny(FOO, FOO.toUpperCase()));
+
+        assertFalse(StringUtils.equalsAny(null, (CharSequence[]) null));
+        assertTrue(StringUtils.equalsAny(FOO, new CustomCharSequence("foo")));
+        assertTrue(StringUtils.equalsAny(FOO, new StringBuilder("foo")));
+        assertFalse(StringUtils.equalsAny(FOO, new CustomCharSequence("fOo")));
+        assertFalse(StringUtils.equalsAny(FOO, new StringBuilder("fOo")));
+    }
+
+    @Test
+    public void testEqualsAnyIgnoreCase() {
+        assertFalse(StringUtils.equalsAnyIgnoreCase(FOO));
+        assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, new String[]{}));
+
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO.toUpperCase()));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO, new String(new char[]{'f', 'o', 'o'})));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, BAR, new String(new char[]{'f', 'O', 'O'})));
+        assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, BAR));
+        assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, BAR, null));
+        assertFalse(StringUtils.equalsAnyIgnoreCase(null, FOO));
+        assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, FOOBAR));
+        assertFalse(StringUtils.equalsAnyIgnoreCase(FOOBAR, FOO));
+
+        assertTrue(StringUtils.equalsAnyIgnoreCase(null, null, null));
+        assertFalse(StringUtils.equalsAnyIgnoreCase(null, FOO, BAR, FOOBAR));
+        assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, null, BAR));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, BAR, null, "", FOO.toUpperCase(), BAR));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO.toUpperCase()));
+
+        assertFalse(StringUtils.equalsAnyIgnoreCase(null, (CharSequence[]) null));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, new CustomCharSequence("fOo")));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, new StringBuilder("fOo")));
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testCompare_StringString() {
