@@ -329,6 +329,11 @@ public abstract class ToStringStyle implements Serializable {
     private String nullText = "<null>";
 
     /**
+     * Whether <code>null</code> values should be omitted.
+     */
+    private boolean omitNulls = false;
+
+    /**
      * The summary size text start <code>'&lt;size'</code>.
      */
     private String sizeStartText = "<size=";
@@ -467,6 +472,7 @@ public abstract class ToStringStyle implements Serializable {
      *  for summary info, <code>null</code> for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final Object value, final Boolean fullDetail) {
+        if (omitNulls && value == null) return;
         appendFieldStart(buffer, fieldName);
 
         if (value == null) {
@@ -900,6 +906,7 @@ public abstract class ToStringStyle implements Serializable {
      *  for summary info, <code>null</code> for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final Object[] array, final Boolean fullDetail) {
+        if (omitNulls && array == null) return;
         appendFieldStart(buffer, fieldName);
 
         if (array == null) {
@@ -996,6 +1003,7 @@ public abstract class ToStringStyle implements Serializable {
      *  for summary info, <code>null</code> for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final long[] array, final Boolean fullDetail) {
+        if (omitNulls && array == null) return;
         appendFieldStart(buffer, fieldName);
 
         if (array == null) {
@@ -1057,6 +1065,7 @@ public abstract class ToStringStyle implements Serializable {
      *  for summary info, <code>null</code> for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final int[] array, final Boolean fullDetail) {
+        if (omitNulls && array == null) return;
         appendFieldStart(buffer, fieldName);
 
         if (array == null) {
@@ -1118,6 +1127,7 @@ public abstract class ToStringStyle implements Serializable {
      *  for summary info, <code>null</code> for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final short[] array, final Boolean fullDetail) {
+        if (omitNulls && array == null) return;
         appendFieldStart(buffer, fieldName);
 
         if (array == null) {
@@ -1179,6 +1189,7 @@ public abstract class ToStringStyle implements Serializable {
      *  for summary info, <code>null</code> for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final byte[] array, final Boolean fullDetail) {
+        if (omitNulls && array == null) return;
         appendFieldStart(buffer, fieldName);
 
         if (array == null) {
@@ -1240,6 +1251,7 @@ public abstract class ToStringStyle implements Serializable {
      *  for summary info, <code>null</code> for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final char[] array, final Boolean fullDetail) {
+        if (omitNulls && array == null) return;
         appendFieldStart(buffer, fieldName);
 
         if (array == null) {
@@ -1301,6 +1313,7 @@ public abstract class ToStringStyle implements Serializable {
      *  for summary info, <code>null</code> for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final double[] array, final Boolean fullDetail) {
+        if (omitNulls && array == null) return;
         appendFieldStart(buffer, fieldName);
 
         if (array == null) {
@@ -1362,6 +1375,7 @@ public abstract class ToStringStyle implements Serializable {
      *  for summary info, <code>null</code> for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final float[] array, final Boolean fullDetail) {
+        if (omitNulls && array == null) return;
         appendFieldStart(buffer, fieldName);
 
         if (array == null) {
@@ -1423,6 +1437,7 @@ public abstract class ToStringStyle implements Serializable {
      *  for summary info, <code>null</code> for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final boolean[] array, final Boolean fullDetail) {
+        if (omitNulls && array == null) return;
         appendFieldStart(buffer, fieldName);
 
         if (array == null) {
@@ -2002,6 +2017,26 @@ public abstract class ToStringStyle implements Serializable {
             nullText = StringUtils.EMPTY;
         }
         this.nullText = nullText;
+    }
+
+    /**
+     * <p>Gets whether <code>null</code> values should be omitted.</p>
+     *
+     * @return whether <code>null</code> values are omitted
+     * @since 3.6
+     */
+    protected boolean isOmitNulls() {
+        return omitNulls;
+    }
+
+    /**
+     * <p>Sets whether <code>null</code> values should be omitted.</p>
+     * 
+     * @param omitNulls whether <code>null</code> values should be omitted
+     * @since 3.6
+     */
+    protected void setOmitNulls(boolean omitNulls) {
+        this.omitNulls = omitNulls;
     }
 
     //---------------------------------------------------------------------
