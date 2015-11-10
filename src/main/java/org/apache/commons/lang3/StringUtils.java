@@ -1327,7 +1327,7 @@ public class StringUtils {
      * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
      * StringUtils.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
      * StringUtils.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
-     * StringUtils.indexOfIgnoreCase("abc", "", 9)        = 3
+     * StringUtils.indexOfIgnoreCase("abc", "", 9)        = -1
      * </pre>
      *
      * @param str  the CharSequence to check, may be null
