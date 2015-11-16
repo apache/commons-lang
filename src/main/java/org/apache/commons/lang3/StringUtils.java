@@ -1889,14 +1889,16 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.containsAny(null, *)            = false
-     * StringUtils.containsAny("", *)              = false
-     * StringUtils.containsAny(*, null)            = false
-     * StringUtils.containsAny(*, "")              = false
-     * StringUtils.containsAny("zzabyycdxx", "za") = true
-     * StringUtils.containsAny("zzabyycdxx", "by") = true
-     * StringUtils.containsAny("zzabyycdxx", "zy") = true
-     * StringUtils.containsAny("aba","z")          = false
+     * StringUtils.containsAny(null, *)               = false
+     * StringUtils.containsAny("", *)                 = false
+     * StringUtils.containsAny(*, null)               = false
+     * StringUtils.containsAny(*, "")                 = false
+     * StringUtils.containsAny("zzabyycdxx", "za")    = true
+     * StringUtils.containsAny("zzabyycdxx", "by")    = true
+     * StringUtils.containsAny("zzabyycdxx", "zy")    = true
+     * StringUtils.containsAny("zzabyycdxx", "\tx")   = true
+     * StringUtils.containsAny("zzabyycdxx", "$.#yF") = true
+     * StringUtils.containsAny("aba","z")             = false
      * </pre>
      *
      * @param cs
