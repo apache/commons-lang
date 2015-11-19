@@ -6536,7 +6536,7 @@ public class ArrayUtils {
      */
     @SuppressWarnings("unchecked") // removeAll() always creates an array of the same type as its input
     public static <T> T[] removeAll(final T[] array, final int... indices) {
-        return (T[]) removeAll((Object) array, clone(indices));
+        return (T[]) removeAll((Object) array, indices);
     }
 
     /**
@@ -6628,7 +6628,7 @@ public class ArrayUtils {
      * @since 3.0.1
      */
     public static byte[] removeAll(final byte[] array, final int... indices) {
-        return (byte[]) removeAll((Object) array, clone(indices));
+        return (byte[]) removeAll((Object) array, indices);
     }
 
     /**
@@ -6717,7 +6717,7 @@ public class ArrayUtils {
      * @since 3.0.1
      */
     public static short[] removeAll(final short[] array, final int... indices) {
-        return (short[]) removeAll((Object) array, clone(indices));
+        return (short[]) removeAll((Object) array, indices);
     }
 
     /**
@@ -6806,7 +6806,7 @@ public class ArrayUtils {
      * @since 3.0.1
      */
     public static int[] removeAll(final int[] array, final int... indices) {
-        return (int[]) removeAll((Object) array, clone(indices));
+        return (int[]) removeAll((Object) array, indices);
     }
 
     /**
@@ -6895,7 +6895,7 @@ public class ArrayUtils {
      * @since 3.0.1
      */
     public static char[] removeAll(final char[] array, final int... indices) {
-        return (char[]) removeAll((Object) array, clone(indices));
+        return (char[]) removeAll((Object) array, indices);
     }
 
     /**
@@ -6984,7 +6984,7 @@ public class ArrayUtils {
      * @since 3.0.1
      */
     public static long[] removeAll(final long[] array, final int... indices) {
-        return (long[]) removeAll((Object) array, clone(indices));
+        return (long[]) removeAll((Object) array, indices);
     }
 
     /**
@@ -7073,7 +7073,7 @@ public class ArrayUtils {
      * @since 3.0.1
      */
     public static float[] removeAll(final float[] array, final int... indices) {
-        return (float[]) removeAll((Object) array, clone(indices));
+        return (float[]) removeAll((Object) array, indices);
     }
 
     /**
@@ -7162,7 +7162,7 @@ public class ArrayUtils {
      * @since 3.0.1
      */
     public static double[] removeAll(final double[] array, final int... indices) {
-        return (double[]) removeAll((Object) array, clone(indices));
+        return (double[]) removeAll((Object) array, indices);
     }
 
     /**
@@ -7247,7 +7247,7 @@ public class ArrayUtils {
      * @since 3.0.1
      */
     public static boolean[] removeAll(final boolean[] array, final int... indices) {
-        return (boolean[]) removeAll((Object) array, clone(indices));
+        return (boolean[]) removeAll((Object) array, indices);
     }
 
     /**
@@ -7309,7 +7309,7 @@ public class ArrayUtils {
     /**
      * Removes multiple array elements specified by index.
      * @param array source
-     * @param indices to remove, WILL BE SORTED--so only clones of user-owned arrays!
+     * @param indices to remove
      * @return new array of same type minus elements specified by unique values of {@code indices}
      * @since 3.0.1
      */
@@ -7317,14 +7317,15 @@ public class ArrayUtils {
     static Object removeAll(final Object array, final int... indices) {
         final int length = getLength(array);
         int diff = 0; // number of distinct indexes, i.e. number of entries that will be removed
+        int[] clonedIndices = clone(indices);
+        Arrays.sort(clonedIndices);
 
-        if (isNotEmpty(indices)) {
-            Arrays.sort(indices);
-
-            int i = indices.length;
+        // identify length of result array
+        if (isNotEmpty(clonedIndices)) {
+            int i = clonedIndices.length;
             int prevIndex = length;
             while (--i >= 0) {
-                final int index = indices[i];
+                final int index = clonedIndices[i];
                 if (index < 0 || index >= length) {
                     throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + length);
                 }
@@ -7335,12 +7336,14 @@ public class ArrayUtils {
                 prevIndex = index;
             }
         }
+
+        // create result array
         final Object result = Array.newInstance(array.getClass().getComponentType(), length - diff);
         if (diff < length) {
             int end = length; // index just after last copy
             int dest = length - diff; // number of entries so far not copied
-            for (int i = indices.length - 1; i >= 0; i--) {
-                final int index = indices[i];
+            for (int i = clonedIndices.length - 1; i >= 0; i--) {
+                final int index = clonedIndices[i];
                 if (end - index > 1) { // same as (cp > 0)
                     final int cp = end - index - 1;
                     dest -= cp;
