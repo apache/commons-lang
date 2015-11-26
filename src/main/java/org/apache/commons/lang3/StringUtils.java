@@ -7556,7 +7556,10 @@ public class StringUtils {
         } else if (m == 0) {
             return n <= threshold ? n : -1;
         }
-
+        else if(Math.abs(n- m) > threshold) {
+            return -1;
+        }
+        
         if (n > m) {
             // swap the two strings to consume less memory
             final CharSequence tmp = s;
