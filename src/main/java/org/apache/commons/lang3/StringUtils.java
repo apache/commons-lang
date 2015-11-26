@@ -7585,6 +7585,10 @@ public class StringUtils {
         } else if (m == 0) {
             return n <= threshold ? n : -1;
         }
+        // no need to calculate the distance if the length difference is greater than the threshold
+        else if (Math.abs(n - m) > threshold) {
+            return -1;
+        }
 
         if (n > m) {
             // swap the two strings to consume less memory
