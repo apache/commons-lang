@@ -16,18 +16,15 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Locale;
-
-import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.apache.commons.lang3.test.SystemDefaults;
+import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.hamcrest.core.IsNot;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.Locale;
+
+import static org.junit.Assert.*;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
@@ -1148,8 +1145,9 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(8, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 9));
         assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 10));
 
-        assertEquals(3, StringUtils.ordinalIndexOf("aaaaaa", "aa", 2));
-        assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaa", "aa", 3));
+        assertEquals(2, StringUtils.ordinalIndexOf("aaaaaa", "aa", 2));
+        assertEquals(4, StringUtils.ordinalIndexOf("aaaaaa", "aa", 3));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaa", "aa", 4));
     }
 
 }

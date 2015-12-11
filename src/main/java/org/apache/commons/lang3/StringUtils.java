@@ -1262,7 +1262,7 @@ public class StringUtils {
             return lastIndex ? str.length() : 0;
         }
         int found = 0;
-        int index = lastIndex ? str.length() : INDEX_NOT_FOUND;
+        int index = lastIndex ? str.length() + searchStr.length() : 0 - searchStr.length();
         do {
             if (lastIndex) {
                 index = CharSequenceUtils.lastIndexOf(str, searchStr, index - searchStr.length());
