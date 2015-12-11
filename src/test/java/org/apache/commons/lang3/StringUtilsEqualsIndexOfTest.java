@@ -1148,8 +1148,21 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(8, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 9));
         assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 10));
 
-        assertEquals(3, StringUtils.ordinalIndexOf("aaaaaa", "aa", 2));
-        assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaa", "aa", 3));
+        assertEquals(0, StringUtils.ordinalIndexOf("aaaaaa", "aa", 1));
+        assertEquals(1, StringUtils.ordinalIndexOf("aaaaaa", "aa", 2));
+        assertEquals(2, StringUtils.ordinalIndexOf("aaaaaa", "aa", 3));
+        assertEquals(3, StringUtils.ordinalIndexOf("aaaaaa", "aa", 4));
+        assertEquals(4, StringUtils.ordinalIndexOf("aaaaaa", "aa", 5));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaa", "aa", 6));
+
+        assertEquals(0, StringUtils.ordinalIndexOf("ababab", "aba", 1));
+        assertEquals(2, StringUtils.ordinalIndexOf("ababab", "aba", 2));
+        assertEquals(-1, StringUtils.ordinalIndexOf("ababab", "aba", 3));
+    }
+    
+    @Test
+    public void testLANG1193() {
+        assertEquals(0, StringUtils.ordinalIndexOf("abc", "ab", 1));        
     }
 
 }

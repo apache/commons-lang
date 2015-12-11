@@ -1222,6 +1222,13 @@ public class StringUtils {
      * StringUtils.ordinalIndexOf("aabaabaa", "", 2)   = 0
      * </pre>
      *
+     * <p>Matches may overlap:</p>
+     * <pre>
+     * StringUtils.ordinalIndexOf("ababab","aba", 1)          = 0
+     * StringUtils.ordinalIndexOf("ababab","aba", 2)          = 2
+     * StringUtils.ordinalIndexOf("ababab","aba", 3)          = -1
+     * </pre>
+     *
      * <p>Note that 'head(CharSequence str, int n)' may be implemented as: </p>
      *
      * <pre>
@@ -1248,7 +1255,7 @@ public class StringUtils {
      *
      * @param str  the CharSequence to check, may be null
      * @param searchStr  the CharSequence to find, may be null
-     * @param ordinal  the n-th {@code searchStr} to find
+     * @param ordinal  the n-th {@code searchStr} to find, overlapping matches are allowed.
      * @param lastIndex true if lastOrdinalIndexOf() otherwise false if ordinalIndexOf()
      * @return the n-th index of the search CharSequence,
      *  {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input
@@ -1262,12 +1269,14 @@ public class StringUtils {
             return lastIndex ? str.length() : 0;
         }
         int found = 0;
+        // set the initial index beyond the end of the string
+        // this is to allow for the initial index decrement/increment
         int index = lastIndex ? str.length() : INDEX_NOT_FOUND;
         do {
             if (lastIndex) {
-                index = CharSequenceUtils.lastIndexOf(str, searchStr, index - searchStr.length());
+                index = CharSequenceUtils.lastIndexOf(str, searchStr, index - 1); // step backwards thru string
             } else {
-                index = CharSequenceUtils.indexOf(str, searchStr, index + searchStr.length());
+                index = CharSequenceUtils.indexOf(str, searchStr, index + 1); // step forwards through string
             }
             if (index < 0) {
                 return index;
