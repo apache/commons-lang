@@ -1205,7 +1205,8 @@ public class StringUtils {
     /**
      * <p>Finds the n-th index within a CharSequence, handling {@code null}.
      * This method uses {@link String#indexOf(String)} if possible.</p>
-     *
+     * <p><b>Note:</b> The code starts looking for a match at the start of the target,
+     * incrementing the starting index by one after each successful match.</p>
      * <p>A {@code null} CharSequence will return {@code -1}.</p>
      *
      * <pre>
@@ -1224,9 +1225,14 @@ public class StringUtils {
      *
      * <p>Matches may overlap:</p>
      * <pre>
-     * StringUtils.ordinalIndexOf("ababab","aba", 1)          = 0
-     * StringUtils.ordinalIndexOf("ababab","aba", 2)          = 2
-     * StringUtils.ordinalIndexOf("ababab","aba", 3)          = -1
+     * StringUtils.ordinalIndexOf("ababab","aba", 1)   = 0
+     * StringUtils.ordinalIndexOf("ababab","aba", 2)   = 2
+     * StringUtils.ordinalIndexOf("ababab","aba", 3    = -1
+     *
+     * StringUtils.ordinalIndexOf("abababab", "abab", 1) = 0
+     * StringUtils.ordinalIndexOf("abababab", "abab", 2) = 2
+     * StringUtils.ordinalIndexOf("abababab", "abab", 3) = 4
+     * StringUtils.ordinalIndexOf("abababab", "abab", 4) = -1
      * </pre>
      *
      * <p>Note that 'head(CharSequence str, int n)' may be implemented as: </p>

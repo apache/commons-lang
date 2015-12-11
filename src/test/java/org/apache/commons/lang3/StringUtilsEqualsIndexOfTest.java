@@ -1148,6 +1148,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(8, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 9));
         assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 10));
 
+        // match at each possible position
         assertEquals(0, StringUtils.ordinalIndexOf("aaaaaa", "aa", 1));
         assertEquals(1, StringUtils.ordinalIndexOf("aaaaaa", "aa", 2));
         assertEquals(2, StringUtils.ordinalIndexOf("aaaaaa", "aa", 3));
@@ -1158,6 +1159,12 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(0, StringUtils.ordinalIndexOf("ababab", "aba", 1));
         assertEquals(2, StringUtils.ordinalIndexOf("ababab", "aba", 2));
         assertEquals(-1, StringUtils.ordinalIndexOf("ababab", "aba", 3));
+
+        assertEquals(0, StringUtils.ordinalIndexOf("abababab", "abab", 1));
+        assertEquals(2, StringUtils.ordinalIndexOf("abababab", "abab", 2));
+        assertEquals(4, StringUtils.ordinalIndexOf("abababab", "abab", 3));
+        assertEquals(-1, StringUtils.ordinalIndexOf("abababab", "abab", 4));
+
     }
     
     @Test
