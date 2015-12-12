@@ -702,4 +702,19 @@ public class FastDateParserTest {
         cal.set(2015, Calendar.JULY, 4);
         Assert.assertEquals(cal.getTime(), date);
     }
+
+    @Test
+    public void testDayNumberOfWeek() throws ParseException {
+        final DateParser parser = getInstance("u");
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(parser.parse("1"));
+        Assert.assertEquals(Calendar.MONDAY, calendar.get(Calendar.DAY_OF_WEEK));
+
+        calendar.setTime(parser.parse("6"));
+        Assert.assertEquals(Calendar.SATURDAY, calendar.get(Calendar.DAY_OF_WEEK));
+
+        calendar.setTime(parser.parse("7"));
+        Assert.assertEquals(Calendar.SUNDAY, calendar.get(Calendar.DAY_OF_WEEK));
+    }
 }

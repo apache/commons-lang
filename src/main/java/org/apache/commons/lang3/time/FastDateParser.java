@@ -601,6 +601,8 @@ public class FastDateParser implements DateParser, Serializable {
             return MINUTE_STRATEGY;
         case 's':
             return SECOND_STRATEGY;
+        case 'u':
+            return DAY_OF_WEEK_STRATEGY;
         case 'w':
             return WEEK_OF_YEAR_STRATEGY;
         case 'y':
@@ -941,6 +943,12 @@ public class FastDateParser implements DateParser, Serializable {
     private static final Strategy WEEK_OF_MONTH_STRATEGY = new NumberStrategy(Calendar.WEEK_OF_MONTH);
     private static final Strategy DAY_OF_YEAR_STRATEGY = new NumberStrategy(Calendar.DAY_OF_YEAR);
     private static final Strategy DAY_OF_MONTH_STRATEGY = new NumberStrategy(Calendar.DAY_OF_MONTH);
+    private static final Strategy DAY_OF_WEEK_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK) {
+        @Override
+        int modify(FastDateParser parser, final int iValue) {
+            return iValue != 7 ? iValue + 1 : Calendar.SUNDAY;
+        }
+    };
     private static final Strategy DAY_OF_WEEK_IN_MONTH_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK_IN_MONTH);
     private static final Strategy HOUR_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY);
     private static final Strategy HOUR24_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY) {

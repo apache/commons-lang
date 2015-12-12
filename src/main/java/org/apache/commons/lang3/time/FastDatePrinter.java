@@ -249,6 +249,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             case 'E': // day in week (text)
                 rule = new TextField(Calendar.DAY_OF_WEEK, tokenLen < 4 ? shortWeekdays : weekdays);
                 break;
+            case 'u': // day in week (number)
+                rule = new DayInWeekField(selectNumberRule(Calendar.DAY_OF_WEEK, tokenLen));
+                break;
             case 'D': // day in year (number)
                 rule = selectNumberRule(Calendar.DAY_OF_YEAR, tokenLen);
                 break;
@@ -1166,6 +1169,33 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         /**
          * {@inheritDoc}
          */
+        @Override
+        public void appendTo(final Appendable buffer, final int value) throws IOException {
+            mRule.appendTo(buffer, value);
+        }
+    }
+
+    /**
+     * <p>Inner class to output the numeric day in week.</p>
+     */
+    private static class DayInWeekField implements NumberRule {
+        private final NumberRule mRule;
+
+        DayInWeekField(final NumberRule rule) {
+            mRule = rule;
+        }
+
+        @Override
+        public int estimateLength() {
+            return mRule.estimateLength();
+        }
+
+        @Override
+        public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
+            int value = calendar.get(Calendar.DAY_OF_WEEK);
+            mRule.appendTo(buffer, value != Calendar.SUNDAY ? value - 1 : 7);
+        }
+
         @Override
         public void appendTo(final Appendable buffer, final int value) throws IOException {
             mRule.appendTo(buffer, value);

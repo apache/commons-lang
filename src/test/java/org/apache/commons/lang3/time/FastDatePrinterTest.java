@@ -420,4 +420,19 @@ public class FastDatePrinterTest {
         long epoch = date.getTime();
         assertEquals(expected, format.format(epoch, sb).toString());
     }
+
+    @Test
+    public void testDayNumberOfWeek() {
+        final DatePrinter printer = getInstance("u");
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        assertEquals("1", printer.format(calendar.getTime()));
+
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        assertEquals("6", printer.format(calendar.getTime()));
+
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        assertEquals("7", printer.format(calendar.getTime()));
+    }
 }
