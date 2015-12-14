@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1192" type="add" dev="chas" due-to="Dominik Stadler">FastDateFormat support of the week-year component (uppercase 'Y')</action>
     <action issue="LANG-1193" type="fix" dev="sebb" due-to="Qin Li">ordinalIndexOf("abc", "ab", 1) gives incorrect answer of -1 (correct answer should be 0); revert fix for LANG-1077</action>
     <action issue="LANG-1182" type="update" dev="britter" due-to="Larry West, Pascal Schumacher">Clarify JavaDoc of StringUtils.containsAny()</action>
     <action issue="LANG-1169" type="add" dev="lguibert" due-to="Rafal Glowinski, Robert Parr, Arman Sharif">Add StringUtils methods to compare a string to multiple strings</action>
