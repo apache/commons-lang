@@ -550,16 +550,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      */
     @Override
     public Date parse(final String source, final ParsePosition pos) {
-        return parser.parse(source, pos);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.apache.commons.lang3.time.DateParser#parse(java.lang.String, java.text.ParsePosition, java.util.Calendar)
-     */
-    @Override
-    public boolean parse(final String source, final ParsePosition pos, final Calendar calendar) {
-        return parser.parse(source, pos, calendar);
+            return parser.parse(source, pos);
     }
 
     /* (non-Javadoc)

@@ -170,7 +170,7 @@ public class FastDateParser implements DateParser, Serializable {
     //-----------------------------------------------------------------------
 
     /**
-     * Struct to hold strategy and field width
+     * Struct to hold strategy and filed width 
      */
     private static class StrategyAndWidth {
         final Strategy strategy;
@@ -401,12 +401,12 @@ public class FastDateParser implements DateParser, Serializable {
 
         return parse(source, pos, cal) ?cal.getTime() :null;
     }
-
+    
     /**
-     * Parse a formatted date string according to the format.  Updates the Calendar with parsed fields.
+     * Parse a formatted date string according to the format.  Updates the Calendar with parsed fields.  
      * Upon success, the ParsePosition index is updated to indicate how much of the source text was consumed.
      * Not all source text needs to be consumed.  Upon parse failure, ParsePosition error index is updated to
-     * the offset of the source text which does not match the supplied format.
+     * the offset of the source text which does not match the supplied format.  
      * 
      * @param source The text to parse.
      * @param pos On input, the position in the source to start parsing, on output, updated position.
@@ -415,18 +415,17 @@ public class FastDateParser implements DateParser, Serializable {
      * @throws IllegalArgumentException when Calendar has been set to be not lenient, and a parsed field is
      * out of range.
      */
-    @Override
-    public boolean parse(final String source, final ParsePosition pos, final Calendar calendar) {
-        ListIterator<StrategyAndWidth> lt = patterns.listIterator();
-        while(lt.hasNext()) {
-            StrategyAndWidth pattern = lt.next();
-            int maxWidth = pattern.getMaxWidth(lt);
-            if(!pattern.strategy.parse(this, calendar, source, pos, maxWidth)) {
-                return false;
-            }
-        }
-        return true;
-    }
+     public boolean parse(final String source, final ParsePosition pos, final Calendar calendar) {
+         ListIterator<StrategyAndWidth> lt = patterns.listIterator();
+         while(lt.hasNext()) {
+             StrategyAndWidth pattern = lt.next();
+             int maxWidth = pattern.getMaxWidth(lt);
+             if(!pattern.strategy.parse(this, calendar, source, pos, maxWidth)) {
+                 return false;
+             }
+         }
+         return true;
+     }
 
     // Support for strategies
     //-----------------------------------------------------------------------
@@ -607,7 +606,6 @@ public class FastDateParser implements DateParser, Serializable {
         case 'w':
             return WEEK_OF_YEAR_STRATEGY;
         case 'y':
-        case 'Y':
             return width>2 ?LITERAL_YEAR_STRATEGY :ABBREVIATED_YEAR_STRATEGY;
         case 'X':
             return ISO8601TimeZoneStrategy.getStrategy(width);
