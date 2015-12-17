@@ -855,6 +855,9 @@ public class FastDateParser implements DateParser, Serializable {
                 final TimeZone tz = TimeZone.getTimeZone(tzId);
                 for(int i= 1; i<zoneNames.length; ++i) {
                     String zoneName = zoneNames[i];
+                    if (zoneName == null) {
+                        break;
+                    }
                     if (tzNames.put(zoneName.toLowerCase(locale), tz) == null) {
                         simpleQuote(sb.append('|'), zoneName);
                     }

@@ -33,7 +33,9 @@ public class FastDateParser_TimeZoneStrategyTest {
             for(final String[] zone :  zones) {
                 for(int t = 1; t<zone.length; ++t) {
                     final String tzDisplay = zone[t];
-
+                    if (tzDisplay == null) {
+                        break;
+                    }
                     try {
                         parser.parse(tzDisplay);
                     }
