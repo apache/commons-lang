@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1194" type="fix" dev="chas">Limit max heap memory for consistent Travis CI build</action>
     <action issue="LANG-1186" type="fix" dev="chas" due-to="NickManley">Fix NullPointerException in FastDateParser$TimeZoneStrategy</action>
     <action issue="LANG-1193" type="fix" dev="sebb" due-to="Qin Li">ordinalIndexOf("abc", "ab", 1) gives incorrect answer of -1 (correct answer should be 0); revert fix for LANG-1077</action>
     <action issue="LANG-1182" type="update" dev="britter" due-to="Larry West, Pascal Schumacher">Clarify JavaDoc of StringUtils.containsAny()</action>
