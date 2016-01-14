@@ -1227,7 +1227,7 @@ public class StringUtils {
      * <pre>
      * StringUtils.ordinalIndexOf("ababab","aba", 1)   = 0
      * StringUtils.ordinalIndexOf("ababab","aba", 2)   = 2
-     * StringUtils.ordinalIndexOf("ababab","aba", 3    = -1
+     * StringUtils.ordinalIndexOf("ababab","aba", 3)   = -1
      *
      * StringUtils.ordinalIndexOf("abababab", "abab", 1) = 0
      * StringUtils.ordinalIndexOf("abababab", "abab", 2) = 2
