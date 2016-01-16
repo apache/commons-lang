@@ -1098,11 +1098,7 @@ public class BooleanUtils {
         if (x == y) {
             return 0;
         }
-        if (x) {
-            return 1;
-        } else {
-            return -1;
-        }
+        return x ? 1 : -1;
     }
 
 }
