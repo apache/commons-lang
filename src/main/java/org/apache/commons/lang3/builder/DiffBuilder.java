@@ -835,7 +835,9 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final Object lhs,
             final Object rhs) {
-
+        if (fieldName == null) {
+            throw new IllegalArgumentException("Field name cannot be null");
+        }
         if (objectsTriviallyEqual) {
             return this;
         }
@@ -917,6 +919,9 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final Object[] lhs,
             final Object[] rhs) {
+        if (fieldName == null) {
+            throw new IllegalArgumentException("Field name cannot be null");
+        }
         if (objectsTriviallyEqual) {
             return this;
         }
