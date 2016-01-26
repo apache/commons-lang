@@ -2472,6 +2472,9 @@ public class StringUtilsTest {
 
     @Test
     public void testNormalizeSpace() {
+        // Java says a non-breaking whitespace is not a whitespace.
+        assertFalse(Character.isWhitespace('\u00A0'));
+        //
         assertNull(StringUtils.normalizeSpace(null));
         assertEquals("", StringUtils.normalizeSpace(""));
         assertEquals("", StringUtils.normalizeSpace(" "));
