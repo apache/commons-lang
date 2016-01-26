@@ -1935,7 +1935,7 @@ public class StringUtils {
      * <p>Checks if the CharSequence contains any of the CharSequences in the given array.</p>
      *
      * <p>
-     * A {@code null} CharSequence will return {@code false}. A {@code null} or zero
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero
      * length search array will return {@code false}.
      * </p>
      *
@@ -1944,14 +1944,15 @@ public class StringUtils {
      * StringUtils.containsAny("", *)              = false
      * StringUtils.containsAny(*, null)            = false
      * StringUtils.containsAny(*, [])              = false
-     * StringUtils.containsAny("abcd", "ab", null) = false
+     * StringUtils.containsAny("abcd", "ab", null) = true
      * StringUtils.containsAny("abcd", "ab", "cd") = true
      * StringUtils.containsAny("abc", "d", "abc")  = true
      * </pre>
      *
      * 
      * @param cs The CharSequence to check, may be null
-     * @param searchCharSequences The array of CharSequences to search for, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null.
+     * Individual CharSequences may be null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      * @since 3.4
      */

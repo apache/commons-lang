@@ -236,6 +236,10 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.containsAny("hello, goodbye", new String[]{"Hello", "Goodbye"}));
         assertFalse(StringUtils.containsAny("hello, goodbye", new String[]{"Hello", null}));
         assertFalse(StringUtils.containsAny("hello, null", new String[] { "Hello", null }));
+        // Javadoc examples:
+        assertTrue(StringUtils.containsAny("abcd", "ab", null));
+        assertTrue(StringUtils.containsAny("abcd", "ab", "cd"));
+        assertTrue(StringUtils.containsAny("abc", "d", "abc"));
     }
 
     @SystemDefaults(locale="de_DE")
