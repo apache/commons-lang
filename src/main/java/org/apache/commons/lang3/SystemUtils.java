@@ -1182,6 +1182,18 @@ public class SystemUtils {
 
     /**
      * <p>
+     * Is {@code true} if this is Mac OS X El Capitan.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.4
+     */
+    public static final boolean IS_OS_MAC_OSX_EL_CAPITAN = getOSMatches("Mac OS X", "10.11");
+
+    /**
+     * <p>
      * Is {@code true} if this is FreeBSD.
      * </p>
      * <p>
