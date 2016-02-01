@@ -1188,7 +1188,7 @@ public class SystemUtils {
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
      *
-     * @since 3.4
+     * @since 3.5
      */
     public static final boolean IS_OS_MAC_OSX_EL_CAPITAN = getOSMatches("Mac OS X", "10.11");
 
