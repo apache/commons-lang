@@ -76,6 +76,7 @@
     <action issue="LANG-1163" type="fix" dev="sebb">There are no tests for CharSequenceUtils.regionMatches</action>
     <action issue="LANG-1200" type="fix" dev="ggregory" due-to="BarkZhang">[GitHub PR] modify note at line 1230 #120</action>
     <action issue="LANG-1191" type="fix" dev="ggregory" due-to="qed, Brent Worden, Gary Gregory">Incorrect Javadoc StringUtils.containsAny(CharSequence, CharSequence...)</action>
+    <action type="update" dev="ebourg" due-to="Jake Wang">Added new property IS_OS_MAC_OSX_EL_CAPITAN in SystemUtils</action>
   </release>
 
   <release version="3.4" date="2014-04-06" description="Feature and bugfix release">
