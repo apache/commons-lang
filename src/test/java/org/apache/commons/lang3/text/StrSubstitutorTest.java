@@ -623,6 +623,21 @@ public class StrSubstitutorTest {
         assertEquals("Hello there commons!", StrSubstitutor.replace("@greeting@ there @name@!", map, "@", "@"));
     }
 
+    @Test
+    public void testSubstitutePreserveEscape() {
+        final String org = "${not-escaped} $${escaped}";
+        final Map<String, String> map = new HashMap<String, String>();
+        map.put("not-escaped", "value");
+
+        StrSubstitutor sub = new StrSubstitutor(map, "${", "}", '$');
+        assertFalse(sub.isPreserveEscapes());
+        assertEquals("value ${escaped}", sub.replace(org));
+
+        sub.setPreserveEscapes(true);
+        assertTrue(sub.isPreserveEscapes());
+        assertEquals("value $${escaped}", sub.replace(org));
+    }
+
     //-----------------------------------------------------------------------
     private void doTestReplace(final String expectedResult, final String replaceTemplate, final boolean substring) {
         final String expectedShortResult = expectedResult.substring(1, expectedResult.length() - 1);
