@@ -1527,11 +1527,7 @@ public class NumberUtils {
         if (x == y) {
             return 0;
         }
-        if (x < y) {
-            return -1;
-        } else {
-            return 1;
-        }
+        return x < y ? -1 : 1;
     }
 
     /**
@@ -1548,11 +1544,7 @@ public class NumberUtils {
         if (x == y) {
             return 0;
         }
-        if (x < y) {
-            return -1;
-        } else {
-            return 1;
-        }
+        return x < y ? -1 : 1;
     }
 
     /**
@@ -1569,11 +1561,7 @@ public class NumberUtils {
         if (x == y) {
             return 0;
         }
-        if (x < y) {
-            return -1;
-        } else {
-            return 1;
-        }
+        return x < y ? -1 : 1;
     }
 
     /**
