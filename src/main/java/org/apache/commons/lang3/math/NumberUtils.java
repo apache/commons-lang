@@ -1575,6 +1575,6 @@ public class NumberUtils {
      * @since 3.4
      */
     public static int compare(byte x, byte y) {
-        return x-y;
+        return x - y;
     }
 }
