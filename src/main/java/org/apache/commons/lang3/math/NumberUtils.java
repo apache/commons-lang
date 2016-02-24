@@ -1509,9 +1509,8 @@ public class NumberUtils {
         }
         if( StringUtils.startsWith( str, "-" ) ) {
             return isDigits( StringUtils.replaceOnce( str.substring(1), ".", StringUtils.EMPTY ) );
-        } else {
-            return isDigits( StringUtils.replaceOnce( str, ".", StringUtils.EMPTY ) );
         }
+        return isDigits( StringUtils.replaceOnce( str, ".", StringUtils.EMPTY ) );
     }
 
     /**
