@@ -228,13 +228,7 @@ public class ThreadUtils {
      */
     public static Thread findThreadById(final long threadId) {
         final Collection<Thread> result = findThreads(new ThreadIdPredicate(threadId));
-
-        if(result.isEmpty()) {
-            return null;
-        } else {
-            return result.iterator().next();
-        }
-
+        return result.isEmpty() ? null : result.iterator().next();
     }
 
     /**
