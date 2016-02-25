@@ -213,9 +213,7 @@ public class FastDateParser implements DateParser, Serializable {
             if( isFormatLetter(c)) {
                 return letterPattern(c);
             }
-            else {
-                return literal();
-            }
+            return literal();
         }
 
         private StrategyAndWidth letterPattern(char c) {
