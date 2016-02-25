@@ -232,13 +232,12 @@ public class FastDateParser implements DateParser, Serializable {
             boolean activeQuote = false;
 
             StringBuilder sb = new StringBuilder();
-            while( currentIdx<pattern.length() ) {
-                char c= pattern.charAt(currentIdx);
-                if( !activeQuote && isFormatLetter( c ) ) {
+            while (currentIdx < pattern.length()) {
+                char c = pattern.charAt(currentIdx);
+                if (!activeQuote && isFormatLetter(c)) {
                     break;
-                }
-                else if( c=='\'' ) {
-                    if(++currentIdx==pattern.length() || pattern.charAt(currentIdx)!='\'') {
+                } else if (c == '\'') {
+                    if (++currentIdx == pattern.length() || pattern.charAt(currentIdx) != '\'') {
                         activeQuote = !activeQuote;
                         continue;
                     }
@@ -247,7 +246,7 @@ public class FastDateParser implements DateParser, Serializable {
                 sb.append(c);
             }
 
-            if(activeQuote) {
+            if (activeQuote) {
                 throw new IllegalArgumentException("Unterminated quote");
             }
 
