@@ -200,17 +200,17 @@ public class FastDateParser implements DateParser, Serializable {
         private int currentIdx;
 
         StrategyParser(String pattern, Calendar definingCalendar) {
-           this.pattern = pattern;
-           this.definingCalendar = definingCalendar;
+            this.pattern = pattern;
+            this.definingCalendar = definingCalendar;
         }
 
         StrategyAndWidth getNextStrategy() {
-            if(currentIdx >= pattern.length()) {
+            if (currentIdx >= pattern.length()) {
                 return null;
             }
 
             char c = pattern.charAt(currentIdx);
-            if( isFormatLetter(c)) {
+            if (isFormatLetter(c)) {
                 return letterPattern(c);
             }
             return literal();
@@ -218,8 +218,8 @@ public class FastDateParser implements DateParser, Serializable {
 
         private StrategyAndWidth letterPattern(char c) {
             int begin = currentIdx;
-            while( ++currentIdx<pattern.length() ) {
-                if(pattern.charAt(currentIdx) != c) {
+            while (++currentIdx < pattern.length()) {
+                if (pattern.charAt(currentIdx) != c) {
                     break;
                 }
             }
