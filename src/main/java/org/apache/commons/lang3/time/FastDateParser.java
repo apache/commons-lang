@@ -170,7 +170,7 @@ public class FastDateParser implements DateParser, Serializable {
     //-----------------------------------------------------------------------
 
     /**
-     * Struct to hold strategy and field width
+     * Holds strategy and field width
      */
     private static class StrategyAndWidth {
         final Strategy strategy;
