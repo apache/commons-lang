@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1208" type="update" dev="bayard" due-to="Samuel Karp">StrSubstitutor can preserve escapes</action>
     <action issue="LANG-1192" type="add" dev="chas" due-to="Dominik Stadler">FastDateFormat support of the week-year component (uppercase 'Y')</action>
     <action issue="LANG-1194" type="fix" dev="chas">Limit max heap memory for consistent Travis CI build</action>
     <action issue="LANG-1186" type="fix" dev="chas" due-to="NickManley">Fix NullPointerException in FastDateParser$TimeZoneStrategy</action>
