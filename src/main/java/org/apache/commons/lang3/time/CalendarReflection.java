@@ -45,7 +45,7 @@ class CalendarReflection {
      */
     static boolean isWeekDateSupported(Calendar calendar) {
         try {
-            return IS_WEEK_DATE_SUPPORTED!=null && (Boolean) IS_WEEK_DATE_SUPPORTED.invoke(calendar);
+            return IS_WEEK_DATE_SUPPORTED!=null && ((Boolean)IS_WEEK_DATE_SUPPORTED.invoke(calendar)).booleanValue();
         } catch (Exception e) {
             return ExceptionUtils.<Boolean>rethrow(e);
         }

@@ -86,7 +86,7 @@ public class CharUtils {
      */
     @Deprecated
     public static Character toCharacterObject(final char ch) {
-        return ch;
+        return Character.valueOf(ch);
     }
     
     /**
@@ -110,7 +110,7 @@ public class CharUtils {
         if (StringUtils.isEmpty(str)) {
             return null;
         }
-        return str.charAt(0);
+        return Character.valueOf(str.charAt(0));
     }
     
     //-----------------------------------------------------------------------
@@ -131,7 +131,7 @@ public class CharUtils {
         if (ch == null) {
             throw new IllegalArgumentException("The Character must not be null");
         }
-        return ch;
+        return ch.charValue();
     }
     
     /**
@@ -151,7 +151,7 @@ public class CharUtils {
         if (ch == null) {
             return defaultValue;
         }
-        return ch;
+        return ch.charValue();
     }
     
     //-----------------------------------------------------------------------

@@ -342,7 +342,7 @@ final class CharRange implements Iterable<Character>, Serializable {
             }
             final char cur = current;
             prepareNext();
-            return cur;
+            return Character.valueOf(cur);
         }
 
         /**

@@ -505,7 +505,7 @@ public class Validate {
         Validate.notNull(array);
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
-                final Object[] values2 = ArrayUtils.add(values, i);
+                final Object[] values2 = ArrayUtils.add(values, Integer.valueOf(i));
                 throw new IllegalArgumentException(String.format(message, values2));
             }
         }
@@ -568,7 +568,7 @@ public class Validate {
         int i = 0;
         for (final Iterator<?> it = iterable.iterator(); it.hasNext(); i++) {
             if (it.next() == null) {
-                final Object[] values2 = ArrayUtils.addAll(values, i);
+                final Object[] values2 = ArrayUtils.addAll(values, Integer.valueOf(i));
                 throw new IllegalArgumentException(String.format(message, values2));
             }
         }
@@ -656,7 +656,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T> T[] validIndex(final T[] array, final int index) {
-        return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EX_MESSAGE, index);
+        return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EX_MESSAGE, Integer.valueOf(index));
     }
 
     // validIndex collection
@@ -712,7 +712,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends Collection<?>> T validIndex(final T collection, final int index) {
-        return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE, index);
+        return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE, Integer.valueOf(index));
     }
 
     // validIndex string
@@ -773,7 +773,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends CharSequence> T validIndex(final T chars, final int index) {
-        return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE, index);
+        return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE, Integer.valueOf(index));
     }
 
     // validState
