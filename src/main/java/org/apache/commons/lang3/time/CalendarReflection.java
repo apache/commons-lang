@@ -32,8 +32,7 @@ class CalendarReflection {
 
     private static Method getCalendarMethod(String methodName, Class<?>... argTypes) {
         try {
-            Method m = Calendar.class.getMethod(methodName, argTypes);
-            return m;
+            return Calendar.class.getMethod(methodName, argTypes);
         } catch (Exception e) {
             return null;
         }
@@ -46,7 +45,7 @@ class CalendarReflection {
      */
     static boolean isWeekDateSupported(Calendar calendar) {
         try {
-            return IS_WEEK_DATE_SUPPORTED!=null && ((Boolean)IS_WEEK_DATE_SUPPORTED.invoke(calendar)).booleanValue();
+            return IS_WEEK_DATE_SUPPORTED!=null && (Boolean) IS_WEEK_DATE_SUPPORTED.invoke(calendar);
         } catch (Exception e) {
             return ExceptionUtils.<Boolean>rethrow(e);
         }

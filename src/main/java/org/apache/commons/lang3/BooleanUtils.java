@@ -63,7 +63,7 @@ public class BooleanUtils {
         if (bool == null) {
             return null;
         }
-        return bool.booleanValue() ? Boolean.FALSE : Boolean.TRUE;
+        return bool ? Boolean.FALSE : Boolean.TRUE;
     }
 
     // boolean Boolean methods
@@ -155,7 +155,7 @@ public class BooleanUtils {
      * @return {@code true} or {@code false}, {@code null} returns {@code false}
      */
     public static boolean toBoolean(final Boolean bool) {
-        return bool != null && bool.booleanValue();
+        return bool != null && bool;
     }
 
     /**
@@ -175,7 +175,7 @@ public class BooleanUtils {
         if (bool == null) {
             return valueIfNull;
         }
-        return bool.booleanValue();
+        return bool;
     }
 
     // Integer to Boolean methods
@@ -238,7 +238,7 @@ public class BooleanUtils {
         if (value == null) {
             return null;
         }
-        return value.intValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
+        return value == 0 ? Boolean.FALSE : Boolean.TRUE;
     }
 
     /**
@@ -426,7 +426,7 @@ public class BooleanUtils {
         if (bool == null) {
             return null;
         }
-        return bool.booleanValue() ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO;
+        return bool ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO;
     }
 
     /**
@@ -465,7 +465,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullValue;
         }
-        return bool.booleanValue() ? trueValue : falseValue;
+        return bool ? trueValue : falseValue;
     }
 
     /**
@@ -504,7 +504,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullValue;
         }
-        return bool.booleanValue() ? trueValue : falseValue;
+        return bool ? trueValue : falseValue;
     }
 
     // String to Boolean methods
@@ -811,7 +811,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullString;
         }
-        return bool.booleanValue() ? trueString : falseString;
+        return bool ? trueString : falseString;
     }
 
     // boolean to String methods

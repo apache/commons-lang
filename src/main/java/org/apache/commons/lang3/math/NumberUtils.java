@@ -543,7 +543,7 @@ public class NumberUtils {
                 case 'F' :
                     try {
                         final Float f = NumberUtils.createFloat(numeric);
-                        if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
+                        if (!(f.isInfinite() || (f == 0.0F && !allZeros))) {
                             //If it's too big for a float or the float value = 0 and the string
                             //has non-zeros in it, then float does not have the precision we want
                             return f;
@@ -601,7 +601,7 @@ public class NumberUtils {
         try {
             if(numDecimals <= 7){// If number has 7 or fewer digits past the decimal point then make it a float
                 final Float f = createFloat(str);
-                if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
+                if (!(f.isInfinite() || (f == 0.0F && !allZeros))) {
                     return f;
                 }
             }
@@ -611,7 +611,7 @@ public class NumberUtils {
         try {
             if(numDecimals <= 16){// If number has between 8 and 16 digits past the decimal point then make it a double
                 final Double d = createDouble(str);
-                if (!(d.isInfinite() || (d.doubleValue() == 0.0D && !allZeros))) {
+                if (!(d.isInfinite() || (d == 0.0D && !allZeros))) {
                     return d;
                 }
             }
@@ -1416,7 +1416,7 @@ public class NumberUtils {
         int i = start;
         // loop to the next to last char or to the last char if we need another digit to
         // make a valid number (e.g. chars[0..5] = "1234E")
-        while (i < sz || (i < sz + 1 && allowSigns && !foundDigit)) {
+        while (i < sz) {
             if (chars[i] >= '0' && chars[i] <= '9') {
                 foundDigit = true;
                 allowSigns = false;

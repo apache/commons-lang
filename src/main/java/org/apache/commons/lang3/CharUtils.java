@@ -86,7 +86,7 @@ public class CharUtils {
      */
     @Deprecated
     public static Character toCharacterObject(final char ch) {
-        return Character.valueOf(ch);
+        return ch;
     }
     
     /**
@@ -110,7 +110,7 @@ public class CharUtils {
         if (StringUtils.isEmpty(str)) {
             return null;
         }
-        return Character.valueOf(str.charAt(0));
+        return str.charAt(0);
     }
     
     //-----------------------------------------------------------------------
@@ -131,7 +131,7 @@ public class CharUtils {
         if (ch == null) {
             throw new IllegalArgumentException("The Character must not be null");
         }
-        return ch.charValue();
+        return ch;
     }
     
     /**
@@ -151,7 +151,7 @@ public class CharUtils {
         if (ch == null) {
             return defaultValue;
         }
-        return ch.charValue();
+        return ch;
     }
     
     //-----------------------------------------------------------------------
@@ -216,7 +216,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the character is not ASCII numeric
      */
     public static int toIntValue(final char ch) {
-        if (isAsciiNumeric(ch) == false) {
+        if (!isAsciiNumeric(ch)) {
             throw new IllegalArgumentException("The character " + ch + " is not in the range '0' - '9'");
         }
         return ch - 48;
@@ -238,7 +238,7 @@ public class CharUtils {
      * @return the int value of the character
      */
     public static int toIntValue(final char ch, final int defaultValue) {
-        if (isAsciiNumeric(ch) == false) {
+        if (!isAsciiNumeric(ch)) {
             return defaultValue;
         }
         return ch - 48;

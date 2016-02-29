@@ -101,8 +101,8 @@ public class Validate {
      * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(final boolean expression, final String message, final long value) {
-        if (expression == false) {
-            throw new IllegalArgumentException(String.format(message, Long.valueOf(value)));
+        if (!expression) {
+            throw new IllegalArgumentException(String.format(message, value));
         }
     }
 
@@ -126,8 +126,8 @@ public class Validate {
      * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(final boolean expression, final String message, final double value) {
-        if (expression == false) {
-            throw new IllegalArgumentException(String.format(message, Double.valueOf(value)));
+        if (!expression) {
+            throw new IllegalArgumentException(String.format(message, value));
         }
     }
 
@@ -150,7 +150,7 @@ public class Validate {
      * @see #isTrue(boolean, String, double)
      */
     public static void isTrue(final boolean expression, final String message, final Object... values) {
-        if (expression == false) {
+        if (!expression) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -175,7 +175,7 @@ public class Validate {
      * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(final boolean expression) {
-        if (expression == false) {
+        if (!expression) {
             throw new IllegalArgumentException(DEFAULT_IS_TRUE_EX_MESSAGE);
         }
     }
@@ -505,7 +505,7 @@ public class Validate {
         Validate.notNull(array);
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
-                final Object[] values2 = ArrayUtils.add(values, Integer.valueOf(i));
+                final Object[] values2 = ArrayUtils.add(values, i);
                 throw new IllegalArgumentException(String.format(message, values2));
             }
         }
@@ -568,7 +568,7 @@ public class Validate {
         int i = 0;
         for (final Iterator<?> it = iterable.iterator(); it.hasNext(); i++) {
             if (it.next() == null) {
-                final Object[] values2 = ArrayUtils.addAll(values, Integer.valueOf(i));
+                final Object[] values2 = ArrayUtils.addAll(values, i);
                 throw new IllegalArgumentException(String.format(message, values2));
             }
         }
@@ -656,7 +656,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T> T[] validIndex(final T[] array, final int index) {
-        return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EX_MESSAGE, Integer.valueOf(index));
+        return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EX_MESSAGE, index);
     }
 
     // validIndex collection
@@ -712,7 +712,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends Collection<?>> T validIndex(final T collection, final int index) {
-        return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE, Integer.valueOf(index));
+        return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE, index);
     }
 
     // validIndex string
@@ -773,7 +773,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends CharSequence> T validIndex(final T chars, final int index) {
-        return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE, Integer.valueOf(index));
+        return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE, index);
     }
 
     // validState
@@ -799,7 +799,7 @@ public class Validate {
      * @since 3.0
      */
     public static void validState(final boolean expression) {
-        if (expression == false) {
+        if (!expression) {
             throw new IllegalStateException(DEFAULT_VALID_STATE_EX_MESSAGE);
         }
     }
@@ -821,7 +821,7 @@ public class Validate {
      * @since 3.0
      */
     public static void validState(final boolean expression, final String message, final Object... values) {
-        if (expression == false) {
+        if (!expression) {
             throw new IllegalStateException(String.format(message, values));
         }
     }
@@ -846,7 +846,7 @@ public class Validate {
      */
     public static void matchesPattern(final CharSequence input, final String pattern) {
         // TODO when breaking BC, consider returning input
-        if (Pattern.matches(pattern, input) == false) {
+        if (!Pattern.matches(pattern, input)) {
             throw new IllegalArgumentException(String.format(DEFAULT_MATCHES_PATTERN_EX, input, pattern));
         }
     }
@@ -870,7 +870,7 @@ public class Validate {
      */
     public static void matchesPattern(final CharSequence input, final String pattern, final String message, final Object... values) {
         // TODO when breaking BC, consider returning input
-        if (Pattern.matches(pattern, input) == false) {
+        if (!Pattern.matches(pattern, input)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -965,7 +965,7 @@ public class Validate {
     public static void inclusiveBetween(final long start, final long end, final long value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
-            throw new IllegalArgumentException(String.format(message));
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -1009,7 +1009,7 @@ public class Validate {
     public static void inclusiveBetween(final double start, final double end, final double value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
-            throw new IllegalArgumentException(String.format(message));
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -1103,7 +1103,7 @@ public class Validate {
     public static void exclusiveBetween(final long start, final long end, final long value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
-            throw new IllegalArgumentException(String.format(message));
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -1147,7 +1147,7 @@ public class Validate {
     public static void exclusiveBetween(final double start, final double end, final double value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
-            throw new IllegalArgumentException(String.format(message));
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -1172,7 +1172,7 @@ public class Validate {
      */
     public static void isInstanceOf(final Class<?> type, final Object obj) {
         // TODO when breaking BC, consider returning obj
-        if (type.isInstance(obj) == false) {
+        if (!type.isInstance(obj)) {
             throw new IllegalArgumentException(String.format(DEFAULT_IS_INSTANCE_OF_EX_MESSAGE, type.getName(),
                     obj == null ? "null" : obj.getClass().getName()));
         }
@@ -1197,7 +1197,7 @@ public class Validate {
      */
     public static void isInstanceOf(final Class<?> type, final Object obj, final String message, final Object... values) {
         // TODO when breaking BC, consider returning obj
-        if (type.isInstance(obj) == false) {
+        if (!type.isInstance(obj)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -1223,8 +1223,8 @@ public class Validate {
      */
     public static void isAssignableFrom(final Class<?> superType, final Class<?> type) {
         // TODO when breaking BC, consider returning type
-        if (superType.isAssignableFrom(type) == false) {
-            throw new IllegalArgumentException(String.format(DEFAULT_IS_ASSIGNABLE_EX_MESSAGE, type == null ? "null" : type.getName(),
+        if (!superType.isAssignableFrom(type)) {
+            throw new IllegalArgumentException(String.format(DEFAULT_IS_ASSIGNABLE_EX_MESSAGE, type.getName(),
                     superType.getName()));
         }
     }
@@ -1248,7 +1248,7 @@ public class Validate {
      */
     public static void isAssignableFrom(final Class<?> superType, final Class<?> type, final String message, final Object... values) {
         // TODO when breaking BC, consider returning type
-        if (superType.isAssignableFrom(type) == false) {
+        if (!superType.isAssignableFrom(type)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
