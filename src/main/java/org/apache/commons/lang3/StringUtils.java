@@ -299,7 +299,7 @@ public class StringUtils {
             return true;
         }
         for (int i = 0; i < strLen; i++) {
-            if (Character.isWhitespace(cs.charAt(i)) == false) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
                 return false;
             }
         }
@@ -1660,10 +1660,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from contains(String, int) to contains(CharSequence, int)
      */
     public static boolean contains(final CharSequence seq, final int searchChar) {
-        if (isEmpty(seq)) {
-            return false;
-        }
-        return CharSequenceUtils.indexOf(seq, searchChar, 0) >= 0;
+        return !isEmpty(seq) && CharSequenceUtils.indexOf(seq, searchChar, 0) >= 0;
     }
 
     /**
@@ -1689,10 +1686,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from contains(String, String) to contains(CharSequence, CharSequence)
      */
     public static boolean contains(final CharSequence seq, final CharSequence searchSeq) {
-        if (seq == null || searchSeq == null) {
-            return false;
-        }
-        return CharSequenceUtils.indexOf(seq, searchSeq, 0) >= 0;
+        return !(seq == null || searchSeq == null) && CharSequenceUtils.indexOf(seq, searchSeq, 0) >= 0;
     }
 
     /**
@@ -1925,10 +1919,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from containsAny(String, String) to containsAny(CharSequence, CharSequence)
      */
     public static boolean containsAny(final CharSequence cs, final CharSequence searchChars) {
-        if (searchChars == null) {
-            return false;
-        }
-        return containsAny(cs, CharSequenceUtils.toCharArray(searchChars));
+        return searchChars != null && containsAny(cs, CharSequenceUtils.toCharArray(searchChars));
     }
 
     /**
@@ -2098,10 +2089,7 @@ public class StringUtils {
         if (cs.length() == 0) {
             return true;
         }
-        if (valid.length == 0) {
-            return false;
-        }
-        return indexOfAnyBut(cs, valid) == INDEX_NOT_FOUND;
+        return valid.length != 0 && indexOfAnyBut(cs, valid) == INDEX_NOT_FOUND;
     }
 
     /**
@@ -2128,10 +2116,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, String)
      */
     public static boolean containsOnly(final CharSequence cs, final String validChars) {
-        if (cs == null || validChars == null) {
-            return false;
-        }
-        return containsOnly(cs, validChars.toCharArray());
+        return !(cs == null || validChars == null) && containsOnly(cs, validChars.toCharArray());
     }
 
     // ContainsNone
@@ -2213,10 +2198,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
      */
     public static boolean containsNone(final CharSequence cs, final String invalidChars) {
-        if (cs == null || invalidChars == null) {
-            return true;
-        }
-        return containsNone(cs, invalidChars.toCharArray());
+        return cs == null || invalidChars == null || containsNone(cs, invalidChars.toCharArray());
     }
 
     // IndexOfAny strings
@@ -2252,14 +2234,12 @@ public class StringUtils {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
-        final int sz = searchStrs.length;
 
         // String's can't have a MAX_VALUEth index.
         int ret = Integer.MAX_VALUE;
 
-        int tmp = 0;
-        for (int i = 0; i < sz; i++) {
-            final CharSequence search = searchStrs[i];
+        int tmp;
+        for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
             }
@@ -2306,11 +2286,10 @@ public class StringUtils {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
-        final int sz = searchStrs.length;
+
         int ret = INDEX_NOT_FOUND;
-        int tmp = 0;
-        for (int i = 0; i < sz; i++) {
-            final CharSequence search = searchStrs[i];
+        int tmp;
+        for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
             }
@@ -6461,7 +6440,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetter(cs.charAt(i)) == false) {
+            if (!Character.isLetter(cs.charAt(i))) {
                 return false;
             }
         }
@@ -6496,7 +6475,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetter(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
+            if (!Character.isLetter(cs.charAt(i)) && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -6531,7 +6510,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetterOrDigit(cs.charAt(i)) == false) {
+            if (!Character.isLetterOrDigit(cs.charAt(i))) {
                 return false;
             }
         }
@@ -6566,7 +6545,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetterOrDigit(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
+            if (!Character.isLetterOrDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -6605,7 +6584,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (CharUtils.isAsciiPrintable(cs.charAt(i)) == false) {
+            if (!CharUtils.isAsciiPrintable(cs.charAt(i))) {
                 return false;
             }
         }
@@ -6688,7 +6667,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isDigit(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
+            if (!Character.isDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -6721,7 +6700,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isWhitespace(cs.charAt(i)) == false) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
                 return false;
             }
         }
@@ -6756,7 +6735,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLowerCase(cs.charAt(i)) == false) {
+            if (!Character.isLowerCase(cs.charAt(i))) {
                 return false;
             }
         }
@@ -6791,7 +6770,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isUpperCase(cs.charAt(i)) == false) {
+            if (!Character.isUpperCase(cs.charAt(i))) {
                 return false;
             }
         }
@@ -7266,14 +7245,14 @@ public class StringUtils {
         // find the min and max string lengths; this avoids checking to make
         // sure we are not exceeding the length of the string each time through
         // the bottom loop.
-        for (int i = 0; i < arrayLen; i++) {
-            if (css[i] == null) {
+        for (CharSequence cs : css) {
+            if (cs == null) {
                 anyStringNull = true;
                 shortestStrLen = 0;
             } else {
                 allStringsNull = false;
-                shortestStrLen = Math.min(css[i].length(), shortestStrLen);
-                longestStrLen = Math.max(css[i].length(), longestStrLen);
+                shortestStrLen = Math.min(cs.length(), shortestStrLen);
+                longestStrLen = Math.max(cs.length(), longestStrLen);
             }
         }
 
@@ -7681,9 +7660,8 @@ public class StringUtils {
 
         final double jaro = score(first,second);
         final int cl = commonPrefixLength(first, second);
-        final double matchScore = Math.round((jaro + (DEFAULT_SCALING_FACTOR * cl * (1.0 - jaro))) *100.0)/100.0;
 
-        return  matchScore;
+        return Math.round((jaro + (DEFAULT_SCALING_FACTOR * cl * (1.0 - jaro))) *100.0)/100.0;
     }
 
     /**
@@ -7730,11 +7708,9 @@ public class StringUtils {
         final int transpositions = transpositions(m1, m2);
 
         // Calculate the distance.
-        final double dist =
-                (m1.length() / ((double)shorter.length()) +
-                        m2.length() / ((double)longer.length()) +
-                        (m1.length() - transpositions) / ((double)m1.length())) / 3.0;
-        return dist;
+        return (m1.length() / ((double)shorter.length()) +
+                m2.length() / ((double)longer.length()) +
+                (m1.length() - transpositions) / ((double)m1.length())) / 3.0;
     }
 
     /**
