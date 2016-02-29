@@ -7967,7 +7967,7 @@ public class StringUtils {
      *
      * @param string  the CharSequence to check, may be null
      * @param searchStrings the CharSequences to find, may be null or empty
-     * @return {@code true} if the CharSequence starts with any of the the prefixes, case insensitive, or
+     * @return {@code true} if the CharSequence starts with any of the the prefixes, case sensitive, or
      *  both {@code null}
      * @since 2.5
      * @since 3.0 Changed signature from startsWithAny(String, String[]) to startsWithAny(CharSequence, CharSequence...)
