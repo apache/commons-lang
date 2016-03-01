@@ -22,7 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
-    <action issue="LANG-1211" type="update" dev="ggregory" due-to="Matthias Niehoff">Fix Javadoc for StringUtils.startsWithAny(CharSequence, CharSequence...)</action>
+    <action issue="LANG-1210" type="update" dev="ggregory" due-to="Matthias Niehoff">StringUtils#startsWithAny has error in Javadoc</action>
     <action issue="LANG-1208" type="update" dev="bayard" due-to="Samuel Karp">StrSubstitutor can preserve escapes</action>
     <action issue="LANG-1175" type="fix" dev="wikier" due-to="Benedikt Ritter">Remove Ant-based build</action>
     <action issue="LANG-1192" type="add" dev="chas" due-to="Dominik Stadler">FastDateFormat support of the week-year component (uppercase 'Y')</action>
