@@ -1703,14 +1703,14 @@ public class StringUtils {
      * <p>A {@code null} CharSequence will return {@code false}.</p>
      *
      * <pre>
-     * StringUtils.contains(null, *) = false
-     * StringUtils.contains(*, null) = false
-     * StringUtils.contains("", "") = true
-     * StringUtils.contains("abc", "") = true
-     * StringUtils.contains("abc", "a") = true
-     * StringUtils.contains("abc", "z") = false
-     * StringUtils.contains("abc", "A") = true
-     * StringUtils.contains("abc", "Z") = false
+     * StringUtils.containsIgnoreCase(null, *) = false
+     * StringUtils.containsIgnoreCase(*, null) = false
+     * StringUtils.containsIgnoreCase("", "") = true
+     * StringUtils.containsIgnoreCase("abc", "") = true
+     * StringUtils.containsIgnoreCase("abc", "a") = true
+     * StringUtils.containsIgnoreCase("abc", "z") = false
+     * StringUtils.containsIgnoreCase("abc", "A") = true
+     * StringUtils.containsIgnoreCase("abc", "Z") = false
      * </pre>
      *
      * @param str  the CharSequence to check, may be null
