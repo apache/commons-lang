@@ -2234,12 +2234,14 @@ public class StringUtils {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
+        final int sz = searchStrs.length;
 
         // String's can't have a MAX_VALUEth index.
         int ret = Integer.MAX_VALUE;
 
-        int tmp;
-        for (final CharSequence search : searchStrs) {
+        int tmp = 0;
+        for (int i = 0; i < sz; i++) {
+            final CharSequence search = searchStrs[i];
             if (search == null) {
                 continue;
             }
@@ -2286,10 +2288,12 @@ public class StringUtils {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
-
+        final int sz = searchStrs.length;
         int ret = INDEX_NOT_FOUND;
         int tmp;
-        for (final CharSequence search : searchStrs) {
+
+        for (int i = 0; i < sz; i++) {
+            final CharSequence search = searchStrs[i];
             if (search == null) {
                 continue;
             }
@@ -7245,14 +7249,14 @@ public class StringUtils {
         // find the min and max string lengths; this avoids checking to make
         // sure we are not exceeding the length of the string each time through
         // the bottom loop.
-        for (CharSequence cs : css) {
-            if (cs == null) {
+        for (int i = 0; i < arrayLen; i++) {
+            if (css[i] == null) {
                 anyStringNull = true;
                 shortestStrLen = 0;
             } else {
                 allStringsNull = false;
-                shortestStrLen = Math.min(cs.length(), shortestStrLen);
-                longestStrLen = Math.max(cs.length(), longestStrLen);
+                shortestStrLen = Math.min(css[i].length(), shortestStrLen);
+                longestStrLen = Math.max(css[i].length(), longestStrLen);
             }
         }
 
