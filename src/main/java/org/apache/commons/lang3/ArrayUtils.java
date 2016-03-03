@@ -470,11 +470,11 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static <T> T[] nullToEmpty(final T[] array, final Class<T[]> type) {
-        if(type == null) {
+        if (type == null) {
             throw new IllegalArgumentException("The type must not be null");
         }
 
-        if(array == null) {
+        if (array == null) {
             return type.cast(Array.newInstance(type.getComponentType(), 0));
         }
         return array;
@@ -5014,9 +5014,9 @@ public class ArrayUtils {
              * - safer, in case check turns out to be too strict
              */
             final Class<?> type2 = array2.getClass().getComponentType();
-            if (!type1.isAssignableFrom(type2)){
-                throw new IllegalArgumentException("Cannot store "+type2.getName()+" in an array of "
-                        +type1.getName(), ase);
+            if (!type1.isAssignableFrom(type2)) {
+                throw new IllegalArgumentException("Cannot store " + type2.getName() + " in an array of "
+                        + type1.getName(), ase);
             }
             throw ase; // No, so rethrow original
         }
@@ -5286,7 +5286,7 @@ public class ArrayUtils {
      */
     public static <T> T[] add(final T[] array, final T element) {
         Class<?> type;
-        if (array != null){
+        if (array != null) {
             type = array.getClass().getComponentType();
         } else if (element != null) {
             type = element.getClass();
@@ -5511,7 +5511,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static short[] add(final short[] array, final short element) {
-        final short[] newArray = (short[])copyArrayGrow1(array, Short.TYPE);
+        final short[] newArray = (short[]) copyArrayGrow1(array, Short.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -7350,11 +7350,11 @@ public class ArrayUtils {
 //        }
         final int removals = indices.cardinality(); // true bits are items to remove
         final Object result = Array.newInstance(array.getClass().getComponentType(), srcLength - removals);
-        int srcIndex=0;
-        int destIndex=0;
+        int srcIndex = 0;
+        int destIndex = 0;
         int count;
         int set;
-        while((set = indices.nextSetBit(srcIndex)) != -1){
+        while ((set = indices.nextSetBit(srcIndex)) != -1) {
             count = set - srcIndex;
             if (count > 0) {
                 System.arraycopy(array, srcIndex, result, destIndex, count);
@@ -7402,13 +7402,13 @@ public class ArrayUtils {
             throw new IllegalArgumentException("Comparator should not be null.");
         }
         
-        if(array == null || array.length < 2) {
+        if (array == null || array.length < 2) {
             return true;
         }
 
         T previous = array[0];
         final int n = array.length;
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             final T current = array[i];
             if (comparator.compare(previous, current) > 0) {
                 return false;
@@ -7427,15 +7427,15 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(int[] array) {
-        if(array == null || array.length < 2) {
+        if (array == null || array.length < 2) {
             return true;
         }
 
         int previous = array[0];
         final int n = array.length;
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             final int current = array[i];
-            if(NumberUtils.compare(previous, current) > 0) {
+            if (NumberUtils.compare(previous, current) > 0) {
                 return false;
             }
 
@@ -7452,15 +7452,15 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(long[] array) {
-        if(array == null || array.length < 2) {
+        if (array == null || array.length < 2) {
             return true;
         }
 
         long previous = array[0];
         final int n = array.length;
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             final long current = array[i];
-            if(NumberUtils.compare(previous, current) > 0) {
+            if (NumberUtils.compare(previous, current) > 0) {
                 return false;
             }
 
@@ -7477,15 +7477,15 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(short[] array) {
-        if(array == null || array.length < 2) {
+        if (array == null || array.length < 2) {
             return true;
         }
 
         short previous = array[0];
         final int n = array.length;
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             final short current = array[i];
-            if(NumberUtils.compare(previous, current) > 0) {
+            if (NumberUtils.compare(previous, current) > 0) {
                 return false;
             }
 
@@ -7502,15 +7502,15 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(final double[] array) {
-        if(array == null || array.length < 2) {
+        if (array == null || array.length < 2) {
             return true;
         }
 
         double previous = array[0];
         final int n = array.length;
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             final double current = array[i];
-            if(Double.compare(previous, current) > 0) {
+            if (Double.compare(previous, current) > 0) {
                 return false;
             }
 
@@ -7527,15 +7527,15 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(final float[] array) {
-        if(array == null || array.length < 2) {
+        if (array == null || array.length < 2) {
             return true;
         }
 
         float previous = array[0];
         final int n = array.length;
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             final float current = array[i];
-            if(Float.compare(previous, current) > 0) {
+            if (Float.compare(previous, current) > 0) {
                 return false;
             }
 
@@ -7552,15 +7552,15 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(byte[] array) {
-        if(array == null || array.length < 2) {
+        if (array == null || array.length < 2) {
             return true;
         }
 
         byte previous = array[0];
         final int n = array.length;
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             final byte current = array[i];
-            if(NumberUtils.compare(previous, current) > 0) {
+            if (NumberUtils.compare(previous, current) > 0) {
                 return false;
             }
 
@@ -7577,15 +7577,15 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(char[] array) {
-        if(array == null || array.length < 2) {
+        if (array == null || array.length < 2) {
             return true;
         }
 
         char previous = array[0];
         final int n = array.length;
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             final char current = array[i];
-            if(CharUtils.compare(previous, current) > 0) {
+            if (CharUtils.compare(previous, current) > 0) {
                 return false;
             }
 
@@ -7603,15 +7603,15 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(boolean[] array) {
-        if(array == null || array.length < 2) {
+        if (array == null || array.length < 2) {
             return true;
         }
 
         boolean previous = array[0];
         final int n = array.length;
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             final boolean current = array[i];
-            if(BooleanUtils.compare(previous, current) > 0) {
+            if (BooleanUtils.compare(previous, current) > 0) {
                 return false;
             }
 
