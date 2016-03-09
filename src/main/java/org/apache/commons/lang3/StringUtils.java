@@ -8167,14 +8167,14 @@ public class StringUtils {
 
     /**
      * Appends the suffix to the end of the string if the string does not
-     * already end in the suffix.
+     * already end with the suffix.
      *
      * @param str The string.
      * @param suffix The suffix to append to the end of the string.
      * @param ignoreCase Indicates whether the compare should ignore case.
      * @param suffixes Additional suffixes that are valid terminators (optional).
      *
-     * @return A new String if suffix was appened, the same string otherwise.
+     * @return A new String if suffix was appended, the same string otherwise.
      */
     private static String appendIfMissing(final String str, final CharSequence suffix, final boolean ignoreCase, final CharSequence... suffixes) {
         if (str == null || isEmpty(suffix) || endsWith(str, suffix, ignoreCase)) {
@@ -8192,7 +8192,7 @@ public class StringUtils {
 
     /**
      * Appends the suffix to the end of the string if the string does not
-     * already end with any the suffixes.
+     * already end with any of the suffixes.
      *
      * <pre>
      * StringUtils.appendIfMissing(null, null) = null
@@ -8220,7 +8220,7 @@ public class StringUtils {
      * @param suffix The suffix to append to the end of the string.
      * @param suffixes Additional suffixes that are valid terminators.
      *
-     * @return A new String if suffix was appened, the same string otherwise.
+     * @return A new String if suffix was appended, the same string otherwise.
      *
      * @since 3.2
      */
@@ -8258,7 +8258,7 @@ public class StringUtils {
      * @param suffix The suffix to append to the end of the string.
      * @param suffixes Additional suffixes that are valid terminators.
      *
-     * @return A new String if suffix was appened, the same string otherwise.
+     * @return A new String if suffix was appended, the same string otherwise.
      *
      * @since 3.2
      */
