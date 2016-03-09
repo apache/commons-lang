@@ -8167,7 +8167,7 @@ public class StringUtils {
 
     /**
      * Appends the suffix to the end of the string if the string does not
-     * already end in the suffix.
+     * already end with the suffix.
      *
      * @param str The string.
      * @param suffix The suffix to append to the end of the string.
@@ -8192,7 +8192,7 @@ public class StringUtils {
 
     /**
      * Appends the suffix to the end of the string if the string does not
-     * already end with any the suffixes.
+     * already end with any of the suffixes.
      *
      * <pre>
      * StringUtils.appendIfMissing(null, null) = null
