@@ -8174,7 +8174,7 @@ public class StringUtils {
      * @param ignoreCase Indicates whether the compare should ignore case.
      * @param suffixes Additional suffixes that are valid terminators (optional).
      *
-     * @return A new String if suffix was appened, the same string otherwise.
+     * @return A new String if suffix was appended, the same string otherwise.
      */
     private static String appendIfMissing(final String str, final CharSequence suffix, final boolean ignoreCase, final CharSequence... suffixes) {
         if (str == null || isEmpty(suffix) || endsWith(str, suffix, ignoreCase)) {
@@ -8220,7 +8220,7 @@ public class StringUtils {
      * @param suffix The suffix to append to the end of the string.
      * @param suffixes Additional suffixes that are valid terminators.
      *
-     * @return A new String if suffix was appened, the same string otherwise.
+     * @return A new String if suffix was appended, the same string otherwise.
      *
      * @since 3.2
      */
