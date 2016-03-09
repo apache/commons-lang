@@ -8258,7 +8258,7 @@ public class StringUtils {
      * @param suffix The suffix to append to the end of the string.
      * @param suffixes Additional suffixes that are valid terminators.
      *
-     * @return A new String if suffix was appened, the same string otherwise.
+     * @return A new String if suffix was appended, the same string otherwise.
      *
      * @since 3.2
      */
