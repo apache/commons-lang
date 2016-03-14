@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1201" type="add" dev="ggregory" due-to="Gary Gregory">Add a TimeUnit-like classes for base 2 and base 10 digital conversions (bits, bytes, KB, MB, and so on)</action>
     <action issue="LANG-1146" type="add" dev="ggregory" due-to="Gabor Liptak">z/OS identification in SystemUtils</action>
     <action issue="LANG-1210" type="update" dev="ggregory" due-to="Matthias Niehoff">StringUtils#startsWithAny has error in Javadoc</action>
     <action issue="LANG-1208" type="update" dev="bayard" due-to="Samuel Karp">StrSubstitutor can preserve escapes</action>
