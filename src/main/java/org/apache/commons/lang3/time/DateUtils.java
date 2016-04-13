@@ -613,7 +613,7 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * Sets the miliseconds field to a date returning a new object.
+     * Sets the milliseconds field to a date returning a new object.
      * The original {@code Date} is unchanged.
      *
      * @param date  the date, not null
