@@ -16,9 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import java.io.IOException;
-import java.io.Writer;
-
 import org.apache.commons.lang3.text.translate.AggregateTranslator;
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.EntityArrays;
@@ -29,6 +26,9 @@ import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 import org.apache.commons.lang3.text.translate.OctalUnescaper;
 import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
 import org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover;
+
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * <p>Escapes and unescapes {@code String}s for
@@ -451,7 +451,7 @@ public class StringEscapeUtils {
      * @param input  String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
      */
-    public static String escapeJava(final String input) {
+    public static final String escapeJava(final String input) {
         return ESCAPE_JAVA.translate(input);
     }
 
@@ -479,7 +479,7 @@ public class StringEscapeUtils {
      *
      * @since 3.0
      */
-    public static String escapeEcmaScript(final String input) {
+    public static final String escapeEcmaScript(final String input) {
         return ESCAPE_ECMASCRIPT.translate(input);
     }
 
@@ -507,7 +507,7 @@ public class StringEscapeUtils {
      *
      * @since 3.2
      */
-    public static String escapeJson(final String input) {
+    public static final String escapeJson(final String input) {
         return ESCAPE_JSON.translate(input);
     }
 
@@ -520,7 +520,7 @@ public class StringEscapeUtils {
      * @param input  the {@code String} to unescape, may be null
      * @return a new unescaped {@code String}, {@code null} if null string input
      */
-    public static String unescapeJava(final String input) {
+    public static final String unescapeJava(final String input) {
         return UNESCAPE_JAVA.translate(input);
     }
 
@@ -537,7 +537,7 @@ public class StringEscapeUtils {
      *
      * @since 3.0
      */
-    public static String unescapeEcmaScript(final String input) {
+    public static final String unescapeEcmaScript(final String input) {
         return UNESCAPE_ECMASCRIPT.translate(input);
     }
 
@@ -554,7 +554,7 @@ public class StringEscapeUtils {
      *
      * @since 3.2
      */
-    public static String unescapeJson(final String input) {
+    public static final String unescapeJson(final String input) {
         return UNESCAPE_JSON.translate(input);
     }
 
@@ -587,7 +587,7 @@ public class StringEscapeUtils {
      * 
      * @since 3.0
      */
-    public static String escapeHtml4(final String input) {
+    public static final String escapeHtml4(final String input) {
         return ESCAPE_HTML4.translate(input);
     }
 
@@ -600,7 +600,7 @@ public class StringEscapeUtils {
      * 
      * @since 3.0
      */
-    public static String escapeHtml3(final String input) {
+    public static final String escapeHtml3(final String input) {
         return ESCAPE_HTML3.translate(input);
     }
 
@@ -622,7 +622,7 @@ public class StringEscapeUtils {
      * 
      * @since 3.0
      */
-    public static String unescapeHtml4(final String input) {
+    public static final String unescapeHtml4(final String input) {
         return UNESCAPE_HTML4.translate(input);
     }
 
@@ -636,7 +636,7 @@ public class StringEscapeUtils {
      * 
      * @since 3.0
      */
-    public static String unescapeHtml3(final String input) {
+    public static final String unescapeHtml3(final String input) {
         return UNESCAPE_HTML3.translate(input);
     }
 
@@ -662,7 +662,7 @@ public class StringEscapeUtils {
      * @deprecated use {@link #escapeXml10(java.lang.String)} or {@link #escapeXml11(java.lang.String)} instead.
      */
     @Deprecated
-    public static String escapeXml(final String input) {
+    public static final String escapeXml(final String input) {
         return ESCAPE_XML.translate(input);
     }
 
@@ -746,7 +746,7 @@ public class StringEscapeUtils {
      * @see #escapeXml10(String)
      * @see #escapeXml11(String)
      */
-    public static String unescapeXml(final String input) {
+    public static final String unescapeXml(final String input) {
         return UNESCAPE_XML.translate(input);
     }
 
@@ -772,7 +772,7 @@ public class StringEscapeUtils {
      * newline or double quote, {@code null} if null string input
      * @since 2.4
      */
-    public static String escapeCsv(final String input) {
+    public static final String escapeCsv(final String input) {
         return ESCAPE_CSV.translate(input);
     }
 
@@ -797,7 +797,7 @@ public class StringEscapeUtils {
      * quotes unescaped, {@code null} if null string input
      * @since 2.4
      */
-    public static String unescapeCsv(final String input) {
+    public static final String unescapeCsv(final String input) {
         return UNESCAPE_CSV.translate(input);
     }
 
