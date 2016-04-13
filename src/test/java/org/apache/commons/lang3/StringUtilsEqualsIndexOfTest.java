@@ -930,6 +930,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(5, StringUtils.indexOfIgnoreCase("aabaabaa", "", 5));
         assertEquals(-1, StringUtils.indexOfIgnoreCase("ab", "AAB", 0));
         assertEquals(-1, StringUtils.indexOfIgnoreCase("aab", "AAB", 1));
+        assertEquals(-1, StringUtils.indexOfIgnoreCase("abc", "", 9));
     }
 
     @Test
