@@ -181,16 +181,16 @@ public class DurationFormatUtils {
         if (suppressLeadingZeroElements) {
             // this is a temporary marker on the front. Like ^ in regexp.
             duration = " " + duration;
-            String tmp = StringUtils.replaceOnce(duration, " 0 days", "");
+            String tmp = StringUtils.replaceOnce(duration, " 0 days", StringUtils.EMPTY);
             if (tmp.length() != duration.length()) {
                 duration = tmp;
-                tmp = StringUtils.replaceOnce(duration, " 0 hours", "");
+                tmp = StringUtils.replaceOnce(duration, " 0 hours", StringUtils.EMPTY);
                 if (tmp.length() != duration.length()) {
                     duration = tmp;
-                    tmp = StringUtils.replaceOnce(duration, " 0 minutes", "");
+                    tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
                     duration = tmp;
                     if (tmp.length() != duration.length()) {
-                        duration = StringUtils.replaceOnce(tmp, " 0 seconds", "");
+                        duration = StringUtils.replaceOnce(tmp, " 0 seconds", StringUtils.EMPTY);
                     }
                 }
             }
@@ -200,15 +200,15 @@ public class DurationFormatUtils {
             }
         }
         if (suppressTrailingZeroElements) {
-            String tmp = StringUtils.replaceOnce(duration, " 0 seconds", "");
+            String tmp = StringUtils.replaceOnce(duration, " 0 seconds", StringUtils.EMPTY);
             if (tmp.length() != duration.length()) {
                 duration = tmp;
-                tmp = StringUtils.replaceOnce(duration, " 0 minutes", "");
+                tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
                 if (tmp.length() != duration.length()) {
                     duration = tmp;
-                    tmp = StringUtils.replaceOnce(duration, " 0 hours", "");
+                    tmp = StringUtils.replaceOnce(duration, " 0 hours", StringUtils.EMPTY);
                     if (tmp.length() != duration.length()) {
-                        duration = StringUtils.replaceOnce(tmp, " 0 days", "");
+                        duration = StringUtils.replaceOnce(tmp, " 0 days", StringUtils.EMPTY);
                     }
                 }
             }

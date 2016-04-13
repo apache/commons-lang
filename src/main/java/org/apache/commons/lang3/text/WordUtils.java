@@ -541,7 +541,7 @@ public class WordUtils {
             return str;
         }
         if (delimiters != null && delimiters.length == 0) {
-            return "";
+            return StringUtils.EMPTY;
         }
         final int strLen = str.length();
         final char[] buf = new char[strLen / 2 + 1];

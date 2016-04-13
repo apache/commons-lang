@@ -755,7 +755,7 @@ public class StringUtils {
         final Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");//$NON-NLS-1$
         final String decomposed = Normalizer.normalize(input, Normalizer.Form.NFD);
         // Note that this doesn't correctly remove ligatures...
-        return pattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
+        return pattern.matcher(decomposed).replaceAll(StringUtils.EMPTY);
     }
 
     // Equals
