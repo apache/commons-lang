@@ -96,11 +96,16 @@ public class RangeTest {
 
     @Test
     public void testBetweenWithCompare(){
-        // TODO add tests with a better comparator
         final Comparator<Integer> c = new Comparator<Integer>(){
             @Override
             public int compare(final Integer o1, final Integer o2) {
                 return 0; // all integers are equal
+            }
+        };
+        final Comparator<String> lengthComp = new Comparator<String>(){
+            @Override
+            public int compare(final String str1, final String str2) {
+                return str1.length() - str2.length();
             }
         };
         Range<Integer> rb = Range.between(-10,20);
@@ -115,6 +120,18 @@ public class RangeTest {
         assertTrue("should contain -10",rb.contains(-10));
         assertTrue("should contain 21",rb.contains(21));
         assertTrue("should contain -11",rb.contains(-11));
+        Range<String> rbstr = Range.between("house", "i");
+        assertFalse("should not contain null",rbstr.contains(null));
+        assertTrue("should contain house",rbstr.contains("house"));
+        assertTrue("should contain i",rbstr.contains("i"));
+        assertFalse("should not contain hose",rbstr.contains("hose"));
+        assertFalse("should not contain ice",rbstr.contains("ice"));
+        rbstr = Range.between("house", "i", lengthComp);
+        assertFalse("should not contain null",rbstr.contains(null));
+        assertTrue("should contain house",rbstr.contains("house"));
+        assertTrue("should contain i",rbstr.contains("i"));
+        assertFalse("should not contain houses",rbstr.contains("houses"));
+        assertFalse("should not contain ''",rbstr.contains(""));
     }
 
     //-----------------------------------------------------------------------
