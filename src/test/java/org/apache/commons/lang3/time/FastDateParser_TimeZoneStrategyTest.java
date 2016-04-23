@@ -17,6 +17,8 @@
 package org.apache.commons.lang3.time;
 
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -51,5 +53,14 @@ public class FastDateParser_TimeZoneStrategyTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void testLang1219() throws ParseException {
+        FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
+
+        Date summer = parser.parse("26.10.2014 02:00:00 MESZ");
+        Date standard = parser.parse("26.10.2014 02:00:00 MEZ");
+        Assert.assertNotEquals(summer.getTime(), standard.getTime());
     }
 }
