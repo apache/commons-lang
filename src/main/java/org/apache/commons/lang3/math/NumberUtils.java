@@ -542,7 +542,7 @@ public class NumberUtils {
                 case 'f' :
                 case 'F' :
                     try {
-                        final Float f = NumberUtils.createFloat(numeric);
+                        final Float f = NumberUtils.createFloat(str);
                         if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
                             //If it's too big for a float or the float value = 0 and the string
                             //has non-zeros in it, then float does not have the precision we want
@@ -556,7 +556,7 @@ public class NumberUtils {
                 case 'd' :
                 case 'D' :
                     try {
-                        final Double d = NumberUtils.createDouble(numeric);
+                        final Double d = NumberUtils.createDouble(str);
                         if (!(d.isInfinite() || (d.floatValue() == 0.0D && !allZeros))) {
                             return d;
                         }
