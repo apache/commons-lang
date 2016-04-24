@@ -4692,6 +4692,39 @@ public class ArrayUtils {
         return result;
     }
 
+    /**
+     * <p>Create an array of primitive type from an array of wrapper types.
+     *
+     * <p>This method returns {@code null} for a {@code null} input array.
+     *
+     * @param array  an array of wrapper object
+     * @return an array of the corresponding primitive type, or the original array
+     * @since 3.5
+     */
+    public static Object toPrimitive(final Object array) {
+        if (array == null) {
+            return null;
+        }
+        Class<?> ct = array.getClass().getComponentType();
+        Class<?> pt = ClassUtils.wrapperToPrimitive(ct);
+        if(Integer.TYPE.equals(pt)) {
+            return toPrimitive((Integer[]) array);
+        }
+        if(Long.TYPE.equals(pt)) {
+            return toPrimitive((Long[]) array);
+        }
+        if(Short.TYPE.equals(pt)) {
+            return toPrimitive((Short[]) array);
+        }
+        if(Double.TYPE.equals(pt)) {
+            return toPrimitive((Double[]) array);
+        }
+        if(Float.TYPE.equals(pt)) {
+            return toPrimitive((Float[]) array);
+        }
+        return array;
+    }
+
     // Boolean array converters
     // ----------------------------------------------------------------------
     /**

@@ -17,13 +17,14 @@
 package org.apache.commons.lang3.reflect;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -155,6 +156,7 @@ public class MethodUtils {
                     + methodName + "() on object: "
                     + object.getClass().getName());
         }
+        args = toVarArgs(method, args);
         return method.invoke(object, args);
     }
 
@@ -341,7 +343,59 @@ public class MethodUtils {
             throw new NoSuchMethodException("No such accessible method: "
                     + methodName + "() on class: " + cls.getName());
         }
+        args = toVarArgs(method, args);
         return method.invoke(null, args);
+    }
+
+    private static Object[] toVarArgs(Method method, Object[] args) {
+        if (method.isVarArgs()) {
+            Class<?>[] methodParameterTypes = method.getParameterTypes();
+            args = getVarArgs(args, methodParameterTypes);
+        }
+        return args;
+    }
+
+    /**
+     * <p>Given an arguments array passed to a varargs method, return an array of arguments in the canonical form,
+     * i.e. an array with the declared number of parameters, and whose last parameter is an array of the varargs type.
+     * </p>
+     *
+     * @param args the array of arguments passed to the varags method
+     * @param methodParameterTypes the declared array of method parameter types
+     * @return an array of the variadic arguments passed to the method
+     * @since 3.5
+     */
+    static Object[] getVarArgs(Object[] args, Class<?>[] methodParameterTypes) {
+        if (args.length == methodParameterTypes.length
+                && args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1])) {
+            // The args array is already in the canonical form for the method.
+            return args;
+        }
+
+        // Construct a new array matching the method's declared parameter types.
+        Object[] newArgs = new Object[methodParameterTypes.length];
+
+        // Copy the normal (non-varargs) parameters
+        System.arraycopy(args, 0, newArgs, 0, methodParameterTypes.length - 1);
+
+        // Construct a new array for the variadic parameters
+        Class<?> varArgComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
+        int varArgLength = args.length - methodParameterTypes.length + 1;
+
+        Object varArgsArray = Array.newInstance(ClassUtils.primitiveToWrapper(varArgComponentType), varArgLength);
+        // Copy the variadic arguments into the varargs array.
+        System.arraycopy(args, methodParameterTypes.length - 1, varArgsArray, 0, varArgLength);
+
+        if(varArgComponentType.isPrimitive()) {
+            // unbox from wrapper type to primitive type
+            varArgsArray = ArrayUtils.toPrimitive(varArgsArray);
+        }
+
+        // Store the varargs array in the last position of the array to return
+        newArgs[methodParameterTypes.length - 1] = varArgsArray;
+
+        // Return the canonical varargs array.
+        return newArgs;
     }
 
     /**
@@ -533,15 +587,16 @@ public class MethodUtils {
         final Method[] methods = cls.getMethods();
         for (final Method method : methods) {
             // compare name and parameters
-            if (method.getName().equals(methodName) && ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true)) {
+            if (method.getName().equals(methodName) &&
+                    MemberUtils.isMatchingMethod(method, parameterTypes)) {
                 // get accessible version of method
                 final Method accessibleMethod = getAccessibleMethod(method);
-                if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareParameterTypes(
-                            accessibleMethod.getParameterTypes(),
-                            bestMatch.getParameterTypes(),
+                if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(
+                            accessibleMethod,
+                            bestMatch,
                             parameterTypes) < 0)) {
-                        bestMatch = accessibleMethod;
-                 }
+                    bestMatch = accessibleMethod;
+                }
             }
         }
         if (bestMatch != null) {
