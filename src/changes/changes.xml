@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1222" type="fix" dev="ggregory" due-to="Adam J.">Fix for incorrect comment on StringUtils.containsIgnoreCase method</action>
     <action issue="LANG-1221" type="fix" dev="ggregory" due-to="Pierre Templier">Fix typo on appendIfMissing javadoc</action>
     <action issue="LANG-1220" type="add" dev="kinow" due-to="Casey Scarborough">Add tests for missed branches in DateUtils</action>
     <action issue="LANG-1202" type="fix" dev="chas" due-to="Markus Jelsma">parseDateStrictly does't pass specified locale</action>
