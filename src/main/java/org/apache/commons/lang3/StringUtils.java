@@ -460,6 +460,108 @@ public class StringUtils {
         return str == null ? EMPTY : str.trim();
     }
 
+    /**
+     * <p>Truncates a String. This will turn
+     * "Now is the time for all good men" into "Now is the time for"</p>
+     *
+     * <p>Specifically:</p>
+     * <ul>
+     *   <li>If {@code str} is less than {@code maxWidth} characters
+     *       long, return it.</li>
+     *   <li>Else truncate it to {@code (substring(str, 0, maxWidth))}.</li>
+     *   <li>If {@code maxWidth} is less than {@code 0}, throw an
+     *       {@code IllegalArgumentException}.</li>
+     *   <li>In no case will it return a String of length greater than
+     *       {@code maxWidth}.</li>
+     * </ul>
+     *
+     * <pre>
+     * StringUtils.truncate(null, *)      = null
+     * StringUtils.truncate("", 4)        = ""
+     * StringUtils.truncate("abcdefg", 4) = "abcd"
+     * StringUtils.truncate("abcdefg", 6) = "abcdef"
+     * StringUtils.truncate("abcdefg", 7) = "abcdefg"
+     * StringUtils.truncate("abcdefg", 8) = "abcdefg"
+     * StringUtils.truncate("abcdefg", -1) = ""
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param maxWidth  maximum length of result String, must be positive
+     * @return truncated String, {@code null} if null String input
+     * @since 4.0
+     */
+    public static String truncate(final String str, int maxWidth) {
+        return truncate(str, 0, maxWidth);
+    }
+
+    /**
+     * <p>Truncates a String. This will turn
+     * "Now is the time for all good men" into "is the time for all"</p>
+     *
+     * <p>Works like {@code truncate(String, int)}, but allows you to specify
+     * a "left edge" offset.
+     *
+     * <p>In no case will it return a String of length greater than
+     * {@code maxWidth}.</p>
+     *
+     * <pre>
+     * StringUtils.truncate(null, *, *) = null
+     * StringUtils.truncate("", 0, 10) = ""
+     * StringUtils.truncate("", 2, 10) = ""
+     * StringUtils.truncate("abcdefghij", 0, 3) = "abc"
+     * StringUtils.truncate("abcdefghij", 5, 6) = "fghij"
+     * StringUtils.truncate("raspberry peach", 10, 15) = "peach"
+     * StringUtils.truncate("abcdefghijklmno", -1, 10) = "abcdefghij"
+     * StringUtils.truncate("abcdefghijklmno", 0, 10) = "abcdefghij"
+     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, 10) = "abcdefghij"
+     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, Integer.MAX_VALUE) = "abcdefghijklmno"
+     * StringUtils.truncate("abcdefghijklmno", 0, Integer.MAX_VALUE) = "abcdefghijklmno"
+     * StringUtils.truncate("abcdefghijklmno", 1, 10) = "bcdefghijk"
+     * StringUtils.truncate("abcdefghijklmno", 2, 10) = "cdefghijkl"
+     * StringUtils.truncate("abcdefghijklmno", 3, 10) = "defghijklm"
+     * StringUtils.truncate("abcdefghijklmno", 4, 10) = "efghijklmn"
+     * StringUtils.truncate("abcdefghijklmno", 5, 10) = "fghijklmno"
+     * StringUtils.truncate("abcdefghijklmno", 5, 5) = "fghij"
+     * StringUtils.truncate("abcdefghijklmno", 5, 3) = "fgh"
+     * StringUtils.truncate("abcdefghijklmno", 10, 3) = "klm"
+     * StringUtils.truncate("abcdefghijklmno", 10, Integer.MAX_VALUE) = "klmno"
+     * StringUtils.truncate("abcdefghijklmno", 13, 1) = "n"
+     * StringUtils.truncate("abcdefghijklmno", 13, Integer.MAX_VALUE) = "no"
+     * StringUtils.truncate("abcdefghijklmno", 14, 1) = "o"
+     * StringUtils.truncate("abcdefghijklmno", 14, Integer.MAX_VALUE) = "o"
+     * StringUtils.truncate("abcdefghijklmno", 15, 1) = ""
+     * StringUtils.truncate("abcdefghijklmno", 15, Integer.MAX_VALUE) = ""
+     * StringUtils.truncate("abcdefghijklmno", Integer.MAX_VALUE, Integer.MAX_VALUE) = ""
+     * StringUtils.truncate("abcdefghij", 0, -1) = ""
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param offset  left edge of source String
+     * @param maxWidth  maximum length of result String, must be positive
+     * @return truncated String, {@code null} if null String input
+     * @since 4.0
+     */
+    public static String truncate(final String str, int offset, int maxWidth) {
+        if (str == null) {
+            return null;
+        }
+        if (maxWidth < 0) {
+            maxWidth = 0;
+        }
+        if (offset < 0) {
+            offset = 0;
+        }
+        if (offset > str.length()) {
+            return EMPTY;
+        }
+        if (str.length() > maxWidth) {
+            int ix = offset + maxWidth > str.length() ? str.length() : offset + maxWidth;
+            return str.substring(offset, ix);
+        } else {
+            return  str.substring(offset);
+        }
+    }
+
     // Stripping
     //-----------------------------------------------------------------------
     /**
