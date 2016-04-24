@@ -158,7 +158,7 @@ public class DurationFormatUtils {
     }
 
     /**
-     * <p>Formats an elapsed time into a plurialization correct string.</p>
+     * <p>Formats an elapsed time into a pluralization correct string.</p>
      * 
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
@@ -174,7 +174,7 @@ public class DurationFormatUtils {
         final boolean suppressLeadingZeroElements,
         final boolean suppressTrailingZeroElements) {
 
-        // This method is generally replacable by the format method, but 
+        // This method is generally replaceable by the format method, but
         // there are a series of tweaks and special cases that require 
         // trickery to replicate.
         String duration = formatDuration(durationMillis, "d' days 'H' hours 'm' minutes 's' seconds'");
