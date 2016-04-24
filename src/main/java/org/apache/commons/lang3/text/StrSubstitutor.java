@@ -1220,7 +1220,7 @@ public class StrSubstitutor {
      * <code>$${this-is-escaped}</code> becomes
      * <code>${this-is-escaped}</code>).  The default value is <b>false</b>
      * 
-     * @param preserveEscapes
+     * @param preserveEscapes true if escapes are to be preserved
      */
     public void setPreserveEscapes(final boolean preserveEscapes) {
         this.preserveEscapes = preserveEscapes;
