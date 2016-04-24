@@ -22,7 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
-  
+    <action issue="LANG-1202" type="fix" dev="chas" due-to="Markus Jelsma">parseDateStrictly does't pass specified locale</action>
     <action issue="LANG-1219" type="fix" dev="chas" due-to="Jarek">FastDateFormat doesn't respect summer daylight in some localized strings</action>
     <action issue="LANG-1201" type="add" dev="ggregory" due-to="Gary Gregory">Add a TimeUnit-like classes for base 2 and base 10 digital conversions (bits, bytes, KB, MB, and so on)</action>
     <action issue="LANG-1146" type="add" dev="ggregory" due-to="Gabor Liptak">z/OS identification in SystemUtils</action>

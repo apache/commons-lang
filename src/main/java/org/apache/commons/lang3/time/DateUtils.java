@@ -339,7 +339,7 @@ public class DateUtils {
      * @since 3.2
      */
     public static Date parseDateStrictly(final String str, final Locale locale, final String... parsePatterns) throws ParseException {
-        return parseDateWithLeniency(str, null, parsePatterns, false);
+        return parseDateWithLeniency(str, locale, parsePatterns, false);
     }    
 
     /**

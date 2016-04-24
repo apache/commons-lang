@@ -36,14 +36,14 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
-import junit.framework.AssertionFailedError;
-
-import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.apache.commons.lang3.test.SystemDefaults;
+import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+
+import junit.framework.AssertionFailedError;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.DateUtils}.
@@ -1663,5 +1663,9 @@ public class DateUtilsTest {
         }
     }
 
+    @Test
+    public void testLANG799() throws ParseException {
+        DateUtils.parseDateStrictly("09 abril 2008 23:55:38 GMT", new Locale("es"), new String[]{"dd MMM yyyy HH:mm:ss zzz"});
+    }
 }
 
