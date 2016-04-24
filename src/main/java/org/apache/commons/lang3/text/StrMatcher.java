@@ -226,7 +226,7 @@ public abstract class StrMatcher {
      * The API guarantees that <code>pos</code> is a valid index for <code>buffer</code>.
      * <p>
      * The character array may be larger than the active area to be matched.
-     * Only values in the buffer between the specifed indices may be accessed.
+     * Only values in the buffer between the specified indices may be accessed.
      * <p>
      * The matching code may check one character or many.
      * It may check characters preceding <code>pos</code> as well as those

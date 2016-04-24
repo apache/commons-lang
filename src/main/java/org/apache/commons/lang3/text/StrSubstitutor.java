@@ -67,7 +67,7 @@ import org.apache.commons.lang3.StringUtils;
  * as in bash and other *nix shells, as those are arguably where the default ${} delimiter set originated.
  * The variable default value delimiter can be manually set by calling {@link #setValueDelimiterMatcher(StrMatcher)},
  * {@link #setValueDelimiter(char)} or {@link #setValueDelimiter(String)}.
- * The following shows an example with varialbe default value settings:
+ * The following shows an example with variable default value settings:
  * <pre>
  * Map valuesMap = HashMap();
  * valuesMap.put(&quot;animal&quot;, &quot;quick brown fox&quot;);

@@ -1948,7 +1948,7 @@ public class Validate {
      * throwing an exception with the specified message. This method is useful when
      * validating according to an arbitrary class</p>
      *
-     * <pre>Validate.isInstanceOf(OkClass.classs, object, "Wrong class, object is of class %s",
+     * <pre>Validate.isInstanceOf(OkClass.class, object, "Wrong class, object is of class %s",
      *   object.getClass().getName());</pre>
      *
      * @param type  the class the object must be validated against, not null
