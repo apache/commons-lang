@@ -273,5 +273,7 @@ public class StringUtilsTrimEmptyTest  {
         assertEquals( "Failed empty String", "", StringUtils.stripAccents("") );
         assertEquals( "Failed to handle non-accented text", "control", StringUtils.stripAccents("control") );
         assertEquals( "Failed to handle easy example", "eclair", StringUtils.stripAccents("\u00E9clair") );
+        assertEquals("ALOSZZCN aloszzcn", StringUtils.stripAccents("\u0104\u0141\u00D3\u015A\u017B\u0179\u0106\u0143 "
+        		+ "\u0105\u0142\u00F3\u015B\u017C\u017A\u0107\u0144"));
     }
 }
