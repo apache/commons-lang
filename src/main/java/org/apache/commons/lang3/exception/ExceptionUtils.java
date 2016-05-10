@@ -121,7 +121,7 @@ public class ExceptionUtils {
      */
     @Deprecated
     public static Throwable getCause(final Throwable throwable) {
-        return getCause(throwable, CAUSE_METHOD_NAMES);
+        return getCause(throwable, null);
     }
 
     /**
@@ -144,14 +144,19 @@ public class ExceptionUtils {
         }
 
         if (methodNames == null) {
+            final Throwable cause = throwable.getCause();
+            if (cause != null) {
+                return cause;
+            }
+
             methodNames = CAUSE_METHOD_NAMES;
         }
 
         for (final String methodName : methodNames) {
             if (methodName != null) {
-                final Throwable cause = getCauseUsingMethodName(throwable, methodName);
-                if (cause != null) {
-                    return cause;
+                final Throwable legacyCause = getCauseUsingMethodName(throwable, methodName);
+                if (legacyCause != null) {
+                    return legacyCause;
                 }
             }
         }
