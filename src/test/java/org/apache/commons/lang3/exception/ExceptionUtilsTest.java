@@ -32,6 +32,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
+import org.apache.commons.lang3.test.NotVisibleExceptionFactory;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -39,23 +40,6 @@ import org.junit.Test;
 
 /**
  * Tests {@link org.apache.commons.lang3.exception.ExceptionUtils}.
- * 
- * <h3>Notes</h3>
- * <p>
- * Make sure this exception code does not depend on Java 1.4 nested exceptions. SVN revision 38990 does not compile with
- * Java 1.3.1.
- * </p>
- * <ul>
- * <li>Compiled with Sun Java 1.3.1_15</li>
- * <li>Tested with Sun Java 1.3.1_15</li>
- * <li>Tested with Sun Java 1.4.2_12</li>
- * <li>Tested with Sun Java 1.5.0_08</li>
- * <li>All of the above on Windows XP SP2 + patches.</li>
- * </ul>
- * <p>
- * Gary Gregory; August 16, 2006.
- * </p>
- * 
  * @since 1.0
  */
 public class ExceptionUtilsTest {
@@ -65,6 +49,7 @@ public class ExceptionUtilsTest {
     private Throwable withoutCause;
     private Throwable jdkNoCause;
     private ExceptionWithCause cyclicCause;
+    private Throwable notVisibleException;
 
 
     @Before
@@ -77,6 +62,7 @@ public class ExceptionUtilsTest {
         final ExceptionWithCause b = new ExceptionWithCause(a);
         a.setCause(b);
         cyclicCause = new ExceptionWithCause(a);
+        notVisibleException = NotVisibleExceptionFactory.createException(withoutCause);
     }
 
 
@@ -87,6 +73,7 @@ public class ExceptionUtilsTest {
         withCause = null;
         jdkNoCause = null;
         cyclicCause = null;
+        notVisibleException = null;
     }
 
     //-----------------------------------------------------------------------
@@ -134,6 +121,7 @@ public class ExceptionUtilsTest {
         assertSame(cyclicCause.getCause(), ExceptionUtils.getCause(cyclicCause));
         assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), ExceptionUtils.getCause(cyclicCause.getCause()));
         assertSame(cyclicCause.getCause(), ExceptionUtils.getCause(((ExceptionWithCause) cyclicCause.getCause()).getCause()));
+        assertSame(withoutCause, ExceptionUtils.getCause(notVisibleException));
     }
 
     @SuppressWarnings("deprecation") // Specifically tests the deprecated methods
