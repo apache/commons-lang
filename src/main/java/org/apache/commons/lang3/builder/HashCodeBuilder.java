@@ -847,62 +847,48 @@ public class HashCodeBuilder implements Builder<Integer> {
             iTotal = iTotal * iConstant;
 
         } else {
-            if(object.getClass().isArray()) {
-                // 'Switch' on type of array, to dispatch to the correct handler
-                // This handles multi dimensional arrays
-                if (object instanceof long[]) {
-                    append((long[]) object);
-                } else if (object instanceof int[]) {
-                    append((int[]) object);
-                } else if (object instanceof short[]) {
-                    append((short[]) object);
-                } else if (object instanceof char[]) {
-                    append((char[]) object);
-                } else if (object instanceof byte[]) {
-                    append((byte[]) object);
-                } else if (object instanceof double[]) {
-                    append((double[]) object);
-                } else if (object instanceof float[]) {
-                    append((float[]) object);
-                } else if (object instanceof boolean[]) {
-                    append((boolean[]) object);
-                } else {
-                    // Not an array of primitives
-                    append((Object[]) object);
-                }
+            if (object.getClass().isArray()) {
+                // factor out array case in order to keep method small enough
+                // to be inlined
+                appendArray(object);
             } else {
-                if (object instanceof Long) {
-                    append(((Long) object).longValue());
-                } else if (object instanceof Integer) {
-                    append(((Integer) object).intValue());
-                } else if (object instanceof Short) {
-                    append(((Short) object).shortValue());
-                } else if (object instanceof Character) {
-                    append(((Character) object).charValue());
-                } else if (object instanceof Byte) {
-                    append(((Byte) object).byteValue());
-                } else if (object instanceof Double) {
-                    append(((Double) object).doubleValue());
-                } else if (object instanceof Float) {
-                    append(((Float) object).floatValue());
-                } else if (object instanceof Boolean) {
-                    append(((Boolean) object).booleanValue());
-                } else if (object instanceof String) {
-                    iTotal = iTotal * iConstant + object.hashCode();
-                } else {
-                    if (isRegistered(object)) {
-                        return this;
-                    }
-                    try {
-                        register(object);
-                        iTotal = iTotal * iConstant + object.hashCode();
-                    } finally {
-                        unregister(object);
-                    }
-                }
+                iTotal = iTotal * iConstant + object.hashCode();
             }
         }
         return this;
+    }
+
+    /**
+     * <p>
+     * Append a <code>hashCode</code> for an array.
+     * </p>
+     *
+     * @param object
+     *            the array to add to the <code>hashCode</code>
+     */
+    private void appendArray(final Object object) {
+        // 'Switch' on type of array, to dispatch to the correct handler
+        // This handles multi dimensional arrays
+        if (object instanceof long[]) {
+            append((long[]) object);
+        } else if (object instanceof int[]) {
+            append((int[]) object);
+        } else if (object instanceof short[]) {
+            append((short[]) object);
+        } else if (object instanceof char[]) {
+            append((char[]) object);
+        } else if (object instanceof byte[]) {
+            append((byte[]) object);
+        } else if (object instanceof double[]) {
+            append((double[]) object);
+        } else if (object instanceof float[]) {
+            append((float[]) object);
+        } else if (object instanceof boolean[]) {
+            append((boolean[]) object);
+        } else {
+            // Not an array of primitives
+            append((Object[]) object);
+        }
     }
 
     /**
