@@ -4,6 +4,7 @@ target
 maven-eclipse.xml
 build.properties
 site-content
+*~
 
 # IntelliJ IDEA files
 .idea

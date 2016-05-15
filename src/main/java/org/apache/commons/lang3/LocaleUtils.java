@@ -91,7 +91,7 @@ public class LocaleUtils {
             return null;
         }
         if (str.isEmpty()) { // LANG-941 - JDK 8 introduced an empty locale where all fields are blank
-            return new Locale("", "");
+            return new Locale(StringUtils.EMPTY, StringUtils.EMPTY);
         }
         if (str.contains("#")) { // LANG-879 - Cannot handle Java 7 script & extensions
             throw new IllegalArgumentException("Invalid locale format: " + str);
@@ -111,7 +111,7 @@ public class LocaleUtils {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
             if (len == 3) {
-                return new Locale("", str.substring(1, 3));
+                return new Locale(StringUtils.EMPTY, str.substring(1, 3));
             }
             if (len < 5) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
@@ -119,7 +119,7 @@ public class LocaleUtils {
             if (str.charAt(3) != '_') {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
-            return new Locale("", str.substring(1, 3), str.substring(4));
+            return new Locale(StringUtils.EMPTY, str.substring(1, 3), str.substring(4));
         }
         
         final String[] split = str.split("_", -1);
@@ -196,7 +196,7 @@ public class LocaleUtils {
                 list.add(new Locale(locale.getLanguage(), locale.getCountry()));
             }
             if (locale.getCountry().length() > 0) {
-                list.add(new Locale(locale.getLanguage(), ""));
+                list.add(new Locale(locale.getLanguage(), StringUtils.EMPTY));
             }
             if (list.contains(defaultLocale) == false) {
                 list.add(defaultLocale);

@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.TreeSet;
@@ -92,7 +91,16 @@ public class FastDateParser implements DateParser, Serializable {
     // derived fields
     private transient List<StrategyAndWidth> patterns;
 
-    
+    // comparator used to sort regex alternatives
+    // alternatives should be ordered longer first, and shorter last. ('february' before 'feb')
+    // all entries must be lowercase by locale.
+    private static final Comparator<String> LONGER_FIRST_LOWERCASE = new Comparator<String>() {
+        @Override
+        public int compare(String left, String right) {
+            return right.compareTo(left);
+        }
+    };
+
     /**
      * <p>Constructs a new FastDateParser.</p>
      * 
@@ -116,8 +124,6 @@ public class FastDateParser implements DateParser, Serializable {
      * @param timeZone non-null time zone to use
      * @param locale non-null locale
      * @param centuryStart The start of the century for 2 digit year parsing
-     * @param lenient if true, non-standard values for Calendar fields should be accepted;
-     * if false, non-standard values will cause a ParseException to be thrown {@link CalendaretLenient(boolean)}
      *
      * @since 3.5
      */
@@ -170,7 +176,7 @@ public class FastDateParser implements DateParser, Serializable {
     //-----------------------------------------------------------------------
 
     /**
-     * Struct to hold strategy and field width
+     * Holds strategy and field width
      */
     private static class StrategyAndWidth {
         final Strategy strategy;
@@ -200,28 +206,26 @@ public class FastDateParser implements DateParser, Serializable {
         private int currentIdx;
 
         StrategyParser(String pattern, Calendar definingCalendar) {
-           this.pattern = pattern;
-           this.definingCalendar = definingCalendar;
+            this.pattern = pattern;
+            this.definingCalendar = definingCalendar;
         }
 
         StrategyAndWidth getNextStrategy() {
-            if(currentIdx >= pattern.length()) {
+            if (currentIdx >= pattern.length()) {
                 return null;
             }
 
             char c = pattern.charAt(currentIdx);
-            if( isFormatLetter(c)) {
+            if (isFormatLetter(c)) {
                 return letterPattern(c);
             }
-            else {
-                return literal();
-            }
+            return literal();
         }
 
         private StrategyAndWidth letterPattern(char c) {
             int begin = currentIdx;
-            while( ++currentIdx<pattern.length() ) {
-                if(pattern.charAt(currentIdx) != c) {
+            while (++currentIdx < pattern.length()) {
+                if (pattern.charAt(currentIdx) != c) {
                     break;
                 }
             }
@@ -234,13 +238,12 @@ public class FastDateParser implements DateParser, Serializable {
             boolean activeQuote = false;
 
             StringBuilder sb = new StringBuilder();
-            while( currentIdx<pattern.length() ) {
-                char c= pattern.charAt(currentIdx);
-                if( !activeQuote && isFormatLetter( c ) ) {
+            while (currentIdx < pattern.length()) {
+                char c = pattern.charAt(currentIdx);
+                if (!activeQuote && isFormatLetter(c)) {
                     break;
-                }
-                else if( c=='\'' ) {
-                    if(++currentIdx==pattern.length() || pattern.charAt(currentIdx)!='\'') {
+                } else if (c == '\'') {
+                    if (++currentIdx == pattern.length() || pattern.charAt(currentIdx) != '\'') {
                         activeQuote = !activeQuote;
                         continue;
                     }
@@ -249,7 +252,7 @@ public class FastDateParser implements DateParser, Serializable {
                 sb.append(c);
             }
 
-            if(activeQuote) {
+            if (activeQuote) {
                 throw new IllegalArgumentException("Unterminated quote");
             }
 
@@ -259,7 +262,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     private static boolean isFormatLetter(char c) {
-        return c>='A' && c<='Z' || c>='a' && c<='z';
+        return c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z';
     }
 
     // Accessors
@@ -299,7 +302,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (! (obj instanceof FastDateParser) ) {
+        if (!(obj instanceof FastDateParser)) {
             return false;
         }
         final FastDateParser other = (FastDateParser) obj;
@@ -360,7 +363,7 @@ public class FastDateParser implements DateParser, Serializable {
     public Date parse(final String source) throws ParseException {
         ParsePosition pp = new ParsePosition(0);
         final Date date= parse(source, pp);
-        if(date==null) {
+        if (date == null) {
             // Add a note re supported date range
             if (locale.equals(JAPANESE_IMPERIAL)) {
                 throw new ParseException(
@@ -399,7 +402,7 @@ public class FastDateParser implements DateParser, Serializable {
         final Calendar cal= Calendar.getInstance(timeZone, locale);
         cal.clear();
 
-        return parse(source, pos, cal) ?cal.getTime() :null;
+        return parse(source, pos, cal) ? cal.getTime() : null;
     }
 
     /**
@@ -418,10 +421,10 @@ public class FastDateParser implements DateParser, Serializable {
     @Override
     public boolean parse(final String source, final ParsePosition pos, final Calendar calendar) {
         ListIterator<StrategyAndWidth> lt = patterns.listIterator();
-        while(lt.hasNext()) {
+        while (lt.hasNext()) {
             StrategyAndWidth pattern = lt.next();
             int maxWidth = pattern.getMaxWidth(lt);
-            if(!pattern.strategy.parse(this, calendar, source, pos, maxWidth)) {
+            if (!pattern.strategy.parse(this, calendar, source, pos, maxWidth)) {
                 return false;
             }
         }
@@ -432,9 +435,9 @@ public class FastDateParser implements DateParser, Serializable {
     //-----------------------------------------------------------------------
 
     private static StringBuilder simpleQuote(final StringBuilder sb, final String value) {
-        for(int i= 0; i<value.length(); ++i) {
-            char c= value.charAt(i);
-            switch(c) {
+        for (int i = 0; i < value.length(); ++i) {
+            char c = value.charAt(i);
+            switch (c) {
             case '\\':
             case '^':
             case '$':
@@ -456,42 +459,28 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * alternatives should be ordered longer first, and shorter last.  comparisons should be case insensitive.
-     */
-    private static final Comparator<Map.Entry<String, Integer>> ALTERNATIVES_ORDERING = new Comparator<Map.Entry<String, Integer>>() {
-        @Override
-        public int compare(Map.Entry<String, Integer> left, Map.Entry<String, Integer> right) {
-            int v = left.getValue() - right.getValue();
-            if(v!=0) {
-                return v;
-            }
-            return right.getKey().compareToIgnoreCase(left.getKey());
-        }
-    };
-
-    /**
      * Get the short and long values displayed for a field
      * @param cal The calendar to obtain the short and long values
      * @param locale The locale of display names
      * @param field The field of interest
      * @param regex The regular expression to build
-     * @param vales The map to fill
+     * @return The map of string display names to field values
      */
-    private static void appendDisplayNames(Calendar cal, Locale locale, int field, 
-            StringBuilder regex, Map<String, Integer> values) {
+    private static Map<String, Integer> appendDisplayNames(Calendar cal, Locale locale, int field, StringBuilder regex) {
+        Map<String, Integer> values = new HashMap<String, Integer>();
 
-        Set<Entry<String, Integer>> displayNames = cal.getDisplayNames(field, Calendar.ALL_STYLES, locale).entrySet();
-        TreeSet<Map.Entry<String, Integer>> sort = new TreeSet<Map.Entry<String, Integer>>(ALTERNATIVES_ORDERING);
-        sort.addAll(displayNames);
-
-        for (Map.Entry<String, Integer> entry : sort) {
-            String symbol = entry.getKey();
-            if (symbol.length() > 0) {
-                if (values.put(symbol.toLowerCase(locale), entry.getValue()) == null) {
-                    simpleQuote(regex, symbol).append('|');
-                }
+        Map<String, Integer> displayNames = cal.getDisplayNames(field, Calendar.ALL_STYLES, locale);
+        TreeSet<String> sorted = new TreeSet<String>(LONGER_FIRST_LOWERCASE);
+        for (Map.Entry<String, Integer> displayName : displayNames.entrySet()) {
+            String key = displayName.getKey().toLowerCase(locale);
+            if (sorted.add(key)) {
+                values.put(key, displayName.getValue());
             }
         }
+        for (String symbol : sorted) {
+            simpleQuote(regex, symbol).append('|');
+        }
+        return values;
     }
 
     /**
@@ -500,8 +489,8 @@ public class FastDateParser implements DateParser, Serializable {
      * @return A value between centuryStart(inclusive) to centuryStart+100(exclusive)
      */
     private int adjustYear(final int twoDigitYear) {
-        final int trial= century + twoDigitYear;
-        return twoDigitYear>=startYear ?trial :trial+100;
+        final int trial = century + twoDigitYear;
+        return twoDigitYear >= startYear ? trial : trial + 100;
     }
 
     /**
@@ -550,7 +539,7 @@ public class FastDateParser implements DateParser, Serializable {
         @Override
         boolean parse(FastDateParser parser, Calendar calendar, String source, ParsePosition pos, int maxWidth) {
             Matcher matcher = pattern.matcher(source.substring(pos.getIndex()));
-            if(!matcher.lookingAt()) {
+            if (!matcher.lookingAt()) {
                 pos.setErrorIndex(pos.getIndex());
                 return false;
             }
@@ -630,9 +619,9 @@ public class FastDateParser implements DateParser, Serializable {
      * @return a cache of Locale to Strategy
      */
     private static ConcurrentMap<Locale, Strategy> getCache(final int field) {
-        synchronized(caches) {
-            if(caches[field]==null) {
-                caches[field]= new ConcurrentHashMap<Locale,Strategy>(3);
+        synchronized (caches) {
+            if (caches[field] == null) {
+                caches[field] = new ConcurrentHashMap<Locale, Strategy>(3);
             }
             return caches[field];
         }
@@ -645,14 +634,14 @@ public class FastDateParser implements DateParser, Serializable {
      * @return a TextStrategy for the field and Locale
      */
     private Strategy getLocaleSpecificStrategy(final int field, final Calendar definingCalendar) {
-        final ConcurrentMap<Locale,Strategy> cache = getCache(field);
-        Strategy strategy= cache.get(locale);
-        if(strategy==null) {
-            strategy= field==Calendar.ZONE_OFFSET
+        final ConcurrentMap<Locale, Strategy> cache = getCache(field);
+        Strategy strategy = cache.get(locale);
+        if (strategy == null) {
+            strategy = field == Calendar.ZONE_OFFSET 
                     ? new TimeZoneStrategy(definingCalendar, locale)
                     : new CaseInsensitiveTextStrategy(field, definingCalendar, locale);
-            final Strategy inCache= cache.putIfAbsent(locale, strategy);
-            if(inCache!=null) {
+            final Strategy inCache = cache.putIfAbsent(locale, strategy);
+            if (inCache != null) {
                 return inCache;
             }
         }
@@ -706,7 +695,7 @@ public class FastDateParser implements DateParser, Serializable {
      private static class CaseInsensitiveTextStrategy extends PatternStrategy {
         private final int field;
         final Locale locale;
-        private final Map<String, Integer> lKeyValues = new HashMap<String,Integer>();
+        private final Map<String, Integer> lKeyValues;
 
         /**
          * Construct a Strategy that parses a Text field
@@ -720,7 +709,7 @@ public class FastDateParser implements DateParser, Serializable {
             
             StringBuilder regex = new StringBuilder();
             regex.append("((?iu)");
-            appendDisplayNames(definingCalendar, locale, field, regex, lKeyValues);
+            lKeyValues = appendDisplayNames(definingCalendar, locale, field, regex);
             regex.setLength(regex.length()-1);
             regex.append(")");
             createPattern(regex);
@@ -817,7 +806,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         int modify(FastDateParser parser, final int iValue) {
-            return iValue<100 ?parser.adjustYear(iValue) :iValue;
+            return iValue < 100 ? parser.adjustYear(iValue) : iValue;
         }
     };
 
@@ -829,8 +818,18 @@ public class FastDateParser implements DateParser, Serializable {
         private static final String GMT_OPTION= "GMT[+-]\\d{1,2}:\\d{2}";
 
         private final Locale locale;
-        private final Map<String, TimeZone> tzNames= new HashMap<String, TimeZone>();
- 
+        private final Map<String, TzInfo> tzNames= new HashMap<String, TzInfo>();
+
+        private static class TzInfo {
+            TimeZone zone;
+            int dstOffset;
+
+            TzInfo(TimeZone tz, boolean useDst) {
+                zone = tz;
+                dstOffset = useDst ?tz.getDSTSavings() :0;
+            }
+        }
+
         /**
          * Index of zone id
          */
@@ -842,30 +841,48 @@ public class FastDateParser implements DateParser, Serializable {
          * @param locale The Locale
          */
         TimeZoneStrategy(Calendar cal, final Locale locale) {
-
             this.locale = locale;
 
             final StringBuilder sb = new StringBuilder();
-            sb.append('(' + RFC_822_TIME_ZONE + "|(?iu)" + GMT_OPTION );
+            sb.append("((?iu)" + RFC_822_TIME_ZONE + "|" + GMT_OPTION );
+
+            final Set<String> sorted = new TreeSet<String>(LONGER_FIRST_LOWERCASE);
 
             final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
             for (final String[] zoneNames : zones) {
+                // offset 0 is the time zone ID and is not localized
                 final String tzId = zoneNames[ID];
                 if (tzId.equalsIgnoreCase("GMT")) {
                     continue;
                 }
                 final TimeZone tz = TimeZone.getTimeZone(tzId);
-                for(int i= 1; i<zoneNames.length; ++i) {
-                    String zoneName = zoneNames[i];
-                    if (zoneName == null) {
+                // offset 1 is long standard name
+                // offset 2 is short standard name
+                TzInfo standard = new TzInfo(tz, false);
+                TzInfo tzInfo = standard;
+                for (int i = 1; i < zoneNames.length; ++i) {
+                    switch (i) {
+                    case 3: // offset 3 is long daylight savings (or summertime) name
+                            // offset 4 is the short summertime name
+                        tzInfo = new TzInfo(tz, true);
+                        break;
+                    case 5: // offset 5 starts additional names, probably standard time
+                        tzInfo = standard;
                         break;
                     }
-                    if (tzNames.put(zoneName.toLowerCase(locale), tz) == null) {
-                        simpleQuote(sb.append('|'), zoneName);
+                    String key = zoneNames[i].toLowerCase(locale);
+                    // ignore the data associated with duplicates supplied in
+                    // the additional names
+                    if (sorted.add(key)) {
+                        tzNames.put(key, tzInfo);
                     }
                 }
             }
-
+            // order the regex alternatives with longer strings first, greedy
+            // match will ensure longest string will be consumed
+            for (String zoneName : sorted) {
+                simpleQuote(sb.append('|'), zoneName);
+            }
             sb.append(")");
             createPattern(sb);
         }
@@ -875,17 +892,17 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
-            TimeZone tz;
-            if(value.charAt(0)=='+' || value.charAt(0)=='-') {
-                tz= TimeZone.getTimeZone("GMT"+value);
+            if (value.charAt(0) == '+' || value.charAt(0) == '-') {
+                TimeZone tz = TimeZone.getTimeZone("GMT" + value);
+                cal.setTimeZone(tz);
+            } else if (value.regionMatches(true, 0, "GMT", 0, 3)) {
+                TimeZone tz = TimeZone.getTimeZone(value.toUpperCase());
+                cal.setTimeZone(tz);
+            } else {
+                TzInfo tzInfo = tzNames.get(value.toLowerCase(locale));
+                cal.set(Calendar.DST_OFFSET, tzInfo.dstOffset);
+                cal.set(Calendar.ZONE_OFFSET, tzInfo.zone.getRawOffset());
             }
-            else if(value.regionMatches(true, 0, "GMT", 0, 3)) {
-                tz= TimeZone.getTimeZone(value.toUpperCase());
-            }
-            else {
-                tz= tzNames.get(value.toLowerCase(locale));
-            }
-            cal.setTimeZone(tz);
         }
     }
     

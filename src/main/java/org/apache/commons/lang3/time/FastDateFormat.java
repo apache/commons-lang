@@ -658,9 +658,9 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * <p>Performs the formatting by applying the rules to the
      * specified calendar.</p>
-     * @deprecated Use {{@link #format(Calendar, Appendable)
+     * @deprecated Use {@link #format(Calendar, Appendable)}
      *
-     * @param calendar  the calendar to format
+     * @param calendar the calendar to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
      */

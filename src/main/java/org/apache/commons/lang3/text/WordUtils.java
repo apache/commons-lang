@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.text;
 
+import java.util.regex.Pattern;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
-
-import java.util.regex.Pattern;
 
 /**
  * <p>Operations on Strings that contain words.</p>
@@ -541,7 +541,7 @@ public class WordUtils {
             return str;
         }
         if (delimiters != null && delimiters.length == 0) {
-            return "";
+            return StringUtils.EMPTY;
         }
         final int strLen = str.length();
         final char[] buf = new char[strLen / 2 + 1];
@@ -567,7 +567,7 @@ public class WordUtils {
      * <p>Checks if the String contains all words in the given array.</p>
      *
      * <p>
-     * A {@code null} String will return {@code false}. A {@code null, zero
+     * A {@code null} String will return {@code false}. A {@code null}, zero
      * length search array or if one element of array is null will return {@code false}.
      * </p>
      *
@@ -581,7 +581,7 @@ public class WordUtils {
      * </pre>
      *
      *
-     * @param str The str to check, may be null
+     * @param word The CharSequence to check, may be null
      * @param words The array of String words to search for, may be null
      * @return {@code true} if all search words are found, {@code false} otherwise
      */

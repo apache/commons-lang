@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.builder.Builder;
 
@@ -1501,7 +1502,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             ensureCapacity(size + width);
             String str = (obj == null ? getNullText() : obj.toString());
             if (str == null) {
-                str = "";
+                str = StringUtils.EMPTY;
             }
             final int strLen = str.length();
             if (strLen >= width) {
@@ -1548,7 +1549,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             ensureCapacity(size + width);
             String str = (obj == null ? getNullText() : obj.toString());
             if (str == null) {
-                str = "";
+                str = StringUtils.EMPTY;
             }
             final int strLen = str.length();
             if (strLen >= width) {
@@ -2292,7 +2293,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public String leftString(final int length) {
         if (length <= 0) {
-            return "";
+            return StringUtils.EMPTY;
         } else if (length >= size) {
             return new String(buffer, 0, size);
         } else {
@@ -2314,7 +2315,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public String rightString(final int length) {
         if (length <= 0) {
-            return "";
+            return StringUtils.EMPTY;
         } else if (length >= size) {
             return new String(buffer, 0, size);
         } else {
@@ -2343,7 +2344,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             index = 0;
         }
         if (length <= 0 || index >= size) {
-            return "";
+            return StringUtils.EMPTY;
         }
         if (size <= index + length) {
             return new String(buffer, index, size - index);

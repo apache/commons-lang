@@ -36,14 +36,14 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
-import junit.framework.AssertionFailedError;
-
-import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.apache.commons.lang3.test.SystemDefaults;
+import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+
+import junit.framework.AssertionFailedError;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.DateUtils}.
@@ -170,8 +170,18 @@ public class DateUtilsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsDameDay_DateNullNull() throws Exception {
+    public void testIsSameDay_DateNullNull() throws Exception {
         DateUtils.isSameDay((Date) null, (Date) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameDay_DateNullNotNull() throws Exception {
+        DateUtils.isSameDay((Date) null, new Date());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameDay_DateNotNullNull() throws Exception {
+        DateUtils.isSameDay(new Date(), (Date) null);
     }
 
     //-----------------------------------------------------------------------
@@ -193,6 +203,16 @@ public class DateUtilsTest {
         DateUtils.isSameDay((Calendar) null, (Calendar) null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameDay_CalNullNotNull() throws Exception {
+        DateUtils.isSameDay((Calendar) null, Calendar.getInstance());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameDay_CalNotNullNull() throws Exception {
+        DateUtils.isSameDay(Calendar.getInstance(), (Calendar) null);
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testIsSameInstant_Date() {
@@ -210,6 +230,16 @@ public class DateUtilsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameInstant_DateNullNull() throws Exception {
         DateUtils.isSameInstant((Date) null, (Date) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameInstant_DateNullNotNull() throws Exception {
+        DateUtils.isSameInstant((Date) null, new Date());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameInstant_DateNotNullNull() throws Exception {
+        DateUtils.isSameInstant(new Date(), (Date) null);
     }
 
     //-----------------------------------------------------------------------
@@ -230,6 +260,16 @@ public class DateUtilsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameInstant_CalNullNull() throws Exception {
         DateUtils.isSameInstant((Calendar) null, (Calendar) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameInstant_CalNullNotNull() throws Exception {
+        DateUtils.isSameInstant((Calendar) null, Calendar.getInstance());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameInstant_CalNotNullNull() throws Exception {
+        DateUtils.isSameInstant(Calendar.getInstance(), (Calendar) null);
     }
 
     //-----------------------------------------------------------------------
@@ -258,6 +298,16 @@ public class DateUtilsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameLocalTime_CalNullNull() throws Exception {
         DateUtils.isSameLocalTime((Calendar) null, (Calendar) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameLocalTime_CalNullNotNull() throws Exception {
+        DateUtils.isSameLocalTime((Calendar) null, Calendar.getInstance());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsSameLocalTime_CalNotNullNull() throws Exception {
+        DateUtils.isSameLocalTime(Calendar.getInstance(), (Calendar) null);
     }
 
     //-----------------------------------------------------------------------
@@ -1663,5 +1713,9 @@ public class DateUtilsTest {
         }
     }
 
+    @Test
+    public void testLANG799() throws ParseException {
+        DateUtils.parseDateStrictly("09 abril 2008 23:55:38 GMT", new Locale("es"), new String[]{"dd MMM yyyy HH:mm:ss zzz"});
+    }
 }
 

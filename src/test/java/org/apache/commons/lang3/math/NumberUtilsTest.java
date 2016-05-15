@@ -318,6 +318,30 @@ public class NumberUtilsTest {
         NumberUtils.createNumber("1eE+00001");
     }
 
+    @Test(expected=NumberFormatException.class)
+    // Check that the code fails to create a valid number when there are multiple trailing 'f' characters (LANG-1205)
+    public void testCreateNumberFailure_5() {
+        NumberUtils.createNumber("1234.5ff");
+    }
+
+    @Test(expected=NumberFormatException.class)
+    // Check that the code fails to create a valid number when there are multiple trailing 'F' characters (LANG-1205)
+    public void testCreateNumberFailure_6() {
+        NumberUtils.createNumber("1234.5FF");
+    }
+
+    @Test(expected=NumberFormatException.class)
+    // Check that the code fails to create a valid number when there are multiple trailing 'd' characters (LANG-1205)
+    public void testCreateNumberFailure_7() {
+        NumberUtils.createNumber("1234.5dd");
+    }
+
+    @Test(expected=NumberFormatException.class)
+    // Check that the code fails to create a valid number when there are multiple trailing 'D' characters (LANG-1205)
+    public void testCreateNumberFailure_8() {
+        NumberUtils.createNumber("1234.5DD");
+    }
+
     // Tests to show when magnitude causes switch to next Number type
     // Will probably need to be adjusted if code is changed to check precision (LANG-693)
     @Test
@@ -1280,6 +1304,8 @@ public class NumberUtilsTest {
         assertFalse( NumberUtils.isParsable("64.2.2") );
         assertFalse( NumberUtils.isParsable("64.") );
         assertFalse( NumberUtils.isParsable("64L") );
+        assertFalse( NumberUtils.isParsable("-") );
+        assertFalse( NumberUtils.isParsable("--2") );
         assertTrue( NumberUtils.isParsable("64.2") );
         assertTrue( NumberUtils.isParsable("64") );
         assertTrue( NumberUtils.isParsable("018") );

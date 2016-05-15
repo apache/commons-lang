@@ -360,6 +360,9 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((char[]) null, ','));
         assertEquals("1;2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+        assertNull(StringUtils.join((char[]) null, SEPARATOR_CHAR, 0, 1));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
     }
 
     @Test
@@ -367,6 +370,9 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((byte[]) null, ','));
         assertEquals("1;2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+        assertNull(StringUtils.join((byte[]) null, SEPARATOR_CHAR, 0, 1));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
     }
 
     @Test
@@ -374,6 +380,9 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((int[]) null, ','));
         assertEquals("1;2", StringUtils.join(INT_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2", StringUtils.join(INT_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+        assertNull(StringUtils.join((int[]) null, SEPARATOR_CHAR, 0, 1));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(INT_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(INT_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
     }
 
     @Test
@@ -381,6 +390,9 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((long[]) null, ','));
         assertEquals("1;2", StringUtils.join(LONG_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2", StringUtils.join(LONG_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+        assertNull(StringUtils.join((long[]) null, SEPARATOR_CHAR, 0, 1));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(LONG_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(LONG_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
     }
 
     @Test
@@ -388,6 +400,9 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((float[]) null, ','));
         assertEquals("1.0;2.0", StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2.0", StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+        assertNull(StringUtils.join((float[]) null, SEPARATOR_CHAR, 0, 1));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
     }
 
     @Test
@@ -395,6 +410,9 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((double[]) null, ','));
         assertEquals("1.0;2.0", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2.0", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+        assertNull(StringUtils.join((double[]) null, SEPARATOR_CHAR, 0, 1));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
     }
 
     @Test
@@ -402,6 +420,9 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((short[]) null, ','));
         assertEquals("1;2", StringUtils.join(SHORT_PRIM_LIST, SEPARATOR_CHAR));
         assertEquals("2", StringUtils.join(SHORT_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+        assertNull(StringUtils.join((short[]) null, SEPARATOR_CHAR, 0, 1));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(SHORT_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(SHORT_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
     }
 
     @Test
@@ -1362,6 +1383,13 @@ public class StringUtilsTest {
         // Test null safety inside arrays - LANG-552
         assertEquals(StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{null}), "aba");
         assertEquals(StringUtils.replaceEach("aba", new String[]{"a", "b"}, new String[]{"c", null}), "cbc");
+
+        try {
+            StringUtils.replaceEach("abba", new String[]{"a"}, new String[]{"b", "a"});
+            fail("StringUtils.replaceEach(String, String[], String[]) expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            // expected
+        }
     }
 
     /**
@@ -2472,6 +2500,9 @@ public class StringUtilsTest {
 
     @Test
     public void testNormalizeSpace() {
+        // Java says a non-breaking whitespace is not a whitespace.
+        assertFalse(Character.isWhitespace('\u00A0'));
+        //
         assertNull(StringUtils.normalizeSpace(null));
         assertEquals("", StringUtils.normalizeSpace(""));
         assertEquals("", StringUtils.normalizeSpace(" "));
@@ -2498,8 +2529,8 @@ public class StringUtilsTest {
         assertEquals("121", StringUtils.stripEnd("121.00", ".0"));
     }
 
-    // Methods on StringUtils that are immutable in spirit (i.e. calculate the length) 
-    // should take a CharSequence parameter. Methods that are mutable in spirit (i.e. capitalize) 
+    // Methods on StringUtils that are immutable in spirit (i.e. calculate the length)
+    // should take a CharSequence parameter. Methods that are mutable in spirit (i.e. capitalize)
     // should take a String or String[] parameter and return String or String[].
     // This test enforces that this is done.
     @Test
@@ -2518,7 +2549,7 @@ public class StringUtilsTest {
             String methodStr = m.toString();
             if (m.getReturnType() == String.class || m.getReturnType() == String[].class) {
                 // Assume this is mutable and ensure the first parameter is not CharSequence.
-                // It may be String or it may be something else (String[], Object, Object[]) so 
+                // It may be String or it may be something else (String[], Object, Object[]) so
                 // don't actively test for that.
                 final Class<?>[] params = m.getParameterTypes();
                 if (params.length > 0 && (params[0] == CharSequence.class || params[0] == CharSequence[].class)) {

@@ -23,7 +23,7 @@ package org.apache.commons.lang3.time;
  * </p>
  * 
  * <p>
- * To start the watch, call {@link #start()} or {@link StopWatch.createStarted()}. At this point you can:
+ * To start the watch, call {@link #start()} or {@link StopWatch#createStarted()}. At this point you can:
  * </p>
  * <ul>
  * <li>{@link #split()} the watch to get the time whilst the watch continues in the background. {@link #unsplit()} will

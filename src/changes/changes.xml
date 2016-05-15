@@ -22,6 +22,24 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1178" type="fix" dev="pschumacher" due-to="Henri Yandell">ArrayUtils.removeAll(Object array, int... indices) should do the clone, not its callers</action>
+    <action issue="LANG-1151" type="update" dev="pschumacher" due-to="Juan Pablo Santos Rodríguez">Performance improvements for NumberUtils.isParsable</action>
+    <action issue="LANG-1227" type="fix" dev="pschumacher" due-to="kaching88">StringUtils.stripAccents should remove accents from "Ł" and "ł".</action>
+    <action issue="LANG-1227" type="new" dev="ggregory" due-to="Gary Gregory">Add XMLCharacter class.</action>
+    <action issue="LANG-1218" type="update" dev="ggregory" due-to="Ruslan Cheremin">EqualsBuilder.append(Object,Object) is too big to be inlined, which prevents whole builder to be scalarized</action>
+    <action issue="LANG-1205" type="fix" dev="chas" due-to="pbrose">NumberUtils.createNumber() behaves inconsistently with NumberUtils.isNumber()</action>
+    <action issue="LANG-1115" type="add" dev="chas" due-to="Jim Lloyd, Joe Ferner">Add support for varargs in ConstructorUtils, MemberUtils, and MethodUtils</action>
+    <action issue="LANG-1134" type="add" dev="chas" due-to="Alan Smithee">New methods for lang3.Validate</action>
+    <action issue="LANG-1222" type="fix" dev="ggregory" due-to="Adam J.">Fix for incorrect comment on StringUtils.containsIgnoreCase method</action>
+    <action issue="LANG-1221" type="fix" dev="ggregory" due-to="Pierre Templier">Fix typo on appendIfMissing javadoc</action>
+    <action issue="LANG-1220" type="add" dev="kinow" due-to="Casey Scarborough">Add tests for missed branches in DateUtils</action>
+    <action issue="LANG-1202" type="fix" dev="chas" due-to="Markus Jelsma">parseDateStrictly does't pass specified locale</action>
+    <action issue="LANG-1219" type="fix" dev="chas" due-to="Jarek">FastDateFormat doesn't respect summer daylight in some localized strings</action>
+    <action issue="LANG-1201" type="add" dev="ggregory" due-to="Gary Gregory">Add a TimeUnit-like classes for base 2 and base 10 digital conversions (bits, bytes, KB, MB, and so on)</action>
+    <action issue="LANG-1146" type="add" dev="ggregory" due-to="Gabor Liptak">z/OS identification in SystemUtils</action>
+    <action issue="LANG-1210" type="update" dev="ggregory" due-to="Matthias Niehoff">StringUtils#startsWithAny has error in Javadoc</action>
+    <action issue="LANG-1208" type="update" dev="bayard" due-to="Samuel Karp">StrSubstitutor can preserve escapes</action>
+    <action issue="LANG-1175" type="fix" dev="wikier" due-to="Benedikt Ritter">Remove Ant-based build</action>
     <action issue="LANG-1192" type="add" dev="chas" due-to="Dominik Stadler">FastDateFormat support of the week-year component (uppercase 'Y')</action>
     <action issue="LANG-1194" type="fix" dev="chas">Limit max heap memory for consistent Travis CI build</action>
     <action issue="LANG-1186" type="fix" dev="chas" due-to="NickManley">Fix NullPointerException in FastDateParser$TimeZoneStrategy</action>
@@ -74,6 +92,9 @@
     <action issue="LANG-1107" type="update" dev="chas">Fix parsing edge cases in FastDateParser</action>
     <action issue="LANG-1162" type="fix" dev="sebb">StringUtils#equals fails with Index OOBE on non-Strings with identical leading prefix</action>
     <action issue="LANG-1163" type="fix" dev="sebb">There are no tests for CharSequenceUtils.regionMatches</action>
+    <action issue="LANG-1200" type="fix" dev="ggregory" due-to="BarkZhang">[GitHub PR] modify note at line 1230 #120</action>
+    <action issue="LANG-1191" type="fix" dev="ggregory" due-to="qed, Brent Worden, Gary Gregory">Incorrect Javadoc StringUtils.containsAny(CharSequence, CharSequence...)</action>
+    <action type="update" dev="ebourg" due-to="Jake Wang">Added new property IS_OS_MAC_OSX_EL_CAPITAN in SystemUtils</action>
   </release>
 
   <release version="3.4" date="2014-04-06" description="Feature and bugfix release">

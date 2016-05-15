@@ -17,7 +17,9 @@
 package org.apache.commons.lang3.reflect;
 
 import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import org.apache.commons.lang3.ClassUtils;
@@ -85,18 +87,52 @@ abstract class MemberUtils {
     }
 
     /**
-     * Compares the relative fitness of two sets of parameter types in terms of
-     * matching a third set of runtime parameter types, such that a list ordered
+     * Compares the relative fitness of two Constructors in terms of how well they
+     * match a set of runtime parameter types, such that a list ordered
      * by the results of the comparison would return the best match first
      * (least).
      *
-     * @param left the "left" parameter set
-     * @param right the "right" parameter set
+     * @param left the "left" Constructor
+     * @param right the "right" Constructor
+     * @param actual the runtime parameter types to match against
+     * {@code left}/{@code right}
+     * @return int consistent with {@code compare} semantics
+     * @since 3.5
+     */
+    static int compareConstructorFit(final Constructor<?> left, final Constructor<?> right, final Class<?>[] actual) {
+      return compareParameterTypes(Executable.of(left), Executable.of(right), actual);
+    }
+
+    /**
+     * Compares the relative fitness of two Methods in terms of how well they
+     * match a set of runtime parameter types, such that a list ordered
+     * by the results of the comparison would return the best match first
+     * (least).
+     *
+     * @param left the "left" Method
+     * @param right the "right" Method
+     * @param actual the runtime parameter types to match against
+     * {@code left}/{@code right}
+     * @return int consistent with {@code compare} semantics
+     * @since 3.5
+     */
+    static int compareMethodFit(final Method left, final Method right, final Class<?>[] actual) {
+      return compareParameterTypes(Executable.of(left), Executable.of(right), actual);
+    }
+
+    /**
+     * Compares the relative fitness of two Executables in terms of how well they
+     * match a set of runtime parameter types, such that a list ordered
+     * by the results of the comparison would return the best match first
+     * (least).
+     *
+     * @param left the "left" Executable
+     * @param right the "right" Executable
      * @param actual the runtime parameter types to match against
      * {@code left}/{@code right}
      * @return int consistent with {@code compare} semantics
      */
-    static int compareParameterTypes(final Class<?>[] left, final Class<?>[] right, final Class<?>[] actual) {
+    private static int compareParameterTypes(final Executable left, final Executable right, final Class<?>[] actual) {
         final float leftCost = getTotalTransformationCost(actual, left);
         final float rightCost = getTotalTransformationCost(actual, right);
         return leftCost < rightCost ? -1 : rightCost < leftCost ? 1 : 0;
@@ -107,15 +143,44 @@ abstract class MemberUtils {
      * source argument list.
      * @param srcArgs The source arguments
      * @param destArgs The destination arguments
+     * @param isVarArgs True if the destination arguments are for a varags methods
      * @return The total transformation cost
      */
-    private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Class<?>[] destArgs) {
+    private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Executable executable) {
+        final Class<?>[] destArgs = executable.getParameterTypes();
+        final boolean isVarArgs = executable.isVarArgs();
+
+        // "source" and "destination" are the actual and declared args respectively.
         float totalCost = 0.0f;
-        for (int i = 0; i < srcArgs.length; i++) {
-            Class<?> srcClass, destClass;
-            srcClass = srcArgs[i];
-            destClass = destArgs[i];
-            totalCost += getObjectTransformationCost(srcClass, destClass);
+        final long normalArgsLen = isVarArgs ? destArgs.length-1 : destArgs.length;
+        if (srcArgs.length < normalArgsLen)
+            return Float.MAX_VALUE;
+        for (int i = 0; i < normalArgsLen; i++) {
+            totalCost += getObjectTransformationCost(srcArgs[i], destArgs[i]);
+        }
+        if (isVarArgs) {
+            // When isVarArgs is true, srcArgs and dstArgs may differ in length.
+            // There are two special cases to consider:
+            final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
+            final boolean explicitArrayForVarags = (srcArgs.length == destArgs.length) && srcArgs[srcArgs.length-1].isArray();
+
+            final float varArgsCost = 0.001f;
+            Class<?> destClass = destArgs[destArgs.length-1].getComponentType();
+            if (noVarArgsPassed) {
+                // When no varargs passed, the best match is the most generic matching type, not the most specific.
+                totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
+            }
+            else if (explicitArrayForVarags) {
+                Class<?> sourceClass = srcArgs[srcArgs.length-1].getComponentType();
+                totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
+            }
+            else {
+                // This is typical varargs case.
+                for (int i = destArgs.length-1; i < srcArgs.length; i++) {
+                    Class<?> srcClass = srcArgs[i];
+                    totalCost += getObjectTransformationCost(srcClass, destClass) + varArgsCost;
+                }
+            }
         }
         return totalCost;
     }
@@ -147,7 +212,7 @@ abstract class MemberUtils {
             srcClass = srcClass.getSuperclass();
         }
         /*
-         * If the destination class is null, we've travelled all the way up to
+         * If the destination class is null, we've traveled all the way up to
          * an Object match. We'll penalize this by adding 1.5 to the cost.
          */
         if (srcClass == null) {
@@ -180,6 +245,60 @@ abstract class MemberUtils {
             }
         }
         return cost;
+    }
+
+    static boolean isMatchingMethod(Method method, Class<?>[] parameterTypes) {
+      return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
+    }
+
+    static boolean isMatchingConstructor(Constructor<?> method, Class<?>[] parameterTypes) {
+      return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
+    }
+
+    private static boolean isMatchingExecutable(Executable method, Class<?>[] parameterTypes) {
+        final Class<?>[] methodParameterTypes = method.getParameterTypes();
+        if (method.isVarArgs()) {
+            int i;
+            for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
+                if (!ClassUtils.isAssignable(parameterTypes[i], methodParameterTypes[i], true)) {
+                    return false;
+                }
+            }
+            Class<?> varArgParameterType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
+            for (; i < parameterTypes.length; i++) {
+                if (!ClassUtils.isAssignable(parameterTypes[i], varArgParameterType, true)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true);
+    }
+
+    /**
+     * <p> A class providing a subset of the API of java.lang.reflect.Executable in Java 1.8,
+     * providing a common representation for function signatures for Constructors and Methods.</p>
+     */
+    private static final class Executable {
+      private final Class<?>[] parameterTypes;
+      private final boolean  isVarArgs;
+
+      private static Executable of(Method method) { return new Executable(method); }
+      private static Executable of(Constructor<?> constructor) { return new Executable(constructor); }
+
+      private Executable(Method method) {
+        parameterTypes = method.getParameterTypes();
+        isVarArgs = method.isVarArgs();
+      }
+
+      private Executable(Constructor<?> constructor) {
+        parameterTypes = constructor.getParameterTypes();
+        isVarArgs = constructor.isVarArgs();
+      }
+
+      public Class<?>[] getParameterTypes() { return parameterTypes; }
+
+      public boolean isVarArgs() { return isVarArgs; }
     }
 
 }

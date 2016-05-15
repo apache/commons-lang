@@ -104,7 +104,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * are equal, so we also need to ensure that the replacement objects are only equal
      * if the original objects are identical.
      *
-     * The original implementation (2.4 and before) used the System.indentityHashCode()
+     * The original implementation (2.4 and before) used the System.identityHashCode()
      * method - however this is not guaranteed to generate unique ids (e.g. LANG-459)
      *
      * We now use the IDKey helper class (adapted from org.apache.axis.utils.IDKey)
@@ -479,7 +479,22 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (!lhsClass.isArray()) {
             // The simple case, not an array, just test the element
             isEquals = lhs.equals(rhs);
-        } else if (lhs.getClass() != rhs.getClass()) {
+        } else {
+            // factor out array case in order to keep method small enough
+            // to be inlined
+            appendArray(lhs, rhs);
+        }
+        return this;
+    }
+
+    /**
+     * <p>Test if an <code>Object</code> is equal to an array.</p>
+     *
+     * @param lhs  the left hand object, an array
+     * @param rhs  the right hand object
+     */
+    private void appendArray(final Object lhs, final Object rhs) {
+        if (lhs.getClass() != rhs.getClass()) {
             // Here when we compare different dimensions, for example: a boolean[][] to a boolean[]
             this.setEquals(false);
         }
@@ -505,7 +520,6 @@ public class EqualsBuilder implements Builder<Boolean> {
             // Not an array of primitives
             append((Object[]) lhs, (Object[]) rhs);
         }
-        return this;
     }
 
     /**

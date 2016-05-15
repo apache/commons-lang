@@ -16,10 +16,11 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import org.junit.Test;
-import org.junit.Before;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -29,6 +30,9 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableObject;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Unit tests ConstructorUtils
@@ -36,34 +40,64 @@ import org.apache.commons.lang3.mutable.MutableObject;
 public class ConstructorUtilsTest {
     public static class TestBean {
         private final String toString;
+        final String[] varArgs;
 
         public TestBean() {
             toString = "()";
+            varArgs = null;
         }
 
         public TestBean(final int i) {
             toString = "(int)";
+            varArgs = null;
         }
 
         public TestBean(final Integer i) {
             toString = "(Integer)";
+            varArgs = null;
         }
 
         public TestBean(final double d) {
             toString = "(double)";
+            varArgs = null;
         }
 
         public TestBean(final String s) {
             toString = "(String)";
+            varArgs = null;
         }
 
         public TestBean(final Object o) {
             toString = "(Object)";
+            varArgs = null;
+        }
+
+        public TestBean(final String... s) {
+            toString = "(String...)";
+            varArgs = s;
+        }
+
+        public TestBean(final Integer i, String... s) {
+            toString = "(Integer, String...)";
+            varArgs = s;
+        }
+
+        public TestBean(final Integer first, int... args) {
+            toString = "(Integer, String...)";
+            varArgs = new String[args.length];
+            for(int i = 0; i< args.length; ++i) {
+                varArgs[i] = Integer.toString(args[i]);
+            }
         }
 
         @Override
         public String toString() {
             return toString;
+        }
+
+        void verify(final String str, final String[] args) {
+          assertEquals(str, toString);
+          assertEquals(args, varArgs);
         }
     }
 
@@ -117,6 +151,12 @@ public class ConstructorUtilsTest {
                 TestBean.class, NumberUtils.LONG_ONE).toString());
         assertEquals("(double)", ConstructorUtils.invokeConstructor(
                 TestBean.class, NumberUtils.DOUBLE_ONE).toString());
+        ConstructorUtils.invokeConstructor(TestBean.class, NumberUtils.INTEGER_ONE)
+          .verify("(Integer)", null);
+        ConstructorUtils.invokeConstructor(TestBean.class, "a", "b")
+          .verify("(String...)", new String[]{"a", "b"});
+        ConstructorUtils.invokeConstructor(TestBean.class, NumberUtils.INTEGER_ONE, "a", "b")
+          .verify("(Integer, String...)", new String[]{"a", "b"});
     }
 
     @Test
@@ -240,6 +280,14 @@ public class ConstructorUtilsTest {
             classCache.put(c, result);
         }
         return result;
+    }
+
+    @Test
+    public void testVarArgsUnboxing() throws Exception {
+        TestBean testBean = ConstructorUtils.invokeConstructor(
+                TestBean.class, Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3));
+
+        Assert.assertArrayEquals(new String[]{"2", "3"}, testBean.varArgs);
     }
 
 }

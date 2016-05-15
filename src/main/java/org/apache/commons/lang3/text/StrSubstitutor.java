@@ -67,7 +67,7 @@ import org.apache.commons.lang3.StringUtils;
  * as in bash and other *nix shells, as those are arguably where the default ${} delimiter set originated.
  * The variable default value delimiter can be manually set by calling {@link #setValueDelimiterMatcher(StrMatcher)},
  * {@link #setValueDelimiter(char)} or {@link #setValueDelimiter(String)}.
- * The following shows an example with varialbe default value settings:
+ * The following shows an example with variable default value settings:
  * <pre>
  * Map valuesMap = HashMap();
  * valuesMap.put(&quot;animal&quot;, &quot;quick brown fox&quot;);
@@ -165,6 +165,10 @@ public class StrSubstitutor {
      * The flag whether substitution in variable names is enabled.
      */
     private boolean enableSubstitutionInVariables;
+    /**
+     * Whether escapes should be preserved.  Default is false;
+     */
+    private boolean preserveEscapes = false;
 
     //-----------------------------------------------------------------------
     /**
@@ -768,6 +772,10 @@ public class StrSubstitutor {
                 // found variable start marker
                 if (pos > offset && chars[pos - 1] == escape) {
                     // escaped
+                    if (preserveEscapes) {
+                        pos++;
+                        continue;
+                    }
                     buf.deleteCharAt(pos - 1);
                     chars = buf.buffer; // in case buffer was altered
                     lengthChange--;
@@ -1191,5 +1199,30 @@ public class StrSubstitutor {
     public void setEnableSubstitutionInVariables(
             final boolean enableSubstitutionInVariables) {
         this.enableSubstitutionInVariables = enableSubstitutionInVariables;
+    }
+
+    /**
+     * Returns the flag controlling whether escapes are preserved during
+     * substitution.
+     * 
+     * @return the preserve escape flag
+     */
+    public boolean isPreserveEscapes() {
+        return preserveEscapes;
+    }
+
+    /**
+     * Sets a flag controlling whether escapes are preserved during
+     * substitution.  If set to <b>true</b>, the escape character is retained
+     * during substitution (e.g. <code>$${this-is-escaped}</code> remains
+     * <code>$${this-is-escaped}</code>).  If set to <b>false</b>, the escape
+     * character is removed during substitution (e.g.
+     * <code>$${this-is-escaped}</code> becomes
+     * <code>${this-is-escaped}</code>).  The default value is <b>false</b>
+     * 
+     * @param preserveEscapes true if escapes are to be preserved
+     */
+    public void setPreserveEscapes(final boolean preserveEscapes) {
+        this.preserveEscapes = preserveEscapes;
     }
 }

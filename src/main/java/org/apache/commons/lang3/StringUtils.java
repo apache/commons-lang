@@ -753,9 +753,22 @@ public class StringUtils {
             return null;
         }
         final Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");//$NON-NLS-1$
-        final String decomposed = Normalizer.normalize(input, Normalizer.Form.NFD);
+        final StringBuilder decomposed = new StringBuilder(Normalizer.normalize(input, Normalizer.Form.NFD));
+        convertRemainingAccentCharacters(decomposed);
         // Note that this doesn't correctly remove ligatures...
-        return pattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
+        return pattern.matcher(decomposed).replaceAll(StringUtils.EMPTY);
+    }
+
+    private static void convertRemainingAccentCharacters(StringBuilder decomposed) {
+        for (int i = 0; i < decomposed.length(); i++) {
+            if (decomposed.charAt(i) == '\u0141') {
+                decomposed.deleteCharAt(i);
+                decomposed.insert(i, 'L');
+            } else if (decomposed.charAt(i) == '\u0142') {
+                decomposed.deleteCharAt(i);
+                decomposed.insert(i, 'l');
+            }
+        }
     }
 
     // Equals
@@ -1227,7 +1240,7 @@ public class StringUtils {
      * <pre>
      * StringUtils.ordinalIndexOf("ababab","aba", 1)   = 0
      * StringUtils.ordinalIndexOf("ababab","aba", 2)   = 2
-     * StringUtils.ordinalIndexOf("ababab","aba", 3    = -1
+     * StringUtils.ordinalIndexOf("ababab","aba", 3)   = -1
      *
      * StringUtils.ordinalIndexOf("abababab", "abab", 1) = 0
      * StringUtils.ordinalIndexOf("abababab", "abab", 2) = 2
@@ -1342,7 +1355,7 @@ public class StringUtils {
      * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
      * StringUtils.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
      * StringUtils.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
-     * StringUtils.indexOfIgnoreCase("abc", "", 9)        = 3
+     * StringUtils.indexOfIgnoreCase("abc", "", 9)        = -1
      * </pre>
      *
      * @param str  the CharSequence to check, may be null
@@ -1703,14 +1716,14 @@ public class StringUtils {
      * <p>A {@code null} CharSequence will return {@code false}.</p>
      *
      * <pre>
-     * StringUtils.contains(null, *) = false
-     * StringUtils.contains(*, null) = false
-     * StringUtils.contains("", "") = true
-     * StringUtils.contains("abc", "") = true
-     * StringUtils.contains("abc", "a") = true
-     * StringUtils.contains("abc", "z") = false
-     * StringUtils.contains("abc", "A") = true
-     * StringUtils.contains("abc", "Z") = false
+     * StringUtils.containsIgnoreCase(null, *) = false
+     * StringUtils.containsIgnoreCase(*, null) = false
+     * StringUtils.containsIgnoreCase("", "") = true
+     * StringUtils.containsIgnoreCase("abc", "") = true
+     * StringUtils.containsIgnoreCase("abc", "a") = true
+     * StringUtils.containsIgnoreCase("abc", "z") = false
+     * StringUtils.containsIgnoreCase("abc", "A") = true
+     * StringUtils.containsIgnoreCase("abc", "Z") = false
      * </pre>
      *
      * @param str  the CharSequence to check, may be null
@@ -1935,7 +1948,7 @@ public class StringUtils {
      * <p>Checks if the CharSequence contains any of the CharSequences in the given array.</p>
      *
      * <p>
-     * A {@code null} CharSequence will return {@code false}. A {@code null} or zero
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero
      * length search array will return {@code false}.
      * </p>
      *
@@ -1944,14 +1957,15 @@ public class StringUtils {
      * StringUtils.containsAny("", *)              = false
      * StringUtils.containsAny(*, null)            = false
      * StringUtils.containsAny(*, [])              = false
-     * StringUtils.containsAny("abcd", "ab", null) = false
+     * StringUtils.containsAny("abcd", "ab", null) = true
      * StringUtils.containsAny("abcd", "ab", "cd") = true
      * StringUtils.containsAny("abc", "d", "abc")  = true
      * </pre>
      *
      * 
      * @param cs The CharSequence to check, may be null
-     * @param searchCharSequences The array of CharSequences to search for, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null.
+     * Individual CharSequences may be null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      * @since 3.4
      */
@@ -4742,8 +4756,8 @@ public class StringUtils {
      * StringUtils.removeAll("any", ".*")  = ""
      * StringUtils.removeAll("any", ".+")  = ""
      * StringUtils.removeAll("abc", ".?")  = ""
-     * StringUtils.removeAll("A<__>\n<__>B", "<.*>")      = "A\nB"
-     * StringUtils.removeAll("A<__>\n<__>B", "(?s)<.*>")  = "AB"
+     * StringUtils.removeAll("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")      = "A\nB"
+     * StringUtils.removeAll("A&lt;__&gt;\n&lt;__&gt;B", "(?s)&lt;.*&gt;")  = "AB"
      * StringUtils.removeAll("ABCabc123abc", "[a-z]")     = "ABC123"
      * </pre>
      *
@@ -4788,8 +4802,8 @@ public class StringUtils {
      * StringUtils.removeFirst("any", ".*")  = ""
      * StringUtils.removeFirst("any", ".+")  = ""
      * StringUtils.removeFirst("abc", ".?")  = "bc"
-     * StringUtils.removeFirst("A<__>\n<__>B", "<.*>")      = "A\n<__>B"
-     * StringUtils.removeFirst("A<__>\n<__>B", "(?s)<.*>")  = "AB"
+     * StringUtils.removeFirst("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")      = "A\n&lt;__&gt;B"
+     * StringUtils.removeFirst("A&lt;__&gt;\n&lt;__&gt;B", "(?s)&lt;.*&gt;")  = "AB"
      * StringUtils.removeFirst("ABCabc123", "[a-z]")          = "ABCbc123"
      * StringUtils.removeFirst("ABCabc123abc", "[a-z]+")      = "ABC123abc"
      * </pre>
@@ -4860,7 +4874,7 @@ public class StringUtils {
      * StringUtils.replacePattern("", "", "zzz")    = "zzz"
      * StringUtils.replacePattern("", ".*", "zzz")  = "zzz"
      * StringUtils.replacePattern("", ".+", "zzz")  = ""
-     * StringUtils.replacePattern("<__>\n<__>", "<.*>", "z")       = "z"
+     * StringUtils.replacePattern("&lt;__&gt;\n&lt;__&gt;", "&lt;.*&gt;", "z")       = "z"
      * StringUtils.replacePattern("ABCabc123", "[a-z]", "_")       = "ABC___123"
      * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
      * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
@@ -4902,7 +4916,7 @@ public class StringUtils {
      * <pre>
      * StringUtils.removePattern(null, *)       = null
      * StringUtils.removePattern("any", null)   = "any"
-     * StringUtils.removePattern("A<__>\n<__>B", "<.*>")  = "AB"
+     * StringUtils.removePattern("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")  = "AB"
      * StringUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
      * </pre>
      *
@@ -4946,8 +4960,8 @@ public class StringUtils {
      * StringUtils.replaceAll("", ".*", "zzz")  = "zzz"
      * StringUtils.replaceAll("", ".+", "zzz")  = ""
      * StringUtils.replaceAll("abc", "", "ZZ")  = "ZZaZZbZZcZZ"
-     * StringUtils.replaceAll("<__>\n<__>", "<.*>", "z")      = "z\nz"
-     * StringUtils.replaceAll("<__>\n<__>", "(?s)<.*>", "z")  = "z"
+     * StringUtils.replaceAll("&lt;__&gt;\n&lt;__&gt;", "&lt;.*&gt;", "z")      = "z\nz"
+     * StringUtils.replaceAll("&lt;__&gt;\n&lt;__&gt;", "(?s)&lt;.*&gt;", "z")  = "z"
      * StringUtils.replaceAll("ABCabc123", "[a-z]", "_")       = "ABC___123"
      * StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
      * StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
@@ -5000,8 +5014,8 @@ public class StringUtils {
      * StringUtils.replaceFirst("", ".*", "zzz")  = "zzz"
      * StringUtils.replaceFirst("", ".+", "zzz")  = ""
      * StringUtils.replaceFirst("abc", "", "ZZ")  = "ZZabc"
-     * StringUtils.replaceFirst("<__>\n<__>", "<.*>", "z")      = "z\n<__>"
-     * StringUtils.replaceFirst("<__>\n<__>", "(?s)<.*>", "z")  = "z"
+     * StringUtils.replaceFirst("&lt;__&gt;\n&lt;__&gt;", "&lt;.*&gt;", "z")      = "z\n&lt;__&gt;"
+     * StringUtils.replaceFirst("&lt;__&gt;\n&lt;__&gt;", "(?s)&lt;.*&gt;", "z")  = "z"
      * StringUtils.replaceFirst("ABCabc123", "[a-z]", "_")          = "ABC_bc123"
      * StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "_")  = "ABC_123abc"
      * StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "")   = "ABC123abc"
@@ -7966,7 +7980,7 @@ public class StringUtils {
      *
      * @param string  the CharSequence to check, may be null
      * @param searchStrings the CharSequences to find, may be null or empty
-     * @return {@code true} if the CharSequence starts with any of the the prefixes, case insensitive, or
+     * @return {@code true} if the CharSequence starts with any of the the prefixes, case sensitive, or
      *  both {@code null}
      * @since 2.5
      * @since 3.0 Changed signature from startsWithAny(String, String[]) to startsWithAny(CharSequence, CharSequence...)
@@ -8166,14 +8180,14 @@ public class StringUtils {
 
     /**
      * Appends the suffix to the end of the string if the string does not
-     * already end in the suffix.
+     * already end with the suffix.
      *
      * @param str The string.
      * @param suffix The suffix to append to the end of the string.
      * @param ignoreCase Indicates whether the compare should ignore case.
      * @param suffixes Additional suffixes that are valid terminators (optional).
      *
-     * @return A new String if suffix was appened, the same string otherwise.
+     * @return A new String if suffix was appended, the same string otherwise.
      */
     private static String appendIfMissing(final String str, final CharSequence suffix, final boolean ignoreCase, final CharSequence... suffixes) {
         if (str == null || isEmpty(suffix) || endsWith(str, suffix, ignoreCase)) {
@@ -8191,7 +8205,7 @@ public class StringUtils {
 
     /**
      * Appends the suffix to the end of the string if the string does not
-     * already end with any the suffixes.
+     * already end with any of the suffixes.
      *
      * <pre>
      * StringUtils.appendIfMissing(null, null) = null
@@ -8219,7 +8233,7 @@ public class StringUtils {
      * @param suffix The suffix to append to the end of the string.
      * @param suffixes Additional suffixes that are valid terminators.
      *
-     * @return A new String if suffix was appened, the same string otherwise.
+     * @return A new String if suffix was appended, the same string otherwise.
      *
      * @since 3.2
      */
@@ -8257,7 +8271,7 @@ public class StringUtils {
      * @param suffix The suffix to append to the end of the string.
      * @param suffixes Additional suffixes that are valid terminators.
      *
-     * @return A new String if suffix was appened, the same string otherwise.
+     * @return A new String if suffix was appended, the same string otherwise.
      *
      * @since 3.2
      */

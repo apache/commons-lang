@@ -16,7 +16,15 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -25,6 +33,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -4404,6 +4413,16 @@ public class ArrayUtilsTest  {
 
         array = new boolean[]{true, false};
         assertFalse(ArrayUtils.isSorted(array));
+    }
+
+    @Test
+    public void testCreatePrimitiveArray() {
+        Assert.assertNull(ArrayUtils.toPrimitive((Object[])null));
+        Assert.assertArrayEquals(new int[]{}, (int[]) ArrayUtils.toPrimitive(new Integer[]{}));
+        Assert.assertArrayEquals(new short[]{2}, (short[]) ArrayUtils.toPrimitive(new Short[]{2}));
+        Assert.assertArrayEquals(new long[]{2, 3}, (long[]) ArrayUtils.toPrimitive(new Long[]{2L, 3L}));
+        Assert.assertArrayEquals(new float[]{3.14f}, (float[]) ArrayUtils.toPrimitive(new Float[]{3.14f}), 0.1f);
+        Assert.assertArrayEquals(new double[]{2.718}, (double[]) ArrayUtils.toPrimitive(new Double[]{2.718}), 0.1);
     }
 
 }

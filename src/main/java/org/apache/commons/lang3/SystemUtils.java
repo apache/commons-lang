@@ -1182,6 +1182,18 @@ public class SystemUtils {
 
     /**
      * <p>
+     * Is {@code true} if this is Mac OS X El Capitan.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.5
+     */
+    public static final boolean IS_OS_MAC_OSX_EL_CAPITAN = getOSMatches("Mac OS X", "10.11");
+
+    /**
+     * <p>
      * Is {@code true} if this is FreeBSD.
      * </p>
      * <p>
@@ -1421,6 +1433,23 @@ public class SystemUtils {
      * @since 3.2
      */
     public static final boolean IS_OS_WINDOWS_8 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 8");
+
+    /**
+     * <p>
+     * Is {@code true} if this is z/OS.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.5
+     */
+    // Values on a z/OS system I tested (Gary Gregory - 2016-03-12)
+    // os.arch = s390x
+    // os.encoding = ISO8859_1
+    // os.name = z/OS
+    // os.version = 02.02.00
+    public static final boolean IS_OS_ZOS = getOSMatchesName("z/OS");
 
     /**
      * <p>

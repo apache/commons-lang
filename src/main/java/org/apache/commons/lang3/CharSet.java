@@ -79,7 +79,7 @@ public class CharSet implements Serializable {
     
     static {
         COMMON.put(null, EMPTY);
-        COMMON.put("", EMPTY);
+        COMMON.put(StringUtils.EMPTY, EMPTY);
         COMMON.put("a-zA-Z", ASCII_ALPHA);
         COMMON.put("A-Za-z", ASCII_ALPHA);
         COMMON.put("a-z", ASCII_ALPHA_LOWER);

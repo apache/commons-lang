@@ -241,6 +241,17 @@ public class SystemUtilsTest {
     }
 
     @Test
+    public void testIS_zOS() {
+        final String osName = System.getProperty("os.name");
+        if (osName == null) {
+            assertFalse(SystemUtils.IS_OS_ZOS);
+        } else if (osName.contains("z/OS")) {
+            assertFalse(SystemUtils.IS_OS_WINDOWS);
+            assertTrue(SystemUtils.IS_OS_ZOS);
+        }
+    }
+
+    @Test
     public void testJavaVersionMatches() {
         String javaVersion = null;
         assertFalse(SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));

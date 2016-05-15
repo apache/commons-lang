@@ -107,7 +107,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     private static final int DEFAULT_INITIAL_VALUE = 17;
     
     /**
-     * The default multipler value to use in reflection hash code building.
+     * The default multiplier value to use in reflection hash code building.
      */
     private static final int DEFAULT_MULTIPLIER_VALUE = 37;
     
@@ -130,7 +130,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * are equal, so we also need to ensure that the replacement objects are only equal
      * if the original objects are identical.
      *
-     * The original implementation (2.4 and before) used the System.indentityHashCode()
+     * The original implementation (2.4 and before) used the System.identityHashCode()
      * method - however this is not guaranteed to generate unique ids (e.g. LANG-459)
      *
      * We now use the IDKey helper class (adapted from org.apache.axis.utils.IDKey)
