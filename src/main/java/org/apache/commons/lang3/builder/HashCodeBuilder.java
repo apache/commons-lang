@@ -847,34 +847,48 @@ public class HashCodeBuilder implements Builder<Integer> {
             iTotal = iTotal * iConstant;
 
         } else {
-            if(object.getClass().isArray()) {
-                // 'Switch' on type of array, to dispatch to the correct handler
-                // This handles multi dimensional arrays
-                if (object instanceof long[]) {
-                    append((long[]) object);
-                } else if (object instanceof int[]) {
-                    append((int[]) object);
-                } else if (object instanceof short[]) {
-                    append((short[]) object);
-                } else if (object instanceof char[]) {
-                    append((char[]) object);
-                } else if (object instanceof byte[]) {
-                    append((byte[]) object);
-                } else if (object instanceof double[]) {
-                    append((double[]) object);
-                } else if (object instanceof float[]) {
-                    append((float[]) object);
-                } else if (object instanceof boolean[]) {
-                    append((boolean[]) object);
-                } else {
-                    // Not an array of primitives
-                    append((Object[]) object);
-                }
+            if (object.getClass().isArray()) {
+                // factor out array case in order to keep method small enough
+                // to be inlined
+                appendArray(object);
             } else {
                 iTotal = iTotal * iConstant + object.hashCode();
             }
         }
         return this;
+    }
+
+    /**
+     * <p>
+     * Append a <code>hashCode</code> for an array.
+     * </p>
+     *
+     * @param object
+     *            the array to add to the <code>hashCode</code>
+     */
+    private void appendArray(final Object object) {
+        // 'Switch' on type of array, to dispatch to the correct handler
+        // This handles multi dimensional arrays
+        if (object instanceof long[]) {
+            append((long[]) object);
+        } else if (object instanceof int[]) {
+            append((int[]) object);
+        } else if (object instanceof short[]) {
+            append((short[]) object);
+        } else if (object instanceof char[]) {
+            append((char[]) object);
+        } else if (object instanceof byte[]) {
+            append((byte[]) object);
+        } else if (object instanceof double[]) {
+            append((double[]) object);
+        } else if (object instanceof float[]) {
+            append((float[]) object);
+        } else if (object instanceof boolean[]) {
+            append((boolean[]) object);
+        } else {
+            // Not an array of primitives
+            append((Object[]) object);
+        }
     }
 
     /**
