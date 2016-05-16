@@ -497,13 +497,13 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @param value
      *            The object to register.
      */
-    static void register(final Object value) {
-        synchronized (HashCodeBuilder.class) {
-            if (getRegistry() == null) {
-                REGISTRY.set(new HashSet<IDKey>());
-            }
+    private static void register(final Object value) {
+        Set<IDKey> registry = getRegistry();
+        if (registry == null) {
+            registry = new HashSet<IDKey>();
+            REGISTRY.set(registry);
         }
-        getRegistry().add(new IDKey(value));
+        registry.add(new IDKey(value));
     }
 
     /**
@@ -518,16 +518,12 @@ public class HashCodeBuilder implements Builder<Integer> {
      *            The object to unregister.
      * @since 2.3
      */
-    static void unregister(final Object value) {
+    private static void unregister(final Object value) {
         Set<IDKey> registry = getRegistry();
         if (registry != null) {
             registry.remove(new IDKey(value));
-            synchronized (HashCodeBuilder.class) {
-                //read again
-                registry = getRegistry();
-                if (registry != null && registry.isEmpty()) {
-                    REGISTRY.remove();
-                }
+            if (registry.isEmpty()) {
+                REGISTRY.remove();
             }
         }
     }
