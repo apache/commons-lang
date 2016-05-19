@@ -951,6 +951,59 @@ public class DiffBuilder implements Builder<DiffResult> {
 
     /**
      * <p>
+     * Append diffs from another {@code DiffResult}.
+     * </p>
+     * 
+     * <p>
+     * This method is useful if you want to compare properties which are
+     * themselves Diffable and would like to know which specific part of
+     * it is different.
+     * </p>
+     * 
+     * <pre>
+     * public class Person implements Diffable&lt;Person&gt; {
+     *   String name;
+     *   Address address; // implements Diffable&lt;Address&gt;
+     *   
+     *   ...
+     *   
+     *   public DiffResult diff(Person obj) {
+     *     return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
+     *       .append("name", this.name, obj.name)
+     *       .append("address", this.address.diff(obj.address))
+     *       .build();
+     *   }
+     * }
+     * </pre>
+     * 
+     * @param fieldName
+     *            the field name
+     * @param diffResult
+     *            the {@code DiffResult} to append
+     * @return this
+     */
+    public DiffBuilder append(final String fieldName,
+            final DiffResult diffResult) {
+        if (fieldName == null) {
+            throw new IllegalArgumentException("Field name cannot be null");
+        }
+        if (diffResult == null) {
+            throw new IllegalArgumentException("Diff result cannot be null");
+        }
+        if (objectsTriviallyEqual) {
+            return this;
+        }
+
+        for (Diff<?> diff : diffResult.getDiffs()) {
+            append(fieldName + "." + diff.getFieldName(),
+                   diff.getLeft(), diff.getRight());
+        }
+
+        return this;
+    }
+
+    /**
+     * <p>
      * Builds a {@link DiffResult} based on the differences appended to this
      * builder.
      * </p>
