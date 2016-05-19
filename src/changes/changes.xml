@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1232" type="fix" dev="pschumacher" due-to="Nick Manley">DiffBuilder: Add null check on fieldName when appending Object or Object[]</action>
     <action issue="LANG-1178" type="fix" dev="pschumacher" due-to="Henri Yandell">ArrayUtils.removeAll(Object array, int... indices) should do the clone, not its callers</action>
     <action issue="LANG-1151" type="update" dev="pschumacher" due-to="Juan Pablo Santos Rodríguez">Performance improvements for NumberUtils.isParsable</action>
     <action issue="LANG-1227" type="fix" dev="pschumacher" due-to="kaching88">StringUtils.stripAccents should remove accents from "Ł" and "ł".</action>
