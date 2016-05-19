@@ -6581,15 +6581,15 @@ public class ArrayUtils {
             }
         }
         final BitSet toRemove = new BitSet();
-        for (final Map.Entry<T, MutableInt> e : occurrences.entrySet()) {
-            final T v = e.getKey();
-            int found = 0;
-            for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
-                found = indexOf(array, v, found);
-                if (found < 0) {
-                    break;
+        for (int i = 0; i < array.length; i++) {
+            final T key = array[i];
+            final MutableInt count = occurrences.get(key);
+            if (count != null) {
+                count.decrement();
+                if (count.intValue() == 0) {
+                    occurrences.remove(key);
                 }
-                toRemove.set(found++);
+                toRemove.set(i);
             }
         }
         @SuppressWarnings("unchecked") // removeAll() always creates an array of the same type as its input
@@ -6673,15 +6673,15 @@ public class ArrayUtils {
             }
         }
         final BitSet toRemove = new BitSet();
-        for (final Map.Entry<Byte, MutableInt> e : occurrences.entrySet()) {
-            final Byte v = e.getKey();
-            int found = 0;
-            for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
-                found = indexOf(array, v.byteValue(), found);
-                if (found < 0) {
-                    break;
+        for (int i = 0; i < array.length; i++) {
+            final byte key = array[i];
+            final MutableInt count = occurrences.get(key);
+            if (count != null) {
+                count.decrement();
+                if (count.intValue() == 0) {
+                    occurrences.remove(key);
                 }
-                toRemove.set(found++);
+                toRemove.set(i);
             }
         }
         return (byte[]) removeAll(array, toRemove);
@@ -6762,15 +6762,15 @@ public class ArrayUtils {
             }
         }
         final BitSet toRemove = new BitSet();
-        for (final Map.Entry<Short, MutableInt> e : occurrences.entrySet()) {
-            final Short v = e.getKey();
-            int found = 0;
-            for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
-                found = indexOf(array, v.shortValue(), found);
-                if (found < 0) {
-                    break;
+        for (int i = 0; i < array.length; i++) {
+            final short key = array[i];
+            final MutableInt count = occurrences.get(key);
+            if (count != null) {
+                count.decrement();
+                if (count.intValue() == 0) {
+                    occurrences.remove(key);
                 }
-                toRemove.set(found++);
+                toRemove.set(i);
             }
         }
         return (short[]) removeAll(array, toRemove);
@@ -6851,15 +6851,15 @@ public class ArrayUtils {
             }
         }
         final BitSet toRemove = new BitSet();
-        for (final Map.Entry<Integer, MutableInt> e : occurrences.entrySet()) {
-            final Integer v = e.getKey();
-            int found = 0;
-            for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
-                found = indexOf(array, v.intValue(), found);
-                if (found < 0) {
-                    break;
+        for (int i = 0; i < array.length; i++) {
+            final int key = array[i];
+            final MutableInt count = occurrences.get(key);
+            if (count != null) {
+                count.decrement();
+                if (count.intValue() == 0) {
+                    occurrences.remove(key);
                 }
-                toRemove.set(found++);
+                toRemove.set(i);
             }
         }
         return (int[]) removeAll(array, toRemove);
@@ -6940,15 +6940,15 @@ public class ArrayUtils {
             }
         }
         final BitSet toRemove = new BitSet();
-        for (final Map.Entry<Character, MutableInt> e : occurrences.entrySet()) {
-            final Character v = e.getKey();
-            int found = 0;
-            for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
-                found = indexOf(array, v.charValue(), found);
-                if (found < 0) {
-                    break;
+        for (int i = 0; i < array.length; i++) {
+            final char key = array[i];
+            final MutableInt count = occurrences.get(key);
+            if (count != null) {
+                count.decrement();
+                if (count.intValue() == 0) {
+                    occurrences.remove(key);
                 }
-                toRemove.set(found++);
+                toRemove.set(i);
             }
         }
         return (char[]) removeAll(array, toRemove);
@@ -7029,15 +7029,15 @@ public class ArrayUtils {
             }
         }
         final BitSet toRemove = new BitSet();
-        for (final Map.Entry<Long, MutableInt> e : occurrences.entrySet()) {
-            final Long v = e.getKey();
-            int found = 0;
-            for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
-                found = indexOf(array, v.longValue(), found);
-                if (found < 0) {
-                    break;
+        for (int i = 0; i < array.length; i++) {
+            final long key = array[i];
+            final MutableInt count = occurrences.get(key);
+            if (count != null) {
+                count.decrement();
+                if (count.intValue() == 0) {
+                    occurrences.remove(key);
                 }
-                toRemove.set(found++);
+                toRemove.set(i);
             }
         }
         return (long[]) removeAll(array, toRemove);
@@ -7118,15 +7118,15 @@ public class ArrayUtils {
             }
         }
         final BitSet toRemove = new BitSet();
-        for (final Map.Entry<Float, MutableInt> e : occurrences.entrySet()) {
-            final Float v = e.getKey();
-            int found = 0;
-            for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
-                found = indexOf(array, v.floatValue(), found);
-                if (found < 0) {
-                    break;
+        for (int i = 0; i < array.length; i++) {
+            final float key = array[i];
+            final MutableInt count = occurrences.get(key);
+            if (count != null) {
+                count.decrement();
+                if (count.intValue() == 0) {
+                    occurrences.remove(key);
                 }
-                toRemove.set(found++);
+                toRemove.set(i);
             }
         }
         return (float[]) removeAll(array, toRemove);
@@ -7207,15 +7207,15 @@ public class ArrayUtils {
             }
         }
         final BitSet toRemove = new BitSet();
-        for (final Map.Entry<Double, MutableInt> e : occurrences.entrySet()) {
-            final Double v = e.getKey();
-            int found = 0;
-            for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
-                found = indexOf(array, v.doubleValue(), found);
-                if (found < 0) {
-                    break;
+        for (int i = 0; i < array.length; i++) {
+            final double key = array[i];
+            final MutableInt count = occurrences.get(key);
+            if (count != null) {
+                count.decrement();
+                if (count.intValue() == 0) {
+                    occurrences.remove(key);
                 }
-                toRemove.set(found++);
+                toRemove.set(i);
             }
         }
         return (double[]) removeAll(array, toRemove);
@@ -7292,15 +7292,15 @@ public class ArrayUtils {
             }
         }
         final BitSet toRemove = new BitSet();
-        for (final Map.Entry<Boolean, MutableInt> e : occurrences.entrySet()) {
-            final Boolean v = e.getKey();
-            int found = 0;
-            for (int i = 0, ct = e.getValue().intValue(); i < ct; i++) {
-                found = indexOf(array, v.booleanValue(), found);
-                if (found < 0) {
-                    break;
+        for (int i = 0; i < array.length; i++) {
+            final boolean key = array[i];
+            final MutableInt count = occurrences.get(key);
+            if (count != null) {
+                count.decrement();
+                if (count.intValue() == 0) {
+                    occurrences.remove(key);
                 }
-                toRemove.set(found++);
+                toRemove.set(i);
             }
         }
         return (boolean[]) removeAll(array, toRemove);
