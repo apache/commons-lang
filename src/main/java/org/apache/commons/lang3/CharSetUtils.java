@@ -68,13 +68,26 @@ public class CharSetUtils {
         final StringBuilder buffer = new StringBuilder(str.length());
         final char[] chrs = str.toCharArray();
         final int sz = chrs.length;
-        char lastChar = ' ';
+        char lastChar = chrs[0];
         char ch = ' ';
-        for (int i = 0; i < sz; i++) {
+        Character inChars = null;
+        Character notInChars = null;
+        buffer.append(lastChar);
+        for (int i = 1; i < sz; i++) {
             ch = chrs[i];
-            // Compare with contains() last for performance.
-            if (ch == lastChar && i != 0 && chars.contains(ch)) {
-                continue;
+            if (ch == lastChar) {
+                if ((inChars != null) && (ch == inChars)) {
+                    continue;
+                } else {
+                    if ((notInChars == null) || (ch != notInChars)) {
+                        if (chars.contains(ch)) {
+                            inChars = ch;
+                            continue;
+                        } else {
+                            notInChars = ch;
+                        }
+                    }
+                }
             }
             buffer.append(ch);
             lastChar = ch;
