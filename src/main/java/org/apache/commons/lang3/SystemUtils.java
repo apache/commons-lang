@@ -1436,6 +1436,18 @@ public class SystemUtils {
 
     /**
      * <p>
+     * Is {@code true} if this is Windows 10.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.5
+     */
+    public static final boolean IS_OS_WINDOWS_10 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 10");
+
+    /**
+     * <p>
      * Is {@code true} if this is z/OS.
      * </p>
      * <p>
