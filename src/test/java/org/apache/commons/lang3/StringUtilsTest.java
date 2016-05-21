@@ -2614,6 +2614,8 @@ public class StringUtilsTest {
         assertEquals("a b c", StringUtils.normalizeSpace("  a  b   c  "));
         assertEquals("a b c", StringUtils.normalizeSpace("a\t\f\r  b\u000B   c\n"));
         assertEquals("a   b c", StringUtils.normalizeSpace("a\t\f\r  " + HARD_SPACE + HARD_SPACE + "b\u000B   c\n"));
+        assertEquals("b", StringUtils.normalizeSpace("\u0000b"));
+        assertEquals("b", StringUtils.normalizeSpace("b\u0000"));
     }
 
     @Test
