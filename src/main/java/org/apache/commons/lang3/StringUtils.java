@@ -7971,30 +7971,33 @@ public class StringUtils {
     }
 
     /**
-     * <p>Check if a CharSequence starts with any of an array of specified strings.</p>
+     * <p>Check if a CharSequence starts with any of the provided case-sensitive prefixes.</p>
      *
      * <pre>
      * StringUtils.startsWithAny(null, null)      = false
      * StringUtils.startsWithAny(null, new String[] {"abc"})  = false
      * StringUtils.startsWithAny("abcxyz", null)     = false
-     * StringUtils.startsWithAny("abcxyz", new String[] {""}) = false
+     * StringUtils.startsWithAny("abcxyz", new String[] {""}) = true
      * StringUtils.startsWithAny("abcxyz", new String[] {"abc"}) = true
      * StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
+     * StringUtils.startsWithAny("abcxyz", null, "xyz", "ABCX") = false
+     * StringUtils.startsWithAny("ABCXYZ", null, "xyz", "abc") = false
      * </pre>
      *
-     * @param string  the CharSequence to check, may be null
-     * @param searchStrings the CharSequences to find, may be null or empty
-     * @return {@code true} if the CharSequence starts with any of the the prefixes, case sensitive, or
-     *  both {@code null}
+     * @param sequence the CharSequence to check, may be null
+     * @param searchStrings the case-sensitive CharSequence prefixes, may be empty or contain {@code null}
+     * @see StringUtils#startsWith(CharSequence, CharSequence)
+     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or
+     *   the input {@code sequence} begins with any of the provided case-sensitive {@code searchStrings}.
      * @since 2.5
      * @since 3.0 Changed signature from startsWithAny(String, String[]) to startsWithAny(CharSequence, CharSequence...)
      */
-    public static boolean startsWithAny(final CharSequence string, final CharSequence... searchStrings) {
-        if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
+    public static boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
+        if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
         for (final CharSequence searchString : searchStrings) {
-            if (startsWith(string, searchString)) {
+            if (startsWith(sequence, searchString)) {
                 return true;
             }
         }
@@ -8017,6 +8020,7 @@ public class StringUtils {
      * StringUtils.endsWith("abcdef", "def") = true
      * StringUtils.endsWith("ABCDEF", "def") = false
      * StringUtils.endsWith("ABCDEF", "cde") = false
+     * StringUtils.endsWith("ABCDEF", "")    = true
      * </pre>
      *
      * @see java.lang.String#endsWith(String)
@@ -8153,7 +8157,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Check if a CharSequence ends with any of an array of specified strings.</p>
+     * <p>Check if a CharSequence ends with any of the provided case-sensitive suffixes.</p>
      *
      * <pre>
      * StringUtils.endsWithAny(null, null)      = false
@@ -8162,20 +8166,23 @@ public class StringUtils {
      * StringUtils.endsWithAny("abcxyz", new String[] {""}) = true
      * StringUtils.endsWithAny("abcxyz", new String[] {"xyz"}) = true
      * StringUtils.endsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
+     * StringUtils.endsWithAny("abcXYZ", "def", "XYZ") = true
+     * StringUtils.endsWithAny("abcXYZ", "def", "xyz") = false
      * </pre>
      *
-     * @param string  the CharSequence to check, may be null
-     * @param searchStrings the CharSequences to find, may be null or empty
-     * @return {@code true} if the CharSequence ends with any of the the prefixes, case insensitive, or
-     *  both {@code null}
+     * @param sequence  the CharSequence to check, may be null
+     * @param searchStrings the case-sensitive CharSequences to find, may be empty or contain {@code null}
+     * @see StringUtils#endsWith(CharSequence, CharSequence)
+     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or
+     *   the input {@code sequence} ends in any of the provided case-sensitive {@code searchStrings}.
      * @since 3.0
      */
-    public static boolean endsWithAny(final CharSequence string, final CharSequence... searchStrings) {
-        if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
+    public static boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
+        if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
         for (final CharSequence searchString : searchStrings) {
-            if (endsWith(string, searchString)) {
+            if (endsWith(sequence, searchString)) {
                 return true;
             }
         }
