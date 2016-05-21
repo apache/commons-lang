@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3.time;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * <p>
  * <code>StopWatch</code> provides a convenient API for timings.
@@ -334,6 +336,26 @@ public class StopWatch {
     public long getTime() {
         return getNanoTime() / NANO_2_MILLIS;
     }
+
+    /**
+     * <p>
+     * Get the time on the stopwatch in the specified TimeUnit.
+     * </p>
+     * 
+     * <p>
+     * This is either the time between the start and the moment this method is called, or the amount of time between
+     * start and stop. The resulting time will be expressed in the desired TimeUnit with any remainder rounded down.
+     * For example, if the specified unit is {@code TimeUnit.HOURS} and the stopwatch time is 59 minutes, then the
+     * result returned will be {@code 0}.
+     * </p>
+     * 
+     * @param timeUnit the unit of time, not null
+     * @return the time in the specified TimeUnit, rounded down
+     */
+    public long getTime(final TimeUnit timeUnit) {
+        return timeUnit.convert(getNanoTime(), TimeUnit.NANOSECONDS);
+    }
+
     /**
      * <p>
      * Get the time on the stopwatch in nanoseconds.
