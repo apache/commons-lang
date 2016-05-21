@@ -358,6 +358,44 @@ public class StopWatch {
 
     /**
      * <p>
+     * Get the time on the stopwatch as a formatted string.
+     * </p>
+     * 
+     * <p>
+     * This is either the time between the start and the moment this method is called, or the amount of time between
+     * start and stop. The format string follows the same conventions as {@code DurationFormatUtils}. Numbers are
+     * left padded with zeros.
+     * </p>
+     * 
+     * @param format the way in which to format the elapsed time, not null
+     * @return the time as a formatted string
+     * @see org.apache.commons.lang3.time.DurationFormatUtils
+     */
+    public String getTime(final String format) {
+        return DurationFormatUtils.formatDuration(getTime(), format);
+    }
+
+    /**
+     * <p>
+     * Get the time on the stopwatch as a formatted string.
+     * </p>
+     * 
+     * <p>
+     * This is either the time between the start and the moment this method is called, or the amount of time between
+     * start and stop. The format string follows the same conventions as {@code DurationFormatUtils}.
+     * </p>
+     * 
+     * @param format the way in which to format the elapsed time, not null
+     * @param padWithZeros whether to pad the left hand side of numbers with 0's
+     * @return the time as a formatted string
+     * @see org.apache.commons.lang3.time.DurationFormatUtils
+     */
+    public String getTime(final String format, final boolean padWithZeros) {
+        return DurationFormatUtils.formatDuration(getTime(), format, padWithZeros);
+    }
+
+    /**
+     * <p>
      * Get the time on the stopwatch in nanoseconds.
      * </p>
      * 
