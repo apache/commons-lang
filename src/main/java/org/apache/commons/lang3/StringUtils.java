@@ -8149,7 +8149,7 @@ public class StringUtils {
         if (startWhitespaces) {
             return EMPTY;
         }
-        return new String(newChars, 0, count - (whitespacesCount > 0 ? 1 : 0));
+        return new String(newChars, 0, count - (whitespacesCount > 0 ? 1 : 0)).trim();
     }
 
     /**
