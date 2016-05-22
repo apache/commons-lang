@@ -981,6 +981,9 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @param diffResult
      *            the {@code DiffResult} to append
      * @return this
+     * @throws IllegalArgumentException
+     *             if field name is {@code null}
+     * @since 3.5
      */
     public DiffBuilder append(final String fieldName,
             final DiffResult diffResult) {
