@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -30,7 +31,6 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableObject;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -97,7 +97,7 @@ public class ConstructorUtilsTest {
 
         void verify(final String str, final String[] args) {
           assertEquals(str, toString);
-          assertEquals(args, varArgs);
+          assertArrayEquals(args, varArgs);
         }
     }
 
@@ -287,7 +287,7 @@ public class ConstructorUtilsTest {
         TestBean testBean = ConstructorUtils.invokeConstructor(
                 TestBean.class, Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3));
 
-        Assert.assertArrayEquals(new String[]{"2", "3"}, testBean.varArgs);
+        assertArrayEquals(new String[]{"2", "3"}, testBean.varArgs);
     }
 
 }
