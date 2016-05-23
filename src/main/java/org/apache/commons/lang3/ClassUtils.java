@@ -73,6 +73,22 @@ public class ClassUtils {
     public static final String INNER_CLASS_SEPARATOR = String.valueOf(INNER_CLASS_SEPARATOR_CHAR);
 
     /**
+     * Maps names of primitives to their corresponding primitive {@code Class}es.
+     */
+    private static final Map<String, Class<?>> namePrimitiveMap = new HashMap<String, Class<?>>();
+    static {
+         namePrimitiveMap.put("boolean", Boolean.TYPE);
+         namePrimitiveMap.put("byte", Byte.TYPE);
+         namePrimitiveMap.put("char", Character.TYPE);
+         namePrimitiveMap.put("short", Short.TYPE);
+         namePrimitiveMap.put("int", Integer.TYPE);
+         namePrimitiveMap.put("long", Long.TYPE);
+         namePrimitiveMap.put("double", Double.TYPE);
+         namePrimitiveMap.put("float", Float.TYPE);
+         namePrimitiveMap.put("void", Void.TYPE);
+    }
+
+    /**
      * Maps primitive {@code Class}es to their corresponding wrapper {@code Class}.
      */
     private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<Class<?>, Class<?>>();
@@ -125,7 +141,6 @@ public class ClassUtils {
         m.put("byte", "B");
         m.put("double", "D");
         m.put("char", "C");
-        m.put("void", "V");
         final Map<String, String> r = new HashMap<String, String>();
         for (final Map.Entry<String, String> e : m.entrySet()) {
             r.put(e.getValue(), e.getKey());
@@ -902,9 +917,8 @@ public class ClassUtils {
             final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
         try {
             Class<?> clazz;
-            if (abbreviationMap.containsKey(className)) {
-                final String clsName = "[" + abbreviationMap.get(className);
-                clazz = Class.forName(clsName, initialize, classLoader).getComponentType();
+            if (namePrimitiveMap.containsKey(className)) {
+                clazz = namePrimitiveMap.get(className);
             } else {
                 clazz = Class.forName(toCanonicalName(className), initialize, classLoader);
             }
