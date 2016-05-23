@@ -1074,6 +1074,7 @@ public class ClassUtilsTest  {
         assertEquals( float.class, ClassUtils.getClass( "float" ) );
         assertEquals( double.class, ClassUtils.getClass( "double" ) );
         assertEquals( boolean.class, ClassUtils.getClass( "boolean" ) );
+        assertEquals( void.class, ClassUtils.getClass( "void" ) );
     }
 
     private void assertGetClassReturnsClass( final Class<?> c ) throws Exception {
