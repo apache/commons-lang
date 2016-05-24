@@ -117,7 +117,7 @@ public class ExceptionUtils {
      * @return the cause of the <code>Throwable</code>,
      *  <code>null</code> if none found or null throwable input
      * @since 1.0
-     * @deprecated This feature will be removed in Lang 4.0
+     * @deprecated This feature will be removed in Lang 4.0, use {@link Throwable#getCause} instead
      */
     @Deprecated
     public static Throwable getCause(final Throwable throwable) {
@@ -135,7 +135,7 @@ public class ExceptionUtils {
      * @return the cause of the <code>Throwable</code>,
      *  <code>null</code> if none found or null throwable input
      * @since 1.0
-     * @deprecated This feature will be removed in Lang 4.0
+     * @deprecated This feature will be removed in Lang 4.0, use {@link Throwable#getCause} instead
      */
     @Deprecated
     public static Throwable getCause(final Throwable throwable, String[] methodNames) {
