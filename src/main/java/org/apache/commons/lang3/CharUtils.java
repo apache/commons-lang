@@ -216,7 +216,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the character is not ASCII numeric
      */
     public static int toIntValue(final char ch) {
-        if (isAsciiNumeric(ch) == false) {
+        if (!isAsciiNumeric(ch)) {
             throw new IllegalArgumentException("The character " + ch + " is not in the range '0' - '9'");
         }
         return ch - 48;
@@ -238,7 +238,7 @@ public class CharUtils {
      * @return the int value of the character
      */
     public static int toIntValue(final char ch, final int defaultValue) {
-        if (isAsciiNumeric(ch) == false) {
+        if (!isAsciiNumeric(ch)) {
             return defaultValue;
         }
         return ch - 48;

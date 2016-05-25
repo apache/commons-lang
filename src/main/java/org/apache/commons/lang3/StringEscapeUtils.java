@@ -16,9 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import java.io.IOException;
-import java.io.Writer;
-
 import org.apache.commons.lang3.text.translate.AggregateTranslator;
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.EntityArrays;
@@ -29,6 +26,9 @@ import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 import org.apache.commons.lang3.text.translate.OctalUnescaper;
 import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
 import org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover;
+
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * <p>Escapes and unescapes {@code String}s for

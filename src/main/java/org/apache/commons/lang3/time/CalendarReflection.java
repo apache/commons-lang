@@ -32,8 +32,7 @@ class CalendarReflection {
 
     private static Method getCalendarMethod(String methodName, Class<?>... argTypes) {
         try {
-            Method m = Calendar.class.getMethod(methodName, argTypes);
-            return m;
+            return Calendar.class.getMethod(methodName, argTypes);
         } catch (Exception e) {
             return null;
         }
