@@ -351,6 +351,7 @@ public class StopWatch {
      * 
      * @param timeUnit the unit of time, not null
      * @return the time in the specified TimeUnit, rounded down
+     * @since 3.5
      */
     public long getTime(final TimeUnit timeUnit) {
         return timeUnit.convert(getNanoTime(), TimeUnit.NANOSECONDS);
