@@ -20,6 +20,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
+
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Assert;
 
 import org.junit.Test;
@@ -62,7 +65,20 @@ public class StopWatchTest  {
             try {Thread.sleep(500);} catch (final InterruptedException ex) {}
         assertTrue(watch.getTime() < 2000);
     }
-    
+
+    @Test
+    public void testStopWatchGetWithTimeUnit() {
+        final StopWatch watch = new StopWatch();
+        watch.start();
+        try {Thread.sleep(600);} catch (final InterruptedException ex) {}
+        watch.suspend();
+        assertEquals(0, watch.getTime(TimeUnit.SECONDS));
+        watch.resume();
+        try {Thread.sleep(500);} catch (final InterruptedException ex) {}
+        watch.stop();
+        assertEquals(1, watch.getTime(TimeUnit.SECONDS));
+    }
+
     @Test
     public void testStopWatchSplit(){
         final StopWatch watch = new StopWatch();
