@@ -17,11 +17,14 @@
 package org.apache.commons.lang3.time;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import org.junit.Assert;
 
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -62,7 +65,22 @@ public class StopWatchTest  {
             try {Thread.sleep(500);} catch (final InterruptedException ex) {}
         assertTrue(watch.getTime() < 2000);
     }
-    
+
+    @Test
+    public void testStopWatchGetWithTimeUnit() {
+        // Create a mock StopWatch with a time of 2:59:01.999
+        final StopWatch watch = createMockStopWatch(
+                TimeUnit.HOURS.toNanos(2)
+              + TimeUnit.MINUTES.toNanos(59)
+              + TimeUnit.SECONDS.toNanos(1)
+              + TimeUnit.MILLISECONDS.toNanos(999));
+
+        assertEquals(2L, watch.getTime(TimeUnit.HOURS));
+        assertEquals(179L, watch.getTime(TimeUnit.MINUTES));
+        assertEquals(10741L, watch.getTime(TimeUnit.SECONDS));
+        assertEquals(10741999L, watch.getTime(TimeUnit.MILLISECONDS));
+    }
+
     @Test
     public void testStopWatchSplit(){
         final StopWatch watch = new StopWatch();
@@ -252,4 +270,34 @@ public class StopWatchTest  {
         assertTrue(watch.isStopped());
     }
 
+    /**
+     * <p>
+     * Creates a suspended StopWatch object which appears to have elapsed
+     * for the requested amount of time in nanoseconds.
+     * <p>
+     * 
+     * <pre>
+     * // Create a mock StopWatch with a time of 2:59:01.999
+     * final long nanos = TimeUnit.HOURS.toNanos(2)
+     *         + TimeUnit.MINUTES.toNanos(59)
+     *         + TimeUnit.SECONDS.toNanos(1)
+     *         + TimeUnit.MILLISECONDS.toNanos(999);
+     * final StopWatch watch = createMockStopWatch(nanos);
+     * </pre>
+     * 
+     * @param nanos Time in nanoseconds to have elapsed on the stop watch
+     * @return StopWatch in a suspended state with the elapsed time
+     */
+    private StopWatch createMockStopWatch(long nanos) {
+        final StopWatch watch = StopWatch.createStarted();
+        watch.suspend();
+        try {
+            final long currentNanos = System.nanoTime();
+            FieldUtils.writeField(watch, "startTime", currentNanos - nanos, true);
+            FieldUtils.writeField(watch, "stopTime", currentNanos, true);
+        } catch (IllegalAccessException e) {
+            return null;
+        }
+        return watch;
+    }
 }
