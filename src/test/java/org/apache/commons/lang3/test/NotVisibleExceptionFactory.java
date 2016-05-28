@@ -20,6 +20,8 @@ public class NotVisibleExceptionFactory {
 
   private static class NotVisibleException extends Exception {
 
+    private static final long serialVersionUID = 1L; // avoid warning
+
     private final Throwable cause;
 
     private NotVisibleException(Throwable cause) {
