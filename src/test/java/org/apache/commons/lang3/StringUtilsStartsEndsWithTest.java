@@ -179,7 +179,16 @@ public class StringUtilsStartsEndsWithTest {
         assertFalse(StringUtils.endsWithAny("abcXYZ", "def", "xyz"));
         assertTrue(StringUtils.endsWithAny("abcXYZ", "def", "YZ"));
 
-        assertFalse(StringUtils.endsWithAny("abcXYZ", null));
+        /*
+         * Type null of the last argument to method endsWithAny(CharSequence, CharSequence...)
+         * doesn't exactly match the vararg parameter type. 
+         * Cast to CharSequence[] to confirm the non-varargs invocation,
+         * or pass individual arguments of type CharSequence for a varargs invocation.
+         *
+         * assertFalse(StringUtils.endsWithAny("abcXYZ", null)); // replace with specific types to avoid warning
+         */
+        assertFalse(StringUtils.endsWithAny("abcXYZ", (CharSequence) null));
+        assertFalse(StringUtils.endsWithAny("abcXYZ", (CharSequence[]) null));
         assertTrue(StringUtils.endsWithAny("abcXYZ", ""));
 
         assertTrue("StringUtils.endsWithAny(abcxyz, StringBuilder(abc), StringBuffer(xyz))", StringUtils.endsWithAny("abcxyz", new StringBuilder("abc"), new StringBuffer("xyz")));
