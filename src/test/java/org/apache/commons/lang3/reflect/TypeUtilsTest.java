@@ -25,6 +25,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -753,6 +754,22 @@ public class TypeUtilsTest<B> {
         Assert.assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
 
         Assert.assertEquals(String.class, TypeUtils.wrap(String.class).getType());
+    }
+
+    public static class ClassWithSuperClassWithGenericType extends ArrayList<Object> {
+        private static final long serialVersionUID = 1L;
+
+        public static <U> Iterable<U> methodWithGenericReturnType() {
+            return null;
+        }
+    }
+
+    @Test
+    public void testLANG1190() throws Exception {
+        Type fromType = ClassWithSuperClassWithGenericType.class.getDeclaredMethod("methodWithGenericReturnType").getGenericReturnType();
+        Type failingToType = TypeUtils.wildcardType().withLowerBounds(ClassWithSuperClassWithGenericType.class).build();
+
+        Assert.assertTrue(TypeUtils.isAssignable(fromType, failingToType));
     }
 
     public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;

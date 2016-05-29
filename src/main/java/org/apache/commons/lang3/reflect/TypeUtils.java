@@ -464,6 +464,10 @@ public class TypeUtils {
             final Type toTypeArg = unrollVariableAssignments(var, toTypeVarAssigns);
             final Type fromTypeArg = unrollVariableAssignments(var, fromTypeVarAssigns);
 
+            if (toTypeArg == null && fromTypeArg instanceof Class) {
+                continue;
+            }
+
             // parameters must either be absent from the subject type, within
             // the bounds of the wildcard type, or be an exact match to the
             // parameters of the target type.
