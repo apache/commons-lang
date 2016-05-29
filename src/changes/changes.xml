@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1190" type="fix" dev="pschumacher" due-to="pschumacher">TypeUtils.isAssignable throws NullPointerException when fromType has type variables and toType generic superclass specifies type variable</action>
     <action issue="LANG-1226" type="fix" dev="pschumacher" due-to="pschumacher">StringUtils#normalizeSpace does not trim the string anymore</action>
     <action issue="LANG-1251" type="fix" dev="pschumacher" due-to="Takuya Ueshin">SerializationUtils.ClassLoaderAwareObjectInputStream should use static initializer to initialize primitiveTypes map</action>
     <action issue="LANG-1253" type="add" dev="ggregory" due-to="adilek">[GitHub issue #170] Add RandomUtils#nextBoolean() method</action>
