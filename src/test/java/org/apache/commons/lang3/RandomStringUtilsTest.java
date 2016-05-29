@@ -81,12 +81,28 @@ public class RandomStringUtilsTest {
         r2 = RandomStringUtils.randomAlphabetic(50);
         assertTrue("!r1.equals(r2)", !r1.equals(r2));
         
+        r1 = RandomStringUtils.randomGraph(50);
+        assertEquals("randomGraph(50) length", 50, r1.length());
+        for(int i = 0; i < r1.length(); i++) {
+            assertTrue("char between 33 and 126", r1.charAt(i) >= 33 && r1.charAt(i) <= 126);
+        }
+        r2 = RandomStringUtils.randomGraph(50);
+        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        
         r1 = RandomStringUtils.randomNumeric(50);
         assertEquals("randomNumeric(50)", 50, r1.length());
         for(int i = 0; i < r1.length(); i++) {
             assertTrue("r1 contains numeric", Character.isDigit(r1.charAt(i)) && !Character.isLetter(r1.charAt(i)));
         }
         r2 = RandomStringUtils.randomNumeric(50);
+        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        
+        r1 = RandomStringUtils.randomPrint(50);
+        assertEquals("randomPrint(50) length", 50, r1.length());
+        for(int i = 0; i < r1.length(); i++) {
+            assertTrue("char between 32 and 126", r1.charAt(i) >= 32 && r1.charAt(i) <= 126);
+        }
+        r2 = RandomStringUtils.randomPrint(50);
         assertTrue("!r1.equals(r2)", !r1.equals(r2));
         
         String set = "abcdefg";

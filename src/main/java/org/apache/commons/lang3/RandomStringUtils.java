@@ -111,6 +111,18 @@ public class RandomStringUtils {
     }
     
     /**
+     * <p>Creates a random string whose length is the number of characters specified.</p>
+     *
+     * <p>Characters will be chosen from the set of characters which match the POSIX [:graph:] regular expression.</p>
+     *
+     * @param count  the length of random string to create
+     * @return the random string
+     */
+    public static String randomGraph(final int count) {
+        return random(count, 33, 126, false, false);
+    }
+    
+    /**
      * <p>Creates a random string whose length is the number of characters
      * specified.</p>
      *
@@ -122,6 +134,18 @@ public class RandomStringUtils {
      */
     public static String randomNumeric(final int count) {
         return random(count, false, true);
+    }
+
+    /**
+     * <p>Creates a random string whose length is the number of characters specified.</p>
+     *
+     * <p>Characters will be chosen from the set of characters which match the POSIX [:print:] regular expression.</p>
+     *
+     * @param count  the length of random string to create
+     * @return the random string
+     */
+    public static String randomPrint(final int count) {
+        return random(count, 32, 126, false, false);
     }
 
     /**
