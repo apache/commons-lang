@@ -276,8 +276,8 @@ public class EntityArrays {
         {"\u2283", "&sup;"}, // superset of, U+2283 ISOtech -->
         // <!-- note that nsup, 'not a superset of, U+2283' is not covered by the
         // Symbol font encoding and is not included. Should it be, for symmetry?
-        // It is in ISOamsn --> <!ENTITY nsub", "8836"},
-        // not a subset of, U+2284 ISOamsn -->
+        // It is in ISOamsn -->,
+        {"\u2284", "&nsub;"}, // not a subset of, U+2284 ISOamsn -->
         {"\u2286", "&sube;"}, // subset of or equal to, U+2286 ISOtech -->
         {"\u2287", "&supe;"}, // superset of or equal to,U+2287 ISOtech -->
         {"\u2295", "&oplus;"}, // circled plus = direct sum,U+2295 ISOamsb -->
