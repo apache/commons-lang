@@ -488,7 +488,7 @@ public class StringUtils {
      * @param str  the String to check, may be null
      * @param maxWidth  maximum length of result String, must be positive
      * @return truncated String, {@code null} if null String input
-     * @since 4.0
+     * @since 3.5
      */
     public static String truncate(final String str, int maxWidth) {
         return truncate(str, 0, maxWidth);
@@ -501,8 +501,18 @@ public class StringUtils {
      * <p>Works like {@code truncate(String, int)}, but allows you to specify
      * a "left edge" offset.
      *
-     * <p>In no case will it return a String of length greater than
-     * {@code maxWidth}.</p>
+     * <p>Specifically:</p>
+     * <ul>
+     *   <li>If {@code str} is less than {@code maxWidth} characters
+     *       long, return it.</li>
+     *   <li>Else truncate it to {@code (substring(str, 0, maxWidth))}.</li>
+     *   <li>If {@code maxWidth} is less than {@code 0}, throw an
+     *       {@code IllegalArgumentException}.</li>
+     *   <li>If {@code offset} is less than {@code 0}, throw an
+     *       {@code IllegalArgumentException}.</li>
+     *   <li>In no case will it return a String of length greater than
+     *       {@code maxWidth}.</li>
+     * </ul>
      *
      * <pre>
      * StringUtils.truncate(null, *, *) = null
@@ -539,17 +549,17 @@ public class StringUtils {
      * @param offset  left edge of source String
      * @param maxWidth  maximum length of result String, must be positive
      * @return truncated String, {@code null} if null String input
-     * @since 4.0
+     * @since 3.5
      */
     public static String truncate(final String str, int offset, int maxWidth) {
         if (str == null) {
             return null;
         }
-        if (maxWidth < 0) {
-            maxWidth = 0;
-        }
         if (offset < 0) {
-            offset = 0;
+            throw new IllegalArgumentException("offset cannot be negative");
+        }
+        if (maxWidth < 0) {
+            throw new IllegalArgumentException("maxWith cannot be negative");
         }
         if (offset > str.length()) {
             return EMPTY;
