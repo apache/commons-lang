@@ -6585,8 +6585,7 @@ public class ArrayUtils {
             final T key = array[i];
             final MutableInt count = occurrences.get(key);
             if (count != null) {
-                count.decrement();
-                if (count.intValue() == 0) {
+                if (count.decrementAndGet() == 0) {
                     occurrences.remove(key);
                 }
                 toRemove.set(i);
@@ -6677,8 +6676,7 @@ public class ArrayUtils {
             final byte key = array[i];
             final MutableInt count = occurrences.get(key);
             if (count != null) {
-                count.decrement();
-                if (count.intValue() == 0) {
+                if (count.decrementAndGet() == 0) {
                     occurrences.remove(key);
                 }
                 toRemove.set(i);
@@ -6766,8 +6764,7 @@ public class ArrayUtils {
             final short key = array[i];
             final MutableInt count = occurrences.get(key);
             if (count != null) {
-                count.decrement();
-                if (count.intValue() == 0) {
+                if (count.decrementAndGet() == 0) {
                     occurrences.remove(key);
                 }
                 toRemove.set(i);
@@ -6855,8 +6852,7 @@ public class ArrayUtils {
             final int key = array[i];
             final MutableInt count = occurrences.get(key);
             if (count != null) {
-                count.decrement();
-                if (count.intValue() == 0) {
+                if (count.decrementAndGet() == 0) {
                     occurrences.remove(key);
                 }
                 toRemove.set(i);
@@ -6944,8 +6940,7 @@ public class ArrayUtils {
             final char key = array[i];
             final MutableInt count = occurrences.get(key);
             if (count != null) {
-                count.decrement();
-                if (count.intValue() == 0) {
+                if (count.decrementAndGet() == 0) {
                     occurrences.remove(key);
                 }
                 toRemove.set(i);
@@ -7033,8 +7028,7 @@ public class ArrayUtils {
             final long key = array[i];
             final MutableInt count = occurrences.get(key);
             if (count != null) {
-                count.decrement();
-                if (count.intValue() == 0) {
+                if (count.decrementAndGet() == 0) {
                     occurrences.remove(key);
                 }
                 toRemove.set(i);
@@ -7122,8 +7116,7 @@ public class ArrayUtils {
             final float key = array[i];
             final MutableInt count = occurrences.get(key);
             if (count != null) {
-                count.decrement();
-                if (count.intValue() == 0) {
+                if (count.decrementAndGet() == 0) {
                     occurrences.remove(key);
                 }
                 toRemove.set(i);
@@ -7211,8 +7204,7 @@ public class ArrayUtils {
             final double key = array[i];
             final MutableInt count = occurrences.get(key);
             if (count != null) {
-                count.decrement();
-                if (count.intValue() == 0) {
+                if (count.decrementAndGet() == 0) {
                     occurrences.remove(key);
                 }
                 toRemove.set(i);
@@ -7296,8 +7288,7 @@ public class ArrayUtils {
             final boolean key = array[i];
             final MutableInt count = occurrences.get(key);
             if (count != null) {
-                count.decrement();
-                if (count.intValue() == 0) {
+                if (count.decrementAndGet() == 0) {
                     occurrences.remove(key);
                 }
                 toRemove.set(i);

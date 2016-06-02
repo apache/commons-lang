@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1243" type="update" dev="sebb">Simplify ArrayUtils removeElements by using new decrementAndGet() method</action>
     <action issue="LANG-1189" type="add" dev="sebb" due-to="haiyang li / Matthew Bartenschlag ">Add getAndIncrement/getAndDecrement/getAndAdd/incrementAndGet/decrementAndGet/addAndGet in Mutable* classes</action>
     <action issue="LANG-1240" type="update" dev="pschumacher" due-to="zhanhb">Optimize BitField constructor implementation</action>
     <action issue="LANG-1206" type="update" dev="pschumacher" due-to="Mohammed Alfallaj">Improve CharSetUtils.squeeze() performance</action>
