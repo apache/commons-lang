@@ -137,12 +137,58 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     }
 
     /**
+     * Increments this instance's value by 1; this method returns the value associated with the instance
+     * immediately prior to the increment operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance before it was incremented
+     */
+    public double getAndIncrement() {
+        double last = value;
+        value++;
+        return last;
+    }
+
+    /**
+     * Increments this instance's value by 1; this method returns the value associated with the instance
+     * immediately after the increment operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance after it is incremented
+     */
+    public double incrementAndGet() {
+        value++;
+        return value;
+    }
+
+    /**
      * Decrements the value.
      *
      * @since Commons Lang 2.2
      */
     public void decrement() {
         value--;
+    }
+
+    /**
+     * Decrements this instance's value by 1; this method returns the value associated with the instance
+     * immediately prior to the decrement operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance before it was decremented
+     */
+    public double getAndDecrement() {
+        double last = value;
+        value--;
+        return last;
+    }
+
+    /**
+     * Decrements this instance's value by 1; this method returns the value associated with the instance
+     * immediately after the decrement operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance after it is decremented
+     */
+    public double decrementAndGet() {
+        value--;
+        return value;
     }
 
     //-----------------------------------------------------------------------
@@ -186,6 +232,58 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      */
     public void subtract(final Number operand) {
         this.value -= operand.doubleValue();
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately after the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @return the value associated with this instance after adding the operand
+     */
+    public double addAndGet(final double operand) {
+        this.value += operand;
+        return value;
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately after the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @throws NullPointerException if {@code operand} is null
+     * @return the value associated with this instance after adding the operand
+     */
+    public double addAndGet(final Number operand) {
+        this.value += operand.doubleValue();
+        return value;
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately prior to the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @return the value associated with this instance immediately before the operand was added
+     */
+    public double getAndAdd(final double operand) {
+        double last = value;
+        this.value += operand;
+        return last;
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately prior to the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @throws NullPointerException if {@code operand} is null
+     * @return the value associated with this instance immediately before the operand was added
+     */
+    public double getAndAdd(final Number operand) {
+        double last = value;
+        this.value += operand.doubleValue();
+        return last;
     }
 
     //-----------------------------------------------------------------------

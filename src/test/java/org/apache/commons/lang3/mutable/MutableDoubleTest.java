@@ -155,10 +155,50 @@ public class MutableDoubleTest {
     }
 
     @Test
+    public void testIncrementAndGet() {
+        final MutableDouble mutNum = new MutableDouble(1d);
+        double result = mutNum.incrementAndGet();
+
+        assertEquals(2d, result, 0.01d);
+        assertEquals(2, mutNum.intValue());
+        assertEquals(2L, mutNum.longValue());
+    }
+
+    @Test
+    public void testGetAndIncrement() {
+        final MutableDouble mutNum = new MutableDouble(1d);
+        double result = mutNum.getAndIncrement();
+
+        assertEquals(1d, result, 0.01d);
+        assertEquals(2, mutNum.intValue());
+        assertEquals(2L, mutNum.longValue());
+    }
+
+    @Test
     public void testDecrement() {
         final MutableDouble mutNum = new MutableDouble(1);
         mutNum.decrement();
         
+        assertEquals(0, mutNum.intValue());
+        assertEquals(0L, mutNum.longValue());
+    }
+
+    @Test
+    public void testDecrementAndGet() {
+        final MutableDouble mutNum = new MutableDouble(1d);
+        double result = mutNum.decrementAndGet();
+
+        assertEquals(0d, result, 0.01d);
+        assertEquals(0, mutNum.intValue());
+        assertEquals(0L, mutNum.longValue());
+    }
+
+    @Test
+    public void testGetAndDecrement() {
+        final MutableDouble mutNum = new MutableDouble(1d);
+        double result = mutNum.getAndDecrement();
+
+        assertEquals(1d, result, 0.01d);
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
     }
@@ -177,6 +217,42 @@ public class MutableDoubleTest {
         mutNum.add(Double.valueOf(1.1d));
         
         assertEquals(2.1d, mutNum.doubleValue(), 0.01d);
+    }
+
+    @Test
+    public void testGetAndAddValuePrimitive() {
+        final MutableDouble mutableDouble = new MutableDouble(0.5d);
+        double result = mutableDouble.getAndAdd(1d);
+
+        assertEquals(0.5d, result, 0.01d);
+        assertEquals(1.5d, mutableDouble.doubleValue(), 0.01d);
+    }
+
+    @Test
+    public void testGetAndAddValueObject() {
+        final MutableDouble mutableDouble = new MutableDouble(0.5d);
+        double result = mutableDouble.getAndAdd(Double.valueOf(2d));
+
+        assertEquals(0.5d, result, 0.01d);
+        assertEquals(2.5d, mutableDouble.doubleValue(), 0.01d);
+    }
+
+    @Test
+    public void testAddAndGetValuePrimitive() {
+        final MutableDouble mutableDouble = new MutableDouble(10.5d);
+        double result = mutableDouble.addAndGet(-0.5d);
+
+        assertEquals(10d, result, 0.01d);
+        assertEquals(10d, mutableDouble.doubleValue(), 0.01d);
+    }
+
+    @Test
+    public void testAddAndGetValueObject() {
+        final MutableDouble mutableDouble = new MutableDouble(7.5d);
+        double result = mutableDouble.addAndGet(Double.valueOf(-2.5d));
+
+        assertEquals(5d, result, 0.01d);
+        assertEquals(5d, mutableDouble.doubleValue(), 0.01d);
     }
 
     @Test

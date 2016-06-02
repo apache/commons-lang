@@ -120,12 +120,58 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     }
 
     /**
+     * Increments this instance's value by 1; this method returns the value associated with the instance
+     * immediately prior to the increment operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance before it was incremented
+     */
+    public short getAndIncrement() {
+        short last = value;
+        value++;
+        return last;
+    }
+
+    /**
+     * Increments this instance's value by 1; this method returns the value associated with the instance
+     * immediately after the increment operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance after it is incremented
+     */
+    public short incrementAndGet() {
+        value++;
+        return value;
+    }
+
+    /**
      * Decrements the value.
      *
      * @since Commons Lang 2.2
      */
     public void decrement() {
         value--;
+    }
+
+    /**
+     * Decrements this instance's value by 1; this method returns the value associated with the instance
+     * immediately prior to the decrement operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance before it was decremented
+     */
+    public short getAndDecrement() {
+        short last = value;
+        value--;
+        return last;
+    }
+
+    /**
+     * Decrements this instance's value by 1; this method returns the value associated with the instance
+     * immediately after the decrement operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance after it is decremented
+     */
+    public short decrementAndGet() {
+        value--;
+        return value;
     }
 
     //-----------------------------------------------------------------------
@@ -169,6 +215,58 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      */
     public void subtract(final Number operand) {
         this.value -= operand.shortValue();
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately after the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @return the value associated with this instance after adding the operand
+     */
+    public short addAndGet(final short operand) {
+        this.value += operand;
+        return value;
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately after the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @throws NullPointerException if {@code operand} is null
+     * @return the value associated with this instance after adding the operand
+     */
+    public short addAndGet(final Number operand) {
+        this.value += operand.shortValue();
+        return value;
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately prior to the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @return the value associated with this instance immediately before the operand was added
+     */
+    public short getAndAdd(final short operand) {
+        short last = value;
+        this.value += operand;
+        return last;
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately prior to the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @throws NullPointerException if {@code operand} is null
+     * @return the value associated with this instance immediately before the operand was added
+     */
+    public short getAndAdd(final Number operand) {
+        short last = value;
+        this.value += operand.shortValue();
+        return last;
     }
 
     //-----------------------------------------------------------------------

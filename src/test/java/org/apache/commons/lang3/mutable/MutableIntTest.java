@@ -149,10 +149,50 @@ public class MutableIntTest {
     }
 
     @Test
+    public void testIncrementAndGet() {
+        final MutableInt mutNum = new MutableInt((int) 1);
+        int result = mutNum.incrementAndGet();
+
+        assertEquals(2, result);
+        assertEquals(2, mutNum.intValue());
+        assertEquals(2L, mutNum.longValue());
+    }
+
+    @Test
+    public void testGetAndIncrement() {
+        final MutableInt mutNum = new MutableInt((int) 1);
+        int result = mutNum.getAndIncrement();
+
+        assertEquals(1, result);
+        assertEquals(2, mutNum.intValue());
+        assertEquals(2L, mutNum.longValue());
+    }
+
+    @Test
     public void testDecrement() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.decrement();
         
+        assertEquals(0, mutNum.intValue());
+        assertEquals(0L, mutNum.longValue());
+    }
+
+    @Test
+    public void testDecrementAndGet() {
+        final MutableInt mutNum = new MutableInt((int) 1);
+        int result = mutNum.decrementAndGet();
+
+        assertEquals(0, result);
+        assertEquals(0, mutNum.intValue());
+        assertEquals(0L, mutNum.longValue());
+    }
+
+    @Test
+    public void testGetAndDecrement() {
+        final MutableInt mutNum = new MutableInt((int) 1);
+        int result = mutNum.getAndDecrement();
+
+        assertEquals(1, result);
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
     }
@@ -173,6 +213,42 @@ public class MutableIntTest {
         
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
+    }
+
+    @Test
+    public void testGetAndAddValuePrimitive() {
+        final MutableInt mutableInteger = new MutableInt((int)0);
+        int result = mutableInteger.getAndAdd((int) 1);
+
+        assertEquals((int) 0, result);
+        assertEquals((int) 1, mutableInteger.intValue());
+    }
+
+    @Test
+    public void testGetAndAddValueObject() {
+        final MutableInt mutableInteger = new MutableInt((int)0);
+        int result = mutableInteger.getAndAdd(Integer.valueOf((int) 1));
+
+        assertEquals((int) 0, result);
+        assertEquals((int) 1, mutableInteger.intValue());
+    }
+
+    @Test
+    public void testAddAndGetValuePrimitive() {
+        final MutableInt mutableInteger = new MutableInt((int)0);
+        int result = mutableInteger.addAndGet((int) 1);
+
+        assertEquals((int) 1, result);
+        assertEquals((int) 1, mutableInteger.intValue());
+    }
+
+    @Test
+    public void testAddAndGetValueObject() {
+        final MutableInt mutableInteger = new MutableInt((int)0);
+        int result = mutableInteger.addAndGet(Integer.valueOf((int) 1));
+
+        assertEquals((int) 1, result);
+        assertEquals((int) 1, mutableInteger.intValue());
     }
 
     @Test

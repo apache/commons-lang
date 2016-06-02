@@ -143,10 +143,50 @@ public class MutableByteTest {
     }
 
     @Test
+    public void testIncrementAndGet() {
+        final MutableByte mutNum = new MutableByte((byte) 1);
+        byte result = mutNum.incrementAndGet();
+
+        assertEquals(2, result);
+        assertEquals(2, mutNum.intValue());
+        assertEquals(2L, mutNum.longValue());
+    }
+
+    @Test
+    public void testGetAndIncrement() {
+        final MutableByte mutNum = new MutableByte((byte) 1);
+        byte result = mutNum.getAndIncrement();
+
+        assertEquals(1, result);
+        assertEquals(2, mutNum.intValue());
+        assertEquals(2L, mutNum.longValue());
+    }
+
+    @Test
     public void testDecrement() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.decrement();
         
+        assertEquals(0, mutNum.intValue());
+        assertEquals(0L, mutNum.longValue());
+    }
+
+    @Test
+    public void testDecrementAndGet() {
+        final MutableByte mutNum = new MutableByte((byte) 1);
+        byte result = mutNum.decrementAndGet();
+
+        assertEquals(0, result);
+        assertEquals(0, mutNum.intValue());
+        assertEquals(0L, mutNum.longValue());
+    }
+
+    @Test
+    public void testGetAndDecrement() {
+        final MutableByte mutNum = new MutableByte((byte) 1);
+        byte result = mutNum.getAndDecrement();
+
+        assertEquals(1, result);
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
     }
@@ -165,6 +205,42 @@ public class MutableByteTest {
         mutNum.add(Integer.valueOf(1));
         
         assertEquals((byte) 2, mutNum.byteValue());
+    }
+
+    @Test
+    public void testGetAndAddValuePrimitive() {
+        final MutableByte mutableByte = new MutableByte((byte)0);
+        byte result = mutableByte.getAndAdd((byte) 1);
+
+        assertEquals((byte) 0, result);
+        assertEquals((byte) 1, mutableByte.byteValue());
+    }
+
+    @Test
+    public void testGetAndAddValueObject() {
+        final MutableByte mutableByte = new MutableByte((byte)0);
+        byte result = mutableByte.getAndAdd(Byte.valueOf((byte) 1));
+
+        assertEquals((byte) 0, result);
+        assertEquals((byte) 1, mutableByte.byteValue());
+    }
+
+    @Test
+    public void testAddAndGetValuePrimitive() {
+        final MutableByte mutableByte = new MutableByte((byte)0);
+        byte result = mutableByte.addAndGet((byte) 1);
+
+        assertEquals((byte) 1, result);
+        assertEquals((byte) 1, mutableByte.byteValue());
+    }
+
+    @Test
+    public void testAddAndGetValueObject() {
+        final MutableByte mutableByte = new MutableByte((byte)0);
+        byte result = mutableByte.addAndGet(Byte.valueOf((byte) 1));
+
+        assertEquals((byte) 1, result);
+        assertEquals((byte) 1, mutableByte.byteValue());
     }
 
     @Test

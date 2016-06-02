@@ -120,12 +120,58 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     }
 
     /**
+     * Increments this instance's value by 1; this method returns the value associated with the instance
+     * immediately prior to the increment operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance before it was incremented
+     */
+    public int getAndIncrement() {
+        int last = value;
+        value++;
+        return last;
+    }
+
+    /**
+     * Increments this instance's value by 1; this method returns the value associated with the instance
+     * immediately after the increment operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance after it is incremented
+     */
+    public int incrementAndGet() {
+        value++;
+        return value;
+    }
+
+    /**
      * Decrements the value.
      *
      * @since Commons Lang 2.2
      */
     public void decrement() {
         value--;
+    }
+
+    /**
+     * Decrements this instance's value by 1; this method returns the value associated with the instance
+     * immediately prior to the decrement operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance before it was decremented
+     */
+    public int getAndDecrement() {
+        int last = value;
+        value--;
+        return last;
+    }
+
+    /**
+     * Decrements this instance's value by 1; this method returns the value associated with the instance
+     * immediately after the decrement operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance after it is decremented
+     */
+    public int decrementAndGet() {
+        value--;
+        return value;
     }
 
     //-----------------------------------------------------------------------
@@ -169,6 +215,58 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      */
     public void subtract(final Number operand) {
         this.value -= operand.intValue();
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately after the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @return the value associated with this instance after adding the operand
+     */
+    public int addAndGet(final int operand) {
+        this.value += operand;
+        return value;
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately after the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @throws NullPointerException if {@code operand} is null
+     * @return the value associated with this instance after adding the operand
+     */
+    public int addAndGet(final Number operand) {
+        this.value += operand.intValue();
+        return value;
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately prior to the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @return the value associated with this instance immediately before the operand was added
+     */
+    public int getAndAdd(final int operand) {
+        int last = value;
+        this.value += operand;
+        return last;
+    }
+
+    /**
+     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
+     * immediately prior to the addition operation. This method is not thread safe.
+     *
+     * @param operand the quantity to add, not null
+     * @throws NullPointerException if {@code operand} is null
+     * @return the value associated with this instance immediately before the operand was added
+     */
+    public int getAndAdd(final Number operand) {
+        int last = value;
+        this.value += operand.intValue();
+        return last;
     }
 
     //-----------------------------------------------------------------------
