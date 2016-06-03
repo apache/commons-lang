@@ -124,6 +124,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * immediately prior to the increment operation. This method is not thread safe.
      *
      * @return the value associated with the instance before it was incremented
+     * @since 3.5
      */
     public long getAndIncrement() {
         long last = value;
@@ -136,6 +137,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * immediately after the increment operation. This method is not thread safe.
      *
      * @return the value associated with the instance after it is incremented
+     * @since 3.5
      */
     public long incrementAndGet() {
         value++;
@@ -156,6 +158,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * immediately prior to the decrement operation. This method is not thread safe.
      *
      * @return the value associated with the instance before it was decremented
+     * @since 3.5
      */
     public long getAndDecrement() {
         long last = value;
@@ -168,6 +171,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * immediately after the decrement operation. This method is not thread safe.
      *
      * @return the value associated with the instance after it is decremented
+     * @since 3.5
      */
     public long decrementAndGet() {
         value--;

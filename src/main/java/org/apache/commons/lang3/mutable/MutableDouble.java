@@ -141,6 +141,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * immediately prior to the increment operation. This method is not thread safe.
      *
      * @return the value associated with the instance before it was incremented
+     * @since 3.5
      */
     public double getAndIncrement() {
         double last = value;
@@ -153,6 +154,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * immediately after the increment operation. This method is not thread safe.
      *
      * @return the value associated with the instance after it is incremented
+     * @since 3.5
      */
     public double incrementAndGet() {
         value++;
@@ -173,6 +175,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * immediately prior to the decrement operation. This method is not thread safe.
      *
      * @return the value associated with the instance before it was decremented
+     * @since 3.5
      */
     public double getAndDecrement() {
         double last = value;
@@ -185,6 +188,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * immediately after the decrement operation. This method is not thread safe.
      *
      * @return the value associated with the instance after it is decremented
+     * @since 3.5
      */
     public double decrementAndGet() {
         value--;

@@ -124,6 +124,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * immediately prior to the increment operation. This method is not thread safe.
      *
      * @return the value associated with the instance before it was incremented
+     * @since 3.5
      */
     public short getAndIncrement() {
         short last = value;
@@ -136,6 +137,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * immediately after the increment operation. This method is not thread safe.
      *
      * @return the value associated with the instance after it is incremented
+     * @since 3.5
      */
     public short incrementAndGet() {
         value++;
@@ -156,6 +158,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * immediately prior to the decrement operation. This method is not thread safe.
      *
      * @return the value associated with the instance before it was decremented
+     * @since 3.5
      */
     public short getAndDecrement() {
         short last = value;
@@ -168,6 +171,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * immediately after the decrement operation. This method is not thread safe.
      *
      * @return the value associated with the instance after it is decremented
+     * @since 3.5
      */
     public short decrementAndGet() {
         value--;

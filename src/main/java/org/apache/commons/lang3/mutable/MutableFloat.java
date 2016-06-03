@@ -141,6 +141,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * immediately prior to the increment operation. This method is not thread safe.
      *
      * @return the value associated with the instance before it was incremented
+     * @since 3.5
      */
     public float getAndIncrement() {
         float last = value;
@@ -153,6 +154,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * immediately after the increment operation. This method is not thread safe.
      *
      * @return the value associated with the instance after it is incremented
+     * @since 3.5
      */
     public float incrementAndGet() {
         value++;
@@ -173,6 +175,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * immediately prior to the decrement operation. This method is not thread safe.
      *
      * @return the value associated with the instance before it was decremented
+     * @since 3.5
      */
     public float getAndDecrement() {
         float last = value;
@@ -185,6 +188,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * immediately after the decrement operation. This method is not thread safe.
      *
      * @return the value associated with the instance after it is decremented
+     * @since 3.5
      */
     public float decrementAndGet() {
         value--;

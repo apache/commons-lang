@@ -124,6 +124,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * immediately prior to the increment operation. This method is not thread safe.
      *
      * @return the value associated with the instance before it was incremented
+     * @since 3.5
      */
     public int getAndIncrement() {
         int last = value;
@@ -136,6 +137,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * immediately after the increment operation. This method is not thread safe.
      *
      * @return the value associated with the instance after it is incremented
+     * @since 3.5
      */
     public int incrementAndGet() {
         value++;
@@ -156,6 +158,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * immediately prior to the decrement operation. This method is not thread safe.
      *
      * @return the value associated with the instance before it was decremented
+     * @since 3.5
      */
     public int getAndDecrement() {
         int last = value;
@@ -168,6 +171,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * immediately after the decrement operation. This method is not thread safe.
      *
      * @return the value associated with the instance after it is decremented
+     * @since 3.5
      */
     public int decrementAndGet() {
         value--;
