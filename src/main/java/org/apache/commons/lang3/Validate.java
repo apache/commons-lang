@@ -988,7 +988,7 @@ public class Validate {
      * @param value  the object to validate
      * @param min  the reference value
      * @throws IllegalArgumentException if {@code value} is smaller than or equal to {@code min}
-     * @see #greaterObj(java.lang.Object, java.lang.Comparable, java.lang.String, java.lang.Object...)
+     * @see #greaterObj(java.lang.Comparable, java.lang.Object, java.lang.String, java.lang.Object...)
      *
      * @since 3.5
      */
@@ -1008,7 +1008,7 @@ public class Validate {
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is smaller than or equal to {@code min}
-     * @see #greaterObj(java.lang.Object, java.lang.Comparable)
+     * @see #greaterObj(java.lang.Comparable, java.lang.Object)
      *
      * @since 3.5
      */
@@ -1122,7 +1122,7 @@ public class Validate {
      * @param value  the object to validate
      * @param min  the reference value
      * @throws IllegalArgumentException if {@code value} is smaller than {@code min}
-     * @see #greaterOrEqualObj(java.lang.Object, java.lang.Comparable, java.lang.String, java.lang.Object...)
+     * @see #greaterOrEqualObj(java.lang.Comparable, java.lang.Object, java.lang.String, java.lang.Object...)
      *
      * @since 3.5
      */
@@ -1142,7 +1142,7 @@ public class Validate {
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is smaller than {@code min}
-     * @see #greaterOrEqualObj(java.lang.Object, java.lang.Comparable)
+     * @see #greaterOrEqualObj(java.lang.Comparable, java.lang.Object)
      *
      * @since 3.5
      */
@@ -1256,7 +1256,7 @@ public class Validate {
      * @param value  the object to validate
      * @param max  the reference value
      * @throws IllegalArgumentException if {@code value} is greater than or equal to {@code max}
-     * @see #smallerObj(java.lang.Object, java.lang.Comparable, java.lang.String, java.lang.Object...)
+     * @see #smallerObj(java.lang.Comparable, java.lang.Object, java.lang.String, java.lang.Object...)
      *
      * @since 3.5
      */
@@ -1276,7 +1276,7 @@ public class Validate {
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is greater than or equal to {@code max}
-     * @see #smallerObj(java.lang.Object, java.lang.Comparable)
+     * @see #smallerObj(java.lang.Comparable, java.lang.Object)
      *
      * @since 3.5
      */
@@ -1390,7 +1390,7 @@ public class Validate {
      * @param value  the object to validate
      * @param max  the reference value
      * @throws IllegalArgumentException if {@code value} is greater than {@code max}
-     * @see #smallerOrEqualObj(java.lang.Object, java.lang.Comparable, java.lang.String, java.lang.Object...)
+     * @see #smallerOrEqualObj(java.lang.Comparable, java.lang.Object, java.lang.String, java.lang.Object...)
      *
      * @since 3.5
      */
@@ -1410,7 +1410,7 @@ public class Validate {
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if {@code value} is greater than {@code max}
-     * @see #smallerOrEqualObj(java.lang.Object, java.lang.Comparable)
+     * @see #smallerOrEqualObj(java.lang.Comparable, java.lang.Object)
      *
      * @since 3.5
      */
