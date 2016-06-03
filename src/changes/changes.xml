@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1244" type="fix" dev="pschumacher" due-to="jjbankert">Fix dead links in StringUtils.getLevenshteinDistance() javadoc</action>
     <action issue="LANG-1242" type="fix" dev="pschumacher" due-to="Neal Stewart">"\u2284":"&nsub;" mapping missing from EntityArrays#HTML40_EXTENDED_ESCAPE</action>
     <action issue="LANG-1243" type="update" dev="sebb">Simplify ArrayUtils removeElements by using new decrementAndGet() method</action>
     <action issue="LANG-1189" type="add" dev="sebb" due-to="haiyang li / Matthew Bartenschlag ">Add getAndIncrement/getAndDecrement/getAndAdd/incrementAndGet/decrementAndGet/addAndGet in Mutable* classes</action>

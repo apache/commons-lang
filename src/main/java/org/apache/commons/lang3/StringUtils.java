@@ -7387,12 +7387,14 @@ public class StringUtils {
      * insertion or substitution).</p>
      *
      * <p>The previous implementation of the Levenshtein distance algorithm
-     * was from <a href="http://www.merriampark.com/ld.htm">http://www.merriampark.com/ld.htm</a></p>
+     * was from <a href="https://web.archive.org/web/20120604192456/http://www.merriampark.com/ld.htm">
+     * https://web.archive.org/web/20120604192456/http://www.merriampark.com/ld.htm</a></p>
      *
      * <p>Chas Emerick has written an implementation in Java, which avoids an OutOfMemoryError
      * which can occur when my Java implementation is used with very large strings.<br>
      * This implementation of the Levenshtein distance algorithm
-     * is from <a href="http://www.merriampark.com/ldjava.htm">http://www.merriampark.com/ldjava.htm</a></p>
+     * is from <a href="https://web.archive.org/web/20120526085419/http://www.merriampark.com/ldjava.htm">
+     * https://web.archive.org/web/20120526085419/http://www.merriampark.com/ldjava.htm</a></p>
      *
      * <pre>
      * StringUtils.getLevenshteinDistance(null, *)             = IllegalArgumentException
