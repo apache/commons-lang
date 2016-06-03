@@ -1524,7 +1524,7 @@ public class NumberUtils {
         int decimalPoints = 0;
         for (int i = beginIdx; i < str.length(); i++) {
             final boolean isDecimalPoint = str.charAt(i) == '.';
-            if (str.charAt(i) == '.') {
+            if (isDecimalPoint) {
                 decimalPoints++;
             }
             if (decimalPoints > 1) {
