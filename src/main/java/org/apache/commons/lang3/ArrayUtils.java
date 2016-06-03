@@ -2444,7 +2444,6 @@ public class ArrayUtils {
      * <p>This method does nothing for a {@code null} input array.
      *
      * @param array  the array to shift, may be {@code null}
-     * @param offset how many position to the right to shift the array, if negative it will be shiftd to the left.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
