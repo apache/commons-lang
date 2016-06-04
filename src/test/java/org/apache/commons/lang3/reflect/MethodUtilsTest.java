@@ -101,9 +101,39 @@ public class MethodUtilsTest {
         public static void oneParameterStatic(final String s) {
             // empty
         }
-
+        
         @SuppressWarnings("unused")
         private void privateStuff() {
+        }
+
+        @SuppressWarnings("unused")
+        private String privateStringStuff() {
+        	return "privateStringStuff()";
+        }
+        
+        @SuppressWarnings("unused")
+        private String privateStringStuff(final int i) {
+        	return "privateStringStuff(int)";
+        }
+        
+        @SuppressWarnings("unused")
+        private String privateStringStuff(final Integer i) {
+        	return "privateStringStuff(Integer)";
+        }
+        
+        @SuppressWarnings("unused")
+        private String privateStringStuff(final double d) {
+        	return "privateStringStuff(double)";
+        }
+        
+        @SuppressWarnings("unused")
+        private String privateStringStuff(final String s) {
+        	return "privateStringStuff(String)";
+        }
+        
+        @SuppressWarnings("unused")
+        private String privateStringStuff(final Object s) {
+        	return "privateStringStuff(Object)";
         }
 
 
