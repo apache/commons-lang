@@ -98,7 +98,7 @@ public class MethodUtils {
      * <p>Invokes a named method without parameters.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object,boolean forceAccess,String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -155,7 +155,7 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object,boolean forceAccess,String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
