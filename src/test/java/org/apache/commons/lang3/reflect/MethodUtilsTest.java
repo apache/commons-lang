@@ -32,12 +32,14 @@ import static org.junit.Assert.fail;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.Mutable;
@@ -757,5 +759,31 @@ public class MethodUtilsTest {
         TestBean testBean = new TestBean();
         int[] actual = (int[])MethodUtils.invokeMethod(testBean, "unboxing", Integer.valueOf(1), Integer.valueOf(2));
         Assert.assertArrayEquals(new int[]{1, 2}, actual);
+    }
+    
+    @Test
+    public void testInvokeMethodForceAccessNoArgs() throws Exception {
+        Assert.assertEquals("privateStringStuff()", MethodUtils.invokeMethod(testBean, true, "privateStringStuff"));
+    }
+    
+    @Test
+    public void testInvokeMethodForceAccessWithArgs() throws Exception {
+        Assert.assertEquals("privateStringStuff(Integer)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", 5));
+        Assert.assertEquals("privateStringStuff(double)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", 5.0d));
+        Assert.assertEquals("privateStringStuff(String)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", "Hi There"));
+        Assert.assertEquals("privateStringStuff(Object)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", new Date()));
+    }
+    
+    @Test
+    public void testDistance() throws Exception {
+        Method distanceMethod = MethodUtils.getMatchingMethod(MethodUtils.class, "distance", Class[].class, Class[].class);
+        distanceMethod.setAccessible(true);
+        
+        Assert.assertEquals(-1, distanceMethod.invoke(null, new Class[]{String.class}, new Class[]{Date.class}));
+        Assert.assertEquals(0, distanceMethod.invoke(null, new Class[]{Date.class}, new Class[]{Date.class}));
+        Assert.assertEquals(1, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{ClassUtils.wrapperToPrimitive(Integer.class)}));
+        Assert.assertEquals(2, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{Object.class}));
+        
+        distanceMethod.setAccessible(false);
     }
 }
