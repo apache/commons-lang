@@ -204,12 +204,16 @@ public class MethodUtils {
         
         final String messagePrefix;
         final Method method;
+        boolean isOriginallyAccessible = false;
         if (forceAccess) {
         	messagePrefix = "No such method: ";
         	method = getMatchingMethod(object.getClass(),
                     methodName, parameterTypes);
         	if (method != null) {
-        		method.setAccessible(true);
+        	    isOriginallyAccessible = method.isAccessible();
+        	    if (!isOriginallyAccessible) {
+        	        method.setAccessible(true);
+        	    }
         	}
         }  else {
         	messagePrefix = "No such accessible method: ";
@@ -223,7 +227,12 @@ public class MethodUtils {
                     + object.getClass().getName());
         }
         args = toVarArgs(method, args);
-        return method.invoke(object, args);
+        Object result = method.invoke(object, args);
+        
+        if (forceAccess && method.isAccessible() != isOriginallyAccessible) {
+            method.setAccessible(isOriginallyAccessible);
+        }
+        return result;
     }
     
     /**

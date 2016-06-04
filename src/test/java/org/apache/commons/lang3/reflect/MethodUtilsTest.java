@@ -763,7 +763,10 @@ public class MethodUtilsTest {
     
     @Test
     public void testInvokeMethodForceAccessNoArgs() throws Exception {
+        Method privateStringStuffMethod = MethodUtils.getMatchingMethod(TestBean.class, "privateStringStuff");
+        Assert.assertFalse(privateStringStuffMethod.isAccessible());
         Assert.assertEquals("privateStringStuff()", MethodUtils.invokeMethod(testBean, true, "privateStringStuff"));
+        Assert.assertFalse(privateStringStuffMethod.isAccessible());
     }
     
     @Test
