@@ -2020,9 +2020,24 @@ public class StringUtilsTest {
     @Test
     public void testTruncate_StringInt() {
         assertNull(StringUtils.truncate(null,  12));
-        assertNull(StringUtils.truncate(null,  -1));
-        assertNull(StringUtils.truncate(null,  -10));
-        assertNull(StringUtils.truncate(null,  Integer.MIN_VALUE));
+        try {
+            assertEquals("", StringUtils.truncate(null, -1));
+            fail("maxWith cannot be negative");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            assertEquals("", StringUtils.truncate(null, -10));
+            fail("maxWith cannot be negative");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            assertEquals("", StringUtils.truncate(null, Integer.MIN_VALUE));
+            fail("maxWith cannot be negative");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
         assertEquals("", StringUtils.truncate("", 10));
         assertEquals("", StringUtils.truncate("", 10));
         assertEquals("abc", StringUtils.truncate("abcdefghij", 3));
@@ -2055,9 +2070,24 @@ public class StringUtilsTest {
     @Test
     public void testTruncate_StringIntInt() {
         assertNull(StringUtils.truncate(null, 0, 12));
-        assertNull(StringUtils.truncate(null,  -1));
-        assertNull(StringUtils.truncate(null,  -10));
-        assertNull(StringUtils.truncate(null,  Integer.MIN_VALUE));
+        try {
+            assertEquals("", StringUtils.truncate(null, -1, 0));
+            fail("maxWith cannot be negative");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            assertEquals("", StringUtils.truncate(null, -10, -4));
+            fail("maxWith cannot be negative");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            assertEquals("", StringUtils.truncate(null, Integer.MIN_VALUE, Integer.MIN_VALUE));
+            fail("maxWith cannot be negative");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
         assertNull(StringUtils.truncate(null, 10, 12));
         assertEquals("", StringUtils.truncate("", 0, 10));
         assertEquals("", StringUtils.truncate("", 2, 10));

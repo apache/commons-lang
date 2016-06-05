@@ -476,13 +476,14 @@ public class StringUtils {
      * </ul>
      *
      * <pre>
-     * StringUtils.truncate(null, *)      = null
+     * StringUtils.truncate(null, 0)      = null
+     * StringUtils.truncate(null, 2)      = null
      * StringUtils.truncate("", 4)        = ""
      * StringUtils.truncate("abcdefg", 4) = "abcd"
      * StringUtils.truncate("abcdefg", 6) = "abcdef"
      * StringUtils.truncate("abcdefg", 7) = "abcdefg"
      * StringUtils.truncate("abcdefg", 8) = "abcdefg"
-     * StringUtils.truncate("abcdefg", -1) = ""
+     * StringUtils.truncate("abcdefg", -1) = throws an IllegalArgumentException
      * </pre>
      *
      * @param str  the String to check, may be null
@@ -515,14 +516,15 @@ public class StringUtils {
      * </ul>
      *
      * <pre>
-     * StringUtils.truncate(null, *, *) = null
+     * StringUtils.truncate(null, 0, 0) = null
+     * StringUtils.truncate(null, 2, 4) = null
      * StringUtils.truncate("", 0, 10) = ""
      * StringUtils.truncate("", 2, 10) = ""
      * StringUtils.truncate("abcdefghij", 0, 3) = "abc"
      * StringUtils.truncate("abcdefghij", 5, 6) = "fghij"
      * StringUtils.truncate("raspberry peach", 10, 15) = "peach"
-     * StringUtils.truncate("abcdefghijklmno", -1, 10) = "abcdefghij"
      * StringUtils.truncate("abcdefghijklmno", 0, 10) = "abcdefghij"
+     * StringUtils.truncate("abcdefghijklmno", -1, 10) = throws an IllegalArgumentException
      * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, 10) = "abcdefghij"
      * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, Integer.MAX_VALUE) = "abcdefghijklmno"
      * StringUtils.truncate("abcdefghijklmno", 0, Integer.MAX_VALUE) = "abcdefghijklmno"
@@ -542,7 +544,8 @@ public class StringUtils {
      * StringUtils.truncate("abcdefghijklmno", 15, 1) = ""
      * StringUtils.truncate("abcdefghijklmno", 15, Integer.MAX_VALUE) = ""
      * StringUtils.truncate("abcdefghijklmno", Integer.MAX_VALUE, Integer.MAX_VALUE) = ""
-     * StringUtils.truncate("abcdefghij", 0, -1) = ""
+     * StringUtils.truncate("abcdefghij", 3, -1) = throws an IllegalArgumentException
+     * StringUtils.truncate("abcdefghij", -2, 4) = throws an IllegalArgumentException
      * </pre>
      *
      * @param str  the String to check, may be null
@@ -552,14 +555,14 @@ public class StringUtils {
      * @since 3.5
      */
     public static String truncate(final String str, int offset, int maxWidth) {
-        if (str == null) {
-            return null;
-        }
         if (offset < 0) {
             throw new IllegalArgumentException("offset cannot be negative");
         }
         if (maxWidth < 0) {
             throw new IllegalArgumentException("maxWith cannot be negative");
+        }
+        if (str == null) {
+            return null;
         }
         if (offset > str.length()) {
             return EMPTY;
