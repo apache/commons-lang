@@ -570,9 +570,8 @@ public class StringUtils {
         if (str.length() > maxWidth) {
             int ix = offset + maxWidth > str.length() ? str.length() : offset + maxWidth;
             return str.substring(offset, ix);
-        } else {
-            return str.substring(offset);
         }
+        return str.substring(offset);
     }
 
     // Stripping
