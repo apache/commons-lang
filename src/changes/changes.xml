@@ -46,7 +46,8 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.5" date="tba" description="tba">
-    <action issue="LANG-1195" type="fix" dev="pschumacher" due-to="Derek C. Ashmore">Enhance MethodUtils to allow invocation of private methods</action>
+    <action issue="LANG-1013" type="add" dev="pschumacher" due-to="Thiago Andrade">Add StringUtils.truncate()</action>
+    <action issue="LANG-1195" type="add" dev="pschumacher" due-to="Derek C. Ashmore">Enhance MethodUtils to allow invocation of private methods</action>
     <action issue="LANG-1199" type="fix" dev="pschumacher" due-to="M. Steiger">Fix implementation of StringUtils.getJaroWinklerDistance()</action>
     <action issue="LANG-1244" type="fix" dev="pschumacher" due-to="jjbankert">Fix dead links in StringUtils.getLevenshteinDistance() javadoc</action>
     <action issue="LANG-1242" type="fix" dev="pschumacher" due-to="Neal Stewart">"\u2284":"&nsub;" mapping missing from EntityArrays#HTML40_EXTENDED_ESCAPE</action>
