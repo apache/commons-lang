@@ -767,8 +767,8 @@ public class StrTokenizerTest {
 
     @Test
     public void testTSVEmpty() {
-        this.testEmpty(StrTokenizer.getCSVInstance());
-        this.testEmpty(StrTokenizer.getCSVInstance(""));
+        this.testEmpty(StrTokenizer.getTSVInstance());
+        this.testEmpty(StrTokenizer.getTSVInstance(""));
     }
 
     void testXSVAbc(final StrTokenizer tokenizer) {
