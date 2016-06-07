@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1085" type="add" dev="oheger" due-to="oheger / kinow">Add a circuit breaker implementation</action>
     <action issue="LANG-1013" type="add" dev="pschumacher" due-to="Thiago Andrade">Add StringUtils.truncate()</action>
     <action issue="LANG-1195" type="add" dev="pschumacher" due-to="Derek C. Ashmore">Enhance MethodUtils to allow invocation of private methods</action>
     <action issue="LANG-1199" type="fix" dev="pschumacher" due-to="M. Steiger">Fix implementation of StringUtils.getJaroWinklerDistance()</action>
