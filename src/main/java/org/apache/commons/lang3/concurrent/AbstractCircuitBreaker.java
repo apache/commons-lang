@@ -24,6 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * Base class for circuit breakers.
  *
  * @param <T> the type of the value monitored by this circuit breaker
+ * @since 3.5
  */
 public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     /**
@@ -39,7 +40,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     private final PropertyChangeSupport changeSupport;
 
     /**
-     * Creates an {@AbstractCircuitBreaker}. It also creates an internal {@code PropertyChangeSupport}.
+     * Creates an {@code AbstractCircuitBreaker}. It also creates an internal {@code PropertyChangeSupport}.
      */
     public AbstractCircuitBreaker() {
         changeSupport = new PropertyChangeSupport(this);

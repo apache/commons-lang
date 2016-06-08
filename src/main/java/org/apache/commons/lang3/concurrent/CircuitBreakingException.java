@@ -21,6 +21,7 @@ package org.apache.commons.lang3.concurrent;
  * An exception class used for reporting runtime error conditions related to
  * circuit breakers.
  * </p>
+ * @since 3.5
  */
 public class CircuitBreakingException extends RuntimeException {
     /**

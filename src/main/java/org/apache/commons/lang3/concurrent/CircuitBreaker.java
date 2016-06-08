@@ -37,6 +37,7 @@ package org.apache.commons.lang3.concurrent;
  * </p>
  *
  * @param <T> the type of the value monitored by this circuit breaker
+ * @since 3.5
  */
 public interface CircuitBreaker<T> {
     /**
