@@ -871,35 +871,7 @@ public class HashCodeBuilder implements Builder<Integer> {
                     append((Object[]) object);
                 }
             } else {
-                if (object instanceof Long) {
-                    append(((Long) object).longValue());
-                } else if (object instanceof Integer) {
-                    append(((Integer) object).intValue());
-                } else if (object instanceof Short) {
-                    append(((Short) object).shortValue());
-                } else if (object instanceof Character) {
-                    append(((Character) object).charValue());
-                } else if (object instanceof Byte) {
-                    append(((Byte) object).byteValue());
-                } else if (object instanceof Double) {
-                    append(((Double) object).doubleValue());
-                } else if (object instanceof Float) {
-                    append(((Float) object).floatValue());
-                } else if (object instanceof Boolean) {
-                    append(((Boolean) object).booleanValue());
-                } else if (object instanceof String) {
-                    iTotal = iTotal * iConstant + object.hashCode();
-                } else {
-                    if (isRegistered(object)) {
-                        return this;
-                    }
-                    try {
-                        register(object);
-                        iTotal = iTotal * iConstant + object.hashCode();
-                    } finally {
-                        unregister(object);
-                    }
-                }
+                iTotal = iTotal * iConstant + object.hashCode();
             }
         }
         return this;

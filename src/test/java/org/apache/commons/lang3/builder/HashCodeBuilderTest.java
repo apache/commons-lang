@@ -19,7 +19,6 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-
 import org.junit.Test;
 
 /**
@@ -31,8 +30,6 @@ public class HashCodeBuilderTest {
      * A reflection test fixture.
      */
     static class ReflectionTestCycleA {
-        int index = 10;
-        String name = "ReflectionTestCycleA";
         ReflectionTestCycleB b;
 
         @Override
@@ -45,49 +42,11 @@ public class HashCodeBuilderTest {
      * A reflection test fixture.
      */
     static class ReflectionTestCycleB {
-        int index = 11;
-        String name = "ReflectionTestCycleB";
         ReflectionTestCycleA a;
 
         @Override
         public int hashCode() {
             return HashCodeBuilder.reflectionHashCode(this);
-        }
-    }
-
-    /**
-     * A nonreflection test fixture.
-     */
-    static class NonreflectionTestCycleA {
-        int index = 20;
-        String name = "NonreflectionTestCycleA";
-        NonreflectionTestCycleB b;
-
-        @Override
-        public int hashCode() {
-            HashCodeBuilder builder = new HashCodeBuilder();
-            builder.append(index);
-            builder.append(name);
-            builder.append(b);
-            return builder.toHashCode();
-        }
-    }
-
-    /**
-     * A nonreflection test fixture.
-     */
-    static class NonreflectionTestCycleB {
-        int index = 21;
-        String name = "NonreflectionTestCycleB";
-        NonreflectionTestCycleA a;
-
-        @Override
-        public int hashCode() {
-            HashCodeBuilder builder = new HashCodeBuilder();
-            builder.append(index);
-            builder.append(name);
-            builder.append(a);
-            return builder.toHashCode();
         }
     }
 
@@ -562,7 +521,7 @@ public class HashCodeBuilderTest {
     }
 
     /**
-     * Test Objects pointing to each other when {@link HashCodeBuilder#reflectionHashCode(Object, String...)} used.
+     * Test Objects pointing to each other.
      */
     @Test
     public void testReflectionObjectCycle() {
@@ -587,22 +546,6 @@ public class HashCodeBuilderTest {
         // at
         // org.apache.commons.lang.builder.HashCodeBuilderTest$ReflectionTestCycleA.hashCode(HashCodeBuilderTest.java:42)
         // at org.apache.commons.lang.builder.HashCodeBuilder.append(HashCodeBuilder.java:422)
-
-        a.hashCode();
-        assertNull(HashCodeBuilder.getRegistry());
-        b.hashCode();
-        assertNull(HashCodeBuilder.getRegistry());
-    }
-
-    /**
-     * Test Objects pointing to each other when <code>append()</code> methods are used on <code>HashCodeBuilder</code> instance.
-     */
-    @Test
-    public void testNonreflectionObjectCycle() {
-        final NonreflectionTestCycleA a = new NonreflectionTestCycleA();
-        final NonreflectionTestCycleB b = new NonreflectionTestCycleB();
-        a.b = b;
-        b.a = a;
 
         a.hashCode();
         assertNull(HashCodeBuilder.getRegistry());
