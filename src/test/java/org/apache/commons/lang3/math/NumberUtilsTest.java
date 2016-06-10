@@ -242,6 +242,10 @@ public class NumberUtilsTest {
         final Number bigNum = NumberUtils.createNumber("-1.1E-700F");
         assertNotNull(bigNum);
         assertEquals(BigDecimal.class, bigNum.getClass());
+        
+        // LANG-1018
+        assertEquals("createNumber(String) LANG-1018 failed",
+                Double.valueOf("-160952.54"), NumberUtils.createNumber("-160952.54"));
     }
     
     @Test
