@@ -1177,4 +1177,24 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(0, StringUtils.ordinalIndexOf("abc", "ab", 1));        
     }
 
+    @Test
+    // Non-overlapping test
+    public void testLANG1241_1() {
+        //                                          0  3  6
+        assertEquals(0, StringUtils.ordinalIndexOf("abaabaab", "ab", 1));
+        assertEquals(3, StringUtils.ordinalIndexOf("abaabaab", "ab", 2));
+        assertEquals(6, StringUtils.ordinalIndexOf("abaabaab", "ab", 3));
+    }
+
+    @Test
+    // Overlapping matching test
+    public void testLANG1241_2() {
+        //                                          0 2 4
+        assertEquals(0, StringUtils.ordinalIndexOf("abababa", "aba", 1));
+        assertEquals(2, StringUtils.ordinalIndexOf("abababa", "aba", 2));
+        assertEquals(4, StringUtils.ordinalIndexOf("abababa", "aba", 3));
+        assertEquals(0, StringUtils.ordinalIndexOf("abababab", "abab", 1));
+        assertEquals(2, StringUtils.ordinalIndexOf("abababab", "abab", 2));
+        assertEquals(4, StringUtils.ordinalIndexOf("abababab", "abab", 3));
+    }
 }
