@@ -246,6 +246,12 @@ public class NumberUtilsTest {
         // LANG-1018
         assertEquals("createNumber(String) LANG-1018 failed",
                 Double.valueOf("-160952.54"), NumberUtils.createNumber("-160952.54"));
+        // LANG-1187
+        assertEquals("createNumber(String) LANG-1187 failed",
+                Double.valueOf("6264583.33"), NumberUtils.createNumber("6264583.33"));
+        // LANG-1215
+        assertEquals("createNumber(String) LANG-1215 failed",
+                Double.valueOf("193343.82"), NumberUtils.createNumber("193343.82"));
     }
     
     @Test
