@@ -24,8 +24,12 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * <p>DateParser is the "missing" interface for the parsing methods of 
- * {@link java.text.DateFormat}.</p>
+ * DateParser is the "missing" interface for the parsing methods of
+ * {@link java.text.DateFormat}. You can obtain an object implementing this
+ * interface by using one of the FastDateFormat factory methods.
+ * <p>
+ * Warning: Since binary compatible methods may be added to this interface in any
+ * release, developers are not expected to implement this interface.
  * 
  * @since 3.2
  */
@@ -66,6 +70,8 @@ public interface DateParser {
      * @return true, if source has been parsed (pos parsePosition is updated); otherwise false (and pos errorIndex is updated)
      * @throws IllegalArgumentException when Calendar has been set to be not lenient, and a parsed field is
      * out of range.
+     * 
+     * @since 3.5
      */
     boolean parse(String source, ParsePosition pos, Calendar calendar);
 
