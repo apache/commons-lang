@@ -540,6 +540,14 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
+     * @deprecated use {@link #format(Calendar)} or {@link #format(Calendar, Appendable)}
+     */
+    @Deprecated
+    protected StringBuffer applyRules(final Calendar calendar, final StringBuffer buf) {
+        return (StringBuffer) applyRules(calendar, (Appendable)buf);
+    }
+
+    /**
      * <p>Performs the formatting by applying the rules to the
      * specified calendar.</p>
      *
@@ -548,7 +556,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param <B> the Appendable class type, usually StringBuilder or StringBuffer.
      * @return the specified string buffer
      */
-    protected <B extends Appendable> B applyRules(final Calendar calendar, final B buf) {
+    private <B extends Appendable> B applyRules(final Calendar calendar, final B buf) {
         try {
             for (final Rule rule : mRules) {
                 rule.appendTo(buf, calendar);
