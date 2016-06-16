@@ -249,7 +249,7 @@ public final class Range<T> implements Serializable {
     }
 
     /**
-     * <p>Checks whether this range starts with the specified element.</p>
+     * <p>Checks whether this range ends with the specified element.</p>
      *
      * @param element  the element to check for, null returns false
      * @return true if the specified element occurs within this range
