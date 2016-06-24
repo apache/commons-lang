@@ -219,7 +219,7 @@ public class ArrayUtils {
      * <p>This method can be used to initialize:
      * <pre>
      * // Create a Map mapping colors.
-     * Map colorMap = MapUtils.toMap(new String[][] {{
+     * Map colorMap = ArrayUtils.toMap(new String[][] {
      *     {"RED", "#FF0000"},
      *     {"GREEN", "#00FF00"},
      *     {"BLUE", "#0000FF"}});
