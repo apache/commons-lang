@@ -486,7 +486,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public StringBuffer format(final long millis, final StringBuffer buf) {
-        return format(new Date(millis), buf);
+        final Calendar c = newCalendar();
+        c.setTimeInMillis(millis);
+        return applyRules(c, buf);
     }
 
     /* (non-Javadoc)
@@ -513,7 +515,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public <B extends Appendable> B format(final long millis, final B buf) {
-        return format(new Date(millis), buf);
+        final Calendar c = newCalendar();
+        c.setTimeInMillis(millis);
+        return applyRules(c, buf);
     }
 
     /* (non-Javadoc)

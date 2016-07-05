@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1247" type="update" dev="chas" due-to="Benoit Wiart">FastDatePrinter generates extra Date objects</action>
     <action issue="LANG-1018" type="fix" dev="pschumacher" due-to="Nick Manley">Fix precision loss on NumberUtils.createNumber(String)</action>
     <action issue="LANG-1229" type="update" dev="pschumacher" due-to="Ruslan Cheremin">HashCodeBuilder.append(Object,Object) is too big to be inlined, which prevents whole builder to be scalarized</action>
     <action issue="LANG-1085" type="add" dev="oheger" due-to="oheger / kinow">Add a circuit breaker implementation</action>
