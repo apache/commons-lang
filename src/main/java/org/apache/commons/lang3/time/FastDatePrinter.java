@@ -488,7 +488,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     public StringBuffer format(final long millis, final StringBuffer buf) {
         final Calendar c = newCalendar();
         c.setTimeInMillis(millis);
-        return applyRules(c, buf);
+        return (StringBuffer) applyRules(c, (Appendable)buf);
     }
 
     /* (non-Javadoc)
@@ -498,7 +498,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     public StringBuffer format(final Date date, final StringBuffer buf) {
         final Calendar c = newCalendar();
         c.setTime(date);
-        return applyRules(c, buf);
+        return (StringBuffer) applyRules(c, (Appendable)buf);
     }
 
     /* (non-Javadoc)
