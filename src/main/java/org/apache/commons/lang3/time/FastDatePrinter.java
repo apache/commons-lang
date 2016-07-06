@@ -486,7 +486,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public StringBuffer format(final long millis, final StringBuffer buf) {
-        return format(new Date(millis), buf);
+        final Calendar c = newCalendar();
+        c.setTimeInMillis(millis);
+        return (StringBuffer) applyRules(c, (Appendable)buf);
     }
 
     /* (non-Javadoc)
@@ -496,7 +498,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     public StringBuffer format(final Date date, final StringBuffer buf) {
         final Calendar c = newCalendar();
         c.setTime(date);
-        return applyRules(c, buf);
+        return (StringBuffer) applyRules(c, (Appendable)buf);
     }
 
     /* (non-Javadoc)
@@ -513,7 +515,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public <B extends Appendable> B format(final long millis, final B buf) {
-        return format(new Date(millis), buf);
+        final Calendar c = newCalendar();
+        c.setTimeInMillis(millis);
+        return applyRules(c, buf);
     }
 
     /* (non-Javadoc)
@@ -540,6 +544,14 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
+     * @deprecated use {@link #format(Calendar)} or {@link #format(Calendar, Appendable)}
+     */
+    @Deprecated
+    protected StringBuffer applyRules(final Calendar calendar, final StringBuffer buf) {
+        return (StringBuffer) applyRules(calendar, (Appendable)buf);
+    }
+
+    /**
      * <p>Performs the formatting by applying the rules to the
      * specified calendar.</p>
      *
@@ -548,7 +560,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param <B> the Appendable class type, usually StringBuilder or StringBuffer.
      * @return the specified string buffer
      */
-    protected <B extends Appendable> B applyRules(final Calendar calendar, final B buf) {
+    private <B extends Appendable> B applyRules(final Calendar calendar, final B buf) {
         try {
             for (final Rule rule : mRules) {
                 rule.appendTo(buf, calendar);
