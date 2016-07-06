@@ -394,7 +394,6 @@ public class FastDateParser implements DateParser, Serializable {
      * parsed, then the index will point to just after the end of the input buffer.
      *
      * @see org.apache.commons.lang3.time.DateParser#parse(java.lang.String, java.text.ParsePosition)
-     * {@inheritDoc}
      */
     @Override
     public Date parse(final String source, final ParsePosition pos) {
