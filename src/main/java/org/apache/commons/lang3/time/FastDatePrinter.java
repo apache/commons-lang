@@ -684,24 +684,56 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param value the value to append digits from.
      */
     private static void appendFullDigits(final Appendable buffer, int value, int minFieldWidth) throws IOException {
-        // build up decimal representation in reverse
-        char[] work = new char[MAX_DIGITS];
-        int digit = 0;
-        while(value!=0) {
-            work[digit++] = (char)(value % 10 + '0');
-            value = value / 10;
+    	// specialized paths for 1 to 4 digits -> avoid the memory allocation from the temporary work array
+    	// see LANG-1248
+    	if (value < 10) {
+    		addPadding(buffer, minFieldWidth - 1);
+            buffer.append((char)(value + '0'));
+        } else if (value < 100) {
+        	addPadding(buffer, minFieldWidth - 2);
+        	appendDigits(buffer, value);
         }
-
-        // pad with zeros
-        while(digit<minFieldWidth) {
-            buffer.append('0');
-            --minFieldWidth;
+        else if (value < 1000) {
+        	addPadding(buffer, minFieldWidth - 3);
+        	buffer.append((char)(value / 100 + '0'));
+        	buffer.append((char)(value%100 / 10 + '0'));
+        	buffer.append((char)(value % 10 + '0'));
         }
-
-        // reverse
-        while(--digit>=0) {
-            buffer.append(work[digit]);
+        else if (value < 10000) {
+        	addPadding(buffer, minFieldWidth - 4);
+        	buffer.append((char)(value / 1000 + '0'));
+			int tmp = value%1000;
+			buffer.append((char)(tmp / 100 + '0'));
+			buffer.append((char)(tmp%100/10 + '0'));
+			buffer.append((char)(value % 10 + '0'));
         }
+        else {
+        	// build up decimal representation in reverse
+        	char[] work = new char[MAX_DIGITS];
+        	int digit = 0;
+        	while(value!=0) {
+        		work[digit++] = (char)(value % 10 + '0');
+        		value = value / 10;
+        	}
+        	
+        	// pad with zeros
+        	while(digit<minFieldWidth) {
+        		buffer.append('0');
+        		--minFieldWidth;
+        	}
+        	
+        	// reverse
+        	while(--digit>=0) {
+        		buffer.append(work[digit]);
+        	}        	
+        }
+        
+    }
+    
+    private static void addPadding(final Appendable buffer, int size) throws IOException {
+    	for (int i = 0; i < size; i++) {
+			buffer.append('0');
+		}
     }
 
     // Rules
