@@ -212,4 +212,12 @@ public class RandomUtils {
     public static float nextFloat() {
         return nextFloat(0, Float.MAX_VALUE);
     }
+    
+    /**
+     * <p> Returns a random boolean value</p>
+     * @return the random boolean
+     */
+    public static boolean nextBoolean() {
+        return RANDOM.nextBoolean();
+    }
 }
