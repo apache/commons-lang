@@ -219,12 +219,10 @@ public class SerializationUtils {
         try {
             // stream closed in the finally
             in = new ObjectInputStream(inputStream);
-            @SuppressWarnings("unchecked") // may fail with CCE if serialised form is incorrect
+            @SuppressWarnings("unchecked")
             final T obj = (T) in.readObject();
             return obj;
 
-        } catch (final ClassCastException ex) {
-            throw new SerializationException(ex);
         } catch (final ClassNotFoundException ex) {
             throw new SerializationException(ex);
         } catch (final IOException ex) {
