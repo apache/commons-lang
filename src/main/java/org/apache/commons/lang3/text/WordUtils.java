@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.text;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -172,6 +173,84 @@ public class WordUtils {
      * @return a line with newlines inserted, <code>null</code> if null input
      */
     public static String wrap(final String str, int wrapLength, String newLineStr, final boolean wrapLongWords) {
+        return wrap(str, wrapLength, newLineStr, wrapLongWords, " ");
+    }
+
+    /**
+     * <p>Wraps a single line of text, identifying words by <code>' '</code>.</p>
+     *
+     * <p>Leading spaces on a new line are stripped.
+     * Trailing spaces are not stripped.</p>
+     *
+     * <table border="1" summary="Wrap Results">
+     *  <tr>
+     *   <th>input</th>
+     *   <th>wrapLenght</th>
+     *   <th>newLineString</th>
+     *   <th>wrapLongWords</th>
+     *   <th>result</th>
+     *  </tr>
+     *  <tr>
+     *   <td>null</td>
+     *   <td>*</td>
+     *   <td>*</td>
+     *   <td>true/false</td>
+     *   <td>null</td>
+     *  </tr>
+     *  <tr>
+     *   <td>""</td>
+     *   <td>*</td>
+     *   <td>*</td>
+     *   <td>true/false</td>
+     *   <td>""</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Here is one line of text that is going to be wrapped after 20 columns."</td>
+     *   <td>20</td>
+     *   <td>"\n"</td>
+     *   <td>true/false</td>
+     *   <td>"Here is one line of\ntext that is going\nto be wrapped after\n20 columns."</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Here is one line of text that is going to be wrapped after 20 columns."</td>
+     *   <td>20</td>
+     *   <td>"&lt;br /&gt;"</td>
+     *   <td>true/false</td>
+     *   <td>"Here is one line of&lt;br /&gt;text that is going&lt;br /&gt;to be wrapped after&lt;br /&gt;20 columns."</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Here is one line of text that is going to be wrapped after 20 columns."</td>
+     *   <td>20</td>
+     *   <td>null</td>
+     *   <td>true/false</td>
+     *   <td>"Here is one line of" + systemNewLine + "text that is going" + systemNewLine + "to be wrapped after" + systemNewLine + "20 columns."</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>20</td>
+     *   <td>"\n"</td>
+     *   <td>false</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org"</td>
+     *  </tr>
+     *  <tr>
+     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>20</td>
+     *   <td>"\n"</td>
+     *   <td>true</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apach\ne.org"</td>
+     *  </tr>
+     * </table>
+     *
+     * @param str  the String to be word wrapped, may be null
+     * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1
+     * @param newLineStr  the string to insert for a new line,
+     *  <code>null</code> uses the system property line separator
+     * @param wrapLongWords  true if long words (such as URLs) should be wrapped
+     * @param wrapOn regex expression to be used as a breakable characters,
+     *               if blank string is provided a space character will be used
+     * @return a line with newlines inserted, <code>null</code> if null input
+     */
+    public static String wrap(final String str, int wrapLength, String newLineStr, final boolean wrapLongWords, String wrapOn) {
         if (str == null) {
             return null;
         }
@@ -181,27 +260,41 @@ public class WordUtils {
         if (wrapLength < 1) {
             wrapLength = 1;
         }
+        if (StringUtils.isBlank(wrapOn)) {
+            wrapOn = " ";
+        }
+        Pattern patternToWrapOn = Pattern.compile(wrapOn);
         final int inputLineLength = str.length();
         int offset = 0;
         final StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
-        
+
         while (offset < inputLineLength) {
-            if (str.charAt(offset) == ' ') {
-                offset++;
-                continue;
+            int spaceToWrapAt = -1;
+            Matcher matcher = patternToWrapOn.matcher(str.substring(offset, Math.min(offset + wrapLength + 1, inputLineLength)));
+            if (matcher.find()) {
+                if (matcher.start() == 0) {
+                    offset += matcher.end();
+                    continue;
+                }else {
+                    spaceToWrapAt = matcher.start();
+                }
             }
+
             // only last line without leading spaces is left
             if(inputLineLength - offset <= wrapLength) {
                 break;
             }
-            int spaceToWrapAt = str.lastIndexOf(' ', wrapLength + offset);
+
+            while(matcher.find()){
+                spaceToWrapAt = matcher.start() + offset;
+            }
 
             if (spaceToWrapAt >= offset) {
                 // normal case
                 wrappedLine.append(str.substring(offset, spaceToWrapAt));
                 wrappedLine.append(newLineStr);
                 offset = spaceToWrapAt + 1;
-                
+
             } else {
                 // really long word or URL
                 if (wrapLongWords) {
@@ -211,7 +304,11 @@ public class WordUtils {
                     offset += wrapLength;
                 } else {
                     // do not wrap really long word, just extend beyond limit
-                    spaceToWrapAt = str.indexOf(' ', wrapLength + offset);
+                    matcher = patternToWrapOn.matcher(str.substring(offset + wrapLength));
+                    if (matcher.find()) {
+                        spaceToWrapAt = matcher.start() + offset + wrapLength;
+                    }
+
                     if (spaceToWrapAt >= 0) {
                         wrappedLine.append(str.substring(offset, spaceToWrapAt));
                         wrappedLine.append(newLineStr);
