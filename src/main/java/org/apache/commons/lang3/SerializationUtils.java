@@ -283,6 +283,19 @@ public class SerializationUtils {
      static class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
         private static final Map<String, Class<?>> primitiveTypes = 
                 new HashMap<String, Class<?>>();
+
+        static {
+            primitiveTypes.put("byte", byte.class);
+            primitiveTypes.put("short", short.class);
+            primitiveTypes.put("int", int.class);
+            primitiveTypes.put("long", long.class);
+            primitiveTypes.put("float", float.class);
+            primitiveTypes.put("double", double.class);
+            primitiveTypes.put("boolean", boolean.class);
+            primitiveTypes.put("char", char.class);
+            primitiveTypes.put("void", void.class);
+        }
+
         private final ClassLoader classLoader;
         
         /**
@@ -295,16 +308,6 @@ public class SerializationUtils {
         public ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader) throws IOException {
             super(in);
             this.classLoader = classLoader;
-
-            primitiveTypes.put("byte", byte.class);
-            primitiveTypes.put("short", short.class);
-            primitiveTypes.put("int", int.class);
-            primitiveTypes.put("long", long.class);
-            primitiveTypes.put("float", float.class);
-            primitiveTypes.put("double", double.class);
-            primitiveTypes.put("boolean", boolean.class);
-            primitiveTypes.put("char", char.class);
-            primitiveTypes.put("void", void.class);
         }
 
         /**
