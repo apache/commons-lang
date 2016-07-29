@@ -49,6 +49,17 @@ public class RandomUtils {
 
     /**
      * <p>
+     * Returns a random boolean value
+     * </p>
+     * 
+     * @return the random boolean
+     */
+    public static boolean nextBoolean() {
+        return RANDOM.nextBoolean();
+    }
+    
+    /**
+     * <p>
      * Creates an array of random bytes.
      * </p>
      * 
