@@ -684,23 +684,68 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param value the value to append digits from.
      */
     private static void appendFullDigits(final Appendable buffer, int value, int minFieldWidth) throws IOException {
-        // build up decimal representation in reverse
-        char[] work = new char[MAX_DIGITS];
-        int digit = 0;
-        while(value!=0) {
-            work[digit++] = (char)(value % 10 + '0');
-            value = value / 10;
-        }
+        // specialized paths for 1 to 4 digits -> avoid the memory allocation from the temporary work array
+        // see LANG-1248
+        if (value < 10000) {
+            // less memory allocation path works for four digits or less
 
-        // pad with zeros
-        while(digit<minFieldWidth) {
-            buffer.append('0');
-            --minFieldWidth;
-        }
+            int nDigits = 4;
+            if (value < 1000) {
+                --nDigits;
+                if (value < 100) {
+                    --nDigits;
+                    if (value < 10) {
+                        --nDigits;
+                    }
+                }
+            }
+            // left zero pad
+            for (int i = minFieldWidth - nDigits; i > 0; --i) {
+                buffer.append('0');
+            }
 
-        // reverse
-        while(--digit>=0) {
-            buffer.append(work[digit]);
+            switch (nDigits) {
+            case 4:
+                buffer.append((char) (value / 1000 + '0'));
+                value %= 1000;
+            case 3:
+                if (value >= 100) {
+                    buffer.append((char) (value / 100 + '0'));
+                    value %= 100;
+                } else {
+                    buffer.append('0');
+                }
+            case 2:
+                if (value >= 10) {
+                    buffer.append((char) (value / 10 + '0'));
+                    value %= 10;
+                } else {
+                    buffer.append('0');
+                }
+            case 1:
+                buffer.append((char) (value + '0'));
+            }
+        } else {
+            // more memory allocation path works for any digits
+
+            // build up decimal representation in reverse
+            char[] work = new char[MAX_DIGITS];
+            int digit = 0;
+            while (value != 0) {
+                work[digit++] = (char) (value % 10 + '0');
+                value = value / 10;
+            }
+
+            // pad with zeros
+            while (digit < minFieldWidth) {
+                buffer.append('0');
+                --minFieldWidth;
+            }
+
+            // reverse
+            while (--digit >= 0) {
+                buffer.append(work[digit]);
+            }
         }
     }
 
