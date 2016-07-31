@@ -41,7 +41,8 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.junit.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.StringUtils}.
+ * Unit tests for methods of {@link org.apache.commons.lang3.StringUtils}
+ * which been moved to their own test classes.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class StringUtilsTest {
@@ -121,58 +122,6 @@ public class StringUtilsTest {
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(StringUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(StringUtils.class.getModifiers()));
-    }
-
-    //-----------------------------------------------------------------------
-
-    @Test
-    public void testIsAnyEmpty() {
-        assertTrue(StringUtils.isAnyEmpty((String) null));
-        assertTrue(StringUtils.isAnyEmpty((String[]) null));
-        assertTrue(StringUtils.isAnyEmpty(null, "foo"));
-        assertTrue(StringUtils.isAnyEmpty("", "bar"));
-        assertTrue(StringUtils.isAnyEmpty("bob", ""));
-        assertTrue(StringUtils.isAnyEmpty("  bob  ", null));
-        assertFalse(StringUtils.isAnyEmpty(" ", "bar"));
-        assertFalse(StringUtils.isAnyEmpty("foo", "bar"));
-    }
-
-    @Test
-    public void testIsNoneEmpty() {
-        assertFalse(StringUtils.isNoneEmpty((String) null));
-        assertFalse(StringUtils.isNoneEmpty((String[]) null));
-        assertFalse(StringUtils.isNoneEmpty(null, "foo"));
-        assertFalse(StringUtils.isNoneEmpty("", "bar"));
-        assertFalse(StringUtils.isNoneEmpty("bob", ""));
-        assertFalse(StringUtils.isNoneEmpty("  bob  ", null));
-        assertTrue(StringUtils.isNoneEmpty(" ", "bar"));
-        assertTrue(StringUtils.isNoneEmpty("foo", "bar"));
-    }
-
-    @Test
-    public void testIsAnyBlank() {
-        assertTrue(StringUtils.isAnyBlank((String) null));
-        assertTrue(StringUtils.isAnyBlank((String[]) null));
-        assertTrue(StringUtils.isAnyBlank(null, "foo"));
-        assertTrue(StringUtils.isAnyBlank(null, null));
-        assertTrue(StringUtils.isAnyBlank("", "bar"));
-        assertTrue(StringUtils.isAnyBlank("bob", ""));
-        assertTrue(StringUtils.isAnyBlank("  bob  ", null));
-        assertTrue(StringUtils.isAnyBlank(" ", "bar"));
-        assertFalse(StringUtils.isAnyBlank("foo", "bar"));
-    }
-
-    @Test
-    public void testIsNoneBlank() {
-        assertFalse(StringUtils.isNoneBlank((String) null));
-        assertFalse(StringUtils.isNoneBlank((String[]) null));
-        assertFalse(StringUtils.isNoneBlank(null, "foo"));
-        assertFalse(StringUtils.isNoneBlank(null, null));
-        assertFalse(StringUtils.isNoneBlank("", "bar"));
-        assertFalse(StringUtils.isNoneBlank("bob", ""));
-        assertFalse(StringUtils.isNoneBlank("  bob  ", null));
-        assertFalse(StringUtils.isNoneBlank(" ", "bar"));
-        assertTrue(StringUtils.isNoneBlank("foo", "bar"));
     }
 
     @Test

@@ -22,11 +22,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
+ * Unit tests {@link org.apache.commons.lang3.StringUtils} - IsX methods
  */
 public class StringUtilsIsTest  {
-
-    //-----------------------------------------------------------------------
 
     @Test
     public void testIsAlpha() {
