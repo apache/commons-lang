@@ -3139,7 +3139,7 @@ public class StringUtils {
      *  array. A zero or negative value implies no limit.
      * @return an array of parsed Strings, {@code null} if null String was input
      */
-    public static String[] splitByWholeSeparator( final String str, final String separator, final int max ) {
+    public static String[] splitByWholeSeparator( final String str, final String separator, final int max) {
         return splitByWholeSeparatorWorker(str, separator, max, false);
     }
 
