@@ -8562,4 +8562,384 @@ public class StringUtils {
 
         return wrapWith.concat(str).concat(wrapWith);
     }
+
+    /**
+     * <p>
+     * Unwraps the String from unwrapChar char.
+     * <p>
+     * 
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
+     * 
+     * <pre>
+     * 
+     * StringUtils.unwrap(null, *) = null
+     * 
+     * StringUtils.unwrap("", '\0') = ""
+     * StringUtils.unwrap("xabx", 'x') = "ab"
+     * StringUtils.unwrap("\"ab\"", '\"') = "ab"
+     * StringUtils.unwrap("\"\"ab\"\"", '\"') = "\"ab\""
+     * StringUtils.unwrap("'ab'", '\'') = "ab"
+     * StringUtils.unwrap("''ab''", '\'') = "'ab'"
+     * StringUtils.unwrap("'''ab'''", '\'') = "''ab''"
+     * StringUtils.unwrap("'\"abcd\"'", '\'') = "\"abcd\""
+     * StringUtils.unwrap("'\"abcd\"'", '\"') = "'\"abcd\"'"
+     * 
+     * </pre>
+     * 
+     * <p>
+     * Pay attention when using this method. It unwraps the string from outside to inside the whole string.
+     * For example: <pre> StringUtils.unwrap("'name' sometext 'name'", '\'') </pre> 
+     * returns <pre>"name' sometext 'name"</pre> 
+     * not <pre>"name sometext name"</pre>
+     * </p>
+     * 
+     * @param str
+     *            the String to be unwrapped, may be null
+     * @param unwrapChar
+     *            the char that will unwrap str from the left side and right side
+     * @return wrapped String, {@code null} if null String input
+     * @since 3.4
+     */
+    public static String unwrap(String str, char unwrapChar) {
+        return unwrap(str, String.valueOf(unwrapChar), false);
+    }
+
+    /**
+     * <p>
+     * Fully unwraps the String from unwrapString String.
+     * <p>
+     * 
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
+     * 
+     * <pre>
+     * 
+     * StringUtils.unwrapFull(null, *) = null
+     * StringUtils.unwrapFull(var, null) = var
+     * 
+     * StringUtils.unwrapFull("ab", null) = "ab"
+     * StringUtils.unwrapFull("ab", "") = "ab"
+     * 
+     * StringUtils.unwrapFull("", '\0') = ""
+     * StringUtils.unwrapFull("xabx", 'x') = "ab"
+     * StringUtils.unwrapFull("xxxxxxabxxxxxx", 'x') = "ab"
+     * StringUtils.unwrapFull("\"ab\"", '\"') = "ab"
+     * StringUtils.unwrapFull("\"\"ab\"\"", '\"') = "ab"
+     * StringUtils.unwrapFull("'ab'", '\'') = "ab"
+     * StringUtils.unwrapFull("'x'ab'x'", '\'') = "x'ab'x"
+     * StringUtils.unwrapFull("''ab''", '\'') = "ab"
+     * StringUtils.unwrapFull("'''''ab'''''", '\'') = "ab"
+     * StringUtils.unwrapFull("''''x'ab'''''", '\'') = "x'ab'"
+     * StringUtils.unwrapFull("'ab''''", '\'') = "ab'''"
+     * 
+     * StringUtils.unwrapFull("xxx", 'x') = "x"
+     * StringUtils.unwrapFull("xx", 'x') = ""
+     * StringUtils.unwrapFull(StringUtils.repeat('x', 100), 'x') = ""
+     * StringUtils.unwrapFull(StringUtils.repeat('x', 101), 'x') = "x"
+     * 
+     * </pre>
+     * 
+     * <p>
+     * Pay attention when using this method. It unwraps the string from outside to inside the whole string.
+     * For example: <pre> StringUtils.unwrapFull("'name' sometext 'name'", '\'') </pre> 
+     * returns <pre>"name' sometext 'name"</pre> 
+     * not <pre>"name sometext name"</pre>
+     * </p>
+     * 
+     * @param str
+     *            the String to be unwrapped, may be null
+     * @param unwrapChar
+     *            the char that will unwrap str from the left side and right side
+     * @return wrapped String, {@code null} if null String input
+     * @since 3.4
+     */
+    public static String unwrapFull(String str, char unwrapChar) {
+        return unwrap(str, String.valueOf(unwrapChar), true);
+    }
+
+    /**
+     * <p>
+     * Unwraps the String from unwrapString String.
+     * <p>
+     * 
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
+     * 
+     * <pre>
+     * StringUtils.unwrap(null, *) = null
+     * StringUtils.unwrap("", *) = ""
+     * 
+     * StringUtils.unwrap(var, null) = var
+     * 
+     * StringUtils.unwrap("xxabxx", "xx") = "ab"
+     * StringUtils.unwrap("xxxxabxxxx", "xx") = "xxabxx"
+     * StringUtils.unwrap("xx xxabxx xx", "xx") = " xxabxx "
+     * StringUtils.unwrap("xxZxx", "xx") = "Z"
+     * StringUtils.unwrap("xxZxx", "x") = "xZx"
+     * StringUtils.unwrap("xzx xzx", "xzx") = " "
+     * StringUtils.unwrap("xxxx xxxx", "xx") = "xx xx"
+     * 
+     * StringUtils.unwrap("'name'", "'") = "name"
+     * StringUtils.unwrap("''name''", "'") = "'name'"
+     * StringUtils.unwrap("'''name'''", "'") = "''name''"
+     * 
+     * </pre>
+     * 
+     * <p>
+     * Pay attention when using this method. It unwraps the string from outside to inside the whole string.
+     * For example: <pre> StringUtils.unwrap("'name' sometext 'name'", "'") </pre> 
+     * returns <pre>"name' sometext 'name"</pre> 
+     * not <pre>"name sometext name"</pre>
+     * </p>
+     * 
+     * @param str
+     *            the String to be unwrapped, may be null
+     * @param unwrapStr
+     *            the String that will unwrap str from the left side and right side
+     * @return wrapped String, {@code null} if null String input
+     * @since 3.4
+     */
+    public static String unwrap(String str, String unwrapStr) {
+        return unwrap(str, unwrapStr, false);
+    }
+
+    /**
+     * <p>
+     * Fully unwraps the String from unwrapString String.
+     * <p>
+     * 
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
+     * 
+     * <pre>
+     * StringUtils.unwrapFull(null, *) = null
+     * StringUtils.unwrapFull("", *) = ""
+     * 
+     * StringUtils.unwrapFull(var, null) = var
+     * 
+     * StringUtils.unwrapFull("xxabxx", "x") = "ab"
+     * StringUtils.unwrapFull("xx xxabxx xx", "xx") = " ab "
+     * StringUtils.unwrapFull("xxZxx", "xx") = "Z"
+     * StringUtils.unwrapFull("xzx xzx", "xzx") = " "
+     * StringUtils.unwrapFull("xxxx xxxx", "xx") = " "
+     * 
+     * StringUtils.unwrapFull("'name'", "'") = "name"
+     * StringUtils.unwrapFull("''name''", "'") = "name"
+     * StringUtils.unwrapFull("'''name'''", "'") = "name"
+     * 
+     * </pre>
+     * 
+     * <p>
+     * Pay attention when using this method. It unwraps the string from outside to inside the whole string.
+     * For example: <pre> StringUtils.unwrapFull("'name' sometext 'name'", "'") </pre> 
+     * returns <pre>"name' sometext 'name"</pre> 
+     * not <pre>"name sometext name"</pre>
+     * </p>
+     * 
+     * @param str
+     *            the String to be unwrapped, may be null
+     * @param unwrapStr
+     *            the String that will unwrap str from the left side and right side
+     * @return wrapped String, {@code null} if null String input
+     * @since 3.4
+     */
+    public static String unwrapFull(String str, String unwrapStr) {
+        return unwrapFull(str, unwrapStr, unwrapStr);
+    }
+
+    /**
+     * <p>
+     * Unwraps the String from composition of unwrapLeft and unwrapRight Strings.
+     * <p>
+     * 
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
+     * 
+     * <pre>
+     * StringUtils.unwrap(null, *, *) = null
+     * StringUtils.unwrap("", *, *) = ""
+     * 
+     * StringUtils.unwrap(var, null, *) = var
+     * StringUtils.unwrap(var, *, null) = var
+     * 
+     * StringUtils.unwrap("xxabxx", "x", "x") = "ab"
+     * StringUtils.unwrap("xx xxabxx xx", "xx", "xx") = " ab "
+     * StringUtils.unwrap("xxZxx", "xx", "xx") = "Z"
+     * StringUtils.unwrap("xxZxx", "xx", "yy") = "xxZxx" // no unwrap
+     * StringUtils.unwrap("xzx xzx", "xzx", "xzx") = " "
+     * StringUtils.unwrap("xxxx xxxx", "xx", "xx") = " "
+     * StringUtils.unwrap("xxxx xxxx", "xx", "yy") = "xxxx xxxx" // no unwrap
+     * 
+     * StringUtils.unwrap("xxxxxxxxxxoutputxxxxxxxxxx", "xxxxx", "xxxxx") = "output"
+     * 
+     * StringUtils.unwrap("%{name}", "%{", "}") = "name"
+     * StringUtils.unwrap("%{ name}", "%{", "}") = " name"
+     * StringUtils.unwrap("%{ name }", "%{", "}") = " name "
+     * StringUtils.unwrap(" %{ name }", "%{", "}") = "  name "
+     * StringUtils.unwrap("%{'name'}", "%{'", "'}") = "name"
+     * StringUtils.unwrap("%{' name'}", "%{'", "'}") = " name"
+     * StringUtils.unwrap("%{' name '}", "%{'", "'}") = " name "
+     * StringUtils.unwrap(" %{' name '}", "%{'", "'}") = "  name "
+     * 
+     * StringUtils.unwrap("%{ 'name'}", "%{'", "'}") = "%{ 'name'}" // no unwrap
+     * StringUtils.unwrap("% {'name'}", "%{'", "'}") = "% {'name'}" // no unwrap
+     * StringUtils.unwrap("% { 'name'}", "%{'", "'}") = "% { 'name'}" // no unwrap
+     * </pre>
+     * 
+     * <p>
+     * Pay attention when using this method. It unwraps the string from outside to inside the whole string.
+     * For example: <pre> StringUtils.unwrap("%{name} sometext %{name}", "%{", "}") </pre> 
+     * returns <pre>"name} sometext %{name"</pre> 
+     * not <pre>"name sometext name"</pre>
+     * </p>
+     * 
+     * @param str
+     *            the String to be unwrapped, may be null
+     * @param unwrapLeft
+     *            the String that will unwrap str from the left side
+     * @param unwrapRight
+     *            the String that will unwrap str from the right side
+     * @return wrapped String, {@code null} if null String input
+     * @since 3.4
+     */
+    public static String unwrap(String str, String unwrapLeft, String unwrapRight) {
+        return unwrap(str, unwrapLeft, unwrapRight, false);
+    }
+
+    /**
+     * <p>
+     * Fully unwraps the String from composition of unwrapLeft and unwrapRight Strings.
+     * <p>
+     * 
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
+     * 
+     * <pre>
+     * StringUtils.unwrapFull(null, *, *) = null
+     * StringUtils.unwrapFull("", *, *) = ""
+     * 
+     * StringUtils.unwrapFull(var, null, *) = var
+     * StringUtils.unwrapFull(var, *, null) = var
+     * 
+     * StringUtils.unwrapFull("xxabxx", "x", "x") = "ab"
+     * StringUtils.unwrapFull("xx xxabxx xx", "xx", "xx") = " ab "
+     * StringUtils.unwrapFull("xxZxx", "xx", "xx") = "Z"
+     * StringUtils.unwrapFull("xxZxx", "xx", "yy") = "xxZxx" // no unwrap
+     * StringUtils.unwrapFull("xzx xzx", "xzx", "xzx") = " "
+     * StringUtils.unwrapFull("xxxx xxxx", "xx", "xx") = " "
+     * StringUtils.unwrapFull("xxxx xxxx", "xx", "yy") = "xxxx xxxx" // no unwrap
+     * 
+     * StringUtils.unwrapFull("xxxxxxxxxxoutputxxxxxxxxxx", "xxxxx", "xxxxx") = "output"
+     * 
+     * StringUtils.unwrapFull("%{name}", "%{", "}") = "name"
+     * StringUtils.unwrapFull("%{ name}", "%{", "}") = " name"
+     * StringUtils.unwrapFull("%{ name }", "%{", "}") = " name "
+     * StringUtils.unwrapFull(" %{ name }", "%{", "}") = "  name "
+     * StringUtils.unwrapFull("%{'name'}", "%{'", "'}") = "name"
+     * StringUtils.unwrapFull("%{' name'}", "%{'", "'}") = " name"
+     * StringUtils.unwrapFull("%{' name '}", "%{'", "'}") = " name "
+     * StringUtils.unwrapFull(" %{' name '}", "%{'", "'}") = "  name "
+     * 
+     * StringUtils.unwrapFull("%{ 'name'}", "%{'", "'}") = "%{ 'name'}" // no unwrap
+     * StringUtils.unwrapFull("% {'name'}", "%{'", "'}") = "% {'name'}" // no unwrap
+     * StringUtils.unwrapFull("% { 'name'}", "%{'", "'}") = "% { 'name'}" // no unwrap
+     * </pre>
+     * 
+     * <p>
+     * Pay attention when using this method. It unwraps the string from outside to inside the whole string.
+     * For example: <pre> StringUtils.unwrapFull("%{name} sometext %{name}", "%{", "}") </pre> 
+     * returns <pre>"name} sometext %{name"</pre> 
+     * not <pre>"name sometext name"</pre>
+     * </p>
+     * 
+     * @param str
+     *            the String to be unwrapped, may be null
+     * @param unwrapLeft
+     *            the String that will unwrap str from the left side
+     * @param unwrapRight
+     *            the String that will unwrap str from the right side
+     * @return wrapped String, {@code null} if null String input
+     * @since 3.4
+     */
+    public static String unwrapFull(String str, String unwrapLeft, String unwrapRight) {
+        return unwrap(str, unwrapLeft, unwrapRight, true);
+    }
+
+    private static String unwrap(String str, String unwrapStr, boolean all) {
+        return unwrap(str, unwrapStr, unwrapStr, all);
+    }
+
+    private static String unwrap(String str, String unwrapLeft, String unwrapRight, boolean all) {
+        if (isEmpty(str) || (isEmpty(unwrapLeft) || isEmpty(unwrapRight))) {
+            return str;
+        }
+        char[] unwrapLeftChars = unwrapLeft.toCharArray();
+        char[] unwrapRightChars = unwrapRight.toCharArray();
+        StringBuilder sbFront = new StringBuilder();
+        StringBuilder sbTail = new StringBuilder();
+        int head = 0, tail = str.length() - 1;
+        l1: while(head <= (str.length() / 2) 
+                && head + unwrapLeftChars.length <= (str.length() / 2) 
+                && tail >= (str.length() / 2) && head < tail) {
+            char c1 = str.charAt(head);
+            char c2 = str.charAt(tail);
+            for (;Character.isWhitespace(c1); sbFront.append(c1), c1 = str.charAt(++head));
+            for (;Character.isWhitespace(c2); sbTail.append(c2), c2 = str.charAt(--tail));
+            if (c1 == unwrapLeftChars[0]) {
+                int ix1 = unwrapMoveForward(str, unwrapLeftChars, head);
+                if (ix1 == -1) {
+                    break l1;
+                } else {
+                    int ix2 = unwrapMoveBackward(str, unwrapRightChars, tail);
+                    if (ix2 != -1) {
+                        head = ix1;
+                        tail = ix2;
+                    } else {
+                        break l1;
+                    }
+                }
+                if (!all) {
+                    ++head;
+                    break l1;
+                }
+            } else {
+                break l1;
+            }
+            ++head;
+        }
+        str = str.substring(head, tail + 1);
+        return sbFront.append(str).append(sbTail.toString()).toString();
+    }
+
+    private static int unwrapMoveForward(String str, char[] unwrapChars, int head) {
+        int _head = head, innerFront = 0;
+        while (str.charAt(_head) == unwrapChars[innerFront]) {
+            ++innerFront;
+            if (innerFront == unwrapChars.length) {
+                return _head;
+            }
+            ++_head;
+        }
+        return -1;
+    }
+
+    private static int unwrapMoveBackward(String str, char[] unwrapChars, int tail) {
+        int _tail = tail, innerTail = unwrapChars.length - 1;
+        while (str.charAt(_tail) == unwrapChars[innerTail]) {
+            --innerTail;
+            --_tail;
+            if (innerTail < 0) {
+                return _tail;
+            }
+        }
+        return -1;
+    }
+
 }

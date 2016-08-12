@@ -2869,4 +2869,215 @@ public class StringUtilsTest {
         assertEquals("'\"abcd\"'", StringUtils.wrap("\"abcd\"", "'"));
         assertEquals("\"'abcd'\"", StringUtils.wrap("'abcd'", "\""));
     }
+
+    // -----------------------------------------------------------------------
+
+    @Test
+    public void testUnwrap_StringChar() {
+        assertNull(StringUtils.unwrap(null, '\0'));
+        assertNull(StringUtils.unwrap(null, '1'));
+
+        assertEquals("", StringUtils.unwrap("", '\0'));
+        assertEquals("ab", StringUtils.unwrap("xabx", 'x'));
+        assertEquals("ab", StringUtils.unwrap("\"ab\"", '\"'));
+        assertEquals("\"ab\"", StringUtils.unwrap("\"\"ab\"\"", '\"'));
+        assertEquals("ab", StringUtils.unwrap("'ab'", '\''));
+        assertEquals("'ab'", StringUtils.unwrap("''ab''", '\''));
+        assertEquals("''ab''", StringUtils.unwrap("'''ab'''", '\''));
+        assertEquals("\"abcd\"", StringUtils.unwrap("'\"abcd\"'", '\''));
+        assertEquals("'\"abcd\"'", StringUtils.unwrap("'\"abcd\"'", '\"'));
+    }
+
+    @Test
+    public void testUnwrapFull_StringChar() {
+        assertNull(StringUtils.unwrapFull(null, '\0'));
+        assertNull(StringUtils.unwrapFull(null, '1'));
+
+        assertEquals("ab", StringUtils.unwrapFull("ab", null));
+        assertEquals("ab", StringUtils.unwrapFull("ab", ""));
+
+        assertEquals("", StringUtils.unwrapFull("", '\0'));
+        assertEquals("ab", StringUtils.unwrapFull("xabx", 'x'));
+        assertEquals("ab", StringUtils.unwrapFull("xxxxxxabxxxxxx", 'x'));
+        assertEquals("ab", StringUtils.unwrapFull("\"ab\"", '\"'));
+        assertEquals("ab", StringUtils.unwrapFull("\"\"ab\"\"", '\"'));
+        assertEquals("ab", StringUtils.unwrapFull("'ab'", '\''));
+        assertEquals("x'ab'x", StringUtils.unwrapFull("'x'ab'x'", '\''));
+        assertEquals("ab", StringUtils.unwrapFull("''ab''", '\''));
+        assertEquals("ab", StringUtils.unwrapFull("'''''ab'''''", '\''));
+        assertEquals("x'ab'", StringUtils.unwrapFull("''''x'ab'''''", '\''));
+        assertEquals("ab'''", StringUtils.unwrapFull("'ab''''", '\''));
+
+        assertEquals("x", StringUtils.unwrapFull("xxx", 'x'));
+        assertEquals("", StringUtils.unwrapFull("xx", 'x'));
+
+        assertEquals("", StringUtils.unwrapFull(StringUtils.repeat('x', 100), 'x'));
+        assertEquals("x", StringUtils.unwrapFull(StringUtils.repeat('x', 101), 'x'));
+    }
+
+    @Test
+    public void testUnwrap_StringString() {
+        assertNull(StringUtils.unwrap(null, null));
+        assertNull(StringUtils.unwrap(null, ""));
+        assertNull(StringUtils.unwrap(null, "'"));
+
+        assertEquals("ab", StringUtils.unwrap("ab", null));
+        assertEquals("ab", StringUtils.unwrap("ab", ""));
+
+        assertEquals("'ab'", StringUtils.unwrap("'ab'", null));
+        assertEquals("'ab'", StringUtils.unwrap("'ab'", ""));
+
+        assertEquals("ab", StringUtils.unwrap("xxabxx", "xx"));
+        assertEquals("xxabxx", StringUtils.unwrap("xxxxabxxxx", "xx"));
+        assertEquals(" xxabxx ", StringUtils.unwrap("xx xxabxx xx", "xx"));
+        assertEquals("Z", StringUtils.unwrap("xxZxx", "xx"));
+        assertEquals("xZx", StringUtils.unwrap("xxZxx", "x"));
+        assertEquals(" ", StringUtils.unwrap("xzx xzx", "xzx"));
+        assertEquals("xx xx", StringUtils.unwrap("xxxx xxxx", "xx"));
+
+        String s1 = "xxxxxxxxxxoutputxxxxxxxxxx";
+        String s2 = "xxxxxxxxxxxxxxxxxxxx";
+        assertEquals("xxxxxoutputxxxxx", StringUtils.unwrap(s1, "xxxxx"));
+        assertEquals("xxxxxxxxxx", StringUtils.unwrap(s2, "xxxxx"));
+
+        assertEquals("xxxxxxxxxoutputxxxxxxxxx", StringUtils.unwrap(s1, "x"));
+        assertEquals("xxxxxxxxxxxxxxxxxx", StringUtils.unwrap(s2, "x"));
+        assertEquals("xxxxxxxoutputxxxxxxx", StringUtils.unwrap(s1, "xxx"));
+        assertEquals("xxxxxxxxxxxxxx", StringUtils.unwrap(s2, "xxx"));
+        assertEquals("name", StringUtils.unwrap("'name'", "'"));
+        assertEquals(" name", StringUtils.unwrap(" 'name'", "'"));
+        assertEquals(" 'name'", StringUtils.unwrap("' 'name''", "'"));
+        assertEquals(" 'name'", StringUtils.unwrap(" ''name''", "'"));
+    }
+
+    @Test
+    public void testUnwrap_StringStringString() {
+        assertNull(StringUtils.unwrap(null, null, null));
+        assertNull(StringUtils.unwrap(null, "", ""));
+        assertNull(StringUtils.unwrap(null, "'", "'"));
+        assertNull(StringUtils.unwrap(null, null, ""));
+        assertNull(StringUtils.unwrap(null, null, "'"));
+        assertNull(StringUtils.unwrap(null, "", null));
+        assertNull(StringUtils.unwrap(null, "'", null));
+
+        assertEquals("ab", StringUtils.unwrap("ab", null, ""));
+        assertEquals("ab", StringUtils.unwrap("ab", "", null));
+        assertEquals("ab", StringUtils.unwrap("ab", null, null));
+        assertEquals("'ab'", StringUtils.unwrap("'ab'", null, ""));
+        assertEquals("'ab'", StringUtils.unwrap("'ab'", "", null));
+        assertEquals("'ab'", StringUtils.unwrap("'ab'", null, null));
+        assertEquals("ab", StringUtils.unwrap("xxabxx", "xx", "xx"));
+        assertEquals("xxabxx", StringUtils.unwrap("xxxxabxxxx", "xx", "xx"));
+        assertEquals(" xxabxx ", StringUtils.unwrap("xx xxabxx xx", "xx", "xx"));
+        assertEquals("Z", StringUtils.unwrap("xxZxx", "xx", "xx"));
+        assertEquals("xxZxx", StringUtils.unwrap("xxZxx", "xx", "yy"));
+        assertEquals(" ", StringUtils.unwrap("xzx xzx", "xzx", "xzx"));
+        assertEquals("xx xx", StringUtils.unwrap("xxxx xxxx", "xx", "xx"));
+        assertEquals("xxxx xxxx", StringUtils.unwrap("xxxx xxxx", "xx", "yy"));
+
+        String s1 = "xxxxxxxxxxoutputxxxxxxxxxx";
+        String s2 = "xxxxxxxxxxxxxxxxxxxx";
+        assertEquals("xxxxxoutputxxxxx", StringUtils.unwrap(s1, "xxxxx", "xxxxx"));
+        assertEquals("xxxxxxxxxx", StringUtils.unwrap(s2, "xxxxx", "xxxxx"));
+        assertEquals("xxxxxxxxxoutputxxxxxxxxx", StringUtils.unwrap(s1, "x", "x"));
+        assertEquals("xxxxxxxxxxxxxxxxxx", StringUtils.unwrap(s2, "x", "x"));
+        assertEquals("xxxxxxxoutputxxxxxxx", StringUtils.unwrap(s1, "xxx", "xxx"));
+        assertEquals("xxxxxxxxxxxxxx", StringUtils.unwrap(s2, "xxx", "xxx"));
+
+        assertEquals("name", StringUtils.unwrap("%{name}", "%{", "}"));
+        assertEquals(" name", StringUtils.unwrap("%{ name}", "%{", "}"));
+        assertEquals(" name ", StringUtils.unwrap("%{ name }", "%{", "}"));
+        assertEquals("  name ", StringUtils.unwrap(" %{ name }", "%{", "}"));
+
+        assertEquals("%{name}", StringUtils.unwrap("%{%{name}}", "%{", "}"));
+        assertEquals("%{ name}", StringUtils.unwrap("%{%{ name}}", "%{", "}"));
+        assertEquals("%{ name }", StringUtils.unwrap("%{%{ name }}", "%{", "}"));
+        assertEquals(" %{ name }", StringUtils.unwrap(" %{%{ name }}", "%{", "}"));
+
+        assertEquals("name", StringUtils.unwrap("%{'name'}", "%{'", "'}"));
+        assertEquals(" name", StringUtils.unwrap("%{' name'}", "%{'", "'}"));
+        assertEquals(" name ", StringUtils.unwrap("%{' name '}", "%{'", "'}"));
+        assertEquals("  name ", StringUtils.unwrap(" %{' name '}", "%{'", "'}"));
+
+        assertEquals("%{ 'name'}", StringUtils.unwrap("%{ 'name'}", "%{'", "'}"));
+        assertEquals("% {'name'}", StringUtils.unwrap("% {'name'}", "%{'", "'}"));
+        assertEquals("% { 'name'}", StringUtils.unwrap("% { 'name'}", "%{'", "'}"));
+    }
+
+    @Test
+    public void testUnwrapFull_StringString() {
+        assertNull(StringUtils.unwrapFull(null, null));
+        assertNull(StringUtils.unwrapFull(null, ""));
+        assertNull(StringUtils.unwrapFull(null, "'"));
+
+        assertEquals("'ab'", StringUtils.unwrapFull("'ab'", null));
+        assertEquals("'ab'", StringUtils.unwrapFull("'ab'", ""));
+        assertEquals("ab", StringUtils.unwrapFull("xxabxx", "xx"));
+        assertEquals("ab", StringUtils.unwrapFull("xxxxabxxxx", "xx"));
+        assertEquals(" ab ", StringUtils.unwrapFull("xx xxabxx xx", "xx"));
+        assertEquals("Z", StringUtils.unwrapFull("xxZxx", "xx"));
+        assertEquals(" ", StringUtils.unwrapFull("xzx xzx", "xzx"));
+        assertEquals(" ", StringUtils.unwrapFull("xxxx xxxx", "xx"));
+
+        String s1 = "xxxxxxxxxxoutputxxxxxxxxxx";
+        String s2 = "xxxxxxxxxxxxxxxxxxxx";
+        assertEquals("output", StringUtils.unwrapFull(s1, "xxxxx"));
+        assertEquals("", StringUtils.unwrapFull(s2, "xxxxx"));
+        assertEquals("output", StringUtils.unwrapFull(s1, "x"));
+        assertEquals("", StringUtils.unwrapFull(s2, "x"));
+        assertEquals("xoutputx", StringUtils.unwrapFull(s1, "xxx"));
+        assertEquals("xx", StringUtils.unwrapFull(s2, "xxx"));
+    }
+
+    @Test
+    public void testUnwrapFull_StringStringString() {
+        assertNull(StringUtils.unwrapFull(null, null, null));
+        assertNull(StringUtils.unwrapFull(null, "", ""));
+        assertNull(StringUtils.unwrapFull(null, "'", "'"));
+        assertNull(StringUtils.unwrapFull(null, null, ""));
+        assertNull(StringUtils.unwrapFull(null, null, "'"));
+        assertNull(StringUtils.unwrapFull(null, "", null));
+        assertNull(StringUtils.unwrapFull(null, "'", null));
+
+        assertEquals("ab", StringUtils.unwrapFull("ab", null, ""));
+        assertEquals("ab", StringUtils.unwrapFull("ab", "", null));
+        assertEquals("ab", StringUtils.unwrapFull("ab", null, null));
+        assertEquals("'ab'", StringUtils.unwrapFull("'ab'", null, ""));
+        assertEquals("'ab'", StringUtils.unwrapFull("'ab'", "", null));
+        assertEquals("'ab'", StringUtils.unwrapFull("'ab'", null, null));
+        assertEquals("ab", StringUtils.unwrapFull("xxabxx", "xx", "xx"));
+        assertEquals("ab", StringUtils.unwrapFull("xxxxabxxxx", "xx", "xx"));
+        assertEquals(" ab ", StringUtils.unwrapFull("xx xxabxx xx", "xx", "xx"));
+        assertEquals("Z", StringUtils.unwrapFull("xxZxx", "xx", "xx"));
+        assertEquals("xxZxx", StringUtils.unwrapFull("xxZxx", "xx", "yy"));
+        assertEquals(" ", StringUtils.unwrapFull("xzx xzx", "xzx", "xzx"));
+        assertEquals(" ", StringUtils.unwrapFull("xxxx xxxx", "xx", "xx"));
+        assertEquals("xxxx xxxx", StringUtils.unwrapFull("xxxx xxxx", "xx", "yy"));
+
+        String s1 = "xxxxxxxxxxoutputxxxxxxxxxx";
+        String s2 = "xxxxxxxxxxxxxxxxxxxx";
+        assertEquals("output", StringUtils.unwrapFull(s1, "xxxxx", "xxxxx"));
+        assertEquals("", StringUtils.unwrapFull(s2, "xxxxx", "xxxxx"));
+        assertEquals("output", StringUtils.unwrapFull(s1, "x", "x"));
+        assertEquals("", StringUtils.unwrapFull(s2, "x", "x"));
+        assertEquals("xoutputx", StringUtils.unwrapFull(s1, "xxx", "xxx"));
+        assertEquals("xx", StringUtils.unwrapFull(s2, "xxx", "xxx"));
+
+        assertEquals("name", StringUtils.unwrapFull("%{name}", "%{", "}"));
+        assertEquals(" name", StringUtils.unwrapFull(" %{name}", "%{", "}"));
+        assertEquals(" name ", StringUtils.unwrapFull(" %{name }", "%{", "}"));
+        assertEquals("  name ", StringUtils.unwrapFull("  %{name }", "%{", "}"));
+        assertEquals("name} sometext %{name", StringUtils.unwrapFull("%{name} sometext %{name}", "%{", "}"));
+        assertEquals("name", StringUtils.unwrapFull("%{%{name}}", "%{", "}"));
+        assertEquals(" name", StringUtils.unwrapFull("%{ %{name}}", "%{", "}"));
+        assertEquals(" name ", StringUtils.unwrapFull("%{ %{name }}", "%{", "}"));
+        assertEquals("  name ", StringUtils.unwrapFull(" %{ %{name }}", "%{", "}"));
+        assertEquals("name", StringUtils.unwrapFull("%{'%{'name'}'}", "%{'", "'}"));
+        assertEquals(" name", StringUtils.unwrapFull("%{'%{' name'}'}", "%{'", "'}"));
+        assertEquals(" name ", StringUtils.unwrapFull("%{' %{'name '}'}", "%{'", "'}"));
+        assertEquals("  name ", StringUtils.unwrapFull("%{'%{'  name '}'}", "%{'", "'}"));
+        assertEquals("%{ 'name'}", StringUtils.unwrapFull("%{ 'name'}", "%{'", "'}"));
+        assertEquals("% {'name'}", StringUtils.unwrapFull("% {'name'}", "%{'", "'}"));
+        assertEquals("% { 'name'}", StringUtils.unwrapFull("% { 'name'}", "%{'", "'}"));
+    }
 }
