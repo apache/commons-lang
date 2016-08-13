@@ -535,6 +535,21 @@
       <version>3.4</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-core</artifactId>
+      <version>${jmh.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-generator-annprocess</artifactId>
+      <version>${jmh.version}</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <distributionManagement>
@@ -580,6 +595,10 @@
     <!-- Override clirr version to be able to build the site on Java 8 -->
     <commons.clirr.version>2.8</commons.clirr.version>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
+
+    <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
+    <jmh.version>1.17.4</jmh.version>
+    <uberjar.name>benchmarks</uberjar.name>
   </properties>
 
 
@@ -846,6 +865,55 @@
         <argLine>-Xmx512m --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
       </properties>
     </profile>
-  </profiles>
+
+    <profile>
+      <id>benchmark</id>
+      <properties>
+        <skipTests>true</skipTests>
+        <benchmark>org.apache</benchmark>
+      </properties>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+              <compilerVersion>${maven.compiler.target}</compilerVersion>
+              <source>${maven.compiler.target}</source>
+              <target>${maven.compiler.target}</target>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>benchmark</id>
+                <phase>test</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <classpathScope>test</classpathScope>
+                  <executable>java</executable>
+                  <arguments>
+                    <argument>-classpath</argument>
+                    <classpath/>
+                    <argument>org.openjdk.jmh.Main</argument>
+                    <argument>-rf</argument>
+                    <argument>json</argument>
+                    <argument>-rff</argument>
+                    <argument>target/jmh-result.${benchmark}.json</argument>
+                    <argument>${benchmark}</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>  </profiles>
 
 </project>
