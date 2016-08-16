@@ -4442,4 +4442,12 @@ public class ArrayUtilsTest  {
         Assert.assertArrayEquals(new double[]{2.718}, (double[]) ArrayUtils.toPrimitive(new Double[]{2.718}), 0.1);
     }
 
+    @Test
+    public void testToStringArray() {
+        assertNull(ArrayUtils.toStringArray(null));
+
+        final Object[] array = new Object[] {1, 2, 3, "array", "test"};
+        assertArrayEquals(new String[]{"1", "2", "3", "array", "test"}, ArrayUtils.toStringArray(array));
+    }
+
 }

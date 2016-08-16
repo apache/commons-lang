@@ -7968,4 +7968,27 @@ public class ArrayUtils {
 
         return removeAll(array, Arrays.copyOf(indices, count));
     }
+
+    /**
+     * Returns an array containing the string representation of each entry in the argument array.
+     *
+     * <p>
+     * A {@code null} input Object[] returns {@code null}.
+     * </p>
+     *
+     * @param source the Object[] to be processed, may be null
+     * @return String[] of the same size as the source with its element's string representation,
+     * {@code null} if null Object[] input
+     * @since 3.6
+     */
+    public static String[] toStringArray(final Object[] source) {
+        if (null == source) return null;
+
+        String[] al = new String[source.length];
+        for (int i = 0; i < source.length; i++) {
+            al[i] = source[i].toString();
+        }
+
+        return al;
+    }
 }
