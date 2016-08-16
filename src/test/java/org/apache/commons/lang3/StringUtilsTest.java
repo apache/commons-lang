@@ -2837,11 +2837,9 @@ public class StringUtilsTest {
 
     @Test
     public void testWrap_StringChar() {
-        assertNull(StringUtils.wrap(null, null));
         assertNull(StringUtils.wrap(null, '\0'));
         assertNull(StringUtils.wrap(null, '1'));
 
-        assertEquals(null, StringUtils.wrap(null, null));
         assertEquals("", StringUtils.wrap("", '\0'));
         assertEquals("xabx", StringUtils.wrap("ab", 'x'));
         assertEquals("\"ab\"", StringUtils.wrap("ab", '\"'));
@@ -2850,6 +2848,48 @@ public class StringUtilsTest {
         assertEquals("''abcd''", StringUtils.wrap("'abcd'", '\''));
         assertEquals("'\"abcd\"'", StringUtils.wrap("\"abcd\"", '\''));
         assertEquals("\"'abcd'\"", StringUtils.wrap("'abcd'", '\"'));
+    }
+
+    @Test
+    public void testWrapIfMissing_StringChar() {
+        assertNull(StringUtils.wrapIfMissing(null, '\0'));
+        assertNull(StringUtils.wrapIfMissing(null, '1'));
+
+        assertEquals("", StringUtils.wrapIfMissing("", '\0'));
+        assertEquals("xabx", StringUtils.wrapIfMissing("ab", 'x'));
+        assertEquals("\"ab\"", StringUtils.wrapIfMissing("ab", '\"'));
+        assertEquals("\"ab\"", StringUtils.wrapIfMissing("\"ab\"", '\"'));
+        assertEquals("'ab'", StringUtils.wrapIfMissing("ab", '\''));
+        assertEquals("'abcd'", StringUtils.wrapIfMissing("'abcd'", '\''));
+        assertEquals("'\"abcd\"'", StringUtils.wrapIfMissing("\"abcd\"", '\''));
+        assertEquals("\"'abcd'\"", StringUtils.wrapIfMissing("'abcd'", '\"'));
+        assertEquals("/x/", StringUtils.wrapIfMissing("x", '/'));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z", '/'));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("/x/y/z", '/'));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z/", '/'));
+        assertEquals("/", StringUtils.wrapIfMissing("/", '/'));
+    }
+
+    @Test
+    public void testWrapIfMissing_StringString() {
+        assertNull(StringUtils.wrapIfMissing(null, "\0"));
+        assertNull(StringUtils.wrapIfMissing(null, "1"));
+
+        assertEquals("", StringUtils.wrapIfMissing("", "\0"));
+        assertEquals("xabx", StringUtils.wrapIfMissing("ab", "x"));
+        assertEquals("\"ab\"", StringUtils.wrapIfMissing("ab", "\""));
+        assertEquals("\"ab\"", StringUtils.wrapIfMissing("\"ab\"", "\""));
+        assertEquals("'ab'", StringUtils.wrapIfMissing("ab", "\'"));
+        assertEquals("'abcd'", StringUtils.wrapIfMissing("'abcd'", "\'"));
+        assertEquals("'\"abcd\"'", StringUtils.wrapIfMissing("\"abcd\"", "\'"));
+        assertEquals("\"'abcd'\"", StringUtils.wrapIfMissing("'abcd'", "\""));
+        assertEquals("/x/", StringUtils.wrapIfMissing("x", "/"));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z", "/"));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("/x/y/z", "/"));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z/", "/"));
+        assertEquals("/", StringUtils.wrapIfMissing("/", "/"));
+        assertEquals("ab/ab", StringUtils.wrapIfMissing("/", "ab"));
+        assertEquals("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
     }
 
     @Test

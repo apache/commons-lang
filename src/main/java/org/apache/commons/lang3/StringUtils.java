@@ -8562,4 +8562,89 @@ public class StringUtils {
 
         return wrapWith.concat(str).concat(wrapWith);
     }
+
+    /**
+     * <p>
+     * Wraps a string with a char if that char is missing from the start or end of the given string.
+     * </p>
+     * 
+     * <pre>
+     * StringUtils.wrap(null, *)        = null
+     * StringUtils.wrap("", *)          = ""
+     * StringUtils.wrap("ab", '\0')     = "ab"
+     * StringUtils.wrap("ab", 'x')      = "xabx"
+     * StringUtils.wrap("ab", '\'')     = "'ab'"
+     * StringUtils.wrap("\"ab\"", '\"') = "\"ab\""
+     * StringUtils.wrap("/", '/')  = "/"
+     * StringUtils.wrap("a/b/c", '/')  = "/a/b/c/"
+     * StringUtils.wrap("/a/b/c", '/')  = "/a/b/c/"
+     * StringUtils.wrap("a/b/c/", '/')  = "/a/b/c/"
+     * </pre>
+     * 
+     * @param str
+     *            the string to be wrapped, may be {@code null}
+     * @param wrapWith
+     *            the char that will wrap {@code str}
+     * @return the wrapped string, or {@code null} if {@code str==null}
+     * @since 3.5
+     */
+    public static String wrapIfMissing(final String str, final char wrapWith) {
+        if (isEmpty(str) || wrapWith == '\0') {
+            return str;
+        }
+        StringBuilder builder = new StringBuilder(str.length() + 2);
+        if (str.charAt(0) != wrapWith) {
+            builder.append(wrapWith);
+        }
+        builder.append(str);
+        if (str.charAt(str.length() - 1) != wrapWith) {
+            builder.append(wrapWith);
+        }
+        return builder.toString();
+    }
+
+    /**
+     * <p>
+     * Wraps a string with a string if that string is missing from the start or end of the given string.
+     * </p>
+     * 
+     * <pre>
+     * StringUtils.wrap(null, *)         = null
+     * StringUtils.wrap("", *)           = ""
+     * StringUtils.wrap("ab", null)      = "ab"
+     * StringUtils.wrap("ab", "x")       = "xabx"
+     * StringUtils.wrap("ab", "\"")      = "\"ab\""
+     * StringUtils.wrap("\"ab\"", "\"")  = "\"ab\""
+     * StringUtils.wrap("ab", "'")       = "'ab'"
+     * StringUtils.wrap("'abcd'", "'")   = "'abcd'"
+     * StringUtils.wrap("\"abcd\"", "'") = "'\"abcd\"'"
+     * StringUtils.wrap("'abcd'", "\"")  = "\"'abcd'\""
+     * StringUtils.wrap("/", "/")  = "/"
+     * StringUtils.wrap("a/b/c", "/")  = "/a/b/c/"
+     * StringUtils.wrap("/a/b/c", "/")  = "/a/b/c/"
+     * StringUtils.wrap("a/b/c/", "/")  = "/a/b/c/"
+     * </pre>
+     * 
+     * @param str
+     *            the string to be wrapped, may be {@code null}
+     * @param wrapWith
+     *            the char that will wrap {@code str}
+     * @return the wrapped string, or {@code null} if {@code str==null}
+     * @since 3.5
+     */
+    public static String wrapIfMissing(final String str, final String wrapWith) {
+        if (isEmpty(str) || isEmpty(wrapWith)) {
+            return str;
+        }
+        StringBuilder builder = new StringBuilder(str.length() + wrapWith.length() + wrapWith.length());
+        if (!str.startsWith(wrapWith)) {
+            builder.append(wrapWith);
+        }
+        builder.append(str);
+        if (!str.endsWith(wrapWith)) {
+            builder.append(wrapWith);
+        }
+        return builder.toString();
+    }
+
 }
