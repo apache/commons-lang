@@ -4894,11 +4894,11 @@ public class ArrayUtils {
 
     // ----------------------------------------------------------------------
     /**
-     * <p>Checks if an array of Objects is not empty or not {@code null}.
+     * <p>Checks if an array of Objects is not empty and not {@code null}.
      *
      * @param <T> the component type of the array
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
      public static <T> boolean isNotEmpty(final T[] array) {
@@ -4906,10 +4906,10 @@ public class ArrayUtils {
      }
 
     /**
-     * <p>Checks if an array of primitive longs is not empty or not {@code null}.
+     * <p>Checks if an array of primitive longs is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final long[] array) {
@@ -4917,10 +4917,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive ints is not empty or not {@code null}.
+     * <p>Checks if an array of primitive ints is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final int[] array) {
@@ -4928,10 +4928,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive shorts is not empty or not {@code null}.
+     * <p>Checks if an array of primitive shorts is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final short[] array) {
@@ -4939,10 +4939,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive chars is not empty or not {@code null}.
+     * <p>Checks if an array of primitive chars is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final char[] array) {
@@ -4950,10 +4950,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive bytes is not empty or not {@code null}.
+     * <p>Checks if an array of primitive bytes is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final byte[] array) {
@@ -4961,10 +4961,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive doubles is not empty or not {@code null}.
+     * <p>Checks if an array of primitive doubles is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final double[] array) {
@@ -4972,10 +4972,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive floats is not empty or not {@code null}.
+     * <p>Checks if an array of primitive floats is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final float[] array) {
@@ -4983,10 +4983,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive booleans is not empty or not {@code null}.
+     * <p>Checks if an array of primitive booleans is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final boolean[] array) {
