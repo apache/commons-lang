@@ -92,6 +92,7 @@ public class RandomStringUtils {
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
+     * @since 3.5
      */
     public static String randomAscii(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomAscii(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
@@ -120,6 +121,7 @@ public class RandomStringUtils {
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
+     * @since 3.5
      */
     public static String randomAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomAlphabetic(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
@@ -148,6 +150,7 @@ public class RandomStringUtils {
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
+     * @since 3.5
      */
     public static String randomAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomAlphanumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
@@ -177,6 +180,7 @@ public class RandomStringUtils {
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
+     * @since 3.5
      */
     public static String randomGraph(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomGraph(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
@@ -205,6 +209,7 @@ public class RandomStringUtils {
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
+     * @since 3.5
      */
     public static String randomNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomNumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
@@ -234,6 +239,7 @@ public class RandomStringUtils {
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
+     * @since 3.5
      */
     public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomPrint(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
