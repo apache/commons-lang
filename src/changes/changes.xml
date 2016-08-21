@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1214" type="fix" dev="pschumacher" due-to="Henry Tung">Handle "void" in ClassUtils.getClass()</action>
     <action issue="LANG-1250" type="fix" dev="pschumacher" due-to="Glease Wang">SerializationUtils#deserialize has unnecessary code and a comment for that</action>
     <action issue="LANG-1259" type="update" dev="britter" due-to="Dominik Stadler">JavaDoc for ArrayUtils.isNotEmpty() is slightly misleading</action>
     <action issue="LANG-1257" type="add" dev="ggregory" due-to="Gary Gregory">Add APIs StringUtils.wrapIfMissing(String, char|String)</action>
