@@ -3184,7 +3184,7 @@ public class ArrayUtils {
                     return i;
                 }
             }
-        } else if (array.getClass().getComponentType().isInstance(objectToFind)) {
+        } else {
             for (int i = startIndex; i < array.length; i++) {
                 if (objectToFind.equals(array[i])) {
                     return i;
