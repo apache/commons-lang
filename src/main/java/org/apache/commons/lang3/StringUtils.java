@@ -8205,10 +8205,10 @@ public class StringUtils {
         boolean startWhitespaces = true;
         for (int i = 0; i < size; i++) {
             char actualChar = str.charAt(i);
-            boolean isWhitespace = Character.isWhitespace(actualChar);
+            boolean isWhitespace = Character.isWhitespace(actualChar) || actualChar == 160;
             if (!isWhitespace) {
                 startWhitespaces = false;
-                newChars[count++] = (actualChar == 160 ? 32 : actualChar);
+                newChars[count++] = actualChar;
                 whitespacesCount = 0;
             } else {
                 if (whitespacesCount == 0 && !startWhitespaces) {
