@@ -69,23 +69,31 @@ public enum JavaVersion {
 
     /**
      * Java 1.8.
+     *
+     * @since 3.4
      */
     JAVA_1_8(1.8f, "1.8"),
 
     /**
      * Java 1.9.
-     * 
+     *
+     * @since 3.4
      * @deprecated As of release 3.5, replaced by {@link #JAVA_9}
      */
     JAVA_1_9(9.0f, "9"),
 
     /**
      * Java 9
+     *
+     * @since 3.5
      */
     JAVA_9(9.0f, "9"),
 
     /**
      * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
+     * Java 1.x, x &gt; 9. Mainly introduced to avoid to break when a new version of Java is used.
+     *
+     * @since 3.4
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
 
