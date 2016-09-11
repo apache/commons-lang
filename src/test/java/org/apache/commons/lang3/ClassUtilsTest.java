@@ -886,7 +886,6 @@ public class ClassUtilsTest  {
         final Class<?>[] castNull = ClassUtils.primitivesToWrappers((Class<?>)null); // == new Class<?>[]{null}
         assertTrue("(Class<?>)null -> [null]", Arrays.equals(new Class<?>[]{null}, castNull));
         // test empty array is returned unchanged
-        // TODO this is not documented
         assertArrayEquals("empty -> empty",
                 ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.primitivesToWrappers(ArrayUtils.EMPTY_CLASS_ARRAY));
 
