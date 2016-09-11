@@ -76,23 +76,23 @@ public class JavaVersionTest {
 
     @Test
     public void testCurrent() throws Exception {
-        if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.1")) {
+        if (SystemUtils.IS_JAVA_1_1) {
             assertEquals(JAVA_1_1, JavaVersion.CURRENT);
-        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.2")) {
+        } else if (SystemUtils.IS_JAVA_1_2) {
             assertEquals(JAVA_1_2, JavaVersion.CURRENT);
-        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.3")) {
+        } else if (SystemUtils.IS_JAVA_1_3) {
             assertEquals(JAVA_1_3, JavaVersion.CURRENT);
-        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.4")) {
+        } else if (SystemUtils.IS_JAVA_1_4) {
             assertEquals(JAVA_1_4, JavaVersion.CURRENT);
-        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.5")) {
+        } else if (SystemUtils.IS_JAVA_1_5) {
             assertEquals(JAVA_1_5, JavaVersion.CURRENT);
-        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.6")) {
+        } else if (SystemUtils.IS_JAVA_1_6) {
             assertEquals(JAVA_1_6, JavaVersion.CURRENT);
-        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.7")) {
+        } else if (SystemUtils.IS_JAVA_1_7) {
             assertEquals(JAVA_1_7, JavaVersion.CURRENT);
-        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.8")) {
+        } else if (SystemUtils.IS_JAVA_1_8) {
             assertEquals(JAVA_1_8, JavaVersion.CURRENT);
-        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("9.0.0")) {
+        } else if (SystemUtils.IS_JAVA_1_9) {
             assertEquals(JAVA_1_9, JavaVersion.CURRENT);
         } else {
             fail("Unkown java.specification.version: " + SystemUtils.JAVA_SPECIFICATION_VERSION);
