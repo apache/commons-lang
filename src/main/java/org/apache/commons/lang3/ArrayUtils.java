@@ -7639,10 +7639,13 @@ public class ArrayUtils {
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified boolean array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
      *
      * @param element the element to remove
      * @param array the input array
@@ -7668,10 +7671,13 @@ public class ArrayUtils {
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified char array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
      *
      * @param element the element to remove
      * @param array the input array
@@ -7697,10 +7703,13 @@ public class ArrayUtils {
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified byte array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
      *
      * @param element the element to remove
      * @param array the input array
@@ -7726,10 +7735,13 @@ public class ArrayUtils {
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified short array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
      *
      * @param element the element to remove
      * @param array the input array
@@ -7755,10 +7767,13 @@ public class ArrayUtils {
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified int array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
      *
      * @param element the element to remove
      * @param array the input array
@@ -7784,10 +7799,13 @@ public class ArrayUtils {
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified long array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
      *
      * @param element the element to remove
      * @param array the input array
@@ -7813,10 +7831,13 @@ public class ArrayUtils {
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified float array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
      *
      * @param element the element to remove
      * @param array the input array
@@ -7842,10 +7863,13 @@ public class ArrayUtils {
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified double array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
      *
      * @param element the element to remove
      * @param array the input array
@@ -7871,10 +7895,13 @@ public class ArrayUtils {
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
      *
      * @param <T> the type of object in the array
      * @param element the element to remove
