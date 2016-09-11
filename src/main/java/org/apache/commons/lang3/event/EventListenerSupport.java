@@ -190,8 +190,8 @@ public class EventListenerSupport<L> implements Serializable {
      * @param allowDuplicate the flag for determining if duplicate listener
      * objects are allowed to be registered.
      *
-     * @throws NullPointerException if <code>listener</code> is
-     * <code>null</code>.
+     * @throws NullPointerException if <code>listener</code> is <code>null</code>.
+     * @since 3.5
      */
     public void addListener(final L listener, boolean allowDuplicate) {
         Validate.notNull(listener, "Listener object cannot be null.");
