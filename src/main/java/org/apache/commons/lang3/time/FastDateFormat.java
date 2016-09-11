@@ -448,12 +448,12 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * <p>Formats a millisecond {@code long} value into the
      * supplied {@code StringBuffer}.</p>
-     * @deprecated Use {{@link #format(long, Appendable)}.
      *
      * @param millis  the millisecond value to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
      * @since 2.1
+     * @deprecated Use {{@link #format(long, Appendable)}.
      */
     @Deprecated
     @Override
@@ -464,11 +464,11 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * <p>Formats a {@code Date} object into the
      * supplied {@code StringBuffer} using a {@code GregorianCalendar}.</p>
-     * @deprecated Use {{@link #format(Date, Appendable)}.
      *
      * @param date  the date to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
+     * @deprecated Use {{@link #format(Date, Appendable)}.
      */
     @Deprecated
     @Override
@@ -479,11 +479,11 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * <p>Formats a {@code Calendar} object into the
      * supplied {@code StringBuffer}.</p>
-     * @deprecated Use {{@link #format(Calendar, Appendable)}.
      *
      * @param calendar  the calendar to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
+     * @deprecated Use {{@link #format(Calendar, Appendable)}.
      */
     @Deprecated
     @Override
@@ -658,11 +658,11 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * <p>Performs the formatting by applying the rules to the
      * specified calendar.</p>
-     * @deprecated Use {@link #format(Calendar, Appendable)}
      *
      * @param calendar the calendar to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
+     * @deprecated Use {@link #format(Calendar, Appendable)}
      */
     @Deprecated
     protected StringBuffer applyRules(final Calendar calendar, final StringBuffer buf) {
