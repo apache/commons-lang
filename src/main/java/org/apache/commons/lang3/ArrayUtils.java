@@ -7643,10 +7643,10 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
      * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
      * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7655,16 +7655,16 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
-        return removeAll(array, Arrays.copyOf(indices, count));        
+
+        return removeAll(array, Arrays.copyOf(indices, count));
     }
 
     /**
@@ -7672,10 +7672,10 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
      * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
      * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7684,16 +7684,16 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
-        return removeAll(array, Arrays.copyOf(indices, count));        
+
+        return removeAll(array, Arrays.copyOf(indices, count));
     }
 
     /**
@@ -7701,10 +7701,10 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
      * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
      * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7713,15 +7713,15 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
@@ -7730,10 +7730,10 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
      * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
      * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7742,15 +7742,15 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
@@ -7759,10 +7759,10 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
      * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
      * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7771,15 +7771,15 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
@@ -7788,10 +7788,10 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
      * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
      * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7800,15 +7800,15 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
@@ -7817,10 +7817,10 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
      * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
      * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7829,15 +7829,15 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
@@ -7846,10 +7846,10 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
      * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
      * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7858,15 +7858,15 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
@@ -7875,11 +7875,11 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
      * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
      * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     *
      * @param <T> the type of object in the array
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7888,15 +7888,15 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 }
