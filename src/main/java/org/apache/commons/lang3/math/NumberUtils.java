@@ -1396,7 +1396,7 @@ public class NumberUtils {
      *
      * @param str  the <code>String</code> to check
      * @return <code>true</code> if the string is a correctly formatted number
-     * @since 3.3 the code supports hex {@code 0Xhhh} and octal {@code 0ddd} validation
+     * @since 3.5 the code supports the "+" suffix on numbers except for integers in Java 1.6
      */
     public static boolean isCreatable(final String str) {
         if (StringUtils.isEmpty(str)) {
