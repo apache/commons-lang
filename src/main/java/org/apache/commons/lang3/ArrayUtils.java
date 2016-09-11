@@ -2486,11 +2486,10 @@ public class ArrayUtils {
     // Shift
     //-----------------------------------------------------------------------
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given array.
      *
-     * <p>There is no special handling for multi-dimensional arrays.
-     *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
@@ -2506,9 +2505,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given long array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
@@ -2524,9 +2524,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given int array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
@@ -2542,9 +2543,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given short array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
@@ -2560,9 +2562,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given char array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
@@ -2578,9 +2581,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given byte array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
@@ -2596,9 +2600,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given double array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
@@ -2614,9 +2619,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given float array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
@@ -2632,9 +2638,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given boolean array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
@@ -2650,11 +2657,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
+     * Shifts the order of a series of elements in the given boolean array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      * 
      * @param array
      *            the array to shift, may be {@code null}
@@ -2711,11 +2717,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
+     * Shifts the order of a series of elements in the given byte array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      * 
      * @param array
      *            the array to shift, may be {@code null}
@@ -2772,12 +2777,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given char array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -2833,12 +2837,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given double array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -2894,12 +2897,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given float array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -2955,12 +2957,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given int array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -3016,12 +3017,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given long array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -3077,12 +3077,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -3138,12 +3137,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Rotate the elements of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given short array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
