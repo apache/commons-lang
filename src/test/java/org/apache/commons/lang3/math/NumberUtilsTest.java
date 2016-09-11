@@ -1376,6 +1376,40 @@ public class NumberUtilsTest {
         compareIsNumberWithCreateNumber("1.1L", false); // LANG-664
     }
 
+    @Test
+    public void testIsNumberLANG971() {
+        compareIsNumberWithCreateNumber("0085", false);
+        compareIsNumberWithCreateNumber("085", false);
+        compareIsNumberWithCreateNumber("08", false);
+        compareIsNumberWithCreateNumber("07", true);
+        compareIsNumberWithCreateNumber("00", true);
+    }
+
+    @Test
+    public void testIsNumberLANG992() {
+        compareIsNumberWithCreateNumber("0.0", true);
+        compareIsNumberWithCreateNumber("0.4790", true);
+    }
+
+    @Test
+    public void testIsNumberLANG972() {
+        compareIsNumberWithCreateNumber("0xABCD", true);
+        compareIsNumberWithCreateNumber("0XABCD", true);
+    }
+
+    @Test
+    public void testIsNumberLANG1252() {
+        //Check idiosyncries between java 1.6 and 1.7,1.8 redarding leading + signs
+        if (SystemUtils.IS_JAVA_1_6) {
+            compareIsNumberWithCreateNumber("+2", false);
+        } else {
+            compareIsNumberWithCreateNumber("+2", true);
+        }
+
+        //The Following should work regardless of 1.6, 1.7, or 1.8
+        compareIsNumberWithCreateNumber("+2.0", true);
+    }
+
     private void compareIsNumberWithCreateNumber(final String val, final boolean expected) {
         final boolean isValid = NumberUtils.isNumber(val);
         final boolean canCreate = checkCreateNumber(val);
