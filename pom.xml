@@ -191,6 +191,15 @@
         <role>Java Developer</role>
       </roles>
     </developer>
+    <developer>
+      <name>Rob Tompkins</name>
+      <id>chtompki</id>
+      <email>chtompki@apache.org</email>
+      <timezone>-5</timezone>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
   </developers>
   <contributors>
     <contributor>
