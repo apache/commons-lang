@@ -36,6 +36,7 @@ import static org.apache.commons.lang3.JavaVersion.JAVA_1_8;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_9;
 import static org.apache.commons.lang3.JavaVersion.get;
+import static org.junit.Assert.fail;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.JavaVersion}.
@@ -73,4 +74,28 @@ public class JavaVersionTest {
         assertEquals("1.2", JAVA_1_2.toString());
     }
 
+    @Test
+    public void testCurrent() throws Exception {
+        if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.1")) {
+            assertEquals(JAVA_1_1, JavaVersion.CURRENT);
+        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.2")) {
+            assertEquals(JAVA_1_2, JavaVersion.CURRENT);
+        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.3")) {
+            assertEquals(JAVA_1_3, JavaVersion.CURRENT);
+        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.4")) {
+            assertEquals(JAVA_1_4, JavaVersion.CURRENT);
+        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.5")) {
+            assertEquals(JAVA_1_5, JavaVersion.CURRENT);
+        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.6")) {
+            assertEquals(JAVA_1_6, JavaVersion.CURRENT);
+        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.7")) {
+            assertEquals(JAVA_1_7, JavaVersion.CURRENT);
+        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("1.8")) {
+            assertEquals(JAVA_1_8, JavaVersion.CURRENT);
+        } else if (SystemUtils.JAVA_SPECIFICATION_VERSION.equals("9.0.0")) {
+            assertEquals(JAVA_1_9, JavaVersion.CURRENT);
+        } else {
+            fail("Unkown java.specification.version: " + SystemUtils.JAVA_SPECIFICATION_VERSION);
+        }
+    }
 }

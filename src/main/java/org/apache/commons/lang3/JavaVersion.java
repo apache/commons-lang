@@ -98,6 +98,19 @@ public enum JavaVersion {
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
 
     /**
+     * JavaVersion representing the value of the {@code java.specification.version} system property.
+     *
+     * <p>
+     * Note that this is not an enum constant since it has to be calculated at runtime. For this reason
+     * this value can't be retrieved using {@link #valueOf(String)}.
+     * </p>
+     *
+     * @since 3.5
+     * @see SystemUtils#JAVA_SPECIFICATION_VERSION
+     */
+    public static JavaVersion CURRENT = get(SystemUtils.JAVA_SPECIFICATION_VERSION);
+
+    /**
      * The float value.
      */
     private final float value;
