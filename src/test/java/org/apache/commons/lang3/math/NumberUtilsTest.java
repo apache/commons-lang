@@ -1316,6 +1316,73 @@ public class NumberUtilsTest {
         }
         fail("Expecting "+ expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
     }
+
+    /**
+     * Tests isCreatable(String) and tests that createNumber(String) returns
+     * a valid number iff isCreatable(String) returns false.
+     */
+    @Test
+    public void testIsNumber() {
+        compareIsNumberWithCreateNumber("12345", true);
+        compareIsNumberWithCreateNumber("1234.5", true);
+        compareIsNumberWithCreateNumber(".12345", true);
+        compareIsNumberWithCreateNumber("1234E5", true);
+        compareIsNumberWithCreateNumber("1234E+5", true);
+        compareIsNumberWithCreateNumber("1234E-5", true);
+        compareIsNumberWithCreateNumber("123.4E5", true);
+        compareIsNumberWithCreateNumber("-1234", true);
+        compareIsNumberWithCreateNumber("-1234.5", true);
+        compareIsNumberWithCreateNumber("-.12345", true);
+        compareIsNumberWithCreateNumber("-1234E5", true);
+        compareIsNumberWithCreateNumber("0", true);
+        compareIsNumberWithCreateNumber("-0", true);
+        compareIsNumberWithCreateNumber("01234", true);
+        compareIsNumberWithCreateNumber("-01234", true);
+        compareIsNumberWithCreateNumber("-0xABC123", true);
+        compareIsNumberWithCreateNumber("-0x0", true);
+        compareIsNumberWithCreateNumber("123.4E21D", true);
+        compareIsNumberWithCreateNumber("-221.23F", true);
+        compareIsNumberWithCreateNumber("22338L", true);
+
+        compareIsNumberWithCreateNumber(null, false);
+        compareIsNumberWithCreateNumber("", false);
+        compareIsNumberWithCreateNumber(" ", false);
+        compareIsNumberWithCreateNumber("\r\n\t", false);
+        compareIsNumberWithCreateNumber("--2.3", false);
+        compareIsNumberWithCreateNumber(".12.3", false);
+        compareIsNumberWithCreateNumber("-123E", false);
+        compareIsNumberWithCreateNumber("-123E+-212", false);
+        compareIsNumberWithCreateNumber("-123E2.12", false);
+        compareIsNumberWithCreateNumber("0xGF", false);
+        compareIsNumberWithCreateNumber("0xFAE-1", false);
+        compareIsNumberWithCreateNumber(".", false);
+        compareIsNumberWithCreateNumber("-0ABC123", false);
+        compareIsNumberWithCreateNumber("123.4E-D", false);
+        compareIsNumberWithCreateNumber("123.4ED", false);
+        compareIsNumberWithCreateNumber("1234E5l", false);
+        compareIsNumberWithCreateNumber("11a", false);
+        compareIsNumberWithCreateNumber("1a", false);
+        compareIsNumberWithCreateNumber("a", false);
+        compareIsNumberWithCreateNumber("11g", false);
+        compareIsNumberWithCreateNumber("11z", false);
+        compareIsNumberWithCreateNumber("11def", false);
+        compareIsNumberWithCreateNumber("11d11", false);
+        compareIsNumberWithCreateNumber("11 11", false);
+        compareIsNumberWithCreateNumber(" 1111", false);
+        compareIsNumberWithCreateNumber("1111 ", false);
+
+        compareIsNumberWithCreateNumber("2.", true); // LANG-521
+        compareIsNumberWithCreateNumber("1.1L", false); // LANG-664
+    }
+
+    private void compareIsNumberWithCreateNumber(final String val, final boolean expected) {
+        final boolean isValid = NumberUtils.isNumber(val);
+        final boolean canCreate = checkCreateNumber(val);
+        if (isValid == expected && canCreate == expected) {
+            return;
+        }
+        fail("Expecting "+ expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
+    }
     
     @Test
     public void testIsParsable() {
