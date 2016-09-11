@@ -34,7 +34,6 @@ import static org.apache.commons.lang3.JavaVersion.JAVA_1_8;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_9;
 import static org.apache.commons.lang3.JavaVersion.get;
-import static org.apache.commons.lang3.JavaVersion.getJavaVersion;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.JavaVersion}.
@@ -55,7 +54,6 @@ public class JavaVersionTest {
         assertEquals("9 failed", JAVA_9, get("9"));
         assertEquals("1.10 failed", JAVA_RECENT, get("1.10"));
         // assertNull("2.10 unexpectedly worked", get("2.10"));
-        assertEquals("Wrapper method failed", get("1.5"), getJavaVersion("1.5"));
     }
 
     @Test

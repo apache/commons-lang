@@ -132,20 +132,6 @@ public enum JavaVersion {
      * @return the corresponding enumeration constant or <b>null</b> if the
      * version is unknown
      */
-    // helper for static importing
-    static JavaVersion getJavaVersion(final String nom) {
-        return get(nom);
-    }
-
-    /**
-     * Transforms the given string with a Java version number to the
-     * corresponding constant of this enumeration class. This method is used
-     * internally.
-     *
-     * @param nom the Java version as string
-     * @return the corresponding enumeration constant or <b>null</b> if the
-     * version is unknown
-     */
     static JavaVersion get(final String nom) {
         if ("0.9".equals(nom)) {
             return JAVA_0_9;
