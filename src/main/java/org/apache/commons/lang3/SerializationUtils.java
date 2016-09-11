@@ -219,12 +219,10 @@ public class SerializationUtils {
         try {
             // stream closed in the finally
             in = new ObjectInputStream(inputStream);
-            @SuppressWarnings("unchecked") // may fail with CCE if serialised form is incorrect
+            @SuppressWarnings("unchecked")
             final T obj = (T) in.readObject();
             return obj;
 
-        } catch (final ClassCastException ex) {
-            throw new SerializationException(ex);
         } catch (final ClassNotFoundException ex) {
             throw new SerializationException(ex);
         } catch (final IOException ex) {
@@ -283,6 +281,19 @@ public class SerializationUtils {
      static class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
         private static final Map<String, Class<?>> primitiveTypes = 
                 new HashMap<String, Class<?>>();
+
+        static {
+            primitiveTypes.put("byte", byte.class);
+            primitiveTypes.put("short", short.class);
+            primitiveTypes.put("int", int.class);
+            primitiveTypes.put("long", long.class);
+            primitiveTypes.put("float", float.class);
+            primitiveTypes.put("double", double.class);
+            primitiveTypes.put("boolean", boolean.class);
+            primitiveTypes.put("char", char.class);
+            primitiveTypes.put("void", void.class);
+        }
+
         private final ClassLoader classLoader;
         
         /**
@@ -295,16 +306,6 @@ public class SerializationUtils {
         public ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader) throws IOException {
             super(in);
             this.classLoader = classLoader;
-
-            primitiveTypes.put("byte", byte.class);
-            primitiveTypes.put("short", short.class);
-            primitiveTypes.put("int", int.class);
-            primitiveTypes.put("long", long.class);
-            primitiveTypes.put("float", float.class);
-            primitiveTypes.put("double", double.class);
-            primitiveTypes.put("boolean", boolean.class);
-            primitiveTypes.put("char", char.class);
-            primitiveTypes.put("void", void.class);
         }
 
         /**

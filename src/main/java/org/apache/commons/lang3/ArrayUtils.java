@@ -1832,12 +1832,11 @@ public class ArrayUtils {
     // Swap
     //-----------------------------------------------------------------------
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given array.
      *
-     * <p>There is no special handling for multi-dimensional arrays.
-     *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      * 
      * <p>Examples:
      *     <ul>
@@ -1847,10 +1846,12 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap(["1", "2", "3"], 0, 5) -&gt; ["1", "2", "3"]</li>
      *         <li>ArrayUtils.swap(["1", "2", "3"], -1, 1) -&gt; ["2", "1", "3"]</li>
      *     </ul>
+     * </p>
      *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final Object[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -1860,12 +1861,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * <p>Swaps two elements in the given long array.
      *
-     * <p>There is no special handling for multi-dimensional arrays.
-     *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -1875,10 +1875,12 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([true, false, true], 0, 5) -&gt; [true, false, true]</li>
      *         <li>ArrayUtils.swap([true, false, true], -1, 1) -&gt; [false, true, true]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final long[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -1888,10 +1890,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given int array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -1901,10 +1904,12 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
+     * </p>
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final int[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -1914,10 +1919,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given short array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -1927,10 +1933,12 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
+     * </p>
      * 
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final short[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -1940,10 +1948,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given char array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      * 
      * <p>Examples:
      *     <ul>
@@ -1953,10 +1962,12 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
+     * </p>
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final char[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -1966,10 +1977,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given byte array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -1979,10 +1991,12 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final byte[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -1992,10 +2006,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given double array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -2005,10 +2020,12 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final double[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -2018,10 +2035,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given float array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -2031,10 +2049,12 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final float[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -2044,10 +2064,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given boolean array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -2057,10 +2078,12 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final boolean[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -2070,12 +2093,13 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * Swaps a series of elements in the given boolean array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
      * 
      * <p>Examples:
      *     <ul>
@@ -2085,13 +2109,15 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([true, false, true, false], -3, 2, 2) -&gt; [true, false, true, false]</li>
      *         <li>ArrayUtils.swap([true, false, true, false], 0, 3, 3) -&gt; [false, false, true, true]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
-    public static void swap(final boolean[] array,  int offset1, int offset2, int len) {
+    public static void swap(final boolean[] array, int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
@@ -2110,13 +2136,14 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
-     * 
+     * Swaps a series of elements in the given byte array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
+     *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
@@ -2125,14 +2152,15 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
-
-    public static void swap(final byte[] array,  int offset1, int offset2, int len) {
+    public static void swap(final byte[] array, int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
@@ -2151,12 +2179,13 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * Swaps a series of elements in the given char array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
      * 
      * <p>Examples:
      *     <ul>
@@ -2166,13 +2195,15 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
-    public static void swap(final char[] array,  int offset1, int offset2, int len) {
+    public static void swap(final char[] array, int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
@@ -2191,12 +2222,13 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * Swaps a series of elements in the given double array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
      * 
      * <p>Examples:
      *     <ul>
@@ -2206,11 +2238,13 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
     public static void swap(final double[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2231,13 +2265,14 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
-     * 
+     * Swaps a series of elements in the given float array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
+     *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
@@ -2246,13 +2281,15 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
-    public static void swap(final float[] array,  int offset1, int offset2, int len) {
+    public static void swap(final float[] array, int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
@@ -2272,13 +2309,14 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
-     * 
+     * Swaps a series of elements in the given int array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
+     *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
@@ -2287,11 +2325,13 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
     public static void swap(final int[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2312,13 +2352,14 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
-     * 
+     * Swaps a series of elements in the given long array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
+     *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
@@ -2327,11 +2368,13 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
     public static void swap(final long[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2352,13 +2395,14 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
-     * 
+     * Swaps a series of elements in the given array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
+     *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 2, 1) -&gt; ["3", "2", "1", "4"]</li>
@@ -2367,13 +2411,15 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap(["1", "2", "3", "4"], -3, 2, 2) -&gt; ["3", "4", "1", "2"]</li>
      *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 3, 3) -&gt; ["4", "2", "3", "1"]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
-   public static void swap(final Object[] array,  int offset1, int offset2, int len) {
+    public static void swap(final Object[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
@@ -2392,26 +2438,29 @@ public class ArrayUtils {
     }
 
    /**
-    * <p>Swaps a series of elements in the given array.
-    * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
-     * 
-     * <p>Examples:
-     *     <ul>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -&gt; [1, 2, 3, 4]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -&gt; [3, 4, 1, 2]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
-     *     </ul>
-    * 
+    * Swaps a series of elements in the given short array.
+    *
+    * <p>This method does nothing for a {@code null} or empty input array or
+    * for overflow indices. Negative indices are promoted to 0(zero). If any
+    * of the sub-arrays to swap falls outside of the given array, then the
+    * swap is stopped at the end of the array and as many as possible elements
+    * are swapped.</p>
+    *
+    * <p>Examples:
+    *     <ul>
+    *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
+    *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -&gt; [1, 2, 3, 4]</li>
+    *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -&gt; [3, 4, 1, 2]</li>
+    *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
+    *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
+    *     </ul>
+    * </p>
+    *
     * @param array the array to swap, may be {@code null}
     * @param offset1 the index of the first element in the series to swap
     * @param offset2 the index of the second element in the series to swap
     * @param len the number of elements to swap starting with the given indices
+    * @since 3.5
     */
     public static void swap(final short[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2437,16 +2486,16 @@ public class ArrayUtils {
     // Shift
     //-----------------------------------------------------------------------
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given array.
      *
-     * <p>There is no special handling for multi-dimensional arrays.
-     *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final Object[] array, int offset) {
         if (array == null) {
@@ -2456,14 +2505,16 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given long array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final long[] array, int offset) {
         if (array == null) {
@@ -2473,14 +2524,16 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given int array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final int[] array, int offset) {
         if (array == null) {
@@ -2490,14 +2543,16 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given short array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final short[] array, int offset) {
         if (array == null) {
@@ -2507,14 +2562,16 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given char array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final char[] array, int offset) {
         if (array == null) {
@@ -2524,14 +2581,16 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given byte array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final byte[] array, int offset) {
         if (array == null) {
@@ -2541,14 +2600,16 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given double array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final double[] array, int offset) {
         if (array == null) {
@@ -2558,14 +2619,16 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given float array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final float[] array, int offset) {
         if (array == null) {
@@ -2575,14 +2638,16 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Shifts the order of the given array.
+     * Shifts the order of the given boolean array.
      *
-     * <p>This method does nothing for a {@code null} input array.
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array  the array to shift, may be {@code null}
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final boolean[] array, int offset) {
         if (array == null) {
@@ -2592,11 +2657,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
+     * Shifts the order of a series of elements in the given boolean array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      * 
      * @param array
      *            the array to shift, may be {@code null}
@@ -2609,7 +2673,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final boolean[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2653,11 +2717,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
+     * Shifts the order of a series of elements in the given byte array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
      * 
      * @param array
      *            the array to shift, may be {@code null}
@@ -2670,7 +2733,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final byte[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2714,12 +2777,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given char array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -2731,7 +2793,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final char[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2775,12 +2837,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given double array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -2792,7 +2853,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final double[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2836,12 +2897,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given float array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -2853,7 +2913,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final float[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2897,12 +2957,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given int array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -2914,7 +2973,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final int[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2958,12 +3017,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given long array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -2975,6 +3033,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final long[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -3018,12 +3077,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Shifts the order of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -3035,6 +3093,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final Object[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -3078,12 +3137,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * Rotate the elements of the given array in the given range.
-     * 
-     * <p>
-     * This method does nothing for a {@code null} input array.
-     * 
+     * Shifts the order of a series of elements in the given short array.
+     *
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.</p>
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -3095,7 +3153,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final short[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -4894,11 +4952,11 @@ public class ArrayUtils {
 
     // ----------------------------------------------------------------------
     /**
-     * <p>Checks if an array of Objects is not empty or not {@code null}.
+     * <p>Checks if an array of Objects is not empty and not {@code null}.
      *
      * @param <T> the component type of the array
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
      public static <T> boolean isNotEmpty(final T[] array) {
@@ -4906,10 +4964,10 @@ public class ArrayUtils {
      }
 
     /**
-     * <p>Checks if an array of primitive longs is not empty or not {@code null}.
+     * <p>Checks if an array of primitive longs is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final long[] array) {
@@ -4917,10 +4975,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive ints is not empty or not {@code null}.
+     * <p>Checks if an array of primitive ints is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final int[] array) {
@@ -4928,10 +4986,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive shorts is not empty or not {@code null}.
+     * <p>Checks if an array of primitive shorts is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final short[] array) {
@@ -4939,10 +4997,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive chars is not empty or not {@code null}.
+     * <p>Checks if an array of primitive chars is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final char[] array) {
@@ -4950,10 +5008,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive bytes is not empty or not {@code null}.
+     * <p>Checks if an array of primitive bytes is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final byte[] array) {
@@ -4961,10 +5019,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive doubles is not empty or not {@code null}.
+     * <p>Checks if an array of primitive doubles is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final double[] array) {
@@ -4972,10 +5030,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive floats is not empty or not {@code null}.
+     * <p>Checks if an array of primitive floats is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final float[] array) {
@@ -4983,10 +5041,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive booleans is not empty or not {@code null}.
+     * <p>Checks if an array of primitive booleans is not empty and not {@code null}.
      *
      * @param array  the array to test
-     * @return {@code true} if the array is not empty or not {@code null}
+     * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
     public static boolean isNotEmpty(final boolean[] array) {
@@ -7639,14 +7697,17 @@ public class ArrayUtils {
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified boolean array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7655,27 +7716,30 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
-        return removeAll(array, Arrays.copyOf(indices, count));        
+
+        return removeAll(array, Arrays.copyOf(indices, count));
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified char array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7684,27 +7748,30 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
-        return removeAll(array, Arrays.copyOf(indices, count));        
+
+        return removeAll(array, Arrays.copyOf(indices, count));
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified byte array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7713,27 +7780,30 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified short array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7742,27 +7812,30 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified int array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7771,27 +7844,30 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified long array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7800,27 +7876,30 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified float array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7829,27 +7908,30 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified double array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
+     *
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7858,28 +7940,31 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 
     /**
+     * Removes the occurrences of the specified element from the specified array.
+     *
      * <p>
-     * Removes the occurrences of the specified element from the specified array. All subsequent elements are shifted to
-     * the left (subtracts one from their indices). If the array doesn't contains such an element, no elements are
-     * removed from the array. <code>null</code> will be returned if the input array is <code>null</code>
-     * 
+     * All subsequent elements are shifted to the left (subtracts one from their indices).
+     * If the array doesn't contains such an element, no elements are removed from the array.
+     * <code>null</code> will be returned if the input array is <code>null</code>.
+     * </p>
+     *
      * @param <T> the type of object in the array
      * @param element the element to remove
      * @param array the input array
-     * 
+     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
@@ -7888,15 +7973,15 @@ public class ArrayUtils {
         if (index == INDEX_NOT_FOUND) {
             return clone(array);
         }
-        
+
         int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
-        
+
         while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
             indices[count++] = index;
         }
-        
+
         return removeAll(array, Arrays.copyOf(indices, count));
     }
 }

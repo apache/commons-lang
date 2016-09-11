@@ -743,9 +743,6 @@ public class ExceptionUtils {
      * techniques are required when interacting with non-java jvm code such as
      * Jyton, Scala, or Groovy, since these languages do not consider any
      * exceptions as checked.
-     * 
-     * @since 3.5
-     * @see #wrapAndThrow(Throwable)
      *
      * @param throwable
      *            The throwable to rethrow.
@@ -754,6 +751,8 @@ public class ExceptionUtils {
      *         which the calling site requires. "Returning" the results of this
      *         method, as done in the propagateExample above, will satisfy the
      *         java compiler requirement that all code paths return a value.
+     * @since 3.5
+     * @see #wrapAndThrow(Throwable)
      */
     public static <R> R rethrow(Throwable throwable) {
         // claim that the typeErasure invocation throws a RuntimeException
@@ -780,11 +779,7 @@ public class ExceptionUtils {
      * The downside to using this approach is that invoking code which needs to
      * handle specific checked exceptions must sniff up the exception chain to
      * determine if the caught exception was caused by the checked exception.
-     * 
-     * @since 3.5
-     * @see #rethrow(Throwable)
-     * @see #hasCause(Throwable, Class)
-     * 
+     *
      * @param throwable
      *            The throwable to rethrow.
      * @param <R> The type of the returned value.
@@ -792,6 +787,9 @@ public class ExceptionUtils {
      *         which the calling site requires. "Returning" the results of this
      *         method will satisfy the java compiler requirement that all code
      *         paths return a value.
+     * @since 3.5
+     * @see #rethrow(Throwable)
+     * @see #hasCause(Throwable, Class)
      */
     public static <R> R wrapAndThrow(Throwable throwable) {
         if (throwable instanceof RuntimeException) {
@@ -806,16 +804,15 @@ public class ExceptionUtils {
     /**
      * Does the throwable's causal chain have an immediate or wrapped exception
      * of the given type?
-     * 
-     * @since 3.5
-     * @see #wrapAndThrow(Throwable)
-     * 
+     *
      * @param chain
      *            The root of a Throwable causal chain.
      * @param type
      *            The exception type to test.
      * @return true, if chain is an instance of type or is an
      *         UndeclaredThrowableException wrapping a cause.
+     * @since 3.5
+     * @see #wrapAndThrow(Throwable)
      */
     public static boolean hasCause(Throwable chain,
             Class<? extends Throwable> type) {

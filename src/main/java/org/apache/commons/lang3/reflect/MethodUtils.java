@@ -109,11 +109,11 @@ public class MethodUtils {
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
-     *  
+     *
      * @since 3.5
      */
-    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName) 
-    		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         return invokeMethod(object, forceAccess, methodName, ArrayUtils.EMPTY_OBJECT_ARRAY, null);
     }
 
@@ -166,7 +166,7 @@ public class MethodUtils {
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
-     * 
+     *
      * @since 3.5
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName,
@@ -194,6 +194,7 @@ public class MethodUtils {
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
+     * @since 3.5
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName,
             Object[] args, Class<?>[] parameterTypes)
@@ -201,36 +202,36 @@ public class MethodUtils {
             InvocationTargetException {
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
         args = ArrayUtils.nullToEmpty(args);
-        
+
         final String messagePrefix;
         Method method = null;
         boolean isOriginallyAccessible = false;
         Object result = null;
-        
+
         try {
             if (forceAccess) {
-            	messagePrefix = "No such method: ";
-            	method = getMatchingMethod(object.getClass(),
+                messagePrefix = "No such method: ";
+                method = getMatchingMethod(object.getClass(),
                         methodName, parameterTypes);
-            	if (method != null) {
-            	    isOriginallyAccessible = method.isAccessible();
-            	    if (!isOriginallyAccessible) {
-            	        method.setAccessible(true);
-            	    }
-            	}
-            }  else {
-            	messagePrefix = "No such accessible method: ";
-            	method = getMatchingAccessibleMethod(object.getClass(),
+                if (method != null) {
+                    isOriginallyAccessible = method.isAccessible();
+                    if (!isOriginallyAccessible) {
+                        method.setAccessible(true);
+                    }
+                }
+            } else {
+                messagePrefix = "No such accessible method: ";
+                method = getMatchingAccessibleMethod(object.getClass(),
                         methodName, parameterTypes);
             }
-            
+
             if (method == null) {
                 throw new NoSuchMethodException(messagePrefix
                         + methodName + "() on object: "
                         + object.getClass().getName());
             }
             args = toVarArgs(method, args);
-            
+
             result = method.invoke(object, args);
         }
         finally {
@@ -238,10 +239,10 @@ public class MethodUtils {
                 method.setAccessible(isOriginallyAccessible);
             }
         }
-        
+
         return result;
     }
-    
+
     /**
      * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
@@ -265,7 +266,7 @@ public class MethodUtils {
             Object[] args, Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
-    	return invokeMethod(object, false, methodName, args, parameterTypes);
+        return invokeMethod(object, false, methodName, args, parameterTypes);
     }
 
     /**
@@ -284,8 +285,8 @@ public class MethodUtils {
      *  method invoked
      * @throws IllegalAccessException if the requested method is not accessible
      *  via reflection
-     *  
-     *  @since 3.4
+     *
+     * @since 3.4
      */
     public static Object invokeExactMethod(final Object object, final String methodName) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
@@ -725,33 +726,33 @@ public class MethodUtils {
      */
     public static Method getMatchingMethod(final Class<?> cls, final String methodName,
             final Class<?>... parameterTypes) {
-    	Validate.notNull(cls, "Null class not allowed.");
-    	Validate.notEmpty(methodName, "Null or blank methodName not allowed.");
-    	
-    	// Address methods in superclasses
-    	Method[] methodArray = cls.getDeclaredMethods();
-    	List<Class<?>> superclassList = ClassUtils.getAllSuperclasses(cls);
-    	for (Class<?> klass: superclassList) {
-    		methodArray = ArrayUtils.addAll(methodArray, klass.getDeclaredMethods());
-    	}
-    	
-    	Method inexactMatch = null;
-    	for (Method method: methodArray) {
-    		if (methodName.equals(method.getName()) && 
-    				ArrayUtils.isEquals(parameterTypes, method.getParameterTypes())) {
-    			return method;
-    		} else if (methodName.equals(method.getName()) &&  
-    				ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true)) {
-    			if (inexactMatch == null) {
-    				inexactMatch = method;
-    			} else if (distance(parameterTypes, method.getParameterTypes()) 
-    					< distance(parameterTypes, inexactMatch.getParameterTypes())) {
-    				inexactMatch = method;
-    			}
-    		}
-    		
-    	}
-    	return inexactMatch;
+        Validate.notNull(cls, "Null class not allowed.");
+        Validate.notEmpty(methodName, "Null or blank methodName not allowed.");
+
+        // Address methods in superclasses
+        Method[] methodArray = cls.getDeclaredMethods();
+        List<Class<?>> superclassList = ClassUtils.getAllSuperclasses(cls);
+        for (Class<?> klass : superclassList) {
+            methodArray = ArrayUtils.addAll(methodArray, klass.getDeclaredMethods());
+        }
+
+        Method inexactMatch = null;
+        for (Method method : methodArray) {
+            if (methodName.equals(method.getName()) &&
+                    ArrayUtils.isEquals(parameterTypes, method.getParameterTypes())) {
+                return method;
+            } else if (methodName.equals(method.getName()) &&
+                    ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true)) {
+                if (inexactMatch == null) {
+                    inexactMatch = method;
+                } else if (distance(parameterTypes, method.getParameterTypes())
+                        < distance(parameterTypes, inexactMatch.getParameterTypes())) {
+                    inexactMatch = method;
+                }
+            }
+
+        }
+        return inexactMatch;
     }
     
     /**

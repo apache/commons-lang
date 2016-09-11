@@ -171,14 +171,12 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param lhs <code>this</code> object to register
      * @param rhs the other object to register
      */
-    static void register(final Object lhs, final Object rhs) {
-        synchronized (EqualsBuilder.class) {
-            if (getRegistry() == null) {
-                REGISTRY.set(new HashSet<Pair<IDKey, IDKey>>());
-            }
+    private static void register(final Object lhs, final Object rhs) {
+        Set<Pair<IDKey, IDKey>> registry = getRegistry();
+        if (registry == null) {
+            registry = new HashSet<Pair<IDKey, IDKey>>();
+            REGISTRY.set(registry);
         }
-
-        final Set<Pair<IDKey, IDKey>> registry = getRegistry();
         final Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
         registry.add(pair);
     }
@@ -195,17 +193,13 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs the other object to unregister
      * @since 3.0
      */
-    static void unregister(final Object lhs, final Object rhs) {
+    private static void unregister(final Object lhs, final Object rhs) {
         Set<Pair<IDKey, IDKey>> registry = getRegistry();
         if (registry != null) {
             final Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
             registry.remove(pair);
-            synchronized (EqualsBuilder.class) {
-                //read again
-                registry = getRegistry();
-                if (registry != null && registry.isEmpty()) {
-                    REGISTRY.remove();
-                }
+            if (registry.isEmpty()) {
+                REGISTRY.remove();
             }
         }
     }

@@ -227,6 +227,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      *
      * @param operand the quantity to add, not null
      * @return the value associated with this instance after adding the operand
+     * @since 3.5
      */
     public long addAndGet(final long operand) {
         this.value += operand;
@@ -240,6 +241,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @param operand the quantity to add, not null
      * @throws NullPointerException if {@code operand} is null
      * @return the value associated with this instance after adding the operand
+     * @since 3.5
      */
     public long addAndGet(final Number operand) {
         this.value += operand.longValue();
@@ -252,6 +254,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      *
      * @param operand the quantity to add, not null
      * @return the value associated with this instance immediately before the operand was added
+     * @since 3.5
      */
     public long getAndAdd(final long operand) {
         long last = value;
@@ -266,6 +269,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @param operand the quantity to add, not null
      * @throws NullPointerException if {@code operand} is null
      * @return the value associated with this instance immediately before the operand was added
+     * @since 3.5
      */
     public long getAndAdd(final Number operand) {
         long last = value;

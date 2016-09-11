@@ -1206,6 +1206,7 @@ public class StrSubstitutor {
      * substitution.
      * 
      * @return the preserve escape flag
+     * @since 3.5
      */
     public boolean isPreserveEscapes() {
         return preserveEscapes;
@@ -1221,6 +1222,7 @@ public class StrSubstitutor {
      * <code>${this-is-escaped}</code>).  The default value is <b>false</b>
      * 
      * @param preserveEscapes true if escapes are to be preserved
+     * @since 3.5
      */
     public void setPreserveEscapes(final boolean preserveEscapes) {
         this.preserveEscapes = preserveEscapes;

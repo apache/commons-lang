@@ -41,7 +41,8 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.junit.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.StringUtils}.
+ * Unit tests for methods of {@link org.apache.commons.lang3.StringUtils}
+ * which been moved to their own test classes.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class StringUtilsTest {
@@ -121,93 +122,6 @@ public class StringUtilsTest {
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(StringUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(StringUtils.class.getModifiers()));
-    }
-
-    //-----------------------------------------------------------------------
-    @Test
-    public void testIsEmpty() {
-        assertTrue(StringUtils.isEmpty(null));
-        assertTrue(StringUtils.isEmpty(""));
-        assertFalse(StringUtils.isEmpty(" "));
-        assertFalse(StringUtils.isEmpty("bob"));
-        assertFalse(StringUtils.isEmpty("  bob  "));
-    }
-
-    @Test
-    public void testIsNotEmpty() {
-        assertFalse(StringUtils.isNotEmpty(null));
-        assertFalse(StringUtils.isNotEmpty(""));
-        assertTrue(StringUtils.isNotEmpty(" "));
-        assertTrue(StringUtils.isNotEmpty("bob"));
-        assertTrue(StringUtils.isNotEmpty("  bob  "));
-    }
-
-    @Test
-    public void testIsAnyEmpty() {
-        assertTrue(StringUtils.isAnyEmpty((String) null));
-        assertTrue(StringUtils.isAnyEmpty((String[]) null));
-        assertTrue(StringUtils.isAnyEmpty(null, "foo"));
-        assertTrue(StringUtils.isAnyEmpty("", "bar"));
-        assertTrue(StringUtils.isAnyEmpty("bob", ""));
-        assertTrue(StringUtils.isAnyEmpty("  bob  ", null));
-        assertFalse(StringUtils.isAnyEmpty(" ", "bar"));
-        assertFalse(StringUtils.isAnyEmpty("foo", "bar"));
-    }
-
-    @Test
-    public void testIsNoneEmpty() {
-        assertFalse(StringUtils.isNoneEmpty((String) null));
-        assertFalse(StringUtils.isNoneEmpty((String[]) null));
-        assertFalse(StringUtils.isNoneEmpty(null, "foo"));
-        assertFalse(StringUtils.isNoneEmpty("", "bar"));
-        assertFalse(StringUtils.isNoneEmpty("bob", ""));
-        assertFalse(StringUtils.isNoneEmpty("  bob  ", null));
-        assertTrue(StringUtils.isNoneEmpty(" ", "bar"));
-        assertTrue(StringUtils.isNoneEmpty("foo", "bar"));
-    }
-
-    @Test
-    public void testIsBlank() {
-        assertTrue(StringUtils.isBlank(null));
-        assertTrue(StringUtils.isBlank(""));
-        assertTrue(StringUtils.isBlank(" "));
-        assertFalse(StringUtils.isBlank("bob"));
-        assertFalse(StringUtils.isBlank("  bob  "));
-    }
-
-    @Test
-    public void testIsNotBlank() {
-        assertFalse(StringUtils.isNotBlank(null));
-        assertFalse(StringUtils.isNotBlank(""));
-        assertFalse(StringUtils.isNotBlank(" "));
-        assertTrue(StringUtils.isNotBlank("bob"));
-        assertTrue(StringUtils.isNotBlank("  bob  "));
-    }
-
-    @Test
-    public void testIsAnyBlank() {
-        assertTrue(StringUtils.isAnyBlank((String) null));
-        assertTrue(StringUtils.isAnyBlank((String[]) null));
-        assertTrue(StringUtils.isAnyBlank(null, "foo"));
-        assertTrue(StringUtils.isAnyBlank(null, null));
-        assertTrue(StringUtils.isAnyBlank("", "bar"));
-        assertTrue(StringUtils.isAnyBlank("bob", ""));
-        assertTrue(StringUtils.isAnyBlank("  bob  ", null));
-        assertTrue(StringUtils.isAnyBlank(" ", "bar"));
-        assertFalse(StringUtils.isAnyBlank("foo", "bar"));
-    }
-
-    @Test
-    public void testIsNoneBlank() {
-        assertFalse(StringUtils.isNoneBlank((String) null));
-        assertFalse(StringUtils.isNoneBlank((String[]) null));
-        assertFalse(StringUtils.isNoneBlank(null, "foo"));
-        assertFalse(StringUtils.isNoneBlank(null, null));
-        assertFalse(StringUtils.isNoneBlank("", "bar"));
-        assertFalse(StringUtils.isNoneBlank("bob", ""));
-        assertFalse(StringUtils.isNoneBlank("  bob  ", null));
-        assertFalse(StringUtils.isNoneBlank(" ", "bar"));
-        assertTrue(StringUtils.isNoneBlank("foo", "bar"));
     }
 
     @Test
@@ -2700,6 +2614,8 @@ public class StringUtilsTest {
         assertEquals("a b c", StringUtils.normalizeSpace("  a  b   c  "));
         assertEquals("a b c", StringUtils.normalizeSpace("a\t\f\r  b\u000B   c\n"));
         assertEquals("a   b c", StringUtils.normalizeSpace("a\t\f\r  " + HARD_SPACE + HARD_SPACE + "b\u000B   c\n"));
+        assertEquals("b", StringUtils.normalizeSpace("\u0000b"));
+        assertEquals("b", StringUtils.normalizeSpace("b\u0000"));
     }
 
     @Test
@@ -2921,11 +2837,9 @@ public class StringUtilsTest {
 
     @Test
     public void testWrap_StringChar() {
-        assertNull(StringUtils.wrap(null, null));
         assertNull(StringUtils.wrap(null, '\0'));
         assertNull(StringUtils.wrap(null, '1'));
 
-        assertEquals(null, StringUtils.wrap(null, null));
         assertEquals("", StringUtils.wrap("", '\0'));
         assertEquals("xabx", StringUtils.wrap("ab", 'x'));
         assertEquals("\"ab\"", StringUtils.wrap("ab", '\"'));
@@ -2934,6 +2848,48 @@ public class StringUtilsTest {
         assertEquals("''abcd''", StringUtils.wrap("'abcd'", '\''));
         assertEquals("'\"abcd\"'", StringUtils.wrap("\"abcd\"", '\''));
         assertEquals("\"'abcd'\"", StringUtils.wrap("'abcd'", '\"'));
+    }
+
+    @Test
+    public void testWrapIfMissing_StringChar() {
+        assertNull(StringUtils.wrapIfMissing(null, '\0'));
+        assertNull(StringUtils.wrapIfMissing(null, '1'));
+
+        assertEquals("", StringUtils.wrapIfMissing("", '\0'));
+        assertEquals("xabx", StringUtils.wrapIfMissing("ab", 'x'));
+        assertEquals("\"ab\"", StringUtils.wrapIfMissing("ab", '\"'));
+        assertEquals("\"ab\"", StringUtils.wrapIfMissing("\"ab\"", '\"'));
+        assertEquals("'ab'", StringUtils.wrapIfMissing("ab", '\''));
+        assertEquals("'abcd'", StringUtils.wrapIfMissing("'abcd'", '\''));
+        assertEquals("'\"abcd\"'", StringUtils.wrapIfMissing("\"abcd\"", '\''));
+        assertEquals("\"'abcd'\"", StringUtils.wrapIfMissing("'abcd'", '\"'));
+        assertEquals("/x/", StringUtils.wrapIfMissing("x", '/'));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z", '/'));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("/x/y/z", '/'));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z/", '/'));
+        assertEquals("/", StringUtils.wrapIfMissing("/", '/'));
+    }
+
+    @Test
+    public void testWrapIfMissing_StringString() {
+        assertNull(StringUtils.wrapIfMissing(null, "\0"));
+        assertNull(StringUtils.wrapIfMissing(null, "1"));
+
+        assertEquals("", StringUtils.wrapIfMissing("", "\0"));
+        assertEquals("xabx", StringUtils.wrapIfMissing("ab", "x"));
+        assertEquals("\"ab\"", StringUtils.wrapIfMissing("ab", "\""));
+        assertEquals("\"ab\"", StringUtils.wrapIfMissing("\"ab\"", "\""));
+        assertEquals("'ab'", StringUtils.wrapIfMissing("ab", "\'"));
+        assertEquals("'abcd'", StringUtils.wrapIfMissing("'abcd'", "\'"));
+        assertEquals("'\"abcd\"'", StringUtils.wrapIfMissing("\"abcd\"", "\'"));
+        assertEquals("\"'abcd'\"", StringUtils.wrapIfMissing("'abcd'", "\""));
+        assertEquals("/x/", StringUtils.wrapIfMissing("x", "/"));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z", "/"));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("/x/y/z", "/"));
+        assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z/", "/"));
+        assertEquals("/", StringUtils.wrapIfMissing("/", "/"));
+        assertEquals("ab/ab", StringUtils.wrapIfMissing("/", "ab"));
+        assertEquals("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
     }
 
     @Test

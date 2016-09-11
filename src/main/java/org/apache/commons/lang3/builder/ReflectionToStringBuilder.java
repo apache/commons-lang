@@ -233,7 +233,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param outputTransients
      *            whether to include transient fields
      * @param outputStatics
-     *            whether to include transient fields
+     *            whether to include static fields
      * @return the String result
      * @throws IllegalArgumentException
      *             if the Object is <code>null</code>

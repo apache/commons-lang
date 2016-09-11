@@ -81,7 +81,23 @@ public class RandomStringUtils {
     public static String randomAscii(final int count) {
         return random(count, 32, 127, false, false);
     }
-    
+
+    /**
+     * <p>Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.</p>
+     *
+     * <p>Characters will be chosen from the set of characters whose
+     * ASCII value is between {@code 32} and {@code 126} (inclusive).</p>
+     *
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
+     * @since 3.5
+     */
+    public static String randomAscii(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAscii(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
     /**
      * <p>Creates a random string whose length is the number of characters
      * specified.</p>
@@ -95,7 +111,22 @@ public class RandomStringUtils {
     public static String randomAlphabetic(final int count) {
         return random(count, true, false);
     }
-    
+
+    /**
+     * <p>Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.</p>
+     *
+     * <p>Characters will be chosen from the set of alphabetic characters.</p>
+     *
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
+     * @since 3.5
+     */
+    public static String randomAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAlphabetic(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
     /**
      * <p>Creates a random string whose length is the number of characters
      * specified.</p>
@@ -109,7 +140,22 @@ public class RandomStringUtils {
     public static String randomAlphanumeric(final int count) {
         return random(count, true, true);
     }
-    
+
+    /**
+     * <p>Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.</p>
+     *
+     * <p>Characters will be chosen from the set of alpha-numeric characters.</p>
+     *
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
+     * @since 3.5
+     */
+    public static String randomAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAlphanumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
     /**
      * <p>Creates a random string whose length is the number of characters specified.</p>
      *
@@ -124,7 +170,22 @@ public class RandomStringUtils {
     public static String randomGraph(final int count) {
         return random(count, 33, 126, false, false);
     }
-    
+
+    /**
+     * <p>Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.</p>
+     *
+     * <p>Characters will be chosen from the set of \p{Graph} characters.</p>
+     *
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
+     * @since 3.5
+     */
+    public static String randomGraph(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomGraph(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
     /**
      * <p>Creates a random string whose length is the number of characters
      * specified.</p>
@@ -140,6 +201,21 @@ public class RandomStringUtils {
     }
 
     /**
+     * <p>Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.</p>
+     *
+     * <p>Characters will be chosen from the set of \p{Digit} characters.</p>
+     *
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
+     * @since 3.5
+     */
+    public static String randomNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomNumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+    /**
      * <p>Creates a random string whose length is the number of characters specified.</p>
      *
      * <p>Characters will be chosen from the set of characters which match the POSIX [:print:]
@@ -152,6 +228,21 @@ public class RandomStringUtils {
      */
     public static String randomPrint(final int count) {
         return random(count, 32, 126, false, false);
+    }
+
+    /**
+     * <p>Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.</p>
+     *
+     * <p>Characters will be chosen from the set of \p{Print} characters.</p>
+     *
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
+     * @since 3.5
+     */
+    public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomPrint(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**

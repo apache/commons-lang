@@ -584,6 +584,7 @@ public class WordUtils {
      * @param word The CharSequence to check, may be null
      * @param words The array of String words to search for, may be null
      * @return {@code true} if all search words are found, {@code false} otherwise
+     * @since 3.5
      */
     public static boolean containsAllWords(CharSequence word, CharSequence... words) {
         if (StringUtils.isEmpty(word) || ArrayUtils.isEmpty(words)) {
