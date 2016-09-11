@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -1407,8 +1408,6 @@ public class NumberUtils {
         boolean hasDecPoint = false;
         boolean allowSigns = false;
         boolean foundDigit = false;
-        boolean isJava6 = StringUtils.startsWith(
-                System.getProperty("java.version"), "1.6");
         // deal with any possible sign up front
         final int start = (chars[0] == '-' || chars[0] == '+') ? 1 : 0;
         final boolean hasLeadingPlusSign = (start == 1 && chars[0] == '+');
@@ -1481,7 +1480,7 @@ public class NumberUtils {
         }
         if (i < chars.length) {
             if (chars[i] >= '0' && chars[i] <= '9') {
-                if (isJava6 && hasLeadingPlusSign && !hasDecPoint) {
+                if (SystemUtils.IS_JAVA_1_6 && hasLeadingPlusSign && !hasDecPoint) {
                     return false;
                 }
                 // no type qualifier, OK

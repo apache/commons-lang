@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
 /**
@@ -1298,7 +1299,7 @@ public class NumberUtilsTest {
     @Test
     public void testLANG1252() {
         //Check idiosyncries between java 1.6 and 1.7,1.8 redarding leading + signs
-        if (StringUtils.startsWith(System.getProperty("java.version"), "1.6")) {
+        if (SystemUtils.IS_JAVA_1_6) {
             compareIsCreatableWithCreateNumber("+2", false);
         } else {
             compareIsCreatableWithCreateNumber("+2", true);
