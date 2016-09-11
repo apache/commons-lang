@@ -227,6 +227,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      *
      * @param operand the quantity to add, not null
      * @return the value associated with this instance after adding the operand
+     * @since 3.5
      */
     public short addAndGet(final short operand) {
         this.value += operand;
@@ -240,6 +241,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @param operand the quantity to add, not null
      * @throws NullPointerException if {@code operand} is null
      * @return the value associated with this instance after adding the operand
+     * @since 3.5
      */
     public short addAndGet(final Number operand) {
         this.value += operand.shortValue();
@@ -252,6 +254,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      *
      * @param operand the quantity to add, not null
      * @return the value associated with this instance immediately before the operand was added
+     * @since 3.5
      */
     public short getAndAdd(final short operand) {
         short last = value;
@@ -266,6 +269,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @param operand the quantity to add, not null
      * @throws NullPointerException if {@code operand} is null
      * @return the value associated with this instance immediately before the operand was added
+     * @since 3.5
      */
     public short getAndAdd(final Number operand) {
         short last = value;

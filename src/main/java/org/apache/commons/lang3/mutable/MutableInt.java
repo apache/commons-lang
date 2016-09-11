@@ -227,6 +227,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      *
      * @param operand the quantity to add, not null
      * @return the value associated with this instance after adding the operand
+     * @since 3.5
      */
     public int addAndGet(final int operand) {
         this.value += operand;
@@ -240,6 +241,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @param operand the quantity to add, not null
      * @throws NullPointerException if {@code operand} is null
      * @return the value associated with this instance after adding the operand
+     * @since 3.5
      */
     public int addAndGet(final Number operand) {
         this.value += operand.intValue();
@@ -252,6 +254,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      *
      * @param operand the quantity to add, not null
      * @return the value associated with this instance immediately before the operand was added
+     * @since 3.5
      */
     public int getAndAdd(final int operand) {
         int last = value;
@@ -266,6 +269,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @param operand the quantity to add, not null
      * @throws NullPointerException if {@code operand} is null
      * @return the value associated with this instance immediately before the operand was added
+     * @since 3.5
      */
     public int getAndAdd(final Number operand) {
         int last = value;

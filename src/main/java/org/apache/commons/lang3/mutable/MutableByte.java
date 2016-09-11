@@ -227,6 +227,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      *
      * @param operand the quantity to add, not null
      * @return the value associated with this instance after adding the operand
+     * @since 3.5
      */
     public byte addAndGet(final byte operand) {
         this.value += operand;
@@ -240,6 +241,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @param operand the quantity to add, not null
      * @throws NullPointerException if {@code operand} is null
      * @return the value associated with this instance after adding the operand
+     * @since 3.5
      */
     public byte addAndGet(final Number operand) {
         this.value += operand.byteValue();
@@ -252,6 +254,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      *
      * @param operand the quantity to add, not null
      * @return the value associated with this instance immediately before the operand was added
+     * @since 3.5
      */
     public byte getAndAdd(final byte operand) {
         byte last = value;
@@ -266,6 +269,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @param operand the quantity to add, not null
      * @throws NullPointerException if {@code operand} is null
      * @return the value associated with this instance immediately before the operand was added
+     * @since 3.5
      */
     public byte getAndAdd(final Number operand) {
         byte last = value;

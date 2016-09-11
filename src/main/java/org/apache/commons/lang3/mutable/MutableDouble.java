@@ -244,6 +244,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      *
      * @param operand the quantity to add, not null
      * @return the value associated with this instance after adding the operand
+     * @since 3.5
      */
     public double addAndGet(final double operand) {
         this.value += operand;
@@ -257,6 +258,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @param operand the quantity to add, not null
      * @throws NullPointerException if {@code operand} is null
      * @return the value associated with this instance after adding the operand
+     * @since 3.5
      */
     public double addAndGet(final Number operand) {
         this.value += operand.doubleValue();
@@ -269,6 +271,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      *
      * @param operand the quantity to add, not null
      * @return the value associated with this instance immediately before the operand was added
+     * @since 3.5
      */
     public double getAndAdd(final double operand) {
         double last = value;
@@ -283,6 +286,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @param operand the quantity to add, not null
      * @throws NullPointerException if {@code operand} is null
      * @return the value associated with this instance immediately before the operand was added
+     * @since 3.5
      */
     public double getAndAdd(final Number operand) {
         double last = value;
