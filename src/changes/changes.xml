@@ -82,7 +82,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1232" type="fix" dev="pschumacher" due-to="Nick Manley">DiffBuilder: Add null check on fieldName when appending Object or Object[]</action>
     <action issue="LANG-1178" type="fix" dev="pschumacher" due-to="Henri Yandell">ArrayUtils.removeAll(Object array, int... indices) should do the clone, not its callers</action>
     <action issue="LANG-1151" type="update" dev="pschumacher" due-to="Juan Pablo Santos Rodríguez">Performance improvements for NumberUtils.isParsable</action>
-    <action issue="LANG-1227" type="fix" dev="pschumacher" due-to="kaching88">StringUtils.stripAccents should remove accents from "Ł" and "ł".</action>
+    <action issue="LANG-1120" type="fix" dev="pschumacher" due-to="kaching88">StringUtils.stripAccents should remove accents from "Ł" and "ł".</action>
     <action issue="LANG-1227" type="new" dev="ggregory" due-to="Gary Gregory">Add XMLCharacter class.</action>
     <action issue="LANG-1218" type="update" dev="ggregory" due-to="Ruslan Cheremin">EqualsBuilder.append(Object,Object) is too big to be inlined, which prevents whole builder to be scalarized</action>
     <action issue="LANG-1205" type="fix" dev="chas" due-to="pbrose">NumberUtils.createNumber() behaves inconsistently with NumberUtils.isNumber()</action>
