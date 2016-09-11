@@ -1851,6 +1851,7 @@ public class ArrayUtils {
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final Object[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -1879,6 +1880,7 @@ public class ArrayUtils {
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final long[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -1905,6 +1907,7 @@ public class ArrayUtils {
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final int[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -1931,6 +1934,7 @@ public class ArrayUtils {
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final short[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -1957,6 +1961,7 @@ public class ArrayUtils {
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final char[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -1983,6 +1988,7 @@ public class ArrayUtils {
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final byte[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -2009,6 +2015,7 @@ public class ArrayUtils {
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final double[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -2035,6 +2042,7 @@ public class ArrayUtils {
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final float[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -2061,6 +2069,7 @@ public class ArrayUtils {
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
+     * @since 3.5
      */
     public static void swap(final boolean[] array, int offset1, int offset2) {
         if (array == null || array.length == 0) {
@@ -2090,6 +2099,7 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
     public static void swap(final boolean[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2130,8 +2140,8 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
-
     public static void swap(final byte[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
@@ -2171,6 +2181,7 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
     public static void swap(final char[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2211,6 +2222,7 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
     public static void swap(final double[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2251,6 +2263,7 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
     public static void swap(final float[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2292,6 +2305,7 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
     public static void swap(final int[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2332,6 +2346,7 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
     public static void swap(final long[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2372,6 +2387,7 @@ public class ArrayUtils {
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
+     * @since 3.5
      */
    public static void swap(final Object[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2412,6 +2428,7 @@ public class ArrayUtils {
     * @param offset1 the index of the first element in the series to swap
     * @param offset2 the index of the second element in the series to swap
     * @param len the number of elements to swap starting with the given indices
+    * @since 3.5
     */
     public static void swap(final short[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
@@ -2447,6 +2464,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final Object[] array, int offset) {
         if (array == null) {
@@ -2464,6 +2482,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final long[] array, int offset) {
         if (array == null) {
@@ -2481,6 +2500,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final int[] array, int offset) {
         if (array == null) {
@@ -2498,6 +2518,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final short[] array, int offset) {
         if (array == null) {
@@ -2515,6 +2536,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final char[] array, int offset) {
         if (array == null) {
@@ -2532,6 +2554,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final byte[] array, int offset) {
         if (array == null) {
@@ -2549,6 +2572,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final double[] array, int offset) {
         if (array == null) {
@@ -2566,6 +2590,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final float[] array, int offset) {
         if (array == null) {
@@ -2583,6 +2608,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final boolean[] array, int offset) {
         if (array == null) {
@@ -2609,7 +2635,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final boolean[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2670,7 +2696,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final byte[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2731,7 +2757,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final char[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2792,7 +2818,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final double[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2853,7 +2879,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final float[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2914,7 +2940,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final int[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -2975,6 +3001,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final long[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -3035,6 +3062,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
+     * @since 3.5
      */
     public static void shift(final Object[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
@@ -3095,7 +3123,7 @@ public class ArrayUtils {
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
-     * @since 3.2
+     * @since 3.5
      */
     public static void shift(final short[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
         if (array == null) {
