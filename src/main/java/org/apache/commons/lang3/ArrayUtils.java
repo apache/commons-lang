@@ -1832,12 +1832,11 @@ public class ArrayUtils {
     // Swap
     //-----------------------------------------------------------------------
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given array.
      *
-     * <p>There is no special handling for multi-dimensional arrays.
-     *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      * 
      * <p>Examples:
      *     <ul>
@@ -1847,6 +1846,7 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap(["1", "2", "3"], 0, 5) -&gt; ["1", "2", "3"]</li>
      *         <li>ArrayUtils.swap(["1", "2", "3"], -1, 1) -&gt; ["2", "1", "3"]</li>
      *     </ul>
+     * </p>
      *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
@@ -1861,12 +1861,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * <p>Swaps two elements in the given long array.
      *
-     * <p>There is no special handling for multi-dimensional arrays.
-     *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -1876,7 +1875,8 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([true, false, true], 0, 5) -&gt; [true, false, true]</li>
      *         <li>ArrayUtils.swap([true, false, true], -1, 1) -&gt; [false, true, true]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
@@ -1890,10 +1890,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given int array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -1903,6 +1904,7 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
+     * </p>
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
@@ -1917,10 +1919,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given short array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -1930,6 +1933,7 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
+     * </p>
      * 
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
@@ -1944,10 +1948,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given char array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      * 
      * <p>Examples:
      *     <ul>
@@ -1957,6 +1962,7 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
+     * </p>
      *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
@@ -1971,10 +1977,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given byte array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -1984,7 +1991,8 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
@@ -1998,10 +2006,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given double array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -2011,7 +2020,8 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
@@ -2025,10 +2035,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given float array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -2038,7 +2049,8 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
@@ -2052,10 +2064,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps two elements in the given array.
+     * Swaps two elements in the given boolean array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).
+     * <p>There is no special handling for multi-dimensional arrays. This method
+     * does nothing for a {@code null} or empty input array or for overflow indices.
+     * Negative indices are promoted to 0(zero).</p>
      *
      * <p>Examples:
      *     <ul>
@@ -2065,7 +2078,8 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3], 0, 5) -&gt; [1, 2, 3]</li>
      *         <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
@@ -2079,12 +2093,13 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * Swaps a series of elements in the given boolean array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
      * 
      * <p>Examples:
      *     <ul>
@@ -2094,14 +2109,15 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([true, false, true, false], -3, 2, 2) -&gt; [true, false, true, false]</li>
      *         <li>ArrayUtils.swap([true, false, true, false], 0, 3, 3) -&gt; [false, false, true, true]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @since 3.5
      */
-    public static void swap(final boolean[] array,  int offset1, int offset2, int len) {
+    public static void swap(final boolean[] array, int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
@@ -2120,13 +2136,14 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
-     * 
+     * Swaps a series of elements in the given byte array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
+     *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
@@ -2135,14 +2152,15 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @since 3.5
      */
-    public static void swap(final byte[] array,  int offset1, int offset2, int len) {
+    public static void swap(final byte[] array, int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
@@ -2161,12 +2179,13 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * Swaps a series of elements in the given char array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
      * 
      * <p>Examples:
      *     <ul>
@@ -2176,14 +2195,15 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @since 3.5
      */
-    public static void swap(final char[] array,  int offset1, int offset2, int len) {
+    public static void swap(final char[] array, int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
@@ -2202,12 +2222,13 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * Swaps a series of elements in the given double array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
      * 
      * <p>Examples:
      *     <ul>
@@ -2217,7 +2238,8 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
@@ -2243,13 +2265,14 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
-     * 
+     * Swaps a series of elements in the given float array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
+     *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
@@ -2258,14 +2281,15 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
      * @since 3.5
      */
-    public static void swap(final float[] array,  int offset1, int offset2, int len) {
+    public static void swap(final float[] array, int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
@@ -2285,13 +2309,14 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
-     * 
+     * Swaps a series of elements in the given int array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
+     *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
@@ -2300,7 +2325,8 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
@@ -2326,13 +2352,14 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
-     * 
+     * Swaps a series of elements in the given long array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
+     *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
@@ -2341,7 +2368,8 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
      *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
@@ -2367,12 +2395,13 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Swaps a series of elements in the given array.
-     * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
+     * Swaps a series of elements in the given array.
+     *
+     * <p>This method does nothing for a {@code null} or empty input array or
+     * for overflow indices. Negative indices are promoted to 0(zero). If any
+     * of the sub-arrays to swap falls outside of the given array, then the
+     * swap is stopped at the end of the array and as many as possible elements
+     * are swapped.</p>
      * 
      * <p>Examples:
      *     <ul>
@@ -2382,7 +2411,8 @@ public class ArrayUtils {
      *         <li>ArrayUtils.swap(["1", "2", "3", "4"], -3, 2, 2) -&gt; ["3", "4", "1", "2"]</li>
      *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 3, 3) -&gt; ["4", "2", "3", "1"]</li>
      *     </ul>
-     * 
+     * </p>
+     *
      * @param array the array to swap, may be {@code null}
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
@@ -2408,22 +2438,24 @@ public class ArrayUtils {
     }
 
    /**
-    * <p>Swaps a series of elements in the given array.
-    * 
-     * <p>This method does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero). 
-     * If any of the sub-arrays to swap falls outside of the given array, 
-     * then the swap is stopped at the end of the array and as many as possible elements are swapped.
-     * 
-     * <p>Examples:
-     *     <ul>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -&gt; [1, 2, 3, 4]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -&gt; [3, 4, 1, 2]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
-     *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
-     *     </ul>
-    * 
+    * Swaps a series of elements in the given short array.
+    *
+    * <p>This method does nothing for a {@code null} or empty input array or
+    * for overflow indices. Negative indices are promoted to 0(zero). If any
+    * of the sub-arrays to swap falls outside of the given array, then the
+    * swap is stopped at the end of the array and as many as possible elements
+    * are swapped.</p>
+    *
+    * <p>Examples:
+    *     <ul>
+    *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
+    *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 0, 1) -&gt; [1, 2, 3, 4]</li>
+    *         <li>ArrayUtils.swap([1, 2, 3, 4], 2, 0, 2) -&gt; [3, 4, 1, 2]</li>
+    *         <li>ArrayUtils.swap([1, 2, 3, 4], -3, 2, 2) -&gt; [3, 4, 1, 2]</li>
+    *         <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
+    *     </ul>
+    * </p>
+    *
     * @param array the array to swap, may be {@code null}
     * @param offset1 the index of the first element in the series to swap
     * @param offset2 the index of the second element in the series to swap
