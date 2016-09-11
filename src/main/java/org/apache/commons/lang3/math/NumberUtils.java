@@ -1365,8 +1365,10 @@ public class NumberUtils {
      *
      * @param str  the <code>String</code> to check
      * @return <code>true</code> if the string is a correctly formatted number
-     * @since 3.3 the code supports hex {@code 0Xhhh} and octal {@code 0ddd} validation
-     * @deprecated This feature will be removed in Lang 4.0, use {@link NumberUtils#isCreatable(String)} instead
+     * @since 3.3 the code supports hex {@code 0Xhhh} an
+     *        octal {@code 0ddd} validation
+     * @deprecated This feature will be removed in Lang 4.0,
+     *             use {@link NumberUtils#isCreatable(String)} instead
      */
     @Deprecated
     public static boolean isNumber(final String str) {
@@ -1377,9 +1379,9 @@ public class NumberUtils {
      * <p>Checks whether the String a valid Java number.</p>
      *
      * <p>Valid numbers include hexadecimal marked with the <code>0x</code> or
-     * <code>0X</code> qualifier, octal numbers, scientific notation and numbers 
-     * marked with a type qualifier (e.g. 123L).</p>
-     * 
+     * <code>0X</code> qualifier, octal numbers, scientific notation and
+     * numbers marked with a type qualifier (e.g. 123L).</p>
+     *
      * <p>Non-hexadecimal strings beginning with a leading zero are
      * treated as octal values. Thus the string <code>09</code> will return
      * <code>false</code>, since <code>9</code> is not a valid octal value.
@@ -1405,7 +1407,8 @@ public class NumberUtils {
         boolean hasDecPoint = false;
         boolean allowSigns = false;
         boolean foundDigit = false;
-        boolean isJava6 = StringUtils.startsWith(System.getProperty("java.version"), "1.6");
+        boolean isJava6 = StringUtils.startsWith(
+                System.getProperty("java.version"), "1.6");
         // deal with any possible sign up front
         final int start = (chars[0] == '-' || chars[0] == '+') ? 1 : 0;
         final boolean hasLeadingPlusSign = (start == 1 && chars[0] == '+');
