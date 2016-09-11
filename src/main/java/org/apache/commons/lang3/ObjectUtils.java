@@ -129,9 +129,12 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>Checks if any value in the array is not {@code null}.
+     * Checks if any value in the given array is not {@code null}.
+     *
+     * <p>
      * If all the values are {@code null} or the array is {@code null}
-     * or empty then {@code false} is returned. Otherwise {@code true} is returned.</p>
+     * or empty then {@code false} is returned. Otherwise {@code true} is returned.
+     * </p>
      *
      * <pre>
      * ObjectUtils.anyNotNull(*)                = true
@@ -153,11 +156,14 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>Checks if all values in the array are not {@code null}s.
-     * If any value is {@code null} or the array is {@code null}
-     * then {@code false} is returned.
-     * If all elements in array are not {@code null} or the array is empty (contains no elements)
-     * {@code true} is returned.</p>
+     * Checks if all values in the array are not {@code nulls}.
+     *
+     * <p>
+     * If any value is {@code null} or the array is {@code null} then
+     * {@code false} is returned. If all elements in array are not
+     * {@code null} or the array is empty (contains no elements) {@code true}
+     * is returned.
+     * </p>
      * 
      * <pre>
      * ObjectUtils.allNotNull(*)             = true
