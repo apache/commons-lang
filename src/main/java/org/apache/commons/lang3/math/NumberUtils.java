@@ -1349,6 +1349,34 @@ public class NumberUtils {
      * <p>Checks whether the String a valid Java number.</p>
      *
      * <p>Valid numbers include hexadecimal marked with the <code>0x</code> or
+     * <code>0X</code> qualifier, octal numbers, scientific notation and numbers
+     * marked with a type qualifier (e.g. 123L).</p>
+     *
+     * <p>Non-hexadecimal strings beginning with a leading zero are
+     * treated as octal values. Thus the string <code>09</code> will return
+     * <code>false</code>, since <code>9</code> is not a valid octal value.
+     * However, numbers beginning with {@code 0.} are treated as decimal.</p>
+     *
+     * <p><code>null</code> and empty/blank {@code String} will return
+     * <code>false</code>.</p>
+     *
+     * <p>Note, {@link #createNumber(String)} should return a number for every
+     * input resuling in <code>true</code>.</p>
+     *
+     * @param str  the <code>String</code> to check
+     * @return <code>true</code> if the string is a correctly formatted number
+     * @since 3.3 the code supports hex {@code 0Xhhh} and octal {@code 0ddd} validation
+     * @deprecated This feature will be removed in Lang 4.0, use {@link NumberUtils#isCreatable(String)} instead
+     */
+    @Deprecated
+    public static boolean isNumber(final String str) {
+        return isCreatable(str);
+    }
+
+    /**
+     * <p>Checks whether the String a valid Java number.</p>
+     *
+     * <p>Valid numbers include hexadecimal marked with the <code>0x</code> or
      * <code>0X</code> qualifier, octal numbers, scientific notation and numbers 
      * marked with a type qualifier (e.g. 123L).</p>
      * 
@@ -1360,11 +1388,14 @@ public class NumberUtils {
      * <p><code>null</code> and empty/blank {@code String} will return
      * <code>false</code>.</p>
      *
+     * <p>Note, {@link #createNumber(String)} should return a number for every
+     * input resuling in <code>true</code>.</p>
+     *
      * @param str  the <code>String</code> to check
      * @return <code>true</code> if the string is a correctly formatted number
      * @since 3.3 the code supports hex {@code 0Xhhh} and octal {@code 0ddd} validation
      */
-    public static boolean isNumber(final String str) {
+    public static boolean isCreatable(final String str) {
         if (StringUtils.isEmpty(str)) {
             return false;
         }
@@ -1374,8 +1405,10 @@ public class NumberUtils {
         boolean hasDecPoint = false;
         boolean allowSigns = false;
         boolean foundDigit = false;
+        boolean isJava6 = StringUtils.startsWith(System.getProperty("java.version"), "1.6");
         // deal with any possible sign up front
-        final int start = (chars[0] == '-') ? 1 : 0;
+        final int start = (chars[0] == '-' || chars[0] == '+') ? 1 : 0;
+        final boolean hasLeadingPlusSign = (start == 1 && chars[0] == '+');
         if (sz > start + 1 && chars[start] == '0') { // leading 0
             if (
                  (chars[start + 1] == 'x') || 
@@ -1445,6 +1478,9 @@ public class NumberUtils {
         }
         if (i < chars.length) {
             if (chars[i] >= '0' && chars[i] <= '9') {
+                if (isJava6 && hasLeadingPlusSign && !hasDecPoint) {
+                    return false;
+                }
                 // no type qualifier, OK
                 return true;
             }
@@ -1489,7 +1525,7 @@ public class NumberUtils {
      * when calling one of those methods.</p>
      *
      * <p>Hexadecimal and scientific notations are <strong>not</strong> considered parsable.
-     * See {@link #isNumber(String)} on those cases.</p>
+     * See {@link #isCreatable(String)} on those cases.</p>
      *
      * <p>{@code Null} and empty String will return <code>false</code>.</p>
      *

@@ -27,6 +27,7 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 /**
@@ -1216,91 +1217,104 @@ public class NumberUtilsTest {
     }
 
     /**
-     * Tests isNumber(String) and tests that createNumber(String) returns
-     * a valid number iff isNumber(String) returns false.
+     * Tests isCreatable(String) and tests that createNumber(String) returns
+     * a valid number iff isCreatable(String) returns false.
      */
     @Test
-    public void testIsNumber() {
-        compareIsNumberWithCreateNumber("12345", true);
-        compareIsNumberWithCreateNumber("1234.5", true);
-        compareIsNumberWithCreateNumber(".12345", true);
-        compareIsNumberWithCreateNumber("1234E5", true);
-        compareIsNumberWithCreateNumber("1234E+5", true);
-        compareIsNumberWithCreateNumber("1234E-5", true);
-        compareIsNumberWithCreateNumber("123.4E5", true);
-        compareIsNumberWithCreateNumber("-1234", true);
-        compareIsNumberWithCreateNumber("-1234.5", true);
-        compareIsNumberWithCreateNumber("-.12345", true);
-        compareIsNumberWithCreateNumber("-1234E5", true);
-        compareIsNumberWithCreateNumber("0", true);
-        compareIsNumberWithCreateNumber("-0", true);
-        compareIsNumberWithCreateNumber("01234", true);
-        compareIsNumberWithCreateNumber("-01234", true);
-        compareIsNumberWithCreateNumber("-0xABC123", true);
-        compareIsNumberWithCreateNumber("-0x0", true);
-        compareIsNumberWithCreateNumber("123.4E21D", true);
-        compareIsNumberWithCreateNumber("-221.23F", true);
-        compareIsNumberWithCreateNumber("22338L", true);
+    public void testIsCreatable() {
+        compareIsCreatableWithCreateNumber("12345", true);
+        compareIsCreatableWithCreateNumber("1234.5", true);
+        compareIsCreatableWithCreateNumber(".12345", true);
+        compareIsCreatableWithCreateNumber("1234E5", true);
+        compareIsCreatableWithCreateNumber("1234E+5", true);
+        compareIsCreatableWithCreateNumber("1234E-5", true);
+        compareIsCreatableWithCreateNumber("123.4E5", true);
+        compareIsCreatableWithCreateNumber("-1234", true);
+        compareIsCreatableWithCreateNumber("-1234.5", true);
+        compareIsCreatableWithCreateNumber("-.12345", true);
+        compareIsCreatableWithCreateNumber("-1234E5", true);
+        compareIsCreatableWithCreateNumber("0", true);
+        compareIsCreatableWithCreateNumber("-0", true);
+        compareIsCreatableWithCreateNumber("01234", true);
+        compareIsCreatableWithCreateNumber("-01234", true);
+        compareIsCreatableWithCreateNumber("-0xABC123", true);
+        compareIsCreatableWithCreateNumber("-0x0", true);
+        compareIsCreatableWithCreateNumber("123.4E21D", true);
+        compareIsCreatableWithCreateNumber("-221.23F", true);
+        compareIsCreatableWithCreateNumber("22338L", true);
 
-        compareIsNumberWithCreateNumber(null, false);
-        compareIsNumberWithCreateNumber("", false);
-        compareIsNumberWithCreateNumber(" ", false);
-        compareIsNumberWithCreateNumber("\r\n\t", false);
-        compareIsNumberWithCreateNumber("--2.3", false);
-        compareIsNumberWithCreateNumber(".12.3", false);
-        compareIsNumberWithCreateNumber("-123E", false);
-        compareIsNumberWithCreateNumber("-123E+-212", false);
-        compareIsNumberWithCreateNumber("-123E2.12", false);
-        compareIsNumberWithCreateNumber("0xGF", false);
-        compareIsNumberWithCreateNumber("0xFAE-1", false);
-        compareIsNumberWithCreateNumber(".", false);
-        compareIsNumberWithCreateNumber("-0ABC123", false);
-        compareIsNumberWithCreateNumber("123.4E-D", false);
-        compareIsNumberWithCreateNumber("123.4ED", false);
-        compareIsNumberWithCreateNumber("1234E5l", false);
-        compareIsNumberWithCreateNumber("11a", false);
-        compareIsNumberWithCreateNumber("1a", false);
-        compareIsNumberWithCreateNumber("a", false);
-        compareIsNumberWithCreateNumber("11g", false);
-        compareIsNumberWithCreateNumber("11z", false);
-        compareIsNumberWithCreateNumber("11def", false);
-        compareIsNumberWithCreateNumber("11d11", false);
-        compareIsNumberWithCreateNumber("11 11", false);
-        compareIsNumberWithCreateNumber(" 1111", false);
-        compareIsNumberWithCreateNumber("1111 ", false);
+        compareIsCreatableWithCreateNumber(null, false);
+        compareIsCreatableWithCreateNumber("", false);
+        compareIsCreatableWithCreateNumber(" ", false);
+        compareIsCreatableWithCreateNumber("\r\n\t", false);
+        compareIsCreatableWithCreateNumber("--2.3", false);
+        compareIsCreatableWithCreateNumber(".12.3", false);
+        compareIsCreatableWithCreateNumber("-123E", false);
+        compareIsCreatableWithCreateNumber("-123E+-212", false);
+        compareIsCreatableWithCreateNumber("-123E2.12", false);
+        compareIsCreatableWithCreateNumber("0xGF", false);
+        compareIsCreatableWithCreateNumber("0xFAE-1", false);
+        compareIsCreatableWithCreateNumber(".", false);
+        compareIsCreatableWithCreateNumber("-0ABC123", false);
+        compareIsCreatableWithCreateNumber("123.4E-D", false);
+        compareIsCreatableWithCreateNumber("123.4ED", false);
+        compareIsCreatableWithCreateNumber("1234E5l", false);
+        compareIsCreatableWithCreateNumber("11a", false);
+        compareIsCreatableWithCreateNumber("1a", false);
+        compareIsCreatableWithCreateNumber("a", false);
+        compareIsCreatableWithCreateNumber("11g", false);
+        compareIsCreatableWithCreateNumber("11z", false);
+        compareIsCreatableWithCreateNumber("11def", false);
+        compareIsCreatableWithCreateNumber("11d11", false);
+        compareIsCreatableWithCreateNumber("11 11", false);
+        compareIsCreatableWithCreateNumber(" 1111", false);
+        compareIsCreatableWithCreateNumber("1111 ", false);
 
-        compareIsNumberWithCreateNumber("2.", true); // LANG-521
-        compareIsNumberWithCreateNumber("1.1L", false); // LANG-664
+        compareIsCreatableWithCreateNumber("2.", true); // LANG-521
+        compareIsCreatableWithCreateNumber("1.1L", false); // LANG-664
     }
 
     @Test
     public void testLANG971() {
-        compareIsNumberWithCreateNumber("0085", false);
-        compareIsNumberWithCreateNumber("085", false);
-        compareIsNumberWithCreateNumber("08", false);
-        compareIsNumberWithCreateNumber("07", true);
-        compareIsNumberWithCreateNumber("00", true);
+        compareIsCreatableWithCreateNumber("0085", false);
+        compareIsCreatableWithCreateNumber("085", false);
+        compareIsCreatableWithCreateNumber("08", false);
+        compareIsCreatableWithCreateNumber("07", true);
+        compareIsCreatableWithCreateNumber("00", true);
     }
 
     @Test
     public void testLANG992() {
-        compareIsNumberWithCreateNumber("0.0", true);
-        compareIsNumberWithCreateNumber("0.4790", true);
+        compareIsCreatableWithCreateNumber("0.0", true);
+        compareIsCreatableWithCreateNumber("0.4790", true);
     }
 
     @Test
     public void testLANG972() {
-        compareIsNumberWithCreateNumber("0xABCD", true);
-        compareIsNumberWithCreateNumber("0XABCD", true);
+        compareIsCreatableWithCreateNumber("0xABCD", true);
+        compareIsCreatableWithCreateNumber("0XABCD", true);
     }
 
-    private void compareIsNumberWithCreateNumber(final String val, final boolean expected) {
-        final boolean isValid = NumberUtils.isNumber(val);
+    @Test
+    public void testLANG1252() {
+        //Check idiosyncries between java 1.6 and 1.7,1.8 redarding leading + signs
+        if (StringUtils.startsWith(System.getProperty("java.version"), "1.6")) {
+            compareIsCreatableWithCreateNumber("+2", false);
+        } else {
+            compareIsCreatableWithCreateNumber("+2", true);
+        }
+
+        //The Following should work regardless of 1.6, 1.7, or 1.8
+        compareIsCreatableWithCreateNumber("+2.0", true);
+    }
+
+    private void compareIsCreatableWithCreateNumber(final String val, final boolean expected) {
+        final boolean isValid = NumberUtils.isCreatable(val);
         final boolean canCreate = checkCreateNumber(val);
         if (isValid == expected && canCreate == expected) {
             return;
         }
-        fail("Expecting "+ expected + " for isNumber/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
+        fail("Expecting "+ expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
     }
     
     @Test
