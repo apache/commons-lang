@@ -4589,6 +4589,7 @@ public class StringUtils {
      * @param objects the varargs providing the values to join together. {@code null} elements are treated as ""
      * @return the joined String.
      * @throws java.lang.IllegalArgumentException if a null varargs is provided
+     * @since 3.5
      */
     public static String joinWith(final String separator, final Object... objects) {
         if (objects == null) {
@@ -7042,6 +7043,7 @@ public class StringUtils {
      * @return the rotated String,
      *          or the original String if {@code shift == 0},
      *          or {@code null} if null String input
+     * @since 3.5
      */
     public static String rotate(String str, int shift) {
         if (str == null) {
