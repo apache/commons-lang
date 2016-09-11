@@ -2402,7 +2402,7 @@ public class ArrayUtils {
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
      * are swapped.</p>
-     * 
+     *
      * <p>Examples:
      *     <ul>
      *         <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 2, 1) -&gt; ["3", "2", "1", "4"]</li>
@@ -2419,7 +2419,7 @@ public class ArrayUtils {
      * @param len the number of elements to swap starting with the given indices
      * @since 3.5
      */
-   public static void swap(final Object[] array,  int offset1, int offset2, int len) {
+    public static void swap(final Object[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
