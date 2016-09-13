@@ -914,15 +914,15 @@ public class ValidateTest  {
     
     @Test
     public void testGreaterObject1() {
-        Validate.greaterObj("c", "b");
+        Validate.greaterObject("c", "b");
         try {
-            Validate.greaterObj("b", "b");
+            Validate.greaterObject("b", "b");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("The value b is not greater than b", ex.getMessage());
         }
         try {
-            Validate.greaterObj("a", "b");
+            Validate.greaterObject("a", "b");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("The value a is not greater than b", ex.getMessage());
@@ -931,15 +931,15 @@ public class ValidateTest  {
     
     @Test
     public void testGreaterObject2() {
-        Validate.greaterObj("c", "b", "MSG");
+        Validate.greaterObject("c", "b", "MSG");
         try {
-            Validate.greaterObj("b", "b", "MSG");
+            Validate.greaterObject("b", "b", "MSG");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         try {
-            Validate.greaterObj("a", "b", "MSG");
+            Validate.greaterObject("a", "b", "MSG");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
@@ -1057,10 +1057,10 @@ public class ValidateTest  {
     
     @Test
     public void testGreaterOrEqualObject1() {
-        Validate.greaterOrEqualObj("c", "b");
-        Validate.greaterOrEqualObj("b", "b");
+        Validate.greaterOrEqualObject("c", "b");
+        Validate.greaterOrEqualObject("b", "b");
         try {
-            Validate.greaterOrEqualObj("a", "b");
+            Validate.greaterOrEqualObject("a", "b");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("The value a is not greater than or equal to b", ex.getMessage());
@@ -1069,10 +1069,10 @@ public class ValidateTest  {
     
     @Test
     public void testGreaterOrEqualObject2() {
-        Validate.greaterOrEqualObj("c", "b", "MSG");
-        Validate.greaterOrEqualObj("b", "b", "MSG");
+        Validate.greaterOrEqualObject("c", "b", "MSG");
+        Validate.greaterOrEqualObject("b", "b", "MSG");
         try {
-            Validate.greaterOrEqualObj("a", "b", "MSG");
+            Validate.greaterOrEqualObject("a", "b", "MSG");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
@@ -1183,15 +1183,15 @@ public class ValidateTest  {
     
     @Test
     public void testSmallerObject1() {
-        Validate.smallerObj("a", "b");
+        Validate.smallerObject("a", "b");
         try {
-            Validate.smallerObj("b", "b");
+            Validate.smallerObject("b", "b");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("The value b is not smaller than b", ex.getMessage());
         }
         try {
-            Validate.smallerObj("c", "b");
+            Validate.smallerObject("c", "b");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("The value c is not smaller than b", ex.getMessage());
@@ -1200,15 +1200,15 @@ public class ValidateTest  {
     
     @Test
     public void testSmallerObject2() {
-        Validate.smallerObj("a", "b", "MSG");
+        Validate.smallerObject("a", "b", "MSG");
         try {
-            Validate.smallerObj("b", "b", "MSG");
+            Validate.smallerObject("b", "b", "MSG");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         try {
-            Validate.smallerObj("c", "b", "MSG");
+            Validate.smallerObject("c", "b", "MSG");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
@@ -1326,10 +1326,10 @@ public class ValidateTest  {
     
     @Test
     public void testSmallerOrEqualObject1() {
-        Validate.smallerOrEqualObj("a", "b");
-        Validate.smallerOrEqualObj("b", "b");
+        Validate.smallerOrEqualObject("a", "b");
+        Validate.smallerOrEqualObject("b", "b");
         try {
-            Validate.smallerOrEqualObj("c", "b");
+            Validate.smallerOrEqualObject("c", "b");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("The value c is not smaller than or equal to b", ex.getMessage());
@@ -1338,10 +1338,10 @@ public class ValidateTest  {
     
     @Test
     public void testSmallerOrEqualObject2() {
-        Validate.smallerOrEqualObj("a", "b", "MSG");
-        Validate.smallerOrEqualObj("b", "b", "MSG");
+        Validate.smallerOrEqualObject("a", "b", "MSG");
+        Validate.smallerOrEqualObject("b", "b", "MSG");
         try {
-            Validate.smallerOrEqualObj("c", "b", "MSG");
+            Validate.smallerOrEqualObject("c", "b", "MSG");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
@@ -1439,9 +1439,9 @@ public class ValidateTest  {
     
     @Test
     public void testDifferentObject1() {
-        Validate.differentObj("b", "a");
+        Validate.differentObject("b", "a");
         try {
-            Validate.differentObj("a", "a");
+            Validate.differentObject("a", "a");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("The value a is invalid", ex.getMessage());
@@ -1450,9 +1450,9 @@ public class ValidateTest  {
     
     @Test
     public void testDifferentObject2() {
-        Validate.differentObj("b", "a", "MSG");
+        Validate.differentObject("b", "a", "MSG");
         try {
-            Validate.differentObj("a", "a", "MSG");
+            Validate.differentObject("a", "a", "MSG");
             fail("Expecting IllegalArgumentException");
         } catch (final IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
