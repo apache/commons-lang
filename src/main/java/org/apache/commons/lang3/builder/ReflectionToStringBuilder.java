@@ -547,6 +547,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
                     // Warning: Field.get(Object) creates wrappers objects
                     // for primitive types.
                     final Object fieldValue = this.getValue(field);
+                    if(field.isAnnotationPresent(ToStringExcludeNullValue.class) && fieldValue == null){
+                    	continue;
+                    }
                     this.append(fieldName, fieldValue);
                 } catch (final IllegalAccessException ex) {
                     //this can't happen. Would get a Security exception
