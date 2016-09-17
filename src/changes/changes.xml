@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.5" date="tba" description="tba">
+    <action issue="LANG-1197" type="update" dev="pschumacher" >Prepare Java 9 detection</action>
     <action issue="LANG-1206" type="update" dev="pschumacher" due-to="Mohammed Alfallaj">Improve CharSetUtils.squeeze() performance</action>
     <action issue="LANG-1225" type="add" dev="pschumacher" due-to="Caleb Cushing">Add RandomStringUtils#randomGraph and #randomPrint which match corresponding regular expression class</action>
     <action issue="LANG-901" type="fix" dev="pschumacher" due-to="Matthew Bartenschlag">StringUtils#startsWithAny/endsWithAny is case sensitive - documented as case insensitive</action>
