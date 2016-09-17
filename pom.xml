@@ -548,7 +548,6 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.source>1.6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
-    <additionalparam>-Xdoclint:none</additionalparam>
     <!--
        This is also  used to generate download_xxx file name.
        To override this when generating the download page:
