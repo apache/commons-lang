@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.5" date="tba" description="tba">
+  <release version="3.5" date="tba" description="New features including Java 9 detection">
     <action issue="LANG-1197" type="update" dev="pschumacher" >Prepare Java 9 detection</action>
     <action issue="LANG-1252" type="fix" dev="chtompki" due-to="Rob Tompkins">Rename NumberUtils.isNumber, isCreatable to better reflect createNumber. Also, accommodated for "+" symbol as prefix in isCreatable and isNumber.</action>
     <action issue="LANG-1262" type="update" dev="pschumacher" due-to="Ruslan Cheremin">CompareToBuilder.append(Object, Object, Comparator) method is too big to be inlined</action>
