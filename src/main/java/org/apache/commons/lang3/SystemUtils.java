@@ -1604,7 +1604,7 @@ public class SystemUtils {
      * @since Java 1.4
      */
     public static boolean isJavaAwtHeadless() {
-        return JAVA_AWT_HEADLESS != null ? JAVA_AWT_HEADLESS.equals(Boolean.TRUE.toString()) : false;
+        return Boolean.TRUE.toString().equals(JAVA_AWT_HEADLESS);
     }
 
     /**
