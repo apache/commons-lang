@@ -21,7 +21,9 @@ package org.apache.commons.lang3;
 import org.junit.Test;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_RECENT;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.apache.commons.lang3.JavaVersion.JAVA_0_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_2;
@@ -34,7 +36,7 @@ import static org.apache.commons.lang3.JavaVersion.JAVA_1_8;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_9;
 import static org.apache.commons.lang3.JavaVersion.get;
-import static org.apache.commons.lang3.JavaVersion.getJavaVersion;
+import static org.junit.Assert.fail;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.JavaVersion}.
@@ -55,7 +57,6 @@ public class JavaVersionTest {
         assertEquals("9 failed", JAVA_9, get("9"));
         assertEquals("1.10 failed", JAVA_RECENT, get("1.10"));
         // assertNull("2.10 unexpectedly worked", get("2.10"));
-        assertEquals("Wrapper method failed", get("1.5"), getJavaVersion("1.5"));
     }
 
     @Test
@@ -73,4 +74,28 @@ public class JavaVersionTest {
         assertEquals("1.2", JAVA_1_2.toString());
     }
 
+    @Test
+    public void testCurrent() throws Exception {
+        if (SystemUtils.IS_JAVA_1_1) {
+            assertEquals(JAVA_1_1, JavaVersion.CURRENT);
+        } else if (SystemUtils.IS_JAVA_1_2) {
+            assertEquals(JAVA_1_2, JavaVersion.CURRENT);
+        } else if (SystemUtils.IS_JAVA_1_3) {
+            assertEquals(JAVA_1_3, JavaVersion.CURRENT);
+        } else if (SystemUtils.IS_JAVA_1_4) {
+            assertEquals(JAVA_1_4, JavaVersion.CURRENT);
+        } else if (SystemUtils.IS_JAVA_1_5) {
+            assertEquals(JAVA_1_5, JavaVersion.CURRENT);
+        } else if (SystemUtils.IS_JAVA_1_6) {
+            assertEquals(JAVA_1_6, JavaVersion.CURRENT);
+        } else if (SystemUtils.IS_JAVA_1_7) {
+            assertEquals(JAVA_1_7, JavaVersion.CURRENT);
+        } else if (SystemUtils.IS_JAVA_1_8) {
+            assertEquals(JAVA_1_8, JavaVersion.CURRENT);
+        } else if (SystemUtils.IS_JAVA_1_9) {
+            assertEquals(JAVA_1_9, JavaVersion.CURRENT);
+        } else {
+            fail("Unkown java.specification.version: " + SystemUtils.JAVA_SPECIFICATION_VERSION);
+        }
+    }
 }

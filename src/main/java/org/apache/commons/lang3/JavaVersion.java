@@ -69,25 +69,46 @@ public enum JavaVersion {
 
     /**
      * Java 1.8.
+     *
+     * @since 3.4
      */
     JAVA_1_8(1.8f, "1.8"),
 
     /**
      * Java 1.9.
-     * 
+     *
+     * @since 3.4
      * @deprecated As of release 3.5, replaced by {@link #JAVA_9}
      */
     JAVA_1_9(9.0f, "9"),
 
     /**
      * Java 9
+     *
+     * @since 3.5
      */
     JAVA_9(9.0f, "9"),
 
     /**
      * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
+     * Java 1.x, x &gt; 9. Mainly introduced to avoid to break when a new version of Java is used.
+     *
+     * @since 3.4
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
+
+    /**
+     * JavaVersion representing the value of the {@code java.specification.version} system property.
+     *
+     * <p>
+     * Note that this is not an enum constant since it has to be calculated at runtime. For this reason
+     * this value can't be retrieved using {@link #valueOf(String)}.
+     * </p>
+     *
+     * @since 3.5
+     * @see SystemUtils#JAVA_SPECIFICATION_VERSION
+     */
+    public static JavaVersion CURRENT = get(SystemUtils.JAVA_SPECIFICATION_VERSION);
 
     /**
      * The float value.
@@ -121,20 +142,6 @@ public enum JavaVersion {
      */
     public boolean atLeast(final JavaVersion requiredVersion) {
         return this.value >= requiredVersion.value;
-    }
-
-    /**
-     * Transforms the given string with a Java version number to the
-     * corresponding constant of this enumeration class. This method is used
-     * internally.
-     *
-     * @param nom the Java version as string
-     * @return the corresponding enumeration constant or <b>null</b> if the
-     * version is unknown
-     */
-    // helper for static importing
-    static JavaVersion getJavaVersion(final String nom) {
-        return get(nom);
     }
 
     /**
