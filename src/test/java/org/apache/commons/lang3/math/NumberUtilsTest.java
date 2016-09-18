@@ -1410,7 +1410,7 @@ public class NumberUtilsTest {
     }
 
     private void compareIsNumberWithCreateNumber(final String val, final boolean expected) {
-        final boolean isValid = NumberUtils.isNumber(val);
+        final boolean isValid = NumberUtils.isCreatable(val);
         final boolean canCreate = checkCreateNumber(val);
         if (isValid == expected && canCreate == expected) {
             return;
