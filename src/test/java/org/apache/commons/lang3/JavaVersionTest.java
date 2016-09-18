@@ -31,7 +31,6 @@ import static org.apache.commons.lang3.JavaVersion.JAVA_1_5;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_6;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_7;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_8;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_9;
 import static org.apache.commons.lang3.JavaVersion.get;
 import static org.apache.commons.lang3.JavaVersion.getJavaVersion;
