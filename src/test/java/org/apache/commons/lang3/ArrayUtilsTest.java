@@ -2953,7 +2953,23 @@ public class ArrayUtilsTest  {
         assertTrue(ArrayUtils.contains(array, null));
         assertFalse(ArrayUtils.contains(array, "notInArray"));
     }
-    
+
+    @Test
+    public void testContains_LANG_1261() {
+        class LANG1261ParentObject {
+            @Override
+            public boolean equals(Object o) {
+                return true;
+            }
+        }
+        class LANG1261ChildObject extends LANG1261ParentObject {
+        }
+
+        Object[] array = new LANG1261ChildObject[] { new LANG1261ChildObject() };
+
+        assertTrue(ArrayUtils.contains(array, new LANG1261ParentObject()));
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testIndexOfLong() {
