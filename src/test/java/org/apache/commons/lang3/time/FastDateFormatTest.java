@@ -53,7 +53,7 @@ public class FastDateFormatTest {
     public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
 
     /*
-     * Only the cache methods need to be tested here.  
+     * Only the cache methods need to be tested here.
      * The print methods are tested by {@link FastDateFormat_PrinterTest}
      * and the parse methods are tested by {@link FastDateFormat_ParserTest}
      */
