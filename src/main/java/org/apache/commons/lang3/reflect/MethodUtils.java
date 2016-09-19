@@ -764,24 +764,24 @@ public class MethodUtils {
      * @return the aggregate number of inheritance hops between assignable argument class types.
      */
     private static int distance(Class<?>[] classArray, Class<?>[] toClassArray) {
-    	int answer=0;
-    	
-    	if (!ClassUtils.isAssignable(classArray, toClassArray, true)) {
-    		return -1;
-    	}
-    	for (int offset = 0; offset < classArray.length; offset++) {
-    		// Note InheritanceUtils.distance() uses different scoring system.
-    		if (classArray[offset].equals(toClassArray[offset])) {
-    			continue;
-    		} else if (ClassUtils.isAssignable(classArray[offset], toClassArray[offset], true) 
-    				&& !ClassUtils.isAssignable(classArray[offset], toClassArray[offset], false)) {
-    			answer++;
-    		} else {
-    			answer = answer+2;
-    		}
-    	}
-    	
-    	return answer;
+        int answer = 0;
+
+        if (!ClassUtils.isAssignable(classArray, toClassArray, true)) {
+            return -1;
+        }
+        for (int offset = 0; offset < classArray.length; offset++) {
+            // Note InheritanceUtils.distance() uses different scoring system.
+            if (classArray[offset].equals(toClassArray[offset])) {
+                continue;
+            } else if (ClassUtils.isAssignable(classArray[offset], toClassArray[offset], true)
+                    && !ClassUtils.isAssignable(classArray[offset], toClassArray[offset], false)) {
+                answer++;
+            } else {
+                answer = answer + 2;
+            }
+        }
+
+        return answer;
     }
 
     /**
