@@ -49,16 +49,6 @@ public class Validate {
         "The validated value is not a number";
     private static final String DEFAULT_FINITE_EX_MESSAGE =
         "The value is invalid: %f";
-    private static final String DEFAULT_GREATER_EX_MESSAGE =
-        "The value %s is not greater than %s";
-    private static final String DEFAULT_GREATER_OR_EQUAL_EX_MESSAGE =
-        "The value %s is not greater than or equal to %s";
-    private static final String DEFAULT_SMALLER_EX_MESSAGE =
-        "The value %s is not smaller than %s";
-    private static final String DEFAULT_SMALLER_OR_EQUAL_EX_MESSAGE =
-        "The value %s is not smaller than or equal to %s";
-    private static final String DEFAULT_DIFFERENT_EX_MESSAGE =
-        "The value %s is invalid";
     private static final String DEFAULT_EXCLUSIVE_BETWEEN_EX_MESSAGE =
         "The value %s is not in the specified exclusive range of %s to %s";
     private static final String DEFAULT_INCLUSIVE_BETWEEN_EX_MESSAGE =
