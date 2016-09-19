@@ -163,7 +163,7 @@ abstract class MemberUtils {
             // When isVarArgs is true, srcArgs and dstArgs may differ in length.
             // There are two special cases to consider:
             final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
-            final boolean explicitArrayForVarags = (srcArgs.length == destArgs.length) && srcArgs[srcArgs.length-1].isArray();
+            final boolean explicitArrayForVarags = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1].isArray();
 
             final float varArgsCost = 0.001f;
             Class<?> destClass = destArgs[destArgs.length-1].getComponentType();
