@@ -153,8 +153,9 @@ abstract class MemberUtils {
         // "source" and "destination" are the actual and declared args respectively.
         float totalCost = 0.0f;
         final long normalArgsLen = isVarArgs ? destArgs.length-1 : destArgs.length;
-        if (srcArgs.length < normalArgsLen)
+        if (srcArgs.length < normalArgsLen) {
             return Float.MAX_VALUE;
+        }
         for (int i = 0; i < normalArgsLen; i++) {
             totalCost += getObjectTransformationCost(srcArgs[i], destArgs[i]);
         }
