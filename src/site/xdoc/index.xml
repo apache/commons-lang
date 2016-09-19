@@ -74,9 +74,11 @@ The code base is monitored by a Sonar instance running on <a href="https://analy
 <p>
 Alternatively you can pull it from the central Maven repositories:
 <pre>
+&lt;dependency&gt;
   &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
   &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
   &lt;version&gt;3.4&lt;/version&gt;
+&lt;/dependency&gt;
 </pre>
 </p>
 
