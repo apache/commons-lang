@@ -159,6 +159,7 @@ public class MethodUtils {
      * </p>
      *
      * @param object invoke method on this object
+     * @param forceAccess force access to invoke method even if it's not accessible
      * @param methodName get method with this name
      * @param args use these arguments - treat null as empty array
      * @return The value returned by the invoked method
