@@ -319,5 +319,10 @@ public class FastDateFormatTest {
 
         dateAsString = FastDateFormat.getInstance("dd/MM/yyyy", utc, Locale.US).format(date);
         Assert.assertEquals("17/08/292278994", dateAsString);
-    }  
+    }
+
+    @Test
+    public void testLANG_1267() throws Exception {
+        FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+    }
 }
