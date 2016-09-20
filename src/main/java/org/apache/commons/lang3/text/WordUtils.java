@@ -253,7 +253,7 @@ public class WordUtils {
      *   <td>"\n"</td>
      *   <td>true</td>
      *   <td>"/"</td>
-     *   <td>"flammable/inflammable"</td>
+     *   <td>"flammable\ninflammable"</td>
      *  </tr>
      * </table>
      * @param str  the String to be word wrapped, may be null
