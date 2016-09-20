@@ -177,7 +177,7 @@ public class WordUtils {
     }
 
     /**
-     * <p>Wraps a single line of text, identifying words by <code>' '</code>.</p>
+     * <p>Wraps a single line of text, identifying words by <code>wrapOn</code>.</p>
      *
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>
@@ -188,6 +188,7 @@ public class WordUtils {
      *   <th>wrapLenght</th>
      *   <th>newLineString</th>
      *   <th>wrapLongWords</th>
+     *   <th>wrapOn</th>
      *   <th>result</th>
      *  </tr>
      *  <tr>
@@ -195,6 +196,7 @@ public class WordUtils {
      *   <td>*</td>
      *   <td>*</td>
      *   <td>true/false</td>
+     *   <td>*</td>
      *   <td>null</td>
      *  </tr>
      *  <tr>
@@ -202,6 +204,7 @@ public class WordUtils {
      *   <td>*</td>
      *   <td>*</td>
      *   <td>true/false</td>
+     *   <td>*</td>
      *   <td>""</td>
      *  </tr>
      *  <tr>
@@ -209,6 +212,7 @@ public class WordUtils {
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>true/false</td>
+     *   <td>" "</td>
      *   <td>"Here is one line of\ntext that is going\nto be wrapped after\n20 columns."</td>
      *  </tr>
      *  <tr>
@@ -216,6 +220,7 @@ public class WordUtils {
      *   <td>20</td>
      *   <td>"&lt;br /&gt;"</td>
      *   <td>true/false</td>
+     *   <td>" "</td>
      *   <td>"Here is one line of&lt;br /&gt;text that is going&lt;br /&gt;to be wrapped after&lt;br /&gt;20 columns."</td>
      *  </tr>
      *  <tr>
@@ -223,6 +228,7 @@ public class WordUtils {
      *   <td>20</td>
      *   <td>null</td>
      *   <td>true/false</td>
+     *   <td>" "</td>
      *   <td>"Here is one line of" + systemNewLine + "text that is going" + systemNewLine + "to be wrapped after" + systemNewLine + "20 columns."</td>
      *  </tr>
      *  <tr>
@@ -230,6 +236,7 @@ public class WordUtils {
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>false</td>
+     *   <td>" "</td>
      *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org"</td>
      *  </tr>
      *  <tr>
@@ -237,10 +244,18 @@ public class WordUtils {
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>true</td>
+     *   <td>" "</td>
      *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apach\ne.org"</td>
      *  </tr>
+     *  <tr>
+     *   <td>"flammable/inflammable"</td>
+     *   <td>20</td>
+     *   <td>"\n"</td>
+     *   <td>true</td>
+     *   <td>"/"</td>
+     *   <td>"flammable/inflammable"</td>
+     *  </tr>
      * </table>
-     *
      * @param str  the String to be word wrapped, may be null
      * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1
      * @param newLineStr  the string to insert for a new line,
