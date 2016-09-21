@@ -668,6 +668,19 @@ public class DateUtils {
     
     //-----------------------------------------------------------------------
     /**
+     * Converts a {@code Date} of a given {@code TimeZone} into a {@code Calendar}
+     * @param date the date to convert to a Calendar
+     * @param timeZone the time zone of the @{code date}
+     * @return
+     */
+    public static Calendar toCalendar(final Date date, final TimeZone tz) {
+    	final Calendar c = Calendar.getInstance(tz);
+    	c.setTime(date);
+    	return c;
+    }
+    
+    //-----------------------------------------------------------------------
+    /**
      * <p>Rounds a date, leaving the field specified as the most
      * significant field.</p>
      *
