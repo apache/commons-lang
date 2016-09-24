@@ -247,7 +247,7 @@ public class StringUtils {
      */
     public static boolean isAnyEmpty(final CharSequence... css) {
       if (ArrayUtils.isEmpty(css)) {
-        return true;
+        return false;
       }
       for (final CharSequence cs : css){
         if (isEmpty(cs)) {
@@ -276,7 +276,7 @@ public class StringUtils {
      */
     public static boolean isAnyNotEmpty(final CharSequence... css) {
       if (ArrayUtils.isEmpty(css)) {
-        return true;
+        return false;
       }
       for (final CharSequence cs : css) {
         if (isNotEmpty(cs)) {
@@ -377,7 +377,7 @@ public class StringUtils {
      */
     public static boolean isAnyBlank(final CharSequence... css) {
       if (ArrayUtils.isEmpty(css)) {
-        return true;
+        return false;
       }
       for (final CharSequence cs : css){
         if (isBlank(cs)) {
@@ -407,7 +407,7 @@ public class StringUtils {
      */
     public static boolean isAnyNotBlank(final CharSequence... css) {
       if (ArrayUtils.isEmpty(css)) {
-        return true;
+        return false;
       }
       for (final CharSequence cs : css) {
         if (isNotBlank(cs)) {
