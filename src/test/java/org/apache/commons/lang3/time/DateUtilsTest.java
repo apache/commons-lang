@@ -696,11 +696,16 @@ public class DateUtilsTest {
     
     //-----------------------------------------------------------------------
     @Test
-    public void testToCalendarWithDate() {
+    public void testToCalendarWithDateNotNull() {
         assertEquals("Convert Date and TimeZone to a Calendar, but failed to get the Date back", date1, DateUtils.toCalendar(date1, zone).getTime());
+    }
+    
+    //-----------------------------------------------------------------------
+    @Test
+    public void testToCalendarWithDateNull() {
         try {
             DateUtils.toCalendar(null, zone);
-            fail("Expected NullPointerException to be thrown");
+            fail("Expected NullPointerException to be thrown when Date is null");
         } catch(final NullPointerException npe) {
             // expected
         }
@@ -708,26 +713,37 @@ public class DateUtilsTest {
     
     //-----------------------------------------------------------------------
     @Test
-    public void testToCalendarWithTimeZone() {
+    public void testToCalendarWithTimeZoneNotNull() {
     	assertEquals("Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back", zone, DateUtils.toCalendar(date1, zone).getTimeZone());
+    }
+    
+    //-----------------------------------------------------------------------
+    @Test
+    public void testToCalendarWithTimeZoneNull() {
         try {
             DateUtils.toCalendar(date1, null);
-            fail("Expected NullPointerException to be thrown");
+            fail("Expected NullPointerException to be thrown when TimeZone is null");
         } catch(final NullPointerException npe) {
             // expected
         }
     }
     
-  //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     @Test
-    public void testToCalendarWithDateAndTimeZone() {
-        try {
-        	Calendar c = DateUtils.toCalendar(date2, defaultZone);
-        	assertEquals("Convert Date and TimeZone to a Calendar, but failed to get the Date back", date2, c.getTime());
-        	assertEquals("Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back", defaultZone, c.getTimeZone());
-        	// expected
+    public void testToCalendarWithDateAndTimeZoneNotNull() {
+    	Calendar c = DateUtils.toCalendar(date2, defaultZone);
+    	assertEquals("Convert Date and TimeZone to a Calendar, but failed to get the Date back", date2, c.getTime());
+    	assertEquals("Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back", defaultZone, c.getTimeZone());
+    }
+    
+    //-----------------------------------------------------------------------
+    @Test
+    public void testToCalendarWithDateAndTimeZoneNull() {
+    	try {
+    		DateUtils.toCalendar(null, null);
+            fail("Expected NullPointerException to be thrown when both Date and TimeZone are null");
         } catch(final NullPointerException npe) {
-        	fail("Expected NullPointerException to be thrown");
+            // expected
         }
     }
 

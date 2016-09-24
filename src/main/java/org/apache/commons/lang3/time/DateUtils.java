@@ -670,8 +670,9 @@ public class DateUtils {
     /**
      * Converts a {@code Date} of a given {@code TimeZone} into a {@code Calendar}
      * @param date the date to convert to a Calendar
-     * @param timeZone the time zone of the @{code date}
-     * @return
+     * @param tz the time zone of the @{code date}
+     * @return the created Calendar
+     * @throws NullPointerException if {@code date} or {@code tz} is null
      */
     public static Calendar toCalendar(final Date date, final TimeZone tz) {
     	final Calendar c = Calendar.getInstance(tz);
