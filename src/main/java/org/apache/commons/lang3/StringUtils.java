@@ -4820,6 +4820,46 @@ public class StringUtils {
     }
 
     /**
+     * <p>
+     * Case insensitive removal of all occurrences of a substring from within
+     * the source string.
+     * </p>
+     *
+     * <p>
+     * A {@code null} source string will return {@code null}. An empty ("")
+     * source string will return the empty string. A {@code null} remove string
+     * will return the source string. An empty ("") remove string will return
+     * the source string.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.removeIgnoreCase(null, *)        = null
+     * StringUtils.removeIgnoreCase("", *)          = ""
+     * StringUtils.removeIgnoreCase(*, null)        = *
+     * StringUtils.removeIgnoreCase(*, "")          = *
+     * StringUtils.removeIgnoreCase("queued", "ue") = "qd"
+     * StringUtils.removeIgnoreCase("queued", "zz") = "queued"
+     * StringUtils.removeIgnoreCase("quEUed", "UE") = "qd"
+     * StringUtils.removeIgnoreCase("queued", "zZ") = "queued"
+     * </pre>
+     *
+     * @param str
+     *            the source String to search, may be null
+     * @param remove
+     *            the String to search for (case insensitive) and remove, may be
+     *            null
+     * @return the substring with the string removed if found, {@code null} if
+     *         null String input
+     * @since 3.5
+     */
+    public static String removeIgnoreCase(String str, String remove) {
+        if (isEmpty(str) || isEmpty(remove)) {
+            return str;
+        }
+        return replaceIgnoreCase(str, remove, EMPTY, -1);
+    }
+
+    /**
      * <p>Removes all occurrences of a character from within the source string.</p>
      *
      * <p>A {@code null} source string will return {@code null}.
@@ -4972,6 +5012,35 @@ public class StringUtils {
      */
     public static String replaceOnce(final String text, final String searchString, final String replacement) {
         return replace(text, searchString, replacement, 1);
+    }
+
+    /**
+     * <p>Case insensitively replaces a String with another String inside a larger String, once.</p>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.replaceOnceIgnoreCase(null, *, *)        = null
+     * StringUtils.replaceOnceIgnoreCase("", *, *)          = ""
+     * StringUtils.replaceOnceIgnoreCase("any", null, *)    = "any"
+     * StringUtils.replaceOnceIgnoreCase("any", *, null)    = "any"
+     * StringUtils.replaceOnceIgnoreCase("any", "", *)      = "any"
+     * StringUtils.replaceOnceIgnoreCase("aba", "a", null)  = "aba"
+     * StringUtils.replaceOnceIgnoreCase("aba", "a", "")    = "ba"
+     * StringUtils.replaceOnceIgnoreCase("aba", "a", "z")   = "zba"
+     * StringUtils.replaceOnceIgnoreCase("FoOFoofoo", "foo", "") = "Foofoo"
+     * </pre>
+     *
+     * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
+     * @param text  text to search and replace in, may be null
+     * @param searchString  the String to search for (case insensitive), may be null
+     * @param replacement  the String to replace with, may be null
+     * @return the text with any replacements processed,
+     *  {@code null} if null String input
+     * @since 3.5
+     */
+    public static String replaceOnceIgnoreCase(String text, String searchString, String replacement) {
+        return replaceIgnoreCase(text, searchString, replacement, 1);
     }
 
     /**
@@ -5190,6 +5259,34 @@ public class StringUtils {
     }
 
     /**
+    * <p>Case insensitively replaces all occurrences of a String within another String.</p>
+    *
+    * <p>A {@code null} reference passed to this method is a no-op.</p>
+    *
+    * <pre>
+    * StringUtils.replaceIgnoreCase(null, *, *)        = null
+    * StringUtils.replaceIgnoreCase("", *, *)          = ""
+    * StringUtils.replaceIgnoreCase("any", null, *)    = "any"
+    * StringUtils.replaceIgnoreCase("any", *, null)    = "any"
+    * StringUtils.replaceIgnoreCase("any", "", *)      = "any"
+    * StringUtils.replaceIgnoreCase("aba", "a", null)  = "aba"
+    * StringUtils.replaceIgnoreCase("abA", "A", "")    = "b"
+    * StringUtils.replaceIgnoreCase("aba", "A", "z")   = "zbz"
+    * </pre>
+    *
+    * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
+    * @param text  text to search and replace in, may be null
+    * @param searchString  the String to search for (case insensitive), may be null
+    * @param replacement  the String to replace it with, may be null
+    * @return the text with any replacements processed,
+    *  {@code null} if null String input
+    * @since 3.5
+    */
+   public static String replaceIgnoreCase(String text, String searchString, String replacement) {
+       return replaceIgnoreCase(text, searchString, replacement, -1);
+   }
+
+    /**
      * <p>Replaces a String with another String inside a larger String,
      * for the first {@code max} values of the search String.</p>
      *
@@ -5218,29 +5315,102 @@ public class StringUtils {
      *  {@code null} if null String input
      */
     public static String replace(final String text, final String searchString, final String replacement, int max) {
-        if (isEmpty(text) || isEmpty(searchString) || replacement == null || max == 0) {
-            return text;
-        }
-        int start = 0;
-        int end = text.indexOf(searchString, start);
-        if (end == INDEX_NOT_FOUND) {
-            return text;
-        }
-        final int replLength = searchString.length();
-        int increase = replacement.length() - replLength;
-        increase = increase < 0 ? 0 : increase;
-        increase *= max < 0 ? 16 : max > 64 ? 64 : max;
-        final StringBuilder buf = new StringBuilder(text.length() + increase);
-        while (end != INDEX_NOT_FOUND) {
-            buf.append(text.substring(start, end)).append(replacement);
-            start = end + replLength;
-            if (--max == 0) {
-                break;
-            }
-            end = text.indexOf(searchString, start);
-        }
-        buf.append(text.substring(start));
-        return buf.toString();
+        return replace(text, searchString, replacement, max, false);
+    }
+
+    /**
+     * <p>Replaces a String with another String inside a larger String,
+     * for the first {@code max} values of the search String, 
+     * case sensitively/insensisitively based on {@code ignoreCase} value.</p>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.replace(null, *, *, *, false)         = null
+     * StringUtils.replace("", *, *, *, false)           = ""
+     * StringUtils.replace("any", null, *, *, false)     = "any"
+     * StringUtils.replace("any", *, null, *, false)     = "any"
+     * StringUtils.replace("any", "", *, *, false)       = "any"
+     * StringUtils.replace("any", *, *, 0, false)        = "any"
+     * StringUtils.replace("abaa", "a", null, -1, false) = "abaa"
+     * StringUtils.replace("abaa", "a", "", -1, false)   = "b"
+     * StringUtils.replace("abaa", "a", "z", 0, false)   = "abaa"
+     * StringUtils.replace("abaa", "A", "z", 1, false)   = "abaa"
+     * StringUtils.replace("abaa", "A", "z", 1, true)   = "zbaa"
+     * StringUtils.replace("abAa", "a", "z", 2, true)   = "zbza"
+     * StringUtils.replace("abAa", "a", "z", -1, true)  = "zbzz"
+     * </pre>
+     *
+     * @param text  text to search and replace in, may be null
+     * @param searchString  the String to search for (case insensitive), may be null
+     * @param replacement  the String to replace it with, may be null
+     * @param max  maximum number of values to replace, or {@code -1} if no maximum
+     * @param ignoreCase if true replace is case insensitive, otherwise case sensitive
+     * @return the text with any replacements processed,
+     *  {@code null} if null String input
+     */
+     private static String replace(String text, String searchString, String replacement, int max, boolean ignoreCase) {
+         if (isEmpty(text) || isEmpty(searchString) || replacement == null || max == 0) {
+             return text;
+         }
+         String searchText = text;
+         if (ignoreCase) {
+             searchText = text.toLowerCase();
+             searchString = searchString.toLowerCase();
+         }
+         int start = 0;
+         int end = searchText.indexOf(searchString, start);
+         if (end == INDEX_NOT_FOUND) {
+             return text;
+         }
+         final int replLength = searchString.length();
+         int increase = replacement.length() - replLength;
+         increase = increase < 0 ? 0 : increase;
+         increase *= max < 0 ? 16 : max > 64 ? 64 : max;
+         final StringBuilder buf = new StringBuilder(text.length() + increase);
+         while (end != INDEX_NOT_FOUND) {
+             buf.append(text.substring(start, end)).append(replacement);
+             start = end + replLength;
+             if (--max == 0) {
+                 break;
+             }
+             end = searchText.indexOf(searchString, start);
+         }
+         buf.append(text.substring(start));
+         return buf.toString();
+     }
+
+    /**
+     * <p>Case insensitively replaces a String with another String inside a larger String,
+     * for the first {@code max} values of the search String.</p>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.replaceIgnoreCase(null, *, *, *)         = null
+     * StringUtils.replaceIgnoreCase("", *, *, *)           = ""
+     * StringUtils.replaceIgnoreCase("any", null, *, *)     = "any"
+     * StringUtils.replaceIgnoreCase("any", *, null, *)     = "any"
+     * StringUtils.replaceIgnoreCase("any", "", *, *)       = "any"
+     * StringUtils.replaceIgnoreCase("any", *, *, 0)        = "any"
+     * StringUtils.replaceIgnoreCase("abaa", "a", null, -1) = "abaa"
+     * StringUtils.replaceIgnoreCase("abaa", "a", "", -1)   = "b"
+     * StringUtils.replaceIgnoreCase("abaa", "a", "z", 0)   = "abaa"
+     * StringUtils.replaceIgnoreCase("abaa", "A", "z", 1)   = "zbaa"
+     * StringUtils.replaceIgnoreCase("abAa", "a", "z", 2)   = "zbza"
+     * StringUtils.replaceIgnoreCase("abAa", "a", "z", -1)  = "zbzz"
+     * </pre>
+     *
+     * @param text  text to search and replace in, may be null
+     * @param searchString  the String to search for (case insensitive), may be null
+     * @param replacement  the String to replace it with, may be null
+     * @param max  maximum number of values to replace, or {@code -1} if no maximum
+     * @return the text with any replacements processed,
+     *  {@code null} if null String input
+     * @since 3.5
+     */
+    public static String replaceIgnoreCase(String text, String searchString, String replacement, int max) {
+        return replace(text, searchString, replacement, max, true);
     }
 
     /**
