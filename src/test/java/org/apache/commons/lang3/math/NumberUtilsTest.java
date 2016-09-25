@@ -1297,7 +1297,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testLANG1252() {
-        //Check idiosyncries between java 1.6 and 1.7,1.8 redarding leading + signs
+        //Check idiosyncrasies between java 1.6 and 1.7, 1.8 regarding leading + signs
         if (SystemUtils.IS_JAVA_1_6) {
             compareIsCreatableWithCreateNumber("+2", false);
         } else {
