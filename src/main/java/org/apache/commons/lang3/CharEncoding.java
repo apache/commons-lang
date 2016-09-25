@@ -84,7 +84,7 @@ public class CharEncoding {
      * <p>Returns whether the named charset is supported.</p>
      *
      * <p>This is similar to <a
-     * href="http://download.oracle.com/javase/1.4.2/docs/api/java/nio/charset/Charset.html#isSupported%28java.lang.String%29">
+     * href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html#isSupported%28java.lang.String%29">
      * java.nio.charset.Charset.isSupported(String)</a> but handles more formats</p>
      *
      * @param name  the name of the requested charset; may be either a canonical name or an alias, null returns false
