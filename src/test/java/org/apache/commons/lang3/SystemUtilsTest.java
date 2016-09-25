@@ -94,7 +94,7 @@ public class SystemUtilsTest {
     @Test
     @SuppressWarnings("deprecation")
     public void testIS_JAVA() {
-        final String javaVersion = System.getProperty("java.specification.name");
+        final String javaVersion = SystemUtils.JAVA_VERSION;
         if (javaVersion == null) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
