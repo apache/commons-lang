@@ -31,7 +31,6 @@ import static org.apache.commons.lang3.JavaVersion.JAVA_9;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -109,61 +108,6 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.IS_JAVA_1_3);
             assertFalse(SystemUtils.IS_JAVA_1_4);
             assertFalse(SystemUtils.IS_JAVA_1_5);
-            assertFalse(SystemUtils.IS_JAVA_1_6);
-            assertFalse(SystemUtils.IS_JAVA_1_7);
-            assertFalse(SystemUtils.IS_JAVA_1_8);
-            assertFalse(SystemUtils.IS_JAVA_1_9);
-            assertFalse(SystemUtils.IS_JAVA_9);
-        } else if (javaVersion.startsWith("1.1")) {
-            assertTrue(SystemUtils.IS_JAVA_1_1);
-            assertFalse(SystemUtils.IS_JAVA_1_2);
-            assertFalse(SystemUtils.IS_JAVA_1_3);
-            assertFalse(SystemUtils.IS_JAVA_1_4);
-            assertFalse(SystemUtils.IS_JAVA_1_5);
-            assertFalse(SystemUtils.IS_JAVA_1_6);
-            assertFalse(SystemUtils.IS_JAVA_1_7);
-            assertFalse(SystemUtils.IS_JAVA_1_8);
-            assertFalse(SystemUtils.IS_JAVA_1_9);
-            assertFalse(SystemUtils.IS_JAVA_9);
-        } else if (javaVersion.startsWith("1.2")) {
-            assertFalse(SystemUtils.IS_JAVA_1_1);
-            assertTrue(SystemUtils.IS_JAVA_1_2);
-            assertFalse(SystemUtils.IS_JAVA_1_3);
-            assertFalse(SystemUtils.IS_JAVA_1_4);
-            assertFalse(SystemUtils.IS_JAVA_1_5);
-            assertFalse(SystemUtils.IS_JAVA_1_6);
-            assertFalse(SystemUtils.IS_JAVA_1_7);
-            assertFalse(SystemUtils.IS_JAVA_1_8);
-            assertFalse(SystemUtils.IS_JAVA_1_9);
-            assertFalse(SystemUtils.IS_JAVA_9);
-        } else if (javaVersion.startsWith("1.3")) {
-            assertFalse(SystemUtils.IS_JAVA_1_1);
-            assertFalse(SystemUtils.IS_JAVA_1_2);
-            assertTrue(SystemUtils.IS_JAVA_1_3);
-            assertFalse(SystemUtils.IS_JAVA_1_4);
-            assertFalse(SystemUtils.IS_JAVA_1_5);
-            assertFalse(SystemUtils.IS_JAVA_1_6);
-            assertFalse(SystemUtils.IS_JAVA_1_7);
-            assertFalse(SystemUtils.IS_JAVA_1_8);
-            assertFalse(SystemUtils.IS_JAVA_1_9);
-            assertFalse(SystemUtils.IS_JAVA_9);
-        } else if (javaVersion.startsWith("1.4")) {
-            assertFalse(SystemUtils.IS_JAVA_1_1);
-            assertFalse(SystemUtils.IS_JAVA_1_2);
-            assertFalse(SystemUtils.IS_JAVA_1_3);
-            assertTrue(SystemUtils.IS_JAVA_1_4);
-            assertFalse(SystemUtils.IS_JAVA_1_5);
-            assertFalse(SystemUtils.IS_JAVA_1_6);
-            assertFalse(SystemUtils.IS_JAVA_1_7);
-            assertFalse(SystemUtils.IS_JAVA_1_8);
-            assertFalse(SystemUtils.IS_JAVA_1_9);
-            assertFalse(SystemUtils.IS_JAVA_9);
-        } else if (javaVersion.startsWith("1.5")) {
-            assertFalse(SystemUtils.IS_JAVA_1_1);
-            assertFalse(SystemUtils.IS_JAVA_1_2);
-            assertFalse(SystemUtils.IS_JAVA_1_3);
-            assertFalse(SystemUtils.IS_JAVA_1_4);
-            assertTrue(SystemUtils.IS_JAVA_1_5);
             assertFalse(SystemUtils.IS_JAVA_1_6);
             assertFalse(SystemUtils.IS_JAVA_1_7);
             assertFalse(SystemUtils.IS_JAVA_1_8);
@@ -441,57 +385,7 @@ public class SystemUtilsTest {
 
     @Test
     public void testIsJavaVersionAtLeat() throws Exception {
-        if (SystemUtils.IS_JAVA_1_1) {
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_3));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_4));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_5));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_6));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_7));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_8));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_9));
-        } else if (SystemUtils.IS_JAVA_1_2) {
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_3));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_4));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_5));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_6));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_7));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_8));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_9));
-        } else if (SystemUtils.IS_JAVA_1_3) {
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_3));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_4));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_5));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_6));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_7));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_8));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_9));
-        } else if (SystemUtils.IS_JAVA_1_4) {
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_3));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_4));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_5));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_6));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_7));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_8));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_9));
-        } else if (SystemUtils.IS_JAVA_1_5) {
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_3));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_4));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_5));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_6));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_7));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_8));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_9));
-        } else if (SystemUtils.IS_JAVA_1_6) {
+        if (SystemUtils.IS_JAVA_1_6) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_3));
@@ -614,21 +508,14 @@ public class SystemUtilsTest {
 
     @Test
     public void testJavaAwtHeadless() {
-        final boolean atLeastJava14 = SystemUtils.isJavaVersionAtLeast(JAVA_1_4);
         final String expectedStringValue = System.getProperty("java.awt.headless");
         final String expectedStringValueWithDefault = System.getProperty("java.awt.headless", "false");
         assertNotNull(expectedStringValueWithDefault);
-        if (atLeastJava14) {
-            final boolean expectedValue = Boolean.valueOf(expectedStringValue).booleanValue();
-            if (expectedStringValue != null) {
-                assertEquals(expectedStringValue, SystemUtils.JAVA_AWT_HEADLESS);
-            }
-            assertEquals(expectedValue, SystemUtils.isJavaAwtHeadless());
-        } else {
-            assertNull(expectedStringValue);
-            assertNull(SystemUtils.JAVA_AWT_HEADLESS);
-            assertEquals(expectedStringValueWithDefault, "" + SystemUtils.isJavaAwtHeadless());
+        final boolean expectedValue = Boolean.valueOf(expectedStringValue).booleanValue();
+        if (expectedStringValue != null) {
+            assertEquals(expectedStringValue, SystemUtils.JAVA_AWT_HEADLESS);
         }
+        assertEquals(expectedValue, SystemUtils.isJavaAwtHeadless());
         assertEquals(expectedStringValueWithDefault, "" + SystemUtils.isJavaAwtHeadless());
     }
 }
