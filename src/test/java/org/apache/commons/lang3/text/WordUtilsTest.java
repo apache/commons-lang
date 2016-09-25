@@ -154,7 +154,33 @@ public class WordUtilsTest {
         expected = "Click here,\nhttp://commons.apach\ne.org, to jump to\nthe commons website";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
     }
-    
+
+    @Test
+    public void testWrap_StringIntStringBooleanString() {
+
+        //no changes test
+        String input = "flammable/inflammable";
+        String expected = "flammable/inflammable";
+        assertEquals(expected, WordUtils.wrap(input, 30, "\n", false, "/"));
+
+        // wrap on / and small width
+        expected = "flammable\ninflammable";
+        assertEquals(expected, WordUtils.wrap(input, 2, "\n", false, "/"));
+
+        // wrap long words on / 1
+        expected = "flammable\ninflammab\nle";
+        assertEquals(expected, WordUtils.wrap(input, 9, "\n", true, "/"));
+
+        // wrap long words on / 2
+        expected = "flammable\ninflammable";
+        assertEquals(expected, WordUtils.wrap(input, 15, "\n", true, "/"));
+
+        // wrap long words on / 3
+        input = "flammableinflammable";
+        expected = "flammableinflam\nmable";
+        assertEquals(expected, WordUtils.wrap(input, 15, "\n", true, "/"));
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testCapitalize_String() {
