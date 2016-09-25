@@ -559,7 +559,7 @@
     -->
     <commons.componentid>lang3</commons.componentid>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.4</commons.release.version>
+    <commons.release.version>3.5</commons.release.version>
     <commons.release.desc>(Java 6.0+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
