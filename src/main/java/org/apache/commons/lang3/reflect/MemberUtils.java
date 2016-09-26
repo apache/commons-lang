@@ -142,8 +142,7 @@ abstract class MemberUtils {
      * Returns the sum of the object transformation cost for each class in the
      * source argument list.
      * @param srcArgs The source arguments
-     * @param destArgs The destination arguments
-     * @param isVarArgs True if the destination arguments are for a varags methods
+     * @param executable The executable to calculate transformation costs for
      * @return The total transformation cost
      */
     private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Executable executable) {
@@ -153,8 +152,9 @@ abstract class MemberUtils {
         // "source" and "destination" are the actual and declared args respectively.
         float totalCost = 0.0f;
         final long normalArgsLen = isVarArgs ? destArgs.length-1 : destArgs.length;
-        if (srcArgs.length < normalArgsLen)
+        if (srcArgs.length < normalArgsLen) {
             return Float.MAX_VALUE;
+        }
         for (int i = 0; i < normalArgsLen; i++) {
             totalCost += getObjectTransformationCost(srcArgs[i], destArgs[i]);
         }
@@ -162,7 +162,7 @@ abstract class MemberUtils {
             // When isVarArgs is true, srcArgs and dstArgs may differ in length.
             // There are two special cases to consider:
             final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
-            final boolean explicitArrayForVarags = (srcArgs.length == destArgs.length) && srcArgs[srcArgs.length-1].isArray();
+            final boolean explicitArrayForVarags = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1].isArray();
 
             final float varArgsCost = 0.001f;
             Class<?> destClass = destArgs[destArgs.length-1].getComponentType();

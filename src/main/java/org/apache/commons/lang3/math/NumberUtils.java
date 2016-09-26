@@ -475,10 +475,10 @@ public class NumberUtils {
                 }
             }
             final int hexDigits = str.length() - pfxLen;
-            if (hexDigits > 16 || (hexDigits == 16 && firstSigDigit > '7')) { // too many for Long
+            if (hexDigits > 16 || hexDigits == 16 && firstSigDigit > '7') { // too many for Long
                 return createBigInteger(str);
             }
-            if (hexDigits > 8 || (hexDigits == 8 && firstSigDigit > '7')) { // too many for an int
+            if (hexDigits > 8 || hexDigits == 8 && firstSigDigit > '7') { // too many for an int
                 return createLong(str);
             }
             return createInteger(str);
@@ -541,7 +541,7 @@ public class NumberUtils {
                 case 'F' :
                     try {
                         final Float f = NumberUtils.createFloat(str);
-                        if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
+                        if (!(f.isInfinite() || f.floatValue() == 0.0F && !allZeros)) {
                             //If it's too big for a float or the float value = 0 and the string
                             //has non-zeros in it, then float does not have the precision we want
                             return f;
@@ -555,7 +555,7 @@ public class NumberUtils {
                 case 'D' :
                     try {
                         final Double d = NumberUtils.createDouble(str);
-                        if (!(d.isInfinite() || (d.floatValue() == 0.0D && !allZeros))) {
+                        if (!(d.isInfinite() || d.floatValue() == 0.0D && !allZeros)) {
                             return d;
                         }
                     } catch (final NumberFormatException nfe) { // NOPMD
@@ -640,7 +640,7 @@ public class NumberUtils {
      */
     private static String getMantissa(final String str, final int stopPos) {
         final char firstChar = str.charAt(0);
-        final boolean hasSign = (firstChar == '-' || firstChar == '+');
+        final boolean hasSign = firstChar == '-' || firstChar == '+';
 
         return hasSign ? str.substring(1, stopPos) : str.substring(0, stopPos);
     }
@@ -1409,13 +1409,10 @@ public class NumberUtils {
         boolean allowSigns = false;
         boolean foundDigit = false;
         // deal with any possible sign up front
-        final int start = (chars[0] == '-' || chars[0] == '+') ? 1 : 0;
-        final boolean hasLeadingPlusSign = (start == 1 && chars[0] == '+');
+        final int start = chars[0] == '-' || chars[0] == '+' ? 1 : 0;
+        final boolean hasLeadingPlusSign = start == 1 && chars[0] == '+';
         if (sz > start + 1 && chars[start] == '0') { // leading 0
-            if (
-                 (chars[start + 1] == 'x') || 
-                 (chars[start + 1] == 'X') 
-            ) { // leading 0x/0X
+            if (chars[start + 1] == 'x' || chars[start + 1] == 'X') { // leading 0x/0X
                 int i = start + 2;
                 if (i == sz) {
                     return false; // str == "0x"
@@ -1445,7 +1442,7 @@ public class NumberUtils {
         int i = start;
         // loop to the next to last char or to the last char if we need another digit to
         // make a valid number (e.g. chars[0..5] = "1234E")
-        while (i < sz || (i < sz + 1 && allowSigns && !foundDigit)) {
+        while (i < sz || i < sz + 1 && allowSigns && !foundDigit) {
             if (chars[i] >= '0' && chars[i] <= '9') {
                 foundDigit = true;
                 allowSigns = false;

@@ -27,7 +27,6 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
@@ -1298,7 +1297,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testLANG1252() {
-        //Check idiosyncries between java 1.6 and 1.7,1.8 redarding leading + signs
+        //Check idiosyncrasies between java 1.6 and 1.7, 1.8 regarding leading + signs
         if (SystemUtils.IS_JAVA_1_6) {
             compareIsCreatableWithCreateNumber("+2", false);
         } else {
@@ -1411,7 +1410,7 @@ public class NumberUtilsTest {
     }
 
     private void compareIsNumberWithCreateNumber(final String val, final boolean expected) {
-        final boolean isValid = NumberUtils.isNumber(val);
+        final boolean isValid = NumberUtils.isCreatable(val);
         final boolean canCreate = checkCreateNumber(val);
         if (isValid == expected && canCreate == expected) {
             return;

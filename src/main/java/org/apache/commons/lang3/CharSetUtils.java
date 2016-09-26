@@ -76,10 +76,10 @@ public class CharSetUtils {
         for (int i = 1; i < sz; i++) {
             ch = chrs[i];
             if (ch == lastChar) {
-                if ((inChars != null) && (ch == inChars)) {
+                if (inChars != null && ch == inChars) {
                     continue;
                 } else {
-                    if ((notInChars == null) || (ch != notInChars)) {
+                    if (notInChars == null || ch != notInChars) {
                         if (chars.contains(ch)) {
                             inChars = ch;
                             continue;

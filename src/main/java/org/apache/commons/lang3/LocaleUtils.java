@@ -142,7 +142,7 @@ public class LocaleUtils {
             case 2:
                 if (StringUtils.isAllLowerCase(split[0]) && 
                     (split[0].length() == 2 || split[0].length() == 3) &&
-                    (split[1].length() == 0 || (split[1].length() == 2 && StringUtils.isAllUpperCase(split[1]))) &&
+                    (split[1].length() == 0 || split[1].length() == 2 && StringUtils.isAllUpperCase(split[1])) &&
                      split[2].length() > 0) {
                     return new Locale(split[0], split[1], split[2]);
                 }

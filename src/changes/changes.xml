@@ -45,7 +45,11 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.5" date="tba" description="tba">
+  <release version="3.5" date="tba" description="New features including Java 9 detection">
+    <action issue="LANG-1023" type="add" dev="britter" due-to="Marko Bekhta">Add WordUtils.wrap overload with customizable breakable character</action>
+    <action issue="LANG-787" type="add" dev="pschumacher" due-to="Gokul Nanthakumar C">Add method removeIgnoreCase(String, String) to StringUtils</action>
+    <action issue="LANG-1261" type="fix" dev="pschumacher" >ArrayUtils.contains returns false for instances of subtypes</action>
+    <action issue="LANG-1197" type="update" dev="pschumacher" >Prepare Java 9 detection</action>
     <action issue="LANG-1252" type="fix" dev="chtompki" due-to="Rob Tompkins">Rename NumberUtils.isNumber, isCreatable to better reflect createNumber. Also, accommodated for "+" symbol as prefix in isCreatable and isNumber.</action>
     <action issue="LANG-1262" type="update" dev="pschumacher" due-to="Ruslan Cheremin">CompareToBuilder.append(Object, Object, Comparator) method is too big to be inlined</action>
     <action issue="LANG-1230" type="fix" dev="pschumacher" due-to="Philippe Marschall">Remove unnecessary synchronization from registry lookup in EqualsBuilder and HashCodeBuilder</action>
@@ -58,6 +62,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1226" type="fix" dev="pschumacher" due-to="pschumacher">StringUtils#normalizeSpace does not trim the string anymore</action>
     <action issue="LANG-1251" type="fix" dev="pschumacher" due-to="Takuya Ueshin">SerializationUtils.ClassLoaderAwareObjectInputStream should use static initializer to initialize primitiveTypes map</action>
     <action issue="LANG-1253" type="add" dev="ggregory" due-to="adilek">[GitHub issue #170] Add RandomUtils#nextBoolean() method</action>
+    <action issue="LANG-1248" type="fix" dev="chas" due-to="Benoit Wiart">FastDatePrinter Memory allocation regression</action>
     <action issue="LANG-1247" type="update" dev="chas" due-to="Benoit Wiart">FastDatePrinter generates extra Date objects</action>
     <action issue="LANG-1018" type="fix" dev="pschumacher" due-to="Nick Manley">Fix precision loss on NumberUtils.createNumber(String)</action>
     <action issue="LANG-1229" type="update" dev="pschumacher" due-to="Ruslan Cheremin">HashCodeBuilder.append(Object,Object) is too big to be inlined, which prevents whole builder to be scalarized</action>
@@ -87,7 +92,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1218" type="update" dev="ggregory" due-to="Ruslan Cheremin">EqualsBuilder.append(Object,Object) is too big to be inlined, which prevents whole builder to be scalarized</action>
     <action issue="LANG-1205" type="fix" dev="chas" due-to="pbrose">NumberUtils.createNumber() behaves inconsistently with NumberUtils.isNumber()</action>
     <action issue="LANG-1115" type="add" dev="chas" due-to="Jim Lloyd, Joe Ferner">Add support for varargs in ConstructorUtils, MemberUtils, and MethodUtils</action>
-    <action issue="LANG-1134" type="add" dev="chas" due-to="Alan Smithee">New methods for lang3.Validate</action>
+    <action issue="LANG-1134" type="add" dev="chas" due-to="Alan Smithee">Add methods to check numbers against NaN and inifinite to Validate</action>
     <action issue="LANG-1222" type="fix" dev="ggregory" due-to="Adam J.">Fix for incorrect comment on StringUtils.containsIgnoreCase method</action>
     <action issue="LANG-1221" type="fix" dev="ggregory" due-to="Pierre Templier">Fix typo on appendIfMissing javadoc</action>
     <action issue="LANG-1220" type="add" dev="kinow" due-to="Casey Scarborough">Add tests for missed branches in DateUtils</action>

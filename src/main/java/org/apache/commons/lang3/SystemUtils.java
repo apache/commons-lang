@@ -953,8 +953,23 @@ public class SystemUtils {
      * </p>
      *
      * @since 3.4
+     * 
+     * @deprecated As of release 3.5, replaced by {@link #IS_JAVA_9}
      */
-    public static final boolean IS_JAVA_1_9 = getJavaVersionMatches("1.9");
+    @Deprecated
+    public static final boolean IS_JAVA_1_9 = getJavaVersionMatches("9");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 9 (also 9.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.5
+     */
+    public static final boolean IS_JAVA_9 = getJavaVersionMatches("9");
 
     // Operating system checks
     // -----------------------------------------------------------------------
@@ -1589,7 +1604,7 @@ public class SystemUtils {
      * @since Java 1.4
      */
     public static boolean isJavaAwtHeadless() {
-        return JAVA_AWT_HEADLESS != null ? JAVA_AWT_HEADLESS.equals(Boolean.TRUE.toString()) : false;
+        return Boolean.TRUE.toString().equals(JAVA_AWT_HEADLESS);
     }
 
     /**

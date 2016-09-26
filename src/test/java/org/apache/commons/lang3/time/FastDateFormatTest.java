@@ -53,7 +53,7 @@ public class FastDateFormatTest {
     public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
 
     /*
-     * Only the cache methods need to be tested here.  
+     * Only the cache methods need to be tested here.
      * The print methods are tested by {@link FastDateFormat_PrinterTest}
      * and the parse methods are tested by {@link FastDateFormat_ParserTest}
      */
@@ -221,15 +221,6 @@ public class FastDateFormatTest {
                 FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, TimeZone.getDefault(), Locale.getDefault()));
     }
 
-    /**
-     * According to LANG-954 (https://issues.apache.org/jira/browse/LANG-954) this is broken in Android 2.1.
-     */
-    @Test
-    public void testLang954() {
-        final String pattern = "yyyy-MM-dd'T'";
-        FastDateFormat.getInstance(pattern);
-    }
-
     @Test
     public void testParseSync() throws InterruptedException {
         final String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";
@@ -309,6 +300,15 @@ public class FastDateFormatTest {
         return totalElapsed;
     }
 
+    /**
+     * According to LANG-954 (https://issues.apache.org/jira/browse/LANG-954) this is broken in Android 2.1.
+     */
+    @Test
+    public void testLANG_954() {
+        final String pattern = "yyyy-MM-dd'T'";
+        FastDateFormat.getInstance(pattern);
+    }
+
     @Test
     public void testLANG_1152() {
         TimeZone utc = TimeZone.getTimeZone("UTC");
@@ -319,5 +319,10 @@ public class FastDateFormatTest {
 
         dateAsString = FastDateFormat.getInstance("dd/MM/yyyy", utc, Locale.US).format(date);
         Assert.assertEquals("17/08/292278994", dateAsString);
-    }  
+    }
+
+    @Test
+    public void testLANG_1267() throws Exception {
+        FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+    }
 }

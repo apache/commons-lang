@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 /**
  * <p>An enum representing all the versions of the Java specification.
  * This is intended to mirror available values from the
@@ -72,11 +74,18 @@ public enum JavaVersion {
 
     /**
      * Java 1.9.
+     * 
+     * @deprecated As of release 3.5, replaced by {@link #JAVA_9}
      */
-    JAVA_1_9(1.9f, "1.9"),
+    JAVA_1_9(9.0f, "9"),
 
     /**
-     * Java 1.x, x &gt; 9. Mainly introduced to avoid to break when a new version of Java is used.
+     * Java 9
+     */
+    JAVA_9(9.0f, "9"),
+
+    /**
+     * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
 
@@ -156,8 +165,8 @@ public enum JavaVersion {
             return JAVA_1_7;
         } else if ("1.8".equals(nom)) {
             return JAVA_1_8;
-        } else if ("1.9".equals(nom)) {
-            return JAVA_1_9;
+        } else if ("9".equals(nom)) {
+            return JAVA_9;
         }
         if (nom == null) {
             return null;
@@ -187,33 +196,34 @@ public enum JavaVersion {
     }
 
     /**
-     * Gets the Java Version from the system or 2.0 if the {@code java.version} system property is not set.
+     * Gets the Java Version from the system or 99.0 if the {@code java.specification.version} system property is not set.
      * 
-     * @return the value of {@code java.version} system property or 2.0 if it is not set.
+     * @return the value of {@code java.specification.version} system property or 99.0 if it is not set.
      */
     private static float maxVersion() {
-        final float v = toFloatVersion(System.getProperty("java.version", "2.0"));
+        final float v = toFloatVersion(System.getProperty("java.specification.version", "99.0"));
         if (v > 0) {
             return v;
         }
-        return 2f;
+        return 99f;
     }
 
     /**
      * Parses a float value from a String.
      * 
      * @param value the String to parse.
-     * @return the float value represented by teh string or -1 if the given String can not be parsed.
+     * @return the float value represented by the string or -1 if the given String can not be parsed.
      */
     private static float toFloatVersion(final String value) {
-        final String[] toParse = value.split("\\.");
-        if (toParse.length >= 2) {
-            try {
-                return Float.parseFloat(toParse[0] + '.' + toParse[1]);
-            } catch (final NumberFormatException nfe) {
-                // no-op, let use default
+        final int defaultReturnValue = -1;
+        if (value.contains(".")) {
+            final String[] toParse = value.split("\\.");
+            if (toParse.length >= 2) {
+                return NumberUtils.toFloat(toParse[0] + '.' + toParse[1], defaultReturnValue);
             }
+        } else {
+            return NumberUtils.toFloat(value, defaultReturnValue);
         }
-        return -1;
+        return defaultReturnValue;
     }
 }

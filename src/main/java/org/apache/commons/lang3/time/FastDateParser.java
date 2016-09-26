@@ -242,11 +242,9 @@ public class FastDateParser implements DateParser, Serializable {
                 char c = pattern.charAt(currentIdx);
                 if (!activeQuote && isFormatLetter(c)) {
                     break;
-                } else if (c == '\'') {
-                    if (++currentIdx == pattern.length() || pattern.charAt(currentIdx) != '\'') {
-                        activeQuote = !activeQuote;
-                        continue;
-                    }
+                } else if (c == '\'' && (++currentIdx == pattern.length() || pattern.charAt(currentIdx) != '\'')) {
+                    activeQuote = !activeQuote;
+                    continue;
                 }
                 ++currentIdx;
                 sb.append(c);
@@ -637,7 +635,7 @@ public class FastDateParser implements DateParser, Serializable {
         Strategy strategy = cache.get(locale);
         if (strategy == null) {
             strategy = field == Calendar.ZONE_OFFSET 
-                    ? new TimeZoneStrategy(definingCalendar, locale)
+                    ? new TimeZoneStrategy(locale)
                     : new CaseInsensitiveTextStrategy(field, definingCalendar, locale);
             final Strategy inCache = cache.putIfAbsent(locale, strategy);
             if (inCache != null) {
@@ -836,10 +834,9 @@ public class FastDateParser implements DateParser, Serializable {
 
         /**
          * Construct a Strategy that parses a TimeZone
-         * @param cal TODO
          * @param locale The Locale
          */
-        TimeZoneStrategy(Calendar cal, final Locale locale) {
+        TimeZoneStrategy(final Locale locale) {
             this.locale = locale;
 
             final StringBuilder sb = new StringBuilder();

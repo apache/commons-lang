@@ -159,6 +159,7 @@ public class MethodUtils {
      * </p>
      *
      * @param object invoke method on this object
+     * @param forceAccess force access to invoke method even if it's not accessible
      * @param methodName get method with this name
      * @param args use these arguments - treat null as empty array
      * @return The value returned by the invoked method
@@ -763,24 +764,24 @@ public class MethodUtils {
      * @return the aggregate number of inheritance hops between assignable argument class types.
      */
     private static int distance(Class<?>[] classArray, Class<?>[] toClassArray) {
-    	int answer=0;
-    	
-    	if (!ClassUtils.isAssignable(classArray, toClassArray, true)) {
-    		return -1;
-    	}
-    	for (int offset = 0; offset < classArray.length; offset++) {
-    		// Note InheritanceUtils.distance() uses different scoring system.
-    		if (classArray[offset].equals(toClassArray[offset])) {
-    			continue;
-    		} else if (ClassUtils.isAssignable(classArray[offset], toClassArray[offset], true) 
-    				&& !ClassUtils.isAssignable(classArray[offset], toClassArray[offset], false)) {
-    			answer++;
-    		} else {
-    			answer = answer+2;
-    		}
-    	}
-    	
-    	return answer;
+        int answer = 0;
+
+        if (!ClassUtils.isAssignable(classArray, toClassArray, true)) {
+            return -1;
+        }
+        for (int offset = 0; offset < classArray.length; offset++) {
+            // Note InheritanceUtils.distance() uses different scoring system.
+            if (classArray[offset].equals(toClassArray[offset])) {
+                continue;
+            } else if (ClassUtils.isAssignable(classArray[offset], toClassArray[offset], true)
+                    && !ClassUtils.isAssignable(classArray[offset], toClassArray[offset], false)) {
+                answer++;
+            } else {
+                answer = answer + 2;
+            }
+        }
+
+        return answer;
     }
 
     /**

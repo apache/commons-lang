@@ -17,9 +17,6 @@
 
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_2;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_3;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -45,17 +42,13 @@ public class CharEncodingTest  {
     }
 
     @Test
-    public void testMustBeSupportedJava1_3_1() {
-        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_3)) {
-            this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
-            this.assertSupportedEncoding(CharEncoding.US_ASCII);
-            this.assertSupportedEncoding(CharEncoding.UTF_16);
-            this.assertSupportedEncoding(CharEncoding.UTF_16BE);
-            this.assertSupportedEncoding(CharEncoding.UTF_16LE);
-            this.assertSupportedEncoding(CharEncoding.UTF_8);
-        } else {
-            this.warn("Java 1.3 tests not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
-        }
+    public void testMustBeSupportedJava1_3_1_and_above() {
+        this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
+        this.assertSupportedEncoding(CharEncoding.US_ASCII);
+        this.assertSupportedEncoding(CharEncoding.UTF_16);
+        this.assertSupportedEncoding(CharEncoding.UTF_16BE);
+        this.assertSupportedEncoding(CharEncoding.UTF_16LE);
+        this.assertSupportedEncoding(CharEncoding.UTF_8);
     }
 
     @Test
@@ -73,39 +66,5 @@ public class CharEncodingTest  {
         assertFalse(CharEncoding.isSupported("\t\r\n"));
         assertFalse(CharEncoding.isSupported("DOESNOTEXIST"));
         assertFalse(CharEncoding.isSupported("this is not a valid encoding name"));
-    }
-
-    @Test
-    public void testWorksOnJava1_1_8() {
-        //
-        // In this test, I simply deleted the encodings from the 1.3.1 list.
-        // The Javadoc do not specify which encodings are required.
-        //
-        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_1)) {
-            this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
-            this.assertSupportedEncoding(CharEncoding.US_ASCII);
-            this.assertSupportedEncoding(CharEncoding.UTF_8);
-        } else {
-            this.warn("Java 1.1 tests not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
-        }
-    }
-
-    @Test
-    public void testWorksOnJava1_2_2() {
-        //
-        // In this test, I simply deleted the encodings from the 1.3.1 list.
-        // The Javadoc do not specify which encodings are required.
-        //
-        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_2)) {
-            this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
-            this.assertSupportedEncoding(CharEncoding.US_ASCII);
-            this.assertSupportedEncoding(CharEncoding.UTF_8);
-        } else {
-            this.warn("Java 1.2 tests not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
-        }
-    }
-
-    void warn(final String msg) {
-        System.err.println(msg);
     }
 }
