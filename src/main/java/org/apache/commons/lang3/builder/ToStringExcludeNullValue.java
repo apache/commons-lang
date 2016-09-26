@@ -6,12 +6,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to exclude a field when it is null from being used by
+ * Use this annotation to exclude a null field or all null fields from being used by
  * the {@link ReflectionToStringBuilder}.
  */
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.TYPE})
 public @interface ToStringExcludeNullValue {
 
 }

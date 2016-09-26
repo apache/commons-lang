@@ -6,10 +6,10 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-public class ReflectionToStringBuilderExcludeNullValueWithAnnotationTest {
+public class ReflectionToStringBuilderExcludeNullValueWithFieldAnnotationTest {
 
     class TestFixture {
-    	@ToStringExclude
+    	@ToStringExcludeNullValue
         private final String excludedField = null;
 
         @SuppressWarnings("unused")
