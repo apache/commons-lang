@@ -42,13 +42,13 @@ o LANG-1080: Add NoClassNameToStringStyle implementation of ToStringStyle.
              Thanks to Innokenty Shuvalov.
 o LANG-883:  Add StringUtils.containsAny(CharSequence, CharSequence...) method.
              Thanks to Daniel Stewart.
-o LANG-1052: Multiline recursive to string style. Thanks to Jan Matèrne.
+o LANG-1052: Multiline recursive to string style. Thanks to Jan MatÃ¨rne.
 o LANG-536:  Add isSorted() to ArrayUtils. Thanks to James Sawle.
 o LANG-1033: Add StringUtils.countMatches(CharSequence, char)
 o LANG-1021: Provide methods to retrieve all fields/methods annotated with a
-             specific type. Thanks to Alexander Müller.
+             specific type. Thanks to Alexander MÃ¼ller.
 o LANG-1016: NumberUtils#isParsable method(s). Thanks to
-             Juan Pablo Santos Rodríguez.
+             Juan Pablo Santos RodrÃ­guez.
 o LANG-999:  Add fuzzy String matching logic to StringUtils. Thanks to
              Ben Ripkens.
 o LANG-994:  Add zero copy read method to StrBuilder. Thanks to
@@ -217,12 +217,12 @@ o LANG-943:  Test DurationFormatUtilsTest.testEdgeDuration fails in
 o LANG-613:  ConstructorUtils.getAccessibleConstructor() Does Not Check the
              Accessibility of Enclosing Classes
 o LANG-951:  Fragments are wrong by 1 day when using fragment YEAR or MONTH.
-             Thanks to Sebastian Götz.
+             Thanks to Sebastian GÃ¶tz.
 o LANG-950:  FastDateParser does not handle two digit year parsing like
              SimpleDateFormat
 o LANG-949:  FastDateParserTest.testParses does not test FastDateParser
 o LANG-915:  Wrong locale handling in LocaleUtils.toLocale().
-             Thanks to Sergio Fernández.
+             Thanks to Sergio FernÃ¡ndez.
 
 CHANGES
 =========
@@ -317,7 +317,7 @@ o LANG-462:  FastDateFormat supports parse methods.
 BUG FIXES
 ===========
 
-o LANG-932:  Spelling fixes. Thanks to Ville Skyttä.
+o LANG-932:  Spelling fixes. Thanks to Ville SkyttÃ¤.
 o LANG-929:  OctalUnescaper tried to parse all of \279.
 o LANG-928:  OctalUnescaper had bugs when parsing octals starting with a zero.
 o LANG-905:  EqualsBuilder returned true when comparing arrays, even when the

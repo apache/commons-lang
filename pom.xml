@@ -572,6 +572,7 @@
     <commons.site.path>lang</commons.site.path>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-lang</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
+    <commons.encoding>utf-8</commons.encoding>
   </properties>
 
 
