@@ -22,7 +22,7 @@ public class ReflectionToStringBuilderTest {
 
     @Test(expected=IllegalArgumentException.class)
     public void testConstructorWithNullObject() {
-        new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuffer());
+        new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuilder());
     }
 
 }

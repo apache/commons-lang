@@ -204,7 +204,7 @@ public class ToStringBuilder implements Builder<String> {
     /**
      * Current toString buffer, not null.
      */
-    private final StringBuffer buffer;
+    private final StringBuilder buffer;
     /**
      * The object being output, may be null.
      */
@@ -246,14 +246,14 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param object  the Object to build a <code>toString</code> for, not recommended to be null
      * @param style  the style of the <code>toString</code> to create, null uses the default style
-     * @param buffer  the <code>StringBuffer</code> to populate, may be null
+     * @param buffer  the <code>StringBuilder</code> to populate, may be null
      */
-    public ToStringBuilder(final Object object, ToStringStyle style, StringBuffer buffer) {
+    public ToStringBuilder(final Object object, ToStringStyle style, StringBuilder buffer) {
         if (style == null) {
             style = getDefaultStyle();
         }
         if (buffer == null) {
-            buffer = new StringBuffer(512);
+            buffer = new StringBuilder(512);
         }
         this.buffer = buffer;
         this.style = style;
@@ -952,7 +952,7 @@ public class ToStringBuilder implements Builder<String> {
      * @since 2.0
      */
     public ToStringBuilder appendAsObjectToString(final Object srcObject) {
-        ObjectUtils.identityToString(this.getStringBuffer(), srcObject);
+        ObjectUtils.identityToString(this.getStringBuilder(), srcObject);
         return this;
     }
 
@@ -1022,11 +1022,11 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Gets the <code>StringBuffer</code> being populated.</p>
+     * <p>Gets the <code>StringBuilder</code> being populated.</p>
      *
-     * @return the <code>StringBuffer</code> being populated
+     * @return the <code>StringBuilder</code> being populated
      */
-    public StringBuffer getStringBuffer() {
+    public StringBuilder getStringBuilder() {
         return buffer;
     }
 
@@ -1046,7 +1046,7 @@ public class ToStringBuilder implements Builder<String> {
      * <p>Returns the built <code>toString</code>.</p>
      *
      * <p>This method appends the end of data indicator, and can only be called once.
-     * Use {@link #getStringBuffer} to get the current string state.</p>
+     * Use {@link #getStringBuilder} to get the current string state.</p>
      *
      * <p>If the object is <code>null</code>, return the style's <code>nullText</code></p>
      *
@@ -1055,11 +1055,11 @@ public class ToStringBuilder implements Builder<String> {
     @Override
     public String toString() {
         if (this.getObject() == null) {
-            this.getStringBuffer().append(this.getStyle().getNullText());
+            this.getStringBuilder().append(this.getStyle().getNullText());
         } else {
-            style.appendEnd(this.getStringBuffer(), this.getObject());
+            style.appendEnd(this.getStringBuilder(), this.getObject());
         }
-        return this.getStringBuffer().toString();
+        return this.getStringBuilder().toString();
     }
 
     /**
