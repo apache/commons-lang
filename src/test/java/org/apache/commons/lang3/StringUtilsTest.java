@@ -3032,4 +3032,26 @@ public class StringUtilsTest {
         assertEquals("'\"abcd\"'", StringUtils.wrap("\"abcd\"", "'"));
         assertEquals("\"'abcd'\"", StringUtils.wrap("'abcd'", "\""));
     }
+
+    @Test
+    public void testEquals_twoStrings() throws Exception {
+        assertTrue(StringUtils.equals("", ""));
+        assertTrue(StringUtils.equals("a", "a"));
+        assertFalse(StringUtils.equals("a", "b"));
+    }
+
+    @Test
+    public void testEquals_nulls() throws Exception {
+        assertTrue(StringUtils.equals(null, null));
+        assertFalse(StringUtils.equals(null, new StringBuffer()));
+        assertFalse(StringUtils.equals(new StringBuffer("hello"), null));
+    }
+
+    @Test
+    public void testEquals_twoNonStrings() throws Exception {
+        assertTrue(StringUtils.equals(new StringBuffer(""), new StringBuffer("")));
+        assertTrue(StringUtils.equals(new StringBuffer("foo"), new StringBuilder("foo")));
+        assertFalse(StringUtils.equals(new StringBuffer("foo"), new StringBuffer("bar")));
+        assertFalse(StringUtils.equals(new StringBuilder("foo"), new StringBuilder("foobar")));
+    }
 }
