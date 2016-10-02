@@ -1,28 +1,324 @@
                            Apache Commons Lang
-                               Version 3.4
+                               Version 3.5
                               Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 3.4 version of
-Apache Commons Lang. Commons Lang is a set of utility functions and reusable 
-components that should be of use in any Java environment. Commons Lang 3.4
-at least requires Java 6.0.
+This document contains the release notes for the 3.5 version of
+Apache Commons Lang as well as a history all changes in the Commons Lang 3.x
+release line. Commons Lang is a set of utility functions and reusable
+components that should be of use in any Java environment. Commons Lang 3.5 at
+least requires Java 6.0.
 
 For the advice on upgrading from 2.x to 3.x, see the following page:
 
     http://commons.apache.org/lang/article3_0.html
 
+HIGHLIGHTS
+==========
+
+Some of the highlights in this release include:
+
+o Added Java 9 detection to org.apache.commons.lang3.SystemUtils.
+o Support for shifting and swapping elements in
+    org.apache.commons.lang3.ArrayUtils.
+o New methods for generating random strings from different character classes
+    including alphabetic, alpha-numeric and ASCII added to
+    org.apache.commons.lang3.RandomStringUtils.
+o Numerous extensions to org.apache.commons.lang3.StringUtils including
+    null safe compare variants, more remove and replace variants, rotation and
+    truncation.
+o Added org.apache.commons.lang3.ThreadUtils - a utility class to work with
+    instances of java.lang.Thread and java.lang.ThreadGroup.
+o Added annotations @EqualsExclude, @HashCodeExclude and @ToStringEclude to
+    mark fields which should be ignored by the reflective builders in the
+    org.apache.commons.lang3.builder package.
+o Support for various modify and retrieve value use cases added to the classes
+    in org.apache.commons.lang3.mutable.
 
 COMPATIBILITY
 =============
 
-Commons Lang 3.4 is fully binary compatible to the last release and can 
-therefore be used as a drop in replacement for 3.3.2. Note that the value of 
+Apache Commons Lang 3.5 is binary compatible with the 3.4 release. Users
+should not experience any problems when upgrading vom 3.4 to 3.5.
+
+There has been an addition to the org.apache.commons.lang3.time.DatePrinter
+interface:
+
+o Added method 'public boolean parse(java.lang.String, java.text.ParsePosition,
+    java.util.Calendar)'
+o Added method 'public java.lang.Appendable format(long, java.lang.Appendable)'
+o Added method 'public java.lang.Appendable format(java.util.Date,
+    java.lang.Appendable)'
+o Added method 'public java.lang.Appendable format(java.util.Calendar,
+    java.lang.Appendable)'
+
+For this reason 3.5 is not strictly source compatible to 3.4. Since the
+DatePrinter interface is not meant to be implemented by clients, this
+change it not considered to cause any problems.
+
+JAVA 9 SUPPORT
+==============
+
+Java 9 introduces a new version-string scheme. Details of this new scheme are
+documented in JEP-223 (http://openjdk.java.net/jeps/223). In order to support
+JEP-223 two classes had to be changed:
+
+o org.apache.commons.lang3.JavaVersion
+    deprecated enum constant JAVA_1_9
+    introduced enum constant JAVA_9
+
+o org.apache.commons.lang3.SystemUtils
+    deprecated constant IS_JAVA_1_9
+    introduced constant IS_JAVA_9
+
+For more information see LANG-1197
+(https://issues.apache.org/jira/browse/LANG-1197). All other APIs are expected
+to work with Java 9.
+
+BUILDING ON JAVA 9
+==================
+
+Java 8 introduced the Unicode Consortium's Common Locale Data Repository as
+alternative source for locale data. Java 9 will use the CLDR provider as
+default provider for locale data (see http://openjdk.java.net/jeps/252). This
+causes an number of locale-sensitive test in Commons Lang to fail. In order
+to build Commons Lang 3.5 on Java 9, the locale provider has to be set to
+'JRE':
+
+    mvn -Djava.locale.providers=JRE clean install
+
+We are currently investigating ways to support building on Java 9 without
+further configuration. For more information see:
+https://issues.apache.org/jira/browse/LANG-1265
+
+
+NEW FEATURES
+==============
+
+o LANG-1255: Add DateUtils.toCalendar(Date, TimeZone). Thanks to Kaiyuan Wang.
+o LANG-1023: Add WordUtils.wrap overload with customizable breakable character.
+             Thanks to Marko Bekhta.
+o LANG-787:  Add method removeIgnoreCase(String, String) to StringUtils. Thanks
+             to Gokul Nanthakumar C.
+o LANG-1224: Extend RandomStringUtils with methods that generate strings
+             between a min and max length. Thanks to Caleb Cushing.
+o LANG-1257: Add APIs StringUtils.wrapIfMissing(String, char|String). Thanks to
+             Gary Gregory.
+o LANG-1253: Add RandomUtils#nextBoolean() method. Thanks to adilek.
+o LANG-1085: Add a circuit breaker implementation. Thanks to Oliver Heger and
+             Bruno P. Kinoshita.
+o LANG-1013: Add StringUtils.truncate(). Thanks to Thiago Andrade.
+o LANG-1195: Enhance MethodUtils to allow invocation of private methods. Thanks
+             to Derek C. Ashmore.
+o LANG-1189: Add getAndIncrement/getAndDecrement/getAndAdd/incrementAndGet/
+             decrementAndGet/addAndGet in Mutable* classes. Thanks to
+             Haiyang Li and Matthew Bartenschlag.
+o LANG-1225: Add RandomStringUtils#randomGraph and #randomPrint which match
+             corresponding regular expression class. Thanks to Caleb Cushing.
+o LANG-1223: Add StopWatch#getTime(TimeUnit). Thanks to Nick Manley.
+o LANG-781:  Add methods to ObjectUtils class to check for null elements in the
+             array. Thanks to Krzysztof Wolny.
+o LANG-1228: Prefer Throwable.getCause() in ExceptionUtils.getCause().
+             Thanks to Brad Hess.
+o LANG-1233: DiffBuilder add method to allow appending from a DiffResult.
+             Thanks to Nick Manley.
+o LANG-1168: Add SystemUtils.IS_OS_WINDOWS_10 property.
+             Thanks to Pascal Schumacher.
+o LANG-1115: Add support for varargs in ConstructorUtils, MemberUtils, and
+             MethodUtils. Thanks to Jim Lloyd and Joe Ferner.
+o LANG-1134: Add methods to check numbers against NaN and inifinite to
+             Validate. Thanks to Alan Smithee.
+o LANG-1220: Add tests for missed branches in DateUtils.
+             Thanks to Casey Scarborough.
+o LANG-1146: z/OS identification in SystemUtils.
+             Thanks to Gabor Liptak.
+o LANG-1192: FastDateFormat support of the week-year component (uppercase 'Y').
+             Thanks to Dominik Stadler.
+o LANG-1169: Add StringUtils methods to compare a string to multiple strings.
+             Thanks to Rafal Glowinski, Robert Parr and Arman Sharif.
+o LANG-1185: Add remove by regular expression methods in StringUtils.
+o LANG-1139: Add replace by regular expression methods in StringUtils.
+o LANG-1171: Add compare methods in StringUtils.
+o LANG-1174: Add sugar to RandomUtils. Thanks to Punkratz312.
+o LANG-1154: FastDateFormat APIs that use a StringBuilder. Thanks to
+             Gary Gregory.
+o LANG-1149: Ability to throw checked exceptions without declaring them. Thanks
+             to Gregory Zak.
+o LANG-1153: Implement ParsePosition api for FastDateParser.
+o LANG-1137: Add check for duplicate event listener in EventListenerSupport.
+             Thanks to Matthew Aguirre.
+o LANG-1135: Add method containsAllWords to WordUtils. Thanks to
+             Eduardo Martins.
+o LANG-1132: ReflectionToStringBuilder doesn't throw IllegalArgumentException
+             when the constructor's object param is null. Thanks to Jack Tan.
+o LANG-701:  StringUtils join with var args. Thanks to James Sawle.
+o LANG-1105: Add ThreadUtils - A utility class which provides helper methods
+             related to java.lang.Thread  Issue: LANG-1105. Thanks to
+             Hendrik Saly.
+o LANG-1031: Add annotations to exclude fields from ReflectionEqualsBuilder,
+             ReflectionToStringBuilder and ReflectionHashCodeBuilder. Thanks
+             to Felipe Adorno.
+o LANG-1127: Use JUnit rules to set and reset the default Locale and TimeZone.
+o LANG-1119: Add rotate(string, int) method to StringUtils. Thanks to
+             Loic Guibert.
+o LANG-1099: Add swap and shift operations for arrays to ArrayUtils. Thanks to
+             Adrian Ber.
+o LANG-1050: Change nullToEmpty methods to generics. Thanks to James Sawle.
+o LANG-1074: Add a method to ArrayUtils for removing all occurrences of a given
+             element  Issue: LANG-1074. Thanks to Haiyang Li.
+
+FIXED BUGS
+============
+
+o LANG-1261: ArrayUtils.contains returns false for instances of subtypes.
+o LANG-1252: Rename NumberUtils.isNumber, isCreatable to better reflect
+             createNumber. Also, accommodated for "+" symbol as prefix in
+             isCreatable and isNumber. Thanks to Rob Tompkins.
+o LANG-1230: Remove unnecessary synchronization from registry lookup in
+             EqualsBuilder and HashCodeBuilder. Thanks to Philippe Marschall.
+o LANG-1214: Handle "void" in ClassUtils.getClass(). Thanks to Henry Tung.
+o LANG-1250: SerializationUtils#deserialize has unnecessary code and a comment
+             for that. Thanks to Glease Wang.
+o LANG-1190: TypeUtils.isAssignable throws NullPointerException when fromType
+             has type variables and toType generic superclass specifies type
+             variable. Thanks to Pascal Schumacher.
+o LANG-1226: StringUtils#normalizeSpace does not trim the string anymore.
+             Thanks to Pascal Schumacher.
+o LANG-1251: SerializationUtils.ClassLoaderAwareObjectInputStream should use
+             static initializer to initialize primitiveTypes map. Thanks to
+             Takuya Ueshin.
+o LANG-1248: FastDatePrinter Memory allocation regression. Thanks to
+             Benoit Wiart.
+o LANG-1018: Fix precision loss on NumberUtils.createNumber(String). Thanks to
+             Nick Manley.
+o LANG-1199: Fix implementation of StringUtils.getJaroWinklerDistance(). Thanks
+             to M. Steiger.
+o LANG-1244: Fix dead links in StringUtils.getLevenshteinDistance() javadoc.
+             Thanks to jjbankert.
+o LANG-1242: "\u2284":"?" mapping missing from
+             EntityArrays#HTML40_EXTENDED_ESCAPE. Thanks to Neal Stewart.
+o LANG-901:  StringUtils#startsWithAny/endsWithAny is case sensitive -
+             documented as case insensitive. Thanks to Matthew Bartenschlag.
+o LANG-1232: DiffBuilder: Add null check on fieldName when appending Object or
+             Object[]. Thanks to Nick Manley.
+o LANG-1178: ArrayUtils.removeAll(Object array, int... indices) should do the
+             clone, not its callers. Thanks to Henri Yandell.
+o LANG-1120: StringUtils.stripAccents should remove accents from "Ł" and "ł".
+             Thanks to kaching88.
+o LANG-1205: NumberUtils.createNumber() behaves inconsistently with
+             NumberUtils.isNumber(). Thanks to pbrose.
+o LANG-1222: Fix for incorrect comment on StringUtils.containsIgnoreCase
+             method. Thanks to Adam J.
+o LANG-1221: Fix typo on appendIfMissing javadoc. Thanks to Pierre Templier.
+o LANG-1202: parseDateStrictly does't pass specified locale. Thanks to
+             Markus Jelsma.
+o LANG-1219: FastDateFormat doesn't respect summer daylight in some localized
+             strings. Thanks to Jarek.
+o LANG-1175: Remove Ant-based build.
+o LANG-1194: Limit max heap memory for consistent Travis CI build.
+o LANG-1186: Fix NullPointerException in FastDateParser$TimeZoneStrategy.
+             Thanks to NickManley.
+o LANG-1193: ordinalIndexOf("abc", "ab", 1) gives incorrect answer of -1
+             (correct answer should be 0); revert fix for LANG-1077. Thanks to
+             Qin Li.
+o LANG-1002: Several predefined ISO FastDateFormats in DateFormatUtils are
+             incorrect. Thanks to Michael Osipov.
+o LANG-1152: StringIndexOutOfBoundsException or field over-write for large year
+             fields in FastDateParser. Thanks to Pas Filip.
+o LANG-1141: StrLookup.systemPropertiesLookup() no longer reacts on changes on
+             system properties.
+o LANG-1147: EnumUtils *BitVector issue with more than 32 values Enum. Thanks
+             to Loic Guibert.
+o LANG-1059: Capitalize javadoc is incorrect. Thanks to Colin Casey.
+o LANG-1122: Inconsistent behavior of swap for malformed inputs. Thanks to
+             Adrian Ber.
+o LANG-1130: Fix critical issues reported by SonarQube.
+o LANG-1131: StrBuilder.equals(StrBuilder) doesn't check for null inputs.
+o LANG-1128: JsonToStringStyle doesn't handle chars and objects correctly.
+             Thanks to Jack Tan.
+o LANG-1126: DateFormatUtilsTest.testSMTP depends on the default Locale.
+o LANG-1123: Unit test FastDatePrinterTimeZonesTest needs a timezone set.
+             Thanks to Christian P. Momon.
+o LANG-916:  DateFormatUtils.format does not correctly change Calendar
+             TimeZone in certain situations. Thanks to Christian P. Momon.
+o LANG-1116: DateUtilsTest.testLang530 fails for some timezones. Thanks to
+             Aaron Sheldon.
+o LANG-1114: TypeUtils.ParameterizedType#equals doesn't work with wildcard
+             types. Thanks to Andy Coates.
+o LANG-1118: StringUtils.repeat('z', -1) throws NegativeArraySizeException.
+             Thanks to Loic Guibert.
+o LANG-1111: Fix FindBugs warnings in DurationFormatUtils.
+o LANG-1162: StringUtils#equals fails with Index OOBE on non-Strings with
+             identical leading prefix..
+o LANG-1163: There are no tests for CharSequenceUtils.regionMatches.
+o LANG-1200: Fix JavaDoc of StringUtils.ordinalIndexOf. Thanks to BarkZhang.
+o LANG-1191: Incorrect Javadoc
+             StringUtils.containsAny(CharSequence, CharSequence...). Thanks to
+             qed, Brent Worden and Gary Gregory.
+
+CHANGES
+=========
+o LANG-1197: Prepare Java 9 detection.
+o LANG-1262: CompareToBuilder.append(Object, Object, Comparator) method is too
+             big to be inlined. Thanks to Ruslan Cheremin.
+o LANG-1259: JavaDoc for ArrayUtils.isNotEmpty() is slightly misleading. Thanks
+             to Dominik Stadler.
+o LANG-1247: FastDatePrinter generates extra Date objects. Thanks to
+             Benoit Wiart.
+o LANG-1229: HashCodeBuilder.append(Object,Object) is too big to be inlined,
+             which prevents whole builder to be scalarized. Thanks to
+             Ruslan Cheremin.
+o LANG-1243: Simplify ArrayUtils removeElements by using new decrementAndGet()
+             method.
+o LANG-1240: Optimize BitField constructor implementation. Thanks to zhanhb.
+o LANG-1206: Improve CharSetUtils.squeeze() performance. Thanks to
+             Mohammed Alfallaj.
+o LANG-1176: Improve ArrayUtils removeElements time complexity to O(n). Thanks
+             to Jeffery Yuan.
+o LANG-1234: getLevenshteinDistance with a threshold: optimize implementation
+             if the strings lengths differ more than the threshold. Thanks to
+             Jonatan Jönsson.
+o LANG-1151: Performance improvements for NumberUtils.isParsable. Thanks to
+             Juan Pablo Santos Rodríguez.
+o LANG-1218: EqualsBuilder.append(Object,Object) is too big to be inlined,
+             which prevents whole builder to be scalarized. Thanks to
+             Ruslan Cheremin.
+o LANG-1210: StringUtils#startsWithAny has error in Javadoc. Thanks to
+             Matthias Niehoff.
+o LANG-1208: StrSubstitutor can preserve escapes. Thanks to Samuel Karp.
+o LANG-1182: Clarify JavaDoc of StringUtils.containsAny(). Thanks to
+             Larry West and Pascal Schumacher.
+o LANG-1183: Making replacePattern/removePattern methods null safe in
+             StringUtils.
+o LANG-1057: Replace StringBuilder with String concatenation for better
+             optimization. Thanks to Otávio Santana.
+o LANG-1075: Deprecate SystemUtils.FILE_SEPARATOR and
+             SystemUtils.PATH_SEPARATOR.
+o LANG-979:  TypeUtils.parameterizeWithOwner - wrong format descriptor for
+             "invalid number of type parameters". Thanks to Bruno P. Kinoshita.
+o LANG-1112: MultilineRecursiveToStringStyle largely unusable due to being
+             package-private.
+o LANG-1058: StringUtils.uncapitalize performance improvement. Thanks to
+             Leo Wang.
+o LANG-1069: CharSet.getInstance documentation does not clearly explain how
+             to include negation character in set. Thanks to Arno Noordover.
+o LANG-1107: Fix parsing edge cases in FastDateParser.
+o LANG-1273: Added new property IS_OS_MAC_OSX_EL_CAPITAN in SystemUtils. Thanks
+             to Jake Wang.
+
+                        Release Notes for version 3.4
+
+
+COMPATIBILITY
+=============
+
+Commons Lang 3.4 is fully binary compatible to the last release and can
+therefore be used as a drop in replacement for 3.3.2. Note that the value of
 org.apache.commons.lang3.time.DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN
 has changed, which may affect clients using the constant. Furthermore the
-constant is used internally in 
+constant is used internally in
 o DurationFormatUtils.formatDurationISO(long)
 o DurationFormatUtils.formatPeriodISO(long, long)
 
