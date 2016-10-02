@@ -573,6 +573,9 @@
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-lang</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
+
+    <!-- Override clirr version to be able to build the site on Java 8 -->
+    <commons.clirr.version>2.8</commons.clirr.version>
   </properties>
 
 
