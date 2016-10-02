@@ -126,7 +126,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1147" type="fix" dev="sebb" due-to="Loic Guibert">EnumUtils *BitVector issue with more than 32 values Enum</action>
     <action issue="LANG-1059" type="fix" dev="sebb" due-to="Colin Casey">Capitalize javadoc is incorrect</action>
     <action issue="LANG-1137" type="add" dev="britter" due-to="Matthew Aguirre">Add check for duplicate event listener in EventListenerSupport</action>
-    <action issue="LANG-1133" type="bug" dev="chas" due-to="Pascal Schumacher">FastDateParser_TimeZoneStrategyTest#testTimeZoneStrategyPattern fails on Windows with German Locale</action>
+    <action issue="LANG-1133" type="fix" dev="chas" due-to="Pascal Schumacher">FastDateParser_TimeZoneStrategyTest#testTimeZoneStrategyPattern fails on Windows with German Locale</action>
     <action issue="LANG-1135" type="add" dev="britter" due-to="Eduardo Martins">Add method containsAllWords to WordUtils</action>
     <action issue="LANG-1132" type="add" dev="britter" due-to="Jack Tan">ReflectionToStringBuilder doesn't throw IllegalArgumentException when the constructor's object param is null</action>
     <action issue="LANG-1122" type="fix" dev="britter" due-to="Adrian Ber">Inconsistent behavior of swap for malformed inputs</action>
