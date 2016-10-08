@@ -385,6 +385,42 @@ public class TimedSemaphoreTest {
     }
 
     /**
+     * Tests the tryAcquire() method. It is checked whether the semaphore can be acquired
+     * by a bunch of threads the expected number of times and not more.
+     */
+    @Test
+    public void testTryAcquire() throws InterruptedException {
+        final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, TimeUnit.SECONDS,
+                LIMIT);
+        TryAcquireThread[] threads = new TryAcquireThread[3 * LIMIT];
+        CountDownLatch latch = new CountDownLatch(1);
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new TryAcquireThread(semaphore, latch);
+            threads[i].start();
+        }
+
+        latch.countDown();
+        int permits = 0;
+        for (TryAcquireThread t : threads) {
+            t.join();
+            if (t.acquired) {
+                permits++;
+            }
+        }
+        assertEquals("Wrong number of permits granted", LIMIT, permits);
+    }
+
+    /**
+     * Tries to call tryAcquire() after shutdown(). This should cause an exception.
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testTryAcquireAfterShutdown() {
+        final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
+        semaphore.shutdown();
+        semaphore.tryAcquire();
+    }
+
+    /**
      * A specialized implementation of {@code TimedSemaphore} that is easier to
      * test.
      */
@@ -492,6 +528,37 @@ public class TimedSemaphoreTest {
                 }
             } catch (final InterruptedException iex) {
                 Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    /**
+     * A test thread class which invokes {@code tryAcquire()} on the test semaphore and
+     * records the return value.
+     */
+    private static class TryAcquireThread extends Thread {
+        /** The semaphore. */
+        private final TimedSemaphore semaphore;
+
+        /** A latch for communication with the main thread. */
+        private final CountDownLatch latch;
+
+        /** Flag whether a permit could be acquired. */
+        private boolean acquired;
+
+        public TryAcquireThread(TimedSemaphore s, CountDownLatch l) {
+            semaphore = s;
+            latch = l;
+        }
+
+        @Override
+        public void run() {
+            try {
+                if (latch.await(10, TimeUnit.SECONDS)) {
+                    acquired = semaphore.tryAcquire();
+                }
+            } catch (InterruptedException iex) {
+                // ignore
             }
         }
     }

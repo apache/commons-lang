@@ -16,12 +16,12 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import org.apache.commons.lang3.Validate;
+
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.lang3.Validate;
 
 /**
  * <p>
@@ -99,11 +99,20 @@ import org.apache.commons.lang3.Validate;
  * </p>
  * <p>
  * Client code that uses {@code TimedSemaphore} has to call the
- * {@link #acquire()} method in aach processing step. {@code TimedSemaphore}
+ * {@link #acquire()} method in each processing step. {@code TimedSemaphore}
  * keeps track of the number of invocations of the {@link #acquire()} method and
  * blocks the calling thread if the counter exceeds the limit specified. When
  * the timer signals the end of the time period the counter is reset and all
  * waiting threads are released. Then another cycle can start.
+ * </p>
+ * <p>
+ * An alternative to {@code acquire()} is the {@link #tryAcquire()} method. This
+ * method checks whether the semaphore is under the specified limit and
+ * increases the internal counter if this is the case. The return value is then
+ * <strong>true</strong>, and the calling thread can continue with its action.
+ * If the semaphore is already at its limit, {@code tryAcquire()} immediately
+ * returns <strong>false</strong> without blocking; the calling thread must
+ * then abort its action. This usage scenario prevents blocking of threads.
  * </p>
  * <p>
  * It is possible to modify the limit at any time using the
@@ -280,7 +289,7 @@ public class TimedSemaphore {
     }
 
     /**
-     * Tries to acquire a permit from this semaphore. This method will block if
+     * Acquires a permit from this semaphore. This method will block if
      * the limit for the current period has already been reached. If
      * {@link #shutdown()} has already been invoked, calling this method will
      * cause an exception. The very first call of this method starts the timer
@@ -291,23 +300,31 @@ public class TimedSemaphore {
      * @throws IllegalStateException if this semaphore is already shut down
      */
     public synchronized void acquire() throws InterruptedException {
-        if (isShutdown()) {
-            throw new IllegalStateException("TimedSemaphore is shut down!");
-        }
+        prepareAcquire();
 
-        if (task == null) {
-            task = startTimer();
-        }
-
-        boolean canPass = false;
+        boolean canPass;
         do {
-            canPass = getLimit() <= NO_LIMIT || acquireCount < getLimit();
+            canPass = acquirePermit();
             if (!canPass) {
                 wait();
-            } else {
-                acquireCount++;
             }
         } while (!canPass);
+    }
+
+    /**
+     * Tries to acquire a permit from this semaphore. If the limit of this semaphore has
+     * not yet been reached, a permit is acquired, and this method returns
+     * <strong>true</strong>. Otherwise, this method returns immediately with the result
+     * <strong>false</strong>.
+     *
+     * @return <strong>true</strong> if a permit could be acquired; <strong>false</strong>
+     * otherwise
+     * @throws IllegalStateException if this semaphore is already shut down
+     * @since 3.5
+     */
+    public synchronized boolean tryAcquire() {
+        prepareAcquire();
+        return acquirePermit();
     }
 
     /**
@@ -419,5 +436,35 @@ public class TimedSemaphore {
         periodCount++;
         acquireCount = 0;
         notifyAll();
+    }
+
+    /**
+     * Prepares an acquire operation. Checks for the current state and starts the internal
+     * timer if necessary. This method must be called with the lock of this object held.
+     */
+    private void prepareAcquire() {
+        if (isShutdown()) {
+            throw new IllegalStateException("TimedSemaphore is shut down!");
+        }
+
+        if (task == null) {
+            task = startTimer();
+        }
+    }
+
+    /**
+     * Internal helper method for acquiring a permit. This method checks whether currently
+     * a permit can be acquired and - if so - increases the internal counter. The return
+     * value indicates whether a permit could be acquired. This method must be called with
+     * the lock of this object held.
+     *
+     * @return a flag whether a permit could be acquired
+     */
+    private boolean acquirePermit() {
+        if (getLimit() <= NO_LIMIT || acquireCount < getLimit()) {
+            acquireCount++;
+            return true;
+        }
+        return false;
     }
 }
