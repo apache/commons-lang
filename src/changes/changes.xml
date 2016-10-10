@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.5" date="tba" description="New features including Java 9 detection">
+    <action issue="LANG-1275" type="add" dev="oheger">Added a tryAcquire() method to TimedSemaphore.</action>
     <action issue="LANG-1273" type="add" dev="ebourg" due-to="Jake Wang">Added a new property IS_OS_MAC_OSX_EL_CAPITAN in SystemUtils</action>
     <action issue="LANG-1255" type="add" dev="britter" due-to="Kaiyuan Wang">Add DateUtils.toCalendar(Date, TimeZone)</action>
     <action issue="LANG-1023" type="add" dev="britter" due-to="Marko Bekhta">Add WordUtils.wrap overload with customizable breakable character</action>
