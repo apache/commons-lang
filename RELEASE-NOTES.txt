@@ -97,6 +97,7 @@ https://issues.apache.org/jira/browse/LANG-1265
 NEW FEATURES
 ==============
 
+o LANG-1275: Added a tryAcquire() method to TimedSemaphore.
 o LANG-1255: Add DateUtils.toCalendar(Date, TimeZone). Thanks to Kaiyuan Wang.
 o LANG-1023: Add WordUtils.wrap overload with customizable breakable character.
              Thanks to Marko Bekhta.
