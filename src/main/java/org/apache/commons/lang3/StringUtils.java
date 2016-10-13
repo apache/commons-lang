@@ -79,7 +79,7 @@ import java.util.regex.Pattern;
  *  <li><b>Reverse/ReverseDelimited</b>
  *      - reverses a String</li>
  *  <li><b>Abbreviate</b>
- *      - abbreviates a string using ellipsis</li>
+ *      - abbreviates a string using ellipsis or another given String</li>
  *  <li><b>Difference</b>
  *      - compares Strings and reports on their differences</li>
  *  <li><b>LevenshteinDistance</b>
@@ -7377,7 +7377,8 @@ public class StringUtils {
      * @since 2.0
      */
     public static String abbreviate(final String str, final int maxWidth) {
-        return abbreviate(str, 0, maxWidth);
+        final String defaultAbbrevMarker = "...";
+        return abbreviate(str, defaultAbbrevMarker, 0, maxWidth);
     }
 
     /**
@@ -7416,11 +7417,98 @@ public class StringUtils {
      * @since 2.0
      */
     public static String abbreviate(final String str, int offset, final int maxWidth) {
-        if (str == null) {
-            return null;
+        final String defaultAbbrevMarker = "...";
+        return abbreviate(str, defaultAbbrevMarker, offset, maxWidth);
+    }
+
+    /**
+     * <p>Abbreviates a String using another given String as replacement marker. This will turn
+     * "Now is the time for all good men" into "Now is the time for..." if "..." was defined
+     * as the replacement marker.</p>
+     *
+     * <p>Specifically:</p>
+     * <ul>
+     *   <li>If the number of characters in {@code str} is less than or equal to 
+     *       {@code maxWidth}, return {@code str}.</li>
+     *   <li>Else abbreviate it to {@code (substring(str, 0, max-abbrevMarker.length) + abbrevMarker)}.</li>
+     *   <li>If {@code maxWidth} is less than {@code abbrevMarker.length + 1}, throw an
+     *       {@code IllegalArgumentException}.</li>
+     *   <li>In no case will it return a String of length greater than
+     *       {@code maxWidth}.</li>
+     * </ul>
+     *
+     * <pre>
+     * StringUtils.abbreviate(null, "...", *)      = null
+     * StringUtils.abbreviate("abcdefg", null, *)  = "abcdefg"
+     * StringUtils.abbreviate("", "...", 4)        = ""
+     * StringUtils.abbreviate("abcdefg", ".", 5)   = "abcd."
+     * StringUtils.abbreviate("abcdefg", ".", 7)   = "abcdefg"
+     * StringUtils.abbreviate("abcdefg", ".", 8)   = "abcdefg"
+     * StringUtils.abbreviate("abcdefg", "..", 4)  = "ab.."
+     * StringUtils.abbreviate("abcdefg", "..", 3)  = "a.."
+     * StringUtils.abbreviate("abcdefg", "..", 2)  = IllegalArgumentException
+     * StringUtils.abbreviate("abcdefg", "...", 3) = IllegalArgumentException
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param abbrevMarker  the String used as replacement marker
+     * @param maxWidth  maximum length of result String, must be at least {@code abbrevMarker.length + 1}
+     * @return abbreviated String, {@code null} if null String input
+     * @throws IllegalArgumentException if the width is too small
+     * @since 3.5
+     */
+    public static String abbreviate(final String str, final String abbrevMarker, final int maxWidth) {
+        return abbreviate(str, abbrevMarker, 0, maxWidth);
+    }
+
+    /**
+     * <p>Abbreviates a String using a given replacement marker. This will turn
+     * "Now is the time for all good men" into "...is the time for..." if "..." was defined
+     * as the replacement marker.</p>
+     *
+     * <p>Works like {@code abbreviate(String, String, int)}, but allows you to specify
+     * a "left edge" offset.  Note that this left edge is not necessarily going to
+     * be the leftmost character in the result, or the first character following the
+     * replacement marker, but it will appear somewhere in the result.
+     *
+     * <p>In no case will it return a String of length greater than {@code maxWidth}.</p>
+     *
+     * <pre>
+     * StringUtils.abbreviate(null, null, *, *)                 = null
+     * StringUtils.abbreviate("abcdefghijklmno", null, *, *)    = "abcdefghijklmno"
+     * StringUtils.abbreviate("", "...", 0, 4)                  = ""
+     * StringUtils.abbreviate("abcdefghijklmno", "---", -1, 10) = "abcdefg---"
+     * StringUtils.abbreviate("abcdefghijklmno", ",", 0, 10)    = "abcdefghi,"
+     * StringUtils.abbreviate("abcdefghijklmno", ",", 1, 10)    = "abcdefghi,"
+     * StringUtils.abbreviate("abcdefghijklmno", ",", 2, 10)    = "abcdefghi,"
+     * StringUtils.abbreviate("abcdefghijklmno", "::", 4, 10)   = "::efghij::"
+     * StringUtils.abbreviate("abcdefghijklmno", "...", 6, 10)  = "...ghij..."
+     * StringUtils.abbreviate("abcdefghijklmno", "*", 9, 10)    = "*ghijklmno"
+     * StringUtils.abbreviate("abcdefghijklmno", "'", 10, 10)   = "'ghijklmno"
+     * StringUtils.abbreviate("abcdefghijklmno", "!", 12, 10)   = "!ghijklmno"
+     * StringUtils.abbreviate("abcdefghij", "abra", 0, 4)       = IllegalArgumentException
+     * StringUtils.abbreviate("abcdefghij", "...", 5, 6)        = IllegalArgumentException
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param abbrevMarker  the String used as replacement marker
+     * @param offset  left edge of source String
+     * @param maxWidth  maximum length of result String, must be at least 4
+     * @return abbreviated String, {@code null} if null String input
+     * @throws IllegalArgumentException if the width is too small
+     * @since 3.5
+     */
+    public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
+        if (isEmpty(str) || isEmpty(abbrevMarker)) {
+            return str;
         }
-        if (maxWidth < 4) {
-            throw new IllegalArgumentException("Minimum abbreviation width is 4");
+
+        final int abbrevMarkerLength = abbrevMarker.length();
+        final int minAbbrevWidth = abbrevMarkerLength + 1;
+        final int minAbbrevWidthOffset = abbrevMarkerLength + abbrevMarkerLength + 1;
+
+        if (maxWidth < minAbbrevWidth) {
+            throw new IllegalArgumentException(String.format("Minimum abbreviation width is %d", minAbbrevWidth));
         }
         if (str.length() <= maxWidth) {
             return str;
@@ -7428,20 +7516,19 @@ public class StringUtils {
         if (offset > str.length()) {
             offset = str.length();
         }
-        if (str.length() - offset < maxWidth - 3) {
-            offset = str.length() - (maxWidth - 3);
+        if (str.length() - offset < maxWidth - abbrevMarkerLength) {
+            offset = str.length() - (maxWidth - abbrevMarkerLength);
         }
-        final String abrevMarker = "...";
-        if (offset <= 4) {
-            return str.substring(0, maxWidth - 3) + abrevMarker;
+        if (offset <= abbrevMarkerLength+1) {
+            return str.substring(0, maxWidth - abbrevMarkerLength) + abbrevMarker;
         }
-        if (maxWidth < 7) {
-            throw new IllegalArgumentException("Minimum abbreviation width with offset is 7");
+        if (maxWidth < minAbbrevWidthOffset) {
+            throw new IllegalArgumentException(String.format("Minimum abbreviation width with offset is %d", minAbbrevWidthOffset));
         }
-        if (offset + maxWidth - 3 < str.length()) {
-            return abrevMarker + abbreviate(str.substring(offset), maxWidth - 3);
+        if (offset + maxWidth - abbrevMarkerLength < str.length()) {
+            return abbrevMarker + abbreviate(str.substring(offset), abbrevMarker, maxWidth - abbrevMarkerLength);
         }
-        return abrevMarker + str.substring(str.length() - (maxWidth - 3));
+        return abbrevMarker + str.substring(str.length() - (maxWidth - abbrevMarkerLength));
     }
 
     /**
