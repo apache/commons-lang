@@ -38,7 +38,7 @@
             <item name="Proposal"             href="/proposal.html"/>
             <item name="Developer guide"      href="/developerguide.html"/>
             <item name="Source Repository"    href="/source-repository.html"/>
-            <item name="Javadoc (SVN latest)" href="apidocs/index.html"/>
+            <item name="Javadoc (GIT latest)" href="apidocs/index.html"/>
         </menu>
 
     </body>
