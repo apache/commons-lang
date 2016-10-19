@@ -46,6 +46,8 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="tba" description="tba">
+    <action issue="LANG-1271" type="add" dev="pschumacher" due-to="Pierre Templier">StringUtils#isAnyEmpty and #isAnyBlank should return false for an empty array</action>
+    <action issue="LANG-1270" type="add" dev="pschumacher" due-to="Pierre Templier">Add StringUtils#isAnyNotEmpty and #isAnyNotBlank</action>
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">
