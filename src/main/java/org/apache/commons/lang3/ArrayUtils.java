@@ -5332,7 +5332,7 @@ public class ArrayUtils {
      *  in which case the return type is Object[]
      *
      * <pre>
-     * ArrayUtils.add(null, null)      = [null]
+     * ArrayUtils.add(null, null)      = IllegalArgumentException
      * ArrayUtils.add(null, "a")       = ["a"]
      * ArrayUtils.add(["a"], null)     = ["a", null]
      * ArrayUtils.add(["a"], "b")      = ["a", "b"]
@@ -5614,7 +5614,7 @@ public class ArrayUtils {
      *  whose component type is the same as the element.
      *
      * <pre>
-     * ArrayUtils.add(null, 0, null)      = [null]
+     * ArrayUtils.add(null, 0, null)      = IllegalArgumentException
      * ArrayUtils.add(null, 0, "a")       = ["a"]
      * ArrayUtils.add(["a"], 1, null)     = ["a", null]
      * ArrayUtils.add(["a"], 1, "b")      = ["a", "b"]
