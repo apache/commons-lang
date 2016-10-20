@@ -7736,11 +7736,9 @@ public class StringUtils {
      * another, where each change is a single character modification (deletion,
      * insertion or substitution).</p>
      *
-     * <p>The previous implementation of the Levenshtein distance algorithm
-     * was from <a href="https://web.archive.org/web/20120526085419/http://www.merriampark.com/ldjava.htm">
-     * https://web.archive.org/web/20120526085419/http://www.merriampark.com/ldjava.htm</a></p>
-     *
-     * <p>This implementation only need one single-dimensional arrays of length s.length() + 1</p>
+     * <p>The implementation uses a single-dimensional array of length s.length() + 1. See 
+     * <a href="http://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html">
+     * http://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html</a> for details.</p>
      *
      * <pre>
      * StringUtils.getLevenshteinDistance(null, *)             = IllegalArgumentException
@@ -7768,13 +7766,8 @@ public class StringUtils {
             throw new IllegalArgumentException("Strings must not be null");
         }
 
-        /*
-           This implementation use two variable to record the previous cost counts,
-           So this implementation use less memory than previous impl.
-         */
-
-        int n = s.length(); // length of s
-        int m = t.length(); // length of t
+        int n = s.length();
+        int m = t.length();
 
         if (n == 0) {
             return m;
@@ -7799,19 +7792,19 @@ public class StringUtils {
         int upper;
 
         char t_j; // jth character of t
-        int cost; // cost
+        int cost;
 
         for (i = 0; i <= n; i++) {
             p[i] = i;
         }
 
         for (j = 1; j <= m; j++) {
-        	upper_left = p[0];
+            upper_left = p[0];
             t_j = t.charAt(j - 1);
             p[0] = j;
 
             for (i = 1; i <= n; i++) {
-            	upper = p[i];
+                upper = p[i];
                 cost = s.charAt(i - 1) == t_j ? 0 : 1;
                 // minimum of cell to the left+1, to the top+1, diagonally left and up +cost
                 p[i] = Math.min(Math.min(p[i - 1] + 1, p[i] + 1), upper_left + cost);
