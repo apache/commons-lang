@@ -48,7 +48,7 @@ public class BooleanUtils {
      *
      * <p>If {@code null} is passed in, {@code null} will be returned.</p>
      *
-     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
+     * <p>NOTE: This returns null and will throw a NullPointerException if unboxed to a boolean. </p>
      *
      * <pre>
      *   BooleanUtils.negate(Boolean.TRUE)  = Boolean.FALSE;
@@ -222,7 +222,7 @@ public class BooleanUtils {
      *
      * <p>{@code null} will be converted to {@code null}.</p>
      *
-     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
+     * <p>NOTE: This returns null and will throw a NullPointerException if unboxed to a boolean. </p>
      *
      * <pre>
      *   BooleanUtils.toBoolean(Integer.valueOf(0))    = Boolean.FALSE
@@ -305,7 +305,7 @@ public class BooleanUtils {
     /**
      * <p>Converts an int to a Boolean specifying the conversion values.</p>
      *
-     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
+     * <p>NOTE: This returns null and will throw a NullPointerException if unboxed to a boolean. </p>
      *
      * <pre>
      *   BooleanUtils.toBooleanObject(0, 0, 2, 3) = Boolean.TRUE
@@ -337,7 +337,7 @@ public class BooleanUtils {
     /**
      * <p>Converts an Integer to a Boolean specifying the conversion values.</p>
      *
-     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
+     * <p>NOTE: This returns null and will throw a NullPointerException if unboxed to a boolean. </p>
      *
      * <pre>
      *   BooleanUtils.toBooleanObject(Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(2), Integer.valueOf(3)) = Boolean.TRUE
@@ -518,7 +518,7 @@ public class BooleanUtils {
      * (case insensitive) will return {@code false}.
      * Otherwise, {@code null} is returned.</p>
      *
-     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
+     * <p>NOTE: This returns null and will throw a NullPointerException if unboxed to a boolean. </p>
      *
      * <pre>
      *   // N.B. case is not significant
@@ -636,7 +636,7 @@ public class BooleanUtils {
     /**
      * <p>Converts a String to a Boolean throwing an exception if no match.</p>
      *
-     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
+     * <p>NOTE: This returns null and will throw a NullPointerException if unboxed to a boolean. </p>
      *
      * <pre>
      *   BooleanUtils.toBooleanObject("true", "true", "false", "null")  = Boolean.TRUE
@@ -1023,9 +1023,6 @@ public class BooleanUtils {
      * <p>Performs an xor on a set of booleans.</p>
      *
      * <pre>
-     *   BooleanUtils.xor(true, true)   = false
-     *   BooleanUtils.xor(false, false) = false
-     *   BooleanUtils.xor(true, false)  = true
      *   BooleanUtils.xor(true, true)   = false
      *   BooleanUtils.xor(false, false) = false
      *   BooleanUtils.xor(true, false)  = true
