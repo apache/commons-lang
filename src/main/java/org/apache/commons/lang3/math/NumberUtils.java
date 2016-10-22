@@ -1362,7 +1362,7 @@ public class NumberUtils {
      * <code>false</code>.</p>
      *
      * <p>Note, {@link #createNumber(String)} should return a number for every
-     * input resuling in <code>true</code>.</p>
+     * input resulting in <code>true</code>.</p>
      *
      * @param str  the <code>String</code> to check
      * @return <code>true</code> if the string is a correctly formatted number
@@ -1392,7 +1392,7 @@ public class NumberUtils {
      * <code>false</code>.</p>
      *
      * <p>Note, {@link #createNumber(String)} should return a number for every
-     * input resuling in <code>true</code>.</p>
+     * input resulting in <code>true</code>.</p>
      *
      * @param str  the <code>String</code> to check
      * @return <code>true</code> if the string is a correctly formatted number
