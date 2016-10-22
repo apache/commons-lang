@@ -199,49 +199,36 @@ public class MethodUtils {
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName,
             Object[] args, Class<?>[] parameterTypes)
-            throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
         args = ArrayUtils.nullToEmpty(args);
 
         final String messagePrefix;
         Method method = null;
-        boolean isOriginallyAccessible = false;
-        Object result = null;
 
-        try {
-            if (forceAccess) {
-                messagePrefix = "No such method: ";
-                method = getMatchingMethod(object.getClass(),
-                        methodName, parameterTypes);
-                if (method != null) {
-                    isOriginallyAccessible = method.isAccessible();
-                    if (!isOriginallyAccessible) {
-                        method.setAccessible(true);
-                    }
+        if (forceAccess) {
+            messagePrefix = "No such method: ";
+            method = getMatchingMethod(object.getClass(),
+                    methodName, parameterTypes);
+            if (method != null) {
+                if (!method.isAccessible()) {
+                    method.setAccessible(true);
                 }
-            } else {
-                messagePrefix = "No such accessible method: ";
-                method = getMatchingAccessibleMethod(object.getClass(),
-                        methodName, parameterTypes);
             }
-
-            if (method == null) {
-                throw new NoSuchMethodException(messagePrefix
-                        + methodName + "() on object: "
-                        + object.getClass().getName());
-            }
-            args = toVarArgs(method, args);
-
-            result = method.invoke(object, args);
-        }
-        finally {
-            if (method != null && forceAccess && method.isAccessible() != isOriginallyAccessible) {
-                method.setAccessible(isOriginallyAccessible);
-            }
+        } else {
+            messagePrefix = "No such accessible method: ";
+            method = getMatchingAccessibleMethod(object.getClass(),
+                    methodName, parameterTypes);
         }
 
-        return result;
+        if (method == null) {
+            throw new NoSuchMethodException(messagePrefix
+                    + methodName + "() on object: "
+                    + object.getClass().getName());
+        }
+        args = toVarArgs(method, args);
+
+        return method.invoke(object, args);
     }
 
     /**
