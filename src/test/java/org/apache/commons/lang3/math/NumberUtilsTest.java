@@ -1234,6 +1234,7 @@ public class NumberUtilsTest {
         compareIsCreatableWithCreateNumber("-.12345", true);
         compareIsCreatableWithCreateNumber("-1234E5", true);
         compareIsCreatableWithCreateNumber("0", true);
+        compareIsCreatableWithCreateNumber("0.1", true); // LANG-1216
         compareIsCreatableWithCreateNumber("-0", true);
         compareIsCreatableWithCreateNumber("01234", true);
         compareIsCreatableWithCreateNumber("-01234", true);
