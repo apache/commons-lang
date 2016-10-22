@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="2016-MM-DD" description="TBD">
+    <action issue="LANG-1269" type="fix" dev="paschuma">Wrong name or result of StringUtils#getJaroWinklerDistance</action>
     <action issue="LANG-1188" type="fix" dev="paschuma">StringUtils#join(T...): warning: [unchecked] Possible heap pollution from parameterized vararg type T</action>
     <action issue="LANG-1144" type="fix" dev="ggregory" due-to="Waldemar Maier, Gary Gregory">Multiple calls of org.apache.commons.lang3.concurrent.LazyInitializer.initialize() are possible.</action>
     <action issue="LANG-1276" type="fix" dev="pschumacher" due-to="Andy Klimczak">StrBuilder#replaceAll ArrayIndexOutOfBoundsException</action>
