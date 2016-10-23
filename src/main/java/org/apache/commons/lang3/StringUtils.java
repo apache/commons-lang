@@ -5143,7 +5143,7 @@ public class StringUtils {
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
      */
     public static String replacePattern(final String source, final String regex, final String replacement) {
-        if (source == null || regex == null|| replacement == null ) {
+        if (source == null || regex == null || replacement == null) {
             return source;
         }
         return Pattern.compile(regex, Pattern.DOTALL).matcher(source).replaceAll(replacement);
