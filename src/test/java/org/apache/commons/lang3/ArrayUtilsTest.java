@@ -218,6 +218,7 @@ public class ArrayUtilsTest  {
         assertEquals(0, array.length);
     }
 
+    @SafeVarargs
     private static <T> T[] toArrayPropagatingType(final T... items)
     {
         return ArrayUtils.toArray(items);

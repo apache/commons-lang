@@ -301,6 +301,7 @@ public class ArrayUtils {
      * @return the array, not null unless a null array is passed in
      * @since  3.0
      */
+    @SafeVarargs
     public static <T> T[] toArray(final T... items) {
         return items;
     }
@@ -5058,6 +5059,7 @@ public class ArrayUtils {
      * @since 2.1
      * @throws IllegalArgumentException if the array types are incompatible
      */
+    @SafeVarargs
     public static <T> T[] addAll(final T[] array1, final T... array2) {
         if (array1 == null) {
             return clone(array2);
@@ -5066,8 +5068,7 @@ public class ArrayUtils {
         }
         final Class<?> type1 = array1.getClass().getComponentType();
         @SuppressWarnings("unchecked") // OK, because array is of type T
-        final
-        T[] joinedArray = (T[]) Array.newInstance(type1, array1.length + array2.length);
+        final T[] joinedArray = (T[]) Array.newInstance(type1, array1.length + array2.length);
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         try {
             System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
@@ -6607,6 +6608,7 @@ public class ArrayUtils {
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
      */
+    @SafeVarargs
     public static <T> T[] removeElements(final T[] array, final T... values) {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
@@ -6632,8 +6634,7 @@ public class ArrayUtils {
             }
         }
         @SuppressWarnings("unchecked") // removeAll() always creates an array of the same type as its input
-        final
-        T[] result = (T[]) removeAll(array, toRemove);
+        final T[] result = (T[]) removeAll(array, toRemove);
         return result;
     }
 
