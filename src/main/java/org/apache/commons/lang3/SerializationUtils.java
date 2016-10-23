@@ -136,22 +136,10 @@ public class SerializationUtils {
         if (outputStream == null) {
             throw new IllegalArgumentException("The OutputStream must not be null");
         }
-        ObjectOutputStream out = null;
-        try {
-            // stream closed in the finally
-            out = new ObjectOutputStream(outputStream);
+        try (ObjectOutputStream out = new ObjectOutputStream(outputStream)){
             out.writeObject(obj);
-
         } catch (final IOException ex) {
             throw new SerializationException(ex);
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (final IOException ex) { // NOPMD
-                // ignore close exception
-            }
         }
     }
 
@@ -205,26 +193,12 @@ public class SerializationUtils {
         if (inputStream == null) {
             throw new IllegalArgumentException("The InputStream must not be null");
         }
-        ObjectInputStream in = null;
-        try {
-            // stream closed in the finally
-            in = new ObjectInputStream(inputStream);
+        try (ObjectInputStream in = new ObjectInputStream(inputStream)) {
             @SuppressWarnings("unchecked")
             final T obj = (T) in.readObject();
             return obj;
-
-        } catch (final ClassNotFoundException ex) {
+        } catch (final ClassNotFoundException | IOException ex) {
             throw new SerializationException(ex);
-        } catch (final IOException ex) {
-            throw new SerializationException(ex);
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (final IOException ex) { // NOPMD
-                // ignore close exception
-            }
         }
     }
 
