@@ -81,10 +81,8 @@ public class SerializationUtils {
         final byte[] objectData = serialize(object);
         final ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
 
-        ClassLoaderAwareObjectInputStream in = null;
-        try {
-            // stream closed in the finally
-            in = new ClassLoaderAwareObjectInputStream(bais, object.getClass().getClassLoader());
+        try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais,
+                object.getClass().getClassLoader())) {
             /*
              * when we serialize and deserialize an object,
              * it is reasonable to assume the deserialized object
@@ -97,15 +95,7 @@ public class SerializationUtils {
         } catch (final ClassNotFoundException ex) {
             throw new SerializationException("ClassNotFoundException while reading cloned object data", ex);
         } catch (final IOException ex) {
-            throw new SerializationException("IOException while reading cloned object data", ex);
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (final IOException ex) {
-                throw new SerializationException("IOException on closing cloned object data InputStream.", ex);
-            }
+            throw new SerializationException("IOException while reading or closing cloned object data", ex);
         }
     }
 
