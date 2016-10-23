@@ -3753,6 +3753,7 @@ public class StringUtils {
      * @since 2.0
      * @since 3.0 Changed signature to use varargs
      */
+    @SafeVarargs
     public static <T> String join(final T... elements) {
         return join(elements, null);
     }
