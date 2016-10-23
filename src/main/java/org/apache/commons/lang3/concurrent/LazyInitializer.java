@@ -78,11 +78,12 @@ package org.apache.commons.lang3.concurrent;
  * @param <T> the type of the object managed by this initializer class
  */
 public abstract class LazyInitializer<T> implements ConcurrentInitializer<T> {
+
+    private static final Object noInit = new Object();
+
+    @SuppressWarnings("unchecked")
     /** Stores the managed object. */
-    
-    private static final Object NoInit = new Object();
-    
-    private volatile T object = (T) NoInit;
+    private volatile T object = (T) noInit;
 
     /**
      * Returns the object wrapped by this instance. On first access the object
@@ -98,10 +99,10 @@ public abstract class LazyInitializer<T> implements ConcurrentInitializer<T> {
         // volatile field
         T result = object;
 
-        if (result == NoInit) {
+        if (result == noInit) {
             synchronized (this) {
                 result = object;
-                if (result == NoInit) {
+                if (result == noInit) {
                     object = result = initialize();
                 }
             }
