@@ -6600,7 +6600,7 @@ public class StringUtils {
 
     /**
      * <p>Capitalizes a String changing the first character to title case as
-     * per {@link Character#toTitleCase(char)}. No other characters are changed.</p>
+     * per {@link Character#toTitleCase(int)}. No other characters are changed.</p>
      *
      * <p>For a word based algorithm, see {@link org.apache.commons.lang3.text.WordUtils#capitalize(String)}.
      * A {@code null} input String returns {@code null}.</p>
@@ -6625,22 +6625,27 @@ public class StringUtils {
             return str;
         }
 
-        final char firstChar = str.charAt(0);
-        final char newChar = Character.toTitleCase(firstChar);
-        if (firstChar == newChar) {
+        final int firstCodepoint = str.codePointAt(0);
+        final int newCodePoint = Character.toTitleCase(firstCodepoint);
+        if (firstCodepoint == newCodePoint) {
             // already capitalized
             return str;
         }
 
-        final char[] newChars = new char[strLen];
-        newChars[0] = newChar;
-        str.getChars(1,strLen, newChars, 1);
-        return String.valueOf(newChars);
+        int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        int outOffset = 0;
+        newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
+        for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {
+            final int codepoint = str.codePointAt(inOffset);
+            newCodePoints[outOffset++] = codepoint; // copy the remaining ones
+            inOffset += Character.charCount(codepoint);
+         }
+        return new String(newCodePoints, 0, outOffset);
     }
 
     /**
      * <p>Uncapitalizes a String, changing the first character to lower case as
-     * per {@link Character#toLowerCase(char)}. No other characters are changed.</p>
+     * per {@link Character#toLowerCase(int)}. No other characters are changed.</p>
      *
      * <p>For a word based algorithm, see {@link org.apache.commons.lang3.text.WordUtils#uncapitalize(String)}.
      * A {@code null} input String returns {@code null}.</p>
@@ -6665,17 +6670,22 @@ public class StringUtils {
             return str;
         }
 
-        final char firstChar = str.charAt(0);
-        final char newChar = Character.toLowerCase(firstChar);
-        if (firstChar == newChar) {
-            // already uncapitalized
+        final int firstCodepoint = str.codePointAt(0);
+        final int newCodePoint = Character.toLowerCase(firstCodepoint);
+        if (firstCodepoint == newCodePoint) {
+            // already capitalized
             return str;
         }
 
-        final char[] newChars = new char[strLen];
-        newChars[0] = newChar;
-        str.getChars(1,strLen, newChars, 1);
-        return String.valueOf(newChars);
+        int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        int outOffset = 0;
+        newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
+        for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {
+            final int codepoint = str.codePointAt(inOffset);
+            newCodePoints[outOffset++] = codepoint; // copy the remaining ones
+            inOffset += Character.charCount(codepoint);
+         }
+        return new String(newCodePoints, 0, outOffset);
     }
 
     /**
@@ -6710,19 +6720,25 @@ public class StringUtils {
             return str;
         }
 
-        final char[] buffer = str.toCharArray();
-
-        for (int i = 0; i < buffer.length; i++) {
-            final char ch = buffer[i];
-            if (Character.isUpperCase(ch)) {
-                buffer[i] = Character.toLowerCase(ch);
-            } else if (Character.isTitleCase(ch)) {
-                buffer[i] = Character.toLowerCase(ch);
-            } else if (Character.isLowerCase(ch)) {
-                buffer[i] = Character.toUpperCase(ch);
+        final int strLen = str.length();
+        int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        int outOffset = 0;
+        for (int i = 0; i < strLen; ) {
+            final int oldCodepoint = str.codePointAt(i);
+            final int newCodePoint;
+            if (Character.isUpperCase(oldCodepoint)) {
+                newCodePoint = Character.toLowerCase(oldCodepoint);
+            } else if (Character.isTitleCase(oldCodepoint)) {
+                newCodePoint = Character.toLowerCase(oldCodepoint);
+            } else if (Character.isLowerCase(oldCodepoint)) {
+                newCodePoint = Character.toUpperCase(oldCodepoint);
+            } else {
+                newCodePoint = oldCodepoint;
             }
-        }
-        return new String(buffer);
+            newCodePoints[outOffset++] = newCodePoint;
+            i += Character.charCount(newCodePoint);
+         }
+        return new String(newCodePoints, 0, outOffset);
     }
 
     // Count matches

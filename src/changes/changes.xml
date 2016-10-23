@@ -46,8 +46,8 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="2016-MM-DD" description="TBD">
-    <action issue="LANG-1269" type="fix" dev="paschuma">Wrong name or result of StringUtils#getJaroWinklerDistance</action>
-    <action issue="LANG-1188" type="fix" dev="paschuma">StringUtils#join(T...): warning: [unchecked] Possible heap pollution from parameterized vararg type T</action>
+    <action issue="LANG-1269" type="fix" dev="pschumacher">Wrong name or result of StringUtils#getJaroWinklerDistance</action>
+    <action issue="LANG-1188" type="fix" dev="pschumacher">StringUtils#join(T...): warning: [unchecked] Possible heap pollution from parameterized vararg type T</action>
     <action issue="LANG-1144" type="fix" dev="ggregory" due-to="Waldemar Maier, Gary Gregory">Multiple calls of org.apache.commons.lang3.concurrent.LazyInitializer.initialize() are possible.</action>
     <action issue="LANG-1276" type="fix" dev="pschumacher" due-to="Andy Klimczak">StrBuilder#replaceAll ArrayIndexOutOfBoundsException</action>
     <action issue="LANG-1278" type="fix" dev="pschumacher" due-to="Duke Yin">BooleanUtils javadoc issues</action>
@@ -57,6 +57,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1270" type="add" dev="pschumacher" due-to="Pierre Templier">Add StringUtils#isAnyNotEmpty and #isAnyNotBlank</action>
     <action issue="LANG-1277" type="update" dev="pschumacher" due-to="yufcuy">StringUtils#getLevenshteinDistance reduce memory consumption</action>
     <action issue="LANG-1279" type="update" dev="ggregory">Update Java requirement from Java 6 to 7.</action>
+    <action issue="LANG-1143" type="update" dev="pschumacher" due-to="sebb">StringUtils should use toXxxxCase(int) rather than toXxxxCase(char)</action>
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">
