@@ -565,8 +565,8 @@ public class HashCodeBuilderTest {
 
     static class TestObjectHashCodeExclude {
         @HashCodeExclude
-        private int a;
-        private int b;
+        private final int a;
+        private final int b;
 
         public TestObjectHashCodeExclude(int a, int b) {
             this.a = a;
@@ -584,9 +584,9 @@ public class HashCodeBuilderTest {
 
     static class TestObjectHashCodeExclude2 {
         @HashCodeExclude
-        private int a;
+        private final int a;
         @HashCodeExclude
-        private int b;
+        private final int b;
 
         public TestObjectHashCodeExclude2(int a, int b) {
             this.a = a;

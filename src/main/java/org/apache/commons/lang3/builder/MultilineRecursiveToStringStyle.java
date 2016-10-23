@@ -71,7 +71,7 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
     private static final long serialVersionUID = 1L;
 
     /** Indenting of inner lines. */
-    private int indent = 2;
+    private final int indent = 2;
 
     /** Current indenting. */
     private int spaces = 2;

@@ -2367,7 +2367,7 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * The summary size text start <code>'&gt;'</code>.
          */
-        private String FIELD_NAME_PREFIX = "\"";
+        private final String FIELD_NAME_PREFIX = "\"";
 
         /**
          * <p>
