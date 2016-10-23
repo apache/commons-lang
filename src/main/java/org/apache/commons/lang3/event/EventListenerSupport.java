@@ -76,7 +76,7 @@ public class EventListenerSupport<L> implements Serializable {
      * intentionally a thread-safe copy-on-write-array so that traversals over
      * the list of listeners will be atomic.
      */
-    private List<L> listeners = new CopyOnWriteArrayList<L>();
+    private List<L> listeners = new CopyOnWriteArrayList<>();
 
     /**
      * The proxy representing the collection of listeners. Calls to this proxy
@@ -106,7 +106,7 @@ public class EventListenerSupport<L> implements Serializable {
      *         not an interface.
      */
     public static <T> EventListenerSupport<T> create(final Class<T> listenerInterface) {
-        return new EventListenerSupport<T>(listenerInterface);
+        return new EventListenerSupport<>(listenerInterface);
     }
 
     /**
@@ -240,7 +240,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @throws IOException if an IO error occurs
      */
     private void writeObject(final ObjectOutputStream objectOutputStream) throws IOException {
-        final ArrayList<L> serializableListeners = new ArrayList<L>();
+        final ArrayList<L> serializableListeners = new ArrayList<>();
 
         // don't just rely on instanceof Serializable:
         ObjectOutputStream testObjectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
@@ -271,7 +271,7 @@ public class EventListenerSupport<L> implements Serializable {
         final
         L[] srcListeners = (L[]) objectInputStream.readObject();
 
-        this.listeners = new CopyOnWriteArrayList<L>(srcListeners);
+        this.listeners = new CopyOnWriteArrayList<>(srcListeners);
 
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
         final

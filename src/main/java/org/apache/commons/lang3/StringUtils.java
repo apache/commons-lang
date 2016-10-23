@@ -3002,7 +3002,7 @@ public class StringUtils {
         }
         final int closeLen = close.length();
         final int openLen = open.length();
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         int pos = 0;
         while (pos < strLen - closeLen) {
             int start = str.indexOf(open, pos);
@@ -3298,7 +3298,7 @@ public class StringUtils {
 
         final int separatorLength = separator.length();
 
-        final ArrayList<String> substrings = new ArrayList<String>();
+        final ArrayList<String> substrings = new ArrayList<>();
         int numberOfSubstrings = 0;
         int beg = 0;
         int end = 0;
@@ -3432,7 +3432,7 @@ public class StringUtils {
         if (len == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         int i = 0, start = 0;
         boolean match = false;
         boolean lastMatch = false;
@@ -3559,7 +3559,7 @@ public class StringUtils {
         if (len == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         int sizePlus1 = 1;
         int i = 0, start = 0;
         boolean match = false;
@@ -3705,7 +3705,7 @@ public class StringUtils {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
         final char[] c = str.toCharArray();
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         int tokenStart = 0;
         int currentType = Character.getType(c[tokenStart]);
         for (int pos = tokenStart + 1; pos < c.length; pos++) {

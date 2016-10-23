@@ -35,11 +35,11 @@ public class MutableTripleTest {
 
     @Test
     public void testBasic() throws Exception {
-        final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<Integer, String, Boolean>(0, "foo", Boolean.FALSE);
+        final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<>(0, "foo", Boolean.FALSE);
         assertEquals(0, triple.getLeft().intValue());
         assertEquals("foo", triple.getMiddle());
         assertEquals(Boolean.FALSE, triple.getRight());
-        final MutableTriple<Object, String, String> triple2 = new MutableTriple<Object, String, String>(null, "bar", "hello");
+        final MutableTriple<Object, String, String> triple2 = new MutableTriple<>(null, "bar", "hello");
         assertNull(triple2.getLeft());
         assertEquals("bar", triple2.getMiddle());
         assertEquals("hello", triple2.getRight());
@@ -47,7 +47,7 @@ public class MutableTripleTest {
 
     @Test
     public void testDefault() throws Exception {
-        final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<Integer, String, Boolean>();
+        final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<>();
         assertNull(triple.getLeft());
         assertNull(triple.getMiddle());
         assertNull(triple.getRight());
@@ -55,7 +55,7 @@ public class MutableTripleTest {
     
     @Test
     public void testMutate() throws Exception {
-        final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<Integer, String, Boolean>(0, "foo", Boolean.TRUE);
+        final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<>(0, "foo", Boolean.TRUE);
         triple.setLeft(42);
         triple.setMiddle("bar");
         triple.setRight(Boolean.FALSE);

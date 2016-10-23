@@ -50,7 +50,7 @@ public class TripleTest {
         final Triple<Integer, String, Boolean> triple2 = MutableTriple.of(0, "foo", Boolean.TRUE);
         assertEquals(triple, triple2);
         assertEquals(triple.hashCode(), triple2.hashCode());
-        final HashSet<Triple<Integer, String, Boolean>> set = new HashSet<Triple<Integer, String, Boolean>>();
+        final HashSet<Triple<Integer, String, Boolean>> set = new HashSet<>();
         set.add(triple);
         assertTrue(set.contains(triple2));
     }

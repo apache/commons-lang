@@ -80,7 +80,7 @@ public class HashSetvBitSetTest {
 
     @SuppressWarnings("boxing")
     private static int[] testHashSet(final int count) {
-        final HashSet<Integer> toRemove = new HashSet<Integer>();
+        final HashSet<Integer> toRemove = new HashSet<>();
             int found = 0;
             for (int i = 0; i < count; i++) {
                 toRemove.add(found++);

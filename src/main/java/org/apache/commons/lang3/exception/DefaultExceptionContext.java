@@ -44,14 +44,14 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
     private static final long serialVersionUID = 20110706L;
 
     /** The list storing the label-data pairs. */
-    private final List<Pair<String, Object>> contextValues = new ArrayList<Pair<String,Object>>();
+    private final List<Pair<String, Object>> contextValues = new ArrayList<>();
 
     /**
      * {@inheritDoc}
      */
     @Override
     public DefaultExceptionContext addContextValue(final String label, final Object value) {
-        contextValues.add(new ImmutablePair<String, Object>(label, value));
+        contextValues.add(new ImmutablePair<>(label, value));
         return this;
     }
 
@@ -75,7 +75,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      */
     @Override
     public List<Object> getContextValues(final String label) {
-        final List<Object> values = new ArrayList<Object>();
+        final List<Object> values = new ArrayList<>();
         for (final Pair<String, Object> pair : contextValues) {
             if (StringUtils.equals(label, pair.getKey())) {
                 values.add(pair.getValue());
@@ -102,7 +102,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      */
     @Override
     public Set<String> getContextLabels() {
-        final Set<String> labels = new HashSet<String>();
+        final Set<String> labels = new HashSet<>();
         for (final Pair<String, Object> pair : contextValues) {
             labels.add(pair.getKey());
         }

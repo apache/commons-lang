@@ -37,7 +37,7 @@ import org.junit.Test;
 public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
 
     class TestFixture {
-        final private LinkedList<Integer> listField = new LinkedList<Integer>();
+        final private LinkedList<Integer> listField = new LinkedList<>();
         final private Random random = new Random();
         private final int N = 100;
 

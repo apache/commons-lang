@@ -109,7 +109,7 @@ public class DiffBuilder implements Builder<DiffResult> {
             throw new IllegalArgumentException("rhs cannot be null");
         }
 
-        this.diffs = new ArrayList<Diff<?>>();
+        this.diffs = new ArrayList<>();
         this.left = lhs;
         this.right = rhs;
         this.style = style;

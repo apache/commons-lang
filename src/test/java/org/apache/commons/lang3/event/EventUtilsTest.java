@@ -200,7 +200,7 @@ public class EventUtilsTest
 
     private static class EventCountingInvociationHandler implements InvocationHandler
     {
-        private final Map<String, Integer> eventCounts = new TreeMap<String, Integer>();
+        private final Map<String, Integer> eventCounts = new TreeMap<>();
 
         public <L> L createListener(final Class<L> listenerType)
         {

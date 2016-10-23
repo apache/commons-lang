@@ -116,7 +116,7 @@ public class ConstructorUtilsTest {
     private final Map<Class<?>, Class<?>[]> classCache;
 
     public ConstructorUtilsTest() {
-        classCache = new HashMap<Class<?>, Class<?>[]>();
+        classCache = new HashMap<>();
     }
 
 

@@ -154,18 +154,18 @@ public class JsonToStringStyleTest {
         }
 
         try {
-            new ToStringBuilder(base).append("a", new ArrayList<Object>(), false).toString();
+            new ToStringBuilder(base).append("a", new ArrayList<>(), false).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (UnsupportedOperationException e) {
         }
 
         assertEquals(
                 "{\"a\":[]}",
-                new ToStringBuilder(base).append("a", new ArrayList<Object>(),
+                new ToStringBuilder(base).append("a", new ArrayList<>(),
                         true).toString());
 
         try {
-            new ToStringBuilder(base).append("a", new HashMap<Object, Object>(), false).toString();
+            new ToStringBuilder(base).append("a", new HashMap<>(), false).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (UnsupportedOperationException e) {
         }
@@ -173,7 +173,7 @@ public class JsonToStringStyleTest {
         assertEquals(
                 "{\"a\":{}}",
                 new ToStringBuilder(base).append("a",
-                        new HashMap<Object, Object>(), true).toString());
+                        new HashMap<>(), true).toString());
 
         try {
             new ToStringBuilder(base).append("a", (Object) new String[0], false).toString();

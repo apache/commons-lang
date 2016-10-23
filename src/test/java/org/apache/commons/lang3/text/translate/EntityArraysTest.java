@@ -37,8 +37,8 @@ public class EntityArraysTest  {
     // LANG-659 - check arrays for duplicate entries
     @Test
     public void testHTML40_EXTENDED_ESCAPE(){
-        final Set<String> col0 = new HashSet<String>();
-        final Set<String> col1 = new HashSet<String>();
+        final Set<String> col0 = new HashSet<>();
+        final Set<String> col1 = new HashSet<>();
         final String [][] sa = EntityArrays.HTML40_EXTENDED_ESCAPE();
         for(int i =0; i <sa.length; i++){
             assertTrue("Already added entry 0: "+i+" "+sa[i][0],col0.add(sa[i][0]));
@@ -49,8 +49,8 @@ public class EntityArraysTest  {
    // LANG-658 - check arrays for duplicate entries
     @Test
     public void testISO8859_1_ESCAPE(){
-        final Set<String> col0 = new HashSet<String>();
-        final Set<String> col1 = new HashSet<String>();
+        final Set<String> col0 = new HashSet<>();
+        final Set<String> col1 = new HashSet<>();
         final String [][] sa = EntityArrays.ISO8859_1_ESCAPE();
         boolean success = true;
         for(int i =0; i <sa.length; i++){

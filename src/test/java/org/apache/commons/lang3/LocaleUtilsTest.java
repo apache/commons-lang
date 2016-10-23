@@ -349,7 +349,7 @@ public class LocaleUtilsTest  {
         
         final Locale[] jdkLocaleArray = Locale.getAvailableLocales();
         final List<Locale> jdkLocaleList = Arrays.asList(jdkLocaleArray);
-        final Set<Locale> jdkLocaleSet = new HashSet<Locale>(jdkLocaleList);
+        final Set<Locale> jdkLocaleSet = new HashSet<>(jdkLocaleList);
         assertEquals(jdkLocaleSet, set);
     }
 

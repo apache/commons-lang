@@ -55,7 +55,7 @@ public class EnumUtils {
      * @return the modifiable map of enum names to enums, never null
      */
     public static <E extends Enum<E>> Map<String, E> getEnumMap(final Class<E> enumClass) {
-        final Map<String, E> map = new LinkedHashMap<String, E>();
+        final Map<String, E> map = new LinkedHashMap<>();
         for (final E e: enumClass.getEnumConstants()) {
             map.put(e.name(), e);
         }
@@ -72,7 +72,7 @@ public class EnumUtils {
      * @return the modifiable list of enums, never null
      */
     public static <E extends Enum<E>> List<E> getEnumList(final Class<E> enumClass) {
-        return new ArrayList<E>(Arrays.asList(enumClass.getEnumConstants()));
+        return new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
     }
 
     /**

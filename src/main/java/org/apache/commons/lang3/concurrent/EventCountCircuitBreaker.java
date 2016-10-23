@@ -175,7 +175,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
                                     TimeUnit openingUnit, int closingThreshold, long closingInterval,
                                     TimeUnit closingUnit) {
         super();
-        checkIntervalData = new AtomicReference<CheckIntervalData>(new CheckIntervalData(0, 0));
+        checkIntervalData = new AtomicReference<>(new CheckIntervalData(0, 0));
         this.openingThreshold = openingThreshold;
         this.openingInterval = openingUnit.toNanos(openingInterval);
         this.closingThreshold = closingThreshold;
@@ -416,7 +416,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @return the strategy map
      */
     private static Map<State, StateStrategy> createStrategyMap() {
-        Map<State, StateStrategy> map = new EnumMap<State, StateStrategy>(State.class);
+        Map<State, StateStrategy> map = new EnumMap<>(State.class);
         map.put(State.CLOSED, new StateStrategyClosed());
         map.put(State.OPEN, new StateStrategyOpen());
         return map;

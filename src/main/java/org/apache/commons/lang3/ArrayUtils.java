@@ -239,7 +239,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        final Map<Object, Object> map = new HashMap<Object, Object>((int) (array.length * 1.5));
+        final Map<Object, Object> map = new HashMap<>((int) (array.length * 1.5));
         for (int i = 0; i < array.length; i++) {
             final Object object = array[i];
             if (object instanceof Map.Entry<?, ?>) {
@@ -6611,7 +6611,7 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        final HashMap<T, MutableInt> occurrences = new HashMap<T, MutableInt>(values.length);
+        final HashMap<T, MutableInt> occurrences = new HashMap<>(values.length);
         for (final T v : values) {
             final MutableInt count = occurrences.get(v);
             if (count == null) {
@@ -6701,7 +6701,7 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        final Map<Byte, MutableInt> occurrences = new HashMap<Byte, MutableInt>(values.length);
+        final Map<Byte, MutableInt> occurrences = new HashMap<>(values.length);
         for (final byte v : values) {
             final Byte boxed = Byte.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
@@ -6789,7 +6789,7 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        final HashMap<Short, MutableInt> occurrences = new HashMap<Short, MutableInt>(values.length);
+        final HashMap<Short, MutableInt> occurrences = new HashMap<>(values.length);
         for (final short v : values) {
             final Short boxed = Short.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
@@ -6877,7 +6877,7 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        final HashMap<Integer, MutableInt> occurrences = new HashMap<Integer, MutableInt>(values.length);
+        final HashMap<Integer, MutableInt> occurrences = new HashMap<>(values.length);
         for (final int v : values) {
             final Integer boxed = Integer.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
@@ -6965,7 +6965,7 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        final HashMap<Character, MutableInt> occurrences = new HashMap<Character, MutableInt>(values.length);
+        final HashMap<Character, MutableInt> occurrences = new HashMap<>(values.length);
         for (final char v : values) {
             final Character boxed = Character.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
@@ -7053,7 +7053,7 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        final HashMap<Long, MutableInt> occurrences = new HashMap<Long, MutableInt>(values.length);
+        final HashMap<Long, MutableInt> occurrences = new HashMap<>(values.length);
         for (final long v : values) {
             final Long boxed = Long.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
@@ -7141,7 +7141,7 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        final HashMap<Float, MutableInt> occurrences = new HashMap<Float, MutableInt>(values.length);
+        final HashMap<Float, MutableInt> occurrences = new HashMap<>(values.length);
         for (final float v : values) {
             final Float boxed = Float.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
@@ -7229,7 +7229,7 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        final HashMap<Double, MutableInt> occurrences = new HashMap<Double, MutableInt>(values.length);
+        final HashMap<Double, MutableInt> occurrences = new HashMap<>(values.length);
         for (final double v : values) {
             final Double boxed = Double.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
@@ -7313,7 +7313,7 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        final HashMap<Boolean, MutableInt> occurrences = new HashMap<Boolean, MutableInt>(2); // only two possible values here
+        final HashMap<Boolean, MutableInt> occurrences = new HashMap<>(2); // only two possible values here
         for (final boolean v : values) {
             final Boolean boxed = Boolean.valueOf(v);
             final MutableInt count = occurrences.get(boxed);

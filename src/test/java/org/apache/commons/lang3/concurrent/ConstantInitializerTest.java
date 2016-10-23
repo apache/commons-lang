@@ -36,7 +36,7 @@ public class ConstantInitializerTest {
 
     @Before
     public void setUp() throws Exception {
-        init = new ConstantInitializer<Integer>(VALUE);
+        init = new ConstantInitializer<>(VALUE);
     }
 
     /**
@@ -80,11 +80,11 @@ public class ConstantInitializerTest {
     @Test
     public void testEqualsTrue() {
         checkEquals(init, true);
-        ConstantInitializer<Integer> init2 = new ConstantInitializer<Integer>(
+        ConstantInitializer<Integer> init2 = new ConstantInitializer<>(
                 Integer.valueOf(VALUE.intValue()));
         checkEquals(init2, true);
-        init = new ConstantInitializer<Integer>(null);
-        init2 = new ConstantInitializer<Integer>(null);
+        init = new ConstantInitializer<>(null);
+        init2 = new ConstantInitializer<>(null);
         checkEquals(init2, true);
     }
 
@@ -93,10 +93,10 @@ public class ConstantInitializerTest {
      */
     @Test
     public void testEqualsFalse() {
-        ConstantInitializer<Integer> init2 = new ConstantInitializer<Integer>(
+        ConstantInitializer<Integer> init2 = new ConstantInitializer<>(
                 null);
         checkEquals(init2, false);
-        init2 = new ConstantInitializer<Integer>(VALUE + 1);
+        init2 = new ConstantInitializer<>(VALUE + 1);
         checkEquals(init2, false);
     }
 
@@ -107,7 +107,7 @@ public class ConstantInitializerTest {
     public void testEqualsWithOtherObjects() {
         checkEquals(null, false);
         checkEquals(this, false);
-        checkEquals(new ConstantInitializer<String>("Test"), false);
+        checkEquals(new ConstantInitializer<>("Test"), false);
     }
 
     /**
@@ -127,7 +127,7 @@ public class ConstantInitializerTest {
      */
     @Test
     public void testToStringNull() {
-        final String s = new ConstantInitializer<Object>(null).toString();
+        final String s = new ConstantInitializer<>(null).toString();
         assertTrue("Object not found: " + s, s.indexOf("object = null") > 0);
     }
 }

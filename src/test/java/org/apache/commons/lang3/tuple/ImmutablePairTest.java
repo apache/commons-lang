@@ -35,12 +35,12 @@ public class ImmutablePairTest {
 
     @Test
     public void testBasic() throws Exception {
-        final ImmutablePair<Integer, String> pair = new ImmutablePair<Integer, String>(0, "foo");
+        final ImmutablePair<Integer, String> pair = new ImmutablePair<>(0, "foo");
         assertEquals(0, pair.left.intValue());
         assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.right);
         assertEquals("foo", pair.getRight());
-        final ImmutablePair<Object, String> pair2 = new ImmutablePair<Object, String>(null, "bar");
+        final ImmutablePair<Object, String> pair2 = new ImmutablePair<>(null, "bar");
         assertNull(pair2.left);
         assertNull(pair2.getLeft());
         assertEquals("bar", pair2.right);

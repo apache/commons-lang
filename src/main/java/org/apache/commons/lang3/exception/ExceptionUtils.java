@@ -283,7 +283,7 @@ public class ExceptionUtils {
      * @since Commons Lang 2.2
      */
     public static List<Throwable> getThrowableList(Throwable throwable) {
-        final List<Throwable> list = new ArrayList<Throwable>();
+        final List<Throwable> list = new ArrayList<>();
         while (throwable != null && list.contains(throwable) == false) {
             list.add(throwable);
             throwable = ExceptionUtils.getCause(throwable);
@@ -524,7 +524,7 @@ public class ExceptionUtils {
         }
         final Throwable throwables[] = getThrowables(throwable);
         final int count = throwables.length;
-        final List<String> frames = new ArrayList<String>();
+        final List<String> frames = new ArrayList<>();
         List<String> nextTrace = getStackFrameList(throwables[count - 1]);
         for (int i = count; --i >= 0;) {
             final List<String> trace = nextTrace;
@@ -623,7 +623,7 @@ public class ExceptionUtils {
     static String[] getStackFrames(final String stackTrace) {
         final String linebreak = SystemUtils.LINE_SEPARATOR;
         final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         while (frames.hasMoreTokens()) {
             list.add(frames.nextToken());
         }
@@ -646,7 +646,7 @@ public class ExceptionUtils {
         final String stackTrace = getStackTrace(t);
         final String linebreak = SystemUtils.LINE_SEPARATOR;
         final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         boolean traceStarted = false;
         while (frames.hasMoreTokens()) {
             final String token = frames.nextToken();

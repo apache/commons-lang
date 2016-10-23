@@ -440,7 +440,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      */
     public List<String> getTokenList() {
         checkTokenized();
-        final List<String> list = new ArrayList<String>(tokens.length);
+        final List<String> list = new ArrayList<>(tokens.length);
         for (final String element : tokens) {
             list.add(element);
         }
@@ -636,7 +636,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
             return Collections.emptyList();
         }
         final StrBuilder buf = new StrBuilder();
-        final List<String> tokenList = new ArrayList<String>();
+        final List<String> tokenList = new ArrayList<>();
         int pos = offset;
         
         // loop around the entire buffer

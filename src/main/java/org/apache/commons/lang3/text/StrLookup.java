@@ -38,7 +38,7 @@ public abstract class StrLookup<V> {
     /**
      * Lookup that always returns null.
      */
-    private static final StrLookup<String> NONE_LOOKUP = new MapStrLookup<String>(null);
+    private static final StrLookup<String> NONE_LOOKUP = new MapStrLookup<>(null);
 
     /**
      * Lookup based on system properties.
@@ -81,7 +81,7 @@ public abstract class StrLookup<V> {
      * @return a lookup using the map, not null
      */
     public static <V> StrLookup<V> mapLookup(final Map<String, V> map) {
-        return new MapStrLookup<V>(map);
+        return new MapStrLookup<>(map);
     }
 
     //-----------------------------------------------------------------------

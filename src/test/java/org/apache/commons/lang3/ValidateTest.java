@@ -186,7 +186,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNotEmptyCollection1() {
-        final Collection<Integer> coll = new ArrayList<Integer>();
+        final Collection<Integer> coll = new ArrayList<>();
         try {
             Validate.notEmpty((Collection<?>) null);
             fail("Expecting NullPointerException");
@@ -209,7 +209,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNotEmptyCollection2() {
-        final Collection<Integer> coll = new ArrayList<Integer>();
+        final Collection<Integer> coll = new ArrayList<>();
         try {
             Validate.notEmpty((Collection<?>) null, "MSG");
             fail("Expecting NullPointerException");
@@ -233,7 +233,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNotEmptyMap1() {
-        final Map<String, Integer> map = new HashMap<String, Integer>();
+        final Map<String, Integer> map = new HashMap<>();
         try {
             Validate.notEmpty((Map<?, ?>) null);
             fail("Expecting NullPointerException");
@@ -256,7 +256,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNotEmptyMap2() {
-        final Map<String, Integer> map = new HashMap<String, Integer>();
+        final Map<String, Integer> map = new HashMap<>();
         try {
             Validate.notEmpty((Map<?, ?>) null, "MSG");
             fail("Expecting NullPointerException");
@@ -590,7 +590,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNoNullElementsCollection1() {
-        final List<String> coll = new ArrayList<String>();
+        final List<String> coll = new ArrayList<>();
         coll.add("a");
         coll.add("b");
         Validate.noNullElements(coll);
@@ -616,7 +616,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNoNullElementsCollection2() {
-        final List<String> coll = new ArrayList<String>();
+        final List<String> coll = new ArrayList<>();
         coll.add("a");
         coll.add("b");
         Validate.noNullElements(coll, "MSG");
@@ -703,7 +703,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testValidIndex_withMessage_collection() {
-        final Collection<String> coll = new ArrayList<String>();
+        final Collection<String> coll = new ArrayList<>();
         coll.add(null);
         coll.add(null);
         Validate.validIndex(coll, 0, "Broken: ");
@@ -728,7 +728,7 @@ public class ValidateTest  {
 
     @Test
     public void testValidIndex_collection() {
-        final Collection<String> coll = new ArrayList<String>();
+        final Collection<String> coll = new ArrayList<>();
         coll.add(null);
         coll.add(null);
         Validate.validIndex(coll, 0);

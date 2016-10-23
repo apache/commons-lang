@@ -32,15 +32,15 @@ public class MutableObjectTest {
         assertEquals(null, new MutableObject<String>().getValue());
         
         final Integer i = Integer.valueOf(6);
-        assertSame(i, new MutableObject<Integer>(i).getValue());
-        assertSame("HI", new MutableObject<String>("HI").getValue());
-        assertSame(null, new MutableObject<Object>(null).getValue());
+        assertSame(i, new MutableObject<>(i).getValue());
+        assertSame("HI", new MutableObject<>("HI").getValue());
+        assertSame(null, new MutableObject<>(null).getValue());
     }
 
     @Test
     public void testGetSet() {
-        final MutableObject<String> mutNum = new MutableObject<String>();
-        assertEquals(null, new MutableObject<Object>().getValue());
+        final MutableObject<String> mutNum = new MutableObject<>();
+        assertEquals(null, new MutableObject<>().getValue());
         
         mutNum.setValue("HELLO");
         assertSame("HELLO", mutNum.getValue());
@@ -51,10 +51,10 @@ public class MutableObjectTest {
 
     @Test
     public void testEquals() {
-        final MutableObject<String> mutNumA = new MutableObject<String>("ALPHA");
-        final MutableObject<String> mutNumB = new MutableObject<String>("ALPHA");
-        final MutableObject<String> mutNumC = new MutableObject<String>("BETA");
-        final MutableObject<String> mutNumD = new MutableObject<String>(null);
+        final MutableObject<String> mutNumA = new MutableObject<>("ALPHA");
+        final MutableObject<String> mutNumB = new MutableObject<>("ALPHA");
+        final MutableObject<String> mutNumC = new MutableObject<>("BETA");
+        final MutableObject<String> mutNumD = new MutableObject<>(null);
 
         assertTrue(mutNumA.equals(mutNumA));
         assertTrue(mutNumA.equals(mutNumB));
@@ -73,10 +73,10 @@ public class MutableObjectTest {
 
     @Test
     public void testHashCode() {
-        final MutableObject<String> mutNumA = new MutableObject<String>("ALPHA");
-        final MutableObject<String> mutNumB = new MutableObject<String>("ALPHA");
-        final MutableObject<String> mutNumC = new MutableObject<String>("BETA");
-        final MutableObject<String> mutNumD = new MutableObject<String>(null);
+        final MutableObject<String> mutNumA = new MutableObject<>("ALPHA");
+        final MutableObject<String> mutNumB = new MutableObject<>("ALPHA");
+        final MutableObject<String> mutNumC = new MutableObject<>("BETA");
+        final MutableObject<String> mutNumD = new MutableObject<>(null);
 
         assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
         assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
@@ -88,9 +88,9 @@ public class MutableObjectTest {
 
     @Test
     public void testToString() {
-        assertEquals("HI", new MutableObject<String>("HI").toString());
-        assertEquals("10.0", new MutableObject<Double>(Double.valueOf(10)).toString());
-        assertEquals("null", new MutableObject<Object>(null).toString());
+        assertEquals("HI", new MutableObject<>("HI").toString());
+        assertEquals("10.0", new MutableObject<>(Double.valueOf(10)).toString());
+        assertEquals("null", new MutableObject<>(null).toString());
     }
 
 }

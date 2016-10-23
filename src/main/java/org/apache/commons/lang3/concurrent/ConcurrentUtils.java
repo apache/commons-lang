@@ -322,7 +322,7 @@ public class ConcurrentUtils {
      * @return an instance of Future that will return the value, never null
      */
     public static <T> Future<T> constantFuture(final T value) {
-        return new ConstantFuture<T>(value);
+        return new ConstantFuture<>(value);
     }
 
     /**

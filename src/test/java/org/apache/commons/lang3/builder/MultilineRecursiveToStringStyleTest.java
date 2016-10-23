@@ -239,7 +239,7 @@ public class MultilineRecursiveToStringStyleTest {
 
     static class Account {
         Customer owner;
-        List<Transaction> transactions = new ArrayList<Transaction>();
+        List<Transaction> transactions = new ArrayList<>();
 
         public double getBalance() {
             double balance = 0;

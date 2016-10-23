@@ -51,7 +51,7 @@ public class PairTest {
         final Pair<Integer, String> pair2 = MutablePair.of(0, "foo");
         assertEquals(pair, pair2);
         assertEquals(pair.hashCode(), pair2.hashCode());
-        final HashSet<Pair<Integer, String>> set = new HashSet<Pair<Integer, String>>();
+        final HashSet<Pair<Integer, String>> set = new HashSet<>();
         set.add(pair);
         assertTrue(set.contains(pair2));
 
@@ -63,7 +63,7 @@ public class PairTest {
     @Test
     public void testMapEntry() throws Exception {
         final Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
-        final HashMap<Integer, String> map = new HashMap<Integer, String>();
+        final HashMap<Integer, String> map = new HashMap<>();
         map.put(0, "foo");
         final Entry<Integer, String> entry = map.entrySet().iterator().next();
         assertEquals(pair, entry);

@@ -781,7 +781,7 @@ public class MethodUtils {
      */
     public static Set<Method> getOverrideHierarchy(final Method method, final Interfaces interfacesBehavior) {
         Validate.notNull(method);
-        final Set<Method> result = new LinkedHashSet<Method>();
+        final Set<Method> result = new LinkedHashSet<>();
         result.add(method);
 
         final Class<?>[] parameterTypes = method.getParameterTypes();
@@ -847,7 +847,7 @@ public class MethodUtils {
         Validate.isTrue(cls != null, "The class must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
         final Method[] allMethods = cls.getMethods();
-        final List<Method> annotatedMethods = new ArrayList<Method>();
+        final List<Method> annotatedMethods = new ArrayList<>();
         for (final Method method : allMethods) {
             if (method.getAnnotation(annotationCls) != null) {
                 annotatedMethods.add(method);

@@ -280,7 +280,7 @@ public class SerializationUtils {
      */
      static class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
         private static final Map<String, Class<?>> primitiveTypes = 
-                new HashMap<String, Class<?>>();
+                new HashMap<>();
 
         static {
             primitiveTypes.put("byte", byte.class);

@@ -586,7 +586,7 @@ public class ObjectUtils {
     public static <T extends Comparable<? super T>> T median(final T... items) {
         Validate.notEmpty(items);
         Validate.noNullElements(items);
-        final TreeSet<T> sort = new TreeSet<T>();
+        final TreeSet<T> sort = new TreeSet<>();
         Collections.addAll(sort, items);
         @SuppressWarnings("unchecked") //we know all items added were T instances
         final
@@ -609,7 +609,7 @@ public class ObjectUtils {
         Validate.notEmpty(items, "null/empty items");
         Validate.noNullElements(items);
         Validate.notNull(comparator, "null comparator");
-        final TreeSet<T> sort = new TreeSet<T>(comparator);
+        final TreeSet<T> sort = new TreeSet<>(comparator);
         Collections.addAll(sort, items);
         @SuppressWarnings("unchecked") //we know all items added were T instances
         final
@@ -629,7 +629,7 @@ public class ObjectUtils {
      */
     public static <T> T mode(final T... items) {
         if (ArrayUtils.isNotEmpty(items)) {
-            final HashMap<T, MutableInt> occurrences = new HashMap<T, MutableInt>(items.length);
+            final HashMap<T, MutableInt> occurrences = new HashMap<>(items.length);
             for (final T t : items) {
                 final MutableInt count = occurrences.get(t);
                 if (count == null) {

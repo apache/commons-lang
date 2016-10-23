@@ -102,7 +102,7 @@ public class FastDateParserTest {
             getInstance(MDY_SLASH, REYKJAVIK, SWEDEN)
         };
 
-        final Map<DateParser,Integer> map= new HashMap<DateParser,Integer>();
+        final Map<DateParser,Integer> map= new HashMap<>();
         int i= 0;
         for(final DateParser parser:parsers) {
             map.put(parser, Integer.valueOf(i++));

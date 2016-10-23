@@ -70,10 +70,10 @@ public class NoClassNameToStringStyleTest {
         assertEquals("[a=3]", new ToStringBuilder(base).append("a", i3).toString());
         assertEquals("[a=3,b=4]", new ToStringBuilder(base).append("a", i3).append("b", i4).toString());
         assertEquals("[a=<Integer>]", new ToStringBuilder(base).append("a", i3, false).toString());
-        assertEquals("[a=<size=0>]", new ToStringBuilder(base).append("a", new ArrayList<Object>(), false).toString());
-        assertEquals("[a=[]]", new ToStringBuilder(base).append("a", new ArrayList<Object>(), true).toString());
-        assertEquals("[a=<size=0>]", new ToStringBuilder(base).append("a", new HashMap<Object, Object>(), false).toString());
-        assertEquals("[a={}]", new ToStringBuilder(base).append("a", new HashMap<Object, Object>(), true).toString());
+        assertEquals("[a=<size=0>]", new ToStringBuilder(base).append("a", new ArrayList<>(), false).toString());
+        assertEquals("[a=[]]", new ToStringBuilder(base).append("a", new ArrayList<>(), true).toString());
+        assertEquals("[a=<size=0>]", new ToStringBuilder(base).append("a", new HashMap<>(), false).toString());
+        assertEquals("[a={}]", new ToStringBuilder(base).append("a", new HashMap<>(), true).toString());
         assertEquals("[a=<size=0>]", new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
         assertEquals("[a={}]", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
     }

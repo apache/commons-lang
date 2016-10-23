@@ -165,7 +165,7 @@ public abstract class ToStringStyle implements Serializable {
      * </p>
      */
     private static final ThreadLocal<WeakHashMap<Object, Object>> REGISTRY =
-        new ThreadLocal<WeakHashMap<Object,Object>>();
+        new ThreadLocal<>();
     /*
      * Note that objects of this class are generally shared between threads, so
      * an instance variable would not be suitable here.
@@ -217,7 +217,7 @@ public abstract class ToStringStyle implements Serializable {
         if (value != null) {
             final Map<Object, Object> m = getRegistry();
             if (m == null) {
-                REGISTRY.set(new WeakHashMap<Object, Object>());
+                REGISTRY.set(new WeakHashMap<>());
             }
             getRegistry().put(value, null);
         }

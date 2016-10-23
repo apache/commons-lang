@@ -160,7 +160,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @param definingCalendar the {@link java.util.Calendar} instance used to initialize this FastDateParser
      */
     private void init(final Calendar definingCalendar) {
-        patterns = new ArrayList<StrategyAndWidth>();
+        patterns = new ArrayList<>();
 
         StrategyParser fm = new StrategyParser(pattern, definingCalendar);
         for(;;) {
@@ -464,10 +464,10 @@ public class FastDateParser implements DateParser, Serializable {
      * @return The map of string display names to field values
      */
     private static Map<String, Integer> appendDisplayNames(Calendar cal, Locale locale, int field, StringBuilder regex) {
-        Map<String, Integer> values = new HashMap<String, Integer>();
+        Map<String, Integer> values = new HashMap<>();
 
         Map<String, Integer> displayNames = cal.getDisplayNames(field, Calendar.ALL_STYLES, locale);
-        TreeSet<String> sorted = new TreeSet<String>(LONGER_FIRST_LOWERCASE);
+        TreeSet<String> sorted = new TreeSet<>(LONGER_FIRST_LOWERCASE);
         for (Map.Entry<String, Integer> displayName : displayNames.entrySet()) {
             String key = displayName.getKey().toLowerCase(locale);
             if (sorted.add(key)) {
@@ -618,7 +618,7 @@ public class FastDateParser implements DateParser, Serializable {
     private static ConcurrentMap<Locale, Strategy> getCache(final int field) {
         synchronized (caches) {
             if (caches[field] == null) {
-                caches[field] = new ConcurrentHashMap<Locale, Strategy>(3);
+                caches[field] = new ConcurrentHashMap<>(3);
             }
             return caches[field];
         }
@@ -815,7 +815,7 @@ public class FastDateParser implements DateParser, Serializable {
         private static final String GMT_OPTION= "GMT[+-]\\d{1,2}:\\d{2}";
 
         private final Locale locale;
-        private final Map<String, TzInfo> tzNames= new HashMap<String, TzInfo>();
+        private final Map<String, TzInfo> tzNames= new HashMap<>();
 
         private static class TzInfo {
             TimeZone zone;
@@ -842,7 +842,7 @@ public class FastDateParser implements DateParser, Serializable {
             final StringBuilder sb = new StringBuilder();
             sb.append("((?iu)" + RFC_822_TIME_ZONE + "|" + GMT_OPTION );
 
-            final Set<String> sorted = new TreeSet<String>(LONGER_FIRST_LOWERCASE);
+            final Set<String> sorted = new TreeSet<>(LONGER_FIRST_LOWERCASE);
 
             final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
             for (final String[] zoneNames : zones) {

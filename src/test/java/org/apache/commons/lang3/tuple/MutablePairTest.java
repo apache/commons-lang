@@ -35,24 +35,24 @@ public class MutablePairTest {
 
     @Test
     public void testBasic() throws Exception {
-        final MutablePair<Integer, String> pair = new MutablePair<Integer, String>(0, "foo");
+        final MutablePair<Integer, String> pair = new MutablePair<>(0, "foo");
         assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.getRight());
-        final MutablePair<Object, String> pair2 = new MutablePair<Object, String>(null, "bar");
+        final MutablePair<Object, String> pair2 = new MutablePair<>(null, "bar");
         assertNull(pair2.getLeft());
         assertEquals("bar", pair2.getRight());
     }
 
     @Test
     public void testDefault() throws Exception {
-        final MutablePair<Integer, String> pair = new MutablePair<Integer, String>();
+        final MutablePair<Integer, String> pair = new MutablePair<>();
         assertNull(pair.getLeft());
         assertNull(pair.getRight());
     }
     
     @Test
     public void testMutate() throws Exception {
-        final MutablePair<Integer, String> pair = new MutablePair<Integer, String>(0, "foo");
+        final MutablePair<Integer, String> pair = new MutablePair<>(0, "foo");
         pair.setLeft(42);
         pair.setRight("bar");
         assertEquals(42, pair.getLeft().intValue());

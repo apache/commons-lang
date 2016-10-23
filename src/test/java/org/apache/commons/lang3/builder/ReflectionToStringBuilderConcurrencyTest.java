@@ -108,7 +108,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
                 return Integer.valueOf(REPEAT);
             }
         };
-        final Collection<Callable<Integer>> tasks = new ArrayList<Callable<Integer>>();
+        final Collection<Callable<Integer>> tasks = new ArrayList<>();
         tasks.add(consumer);
         tasks.add(producer);
         final List<Future<Integer>> futures = threadPool.invokeAll(tasks);

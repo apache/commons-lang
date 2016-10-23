@@ -35,14 +35,14 @@ public class ImmutableTripleTest {
 
     @Test
     public void testBasic() throws Exception {
-        final ImmutableTriple<Integer, String, Boolean> triple = new ImmutableTriple<Integer, String, Boolean>(0, "foo", Boolean.TRUE);
+        final ImmutableTriple<Integer, String, Boolean> triple = new ImmutableTriple<>(0, "foo", Boolean.TRUE);
         assertEquals(0, triple.left.intValue());
         assertEquals(0, triple.getLeft().intValue());
         assertEquals("foo", triple.middle);
         assertEquals("foo", triple.getMiddle());
         assertEquals(Boolean.TRUE, triple.right);
         assertEquals(Boolean.TRUE, triple.getRight());
-        final ImmutableTriple<Object, String, Integer> triple2 = new ImmutableTriple<Object, String, Integer>(null, "bar", 42);
+        final ImmutableTriple<Object, String, Integer> triple2 = new ImmutableTriple<>(null, "bar", 42);
         assertNull(triple2.left);
         assertNull(triple2.getLeft());
         assertEquals("bar", triple2.middle);

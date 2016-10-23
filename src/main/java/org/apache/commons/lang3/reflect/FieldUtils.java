@@ -211,7 +211,7 @@ public class FieldUtils {
      */
     public static List<Field> getAllFieldsList(final Class<?> cls) {
         Validate.isTrue(cls != null, "The class must not be null");
-        final List<Field> allFields = new ArrayList<Field>();
+        final List<Field> allFields = new ArrayList<>();
         Class<?> currentClass = cls;
         while (currentClass != null) {
             final Field[] declaredFields = currentClass.getDeclaredFields();
@@ -253,7 +253,7 @@ public class FieldUtils {
     public static List<Field> getFieldsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
         final List<Field> allFields = getAllFieldsList(cls);
-        final List<Field> annotatedFields = new ArrayList<Field>();
+        final List<Field> annotatedFields = new ArrayList<>();
         for (final Field field : allFields) {
             if (field.getAnnotation(annotationCls) != null) {
                 annotatedFields.add(field);

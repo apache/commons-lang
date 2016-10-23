@@ -76,7 +76,7 @@ public class EventListenerSupportTest {
     @Test
     public void testEventDispatchOrder() throws PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        final List<VetoableChangeListener> calledListeners = new ArrayList<VetoableChangeListener>();
+        final List<VetoableChangeListener> calledListeners = new ArrayList<>();
 
         final VetoableChangeListener listener1 = createListener(calledListeners);
         final VetoableChangeListener listener2 = createListener(calledListeners);

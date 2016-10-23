@@ -56,10 +56,10 @@ public abstract class AtomicSafeInitializer<T> implements
         ConcurrentInitializer<T> {
     /** A guard which ensures that initialize() is called only once. */
     private final AtomicReference<AtomicSafeInitializer<T>> factory =
-            new AtomicReference<AtomicSafeInitializer<T>>();
+            new AtomicReference<>();
 
     /** Holds the reference to the managed object. */
-    private final AtomicReference<T> reference = new AtomicReference<T>();
+    private final AtomicReference<T> reference = new AtomicReference<>();
 
     /**
      * Get (and initialize, if not initialized yet) the required object

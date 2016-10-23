@@ -45,7 +45,7 @@ import org.apache.commons.lang3.SystemUtils;
  */
 public class ExtendedMessageFormatTest {
 
-    private final Map<String, FormatFactory> registry = new HashMap<String, FormatFactory>();
+    private final Map<String, FormatFactory> registry = new HashMap<>();
 
     @Before
     public void setUp() throws Exception {
@@ -116,7 +116,7 @@ public class ExtendedMessageFormatTest {
         final String extendedPattern = "Name: {0,upper} ";
         final String pattern = extendedPattern + builtinsPattern;
 
-        final HashSet<Locale> testLocales = new HashSet<Locale>();
+        final HashSet<Locale> testLocales = new HashSet<>();
         testLocales.addAll(Arrays.asList(DateFormat.getAvailableLocales()));
         testLocales.retainAll(Arrays.asList(NumberFormat.getAvailableLocales()));
         testLocales.add(null);

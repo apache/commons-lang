@@ -54,7 +54,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      * @return a triple formed from the three parameters, not null
      */
     public static <L, M, R> MutableTriple<L, M, R> of(final L left, final M middle, final R right) {
-        return new MutableTriple<L, M, R>(left, middle, right);
+        return new MutableTriple<>(left, middle, right);
     }
 
     /**

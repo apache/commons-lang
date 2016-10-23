@@ -494,7 +494,7 @@ public class DurationFormatUtils {
      * @return array of Token[]
      */
     static Token[] lexx(final String format) {
-        final ArrayList<Token> list = new ArrayList<Token>(format.length());
+        final ArrayList<Token> list = new ArrayList<>(format.length());
 
         boolean inLiteral = false;
         // Although the buffer is stored in a Token, the Tokens are only

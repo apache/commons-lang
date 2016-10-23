@@ -70,10 +70,10 @@ public class SimpleToStringStyleTest {
         assertEquals("3", new ToStringBuilder(base).append("a", i3).toString());
         assertEquals("3,4", new ToStringBuilder(base).append("a", i3).append("b", i4).toString());
         assertEquals("<Integer>", new ToStringBuilder(base).append("a", i3, false).toString());
-        assertEquals("<size=0>", new ToStringBuilder(base).append("a", new ArrayList<Object>(), false).toString());
-        assertEquals("[]", new ToStringBuilder(base).append("a", new ArrayList<Object>(), true).toString());
-        assertEquals("<size=0>", new ToStringBuilder(base).append("a", new HashMap<Object, Object>(), false).toString());
-        assertEquals("{}", new ToStringBuilder(base).append("a", new HashMap<Object, Object>(), true).toString());
+        assertEquals("<size=0>", new ToStringBuilder(base).append("a", new ArrayList<>(), false).toString());
+        assertEquals("[]", new ToStringBuilder(base).append("a", new ArrayList<>(), true).toString());
+        assertEquals("<size=0>", new ToStringBuilder(base).append("a", new HashMap<>(), false).toString());
+        assertEquals("{}", new ToStringBuilder(base).append("a", new HashMap<>(), true).toString());
         assertEquals("<size=0>", new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
         assertEquals("{}", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
     }

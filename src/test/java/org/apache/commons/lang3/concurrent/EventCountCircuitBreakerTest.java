@@ -376,7 +376,7 @@ public class EventCountCircuitBreakerTest {
          */
         public ChangeListener(Object source) {
             expectedSource = source;
-            changedValues = new ArrayList<Boolean>();
+            changedValues = new ArrayList<>();
         }
 
         public void propertyChange(PropertyChangeEvent evt) {

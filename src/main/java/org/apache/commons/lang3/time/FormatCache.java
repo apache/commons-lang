@@ -38,10 +38,10 @@ abstract class FormatCache<F extends Format> {
     static final int NONE= -1;
     
     private final ConcurrentMap<MultipartKey, F> cInstanceCache 
-        = new ConcurrentHashMap<MultipartKey, F>(7);
+        = new ConcurrentHashMap<>(7);
     
     private static final ConcurrentMap<MultipartKey, String> cDateTimeInstanceCache 
-        = new ConcurrentHashMap<MultipartKey, String>(7);
+        = new ConcurrentHashMap<>(7);
 
     /**
      * <p>Gets a formatter instance using the default pattern in the

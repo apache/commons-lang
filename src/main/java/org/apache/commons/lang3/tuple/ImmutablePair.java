@@ -54,7 +54,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @return a pair formed from the two parameters, not null
      */
     public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
-        return new ImmutablePair<L, R>(left, right);
+        return new ImmutablePair<>(left, right);
     }
 
     /**

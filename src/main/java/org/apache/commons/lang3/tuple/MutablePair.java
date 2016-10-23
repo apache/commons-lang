@@ -49,7 +49,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * @return a pair formed from the two parameters, not null
      */
     public static <L, R> MutablePair<L, R> of(final L left, final R right) {
-        return new MutablePair<L, R>(left, right);
+        return new MutablePair<>(left, right);
     }
 
     /**

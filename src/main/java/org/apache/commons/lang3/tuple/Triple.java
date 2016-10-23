@@ -57,7 +57,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @return a triple formed from the three parameters, not null
      */
     public static <L, M, R> Triple<L, M, R> of(final L left, final M middle, final R right) {
-        return new ImmutableTriple<L, M, R>(left, middle, right);
+        return new ImmutableTriple<>(left, middle, right);
     }
 
     //-----------------------------------------------------------------------

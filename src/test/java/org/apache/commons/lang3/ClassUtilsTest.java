@@ -302,7 +302,7 @@ public class ClassUtilsTest  {
     // -------------------------------------------------------------------------
     @Test
     public void test_convertClassNamesToClasses_List() {
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         List<Class<?>> result = ClassUtils.convertClassNamesToClasses(list);
         assertEquals(0, result.size());
 
@@ -328,7 +328,7 @@ public class ClassUtilsTest  {
 
     @Test
     public void test_convertClassesToClassNames_List() {
-        final List<Class<?>> list = new ArrayList<Class<?>>();
+        final List<Class<?>> list = new ArrayList<>();
         List<String> result = ClassUtils.convertClassesToClassNames(list);
         assertEquals(0, result.size());
 
@@ -1103,7 +1103,7 @@ public class ClassUtilsTest  {
     @Test
     public void testShowJavaBug() throws Exception {
         // Tests with Collections$UnmodifiableSet
-        final Set<?> set = Collections.unmodifiableSet(new HashSet<Object>());
+        final Set<?> set = Collections.unmodifiableSet(new HashSet<>());
         final Method isEmptyMethod = set.getClass().getMethod("isEmpty",  new Class[0]);
         try {
             isEmptyMethod.invoke(set, new Object[0]);
@@ -1116,7 +1116,7 @@ public class ClassUtilsTest  {
     @Test
     public void testGetPublicMethod() throws Exception {
         // Tests with Collections$UnmodifiableSet
-        final Set<?> set = Collections.unmodifiableSet(new HashSet<Object>());
+        final Set<?> set = Collections.unmodifiableSet(new HashSet<>());
         final Method isEmptyMethod = ClassUtils.getPublicMethod(set.getClass(), "isEmpty",  new Class[0]);
             assertTrue(Modifier.isPublic(isEmptyMethod.getDeclaringClass().getModifiers()));
 

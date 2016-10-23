@@ -131,7 +131,7 @@ public final class Range<T> implements Serializable {
      * @throws ClassCastException if using natural ordering and the elements are not {@code Comparable}
      */
     public static <T> Range<T> between(final T fromInclusive, final T toInclusive, final Comparator<T> comparator) {
-        return new Range<T>(fromInclusive, toInclusive, comparator);
+        return new Range<>(fromInclusive, toInclusive, comparator);
     }
 
     /**

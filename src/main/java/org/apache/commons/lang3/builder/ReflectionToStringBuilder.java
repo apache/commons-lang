@@ -340,7 +340,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return The given array or a new array without null.
      */
     static String[] toNoNullStringArray(final Object[] array) {
-        final List<String> list = new ArrayList<String>(array.length);
+        final List<String> list = new ArrayList<>(array.length);
         for (final Object e : array) {
             if (e != null) {
                 list.add(e.toString());

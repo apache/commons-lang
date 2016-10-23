@@ -34,7 +34,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     public static final String PROPERTY_NAME = "open";
 
     /** The current state of this circuit breaker. */
-    protected final AtomicReference<State> state = new AtomicReference<State>(State.CLOSED);
+    protected final AtomicReference<State> state = new AtomicReference<>(State.CLOSED);
 
     /** An object for managing change listeners registered at this instance. */
     private final PropertyChangeSupport changeSupport;

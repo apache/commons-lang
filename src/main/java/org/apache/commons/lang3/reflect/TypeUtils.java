@@ -865,7 +865,7 @@ public class TypeUtils {
         } else {
             // no owner, prep the type variable assignments map
             typeVarAssigns = subtypeVarAssigns == null ? new HashMap<TypeVariable<?>, Type>()
-                    : new HashMap<TypeVariable<?>, Type>(subtypeVarAssigns);
+                    : new HashMap<>(subtypeVarAssigns);
         }
 
         // get the subject parameterized type's arguments
@@ -910,7 +910,7 @@ public class TypeUtils {
             if (toClass.isPrimitive()) {
                 // dealing with widening here. No type arguments to be
                 // harvested with these two types.
-                return new HashMap<TypeVariable<?>, Type>();
+                return new HashMap<>();
             }
 
             // work with wrapper the wrapper class instead of the primitive
@@ -919,7 +919,7 @@ public class TypeUtils {
 
         // create a copy of the incoming map, or an empty one if it's null
         final HashMap<TypeVariable<?>, Type> typeVarAssigns = subtypeVarAssigns == null ? new HashMap<TypeVariable<?>, Type>()
-                : new HashMap<TypeVariable<?>, Type>(subtypeVarAssigns);
+                : new HashMap<>(subtypeVarAssigns);
 
         // has target class been reached?
         if (toClass.equals(cls)) {
@@ -1132,7 +1132,7 @@ public class TypeUtils {
             return bounds;
         }
 
-        final Set<Type> types = new HashSet<Type>(bounds.length);
+        final Set<Type> types = new HashSet<>(bounds.length);
 
         for (final Type type1 : bounds) {
             boolean subtypeFound = false;
@@ -1377,7 +1377,7 @@ public class TypeUtils {
                 if (p.getOwnerType() == null) {
                     parameterizedTypeArguments = typeArguments;
                 } else {
-                    parameterizedTypeArguments = new HashMap<TypeVariable<?>, Type>(typeArguments);
+                    parameterizedTypeArguments = new HashMap<>(typeArguments);
                     parameterizedTypeArguments.putAll(TypeUtils.getTypeArguments(p));
                 }
                 final Type[] args = p.getActualTypeArguments();

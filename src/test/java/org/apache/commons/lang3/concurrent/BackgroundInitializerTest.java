@@ -222,7 +222,7 @@ public class BackgroundInitializerTest {
         final CountDownLatch latch1 = new CountDownLatch(1);
         init.shouldSleep = true;
         init.start();
-        final AtomicReference<InterruptedException> iex = new AtomicReference<InterruptedException>();
+        final AtomicReference<InterruptedException> iex = new AtomicReference<>();
         final Thread getThread = new Thread() {
             @Override
             public void run() {

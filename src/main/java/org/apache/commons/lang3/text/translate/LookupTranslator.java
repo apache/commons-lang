@@ -43,8 +43,8 @@ public class LookupTranslator extends CharSequenceTranslator {
      * @param lookup CharSequence[][] table of size [*][2]
      */
     public LookupTranslator(final CharSequence[]... lookup) {
-        lookupMap = new HashMap<String, String>();
-        prefixSet = new HashSet<Character>();
+        lookupMap = new HashMap<>();
+        prefixSet = new HashSet<>();
         int _shortest = Integer.MAX_VALUE;
         int _longest = 0;
         if (lookup != null) {

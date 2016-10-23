@@ -131,7 +131,7 @@ public class ThreadUtils {
             return Collections.emptyList();
         }
 
-        final Collection<Thread> result = new ArrayList<Thread>();
+        final Collection<Thread> result = new ArrayList<>();
         final NamePredicate threadNamePredicate = new NamePredicate(threadName);
         for(final ThreadGroup group : threadGroups) {
             result.addAll(findThreads(group, false, threadNamePredicate));
@@ -413,7 +413,7 @@ public class ThreadUtils {
             //return value of enumerate() must be strictly less than the array size according to javadoc
         } while (count >= threads.length);
 
-        final List<Thread> result = new ArrayList<Thread>(count);
+        final List<Thread> result = new ArrayList<>(count);
         for (int i = 0; i < count; ++i) {
             if (predicate.test(threads[i])) {
                 result.add(threads[i]);
@@ -449,7 +449,7 @@ public class ThreadUtils {
             //return value of enumerate() must be strictly less than the array size according to javadoc
         } while(count >= threadGroups.length);
 
-        final List<ThreadGroup> result = new ArrayList<ThreadGroup>(count);
+        final List<ThreadGroup> result = new ArrayList<>(count);
         for(int i = 0; i < count; ++i) {
             if(predicate.test(threadGroups[i])) {
                 result.add(threadGroups[i]);

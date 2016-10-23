@@ -42,7 +42,7 @@ public class StrSubstitutorTest {
 
     @Before
     public void setUp() throws Exception {
-        values = new HashMap<String, String>();
+        values = new HashMap<>();
         values.put("animal", "quick brown fox");
         values.put("target", "lazy dog");
     }
@@ -235,7 +235,7 @@ public class StrSubstitutorTest {
      */
     @Test
     public void testCyclicReplacement() {
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         map.put("animal", "${critter}");
         map.put("target", "${pet}");
         map.put("pet", "${petCharacteristic} dog");
@@ -364,7 +364,7 @@ public class StrSubstitutorTest {
 
     @Test
     public void testDefaultValueDelimiters() {
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         map.put("animal", "fox");
         map.put("target", "dog");
 
@@ -402,7 +402,7 @@ public class StrSubstitutorTest {
     @Test
     public void testResolveVariable() {
         final StrBuilder builder = new StrBuilder("Hi ${name}!");
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         map.put("name", "commons");
         final StrSubstitutor sub = new StrSubstitutor(map) {
             @Override
@@ -433,7 +433,7 @@ public class StrSubstitutorTest {
      */
     @Test
     public void testConstructorMapPrefixSuffix() {
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         map.put("name", "commons");
         final StrSubstitutor sub = new StrSubstitutor(map, "<", ">");
         assertEquals("Hi < commons", sub.replace("Hi $< <name>"));
@@ -444,7 +444,7 @@ public class StrSubstitutorTest {
      */
     @Test
     public void testConstructorMapFull() {
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         map.put("name", "commons");
         StrSubstitutor sub = new StrSubstitutor(map, "<", ">", '!');
         assertEquals("Hi < commons", sub.replace("Hi !< <name>"));
@@ -556,7 +556,7 @@ public class StrSubstitutorTest {
      */
     @Test
     public void testStaticReplace() {
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         map.put("name", "commons");
         assertEquals("Hi commons!", StrSubstitutor.replace("Hi ${name}!", map));
     }
@@ -566,7 +566,7 @@ public class StrSubstitutorTest {
      */
     @Test
     public void testStaticReplacePrefixSuffix() {
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         map.put("name", "commons");
         assertEquals("Hi commons!", StrSubstitutor.replace("Hi <name>!", map, "<", ">"));
     }
@@ -615,7 +615,7 @@ public class StrSubstitutorTest {
 
     @Test
     public void testSamePrefixAndSuffix() {
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         map.put("greeting", "Hello");
         map.put(" there ", "XXX");
         map.put("name", "commons");
@@ -626,7 +626,7 @@ public class StrSubstitutorTest {
     @Test
     public void testSubstitutePreserveEscape() {
         final String org = "${not-escaped} $${escaped}";
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         map.put("not-escaped", "value");
 
         StrSubstitutor sub = new StrSubstitutor(map, "${", "}", '$');
@@ -678,7 +678,7 @@ public class StrSubstitutorTest {
         }
 
         // replace using object
-        final MutableObject<String> obj = new MutableObject<String>(replaceTemplate);  // toString returns template
+        final MutableObject<String> obj = new MutableObject<>(replaceTemplate);  // toString returns template
         assertEquals(expectedResult, sub.replace(obj));
 
         // replace in StringBuffer

@@ -249,7 +249,7 @@ public class MethodUtilsTest {
     }
 
     private TestBean testBean;
-    private final Map<Class<?>, Class<?>[]> classCache = new HashMap<Class<?>, Class<?>[]>();
+    private final Map<Class<?>, Class<?>[]> classCache = new HashMap<>();
 
     @Before
     public void setUp() throws Exception {

@@ -160,7 +160,7 @@ public class FieldUtilsTest {
         final List<Field> fieldsNumber = Arrays.asList(Number.class.getDeclaredFields());
         assertEquals(fieldsNumber, FieldUtils.getAllFieldsList(Number.class));
         final List<Field> fieldsInteger = Arrays.asList(Integer.class.getDeclaredFields());
-        final List<Field> allFieldsInteger = new ArrayList<Field>(fieldsInteger);
+        final List<Field> allFieldsInteger = new ArrayList<>(fieldsInteger);
         allFieldsInteger.addAll(fieldsNumber);
         assertEquals(allFieldsInteger, FieldUtils.getAllFieldsList(Integer.class));
         assertEquals(5, FieldUtils.getAllFieldsList(PublicChild.class).size());
