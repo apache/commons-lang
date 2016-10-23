@@ -30,7 +30,7 @@ class CalendarReflection {
     private static final Method IS_WEEK_DATE_SUPPORTED = getCalendarMethod("isWeekDateSupported");
     private static final Method GET_WEEK_YEAR = getCalendarMethod("getWeekYear");
 
-    private static Method getCalendarMethod(String methodName, Class<?>... argTypes) {
+    private static Method getCalendarMethod(final String methodName, final Class<?>... argTypes) {
         try {
             Method m = Calendar.class.getMethod(methodName, argTypes);
             return m;
@@ -44,7 +44,7 @@ class CalendarReflection {
      * @param calendar The calendar instance.
      * @return false, if runtime is less than java 1.7; otherwise, the result of calendar.isWeekDateSupported().
      */
-    static boolean isWeekDateSupported(Calendar calendar) {
+    static boolean isWeekDateSupported(final Calendar calendar) {
         try {
             return IS_WEEK_DATE_SUPPORTED!=null && ((Boolean)IS_WEEK_DATE_SUPPORTED.invoke(calendar)).booleanValue();
         } catch (Exception e) {
@@ -68,7 +68,7 @@ class CalendarReflection {
      * @param calendar The calendar instance.
      * @return the week year or year value.
      */
-    public static int getWeekYear(Calendar calendar) {
+    public static int getWeekYear(final Calendar calendar) {
         try {
             if (isWeekDateSupported(calendar)) {
                 return (Integer) GET_WEEK_YEAR.invoke(calendar);

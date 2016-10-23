@@ -77,12 +77,12 @@ public class ConstructorUtilsTest {
             varArgs = s;
         }
 
-        public TestBean(final Integer i, String... s) {
+        public TestBean(final Integer i, final String... s) {
             toString = "(Integer, String...)";
             varArgs = s;
         }
 
-        public TestBean(final Integer first, int... args) {
+        public TestBean(final Integer first, final int... args) {
             toString = "(Integer, String...)";
             varArgs = new String[args.length];
             for(int i = 0; i< args.length; ++i) {

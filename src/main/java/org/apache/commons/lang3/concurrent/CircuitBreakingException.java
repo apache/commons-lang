@@ -42,7 +42,7 @@ public class CircuitBreakingException extends RuntimeException {
      * @param message the error message
      * @param cause the cause of this exception
      */
-    public CircuitBreakingException(String message, Throwable cause) {
+    public CircuitBreakingException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
@@ -51,7 +51,7 @@ public class CircuitBreakingException extends RuntimeException {
      *
      * @param message the error message
      */
-    public CircuitBreakingException(String message) {
+    public CircuitBreakingException(final String message) {
         super(message);
     }
 
@@ -60,7 +60,7 @@ public class CircuitBreakingException extends RuntimeException {
      *
      * @param cause the cause of this exception
      */
-    public CircuitBreakingException(Throwable cause) {
+    public CircuitBreakingException(final Throwable cause) {
         super(cause);
     }
 

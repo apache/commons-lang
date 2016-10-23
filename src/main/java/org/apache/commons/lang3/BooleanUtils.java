@@ -1091,7 +1091,7 @@ public class BooleanUtils {
      *         a value greater than {@code 0} if {@code x && !y}
      * @since 3.4
      */
-    public static int compare(boolean x, boolean y) {
+    public static int compare(final boolean x, final boolean y) {
         if (x == y) {
             return 0;
         }

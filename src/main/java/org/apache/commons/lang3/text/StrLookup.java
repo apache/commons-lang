@@ -166,7 +166,7 @@ public abstract class StrLookup<V> {
          * {@inheritDoc} This implementation directly accesses system properties.
          */
         @Override
-        public String lookup(String key) {
+        public String lookup(final String key) {
             if (key.length() > 0) {
                 try {
                     return System.getProperty(key);

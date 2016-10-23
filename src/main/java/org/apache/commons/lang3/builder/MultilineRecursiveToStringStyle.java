@@ -104,7 +104,7 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
      * @param spaces how far to indent
      * @return a StringBuilder with {spaces} leading space characters.
      */
-    private StringBuilder spacer(int spaces) {
+    private StringBuilder spacer(final int spaces) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < spaces; i++) {
             sb.append(" ");
@@ -113,7 +113,7 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
     }
 
     @Override
-    public void appendDetail(StringBuffer buffer, String fieldName, Object value) {
+    public void appendDetail(final StringBuffer buffer, final String fieldName, final Object value) {
         if (!ClassUtils.isPrimitiveWrapper(value.getClass()) && !String.class.equals(value.getClass())
                 && accept(value.getClass())) {
             spaces += indent;

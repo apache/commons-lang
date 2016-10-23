@@ -82,8 +82,8 @@ public class CharSequenceUtilsTest {
         final int len;
         final boolean expected;
         final Class<?> throwable;
-        TestData(String source, boolean ignoreCase, int toffset,
-                String other, int ooffset, int len, boolean expected){
+        TestData(final String source, final boolean ignoreCase, final int toffset,
+                final String other, final int ooffset, final int len, final boolean expected){
             this.source = source;
             this.ignoreCase = ignoreCase;
             this.toffset = toffset;
@@ -93,8 +93,8 @@ public class CharSequenceUtilsTest {
             this.expected = expected;
             this.throwable = null;
         }
-        TestData(String source, boolean ignoreCase, int toffset,
-                String other, int ooffset, int len, Class<?> throwable){
+        TestData(final String source, final boolean ignoreCase, final int toffset,
+                final String other, final int ooffset, final int len, final Class<?> throwable){
             this.source = source;
             this.ignoreCase = ignoreCase;
             this.toffset = toffset;
@@ -140,7 +140,7 @@ public class CharSequenceUtilsTest {
         
         abstract boolean invoke();
         
-        void run(TestData data, String id) {
+        void run(final TestData data, final String id) {
             if (data.throwable != null) {
                 try {
                     invoke();

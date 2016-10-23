@@ -1576,7 +1576,7 @@ public class NumberUtils {
      *         a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      */
-    public static int compare(int x, int y) {
+    public static int compare(final int x, final int y) {
         if (x == y) {
             return 0;
         }
@@ -1593,7 +1593,7 @@ public class NumberUtils {
      *         a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      */
-    public static int compare(long x, long y) {
+    public static int compare(final long x, final long y) {
         if (x == y) {
             return 0;
         }
@@ -1610,7 +1610,7 @@ public class NumberUtils {
      *         a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      */
-    public static int compare(short x, short y) {
+    public static int compare(final short x, final short y) {
         if (x == y) {
             return 0;
         }
@@ -1627,7 +1627,7 @@ public class NumberUtils {
      *         a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      */
-    public static int compare(byte x, byte y) {
+    public static int compare(final byte x, final byte y) {
         return x - y;
     }
 }

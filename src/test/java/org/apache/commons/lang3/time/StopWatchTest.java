@@ -288,7 +288,7 @@ public class StopWatchTest  {
      * @param nanos Time in nanoseconds to have elapsed on the stop watch
      * @return StopWatch in a suspended state with the elapsed time
      */
-    private StopWatch createMockStopWatch(long nanos) {
+    private StopWatch createMockStopWatch(final long nanos) {
         final StopWatch watch = StopWatch.createStarted();
         watch.suspend();
         try {

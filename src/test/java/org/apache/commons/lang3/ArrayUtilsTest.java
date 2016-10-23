@@ -2958,7 +2958,7 @@ public class ArrayUtilsTest  {
     public void testContains_LANG_1261() {
         class LANG1261ParentObject {
             @Override
-            public boolean equals(Object o) {
+            public boolean equals(final Object o) {
                 return true;
             }
         }
@@ -4288,7 +4288,7 @@ public class ArrayUtilsTest  {
     @Test
     public void testIsSortedComparator() {
         Comparator<Integer> c = new Comparator<Integer>() {
-                public int compare(Integer o1, Integer o2) {
+                public int compare(final Integer o1, final Integer o2) {
                         return o2.compareTo(o1);
                     }
             };

@@ -546,7 +546,7 @@ public class TimedSemaphoreTest {
         /** Flag whether a permit could be acquired. */
         private boolean acquired;
 
-        public TryAcquireThread(TimedSemaphore s, CountDownLatch l) {
+        public TryAcquireThread(final TimedSemaphore s, final CountDownLatch l) {
             semaphore = s;
             latch = l;
         }

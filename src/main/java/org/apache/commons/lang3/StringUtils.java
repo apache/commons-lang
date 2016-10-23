@@ -551,7 +551,7 @@ public class StringUtils {
      * @return truncated String, {@code null} if null String input
      * @since 3.5
      */
-    public static String truncate(final String str, int maxWidth) {
+    public static String truncate(final String str, final int maxWidth) {
         return truncate(str, 0, maxWidth);
     }
 
@@ -614,7 +614,7 @@ public class StringUtils {
      * @return truncated String, {@code null} if null String input
      * @since 3.5
      */
-    public static String truncate(final String str, int offset, int maxWidth) {
+    public static String truncate(final String str, final int offset, final int maxWidth) {
         if (offset < 0) {
             throw new IllegalArgumentException("offset cannot be negative");
         }
@@ -933,7 +933,7 @@ public class StringUtils {
         return pattern.matcher(decomposed).replaceAll(StringUtils.EMPTY);
     }
 
-    private static void convertRemainingAccentCharacters(StringBuilder decomposed) {
+    private static void convertRemainingAccentCharacters(final StringBuilder decomposed) {
         for (int i = 0; i < decomposed.length(); i++) {
             if (decomposed.charAt(i) == '\u0141') {
                 decomposed.deleteCharAt(i);
@@ -2147,7 +2147,7 @@ public class StringUtils {
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      * @since 3.4
      */
-    public static boolean containsAny(CharSequence cs, CharSequence... searchCharSequences) {
+    public static boolean containsAny(final CharSequence cs, final CharSequence... searchCharSequences) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
             return false;
         }
@@ -4912,7 +4912,7 @@ public class StringUtils {
      *         null String input
      * @since 3.5
      */
-    public static String removeIgnoreCase(String str, String remove) {
+    public static String removeIgnoreCase(final String str, final String remove) {
         if (isEmpty(str) || isEmpty(remove)) {
             return str;
         }
@@ -5099,7 +5099,7 @@ public class StringUtils {
      *  {@code null} if null String input
      * @since 3.5
      */
-    public static String replaceOnceIgnoreCase(String text, String searchString, String replacement) {
+    public static String replaceOnceIgnoreCase(final String text, final String searchString, final String replacement) {
         return replaceIgnoreCase(text, searchString, replacement, 1);
     }
 
@@ -5342,7 +5342,7 @@ public class StringUtils {
     *  {@code null} if null String input
     * @since 3.5
     */
-   public static String replaceIgnoreCase(String text, String searchString, String replacement) {
+   public static String replaceIgnoreCase(final String text, final String searchString, final String replacement) {
        return replaceIgnoreCase(text, searchString, replacement, -1);
    }
 
@@ -5374,7 +5374,7 @@ public class StringUtils {
      * @return the text with any replacements processed,
      *  {@code null} if null String input
      */
-    public static String replace(final String text, final String searchString, final String replacement, int max) {
+    public static String replace(final String text, final String searchString, final String replacement, final int max) {
         return replace(text, searchString, replacement, max, false);
     }
 
@@ -5409,7 +5409,7 @@ public class StringUtils {
      * @return the text with any replacements processed,
      *  {@code null} if null String input
      */
-     private static String replace(String text, String searchString, String replacement, int max, boolean ignoreCase) {
+     private static String replace(final String text, String searchString, final String replacement, int max, final boolean ignoreCase) {
          if (isEmpty(text) || isEmpty(searchString) || replacement == null || max == 0) {
              return text;
          }
@@ -5469,7 +5469,7 @@ public class StringUtils {
      *  {@code null} if null String input
      * @since 3.5
      */
-    public static String replaceIgnoreCase(String text, String searchString, String replacement, int max) {
+    public static String replaceIgnoreCase(final String text, final String searchString, final String replacement, final int max) {
         return replace(text, searchString, replacement, max, true);
     }
 
@@ -7275,7 +7275,7 @@ public class StringUtils {
      *          or {@code null} if null String input
      * @since 3.5
      */
-    public static String rotate(String str, int shift) {
+    public static String rotate(final String str, final int shift) {
         if (str == null) {
             return null;
         }

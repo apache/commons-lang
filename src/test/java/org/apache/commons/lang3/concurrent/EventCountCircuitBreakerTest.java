@@ -330,9 +330,9 @@ public class EventCountCircuitBreakerTest {
         /** The current time in nanoseconds. */
         private long currentTime;
 
-        public EventCountCircuitBreakerTestImpl(int openingThreshold, long openingInterval,
-                                                TimeUnit openingUnit, int closingThreshold, long closingInterval,
-                                                TimeUnit closingUnit) {
+        public EventCountCircuitBreakerTestImpl(final int openingThreshold, final long openingInterval,
+                                                final TimeUnit openingUnit, final int closingThreshold, final long closingInterval,
+                                                final TimeUnit closingUnit) {
             super(openingThreshold, openingInterval, openingUnit, closingThreshold,
                     closingInterval, closingUnit);
         }
@@ -343,7 +343,7 @@ public class EventCountCircuitBreakerTest {
          * @param time the time to set
          * @return a reference to this object
          */
-        public EventCountCircuitBreakerTestImpl at(long time) {
+        public EventCountCircuitBreakerTestImpl at(final long time) {
             currentTime = time;
             return this;
         }
@@ -374,12 +374,12 @@ public class EventCountCircuitBreakerTest {
          *
          * @param source the expected event source
          */
-        public ChangeListener(Object source) {
+        public ChangeListener(final Object source) {
             expectedSource = source;
             changedValues = new ArrayList<>();
         }
 
-        public void propertyChange(PropertyChangeEvent evt) {
+        public void propertyChange(final PropertyChangeEvent evt) {
             assertEquals("Wrong event source", expectedSource, evt.getSource());
             assertEquals("Wrong property name", "open", evt.getPropertyName());
             Boolean newValue = (Boolean) evt.getNewValue();
@@ -393,7 +393,7 @@ public class EventCountCircuitBreakerTest {
          *
          * @param values the expected values
          */
-        public void verify(Boolean... values) {
+        public void verify(final Boolean... values) {
             assertArrayEquals(values,
                     changedValues.toArray(new Boolean[changedValues.size()]));
         }

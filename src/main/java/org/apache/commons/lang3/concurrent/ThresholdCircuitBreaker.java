@@ -72,7 +72,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
      *
      * @param threshold the threshold.
      */
-    public ThresholdCircuitBreaker(long threshold) {
+    public ThresholdCircuitBreaker(final long threshold) {
         super();
         this.used = new AtomicLong(INITIAL_COUNT);
         this.threshold = threshold;
@@ -112,7 +112,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
      * <p>If the threshold is zero, the circuit breaker will be in a permanent <em>open</em> state.</p>
      */
     @Override
-    public boolean incrementAndCheckState(Long increment) throws CircuitBreakingException {
+    public boolean incrementAndCheckState(final Long increment) throws CircuitBreakingException {
         if (threshold == 0) {
             open();
         }

@@ -341,7 +341,7 @@ public class ClassUtils {
      * @see #getAbbreviatedName(String, int)
      * @since 3.4
      */
-    public static String getAbbreviatedName(final Class<?> cls, int len) {
+    public static String getAbbreviatedName(final Class<?> cls, final int len) {
       if (cls == null) {
         return StringUtils.EMPTY;
       }
@@ -373,7 +373,7 @@ public class ClassUtils {
      * @throws IllegalArgumentException if len &lt;= 0
      * @since 3.4
      */
-    public static String getAbbreviatedName(String className, int len) {
+    public static String getAbbreviatedName(final String className, final int len) {
       if (len <= 0) {
         throw new IllegalArgumentException("len must be > 0");
       }

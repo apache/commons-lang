@@ -611,7 +611,7 @@ public class FastDateParserTest {
         getInstance("XXXX");
     }
 
-    private static Calendar initializeCalendar(TimeZone tz) {
+    private static Calendar initializeCalendar(final TimeZone tz) {
         Calendar cal = Calendar.getInstance(tz);
         cal.set(Calendar.YEAR, 2001);
         cal.set(Calendar.MONTH, 1); // not daylight savings
@@ -628,7 +628,7 @@ public class FastDateParserTest {
         Greenwich(GMT, "Z", "Z", "Z", false), 
         NewYork(NEW_YORK, "-05", "-0500", "-05:00", false);
 
-        private Expected1806(TimeZone zone, String one, String two, String three, boolean hasHalfHourOffset) {
+        private Expected1806(final TimeZone zone, final String one, final String two, final String three, final boolean hasHalfHourOffset) {
             this.zone = zone;
             this.one = one;
             this.two = two;

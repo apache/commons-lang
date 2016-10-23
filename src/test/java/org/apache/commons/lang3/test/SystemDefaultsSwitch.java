@@ -60,7 +60,7 @@ import org.junit.runners.model.Statement;
 public class SystemDefaultsSwitch implements TestRule {
     
     @Override
-    public Statement apply(Statement stmt, Description description) {
+    public Statement apply(final Statement stmt, final Description description) {
         SystemDefaults defaults = description.getAnnotation(SystemDefaults.class);
         if (defaults == null) {
             return stmt;
@@ -68,7 +68,7 @@ public class SystemDefaultsSwitch implements TestRule {
         return applyTimeZone(defaults, applyLocale(defaults, stmt));
     }
 
-    private Statement applyTimeZone(SystemDefaults defaults, final Statement stmt) {
+    private Statement applyTimeZone(final SystemDefaults defaults, final Statement stmt) {
         if (defaults.timezone().isEmpty()) {
             return stmt;
         }
@@ -89,7 +89,7 @@ public class SystemDefaultsSwitch implements TestRule {
         };
     }
 
-    private Statement applyLocale(SystemDefaults defaults, final Statement stmt) {
+    private Statement applyLocale(final SystemDefaults defaults, final Statement stmt) {
         if (defaults.locale().isEmpty()) {
             return stmt;
         }

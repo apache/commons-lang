@@ -171,9 +171,9 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @param closingInterval the interval for closing the circuit breaker
      * @param closingUnit the {@code TimeUnit} defining the closing interval
      */
-    public EventCountCircuitBreaker(int openingThreshold, long openingInterval,
-                                    TimeUnit openingUnit, int closingThreshold, long closingInterval,
-                                    TimeUnit closingUnit) {
+    public EventCountCircuitBreaker(final int openingThreshold, final long openingInterval,
+                                    final TimeUnit openingUnit, final int closingThreshold, final long closingInterval,
+                                    final TimeUnit closingUnit) {
         super();
         checkIntervalData = new AtomicReference<>(new CheckIntervalData(0, 0));
         this.openingThreshold = openingThreshold;
@@ -195,8 +195,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * number of events received in the time span determined by the check interval goes
      * below this threshold, the circuit breaker is closed again
      */
-    public EventCountCircuitBreaker(int openingThreshold, long checkInterval, TimeUnit checkUnit,
-                                    int closingThreshold) {
+    public EventCountCircuitBreaker(final int openingThreshold, final long checkInterval, final TimeUnit checkUnit,
+                                    final int closingThreshold) {
         this(openingThreshold, checkInterval, checkUnit, closingThreshold, checkInterval,
                 checkUnit);
     }
@@ -211,7 +211,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @param checkInterval the check interval for opening or closing the circuit breaker
      * @param checkUnit the {@code TimeUnit} defining the check interval
      */
-    public EventCountCircuitBreaker(int threshold, long checkInterval, TimeUnit checkUnit) {
+    public EventCountCircuitBreaker(final int threshold, final long checkInterval, final TimeUnit checkUnit) {
         this(threshold, checkInterval, checkUnit, threshold);
     }
 
@@ -269,7 +269,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * {@inheritDoc}
      */
     @Override
-    public boolean incrementAndCheckState(Integer increment)
+    public boolean incrementAndCheckState(final Integer increment)
             throws CircuitBreakingException {
         return performStateCheck(1);
     }
@@ -317,7 +317,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @param increment the increment for the internal counter
      * @return a flag whether the circuit breaker is now closed
      */
-    private boolean performStateCheck(int increment) {
+    private boolean performStateCheck(final int increment) {
         CheckIntervalData currentData;
         CheckIntervalData nextData;
         State currentState;
@@ -348,8 +348,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @param nextData the replacing check data object
      * @return a flag whether the update was successful
      */
-    private boolean updateCheckIntervalData(CheckIntervalData currentData,
-            CheckIntervalData nextData) {
+    private boolean updateCheckIntervalData(final CheckIntervalData currentData,
+            final CheckIntervalData nextData) {
         return currentData == nextData
                 || checkIntervalData.compareAndSet(currentData, nextData);
     }
@@ -360,7 +360,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      *
      * @param newState the new state to be set
      */
-    private void changeStateAndStartNewCheckInterval(State newState) {
+    private void changeStateAndStartNewCheckInterval(final State newState) {
         changeState(newState);
         checkIntervalData.set(new CheckIntervalData(0, now()));
     }
@@ -376,8 +376,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @param time the current time
      * @return the updated {@code CheckIntervalData} object
      */
-    private CheckIntervalData nextCheckIntervalData(int increment,
-            CheckIntervalData currentData, State currentState, long time) {
+    private CheckIntervalData nextCheckIntervalData(final int increment,
+            final CheckIntervalData currentData, final State currentState, final long time) {
         CheckIntervalData nextData;
         if (stateStrategy(currentState).isCheckIntervalFinished(this, currentData, time)) {
             nextData = new CheckIntervalData(increment, time);
@@ -404,7 +404,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @return the corresponding {@code StateStrategy}
      * @throws CircuitBreakingException if the strategy cannot be resolved
      */
-    private static StateStrategy stateStrategy(State state) {
+    private static StateStrategy stateStrategy(final State state) {
         StateStrategy strategy = STRATEGY_MAP.get(state);
         return strategy;
     }
@@ -440,7 +440,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param count the current count value
          * @param intervalStart the start time of the check interval
          */
-        public CheckIntervalData(int count, long intervalStart) {
+        public CheckIntervalData(final int count, final long intervalStart) {
             eventCount = count;
             checkIntervalStart = intervalStart;
         }
@@ -470,7 +470,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param delta the delta
          * @return the updated instance
          */
-        public CheckIntervalData increment(int delta) {
+        public CheckIntervalData increment(final int delta) {
             return (delta != 0) ? new CheckIntervalData(getEventCount() + delta,
                     getCheckIntervalStart()) : this;
         }
@@ -490,8 +490,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param now the current time
          * @return a flag whether the end of the current check interval is reached
          */
-        public boolean isCheckIntervalFinished(EventCountCircuitBreaker breaker,
-                CheckIntervalData currentData, long now) {
+        public boolean isCheckIntervalFinished(final EventCountCircuitBreaker breaker,
+                final CheckIntervalData currentData, final long now) {
             return now - currentData.getCheckIntervalStart() > fetchCheckInterval(breaker);
         }
 
@@ -527,8 +527,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * {@inheritDoc}
          */
         @Override
-        public boolean isStateTransition(EventCountCircuitBreaker breaker,
-                CheckIntervalData currentData, CheckIntervalData nextData) {
+        public boolean isStateTransition(final EventCountCircuitBreaker breaker,
+                final CheckIntervalData currentData, final CheckIntervalData nextData) {
             return nextData.getEventCount() > breaker.getOpeningThreshold();
         }
 
@@ -536,7 +536,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * {@inheritDoc}
          */
         @Override
-        protected long fetchCheckInterval(EventCountCircuitBreaker breaker) {
+        protected long fetchCheckInterval(final EventCountCircuitBreaker breaker) {
             return breaker.getOpeningInterval();
         }
     }
@@ -549,8 +549,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * {@inheritDoc}
          */
         @Override
-        public boolean isStateTransition(EventCountCircuitBreaker breaker,
-                CheckIntervalData currentData, CheckIntervalData nextData) {
+        public boolean isStateTransition(final EventCountCircuitBreaker breaker,
+                final CheckIntervalData currentData, final CheckIntervalData nextData) {
             return nextData.getCheckIntervalStart() != currentData
                     .getCheckIntervalStart()
                     && currentData.getEventCount() < breaker.getClosingThreshold();
@@ -560,7 +560,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * {@inheritDoc}
          */
         @Override
-        protected long fetchCheckInterval(EventCountCircuitBreaker breaker) {
+        protected long fetchCheckInterval(final EventCountCircuitBreaker breaker) {
             return breaker.getClosingInterval();
         }
     }

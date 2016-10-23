@@ -546,7 +546,7 @@ public class CharUtils {
      *         a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      */
-    public static int compare(char x, char y) {
+    public static int compare(final char x, final char y) {
         return x-y;
     }
 }

@@ -60,7 +60,7 @@ public class WeekYearTest {
     final Calendar vulgar;
     final String isoForm;
 
-    public WeekYearTest(int year, int month, int day, String isoForm) {
+    public WeekYearTest(final int year, final int month, final int day, final String isoForm) {
         vulgar = new GregorianCalendar(year, month, day);
         this.isoForm = isoForm;
     }

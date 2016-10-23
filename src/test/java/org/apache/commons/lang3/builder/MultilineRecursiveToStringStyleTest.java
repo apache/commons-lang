@@ -202,11 +202,11 @@ public class MultilineRecursiveToStringStyleTest {
         assertEquals(exp, toString(wa));
     }
 
-    private String getClassPrefix(Object object) {
+    private String getClassPrefix(final Object object) {
         return object.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(object));
     }
 
-    private String toString(Object object) {
+    private String toString(final Object object) {
         return new ReflectionToStringBuilder(object, new MultilineRecursiveToStringStyle()).toString();
     }
 
@@ -222,7 +222,7 @@ public class MultilineRecursiveToStringStyleTest {
     static class Bank {
         String name;
 
-        public Bank(String name) {
+        public Bank(final String name) {
             this.name = name;
         }
     }
@@ -232,7 +232,7 @@ public class MultilineRecursiveToStringStyleTest {
         Bank bank;
         List<Account> accounts;
 
-        public Customer(String name) {
+        public Customer(final String name) {
             this.name = name;
         }
     }
@@ -254,7 +254,7 @@ public class MultilineRecursiveToStringStyleTest {
         double amount;
         String date;
 
-        public Transaction(String datum, double betrag) {
+        public Transaction(final String datum, final double betrag) {
             this.date = datum;
             this.amount = betrag;
         }

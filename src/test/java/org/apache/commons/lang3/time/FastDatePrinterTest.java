@@ -276,7 +276,7 @@ public class FastDatePrinterTest {
         assertEquals("+00:00", colonFormat.format(c));
     }
 
-    private static Calendar initializeCalendar(TimeZone tz) {
+    private static Calendar initializeCalendar(final TimeZone tz) {
         Calendar cal = Calendar.getInstance(tz);
         cal.set(Calendar.YEAR, 2001);
         cal.set(Calendar.MONTH, 1); // not daylight savings
@@ -297,7 +297,7 @@ public class FastDatePrinterTest {
         India(INDIA, "+05", "+0530", "+05:30"), Greenwich(GMT, "Z", "Z", "Z"), NewYork(
                 NEW_YORK, "-05", "-0500", "-05:00");
 
-        private Expected1806(TimeZone zone, String one, String two, String three) {
+        private Expected1806(final TimeZone zone, final String one, final String two, final String three) {
             this.zone = zone;
             this.one = one;
             this.two = two;

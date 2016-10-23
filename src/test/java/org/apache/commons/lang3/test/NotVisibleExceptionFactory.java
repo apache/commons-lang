@@ -40,7 +40,7 @@ public class NotVisibleExceptionFactory {
 
     private final Throwable cause;
 
-    private NotVisibleException(Throwable cause) {
+    private NotVisibleException(final Throwable cause) {
       this.cause = cause;
     }
 

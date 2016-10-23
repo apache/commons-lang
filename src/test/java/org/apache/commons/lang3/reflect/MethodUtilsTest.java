@@ -179,57 +179,57 @@ public class MethodUtilsTest {
             return "foo(Object...)";
         }
 
-        public int[] unboxing(int... values) {
+        public int[] unboxing(final int... values) {
             return values;
         }
 
         // This method is overloaded for the wrapper class for every primitive type, plus the common supertypes
         // Number and Object. This is an acid test since it easily leads to ambiguous methods.
-        public static String varOverload(Byte... args) { return "Byte..."; }
-        public static String varOverload(Character... args) { return "Character..."; }
-        public static String varOverload(Short... args) { return "Short..."; }
-        public static String varOverload(Boolean... args) { return "Boolean..."; }
-        public static String varOverload(Float... args) { return "Float..."; }
-        public static String varOverload(Double... args) { return "Double..."; }
-        public static String varOverload(Integer... args) { return "Integer..."; }
-        public static String varOverload(Long... args) { return "Long..."; }
-        public static String varOverload(Number... args) { return "Number..."; }
-        public static String varOverload(Object... args) { return "Object..."; }
-        public static String varOverload(String... args) { return "String..."; }
+        public static String varOverload(final Byte... args) { return "Byte..."; }
+        public static String varOverload(final Character... args) { return "Character..."; }
+        public static String varOverload(final Short... args) { return "Short..."; }
+        public static String varOverload(final Boolean... args) { return "Boolean..."; }
+        public static String varOverload(final Float... args) { return "Float..."; }
+        public static String varOverload(final Double... args) { return "Double..."; }
+        public static String varOverload(final Integer... args) { return "Integer..."; }
+        public static String varOverload(final Long... args) { return "Long..."; }
+        public static String varOverload(final Number... args) { return "Number..."; }
+        public static String varOverload(final Object... args) { return "Object..."; }
+        public static String varOverload(final String... args) { return "String..."; }
 
         // This method is overloaded for the wrapper class for every numeric primitive type, plus the common
         // supertype Number
-        public static String numOverload(Byte... args) { return "Byte..."; }
-        public static String numOverload(Short... args) { return "Short..."; }
-        public static String numOverload(Float... args) { return "Float..."; }
-        public static String numOverload(Double... args) { return "Double..."; }
-        public static String numOverload(Integer... args) { return "Integer..."; }
-        public static String numOverload(Long... args) { return "Long..."; }
-        public static String numOverload(Number... args) { return "Number..."; }
+        public static String numOverload(final Byte... args) { return "Byte..."; }
+        public static String numOverload(final Short... args) { return "Short..."; }
+        public static String numOverload(final Float... args) { return "Float..."; }
+        public static String numOverload(final Double... args) { return "Double..."; }
+        public static String numOverload(final Integer... args) { return "Integer..."; }
+        public static String numOverload(final Long... args) { return "Long..."; }
+        public static String numOverload(final Number... args) { return "Number..."; }
 
         // These varOverloadEcho and varOverloadEchoStatic methods are designed to verify that
         // not only is the correct overloaded variant invoked, but that the varags arguments
         // are also delivered correctly to the method.
-        public ImmutablePair<String, Object[]> varOverloadEcho(String... args) {
+        public ImmutablePair<String, Object[]> varOverloadEcho(final String... args) {
           return new ImmutablePair<String, Object[]>("String...", args);
         }
-        public ImmutablePair<String, Object[]> varOverloadEcho(Number... args) {
+        public ImmutablePair<String, Object[]> varOverloadEcho(final Number... args) {
           return new ImmutablePair<String, Object[]>("Number...", args);
         }
 
-        public static ImmutablePair<String, Object[]> varOverloadEchoStatic(String... args) {
+        public static ImmutablePair<String, Object[]> varOverloadEchoStatic(final String... args) {
           return new ImmutablePair<String, Object[]>("String...", args);
         }
-        public static ImmutablePair<String, Object[]> varOverloadEchoStatic(Number... args) {
+        public static ImmutablePair<String, Object[]> varOverloadEchoStatic(final Number... args) {
           return new ImmutablePair<String, Object[]>("Number...", args);
         }
 
-        static void verify(ImmutablePair<String, Object[]> a, ImmutablePair<String, Object[]> b) {
+        static void verify(final ImmutablePair<String, Object[]> a, final ImmutablePair<String, Object[]> b) {
           assertEquals(a.getLeft(), b.getLeft());
           assertArrayEquals(a.getRight(), b.getRight());
         }
 
-        static void verify(ImmutablePair<String, Object[]> a, Object _b) {
+        static void verify(final ImmutablePair<String, Object[]> a, final Object _b) {
           @SuppressWarnings("unchecked")
           final ImmutablePair<String, Object[]> b = (ImmutablePair<String, Object[]>) _b;
           verify(a, b);

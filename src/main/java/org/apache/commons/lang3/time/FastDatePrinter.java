@@ -423,7 +423,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param obj  the object to format
      * @return The formatted value.
      */
-    String format(Object obj) {
+    String format(final Object obj) {
         if (obj instanceof Date) {
             return format((Date) obj);
         } else if (obj instanceof Calendar) {
@@ -1031,7 +1031,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * {@inheritDoc}
          */
         @Override
-        public final void appendTo(final Appendable buffer, int value) throws IOException {
+        public final void appendTo(final Appendable buffer, final int value) throws IOException {
             appendFullDigits(buffer, value, mSize);
         }
     }
@@ -1449,7 +1449,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * @return a Iso8601_Rule that can format TimeZone String of length {@code tokenLen}. If no such
          *          rule exists, an IllegalArgumentException will be thrown.
          */
-        static Iso8601_Rule getRule(int tokenLen) {
+        static Iso8601_Rule getRule(final int tokenLen) {
             switch(tokenLen) {
             case 1:
                 return Iso8601_Rule.ISO8601_HOURS;

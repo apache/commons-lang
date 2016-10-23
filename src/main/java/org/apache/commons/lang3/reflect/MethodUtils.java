@@ -251,7 +251,7 @@ public class MethodUtils {
      * @throws IllegalAccessException if the requested method is not accessible via reflection
      */
     public static Object invokeMethod(final Object object, final String methodName, 
-            Object[] args, Class<?>[] parameterTypes)
+            final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
         return invokeMethod(object, false, methodName, args, parameterTypes);
@@ -444,7 +444,7 @@ public class MethodUtils {
         return method.invoke(null, args);
     }
 
-    private static Object[] toVarArgs(Method method, Object[] args) {
+    private static Object[] toVarArgs(final Method method, Object[] args) {
         if (method.isVarArgs()) {
             Class<?>[] methodParameterTypes = method.getParameterTypes();
             args = getVarArgs(args, methodParameterTypes);
@@ -462,7 +462,7 @@ public class MethodUtils {
      * @return an array of the variadic arguments passed to the method
      * @since 3.5
      */
-    static Object[] getVarArgs(Object[] args, Class<?>[] methodParameterTypes) {
+    static Object[] getVarArgs(final Object[] args, final Class<?>[] methodParameterTypes) {
         if (args.length == methodParameterTypes.length
                 && args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1])) {
             // The args array is already in the canonical form for the method.
@@ -750,7 +750,7 @@ public class MethodUtils {
      * @param toClassArray
      * @return the aggregate number of inheritance hops between assignable argument class types.
      */
-    private static int distance(Class<?>[] classArray, Class<?>[] toClassArray) {
+    private static int distance(final Class<?>[] classArray, final Class<?>[] toClassArray) {
         int answer = 0;
 
         if (!ClassUtils.isAssignable(classArray, toClassArray, true)) {

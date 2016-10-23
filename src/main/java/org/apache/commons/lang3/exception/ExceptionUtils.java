@@ -754,7 +754,7 @@ public class ExceptionUtils {
      * @since 3.5
      * @see #wrapAndThrow(Throwable)
      */
-    public static <R> R rethrow(Throwable throwable) {
+    public static <R> R rethrow(final Throwable throwable) {
         // claim that the typeErasure invocation throws a RuntimeException
         return ExceptionUtils.<R, RuntimeException> typeErasure(throwable);
     }
@@ -766,7 +766,7 @@ public class ExceptionUtils {
      * clause.
      */
     @SuppressWarnings("unchecked")
-    private static <R, T extends Throwable> R typeErasure(Throwable throwable) throws T {
+    private static <R, T extends Throwable> R typeErasure(final Throwable throwable) throws T {
         throw (T) throwable;
     }
 
@@ -791,7 +791,7 @@ public class ExceptionUtils {
      * @see #rethrow(Throwable)
      * @see #hasCause(Throwable, Class)
      */
-    public static <R> R wrapAndThrow(Throwable throwable) {
+    public static <R> R wrapAndThrow(final Throwable throwable) {
         if (throwable instanceof RuntimeException) {
             throw (RuntimeException) throwable;
         }
@@ -815,7 +815,7 @@ public class ExceptionUtils {
      * @see #wrapAndThrow(Throwable)
      */
     public static boolean hasCause(Throwable chain,
-            Class<? extends Throwable> type) {
+            final Class<? extends Throwable> type) {
         if (chain instanceof UndeclaredThrowableException) {
             chain = chain.getCause();
         }

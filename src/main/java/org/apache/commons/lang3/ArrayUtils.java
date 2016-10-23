@@ -1852,7 +1852,7 @@ public class ArrayUtils {
      * @param offset2 the index of the second element to swap
      * @since 3.5
      */
-    public static void swap(final Object[] array, int offset1, int offset2) {
+    public static void swap(final Object[] array, final int offset1, final int offset2) {
         if (array == null || array.length == 0) {
             return;
         }
@@ -1881,7 +1881,7 @@ public class ArrayUtils {
      * @param offset2 the index of the second element to swap
      * @since 3.5
      */
-    public static void swap(final long[] array, int offset1, int offset2) {
+    public static void swap(final long[] array, final int offset1, final int offset2) {
         if (array == null || array.length == 0) {
             return;
         }
@@ -1909,7 +1909,7 @@ public class ArrayUtils {
      * @param offset2 the index of the second element to swap
      * @since 3.5
      */
-    public static void swap(final int[] array, int offset1, int offset2) {
+    public static void swap(final int[] array, final int offset1, final int offset2) {
         if (array == null || array.length == 0) {
             return;
         }
@@ -1937,7 +1937,7 @@ public class ArrayUtils {
      * @param offset2 the index of the second element to swap
      * @since 3.5
      */
-    public static void swap(final short[] array, int offset1, int offset2) {
+    public static void swap(final short[] array, final int offset1, final int offset2) {
         if (array == null || array.length == 0) {
             return;
         }
@@ -1965,7 +1965,7 @@ public class ArrayUtils {
      * @param offset2 the index of the second element to swap
      * @since 3.5
      */
-    public static void swap(final char[] array, int offset1, int offset2) {
+    public static void swap(final char[] array, final int offset1, final int offset2) {
         if (array == null || array.length == 0) {
             return;
         }
@@ -1993,7 +1993,7 @@ public class ArrayUtils {
      * @param offset2 the index of the second element to swap
      * @since 3.5
      */
-    public static void swap(final byte[] array, int offset1, int offset2) {
+    public static void swap(final byte[] array, final int offset1, final int offset2) {
         if (array == null || array.length == 0) {
             return;
         }
@@ -2021,7 +2021,7 @@ public class ArrayUtils {
      * @param offset2 the index of the second element to swap
      * @since 3.5
      */
-    public static void swap(final double[] array, int offset1, int offset2) {
+    public static void swap(final double[] array, final int offset1, final int offset2) {
         if (array == null || array.length == 0) {
             return;
         }
@@ -2049,7 +2049,7 @@ public class ArrayUtils {
      * @param offset2 the index of the second element to swap
      * @since 3.5
      */
-    public static void swap(final float[] array, int offset1, int offset2) {
+    public static void swap(final float[] array, final int offset1, final int offset2) {
         if (array == null || array.length == 0) {
             return;
         }
@@ -2077,7 +2077,7 @@ public class ArrayUtils {
      * @param offset2 the index of the second element to swap
      * @since 3.5
      */
-    public static void swap(final boolean[] array, int offset1, int offset2) {
+    public static void swap(final boolean[] array, final int offset1, final int offset2) {
         if (array == null || array.length == 0) {
             return;
         }
@@ -2480,7 +2480,7 @@ public class ArrayUtils {
      *          rotate, than the effective offset is modulo the number of elements to rotate.
      * @since 3.5
      */
-    public static void shift(final Object[] array, int offset) {
+    public static void shift(final Object[] array, final int offset) {
         if (array == null) {
             return;
         }
@@ -2499,7 +2499,7 @@ public class ArrayUtils {
      *          rotate, than the effective offset is modulo the number of elements to rotate.
      * @since 3.5
      */
-    public static void shift(final long[] array, int offset) {
+    public static void shift(final long[] array, final int offset) {
         if (array == null) {
             return;
         }
@@ -2518,7 +2518,7 @@ public class ArrayUtils {
      *          rotate, than the effective offset is modulo the number of elements to rotate.
      * @since 3.5
      */
-    public static void shift(final int[] array, int offset) {
+    public static void shift(final int[] array, final int offset) {
         if (array == null) {
             return;
         }
@@ -2537,7 +2537,7 @@ public class ArrayUtils {
      *          rotate, than the effective offset is modulo the number of elements to rotate.
      * @since 3.5
      */
-    public static void shift(final short[] array, int offset) {
+    public static void shift(final short[] array, final int offset) {
         if (array == null) {
             return;
         }
@@ -2556,7 +2556,7 @@ public class ArrayUtils {
      *          rotate, than the effective offset is modulo the number of elements to rotate.
      * @since 3.5
      */
-    public static void shift(final char[] array, int offset) {
+    public static void shift(final char[] array, final int offset) {
         if (array == null) {
             return;
         }
@@ -2575,7 +2575,7 @@ public class ArrayUtils {
      *          rotate, than the effective offset is modulo the number of elements to rotate.
      * @since 3.5
      */
-    public static void shift(final byte[] array, int offset) {
+    public static void shift(final byte[] array, final int offset) {
         if (array == null) {
             return;
         }
@@ -2594,7 +2594,7 @@ public class ArrayUtils {
      *          rotate, than the effective offset is modulo the number of elements to rotate.
      * @since 3.5
      */
-    public static void shift(final double[] array, int offset) {
+    public static void shift(final double[] array, final int offset) {
         if (array == null) {
             return;
         }
@@ -2613,7 +2613,7 @@ public class ArrayUtils {
      *          rotate, than the effective offset is modulo the number of elements to rotate.
      * @since 3.5
      */
-    public static void shift(final float[] array, int offset) {
+    public static void shift(final float[] array, final int offset) {
         if (array == null) {
             return;
         }
@@ -2632,7 +2632,7 @@ public class ArrayUtils {
      *          rotate, than the effective offset is modulo the number of elements to rotate.
      * @since 3.5
      */
-    public static void shift(final boolean[] array, int offset) {
+    public static void shift(final boolean[] array, final int offset) {
         if (array == null) {
             return;
         }
@@ -7440,7 +7440,7 @@ public class ArrayUtils {
     public static <T extends Comparable<? super T>> boolean isSorted(final T[] array) {
         return isSorted(array, new Comparator<T>() {
             @Override
-            public int compare(T o1, T o2) {
+            public int compare(final T o1, final T o2) {
                 return o1.compareTo(o2);
             }
         });
@@ -7485,7 +7485,7 @@ public class ArrayUtils {
      * @return whether the array is sorted according to natural ordering
      * @since 3.4
      */
-    public static boolean isSorted(int[] array) {
+    public static boolean isSorted(final int[] array) {
         if (array == null || array.length < 2) {
             return true;
         }
@@ -7510,7 +7510,7 @@ public class ArrayUtils {
      * @return whether the array is sorted according to natural ordering
      * @since 3.4
      */
-    public static boolean isSorted(long[] array) {
+    public static boolean isSorted(final long[] array) {
         if (array == null || array.length < 2) {
             return true;
         }
@@ -7535,7 +7535,7 @@ public class ArrayUtils {
      * @return whether the array is sorted according to natural ordering
      * @since 3.4
      */
-    public static boolean isSorted(short[] array) {
+    public static boolean isSorted(final short[] array) {
         if (array == null || array.length < 2) {
             return true;
         }
@@ -7610,7 +7610,7 @@ public class ArrayUtils {
      * @return whether the array is sorted according to natural ordering
      * @since 3.4
      */
-    public static boolean isSorted(byte[] array) {
+    public static boolean isSorted(final byte[] array) {
         if (array == null || array.length < 2) {
             return true;
         }
@@ -7635,7 +7635,7 @@ public class ArrayUtils {
      * @return whether the array is sorted according to natural ordering
      * @since 3.4
      */
-    public static boolean isSorted(char[] array) {
+    public static boolean isSorted(final char[] array) {
         if (array == null || array.length < 2) {
             return true;
         }
@@ -7661,7 +7661,7 @@ public class ArrayUtils {
      * @return whether the array is sorted according to natural ordering
      * @since 3.4
      */
-    public static boolean isSorted(boolean[] array) {
+    public static boolean isSorted(final boolean[] array) {
         if (array == null || array.length < 2) {
             return true;
         }

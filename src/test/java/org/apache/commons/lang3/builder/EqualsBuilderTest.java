@@ -1153,7 +1153,7 @@ public class EqualsBuilderTest {
         private final int a;
         private final int b;
 
-        public TestObjectEqualsExclude(int a, int b) {
+        public TestObjectEqualsExclude(final int a, final int b) {
             this.a = a;
             this.b = b;
         }

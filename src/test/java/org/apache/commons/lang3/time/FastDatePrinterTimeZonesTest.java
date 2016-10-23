@@ -46,7 +46,7 @@ public class FastDatePrinterTimeZonesTest {
 
     private final TimeZone timeZone;
 
-    public FastDatePrinterTimeZonesTest(TimeZone timeZone) {
+    public FastDatePrinterTimeZonesTest(final TimeZone timeZone) {
         this.timeZone = timeZone;
     }
 

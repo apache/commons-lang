@@ -172,7 +172,7 @@ public class WordUtils {
      * @param wrapLongWords  true if long words (such as URLs) should be wrapped
      * @return a line with newlines inserted, <code>null</code> if null input
      */
-    public static String wrap(final String str, int wrapLength, String newLineStr, final boolean wrapLongWords) {
+    public static String wrap(final String str, final int wrapLength, final String newLineStr, final boolean wrapLongWords) {
         return wrap(str, wrapLength, newLineStr, wrapLongWords, " ");
     }
 
@@ -698,7 +698,7 @@ public class WordUtils {
      * @return {@code true} if all search words are found, {@code false} otherwise
      * @since 3.5
      */
-    public static boolean containsAllWords(CharSequence word, CharSequence... words) {
+    public static boolean containsAllWords(final CharSequence word, final CharSequence... words) {
         if (StringUtils.isEmpty(word) || ArrayUtils.isEmpty(words)) {
             return false;
         }

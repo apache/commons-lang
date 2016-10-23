@@ -112,7 +112,7 @@ public class FastDateParserSDFTest {
     private final boolean valid;
     private final TimeZone timeZone = TimeZone.getDefault();
 
-    public FastDateParserSDFTest(String format, String input, Locale locale, boolean valid) {
+    public FastDateParserSDFTest(final String format, final String input, final Locale locale, final boolean valid) {
         this.format = format;
         this.input = input;
         this.locale = locale;

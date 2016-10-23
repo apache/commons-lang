@@ -247,15 +247,15 @@ abstract class MemberUtils {
         return cost;
     }
 
-    static boolean isMatchingMethod(Method method, Class<?>[] parameterTypes) {
+    static boolean isMatchingMethod(final Method method, final Class<?>[] parameterTypes) {
       return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
     }
 
-    static boolean isMatchingConstructor(Constructor<?> method, Class<?>[] parameterTypes) {
+    static boolean isMatchingConstructor(final Constructor<?> method, final Class<?>[] parameterTypes) {
       return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
     }
 
-    private static boolean isMatchingExecutable(Executable method, Class<?>[] parameterTypes) {
+    private static boolean isMatchingExecutable(final Executable method, final Class<?>[] parameterTypes) {
         final Class<?>[] methodParameterTypes = method.getParameterTypes();
         if (method.isVarArgs()) {
             int i;
@@ -283,15 +283,15 @@ abstract class MemberUtils {
       private final Class<?>[] parameterTypes;
       private final boolean  isVarArgs;
 
-      private static Executable of(Method method) { return new Executable(method); }
-      private static Executable of(Constructor<?> constructor) { return new Executable(constructor); }
+      private static Executable of(final Method method) { return new Executable(method); }
+      private static Executable of(final Constructor<?> constructor) { return new Executable(constructor); }
 
-      private Executable(Method method) {
+      private Executable(final Method method) {
         parameterTypes = method.getParameterTypes();
         isVarArgs = method.isVarArgs();
       }
 
-      private Executable(Constructor<?> constructor) {
+      private Executable(final Constructor<?> constructor) {
         parameterTypes = constructor.getParameterTypes();
         isVarArgs = constructor.isVarArgs();
       }
