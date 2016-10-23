@@ -45,7 +45,8 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.6" date="tba" description="tba">
+  <release version="3.6" date="2016-MM-DD" description="TBD">
+    <action issue="LANG-1144" type="fix" dev="ggregory" due-to="Waldemar Maier, Gary Gregory">Multiple calls of org.apache.commons.lang3.concurrent.LazyInitializer.initialize() are possible.</action>
     <action issue="LANG-1276" type="fix" dev="pschumacher" due-to="Andy Klimczak">StrBuilder#replaceAll ArrayIndexOutOfBoundsException</action>
     <action issue="LANG-1278" type="fix" dev="pschumacher" due-to="Duke Yin">BooleanUtils javadoc issues</action>
     <action issue="LANG-1277" type="update" dev="pschumacher" due-to="yufcuy">StringUtils#getLevenshteinDistance reduce memory consumption</action>
