@@ -81,7 +81,7 @@ public class SerializationUtils {
         final byte[] objectData = serialize(object);
         final ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
 
-        try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais,
+        try (final ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais,
                 object.getClass().getClassLoader())) {
             /*
              * when we serialize and deserialize an object,
