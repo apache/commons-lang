@@ -2110,8 +2110,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             return this;
         }
         final int replaceLen = (replaceStr == null ? 0 : replaceStr.length());
-        final char[] buf = buffer;
         for (int i = from; i < to && replaceCount != 0; i++) {
+            final char[] buf = buffer;
             final int removeLen = matcher.isMatch(buf, i, from, to);
             if (removeLen > 0) {
                 replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
