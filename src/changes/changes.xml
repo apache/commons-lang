@@ -53,6 +53,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1271" type="fix" dev="pschumacher" due-to="Pierre Templier">StringUtils#isAnyEmpty and #isAnyBlank should return false for an empty array</action>
     <action issue="LANG-1270" type="add" dev="pschumacher" due-to="Pierre Templier">Add StringUtils#isAnyNotEmpty and #isAnyNotBlank</action>
     <action issue="LANG-1277" type="update" dev="pschumacher" due-to="yufcuy">StringUtils#getLevenshteinDistance reduce memory consumption</action>
+    <action issue="LANG-1279" type="update" dev="ggregory">Update Java requirement from Java 6 to 7.</action>
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">
