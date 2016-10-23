@@ -897,6 +897,10 @@ public class StrBuilderTest {
         sb = new StrBuilder("A1-A2A3-A4");
         sb.replaceAll(A_NUMBER_MATCHER, "***");
         assertEquals("***-******-***", sb.toString());
+
+        sb = new StrBuilder("Dear X, hello X.");
+        sb.replaceAll(StrMatcher.stringMatcher("X"), "012345678901234567");
+        assertEquals("Dear 012345678901234567, hello 012345678901234567.", sb.toString());
     }
 
     @Test
