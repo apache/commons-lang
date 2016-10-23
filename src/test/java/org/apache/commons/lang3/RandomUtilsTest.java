@@ -117,7 +117,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testNextIntRandomResult() {
-        int randomResult = RandomUtils.nextInt();
+        final int randomResult = RandomUtils.nextInt();
         assertTrue(randomResult > 0);
         assertTrue(randomResult < Integer.MAX_VALUE);
     }
@@ -152,7 +152,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testNextDoubleRandomResult() {
-        double randomResult = RandomUtils.nextDouble();
+        final double randomResult = RandomUtils.nextDouble();
         assertTrue(randomResult > 0);
         assertTrue(randomResult < Double.MAX_VALUE);
     }
@@ -171,7 +171,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testNextFloatRandomResult() {
-        float randomResult = RandomUtils.nextFloat();
+        final float randomResult = RandomUtils.nextFloat();
         assertTrue(randomResult > 0);
         assertTrue(randomResult < Float.MAX_VALUE);
     }
@@ -198,7 +198,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testNextLongRandomResult() {
-        long randomResult = RandomUtils.nextLong();
+        final long randomResult = RandomUtils.nextLong();
         assertTrue(randomResult > 0);
         assertTrue(randomResult < Long.MAX_VALUE);
     }

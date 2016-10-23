@@ -127,7 +127,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @since 3.5
      */
     public long getAndIncrement() {
-        long last = value;
+        final long last = value;
         value++;
         return last;
     }
@@ -161,7 +161,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @since 3.5
      */
     public long getAndDecrement() {
-        long last = value;
+        final long last = value;
         value--;
         return last;
     }
@@ -257,7 +257,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @since 3.5
      */
     public long getAndAdd(final long operand) {
-        long last = value;
+        final long last = value;
         this.value += operand;
         return last;
     }
@@ -272,7 +272,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @since 3.5
      */
     public long getAndAdd(final Number operand) {
-        long last = value;
+        final long last = value;
         this.value += operand.longValue();
         return last;
     }

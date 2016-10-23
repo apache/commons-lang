@@ -655,7 +655,7 @@ public class MethodUtilsTest {
     public void testGetMethodsWithAnnotation() throws NoSuchMethodException {
         assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class));
 
-        Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(MethodUtilsTest.class, Annotated.class);
+        final Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(MethodUtilsTest.class, Annotated.class);
         assertEquals(2, methodsWithAnnotation.length);
         assertThat(methodsWithAnnotation, hasItemInArray(MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation")));
         assertThat(methodsWithAnnotation, hasItemInArray(MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")));
@@ -756,8 +756,8 @@ public class MethodUtilsTest {
 
     @Test
     public void testVarArgsUnboxing() throws Exception {
-        TestBean testBean = new TestBean();
-        int[] actual = (int[])MethodUtils.invokeMethod(testBean, "unboxing", Integer.valueOf(1), Integer.valueOf(2));
+        final TestBean testBean = new TestBean();
+        final int[] actual = (int[])MethodUtils.invokeMethod(testBean, "unboxing", Integer.valueOf(1), Integer.valueOf(2));
         Assert.assertArrayEquals(new int[]{1, 2}, actual);
     }
     
@@ -776,7 +776,7 @@ public class MethodUtilsTest {
     
     @Test
     public void testDistance() throws Exception {
-        Method distanceMethod = MethodUtils.getMatchingMethod(MethodUtils.class, "distance", Class[].class, Class[].class);
+        final Method distanceMethod = MethodUtils.getMatchingMethod(MethodUtils.class, "distance", Class[].class, Class[].class);
         distanceMethod.setAccessible(true);
         
         Assert.assertEquals(-1, distanceMethod.invoke(null, new Class[]{String.class}, new Class[]{Date.class}));

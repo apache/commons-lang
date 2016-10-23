@@ -519,7 +519,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @since 2.3
      */
     private static void unregister(final Object value) {
-        Set<IDKey> registry = getRegistry();
+        final Set<IDKey> registry = getRegistry();
         if (registry != null) {
             registry.remove(new IDKey(value));
             if (registry.isEmpty()) {

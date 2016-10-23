@@ -216,7 +216,7 @@ public class DateFormatUtilsTest {
 
     @Test
     public void testLANG1000() throws Exception {
-        String date = "2013-11-18T12:48:05Z";
+        final String date = "2013-11-18T12:48:05Z";
         DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.parse(date);
     }
 
@@ -239,35 +239,35 @@ public class DateFormatUtilsTest {
     @Test
     public void testLang916() throws Exception {
 
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         cal.clear();
         cal.set(2009, 9, 16, 8, 42, 16);
 
         // Long.
         {
-            String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/Paris"));
+            final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/Paris"));
             assertEquals("long", "2009-10-16T08:42:16+02:00", value);
         }
         {
-            String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Asia/Kolkata"));
+            final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Asia/Kolkata"));
             assertEquals("long", "2009-10-16T12:12:16+05:30", value);
         }
         {
-            String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/London"));
+            final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/London"));
             assertEquals("long", "2009-10-16T07:42:16+01:00", value);
         }
 
         // Calendar.
         {
-            String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/Paris"));
+            final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/Paris"));
             assertEquals("calendar", "2009-10-16T08:42:16+02:00", value);
         }
         {
-            String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Asia/Kolkata"));
+            final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Asia/Kolkata"));
             assertEquals("calendar", "2009-10-16T12:12:16+05:30", value);
         }
         {
-            String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/London"));
+            final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/London"));
             assertEquals("calendar", "2009-10-16T07:42:16+01:00", value);
         }
     }

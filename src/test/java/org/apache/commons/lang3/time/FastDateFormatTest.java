@@ -246,7 +246,7 @@ public class FastDateFormatTest {
         };
         final AtomicLongArray sdfTime= measureTime(sdf, sdf);
 
-        Format fdf = FastDateFormat.getInstance(pattern);
+        final Format fdf = FastDateFormat.getInstance(pattern);
         final AtomicLongArray fdfTime= measureTime(fdf, fdf);
 
         System.out.println(">>FastDateFormatTest: FastDatePrinter:"+fdfTime.get(0)+"  SimpleDateFormat:"+sdfTime.get(0));
@@ -311,8 +311,8 @@ public class FastDateFormatTest {
 
     @Test
     public void testLANG_1152() {
-        TimeZone utc = TimeZone.getTimeZone("UTC");
-        Date date = new Date(Long.MAX_VALUE);
+        final TimeZone utc = TimeZone.getTimeZone("UTC");
+        final Date date = new Date(Long.MAX_VALUE);
 
         String dateAsString = FastDateFormat.getInstance("yyyy-MM-dd", utc, Locale.US).format(date);
         Assert.assertEquals("292278994-08-17", dateAsString);

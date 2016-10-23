@@ -392,8 +392,8 @@ public class TimedSemaphoreTest {
     public void testTryAcquire() throws InterruptedException {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, TimeUnit.SECONDS,
                 LIMIT);
-        TryAcquireThread[] threads = new TryAcquireThread[3 * LIMIT];
-        CountDownLatch latch = new CountDownLatch(1);
+        final TryAcquireThread[] threads = new TryAcquireThread[3 * LIMIT];
+        final CountDownLatch latch = new CountDownLatch(1);
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new TryAcquireThread(semaphore, latch);
             threads[i].start();
@@ -401,7 +401,7 @@ public class TimedSemaphoreTest {
 
         latch.countDown();
         int permits = 0;
-        for (TryAcquireThread t : threads) {
+        for (final TryAcquireThread t : threads) {
             t.join();
             if (t.acquired) {
                 permits++;
@@ -557,7 +557,7 @@ public class TimedSemaphoreTest {
                 if (latch.await(10, TimeUnit.SECONDS)) {
                     acquired = semaphore.tryAcquire();
                 }
-            } catch (InterruptedException iex) {
+            } catch (final InterruptedException iex) {
                 // ignore
             }
         }

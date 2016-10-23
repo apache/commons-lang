@@ -61,7 +61,7 @@ public class SystemDefaultsSwitch implements TestRule {
     
     @Override
     public Statement apply(final Statement stmt, final Description description) {
-        SystemDefaults defaults = description.getAnnotation(SystemDefaults.class);
+        final SystemDefaults defaults = description.getAnnotation(SystemDefaults.class);
         if (defaults == null) {
             return stmt;
         }
@@ -78,7 +78,7 @@ public class SystemDefaultsSwitch implements TestRule {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                TimeZone save = TimeZone.getDefault();
+                final TimeZone save = TimeZone.getDefault();
                 try {
                     TimeZone.setDefault(newTimeZone);
                     stmt.evaluate();
@@ -99,7 +99,7 @@ public class SystemDefaultsSwitch implements TestRule {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                Locale save = Locale.getDefault();
+                final Locale save = Locale.getDefault();
                 try {
                     Locale.setDefault(newLocale);
                     stmt.evaluate();

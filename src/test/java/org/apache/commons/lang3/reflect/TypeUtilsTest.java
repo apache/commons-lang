@@ -766,8 +766,8 @@ public class TypeUtilsTest<B> {
 
     @Test
     public void testLANG1190() throws Exception {
-        Type fromType = ClassWithSuperClassWithGenericType.class.getDeclaredMethod("methodWithGenericReturnType").getGenericReturnType();
-        Type failingToType = TypeUtils.wildcardType().withLowerBounds(ClassWithSuperClassWithGenericType.class).build();
+        final Type fromType = ClassWithSuperClassWithGenericType.class.getDeclaredMethod("methodWithGenericReturnType").getGenericReturnType();
+        final Type failingToType = TypeUtils.wildcardType().withLowerBounds(ClassWithSuperClassWithGenericType.class).build();
 
         Assert.assertTrue(TypeUtils.isAssignable(fromType, failingToType));
     }

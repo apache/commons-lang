@@ -534,12 +534,12 @@ public class ExceptionUtilsTest {
 
     @Test
     public void testThrow() {
-        Exception expected = new InterruptedException();
+        final Exception expected = new InterruptedException();
         try {
             ExceptionUtils.rethrow(expected);
             Assert.fail("Exception not thrown");
         }
-        catch(Exception actual) {
+        catch(final Exception actual) {
             Assert.assertSame(expected, actual);
         }
     }
@@ -550,7 +550,7 @@ public class ExceptionUtilsTest {
             throwsCheckedException();
             Assert.fail("Exception not thrown");
         }
-        catch(Exception ioe) {
+        catch(final Exception ioe) {
             assertTrue(ioe instanceof IOException);
             assertEquals(1, ExceptionUtils.getThrowableCount(ioe));
         }
@@ -559,7 +559,7 @@ public class ExceptionUtilsTest {
             redeclareCheckedException();
             Assert.fail("Exception not thrown");
         }
-        catch(IOException ioe) {
+        catch(final IOException ioe) {
             assertEquals(1, ExceptionUtils.getThrowableCount(ioe));
         }
     }
@@ -571,7 +571,7 @@ public class ExceptionUtilsTest {
     private static int throwsCheckedException() {
         try {
             throw new IOException();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return ExceptionUtils.<Integer>rethrow(e);
         }
     }
@@ -586,7 +586,7 @@ public class ExceptionUtilsTest {
             ExceptionUtils.wrapAndThrow(new OutOfMemoryError());
             Assert.fail("Error not thrown");
         }
-        catch(Throwable t) {
+        catch(final Throwable t) {
             Assert.assertTrue(ExceptionUtils.hasCause(t, Error.class));
         }
     }
@@ -597,7 +597,7 @@ public class ExceptionUtilsTest {
             ExceptionUtils.wrapAndThrow(new IllegalArgumentException());
             Assert.fail("RuntimeException not thrown");
         }
-        catch(Throwable t) {
+        catch(final Throwable t) {
             Assert.assertTrue(ExceptionUtils.hasCause(t, RuntimeException.class));
         }
     }
@@ -608,7 +608,7 @@ public class ExceptionUtilsTest {
             ExceptionUtils.wrapAndThrow(new IOException());
             Assert.fail("Checked Exception not thrown");
         }
-        catch(Throwable t) {
+        catch(final Throwable t) {
             Assert.assertTrue(ExceptionUtils.hasCause(t, IOException.class));
         }
     }
@@ -619,7 +619,7 @@ public class ExceptionUtilsTest {
             ExceptionUtils.wrapAndThrow(new TestThrowable());
             Assert.fail("Checked Exception not thrown");
         }
-        catch(Throwable t) {
+        catch(final Throwable t) {
             Assert.assertTrue(ExceptionUtils.hasCause(t, TestThrowable.class));
         }
     }

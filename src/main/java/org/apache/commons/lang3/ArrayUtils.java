@@ -2120,7 +2120,7 @@ public class ArrayUtils {
         }
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
-            boolean aux = array[offset1];
+            final boolean aux = array[offset1];
             array[offset1] = array[offset2];
             array[offset2] = aux;
         }
@@ -2162,7 +2162,7 @@ public class ArrayUtils {
         }
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
-            byte aux = array[offset1];
+            final byte aux = array[offset1];
             array[offset1] = array[offset2];
             array[offset2] = aux;
         }
@@ -2204,7 +2204,7 @@ public class ArrayUtils {
         }
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
-            char aux = array[offset1];
+            final char aux = array[offset1];
             array[offset1] = array[offset2];
             array[offset2] = aux;
         }
@@ -2246,7 +2246,7 @@ public class ArrayUtils {
         }
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
-            double aux = array[offset1];
+            final double aux = array[offset1];
             array[offset1] = array[offset2];
             array[offset2] = aux;
         }
@@ -2288,7 +2288,7 @@ public class ArrayUtils {
         }
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
-            float aux = array[offset1];
+            final float aux = array[offset1];
             array[offset1] = array[offset2];
             array[offset2] = aux;
         }
@@ -2331,7 +2331,7 @@ public class ArrayUtils {
         }
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
-            int aux = array[offset1];
+            final int aux = array[offset1];
             array[offset1] = array[offset2];
             array[offset2] = aux;
         }
@@ -2373,7 +2373,7 @@ public class ArrayUtils {
         }
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
-            long aux = array[offset1];
+            final long aux = array[offset1];
             array[offset1] = array[offset2];
             array[offset2] = aux;
         }
@@ -2415,7 +2415,7 @@ public class ArrayUtils {
         }
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
-            Object aux = array[offset1];
+            final Object aux = array[offset1];
             array[offset1] = array[offset2];
             array[offset2] = aux;
         }
@@ -2460,7 +2460,7 @@ public class ArrayUtils {
         }
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
-            short aux = array[offset1];
+            final short aux = array[offset1];
             array[offset1] = array[offset2];
             array[offset2] = aux;
         }
@@ -2682,7 +2682,7 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            int n_offset = n - offset;
+            final int n_offset = n - offset;
             
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
@@ -2742,7 +2742,7 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            int n_offset = n - offset;
+            final int n_offset = n - offset;
             
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
@@ -2802,7 +2802,7 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            int n_offset = n - offset;
+            final int n_offset = n - offset;
             
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
@@ -2862,7 +2862,7 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            int n_offset = n - offset;
+            final int n_offset = n - offset;
             
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
@@ -2922,7 +2922,7 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            int n_offset = n - offset;
+            final int n_offset = n - offset;
             
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
@@ -2982,7 +2982,7 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            int n_offset = n - offset;
+            final int n_offset = n - offset;
             
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
@@ -3042,7 +3042,7 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            int n_offset = n - offset;
+            final int n_offset = n - offset;
             
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
@@ -3102,7 +3102,7 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            int n_offset = n - offset;
+            final int n_offset = n - offset;
             
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
@@ -3162,7 +3162,7 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            int n_offset = n - offset;
+            final int n_offset = n - offset;
             
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
@@ -4745,8 +4745,8 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        Class<?> ct = array.getClass().getComponentType();
-        Class<?> pt = ClassUtils.wrapperToPrimitive(ct);
+        final Class<?> ct = array.getClass().getComponentType();
+        final Class<?> pt = ClassUtils.wrapperToPrimitive(ct);
         if(Integer.TYPE.equals(pt)) {
             return toPrimitive((Integer[]) array);
         }
@@ -7348,7 +7348,7 @@ public class ArrayUtils {
     static Object removeAll(final Object array, final int... indices) {
         final int length = getLength(array);
         int diff = 0; // number of distinct indexes, i.e. number of entries that will be removed
-        int[] clonedIndices = clone(indices);
+        final int[] clonedIndices = clone(indices);
         Arrays.sort(clonedIndices);
 
         // identify length of result array
@@ -7700,7 +7700,7 @@ public class ArrayUtils {
             return clone(array);
         }
 
-        int[] indices = new int[array.length - index];
+        final int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
 
@@ -7732,7 +7732,7 @@ public class ArrayUtils {
             return clone(array);
         }
 
-        int[] indices = new int[array.length - index];
+        final int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
 
@@ -7764,7 +7764,7 @@ public class ArrayUtils {
             return clone(array);
         }
 
-        int[] indices = new int[array.length - index];
+        final int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
 
@@ -7796,7 +7796,7 @@ public class ArrayUtils {
             return clone(array);
         }
 
-        int[] indices = new int[array.length - index];
+        final int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
 
@@ -7828,7 +7828,7 @@ public class ArrayUtils {
             return clone(array);
         }
 
-        int[] indices = new int[array.length - index];
+        final int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
 
@@ -7860,7 +7860,7 @@ public class ArrayUtils {
             return clone(array);
         }
 
-        int[] indices = new int[array.length - index];
+        final int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
 
@@ -7892,7 +7892,7 @@ public class ArrayUtils {
             return clone(array);
         }
 
-        int[] indices = new int[array.length - index];
+        final int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
 
@@ -7924,7 +7924,7 @@ public class ArrayUtils {
             return clone(array);
         }
 
-        int[] indices = new int[array.length - index];
+        final int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
 
@@ -7957,7 +7957,7 @@ public class ArrayUtils {
             return clone(array);
         }
 
-        int[] indices = new int[array.length - index];
+        final int[] indices = new int[array.length - index];
         indices[0] = index;
         int count = 1;
 

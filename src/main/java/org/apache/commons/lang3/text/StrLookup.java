@@ -170,7 +170,7 @@ public abstract class StrLookup<V> {
             if (key.length() > 0) {
                 try {
                     return System.getProperty(key);
-                } catch (SecurityException scex) {
+                } catch (final SecurityException scex) {
                     // Squelched. All lookup(String) will return null.
                 }
             }

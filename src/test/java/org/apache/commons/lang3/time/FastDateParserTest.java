@@ -612,7 +612,7 @@ public class FastDateParserTest {
     }
 
     private static Calendar initializeCalendar(final TimeZone tz) {
-        Calendar cal = Calendar.getInstance(tz);
+        final Calendar cal = Calendar.getInstance(tz);
         cal.set(Calendar.YEAR, 2001);
         cal.set(Calendar.MONTH, 1); // not daylight savings
         cal.set(Calendar.DAY_OF_MONTH, 4);
@@ -645,13 +645,13 @@ public class FastDateParserTest {
     
     @Test
     public void test1806() throws ParseException {
-        String formatStub = "yyyy-MM-dd'T'HH:mm:ss.SSS";
-        String dateStub = "2001-02-04T12:08:56.235";
+        final String formatStub = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+        final String dateStub = "2001-02-04T12:08:56.235";
         
-        for (Expected1806 trial : Expected1806.values()) {
-            Calendar cal = initializeCalendar(trial.zone);
+        for (final Expected1806 trial : Expected1806.values()) {
+            final Calendar cal = initializeCalendar(trial.zone);
 
-            String message = trial.zone.getDisplayName()+";";
+            final String message = trial.zone.getDisplayName()+";";
             
             DateParser parser = getInstance(formatStub+"X", trial.zone);
             assertEquals(message+trial.one, cal.getTime().getTime(), parser.parse(dateStub+trial.one).getTime()-trial.offset);
@@ -666,13 +666,13 @@ public class FastDateParserTest {
 
     @Test
     public void testLang1121() throws ParseException {
-        TimeZone kst = TimeZone.getTimeZone("KST");
+        final TimeZone kst = TimeZone.getTimeZone("KST");
         final DateParser fdp = getInstance("yyyyMMdd", kst, Locale.KOREA);
 
         try {
             fdp.parse("2015");
             Assert.fail("expected parse exception");
-        } catch (ParseException pe) {
+        } catch (final ParseException pe) {
         }
 
         // Wed Apr 29 00:00:00 KST 2015
@@ -683,7 +683,7 @@ public class FastDateParserTest {
         Date expected = cal.getTime();
         Assert.assertEquals(expected, actual);
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+        final SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
         df.setTimeZone(kst);
         expected = df.parse("20150429113100");
 
@@ -694,7 +694,7 @@ public class FastDateParserTest {
 
     @Test
     public void testParseOffset() throws ParseException {
-        DateParser parser = getInstance(YMD_SLASH);
+        final DateParser parser = getInstance(YMD_SLASH);
         final Date date = parser.parse("Today is 2015/07/04", new ParsePosition(9));
 
         final Calendar cal = Calendar.getInstance();
@@ -706,7 +706,7 @@ public class FastDateParserTest {
     @Test
     public void testDayNumberOfWeek() throws ParseException {
         final DateParser parser = getInstance("u");
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
 
         calendar.setTime(parser.parse("1"));
         Assert.assertEquals(Calendar.MONDAY, calendar.get(Calendar.DAY_OF_WEEK));

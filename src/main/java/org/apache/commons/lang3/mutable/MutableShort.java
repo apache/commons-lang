@@ -127,7 +127,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @since 3.5
      */
     public short getAndIncrement() {
-        short last = value;
+        final short last = value;
         value++;
         return last;
     }
@@ -161,7 +161,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @since 3.5
      */
     public short getAndDecrement() {
-        short last = value;
+        final short last = value;
         value--;
         return last;
     }
@@ -257,7 +257,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @since 3.5
      */
     public short getAndAdd(final short operand) {
-        short last = value;
+        final short last = value;
         this.value += operand;
         return last;
     }
@@ -272,7 +272,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @since 3.5
      */
     public short getAndAdd(final Number operand) {
-        short last = value;
+        final short last = value;
         this.value += operand.shortValue();
         return last;
     }

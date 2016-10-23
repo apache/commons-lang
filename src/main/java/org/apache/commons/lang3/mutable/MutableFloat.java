@@ -144,7 +144,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @since 3.5
      */
     public float getAndIncrement() {
-        float last = value;
+        final float last = value;
         value++;
         return last;
     }
@@ -178,7 +178,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @since 3.5
      */
     public float getAndDecrement() {
-        float last = value;
+        final float last = value;
         value--;
         return last;
     }
@@ -274,7 +274,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @since 3.5
      */
     public float getAndAdd(final float operand) {
-        float last = value;
+        final float last = value;
         this.value += operand;
         return last;
     }
@@ -289,7 +289,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @since 3.5
      */
     public float getAndAdd(final Number operand) {
-        float last = value;
+        final float last = value;
         this.value += operand.floatValue();
         return last;
     }

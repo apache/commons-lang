@@ -69,7 +69,7 @@ public class StopWatch {
      * @since 3.5
      */
     public static StopWatch createStarted() {
-        StopWatch sw = new StopWatch();
+        final StopWatch sw = new StopWatch();
         sw.start();
         return sw;
     }

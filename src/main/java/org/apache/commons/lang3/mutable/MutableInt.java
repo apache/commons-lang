@@ -127,7 +127,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @since 3.5
      */
     public int getAndIncrement() {
-        int last = value;
+        final int last = value;
         value++;
         return last;
     }
@@ -161,7 +161,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @since 3.5
      */
     public int getAndDecrement() {
-        int last = value;
+        final int last = value;
         value--;
         return last;
     }
@@ -257,7 +257,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @since 3.5
      */
     public int getAndAdd(final int operand) {
-        int last = value;
+        final int last = value;
         this.value += operand;
         return last;
     }
@@ -272,7 +272,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @since 3.5
      */
     public int getAndAdd(final Number operand) {
-        int last = value;
+        final int last = value;
         this.value += operand.intValue();
         return last;
     }

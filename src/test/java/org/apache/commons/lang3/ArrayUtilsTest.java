@@ -367,7 +367,7 @@ public class ArrayUtilsTest  {
     
     @Test
     public void testNullToEmptyGenericNull() {
-        TestClass[] output = ArrayUtils.nullToEmpty(null, TestClass[].class);
+        final TestClass[] output = ArrayUtils.nullToEmpty(null, TestClass[].class);
     
         assertTrue(output != null);
         assertTrue(output.length == 0);
@@ -375,23 +375,23 @@ public class ArrayUtilsTest  {
     
     @Test
     public void testNullToEmptyGenericEmpty() {
-        TestClass[] input = new TestClass[]{};
-        TestClass[] output = ArrayUtils.nullToEmpty(input, TestClass[].class);
+        final TestClass[] input = new TestClass[]{};
+        final TestClass[] output = ArrayUtils.nullToEmpty(input, TestClass[].class);
     
         assertSame(input, output);
     }
     
     @Test
     public void testNullToEmptyGeneric() {
-        TestClass[] input = new TestClass[]{new TestClass(), new TestClass()};
-        TestClass[] output = ArrayUtils.nullToEmpty(input, TestClass[].class);
+        final TestClass[] input = new TestClass[]{new TestClass(), new TestClass()};
+        final TestClass[] output = ArrayUtils.nullToEmpty(input, TestClass[].class);
     
         assertSame(input, output);
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void testNullToEmptyGenericNullType() {
-        TestClass[] input = new TestClass[]{};
+        final TestClass[] input = new TestClass[]{};
         ArrayUtils.nullToEmpty(input, null);
     }    
 
@@ -2165,7 +2165,7 @@ public class ArrayUtilsTest  {
     
     @Test
     public void testSwapFloat() {
-        float[] array = new float[] {1, 2, 3};
+        final float[] array = new float[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 2);
         assertEquals(3, array[0], 0);
         assertEquals(2, array[1], 0);
@@ -2196,7 +2196,7 @@ public class ArrayUtilsTest  {
     
     @Test
     public void testSwapDouble() {
-        double[] array = new double[] {1, 2, 3};
+        final double[] array = new double[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 2);
         assertEquals(3, array[0], 0);
         assertEquals(2, array[1], 0);
@@ -2227,7 +2227,7 @@ public class ArrayUtilsTest  {
     
     @Test
     public void testSwapInt() {
-        int[] array = new int[] {1, 2, 3};
+        final int[] array = new int[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 2);
         assertEquals(3, array[0]);
         assertEquals(2, array[1]);
@@ -2270,7 +2270,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testSwapLong() {
-        long[] array = new long[] {1, 2, 3};
+        final long[] array = new long[] {1, 2, 3};
         ArrayUtils.swap(array, 0, 2);
         assertEquals(3, array[0]);
         assertEquals(2, array[1]);
@@ -2301,7 +2301,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testSwapObject() {
-        String[] array = new String[] {"1", "2", "3"};
+        final String[] array = new String[] {"1", "2", "3"};
         ArrayUtils.swap(array, 0, 2);
         assertEquals("3", array[0]);
         assertEquals("2", array[1]);
@@ -2336,7 +2336,7 @@ public class ArrayUtilsTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testShiftDouble() {
-        double[] array = new double[] {1, 2, 3, 4};
+        final double[] array = new double[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0], 0);
         assertEquals(1, array[1], 0);
@@ -2361,7 +2361,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeDouble() {
-        double[] array = new double[] {1, 2, 3, 4, 5};
+        final double[] array = new double[] {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0], 0);
         assertEquals(3, array[1], 0);
@@ -2378,7 +2378,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeNoElemDouble() {
-        double[] array = new double[] {1, 2, 3, 4};
+        final double[] array = new double[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
         assertEquals(1, array[0], 0);
         assertEquals(2, array[1], 0);
@@ -2388,7 +2388,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftAllDouble() {
-        double[] array = new double[] {1, 2, 3, 4};
+        final double[] array = new double[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
         assertEquals(1, array[0], 0);
         assertEquals(2, array[1], 0);
@@ -2403,7 +2403,7 @@ public class ArrayUtilsTest  {
     
     @Test
     public void testShiftFloat() {
-        float[] array = new float[] {1, 2, 3, 4};
+        final float[] array = new float[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0], 0);
         assertEquals(1, array[1], 0);
@@ -2428,7 +2428,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeFloat() {
-        float[] array = new float[] {1, 2, 3, 4, 5};
+        final float[] array = new float[] {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0], 0);
         assertEquals(3, array[1], 0);
@@ -2445,7 +2445,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeNoElemFloat() {
-        float[] array = new float[] {1, 2, 3, 4};
+        final float[] array = new float[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
         assertEquals(1, array[0], 0);
         assertEquals(2, array[1], 0);
@@ -2455,7 +2455,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftAllFloat() {
-        float[] array = new float[] {1, 2, 3, 4};
+        final float[] array = new float[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
         assertEquals(1, array[0], 0);
         assertEquals(2, array[1], 0);
@@ -2502,7 +2502,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeShort() {
-        short[] array = new short[] {1, 2, 3, 4, 5};
+        final short[] array = new short[] {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
         assertEquals(3, array[1]);
@@ -2519,7 +2519,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeNoElemShort() {
-        short[] array = new short[] {1, 2, 3, 4};
+        final short[] array = new short[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
         assertEquals(1, array[0]);
         assertEquals(2, array[1]);
@@ -2529,7 +2529,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftAllShort() {
-        short[] array = new short[] {1, 2, 3, 4};
+        final short[] array = new short[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
         assertEquals(1, array[0]);
         assertEquals(2, array[1]);
@@ -2544,7 +2544,7 @@ public class ArrayUtilsTest  {
     
     @Test
     public void testShiftByte() {
-        byte[] array = new byte[] {1, 2, 3, 4};
+        final byte[] array = new byte[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0]);
         assertEquals(1, array[1]);
@@ -2569,7 +2569,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeByte() {
-        byte[] array = new byte[] {1, 2, 3, 4, 5};
+        final byte[] array = new byte[] {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
         assertEquals(3, array[1]);
@@ -2586,7 +2586,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeNoElemByte() {
-        byte[] array = new byte[] {1, 2, 3, 4};
+        final byte[] array = new byte[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
         assertEquals(1, array[0]);
         assertEquals(2, array[1]);
@@ -2596,7 +2596,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftAllByte() {
-        byte[] array = new byte[] {1, 2, 3, 4};
+        final byte[] array = new byte[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
         assertEquals(1, array[0]);
         assertEquals(2, array[1]);
@@ -2611,7 +2611,7 @@ public class ArrayUtilsTest  {
     
     @Test
     public void testShiftChar() {
-        char[] array = new char[] {1, 2, 3, 4};
+        final char[] array = new char[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0]);
         assertEquals(1, array[1]);
@@ -2636,7 +2636,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeChar() {
-        char[] array = new char[] {1, 2, 3, 4, 5};
+        final char[] array = new char[] {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
         assertEquals(3, array[1]);
@@ -2653,7 +2653,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeNoElemChar() {
-        char[] array = new char[] {1, 2, 3, 4};
+        final char[] array = new char[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
         assertEquals(1, array[0]);
         assertEquals(2, array[1]);
@@ -2663,7 +2663,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftAllChar() {
-        char[] array = new char[] {1, 2, 3, 4};
+        final char[] array = new char[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
         assertEquals(1, array[0]);
         assertEquals(2, array[1]);
@@ -2678,7 +2678,7 @@ public class ArrayUtilsTest  {
     
     @Test
     public void testShiftLong() {
-        long[] array = new long[] {1, 2, 3, 4};
+        final long[] array = new long[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0]);
         assertEquals(1, array[1]);
@@ -2703,7 +2703,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeLong() {
-        long[] array = new long[] {1, 2, 3, 4, 5};
+        final long[] array = new long[] {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
         assertEquals(3, array[1]);
@@ -2720,7 +2720,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeNoElemLong() {
-        long[] array = new long[] {1, 2, 3, 4};
+        final long[] array = new long[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
         assertEquals(1, array[0]);
         assertEquals(2, array[1]);
@@ -2730,7 +2730,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftAllLong() {
-        long[] array = new long[] {1, 2, 3, 4};
+        final long[] array = new long[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
         assertEquals(1, array[0]);
         assertEquals(2, array[1]);
@@ -2745,7 +2745,7 @@ public class ArrayUtilsTest  {
     
     @Test
     public void testShiftInt() {
-        int[] array = new int[] {1, 2, 3, 4};
+        final int[] array = new int[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0]);
         assertEquals(1, array[1]);
@@ -2770,7 +2770,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeInt() {
-        int[] array = new int[] {1, 2, 3, 4, 5};
+        final int[] array = new int[] {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
         assertEquals(3, array[1]);
@@ -2787,7 +2787,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeNoElemInt() {
-        int[] array = new int[] {1, 2, 3, 4};
+        final int[] array = new int[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
         assertEquals(1, array[0]);
         assertEquals(2, array[1]);
@@ -2797,7 +2797,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftAllInt() {
-        int[] array = new int[] {1, 2, 3, 4};
+        final int[] array = new int[] {1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
         assertEquals(1, array[0]);
         assertEquals(2, array[1]);
@@ -2812,7 +2812,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftObject() {
-        String[] array = new String[] {"1", "2", "3", "4"};
+        final String[] array = new String[] {"1", "2", "3", "4"};
         ArrayUtils.shift(array, 1);
         assertEquals("4", array[0]);
         assertEquals("1", array[1]);
@@ -2837,7 +2837,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeObject() {
-        String[] array = new String[] {"1", "2", "3", "4", "5"};
+        final String[] array = new String[] {"1", "2", "3", "4", "5"};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals("1", array[0]);
         assertEquals("3", array[1]);
@@ -2854,7 +2854,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftRangeNoElemObject() {
-        String[] array = new String[] {"1", "2", "3", "4"};
+        final String[] array = new String[] {"1", "2", "3", "4"};
         ArrayUtils.shift(array, 1, 1, 1);
         assertEquals("1", array[0]);
         assertEquals("2", array[1]);
@@ -2864,7 +2864,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testShiftAllObject() {
-        String[] array = new String[] {"1", "2", "3", "4"};
+        final String[] array = new String[] {"1", "2", "3", "4"};
         ArrayUtils.shift(array, 4);
         assertEquals("1", array[0]);
         assertEquals("2", array[1]);
@@ -2965,7 +2965,7 @@ public class ArrayUtilsTest  {
         class LANG1261ChildObject extends LANG1261ParentObject {
         }
 
-        Object[] array = new LANG1261ChildObject[] { new LANG1261ChildObject() };
+        final Object[] array = new LANG1261ChildObject[] { new LANG1261ChildObject() };
 
         assertTrue(ArrayUtils.contains(array, new LANG1261ParentObject()));
     }
@@ -4287,7 +4287,7 @@ public class ArrayUtilsTest  {
 
     @Test
     public void testIsSortedComparator() {
-        Comparator<Integer> c = new Comparator<Integer>() {
+        final Comparator<Integer> c = new Comparator<Integer>() {
                 public int compare(final Integer o1, final Integer o2) {
                         return o2.compareTo(o1);
                     }

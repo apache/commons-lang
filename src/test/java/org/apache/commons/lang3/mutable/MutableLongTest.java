@@ -145,7 +145,7 @@ public class MutableLongTest {
     @Test
     public void testIncrementAndGet() {
         final MutableLong mutNum = new MutableLong((long) 1);
-        long result = mutNum.incrementAndGet();
+        final long result = mutNum.incrementAndGet();
 
         assertEquals(2, result);
         assertEquals(2, mutNum.intValue());
@@ -155,7 +155,7 @@ public class MutableLongTest {
     @Test
     public void testGetAndIncrement() {
         final MutableLong mutNum = new MutableLong((long) 1);
-        long result = mutNum.getAndIncrement();
+        final long result = mutNum.getAndIncrement();
 
         assertEquals(1, result);
         assertEquals(2, mutNum.intValue());
@@ -174,7 +174,7 @@ public class MutableLongTest {
     @Test
     public void testDecrementAndGet() {
         final MutableLong mutNum = new MutableLong((long) 1);
-        long result = mutNum.decrementAndGet();
+        final long result = mutNum.decrementAndGet();
 
         assertEquals(0, result);
         assertEquals(0, mutNum.intValue());
@@ -184,7 +184,7 @@ public class MutableLongTest {
     @Test
     public void testGetAndDecrement() {
         final MutableLong mutNum = new MutableLong((long) 1);
-        long result = mutNum.getAndDecrement();
+        final long result = mutNum.getAndDecrement();
 
         assertEquals(1, result);
         assertEquals(0, mutNum.intValue());
@@ -212,7 +212,7 @@ public class MutableLongTest {
     @Test
     public void testGetAndAddValuePrimitive() {
         final MutableLong mutableLong = new MutableLong((long)0);
-        long result = mutableLong.getAndAdd((long) 1);
+        final long result = mutableLong.getAndAdd((long) 1);
 
         assertEquals((long) 0, result);
         assertEquals((long) 1, mutableLong.longValue());
@@ -221,7 +221,7 @@ public class MutableLongTest {
     @Test
     public void testGetAndAddValueObject() {
         final MutableLong mutableLong = new MutableLong((long)0);
-        long result = mutableLong.getAndAdd(Long.valueOf((long) 1));
+        final long result = mutableLong.getAndAdd(Long.valueOf((long) 1));
 
         assertEquals((long) 0, result);
         assertEquals((long) 1, mutableLong.longValue());
@@ -230,7 +230,7 @@ public class MutableLongTest {
     @Test
     public void testAddAndGetValuePrimitive() {
         final MutableLong mutableLong = new MutableLong((long)0);
-        long result = mutableLong.addAndGet((long) 1);
+        final long result = mutableLong.addAndGet((long) 1);
 
         assertEquals((long) 1, result);
         assertEquals((long) 1, mutableLong.longValue());
@@ -239,7 +239,7 @@ public class MutableLongTest {
     @Test
     public void testAddAndGetValueObject() {
         final MutableLong mutableLong = new MutableLong((long)0);
-        long result = mutableLong.addAndGet(Long.valueOf((long) 1));
+        final long result = mutableLong.addAndGet(Long.valueOf((long) 1));
 
         assertEquals((long) 1, result);
         assertEquals((long) 1, mutableLong.longValue());

@@ -1697,8 +1697,8 @@ public class SystemUtils {
         }
         // Compare parts of the version string instead of using String.startsWith(String) because otherwise
         // osVersionPrefix 10.1 would also match osVersion 10.10
-        String[] versionPrefixParts = osVersionPrefix.split("\\.");
-        String[] versionParts = osVersion.split("\\.");
+        final String[] versionPrefixParts = osVersionPrefix.split("\\.");
+        final String[] versionParts = osVersion.split("\\.");
         for (int i = 0; i < Math.min(versionPrefixParts.length, versionParts.length); i++) {
             if (!versionPrefixParts[i].equals(versionParts[i])) {
                 return false;

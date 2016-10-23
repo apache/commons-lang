@@ -105,7 +105,7 @@ public class CharSequenceUtilsTest {
             this.throwable = throwable;
         }
         public String toString(){
-            StringBuilder sb = new StringBuilder();
+            final StringBuilder sb = new StringBuilder();
             sb.append(source).append("[").append(toffset).append("]");
             sb.append(ignoreCase? " caseblind ":" samecase ");
             sb.append(other).append("[").append(ooffset).append("]");
@@ -145,13 +145,13 @@ public class CharSequenceUtilsTest {
                 try {
                     invoke();
                     Assert.fail(id + " Expected " + data.throwable);
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     if (!e.getClass().equals(data.throwable)) {
                         Assert.fail(id + " Expected " + data.throwable + " got " + e.getClass());
                     }
                 }
             } else {
-                boolean stringCheck = invoke();
+                final boolean stringCheck = invoke();
                 Assert.assertEquals(id + " Failed test " + data, data.expected, stringCheck);                
             }
         }

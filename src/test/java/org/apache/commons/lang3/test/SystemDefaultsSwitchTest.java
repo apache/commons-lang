@@ -46,7 +46,7 @@ public class SystemDefaultsSwitchTest {
         TEST_DEFAULT_LOCALE = Locale.getDefault();
 
         DEFAULT_TIMEZONE_BEFORE_TEST = TimeZone.getDefault();
-        TimeZone utc = TimeZone.getTimeZone("UTC");
+        final TimeZone utc = TimeZone.getTimeZone("UTC");
         if (!DEFAULT_TIMEZONE_BEFORE_TEST.equals(utc)) {
             TimeZone.setDefault(utc);
         } else {

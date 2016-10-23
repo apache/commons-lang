@@ -161,7 +161,7 @@ public class FastDateParserSDFTest {
                 // Error in test data
                 throw new RuntimeException("Test data error: expected SDF parse to fail, but got " + expectedTime);
             }
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             if (valid) {
                 // Error in test data
                 throw new RuntimeException("Test data error: expected SDF parse to succeed, but got " + e);
@@ -176,7 +176,7 @@ public class FastDateParserSDFTest {
                 // failure in test
                 fail("Expected FDP parse to fail, but got " + actualTime);
             }
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             if (valid) {
                 // failure in test
                 fail("Expected FDP parse to succeed, but got " + e);
@@ -194,8 +194,8 @@ public class FastDateParserSDFTest {
         sdf.setTimeZone(timeZone);
         final DateParser fdf = new FastDateParser(format, timeZone, locale);
 
-        ParsePosition sdfP = new ParsePosition(0);
-        Date expectedTime = sdf.parse(formattedDate, sdfP);
+        final ParsePosition sdfP = new ParsePosition(0);
+        final Date expectedTime = sdf.parse(formattedDate, sdfP);
         final int sdferrorIndex = sdfP.getErrorIndex();
         if (valid) {
             assertEquals("Expected SDF error index -1 ", -1, sdferrorIndex);
@@ -213,7 +213,7 @@ public class FastDateParserSDFTest {
         }
 
         final ParsePosition fdfP = new ParsePosition(0);
-        Date actualTime = fdf.parse(formattedDate, fdfP);
+        final Date actualTime = fdf.parse(formattedDate, fdfP);
         final int fdferrorIndex = fdfP.getErrorIndex();
         if (valid) {
             assertEquals("Expected FDF error index -1 ", -1, fdferrorIndex);

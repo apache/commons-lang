@@ -115,7 +115,7 @@ public class ConstructorUtils {
                 "No such accessible constructor on object: " + cls.getName());
         }
         if (ctor.isVarArgs()) {
-            Class<?>[] methodParameterTypes = ctor.getParameterTypes();
+            final Class<?>[] methodParameterTypes = ctor.getParameterTypes();
             args = MethodUtils.getVarArgs(args, methodParameterTypes);
         }
         return ctor.newInstance(args);

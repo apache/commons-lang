@@ -484,7 +484,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
         final int start = pos.getIndex();
         final char[] c = pattern.toCharArray();
-        int lastHold = start;
+        final int lastHold = start;
         for (int i = pos.getIndex(); i < pattern.length(); i++) {
             switch (c[pos.getIndex()]) {
             case QUOTE:

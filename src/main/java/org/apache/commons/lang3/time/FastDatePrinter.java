@@ -572,7 +572,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             for (final Rule rule : mRules) {
                 rule.appendTo(buf, calendar);
             }
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             ExceptionUtils.rethrow(ioe);
         }
         return buf;
@@ -736,7 +736,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             // more memory allocation path works for any digits
 
             // build up decimal representation in reverse
-            char[] work = new char[MAX_DIGITS];
+            final char[] work = new char[MAX_DIGITS];
             int digit = 0;
             while (value != 0) {
                 work[digit++] = (char) (value % 10 + '0');
@@ -1263,7 +1263,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
-            int value = calendar.get(Calendar.DAY_OF_WEEK);
+            final int value = calendar.get(Calendar.DAY_OF_WEEK);
             mRule.appendTo(buffer, value != Calendar.SUNDAY ? value - 1 : 7);
         }
 

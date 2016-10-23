@@ -69,7 +69,7 @@ public class WeekYearTest {
     public void testParser() throws ParseException {
         final DateParser parser = new FastDateParser("YYYY-'W'ww-u", TimeZone.getDefault(), Locale.getDefault());
 
-        Calendar cal = Calendar.getInstance();
+        final Calendar cal = Calendar.getInstance();
         cal.setMinimalDaysInFirstWeek(4);
         cal.setFirstDayOfWeek(Calendar.MONDAY);
         cal.clear();

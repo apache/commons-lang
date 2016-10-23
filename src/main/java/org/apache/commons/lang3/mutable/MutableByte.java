@@ -127,7 +127,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @since 3.5
      */
     public byte getAndIncrement() {
-        byte last = value;
+        final byte last = value;
         value++;
         return last;
     }
@@ -161,7 +161,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @since 3.5
      */
     public byte getAndDecrement() {
-        byte last = value;
+        final byte last = value;
         value--;
         return last;
     }
@@ -257,7 +257,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @since 3.5
      */
     public byte getAndAdd(final byte operand) {
-        byte last = value;
+        final byte last = value;
         this.value += operand;
         return last;
     }
@@ -272,7 +272,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @since 3.5
      */
     public byte getAndAdd(final Number operand) {
-        byte last = value;
+        final byte last = value;
         this.value += operand.byteValue();
         return last;
     }

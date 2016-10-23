@@ -604,8 +604,8 @@ public class HashCodeBuilderTest {
 
     @Test
     public void testToHashCodeExclude() {
-        TestObjectHashCodeExclude one = new TestObjectHashCodeExclude(1, 2);
-        TestObjectHashCodeExclude2 two = new TestObjectHashCodeExclude2(1, 2);
+        final TestObjectHashCodeExclude one = new TestObjectHashCodeExclude(1, 2);
+        final TestObjectHashCodeExclude2 two = new TestObjectHashCodeExclude2(1, 2);
         assertEquals(17 * 37 + 2, HashCodeBuilder.reflectionHashCode(one));
         assertEquals(17, HashCodeBuilder.reflectionHashCode(two));
     }

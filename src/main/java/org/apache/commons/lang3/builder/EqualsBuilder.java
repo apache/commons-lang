@@ -194,7 +194,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @since 3.0
      */
     private static void unregister(final Object lhs, final Object rhs) {
-        Set<Pair<IDKey, IDKey>> registry = getRegistry();
+        final Set<Pair<IDKey, IDKey>> registry = getRegistry();
         if (registry != null) {
             final Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
             registry.remove(pair);

@@ -144,7 +144,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @since 3.5
      */
     public double getAndIncrement() {
-        double last = value;
+        final double last = value;
         value++;
         return last;
     }
@@ -178,7 +178,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @since 3.5
      */
     public double getAndDecrement() {
-        double last = value;
+        final double last = value;
         value--;
         return last;
     }
@@ -274,7 +274,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @since 3.5
      */
     public double getAndAdd(final double operand) {
-        double last = value;
+        final double last = value;
         this.value += operand;
         return last;
     }
@@ -289,7 +289,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @since 3.5
      */
     public double getAndAdd(final Number operand) {
-        double last = value;
+        final double last = value;
         this.value += operand.doubleValue();
         return last;
     }

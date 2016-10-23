@@ -363,7 +363,7 @@ public class DateUtilsTest {
         final String dateStr = "02 942, 1996";
         final String[] parsers = new String[] {"MM DDD, yyyy"};
         
-        Date date = DateUtils.parseDate(dateStr, parsers);
+        final Date date = DateUtils.parseDate(dateStr, parsers);
         assertEquals(cal.getTime(), date);
         
         try {
@@ -709,7 +709,7 @@ public class DateUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testToCalendarWithDateAndTimeZoneNotNull() {
-        Calendar c = DateUtils.toCalendar(date2, defaultZone);
+        final Calendar c = DateUtils.toCalendar(date2, defaultZone);
         assertEquals("Convert Date and TimeZone to a Calendar, but failed to get the Date back", date2, c.getTime());
         assertEquals("Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back", defaultZone, c.getTimeZone());
     }

@@ -1283,7 +1283,7 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.replaceIgnoreCase("", "any", null, 2));
         assertEquals("", StringUtils.replaceIgnoreCase("", "any", "any", 2));
 
-        String str = new String(new char[] { 'o', 'o', 'f', 'o', 'o' });
+        final String str = new String(new char[] { 'o', 'o', 'f', 'o', 'o' });
         assertSame(str, StringUtils.replaceIgnoreCase(str, "x", "", -1));
 
         assertEquals("f", StringUtils.replaceIgnoreCase("oofoo", "o", "", -1));
@@ -2052,19 +2052,19 @@ public class StringUtilsTest {
         try {
             StringUtils.truncate(null, -1);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate(null, -10);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate(null, Integer.MIN_VALUE);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         assertEquals("", StringUtils.truncate("", 10));
@@ -2075,19 +2075,19 @@ public class StringUtilsTest {
         try {
             StringUtils.truncate("abcdefghij", -1);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", -100);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", Integer.MIN_VALUE);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         assertEquals("abcdefghij", StringUtils.truncate("abcdefghijklmno", 10));
@@ -2102,19 +2102,19 @@ public class StringUtilsTest {
         try {
             StringUtils.truncate(null, -1, 0);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate(null, -10, -4);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate(null, Integer.MIN_VALUE, Integer.MIN_VALUE);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         assertNull(StringUtils.truncate(null, 10, 12));
@@ -2126,79 +2126,79 @@ public class StringUtilsTest {
         try {
             StringUtils.truncate("abcdefghij", 0, -1);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", 0, -10);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", 0, -100);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", 1, -100);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", 0, Integer.MIN_VALUE);
             fail("maxWith cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", -1, 0);
             fail("offset cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", -10, 0);
             fail("offset cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", -100, 1);
             fail("offset cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, 0);
             fail("offset cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", -1, -1);
             fail("offset cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", -10, -10);
             fail("offset cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", -100, -100);
             fail("offset  cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
             StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, Integer.MIN_VALUE);
             fail("offset  cannot be negative");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
         final String raspberry = "raspberry peach";
@@ -2764,7 +2764,7 @@ public class StringUtilsTest {
         final Method[] methods = c.getMethods();
 
         for (final Method m : methods) {
-            String methodStr = m.toString();
+            final String methodStr = m.toString();
             if (m.getReturnType() == String.class || m.getReturnType() == String[].class) {
                 // Assume this is mutable and ensure the first parameter is not CharSequence.
                 // It may be String or it may be something else (String[], Object, Object[]) so
@@ -2803,7 +2803,7 @@ public class StringUtilsTest {
         // sanity check end
         assertEquals(expectedString, StringUtils.toString(expectedBytes, null));
         assertEquals(expectedString, StringUtils.toString(expectedBytes, SystemUtils.FILE_ENCODING));
-        String encoding = "UTF-16";
+        final String encoding = "UTF-16";
         expectedBytes = expectedString.getBytes(Charset.forName(encoding));
         assertEquals(expectedString, StringUtils.toString(expectedBytes, encoding));
     }

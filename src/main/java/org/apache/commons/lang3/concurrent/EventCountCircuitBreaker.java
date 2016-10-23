@@ -323,7 +323,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         State currentState;
 
         do {
-            long time = now();
+            final long time = now();
             currentState = state.get();
             currentData = checkIntervalData.get();
             nextData = nextCheckIntervalData(increment, currentData, currentState, time);
@@ -405,7 +405,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @throws CircuitBreakingException if the strategy cannot be resolved
      */
     private static StateStrategy stateStrategy(final State state) {
-        StateStrategy strategy = STRATEGY_MAP.get(state);
+        final StateStrategy strategy = STRATEGY_MAP.get(state);
         return strategy;
     }
 
@@ -416,7 +416,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @return the strategy map
      */
     private static Map<State, StateStrategy> createStrategyMap() {
-        Map<State, StateStrategy> map = new EnumMap<>(State.class);
+        final Map<State, StateStrategy> map = new EnumMap<>(State.class);
         map.put(State.CLOSED, new StateStrategyClosed());
         map.put(State.OPEN, new StateStrategyOpen());
         return map;

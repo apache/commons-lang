@@ -278,7 +278,7 @@ public class WordUtils {
         if (StringUtils.isBlank(wrapOn)) {
             wrapOn = " ";
         }
-        Pattern patternToWrapOn = Pattern.compile(wrapOn);
+        final Pattern patternToWrapOn = Pattern.compile(wrapOn);
         final int inputLineLength = str.length();
         int offset = 0;
         final StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
@@ -702,11 +702,11 @@ public class WordUtils {
         if (StringUtils.isEmpty(word) || ArrayUtils.isEmpty(words)) {
             return false;
         }
-        for (CharSequence w : words) {
+        for (final CharSequence w : words) {
             if (StringUtils.isBlank(w)) {
                 return false;
             }
-            Pattern p = Pattern.compile(".*\\b" + w + "\\b.*");
+            final Pattern p = Pattern.compile(".*\\b" + w + "\\b.*");
             if (!p.matcher(word).matches()) {
                 return false;
             }

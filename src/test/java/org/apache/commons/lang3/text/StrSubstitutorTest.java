@@ -594,8 +594,8 @@ public class StrSubstitutorTest {
     public void testLANG1055() {
         System.setProperty("test_key",  "test_value");
 
-        String expected = StrSubstitutor.replace("test_key=${test_key}", System.getProperties());
-        String actual = StrSubstitutor.replaceSystemProperties("test_key=${test_key}");
+        final String expected = StrSubstitutor.replace("test_key=${test_key}", System.getProperties());
+        final String actual = StrSubstitutor.replaceSystemProperties("test_key=${test_key}");
         assertEquals(expected, actual);
     }
 
@@ -629,7 +629,7 @@ public class StrSubstitutorTest {
         final Map<String, String> map = new HashMap<>();
         map.put("not-escaped", "value");
 
-        StrSubstitutor sub = new StrSubstitutor(map, "${", "}", '$');
+        final StrSubstitutor sub = new StrSubstitutor(map, "${", "}", '$');
         assertFalse(sub.isPreserveEscapes());
         assertEquals("value ${escaped}", sub.replace(org));
 

@@ -446,7 +446,7 @@ public class MethodUtils {
 
     private static Object[] toVarArgs(final Method method, Object[] args) {
         if (method.isVarArgs()) {
-            Class<?>[] methodParameterTypes = method.getParameterTypes();
+            final Class<?>[] methodParameterTypes = method.getParameterTypes();
             args = getVarArgs(args, methodParameterTypes);
         }
         return args;
@@ -470,14 +470,14 @@ public class MethodUtils {
         }
 
         // Construct a new array matching the method's declared parameter types.
-        Object[] newArgs = new Object[methodParameterTypes.length];
+        final Object[] newArgs = new Object[methodParameterTypes.length];
 
         // Copy the normal (non-varargs) parameters
         System.arraycopy(args, 0, newArgs, 0, methodParameterTypes.length - 1);
 
         // Construct a new array for the variadic parameters
-        Class<?> varArgComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
-        int varArgLength = args.length - methodParameterTypes.length + 1;
+        final Class<?> varArgComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
+        final int varArgLength = args.length - methodParameterTypes.length + 1;
 
         Object varArgsArray = Array.newInstance(ClassUtils.primitiveToWrapper(varArgComponentType), varArgLength);
         // Copy the variadic arguments into the varargs array.
@@ -719,13 +719,13 @@ public class MethodUtils {
 
         // Address methods in superclasses
         Method[] methodArray = cls.getDeclaredMethods();
-        List<Class<?>> superclassList = ClassUtils.getAllSuperclasses(cls);
-        for (Class<?> klass : superclassList) {
+        final List<Class<?>> superclassList = ClassUtils.getAllSuperclasses(cls);
+        for (final Class<?> klass : superclassList) {
             methodArray = ArrayUtils.addAll(methodArray, klass.getDeclaredMethods());
         }
 
         Method inexactMatch = null;
-        for (Method method : methodArray) {
+        for (final Method method : methodArray) {
             if (methodName.equals(method.getName()) &&
                     ArrayUtils.isEquals(parameterTypes, method.getParameterTypes())) {
                 return method;

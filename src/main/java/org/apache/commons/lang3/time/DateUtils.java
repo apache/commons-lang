@@ -372,14 +372,14 @@ public class DateUtils {
         calendar.setLenient(lenient);
 
         for (final String parsePattern : parsePatterns) {
-            FastDateParser fdp = new FastDateParser(parsePattern, tz, lcl);
+            final FastDateParser fdp = new FastDateParser(parsePattern, tz, lcl);
             calendar.clear();
             try {
                 if (fdp.parse(str, pos, calendar) && pos.getIndex()==str.length()) {
                     return calendar.getTime();
                 }
             }
-            catch(IllegalArgumentException ignore) {
+            catch(final IllegalArgumentException ignore) {
                 // leniency is preventing calendar from being set
             }
             pos.setIndex(0);

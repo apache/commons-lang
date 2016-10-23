@@ -117,7 +117,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
             open();
         }
 
-        long used = this.used.addAndGet(increment);
+        final long used = this.used.addAndGet(increment);
         if (used > threshold) {
             open();
         }

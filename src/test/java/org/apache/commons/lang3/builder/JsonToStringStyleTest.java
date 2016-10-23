@@ -95,7 +95,7 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append('A').toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         assertEquals("{\"a\":\"A\"}", new ToStringBuilder(base).append("a", 'A')
@@ -112,7 +112,7 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append(now).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         assertEquals("{\"now\":\"" + now.toString() +"\"}", new ToStringBuilder(base).append("now", now)
@@ -130,13 +130,13 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append((Object) null).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         try {
             new ToStringBuilder(base).append(i3).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         assertEquals("{\"a\":null}",
@@ -150,13 +150,13 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append("a", i3, false).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         try {
             new ToStringBuilder(base).append("a", new ArrayList<>(), false).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         assertEquals(
@@ -167,7 +167,7 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append("a", new HashMap<>(), false).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         assertEquals(
@@ -178,7 +178,7 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append("a", (Object) new String[0], false).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         assertEquals(
@@ -189,7 +189,7 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append("a", (Object) new int[]{1, 2, 3}, false).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
 
@@ -201,7 +201,7 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append("a", (Object) new String[]{"v", "x", "y", "z"}, false).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
 
@@ -256,7 +256,7 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append(3L).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", 3L)
@@ -273,26 +273,26 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         array = null;
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
     }
 
@@ -303,13 +303,13 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         array = null;
@@ -317,13 +317,13 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
     }
 
@@ -334,13 +334,13 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         array = null;
@@ -348,13 +348,13 @@ public class JsonToStringStyleTest {
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
 
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
         }
     }
     

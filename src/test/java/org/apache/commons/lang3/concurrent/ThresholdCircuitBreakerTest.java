@@ -39,7 +39,7 @@ public class ThresholdCircuitBreakerTest {
      */
     @Test
     public void testThreshold() {
-        ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
+        final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         circuit.incrementAndCheckState(9L);
         assertFalse("Circuit opened before reaching the threshold", circuit.incrementAndCheckState(1L));
     }
@@ -49,7 +49,7 @@ public class ThresholdCircuitBreakerTest {
      */
     @Test
     public void testThresholdCircuitBreakingException() {
-        ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
+        final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         circuit.incrementAndCheckState(9L);
         assertTrue("The circuit was spposed to be open after increment above the threshold", circuit.incrementAndCheckState(2L));
     }
@@ -59,7 +59,7 @@ public class ThresholdCircuitBreakerTest {
      */
     @Test
     public void testThresholdEqualsZero() {
-        ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(zeroThreshold);
+        final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(zeroThreshold);
         assertTrue("When the threshold is zero, the circuit is supposed to be always open", circuit.incrementAndCheckState(0L));
     }
 
@@ -68,7 +68,7 @@ public class ThresholdCircuitBreakerTest {
      */
     @Test
     public void testClosingThresholdCircuitBreaker() {
-        ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
+        final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         circuit.incrementAndCheckState(9L);
         circuit.close();
         // now the internal counter is back at zero, not 9 anymore. So it is safe to increment 9 again
@@ -80,7 +80,7 @@ public class ThresholdCircuitBreakerTest {
      */
     @Test
     public void testGettingThreshold() {
-        ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
+        final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         assertEquals("Wrong value of threshold", Long.valueOf(threshold), Long.valueOf(circuit.getThreshold()));
     }
 

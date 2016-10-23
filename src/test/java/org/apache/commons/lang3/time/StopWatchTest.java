@@ -295,7 +295,7 @@ public class StopWatchTest  {
             final long currentNanos = System.nanoTime();
             FieldUtils.writeField(watch, "startTime", currentNanos - nanos, true);
             FieldUtils.writeField(watch, "stopTime", currentNanos, true);
-        } catch (IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
             return null;
         }
         return watch;

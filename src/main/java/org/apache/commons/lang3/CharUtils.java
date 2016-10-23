@@ -351,7 +351,7 @@ public class CharUtils {
      * @return the escaped Unicode string
      */
     public static String unicodeEscaped(final char ch) {
-        StringBuilder sb = new StringBuilder(6);
+        final StringBuilder sb = new StringBuilder(6);
         sb.append("\\u");
         sb.append(HEX_DIGITS[(ch >> 12) & 15]);
         sb.append(HEX_DIGITS[(ch >> 8) & 15]);

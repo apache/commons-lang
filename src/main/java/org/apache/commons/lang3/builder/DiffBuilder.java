@@ -997,7 +997,7 @@ public class DiffBuilder implements Builder<DiffResult> {
             return this;
         }
 
-        for (Diff<?> diff : diffResult.getDiffs()) {
+        for (final Diff<?> diff : diffResult.getDiffs()) {
             append(fieldName + "." + diff.getFieldName(),
                    diff.getLeft(), diff.getRight());
         }

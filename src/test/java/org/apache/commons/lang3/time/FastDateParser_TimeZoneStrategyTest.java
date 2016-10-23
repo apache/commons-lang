@@ -41,7 +41,7 @@ public class FastDateParser_TimeZoneStrategyTest {
                     try {
                         parser.parse(tzDisplay);
                     }
-                    catch(Exception ex) {
+                    catch(final Exception ex) {
                         Assert.fail("'" + tzDisplay + "'"
                                 + " Locale: '" + locale.getDisplayName() + "'"
                                 + " TimeZone: " + zone[0]
@@ -57,10 +57,10 @@ public class FastDateParser_TimeZoneStrategyTest {
 
     @Test
     public void testLang1219() throws ParseException {
-        FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
+        final FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
 
-        Date summer = parser.parse("26.10.2014 02:00:00 MESZ");
-        Date standard = parser.parse("26.10.2014 02:00:00 MEZ");
+        final Date summer = parser.parse("26.10.2014 02:00:00 MESZ");
+        final Date standard = parser.parse("26.10.2014 02:00:00 MEZ");
         Assert.assertNotEquals(summer.getTime(), standard.getTime());
     }
 }

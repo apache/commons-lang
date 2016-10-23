@@ -628,7 +628,7 @@ public class StringUtils {
             return EMPTY;
         }
         if (str.length() > maxWidth) {
-            int ix = offset + maxWidth > str.length() ? str.length() : offset + maxWidth;
+            final int ix = offset + maxWidth > str.length() ? str.length() : offset + maxWidth;
             return str.substring(offset, ix);
         }
         return str.substring(offset);
@@ -1216,7 +1216,7 @@ public class StringUtils {
      */
     public static boolean equalsAny(final CharSequence string, final CharSequence... searchStrings) {
         if (ArrayUtils.isNotEmpty(searchStrings)) {
-            for (CharSequence next : searchStrings) {
+            for (final CharSequence next : searchStrings) {
                 if (equals(string, next)) {
                     return true;
                 }
@@ -1247,7 +1247,7 @@ public class StringUtils {
      */
     public static boolean equalsAnyIgnoreCase(final CharSequence string, final CharSequence...searchStrings) {
         if (ArrayUtils.isNotEmpty(searchStrings)) {
-            for (CharSequence next : searchStrings) {
+            for (final CharSequence next : searchStrings) {
                 if (equalsIgnoreCase(string, next)) {
                     return true;
                 }
@@ -2151,7 +2151,7 @@ public class StringUtils {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
             return false;
         }
-        for (CharSequence searchCharSequence : searchCharSequences) {
+        for (final CharSequence searchCharSequence : searchCharSequences) {
             if (contains(cs, searchCharSequence)) {
                 return true;
             }
@@ -6634,7 +6634,7 @@ public class StringUtils {
             return str;
         }
 
-        char[] newChars = new char[strLen];
+        final char[] newChars = new char[strLen];
         newChars[0] = newChar;
         str.getChars(1,strLen, newChars, 1);
         return String.valueOf(newChars);
@@ -6674,7 +6674,7 @@ public class StringUtils {
             return str;
         }
 
-        char[] newChars = new char[strLen];
+        final char[] newChars = new char[strLen];
         newChars[0] = newChar;
         str.getChars(1,strLen, newChars, 1);
         return String.valueOf(newChars);
@@ -7784,7 +7784,7 @@ public class StringUtils {
             m = t.length();
         }
 
-        int p[] = new int[n + 1];
+        final int p[] = new int[n + 1];
         // indexes into strings s and t
         int i; // iterates through s
         int j; // iterates through t
@@ -8019,13 +8019,13 @@ public class StringUtils {
             throw new IllegalArgumentException("Strings must not be null");
         }
 
-        int[] mtp = matches(first, second);
-        double m = mtp[0];
+        final int[] mtp = matches(first, second);
+        final double m = mtp[0];
         if (m == 0) {
             return 0D;
         }
-        double j = ((m / first.length() + m / second.length() + (m - mtp[1]) / m)) / 3;
-        double jw = j < 0.7D ? j : j + Math.min(DEFAULT_SCALING_FACTOR, 1D / mtp[3]) * mtp[2] * (1D - j);
+        final double j = ((m / first.length() + m / second.length() + (m - mtp[1]) / m)) / 3;
+        final double jw = j < 0.7D ? j : j + Math.min(DEFAULT_SCALING_FACTOR, 1D / mtp[3]) * mtp[2] * (1D - j);
         return Math.round(jw * 100.0D) / 100.0D;
     }
 
@@ -8038,13 +8038,13 @@ public class StringUtils {
             max = second;
             min = first;
         }
-        int range = Math.max(max.length() / 2 - 1, 0);
-        int[] matchIndexes = new int[min.length()];
+        final int range = Math.max(max.length() / 2 - 1, 0);
+        final int[] matchIndexes = new int[min.length()];
         Arrays.fill(matchIndexes, -1);
-        boolean[] matchFlags = new boolean[max.length()];
+        final boolean[] matchFlags = new boolean[max.length()];
         int matches = 0;
         for (int mi = 0; mi < min.length(); mi++) {
-            char c1 = min.charAt(mi);
+            final char c1 = min.charAt(mi);
             for (int xi = Math.max(mi - range, 0), xn = Math.min(mi + range + 1, max.length()); xi < xn; xi++) {
                 if (!matchFlags[xi] && c1 == max.charAt(xi)) {
                     matchIndexes[mi] = xi;
@@ -8054,8 +8054,8 @@ public class StringUtils {
                 }
             }
         }
-        char[] ms1 = new char[matches];
-        char[] ms2 = new char[matches];
+        final char[] ms1 = new char[matches];
+        final char[] ms2 = new char[matches];
         for (int i = 0, si = 0; i < min.length(); i++) {
             if (matchIndexes[i] != -1) {
                 ms1[si] = min.charAt(i);
@@ -8407,8 +8407,8 @@ public class StringUtils {
         int whitespacesCount = 0;
         boolean startWhitespaces = true;
         for (int i = 0; i < size; i++) {
-            char actualChar = str.charAt(i);
-            boolean isWhitespace = Character.isWhitespace(actualChar);
+            final char actualChar = str.charAt(i);
+            final boolean isWhitespace = Character.isWhitespace(actualChar);
             if (!isWhitespace) {
                 startWhitespaces = false;
                 newChars[count++] = (actualChar == 160 ? 32 : actualChar);
@@ -8795,7 +8795,7 @@ public class StringUtils {
         if (isEmpty(str) || wrapWith == '\0') {
             return str;
         }
-        StringBuilder builder = new StringBuilder(str.length() + 2);
+        final StringBuilder builder = new StringBuilder(str.length() + 2);
         if (str.charAt(0) != wrapWith) {
             builder.append(wrapWith);
         }
@@ -8839,7 +8839,7 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(wrapWith)) {
             return str;
         }
-        StringBuilder builder = new StringBuilder(str.length() + wrapWith.length() + wrapWith.length());
+        final StringBuilder builder = new StringBuilder(str.length() + wrapWith.length() + wrapWith.length());
         if (!str.startsWith(wrapWith)) {
             builder.append(wrapWith);
         }

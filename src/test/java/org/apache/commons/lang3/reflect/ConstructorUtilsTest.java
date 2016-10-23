@@ -284,7 +284,7 @@ public class ConstructorUtilsTest {
 
     @Test
     public void testVarArgsUnboxing() throws Exception {
-        TestBean testBean = ConstructorUtils.invokeConstructor(
+        final TestBean testBean = ConstructorUtils.invokeConstructor(
                 TestBean.class, Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3));
 
         assertArrayEquals(new String[]{"2", "3"}, testBean.varArgs);

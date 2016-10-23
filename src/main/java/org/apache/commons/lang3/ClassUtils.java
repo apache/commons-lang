@@ -382,12 +382,12 @@ public class ClassUtils {
       }
 
       int availableSpace = len;
-      int packageLevels = StringUtils.countMatches(className, '.');
-      String[] output = new String[packageLevels + 1];
+      final int packageLevels = StringUtils.countMatches(className, '.');
+      final String[] output = new String[packageLevels + 1];
       int endIndex = className.length() - 1;
       for (int level = packageLevels; level >= 0; level--) {
-        int startIndex = className.lastIndexOf('.', endIndex);
-        String part = className.substring(startIndex + 1, endIndex + 1);
+        final int startIndex = className.lastIndexOf('.', endIndex);
+        final String part = className.substring(startIndex + 1, endIndex + 1);
         availableSpace -= part.length();
         if (level > 0) {
           // all elements except top level require an additional char space

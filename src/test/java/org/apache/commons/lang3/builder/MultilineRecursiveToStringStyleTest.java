@@ -33,8 +33,8 @@ public class MultilineRecursiveToStringStyleTest {
 
     @Test
     public void simpleObject() {
-        Transaction tx = new Transaction("2014.10.15", 100);
-        String expected = getClassPrefix(tx) + "[" + BR 
+        final Transaction tx = new Transaction("2014.10.15", 100);
+        final String expected = getClassPrefix(tx) + "[" + BR 
                         + "  amount=100.0," + BR 
                         + "  date=2014.10.15" + BR 
                         + "]";
@@ -43,10 +43,10 @@ public class MultilineRecursiveToStringStyleTest {
 
     @Test
     public void nestedElements() {
-        Customer customer = new Customer("Douglas Adams");
-        Bank bank = new Bank("ASF Bank");
+        final Customer customer = new Customer("Douglas Adams");
+        final Bank bank = new Bank("ASF Bank");
         customer.bank = bank;
-        String exp = getClassPrefix(customer) + "[" + BR 
+        final String exp = getClassPrefix(customer) + "[" + BR 
                    + "  name=Douglas Adams," + BR 
                    + "  bank=" + getClassPrefix(bank) + "[" + BR 
                    + "    name=ASF Bank" + BR 
@@ -58,12 +58,12 @@ public class MultilineRecursiveToStringStyleTest {
 
     @Test
     public void nestedAndArray() {
-        Account acc = new Account();
-        Transaction tx1 = new Transaction("2014.10.14", 100);
-        Transaction tx2 = new Transaction("2014.10.15", 50);
+        final Account acc = new Account();
+        final Transaction tx1 = new Transaction("2014.10.14", 100);
+        final Transaction tx2 = new Transaction("2014.10.15", 50);
         acc.transactions.add(tx1);
         acc.transactions.add(tx2);
-        String expected = getClassPrefix(acc) + "[" + BR 
+        final String expected = getClassPrefix(acc) + "[" + BR 
                         + "  owner=<null>," + BR 
                         + "  transactions=" + getClassPrefix(acc.transactions) + "{" + BR 
                         + "    " + getClassPrefix(tx1) + "[" + BR 
@@ -81,8 +81,8 @@ public class MultilineRecursiveToStringStyleTest {
 
     @Test
     public void noArray() {
-        WithArrays wa = new WithArrays();
-        String exp = getClassPrefix(wa) + "[" + BR 
+        final WithArrays wa = new WithArrays();
+        final String exp = getClassPrefix(wa) + "[" + BR 
                    + "  boolArray=<null>," + BR 
                    + "  charArray=<null>," + BR
                    + "  intArray=<null>," + BR 
@@ -95,9 +95,9 @@ public class MultilineRecursiveToStringStyleTest {
 
     @Test
     public void boolArray() {
-        WithArrays wa = new WithArrays();
+        final WithArrays wa = new WithArrays();
         wa.boolArray = new boolean[] { true, false, true };
-        String exp = getClassPrefix(wa) + "[" + BR 
+        final String exp = getClassPrefix(wa) + "[" + BR 
                    + "  boolArray={" + BR 
                    + "    true," + BR 
                    + "    false," + BR 
@@ -114,9 +114,9 @@ public class MultilineRecursiveToStringStyleTest {
 
     @Test
     public void charArray() {
-        WithArrays wa = new WithArrays();
+        final WithArrays wa = new WithArrays();
         wa.charArray = new char[] { 'a', 'A' };
-        String exp = getClassPrefix(wa) + "[" + BR 
+        final String exp = getClassPrefix(wa) + "[" + BR 
                    + "  boolArray=<null>," + BR 
                    + "  charArray={" + BR 
                    + "    a," + BR 
@@ -132,9 +132,9 @@ public class MultilineRecursiveToStringStyleTest {
 
     @Test
     public void intArray() {
-        WithArrays wa = new WithArrays();
+        final WithArrays wa = new WithArrays();
         wa.intArray = new int[] { 1, 2 };
-        String exp = getClassPrefix(wa) + "[" + BR 
+        final String exp = getClassPrefix(wa) + "[" + BR 
                    + "  boolArray=<null>," + BR 
                    + "  charArray=<null>," + BR 
                    + "  intArray={" + BR 
@@ -150,9 +150,9 @@ public class MultilineRecursiveToStringStyleTest {
 
     @Test
     public void doubleArray() {
-        WithArrays wa = new WithArrays();
+        final WithArrays wa = new WithArrays();
         wa.doubleArray = new double[] { 1, 2 };
-        String exp = getClassPrefix(wa) + "[" + BR 
+        final String exp = getClassPrefix(wa) + "[" + BR 
                    + "  boolArray=<null>," + BR 
                    + "  charArray=<null>," + BR
                    + "  intArray=<null>," + BR 
@@ -168,9 +168,9 @@ public class MultilineRecursiveToStringStyleTest {
 
     @Test
     public void longArray() {
-        WithArrays wa = new WithArrays();
+        final WithArrays wa = new WithArrays();
         wa.longArray = new long[] { 1L, 2L };
-        String exp = getClassPrefix(wa) + "[" + BR 
+        final String exp = getClassPrefix(wa) + "[" + BR 
                    + "  boolArray=<null>," + BR 
                    + "  charArray=<null>," + BR
                    + "  intArray=<null>," + BR 
@@ -186,9 +186,9 @@ public class MultilineRecursiveToStringStyleTest {
 
     @Test
     public void stringArray() {
-        WithArrays wa = new WithArrays();
+        final WithArrays wa = new WithArrays();
         wa.stringArray = new String[] { "a", "A" };
-        String exp = getClassPrefix(wa) + "[" + BR 
+        final String exp = getClassPrefix(wa) + "[" + BR 
                    + "  boolArray=<null>," + BR 
                    + "  charArray=<null>," + BR
                    + "  intArray=<null>," + BR 
@@ -243,7 +243,7 @@ public class MultilineRecursiveToStringStyleTest {
 
         public double getBalance() {
             double balance = 0;
-            for (Transaction tx : transactions) {
+            for (final Transaction tx : transactions) {
                 balance += tx.amount;
             }
             return balance;

@@ -136,7 +136,7 @@ public class BackgroundInitializerTest {
     public void testSetExternalExecutorAfterStart() throws ConcurrentException, InterruptedException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
-        ExecutorService exec = Executors.newSingleThreadExecutor();
+        final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
             init.setExternalExecutor(exec);
             fail("Could set executor after start()!");
