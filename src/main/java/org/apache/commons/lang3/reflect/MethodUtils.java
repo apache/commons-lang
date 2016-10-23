@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -727,7 +728,7 @@ public class MethodUtils {
         Method inexactMatch = null;
         for (final Method method : methodArray) {
             if (methodName.equals(method.getName()) &&
-                    ArrayUtils.isEquals(parameterTypes, method.getParameterTypes())) {
+                    Objects.deepEquals(parameterTypes, method.getParameterTypes())) {
                 return method;
             } else if (methodName.equals(method.getName()) &&
                     ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true)) {

@@ -35,6 +35,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -1031,25 +1032,25 @@ public class StringUtilsTest {
         assertNull(StringUtils.splitByCharacterType(null));
         assertEquals(0, StringUtils.splitByCharacterType("").length);
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"ab", " ", "de", " ",
+        assertTrue(Objects.deepEquals(new String[]{"ab", " ", "de", " ",
                 "fg"}, StringUtils.splitByCharacterType("ab de fg")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"ab", "   ", "de", " ",
+        assertTrue(Objects.deepEquals(new String[]{"ab", "   ", "de", " ",
                 "fg"}, StringUtils.splitByCharacterType("ab   de fg")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"ab", ":", "cd", ":",
+        assertTrue(Objects.deepEquals(new String[]{"ab", ":", "cd", ":",
                 "ef"}, StringUtils.splitByCharacterType("ab:cd:ef")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"number", "5"},
+        assertTrue(Objects.deepEquals(new String[]{"number", "5"},
                 StringUtils.splitByCharacterType("number5")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"foo", "B", "ar"},
+        assertTrue(Objects.deepEquals(new String[]{"foo", "B", "ar"},
                 StringUtils.splitByCharacterType("fooBar")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"foo", "200", "B", "ar"},
+        assertTrue(Objects.deepEquals(new String[]{"foo", "200", "B", "ar"},
                 StringUtils.splitByCharacterType("foo200Bar")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"ASFR", "ules"},
+        assertTrue(Objects.deepEquals(new String[]{"ASFR", "ules"},
                 StringUtils.splitByCharacterType("ASFRules")));
     }
 
@@ -1058,25 +1059,25 @@ public class StringUtilsTest {
         assertNull(StringUtils.splitByCharacterTypeCamelCase(null));
         assertEquals(0, StringUtils.splitByCharacterTypeCamelCase("").length);
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"ab", " ", "de", " ",
+        assertTrue(Objects.deepEquals(new String[]{"ab", " ", "de", " ",
                 "fg"}, StringUtils.splitByCharacterTypeCamelCase("ab de fg")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"ab", "   ", "de", " ",
+        assertTrue(Objects.deepEquals(new String[]{"ab", "   ", "de", " ",
                 "fg"}, StringUtils.splitByCharacterTypeCamelCase("ab   de fg")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"ab", ":", "cd", ":",
+        assertTrue(Objects.deepEquals(new String[]{"ab", ":", "cd", ":",
                 "ef"}, StringUtils.splitByCharacterTypeCamelCase("ab:cd:ef")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"number", "5"},
+        assertTrue(Objects.deepEquals(new String[]{"number", "5"},
                 StringUtils.splitByCharacterTypeCamelCase("number5")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"foo", "Bar"},
+        assertTrue(Objects.deepEquals(new String[]{"foo", "Bar"},
                 StringUtils.splitByCharacterTypeCamelCase("fooBar")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"foo", "200", "Bar"},
+        assertTrue(Objects.deepEquals(new String[]{"foo", "200", "Bar"},
                 StringUtils.splitByCharacterTypeCamelCase("foo200Bar")));
 
-        assertTrue(ArrayUtils.isEquals(new String[]{"ASF", "Rules"},
+        assertTrue(Objects.deepEquals(new String[]{"ASF", "Rules"},
                 StringUtils.splitByCharacterTypeCamelCase("ASFRules")));
     }
 
