@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="tba" description="tba">
+    <action issue="LANG-1276" type="fix" dev="pschumacher" due-to="Andy Klimczak">StrBuilder#replaceAll ArrayIndexOutOfBoundsException</action>
     <action issue="LANG-1278" type="fix" dev="pschumacher" due-to="Duke Yin">BooleanUtils javadoc issues</action>
     <action issue="LANG-1277" type="update" dev="pschumacher" due-to="yufcuy">StringUtils#getLevenshteinDistance reduce memory consumption</action>
     <action issue="LANG-1070" type="fix" dev="pschumacher" due-to="Paul Pogonyshev">ArrayUtils#add confusing example in javadoc</action>
