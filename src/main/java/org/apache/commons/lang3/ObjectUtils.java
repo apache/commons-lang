@@ -451,7 +451,7 @@ public class ObjectUtils {
      * @since 2.0
      * @deprecated this method has been replaced by {@code java.util.Objects.toString(Object)} in Java 7 and will be
      * removed in future releases. Note however that said method will return "null" for null references, while this
-     * method returns and empty String. To preserve behavior use {@code java.util.Objects.toString(myObject, "")}
+     * method returns an empty String. To preserve behavior use {@code java.util.Objects.toString(myObject, "")}
      */
     @Deprecated
     public static String toString(final Object obj) {
