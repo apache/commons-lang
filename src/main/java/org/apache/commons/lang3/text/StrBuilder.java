@@ -1197,7 +1197,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Appends each item in a iterable to the builder without any separators.
+     * Appends each item in an iterable to the builder without any separators.
      * Appending a null iterable will have no effect.
      * Each object is appended using {@link #append(Object)}.
      *
@@ -1256,7 +1256,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Appends a iterable placing separators between each value, but
+     * Appends an iterable placing separators between each value, but
      * not before the first or after the last.
      * Appending a null iterable will have no effect.
      * Each object is appended using {@link #append(Object)}.
