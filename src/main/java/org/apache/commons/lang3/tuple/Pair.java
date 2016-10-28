@@ -18,8 +18,8 @@ package org.apache.commons.lang3.tuple;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.Objects;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
@@ -124,7 +124,6 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @param obj  the object to compare to, null returns false
      * @return true if the elements of the pair are equal
      */
-    @SuppressWarnings( "deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Override
     public boolean equals(final Object obj) {
         if (obj == this) {
@@ -132,8 +131,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
         }
         if (obj instanceof Map.Entry<?, ?>) {
             final Map.Entry<?, ?> other = (Map.Entry<?, ?>) obj;
-            return ObjectUtils.equals(getKey(), other.getKey())
-                    && ObjectUtils.equals(getValue(), other.getValue());
+            return Objects.equals(getKey(), other.getKey())
+                    && Objects.equals(getValue(), other.getValue());
         }
         return false;
     }

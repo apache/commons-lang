@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -1570,9 +1571,8 @@ public class TypeUtils {
      * @return boolean
      * @since 3.2
      */
-    @SuppressWarnings( "deprecation" )  // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     public static boolean equals(final Type t1, final Type t2) {
-        if (ObjectUtils.equals(t1, t2)) {
+        if (Objects.equals(t1, t2)) {
             return true;
         }
         if (t1 instanceof ParameterizedType) {

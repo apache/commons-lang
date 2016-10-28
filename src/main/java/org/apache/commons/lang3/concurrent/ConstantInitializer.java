@@ -16,7 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import org.apache.commons.lang3.ObjectUtils;
+import java.util.Objects;
 
 /**
  * <p>
@@ -100,7 +100,6 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * @param obj the object to compare to
      * @return a flag whether the objects are equal
      */
-    @SuppressWarnings( "deprecation" ) // ObjectUtils.equals(Object, Object) has been deprecated in 3.2
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
@@ -111,7 +110,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
         }
 
         final ConstantInitializer<?> c = (ConstantInitializer<?>) obj;
-        return ObjectUtils.equals(getObject(), c.getObject());
+        return Objects.equals(getObject(), c.getObject());
     }
 
     /**
