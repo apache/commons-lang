@@ -21,17 +21,21 @@ package org.apache.commons.lang3.concurrent;
  * <p/>
  * <p>This interface allows for wrapping a calculation into a class so that it maybe passed around an application.</p>
  *
- * @param <A> the type of the input to the calculation
- * @param <V> the type of the output of the calculation
+ * @param <I> the type of the input to the calculation
+ * @param <O> the type of the output of the calculation
+ * 
+ * @since 3.6
  */
-public interface Computable<A, V> {
+public interface Computable<I, O> {
 
-	/**
-	 * This method carries out the given operation with the provided argument.
-	 *
-	 * @param arg the argument for the calculation
-	 * @return the result of the calculation
-	 * @throws InterruptedException thrown if the calculation is interrupted
-	 */
-	V compute(final A arg) throws InterruptedException;
+    /**
+     * This method carries out the given operation with the provided argument.
+     *
+     * @param arg
+     *            the argument for the calculation
+     * @return the result of the calculation
+     * @throws InterruptedException
+     *             thrown if the calculation is interrupted
+     */
+    O compute(final I arg) throws InterruptedException;
 }
