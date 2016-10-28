@@ -627,7 +627,7 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts an array of short into a int using the default (little endian, Lsb0) byte and
+     * Converts an array of short into an int using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
      * 
@@ -637,7 +637,7 @@ public class Conversion {
      * @param dstInit initial value of the destination int
      * @param dstPos the position of the lsb, in bits, in the result int
      * @param nShorts the number of shorts to convert
-     * @return a int containing the selected bits
+     * @return an int containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
      * @throws IllegalArgumentException if {@code (nShorts-1)*16+dstPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nShorts > src.length}
@@ -697,7 +697,7 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts an array of byte into a int using the default (little endian, Lsb0) byte and bit
+     * Converts an array of byte into an int using the default (little endian, Lsb0) byte and bit
      * ordering.
      * </p>
      * 
@@ -707,7 +707,7 @@ public class Conversion {
      * @param dstInit initial value of the destination int
      * @param dstPos the position of the lsb, in bits, in the result int
      * @param nBytes the number of bytes to convert
-     * @return a int containing the selected bits
+     * @return an int containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+dstPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBytes > src.length}
@@ -800,7 +800,7 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts an array of Char into a int using the default (little endian, Lsb0) byte and bit
+     * Converts an array of Char into an int using the default (little endian, Lsb0) byte and bit
      * ordering.
      * </p>
      * 
@@ -810,7 +810,7 @@ public class Conversion {
      * @param dstInit initial value of the destination int
      * @param dstPos the position of the lsb, in bits, in the result int
      * @param nHex the number of Chars to convert
-     * @return a int containing the selected bits
+     * @return an int containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 32}
      */
     public static int hexToInt(final String src, final int srcPos, final int dstInit, final int dstPos, final int nHex) {
@@ -933,7 +933,7 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts binary (represented as boolean array) into a int using the default (little
+     * Converts binary (represented as boolean array) into an int using the default (little
      * endian, Lsb0) byte and bit ordering.
      * </p>
      * 
@@ -943,7 +943,7 @@ public class Conversion {
      * @param dstInit initial value of the destination int
      * @param dstPos the position of the lsb, in bits, in the result int
      * @param nBools the number of booleans to convert
-     * @return a int containing the selected bits
+     * @return an int containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
      * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
@@ -1102,7 +1102,7 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts a int into an array of short using the default (little endian, Lsb0) byte and
+     * Converts an int into an array of short using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
      * 
@@ -1166,7 +1166,7 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts a int into an array of byte using the default (little endian, Lsb0) byte and bit
+     * Converts an int into an array of byte using the default (little endian, Lsb0) byte and bit
      * ordering.
      * </p>
      * 
@@ -1269,7 +1269,7 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts a int into an array of Char using the default (little endian, Lsb0) byte and bit
+     * Converts an int into an array of Char using the default (little endian, Lsb0) byte and bit
      * ordering.
      * </p>
      * 
@@ -1418,7 +1418,7 @@ public class Conversion {
 
     /**
      * <p>
-     * Converts a int into an array of boolean using the default (little endian, Lsb0) byte and
+     * Converts an int into an array of boolean using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
      * 
