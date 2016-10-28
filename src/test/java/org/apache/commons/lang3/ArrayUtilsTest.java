@@ -4443,11 +4443,29 @@ public class ArrayUtilsTest  {
     }
 
     @Test
-    public void testToStringArray() {
+    public void testToStringArray_array() {
         assertNull(ArrayUtils.toStringArray(null));
+
+        assertArrayEquals(new String[0], ArrayUtils.toStringArray(new Object[0]));
 
         final Object[] array = new Object[] {1, 2, 3, "array", "test"};
         assertArrayEquals(new String[]{"1", "2", "3", "array", "test"}, ArrayUtils.toStringArray(array));
+
+        try {
+            ArrayUtils.toStringArray(new Object[] {null});
+            fail("NullPointerException expected!");
+        } catch (final NullPointerException expected) {}
+    }
+
+    @Test
+    public void testToStringArray_array_string() {
+        assertNull(ArrayUtils.toStringArray(null, ""));
+
+        assertArrayEquals(new String[0], ArrayUtils.toStringArray(new Object[0], ""));
+
+        final Object[] array = new Object[] { 1, null, "test" };
+        assertArrayEquals(new String[]{"1", "valueForNullElements", "test"},
+                ArrayUtils.toStringArray(array, "valueForNullElements"));
     }
 
 }

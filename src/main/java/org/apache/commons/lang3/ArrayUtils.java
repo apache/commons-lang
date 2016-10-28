@@ -7970,25 +7970,55 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns an array containing the string representation of each entry in the argument array.
+     * <p>Returns an array containing the string representation of each element in the argument array.</p>
      *
-     * <p>
-     * A {@code null} input Object[] returns {@code null}.
-     * </p>
+     * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
-     * @param source the Object[] to be processed, may be null
-     * @return String[] of the same size as the source with its element's string representation,
-     * {@code null} if null Object[] input
+     * @param array the {@code Object[]} to be processed, may be null
+     * @return {@code String[]} of the same size as the source with its element's string representation,
+     * {@code null} if null array input
+     * @throws NullPointerException if array contains {@code null}
      * @since 3.6
      */
-    public static String[] toStringArray(final Object[] source) {
-        if (null == source) return null;
-
-        String[] al = new String[source.length];
-        for (int i = 0; i < source.length; i++) {
-            al[i] = source[i].toString();
+    public static String[] toStringArray(final Object[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_STRING_ARRAY;
         }
 
-        return al;
+        final String[] result = new String[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].toString();
+        }
+
+        return result;
+    }
+
+    /**
+     * <p>Returns an array containing the string representation of each element in the argument
+     * array handling {@code null} elements.</p>
+     *
+     * <p>This method returns {@code null} for a {@code null} input array.</p>
+     *
+     * @param array the Object[] to be processed, may be null
+     * @param valueForNullElements the value to insert if {@code null} is found
+     * @return a {@code String} array, {@code null} if null array input
+     * @since 3.6
+     */
+    public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
+        if (null == array) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_STRING_ARRAY;
+        }
+
+        final String[] result = new String[array.length];
+        for (int i = 0; i < array.length; i++) {
+            final Object object = array[i]; 
+            result[i] = (object == null ? valueForNullElements : object.toString());
+        }
+
+        return result;
     }
 }
