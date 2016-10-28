@@ -113,17 +113,6 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.IS_JAVA_1_8);
             assertFalse(SystemUtils.IS_JAVA_1_9);
             assertFalse(SystemUtils.IS_JAVA_9);
-        } else if (javaVersion.startsWith("1.6")) {
-            assertFalse(SystemUtils.IS_JAVA_1_1);
-            assertFalse(SystemUtils.IS_JAVA_1_2);
-            assertFalse(SystemUtils.IS_JAVA_1_3);
-            assertFalse(SystemUtils.IS_JAVA_1_4);
-            assertFalse(SystemUtils.IS_JAVA_1_5);
-            assertTrue(SystemUtils.IS_JAVA_1_6);
-            assertFalse(SystemUtils.IS_JAVA_1_7);
-            assertFalse(SystemUtils.IS_JAVA_1_8);
-            assertFalse(SystemUtils.IS_JAVA_1_9);
-            assertFalse(SystemUtils.IS_JAVA_9);
         } else if (javaVersion.startsWith("1.7")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -385,17 +374,7 @@ public class SystemUtilsTest {
 
     @Test
     public void testIsJavaVersionAtLeat() throws Exception {
-        if (SystemUtils.IS_JAVA_1_6) {
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_3));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_4));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_5));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_6));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_7));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_1_8));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_9));
-        } else if (SystemUtils.IS_JAVA_1_7) {
+        if (SystemUtils.IS_JAVA_1_7) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_3));
