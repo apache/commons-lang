@@ -203,13 +203,12 @@ public class TypeUtils {
         /**
          * {@inheritDoc}
          */
-        @SuppressWarnings( "deprecation" )  // ObjectUtils.hashCode(Object) has been deprecated in 3.2
         @Override
         public int hashCode() {
             int result = 71 << 4;
             result |= raw.hashCode();
             result <<= 4;
-            result |= ObjectUtils.hashCode(useOwner);
+            result |= Objects.hashCode(useOwner);
             result <<= 8;
             result |= Arrays.hashCode(typeArguments);
             return result;

@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
@@ -284,12 +285,11 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings( "deprecation" ) // ObjectUtils.hashCode(Object) has been deprecated in 3.2
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = HASH_SEED * result + ObjectUtils.hashCode(registry);
-        result = HASH_SEED * result + ObjectUtils.hashCode(toPattern);
+        result = HASH_SEED * result + Objects.hashCode(registry);
+        result = HASH_SEED * result + Objects.hashCode(toPattern);
         return result;
     }
 
