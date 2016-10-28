@@ -23,9 +23,9 @@ import java.io.Writer;
 import java.nio.CharBuffer;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.builder.Builder;
@@ -1245,8 +1245,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder appendWithSeparators(final Object[] array, final String separator) {
         if (array != null && array.length > 0) {
-            @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
-            final String sep = ObjectUtils.toString(separator);
+            final String sep = Objects.toString(separator, "");
             append(array[0]);
             for (int i = 1; i < array.length; i++) {
                 append(sep);
@@ -1268,8 +1267,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder appendWithSeparators(final Iterable<?> iterable, final String separator) {
         if (iterable != null) {
-            @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
-            final String sep = ObjectUtils.toString(separator);
+            final String sep = Objects.toString(separator, "");
             final Iterator<?> it = iterable.iterator();
             while (it.hasNext()) {
                 append(it.next());
@@ -1293,8 +1291,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder appendWithSeparators(final Iterator<?> it, final String separator) {
         if (it != null) {
-            @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
-            final String sep = ObjectUtils.toString(separator);
+            final String sep = Objects.toString(separator, "");
             while (it.hasNext()) {
                 append(it.next());
                 if (it.hasNext()) {

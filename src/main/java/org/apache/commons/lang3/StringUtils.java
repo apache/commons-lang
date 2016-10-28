@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
@@ -4520,9 +4521,7 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
-            final
-            String result = ObjectUtils.toString(first);
+            final String result = Objects.toString(first, "");
             return result;
         }
 
@@ -4567,8 +4566,7 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            @SuppressWarnings( "deprecation" ) // ObjectUtils.toString(Object) has been deprecated in 3.2
-            final String result = ObjectUtils.toString(first);
+            final String result = Objects.toString(first, "");
             return result;
         }
 
@@ -4663,8 +4661,7 @@ public class StringUtils {
 
         final Iterator<Object> iterator = Arrays.asList(objects).iterator();
         while (iterator.hasNext()) {
-            @SuppressWarnings("deprecation") // o.k. to use as long as we do not require java 7 or greater
-            final String value = ObjectUtils.toString(iterator.next());
+            final String value = Objects.toString(iterator.next(), "");
             result.append(value);
 
             if (iterator.hasNext()) {
