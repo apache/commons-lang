@@ -3146,11 +3146,13 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testUnwrapString_String(){
+    public void testUnwrap_StringString() {
         assertNull(StringUtils.unwrap(null, null));
         assertNull(StringUtils.unwrap(null, ""));
         assertNull(StringUtils.unwrap(null, "1"));
-        assertEquals("abc", StringUtils.unwrap("\'abc\'", "\'"));
+
+        assertEquals("abc", StringUtils.unwrap("abc", null));
+        assertEquals("abc", StringUtils.unwrap("abc", ""));
         assertEquals("abc", StringUtils.unwrap("\'abc\'", "\'"));
         assertEquals("abc", StringUtils.unwrap("\"abc\"", "\""));
         assertEquals("abc\"xyz", StringUtils.unwrap("\"abc\"xyz\"", "\""));
@@ -3161,16 +3163,21 @@ public class StringUtilsTest {
         assertEquals("AA\"abc\'xyz\'\"", StringUtils.unwrap("AA\"abc\'xyz\'\"", "AA"));
         assertEquals("AA\"abc\'xyz\'\"AA", StringUtils.unwrap("AAA\"abc\'xyz\'\"AAA", "A"));
         assertEquals("\"abc\'xyz\'\"AA", StringUtils.unwrap("\"abc\'xyz\'\"AA", "AA"));
-
     }
 
     @Test
-    public void testUnwrapString_Char(){
+    public void testUnwrap_StringChar() {
         assertNull(StringUtils.unwrap(null, null));
         assertNull(StringUtils.unwrap(null, '\0'));
         assertNull(StringUtils.unwrap(null, '1'));
+ 
+        assertEquals("abc", StringUtils.unwrap("abc", null));
         assertEquals("abc", StringUtils.unwrap("\'abc\'", '\''));
         assertEquals("abc", StringUtils.unwrap("AabcA", 'A'));
         assertEquals("AabcA", StringUtils.unwrap("AAabcAA", 'A'));
+        assertEquals("abc", StringUtils.unwrap("abc", 'b'));
+        assertEquals("#A", StringUtils.unwrap("#A", '#'));
+        assertEquals("A#", StringUtils.unwrap("A#", '#'));
+        assertEquals("ABA", StringUtils.unwrap("AABAA", 'A'));
     }
 }
