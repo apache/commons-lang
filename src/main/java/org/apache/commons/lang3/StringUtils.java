@@ -310,6 +310,8 @@ public class StringUtils {
 
     /**
      * <p>Checks if a CharSequence is whitespace, empty ("") or null.</p>
+     * 
+     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isBlank(null)      = true
@@ -339,6 +341,8 @@ public class StringUtils {
 
     /**
      * <p>Checks if a CharSequence is not empty (""), not null and not whitespace only.</p>
+     * 
+     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isNotBlank(null)      = false
@@ -360,6 +364,8 @@ public class StringUtils {
 
     /**
      * <p>Checks if any one of the CharSequences are blank ("") or null and not whitespace only.</p>
+     * 
+     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isAnyBlank(null)             = true
@@ -390,6 +396,8 @@ public class StringUtils {
 
     /**
      * <p>Checks if any one of the CharSequences are not blank ("") or null and not whitespace only.</p>
+     * 
+     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isAnyNotBlank(null)             = false
@@ -420,6 +428,8 @@ public class StringUtils {
 
     /**
      * <p>Checks if none of the CharSequences are blank ("") or null and whitespace only.</p>
+     * 
+     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isNoneBlank(null)             = false
@@ -1926,11 +1936,13 @@ public class StringUtils {
     }
 
     /**
-     * Check whether the given CharSequence contains any whitespace characters.
+     * <p>Check whether the given CharSequence contains any whitespace characters.</p>
+     * 
+     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * 
      * @param seq the CharSequence to check (may be {@code null})
      * @return {@code true} if the CharSequence is not empty and
-     * contains at least 1 whitespace character
-     * @see java.lang.Character#isWhitespace
+     * contains at least 1 (breaking) whitespace character
      * @since 3.0
      */
     // From org.springframework.util.StringUtils, under Apache License 2.0
@@ -7073,6 +7085,8 @@ public class StringUtils {
 
     /**
      * <p>Checks if the CharSequence contains only whitespace.</p>
+     * 
+     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code true}.</p>
@@ -7220,6 +7234,8 @@ public class StringUtils {
     /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * whitespace, empty ("") or {@code null}, the value of {@code defaultStr}.</p>
+     * 
+     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.defaultIfBlank(null, "NULL")  = "NULL"
