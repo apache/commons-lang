@@ -1394,10 +1394,10 @@ public class StringUtils {
      * <p>Finds the n-th index within a CharSequence, handling {@code null}.
      * This method uses {@link String#indexOf(String)} if possible.</p>
      * <p><b>Note:</b> The code starts looking for a match at the start of the target,
-     * incrementing the starting index by one after each successful match.</p>
-     * <p>The code increments the starting index by one,
-     * rather than by the length of the match string,
-     * so matches may overlap.</p>
+     * incrementing the starting index by one after each successful match
+     * (unless {@code searchStr} is an empty string in which case the position
+     * is never incremented and {@code 0} is returned immediately).
+     * This means that matches may overlap.</p>
      * <p>A {@code null} CharSequence will return {@code -1}.</p>
      *
      * <pre>
