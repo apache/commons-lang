@@ -118,6 +118,7 @@ import org.apache.commons.lang3.StringUtils;
  * names, but it has to be enabled explicitly by setting the
  * {@link #setEnableSubstitutionInVariables(boolean) enableSubstitutionInVariables}
  * property to <b>true</b>.
+ * <p>This class is <b>not</b> thread safe.</p>
  *
  * @since 2.2
  */
