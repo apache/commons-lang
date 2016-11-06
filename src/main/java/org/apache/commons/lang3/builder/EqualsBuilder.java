@@ -229,19 +229,10 @@ public class EqualsBuilder implements Builder<Boolean> {
     //-------------------------------------------------------------------------
 
     /**
-     * Whether calls of {@link #reflectionAppend(Object, Object)}
-     * will test transient fields, too.
-     * @return boolean
-     */
-    public boolean isTestTransients() {
-        return testTransients;
-    }
-
-    /**
-     * Set testing transients behavior for calls 
-     * of {@link #reflectionAppend(Object, Object)}.
+     * Set whether to include transient fields when reflectively comparing objects.
      * @param testTransients whether to test transient fields
      * @return EqualsBuilder - used to chain calls.
+     * @since 3.6
      */
     public EqualsBuilder setTestTransients(boolean testTransients) {
         this.testTransients = testTransients;
@@ -249,21 +240,10 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Whether calls of {@link #append(Object, Object)}
-     * will recursively test non primitive fields by
-     * using this <code>EqualsBuilder</code> or b<
-     * using <code>equals()</code>.
-     * @return boolean
-     */
-    public boolean isTestRecursive() {
-        return testRecursive;
-    }
-
-    /**
-     * Set recursive test behavior 
-     * of {@link #reflectionAppend(Object, Object)}.
+     * Set whether to include transient fields when reflectively comparing objects.
      * @param testRecursive  whether to do a recursive test
      * @return EqualsBuilder - used to chain calls.
+     * @since 3.6
      */
     public EqualsBuilder setTestRecursive(boolean testRecursive) {
         this.testRecursive = testRecursive;
@@ -271,19 +251,10 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * The superclass to reflect up to (maybe <code>null</code>)
-     * at reflective tests.
-     * @return Class  <code>null</code> is same as 
-     *  <code>java.lang.Object</code>
-     */
-    public Class<?> getReflectUpToClass() {
-        return reflectUpToClass;
-    }
-
-    /**
-     * Set the superclass to reflect up to
-     * at reflective tests.
+     * Set the superclass to reflect up to at reflective tests.
+     * @param reflectUpToClass the super class to reflect up to
      * @return EqualsBuilder - used to chain calls.
+     * @since 3.6
      */
     public EqualsBuilder setReflectUpToClass(Class<?> reflectUpToClass) {
         this.reflectUpToClass = reflectUpToClass;
@@ -291,18 +262,10 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Fields names which will be ignored in any class
-     * by reflection tests.
-     * @return String[]  maybe null.
-     */
-    public String[] getExcludeFields() {
-        return excludeFields;
-    }
-
-    /**
      * Set field names to be excluded by reflection tests.
-     * @param excludeFields
+     * @param excludeFields the fields to exclude
      * @return EqualsBuilder - used to chain calls.
+     * @since 3.6
      */
     public EqualsBuilder setExcludeFields(String... excludeFields) {
         this.excludeFields = excludeFields;
@@ -430,7 +393,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly. Non-primitive fields are compared using 
+     * not as efficient as testing explicitly. Non-primitive fields are compared using
      * <code>equals()</code>.</p>
      *
      * <p>If the testTransients parameter is set to <code>true</code>, transient
@@ -457,6 +420,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return <code>true</code> if the two Objects have tested equals.
      * 
      * @see EqualsExclude
+     * @since 3.6
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final boolean testTransients, final Class<?> reflectUpToClass,
             boolean testRecursive, final String... excludeFields) {
@@ -466,14 +430,13 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == null || rhs == null) {
             return false;
         }
-        final EqualsBuilder equalsBuilder = new EqualsBuilder();
-        equalsBuilder.setExcludeFields(excludeFields)
+        return new EqualsBuilder()
+                    .setExcludeFields(excludeFields)
                     .setReflectUpToClass(reflectUpToClass)
                     .setTestTransients(testTransients)
-                    .setTestRecursive(testRecursive);
-        
-        equalsBuilder.reflectionAppend(lhs, rhs);
-        return equalsBuilder.isEquals();
+                    .setTestRecursive(testRecursive)
+                    .reflectionAppend(lhs, rhs)
+                    .isEquals();
     }
     
     /**
@@ -500,9 +463,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder reflectionAppend(final Object lhs, final Object rhs) {
-        if(!isEquals)
+        if (!isEquals) {
             return this;
-        
+        }
         if (lhs == rhs) {
             return this;
         }
@@ -510,6 +473,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             isEquals = false;
             return this;
         }
+
         // Find the leaf class since there may be transients in the leaf
         // class or in classes between the leaf and root.
         // If we are not testing transients or a subclass has no ivars,
@@ -534,7 +498,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             isEquals = false;
             return this;
         }
-        
+
         try {
             if (testClass.isArray()) {
                 append(lhs, rhs);
@@ -643,7 +607,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         final Class<?> lhsClass = lhs.getClass();
         if (!lhsClass.isArray()) {
             // The simple case, not an array, just test the element
-            if(testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass)) {
+            if (testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass)) {
                 reflectionAppend(lhs, rhs);
             } else {
                 isEquals = lhs.equals(rhs);

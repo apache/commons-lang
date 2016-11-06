@@ -1298,5 +1298,23 @@ public class EqualsBuilderTest {
         assertTrue(EqualsBuilder.reflectionEquals(one, two));
     }
 
+    @Test
+    public void testReflectionAppend() {
+        assertTrue(EqualsBuilder.reflectionEquals(null, null));
+
+        final TestObject o1 = new TestObject(4);
+        final TestObject o2 = new TestObject(5);
+        assertTrue(new EqualsBuilder().reflectionAppend(o1, o1).build());
+        assertFalse(new EqualsBuilder().reflectionAppend(o1, o2).build());
+
+        o2.setA(4);
+        assertTrue(new EqualsBuilder().reflectionAppend(o1, o2).build());
+
+        assertFalse(new EqualsBuilder().reflectionAppend(o1, this).build());
+
+        assertFalse(new EqualsBuilder().reflectionAppend(o1, null).build());
+        assertFalse(new EqualsBuilder().reflectionAppend(null, o2).build());
+    }
+
 }
 
