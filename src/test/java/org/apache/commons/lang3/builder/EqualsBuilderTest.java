@@ -168,7 +168,6 @@ public class EqualsBuilderTest {
         public int getZ() {
             return z;
         }
-        
     }
 
     static class TestRecursiveInnerObject {
