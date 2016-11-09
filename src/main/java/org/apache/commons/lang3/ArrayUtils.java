@@ -7968,4 +7968,57 @@ public class ArrayUtils {
 
         return removeAll(array, Arrays.copyOf(indices, count));
     }
+
+    /**
+     * <p>Returns an array containing the string representation of each element in the argument array.</p>
+     *
+     * <p>This method returns {@code null} for a {@code null} input array.</p>
+     *
+     * @param array the {@code Object[]} to be processed, may be null
+     * @return {@code String[]} of the same size as the source with its element's string representation,
+     * {@code null} if null array input
+     * @throws NullPointerException if array content is {@code null}
+     * @since 3.6
+     */
+    public static String[] toStringArray(final Object[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_STRING_ARRAY;
+        }
+
+        final String[] result = new String[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].toString();
+        }
+
+        return result;
+    }
+
+    /**
+     * <p>Returns an array containing the string representation of each element in the argument
+     * array handling {@code null} elements.</p>
+     *
+     * <p>This method returns {@code null} for a {@code null} input array.</p>
+     *
+     * @param array the Object[] to be processed, may be null
+     * @param valueForNullElements the value to insert if {@code null} found
+     * @return a {@code String} array, {@code null} if null array input
+     * @since 3.6
+     */
+    public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
+        if (null == array) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_STRING_ARRAY;
+        }
+
+        final String[] result = new String[array.length];
+        for (int i = 0; i < array.length; i++) {
+            final Object o = array[i]; 
+            result[i] = (o == null ? valueForNullElements : o.toString());
+        }
+
+        return result;
+    }
 }
