@@ -97,8 +97,8 @@ You like Apache Commons Lang? Then [donate back to the ASF](https://www.apache.o
 Additional Resources
 --------------------
 
-+ [Apache Commons Homepage](https://commons.apache.org/)
-+ [Apache Bugtracker (JIRA)](https://issues.apache.org/jira/)
++ [Apache Commons Lang Homepage](https://commons.apache.org/proper/commons-lang)
++ [Apache Commons Lang Bugtracker (JIRA)](https://issues.apache.org/jira/browse/LANG)
 + [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
 + #apachecommons IRC channel on freenode.org
 
