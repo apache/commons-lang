@@ -419,9 +419,9 @@ public class FastDateParser implements DateParser, Serializable {
     public boolean parse(final String source, final ParsePosition pos, final Calendar calendar) {
         final ListIterator<StrategyAndWidth> lt = patterns.listIterator();
         while (lt.hasNext()) {
-            final StrategyAndWidth pattern = lt.next();
-            final int maxWidth = pattern.getMaxWidth(lt);
-            if (!pattern.strategy.parse(this, calendar, source, pos, maxWidth)) {
+            final StrategyAndWidth strategyAndWidth = lt.next();
+            final int maxWidth = strategyAndWidth.getMaxWidth(lt);
+            if (!strategyAndWidth.strategy.parse(this, calendar, source, pos, maxWidth)) {
                 return false;
             }
         }
