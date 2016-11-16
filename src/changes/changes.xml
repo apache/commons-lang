@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="2016-MM-DD" description="TBD">
+    <action issue="LANG-1285" type="fix" dev="pschumacher" due-to="Francesco Chicchiriccò">NullPointerException in FastDateParser$TimeZoneStrategy</action>
     <action issue="LANG-1281" type="fix" dev="pschumacher" due-to="Andreas Lundblad">Javadoc of StringUtils.ordinalIndexOf is contradictory.</action>
     <action issue="LANG-1269" type="fix" dev="pschumacher">Wrong name or result of StringUtils#getJaroWinklerDistance</action>
     <action issue="LANG-1188" type="fix" dev="pschumacher">StringUtils#join(T...): warning: [unchecked] Possible heap pollution from parameterized vararg type T</action>
