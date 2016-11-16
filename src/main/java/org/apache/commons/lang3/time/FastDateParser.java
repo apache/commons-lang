@@ -866,11 +866,13 @@ public class FastDateParser implements DateParser, Serializable {
                         tzInfo = standard;
                         break;
                     }
-                    final String key = zoneNames[i].toLowerCase(locale);
-                    // ignore the data associated with duplicates supplied in
-                    // the additional names
-                    if (sorted.add(key)) {
-                        tzNames.put(key, tzInfo);
+                    if (zoneNames[i] != null) {
+                        final String key = zoneNames[i].toLowerCase(locale);
+                        // ignore the data associated with duplicates supplied in
+                        // the additional names
+                        if (sorted.add(key)) {
+                            tzNames.put(key, tzInfo);
+                        }
                     }
                 }
             }
