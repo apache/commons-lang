@@ -774,6 +774,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          *
          * @param buf the output buffer
          * @param calendar calendar to be appended
+         * @throws IOException if an I/O error occurs
          */
         void appendTo(Appendable buf, Calendar calendar) throws IOException;
     }
@@ -787,6 +788,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          *
          * @param buffer the output buffer
          * @param value the value to be appended
+         * @throws IOException if an I/O error occurs
          */
         void appendTo(Appendable buffer, int value) throws IOException;
     }
