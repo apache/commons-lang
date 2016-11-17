@@ -147,8 +147,8 @@ public class EqualsBuilderTest {
     }
 
     static class TestRecursiveObject {
-        private TestRecursiveInnerObject a;
-        private TestRecursiveInnerObject b;
+        private final TestRecursiveInnerObject a;
+        private final TestRecursiveInnerObject b;
         private int z;
         
         public TestRecursiveObject(TestRecursiveInnerObject a, 
@@ -172,7 +172,7 @@ public class EqualsBuilderTest {
     }
 
     static class TestRecursiveInnerObject {
-        private int n;
+        private final int n;
         public TestRecursiveInnerObject(int n) {
             this.n = n;
         }
@@ -184,7 +184,7 @@ public class EqualsBuilderTest {
 
     static class TestRecursiveCycleObject {
         private TestRecursiveCycleObject cycle;
-        private int n;
+        private final int n;
         public TestRecursiveCycleObject(int n) {
             this.n = n;
             this.cycle = this;
