@@ -210,7 +210,7 @@ public class ExtendedMessageFormatTest {
     public void testBuiltInChoiceFormat() {
         final Object[] values = new Number[] {Integer.valueOf(1), Double.valueOf("2.2"), Double.valueOf("1234.5")};
         String choicePattern = null;
-        final Locale[] availableLocales = ChoiceFormat.getAvailableLocales();
+        final Locale[] availableLocales = NumberFormat.getAvailableLocales();
 
         choicePattern = "{0,choice,1#One|2#Two|3#Many {0,number}}";
         for (final Object value : values) {
