@@ -229,6 +229,7 @@ public class JsonToStringStyleTest {
     @Test
     public void testNestingPerson() {
         final Person p = new Person(){
+            @Override
             public String toString(){
                 return new ToStringBuilder(this).append("name", this.name)
                     .append("age", this.age).append("smoker", this.smoker)

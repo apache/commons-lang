@@ -49,6 +49,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isOpen() {
         return isOpen(state.get());
     }
@@ -56,6 +57,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isClosed() {
         return !isOpen();
     }
@@ -63,16 +65,19 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public abstract boolean checkState();
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public abstract boolean incrementAndCheckState(T increment);
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public void close() {
         changeState(State.CLOSED);
     }
@@ -80,6 +85,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void open() {
         changeState(State.OPEN);
     }

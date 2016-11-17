@@ -4289,6 +4289,7 @@ public class ArrayUtilsTest  {
     @Test
     public void testIsSortedComparator() {
         final Comparator<Integer> c = new Comparator<Integer>() {
+                @Override
                 public int compare(final Integer o1, final Integer o2) {
                         return o2.compareTo(o1);
                     }

@@ -379,6 +379,7 @@ public class EventCountCircuitBreakerTest {
             changedValues = new ArrayList<>();
         }
 
+        @Override
         public void propertyChange(final PropertyChangeEvent evt) {
             assertEquals("Wrong event source", expectedSource, evt.getSource());
             assertEquals("Wrong property name", "open", evt.getPropertyName());

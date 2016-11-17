@@ -104,6 +104,7 @@ public class CharSequenceUtilsTest {
             this.expected = false;
             this.throwable = throwable;
         }
+        @Override
         public String toString(){
             final StringBuilder sb = new StringBuilder();
             sb.append(source).append("[").append(toffset).append("]");
