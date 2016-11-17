@@ -34,8 +34,8 @@ public class MemoizerTest {
 
     @Test
     public void testOnlyCallComputableOnceIfDoesNotThrowException() throws Exception {
-        Integer input = 1;
-        Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
+        final Integer input = 1;
+        final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
         expect(computable.compute(input)).andReturn(input);
         replay(computable);
 
@@ -45,16 +45,16 @@ public class MemoizerTest {
 
     @Test(expected = IllegalStateException.class)
     public void testDefaultBehaviourNotToRecalculateExecutionExceptions() throws Exception {
-        Integer input = 1;
-        Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
-        InterruptedException interruptedException = new InterruptedException();
+        final Integer input = 1;
+        final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
+        final InterruptedException interruptedException = new InterruptedException();
         expect(computable.compute(input)).andThrow(interruptedException);
         replay(computable);
 
         try {
             memoizer.compute(input);
             fail("Expected Throwable to be thrown!");
-        } catch (Throwable expected) {
+        } catch (final Throwable expected) {
             // Should always be thrown the first time
         }
 
@@ -63,16 +63,16 @@ public class MemoizerTest {
 
     @Test(expected = IllegalStateException.class)
     public void testDoesNotRecalculateWhenSetToFalse() throws Exception {
-        Integer input = 1;
-        Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable, false);
-        InterruptedException interruptedException = new InterruptedException();
+        final Integer input = 1;
+        final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable, false);
+        final InterruptedException interruptedException = new InterruptedException();
         expect(computable.compute(input)).andThrow(interruptedException);
         replay(computable);
 
         try {
             memoizer.compute(input);
             fail("Expected Throwable to be thrown!");
-        } catch (Throwable expected) {
+        } catch (final Throwable expected) {
             // Should always be thrown the first time
         }
 
@@ -81,17 +81,17 @@ public class MemoizerTest {
 
     @Test
     public void testDoesRecalculateWhenSetToTrue() throws Exception {
-        Integer input = 1;
-        Integer answer = 3;
-        Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable, true);
-        InterruptedException interruptedException = new InterruptedException();
+        final Integer input = 1;
+        final Integer answer = 3;
+        final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable, true);
+        final InterruptedException interruptedException = new InterruptedException();
         expect(computable.compute(input)).andThrow(interruptedException).andReturn(answer);
         replay(computable);
 
         try {
             memoizer.compute(input);
             fail("Expected Throwable to be thrown!");
-        } catch (Throwable expected) {
+        } catch (final Throwable expected) {
             // Should always be thrown the first time
         }
 
@@ -100,9 +100,9 @@ public class MemoizerTest {
 
     @Test(expected = RuntimeException.class)
     public void testWhenComputableThrowsRuntimeException() throws Exception {
-        Integer input = 1;
-        Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
-        RuntimeException runtimeException = new RuntimeException("Some runtime exception");
+        final Integer input = 1;
+        final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
+        final RuntimeException runtimeException = new RuntimeException("Some runtime exception");
         expect(computable.compute(input)).andThrow(runtimeException);
         replay(computable);
 
@@ -111,9 +111,9 @@ public class MemoizerTest {
 
     @Test(expected = Error.class)
     public void testWhenComputableThrowsError() throws Exception {
-        Integer input = 1;
-        Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
-        Error error = new Error();
+        final Integer input = 1;
+        final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
+        final Error error = new Error();
         expect(computable.compute(input)).andThrow(error);
         replay(computable);
 

@@ -6632,7 +6632,7 @@ public class StringUtils {
             return str;
         }
 
-        int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        final int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
         newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
         for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {
@@ -6677,7 +6677,7 @@ public class StringUtils {
             return str;
         }
 
-        int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        final int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
         newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
         for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {
@@ -6721,7 +6721,7 @@ public class StringUtils {
         }
 
         final int strLen = str.length();
-        int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        final int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
         for (int i = 0; i < strLen; ) {
             final int oldCodepoint = str.codePointAt(i);
@@ -8171,13 +8171,13 @@ public class StringUtils {
             throw new IllegalArgumentException("Strings must not be null");
         }
 
-        int[] mtp = matches(first, second);
-        double m = mtp[0];
+        final int[] mtp = matches(first, second);
+        final double m = mtp[0];
         if (m == 0) {
             return 0D;
         }
-        double j = ((m / first.length() + m / second.length() + (m - mtp[1]) / m)) / 3;
-        double jw = j < 0.7D ? j : j + Math.min(DEFAULT_SCALING_FACTOR, 1D / mtp[3]) * mtp[2] * (1D - j);
+        final double j = ((m / first.length() + m / second.length() + (m - mtp[1]) / m)) / 3;
+        final double jw = j < 0.7D ? j : j + Math.min(DEFAULT_SCALING_FACTOR, 1D / mtp[3]) * mtp[2] * (1D - j);
         return Math.round(jw * 100.0D) / 100.0D;
     }
 
@@ -9033,9 +9033,9 @@ public class StringUtils {
         }
 
         if (startsWith(str, wrapToken) && endsWith(str, wrapToken)) {
-            int startIndex = str.indexOf(wrapToken);
-            int endIndex = str.lastIndexOf(wrapToken);
-            int wrapLength = wrapToken.length();
+            final int startIndex = str.indexOf(wrapToken);
+            final int endIndex = str.lastIndexOf(wrapToken);
+            final int wrapLength = wrapToken.length();
             if (startIndex != -1 && endIndex != -1) {
                 return str.substring(startIndex + wrapLength, endIndex);
             }
@@ -9074,8 +9074,8 @@ public class StringUtils {
         }
 
         if (str.charAt(0) == wrapChar && str.charAt(str.length() - 1) == wrapChar) {
-            int startIndex = 0;
-            int endIndex = str.length() - 1;
+            final int startIndex = 0;
+            final int endIndex = str.length() - 1;
             if (startIndex != -1 && endIndex != -1) {
                 return str.substring(startIndex + 1, endIndex);
             }
