@@ -7432,7 +7432,7 @@ public class StringUtils {
      * @throws IllegalArgumentException if the width is too small
      * @since 2.0
      */
-    public static String abbreviate(final String str, int offset, final int maxWidth) {
+    public static String abbreviate(final String str, final int offset, final int maxWidth) {
         final String defaultAbbrevMarker = "...";
         return abbreviate(str, defaultAbbrevMarker, offset, maxWidth);
     }

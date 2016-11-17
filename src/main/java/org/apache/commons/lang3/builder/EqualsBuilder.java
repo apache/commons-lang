@@ -234,7 +234,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      * @since 3.6
      */
-    public EqualsBuilder setTestTransients(boolean testTransients) {
+    public EqualsBuilder setTestTransients(final boolean testTransients) {
         this.testTransients = testTransients;
         return this;
     }
@@ -245,7 +245,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      * @since 3.6
      */
-    public EqualsBuilder setTestRecursive(boolean testRecursive) {
+    public EqualsBuilder setTestRecursive(final boolean testRecursive) {
         this.testRecursive = testRecursive;
         return this;
     }
@@ -256,7 +256,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      * @since 3.6
      */
-    public EqualsBuilder setReflectUpToClass(Class<?> reflectUpToClass) {
+    public EqualsBuilder setReflectUpToClass(final Class<?> reflectUpToClass) {
         this.reflectUpToClass = reflectUpToClass;
         return this;
     }
@@ -267,7 +267,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      * @since 3.6
      */
-    public EqualsBuilder setExcludeFields(String... excludeFields) {
+    public EqualsBuilder setExcludeFields(final String... excludeFields) {
         this.excludeFields = excludeFields;
         return this;
     }
@@ -423,7 +423,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @since 3.6
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final boolean testTransients, final Class<?> reflectUpToClass,
-            boolean testRecursive, final String... excludeFields) {
+            final boolean testRecursive, final String... excludeFields) {
         if (lhs == rhs) {
             return true;
         }
