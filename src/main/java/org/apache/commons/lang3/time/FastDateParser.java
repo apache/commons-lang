@@ -201,12 +201,10 @@ public class FastDateParser implements DateParser, Serializable {
      * Parse format into Strategies
      */
     private class StrategyParser {
-        final private String pattern;
         final private Calendar definingCalendar;
         private int currentIdx;
 
         StrategyParser(final String pattern, final Calendar definingCalendar) {
-            this.pattern = pattern;
             this.definingCalendar = definingCalendar;
         }
 
