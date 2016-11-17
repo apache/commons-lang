@@ -59,7 +59,7 @@ public interface DateParser {
     Date parse(String source, ParsePosition pos);
 
     /**
-     * Parse a formatted date string according to the format.  Updates the Calendar with parsed fields.
+     * Parses a formatted date string according to the format.  Updates the Calendar with parsed fields.
      * Upon success, the ParsePosition index is updated to indicate how much of the source text was consumed.
      * Not all source text needs to be consumed.  Upon parse failure, ParsePosition error index is updated to
      * the offset of the source text which does not match the supplied format.
@@ -78,7 +78,7 @@ public interface DateParser {
     // Accessors
     //-----------------------------------------------------------------------
     /**
-     * <p>Get the pattern used by this parser.</p>
+     * <p>Gets the pattern used by this parser.</p>
      * 
      * @return the pattern, {@link java.text.SimpleDateFormat} compatible
      */
@@ -86,7 +86,7 @@ public interface DateParser {
 
     /**
      * <p>
-     * Get the time zone used by this parser.
+     * Gets the time zone used by this parser.
      * </p>
      * 
      * <p>
@@ -99,7 +99,7 @@ public interface DateParser {
     TimeZone getTimeZone();
 
     /**
-     * <p>Get the locale used by this parser.</p>
+     * <p>Gets the locale used by this parser.</p>
      * 
      * @return the locale
      */
@@ -116,7 +116,7 @@ public interface DateParser {
     Object parseObject(String source) throws ParseException;
 
     /**
-     * Parse a date/time string according to the given parse position.
+     * Parses a date/time string according to the given parse position.
      * 
      * @param source A <code>String</code> whose beginning should be parsed.
      * @param pos the parse position
