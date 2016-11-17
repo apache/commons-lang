@@ -24,7 +24,9 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * Use reflection to access java 1.7 methods in Calendar.  This allows compilation with 1.6 compiler.
+ * @deprecated Now that we are on Java 7.
  */
+@Deprecated
 class CalendarReflection {
 
     private static final Method IS_WEEK_DATE_SUPPORTED = getCalendarMethod("isWeekDateSupported");

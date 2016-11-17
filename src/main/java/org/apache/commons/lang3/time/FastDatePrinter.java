@@ -1292,7 +1292,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
-            mRule.appendTo(buffer, CalendarReflection.getWeekYear(calendar));
+            mRule.appendTo(buffer, calendar.getWeekYear());
         }
 
         @Override
