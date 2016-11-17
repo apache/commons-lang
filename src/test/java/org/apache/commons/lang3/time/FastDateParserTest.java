@@ -693,7 +693,7 @@ public class FastDateParserTest {
     }
 
     @Test
-    public void testParseOffset() throws ParseException {
+    public void testParseOffset() {
         final DateParser parser = getInstance(YMD_SLASH);
         final Date date = parser.parse("Today is 2015/07/04", new ParsePosition(9));
 
