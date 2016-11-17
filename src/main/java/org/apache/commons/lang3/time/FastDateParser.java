@@ -162,7 +162,7 @@ public class FastDateParser implements DateParser, Serializable {
     private void init(final Calendar definingCalendar) {
         patterns = new ArrayList<>();
 
-        final StrategyParser fm = new StrategyParser(pattern, definingCalendar);
+        final StrategyParser fm = new StrategyParser(definingCalendar);
         for(;;) {
             final StrategyAndWidth field = fm.getNextStrategy();
             if(field==null) {
@@ -204,7 +204,7 @@ public class FastDateParser implements DateParser, Serializable {
         final private Calendar definingCalendar;
         private int currentIdx;
 
-        StrategyParser(final String pattern, final Calendar definingCalendar) {
+        StrategyParser(final Calendar definingCalendar) {
             this.definingCalendar = definingCalendar;
         }
 
