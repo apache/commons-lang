@@ -70,6 +70,7 @@ import java.util.TimeZone;
  * @since 2.0
  */
 public class FastDateFormat extends Format implements DateParser, DatePrinter {
+    
     /**
      * Required for serialization support.
      *
@@ -80,15 +81,19 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * FULL locale dependent date or time style.
      */
+    
     public static final int FULL = DateFormat.FULL;
+    
     /**
      * LONG locale dependent date or time style.
      */
     public static final int LONG = DateFormat.LONG;
+    
     /**
      * MEDIUM locale dependent date or time style.
      */
     public static final int MEDIUM = DateFormat.MEDIUM;
+    
     /**
      * SHORT locale dependent date or time style.
      */
