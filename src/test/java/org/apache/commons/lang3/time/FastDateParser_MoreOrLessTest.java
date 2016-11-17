@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.time;
 
-import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.Calendar;
 import java.util.Date;
