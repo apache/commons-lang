@@ -101,7 +101,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * So we generate a one-to-one mapping from the original object to a new object.
      *
-     * Now HashSet uses equals() to determine if two elements with the same hashcode really
+     * Now HashSet uses equals() to determine if two elements with the same hash code really
      * are equal, so we also need to ensure that the replacement objects are only equal
      * if the original objects are identical.
      *

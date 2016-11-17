@@ -35,7 +35,7 @@ final class IDKey {
          * @param _value The value
          */ 
         public IDKey(final Object _value) {
-            // This is the Object hashcode 
+            // This is the Object hash code 
             id = System.identityHashCode(_value);  
             // There have been some cases (LANG-459) that return the 
             // same identity hash code for different objects.  So 
@@ -44,7 +44,7 @@ final class IDKey {
         }
 
         /**
-         * returns hashcode - i.e. the system identity hashcode.
+         * returns hash code - i.e. the system identity hashcode.
          * @return the hashcode
          */ 
         @Override

@@ -636,9 +636,9 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     /**
-     * <p>Returns a hashcode compatible with equals.</p>
+     * <p>Returns a hash code compatible with equals.</p>
      *
-     * @return a hashcode compatible with equals
+     * @return a hash code compatible with equals
      */
     @Override
     public int hashCode() {

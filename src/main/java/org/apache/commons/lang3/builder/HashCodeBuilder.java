@@ -42,7 +42,7 @@ import org.apache.commons.lang3.Validate;
  * The following is the approach taken. When appending a data field, the current total is multiplied by the
  * multiplier then a relevant value
  * for that data type is added. For example, if the current hashCode is 17, and the multiplier is 37, then
- * appending the integer 45 will create a hashcode of 674, namely 17 * 37 + 45.
+ * appending the integer 45 will create a hash code of 674, namely 17 * 37 + 45.
  * </p>
  *
  * <p>
@@ -126,7 +126,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * So we generate a one-to-one mapping from the original object to a new object.
      *
-     * Now HashSet uses equals() to determine if two elements with the same hashcode really
+     * Now HashSet uses equals() to determine if two elements with the same hash code really
      * are equal, so we also need to ensure that the replacement objects are only equal
      * if the original objects are identical.
      *

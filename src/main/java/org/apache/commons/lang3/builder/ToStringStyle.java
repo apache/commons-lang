@@ -2314,7 +2314,7 @@ public abstract class ToStringStyle implements Serializable {
 
     /**
      * <p><code>ToStringStyle</code> that does not print out the classname
-     * and identity hashcode but prints content start and field names.</p>
+     * and identity hash code but prints content start and field names.</p>
      *
      * <p>This is an inner class rather than using
      * <code>StandardToStringStyle</code> to ensure its immutability.</p>

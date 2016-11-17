@@ -848,7 +848,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     @Override
     public int hashCode() {
         if (hashCode == 0) {
-            // hashcode update should be atomic.
+            // hash code update should be atomic.
             hashCode = 37 * (37 * 17 + getNumerator()) + getDenominator();
         }
         return hashCode;
