@@ -429,6 +429,65 @@ public class StringEscapeUtils {
       super();
     }
 
+    /**
+     * <p>Convenience wrapper for {@link java.lang.StringBuilder} providing escape methods.</p>
+     *
+     * <p>Example:</p>
+     * <pre>
+     * new Builder(ESCAPE_HTML4)
+     *      .append("&lt;p>")
+     *      .escape("This is paragraph 1 and special chars like &amp; get escaped.")
+     *      .append("&lt;/p>&lt;p>")
+     *      .escape("This is paragraph 2 &amp; more...")
+     *      .append("&lt;/p>")
+     *      .toString()
+     * </pre>
+     * 
+     * @since 3.6
+     */
+    public static class Builder {
+
+        private final StringBuilder sb;
+        private final CharSequenceTranslator translator;
+
+        public Builder(final CharSequenceTranslator translator) {
+            this.sb = new StringBuilder();
+            this.translator = translator;
+        }
+
+        /**
+         * <p>Escape {@code input} according to the given {@link CharSequenceTranslator}.</p>
+         *
+         * @param input the String to escape
+         * @return {@code this}, to enable chaining
+         */
+        public Builder escape(final String input) {
+            sb.append(translator.translate(input));
+            return this;
+        }
+
+        /**
+         * Literal append, no escaping being done.
+         * 
+         * @param input the String to append
+         * @return {@code this}, to enable chaining
+         */
+        public Builder append(final String input) {
+            sb.append(input);
+            return this;
+        }
+
+        /**
+         * <p>Return the escaped string.</p>
+         *
+         * @return the escaped string
+         */
+        @Override
+        public String toString() {
+            return sb.toString();
+        }
+    }
+
     // Java and JavaScript
     //--------------------------------------------------------------------------
     /**
