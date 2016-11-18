@@ -206,6 +206,14 @@ public class RandomStringUtilsTest {
             RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random());
             fail();
         } catch (final IllegalArgumentException ex) {}
+        try {
+            RandomStringUtils.random(8, 32, 48, false, true);
+            fail();
+        } catch (final IllegalArgumentException ex) {}
+        try {
+            RandomStringUtils.random(8, 32, 65, true, false);
+            fail();
+        } catch (final IllegalArgumentException ex) {}
     }
     
     /**
