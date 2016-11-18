@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 /**
  * <p>An enum representing all the versions of the Java specification.
  * This is intended to mirror available values from the
@@ -218,45 +220,11 @@ public enum JavaVersion {
         if (value.contains(".")) {
             final String[] toParse = value.split("\\.");
             if (toParse.length >= 2) {
-                return toFloat(toParse[0] + '.' + toParse[1], defaultReturnValue);
+                return NumberUtils.toFloat(toParse[0] + '.' + toParse[1], defaultReturnValue);
             }
         } else {
-            return toFloat(value, defaultReturnValue);
+            return NumberUtils.toFloat(value, defaultReturnValue);
         }
         return defaultReturnValue;
     }
-    
-    /**
-     * <p>Convert a <code>String</code> to a <code>float</code>, returning a
-     * default value if the conversion fails.</p>
-     *
-     * <p>If the string <code>str</code> is <code>null</code>, the default
-     * value is returned.</p>
-     *
-     * <pre>
-     *   NumberUtils.toFloat(null, 1.1f)   = 1.0f
-     *   NumberUtils.toFloat("", 1.1f)     = 1.1f
-     *   NumberUtils.toFloat("1.5", 0.0f)  = 1.5f
-     * </pre>
-     *
-     * @param str the string to convert, may be <code>null</code>
-     * @param defaultValue the default value
-     * @return the float represented by the string, or defaultValue
-     *  if conversion fails
-     *  
-     *  <p>
-     *  Copied from Apache Commons Math.
-     *  </p>
-     */
-    private static float toFloat(final String str, final float defaultValue) {
-      if (str == null) {
-          return defaultValue;
-      }     
-      try {
-          return Float.parseFloat(str);
-      } catch (final NumberFormatException nfe) {
-          return defaultValue;
-      }
-    }
-
 }
