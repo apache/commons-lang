@@ -606,7 +606,7 @@ public class NumberUtils {
             }
             if (!d.isInfinite() && !(d.doubleValue() == 0.0D && !allZeros)) {
                 final BigDecimal b = createBigDecimal(str);
-                if (b.compareTo(BigDecimal.valueOf(d)) == 0) {
+                if (b.compareTo(BigDecimal.valueOf(d.doubleValue())) == 0) {
                     return d;
                 }
                 return b;
