@@ -327,8 +327,8 @@ public class RandomStringUtils {
      * and predictably.</p>
      *
      * @param count  the length of random string to create
-     * @param start  the position in set of chars to start at
-     * @param end  the position in set of chars to end before
+     * @param start  the position in set of chars to start at (inclusive)
+     * @param end  the position in set of chars to end before (exclusive)
      * @param letters  only allow letters?
      * @param numbers  only allow numbers?
      * @param chars  the set of chars to choose randoms from, must not be empty.
@@ -365,6 +365,17 @@ public class RandomStringUtils {
         } else {
             if (end <= start) {
                 throw new IllegalArgumentException("Parameter end (" + end + ") must be greater than start (" + start + ")");
+            }
+        }
+
+        final int zero_digit_ascii = 48;
+        final int first_letter_ascii = 65;
+
+        if (chars == null) {
+            if (numbers && end <= zero_digit_ascii
+                    || letters && end <= first_letter_ascii) {
+                throw new IllegalArgumentException("Parameter end (" + end + ") must be greater then (" + zero_digit_ascii + ") for generating digits " +
+                        "or greater then (" + first_letter_ascii + ") for generating letters.");
             }
         }
 
