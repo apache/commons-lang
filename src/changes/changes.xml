@@ -57,6 +57,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1070" type="fix" dev="pschumacher" due-to="Paul Pogonyshev">ArrayUtils#add confusing example in javadoc</action>
     <action issue="LANG-1271" type="fix" dev="pschumacher" due-to="Pierre Templier">StringUtils#isAnyEmpty and #isAnyBlank should return false for an empty array</action>
     <action issue="LANG-1155" type="fix" dev="pschumacher" due-to="Saif Asif, Thiago Andrade">Add StringUtils#unwrap</action>
+    <action issue="LANG-1289" type="fix" dev="ggregory">JavaVersion class depends on Apache Commons Math class NumberUtils</action>
     <action issue="LANG-1034" type="add" dev="pschumacher" due-to="Yathos UG">Add support for recursive comparison to EqualsBuilder#reflectionEquals</action>
     <action issue="LANG-740" type="add" dev="pschumacher" due-to="James Sawle">Implementation of a Memomizer</action>
     <action issue="LANG-1258" type="add" dev="pschumacher" due-to="IG, Grzegorz Rożniecki">Add ArrayUtils#toStringArray method</action>
