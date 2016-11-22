@@ -1858,7 +1858,7 @@ public class ArrayUtilsTest  {
         assertTrue(array[0]);
         assertFalse(array[1]);
         assertFalse(array[2]);
-        // a range with a large stop idnex
+        // a range with a large stop index
         array = new boolean[] {false, false, true};
         ArrayUtils.reverse(array, -1, array.length + 1000);
         assertTrue(array[0]);
@@ -1890,7 +1890,7 @@ public class ArrayUtilsTest  {
         assertEquals(3, array[0]);
         assertEquals(2, array[1]);
         assertEquals(1, array[2]);
-        // a range with a large stop idnex
+        // a range with a large stop index
         array = new byte[] {1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
         assertEquals(3, array[0]);
@@ -1922,7 +1922,7 @@ public class ArrayUtilsTest  {
         assertEquals(3, array[0]);
         assertEquals(2, array[1]);
         assertEquals(1, array[2]);
-        // a range with a large stop idnex
+        // a range with a large stop index
         array = new char[] {1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
         assertEquals(3, array[0]);
@@ -1954,7 +1954,7 @@ public class ArrayUtilsTest  {
         assertEquals(3, array[0], 0);
         assertEquals(2, array[1], 0);
         assertEquals(1, array[2], 0);
-        // a range with a large stop idnex
+        // a range with a large stop index
         array = new double[] {1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
         assertEquals(3, array[0], 0);
@@ -1986,7 +1986,7 @@ public class ArrayUtilsTest  {
         assertEquals(3, array[0], 0);
         assertEquals(2, array[1], 0);
         assertEquals(1, array[2], 0);
-        // a range with a large stop idnex
+        // a range with a large stop index
         array = new float[] {1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
         assertEquals(3, array[0], 0);
@@ -2018,7 +2018,7 @@ public class ArrayUtilsTest  {
         assertEquals(3, array[0]);
         assertEquals(2, array[1]);
         assertEquals(1, array[2]);
-        // a range with a large stop idnex
+        // a range with a large stop index
         array = new int[] {1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
         assertEquals(3, array[0]);
@@ -2050,7 +2050,7 @@ public class ArrayUtilsTest  {
         assertEquals(3, array[0]);
         assertEquals(2, array[1]);
         assertEquals(1, array[2]);
-        // a range with a large stop idnex
+        // a range with a large stop index
         array = new long[] {1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
         assertEquals(3, array[0]);
@@ -2082,7 +2082,7 @@ public class ArrayUtilsTest  {
         assertEquals(3, array[0]);
         assertEquals(2, array[1]);
         assertEquals(1, array[2]);
-        // a range with a large stop idnex
+        // a range with a large stop index
         array = new short[] {1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
         assertEquals(3, array[0]);
@@ -2114,7 +2114,7 @@ public class ArrayUtilsTest  {
         assertEquals("3", array[0]);
         assertEquals("2", array[1]);
         assertEquals("1", array[2]);
-        // a range with a large stop idnex
+        // a range with a large stop index
         array = new String[] {"1", "2", "3"};
         ArrayUtils.reverse(array, -1, array.length + 1000);
         assertEquals("3", array[0]);

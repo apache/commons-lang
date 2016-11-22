@@ -278,7 +278,7 @@ public class BasicThreadFactoryTest {
     }
 
     /**
-     * Tests whether the original exception hander is not touched if none is
+     * Tests whether the original exception handler is not touched if none is
      * specified.
      */
     @Test
