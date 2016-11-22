@@ -3241,7 +3241,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwords looking for the object, may be {@code null}
+     * @param array  the array to travers backwards looking for the object, may be {@code null}
      * @param objectToFind  the object to find, may be {@code null}
      * @return the last index of the object within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3352,7 +3352,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwords looking for the object, may be {@code null}
+     * @param array  the array to travers backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3455,7 +3455,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwords looking for the object, may be {@code null}
+     * @param array  the array to travers backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3558,7 +3558,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwords looking for the object, may be {@code null}
+     * @param array  the array to travers backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3663,7 +3663,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwords looking for the object, may be {@code null}
+     * @param array  the array to travers backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3769,7 +3769,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwords looking for the object, may be {@code null}
+     * @param array  the array to travers backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3923,7 +3923,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwords looking for the object, may be {@code null}
+     * @param array  the array to travers backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -4096,7 +4096,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwords looking for the object, may be {@code null}
+     * @param array  the array to travers backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -4201,7 +4201,7 @@ public class ArrayUtils {
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) if
      * {@code null} array input.
      *
-     * @param array  the array to travers backwords looking for the object, may be {@code null}
+     * @param array  the array to travers backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
