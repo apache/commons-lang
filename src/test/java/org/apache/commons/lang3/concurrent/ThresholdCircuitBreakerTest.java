@@ -51,7 +51,7 @@ public class ThresholdCircuitBreakerTest {
     public void testThresholdCircuitBreakingException() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         circuit.incrementAndCheckState(9L);
-        assertTrue("The circuit was spposed to be open after increment above the threshold", circuit.incrementAndCheckState(2L));
+        assertTrue("The circuit was supposed to be open after increment above the threshold", circuit.incrementAndCheckState(2L));
     }
 
     /**

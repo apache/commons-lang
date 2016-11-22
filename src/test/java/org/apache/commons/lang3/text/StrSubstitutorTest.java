@@ -318,7 +318,7 @@ public class StrSubstitutorTest {
         assertEquals(
                 "Wrong result (3)",
                 "The fox jumps over the lazy dog.",
-                sub.replace("The ${unknown.animal.${unknown.species:-1}:-fox} jumps over the ${unknow.target:-lazy dog}."));
+                sub.replace("The ${unknown.animal.${unknown.species:-1}:-fox} jumps over the ${unknown.target:-lazy dog}."));
     }
 
     /**

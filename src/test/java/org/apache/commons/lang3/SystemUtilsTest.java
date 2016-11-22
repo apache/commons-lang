@@ -59,7 +59,7 @@ public class SystemUtilsTest {
     }
 
     /**
-     * Assums no security manager exists.
+     * Assumes no security manager exists.
      */
     @Test
     public void testGetJavaHome() {
@@ -69,7 +69,7 @@ public class SystemUtilsTest {
     }
 
     /**
-     * Assums no security manager exists.
+     * Assumes no security manager exists.
      */
     @Test
     public void testGetJavaIoTmpDir() {
@@ -79,7 +79,7 @@ public class SystemUtilsTest {
     }
 
     /**
-     * Assums no security manager exists.
+     * Assumes no security manager exists.
      */
     @Test
     public void testGetUserDir() {
@@ -89,7 +89,7 @@ public class SystemUtilsTest {
     }
 
     /**
-     * Assums no security manager exists.
+     * Assumes no security manager exists.
      */
     @Test
     public void testGetUserHome() {

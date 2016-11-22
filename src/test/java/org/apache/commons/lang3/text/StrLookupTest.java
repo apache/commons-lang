@@ -40,7 +40,7 @@ public class StrLookupTest  {
     }
 
     @Test
-    public void testSystemProperiesLookup() {
+    public void testSystemPropertiesLookup() {
         assertEquals(System.getProperty("os.name"), StrLookup.systemPropertiesLookup().lookup("os.name"));
         assertEquals(null, StrLookup.systemPropertiesLookup().lookup(""));
         assertEquals(null, StrLookup.systemPropertiesLookup().lookup("other"));

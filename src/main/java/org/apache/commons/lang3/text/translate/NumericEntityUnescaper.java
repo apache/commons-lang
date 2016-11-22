@@ -124,9 +124,9 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
             }
 
             if(entityValue > 0xFFFF) {
-                final char[] chrs = Character.toChars(entityValue);
-                out.write(chrs[0]);
-                out.write(chrs[1]);
+                final char[] chars = Character.toChars(entityValue);
+                out.write(chars[0]);
+                out.write(chars[1]);
             } else {
                 out.write(entityValue);
             }

@@ -29,7 +29,7 @@ Now: Thu Mar 18 14:29:48 PST 2004
 Sun Microsystems Inc. Java(TM) 2 Runtime Environment, Standard Edition 1.3.1_10-b03
 Sun Microsystems Inc. Java HotSpot(TM) Client VM 1.3.1_10-b03
 Windows XP 5.1 x86 pentium i486 i386
-Do nohting: 0 milliseconds.
+Do nothing: 0 milliseconds.
 run_CharUtils_isAsciiNumeric: 4,545 milliseconds.
 run_inlined_CharUtils_isAsciiNumeric: 3,417 milliseconds.
 run_inlined_CharUtils_isAsciiNumeric: 85,679 milliseconds.
@@ -39,7 +39,7 @@ Now: Thu Mar 18 14:24:51 PST 2004
 Sun Microsystems Inc. Java(TM) 2 Runtime Environment, Standard Edition 1.4.2_04-b05
 Sun Microsystems Inc. Java HotSpot(TM) Client VM 1.4.2_04-b05
 Windows XP 5.1 x86 pentium i486 i386
-Do nohting: 0 milliseconds.
+Do nothing: 0 milliseconds.
 run_CharUtils_isAsciiNumeric: 2,578 milliseconds.
 run_inlined_CharUtils_isAsciiNumeric: 2,477 milliseconds.
 run_inlined_CharUtils_isAsciiNumeric: 114,429 milliseconds.
@@ -48,7 +48,7 @@ Now: Thu Mar 18 14:27:55 PST 2004
 Sun Microsystems Inc. Java(TM) 2 Runtime Environment, Standard Edition 1.4.2_04-b05
 Sun Microsystems Inc. Java HotSpot(TM) Server VM 1.4.2_04-b05
 Windows XP 5.1 x86 pentium i486 i386
-Do nohting: 0 milliseconds.
+Do nothing: 0 milliseconds.
 run_CharUtils_isAsciiNumeric: 630 milliseconds.
 run_inlined_CharUtils_isAsciiNumeric: 709 milliseconds.
 run_inlined_CharUtils_isAsciiNumeric: 84,420 milliseconds.
@@ -100,7 +100,7 @@ public class CharUtilsPerfRun {
         this.printSysInfo();
         long start;
         start = System.currentTimeMillis();
-        this.printlnTotal("Do nohting", start);
+        this.printlnTotal("Do nothing", start);
         //System.out.println("Warming up...");
         run_CharUtils_isAsciiNumeric(WARM_UP);
         //System.out.println("Measuring...");

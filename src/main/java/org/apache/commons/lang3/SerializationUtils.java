@@ -107,7 +107,7 @@ public class SerializationUtils {
      *           the type of the object involved
      * @param msg
      *            the object to roundtrip
-     * @return the serialized and deseralized object
+     * @return the serialized and deserialized object
      * @since 3.3
      */
     @SuppressWarnings("unchecked") // OK, because we serialized a type `T`

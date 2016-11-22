@@ -131,7 +131,7 @@ public class LocaleUtilsTest  {
         assertValidToLocale("fr");
         assertValidToLocale("de");
         assertValidToLocale("zh");
-        // Valid format but lang doesnt exist, should make instance anyway
+        // Valid format but lang doesn't exist, should make instance anyway
         assertValidToLocale("qq");
         // LANG-941: JDK 8 introduced the empty locale as one of the default locales
         assertValidToLocale("");
@@ -170,7 +170,7 @@ public class LocaleUtilsTest  {
     @Test
     public void testToLocale_2Part() {
         assertValidToLocale("us_EN", "us", "EN");
-        //valid though doesnt exist
+        //valid though doesn't exist
         assertValidToLocale("us_ZH", "us", "ZH");
         
         try {
@@ -400,7 +400,7 @@ public class LocaleUtilsTest  {
         final List<Locale> list2 = LocaleUtils.languagesByCountry(country);
         assertNotNull(list);
         assertSame(list, list2);
-        //search through langauges
+        //search through languages
         for (final String language : languages) {
             final Iterator<Locale> iterator = list.iterator();
             boolean found = false;
@@ -417,7 +417,7 @@ public class LocaleUtilsTest  {
                 }
             }
             if (!found) {
-                fail("Cound not find language: " + language
+                fail("Could not find language: " + language
                         + " for country: " + country);
             }
         }
@@ -451,8 +451,8 @@ public class LocaleUtilsTest  {
         final List<Locale> list2 = LocaleUtils.countriesByLanguage(language);
         assertNotNull(list);
         assertSame(list, list2);
-        //search through langauges
-        for (final String countrie : countries) {
+        //search through languages
+        for (final String country : countries) {
             final Iterator<Locale> iterator = list.iterator();
             boolean found = false;
             // see if it was returned by the set
@@ -462,13 +462,13 @@ public class LocaleUtilsTest  {
                 assertTrue(locale.getVariant() == null
                         || locale.getVariant().isEmpty());
                 assertEquals(language, locale.getLanguage());
-                if (countrie.equals(locale.getCountry())) {
+                if (country.equals(locale.getCountry())) {
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                fail("Cound not find language: " + countrie
+                fail("Could not find language: " + country
                         + " for country: " + language);
             }
         }
@@ -566,7 +566,7 @@ public class LocaleUtilsTest  {
                 }
                 if (suff >= 0) { // we have a suffix
                     try {
-                        LocaleUtils.toLocale(str); // shouuld cause IAE
+                        LocaleUtils.toLocale(str); // should cause IAE
                         System.out.println("Should not have parsed: " + str);
                         failures++;
                         continue; // try next Locale

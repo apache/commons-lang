@@ -339,7 +339,7 @@ public class ObjectUtilsTest {
         final Calendar calendar = Calendar.getInstance();
         final Date nonNullComparable1 = calendar.getTime();
         final Date nonNullComparable2 = calendar.getTime();
-        final String[] nullAray = null;
+        final String[] nullArray = null;
         
         calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
         final Date minComparable = calendar.getTime();
@@ -347,7 +347,7 @@ public class ObjectUtilsTest {
         assertNotSame( nonNullComparable1, nonNullComparable2 );
         
         assertNull(ObjectUtils.max( (String) null ) );
-        assertNull(ObjectUtils.max( nullAray ) );
+        assertNull(ObjectUtils.max( nullArray ) );
         assertSame( nonNullComparable1, ObjectUtils.max( null, nonNullComparable1 ) );
         assertSame( nonNullComparable1, ObjectUtils.max( nonNullComparable1, null ) );
         assertSame( nonNullComparable1, ObjectUtils.max( null, nonNullComparable1, null ) );
@@ -365,7 +365,7 @@ public class ObjectUtilsTest {
         final Calendar calendar = Calendar.getInstance();
         final Date nonNullComparable1 = calendar.getTime();
         final Date nonNullComparable2 = calendar.getTime();
-        final String[] nullAray = null;
+        final String[] nullArray = null;
         
         calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
         final Date minComparable = calendar.getTime();
@@ -373,7 +373,7 @@ public class ObjectUtilsTest {
         assertNotSame( nonNullComparable1, nonNullComparable2 );
         
         assertNull(ObjectUtils.min( (String) null ) );
-        assertNull(ObjectUtils.min( nullAray ) );
+        assertNull(ObjectUtils.min( nullArray ) );
         assertSame( nonNullComparable1, ObjectUtils.min( null, nonNullComparable1 ) );
         assertSame( nonNullComparable1, ObjectUtils.min( nonNullComparable1, null ) );
         assertSame( nonNullComparable1, ObjectUtils.min( null, nonNullComparable1, null ) );
