@@ -735,7 +735,7 @@ public class ExceptionUtils {
      * code through a method re-declaring the desired checked exception, or
      * catch Exception and use the instanceof operator. Either of these
      * techniques are required when interacting with non-java jvm code such as
-     * Jyton, Scala, or Groovy, since these languages do not consider any
+     * Jython, Scala, or Groovy, since these languages do not consider any
      * exceptions as checked.
      *
      * @param throwable

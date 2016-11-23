@@ -187,7 +187,7 @@ public class StrSubstitutor {
 
     /**
      * Replaces all the occurrences of variables in the given source object with
-     * their matching values from the map. This method allows to specifiy a
+     * their matching values from the map. This method allows to specify a
      * custom variable prefix and suffix
      *
      * @param <V> the type of the values in the map

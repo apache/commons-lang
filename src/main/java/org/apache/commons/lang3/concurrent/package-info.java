@@ -191,7 +191,7 @@
  * </pre>
  *
  * <p> Related to <code>BackgroundInitializer</code> is the {@link org.apache.commons.lang3.concurrent.MultiBackgroundInitializer} class.
- * As the name implies, this class can handle multiplie initializations in parallel.
+ * As the name implies, this class can handle multiple initializations in parallel.
  * The basic usage scenario is that a <code>MultiBackgroundInitializer</code> instance is created.
  * Then an arbitrary number of <code>BackgroundInitializer</code> objects is added using the {@link org.apache.commons.lang3.concurrent.MultiBackgroundInitializer#addInitializer(String, BackgroundInitializer)} method.
  * When adding an initializer a string has to be provided which is later used to obtain the result for this initializer.

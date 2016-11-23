@@ -578,7 +578,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nInts - 1) * 32 + dstPos >= 64) {
-            throw new IllegalArgumentException("(nInts-1)*32+dstPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nInts-1)*32+dstPos is greater or equal to than 64");
         }
         long out = dstInit;
         for (int i = 0; i < nInts; i++) {
@@ -613,7 +613,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nShorts - 1) * 16 + dstPos >= 64) {
-            throw new IllegalArgumentException("(nShorts-1)*16+dstPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nShorts-1)*16+dstPos is greater or equal to than 64");
         }
         long out = dstInit;
         for (int i = 0; i < nShorts; i++) {
@@ -648,7 +648,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nShorts - 1) * 16 + dstPos >= 32) {
-            throw new IllegalArgumentException("(nShorts-1)*16+dstPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nShorts-1)*16+dstPos is greater or equal to than 32");
         }
         int out = dstInit;
         for (int i = 0; i < nShorts; i++) {
@@ -683,7 +683,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 64) {
-            throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greater or equal to than 64");
         }
         long out = dstInit;
         for (int i = 0; i < nBytes; i++) {
@@ -718,7 +718,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 32) {
-            throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greater or equal to than 32");
         }
         int out = dstInit;
         for (int i = 0; i < nBytes; i++) {
@@ -753,7 +753,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nBytes - 1) * 8 + dstPos >= 16) {
-            throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greather or equal to than 16");
+            throw new IllegalArgumentException("(nBytes-1)*8+dstPos is greater or equal to than 16");
         }
         short out = dstInit;
         for (int i = 0; i < nBytes; i++) {
@@ -786,7 +786,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 64) {
-            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greater or equal to than 64");
         }
         long out = dstInit;
         for (int i = 0; i < nHex; i++) {
@@ -818,7 +818,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 32) {
-            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greater or equal to than 32");
         }
         int out = dstInit;
         for (int i = 0; i < nHex; i++) {
@@ -851,7 +851,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 16) {
-            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 16");
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greater or equal to than 16");
         }
         short out = dstInit;
         for (int i = 0; i < nHex; i++) {
@@ -884,7 +884,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 8) {
-            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greather or equal to than 8");
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greater or equal to than 8");
         }
         byte out = dstInit;
         for (int i = 0; i < nHex; i++) {
@@ -919,7 +919,7 @@ public class Conversion {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 64) {
-            throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 64");
+            throw new IllegalArgumentException("nBools-1+dstPos is greater or equal to than 64");
         }
         long out = dstInit;
         for (int i = 0; i < nBools; i++) {
@@ -954,7 +954,7 @@ public class Conversion {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 32) {
-            throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 32");
+            throw new IllegalArgumentException("nBools-1+dstPos is greater or equal to than 32");
         }
         int out = dstInit;
         for (int i = 0; i < nBools; i++) {
@@ -989,7 +989,7 @@ public class Conversion {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 16) {
-            throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 16");
+            throw new IllegalArgumentException("nBools-1+dstPos is greater or equal to than 16");
         }
         short out = dstInit;
         for (int i = 0; i < nBools; i++) {
@@ -1024,7 +1024,7 @@ public class Conversion {
             return dstInit;
         }
         if (nBools - 1 + dstPos >= 8) {
-            throw new IllegalArgumentException("nBools-1+dstPos is greather or equal to than 8");
+            throw new IllegalArgumentException("nBools-1+dstPos is greater or equal to than 8");
         }
         byte out = dstInit;
         for (int i = 0; i < nBools; i++) {
@@ -1059,7 +1059,7 @@ public class Conversion {
             return dst;
         }
         if ((nInts - 1) * 32 + srcPos >= 64) {
-            throw new IllegalArgumentException("(nInts-1)*32+srcPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nInts-1)*32+srcPos is greater or equal to than 64");
         }
         for (int i = 0; i < nInts; i++) {
             final int shift = i * 32 + srcPos;
@@ -1091,7 +1091,7 @@ public class Conversion {
             return dst;
         }
         if ((nShorts - 1) * 16 + srcPos >= 64) {
-            throw new IllegalArgumentException("(nShorts-1)*16+srcPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nShorts-1)*16+srcPos is greater or equal to than 64");
         }
         for (int i = 0; i < nShorts; i++) {
             final int shift = i * 16 + srcPos;
@@ -1123,7 +1123,7 @@ public class Conversion {
             return dst;
         }
         if ((nShorts - 1) * 16 + srcPos >= 32) {
-            throw new IllegalArgumentException("(nShorts-1)*16+srcPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nShorts-1)*16+srcPos is greater or equal to than 32");
         }
         for (int i = 0; i < nShorts; i++) {
             final int shift = i * 16 + srcPos;
@@ -1155,7 +1155,7 @@ public class Conversion {
             return dst;
         }
         if ((nBytes - 1) * 8 + srcPos >= 64) {
-            throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greater or equal to than 64");
         }
         for (int i = 0; i < nBytes; i++) {
             final int shift = i * 8 + srcPos;
@@ -1187,7 +1187,7 @@ public class Conversion {
             return dst;
         }
         if ((nBytes - 1) * 8 + srcPos >= 32) {
-            throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greater or equal to than 32");
         }
         for (int i = 0; i < nBytes; i++) {
             final int shift = i * 8 + srcPos;
@@ -1219,7 +1219,7 @@ public class Conversion {
             return dst;
         }
         if ((nBytes - 1) * 8 + srcPos >= 16) {
-            throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greather or equal to than 16");
+            throw new IllegalArgumentException("(nBytes-1)*8+srcPos is greater or equal to than 16");
         }
         for (int i = 0; i < nBytes; i++) {
             final int shift = i * 8 + srcPos;
@@ -1250,7 +1250,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nHexs - 1) * 4 + srcPos >= 64) {
-            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 64");
+            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greater or equal to than 64");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
         int append = sb.length();
@@ -1289,7 +1289,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nHexs - 1) * 4 + srcPos >= 32) {
-            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 32");
+            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greater or equal to than 32");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
         int append = sb.length();
@@ -1328,7 +1328,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nHexs - 1) * 4 + srcPos >= 16) {
-            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 16");
+            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greater or equal to than 16");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
         int append = sb.length();
@@ -1367,7 +1367,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nHexs - 1) * 4 + srcPos >= 8) {
-            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greather or equal to than 8");
+            throw new IllegalArgumentException("(nHexs-1)*4+srcPos is greater or equal to than 8");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
         int append = sb.length();
@@ -1407,7 +1407,7 @@ public class Conversion {
             return dst;
         }
         if (nBools - 1 + srcPos >= 64) {
-            throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 64");
+            throw new IllegalArgumentException("nBools-1+srcPos is greater or equal to than 64");
         }
         for (int i = 0; i < nBools; i++) {
             final int shift = i + srcPos;
@@ -1439,7 +1439,7 @@ public class Conversion {
             return dst;
         }
         if (nBools - 1 + srcPos >= 32) {
-            throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 32");
+            throw new IllegalArgumentException("nBools-1+srcPos is greater or equal to than 32");
         }
         for (int i = 0; i < nBools; i++) {
             final int shift = i + srcPos;
@@ -1471,7 +1471,7 @@ public class Conversion {
             return dst;
         }
         if (nBools - 1 + srcPos >= 16) {
-            throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 16");
+            throw new IllegalArgumentException("nBools-1+srcPos is greater or equal to than 16");
         }
         assert (nBools - 1) < 16 - srcPos;
         for (int i = 0; i < nBools; i++) {
@@ -1504,7 +1504,7 @@ public class Conversion {
             return dst;
         }
         if (nBools - 1 + srcPos >= 8) {
-            throw new IllegalArgumentException("nBools-1+srcPos is greather or equal to than 8");
+            throw new IllegalArgumentException("nBools-1+srcPos is greater or equal to than 8");
         }
         for (int i = 0; i < nBools; i++) {
             final int shift = i + srcPos;
@@ -1534,7 +1534,7 @@ public class Conversion {
             return dst;
         }
         if (nBytes > 16) {
-            throw new IllegalArgumentException("nBytes is greather than 16");
+            throw new IllegalArgumentException("nBytes is greater than 16");
         }
         longToByteArray(src.getMostSignificantBits(), 0, dst, dstPos, nBytes > 8 ? 8 : nBytes);
         if (nBytes >= 8) {

@@ -203,7 +203,7 @@ public class DateFormatUtilsTest {
         // test JDK
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern, locale);
         sdf.setTimeZone(timeZone);
-// There's nothing we can do if the JDK fails, so just going to pring a warning in this case
+// There's nothing we can do if the JDK fails, so just going to print a warning in this case
 //        assertEquals(expected, sdf.format( date ) );
         if( ! expected.equals( sdf.format( date ) ) ) {
             System.out.println("WARNING: JDK test failed - testLang312()");
