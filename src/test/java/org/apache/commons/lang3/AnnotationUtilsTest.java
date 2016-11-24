@@ -350,7 +350,8 @@ public class AnnotationUtilsTest {
         NestAnnotation nest();
         NestAnnotation[] nests();
     }
-
+    
+    @Retention(RUNTIME)
     public @interface NestAnnotation {
         String string();
         String[] strings();
