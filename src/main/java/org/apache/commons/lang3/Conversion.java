@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.commons.lang3;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -39,12 +41,17 @@ import java.util.UUID;
  * <li>long or longArray</li>
  * <li>hex: a String containing hexadecimal digits (lowercase in destination)</li>
  * <li>hexDigit: a Char containing a hexadecimal digit (lowercase in destination)</li>
+ * <li>bitString: a String containing one's and zero's representing bits (Ex: "10100110")</li>
  * <li>uuid</li>
  * </ul>
  * <p>
  * Endianness field: little endian is the default, in this case the field is absent. In case of
- * big endian, the field is "Be".<br> Bit ordering: Lsb0 is the default, in this case the field
- * is absent. In case of Msb0, the field is "Msb0".
+ * big endian, the field is "Be".<br>
+ * Bit ordering: Lsb0 is the default, in this case the field is absent. In case of Msb0, the
+ * field is "Msb0". The field "Raw" indicates that bits are copied "as-is" from the source object,
+ * to the destination object. Bit order is maintained when read from left to right. In many cases,
+ * this is equivalent to BeMsb0.<br>
+ * Ex: a bitString indexed as "01234567" converts 'Raw' to a byte indexed as (01234567)
  * </p>
  * <p>
  * Example: intBeMsb0ToHex convert an int with big endian byte order and Msb0 bit order into its
@@ -59,12 +66,12 @@ import java.util.UUID;
  * Development status: work on going, only a part of the little endian, Lsb0 methods implemented
  * so far.
  * </p>
- * 
+ *
  * @since Lang 3.2
  */
 
 public class Conversion {
-    
+
     private static final boolean[] TTTT = new boolean[] { true, true, true, true };
     private static final boolean[] FTTT = new boolean[] { false, true, true, true };
     private static final boolean[] TFTT = new boolean[] { true, false, true, true };
@@ -82,6 +89,12 @@ public class Conversion {
     private static final boolean[] TFFF = new boolean[] { true, false, false, false };
     private static final boolean[] FFFF = new boolean[] { false, false, false, false };
 
+    private static final int SHORT_BYTES  = 2;
+    private static final int INT_BYTES    = 4;
+    private static final int LONG_BYTES   = 8;
+    private static final int FLOAT_BYTES  = 4;
+    private static final int DOUBLE_BYTES = 8;
+
     /**
      * <p>
      * Converts a hexadecimal digit into an int using the default (Lsb0) bit ordering.
@@ -89,7 +102,7 @@ public class Conversion {
      * <p>
      * '1' is converted to 1
      * </p>
-     * 
+     *
      * @param hexDigit the hexadecimal digit to convert
      * @return an int equals to {@code hexDigit}
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit
@@ -109,7 +122,7 @@ public class Conversion {
      * <p>
      * '1' is converted to 8
      * </p>
-     * 
+     *
      * @param hexDigit the hexadecimal digit to convert
      * @return an int equals to {@code hexDigit}
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit
@@ -167,7 +180,7 @@ public class Conversion {
      * <p>
      * '1' is converted as follow: (1, 0, 0, 0)
      * </p>
-     * 
+     *
      * @param hexDigit the hexadecimal digit to convert
      * @return a boolean array with the binary representation of {@code hexDigit}
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit
@@ -225,7 +238,7 @@ public class Conversion {
      * <p>
      * '1' is converted as follow: (0, 0, 0, 1)
      * </p>
-     * 
+     *
      * @param hexDigit the hexadecimal digit to convert
      * @return a boolean array with the binary representation of {@code hexDigit}
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit
@@ -283,7 +296,7 @@ public class Conversion {
      * <p>
      * (1, 0, 0, 0) is converted as follow: '1'
      * </p>
-     * 
+     *
      * @param src the binary to convert
      * @return a hexadecimal digit representing the selected bits
      * @throws IllegalArgumentException if {@code src} is empty
@@ -301,7 +314,7 @@ public class Conversion {
      * <p>
      * (1, 0, 0, 0) is converted as follow: '1'
      * </p>
-     * 
+     *
      * @param src the binary to convert
      * @param srcPos the position of the lsb to start the conversion
      * @return a hexadecimal digit representing the selected bits
@@ -344,7 +357,7 @@ public class Conversion {
      * <p>
      * (1, 0, 0, 0) is converted as follow: '8'
      * </p>
-     * 
+     *
      * @param src the binary to convert
      * @return a hexadecimal digit representing the selected bits
      * @throws IllegalArgumentException if {@code src} is empty, {@code src.length < 4} or
@@ -364,7 +377,7 @@ public class Conversion {
      * (1, 0, 0, 0) is converted as follow: '8' (1,0,0,1,1,0,1,0) with srcPos = 3 is converted
      * to 'D'
      * </p>
-     * 
+     *
      * @param src the binary to convert
      * @param srcPos the position of the lsb to start the conversion
      * @return a hexadecimal digit representing the selected bits
@@ -412,7 +425,7 @@ public class Conversion {
      * (1, 0, 0, 0) is converted as follow: '8' (1,0,0,0,0,0,0,0, 0,0,0,0,0,1,0,0) is converted
      * to '4'
      * </p>
-     * 
+     *
      * @param src the binary to convert
      * @return a hexadecimal digit representing the selected bits
      * @throws IllegalArgumentException if {@code src} is empty
@@ -431,7 +444,7 @@ public class Conversion {
      * (1, 0, 0, 0) with srcPos = 0 is converted as follow: '8' (1,0,0,0,0,0,0,0,
      * 0,0,0,1,0,1,0,0) with srcPos = 2 is converted to '5'
      * </p>
-     * 
+     *
      * @param src the binary to convert
      * @param srcPos the position of the lsb to start the conversion
      * @return a hexadecimal digit representing the selected bits
@@ -485,7 +498,7 @@ public class Conversion {
      * <p>
      * 10 returns 'A' and so on...
      * </p>
-     * 
+     *
      * @param nibble the 4 bits to convert
      * @return a hexadecimal digit representing the 4 lsb of {@code nibble}
      * @throws IllegalArgumentException if {@code nibble < 0} or {@code nibble > 15}
@@ -511,7 +524,7 @@ public class Conversion {
      * <p>
      * 10 returns '5' and so on...
      * </p>
-     * 
+     *
      * @param nibble the 4 bits to convert
      * @return a hexadecimal digit representing the 4 lsb of {@code nibble}
      * @throws IllegalArgumentException if {@code nibble < 0} or {@code nibble > 15}
@@ -560,7 +573,7 @@ public class Conversion {
      * Converts an array of int into a long using the default (little endian, Lsb0) byte and bit
      * ordering.
      * </p>
-     * 
+     *
      * @param src the int array to convert
      * @param srcPos the position in {@code src}, in int unit, from where to start the
      *            conversion
@@ -595,7 +608,7 @@ public class Conversion {
      * Converts an array of short into a long using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the short array to convert
      * @param srcPos the position in {@code src}, in short unit, from where to start the
      *            conversion
@@ -630,7 +643,7 @@ public class Conversion {
      * Converts an array of short into an int using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the short array to convert
      * @param srcPos the position in {@code src}, in short unit, from where to start the
      *            conversion
@@ -665,7 +678,7 @@ public class Conversion {
      * Converts an array of byte into a long using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the byte array to convert
      * @param srcPos the position in {@code src}, in byte unit, from where to start the
      *            conversion
@@ -700,7 +713,7 @@ public class Conversion {
      * Converts an array of byte into an int using the default (little endian, Lsb0) byte and bit
      * ordering.
      * </p>
-     * 
+     *
      * @param src the byte array to convert
      * @param srcPos the position in {@code src}, in byte unit, from where to start the
      *            conversion
@@ -735,7 +748,7 @@ public class Conversion {
      * Converts an array of byte into a short using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the byte array to convert
      * @param srcPos the position in {@code src}, in byte unit, from where to start the
      *            conversion
@@ -770,7 +783,7 @@ public class Conversion {
      * Converts an array of Char into a long using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the hex string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
@@ -803,7 +816,7 @@ public class Conversion {
      * Converts an array of Char into an int using the default (little endian, Lsb0) byte and bit
      * ordering.
      * </p>
-     * 
+     *
      * @param src the hex string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
@@ -835,7 +848,7 @@ public class Conversion {
      * Converts an array of Char into a short using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the hex string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
@@ -868,7 +881,7 @@ public class Conversion {
      * Converts an array of Char into a byte using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the hex string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
@@ -901,7 +914,7 @@ public class Conversion {
      * Converts binary (represented as boolean array) into a long using the default (little
      * endian, Lsb0) byte and bit ordering.
      * </p>
-     * 
+     *
      * @param src the binary to convert
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
      *            conversion
@@ -936,7 +949,7 @@ public class Conversion {
      * Converts binary (represented as boolean array) into an int using the default (little
      * endian, Lsb0) byte and bit ordering.
      * </p>
-     * 
+     *
      * @param src the binary to convert
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
      *            conversion
@@ -971,7 +984,7 @@ public class Conversion {
      * Converts binary (represented as boolean array) into a short using the default (little
      * endian, Lsb0) byte and bit ordering.
      * </p>
-     * 
+     *
      * @param src the binary to convert
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
      *            conversion
@@ -1006,7 +1019,7 @@ public class Conversion {
      * Converts binary (represented as boolean array) into a byte using the default (little
      * endian, Lsb0) byte and bit ordering.
      * </p>
-     * 
+     *
      * @param src the binary to convert
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
      *            conversion
@@ -1041,7 +1054,7 @@ public class Conversion {
      * Converts a long into an array of int using the default (little endian, Lsb0) byte and bit
      * ordering.
      * </p>
-     * 
+     *
      * @param src the long to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
@@ -1073,7 +1086,7 @@ public class Conversion {
      * Converts a long into an array of short using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the long to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
@@ -1105,7 +1118,7 @@ public class Conversion {
      * Converts an int into an array of short using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the int to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
@@ -1137,7 +1150,7 @@ public class Conversion {
      * Converts a long into an array of byte using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the long to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
@@ -1169,7 +1182,7 @@ public class Conversion {
      * Converts an int into an array of byte using the default (little endian, Lsb0) byte and bit
      * ordering.
      * </p>
-     * 
+     *
      * @param src the int to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
@@ -1201,7 +1214,7 @@ public class Conversion {
      * Converts a short into an array of byte using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the short to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
@@ -1233,7 +1246,7 @@ public class Conversion {
      * Converts a long into an array of Char using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the long to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dstInit the initial value for the result String
@@ -1272,7 +1285,7 @@ public class Conversion {
      * Converts an int into an array of Char using the default (little endian, Lsb0) byte and bit
      * ordering.
      * </p>
-     * 
+     *
      * @param src the int to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dstInit the initial value for the result String
@@ -1311,7 +1324,7 @@ public class Conversion {
      * Converts a short into an array of Char using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the short to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dstInit the initial value for the result String
@@ -1350,7 +1363,7 @@ public class Conversion {
      * Converts a byte into an array of Char using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the byte to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dstInit the initial value for the result String
@@ -1389,7 +1402,7 @@ public class Conversion {
      * Converts a long into an array of boolean using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the long to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
@@ -1421,7 +1434,7 @@ public class Conversion {
      * Converts an int into an array of boolean using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the int to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
@@ -1453,7 +1466,7 @@ public class Conversion {
      * Converts a short into an array of boolean using the default (little endian, Lsb0) byte
      * and bit ordering.
      * </p>
-     * 
+     *
      * @param src the short to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
@@ -1486,7 +1499,7 @@ public class Conversion {
      * Converts a byte into an array of boolean using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the byte to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
      * @param dst the destination array
@@ -1518,7 +1531,7 @@ public class Conversion {
      * Converts UUID into an array of byte using the default (little endian, Lsb0) byte and bit
      * ordering.
      * </p>
-     * 
+     *
      * @param src the UUID to convert
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
@@ -1548,7 +1561,7 @@ public class Conversion {
      * Converts bytes from an array into a UUID using the default (little endian, Lsb0) byte and
      * bit ordering.
      * </p>
-     * 
+     *
      * @param src the byte array to convert
      * @param srcPos the position in {@code src} where to copy the result from
      * @return a UUID
@@ -1561,5 +1574,1493 @@ public class Conversion {
             throw new IllegalArgumentException("Need at least 16 bytes for UUID");
         }
         return new UUID(byteArrayToLong(src, srcPos, 0, 0, 8), byteArrayToLong(src, srcPos + 8, 0, 0, 8));
+    }
+
+    /**
+     * <p>
+     * Inverts the order of the bits. Ex: A byte indexed as (0,1,2,3,4,5,6,7),
+     * is returned as (7,6,5,4,3,2,1,0)
+     * </p>
+     *
+     * @param b The byte to invert
+     * @return
+     */
+    public static byte invertBitOrder(final byte b) {
+        return (byte) (
+            ((b >> 7) & 1) |
+            ((b >> 5) & 2) |
+            ((b >> 3) & 4) |
+            ((b >> 1) & 8) |
+            ((b << 1) & 16) |
+            ((b << 3) & 32) |
+            ((b << 5) & 64) |
+            ((b << 7) & 128)
+        );
+    }
+
+    /**
+     * <p>
+     * Inverts the order of the bits. Ex: A binary array indexed as [0,1,2,3,4,5,6,7],
+     * is returned as [7,6,5,4,3,2,1,0]
+     * </p>
+     *
+     * <p>
+     * Note: There is no limit on input length.
+     * </p>
+     *
+     * @param bits The binary array to invert.
+     * @return
+     */
+    public static boolean[] invertBitOrder(final boolean[] bits) {
+        if (bits == null || bits.length == 0) {
+            return new boolean[0];
+        }
+        boolean[] out = bits.clone();
+        ArrayUtils.reverse(out);
+        return out;
+    }
+
+    /**
+     * <p>
+     * Inverts the order of the bits. Ex: A bitString indexed as "01234567"
+     * is returned as "76543210"
+     * </p>
+     *
+     * <p>
+     * Note: There is no limit on input length.
+     * </p>
+     *
+     * @param bitString
+     * @return
+     */
+    public static String invertBitOrder(final String bitString) {
+        if (bitString == null || bitString.length() == 0) {
+            return "";
+        }
+        char[] out = bitString.toCharArray();
+        ArrayUtils.reverse(out);
+        return new String(out);
+    }
+
+    /**
+     * <p>
+     * Converts a byte into an array of booleans using the default Lsb0 bit ordering.
+     * Ex: a byte indexed as (01234567) is returned as [7,6,5,4,3,2,1,0]
+     * </p>
+     *
+     * @param b the byte to convert.
+     * @return
+     */
+    public static boolean[] byteToBinary(final byte b) {
+        boolean[] bits = new boolean[8];
+        for (int x=0; x<8; x++) {
+            bits[x] = ((b >> x) & 1) == 1;
+        }
+        return bits;
+    }
+
+    /**
+     * <p>
+     * Converts a byte into an array of booleans "as-is". Bit order is maintained, when
+     * read from left to right.
+     * Ex: a byte indexed as (01234567) is returned as [0,1,2,3,4,5,6,7]
+     * </p>
+     *
+     * @param b the byte to convert.
+     * @return
+     */
+    public static boolean[] byteToBinaryRaw(final byte b) {
+        return byteToBinaryMsb0(b);
+    }
+
+    /**
+     * <p>
+     * Converts a byte into an array of booleans using the Msb0 bit ordering.
+     * Ex: a byte indexed as (01234567) is returned as [0,1,2,3,4,5,6,7]
+     * </p>
+     *
+     * @param b the byte to convert.
+     * @return
+     */
+    public static boolean[] byteToBinaryMsb0(final byte b) {
+        boolean[] bits = new boolean[8];
+        for (int x=0; x<8; x++) {
+            bits[7-x] = ((b >> x) & 1) == 1;
+        }
+        return bits;
+    }
+
+    /**
+     * <p>
+     * Converts binary (represented as boolean array) into a byte using the default Lsb0 bit ordering.
+     * Ex: A bit array indexed as [0,1,2,3,4,5,6,7], is returned as (76543210)
+     * </p>
+     *
+     * <p>
+     * Note: The input array <code>bits</code> cannot be longer than 8 elements.
+     * </p>
+     *
+     * @param bits The bits to convert.
+     * @return
+     */
+    public static byte binaryToByte(final boolean[] bits) {
+        if (bits == null || bits.length == 0) {
+            return 0;
+        }
+        int len = bits.length;
+        if (len > 8) {
+            throw new IllegalArgumentException("Binary data is longer than 1 byte (8 digits)");
+        }
+
+        byte byteOut = 0;
+        for (int x=0; x<len; x++) {
+            byte bitVal = (byte) ((bits[x])?1:0);
+            byteOut |= (byte) ((bitVal) << x);
+        }
+        return byteOut;
+    }
+
+    /**
+     * <p>
+     * Converts binary (represented as boolean array) into a byte "as-is". Bit order is maintained
+     * when read from left to right.
+     * Ex: a bit array indexed as [0,1,2,3,4,5,6,7] is returned as (01234567)
+     * </p>
+     *
+     * <p>
+     * Note: The input array <code>bits</code> cannot be longer than 8 elements.
+     * </p>
+     *
+     * @param bits The bits to convert.
+     * @return
+     */
+    public static byte binaryToByteRaw(final boolean[] bits) {
+        return binaryToByteMsb0(bits);
+    }
+
+    /**
+     * <p>
+     * Converts binary (represented as boolean array) into a byte using Msb0 bit ordering.
+     * Ex: a bit array indexed as [0,1,2,3,4,5,6,7] is returned as (01234567)
+     * </p>
+     *
+     * <p>
+     * Note: The input array <code>bits</code> cannot be longer than 8 elements.
+     * </p>
+     *
+     * @param bits The bits to convert.
+     * @return
+     */
+    public static byte binaryToByteMsb0(final boolean[] bits) {
+        if (bits == null || bits.length == 0) {
+            return 0;
+        }
+        int len = bits.length;
+        if (len > 8) {
+            throw new IllegalArgumentException("Binary data is longer than 1 byte (8 digits)");
+        }
+
+        byte byteOut = 0;
+        for (int x=0; x<len; x++) {
+            byte bitVal = (byte) ((bits[x])?1:0);
+            byteOut |= (byte) ((bitVal) << (7-x));
+        }
+        return byteOut;
+    }
+
+    /**
+     * Strips out all accepted bitString/hexString delimiters, and returns a pure bitString, containing
+     * only 1 (one)'s & 0 (zero)'s.
+     *
+     * @param dataString The source bitString or hexString to parse.
+     * @return
+     */
+    public static String stripStringDelimiters(String dataString) {
+        if (dataString == null) {
+            return "";
+        }
+        return dataString.replaceAll("[-_\t\\. ]", "");
+    }
+
+    /**
+     * <p>
+     * Converts a bitString (represented as a String of 1 (one)'s & 0 (zero)'s) into binary
+     * (represented as boolean array) "as-is". Bit order is maintained, when read from left
+     * to right. Ex: A bitString indexed as "01234567" is returned as [0,1,2,3,4,5,6,7]
+     * </p>
+     *
+     * <p>
+     * Note: There is no limit on input length. You may break up the bitString using any of the
+     * following delimiters: (delimiters are ignored and have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param bitString
+     * @return
+     */
+    public static boolean[] bitStringToBinaryRaw(final String bitString) {
+        if (bitString == null) {
+            return new boolean[0];
+        }
+        final String cleanBitString = stripStringDelimiters(bitString);
+        if (cleanBitString.length() == 0) {
+            return new boolean[0];
+        }
+        char[] digits = cleanBitString.toCharArray();
+        int len = digits.length;
+        boolean[] bits = new boolean[len];
+        for (int x=0; x<len; x++) {
+            char digit = digits[x];
+            if (digit == '0') {
+                bits[x] = false;
+            } else if (digit == '1') {
+                bits[x] = true;
+            } else {
+                throw new IllegalArgumentException("Bit String can only contain one's (1) and zero's (0)");
+            }
+        }
+        return bits;
+    }
+
+    /**
+     * <p>
+     * Converts binary (represented as boolean array) into a bitString (represented as a String of
+     * 1 (one)'s & 0 (zero)'s) "as-is". Bit order is maintained, when read from left to right.
+     * Ex: A bit array indexed as [0,1,2,3,4,5,6,7] is returned as "01234567"
+     * </p>
+     *
+     * <p>
+     * Note: There is no limit on input length.
+     * </p>
+     *
+     * @param bits
+     * @return
+     */
+    public static String binaryToBitStringRaw(final boolean[] bits) {
+        if (bits == null || bits.length == 0) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        int len = bits.length;
+        for (int x=0; x<len; x++) {
+            builder.append(bits[x]?'1':'0');
+        }
+        return builder.toString();
+    }
+
+    /**
+     * <p>
+     * Converts a byte into binary (represented as boolean array) using the default Lsb0 bit ordering.
+     * Ex: A byte indexed as (01234567) is returned as "76543210"
+     * </p>
+     *
+     * @param bits
+     * @return
+     */
+    public static String byteToBitString(final byte b) {
+        StringBuilder builder = new StringBuilder();
+        for (int x=0; x<8; x++) {
+            builder.append( (((b >> x) & 1) == 1)?'1':'0');
+        }
+        return builder.toString();
+    }
+
+    /**
+     * <p>
+     * Converts a byte into binary (represented as boolean array) "as-is". Bit order is maintained
+     * when read from left to right.
+     * Ex: A byte indexed as (01234567) is returned as "01234567"
+     * </p>
+     *
+     * @param bits
+     * @return
+     */
+    public static String byteToBitStringRaw(final byte b) {
+        return byteToBitStringMsb0(b);
+    }
+
+    /**
+     * <p>
+     * Converts a byte into binary (represented as boolean array) using Msb0 bit ordering.
+     * Ex: A byte indexed as (01234567) is returned as "01234567"
+     * </p>
+     *
+     * @param bits
+     * @return
+     */
+    public static String byteToBitStringMsb0(final byte b) {
+        StringBuilder builder = new StringBuilder();
+        for (int x=0; x<8; x++) {
+            builder.append( (((b >> (7-x)) & 1) == 1)?'1':'0');
+        }
+        return builder.toString();
+    }
+
+    /**
+     * <p>
+     * Converts a bitString (represented as a String of 1 (one)'s & 0 (zero)'s) into a byte
+     * using the default Lsb0 bit ordering.
+     * Ex: A bitString indexed as "01234567" is returned as (76543210)
+     * </p>
+     *
+     * <p>
+     * Note: The input String <code>bitString</code> cannot be longer than 8 digits.
+     * You may break up the bitString using any of the following delimiters: (delimiters
+     * are ignored and have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param bitString The String of bits to convert.
+     * @return
+     */
+    public static byte bitStringToByte(final String bitString) {
+        if (bitString == null) {
+            return 0;
+        }
+        final String cleanBitString = stripStringDelimiters(bitString);
+        if (cleanBitString.length() == 0) {
+            return 0;
+        }
+        char[] bits = cleanBitString.toCharArray();
+        int len = bits.length;
+        if (len > 8) {
+            throw new IllegalArgumentException("Bit String is longer than 1 byte (8 digits)");
+        }
+
+        byte byteOut = 0;
+        for (int x=0; x<len; x++) {
+            char bit = bits[x];
+            if (bit == '1') {
+                byte bitVal = (byte) ((bits[x] == '1')?1:0);
+                byteOut = (byte) (byteOut | ((bitVal) << x));
+            } else if (bit != '0') {
+                throw new IllegalArgumentException("Bit String can only contain one's (1) and zero's (0)");
+            }
+        }
+        return byteOut;
+    }
+
+    /**
+     * <p>
+     * Converts a bitString (represented as a String of 1 (one)'s & 0 (zero)'s) into a byte
+     * "as-is". Bit order is maintained, when read from left to right.
+     * Ex: A bitString indexed as "01234567" is returned as (01234567)
+     * </p>
+     *
+     * <p>
+     * Note: The input String <code>bitString</code> cannot be longer than 8 digits. You may
+     * break up the bitString using any of the delimiters: (delimiters are ignored and have
+     * no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param bitString The String of bits to convert.
+     * @return
+     */
+    public static byte bitStringToByteRaw(final String bitString) {
+        return bitStringToByteMsb0(bitString);
+    }
+
+    /**
+     * <p>
+     * Converts a bitString (represented as a String of 1 (one)'s & 0 (zero)'s) into a byte
+     * using Msb0 bit ordering.
+     * Ex: A bitString indexed as "01234567" is returned as (01234567)
+     * </p>
+     *
+     * <p>
+     * Note: The input String <code>bitString</code> cannot be longer than 8 digits. You may
+     * break up the bitString using any of the following delimiters: (delimiters are ignored
+     * and have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param bitString The String of bits to convert.
+     * @return
+     */
+    public static byte bitStringToByteMsb0(final String bitString) {
+        if (bitString == null) {
+            return 0;
+        }
+        final String cleanBitString = stripStringDelimiters(bitString);
+        if (cleanBitString.length() == 0) {
+            return 0;
+        }
+        char[] bits = cleanBitString.toCharArray();
+        int len = bits.length;
+        if (len > 8) {
+            throw new IllegalArgumentException("Bit String is longer than 1 byte (8 digits)");
+        }
+
+        byte byteOut = 0;
+        for (int x=0; x<len; x++) {
+            char bit = bits[x];
+            if (bit == '1') {
+                byte bitVal = (byte) ((bits[x] == '1')?1:0);
+                byteOut = (byte) (byteOut | ((bitVal) << (7-x)));
+            } else if (bit != '0') {
+                throw new IllegalArgumentException("Bit String can only contain one's (1) and zero's (0)");
+            }
+        }
+        return byteOut;
+    }
+
+    /**
+     * <p>
+     * Converts a short into an array of bytes using the default little-endian byte ordering.
+     * </p>
+     *
+     * @param s The value to convert.
+     * @return
+     */
+    public static byte[] toByteArray(short s) {
+        return new byte[] {
+                (byte) ((s >> 0) & 0xFF),
+                (byte) ((s >> 8) & 0xFF)
+        };
+    }
+
+
+    /**
+     * <p>
+     * Converts a short into an array of bytes using big-endian byte ordering.
+     * </p>
+     *
+     * @param s The value to convert.
+     * @return
+     */
+    public static byte[] toByteArrayBe(short s) {
+        return new byte[] {
+                (byte) ((s >> 8) & 0xFF),
+                (byte) ((s >> 0) & 0xFF)
+        };
+    }
+
+    /**
+     * <p>
+     * Converts an array of bytes into a short using the default little-endian byte ordering.
+     * </p>
+     *
+     * @param inputBytes The bytes to convert.
+     * @return
+     */
+    public static short toShort(byte[] inputBytes) {
+        if (inputBytes == null || inputBytes.length == 0) {
+            return 0;
+        }
+        final int SIZE = SHORT_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'short' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'short' primitive ("+SIZE+" bytes)");
+        }
+        return (short) (
+                ( (((short) inputBytes[0]) & 0xFF) << 0) |
+                ( (((short) inputBytes[1]) & 0xFF) << 8)
+        );
+    }
+
+    /**
+     * <p>
+     * Converts an array of bytes into a short using big-endian byte ordering.
+     * </p>
+     *
+     * @param inputBytes The bytes to convert.
+     * @return
+     */
+    public static short toShortBe(byte[] inputBytes) {
+        if (inputBytes == null || inputBytes.length == 0) {
+            return 0;
+        }
+        final int SIZE = SHORT_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'short' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'short' primitive ("+SIZE+" bytes)");
+        }
+        return (short) (
+                ( (((short) inputBytes[0]) & 0xFF) << 8) |
+                ( (((short) inputBytes[1]) & 0xFF) << 0)
+        );
+    }
+
+    /**
+     * <p>
+     * Converts an int into an array of bytes using the default little-endian byte ordering.
+     * </p>
+     *
+     * @param i The value to convert.
+     * @return
+     */
+    public static byte[] toByteArray(int i) {
+        return new byte[] {
+                (byte) ((i >> 0) & 0xFF),
+                (byte) ((i >> 8) & 0xFF),
+                (byte) ((i >> 16) & 0xFF),
+                (byte) ((i >> 24) & 0xFF)
+        };
+    }
+
+    /**
+     * <p>
+     * Converts an int into an array of bytes using big-endian byte ordering.
+     * </p>
+     *
+     * @param i The value to convert.
+     * @return
+     */
+    public static byte[] toByteArrayBe(int i) {
+        return new byte[] {
+                (byte) ((i >> 24) & 0xFF),
+                (byte) ((i >> 16) & 0xFF),
+                (byte) ((i >> 8) & 0xFF),
+                (byte) ((i >> 0) & 0xFF)
+        };
+    }
+
+    /**
+     * <p>
+     * Converts an array of bytes into an int using the default little-endian byte ordering.
+     * </p>
+     *
+     * @param inputBytes The bytes to convert.
+     * @return
+     */
+    public static int toInt(byte[] inputBytes) {
+        if (inputBytes == null || inputBytes.length == 0) {
+            return 0;
+        }
+        final int SIZE = INT_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'int' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'int' primitive ("+SIZE+" bytes)");
+        }
+        return (int) (
+                ( (((int) inputBytes[0]) & 0xFF) << 0) |
+                ( (((int) inputBytes[1]) & 0xFF) << 8) |
+                ( (((int) inputBytes[2]) & 0xFF) << 16) |
+                ( (((int) inputBytes[3]) & 0xFF) << 24)
+        );
+    }
+
+    /**
+     * <p>
+     * Converts an array of bytes into an int using big-endian byte ordering.
+     * </p>
+     *
+     * @param inputBytes The bytes to convert.
+     * @return
+     */
+    public static int toIntBe(byte[] inputBytes) {
+        if (inputBytes == null || inputBytes.length == 0) {
+            return 0;
+        }
+        final int SIZE = INT_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'int' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'int' primitive ("+SIZE+" bytes)");
+        }
+        return (int) (
+                ( (((int) inputBytes[0]) & 0xFF) << 24) |
+                ( (((int) inputBytes[1]) & 0xFF) << 16) |
+                ( (((int) inputBytes[2]) & 0xFF) << 8) |
+                ( (((int) inputBytes[3]) & 0xFF) << 0)
+        );
+    }
+
+    /**
+     * <p>
+     * Converts a long into an array of bytes using the default little-endian byte ordering.
+     * </p>
+     *
+     * @param l The value to convert.
+     * @return
+     */
+    public static byte[] toByteArray(long l) {
+        return new byte[] {
+                (byte) ((l >> 0) & 0xFFL),
+                (byte) ((l >> 8) & 0xFFL),
+                (byte) ((l >> 16) & 0xFFL),
+                (byte) ((l >> 24) & 0xFFL),
+                (byte) ((l >> 32) & 0xFFL),
+                (byte) ((l >> 40) & 0xFFL),
+                (byte) ((l >> 48) & 0xFFL),
+                (byte) ((l >> 56) & 0xFFL)
+        };
+    }
+
+    /**
+     * <p>
+     * Converts a long into an array of bytes using big-endian byte ordering.
+     * </p>
+     *
+     * @param l The value to convert.
+     * @return
+     */
+    public static byte[] toByteArrayBe(long l) {
+        return new byte[] {
+                (byte) ((l >> 56) & 0xFFL),
+                (byte) ((l >> 48) & 0xFFL),
+                (byte) ((l >> 40) & 0xFFL),
+                (byte) ((l >> 32) & 0xFFL),
+                (byte) ((l >> 24) & 0xFFL),
+                (byte) ((l >> 16) & 0xFFL),
+                (byte) ((l >> 8) & 0xFFL),
+                (byte) ((l >> 0) & 0xFFL)
+        };
+    }
+
+    /**
+     * <p>
+     * Converts an array of bytes into a long using the default little-endian byte ordering.
+     * </p>
+     *
+     * @param inputBytes The bytes to convert.
+     * @return
+     */
+    public static long toLong(byte[] inputBytes) {
+        if (inputBytes == null || inputBytes.length == 0) {
+            return 0;
+        }
+        final long SIZE = LONG_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'long' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'long' primitive ("+SIZE+" bytes)");
+        }
+        return (long) (
+                ( (((long) inputBytes[0]) & 0xFFL) << 0) |
+                ( (((long) inputBytes[1]) & 0xFFL) << 8) |
+                ( (((long) inputBytes[2]) & 0xFFL) << 16) |
+                ( (((long) inputBytes[3]) & 0xFFL) << 24) |
+                ( (((long) inputBytes[4]) & 0xFFL) << 32) |
+                ( (((long) inputBytes[5]) & 0xFFL) << 40) |
+                ( (((long) inputBytes[6]) & 0xFFL) << 48) |
+                ( (((long) inputBytes[7]) & 0xFFL) << 56)
+        );
+    }
+
+    /**
+     * <p>
+     * Converts an array of bytes into a long using big-endian byte ordering.
+     * </p>
+     *
+     * @param inputBytes The bytes to convert.
+     * @return
+     */
+    public static long toLongBe(byte[] inputBytes) {
+        if (inputBytes == null || inputBytes.length == 0) {
+            return 0;
+        }
+        final long SIZE = LONG_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'long' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'long' primitive ("+SIZE+" bytes)");
+        }
+        return (long) (
+                ( (((long) inputBytes[0]) & 0xFFL) << 56) |
+                ( (((long) inputBytes[1]) & 0xFFL) << 48) |
+                ( (((long) inputBytes[2]) & 0xFFL) << 40) |
+                ( (((long) inputBytes[3]) & 0xFFL) << 32) |
+                ( (((long) inputBytes[4]) & 0xFFL) << 24) |
+                ( (((long) inputBytes[5]) & 0xFFL) << 16) |
+                ( (((long) inputBytes[6]) & 0xFFL) << 8) |
+                ( (((long) inputBytes[7]) & 0xFFL) << 0)
+        );
+    }
+
+    /**
+     * <p>
+     * Converts a float into an array of bytes using the default little-endian byte ordering.
+     * </p>
+     *
+     * @param f The value to convert.
+     * @return
+     */
+    public static byte[] toByteArray(float f) {
+        return toByteArray(Float.floatToIntBits(f));
+    }
+
+    /**
+     * <p>
+     * Converts a float into an array of bytes using big-endian byte ordering.
+     * </p>
+     *
+     * @param f The value to convert.
+     * @return
+     */
+    public static byte[] toByteArrayBe(float f) {
+        return toByteArrayBe(Float.floatToIntBits(f));
+    }
+
+    /**
+     * <p>
+     * Converts an array of bytes into a float using the default little-endian byte ordering.
+     * </p>
+     *
+     * @param inputBytes The bytes to convert.
+     * @return
+     */
+    public static float toFloat(byte[] inputBytes) {
+        if (inputBytes == null || inputBytes.length == 0) {
+            return 0;
+        }
+        return Float.intBitsToFloat(toInt(inputBytes));
+    }
+
+    /**
+     * <p>
+     * Converts an array of bytes into a float using big-endian byte ordering.
+     * </p>
+     *
+     * @param inputBytes The bytes to convert.
+     * @return
+     */
+    public static float toFloatBe(byte[] inputBytes) {
+        if (inputBytes == null || inputBytes.length == 0) {
+            return 0;
+        }
+        return Float.intBitsToFloat(toIntBe(inputBytes));
+    }
+
+    /**
+     * <p>
+     * Converts a double into an array of bytes using the default little-endian byte ordering.
+     * </p>
+     *
+     * @param d The value to convert.
+     * @return
+     */
+    public static byte[] toByteArray(double d) {
+        return toByteArray(Double.doubleToLongBits(d));
+    }
+
+    /**
+     * <p>
+     * Converts a double into an array of bytes using big-endian byte ordering.
+     * </p>
+     *
+     * @param d The value to convert.
+     * @return
+     */
+    public static byte[] toByteArrayBe(double d) {
+        return toByteArrayBe(Double.doubleToLongBits(d));
+    }
+
+    /**
+     * <p>
+     * Converts an array of bytes into a double using the default little-endian byte ordering.
+     * </p>
+     *
+     * @param inputBytes The bytes to convert.
+     * @return
+     */
+    public static double toDouble(byte[] inputBytes) {
+        if (inputBytes == null || inputBytes.length == 0) {
+            return 0;
+        }
+        return Double.longBitsToDouble(toLong(inputBytes));
+    }
+
+    /**
+     * <p>
+     * Converts an array of bytes into a double using big-endian byte ordering.
+     * </p>
+     *
+     * @param inputBytes The bytes to convert.
+     * @return
+     */
+    public static double toDoubleBe(byte[] inputBytes) {
+        if (inputBytes == null || inputBytes.length == 0) {
+            return 0;
+        }
+        return Double.longBitsToDouble(toLongBe(inputBytes));
+    }
+
+    /**
+     * A lookup table for converting integer values from 0 to 15 into a single hex digit (char).
+     * Value: ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
+     */
+    public static final char[] SINGLE_DIGIT_HEX_LOOKUP_TABLE = new char[] {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+
+    /**
+     * A lookup table for converting integer values from 0 to 255 into a 2 digit hex String.
+     * Value: ["00","01","02","03", ... "38","39","3A","3B","3C", ... "9E","9F","A0","A1","A2", ..."FD","FE","FF"]
+     */
+    public static final String[] DOUBLE_DIGIT_HEX_LOOKUP_TABLE;
+
+    /**
+     * A lookup table for converting a 2 digit hex String into an integer value from 0 to 255.
+     * Value:<br>
+     * [
+     * "00":0,
+     * "01":1,
+     * "02":2,
+     * "03":3,
+     * ...
+     * "38":56,
+     * "39":57,
+     * "3A":58,
+     * "3B":59,
+     * "3C":60,
+     * ...
+     * "9E":158,
+     * "9F":159,
+     * "A0":160,
+     * "A1":161,
+     * "A2":162,
+     * ...
+     * "FD":253,
+     * "FE":254,
+     * "FF":255
+     * ]
+     */
+    public static final Map<String, Byte> DOUBLE_DIGIT_HEX_REVERSE_LOOKUP_TABLE;
+    static {
+        //Init Forward Lookup
+        DOUBLE_DIGIT_HEX_LOOKUP_TABLE = new String[256];
+        int index = 0;
+        for (int x=0; x<16; x++) {
+            for (int y=0; y<16; y++) {
+                DOUBLE_DIGIT_HEX_LOOKUP_TABLE[index++] = "" + SINGLE_DIGIT_HEX_LOOKUP_TABLE[x] + SINGLE_DIGIT_HEX_LOOKUP_TABLE[y];
+            }
+        }
+
+        //Init Reverse Lookup
+        DOUBLE_DIGIT_HEX_REVERSE_LOOKUP_TABLE = new HashMap<String, Byte>(256);
+        for (int x=0; x<256; x++) {
+            DOUBLE_DIGIT_HEX_REVERSE_LOOKUP_TABLE.put(DOUBLE_DIGIT_HEX_LOOKUP_TABLE[x], (byte)x);
+        }
+    }
+
+    /**
+     * Converts a byte's unsigned value to the equivalent 2 digit hex value.
+     *
+     * @param b The byte to convert.
+     * @return
+     */
+    public static String toHex(byte b) {
+        return DOUBLE_DIGIT_HEX_LOOKUP_TABLE[b & 0xFF];
+    }
+
+    /**
+     * Splits a short into its constituent bytes (using little-endian byte ordering), and
+     * then converts each of these bytes (using their unsigned value) into the equivalent 2
+     * digit hex value.
+     *
+     * @param s The short to convert.
+     * @return
+     */
+    public static String toHex(short s) {
+        byte[] chunks = toByteArray(s);
+        return toHexRaw(chunks);
+    }
+
+    /**
+     * Splits a short into its constituent bytes (using big-endian byte ordering), and
+     * then converts each of these bytes (using their unsigned value) into the equivalent 2
+     * digit hex value.
+     *
+     * @param s The short to convert.
+     * @return
+     */
+    public static String toHexBe(short s) {
+        byte[] chunks = toByteArrayBe(s);
+        return toHexRaw(chunks);
+    }
+
+    /**
+     * Splits an int into its constituent bytes (using little-endian byte ordering), and
+     * then converts each of these bytes (using their unsigned value) into the equivalent 2
+     * digit hex value.
+     *
+     * @param i The int to convert.
+     * @return
+     */
+    public static String toHex(int i) {
+        byte[] chunks = toByteArray(i);
+        return toHexRaw(chunks);
+    }
+
+    /**
+     * Splits an int into its constituent bytes (using big-endian byte ordering), and
+     * then converts each of these bytes (using their unsigned value) into the equivalent 2
+     * digit hex value.
+     *
+     * @param i The int to convert.
+     * @return
+     */
+    public static String toHexBe(int i) {
+        byte[] chunks = toByteArrayBe(i);
+        return toHexRaw(chunks);
+    }
+
+    /**
+     * Splits a long into its constituent bytes (using little-endian byte ordering), and
+     * then converts each of these bytes (using their unsigned value) into the equivalent 2
+     * digit hex value.
+     *
+     * @param l The long to convert.
+     * @return
+     */
+    public static String toHex(long l) {
+        byte[] chunks = toByteArray(l);
+        return toHexRaw(chunks);
+    }
+
+    /**
+     * Splits a long into its constituent bytes (using big-endian byte ordering), and
+     * then converts each of these bytes (using their unsigned value) into the equivalent 2
+     * digit hex value.
+     *
+     * @param l The long to convert.
+     * @return
+     */
+    public static String toHexBe(long l) {
+        byte[] chunks = toByteArrayBe(l);
+        return toHexRaw(chunks);
+    }
+
+    /**
+     * Splits a float into its constituent bytes (using little-endian byte ordering), and
+     * then converts each of these bytes (using their unsigned value) into the equivalent 2
+     * digit hex value.
+     *
+     * @param f The float to convert.
+     * @return
+     */
+    public static String toHex(float f) {
+        byte[] chunks = toByteArray(f);
+        return toHexRaw(chunks);
+    }
+
+    /**
+     * Splits a float into its constituent bytes (using big-endian byte ordering), and
+     * then converts each of these bytes (using their unsigned value) into the equivalent 2
+     * digit hex value.
+     *
+     * @param f The float to convert.
+     * @return
+     */
+    public static String toHexBe(float f) {
+        byte[] chunks = toByteArrayBe(f);
+        return toHexRaw(chunks);
+    }
+
+    /**
+     * Splits a double into its constituent bytes (using little-endian byte ordering), and
+     * then converts each of these bytes (using their unsigned value) into the equivalent 2
+     * digit hex value.
+     *
+     * @param d The double to convert.
+     * @return
+     */
+    public static String toHex(double d) {
+        byte[] chunks = toByteArray(d);
+        return toHexRaw(chunks);
+    }
+
+    /**
+     * Splits a double into its constituent bytes (using big-endian byte ordering), and
+     * then converts each of these bytes (using their unsigned value) into the equivalent 2
+     * digit hex value.
+     *
+     * @param d The double to convert.
+     * @return
+     */
+    public static String toHexBe(double d) {
+        byte[] chunks = toByteArrayBe(d);
+        return toHexRaw(chunks);
+    }
+
+    /**
+     * Converts an array of bytes into a String of hexadecimal octets (2 digit hex grouping).
+     * Each byte is converted using its unsigned value into the equivalent 2 digit hex value.
+     *
+     * @param chunks The byte to convert.
+     * @return
+     */
+    public static String toHexRaw(byte[] chunks) {
+        if (chunks == null || chunks.length == 0) {
+            return "00";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int x=0; x<chunks.length; x++) {
+            builder.append(DOUBLE_DIGIT_HEX_LOOKUP_TABLE[chunks[x] & 0xFF]);
+        }
+        return builder.toString();
+    }
+
+    /**
+     * <p>
+     * Converts a String of hexadecimal octets (2 digit hex grouping) into an array of bytes.
+     * Each octet is converted into its equivalent unsigned byte value.
+     * </p>
+     *
+     * <p>
+     * Note: there is no limit on the input length. You may break up the hexString using any of
+     * the following delimiters: (delimiters are ignored and have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param chunks The byte to convert.
+     * @return
+     */
+    public static byte[] hexToByteArrayRaw(final String hexString) {
+        //Check Null
+        if (hexString == null) {
+            return new byte[0];
+        }
+
+        //Check Empty (no delimiters)
+        final String cleanBitString = stripStringDelimiters(hexString);
+        if (cleanBitString.length() == 0) {
+            return new byte[0];
+        }
+
+        //Ensure even number of octets
+        char[] digits = cleanBitString.toCharArray();
+        int totalLen = digits.length;
+        if (totalLen % 2 != 0 ) {
+            throw new IllegalArgumentException("Hex String is an odd number of hex digits. Input data must be an even number of hex digits.");
+        }
+
+        //Do Conversion
+        int numOctets = totalLen / 2;
+        byte[] outBytes = new byte[numOctets];
+        int index = 0;
+        for (int x=0; x<numOctets; x++) {
+            byte val = DOUBLE_DIGIT_HEX_REVERSE_LOOKUP_TABLE.get(
+                new String(new char[]{
+                    digits[index++],
+                    digits[index++]
+                })
+            );
+            outBytes[x] = val;
+        }
+        return outBytes;
+    }
+
+    /**
+     * <p>
+     * Converts a String of hexadecimal octets (2 digit hex grouping) into a short
+     * using little-endian byte ordering. Each octet is converted into its equivalent
+     * unsigned byte value.
+     * </p>
+     *
+     * <p>
+     * Note: A short is composed of 2 octets (4 Hex Digits). You may break up the
+     * hexString using any of the following delimiters: (delimiters are ignored and
+     * have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param hexString The String of hexadecimal octets to convert.
+     * @return
+     */
+    public static short hexToShort(String hexString) {
+        //Convert to Bytes
+        byte[] inputBytes = hexToByteArrayRaw(hexString);
+        if (inputBytes.length == 0) {
+            return 0;
+        }
+
+        //Check Proper Length
+        final long SIZE = SHORT_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'short' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'short' primitive ("+SIZE+" bytes)");
+        }
+
+        //Do conversion
+        return toShort(inputBytes);
+    }
+
+    /**
+     * <p>
+     * Converts a String of hexadecimal octets (2 digit hex grouping) into a short
+     * using big-endian byte ordering. Each octet is converted into its equivalent
+     * unsigned byte value.
+     * </p>
+     *
+     * <p>
+     * Note: A short is composed of 2 octets (4 Hex Digits). You may break up the
+     * hexString using any of the following delimiters: (delimiters are ignored and
+     * have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param hexString The String of hexadecimal octets to convert.
+     * @return
+     */
+    public static short hexToShortBe(String hexString) {
+        //Convert to Bytes
+        byte[] inputBytes = hexToByteArrayRaw(hexString);
+        if (inputBytes.length == 0) {
+            return 0;
+        }
+
+        //Check Proper Length
+        final long SIZE = SHORT_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'short' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'short' primitive ("+SIZE+" bytes)");
+        }
+
+        //Do conversion
+        return toShortBe(inputBytes);
+    }
+
+    /**
+     * <p>
+     * Converts a String of hexadecimal octets (2 digit hex grouping) into an int
+     * using little-endian byte ordering. Each octet is converted into its equivalent
+     * unsigned byte value.
+     * </p>
+     *
+     * <p>
+     * Note: An int is composed of 4 octets (8 Hex Digits). You may break up the
+     * hexString using any of the following delimiters: (delimiters are ignored and
+     * have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param hexString The String of hexadecimal octets to convert.
+     * @return
+     */
+    public static int hexToInt(String hexString) {
+        //Convert to Bytes
+        byte[] inputBytes = hexToByteArrayRaw(hexString);
+        if (inputBytes.length == 0) {
+            return 0;
+        }
+
+        //Check Proper Length
+        final long SIZE = INT_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'int' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'int' primitive ("+SIZE+" bytes)");
+        }
+
+        //Do conversion
+        return toInt(inputBytes);
+    }
+
+    /**
+     * <p>
+     * Converts a String of hexadecimal octets (2 digit hex grouping) into an int
+     * using big-endian byte ordering. Each octet is converted into its equivalent
+     * unsigned byte value.
+     * </p>
+     *
+     * <p>
+     * Note: An int is composed of 4 octets (8 Hex Digits). You may break up the
+     * hexString using any of the following delimiters: (delimiters are ignored and
+     * have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param hexString The String of hexadecimal octets to convert.
+     * @return
+     */
+    public static int hexToIntBe(String hexString) {
+        //Convert to Bytes
+        byte[] inputBytes = hexToByteArrayRaw(hexString);
+        if (inputBytes.length == 0) {
+            return 0;
+        }
+
+        //Check Proper Length
+        final long SIZE = INT_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'int' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'int' primitive ("+SIZE+" bytes)");
+        }
+
+        //Do conversion
+        return toIntBe(inputBytes);
+    }
+
+    /**
+     * <p>
+     * Converts a String of hexadecimal octets (2 digit hex grouping) into a long
+     * using little-endian byte ordering. Each octet is converted into its equivalent
+     * unsigned byte value.
+     * </p>
+     *
+     * <p>
+     * Note: A long is composed of 8 octets (16 Hex Digits). You may break up the
+     * hexString using any of the following delimiters: (delimiters are ignored and
+     * have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param hexString The String of hexadecimal octets to convert.
+     * @return
+     */
+    public static long hexToLong(String hexString) {
+        //Convert to Bytes
+        byte[] inputBytes = hexToByteArrayRaw(hexString);
+        if (inputBytes.length == 0) {
+            return 0;
+        }
+
+        //Check Proper Length
+        final long SIZE = LONG_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'long' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'long' primitive ("+SIZE+" bytes)");
+        }
+
+        //Do conversion
+        return toLong(inputBytes);
+    }
+
+    /**
+     * <p>
+     * Converts a String of hexadecimal octets (2 digit hex grouping) into a long
+     * using big-endian byte ordering. Each octet is converted into its equivalent
+     * unsigned byte value.
+     * </p>
+     *
+     * <p>
+     * Note: A long is composed of 8 octets (16 Hex Digits). You may break up the
+     * hexString using any of the following delimiters: (delimiters are ignored and
+     * have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param hexString The String of hexadecimal octets to convert.
+     * @return
+     */
+    public static long hexToLongBe(String hexString) {
+        //Convert to Bytes
+        byte[] inputBytes = hexToByteArrayRaw(hexString);
+        if (inputBytes.length == 0) {
+            return 0;
+        }
+
+        //Check Proper Length
+        final long SIZE = LONG_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is longer than size of 'long' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'long' primitive ("+SIZE+" bytes)");
+        }
+
+        //Do conversion
+        return toLongBe(inputBytes);
+    }
+
+    /**
+     * <p>
+     * Converts a String of hexadecimal octets (2 digit hex grouping) into a float
+     * using little-endian byte ordering. Each octet is converted into its equivalent
+     * unsigned byte value.
+     * </p>
+     *
+     * <p>
+     * Note: A float is composed of 4 octets (8 Hex Digits). You may break up the
+     * hexString using any of the following delimiters: (delimiters are ignored and
+     * have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param hexString The String of hexadecimal octets to convert.
+     * @return
+     */
+    public static float hexToFloat(String hexString) {
+        //Convert to Bytes
+        byte[] inputBytes = hexToByteArrayRaw(hexString);
+        if (inputBytes.length == 0) {
+            return 0;
+        }
+
+        //Check Proper Length
+        final float SIZE = FLOAT_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is floater than size of 'float' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'float' primitive ("+SIZE+" bytes)");
+        }
+
+        //Do conversion
+        return toFloat(inputBytes);
+    }
+
+    /**
+     * <p>
+     * Converts a String of hexadecimal octets (2 digit hex grouping) into a float
+     * using big-endian byte ordering. Each octet is converted into its equivalent
+     * unsigned byte value.
+     * </p>
+     *
+     * <p>
+     * Note: A float is composed of 4 octets (8 Hex Digits). You may break up the
+     * hexString using any of the following delimiters: (delimiters are ignored and
+     * have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param hexString The String of hexadecimal octets to convert.
+     * @return
+     */
+    public static float hexToFloatBe(String hexString) {
+        //Convert to Bytes
+        byte[] inputBytes = hexToByteArrayRaw(hexString);
+        if (inputBytes.length == 0) {
+            return 0;
+        }
+
+        //Check Proper Length
+        final float SIZE = FLOAT_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is floater than size of 'float' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'float' primitive ("+SIZE+" bytes)");
+        }
+
+        //Do conversion
+        return toFloatBe(inputBytes);
+    }
+
+    /**
+     * <p>
+     * Converts a String of hexadecimal octets (2 digit hex grouping) into a double
+     * using little-endian byte ordering. Each octet is converted into its equivalent
+     * unsigned byte value.
+     * </p>
+     *
+     * <p>
+     * Note: A double is composed of 8 octets (16 Hex Digits). You may break up the
+     * hexString using any of the following delimiters: (delimiters are ignored and
+     * have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param hexString The String of hexadecimal octets to convert.
+     * @return
+     */
+    public static double hexToDouble(String hexString) {
+        //Convert to Bytes
+        byte[] inputBytes = hexToByteArrayRaw(hexString);
+        if (inputBytes.length == 0) {
+            return 0;
+        }
+
+        //Check Proper Length
+        final double SIZE = DOUBLE_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is doubleer than size of 'double' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'double' primitive ("+SIZE+" bytes)");
+        }
+
+        //Do conversion
+        return toDouble(inputBytes);
+    }
+
+    /**
+     * <p>
+     * Converts a String of hexadecimal octets (2 digit hex grouping) into a double
+     * using big-endian byte ordering. Each octet is converted into its equivalent
+     * unsigned byte value.
+     * </p>
+     *
+     * <p>
+     * Note: A double is composed of 8 octets (16 Hex Digits). You may break up the
+     * hexString using any of the following delimiters: (delimiters are ignored and
+     * have no impact on the output)<br>
+     * '-' [hyphen]<br>
+     * '_' [underscore]<br>
+     * '.' [period]<br>
+     * ' ' [space]<br>
+     * '\t' [tab]
+     * </p>
+     *
+     * @param hexString The String of hexadecimal octets to convert.
+     * @return
+     */
+    public static double hexToDoubleBe(String hexString) {
+        //Convert to Bytes
+        byte[] inputBytes = hexToByteArrayRaw(hexString);
+        if (inputBytes.length == 0) {
+            return 0;
+        }
+
+        //Check Proper Length
+        final double SIZE = DOUBLE_BYTES;
+        if (inputBytes.length > SIZE) {
+            throw new IllegalArgumentException("Input data is doubleer than size of 'double' primitive ("+SIZE+" bytes)");
+        } else if (inputBytes.length < SIZE) {
+            throw new IllegalArgumentException("Input data is smaller than size of 'double' primitive ("+SIZE+" bytes)");
+        }
+
+        //Do conversion
+        return toDoubleBe(inputBytes);
     }
 }
