@@ -25,7 +25,6 @@
     <version>41</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.apache.commons</groupId>
   <artifactId>commons-lang3</artifactId>
   <version>3.6-SNAPSHOT</version>
   <name>Apache Commons Lang</name>
