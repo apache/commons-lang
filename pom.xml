@@ -527,6 +527,13 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.bcel</groupId>
+      <artifactId>bcel</artifactId>
+      <version>6.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
       <version>3.4</version>
