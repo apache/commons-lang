@@ -25,7 +25,6 @@ import org.apache.bcel.classfile.ElementValuePair;
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.Assert;
-import org.junit.Test;
 
 class AnnotationTestUtils {
 
@@ -40,13 +39,12 @@ class AnnotationTestUtils {
         Assert.assertNotNull(elementValuePairs);
         Assert.assertEquals(0, elementValuePairs.length);
     }
-    
+
     public static void testMethodAnnotationNotRetainedAtRuntime(final Class<?> cls,
             final Class<? extends Annotation> annotationCls) {
         final Method[] methods = MethodUtils.getMethodsWithAnnotation(cls, annotationCls);
         Assert.assertNotNull(methods);
         Assert.assertEquals(0, methods.length);
     }
-
 
 }
