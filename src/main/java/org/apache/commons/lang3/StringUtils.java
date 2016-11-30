@@ -272,7 +272,7 @@ public class StringUtils {
      * </pre>
      *
      * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if any of the CharSequences are empty or null
+     * @return {@code true} if any of the CharSequences are not empty or null
      * @since 3.6
      */
     public static boolean isAnyNotEmpty(final CharSequence... css) {
