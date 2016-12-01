@@ -291,7 +291,7 @@ public class WordUtils {
                     offset += matcher.end();
                     continue;
                 }else {
-                    spaceToWrapAt = matcher.start();
+                    spaceToWrapAt = matcher.start() + offset;
                 }
             }
 

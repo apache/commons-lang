@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="2016-MM-DD" description="TBD">
+    <action issue="LANG-1292" type="fix" dev="djones">WordUtils.wrap throws StringIndexOutOfBoundsException</action>
     <action issue="LANG-1287" type="fix" dev="pschumacher" due-to="Ivan Morozov">RandomStringUtils#random can enter infinite loop if end parameter is to small</action>
     <action issue="LANG-1285" type="fix" dev="pschumacher" due-to="Francesco Chicchiriccò">NullPointerException in FastDateParser$TimeZoneStrategy</action>
     <action issue="LANG-1281" type="fix" dev="pschumacher" due-to="Andreas Lundblad">Javadoc of StringUtils.ordinalIndexOf is contradictory.</action>
