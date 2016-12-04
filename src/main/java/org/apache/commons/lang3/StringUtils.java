@@ -478,6 +478,31 @@ public class StringUtils {
       return !isAnyBlank(css);
     }
 
+    /**
+     * <p>Checks if all of the CharSequences are empty (""), null or whitespace only.</p>
+     *
+     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.isAllBlank(null)             = true
+     * StringUtils.isAllBlank(null, "foo")      = false
+     * StringUtils.isAllBlank(null, null)       = true
+     * StringUtils.isAllBlank("", "bar")        = false
+     * StringUtils.isAllBlank("bob", "")        = false
+     * StringUtils.isAllBlank("  bob  ", null)  = false
+     * StringUtils.isAllBlank(" ", "bar")       = false
+     * StringUtils.isAllBlank("foo", "bar")     = false
+     * StringUtils.isAllBlank(new String[] {})  = true
+     * </pre>
+     *
+     * @param css  the CharSequences to check, may be null or empty
+     * @return {@code true} if all of the CharSequences are empty or null or whitespace only
+     * @since 3.6
+     */
+    public static boolean isAllBlank(final CharSequence... css) {
+      return !isAnyNotBlank(css);
+    }
+
     // Trim
     //-----------------------------------------------------------------------
     /**
