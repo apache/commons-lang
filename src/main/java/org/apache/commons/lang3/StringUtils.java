@@ -311,6 +311,29 @@ public class StringUtils {
     }
 
     /**
+     * <p>Checks if all of the CharSequences are empty ("") or null.</p>
+     *
+     * <pre>
+     * StringUtils.isAllEmpty(null)             = true
+     * StringUtils.isAllEmpty(null, "")         = true
+     * StringUtils.isAllEmpty(new String[] {})  = true
+     * StringUtils.isAllEmpty(null, "foo")      = false
+     * StringUtils.isAllEmpty("", "bar")        = false
+     * StringUtils.isAllEmpty("bob", "")        = false
+     * StringUtils.isAllEmpty("  bob  ", null)  = false
+     * StringUtils.isAllEmpty(" ", "bar")       = false
+     * StringUtils.isAllEmpty("foo", "bar")     = false
+     * </pre>
+     *
+     * @param css  the CharSequences to check, may be null or empty
+     * @return {@code true} if all of the CharSequences are empty or null
+     * @since 3.6
+     */
+    public static boolean isAllEmpty(final CharSequence... css) {
+      return !isAnyNotEmpty(css);
+    }
+
+    /**
      * <p>Checks if a CharSequence is empty (""), null or whitespace only.</p>
      * 
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
@@ -453,6 +476,31 @@ public class StringUtils {
      */
     public static boolean isNoneBlank(final CharSequence... css) {
       return !isAnyBlank(css);
+    }
+
+    /**
+     * <p>Checks if all of the CharSequences are empty (""), null or whitespace only.</p>
+     *
+     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.isAllBlank(null)             = true
+     * StringUtils.isAllBlank(null, "foo")      = false
+     * StringUtils.isAllBlank(null, null)       = true
+     * StringUtils.isAllBlank("", "bar")        = false
+     * StringUtils.isAllBlank("bob", "")        = false
+     * StringUtils.isAllBlank("  bob  ", null)  = false
+     * StringUtils.isAllBlank(" ", "bar")       = false
+     * StringUtils.isAllBlank("foo", "bar")     = false
+     * StringUtils.isAllBlank(new String[] {})  = true
+     * </pre>
+     *
+     * @param css  the CharSequences to check, may be null or empty
+     * @return {@code true} if all of the CharSequences are empty or null or whitespace only
+     * @since 3.6
+     */
+    public static boolean isAllBlank(final CharSequence... css) {
+      return !isAnyNotBlank(css);
     }
 
     // Trim
