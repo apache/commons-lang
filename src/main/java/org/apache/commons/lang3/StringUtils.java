@@ -410,7 +410,7 @@ public class StringUtils {
      * StringUtils.isAnyNotBlank("bob", "")        = true
      * StringUtils.isAnyNotBlank("  bob  ", null)  = true
      * StringUtils.isAnyNotBlank(" ", "bar")       = true
-     * StringUtils.isAnyNotBlank("foo", "bar")     = false
+     * StringUtils.isAnyNotBlank("foo", "bar")     = true
      * StringUtils.isAnyNotBlank(new String[] {})  = false
      * </pre>
      *
