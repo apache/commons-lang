@@ -238,7 +238,7 @@ public class ArrayUtilsAddTest {
             //expected
         }
         try {
-            @SuppressWarnings("unused")
+            @SuppressWarnings({ "unused", "deprecation" })
             final
             String[] sa = ArrayUtils.add(stringArray, 0, aString);
             fail("Should have caused IllegalArgumentException");
@@ -365,6 +365,7 @@ public class ArrayUtilsAddTest {
 
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testAddObjectAtIndex() {
         Object[] newArray;

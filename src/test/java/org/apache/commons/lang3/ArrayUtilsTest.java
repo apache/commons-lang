@@ -42,6 +42,18 @@ import org.junit.Test;
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class ArrayUtilsTest  {
 
+    
+    static <T> T[] arrayOfTwo(T a, T b) {
+        return ArrayUtils.toArray(a, b);
+    }
+
+    @Test
+    public void testBadVarArgs() throws Exception {
+        @SuppressWarnings("unused") // Need to assign to trigger exception
+        String[] result = arrayOfTwo("foo", "bar");
+    }
+    
+    
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
