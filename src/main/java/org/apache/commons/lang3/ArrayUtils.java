@@ -5629,7 +5629,11 @@ public class ArrayUtils {
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt; array.length).
      * @throws IllegalArgumentException if both array and element are null
+     * @deprecated this method has been superseded by {@link #insert(int, Object[], Object...) insert(int, T[], T...)} and
+     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
+     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
      */
+    @Deprecated
     public static <T> T[] add(final T[] array, final int index, final T element) {
         Class<?> clss = null;
         if (array != null) {
@@ -5669,7 +5673,11 @@ public class ArrayUtils {
      * @param element  the object to add
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt; array.length).
+     * @deprecated this method has been superseded by {@link #insert(int, boolean[], boolean...)} and
+     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
+     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
      */
+    @Deprecated
     public static boolean[] add(final boolean[] array, final int index, final boolean element) {
         return (boolean[]) add(array, index, Boolean.valueOf(element), Boolean.TYPE);
     }
@@ -5701,7 +5709,11 @@ public class ArrayUtils {
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
+     * @deprecated this method has been superseded by {@link #insert(int, char[], char...)} and
+     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
+     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
      */
+    @Deprecated
     public static char[] add(final char[] array, final int index, final char element) {
         return (char[]) add(array, index, Character.valueOf(element), Character.TYPE);
     }
@@ -5732,7 +5744,11 @@ public class ArrayUtils {
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
+     * @deprecated this method has been superseded by {@link #insert(int, byte[], byte...)} and
+     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
+     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
      */
+    @Deprecated
     public static byte[] add(final byte[] array, final int index, final byte element) {
         return (byte[]) add(array, index, Byte.valueOf(element), Byte.TYPE);
     }
@@ -5763,7 +5779,11 @@ public class ArrayUtils {
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
+     * @deprecated this method has been superseded by {@link #insert(int, short[], short...)} and
+     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
+     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
      */
+    @Deprecated
     public static short[] add(final short[] array, final int index, final short element) {
         return (short[]) add(array, index, Short.valueOf(element), Short.TYPE);
     }
@@ -5794,7 +5814,11 @@ public class ArrayUtils {
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
+     * @deprecated this method has been superseded by {@link #insert(int, int[], int...)} and
+     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
+     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
      */
+    @Deprecated
     public static int[] add(final int[] array, final int index, final int element) {
         return (int[]) add(array, index, Integer.valueOf(element), Integer.TYPE);
     }
@@ -5825,7 +5849,11 @@ public class ArrayUtils {
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
+     * @deprecated this method has been superseded by {@link #insert(int, long[], long...)} and
+     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
+     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
      */
+    @Deprecated
     public static long[] add(final long[] array, final int index, final long element) {
         return (long[]) add(array, index, Long.valueOf(element), Long.TYPE);
     }
@@ -5856,7 +5884,11 @@ public class ArrayUtils {
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
+     * @deprecated this method has been superseded by {@link #insert(int, float[], float...)} and
+     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
+     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
      */
+    @Deprecated
     public static float[] add(final float[] array, final int index, final float element) {
         return (float[]) add(array, index, Float.valueOf(element), Float.TYPE);
     }
@@ -5887,7 +5919,11 @@ public class ArrayUtils {
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
+     * @deprecated this method has been superseded by {@link #insert(int, double[], double...)} and
+     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
+     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
      */
+    @Deprecated
     public static double[] add(final double[] array, final int index, final double element) {
         return (double[]) add(array, index, Double.valueOf(element), Double.TYPE);
     }
@@ -8021,4 +8057,399 @@ public class ArrayUtils {
 
         return result;
     }
+    
+    /**
+     * <p>Inserts elements into an array at the given index (starting from zero).</p>
+     * 
+     * <p>When an array is returned, it is always a new array.</p>
+     * 
+     * <pre>
+     * ArrayUtils.insert(index, null, null)      = null
+     * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
+     * ArrayUtils.insert(index, null, values)    = null
+     * </pre>
+     *  
+     * @param index the position within {@code array} to insert the new values
+     * @param array the array to insert the values into, may be {@code null}
+     * @param values the new values to insert, may be {@code null}
+     * @return The new array.
+     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * and either {@code index < 0} or {@code index > array.length}
+     * @since 3.6
+     */
+    public static boolean[] insert(final int index, final boolean[] array, final boolean... values) {     
+        if (array == null) {
+            return null;
+        }
+        if (values == null || values.length == 0) {
+            return clone(array);
+        }
+        if (index < 0 || index > array.length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+        
+        boolean[] result = new boolean[array.length + values.length];
+        
+        System.arraycopy(values, 0, result, index, values.length);
+        if (index > 0) {
+            System.arraycopy(array, 0, result, 0, index);
+        }
+        if (index < array.length) {
+            System.arraycopy(array, index, result, index + values.length, array.length - index);
+        }
+        return result;
+    }
+    
+    
+    /**
+     * <p>Inserts elements into an array at the given index (starting from zero).</p>
+     * 
+     * <p>When an array is returned, it is always a new array.</p>
+     * 
+     * <pre>
+     * ArrayUtils.insert(index, null, null)      = null
+     * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
+     * ArrayUtils.insert(index, null, values)    = null
+     * </pre>
+     *  
+     * @param index the position within {@code array} to insert the new values
+     * @param array the array to insert the values into, may be {@code null}
+     * @param values the new values to insert, may be {@code null}
+     * @return The new array.
+     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * and either {@code index < 0} or {@code index > array.length}
+     * @since 3.6
+     */
+    public static byte[] insert(final int index, final byte[] array, final byte... values) {     
+        if (array == null) {
+            return null;
+        }
+        if (values == null || values.length == 0) {
+            return clone(array);
+        }
+        if (index < 0 || index > array.length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+        
+        byte[] result = new byte[array.length + values.length];
+        
+        System.arraycopy(values, 0, result, index, values.length);
+        if (index > 0) {
+            System.arraycopy(array, 0, result, 0, index);
+        }
+        if (index < array.length) {
+            System.arraycopy(array, index, result, index + values.length, array.length - index);
+        }
+        return result;
+    }
+    
+    
+    /**
+     * <p>Inserts elements into an array at the given index (starting from zero).</p>
+     * 
+     * <p>When an array is returned, it is always a new array.</p>
+     * 
+     * <pre>
+     * ArrayUtils.insert(index, null, null)      = null
+     * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
+     * ArrayUtils.insert(index, null, values)    = null
+     * </pre>
+     *  
+     * @param index the position within {@code array} to insert the new values
+     * @param array the array to insert the values into, may be {@code null}
+     * @param values the new values to insert, may be {@code null}
+     * @return The new array.
+     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * and either {@code index < 0} or {@code index > array.length}
+     * @since 3.6
+     */
+    public static char[] insert(final int index, final char[] array, final char... values) {     
+        if (array == null) {
+            return null;
+        }
+        if (values == null || values.length == 0) {
+            return clone(array);
+        }
+        if (index < 0 || index > array.length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+        
+        char[] result = new char[array.length + values.length];
+        
+        System.arraycopy(values, 0, result, index, values.length);
+        if (index > 0) {
+            System.arraycopy(array, 0, result, 0, index);
+        }
+        if (index < array.length) {
+            System.arraycopy(array, index, result, index + values.length, array.length - index);
+        }
+        return result;
+    }    
+    
+    
+    /**
+     * <p>Inserts elements into an array at the given index (starting from zero).</p>
+     * 
+     * <p>When an array is returned, it is always a new array.</p>
+     * 
+     * <pre>
+     * ArrayUtils.insert(index, null, null)      = null
+     * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
+     * ArrayUtils.insert(index, null, values)    = null
+     * </pre>
+     *  
+     * @param index the position within {@code array} to insert the new values
+     * @param array the array to insert the values into, may be {@code null}
+     * @param values the new values to insert, may be {@code null}
+     * @return The new array.
+     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * and either {@code index < 0} or {@code index > array.length}
+     * @since 3.6
+     */
+    public static double[] insert(final int index, final double[] array, final double... values) {     
+        if (array == null) {
+            return null;
+        }
+        if (values == null || values.length == 0) {
+            return clone(array);
+        }
+        if (index < 0 || index > array.length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+        
+        double[] result = new double[array.length + values.length];
+        
+        System.arraycopy(values, 0, result, index, values.length);
+        if (index > 0) {
+            System.arraycopy(array, 0, result, 0, index);
+        }
+        if (index < array.length) {
+            System.arraycopy(array, index, result, index + values.length, array.length - index);
+        }
+        return result;
+    } 
+    
+    
+    /**
+     * <p>Inserts elements into an array at the given index (starting from zero).</p>
+     * 
+     * <p>When an array is returned, it is always a new array.</p>
+     * 
+     * <pre>
+     * ArrayUtils.insert(index, null, null)      = null
+     * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
+     * ArrayUtils.insert(index, null, values)    = null
+     * </pre>
+     *  
+     * @param index the position within {@code array} to insert the new values
+     * @param array the array to insert the values into, may be {@code null}
+     * @param values the new values to insert, may be {@code null}
+     * @return The new array.
+     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * and either {@code index < 0} or {@code index > array.length}
+     * @since 3.6
+     */
+    public static float[] insert(final int index, final float[] array, final float... values) {     
+        if (array == null) {
+            return null;
+        }
+        if (values == null || values.length == 0) {
+            return clone(array);
+        }
+        if (index < 0 || index > array.length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+        
+        float[] result = new float[array.length + values.length];
+        
+        System.arraycopy(values, 0, result, index, values.length);
+        if (index > 0) {
+            System.arraycopy(array, 0, result, 0, index);
+        }
+        if (index < array.length) {
+            System.arraycopy(array, index, result, index + values.length, array.length - index);
+        }
+        return result;
+    }     
+    
+    /**
+     * <p>Inserts elements into an array at the given index (starting from zero).</p>
+     * 
+     * <p>When an array is returned, it is always a new array.</p>
+     * 
+     * <pre>
+     * ArrayUtils.insert(index, null, null)      = null
+     * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
+     * ArrayUtils.insert(index, null, values)    = null
+     * </pre>
+     *  
+     * @param index the position within {@code array} to insert the new values
+     * @param array the array to insert the values into, may be {@code null}
+     * @param values the new values to insert, may be {@code null}
+     * @return The new array.
+     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * and either {@code index < 0} or {@code index > array.length}
+     * @since 3.6
+     */
+    public static int[] insert(final int index, final int[] array, final int... values) {     
+        if (array == null) {
+            return null;
+        }
+        if (values == null || values.length == 0) {
+            return clone(array);
+        }
+        if (index < 0 || index > array.length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+        
+        int[] result = new int[array.length + values.length];
+        
+        System.arraycopy(values, 0, result, index, values.length);
+        if (index > 0) {
+            System.arraycopy(array, 0, result, 0, index);
+        }
+        if (index < array.length) {
+            System.arraycopy(array, index, result, index + values.length, array.length - index);
+        }
+        return result;
+    }     
+    
+    /**
+     * <p>Inserts elements into an array at the given index (starting from zero).</p>
+     * 
+     * <p>When an array is returned, it is always a new array.</p>
+     * 
+     * <pre>
+     * ArrayUtils.insert(index, null, null)      = null
+     * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
+     * ArrayUtils.insert(index, null, values)    = null
+     * </pre>
+     *  
+     * @param index the position within {@code array} to insert the new values
+     * @param array the array to insert the values into, may be {@code null}
+     * @param values the new values to insert, may be {@code null}
+     * @return The new array.
+     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * and either {@code index < 0} or {@code index > array.length}
+     * @since 3.6
+     */
+    public static long[] insert(final int index, final long[] array, final long... values) {     
+        if (array == null) {
+            return null;
+        }
+        if (values == null || values.length == 0) {
+            return clone(array);
+        }
+        if (index < 0 || index > array.length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+        
+        long[] result = new long[array.length + values.length];
+        
+        System.arraycopy(values, 0, result, index, values.length);
+        if (index > 0) {
+            System.arraycopy(array, 0, result, 0, index);
+        }
+        if (index < array.length) {
+            System.arraycopy(array, index, result, index + values.length, array.length - index);
+        }
+        return result;
+    }    
+    
+    
+    /**
+     * <p>Inserts elements into an array at the given index (starting from zero).</p>
+     * 
+     * <p>When an array is returned, it is always a new array.</p>
+     * 
+     * <pre>
+     * ArrayUtils.insert(index, null, null)      = null
+     * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
+     * ArrayUtils.insert(index, null, values)    = null
+     * </pre>
+     *  
+     * @param index the position within {@code array} to insert the new values
+     * @param array the array to insert the values into, may be {@code null}
+     * @param values the new values to insert, may be {@code null}
+     * @return The new array.
+     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * and either {@code index < 0} or {@code index > array.length}
+     * @since 3.6
+     */
+    public static short[] insert(final int index, final short[] array, final short... values) {     
+        if (array == null) {
+            return null;
+        }
+        if (values == null || values.length == 0) {
+            return clone(array);
+        }
+        if (index < 0 || index > array.length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+        
+        short[] result = new short[array.length + values.length];
+        
+        System.arraycopy(values, 0, result, index, values.length);
+        if (index > 0) {
+            System.arraycopy(array, 0, result, 0, index);
+        }
+        if (index < array.length) {
+            System.arraycopy(array, index, result, index + values.length, array.length - index);
+        }
+        return result;
+    }    
+    
+    
+    /**
+     * <p>Inserts elements into an array at the given index (starting from zero).</p>
+     * 
+     * <p>When an array is returned, it is always a new array.</p>
+     * 
+     * <pre>
+     * ArrayUtils.insert(index, null, null)      = null
+     * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
+     * ArrayUtils.insert(index, null, values)    = null
+     * </pre>
+     *  
+     * @param index the position within {@code array} to insert the new values
+     * @param array the array to insert the values into, may be {@code null}
+     * @param values the new values to insert, may be {@code null}
+     * @return The new array.
+     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * and either {@code index < 0} or {@code index > array.length}
+     * @since 3.6
+     */
+    @SafeVarargs
+    public static <T> T[] insert(final int index, final T[] array, final T... values) {
+        /*
+         * Note on use of @SafeVarargs:
+         * 
+         * By returning null when 'array' is null, we avoid returning the vararg
+         * array to the caller. We also avoid relying on the type of the vararg
+         * array, by inspecting the component type of 'array'.
+         */
+        
+        if (array == null) {
+            return null;
+        }
+        if (values == null || values.length == 0) {
+            return clone(array);
+        }
+        if (index < 0 || index > array.length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+        
+        final Class<?> type = array.getClass().getComponentType();
+        @SuppressWarnings("unchecked") // OK, because array and values are of type T
+        T[] result = (T[]) Array.newInstance(type, array.length + values.length);
+        
+        System.arraycopy(values, 0, result, index, values.length);
+        if (index > 0) {
+            System.arraycopy(array, 0, result, 0, index);
+        }
+        if (index < array.length) {
+            System.arraycopy(array, index, result, index + values.length, array.length - index);
+        }
+        return result;
+    } 
 }
