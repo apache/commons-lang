@@ -794,6 +794,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>This also will be called for the top level of
      * multi-dimensional, ragged, and multi-typed arrays.</p>
+     * 
+     * <p>Note that this method does not compare the type of the arrays; it only
+     * compares the contents.</p>
      *
      * @param lhs  the left hand <code>Object[]</code>
      * @param rhs  the right hand <code>Object[]</code>
