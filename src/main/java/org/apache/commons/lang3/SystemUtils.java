@@ -1494,6 +1494,16 @@ public class SystemUtils {
     }
 
     /**
+     * Gets the host name.
+     * 
+     * @return the host name.
+     * @since 3.6
+     */
+    public static String getHostName() {
+        return SystemUtils.IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
+    }
+
+    /**
      * <p>
      * Gets the Java IO temporary directory as a {@code File}.
      * </p>

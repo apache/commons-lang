@@ -58,6 +58,15 @@ public class SystemUtilsTest {
         assertFalse(Modifier.isFinal(SystemUtils.class.getModifiers()));
     }
 
+    @Test
+    public void testGetHostName() {
+        final String hostName = SystemUtils.getHostName();
+        Assert.assertNotNull(hostName);
+        Assert.assertFalse(hostName.isEmpty());
+        String expected = SystemUtils.IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
+        Assert.assertEquals(expected, hostName);
+    }
+
     /**
      * Assumes no security manager exists.
      */
