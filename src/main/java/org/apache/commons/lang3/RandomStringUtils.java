@@ -102,8 +102,8 @@ public class RandomStringUtils {
      * <p>Creates a random string whose length is the number of characters
      * specified.</p>
      *
-     * <p>Characters will be chosen from the set of alphabetic
-     * characters.</p>
+     * <p>Characters will be chosen from the set of Latin alphabetic
+     * characters (a-z, A-Z).</p>
      *
      * @param count  the length of random string to create
      * @return the random string
@@ -116,7 +116,7 @@ public class RandomStringUtils {
      * <p>Creates a random string whose length is between the inclusive minimum and
      * the exclusive maximum.</p>
      *
-     * <p>Characters will be chosen from the set of alphabetic characters.</p>
+     * <p>Characters will be chosen from the set of Latin alphabetic characters (a-z, A-Z).</p>
      *
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
@@ -131,8 +131,8 @@ public class RandomStringUtils {
      * <p>Creates a random string whose length is the number of characters
      * specified.</p>
      *
-     * <p>Characters will be chosen from the set of alpha-numeric
-     * characters.</p>
+     * <p>Characters will be chosen from the set of Latin alphabetic
+     * characters (a-z, A-Z) and the digits 0-9.</p>
      *
      * @param count  the length of random string to create
      * @return the random string
@@ -145,7 +145,8 @@ public class RandomStringUtils {
      * <p>Creates a random string whose length is between the inclusive minimum and
      * the exclusive maximum.</p>
      *
-     * <p>Characters will be chosen from the set of alpha-numeric characters.</p>
+     * <p>Characters will be chosen from the set of Latin alphabetic
+     * characters (a-z, A-Z) and the digits 0-9.</p>
      *
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
