@@ -1494,7 +1494,11 @@ public class SystemUtils {
     }
 
     /**
-     * Gets the host name.
+     * Gets the host name from an environment variable.
+     * 
+     * <p>
+     * If you want to know what the network stack says is the host name, you should use {@code InetAddress.getLocalHost().getHostName()}.
+     * </p>
      * 
      * @return the host name.
      * @since 3.6
