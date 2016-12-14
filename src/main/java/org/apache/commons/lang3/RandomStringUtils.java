@@ -315,7 +315,7 @@ public class RandomStringUtils {
      * to {@code ' '} and {@code 'z'}, the ASCII printable
      * characters, will be used, unless letters and numbers are both
      * {@code false}, in which case, start and end are set to
-     * {@code 0} and {@code Integer.MAX_VALUE}.
+     * {@code 0} and {@link Character#MAX_CODE_POINT}.
      *
      * <p>If set is not {@code null}, characters between start and
      * end are chosen.</p>
@@ -356,7 +356,7 @@ public class RandomStringUtils {
                 end = chars.length;
             } else {
                 if (!letters && !numbers) {
-                    end = Integer.MAX_VALUE;
+                    end = Character.MAX_CODE_POINT;
                 } else {
                     end = 'z' + 1;
                     start = ' ';                
@@ -379,49 +379,48 @@ public class RandomStringUtils {
             }
         }
 
-        final char[] buffer = new char[count];
+        StringBuffer buffer = new StringBuffer(count);
         final int gap = end - start;
 
         while (count-- != 0) {
-            char ch;
+            int codePoint;
             if (chars == null) {
-                ch = (char) (random.nextInt(gap) + start);
-            } else {
-                ch = chars[random.nextInt(gap) + start];
-            }
-            if (letters && Character.isLetter(ch)
-                    || numbers && Character.isDigit(ch)
-                    || !letters && !numbers) {
-                if(ch >= 56320 && ch <= 57343) {
-                    if(count == 0) {
-                        count++;
-                    } else {
-                        // low surrogate, insert high surrogate after putting it in
-                        buffer[count] = ch;
-                        count--;
-                        buffer[count] = (char) (55296 + random.nextInt(128));
-                    }
-                } else if(ch >= 55296 && ch <= 56191) {
-                    if(count == 0) {
-                        count++;
-                    } else {
-                        // high surrogate, insert low surrogate before putting it in
-                        buffer[count] = (char) (56320 + random.nextInt(128));
-                        count--;
-                        buffer[count] = ch;
-                    }
-                } else if(ch >= 56192 && ch <= 56319) {
-                    // private high surrogate, no effing clue, so skip it
+                codePoint = random.nextInt(gap) + start;
+                
+                switch (Character.getType(codePoint)) {
+                case Character.UNASSIGNED:
+                case Character.PRIVATE_USE:
+                case Character.SURROGATE:
                     count++;
-                } else {
-                    buffer[count] = ch;
+                    continue;
                 }
+                
+            } else {
+                codePoint = chars[random.nextInt(gap) + start];
+            }
+            
+            final int numberOfChars = Character.charCount(codePoint);
+            if (count == 0 && numberOfChars > 1) {
+                count++;
+                continue;
+            }
+            
+            if (letters && Character.isLetter(codePoint)
+                    || numbers && Character.isDigit(codePoint)
+                    || !letters && !numbers) {               
+                buffer.appendCodePoint(codePoint);
+                
+                if (numberOfChars == 2) {
+                    count--;
+                }
+                
             } else {
                 count++;
             }
         }
-        return new String(buffer);
+        return buffer.toString();
     }
+
 
     /**
      * <p>Creates a random string whose length is the number of characters

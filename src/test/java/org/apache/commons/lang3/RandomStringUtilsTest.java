@@ -533,5 +533,32 @@ public class RandomStringUtilsTest {
         // just to be complete
         assertEquals(orig, copy);
     }
+    
+    
+    /**
+     * Test for LANG-1286. Creates situation where old code would
+     * overflow a char and result in a code point outside the specified
+     * range.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testCharOverflow() throws Exception {
+        int start = Character.MAX_VALUE;
+        int end = Integer.MAX_VALUE;
+        
+        @SuppressWarnings("serial")
+        Random fixedRandom = new Random() {
+            @Override
+            public int nextInt(int n) {
+                // Prevents selection of 'start' as the character
+                return super.nextInt(n - 1) + 1;
+            }
+        };
+        
+        String result = RandomStringUtils.random(2, start, end, false, false, null, fixedRandom);
+        int c = result.codePointAt(0);
+        assertTrue(String.format("Character '%d' not in range [%d,%d).", c, start, end), c >= start && c < end);
+    }
 }
 

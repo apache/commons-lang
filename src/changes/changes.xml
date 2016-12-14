@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="2016-MM-DD" description="TBD">
+    <action issue="LANG-1286" type="fix" dev="djones">RandomStringUtils random method can overflow and return characters outside of specified range</action>
     <action issue="LANG-660" type="add" dev="djones">Add methods to insert arrays into arrays at an index</action>
     <action issue="LANG-1292" type="fix" dev="djones">WordUtils.wrap throws StringIndexOutOfBoundsException</action>
     <action issue="LANG-1287" type="fix" dev="pschumacher" due-to="Ivan Morozov">RandomStringUtils#random can enter infinite loop if end parameter is to small</action>
