@@ -61,8 +61,6 @@ public class SystemUtilsTest {
     @Test
     public void testGetHostName() {
         final String hostName = SystemUtils.getHostName();
-        Assert.assertNotNull(hostName);
-        Assert.assertFalse(hostName.isEmpty());
         String expected = SystemUtils.IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
         Assert.assertEquals(expected, hostName);
     }
