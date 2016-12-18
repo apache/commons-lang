@@ -9104,4 +9104,39 @@ public class StringUtils {
 
         return str;
     }
+    
+    
+    /**
+     * <p>Converts a {@code CharSequence} into an array of code points.</p>
+     * 
+     * <p>Valid pairs of surrogate code units will be converted into a single supplementary
+     * code point. Isolated surrogate code units (i.e. a high surrogate not followed by a low surrogate or
+     * a low surrogate not preceeded by a high surrogate) will be returned as-is.</p>
+     * 
+     * <pre>
+     * StringUtils.toCodePoints(null)   =  null
+     * StringUtils.toCodePoints("")     =  []  // empty array
+     * </pre>
+     * 
+     * @param str the character sequence to convert
+     * @return an array of code points
+     * @since 3.6
+     */
+    public static int[] toCodePoints(CharSequence str) {
+        if (str == null) {
+            return null;
+        }
+        if (str.length() == 0) {
+            return ArrayUtils.EMPTY_INT_ARRAY;
+        }
+        
+        String s = str.toString();
+        int[] result = new int[s.codePointCount(0, s.length())];
+        int index = 0;
+        for (int i = 0; i < result.length; i++) {
+            result[i] = s.codePointAt(index);
+            index += Character.charCount(result[i]);
+        }     
+        return result;
+    }    
 }

@@ -16,14 +16,7 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
@@ -3179,5 +3172,20 @@ public class StringUtilsTest {
         assertEquals("#A", StringUtils.unwrap("#A", '#'));
         assertEquals("A#", StringUtils.unwrap("A#", '#'));
         assertEquals("ABA", StringUtils.unwrap("AABAA", 'A'));
+    }
+    
+    @Test
+    public void testToCodePoints() throws Exception {
+        final int orphanedHighSurrogate = 0xD801;
+        final int orphanedLowSurrogate = 0xDC00;
+        final int supplementary = 0x2070E;
+        
+        final int[] codePoints = {'a', orphanedHighSurrogate, 'b','c', supplementary, 
+                'd', orphanedLowSurrogate, 'e'};
+        final String s = new String(codePoints, 0, codePoints.length);
+        assertArrayEquals(codePoints, StringUtils.toCodePoints(s));
+        
+        assertNull(StringUtils.toCodePoints(null));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, StringUtils.toCodePoints(""));
     }
 }
