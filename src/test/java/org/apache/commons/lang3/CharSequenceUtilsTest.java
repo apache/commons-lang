@@ -16,10 +16,7 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -181,6 +178,15 @@ public class CharSequenceUtilsTest {
                 }
             }.run(data, "CSNonString");
         }
+    }
+    
+    
+    @Test
+    public void testToCharArray() throws Exception {
+        final StringBuilder builder = new StringBuilder("abcdefg");
+        final char[] expected = builder.toString().toCharArray();
+        assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder));
+        assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder.toString()));
     }
 
 }
