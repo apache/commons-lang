@@ -8133,7 +8133,7 @@ public class StringUtils {
      * @return result distance
      * @throws IllegalArgumentException if either String input {@code null}
      * @since 3.3
-     * @deprecated as of 3.6, due to a misleading name, use {@link #getJaroWinklerSimilarity()} instead
+     * @deprecated as of 3.6, due to a misleading name, use {@link #getJaroWinklerSimilarity(CharSequence, CharSequence)} instead
      */
     @Deprecated
     public static double getJaroWinklerDistance(final CharSequence first, final CharSequence second) {
