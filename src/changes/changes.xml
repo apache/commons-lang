@@ -74,6 +74,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1279" type="update" dev="ggregory">Update Java requirement from Java 6 to 7.</action>
     <action issue="LANG-1143" type="update" dev="pschumacher" due-to="sebb">StringUtils should use toXxxxCase(int) rather than toXxxxCase(char)</action>
     <action issue="LANG-1297" type="update" dev="ggregory">Add SystemUtils.getHostName() API.</action>
+    <action issue="LANG-1301" type="update" dev="pschumacher" due-to="Karl Heinz Marbaise">Moving apache-rat-plugin configuration into pluginManagement</action>
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">
