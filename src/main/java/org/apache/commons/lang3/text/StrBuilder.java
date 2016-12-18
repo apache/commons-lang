@@ -1187,7 +1187,13 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      * @since 2.3
      */
-    public <T> StrBuilder appendAll(final T... array) {
+    public <T> StrBuilder appendAll(@SuppressWarnings("unchecked") final T... array) {
+        /*
+         * @SuppressWarnings used to hide warning about vararg usage. We cannot
+         * use @SafeVarargs, since this method is not final. Using @SupressWarnings
+         * is fine, because it isn't inherited by subclasses, so each subclass must
+         * vouch for itself whether its use of 'array' is safe.
+         */
         if (array != null && array.length > 0) {
             for (final Object element : array) {
                 append(element);
