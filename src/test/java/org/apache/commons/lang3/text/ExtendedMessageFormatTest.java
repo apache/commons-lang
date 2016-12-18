@@ -19,7 +19,6 @@ package org.apache.commons.lang3.text;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -34,8 +33,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
-
-import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Test case for {@link ExtendedMessageFormat}.
@@ -59,7 +56,7 @@ public class ExtendedMessageFormatTest {
     public void testExtendedFormats() {
         final String pattern = "Lower: {0,lower} Upper: {1,upper}";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-        assertPatternsEqual("TOPATTERN", pattern, emf.toPattern());
+        assertEquals("TOPATTERN", pattern, emf.toPattern());
         assertEquals("Lower: foo Upper: BAR", emf.format(new Object[] {"foo", "bar"}));
         assertEquals("Lower: foo Upper: BAR", emf.format(new Object[] {"Foo", "Bar"}));
         assertEquals("Lower: foo Upper: BAR", emf.format(new Object[] {"FOO", "BAR"}));
@@ -142,7 +139,7 @@ public class ExtendedMessageFormatTest {
             expected.append(df.format(args[1]));
             expected.append(" Salary: ");
             expected.append(nf.format(args[2]));
-            assertPatternsEqual("pattern comparison for locale " + locale, expectedPattern, emf.toPattern());
+            assertEquals("pattern comparison for locale " + locale, expectedPattern, emf.toPattern());
             assertEquals(String.valueOf(locale), expected.toString(), emf.format(args));
         }
     }
@@ -377,14 +374,7 @@ public class ExtendedMessageFormatTest {
             emf = new ExtendedMessageFormat(pattern, locale);
         }
         assertEquals("format "    + buffer.toString(), mf.format(args), emf.format(args));
-        assertPatternsEqual("toPattern " + buffer.toString(), mf.toPattern(),  emf.toPattern());
-    }
-
-    //can't trust what MessageFormat does with toPattern() pre 1.4:
-    private void assertPatternsEqual(final String message, final String expected, final String actual) {
-        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
-            assertEquals(message, expected, actual);
-        }
+        assertEquals("toPattern " + buffer.toString(), mf.toPattern(), emf.toPattern());
     }
 
     /**
