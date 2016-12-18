@@ -22,4 +22,4 @@ jdk:
   - oraclejdk8
 
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report
+  - mvn clean cobertura:cobertura coveralls:report apache-rat:check
