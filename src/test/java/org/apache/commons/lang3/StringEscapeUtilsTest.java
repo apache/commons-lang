@@ -22,14 +22,15 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
 import org.junit.Test;
@@ -555,14 +556,13 @@ public class StringEscapeUtilsTest {
      */
     @Test
     public void testLang708() throws IOException {
-        final FileInputStream fis = new FileInputStream("src/test/resources/lang-708-input.txt");
-        final String input = IOUtils.toString(fis, "UTF-8");
+        final byte[] inputBytes = Files.readAllBytes(Paths.get("src/test/resources/lang-708-input.txt"));
+        final String input = new String(inputBytes, StandardCharsets.UTF_8);
         final String escaped = StringEscapeUtils.escapeEcmaScript(input);
         // just the end:
         assertTrue(escaped, escaped.endsWith("}]"));
         // a little more:
         assertTrue(escaped, escaped.endsWith("\"valueCode\\\":\\\"\\\"}]"));
-        fis.close();
     }
 
     /**
