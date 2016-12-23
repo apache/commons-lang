@@ -16,12 +16,10 @@
  */
 package org.apache.commons.lang3;
 
-import java.io.IOException;
-import java.io.Writer;
-
 import org.apache.commons.lang3.text.translate.AggregateTranslator;
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.EntityArrays;
+import org.apache.commons.lang3.text.translate.SingleLookupTranslator;
 import org.apache.commons.lang3.text.translate.JavaUnicodeEscaper;
 import org.apache.commons.lang3.text.translate.LookupTranslator;
 import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
@@ -29,6 +27,9 @@ import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 import org.apache.commons.lang3.text.translate.OctalUnescaper;
 import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
 import org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover;
+
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * <p>Escapes and unescapes {@code String}s for
@@ -230,6 +231,28 @@ public class StringEscapeUtils {
             new LookupTranslator(EntityArrays.BASIC_ESCAPE()),
             new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE()),
             new LookupTranslator(EntityArrays.HTML40_EXTENDED_ESCAPE())
+        );
+
+    /**
+     * The improved translator object for escaping HTML version 4.0.
+     * The 'improved' part of this translator is that it checks if the html is already translated.
+     * This check prevents double, triple, or recursive translations.
+     *
+     * While {@link #escapeHtml4Once(String)} is the expected method of use, this
+     * object allows the HTML escaping functionality to be used
+     * as the foundation for a custom translator.
+     *
+     * Note that, multiple lookup tables should be passed to this translator
+     * instead of passing multiple instances of this translator to the
+     * AggregateTranslator. Because, this translator only checks the values of the
+     * lookup table passed to this instance while deciding whether a value is
+     * already translated or not.
+     *
+     * @since 3.0
+     */
+    public static final CharSequenceTranslator ESCAPE_HTML4_ONCE =
+        new AggregateTranslator(
+            new SingleLookupTranslator(EntityArrays.BASIC_ESCAPE(), EntityArrays.ISO8859_1_ESCAPE(), EntityArrays.HTML40_EXTENDED_ESCAPE())
         );
 
     /**
@@ -589,6 +612,45 @@ public class StringEscapeUtils {
      */
     public static final String escapeHtml4(final String input) {
         return ESCAPE_HTML4.translate(input);
+    }
+
+    // HTML and XML
+    //--------------------------------------------------------------------------
+    /**
+     * <p>Escapes the characters in a {@code String} using HTML entities. But escapes them only once. i.e. does not escape already escaped characters.</p>
+     *
+     * <p>
+     * For example:
+     * </p>
+     * <p><code>"bread" &amp; "butter"</code></p>
+     * becomes:
+     * <p>
+     * <code>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</code>.
+     * </p>
+     *
+     * <p>
+     * But:
+     * </p>
+     * <p><code>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</code></p>
+     * remains unaffected.
+     *
+     * <p>Supports all known HTML 4.0 entities, including funky accents.
+     * Note that the commonly used apostrophe escape character (&amp;apos;)
+     * is not a legal entity and so is not supported). </p>
+     *
+     * @param input  the {@code String} to escape, may be null
+     * @return a new escaped {@code String}, {@code null} if null string input
+     *
+     * @see <a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
+     * @see <a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
+     * @see <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
+     * @see <a href="http://www.w3.org/TR/html401/charset.html#h-5.3">HTML 4.01 Character References</a>
+     * @see <a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
+     *
+     * @since 3.0
+     */
+    public static final String escapeHtml4Once(final String input) {
+        return ESCAPE_HTML4_ONCE.translate(input);
     }
 
     /**
