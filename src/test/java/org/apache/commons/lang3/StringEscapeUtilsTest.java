@@ -234,7 +234,7 @@ public class StringEscapeUtilsTest {
     }
 
     @Test
-    public void testImprovedEscapeHtml4() {
+    public void testEscapeHtml4Once() {
         for (final String[] element : HTML_ESCAPES) {
             final String message = element[0];
             final String expected = element[1];

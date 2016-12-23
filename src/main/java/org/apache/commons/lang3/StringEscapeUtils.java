@@ -217,6 +217,9 @@ public class StringEscapeUtils {
             new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE())
         );
 
+    public static final CharSequenceTranslator ESCAPE_HTML3_ONCE =
+            new SingleLookupTranslator(EntityArrays.BASIC_ESCAPE(), EntityArrays.ISO8859_1_ESCAPE());
+
     /**
      * Translator object for escaping HTML version 4.0.
      * 
@@ -244,16 +247,14 @@ public class StringEscapeUtils {
      *
      * Note that, multiple lookup tables should be passed to this translator
      * instead of passing multiple instances of this translator to the
-     * AggregateTranslator. Because, this translator only checks the values of the
-     * lookup table passed to this instance while deciding whether a value is
+     * AggregateTranslator. Because, a SingleLookupTranslator only checks the values of the
+     * lookup table passed to that instance while deciding whether a value is
      * already translated or not.
      *
      * @since 3.0
      */
     public static final CharSequenceTranslator ESCAPE_HTML4_ONCE =
-        new AggregateTranslator(
-            new SingleLookupTranslator(EntityArrays.BASIC_ESCAPE(), EntityArrays.ISO8859_1_ESCAPE(), EntityArrays.HTML40_EXTENDED_ESCAPE())
-        );
+            new SingleLookupTranslator(EntityArrays.BASIC_ESCAPE(), EntityArrays.ISO8859_1_ESCAPE(), EntityArrays.HTML40_EXTENDED_ESCAPE());
 
     /**
      * Translator object for escaping individual Comma Separated Values. 
@@ -617,7 +618,8 @@ public class StringEscapeUtils {
     // HTML and XML
     //--------------------------------------------------------------------------
     /**
-     * <p>Escapes the characters in a {@code String} using HTML entities. But escapes them only once. i.e. does not escape already escaped characters.</p>
+     * <p>Escapes the characters in a {@code String} using HTML entities.
+     * But escapes them only once. i.e. does not escape already escaped characters.</p>
      *
      * <p>
      * For example:
@@ -664,6 +666,20 @@ public class StringEscapeUtils {
      */
     public static final String escapeHtml3(final String input) {
         return ESCAPE_HTML3.translate(input);
+    }
+
+    /**
+     * <p>Escapes the characters in a {@code String} using HTML entities.
+     * But escapes them only once. i.e. does not escape already escaped characters.</p>
+     * <p>Supports only the HTML 3.0 entities. </p>
+     *
+     * @param input  the {@code String} to escape, may be null
+     * @return a new escaped {@code String}, {@code null} if null string input
+     *
+     * @since 3.0
+     */
+    public static final String escapeHtml3Once(final String input) {
+        return ESCAPE_HTML3_ONCE.translate(input);
     }
 
     //-----------------------------------------------------------------------
