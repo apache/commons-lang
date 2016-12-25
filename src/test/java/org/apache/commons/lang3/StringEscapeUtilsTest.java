@@ -235,6 +235,31 @@ public class StringEscapeUtilsTest {
     }
 
     @Test
+    public void testEscapeHtml4Once() {
+        for (final String[] element : HTML_ESCAPES) {
+            final String message = element[0];
+            final String expected = element[1];
+            final String original = element[2];
+            assertEquals(message, expected, StringEscapeUtils.escapeHtml4Once(original));
+            assertEquals(message, expected, StringEscapeUtils.escapeHtml4Once(expected));
+            final StringWriter sw = new StringWriter();
+            try {
+                StringEscapeUtils.ESCAPE_HTML4_ONCE.translate(original, sw);
+            } catch (final IOException e) {
+            }
+            final String actual = original == null ? null : sw.toString();
+            assertEquals(message, expected, actual);
+            final StringWriter sw2 = new StringWriter();
+            try {
+                StringEscapeUtils.ESCAPE_HTML4_ONCE.translate(expected, sw2);
+            } catch (final IOException e) {
+            }
+            final String actual2 = original == null ? null : sw2.toString();
+            assertEquals(message, expected, actual2);
+        }
+    }
+
+    @Test
     public void testUnescapeHtml4() {
         for (final String[] element : HTML_ESCAPES) {
             final String message = element[0];
