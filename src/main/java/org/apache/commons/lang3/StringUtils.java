@@ -7157,6 +7157,42 @@ public class StringUtils {
     }
 
     /**
+     * <p>Checks if a String {@code str} contains Unicode digits,
+     * if yes then concatenate all the digits in {@code str} and return it as a String.</p>
+     *
+     * <p>An empty ("") String will be returned if no digits found in {@code str}.</p>
+     *
+     * <pre>
+     * StringUtils.getDigits(null)  = null
+     * StringUtils.getDigits("")    = ""
+     * StringUtils.getDigits("abc") = ""
+     * StringUtils.getDigits("1000$") = "1000"
+     * StringUtils.getDigits("1123~45") = "12345"
+     * StringUtils.getDigits("(541) 754-3010") = "5417543010"
+     * StringUtils.getDigits("\u0967\u0968\u0969") = "\u0967\u0968\u0969"
+     * </pre>
+     *
+     * @param str the String to extract digits from, may be null
+     * @return String with only digits,
+     *           or an empty ("") String if no digits found,
+     *           or {@code null} String if {@code str} is null
+     */
+    public static String getDigits(final String str) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        final int sz = str.length();
+        final StringBuilder strDigits = new StringBuilder(sz);
+        for (int i = 0; i < sz; i++) {
+            final char tempChar = str.charAt(i);
+            if (Character.isDigit(tempChar)) {
+                strDigits.append(tempChar);
+            }
+        }
+        return strDigits.toString();
+    }
+
+    /**
      * <p>Checks if the CharSequence contains only whitespace.</p>
      * 
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
