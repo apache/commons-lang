@@ -3188,4 +3188,15 @@ public class StringUtilsTest {
         assertNull(StringUtils.toCodePoints(null));
         assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, StringUtils.toCodePoints(""));
     }
+
+    @Test
+    public void testgetDigits(){
+    	assertEquals(null, StringUtils.getDigits(null));
+    	assertEquals(StringUtils.EMPTY, StringUtils.getDigits(StringUtils.EMPTY));
+    	assertEquals(StringUtils.EMPTY, StringUtils.getDigits("abc"));
+    	assertEquals("1000", StringUtils.getDigits("1000$"));
+    	assertEquals("12345", StringUtils.getDigits("123password45"));
+    	assertEquals("5417543010", StringUtils.getDigits("(541) 754-3010"));
+    	assertEquals("\u0967\u0968\u0969", StringUtils.getDigits("\u0967\u0968\u0969"));
+    }
 }
