@@ -19,21 +19,13 @@ public class CsvTranslators {
 
     private CsvTranslators() {}
 
-    // TODO: Create a parent class - 'SinglePassTranslator' ?
-    //       It would handle the index checking + length returning,
-    //       and could also have an optimization check method.
     /**
      * Translator for escaping Comma Separated Values.
      */
-    public static class CsvEscaper extends CharSequenceTranslator {
+    public static class CsvEscaper extends SinglePassTranslator {
 
         @Override
-        public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
-
-            if(index != 0) {
-                throw new IllegalStateException("CsvEscaper should never reach the [1] index");
-            }
-
+        void translateWhole(final CharSequence input, final Writer out) throws IOException {
             if (StringUtils.containsNone(input.toString(), CSV_SEARCH_CHARS)) {
                 out.write(input.toString());
             } else {
@@ -41,25 +33,19 @@ public class CsvTranslators {
                 out.write(StringUtils.replace(input.toString(), CSV_QUOTE_STR, CSV_QUOTE_STR + CSV_QUOTE_STR));
                 out.write(CSV_QUOTE);
             }
-            return Character.codePointCount(input, 0, input.length());
         }
     }
 
     /**
      * Translator for unescaping escaped Comma Separated Value entries.
      */
-    public static class CsvUnescaper extends CharSequenceTranslator {
+    public static class CsvUnescaper extends SinglePassTranslator {
 
         @Override
-        public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
-
-            if (index != 0) {
-                throw new IllegalStateException("CsvUnescaper should never reach the [1] index");
-            }
-
+        void translateWhole(final CharSequence input, final Writer out) throws IOException {
             if (input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE) {
                 out.write(input.toString());
-                return Character.codePointCount(input, 0, input.length());
+                return;
             }
 
             // strip quotes
@@ -71,7 +57,6 @@ public class CsvTranslators {
             } else {
                 out.write(input.toString());
             }
-            return Character.codePointCount(input, 0, input.length());
         }
     }
 }
