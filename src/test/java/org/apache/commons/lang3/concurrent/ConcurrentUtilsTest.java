@@ -19,6 +19,7 @@ package org.apache.commons.lang3.concurrent;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -345,6 +346,14 @@ public class ConcurrentUtilsTest {
     @Test
     public void testInitializeUncheckedNull() {
         assertNull("Got a result", ConcurrentUtils.initializeUnchecked(null));
+    }
+
+    /**
+     * Tests creating ConcurrentRuntimeException with no arguments.
+     */
+    @Test
+    public void testUninitializedConcurrentRuntimeException() {
+        assertNotNull("Error creating empty ConcurrentRuntimeException", new ConcurrentRuntimeException());
     }
 
     /**
