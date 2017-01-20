@@ -70,7 +70,7 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
     private static final long serialVersionUID = 1L;
 
     /** Indenting of inner lines. */
-    private final int indent = 2;
+    private static final int INDENT = 2;
 
     /** Current indenting. */
     private int spaces = 2;
@@ -90,11 +90,11 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
     private void resetIndent() {
         setArrayStart("{" + System.lineSeparator() + spacer(spaces));
         setArraySeparator("," + System.lineSeparator() + spacer(spaces));
-        setArrayEnd(System.lineSeparator() + spacer(spaces - indent) + "}");
+        setArrayEnd(System.lineSeparator() + spacer(spaces - INDENT) + "}");
 
         setContentStart("[" + System.lineSeparator() + spacer(spaces));
         setFieldSeparator("," + System.lineSeparator() + spacer(spaces));
-        setContentEnd(System.lineSeparator() + spacer(spaces - indent) + "]");
+        setContentEnd(System.lineSeparator() + spacer(spaces - INDENT) + "]");
     }
 
     /**
@@ -115,10 +115,10 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
     public void appendDetail(final StringBuffer buffer, final String fieldName, final Object value) {
         if (!ClassUtils.isPrimitiveWrapper(value.getClass()) && !String.class.equals(value.getClass())
                 && accept(value.getClass())) {
-            spaces += indent;
+            spaces += INDENT;
             resetIndent();
             buffer.append(ReflectionToStringBuilder.toString(value, this));
-            spaces -= indent;
+            spaces -= INDENT;
             resetIndent();
         } else {
             super.appendDetail(buffer, fieldName, value);
@@ -127,91 +127,91 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
 
     @Override
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Object[] array) {
-        spaces += indent;
+        spaces += INDENT;
         resetIndent();
         super.appendDetail(buffer, fieldName, array);
-        spaces -= indent;
+        spaces -= INDENT;
         resetIndent();
     }
 
     @Override
     protected void reflectionAppendArrayDetail(final StringBuffer buffer, final String fieldName, final Object array) {
-        spaces += indent;
+        spaces += INDENT;
         resetIndent();
         super.appendDetail(buffer, fieldName, array);
-        spaces -= indent;
+        spaces -= INDENT;
         resetIndent();
     }
 
     @Override
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final long[] array) {
-        spaces += indent;
+        spaces += INDENT;
         resetIndent();
         super.appendDetail(buffer, fieldName, array);
-        spaces -= indent;
+        spaces -= INDENT;
         resetIndent();
     }
 
     @Override
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final int[] array) {
-        spaces += indent;
+        spaces += INDENT;
         resetIndent();
         super.appendDetail(buffer, fieldName, array);
-        spaces -= indent;
+        spaces -= INDENT;
         resetIndent();
     }
 
     @Override
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final short[] array) {
-        spaces += indent;
+        spaces += INDENT;
         resetIndent();
         super.appendDetail(buffer, fieldName, array);
-        spaces -= indent;
+        spaces -= INDENT;
         resetIndent();
     }
 
     @Override
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final byte[] array) {
-        spaces += indent;
+        spaces += INDENT;
         resetIndent();
         super.appendDetail(buffer, fieldName, array);
-        spaces -= indent;
+        spaces -= INDENT;
         resetIndent();
     }
 
     @Override
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final char[] array) {
-        spaces += indent;
+        spaces += INDENT;
         resetIndent();
         super.appendDetail(buffer, fieldName, array);
-        spaces -= indent;
+        spaces -= INDENT;
         resetIndent();
     }
 
     @Override
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final double[] array) {
-        spaces += indent;
+        spaces += INDENT;
         resetIndent();
         super.appendDetail(buffer, fieldName, array);
-        spaces -= indent;
+        spaces -= INDENT;
         resetIndent();
     }
 
     @Override
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final float[] array) {
-        spaces += indent;
+        spaces += INDENT;
         resetIndent();
         super.appendDetail(buffer, fieldName, array);
-        spaces -= indent;
+        spaces -= INDENT;
         resetIndent();
     }
 
     @Override
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final boolean[] array) {
-        spaces += indent;
+        spaces += INDENT;
         resetIndent();
         super.appendDetail(buffer, fieldName, array);
-        spaces -= indent;
+        spaces -= INDENT;
         resetIndent();
     }
 
