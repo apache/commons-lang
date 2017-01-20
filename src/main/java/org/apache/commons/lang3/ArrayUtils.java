@@ -301,7 +301,6 @@ public class ArrayUtils {
      * @return the array, not null unless a null array is passed in
      * @since  3.0
      */
-    @SafeVarargs
     public static <T> T[] toArray(final T... items) {
         return items;
     }
