@@ -2363,10 +2363,7 @@ public abstract class ToStringStyle implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
-        /**
-         * The summary size text start <code>'&gt;'</code>.
-         */
-        private static final String FIELD_NAME_PREFIX = "\"";
+        private static final String FIELD_NAME_QUOTE = "\"";
 
         /**
          * <p>
@@ -2621,8 +2618,8 @@ public abstract class ToStringStyle implements Serializable {
                         "Field names are mandatory when using JsonToStringStyle");
             }
 
-            super.appendFieldStart(buffer, FIELD_NAME_PREFIX + fieldName
-                    + FIELD_NAME_PREFIX);
+            super.appendFieldStart(buffer, FIELD_NAME_QUOTE + fieldName
+                    + FIELD_NAME_QUOTE);
         }
 
         /**
