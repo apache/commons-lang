@@ -27,7 +27,6 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.builder.Builder;
 
 /**
@@ -477,7 +476,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder appendNewLine() {
         if (newLine == null)  {
-            append(SystemUtils.LINE_SEPARATOR);
+            append(System.lineSeparator());
             return this;
         }
         return append(newLine);

@@ -18,7 +18,6 @@
 package org.apache.commons.lang3.builder;
 
 import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.SystemUtils;
 
 /**
  * <p>Works with {@link ToStringBuilder} to create a "deep" <code>toString</code>.
@@ -89,13 +88,13 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
      * Must be invoked after changing the {@link #spaces} value.
      */
     private void resetIndent() {
-        setArrayStart("{" + SystemUtils.LINE_SEPARATOR + spacer(spaces));
-        setArraySeparator("," + SystemUtils.LINE_SEPARATOR + spacer(spaces));
-        setArrayEnd(SystemUtils.LINE_SEPARATOR + spacer(spaces - indent) + "}");
+        setArrayStart("{" + System.lineSeparator() + spacer(spaces));
+        setArraySeparator("," + System.lineSeparator() + spacer(spaces));
+        setArrayEnd(System.lineSeparator() + spacer(spaces - indent) + "}");
 
-        setContentStart("[" + SystemUtils.LINE_SEPARATOR + spacer(spaces));
-        setFieldSeparator("," + SystemUtils.LINE_SEPARATOR + spacer(spaces));
-        setContentEnd(SystemUtils.LINE_SEPARATOR + spacer(spaces - indent) + "]");
+        setContentStart("[" + System.lineSeparator() + spacer(spaces));
+        setFieldSeparator("," + System.lineSeparator() + spacer(spaces));
+        setContentEnd(System.lineSeparator() + spacer(spaces - indent) + "]");
     }
 
     /**

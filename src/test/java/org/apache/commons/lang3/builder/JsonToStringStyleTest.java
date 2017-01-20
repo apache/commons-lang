@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.After;
 import org.junit.Before;
@@ -63,25 +62,25 @@ public class JsonToStringStyleTest {
         assertEquals(
                 "{}",
                 new ToStringBuilder(base).appendSuper(
-                        "Integer@8888[" + SystemUtils.LINE_SEPARATOR + "]")
+                        "Integer@8888[" + System.lineSeparator() + "]")
                         .toString());
         assertEquals(
                 "{}",
                 new ToStringBuilder(base).appendSuper(
-                        "Integer@8888[" + SystemUtils.LINE_SEPARATOR + "  null"
-                                + SystemUtils.LINE_SEPARATOR + "]").toString());
+                        "Integer@8888[" + System.lineSeparator() + "  null"
+                                + System.lineSeparator() + "]").toString());
         assertEquals(
                 "{\"a\":\"hello\"}",
                 new ToStringBuilder(base)
                         .appendSuper(
-                                "Integer@8888[" + SystemUtils.LINE_SEPARATOR
+                                "Integer@8888[" + System.lineSeparator()
                                         + "]").append("a", "hello").toString());
         assertEquals(
                 "{\"a\":\"hello\"}",
                 new ToStringBuilder(base)
                         .appendSuper(
-                                "Integer@8888[" + SystemUtils.LINE_SEPARATOR
-                                        + "  null" + SystemUtils.LINE_SEPARATOR
+                                "Integer@8888[" + System.lineSeparator()
+                                        + "  null" + System.lineSeparator()
                                         + "]").append("a", "hello").toString());
         assertEquals("{\"a\":\"hello\"}", new ToStringBuilder(base)
                 .appendSuper(null).append("a", "hello").toString());

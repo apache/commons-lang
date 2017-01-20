@@ -25,7 +25,6 @@ import java.util.WeakHashMap;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 
 /**
  * <p>Controls <code>String</code> formatting for {@link ToStringBuilder}.
@@ -2294,9 +2293,9 @@ public abstract class ToStringStyle implements Serializable {
         MultiLineToStringStyle() {
             super();
             this.setContentStart("[");
-            this.setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
+            this.setFieldSeparator(System.lineSeparator() + "  ");
             this.setFieldSeparatorAtStart(true);
-            this.setContentEnd(SystemUtils.LINE_SEPARATOR + "]");
+            this.setContentEnd(System.lineSeparator() + "]");
         }
 
         /**

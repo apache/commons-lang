@@ -21,7 +21,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 
 /**
  * <p>Operations on Strings that contain words.</p>
@@ -270,7 +269,7 @@ public class WordUtils {
             return null;
         }
         if (newLineStr == null) {
-            newLineStr = SystemUtils.LINE_SEPARATOR;
+            newLineStr = System.lineSeparator();
         }
         if (wrapLength < 1) {
             wrapLength = 1;

@@ -615,7 +615,7 @@ public class ExceptionUtils {
      * @return an array where each element is a line from the argument
      */
     static String[] getStackFrames(final String stackTrace) {
-        final String linebreak = SystemUtils.LINE_SEPARATOR;
+        final String linebreak = System.lineSeparator();
         final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
         final List<String> list = new ArrayList<>();
         while (frames.hasMoreTokens()) {
@@ -638,7 +638,7 @@ public class ExceptionUtils {
      */
     static List<String> getStackFrameList(final Throwable t) {
         final String stackTrace = getStackTrace(t);
-        final String linebreak = SystemUtils.LINE_SEPARATOR;
+        final String linebreak = System.lineSeparator();
         final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
         final List<String> list = new ArrayList<>();
         boolean traceStarted = false;

@@ -26,15 +26,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
-import org.apache.commons.lang3.SystemUtils;
-
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.StrBuilder}.
  */
 public class StrBuilderAppendInsertTest {
 
     /** The system line separator. */
-    private static final String SEP = SystemUtils.LINE_SEPARATOR;
+    private static final String SEP = System.lineSeparator();
 
     /** Test subclass of Object, with a toString method. */
     private static final Object FOO = new Object() {

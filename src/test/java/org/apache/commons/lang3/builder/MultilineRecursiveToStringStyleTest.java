@@ -22,14 +22,13 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
 /**
  */
 public class MultilineRecursiveToStringStyleTest {
 
-    private final String BR = SystemUtils.LINE_SEPARATOR;
+    private final String BR = System.lineSeparator();
 
     @Test
     public void simpleObject() {

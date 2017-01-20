@@ -664,8 +664,10 @@ public class SystemUtils {
      * sync with that System property.
      * </p>
      *
+     * @deprecated Use {@link System#lineSeparator} instead, since it does not require a privilege check.
      * @since Java 1.1
      */
+    @Deprecated
     public static final String LINE_SEPARATOR = getSystemProperty("line.separator");
 
     /**
