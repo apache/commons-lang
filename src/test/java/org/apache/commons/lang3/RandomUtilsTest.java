@@ -16,11 +16,16 @@
  */
 package org.apache.commons.lang3;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 
 /**
  * Tests for {@link RandomUtils}
@@ -32,6 +37,15 @@ public class RandomUtilsTest {
      */
     private static final double DELTA = 1e-5;
 
+    @Test
+    public void testConstructor() {
+        assertNotNull(new RandomUtils());
+        final Constructor<?>[] cons = RandomUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(RandomUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(RandomUtils.class.getModifiers()));
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextBytesNegative() throws Exception {
@@ -76,6 +90,15 @@ public class RandomUtilsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNextFloatLowerGreaterUpper() throws Exception {
         RandomUtils.nextFloat(2, 1);
+    }
+
+    /**
+     * Tests next boolean
+     */
+    @Test
+    public void testBoolean() {
+        boolean result = RandomUtils.nextBoolean();
+        assertTrue(result == true || result == false);
     }
 
     /**

@@ -220,6 +220,7 @@ public class StringUtilsTest {
         final String test = "This String contains a TitleCase character: \u01C8";
         final String expect = "tHIS sTRING CONTAINS A tITLEcASE CHARACTER: \u01C9";
         assertEquals(expect, WordUtils.swapCase(test));
+        assertEquals(expect, StringUtils.swapCase(test));
     }
 
     //-----------------------------------------------------------------------
@@ -255,6 +256,7 @@ public class StringUtilsTest {
         assertEquals(";;foo", StringUtils.join(MIXED_ARRAY_LIST, SEPARATOR_CHAR));
         assertEquals("foo;2", StringUtils.join(MIXED_TYPE_LIST, SEPARATOR_CHAR));
 
+        assertNull(StringUtils.join((Object[]) null, ',', 0, 1));
         assertEquals("/", StringUtils.join(MIXED_ARRAY_LIST, '/', 0, MIXED_ARRAY_LIST.length - 1));
         assertEquals("foo", StringUtils.join(MIXED_TYPE_LIST, '/', 0, 1));
         assertEquals("null", StringUtils.join(NULL_TO_STRING_LIST, '/', 0, 1));
@@ -608,6 +610,43 @@ public class StringUtilsTest {
         assertEquals(splitOnStringExpectedResults.length, splitOnStringResults.length);
         for (int i = 0; i < splitOnStringExpectedResults.length; i++) {
             assertEquals(splitOnStringExpectedResults[i], splitOnStringResults[i]);
+        }
+    }
+
+    @Test
+    public void testSplitByWholeSeparatorPreserveAllTokens_StringString() {
+        assertArrayEquals(null, StringUtils.splitByWholeSeparatorPreserveAllTokens(null, "."));
+
+        assertEquals(0, StringUtils.splitByWholeSeparatorPreserveAllTokens("", ".").length);
+
+        // test whitespace
+        String input = "ab   de fg";
+        String[] expected = new String[]{"ab", "", "", "de", "fg"};
+
+        String[] actual = StringUtils.splitByWholeSeparatorPreserveAllTokens(input, null);
+        assertEquals(expected.length, actual.length);
+        for (int i = 0; i < actual.length; i += 1) {
+            assertEquals(expected[i], actual[i]);
+        }
+
+        // test delimiter singlechar
+        input = "1::2:::3::::4";
+        expected = new String[]{"1", "", "2", "", "", "3", "", "", "", "4"};
+
+        actual = StringUtils.splitByWholeSeparatorPreserveAllTokens(input, ":");
+        assertEquals(expected.length, actual.length);
+        for (int i = 0; i < actual.length; i += 1) {
+            assertEquals(expected[i], actual[i]);
+        }
+
+        // test delimiter multichar
+        input = "1::2:::3::::4";
+        expected = new String[]{"1", "2", ":3", "", "4"};
+
+        actual = StringUtils.splitByWholeSeparatorPreserveAllTokens(input, "::");
+        assertEquals(expected.length, actual.length);
+        for (int i = 0; i < actual.length; i += 1) {
+            assertEquals(expected[i], actual[i]);
         }
     }
 

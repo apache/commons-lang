@@ -199,6 +199,29 @@ public class StringEscapeUtilsTest {
                 StringEscapeUtils.escapeEcmaScript("document.getElementById(\"test\").value = '<script>alert('aaa');</script>';"));
     }
 
+    @Test
+    public void testUnescapeEcmaScript() {
+        assertEquals(null, StringEscapeUtils.escapeEcmaScript(null));
+        try {
+            StringEscapeUtils.UNESCAPE_ECMASCRIPT.translate(null, null);
+            fail();
+        } catch (final IOException ex) {
+            fail();
+        } catch (final IllegalArgumentException ex) {
+        }
+        try {
+            StringEscapeUtils.UNESCAPE_ECMASCRIPT.translate("", null);
+            fail();
+        } catch (final IOException ex) {
+            fail();
+        } catch (final IllegalArgumentException ex) {
+        }
+
+        assertEquals("He didn't say, \"stop!\"", StringEscapeUtils.unescapeEcmaScript("He didn\\'t say, \\\"stop!\\\""));
+        assertEquals("document.getElementById(\"test\").value = '<script>alert('aaa');</script>';",
+                StringEscapeUtils.unescapeEcmaScript("document.getElementById(\\\"test\\\").value = \\'<script>alert(\\'aaa\\');<\\/script>\\';"));
+    }
+
 
     // HTML and XML
     //--------------------------------------------------------------
@@ -470,6 +493,12 @@ public class StringEscapeUtilsTest {
         }
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void testEscapeCsvIllegalStateException() throws IOException {
+        final StringWriter writer = new StringWriter();
+        StringEscapeUtils.ESCAPE_CSV.translate("foo", -1, writer);
+    }
+
     @Test
     public void testUnescapeCsvString() throws Exception {
         assertEquals("foo.bar",              StringEscapeUtils.unescapeCsv("foo.bar"));
@@ -506,6 +535,12 @@ public class StringEscapeUtilsTest {
         } catch (final IOException e) {
             fail("Threw: " + e);
         }
+    }
+
+    @Test(expected = IllegalStateException.class)
+        public void testUnescapeCsvIllegalStateException() throws IOException {
+        final StringWriter writer = new StringWriter();
+        StringEscapeUtils.UNESCAPE_CSV.translate("foo", -1, writer);
     }
 
     /**
@@ -613,4 +648,29 @@ public class StringEscapeUtilsTest {
         assertEquals(expected, StringEscapeUtils.escapeJson(input));
     }
 
+    @Test
+    public void testUnescapeJson() {
+        assertEquals(null, StringEscapeUtils.unescapeJson(null));
+        try {
+            StringEscapeUtils.UNESCAPE_JSON.translate(null, null);
+            fail();
+        } catch (final IOException ex) {
+            fail();
+        } catch (final IllegalArgumentException ex) {
+        }
+        try {
+            StringEscapeUtils.UNESCAPE_JSON.translate("", null);
+            fail();
+        } catch (final IOException ex) {
+            fail();
+        } catch (final IllegalArgumentException ex) {
+        }
+
+        assertEquals("He didn't say, \"stop!\"", StringEscapeUtils.unescapeJson("He didn't say, \\\"stop!\\\""));
+
+        final String expected ="\"foo\" isn't \"bar\". specials: \b\r\n\f\t\\/";
+        final String input = "\\\"foo\\\" isn't \\\"bar\\\". specials: \\b\\r\\n\\f\\t\\\\\\/";
+
+        assertEquals(expected, StringEscapeUtils.unescapeJson(input));
+    }
 }
