@@ -41,7 +41,7 @@ COMPATIBILITY
 =============
 
 Apache Commons Lang 3.5 is binary compatible with the 3.4 release. Users
-should not experience any problems when upgrading vom 3.4 to 3.5.
+should not experience any problems when upgrading from 3.4 to 3.5.
 
 There has been an addition to the org.apache.commons.lang3.time.DatePrinter
 interface:
