@@ -235,7 +235,7 @@ public class CharUtilsTest {
         assertTrue(CharUtils.isAsciiPrintable('3'));
         assertTrue(CharUtils.isAsciiPrintable('-'));
         assertFalse(CharUtils.isAsciiPrintable('\n'));
-        assertFalse(CharUtils.isAscii(CHAR_COPY));
+        assertFalse(CharUtils.isAsciiPrintable(CHAR_COPY));
        
         for (int i = 0; i < 196; i++) {
             if (i >= 32 && i <= 126) {
