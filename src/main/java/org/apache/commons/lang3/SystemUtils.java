@@ -1482,6 +1482,26 @@ public class SystemUtils {
 
     /**
      * <p>
+     * Is {@code true} if this is a 32 bit architecture.
+     * </p>
+     * <p>
+     * The field will return {@false} if {@code OS_ARCH} is not a 32 bit architecture.
+     * </p>
+     */
+    public static final boolean IS_32_BIT = OS_ARCH.matches("^(x8632|x86|i[3-6]86|ia32|x32)$");
+
+    /**
+     * <p>
+     * Is {@code true} if this is a 64 bit architecture.
+     * </p>
+     * <p>
+     * The field will return {@false} if {@code OS_ARCH} is not a 64 bit architecture.
+     * </p>
+     */
+    public static boolean IS_64_BIT = OS_ARCH.matches("^(x8664|amd64|ia32e|em64t|x64)$");
+
+    /**
+     * <p>
      * Gets the Java home directory as a {@code File}.
      * </p>
      *
