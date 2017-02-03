@@ -957,7 +957,7 @@ public class StrSubstitutor {
     /**
      * Gets the variable prefix matcher currently in use.
      * <p>
-     * The variable prefix is the characer or characters that identify the
+     * The variable prefix is the character or characters that identify the
      * start of a variable. This prefix is expressed in terms of a matcher
      * allowing advanced prefix matches.
      *
@@ -970,7 +970,7 @@ public class StrSubstitutor {
     /**
      * Sets the variable prefix matcher currently in use.
      * <p>
-     * The variable prefix is the characer or characters that identify the
+     * The variable prefix is the character or characters that identify the
      * start of a variable. This prefix is expressed in terms of a matcher
      * allowing advanced prefix matches.
      *
@@ -1003,7 +1003,7 @@ public class StrSubstitutor {
     /**
      * Sets the variable prefix to use.
      * <p>
-     * The variable prefix is the characer or characters that identify the
+     * The variable prefix is the character or characters that identify the
      * start of a variable. This method allows a string prefix to be easily set.
      *
      * @param prefix  the prefix for variables, not null
@@ -1022,7 +1022,7 @@ public class StrSubstitutor {
     /**
      * Gets the variable suffix matcher currently in use.
      * <p>
-     * The variable suffix is the characer or characters that identify the
+     * The variable suffix is the character or characters that identify the
      * end of a variable. This suffix is expressed in terms of a matcher
      * allowing advanced suffix matches.
      *
@@ -1035,7 +1035,7 @@ public class StrSubstitutor {
     /**
      * Sets the variable suffix matcher currently in use.
      * <p>
-     * The variable suffix is the characer or characters that identify the
+     * The variable suffix is the character or characters that identify the
      * end of a variable. This suffix is expressed in terms of a matcher
      * allowing advanced suffix matches.
      *
@@ -1054,7 +1054,7 @@ public class StrSubstitutor {
     /**
      * Sets the variable suffix to use.
      * <p>
-     * The variable suffix is the characer or characters that identify the
+     * The variable suffix is the character or characters that identify the
      * end of a variable. This method allows a single character suffix to
      * be easily set.
      *
@@ -1087,7 +1087,7 @@ public class StrSubstitutor {
     /**
      * Gets the variable default value delimiter matcher currently in use.
      * <p>
-     * The variable default value delimiter is the characer or characters that delimite the
+     * The variable default value delimiter is the character or characters that delimit the
      * variable name and the variable default value. This delimiter is expressed in terms of a matcher
      * allowing advanced variable default value delimiter matches.
      * <p>
@@ -1103,7 +1103,7 @@ public class StrSubstitutor {
     /**
      * Sets the variable default value delimiter matcher to use.
      * <p>
-     * The variable default value delimiter is the characer or characters that delimite the
+     * The variable default value delimiter is the character or characters that delimit the
      * variable name and the variable default value. This delimiter is expressed in terms of a matcher
      * allowing advanced variable default value delimiter matches.
      * <p>
@@ -1122,7 +1122,7 @@ public class StrSubstitutor {
     /**
      * Sets the variable default value delimiter to use.
      * <p>
-     * The variable default value delimiter is the characer or characters that delimite the
+     * The variable default value delimiter is the character or characters that delimit the
      * variable name and the variable default value. This method allows a single character
      * variable default value delimiter to be easily set.
      *
@@ -1137,7 +1137,7 @@ public class StrSubstitutor {
     /**
      * Sets the variable default value delimiter to use.
      * <p>
-     * The variable default value delimiter is the characer or characters that delimite the
+     * The variable default value delimiter is the character or characters that delimit the
      * variable name and the variable default value. This method allows a string
      * variable default value delimiter to be easily set.
      * <p>

@@ -273,7 +273,7 @@ public class SerializationUtils {
         }
 
         /**
-         * Overriden version that uses the parametrized <code>ClassLoader</code> or the <code>ClassLoader</code>
+         * Overridden version that uses the parameterized <code>ClassLoader</code> or the <code>ClassLoader</code>
          * of the current <code>Thread</code> to resolve the class.
          * @param desc An instance of class <code>ObjectStreamClass</code>.
          * @return A <code>Class</code> object corresponding to <code>desc</code>.

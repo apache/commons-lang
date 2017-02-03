@@ -670,7 +670,7 @@ public class DateUtils {
     /**
      * Converts a {@code Date} of a given {@code TimeZone} into a {@code Calendar}
      * @param date the date to convert to a Calendar
-     * @param tz the time zone of the @{code date}
+     * @param tz the time zone of the {@code date}
      * @return the created Calendar
      * @throws NullPointerException if {@code date} or {@code tz} is null
      */

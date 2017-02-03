@@ -788,7 +788,7 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Return a map of the type arguments of @{code type} in the context of {@code toClass}.</p>
+     * <p>Return a map of the type arguments of {@code type} in the context of {@code toClass}.</p>
      *
      * @param type the type in question
      * @param toClass the class
@@ -890,7 +890,7 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Return a map of the type arguments of a class in the context of @{code toClass}.</p>
+     * <p>Return a map of the type arguments of a class in the context of {@code toClass}.</p>
      *
      * @param cls the class in question
      * @param toClass the context class
@@ -1527,7 +1527,7 @@ public class TypeUtils {
 
     /**
      * Helper method to establish the formal parameters for a parameterized type.
-     * @param mappings map containing the assignements
+     * @param mappings map containing the assignments
      * @param variables expected map keys
      * @return array of map values corresponding to specified keys
      */
@@ -1829,7 +1829,7 @@ public class TypeUtils {
     }
 
     /**
-     * Append {@code types} to @{code buf} with separator {@code sep}.
+     * Append {@code types} to {@code buf} with separator {@code sep}.
      * @param buf destination
      * @param sep separator
      * @param types to append
