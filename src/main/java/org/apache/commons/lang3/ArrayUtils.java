@@ -2651,7 +2651,7 @@ public class ArrayUtils {
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
      * @param endIndexExclusive
-     *            elements up to endIndex-1 are shiftd in the array. Undervalue (&lt; start index) results in no
+     *            elements up to endIndex-1 are shifted in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
@@ -2711,7 +2711,7 @@ public class ArrayUtils {
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
      * @param endIndexExclusive
-     *            elements up to endIndex-1 are shiftd in the array. Undervalue (&lt; start index) results in no
+     *            elements up to endIndex-1 are shifted in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
@@ -2771,7 +2771,7 @@ public class ArrayUtils {
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
      * @param endIndexExclusive
-     *            elements up to endIndex-1 are shiftd in the array. Undervalue (&lt; start index) results in no
+     *            elements up to endIndex-1 are shifted in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
@@ -2831,7 +2831,7 @@ public class ArrayUtils {
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
      * @param endIndexExclusive
-     *            elements up to endIndex-1 are shiftd in the array. Undervalue (&lt; start index) results in no
+     *            elements up to endIndex-1 are shifted in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
@@ -2891,7 +2891,7 @@ public class ArrayUtils {
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
      * @param endIndexExclusive
-     *            elements up to endIndex-1 are shiftd in the array. Undervalue (&lt; start index) results in no
+     *            elements up to endIndex-1 are shifted in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
@@ -2951,7 +2951,7 @@ public class ArrayUtils {
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
      * @param endIndexExclusive
-     *            elements up to endIndex-1 are shiftd in the array. Undervalue (&lt; start index) results in no
+     *            elements up to endIndex-1 are shifted in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
@@ -3011,7 +3011,7 @@ public class ArrayUtils {
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
      * @param endIndexExclusive
-     *            elements up to endIndex-1 are shiftd in the array. Undervalue (&lt; start index) results in no
+     *            elements up to endIndex-1 are shifted in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
@@ -3071,7 +3071,7 @@ public class ArrayUtils {
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
      * @param endIndexExclusive
-     *            elements up to endIndex-1 are shiftd in the array. Undervalue (&lt; start index) results in no
+     *            elements up to endIndex-1 are shifted in the array. Undervalue (&lt; start index) results in no
      *            change. Overvalue (&gt;array.length) is demoted to array length.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
@@ -3240,7 +3240,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwards looking for the object, may be {@code null}
+     * @param array  the array to traverse backwards looking for the object, may be {@code null}
      * @param objectToFind  the object to find, may be {@code null}
      * @return the last index of the object within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3259,7 +3259,7 @@ public class ArrayUtils {
      *
      * @param array  the array to traverse for looking for the object, may be {@code null}
      * @param objectToFind  the object to find, may be {@code null}
-     * @param startIndex  the start index to travers backwards from
+     * @param startIndex  the start index to traverse backwards from
      * @return the last index of the object within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
@@ -3351,7 +3351,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwards looking for the object, may be {@code null}
+     * @param array  the array to traverse backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3370,7 +3370,7 @@ public class ArrayUtils {
      *
      * @param array  the array to traverse for looking for the object, may be {@code null}
      * @param valueToFind  the value to find
-     * @param startIndex  the start index to travers backwards from
+     * @param startIndex  the start index to traverse backwards from
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
@@ -3454,7 +3454,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwards looking for the object, may be {@code null}
+     * @param array  the array to traverse backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3473,7 +3473,7 @@ public class ArrayUtils {
      *
      * @param array  the array to traverse for looking for the object, may be {@code null}
      * @param valueToFind  the value to find
-     * @param startIndex  the start index to travers backwards from
+     * @param startIndex  the start index to traverse backwards from
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
@@ -3557,7 +3557,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwards looking for the object, may be {@code null}
+     * @param array  the array to traverse backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3576,7 +3576,7 @@ public class ArrayUtils {
      *
      * @param array  the array to traverse for looking for the object, may be {@code null}
      * @param valueToFind  the value to find
-     * @param startIndex  the start index to travers backwards from
+     * @param startIndex  the start index to traverse backwards from
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
@@ -3662,7 +3662,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwards looking for the object, may be {@code null}
+     * @param array  the array to traverse backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3682,7 +3682,7 @@ public class ArrayUtils {
      *
      * @param array  the array to traverse for looking for the object, may be {@code null}
      * @param valueToFind  the value to find
-     * @param startIndex  the start index to travers backwards from
+     * @param startIndex  the start index to traverse backwards from
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      * @since 2.1
@@ -3768,7 +3768,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwards looking for the object, may be {@code null}
+     * @param array  the array to traverse backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3787,7 +3787,7 @@ public class ArrayUtils {
      *
      * @param array  the array to traverse for looking for the object, may be {@code null}
      * @param valueToFind  the value to find
-     * @param startIndex  the start index to travers backwards from
+     * @param startIndex  the start index to traverse backwards from
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
@@ -3922,7 +3922,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwards looking for the object, may be {@code null}
+     * @param array  the array to traverse backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -3958,7 +3958,7 @@ public class ArrayUtils {
      *
      * @param array  the array to traverse for looking for the object, may be {@code null}
      * @param valueToFind  the value to find
-     * @param startIndex  the start index to travers backwards from
+     * @param startIndex  the start index to traverse backwards from
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
@@ -3991,7 +3991,7 @@ public class ArrayUtils {
      *
      * @param array  the array to traverse for looking for the object, may be {@code null}
      * @param valueToFind  the value to find
-     * @param startIndex  the start index to travers backwards from
+     * @param startIndex  the start index to traverse backwards from
      * @param tolerance  search for value within plus/minus this amount
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -4095,7 +4095,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * @param array  the array to travers backwards looking for the object, may be {@code null}
+     * @param array  the array to traverse backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -4114,7 +4114,7 @@ public class ArrayUtils {
      *
      * @param array  the array to traverse for looking for the object, may be {@code null}
      * @param valueToFind  the value to find
-     * @param startIndex  the start index to travers backwards from
+     * @param startIndex  the start index to traverse backwards from
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
@@ -4200,7 +4200,7 @@ public class ArrayUtils {
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) if
      * {@code null} array input.
      *
-     * @param array  the array to travers backwards looking for the object, may be {@code null}
+     * @param array  the array to traverse backwards looking for the object, may be {@code null}
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -4219,7 +4219,7 @@ public class ArrayUtils {
      *
      * @param array  the array to traverse for looking for the object, may be {@code null}
      * @param valueToFind  the value to find
-     * @param startIndex  the start index to travers backwards from
+     * @param startIndex  the start index to traverse backwards from
      * @return the last index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
