@@ -35,22 +35,22 @@ import org.junit.runners.model.Statement;
  * <pre>
  * public class SystemDefaultsDependentTest {
  *
- *     {@literal@}Rule
+ *     {@literal @}Rule
  *     public SystemDefaultsSwitch locale = new SystemDefaultsSwitch();
  *
- *     {@literal@}Test
+ *     {@literal @}Test
  *     public void testThatWillExecuteWithTheDefaultLocaleAndTimeZone() {
  *         // nothing to do, just implement the test
  *     }
  *
- *     {@literal@}Test
- *     {@literal@}SystemDefaults(local="zh_CN")
+ *     {@literal @}Test
+ *     {@literal @}SystemDefaults(local="zh_CN")
  *     public void testWithSimplifiedChinaDefaultLocale() {
  *         // Locale.getDefault() will return Locale.CHINA until the end of this test method
  *     }
  *      
- *     {@literal@}Test
- *     {@literal@}SystemDefaults(timezone="America/New_York")
+ *     {@literal @}Test
+ *     {@literal @}SystemDefaults(timezone="America/New_York")
  *     public void testWithNorthAmericaEasternTimeZone() {
  *         // TimeZone.getDefault() will equal TimeZone.getTimeZone("America/New_York") until the end of this method
  *     }
