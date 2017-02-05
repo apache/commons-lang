@@ -272,6 +272,40 @@ public class StringEscapeUtils {
         }
     }
 
+    /**
+     * Translator object for escaping Shell command language.
+     *
+     * @see <a href="http://pubs.opengroup.org/onlinepubs/7908799/xcu/chap2.html">Shell Command Language</a>
+     */
+    public static final CharSequenceTranslator ESCAPE_XSI =
+          new LookupTranslator(
+            new String[][] {
+              {"|", "\\|"},
+              {"&", "\\&"},
+              {";", "\\;"},
+              {"<", "\\<"},
+              {">", "\\>"},
+              {"(", "\\("},
+              {")", "\\)"},
+              {"$", "\\$"},
+              {"`", "\\`"},
+              {"\\", "\\\\"},
+              {"\"", "\\\""},
+              {"'", "\\'"},
+              {" ", "\\ "},
+              {"\t", "\\\t"},
+              {"\r\n", ""},
+              {"\n", ""},
+              {"*", "\\*"},
+              {"?", "\\?"},
+              {"[", "\\["},
+              {"#", "\\#"},
+              {"~", "\\~"},
+              {"=", "\\="},
+              {"%", "\\%"},
+          });
+
+
     /* UNESCAPE TRANSLATORS */
 
     /**
@@ -409,6 +443,47 @@ public class StringEscapeUtils {
             } else {
                 out.write(input.toString());
             }
+            return Character.codePointCount(input, 0, input.length());
+        }
+    }
+
+    public static final CharSequenceTranslator UNESCAPE_XSI = new BackslashUnescaper();
+
+    /**
+     * Translator object for unescaping backslash escaped entries.
+     *
+     * @since 3.6
+     */
+    static class BackslashUnescaper extends CharSequenceTranslator {
+
+        private static final char BACKSLASH = '\\';
+
+        @Override
+        public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
+
+            if(index != 0) {
+                throw new IllegalStateException("BackslashUnescaper should never reach the [1] index");
+            }
+
+            String s = input.toString();
+
+            int segmentStart = 0;
+            int searchOffset = 0;
+            while (true) {
+                int pos = s.indexOf(BACKSLASH, searchOffset);
+                if (pos == -1) {
+                    if (segmentStart < s.length()) {
+                        out.write(s.substring(segmentStart));
+                    }
+                    break;
+                }
+                if (pos > segmentStart) {
+                    out.write(s.substring(segmentStart, pos));
+                }
+                segmentStart = pos + 1;
+                searchOffset = pos + 2;
+            }
+
             return Character.codePointCount(input, 0, input.length());
         }
     }
@@ -799,6 +874,63 @@ public class StringEscapeUtils {
      */
     public static final String unescapeCsv(final String input) {
         return UNESCAPE_CSV.translate(input);
+    }
+
+    // Shell
+    /**
+     * <p>Escapes the characters in a {@code String} using XSI rules.</p>
+     *
+     * <p><b>Beware!</b> In most cases you don't want to escape shell commands but use multi-argument
+     * methods provided by {@link java.lang.ProcessBuilder} or {@link java.lang.Runtime#exec(String[])}
+     * instead.</p>
+     *
+     * <p>Example:</p>
+     * <pre>
+     * input string: He didn't say, "Stop!"
+     * output string: He\ didn\'t\ say,\ \"Stop!\"
+     * </pre>
+     *
+     * @see <a href="http://pubs.opengroup.org/onlinepubs/7908799/xcu/chap2.html">Shell Command Language</a>
+     * @param input  String to escape values in, may be null
+     * @return String with escaped values, {@code null} if null string input
+     * @since 3.6
+     */
+    public static final String escapeXSI(final String input) {
+        return ESCAPE_XSI.translate(input);
+    }
+
+    /**
+     * <p>Alias for {@link #escapeXSI(String)}.</p>
+     *
+     * @param input String to escape values in, may be null
+     * @return String with escaped values, {@code null} if null string input
+     * @since 3.6
+     */
+    public static final String escapeShell(final String input) {
+        return ESCAPE_XSI.translate(input);
+    }
+
+    /**
+     * <p>Unescapes the characters in a {@code String} using XSI rules.</p>
+     *
+     * @see StringEscapeUtils#escapeXSI(String)
+     * @param input  the {@code String} to unescape, may be null
+     * @return a new unescaped {@code String}, {@code null} if null string input
+     * @since 3.6
+     */
+    public static final String unescapeXSI(final String input) {
+        return UNESCAPE_XSI.translate(input);
+    }
+
+    /**
+     * <p>Alias for {@link #unescapeXSI(String)}.</p>
+     *
+     * @param input  the {@code String} to unescape, may be null
+     * @return a new unescaped {@code String}, {@code null} if null string input
+     * @since 3.6
+     */
+    public static final String unescapeShell(final String input) {
+        return UNESCAPE_XSI.translate(input);
     }
 
 }
