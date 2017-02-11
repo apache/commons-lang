@@ -397,4 +397,11 @@ public class CharRangeTest  {
         assertEquals(range, SerializationUtils.clone(range)); 
     }
 
+    //-----------------------------------------------------------------------
+    @Test(expected = UnsupportedOperationException.class)
+    public void testIteratorRemove() {
+        CharRange a = CharRange.is('a');
+        final Iterator<Character> aIt = a.iterator();
+        aIt.remove();
+    }
 }
