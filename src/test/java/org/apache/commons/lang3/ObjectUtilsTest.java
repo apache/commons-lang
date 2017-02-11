@@ -301,15 +301,13 @@ public class ObjectUtilsTest {
         try {
             ObjectUtils.identityToString((Appendable)null, "tmp");
             fail("NullPointerException expected");
-        } catch(final NullPointerException npe) {
-        } catch (final IOException ex) {
+        } catch(final NullPointerException | IOException npe) {
         }
-        
+
         try {
             ObjectUtils.identityToString((Appendable)(new StringBuilder()), null);
             fail("NullPointerException expected");
-        } catch(final NullPointerException npe) {
-        } catch (final IOException ex) {
+        } catch(final NullPointerException | IOException npe) {
         }
     }
 
