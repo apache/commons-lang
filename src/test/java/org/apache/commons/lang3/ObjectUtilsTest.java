@@ -80,7 +80,7 @@ public class ObjectUtilsTest {
         assertNull(ObjectUtils.firstNonNull(new Object[0]));
         
         // Cast to Object in line below ensures compiler doesn't complain of unchecked generic array creation
-        assertNull(ObjectUtils.firstNonNull((Object) null, (Object) null));
+        assertNull(ObjectUtils.firstNonNull(null, null));
         
 //        assertSame("123", ObjectUtils.firstNonNull(null, ObjectUtils.NULL, "123", "456"));
 //        assertSame("456", ObjectUtils.firstNonNull(ObjectUtils.NULL, "456", "123", null));
@@ -313,13 +313,13 @@ public class ObjectUtilsTest {
 
     @Test
     public void testToString_Object() {
-        assertEquals("", ObjectUtils.toString((Object) null) );
+        assertEquals("", ObjectUtils.toString(null) );
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE) );
     }
 
     @Test
     public void testToString_ObjectString() {
-        assertEquals(BAR, ObjectUtils.toString((Object) null, BAR) );
+        assertEquals(BAR, ObjectUtils.toString(null, BAR) );
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, BAR) );
     }
 
@@ -355,7 +355,7 @@ public class ObjectUtilsTest {
         assertSame( nonNullComparable1, ObjectUtils.max( minComparable, nonNullComparable1 ) );
         assertSame( nonNullComparable1, ObjectUtils.max( null, minComparable, null, nonNullComparable1 ) );
 
-        assertNull( ObjectUtils.max((String)null, (String)null) );
+        assertNull( ObjectUtils.max(null, null) );
     }
 
     @Test
@@ -381,7 +381,7 @@ public class ObjectUtilsTest {
         assertSame( minComparable, ObjectUtils.min( minComparable, nonNullComparable1 ) );
         assertSame( minComparable, ObjectUtils.min( null, nonNullComparable1, null, minComparable ) );
 
-        assertNull( ObjectUtils.min((String)null, (String)null) );
+        assertNull( ObjectUtils.min(null, null) );
     }
 
     /**

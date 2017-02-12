@@ -3842,10 +3842,10 @@ public class ArrayUtilsTest  {
         array = new double[0];
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, (double) 0));
         array = new double[] { 0, 1, 2, 3, 0 };
-        assertEquals(0, ArrayUtils.indexOf(array, (double) 0, (double) 0.3));
-        assertEquals(2, ArrayUtils.indexOf(array, (double) 2.2, (double) 0.35));
-        assertEquals(3, ArrayUtils.indexOf(array, (double) 4.15, (double) 2.0));
-        assertEquals(1, ArrayUtils.indexOf(array, (double) 1.00001324, (double) 0.0001));
+        assertEquals(0, ArrayUtils.indexOf(array, (double) 0, 0.3));
+        assertEquals(2, ArrayUtils.indexOf(array, 2.2, 0.35));
+        assertEquals(3, ArrayUtils.indexOf(array, 4.15, 2.0));
+        assertEquals(1, ArrayUtils.indexOf(array, 1.00001324, 0.0001));
     }
 
     @SuppressWarnings("cast")
@@ -3872,14 +3872,14 @@ public class ArrayUtilsTest  {
         array = new double[0];
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 2, (double) 0));
         array = new double[] { 0, 1, 2, 3, 0 };
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 99, (double) 0.3));
-        assertEquals(0, ArrayUtils.indexOf(array, (double) 0, 0, (double) 0.3));
-        assertEquals(4, ArrayUtils.indexOf(array, (double) 0, 3, (double) 0.3));
-        assertEquals(2, ArrayUtils.indexOf(array, (double) 2.2, 0, (double) 0.35));
-        assertEquals(3, ArrayUtils.indexOf(array, (double) 4.15, 0, (double) 2.0));
-        assertEquals(1, ArrayUtils.indexOf(array, (double) 1.00001324, 0, (double) 0.0001));
-        assertEquals(3, ArrayUtils.indexOf(array, (double) 4.15, -1, (double) 2.0));
-        assertEquals(1, ArrayUtils.indexOf(array, (double) 1.00001324, -300, (double) 0.0001));
+        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 99, 0.3));
+        assertEquals(0, ArrayUtils.indexOf(array, (double) 0, 0, 0.3));
+        assertEquals(4, ArrayUtils.indexOf(array, (double) 0, 3, 0.3));
+        assertEquals(2, ArrayUtils.indexOf(array, 2.2, 0, 0.35));
+        assertEquals(3, ArrayUtils.indexOf(array, 4.15, 0, 2.0));
+        assertEquals(1, ArrayUtils.indexOf(array, 1.00001324, 0, 0.0001));
+        assertEquals(3, ArrayUtils.indexOf(array, 4.15, -1, 2.0));
+        assertEquals(1, ArrayUtils.indexOf(array, 1.00001324, -300, 0.0001));
     }
 
     @SuppressWarnings("cast")
@@ -3905,10 +3905,10 @@ public class ArrayUtilsTest  {
         array = new double[0];
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, (double) 0));
         array = new double[] { 0, 1, 2, 3, 0 };
-        assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0, (double) 0.3));
-        assertEquals(2, ArrayUtils.lastIndexOf(array, (double) 2.2, (double) 0.35));
-        assertEquals(3, ArrayUtils.lastIndexOf(array, (double) 4.15, (double) 2.0));
-        assertEquals(1, ArrayUtils.lastIndexOf(array, (double) 1.00001324, (double) 0.0001));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0, 0.3));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 2.2, 0.35));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, 4.15, 2.0));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 1.00001324, 0.0001));
     }
 
     @SuppressWarnings("cast")
@@ -3938,12 +3938,12 @@ public class ArrayUtilsTest  {
         array = new double[] { (double) 3 };
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 1, 0, (double) 0));
         array = new double[] { 0, 1, 2, 3, 0 };
-        assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0, 99, (double) 0.3));
-        assertEquals(0, ArrayUtils.lastIndexOf(array, (double) 0, 3, (double) 0.3));
-        assertEquals(2, ArrayUtils.lastIndexOf(array, (double) 2.2, 3, (double) 0.35));
-        assertEquals(3, ArrayUtils.lastIndexOf(array, (double) 4.15, array.length, (double) 2.0));
-        assertEquals(1, ArrayUtils.lastIndexOf(array, (double) 1.00001324, array.length, (double) 0.0001));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 4.15, -200, (double) 2.0));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0, 99, 0.3));
+        assertEquals(0, ArrayUtils.lastIndexOf(array, (double) 0, 3, 0.3));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 2.2, 3, 0.35));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, 4.15, array.length, 2.0));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 1.00001324, array.length, 0.0001));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 4.15, -200, 2.0));
     }
 
     @SuppressWarnings("cast")
@@ -3965,10 +3965,10 @@ public class ArrayUtilsTest  {
         double[] array = null;
         assertFalse(ArrayUtils.contains(array, (double) 1, (double) 0));
         array = new double[] { 0, 1, 2, 3, 0 };
-        assertFalse(ArrayUtils.contains(array, (double) 4.0, (double) 0.33));
-        assertFalse(ArrayUtils.contains(array, (double) 2.5, (double) 0.49));
-        assertTrue(ArrayUtils.contains(array, (double) 2.5, (double) 0.50));
-        assertTrue(ArrayUtils.contains(array, (double) 2.5, (double) 0.51));
+        assertFalse(ArrayUtils.contains(array, 4.0, 0.33));
+        assertFalse(ArrayUtils.contains(array, 2.5, 0.49));
+        assertTrue(ArrayUtils.contains(array, 2.5, 0.50));
+        assertTrue(ArrayUtils.contains(array, 2.5, 0.51));
     }
     
     //-----------------------------------------------------------------------
@@ -4740,49 +4740,49 @@ public class ArrayUtilsTest  {
         
         final Object[] emptyObjectArray = new Object[0];
         final Object[] notEmptyObjectArray = new Object[] {"aValue"};
-        assertEquals(0, ArrayUtils.getLength((Object[]) null));
+        assertEquals(0, ArrayUtils.getLength(null));
         assertEquals(0, ArrayUtils.getLength(emptyObjectArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyObjectArray));
  
         final int[] emptyIntArray = new int[] {};
         final int[] notEmptyIntArray = new int[] { 1 };
-        assertEquals(0, ArrayUtils.getLength((int[]) null));
+        assertEquals(0, ArrayUtils.getLength(null));
         assertEquals(0, ArrayUtils.getLength(emptyIntArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyIntArray));
 
         final short[] emptyShortArray = new short[] {};
         final short[] notEmptyShortArray = new short[] { 1 };
-        assertEquals(0, ArrayUtils.getLength((short[]) null));
+        assertEquals(0, ArrayUtils.getLength(null));
         assertEquals(0, ArrayUtils.getLength(emptyShortArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyShortArray));
 
         final char[] emptyCharArray = new char[] {};
         final char[] notEmptyCharArray = new char[] { 1 };
-        assertEquals(0, ArrayUtils.getLength((char[]) null));
+        assertEquals(0, ArrayUtils.getLength(null));
         assertEquals(0, ArrayUtils.getLength(emptyCharArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyCharArray));
 
         final byte[] emptyByteArray = new byte[] {};
         final byte[] notEmptyByteArray = new byte[] { 1 };
-        assertEquals(0, ArrayUtils.getLength((byte[]) null));
+        assertEquals(0, ArrayUtils.getLength(null));
         assertEquals(0, ArrayUtils.getLength(emptyByteArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyByteArray));
 
         final double[] emptyDoubleArray = new double[] {};
         final double[] notEmptyDoubleArray = new double[] { 1.0 };
-        assertEquals(0, ArrayUtils.getLength((double[]) null));
+        assertEquals(0, ArrayUtils.getLength(null));
         assertEquals(0, ArrayUtils.getLength(emptyDoubleArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyDoubleArray));
 
         final float[] emptyFloatArray = new float[] {};
         final float[] notEmptyFloatArray = new float[] { 1.0F };
-        assertEquals(0, ArrayUtils.getLength((float[]) null));
+        assertEquals(0, ArrayUtils.getLength(null));
         assertEquals(0, ArrayUtils.getLength(emptyFloatArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyFloatArray));
 
         final boolean[] emptyBooleanArray = new boolean[] {};
         final boolean[] notEmptyBooleanArray = new boolean[] { true };
-        assertEquals(0, ArrayUtils.getLength((boolean[]) null));
+        assertEquals(0, ArrayUtils.getLength(null));
         assertEquals(0, ArrayUtils.getLength(emptyBooleanArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyBooleanArray));
         
@@ -4957,11 +4957,11 @@ public class ArrayUtilsTest  {
     @Test
     public void testCreatePrimitiveArray() {
         Assert.assertNull(ArrayUtils.toPrimitive((Object[])null));
-        Assert.assertArrayEquals(new int[]{}, (int[]) ArrayUtils.toPrimitive(new Integer[]{}));
-        Assert.assertArrayEquals(new short[]{2}, (short[]) ArrayUtils.toPrimitive(new Short[]{2}));
-        Assert.assertArrayEquals(new long[]{2, 3}, (long[]) ArrayUtils.toPrimitive(new Long[]{2L, 3L}));
-        Assert.assertArrayEquals(new float[]{3.14f}, (float[]) ArrayUtils.toPrimitive(new Float[]{3.14f}), 0.1f);
-        Assert.assertArrayEquals(new double[]{2.718}, (double[]) ArrayUtils.toPrimitive(new Double[]{2.718}), 0.1);
+        Assert.assertArrayEquals(new int[]{}, ArrayUtils.toPrimitive(new Integer[]{}));
+        Assert.assertArrayEquals(new short[]{2}, ArrayUtils.toPrimitive(new Short[]{2}));
+        Assert.assertArrayEquals(new long[]{2, 3}, ArrayUtils.toPrimitive(new Long[]{2L, 3L}));
+        Assert.assertArrayEquals(new float[]{3.14f}, ArrayUtils.toPrimitive(new Float[]{3.14f}), 0.1f);
+        Assert.assertArrayEquals(new double[]{2.718}, ArrayUtils.toPrimitive(new Double[]{2.718}), 0.1);
     }
 
     @Test

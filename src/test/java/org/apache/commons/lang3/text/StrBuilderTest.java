@@ -63,7 +63,7 @@ public class StrBuilderTest {
         assertEquals(0, sb4.length());
         assertEquals(0, sb4.size());
 
-        final StrBuilder sb5 = new StrBuilder((String) null);
+        final StrBuilder sb5 = new StrBuilder(null);
         assertEquals(32, sb5.capacity());
         assertEquals(0, sb5.length());
         assertEquals(0, sb5.size());
@@ -184,7 +184,7 @@ public class StrBuilderTest {
         sb.setNewLineText("");
         assertEquals("", sb.getNewLineText());
 
-        sb.setNewLineText((String) null);
+        sb.setNewLineText(null);
         assertEquals(null, sb.getNewLineText());
     }
 
@@ -203,7 +203,7 @@ public class StrBuilderTest {
         sb.setNullText("NULL");
         assertEquals("NULL", sb.getNullText());
 
-        sb.setNullText((String) null);
+        sb.setNullText(null);
         assertEquals(null, sb.getNullText());
     }
 
@@ -745,7 +745,7 @@ public class StrBuilderTest {
         assertEquals("aaabc", sb.toString());
         sb.replace(0, 3, "");
         assertEquals("bc", sb.toString());
-        sb.replace(1, 2, (String) null);
+        sb.replace(1, 2, null);
         assertEquals("b", sb.toString());
         sb.replace(1, 1000, "text");
         assertEquals("btext", sb.toString());
@@ -941,7 +941,7 @@ public class StrBuilderTest {
     @Test
     public void testReplace_StrMatcher_String_int_int_int_VaryMatcher() {
         StrBuilder sb = new StrBuilder("abcbccba");
-        sb.replace((StrMatcher) null, "x", 0, sb.length(), -1);
+        sb.replace(null, "x", 0, sb.length(), -1);
         assertEquals("abcbccba", sb.toString());
         
         sb.replace(StrMatcher.charMatcher('a'), "x", 0, sb.length(), -1);

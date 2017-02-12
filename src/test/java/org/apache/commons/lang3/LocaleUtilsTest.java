@@ -125,7 +125,7 @@ public class LocaleUtilsTest  {
      */
     @Test
     public void testToLocale_1Part() {
-        assertNull(LocaleUtils.toLocale((String) null));
+        assertNull(LocaleUtils.toLocale(null));
         
         assertValidToLocale("us");
         assertValidToLocale("fr");

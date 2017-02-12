@@ -171,17 +171,17 @@ public class DateUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameDay_DateNullNull() throws Exception {
-        DateUtils.isSameDay((Date) null, (Date) null);
+        DateUtils.isSameDay((Date) null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameDay_DateNullNotNull() throws Exception {
-        DateUtils.isSameDay((Date) null, new Date());
+        DateUtils.isSameDay(null, new Date());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameDay_DateNotNullNull() throws Exception {
-        DateUtils.isSameDay(new Date(), (Date) null);
+        DateUtils.isSameDay(new Date(), null);
     }
 
     //-----------------------------------------------------------------------
@@ -200,17 +200,17 @@ public class DateUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameDay_CalNullNull() throws Exception {
-        DateUtils.isSameDay((Calendar) null, (Calendar) null);
+        DateUtils.isSameDay((Calendar) null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameDay_CalNullNotNull() throws Exception {
-        DateUtils.isSameDay((Calendar) null, Calendar.getInstance());
+        DateUtils.isSameDay(null, Calendar.getInstance());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameDay_CalNotNullNull() throws Exception {
-        DateUtils.isSameDay(Calendar.getInstance(), (Calendar) null);
+        DateUtils.isSameDay(Calendar.getInstance(), null);
     }
 
     //-----------------------------------------------------------------------
@@ -229,17 +229,17 @@ public class DateUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameInstant_DateNullNull() throws Exception {
-        DateUtils.isSameInstant((Date) null, (Date) null);
+        DateUtils.isSameInstant((Date) null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameInstant_DateNullNotNull() throws Exception {
-        DateUtils.isSameInstant((Date) null, new Date());
+        DateUtils.isSameInstant(null, new Date());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameInstant_DateNotNullNull() throws Exception {
-        DateUtils.isSameInstant(new Date(), (Date) null);
+        DateUtils.isSameInstant(new Date(), null);
     }
 
     //-----------------------------------------------------------------------
@@ -259,17 +259,17 @@ public class DateUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameInstant_CalNullNull() throws Exception {
-        DateUtils.isSameInstant((Calendar) null, (Calendar) null);
+        DateUtils.isSameInstant((Calendar) null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameInstant_CalNullNotNull() throws Exception {
-        DateUtils.isSameInstant((Calendar) null, Calendar.getInstance());
+        DateUtils.isSameInstant(null, Calendar.getInstance());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameInstant_CalNotNullNull() throws Exception {
-        DateUtils.isSameInstant(Calendar.getInstance(), (Calendar) null);
+        DateUtils.isSameInstant(Calendar.getInstance(), null);
     }
 
     //-----------------------------------------------------------------------
@@ -297,17 +297,17 @@ public class DateUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameLocalTime_CalNullNull() throws Exception {
-        DateUtils.isSameLocalTime((Calendar) null, (Calendar) null);
+        DateUtils.isSameLocalTime(null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameLocalTime_CalNullNotNull() throws Exception {
-        DateUtils.isSameLocalTime((Calendar) null, Calendar.getInstance());
+        DateUtils.isSameLocalTime(null, Calendar.getInstance());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsSameLocalTime_CalNotNullNull() throws Exception {
-        DateUtils.isSameLocalTime(Calendar.getInstance(), (Calendar) null);
+        DateUtils.isSameLocalTime(Calendar.getInstance(), null);
     }
 
     //-----------------------------------------------------------------------
