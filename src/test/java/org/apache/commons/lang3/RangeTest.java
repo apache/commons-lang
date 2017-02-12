@@ -53,7 +53,7 @@ public class RangeTest {
         byteRange2 = Range.between((byte) 0, (byte) 5);
         byteRange3 = Range.between((byte) 0, (byte) 10);
 
-        intRange = Range.between((int) 10, (int) 20);
+        intRange = Range.between(10, 20);
         longRange = Range.between((long) 10, (long) 20);
         floatRange = Range.between((float) 10, (float) 20);
         doubleRange = Range.between((double) 10, (double) 20);

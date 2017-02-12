@@ -119,8 +119,8 @@ public class ExceptionUtilsTest {
         assertSame(nested, ExceptionUtils.getCause(withCause));
         assertSame(null, ExceptionUtils.getCause(jdkNoCause));
         assertSame(cyclicCause.getCause(), ExceptionUtils.getCause(cyclicCause));
-        assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), ExceptionUtils.getCause(cyclicCause.getCause()));
-        assertSame(cyclicCause.getCause(), ExceptionUtils.getCause(((ExceptionWithCause) cyclicCause.getCause()).getCause()));
+        assertSame(cyclicCause.getCause().getCause(), ExceptionUtils.getCause(cyclicCause.getCause()));
+        assertSame(cyclicCause.getCause(), ExceptionUtils.getCause(cyclicCause.getCause().getCause()));
         assertSame(withoutCause, ExceptionUtils.getCause(notVisibleException));
     }
 
@@ -151,7 +151,7 @@ public class ExceptionUtilsTest {
         assertSame(withoutCause, ExceptionUtils.getRootCause(nested));
         assertSame(withoutCause, ExceptionUtils.getRootCause(withCause));
         assertSame(null, ExceptionUtils.getRootCause(jdkNoCause));
-        assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), ExceptionUtils.getRootCause(cyclicCause));
+        assertSame(cyclicCause.getCause().getCause(), ExceptionUtils.getRootCause(cyclicCause));
     }
 
     //-----------------------------------------------------------------------
@@ -208,7 +208,7 @@ public class ExceptionUtilsTest {
         assertEquals(3, throwables.length);
         assertSame(cyclicCause, throwables[0]);
         assertSame(cyclicCause.getCause(), throwables[1]);
-        assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), throwables[2]);
+        assertSame(cyclicCause.getCause().getCause(), throwables[2]);
     }
 
     //-----------------------------------------------------------------------
@@ -255,7 +255,7 @@ public class ExceptionUtilsTest {
         assertEquals(3, throwables.size());
         assertSame(cyclicCause, throwables.get(0));
         assertSame(cyclicCause.getCause(), throwables.get(1));
-        assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), throwables.get(2));
+        assertSame(cyclicCause.getCause().getCause(), throwables.get(2));
     }
 
     //-----------------------------------------------------------------------

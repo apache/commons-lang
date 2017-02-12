@@ -38,8 +38,8 @@ public class StringUtilsStartsEndsWithTest {
      */
     @Test
     public void testStartsWith() {
-        assertTrue("startsWith(null, null)", StringUtils.startsWith(null, (String)null));
-        assertFalse("startsWith(FOOBAR, null)", StringUtils.startsWith(FOOBAR, (String)null));
+        assertTrue("startsWith(null, null)", StringUtils.startsWith(null, null));
+        assertFalse("startsWith(FOOBAR, null)", StringUtils.startsWith(FOOBAR, null));
         assertFalse("startsWith(null, FOO)",    StringUtils.startsWith(null, FOO));
         assertTrue("startsWith(FOOBAR, \"\")",  StringUtils.startsWith(FOOBAR, ""));
 
@@ -62,8 +62,8 @@ public class StringUtilsStartsEndsWithTest {
      */
     @Test
     public void testStartsWithIgnoreCase() {
-        assertTrue("startsWithIgnoreCase(null, null)",    StringUtils.startsWithIgnoreCase(null, (String)null));
-        assertFalse("startsWithIgnoreCase(FOOBAR, null)", StringUtils.startsWithIgnoreCase(FOOBAR, (String)null));
+        assertTrue("startsWithIgnoreCase(null, null)",    StringUtils.startsWithIgnoreCase(null, null));
+        assertFalse("startsWithIgnoreCase(FOOBAR, null)", StringUtils.startsWithIgnoreCase(FOOBAR, null));
         assertFalse("startsWithIgnoreCase(null, FOO)",    StringUtils.startsWithIgnoreCase(null, FOO));
         assertTrue("startsWithIgnoreCase(FOOBAR, \"\")",  StringUtils.startsWithIgnoreCase(FOOBAR, ""));
 
@@ -104,8 +104,8 @@ public class StringUtilsStartsEndsWithTest {
      */
     @Test
     public void testEndsWith() {
-        assertTrue("endsWith(null, null)",    StringUtils.endsWith(null, (String)null));
-        assertFalse("endsWith(FOOBAR, null)", StringUtils.endsWith(FOOBAR, (String)null));
+        assertTrue("endsWith(null, null)",    StringUtils.endsWith(null, null));
+        assertFalse("endsWith(FOOBAR, null)", StringUtils.endsWith(FOOBAR, null));
         assertFalse("endsWith(null, FOO)",    StringUtils.endsWith(null, FOO));
         assertTrue("endsWith(FOOBAR, \"\")",  StringUtils.endsWith(FOOBAR, ""));
 
@@ -135,8 +135,8 @@ public class StringUtilsStartsEndsWithTest {
      */
     @Test
     public void testEndsWithIgnoreCase() {
-        assertTrue("endsWithIgnoreCase(null, null)",    StringUtils.endsWithIgnoreCase(null, (String)null));
-        assertFalse("endsWithIgnoreCase(FOOBAR, null)", StringUtils.endsWithIgnoreCase(FOOBAR, (String)null));
+        assertTrue("endsWithIgnoreCase(null, null)",    StringUtils.endsWithIgnoreCase(null, null));
+        assertFalse("endsWithIgnoreCase(FOOBAR, null)", StringUtils.endsWithIgnoreCase(FOOBAR, null));
         assertFalse("endsWithIgnoreCase(null, FOO)",    StringUtils.endsWithIgnoreCase(null, FOO));
         assertTrue("endsWithIgnoreCase(FOOBAR, \"\")",  StringUtils.endsWithIgnoreCase(FOOBAR, ""));
 

@@ -660,9 +660,9 @@ public class ToStringBuilderTest {
     @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     @Test
     public void testInt() {
-        assertEquals(baseStr + "[3]", new ToStringBuilder(base).append((int) 3).toString());
-        assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", (int) 3).toString());
-        assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", (int) 3).append("b", (int) 4).toString());
+        assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(3).toString());
+        assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", 3).toString());
+        assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", 3).append("b", 4).toString());
     }
 
     @Test
@@ -689,9 +689,9 @@ public class ToStringBuilderTest {
     @SuppressWarnings("cast")
     @Test
     public void testDouble() {
-        assertEquals(baseStr + "[3.2]", new ToStringBuilder(base).append((double) 3.2).toString());
-        assertEquals(baseStr + "[a=3.2]", new ToStringBuilder(base).append("a", (double) 3.2).toString());
-        assertEquals(baseStr + "[a=3.2,b=4.3]", new ToStringBuilder(base).append("a", (double) 3.2).append("b", (double) 4.3).toString());
+        assertEquals(baseStr + "[3.2]", new ToStringBuilder(base).append(3.2).toString());
+        assertEquals(baseStr + "[a=3.2]", new ToStringBuilder(base).append("a", 3.2).toString());
+        assertEquals(baseStr + "[a=3.2,b=4.3]", new ToStringBuilder(base).append("a", 3.2).append("b", 4.3).toString());
     }
 
     @Test

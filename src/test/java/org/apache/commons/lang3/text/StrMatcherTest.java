@@ -197,7 +197,7 @@ public class StrMatcherTest  {
         assertEquals(0, matcher.isMatch(BUFFER2, 4));
         assertEquals(0, matcher.isMatch(BUFFER2, 5));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.stringMatcher(""));
-        assertSame(StrMatcher.noneMatcher(), StrMatcher.stringMatcher((String) null));
+        assertSame(StrMatcher.noneMatcher(), StrMatcher.stringMatcher(null));
     }
 
     //-----------------------------------------------------------------------

@@ -397,15 +397,15 @@ public class DiffBuilderTest {
     @Test
     public void testByteArrayEqualAsObject() throws Exception {
         final DiffResult list = new DiffBuilder("String1", "String2", SHORT_STYLE)
-            .append("foo", (Object) new boolean[] {false}, (Object) new boolean[] {false})
-            .append("foo", (Object) new byte[] {0x01}, (Object) new byte[] {0x01})
-            .append("foo", (Object) new char[] {'a'}, (Object) new char[] {'a'})
-            .append("foo", (Object) new double[] {1.0}, (Object) new double[] {1.0})
-            .append("foo", (Object) new float[] {1.0F}, (Object) new float[] {1.0F})
-            .append("foo", (Object) new int[] {1}, (Object) new int[] {1})
-            .append("foo", (Object) new long[] {1L}, (Object) new long[] {1L})
-            .append("foo", (Object) new short[] {1}, (Object) new short[] {1})
-            .append("foo", (Object) new Object[] {1, "two"}, (Object) new Object[] {1, "two"})
+            .append("foo", new boolean[] {false}, new boolean[] {false})
+            .append("foo", new byte[] {0x01}, new byte[] {0x01})
+            .append("foo", new char[] {'a'}, new char[] {'a'})
+            .append("foo", new double[] {1.0}, new double[] {1.0})
+            .append("foo", new float[] {1.0F}, new float[] {1.0F})
+            .append("foo", new int[] {1}, new int[] {1})
+            .append("foo", new long[] {1L}, new long[] {1L})
+            .append("foo", new short[] {1}, new short[] {1})
+            .append("foo", new Object[] {1, "two"}, new Object[] {1, "two"})
             .build();
 
         assertEquals(0, list.getNumberOfDiffs());

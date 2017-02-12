@@ -207,16 +207,16 @@ public class HashCodeBuilderTest {
     @Test
     @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testLong() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((long) 0L).toHashCode());
+        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0L).toHashCode());
         assertEquals(17 * 37 + (int) (123456789L ^ 123456789L >> 32), new HashCodeBuilder(17, 37).append(
-                (long) 123456789L).toHashCode());
+                123456789L).toHashCode());
     }
 
     @Test
     @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testInt() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((int) 0).toHashCode());
-        assertEquals(17 * 37 + 123456, new HashCodeBuilder(17, 37).append((int) 123456).toHashCode());
+        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0).toHashCode());
+        assertEquals(17 * 37 + 123456, new HashCodeBuilder(17, 37).append(123456).toHashCode());
     }
 
     @Test
@@ -240,7 +240,7 @@ public class HashCodeBuilderTest {
     @Test
     @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testDouble() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((double) 0d).toHashCode());
+        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0d).toHashCode());
         final double d = 1234567.89;
         final long l = Double.doubleToLongBits(d);
         assertEquals(17 * 37 + (int) (l ^ l >> 32), new HashCodeBuilder(17, 37).append(d).toHashCode());
@@ -249,7 +249,7 @@ public class HashCodeBuilderTest {
     @Test
     @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testFloat() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((float) 0f).toHashCode());
+        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0f).toHashCode());
         final float f = 1234.89f;
         final int i = Float.floatToIntBits(f);
         assertEquals(17 * 37 + i, new HashCodeBuilder(17, 37).append(f).toHashCode());

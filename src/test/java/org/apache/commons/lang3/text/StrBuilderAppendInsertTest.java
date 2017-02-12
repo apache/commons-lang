@@ -1374,7 +1374,7 @@ public class StrBuilderAppendInsertTest {
             // expected
         }
 
-        sb.insert(0, (char[]) null, 0, 0);
+        sb.insert(0, null, 0, 0);
         assertEquals("barbaz", sb.toString());
 
         sb.insert(0, new char[0], 0, 0);
@@ -1599,7 +1599,7 @@ public class StrBuilderAppendInsertTest {
         sb.insert(0, (char[]) null);
         assertEquals("nullfoonullbarbaz", sb.toString());
 
-        sb.insert(0, (char[]) null, 0, 0);
+        sb.insert(0, null, 0, 0);
         assertEquals("nullnullfoonullbarbaz", sb.toString());
     }
 }

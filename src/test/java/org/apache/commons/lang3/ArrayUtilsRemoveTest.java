@@ -311,7 +311,7 @@ public class ArrayUtilsRemoveTest {
     @Test
     public void testRemoveElementObjectArray() {
         Object[] array;
-        array = ArrayUtils.removeElement((Object[]) null, "a");
+        array = ArrayUtils.removeElement(null, "a");
         assertNull(array);
         array = ArrayUtils.removeElement(ArrayUtils.EMPTY_OBJECT_ARRAY, "a");
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_OBJECT_ARRAY, array));
@@ -330,7 +330,7 @@ public class ArrayUtilsRemoveTest {
     @Test
     public void testRemoveElementBooleanArray() {
         boolean[] array;
-        array = ArrayUtils.removeElement((boolean[]) null, true);
+        array = ArrayUtils.removeElement(null, true);
         assertNull(array);
         array = ArrayUtils.removeElement(ArrayUtils.EMPTY_BOOLEAN_ARRAY, true);
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array));
@@ -388,7 +388,7 @@ public class ArrayUtilsRemoveTest {
     @SuppressWarnings("cast")
     public void testRemoveElementDoubleArray() {
         double[] array;
-        array = ArrayUtils.removeElement((double[]) null, (double) 1);
+        array = ArrayUtils.removeElement(null, (double) 1);
         assertNull(array);
         array = ArrayUtils.removeElement(ArrayUtils.EMPTY_DOUBLE_ARRAY, (double) 1);
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array));

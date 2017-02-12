@@ -76,7 +76,7 @@ public class EnumUtilsTest {
 
     @Test(expected=NullPointerException.class)
     public void test_isEnum_nullClass() {
-        EnumUtils.isValidEnum((Class<Traffic>) null, "PURPLE");
+        EnumUtils.isValidEnum(null, "PURPLE");
     }
 
     @Test
