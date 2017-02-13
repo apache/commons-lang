@@ -2651,7 +2651,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * changed on the tokenizer class, before retrieving the tokens.
      * <p>
      * The returned tokenizer is linked to this builder. You may intermix
-     * calls to the buider and tokenizer within certain limits, however
+     * calls to the builder and tokenizer within certain limits, however
      * there is no synchronization. Once the tokenizer has been used once,
      * it must be {@link StrTokenizer#reset() reset} to pickup the latest
      * changes in the builder. For example:
