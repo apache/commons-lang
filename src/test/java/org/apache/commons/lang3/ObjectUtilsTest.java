@@ -257,13 +257,17 @@ public class ObjectUtilsTest {
         try {
             ObjectUtils.identityToString((Appendable)null, "tmp");
             fail("NullPointerException expected");
-        } catch(final NullPointerException | IOException npe) {
+        } catch(final NullPointerException expectedException) {
+        } catch(final IOException ex) {
+          fail("IOException unexpected");
         }
 
         try {
             ObjectUtils.identityToString((Appendable)(new StringBuilder()), null);
             fail("NullPointerException expected");
-        } catch(final NullPointerException | IOException npe) {
+        } catch(final NullPointerException expectedException) {
+        } catch(final IOException ex) {
+          fail("IOException unexpected");
         }
     }
 
