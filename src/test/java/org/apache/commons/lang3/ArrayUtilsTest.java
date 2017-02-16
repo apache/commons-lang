@@ -280,8 +280,8 @@ public class ArrayUtilsTest  {
         assertTrue(Arrays.equals(original1, cloned1));
         assertTrue(original1 != cloned1);
         
-        final StringBuffer buf = new StringBuffer("pick");
-        original1 = new Object[] {buf, "a", new String[] {"stick"}};
+        final StringBuilder builder = new StringBuilder("pick");
+        original1 = new Object[] {builder, "a", new String[] {"stick"}};
         cloned1 = ArrayUtils.clone(original1);
         assertTrue(Arrays.equals(original1, cloned1));
         assertTrue(original1 != cloned1);
