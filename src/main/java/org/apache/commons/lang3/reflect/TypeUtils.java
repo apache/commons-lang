@@ -1742,6 +1742,10 @@ public class TypeUtils {
      * @since 3.2
      */
     private static String classToString(final Class<?> c) {
+        if (c.isArray()) {
+            return toString(c.getComponentType()) + "[]";
+        }
+
         final StringBuilder buf = new StringBuilder();
 
         if (c.getEnclosingClass() != null) {

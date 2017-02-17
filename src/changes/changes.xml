@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.6" date="2016-MM-DD" description="TBD">
+  <release version="3.6" date="2017-MM-DD" description="TBD">
     <action issue="LANG-1299" type="add" dev="djones">Add method for converting string to an array of code points</action>
     <action issue="LANG-1286" type="fix" dev="djones">RandomStringUtils random method can overflow and return characters outside of specified range</action>
     <action issue="LANG-660" type="add" dev="djones">Add methods to insert arrays into arrays at an index</action>
@@ -75,6 +75,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1143" type="update" dev="pschumacher" due-to="sebb">StringUtils should use toXxxxCase(int) rather than toXxxxCase(char)</action>
     <action issue="LANG-1297" type="update" dev="ggregory">Add SystemUtils.getHostName() API.</action>
     <action issue="LANG-1301" type="update" dev="pschumacher" due-to="Karl Heinz Marbaise">Moving apache-rat-plugin configuration into pluginManagement</action>
+    <action issue="LANG-1311" type="fix" dev="pschumacher" due-to="Aaron Digulla">TypeUtils.toString() doesn't handle primitive and Object arrays correctly</action>
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">
