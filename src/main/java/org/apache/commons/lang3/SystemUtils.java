@@ -1497,7 +1497,7 @@ public class SystemUtils {
      * {@code true}.
      * </p>
      */
-    public static final boolean IS_32_BIT = OS_ARCH.matches("^(x8632|x86|i[3-6]86|ia32|x32)$");
+    public static final boolean IS_32_BIT_JVM = OS_ARCH.matches("^(x8632|x86|i[3-6]86|ia32|x32)$");
 
     /**
      * <p>
@@ -1515,7 +1515,7 @@ public class SystemUtils {
      * not of the operating system.
      * </p>
      */
-    public static boolean IS_64_BIT = OS_ARCH.matches("^(x8664|amd64|ia32e|em64t|x64)$");
+    public static boolean IS_64_BIT_JVM = OS_ARCH.matches("^(x8664|amd64|ia32e|em64t|x64)$");
 
     /**
      * <p>
