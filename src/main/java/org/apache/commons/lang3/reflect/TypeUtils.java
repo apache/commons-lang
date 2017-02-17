@@ -1687,7 +1687,7 @@ public class TypeUtils {
     public static String toLongString(final TypeVariable<?> var) {
         Validate.notNull(var, "var is null");
         final StringBuilder buf = new StringBuilder();
-        final GenericDeclaration d = ((TypeVariable<?>) var).getGenericDeclaration();
+        final GenericDeclaration d = var.getGenericDeclaration();
         if (d instanceof Class<?>) {
             Class<?> c = (Class<?>) d;
             while (true) {

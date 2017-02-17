@@ -51,10 +51,10 @@ public class ArrayUtilsAddTest {
     @Test
     public void testAddObjectArrayBoolean() {
         boolean[] newArray;
-        newArray = ArrayUtils.add((boolean[])null, false);
+        newArray = ArrayUtils.add(null, false);
         assertTrue(Arrays.equals(new boolean[]{false}, newArray));
         assertEquals(Boolean.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add((boolean[])null, true);
+        newArray = ArrayUtils.add(null, true);
         assertTrue(Arrays.equals(new boolean[]{true}, newArray));
         assertEquals(Boolean.TYPE, newArray.getClass().getComponentType());
         final boolean[] array1 = new boolean[]{true, false, true};
@@ -249,7 +249,7 @@ public class ArrayUtilsAddTest {
 
     @Test
     public void testAddObjectArrayToObjectArray() {
-        assertNull(ArrayUtils.addAll((Object[]) null, (Object[]) null));
+        assertNull(ArrayUtils.addAll(null, (Object[]) null));
         Object[] newArray;
         final String[] stringArray1 = new String[]{"a", "b", "c"};
         final String[] stringArray2 = new String[]{"1", "2", "3"};
@@ -586,7 +586,7 @@ public class ArrayUtilsAddTest {
         double[] doubleArray = ArrayUtils.add( new double[] { 1.1 }, 0, 2.2);
         assertTrue( Arrays.equals( new double[] { 2.2, 1.1 }, doubleArray ) );
         try {
-          doubleArray = ArrayUtils.add( (double[]) null, -1, 2.2);
+          doubleArray = ArrayUtils.add(null, -1, 2.2);
         } catch(final IndexOutOfBoundsException e) {
             assertEquals("Index: -1, Length: 0", e.getMessage());
         }

@@ -323,7 +323,7 @@ public class ArrayUtilsInsertTest {
         
         assertNull(ArrayUtils.insert(42, null, array));    
         assertArrayEquals(new String[0], ArrayUtils.insert(0, new String[0], (String[]) null));
-        assertNull(ArrayUtils.insert(42, (String[]) null, (String[]) null));
+        assertNull(ArrayUtils.insert(42, null, (String[]) null));
         
         try {
             ArrayUtils.insert(-1, array, array);

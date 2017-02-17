@@ -183,7 +183,7 @@ public class ExceptionUtils {
      */
     public static Throwable getRootCause(final Throwable throwable) {
         final List<Throwable> list = getThrowableList(throwable);
-        return list.size() < 2 ? null : (Throwable)list.get(list.size() - 1);
+        return list.size() < 2 ? null : list.get(list.size() - 1);
     }
 
     /**

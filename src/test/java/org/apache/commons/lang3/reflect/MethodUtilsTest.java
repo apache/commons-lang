@@ -345,7 +345,7 @@ public class MethodUtilsTest {
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo",
                 (Object[]) null));
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo",
-                (Object[]) null, (Class<?>[]) null));
+                null, null));
         assertEquals("foo(String)", MethodUtils.invokeMethod(testBean, "foo",
                 ""));
         assertEquals("foo(Object)", MethodUtils.invokeMethod(testBean, "foo",
@@ -385,7 +385,7 @@ public class MethodUtilsTest {
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo",
                 (Object[]) null));
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo",
-                (Object[]) null, (Class<?>[]) null));
+                null, null));
         assertEquals("foo(String)", MethodUtils.invokeExactMethod(testBean,
                 "foo", ""));
         assertEquals("foo(Object)", MethodUtils.invokeExactMethod(testBean,
@@ -422,7 +422,7 @@ public class MethodUtilsTest {
         assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class,
                 "bar", (Object[]) null));
         assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class,
-                "bar", (Object[]) null, (Class<?>[]) null));
+                "bar", null, null));
         assertEquals("bar(String)", MethodUtils.invokeStaticMethod(
                 TestBean.class, "bar", ""));
         assertEquals("bar(Object)", MethodUtils.invokeStaticMethod(
@@ -465,7 +465,7 @@ public class MethodUtilsTest {
         assertEquals("bar()", MethodUtils.invokeExactStaticMethod(TestBean.class,
                 "bar", (Object[]) null));
         assertEquals("bar()", MethodUtils.invokeExactStaticMethod(TestBean.class,
-                "bar", (Object[]) null, (Class<?>[]) null));
+                "bar", null, null));
         assertEquals("bar(String)", MethodUtils.invokeExactStaticMethod(
                 TestBean.class, "bar", ""));
         assertEquals("bar(Object)", MethodUtils.invokeExactStaticMethod(

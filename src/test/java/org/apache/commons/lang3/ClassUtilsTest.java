@@ -137,7 +137,7 @@ public class ClassUtilsTest  {
     public void test_getSimpleName_Class() {
         assertEquals("ClassUtils", ClassUtils.getSimpleName(ClassUtils.class));
         assertEquals("Entry", ClassUtils.getSimpleName(Map.Entry.class));
-        assertEquals("", ClassUtils.getSimpleName((Class<?>) null));
+        assertEquals("", ClassUtils.getSimpleName(null));
 
         // LANG-535
         assertEquals("String[]", ClassUtils.getSimpleName(String[].class));
@@ -380,7 +380,7 @@ public class ClassUtilsTest  {
         assertTrue(ClassUtils.isAssignable(array0, array0));
 //        assertTrue(ClassUtils.isAssignable(array0, null)); 
         assertTrue(ClassUtils.isAssignable(array0, (Class<?>[]) null)); // explicit cast to avoid warning
-        assertTrue(ClassUtils.isAssignable((Class[]) null, (Class[]) null));
+        assertTrue(ClassUtils.isAssignable((Class[]) null, null));
 
         assertFalse(ClassUtils.isAssignable(array1, array1s));
         assertTrue(ClassUtils.isAssignable(array1s, array1s));
@@ -410,7 +410,7 @@ public class ClassUtilsTest  {
         assertTrue(ClassUtils.isAssignable(null, array0, true));
         assertTrue(ClassUtils.isAssignable(array0, array0, true));
         assertTrue(ClassUtils.isAssignable(array0, null, true));
-        assertTrue(ClassUtils.isAssignable((Class[]) null, (Class[]) null, true));
+        assertTrue(ClassUtils.isAssignable((Class[]) null, null, true));
 
         assertFalse(ClassUtils.isAssignable(array1, array1s, true));
         assertTrue(ClassUtils.isAssignable(array1s, array1s, true));
@@ -438,7 +438,7 @@ public class ClassUtilsTest  {
         assertTrue(ClassUtils.isAssignable(null, array0, false));
         assertTrue(ClassUtils.isAssignable(array0, array0, false));
         assertTrue(ClassUtils.isAssignable(array0, null, false));
-        assertTrue(ClassUtils.isAssignable((Class[]) null, (Class[]) null, false));
+        assertTrue(ClassUtils.isAssignable((Class[]) null, null, false));
 
         assertFalse(ClassUtils.isAssignable(array1, array1s, false));
         assertTrue(ClassUtils.isAssignable(array1s, array1s, false));

@@ -181,7 +181,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         exceptionContext.setContextValue("test Poorly written obj", "serializable replacement");
         
         @SuppressWarnings("unchecked")
-        final T clone = (T) SerializationUtils.deserialize(SerializationUtils.serialize(exceptionContext));
+        final T clone = SerializationUtils.deserialize(SerializationUtils.serialize(exceptionContext));
         assertEquals(exceptionContext.getFormattedExceptionMessage(null), clone.getFormattedExceptionMessage(null));
     }
 }

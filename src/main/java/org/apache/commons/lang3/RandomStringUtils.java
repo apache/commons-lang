@@ -380,7 +380,7 @@ public class RandomStringUtils {
             }
         }
 
-        StringBuffer buffer = new StringBuffer(count);
+        StringBuilder builder = new StringBuilder(count);
         final int gap = end - start;
 
         while (count-- != 0) {
@@ -409,7 +409,7 @@ public class RandomStringUtils {
             if (letters && Character.isLetter(codePoint)
                     || numbers && Character.isDigit(codePoint)
                     || !letters && !numbers) {               
-                buffer.appendCodePoint(codePoint);
+                builder.appendCodePoint(codePoint);
                 
                 if (numberOfChars == 2) {
                     count--;
@@ -419,7 +419,7 @@ public class RandomStringUtils {
                 count++;
             }
         }
-        return buffer.toString();
+        return builder.toString();
     }
 
 

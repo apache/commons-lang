@@ -221,7 +221,7 @@ public class EqualsBuilderTest {
 
         assertTrue(!EqualsBuilder.reflectionEquals(o1, null));
         assertTrue(!EqualsBuilder.reflectionEquals(null, o2));
-        assertTrue(EqualsBuilder.reflectionEquals((Object) null, (Object) null));
+        assertTrue(EqualsBuilder.reflectionEquals(null, null));
     }
     
     @Test
@@ -348,7 +348,7 @@ public class EqualsBuilderTest {
         assertTrue(!EqualsBuilder.reflectionEquals(to2, null, testTransients));
         assertTrue(!EqualsBuilder.reflectionEquals(null, to, testTransients));
         assertTrue(!EqualsBuilder.reflectionEquals(null, to2, testTransients));
-        assertTrue(EqualsBuilder.reflectionEquals((Object) null, (Object) null, testTransients));
+        assertTrue(EqualsBuilder.reflectionEquals(null, null, testTransients));
     }
 
     @Test
@@ -374,7 +374,7 @@ public class EqualsBuilderTest {
         
         assertTrue(!new EqualsBuilder().append(o1, null).isEquals());
         assertTrue(!new EqualsBuilder().append(null, o2).isEquals());
-        assertTrue(new EqualsBuilder().append((Object) null, (Object) null).isEquals());
+        assertTrue(new EqualsBuilder().append((Object) null, null).isEquals());
     }
     
     @Test
@@ -390,7 +390,7 @@ public class EqualsBuilderTest {
         
         assertEquals(Boolean.FALSE, new EqualsBuilder().append(o1, null).build());
         assertEquals(Boolean.FALSE, new EqualsBuilder().append(null, o2).build());
-        assertEquals(Boolean.TRUE, new EqualsBuilder().append((Object) null, (Object) null).build());
+        assertEquals(Boolean.TRUE, new EqualsBuilder().append((Object) null, null).build());
     }
 
     @Test
