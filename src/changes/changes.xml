@@ -76,6 +76,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1297" type="update" dev="ggregory">Add SystemUtils.getHostName() API.</action>
     <action issue="LANG-1301" type="update" dev="pschumacher" due-to="Karl Heinz Marbaise">Moving apache-rat-plugin configuration into pluginManagement</action>
     <action issue="LANG-1311" type="fix" dev="pschumacher" due-to="Aaron Digulla">TypeUtils.toString() doesn't handle primitive and Object arrays correctly</action>
+    <action issue="LANG-1312" type="fix" dev="pschumacher">LocaleUtils#toLocale does not support language followed by UN M.49 numeric-3 area code</action>
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">
