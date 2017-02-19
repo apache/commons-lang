@@ -505,6 +505,13 @@ public class LocaleUtilsTest  {
         assertValidToLocale("fr__POSIX", "fr", "", "POSIX");
     }
 
+    @Test
+    public void testLanguageAndUNM49Numeric3AreaCodeLang1312() {
+        assertValidToLocale("en_001", "en", "001");
+        assertValidToLocale("en_150", "en", "150");
+        assertValidToLocale("ar_001", "ar", "001");
+    }
+
     /**
      * Tests #LANG-865, strings starting with an underscore.
      */

@@ -67,6 +67,7 @@ public class LocaleUtils {
      *   LocaleUtils.toLocale("")           = new Locale("", "")
      *   LocaleUtils.toLocale("en")         = new Locale("en", "")
      *   LocaleUtils.toLocale("en_GB")      = new Locale("en", "GB")
+     *   LocaleUtils.toLocale("en_001")     = new Locale("en", "001")
      *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
      * </pre>
      *
@@ -134,7 +135,8 @@ public class LocaleUtils {
             case 1:
                 if (StringUtils.isAllLowerCase(split[0]) &&
                     (split[0].length() == 2 || split[0].length() == 3) &&
-                     split[1].length() == 2 && StringUtils.isAllUpperCase(split[1])) {
+                     (split[1].length() == 2 && StringUtils.isAllUpperCase(split[1])) ||
+                      (split[1].length() == 3 && StringUtils.isNumeric(split[1]))) {
                     return new Locale(split[0], split[1]);
                 }
             throw new IllegalArgumentException("Invalid locale format: " + str);
