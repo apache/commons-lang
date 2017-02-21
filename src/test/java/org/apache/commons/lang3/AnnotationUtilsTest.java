@@ -378,7 +378,7 @@ public class AnnotationUtilsTest {
     }
 
     public static enum Stooge {
-        MOE, LARRY, CURLY, JOE, SHEMP;
+        MOE, LARRY, CURLY, JOE, SHEMP
     }
 
     private Field field1;
