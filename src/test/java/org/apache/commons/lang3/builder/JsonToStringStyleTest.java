@@ -359,7 +359,7 @@ public class JsonToStringStyleTest {
     }
     
     /**
-     * An object with nested object structures used to test {@link JsonToStringStyle}.
+     * An object with nested object structures used to test {@link ToStringStyle.JsonToStringStyle}.
      * 
      */
     static class NestingPerson {
