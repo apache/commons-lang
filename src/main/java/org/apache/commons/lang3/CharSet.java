@@ -175,9 +175,8 @@ public class CharSet implements Serializable {
      */
     protected CharSet(final String... set) {
         super();
-        final int sz = set.length;
-        for (int i = 0; i < sz; i++) {
-            add(set[i]);
+        for (String s : set) {
+            add(s);
         }
     }
 
