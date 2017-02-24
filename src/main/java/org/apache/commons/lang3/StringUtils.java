@@ -2467,8 +2467,7 @@ public class StringUtils {
         int ret = Integer.MAX_VALUE;
 
         int tmp = 0;
-        for (int i = 0; i < sz; i++) {
-            final CharSequence search = searchStrs[i];
+        for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
             }
@@ -2518,8 +2517,7 @@ public class StringUtils {
         final int sz = searchStrs.length;
         int ret = INDEX_NOT_FOUND;
         int tmp = 0;
-        for (int i = 0; i < sz; i++) {
-            final CharSequence search = searchStrs[i];
+        for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
             }
@@ -7751,14 +7749,14 @@ public class StringUtils {
         // find the min and max string lengths; this avoids checking to make
         // sure we are not exceeding the length of the string each time through
         // the bottom loop.
-        for (int i = 0; i < arrayLen; i++) {
-            if (css[i] == null) {
+        for (CharSequence cs : css) {
+            if (cs == null) {
                 anyStringNull = true;
                 shortestStrLen = 0;
             } else {
                 allStringsNull = false;
-                shortestStrLen = Math.min(css[i].length(), shortestStrLen);
-                longestStrLen = Math.max(css[i].length(), longestStrLen);
+                shortestStrLen = Math.min(cs.length(), shortestStrLen);
+                longestStrLen = Math.max(cs.length(), longestStrLen);
             }
         }
 
