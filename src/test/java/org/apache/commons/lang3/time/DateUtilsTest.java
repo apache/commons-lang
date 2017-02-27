@@ -43,8 +43,6 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
-import junit.framework.AssertionFailedError;
-
 /**
  * Unit tests {@link org.apache.commons.lang3.time.DateUtils}.
  */
@@ -1722,9 +1720,8 @@ public class DateUtilsTest {
             last.add(Calendar.DATE, 1);
             assertCalendarsEquals("", last, cal, 0);
         }
-        if (count % 7 != 0) {
-            throw new AssertionFailedError("There were " + count + " days in this iterator");
-        }
+
+        assertFalse("There were " + count + " days in this iterator", count % 7 != 0);
         assertCalendarsEquals("", end, cal, 0);
     }
 
@@ -1733,10 +1730,8 @@ public class DateUtilsTest {
      * delta is in milliseconds
      */
     private static void assertCalendarsEquals(final String message, final Calendar cal1, final Calendar cal2, final long delta) {
-        if (Math.abs(cal1.getTime().getTime() - cal2.getTime().getTime()) > delta) {
-            throw new AssertionFailedError(
-                    message + " expected " + cal1.getTime() + " but got " + cal2.getTime());
-        }
+        assertFalse(message + " expected " + cal1.getTime() + " but got " + cal2.getTime(),
+                Math.abs(cal1.getTime().getTime() - cal2.getTime().getTime()) > delta);
     }
 
     @Test
