@@ -533,7 +533,7 @@ public class ObjectUtilsTest {
         assertEquals("CONST(char)", (char) 3, ObjectUtils.CONST((char) 3));
         assertEquals("CONST(short)", (short) 3, ObjectUtils.CONST((short) 3));
         assertEquals("CONST(int)", 3, ObjectUtils.CONST(3));
-        assertEquals("CONST(long)", 3l, ObjectUtils.CONST(3l));
+        assertEquals("CONST(long)", 3L, ObjectUtils.CONST(3L));
         assertEquals("CONST(float)", 3f, ObjectUtils.CONST(3f), 0);
         assertEquals("CONST(double)", 3.0, ObjectUtils.CONST(3.0), 0);
         assertEquals("CONST(Object)", "abc", ObjectUtils.CONST("abc"));
