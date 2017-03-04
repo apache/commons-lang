@@ -1870,7 +1870,6 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return false;
         }
-        
         return CharSequenceUtils.indexOf(seq.toString(), searchChar, 0) >= 0;
     }
 
