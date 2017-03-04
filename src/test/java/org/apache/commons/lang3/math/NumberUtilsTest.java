@@ -73,14 +73,14 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToLongString() {
-        assertTrue("toLong(String) 1 failed", NumberUtils.toLong("12345") == 12345l);
-        assertTrue("toLong(String) 2 failed", NumberUtils.toLong("abc") == 0l);
-        assertTrue("toLong(String) 3 failed", NumberUtils.toLong("1L") == 0l);
-        assertTrue("toLong(String) 4 failed", NumberUtils.toLong("1l") == 0l);
+        assertTrue("toLong(String) 1 failed", NumberUtils.toLong("12345") == 12345L);
+        assertTrue("toLong(String) 2 failed", NumberUtils.toLong("abc") == 0L);
+        assertTrue("toLong(String) 3 failed", NumberUtils.toLong("1L") == 0L);
+        assertTrue("toLong(String) 4 failed", NumberUtils.toLong("1l") == 0L);
         assertTrue("toLong(Long.MAX_VALUE) failed", NumberUtils.toLong(Long.MAX_VALUE+"") == Long.MAX_VALUE);
         assertTrue("toLong(Long.MIN_VALUE) failed", NumberUtils.toLong(Long.MIN_VALUE+"") == Long.MIN_VALUE);
-        assertTrue("toLong(empty) failed", NumberUtils.toLong("") == 0l);
-        assertTrue("toLong(null) failed", NumberUtils.toLong(null) == 0l);
+        assertTrue("toLong(empty) failed", NumberUtils.toLong("") == 0L);
+        assertTrue("toLong(null) failed", NumberUtils.toLong(null) == 0L);
     }
 
     /**
@@ -88,8 +88,8 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToLongStringL() {
-        assertTrue("toLong(String,long) 1 failed", NumberUtils.toLong("12345", 5l) == 12345l);
-        assertTrue("toLong(String,long) 2 failed", NumberUtils.toLong("1234.5", 5l) == 5l);
+        assertTrue("toLong(String,long) 1 failed", NumberUtils.toLong("12345", 5L) == 12345L);
+        assertTrue("toLong(String,long) 2 failed", NumberUtils.toLong("1234.5", 5L) == 5L);
     }
 
     /**
