@@ -188,5 +188,21 @@ public class CharSequenceUtilsTest {
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder));
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder.toString()));
     }
+    
+    @Test
+    public void testLastIndexOfSupplementaryCharacters(){
+    	final int CODE_POINT = 0x2070E;
+    	StringBuilder builder = new StringBuilder();
+    	builder.appendCodePoint(CODE_POINT);
+    	assertEquals(0, CharSequenceUtils.lastIndexOf(builder, CODE_POINT, 0));
+    }
+    
+    @Test
+    public void testIndexOfSupplementaryCharacters(){
+    	final int CODE_POINT = 0x2070E;
+    	StringBuilder builder = new StringBuilder();
+    	builder.appendCodePoint(CODE_POINT);
+    	assertEquals(0, CharSequenceUtils.indexOf(builder, CODE_POINT, 0));
+    }
 
 }
