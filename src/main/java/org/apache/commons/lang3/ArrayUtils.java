@@ -8408,12 +8408,13 @@ public class ArrayUtils {
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
-     *  
+     *
+     * @param <T> The type of elements in {@code array} and {@code values}
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
      * @return The new array.
-     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
