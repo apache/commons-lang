@@ -124,9 +124,22 @@ public class CharSequenceUtils {
         if (start >= sz) {
             start = sz - 1;
         }
-        for (int i = start; i >= 0; --i) {
-            if (cs.charAt(i) == searchChar) {
-                return i;
+        if(searchChar < Character.MIN_SUPPLEMENTARY_CODE_POINT){
+            for (int i = start; i >= 0; --i) {
+                if (cs.charAt(i) == searchChar) {
+                    return i;
+                }
+            }
+        }
+        
+        if(searchChar <= Character.MAX_CODE_POINT){
+            char[] chars = Character.toChars(searchChar);
+            for(int i = start; i>0; --i){
+            	if(cs.charAt(i) == chars[1]){
+            		if(cs.charAt(i-1) == chars[0]){
+            			return i;
+            		}
+            	}
             }
         }
         return NOT_FOUND;
