@@ -41,6 +41,7 @@ limitations under the License.
     </module>
     <module name="JavadocMethod">
       <property name="allowUndeclaredRTE" value="true"/>
+      <property name="scope" value="public" />
     </module>
     <module name="UpperEll" />
  </module>
