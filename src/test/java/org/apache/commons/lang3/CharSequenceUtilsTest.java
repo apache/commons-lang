@@ -195,6 +195,10 @@ public class CharSequenceUtilsTest {
     	StringBuilder builder = new StringBuilder();
     	builder.appendCodePoint(CODE_POINT);
     	assertEquals(0, CharSequenceUtils.lastIndexOf(builder, CODE_POINT, 0));
+    	char[] tmp = {(char) 55361};
+    	builder = new StringBuilder();
+    	builder.append(tmp);
+    	assertEquals(-1, CharSequenceUtils.lastIndexOf(builder, CODE_POINT, 0));
     }
     
     @Test
@@ -203,6 +207,10 @@ public class CharSequenceUtilsTest {
     	StringBuilder builder = new StringBuilder();
     	builder.appendCodePoint(CODE_POINT);
     	assertEquals(0, CharSequenceUtils.indexOf(builder, CODE_POINT, 0));
+    	char[] tmp = {(char) 55361};
+    	builder = new StringBuilder();
+    	builder.append(tmp);
+    	assertEquals(-1, CharSequenceUtils.indexOf(builder, CODE_POINT, 0));
     }
 
 }
