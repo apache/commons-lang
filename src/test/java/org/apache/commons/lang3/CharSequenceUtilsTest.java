@@ -207,10 +207,22 @@ public class CharSequenceUtilsTest {
     	StringBuilder builder = new StringBuilder();
     	builder.appendCodePoint(CODE_POINT);
     	assertEquals(0, CharSequenceUtils.indexOf(builder, CODE_POINT, 0));
+    	assertEquals(0, CharSequenceUtils.lastIndexOf(builder, CODE_POINT, 0));
+    	assertEquals(0, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
+    	assertEquals(0, StringUtils.indexOf(builder, CODE_POINT, 0));
+    	assertEquals(0, StringUtils.indexOf(builder,  CODE_POINT));
+    	assertEquals(0, StringUtils.lastIndexOf(builder, CODE_POINT));
+    	assertTrue (StringUtils.contains(builder, CODE_POINT));
     	char[] tmp = {(char) 55361};
     	builder = new StringBuilder();
     	builder.append(tmp);
     	assertEquals(-1, CharSequenceUtils.indexOf(builder, CODE_POINT, 0));
+    	assertEquals(-1, CharSequenceUtils.lastIndexOf(builder, CODE_POINT, 0));
+    	assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
+    	assertEquals(-1, StringUtils.indexOf(builder, CODE_POINT, 0));
+    	assertEquals(-1, StringUtils.indexOf(builder,  CODE_POINT));
+    	assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT));
+    	assertFalse (StringUtils.contains(builder, CODE_POINT));
     }
 
 }
