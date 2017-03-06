@@ -313,7 +313,7 @@ public class StringUtils {
     /**
      * <p>Checks if a CharSequence is empty (""), null or whitespace only.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isBlank(null)      = true
@@ -344,7 +344,7 @@ public class StringUtils {
     /**
      * <p>Checks if a CharSequence is not empty (""), not null and not whitespace only.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isNotBlank(null)      = false
@@ -367,7 +367,7 @@ public class StringUtils {
     /**
      * <p>Checks if any of the CharSequences are empty ("") or null or whitespace only.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isAnyBlank(null)             = true
@@ -400,7 +400,7 @@ public class StringUtils {
     /**
      * <p>Checks if any of the CharSequences are not empty (""), not null and not whitespace only.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isAnyNotBlank(null)             = false
@@ -433,7 +433,7 @@ public class StringUtils {
     /**
      * <p>Checks if none of the CharSequences are empty (""), null or whitespace only.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isNoneBlank(null)             = false
@@ -1943,7 +1943,7 @@ public class StringUtils {
     /**
      * <p>Check whether the given CharSequence contains any whitespace characters.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      * 
      * @param seq the CharSequence to check (may be {@code null})
      * @return {@code true} if the CharSequence is not empty and
@@ -7089,7 +7089,7 @@ public class StringUtils {
     /**
      * <p>Checks if the CharSequence contains only whitespace.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code true}.</p>
@@ -7238,7 +7238,7 @@ public class StringUtils {
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * whitespace, empty ("") or {@code null}, the value of {@code defaultStr}.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.defaultIfBlank(null, "NULL")  = "NULL"
