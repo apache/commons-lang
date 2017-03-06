@@ -234,10 +234,9 @@ public class CharSetUtils {
         final CharSet chars = CharSet.getInstance(set);
         final StringBuilder buffer = new StringBuilder(str.length());
         final char[] chrs = str.toCharArray();
-        final int sz = chrs.length;
-        for(int i=0; i<sz; i++) {
-            if(chars.contains(chrs[i]) == expect) {
-                buffer.append(chrs[i]);
+        for (char chr : chrs) {
+            if (chars.contains(chr) == expect) {
+                buffer.append(chr);
             }
         }
         return buffer.toString();

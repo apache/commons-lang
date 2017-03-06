@@ -52,13 +52,13 @@ import org.apache.commons.lang3.StringUtils;
  * Map valuesMap = HashMap();
  * valuesMap.put(&quot;animal&quot;, &quot;quick brown fox&quot;);
  * valuesMap.put(&quot;target&quot;, &quot;lazy dog&quot;);
- * String templateString = &quot;The ${animal} jumped over the ${target}.&quot;;
+ * String templateString = &quot;The ${animal} jumps over the ${target}.&quot;;
  * StrSubstitutor sub = new StrSubstitutor(valuesMap);
  * String resolvedString = sub.replace(templateString);
  * </pre>
  * yielding:
  * <pre>
- *      The quick brown fox jumped over the lazy dog.
+ *      The quick brown fox jumps over the lazy dog.
  * </pre>
  * <p>
  * Also, this class allows to set a default value for unresolved variables.
@@ -72,13 +72,13 @@ import org.apache.commons.lang3.StringUtils;
  * Map valuesMap = HashMap();
  * valuesMap.put(&quot;animal&quot;, &quot;quick brown fox&quot;);
  * valuesMap.put(&quot;target&quot;, &quot;lazy dog&quot;);
- * String templateString = &quot;The ${animal} jumped over the ${target}. ${undefined.number:-1234567890}.&quot;;
+ * String templateString = &quot;The ${animal} jumps over the ${target}. ${undefined.number:-1234567890}.&quot;;
  * StrSubstitutor sub = new StrSubstitutor(valuesMap);
  * String resolvedString = sub.replace(templateString);
  * </pre>
  * yielding:
  * <pre>
- *      The quick brown fox jumped over the lazy dog. 1234567890.
+ *      The quick brown fox jumps over the lazy dog. 1234567890.
  * </pre>
  * <p>
  * In addition to this usage pattern there are some static convenience methods that

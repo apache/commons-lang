@@ -2940,7 +2940,7 @@ public class StringUtilsTest {
      */
     @Test
     public void testToString() throws UnsupportedEncodingException {
-        final String expectedString = "The quick brown fox jumped over the lazy dog.";
+        final String expectedString = "The quick brown fox jumps over the lazy dog.";
         byte[] expectedBytes = expectedString.getBytes(Charset.defaultCharset());
         // sanity check start
         assertArrayEquals(expectedBytes, expectedString.getBytes());
@@ -3087,7 +3087,7 @@ public class StringUtilsTest {
      */
     @Test
     public void testToEncodedString() {
-        final String expectedString = "The quick brown fox jumped over the lazy dog.";
+        final String expectedString = "The quick brown fox jumps over the lazy dog.";
         String encoding = SystemUtils.FILE_ENCODING;
         byte[] expectedBytes = expectedString.getBytes(Charset.defaultCharset());
         // sanity check start

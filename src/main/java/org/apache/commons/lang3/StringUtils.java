@@ -313,7 +313,7 @@ public class StringUtils {
     /**
      * <p>Checks if a CharSequence is empty (""), null or whitespace only.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isBlank(null)      = true
@@ -344,7 +344,7 @@ public class StringUtils {
     /**
      * <p>Checks if a CharSequence is not empty (""), not null and not whitespace only.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isNotBlank(null)      = false
@@ -367,7 +367,7 @@ public class StringUtils {
     /**
      * <p>Checks if any of the CharSequences are empty ("") or null or whitespace only.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isAnyBlank(null)             = true
@@ -400,7 +400,7 @@ public class StringUtils {
     /**
      * <p>Checks if any of the CharSequences are not empty (""), not null and not whitespace only.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isAnyNotBlank(null)             = false
@@ -433,7 +433,7 @@ public class StringUtils {
     /**
      * <p>Checks if none of the CharSequences are empty (""), null or whitespace only.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isNoneBlank(null)             = false
@@ -1943,7 +1943,7 @@ public class StringUtils {
     /**
      * <p>Check whether the given CharSequence contains any whitespace characters.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      * 
      * @param seq the CharSequence to check (may be {@code null})
      * @return {@code true} if the CharSequence is not empty and
@@ -2467,8 +2467,7 @@ public class StringUtils {
         int ret = Integer.MAX_VALUE;
 
         int tmp = 0;
-        for (int i = 0; i < sz; i++) {
-            final CharSequence search = searchStrs[i];
+        for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
             }
@@ -2518,8 +2517,7 @@ public class StringUtils {
         final int sz = searchStrs.length;
         int ret = INDEX_NOT_FOUND;
         int tmp = 0;
-        for (int i = 0; i < sz; i++) {
-            final CharSequence search = searchStrs[i];
+        for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
             }
@@ -7091,7 +7089,7 @@ public class StringUtils {
     /**
      * <p>Checks if the CharSequence contains only whitespace.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code true}.</p>
@@ -7240,7 +7238,7 @@ public class StringUtils {
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * whitespace, empty ("") or {@code null}, the value of {@code defaultStr}.</p>
      * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.defaultIfBlank(null, "NULL")  = "NULL"
@@ -7751,14 +7749,14 @@ public class StringUtils {
         // find the min and max string lengths; this avoids checking to make
         // sure we are not exceeding the length of the string each time through
         // the bottom loop.
-        for (int i = 0; i < arrayLen; i++) {
-            if (css[i] == null) {
+        for (CharSequence cs : css) {
+            if (cs == null) {
                 anyStringNull = true;
                 shortestStrLen = 0;
             } else {
                 allStringsNull = false;
-                shortestStrLen = Math.min(css[i].length(), shortestStrLen);
-                longestStrLen = Math.max(css[i].length(), longestStrLen);
+                shortestStrLen = Math.min(cs.length(), shortestStrLen);
+                longestStrLen = Math.max(cs.length(), longestStrLen);
             }
         }
 

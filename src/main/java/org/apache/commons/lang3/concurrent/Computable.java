@@ -18,7 +18,7 @@ package org.apache.commons.lang3.concurrent;
 
 /**
  * <p>Definition of an interface for a wrapper around a calculation that takes a single parameter and returns a result.</p>
- * <p/>
+ *
  * <p>This interface allows for wrapping a calculation into a class so that it maybe passed around an application.</p>
  *
  * @param <I> the type of the input to the calculation

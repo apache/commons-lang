@@ -101,6 +101,8 @@ public class TypeUtilsTest<B> {
 
     public static URI uri;
 
+    public static List<String>[] stringListArray;
+
     public void dummyMethod(final List list0, final List<Object> list1, final List<?> list2,
             final List<? super Object> list3, final List<String> list4, final List<? extends String> list5,
             final List<? super String> list6, final List[] list7, final List<Object>[] list8, final List<?>[] list9,
@@ -741,6 +743,14 @@ public class TypeUtilsTest<B> {
                 .withUpperBounds(Integer.class).build()));
         Assert.assertTrue(TypeUtils.equals(expected, actual));
         Assert.assertEquals("java.lang.Comparable<? extends java.lang.Integer>[]", actual.toString());
+    }
+
+    @Test
+    public void testToStringLang1311() {
+        Assert.assertEquals("int[]", TypeUtils.toString(int[].class));
+        Assert.assertEquals("java.lang.Integer[]", TypeUtils.toString(Integer[].class));
+        Field stringListField = FieldUtils.getDeclaredField(getClass(), "stringListArray");
+        Assert.assertEquals("java.util.List<java.lang.String>[]", TypeUtils.toString(stringListField.getGenericType()));
     }
 
     @Test
