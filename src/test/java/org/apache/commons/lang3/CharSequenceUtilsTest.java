@@ -188,41 +188,5 @@ public class CharSequenceUtilsTest {
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder));
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder.toString()));
     }
-    
-    @Test
-    public void testLastIndexOfSupplementaryCharacters(){
-    	final int CODE_POINT = 0x2070E;
-    	StringBuilder builder = new StringBuilder();
-    	builder.appendCodePoint(CODE_POINT);
-    	assertEquals(0, CharSequenceUtils.lastIndexOf(builder, CODE_POINT, 0));
-    	char[] tmp = {(char) 55361};
-    	builder = new StringBuilder();
-    	builder.append(tmp);
-    	assertEquals(-1, CharSequenceUtils.lastIndexOf(builder, CODE_POINT, 0));
-    }
-    
-    @Test
-    public void testIndexOfSupplementaryCharacters(){
-    	final int CODE_POINT = 0x2070E;
-    	StringBuilder builder = new StringBuilder();
-    	builder.appendCodePoint(CODE_POINT);
-    	assertEquals(0, CharSequenceUtils.indexOf(builder, CODE_POINT, 0));
-    	assertEquals(0, CharSequenceUtils.lastIndexOf(builder, CODE_POINT, 0));
-    	assertEquals(0, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
-    	assertEquals(0, StringUtils.indexOf(builder, CODE_POINT, 0));
-    	assertEquals(0, StringUtils.indexOf(builder,  CODE_POINT));
-    	assertEquals(0, StringUtils.lastIndexOf(builder, CODE_POINT));
-    	assertTrue (StringUtils.contains(builder, CODE_POINT));
-    	char[] tmp = {(char) 55361};
-    	builder = new StringBuilder();
-    	builder.append(tmp);
-    	assertEquals(-1, CharSequenceUtils.indexOf(builder, CODE_POINT, 0));
-    	assertEquals(-1, CharSequenceUtils.lastIndexOf(builder, CODE_POINT, 0));
-    	assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
-    	assertEquals(-1, StringUtils.indexOf(builder, CODE_POINT, 0));
-    	assertEquals(-1, StringUtils.indexOf(builder,  CODE_POINT));
-    	assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT));
-    	assertFalse (StringUtils.contains(builder, CODE_POINT));
-    }
 
 }
