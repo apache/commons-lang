@@ -1482,43 +1482,6 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Is {@code true} if the os.arch System Property matches the following {@link String}'s:
-     * <ul>
-     * <li>x8632</li>
-     * <li>x86</li>
-     * <li>i386 - i686</li>
-     * <li>ia32</li>
-     * <li>x32</li>
-     * </ul>
-     * </p>
-     * <p>
-     * Important: The os.arch System Property returns the architecture used by the JVM
-     * not of the operating system. E.g. a 32 bit JVM installed on a Windows 64 bit returns
-     * {@code true}.
-     * </p>
-     */
-    public static final boolean IS_32_BIT_JVM = OS_ARCH.matches("^(x8632|x86|i[3-6]86|ia32|x32)$");
-
-    /**
-     * <p>
-     * Is {@code true} if the os.arch System Property matches the following {@link String}'s:
-     * <ul>
-     * <li>x8664</li>
-     * <li>amd64</li>
-     * <li>ia32e</li>
-     * <li>em64t</li>
-     * <li>x64</li>
-     * </ul>
-     * </p>
-     * <p>
-     * Important: The os.arch System Property returns the architecture used by the JVM
-     * not of the operating system.
-     * </p>
-     */
-    public static boolean IS_64_BIT_JVM = OS_ARCH.matches("^(x8664|amd64|ia32e|em64t|x64)$");
-
-    /**
-     * <p>
      * Gets the Java home directory as a {@code File}.
      * </p>
      *
