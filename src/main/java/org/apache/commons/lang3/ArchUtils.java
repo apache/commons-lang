@@ -16,8 +16,8 @@
  */
 package org.apache.commons.lang3;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * An utility class for the os.arch System Property. The class defines methods for
@@ -68,7 +68,7 @@ public class ArchUtils {
     private static final String PPC64 = "ppc64";
 
     static {
-        map = new HashMap<>();
+        map = new ConcurrentHashMap<>();
 
         // x86 mappings
         addX86(X86);
