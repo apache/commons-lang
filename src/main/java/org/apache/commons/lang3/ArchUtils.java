@@ -23,12 +23,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * An utility class for the os.arch System Property. The class defines methods for
  * identifying the architecture of the current JVM.
  * <p>
- * <p>
  * Important: The os.arch System Property returns the architecture used by the JVM
  * not of the operating system.
  * </p>
- *
- * @author Tomschi
  */
 public class ArchUtils {
 
@@ -130,7 +127,7 @@ public class ArchUtils {
      * </ul>
      * <p>
      * It is possible to extend the {@link String}'s above using method {@link ArchUtils#addX86(String)}.
-     * <p>
+     * </p>
      * <p>
      * Important: The os.arch System Property returns the architecture used by the JVM
      * not of the operating system.
@@ -174,7 +171,7 @@ public class ArchUtils {
      * </ul>
      * <p>
      * It is possible to extend the {@link String}'s above using method {@link ArchUtils#addX86_64(String)}.
-     * <p>
+     * </p>
      * <p>
      * Important: The os.arch System Property returns the architecture used by the JVM
      * not of the operating system.
@@ -216,7 +213,7 @@ public class ArchUtils {
      * </ul>
      * <p>
      * It is possible to extend the {@link String}'s above using method {@link ArchUtils#addIA64_32(String)}.
-     * <p>
+     * </p>
      * <p>
      * Important: The os.arch System Property returns the architecture used by the JVM
      * not of the operating system.
@@ -258,7 +255,7 @@ public class ArchUtils {
      * </ul>
      * <p>
      * It is possible to extend the {@link String}'s above using method {@link ArchUtils#addIA64(String)}.
-     * <p>
+     * </p>
      * <p>
      * Important: The os.arch System Property returns the architecture used by the JVM
      * not of the operating system.
@@ -302,7 +299,7 @@ public class ArchUtils {
      * </ul>
      * <p>
      * It is possible to extend the {@link String}'s above using method {@link ArchUtils#addPPC(String)}.
-     * <p>
+     * </p>
      * <p>
      * Important: The os.arch System Property returns the architecture used by the JVM
      * not of the operating system.
@@ -346,7 +343,7 @@ public class ArchUtils {
      * </ul>
      * <p>
      * It is possible to extend the {@link String}'s above using method {@link ArchUtils#addPPC64(String)}.
-     * <p>
+     * </p>
      * <p>
      * Important: The os.arch System Property returns the architecture used by the JVM
      * not of the operating system.
@@ -372,7 +369,6 @@ public class ArchUtils {
     /**
      * Checks if the current running JVM is a 32 bit JVM using the os.arch System Property.
      * <p>
-     * <p>
      * Important: The os.arch System Property returns the architecture used by the JVM
      * not of the operating system.
      * </p>
@@ -396,7 +392,6 @@ public class ArchUtils {
 
     /**
      * Checks if the current running JVM is a 64 bit JVM using the os.arch System Property.
-     * <p>
      * <p>
      * Important: The os.arch System Property returns the architecture used by the JVM
      * not of the operating system.
@@ -422,7 +417,6 @@ public class ArchUtils {
     /**
      * Checks if the os.arch System Property {@link String} of the current JVM is supported.
      * <p>
-     * <p>
      * Important: The os.arch System Property returns the architecture used by the JVM
      * not of the operating system.
      * </p>
@@ -437,6 +431,7 @@ public class ArchUtils {
      * Checks if the given os.arch {@link String} is supported. The given {@link String} must be
      * like a value returned by the os.arch System Property.
      *
+     * @param value The value to check.
      * @return <code>True</code>, if supported, else <code>false</code>.
      */
     public static final boolean isSupported(String value) {
