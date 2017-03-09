@@ -84,17 +84,19 @@ public class CharSequenceUtils {
         }
         //supplementary characters (LANG1300)
         if (searchChar <= Character.MAX_CODE_POINT) {
+            int ind = 0;
             char[] chars = Character.toChars(searchChar);
-        	for (int i = start; i < sz; i++) {
-        		if (cs.charAt(i) == chars[0]) {
-        			if (i + 1 == sz) {
-        				break;
-        			}
-        			if (cs.charAt(i + 1) == chars[1]) {
-        				return i;
-        			}
-        		}
-        	}
+            for (int i = start; i < sz - 1; i++) {
+                char high = cs.charAt(i);
+                char low = cs.charAt(i + 1);
+                if (high == chars[0] && low == chars[1]) {
+                    return ind;
+                } else if (Character.isSurrogatePair(high, low)) {
+                    //skip over 1
+                    i++;
+                }
+                ind++;
+            }
         }
         return NOT_FOUND;
     }
@@ -148,17 +150,18 @@ public class CharSequenceUtils {
             }
         }
         //supplementary characters (LANG1300)
+        //NOTE - we must do a forward traversal for this to avoid duplicating code points
         if (searchChar <= Character.MAX_CODE_POINT) {
             char[] chars = Character.toChars(searchChar);
             for (int i = start; i >= 0; --i) {
                 if (cs.charAt(i) == chars[0]) {
-            	    if (i + 1 == cs.length()) {
-            		    break;
-            		}
-            		if (cs.charAt(i + 1) == chars[1]) {
-            		    return i;
-            		}
-            	}
+                    if (i + 1 == cs.length()) {
+                        break;
+                    }
+                    if (cs.charAt(i + 1) == chars[1]) {
+                        return i;
+                    }
+                }
             }
         }
         return NOT_FOUND;
