@@ -545,11 +545,22 @@ public class StringUtilsEqualsIndexOfTest  {
     	StringBuilder builder = new StringBuilder();
     	builder.appendCodePoint(CODE_POINT);
     	assertEquals(0, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
+    	builder.appendCodePoint(CODE_POINT);
+    	assertEquals(1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
+    	assertEquals(1, StringUtils.lastIndexOf(builder, CODE_POINT, 1));
+
+
+    	builder.append("aaaaa");
+    	assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 4));
     	//inner branch on the supplementary character block
     	char[] tmp = {(char) 55361};
     	builder = new StringBuilder();
     	builder.append(tmp);
     	assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
+    	builder.appendCodePoint(CODE_POINT);
+    	assertEquals(1, StringUtils.lastIndexOf(builder, CODE_POINT, 0 ));
+        assertEquals(1, StringUtils.lastIndexOf(builder, CODE_POINT, 1 ));
+
     }
 
     @Test

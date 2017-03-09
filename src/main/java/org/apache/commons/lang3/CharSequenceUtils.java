@@ -153,15 +153,25 @@ public class CharSequenceUtils {
         //NOTE - we must do a forward traversal for this to avoid duplicating code points
         if (searchChar <= Character.MAX_CODE_POINT) {
             char[] chars = Character.toChars(searchChar);
-            for (int i = start; i >= 0; --i) {
-                if (cs.charAt(i) == chars[0]) {
-                    if (i + 1 == cs.length()) {
-                        break;
-                    }
-                    if (cs.charAt(i + 1) == chars[1]) {
-                        return i;
-                    }
+            //make sure it's not the last index
+            if (start == sz - 1) {
+                return NOT_FOUND;
+            }
+            int maxInd = -1;
+            int ind = 0;
+            for (int i = 0; i < cs.length() - 1; i++) {
+                char high = cs.charAt(i);
+                char low = cs.charAt(i + 1);
+                if (chars[0] == high && chars[1] == low) {
+                    maxInd = ind;
+                    i++;
+                } else if (Character.isSurrogatePair(high, low)) {
+                    i++; //skip over one
                 }
+                ind++;
+            }
+            if (maxInd >= start) {
+                return maxInd;
             }
         }
         return NOT_FOUND;
