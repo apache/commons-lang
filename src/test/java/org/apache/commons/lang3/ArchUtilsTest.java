@@ -176,49 +176,4 @@ public class ArchUtilsTest {
         assertFalse(ArchUtils.isSupported("NA"));
     }
 
-    @Test
-    public void testAddingCustomArch() {
-        String customX86 = "custom_x86";
-        ArchUtils.addX86(customX86);
-        assertTrue(ArchUtils.isX86JVM(customX86));
-        assertTrue(ArchUtils.is32BitJVM(customX86));
-        assertTrue(ArchUtils.isSupported(customX86));
-        assertFalse(ArchUtils.is64BitJVM(customX86));
-
-        String customX86_64 = "custom_x86_64";
-        ArchUtils.addX86_64(customX86_64);
-        assertTrue(ArchUtils.isX86_64JVM(customX86_64));
-        assertTrue(ArchUtils.is64BitJVM(customX86_64));
-        assertTrue(ArchUtils.isSupported(customX86_64));
-        assertFalse(ArchUtils.is32BitJVM(customX86_64));
-
-        String customIA64_32 = "custom_ia_64_32";
-        ArchUtils.addIA64_32(customIA64_32);
-        assertTrue(ArchUtils.isIA64_32JVM(customIA64_32));
-        assertTrue(ArchUtils.is32BitJVM(customIA64_32));
-        assertTrue(ArchUtils.isSupported(customIA64_32));
-        assertFalse(ArchUtils.is64BitJVM(customIA64_32));
-
-        String customIA64 = "custom_ia64";
-        ArchUtils.addIA64(customIA64);
-        assertTrue(ArchUtils.isIA64JVM(customIA64));
-        assertTrue(ArchUtils.is64BitJVM(customIA64));
-        assertTrue(ArchUtils.isSupported(customIA64));
-        assertFalse(ArchUtils.is32BitJVM(customIA64));
-
-        String customPPA = "custom_ppa";
-        ArchUtils.addPPC(customPPA);
-        assertTrue(ArchUtils.isPPCJVM(customPPA));
-        assertTrue(ArchUtils.is32BitJVM(customPPA));
-        assertTrue(ArchUtils.isSupported(customPPA));
-        assertFalse(ArchUtils.is64BitJVM(customPPA));
-
-        String customPPA64 = "custom_ppa_64";
-        ArchUtils.addPPC64(customPPA64);
-        assertTrue(ArchUtils.isPPC64JVM(customPPA64));
-        assertTrue(ArchUtils.is64BitJVM(customPPA64));
-        assertTrue(ArchUtils.isSupported(customPPA64));
-        assertFalse(ArchUtils.is32BitJVM(customPPA64));
-    }
-
 }

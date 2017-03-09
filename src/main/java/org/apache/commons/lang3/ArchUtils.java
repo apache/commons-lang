@@ -1,117 +1,115 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.arch.Processor;
+import org.apache.commons.lang3.arch.ProcessorArch;
+import org.apache.commons.lang3.arch.ProcessorType;
+
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * An utility class for the os.arch System Property. The class defines methods for
- * identifying the architecture of the current JVM.
- * <p>
- * Important: The os.arch System Property returns the architecture used by the JVM
- * not of the operating system.
- * </p>
+ *
  */
 public class ArchUtils {
 
-    /**
-     * This {@link Map} contains the the possible os.arch property {@link String}'s.
-     */
-    private static final Map<String, String> map;
-
-    /**
-     * The value for x86 architecture.
-     */
-    private static final String X86 = "x86";
-
-    /**
-     * The value for x86_64 architecture.
-     */
-    private static final String X86_64 = "x86_64";
-
-    /**
-     * The value for ia64_32 architecture.
-     */
-    private static final String IA64_32 = "ia64_32";
-
-    /**
-     * The value for ia64 architecture.
-     */
-    private static final String IA64 = "ia64";
-
-    /**
-     * The value for ppc architecture.
-     */
-    private static final String PPC = "ppc";
-
-    /**
-     * The value for ppc64 architecture.
-     */
-    private static final String PPC64 = "ppc64";
+    private static Map<String, Processor> map;
 
     static {
-        map = new ConcurrentHashMap<>();
-
-        // x86 mappings
-        addX86(X86);
-        addX86("i386");
-        addX86("i486");
-        addX86("i586");
-        addX86("i686");
-        addX86("pentium");
-
-        // x86_64 mappings
-        addX86_64(X86_64);
-        addX86_64("amd64");
-        addX86_64("em64t");
-        addX86_64("universal"); // Needed for openjdk7 in Mac
-
-        // Itenium 64-bit mappings
-        addIA64(IA64);
-        addIA64("ia64w");
-
-        // Itenium 32-bit mappings, usually an HP-UX construct
-        addIA64_32(IA64_32);
-        addIA64_32("ia64n");
-
-        // PowerPC mappings
-        addPPC(PPC);
-        addPPC("power");
-        addPPC("powerpc");
-        addPPC("power_pc");
-        addPPC("power_rs");
-
-        // PowerPC 64bit mappings
-        addPPC64(PPC64);
-        addPPC64("power64");
-        addPPC64("powerpc64");
-        addPPC64("power_pc64");
-        addPPC64("power_rs64");
+        map = new HashMap<>();
+        init();
     }
 
-    /**
-     * Possibility to add {@link String}, representing the <code>System.getProperty("os.arch")</code>
-     * to x86 architecture.
-     *
-     * @param value The {@link String} to add.
-     */
-    public static final void addX86(String value) {
-        map.put(value, X86);
+    private static final void init() {
+        init_X86_32Bit();
+        init_X86_64Bit();
+        init_IA64_32Bit();
+        init_IA64_64Bit();
+        init_PPA_32Bit();
+        init_PPA_64Bit();
+    }
+
+    private static final void init_X86_32Bit() {
+        Processor x86 = new Processor("x86", ProcessorArch.BIT_32, ProcessorType.X86);
+        map.put(x86.getName(), x86);
+
+        Processor i386 = new Processor("i386", ProcessorArch.BIT_32, ProcessorType.X86);
+        map.put(i386.getName(), i386);
+
+        Processor i486 = new Processor("i486", ProcessorArch.BIT_32, ProcessorType.X86);
+        map.put(i486.getName(), i486);
+
+        Processor i586 = new Processor("i586", ProcessorArch.BIT_32, ProcessorType.X86);
+        map.put(i586.getName(), i586);
+
+        Processor i686 = new Processor("i686", ProcessorArch.BIT_32, ProcessorType.X86);
+        map.put(i686.getName(), i686);
+
+        Processor pentium = new Processor("pentium", ProcessorArch.BIT_32, ProcessorType.X86);
+        map.put(pentium.getName(), pentium);
+    }
+
+    private static final void init_X86_64Bit() {
+        Processor x86_64 = new Processor("x86_64", ProcessorArch.BIT_64, ProcessorType.X86);
+        map.put(x86_64.getName(), x86_64);
+
+        Processor amd64 = new Processor("amd64", ProcessorArch.BIT_64, ProcessorType.X86);
+        map.put(amd64.getName(), amd64);
+
+        Processor em64t = new Processor("em64t", ProcessorArch.BIT_64, ProcessorType.X86);
+        map.put(em64t.getName(), em64t);
+
+        Processor universal = new Processor("universal", ProcessorArch.BIT_64, ProcessorType.X86);
+        map.put(universal.getName(), universal);
+    }
+
+    private static final void init_IA64_32Bit() {
+        Processor ia64_32 = new Processor("ia64_32", ProcessorArch.BIT_32, ProcessorType.IA_64);
+        map.put(ia64_32.getName(), ia64_32);
+
+        Processor ia64n = new Processor("ia64n", ProcessorArch.BIT_32, ProcessorType.IA_64);
+        map.put(ia64n.getName(), ia64n);
+    }
+
+    private static final void init_IA64_64Bit() {
+        Processor ia64 = new Processor("ia64", ProcessorArch.BIT_64, ProcessorType.IA_64);
+        map.put(ia64.getName(), ia64);
+
+        Processor ia64w = new Processor("ia64w", ProcessorArch.BIT_64, ProcessorType.IA_64);
+        map.put(ia64w.getName(), ia64w);
+    }
+
+    private static final void init_PPA_32Bit() {
+        Processor ppc = new Processor("ppc", ProcessorArch.BIT_32, ProcessorType.PPC);
+        map.put(ppc.getName(), ppc);
+
+        Processor power = new Processor("power", ProcessorArch.BIT_32, ProcessorType.PPC);
+        map.put(power.getName(), power);
+
+        Processor powerpc = new Processor("powerpc", ProcessorArch.BIT_32, ProcessorType.PPC);
+        map.put(powerpc.getName(), powerpc);
+
+        Processor power_pc = new Processor("power_pc", ProcessorArch.BIT_32, ProcessorType.PPC);
+        map.put(power_pc.getName(), power_pc);
+
+        Processor power_rs = new Processor("power_rs", ProcessorArch.BIT_32, ProcessorType.PPC);
+        map.put(power_rs.getName(), power_rs);
+    }
+
+    private static final void init_PPA_64Bit() {
+        Processor ppc64 = new Processor("ppc64", ProcessorArch.BIT_64, ProcessorType.PPC);
+        map.put(ppc64.getName(), ppc64);
+
+        Processor power64 = new Processor("power64", ProcessorArch.BIT_64, ProcessorType.PPC);
+        map.put(power64.getName(), power64);
+
+        Processor powerpc64 = new Processor("powerpc64", ProcessorArch.BIT_64, ProcessorType.PPC);
+        map.put(powerpc64.getName(), powerpc64);
+
+        Processor power_pc64 = new Processor("power_pc64", ProcessorArch.BIT_64, ProcessorType.PPC);
+        map.put(power_pc64.getName(), power_pc64);
+
+        Processor power_rs64 = new Processor("power_rs64", ProcessorArch.BIT_64, ProcessorType.PPC);
+        map.put(power_rs64.getName(), power_rs64);
     }
 
     /**
@@ -147,17 +145,7 @@ public class ArchUtils {
      * @return <code>True</code>, if the {@link String} represents a x86 value, else <code>false</code>.
      */
     public static final boolean isX86JVM(String value) {
-        return StringUtils.equals(X86, map.get(value));
-    }
-
-    /**
-     * Possibility to add {@link String}, representing the <code>System.getProperty("os.arch")</code>
-     * to x86_64 architecture.
-     *
-     * @param value The {@link String} to add.
-     */
-    public static final void addX86_64(String value) {
-        map.put(value, X86_64);
+        return is32BitJVM(value) && ProcessorType.X86.equals(map.get(value).getProcessorType());
     }
 
     /**
@@ -191,17 +179,7 @@ public class ArchUtils {
      * @return <code>True</code>, if the {@link String} represents a x86_64 value, else <code>false</code>.
      */
     public static final boolean isX86_64JVM(String value) {
-        return StringUtils.equals(X86_64, map.get(value));
-    }
-
-    /**
-     * Possibility to add {@link String}, representing the <code>System.getProperty("os.arch")</code>
-     * to IA32_64 architecture.
-     *
-     * @param value The {@link String} to add.
-     */
-    public static final void addIA64_32(String value) {
-        map.put(value, IA64_32);
+        return is64BitJVM(value) && ProcessorType.X86.equals(map.get(value).getProcessorType());
     }
 
     /**
@@ -233,17 +211,7 @@ public class ArchUtils {
      * @return <code>True</code>, if the {@link String} represents a IA64_32 value, else <code>false</code>.
      */
     public static final boolean isIA64_32JVM(String value) {
-        return StringUtils.equals(IA64_32, map.get(value));
-    }
-
-    /**
-     * Possibility to add {@link String}, representing the <code>System.getProperty("os.arch")</code>
-     * to IA64 architecture.
-     *
-     * @param value The {@link String} to add.
-     */
-    public static final void addIA64(String value) {
-        map.put(value, IA64);
+        return is32BitJVM(value) && ProcessorType.IA_64.equals(map.get(value).getProcessorType());
     }
 
     /**
@@ -268,24 +236,13 @@ public class ArchUtils {
     }
 
     /**
-     * Checks if the given {@link String} represents a IA64 JVM. The {@link String} must be
-     * like a value returned by the os.arch System Property.
-     *
-     * @param value The value to check.
-     * @return <code>True</code>, if the {@link String} represents a IA64 value, else <code>false</code>.
-     */
-    public static final boolean isIA64JVM(String value) {
-        return StringUtils.equals(IA64, map.get(value));
-    }
-
-    /**
      * Possibility to add {@link String}, representing the <code>System.getProperty("os.arch")</code>
-     * to PPC architecture.
+     * to IA64 architecture.
      *
      * @param value The {@link String} to add.
      */
-    public static final void addPPC(String value) {
-        map.put(value, PPC);
+    public static final boolean isIA64JVM(String value) {
+        return is64BitJVM(value) && ProcessorType.IA_64.equals(map.get(value).getProcessorType());
     }
 
     /**
@@ -319,17 +276,7 @@ public class ArchUtils {
      * @return <code>True</code>, if the {@link String} represents a PPC value, else <code>false</code>.
      */
     public static final boolean isPPCJVM(String value) {
-        return StringUtils.equals(PPC, map.get(value));
-    }
-
-    /**
-     * Possibility to add {@link String}, representing the <code>System.getProperty("os.arch")</code>
-     * to PPC_64 architecture.
-     *
-     * @param value The {@link String} to add.
-     */
-    public static final void addPPC64(String value) {
-        map.put(value, PPC64);
+        return is32BitJVM(value) && ProcessorType.PPC.equals(map.get(value).getProcessorType());
     }
 
     /**
@@ -363,7 +310,7 @@ public class ArchUtils {
      * @return <code>True</code>, if the {@link String} represents a PPC 64 value, else <code>false</code>.
      */
     public static final boolean isPPC64JVM(String value) {
-        return StringUtils.equals(PPC64, map.get(value));
+        return is64BitJVM(value) && ProcessorType.PPC.equals(map.get(value).getProcessorType());
     }
 
     /**
@@ -376,7 +323,7 @@ public class ArchUtils {
      * @return <code>True</code>, if the current JVM is 32 bit, else <code>false</code>.
      */
     public static final boolean is32BitJVM() {
-        return isX86JVM() || isIA64_32JVM() || isPPCJVM();
+        return is32BitJVM(SystemUtils.OS_ARCH);
     }
 
     /**
@@ -387,7 +334,12 @@ public class ArchUtils {
      * @return <code>True</code>, if the {@link String} represents a 32 bit value, else <code>false</code>.
      */
     public static final boolean is32BitJVM(String value) {
-        return isX86JVM(value) || isIA64_32JVM(value) || isPPCJVM(value);
+        if (isSupported(value)) {
+            Processor processor = map.get(value);
+            return ProcessorArch.BIT_32.equals(processor.getProcessorArch());
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -400,7 +352,7 @@ public class ArchUtils {
      * @return <code>True</code>, if the current JVM is 64 bit, else <code>false</code>.
      */
     public static final boolean is64BitJVM() {
-        return isX86_64JVM() || isIA64JVM() || isPPC64JVM();
+        return is64BitJVM(SystemUtils.OS_ARCH);
     }
 
     /**
@@ -411,7 +363,12 @@ public class ArchUtils {
      * @return <code>True</code>, if the {@link String} represents a 64 bit value, else <code>false</code>.
      */
     public static final boolean is64BitJVM(String value) {
-        return isX86_64JVM(value) || isIA64JVM(value) || isPPC64JVM(value);
+        if (isSupported(value)) {
+            Processor processor = map.get(value);
+            return ProcessorArch.BIT_64.equals(processor.getProcessorArch());
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -424,7 +381,7 @@ public class ArchUtils {
      * @return <code>True</code>, if supported, else <code>false</code>.
      */
     public static final boolean isSupported() {
-        return is32BitJVM() || is64BitJVM();
+        return isSupported(SystemUtils.OS_ARCH);
     }
 
     /**
@@ -435,7 +392,7 @@ public class ArchUtils {
      * @return <code>True</code>, if supported, else <code>false</code>.
      */
     public static final boolean isSupported(String value) {
-        return is32BitJVM(value) || is64BitJVM(value);
+        return map.containsKey(value);
     }
 
 }
