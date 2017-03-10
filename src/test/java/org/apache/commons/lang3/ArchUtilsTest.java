@@ -18,8 +18,7 @@ package org.apache.commons.lang3;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Test class for {@link ArchUtils}.
@@ -65,90 +64,6 @@ public class ArchUtilsTest {
     private static final String POWER_RS64 = "power_rs64";
 
     @Test
-    public void testIsX86JVM() {
-        assertTrue(ArchUtils.isX86JVM(X86));
-        assertTrue(ArchUtils.isX86JVM(X86_I386));
-        assertTrue(ArchUtils.isX86JVM(X86_I486));
-        assertTrue(ArchUtils.isX86JVM(X86_I586));
-        assertTrue(ArchUtils.isX86JVM(X86_I686));
-        assertTrue(ArchUtils.isX86JVM(X86_PENTIUM));
-
-        assertFalse(ArchUtils.isX86JVM(X86_64));
-        assertFalse(ArchUtils.isX86JVM(IA64));
-        assertFalse(ArchUtils.isX86JVM(IA64_32));
-        assertFalse(ArchUtils.isX86JVM(PPC));
-        assertFalse(ArchUtils.isX86JVM(PPC64));
-    }
-
-    @Test
-    public void testIsX86_64JVM() {
-        assertTrue(ArchUtils.isX86_64JVM(X86_64));
-        assertTrue(ArchUtils.isX86_64JVM(X86_64_AMD64));
-        assertTrue(ArchUtils.isX86_64JVM(X86_64_EM64T));
-        assertTrue(ArchUtils.isX86_64JVM(X86_64_UNIVERSAL));
-
-        assertFalse(ArchUtils.isX86_64JVM(X86));
-        assertFalse(ArchUtils.isX86_64JVM(IA64));
-        assertFalse(ArchUtils.isX86_64JVM(IA64_32));
-        assertFalse(ArchUtils.isX86_64JVM(PPC));
-        assertFalse(ArchUtils.isX86_64JVM(PPC64));
-    }
-
-    @Test
-    public void testIsIA64JVM() {
-        assertTrue(ArchUtils.isIA64JVM(IA64));
-        assertTrue(ArchUtils.isIA64JVM(IA64W));
-
-        assertFalse(ArchUtils.isIA64JVM(X86));
-        assertFalse(ArchUtils.isIA64JVM(X86_64));
-        assertFalse(ArchUtils.isIA64JVM(IA64_32));
-        assertFalse(ArchUtils.isIA64JVM(PPC));
-        assertFalse(ArchUtils.isIA64JVM(PPC64));
-    }
-
-    @Test
-    public void testIsIA64_32JVM() {
-        assertTrue(ArchUtils.isIA64_32JVM(IA64_32));
-        assertTrue(ArchUtils.isIA64_32JVM(IA64N));
-
-        assertFalse(ArchUtils.isIA64_32JVM(X86));
-        assertFalse(ArchUtils.isIA64_32JVM(X86_64));
-        assertFalse(ArchUtils.isIA64_32JVM(IA64));
-        assertFalse(ArchUtils.isIA64_32JVM(PPC));
-        assertFalse(ArchUtils.isIA64_32JVM(PPC64));
-    }
-
-    @Test
-    public void testIsPPCJVM() {
-        assertTrue(ArchUtils.isPPCJVM(PPC));
-        assertTrue(ArchUtils.isPPCJVM(POWER));
-        assertTrue(ArchUtils.isPPCJVM(POWERPC));
-        assertTrue(ArchUtils.isPPCJVM(POWER_PC));
-        assertTrue(ArchUtils.isPPCJVM(POWER_RS));
-
-        assertFalse(ArchUtils.isPPCJVM(X86));
-        assertFalse(ArchUtils.isPPCJVM(X86_64));
-        assertFalse(ArchUtils.isPPCJVM(IA64));
-        assertFalse(ArchUtils.isPPCJVM(IA64_32));
-        assertFalse(ArchUtils.isPPCJVM(PPC64));
-    }
-
-    @Test
-    public void testIsPPC64JVM() {
-        assertTrue(ArchUtils.isPPC64JVM(PPC64));
-        assertTrue(ArchUtils.isPPC64JVM(POWER64));
-        assertTrue(ArchUtils.isPPC64JVM(POWERPC64));
-        assertTrue(ArchUtils.isPPC64JVM(POWER_PC64));
-        assertTrue(ArchUtils.isPPC64JVM(POWER_RS64));
-
-        assertFalse(ArchUtils.isPPC64JVM(X86));
-        assertFalse(ArchUtils.isPPC64JVM(X86_64));
-        assertFalse(ArchUtils.isPPC64JVM(IA64));
-        assertFalse(ArchUtils.isPPC64JVM(IA64_32));
-        assertFalse(ArchUtils.isPPC64JVM(PPC));
-    }
-
-    @Test
     public void testIs32BitJVM() {
         assertTrue(ArchUtils.is32BitJVM(X86));
         assertTrue(ArchUtils.is32BitJVM(IA64_32));
@@ -174,6 +89,12 @@ public class ArchUtilsTest {
     public void testIsSupported() {
         assertTrue(ArchUtils.isSupported(X86));
         assertFalse(ArchUtils.isSupported("NA"));
+    }
+
+    @Test
+    public void testGetProcessor() {
+        assertNotNull(ArchUtils.getProcessor(X86));
+        assertNull(ArchUtils.getProcessor("NA"));
     }
 
 }
