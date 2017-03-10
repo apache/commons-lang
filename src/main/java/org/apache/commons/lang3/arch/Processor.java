@@ -6,24 +6,12 @@ package org.apache.commons.lang3.arch;
  */
 public class Processor {
 
-    private final String name;
     private final ProcessorArch processorArch;
     private final ProcessorType processorType;
 
-    public Processor(String name, ProcessorArch processorArch, ProcessorType processorType) {
-        this.name = name;
+    public Processor(ProcessorArch processorArch, ProcessorType processorType) {
         this.processorArch = processorArch;
         this.processorType = processorType;
-    }
-
-    /**
-     * Returns the name of the processor. The name is the property value of
-     * the os.arch system property.
-     *
-     * @return The name of the processor.
-     */
-    public String getName() {
-        return name;
     }
 
     /**

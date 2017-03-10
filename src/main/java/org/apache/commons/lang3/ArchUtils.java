@@ -20,7 +20,9 @@ import org.apache.commons.lang3.arch.Processor;
 import org.apache.commons.lang3.arch.ProcessorArch;
 import org.apache.commons.lang3.arch.ProcessorType;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,94 +55,76 @@ public class ArchUtils {
      * Adding x86 32 bit {@link Processor}'s to the map
      */
     private static final void init_X86_32Bit() {
-        Processor x86 = new Processor("x86", ProcessorArch.BIT_32, ProcessorType.X86);
-        Processor i386 = new Processor("i386", ProcessorArch.BIT_32, ProcessorType.X86);
-        Processor i486 = new Processor("i486", ProcessorArch.BIT_32, ProcessorType.X86);
-        Processor i586 = new Processor("i586", ProcessorArch.BIT_32, ProcessorType.X86);
-        Processor i686 = new Processor("i686", ProcessorArch.BIT_32, ProcessorType.X86);
-        Processor pentium = new Processor("pentium", ProcessorArch.BIT_32, ProcessorType.X86);
-        addProcessors(x86, i386, i486, i586, i686, pentium);
+        Processor processor = new Processor(ProcessorArch.BIT_32, ProcessorType.X86);
+        addProcessors(Arrays.asList("x86", "i386", "i486", "i586", "i686", "pentium"), processor);
     }
 
     /**
      * Adding x86 64 bit {@link Processor}'s to the map
      */
     private static final void init_X86_64Bit() {
-        Processor x86_64 = new Processor("x86_64", ProcessorArch.BIT_64, ProcessorType.X86);
-        Processor amd64 = new Processor("amd64", ProcessorArch.BIT_64, ProcessorType.X86);
-        Processor em64t = new Processor("em64t", ProcessorArch.BIT_64, ProcessorType.X86);
-        Processor universal = new Processor("universal", ProcessorArch.BIT_64, ProcessorType.X86);
-        addProcessors(x86_64, amd64, em64t, universal);
+        Processor processor = new Processor(ProcessorArch.BIT_64, ProcessorType.X86);
+        addProcessors(Arrays.asList("x86_64", "amd64", "em64t", "universal"), processor);
     }
 
     /**
      * Adding ia64 32 bit {@link Processor}'s to the map
      */
     private static final void init_IA64_32Bit() {
-        Processor ia64_32 = new Processor("ia64_32", ProcessorArch.BIT_32, ProcessorType.IA_64);
-        Processor ia64n = new Processor("ia64n", ProcessorArch.BIT_32, ProcessorType.IA_64);
-        addProcessors(ia64_32, ia64n);
+        Processor processor = new Processor(ProcessorArch.BIT_32, ProcessorType.IA_64);
+        addProcessors(Arrays.asList("ia64_32", "ia64n"), processor);
     }
 
     /**
      * Adding ia64 64 bit {@link Processor}'s to the map
      */
     private static final void init_IA64_64Bit() {
-        Processor ia64 = new Processor("ia64", ProcessorArch.BIT_64, ProcessorType.IA_64);
-        Processor ia64w = new Processor("ia64w", ProcessorArch.BIT_64, ProcessorType.IA_64);
-        addProcessors(ia64, ia64w);
+        Processor processor = new Processor(ProcessorArch.BIT_64, ProcessorType.IA_64);
+        addProcessors(Arrays.asList("ia64", "ia64w"), processor);
     }
 
     /**
      * Adding PPC 32 bit {@link Processor}'s to the map
      */
     private static final void init_PPC_32Bit() {
-        Processor ppc = new Processor("ppc", ProcessorArch.BIT_32, ProcessorType.PPC);
-        Processor power = new Processor("power", ProcessorArch.BIT_32, ProcessorType.PPC);
-        Processor powerpc = new Processor("powerpc", ProcessorArch.BIT_32, ProcessorType.PPC);
-        Processor power_pc = new Processor("power_pc", ProcessorArch.BIT_32, ProcessorType.PPC);
-        Processor power_rs = new Processor("power_rs", ProcessorArch.BIT_32, ProcessorType.PPC);
-        addProcessors(ppc, power, powerpc, power_pc, power_rs);
+        Processor processor = new Processor(ProcessorArch.BIT_32, ProcessorType.PPC);
+        addProcessors(Arrays.asList("ppc", "power", "powerpc", "power_pc", "power_rs"), processor);
     }
 
     /**
      * Adding PPC 64 bit {@link Processor}'s to the map
      */
     private static final void init_PPC_64Bit() {
-        Processor ppc64 = new Processor("ppc64", ProcessorArch.BIT_64, ProcessorType.PPC);
-        Processor power64 = new Processor("power64", ProcessorArch.BIT_64, ProcessorType.PPC);
-        Processor powerpc64 = new Processor("powerpc64", ProcessorArch.BIT_64, ProcessorType.PPC);
-        Processor power_pc64 = new Processor("power_pc64", ProcessorArch.BIT_64, ProcessorType.PPC);
-        Processor power_rs64 = new Processor("power_rs64", ProcessorArch.BIT_64, ProcessorType.PPC);
-        addProcessors(ppc64, power64, powerpc64, power_pc64, power_rs64);
+        Processor processor = new Processor(ProcessorArch.BIT_64, ProcessorType.PPC);
+        addProcessors(Arrays.asList("ppc64", "power64", "powerpc64", "power_pc64", "power_rs64"), processor);
     }
 
     /**
-     * Adds the given {@link Processor} to the map. The {@link Processor#getName()} is used as key
-     * and the {@link Processor} object as value.
+     * Adds the given {@link Processor} whith the given key {@link String} to the map.
      *
+     * @param key The key as {@link String}.
      * @param processor The {@link Processor} to add.
      * @throws UnsupportedOperationException When key already exists in map.
      */
-    private static final void addProcessor(Processor processor) throws UnsupportedOperationException {
-        if (!map.containsKey(processor.getName())) {
-            map.put(processor.getName(), processor);
+    private static final void addProcessor(String key, Processor processor) throws UnsupportedOperationException {
+        if (!map.containsKey(key)) {
+            map.put(key, processor);
         } else {
-            String msg = "Key " + processor.getName() + " already exists in processor map";
+            String msg = "Key " + key + " already exists in processor map";
             throw new UnsupportedOperationException(msg);
         }
     }
 
     /**
-     * Adds the given {@link Processor}' to the map. The {@link Processor#getName()} is used as key
-     * and the {@link Processor} object as value.
+     * Adds the given {@link Processor} with the given keys to the map.
      *
-     * @param processors The {@link Processor}'s to add.
+     * @param keys A {@link List} of the key.
+     * @param processor The {@link Processor} to add.
      * @throws UnsupportedOperationException When key already exists in map.
      */
-    private static final void addProcessors(Processor... processors) {
-        for (Processor processor : processors) {
-            addProcessor(processor);
+    private static final void addProcessors(List<String> keys, Processor processor) {
+        for (String key : keys) {
+            addProcessor(key, processor);
         }
     }
 
