@@ -36,9 +36,6 @@ limitations under the License.
     <module name="RedundantImport"/>
     <module name="UnusedImports"/>
     <module name="NeedBraces"/>
-    <module name="RedundantThrows">
-      <property name="allowUnchecked" value="true"/>
-    </module>
     <module name="JavadocMethod">
       <property name="allowUndeclaredRTE" value="true"/>
       <property name="scope" value="public" />
