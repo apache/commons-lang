@@ -22,7 +22,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - mvn test checkstyle:check javadoc:javadoc -B
+  - mvn test checkstyle:check javadoc:javadoc apache-rat:check -B
 
 after_success:
-  - mvn clean apache-rat:check cobertura:cobertura coveralls:report
+  - mvn clean cobertura:cobertura coveralls:report
