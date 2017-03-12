@@ -38,6 +38,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link StringEscapeUtils}.
  */
+@Deprecated
 public class StringEscapeUtilsTest {
     private final static String FOO = "foo";
 
@@ -314,7 +315,6 @@ public class StringEscapeUtilsTest {
     }
 
     @Test
-    @SuppressWarnings( "deprecation" ) // ESCAPE_XML has been replaced by ESCAPE_XML10 and ESCAPE_XML11 in 3.3
     public void testEscapeXml() throws Exception {
         assertEquals("&lt;abc&gt;", StringEscapeUtils.escapeXml("<abc>"));
         assertEquals("<abc>", StringEscapeUtils.unescapeXml("&lt;abc&gt;"));
@@ -399,7 +399,6 @@ public class StringEscapeUtilsTest {
      * @see <a href="https://issues.apache.org/jira/browse/LANG-728">LANG-728</a>
      */
     @Test
-    @SuppressWarnings( "deprecation" ) // ESCAPE_XML has been replaced by ESCAPE_XML10 and ESCAPE_XML11 in 3.3
     public void testEscapeXmlSupplementaryCharacters() {
         final CharSequenceTranslator escapeXml = 
             StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE) );
@@ -412,7 +411,6 @@ public class StringEscapeUtilsTest {
     }
     
     @Test
-    @SuppressWarnings( "deprecation" ) // ESCAPE_XML has been replaced by ESCAPE_XML10 and ESCAPE_XML11 in 3.3
     public void testEscapeXmlAllCharacters() {
         // http://www.w3.org/TR/xml/#charsets says:
         // Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] /* any Unicode character,
@@ -604,7 +602,6 @@ public class StringEscapeUtilsTest {
      * Tests https://issues.apache.org/jira/browse/LANG-720
      */
     @Test
-    @SuppressWarnings( "deprecation" ) // escapeXml(String) has been replaced by escapeXml10(String) and escapeXml11(String) in 3.3
     public void testLang720() {
         final String input = "\ud842\udfb7" + "A";
         final String escaped = StringEscapeUtils.escapeXml(input);

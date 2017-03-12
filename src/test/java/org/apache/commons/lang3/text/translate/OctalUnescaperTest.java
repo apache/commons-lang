@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.OctalUnescaper}.
  */
+@Deprecated
 public class OctalUnescaperTest {
 
     @Test

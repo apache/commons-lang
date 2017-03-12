@@ -21,7 +21,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.apache.commons.lang3.text.StrBuilder;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - StartsWith/EndsWith methods
@@ -98,7 +97,7 @@ public class StringUtilsStartsEndsWithTest {
         assertFalse(StringUtils.startsWithAny("ABCXYZ", null, "xyz", "abc"));
 
         assertTrue("StringUtils.startsWithAny(abcxyz, StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny("abcxyz", new StringBuilder("xyz"), new StringBuffer("abc")));
-        assertTrue("StringUtils.startsWithAny( StrBuilder(abcxyz), StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny( new StrBuilder("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")));
+        assertTrue("StringUtils.startsWithAny(StringBuffer(abcxyz), StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny(new StringBuffer("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")));
     }
  
 
@@ -195,7 +194,7 @@ public class StringUtilsStartsEndsWithTest {
         assertTrue(StringUtils.endsWithAny("abcXYZ", ""));
 
         assertTrue("StringUtils.endsWithAny(abcxyz, StringBuilder(abc), StringBuffer(xyz))", StringUtils.endsWithAny("abcxyz", new StringBuilder("abc"), new StringBuffer("xyz")));
-        assertTrue("StringUtils.endsWithAny( StrBuilder(abcxyz), StringBuilder(abc), StringBuffer(xyz))", StringUtils.endsWithAny( new StrBuilder("abcxyz"), new StringBuilder("abc"), new StringBuffer("xyz")));
+        assertTrue("StringUtils.endsWithAny(StringBuffer(abcxyz), StringBuilder(abc), StringBuffer(xyz))", StringUtils.endsWithAny(new StringBuffer("abcxyz"), new StringBuilder("abc"), new StringBuffer("xyz")));
     }
 
 
