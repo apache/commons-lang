@@ -426,7 +426,7 @@ public class StringUtils {
     /**
      * <p>Checks if all of the CharSequences are empty (""), null or whitespace only.</p>
      *
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isAllBlank(null)             = true
