@@ -378,9 +378,8 @@ public class ClassUtilsTest  {
         assertFalse(ClassUtils.isAssignable(null, array2));
         assertTrue(ClassUtils.isAssignable(null, array0));
         assertTrue(ClassUtils.isAssignable(array0, array0));
-//        assertTrue(ClassUtils.isAssignable(array0, null)); 
         assertTrue(ClassUtils.isAssignable(array0, (Class<?>[]) null)); // explicit cast to avoid warning
-        assertTrue(ClassUtils.isAssignable((Class[]) null, null));
+        assertTrue(ClassUtils.isAssignable((Class[]) null, (Class<?>[]) null)); // explicit cast to avoid warning
 
         assertFalse(ClassUtils.isAssignable(array1, array1s));
         assertTrue(ClassUtils.isAssignable(array1s, array1s));
