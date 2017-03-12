@@ -57,19 +57,6 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsAnyNotEmpty() {
-        assertFalse(StringUtils.isAnyNotEmpty((String) null));
-        assertFalse(StringUtils.isAnyNotEmpty((String[]) null));
-        assertTrue(StringUtils.isAnyNotEmpty(null, "foo"));
-        assertTrue(StringUtils.isAnyNotEmpty("", "bar"));
-        assertTrue(StringUtils.isAnyNotEmpty("bob", ""));
-        assertTrue(StringUtils.isAnyNotEmpty("  bob  ", null));
-        assertTrue(StringUtils.isAnyNotEmpty(" ", "bar"));
-        assertTrue(StringUtils.isAnyNotEmpty("foo", "bar"));
-        assertFalse(StringUtils.isAnyNotEmpty("", null));
-    }
-
-    @Test
     public void testIsNoneEmpty() {
         assertFalse(StringUtils.isNoneEmpty((String) null));
         assertTrue(StringUtils.isNoneEmpty((String[]) null));
@@ -125,19 +112,6 @@ public class StringUtilsEmptyBlankTest  {
         assertTrue(StringUtils.isAnyBlank("  bob  ", null));
         assertTrue(StringUtils.isAnyBlank(" ", "bar"));
         assertFalse(StringUtils.isAnyBlank("foo", "bar"));
-    }
-
-    @Test
-    public void testIsAnyNotBlank() {
-        assertFalse(StringUtils.isAnyNotBlank((String) null));
-        assertFalse(StringUtils.isAnyNotBlank((String[]) null));
-        assertTrue(StringUtils.isAnyNotBlank(null, "foo"));
-        assertFalse(StringUtils.isAnyNotBlank(null, null));
-        assertTrue(StringUtils.isAnyNotBlank("", "bar"));
-        assertTrue(StringUtils.isAnyNotBlank("bob", ""));
-        assertTrue(StringUtils.isAnyNotBlank("  bob  ", null));
-        assertTrue(StringUtils.isAnyNotBlank(" ", "bar"));
-        assertTrue(StringUtils.isAnyNotBlank("foo", "bar"));
     }
 
     @Test

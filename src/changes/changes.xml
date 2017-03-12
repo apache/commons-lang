@@ -66,7 +66,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-740" type="add" dev="pschumacher" due-to="James Sawle">Implementation of a Memomizer</action>
     <action issue="LANG-1258" type="add" dev="pschumacher" due-to="IG, Grzegorz Rożniecki">Add ArrayUtils#toStringArray method</action>
     <action issue="LANG-1160" type="add" dev="kinow">StringUtils#abbreviate should support 'custom ellipses' parameter</action>
-    <action issue="LANG-1270" type="add" dev="pschumacher" due-to="Pierre Templier">Add StringUtils#isAnyNotEmpty and #isAnyNotBlank</action>
+    <action issue="LANG-1293" type="add" dev="pschumacher" due-to="Pierre Templier, Martin Tarjanyi">Add StringUtils#isAllEmpty and #isAllBlank methods</action>
     <action issue="LANG-1291" type="add" dev="ggregory">Provide annotations to document thread safety</action>
     <action issue="LANG-1290" type="update" dev="pschumacher" due-to="Andrii Abramov">Increase test coverage of org.apache.commons.lang3.ArrayUtils</action>
     <action issue="LANG-1274" type="update" dev="pschumacher">StrSubstitutor should state its thread safety</action>

@@ -259,36 +259,6 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if any of the CharSequences are not empty ("") and not null.</p>
-     *
-     * <pre>
-     * StringUtils.isAnyNotEmpty(null)             = false
-     * StringUtils.isAnyNotEmpty(new String[] {})  = false
-     * StringUtils.isAnyNotEmpty(null, "foo")      = true
-     * StringUtils.isAnyNotEmpty("", "bar")        = true
-     * StringUtils.isAnyNotEmpty("bob", "")        = true
-     * StringUtils.isAnyNotEmpty("  bob  ", null)  = true
-     * StringUtils.isAnyNotEmpty(" ", "bar")       = true
-     * StringUtils.isAnyNotEmpty("foo", "bar")     = true
-     * </pre>
-     *
-     * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if any of the CharSequences are not empty and not null
-     * @since 3.6
-     */
-    public static boolean isAnyNotEmpty(final CharSequence... css) {
-      if (ArrayUtils.isEmpty(css)) {
-        return false;
-      }
-      for (final CharSequence cs : css) {
-        if (isNotEmpty(cs)) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    /**
      * <p>Checks if none of the CharSequences are empty ("") or null.</p>
      *
      * <pre>
@@ -330,7 +300,15 @@ public class StringUtils {
      * @since 3.6
      */
     public static boolean isAllEmpty(final CharSequence... css) {
-      return !isAnyNotEmpty(css);
+        if (ArrayUtils.isEmpty(css)) {
+            return true;
+        }
+        for (final CharSequence cs : css) {
+            if (isNotEmpty(cs)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -421,39 +399,6 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if any of the CharSequences are not empty (""), not null and not whitespace only.</p>
-     * 
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
-     *
-     * <pre>
-     * StringUtils.isAnyNotBlank(null)             = false
-     * StringUtils.isAnyNotBlank(null, "foo")      = true
-     * StringUtils.isAnyNotBlank(null, null)       = false
-     * StringUtils.isAnyNotBlank("", "bar")        = true
-     * StringUtils.isAnyNotBlank("bob", "")        = true
-     * StringUtils.isAnyNotBlank("  bob  ", null)  = true
-     * StringUtils.isAnyNotBlank(" ", "bar")       = true
-     * StringUtils.isAnyNotBlank("foo", "bar")     = true
-     * StringUtils.isAnyNotBlank(new String[] {})  = false
-     * </pre>
-     *
-     * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if any of the CharSequences are not empty and not null and not whitespace only
-     * @since 3.6
-     */
-    public static boolean isAnyNotBlank(final CharSequence... css) {
-      if (ArrayUtils.isEmpty(css)) {
-        return false;
-      }
-      for (final CharSequence cs : css) {
-        if (isNotBlank(cs)) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    /**
      * <p>Checks if none of the CharSequences are empty (""), null or whitespace only.</p>
      * 
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
@@ -500,7 +445,15 @@ public class StringUtils {
      * @since 3.6
      */
     public static boolean isAllBlank(final CharSequence... css) {
-      return !isAnyNotBlank(css);
+        if (ArrayUtils.isEmpty(css)) {  
+            return true;
+        }
+        for (final CharSequence cs : css) {
+            if (isNotBlank(cs)) {
+               return false;
+            }
+        }
+        return true;
     }
 
     // Trim
