@@ -31,6 +31,7 @@ import java.util.Iterator;
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.StrBuilder}.
  */
+@Deprecated
 public class StrBuilderAppendInsertTest {
 
     /** The system line separator. */

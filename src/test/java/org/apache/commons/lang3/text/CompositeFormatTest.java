@@ -30,6 +30,7 @@ import java.util.Locale;
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.CompositeFormat}.
  */
+@Deprecated
 public class CompositeFormatTest {
 
     /**

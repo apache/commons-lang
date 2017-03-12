@@ -42,6 +42,7 @@ import java.util.Map;
  *
  * @since 2.4
  */
+@Deprecated
 public class ExtendedMessageFormatTest {
 
     private final Map<String, FormatFactory> registry = new HashMap<>();

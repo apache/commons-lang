@@ -36,6 +36,7 @@ import org.junit.Test;
 /**
  * Test class for StrSubstitutor.
  */
+@Deprecated
 public class StrSubstitutorTest {
 
     private Map<String, String> values;

@@ -28,7 +28,11 @@ import java.util.EnumSet;
  * Note that the semi-colon is optional.
  * 
  * @since 3.0
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityUnescaper.html">
+ * NumericEntityUnescaper</a> instead
  */
+@Deprecated
 public class NumericEntityUnescaper extends CharSequenceTranslator {
 
     public static enum OPTION { semiColonRequired, semiColonOptional, errorIfNoSemiColon }

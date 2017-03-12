@@ -121,7 +121,11 @@ import org.apache.commons.lang3.StringUtils;
  * <p>This class is <b>not</b> thread safe.</p>
  *
  * @since 2.2
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrSubstitutor.html">
+ * StrSubstitutor</a> instead
  */
+@Deprecated
 public class StrSubstitutor {
 
     /**
