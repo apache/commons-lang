@@ -700,6 +700,20 @@ public class MethodUtils {
         if (bestMatch != null) {
             MemberUtils.setAccessibleWorkaround(bestMatch);
         }
+
+        if (bestMatch != null && bestMatch.isVarArgs() && bestMatch.getParameterTypes().length > 0 && parameterTypes.length > 0) {
+            final Class<?>[] methodParameterTypes = bestMatch.getParameterTypes();
+            final Class<?> methodParameterComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
+            final String methodParameterComponentTypeName = ClassUtils.primitiveToWrapper(methodParameterComponentType).getName();
+            final String parameterTypeName = parameterTypes[parameterTypes.length - 1].getName();
+            final String parameterTypeSuperClassName = parameterTypes[parameterTypes.length - 1].getSuperclass().getName();
+
+            if (!methodParameterComponentTypeName.equals(parameterTypeName)
+                    && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
+                return null;
+            }
+        }
+
         return bestMatch;
     }
     
