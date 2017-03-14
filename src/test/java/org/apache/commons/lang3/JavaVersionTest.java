@@ -21,7 +21,9 @@ package org.apache.commons.lang3;
 import org.junit.Test;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_RECENT;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.apache.commons.lang3.JavaVersion.JAVA_0_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_2;
