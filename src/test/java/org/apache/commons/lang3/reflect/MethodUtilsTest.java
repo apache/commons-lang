@@ -103,39 +103,39 @@ public class MethodUtilsTest {
         public static void oneParameterStatic(final String s) {
             // empty
         }
-        
+
         @SuppressWarnings("unused")
         private void privateStuff() {
         }
 
         @SuppressWarnings("unused")
         private String privateStringStuff() {
-        	return "privateStringStuff()";
+            return "privateStringStuff()";
         }
-        
+
         @SuppressWarnings("unused")
         private String privateStringStuff(final int i) {
-        	return "privateStringStuff(int)";
+            return "privateStringStuff(int)";
         }
-        
+
         @SuppressWarnings("unused")
         private String privateStringStuff(final Integer i) {
-        	return "privateStringStuff(Integer)";
+            return "privateStringStuff(Integer)";
         }
-        
+
         @SuppressWarnings("unused")
         private String privateStringStuff(final double d) {
-        	return "privateStringStuff(double)";
+            return "privateStringStuff(double)";
         }
-        
+
         @SuppressWarnings("unused")
         private String privateStringStuff(final String s) {
-        	return "privateStringStuff(String)";
+            return "privateStringStuff(String)";
         }
-        
+
         @SuppressWarnings("unused")
         private String privateStringStuff(final Object s) {
-        	return "privateStringStuff(Object)";
+            return "privateStringStuff(Object)";
         }
 
 
@@ -760,12 +760,12 @@ public class MethodUtilsTest {
         final int[] actual = (int[])MethodUtils.invokeMethod(testBean, "unboxing", Integer.valueOf(1), Integer.valueOf(2));
         Assert.assertArrayEquals(new int[]{1, 2}, actual);
     }
-    
+
     @Test
     public void testInvokeMethodForceAccessNoArgs() throws Exception {
         Assert.assertEquals("privateStringStuff()", MethodUtils.invokeMethod(testBean, true, "privateStringStuff"));
     }
-    
+
     @Test
     public void testInvokeMethodForceAccessWithArgs() throws Exception {
         Assert.assertEquals("privateStringStuff(Integer)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", 5));
@@ -773,17 +773,17 @@ public class MethodUtilsTest {
         Assert.assertEquals("privateStringStuff(String)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", "Hi There"));
         Assert.assertEquals("privateStringStuff(Object)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", new Date()));
     }
-    
+
     @Test
     public void testDistance() throws Exception {
         final Method distanceMethod = MethodUtils.getMatchingMethod(MethodUtils.class, "distance", Class[].class, Class[].class);
         distanceMethod.setAccessible(true);
-        
+
         Assert.assertEquals(-1, distanceMethod.invoke(null, new Class[]{String.class}, new Class[]{Date.class}));
         Assert.assertEquals(0, distanceMethod.invoke(null, new Class[]{Date.class}, new Class[]{Date.class}));
         Assert.assertEquals(1, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{ClassUtils.wrapperToPrimitive(Integer.class)}));
         Assert.assertEquals(2, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{Object.class}));
-        
+
         distanceMethod.setAccessible(false);
     }
 }
