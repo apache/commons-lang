@@ -16,7 +16,7 @@
  */
 package org.apache.commons.lang3.text.translate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;

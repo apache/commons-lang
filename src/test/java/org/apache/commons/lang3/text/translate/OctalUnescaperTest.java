@@ -18,7 +18,7 @@
 package org.apache.commons.lang3.text.translate;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.OctalUnescaper}.

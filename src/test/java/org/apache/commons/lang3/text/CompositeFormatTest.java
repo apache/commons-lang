@@ -18,7 +18,9 @@
 package org.apache.commons.lang3.text;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
