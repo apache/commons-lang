@@ -1276,10 +1276,26 @@ public class StringUtils {
     // IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Finds the first index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#indexOf(int, int)} if possible.</p>
+     * Returns the index within <code>seq</code> of the first occurrence of
+     * the specified character. If a character with value
+     * <code>searchChar</code> occurs in the character sequence represented by
+     * <code>seq</code> <code>CharSequence</code> object, then the index (in Unicode
+     * code units) of the first such occurrence is returned. For
+     * values of <code>searchChar</code> in the range from 0 to 0xFFFF
+     * (inclusive), this is the smallest value <i>k</i> such that:
+     * <blockquote><pre>
+     * this.charAt(<i>k</i>) == searchChar
+     * </pre></blockquote>
+     * is true. For other values of <code>searchChar</code>, it is the
+     * smallest value <i>k</i> such that:
+     * <blockquote><pre>
+     * this.codePointAt(<i>k</i>) == searchChar
+     * </pre></blockquote>
+     * is true. In either case, if no such character occurs in <code>seq</code>,
+     * then {@code INDEX_NOT_FOUND (-1)} is returned.
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code INDEX_NOT_FOUND (-1)}.</p>
+     * <p>Furthermore, a {@code null} or empty ("") CharSequence will
+     * return {@code INDEX_NOT_FOUND (-1)}.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *)         = -1
@@ -1294,6 +1310,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int) to indexOf(CharSequence, int)
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
      */
     public static int indexOf(final CharSequence seq, final int searchChar) {
         if (isEmpty(seq)) {
@@ -1303,13 +1320,39 @@ public class StringUtils {
     }
 
     /**
-     * <p>Finds the first index within a CharSequence from a start position,
-     * handling {@code null}.
-     * This method uses {@link String#indexOf(int, int)} if possible.</p>
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code (INDEX_NOT_FOUND) -1}.
-     * A negative start position is treated as zero.
-     * A start position greater than the string length returns {@code -1}.</p>
+     * Returns the index within <code>seq</code> of the first occurrence of the
+     * specified character, starting the search at the specified index.
+     * <p>
+     * If a character with value <code>searchChar</code> occurs in the
+     * character sequence represented by the <code>seq</code> <code>CharSequence</code>
+     * object at an index no smaller than <code>startPos</code>, then
+     * the index of the first such occurrence is returned. For values
+     * of <code>searchChar</code> in the range from 0 to 0xFFFF (inclusive),
+     * this is the smallest value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.charAt(<i>k</i>) == searchChar) && (<i>k</i> &gt;= startPos)
+     * </pre></blockquote>
+     * is true. For other values of <code>searchChar</code>, it is the
+     * smallest value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.codePointAt(<i>k</i>) == searchChar) && (<i>k</i> &gt;= startPos)
+     * </pre></blockquote>
+     * is true. In either case, if no such character occurs in <code>seq</code>
+     * at or after position <code>startPos</code>, then
+     * <code>-1</code> is returned.
+     *
+     * <p>
+     * There is no restriction on the value of <code>startPos</code>. If it
+     * is negative, it has the same effect as if it were zero: this entire
+     * string may be searched. If it is greater than the length of this
+     * string, it has the same effect as if it were equal to the length of
+     * this string: {@code (INDEX_NOT_FOUND) -1} is returned. Furthermore, a
+     * {@code null} or empty ("") CharSequence will
+     * return {@code (INDEX_NOT_FOUND) -1}.
+     *
+     * <p>All indices are specified in <code>char</code> values
+     * (Unicode code units).
      *
      * <pre>
      * StringUtils.indexOf(null, *, *)          = -1
@@ -1327,6 +1370,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int, int) to indexOf(CharSequence, int, int)
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
      */
     public static int indexOf(final CharSequence seq, final int searchChar, final int startPos) {
         if (isEmpty(seq)) {
@@ -1586,10 +1630,23 @@ public class StringUtils {
     // LastIndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Finds the last index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#lastIndexOf(int)} if possible.</p>
-     *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code -1}.</p>
+     * Returns the index within <code>seq</code> of the last occurrence of
+     * the specified character. For values of <code>searchChar</code> in the
+     * range from 0 to 0xFFFF (inclusive), the index (in Unicode code
+     * units) returned is the largest value <i>k</i> such that:
+     * <blockquote><pre>
+     * this.charAt(<i>k</i>) == searchChar
+     * </pre></blockquote>
+     * is true. For other values of <code>searchChar</code>, it is the
+     * largest value <i>k</i> such that:
+     * <blockquote><pre>
+     * this.codePointAt(<i>k</i>) == searchChar
+     * </pre></blockquote>
+     * is true.  In either case, if no such character occurs in this
+     * string, then <code>-1</code> is returned. Furthermore, a {@code null} or empty ("")
+     * <code>CharSequence</code> will return {@code -1}. The
+     * <code>seq</code> <code>CharSequence</code> object is searched backwards
+     * starting at the last character.
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *)         = -1
@@ -1598,12 +1655,13 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
+     * @param seq  the <code>CharSequence</code> to check, may be null
      * @param searchChar  the character to find
      * @return the last index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, int) to lastIndexOf(CharSequence, int)
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
      */
     public static int lastIndexOf(final CharSequence seq, final int searchChar) {
         if (isEmpty(seq)) {
@@ -1613,16 +1671,29 @@ public class StringUtils {
     }
 
     /**
-     * <p>Finds the last index within a CharSequence from a start position,
-     * handling {@code null}.
-     * This method uses {@link String#lastIndexOf(int, int)} if possible.</p>
+     * Returns the index within <code>seq</code> of the last occurrence of
+     * the specified character, searching backward starting at the
+     * specified index. For values of <code>searchChar</code> in the range
+     * from 0 to 0xFFFF (inclusive), the index returned is the largest
+     * value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.charAt(<i>k</i>) == searchChar) && (<i>k</i> &lt;= startPos)
+     * </pre></blockquote>
+     * is true. For other values of <code>searchChar</code>, it is the
+     * largest value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.codePointAt(<i>k</i>) == searchChar) && (<i>k</i> &lt;= startPos)
+     * </pre></blockquote>
+     * is true. In either case, if no such character occurs in <code>seq</code>
+     * at or before position <code>startPos</code>, then
+     * <code>-1</code> is returned. Furthermore, a {@code null} or empty ("")
+     * <code>CharSequence</code> will return {@code -1}. A start position greater
+     * than the string length searches the whole string.
+     * The search starts at the <code>startPos</code> and works backwards;
+     * matches starting after the start position are ignored.
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code -1}.
-     * A negative start position returns {@code -1}.
-     * A start position greater than the string length searches the whole string.
-     * The search starts at the startPos and works backwards; matches starting after the start
-     * position are ignored.
-     * </p>
+     * <p>All indices are specified in <code>char</code> values
+     * (Unicode code units).
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *, *)          = -1
