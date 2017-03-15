@@ -75,9 +75,27 @@ public class CharSequenceUtils {
         if (start < 0) {
             start = 0;
         }
-        for (int i = start; i < sz; i++) {
-            if (cs.charAt(i) == searchChar) {
-                return i;
+        if (searchChar < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+            for (int i = start; i < sz; i++) {
+                if (cs.charAt(i) == searchChar) {
+                    return i;
+                }
+            }
+        }
+        //supplementary characters (LANG1300)
+        if (searchChar <= Character.MAX_CODE_POINT) {
+            int ind = 0;
+            char[] chars = Character.toChars(searchChar);
+            for (int i = start; i < sz - 1; i++) {
+                char high = cs.charAt(i);
+                char low = cs.charAt(i + 1);
+                if (high == chars[0] && low == chars[1]) {
+                    return ind;
+                } else if (Character.isSurrogatePair(high, low)) {
+                    //skip over 1
+                    i++;
+                }
+                ind++;
             }
         }
         return NOT_FOUND;
@@ -124,9 +142,36 @@ public class CharSequenceUtils {
         if (start >= sz) {
             start = sz - 1;
         }
-        for (int i = start; i >= 0; --i) {
-            if (cs.charAt(i) == searchChar) {
-                return i;
+        if (searchChar < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+            for (int i = start; i >= 0; --i) {
+                if (cs.charAt(i) == searchChar) {
+                    return i;
+                }
+            }
+        }
+        //supplementary characters (LANG1300)
+        //NOTE - we must do a forward traversal for this to avoid duplicating code points
+        if (searchChar <= Character.MAX_CODE_POINT) {
+            char[] chars = Character.toChars(searchChar);
+            //make sure it's not the last index
+            if (start == sz - 1) {
+                return NOT_FOUND;
+            }
+            int maxInd = -1;
+            int ind = 0;
+            for (int i = 0; i < cs.length() - 1; i++) {
+                char high = cs.charAt(i);
+                char low = cs.charAt(i + 1);
+                if (chars[0] == high && chars[1] == low) {
+                    maxInd = ind;
+                    i++;
+                } else if (Character.isSurrogatePair(high, low)) {
+                    i++; //skip over one
+                }
+                ind++;
+            }
+            if (maxInd >= start) {
+                return maxInd;
             }
         }
         return NOT_FOUND;
