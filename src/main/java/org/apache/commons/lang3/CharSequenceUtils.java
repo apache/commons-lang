@@ -113,18 +113,13 @@ public class CharSequenceUtils {
         }
         //supplementary characters (LANG1300)
         if (searchChar <= Character.MAX_CODE_POINT) {
-            int ind = 0;
             char[] chars = Character.toChars(searchChar);
             for (int i = start; i < sz - 1; i++) {
                 char high = cs.charAt(i);
                 char low = cs.charAt(i + 1);
                 if (high == chars[0] && low == chars[1]) {
-                    return ind;
-                } else if (Character.isSurrogatePair(high, low)) {
-                    //skip over 1
-                    i++;
+                    return i;
                 }
-                ind++;
             }
         }
         return NOT_FOUND;
@@ -203,21 +198,12 @@ public class CharSequenceUtils {
             if (start == sz - 1) {
                 return NOT_FOUND;
             }
-            int maxInd = -1;
-            int ind = 0;
-            for (int i = 0; i < cs.length() - 1; i++) {
+            for (int i = start; i >= 0; i--) {
                 char high = cs.charAt(i);
                 char low = cs.charAt(i + 1);
                 if (chars[0] == high && chars[1] == low) {
-                    maxInd = ind;
-                    i++;
-                } else if (Character.isSurrogatePair(high, low)) {
-                    i++; //skip over one
+                    return i;
                 }
-                ind++;
-            }
-            if (maxInd >= start) {
-                return maxInd;
             }
         }
         return NOT_FOUND;
