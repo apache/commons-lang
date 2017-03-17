@@ -675,9 +675,9 @@ public class DateUtils {
      * @throws NullPointerException if {@code date} or {@code tz} is null
      */
     public static Calendar toCalendar(final Date date, final TimeZone tz) {
-    	final Calendar c = Calendar.getInstance(tz);
-    	c.setTime(date);
-    	return c;
+        final Calendar c = Calendar.getInstance(tz);
+        c.setTime(date);
+        return c;
     }
     
     //-----------------------------------------------------------------------

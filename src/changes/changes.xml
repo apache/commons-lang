@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="2017-MM-DD" description="TBD">
+    <action issue="LANG-1300" type="fix" dev="chtompki" due-to="Mark Dacek">Clarify or improve behaviour of int-based indexOf methods in StringUtils</action>
     <action issue="LANG-1299" type="add" dev="djones">Add method for converting string to an array of code points</action>
     <action issue="LANG-1286" type="fix" dev="djones">RandomStringUtils random method can overflow and return characters outside of specified range</action>
     <action issue="LANG-660" type="add" dev="djones">Add methods to insert arrays into arrays at an index</action>
@@ -66,7 +67,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-740" type="add" dev="pschumacher" due-to="James Sawle">Implementation of a Memomizer</action>
     <action issue="LANG-1258" type="add" dev="pschumacher" due-to="IG, Grzegorz Rożniecki">Add ArrayUtils#toStringArray method</action>
     <action issue="LANG-1160" type="add" dev="kinow">StringUtils#abbreviate should support 'custom ellipses' parameter</action>
-    <action issue="LANG-1270" type="add" dev="pschumacher" due-to="Pierre Templier">Add StringUtils#isAnyNotEmpty and #isAnyNotBlank</action>
+    <action issue="LANG-1293" type="add" dev="pschumacher" due-to="Pierre Templier, Martin Tarjanyi">Add StringUtils#isAllEmpty and #isAllBlank methods</action>
     <action issue="LANG-1291" type="add" dev="ggregory">Provide annotations to document thread safety</action>
     <action issue="LANG-1290" type="update" dev="pschumacher" due-to="Andrii Abramov">Increase test coverage of org.apache.commons.lang3.ArrayUtils</action>
     <action issue="LANG-1274" type="update" dev="pschumacher">StrSubstitutor should state its thread safety</action>
@@ -78,6 +79,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1311" type="fix" dev="pschumacher" due-to="Aaron Digulla">TypeUtils.toString() doesn't handle primitive and Object arrays correctly</action>
     <action issue="LANG-1312" type="fix" dev="pschumacher">LocaleUtils#toLocale does not support language followed by UN M.49 numeric-3 area code</action>
     <action issue="LANG-1265" type="fix" dev="pschumacher">Build failures when building with Java 9 EA</action>
+    <action issue="LANG-1314" type="fix" dev="pschumacher" due-to="Allon Murienik">javadoc creation broken with Java 8</action>
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">
