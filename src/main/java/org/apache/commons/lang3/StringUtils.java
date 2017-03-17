@@ -1331,12 +1331,12 @@ public class StringUtils {
      * of <code>searchChar</code> in the range from 0 to 0xFFFF (inclusive),
      * this is the smallest value <i>k</i> such that:
      * <blockquote><pre>
-     * (this.charAt(<i>k</i>) == searchChar) && (<i>k</i> &gt;= startPos)
+     * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
      * </pre></blockquote>
      * is true. For other values of <code>searchChar</code>, it is the
      * smallest value <i>k</i> such that:
      * <blockquote><pre>
-     * (this.codePointAt(<i>k</i>) == searchChar) && (<i>k</i> &gt;= startPos)
+     * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
      * </pre></blockquote>
      * is true. In either case, if no such character occurs in <code>seq</code>
      * at or after position <code>startPos</code>, then
@@ -1677,12 +1677,12 @@ public class StringUtils {
      * from 0 to 0xFFFF (inclusive), the index returned is the largest
      * value <i>k</i> such that:
      * <blockquote><pre>
-     * (this.charAt(<i>k</i>) == searchChar) && (<i>k</i> &lt;= startPos)
+     * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= startPos)
      * </pre></blockquote>
      * is true. For other values of <code>searchChar</code>, it is the
      * largest value <i>k</i> such that:
      * <blockquote><pre>
-     * (this.codePointAt(<i>k</i>) == searchChar) && (<i>k</i> &lt;= startPos)
+     * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= startPos)
      * </pre></blockquote>
      * is true. In either case, if no such character occurs in <code>seq</code>
      * at or before position <code>startPos</code>, then
