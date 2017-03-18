@@ -114,32 +114,32 @@ public class MethodUtilsTest {
 
         @SuppressWarnings("unused")
         private String privateStringStuff() {
-         return "privateStringStuff()";
+            return "privateStringStuff()";
         }
         
         @SuppressWarnings("unused")
         private String privateStringStuff(final int i) {
-         return "privateStringStuff(int)";
+            return "privateStringStuff(int)";
         }
         
         @SuppressWarnings("unused")
         private String privateStringStuff(final Integer i) {
-         return "privateStringStuff(Integer)";
+            return "privateStringStuff(Integer)";
         }
         
         @SuppressWarnings("unused")
         private String privateStringStuff(final double d) {
-         return "privateStringStuff(double)";
+            return "privateStringStuff(double)";
         }
         
         @SuppressWarnings("unused")
         private String privateStringStuff(final String s) {
-         return "privateStringStuff(String)";
+            return "privateStringStuff(String)";
         }
         
         @SuppressWarnings("unused")
         private String privateStringStuff(final Object s) {
-         return "privateStringStuff(Object)";
+            return "privateStringStuff(Object)";
         }
 
 
