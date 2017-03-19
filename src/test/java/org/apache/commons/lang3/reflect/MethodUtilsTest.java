@@ -96,6 +96,10 @@ public class MethodUtilsTest {
             return "bar(String...)";
         }
 
+        public static String bar(final long... s) {
+            return "bar(long...)";
+        }
+
         public static String bar(final Integer i, final String... s) {
             return "bar(int, String...)";
         }
@@ -155,6 +159,10 @@ public class MethodUtilsTest {
             return "foo(double)";
         }
 
+        public String foo(final long l) {
+            return "foo(long)";
+        }
+
         public String foo(final String s) {
             return "foo(String)";
         }
@@ -165,6 +173,10 @@ public class MethodUtilsTest {
 
         public String foo(final String... s) {
             return "foo(String...)";
+        }
+
+        public String foo(final long... l) {
+            return "foo(long...)";
         }
 
         public String foo(final Integer i, final String... s) {
@@ -357,8 +369,6 @@ public class MethodUtilsTest {
         assertEquals("foo(int)", MethodUtils.invokeMethod(testBean, "foo",
                 NumberUtils.BYTE_ONE));
         assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
-                NumberUtils.LONG_ONE));
-        assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
                 NumberUtils.DOUBLE_ONE));
         assertEquals("foo(String...)", MethodUtils.invokeMethod(testBean, "foo",
                 "a", "b", "c"));
@@ -366,17 +376,29 @@ public class MethodUtilsTest {
                 "a", "b", "c"));
         assertEquals("foo(int, String...)", MethodUtils.invokeMethod(testBean, "foo",
                 5, "a", "b", "c"));
+        assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo",
+                1L, 2L));
+        
+        try {
+            MethodUtils.invokeMethod(testBean, "foo",
+                    1, 2);
+            fail("should throw NoSuchMethodException");
+        } catch (final NoSuchMethodException e) {
+        }
+        
+        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
+                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
+        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
+                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
+        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
+                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
+        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
+                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
 
-        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
-                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
-        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
-                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
-        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
-                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
-        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
-                        MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
+
+        
     }
-
+    
     @Test
     public void testInvokeExactMethod() throws Exception {
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo",
@@ -434,11 +456,11 @@ public class MethodUtilsTest {
         assertEquals("bar(int)", MethodUtils.invokeStaticMethod(TestBean.class,
                 "bar", NumberUtils.BYTE_ONE));
         assertEquals("bar(double)", MethodUtils.invokeStaticMethod(
-                TestBean.class, "bar", NumberUtils.LONG_ONE));
-        assertEquals("bar(double)", MethodUtils.invokeStaticMethod(
                 TestBean.class, "bar", NumberUtils.DOUBLE_ONE));
         assertEquals("bar(String...)", MethodUtils.invokeStaticMethod(
                 TestBean.class, "bar", "a", "b"));
+        assertEquals("bar(long...)", MethodUtils.invokeStaticMethod(
+                TestBean.class, "bar", 1L, 2L));
         assertEquals("bar(int, String...)", MethodUtils.invokeStaticMethod(
                 TestBean.class, "bar", NumberUtils.INTEGER_ONE, "a", "b"));
 
@@ -576,9 +598,9 @@ public class MethodUtilsTest {
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
                 singletonArray(Integer.TYPE), singletonArray(Integer.TYPE));
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Long.class), singletonArray(Double.TYPE));
+                singletonArray(Long.class), singletonArray(Long.TYPE));
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Long.TYPE), singletonArray(Double.TYPE));
+                singletonArray(Long.TYPE), singletonArray(Long.TYPE));
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
                 singletonArray(Float.class), singletonArray(Double.TYPE));
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
