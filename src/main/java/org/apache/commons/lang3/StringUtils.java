@@ -8213,6 +8213,7 @@ public class StringUtils {
      * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/JaroWinklerDistance.html">
      * JaroWinklerDistance</a> instead
      */
+    @Deprecated
     public static double getJaroWinklerDistance(final CharSequence first, final CharSequence second) {
         final double DEFAULT_SCALING_FACTOR = 0.1;
 
