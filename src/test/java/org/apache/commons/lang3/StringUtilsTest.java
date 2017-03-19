@@ -2507,34 +2507,6 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testGetJaroWinklerSimilarity_StringString() {
-        assertEquals(0.93d, StringUtils.getJaroWinklerSimilarity("frog", "fog"), 0.0d);
-        assertEquals(0.0d, StringUtils.getJaroWinklerSimilarity("fly", "ant"), 0.0d);
-        assertEquals(0.44d, StringUtils.getJaroWinklerSimilarity("elephant", "hippo"), 0.0d);
-        assertEquals(0.84d, StringUtils.getJaroWinklerSimilarity("dwayne", "duane"), 0.0d);
-        assertEquals(0.93d, StringUtils.getJaroWinklerSimilarity("ABC Corporation", "ABC Corp"), 0.0d);
-        assertEquals(0.95d, StringUtils.getJaroWinklerSimilarity("D N H Enterprises Inc", "D & H Enterprises, Inc."), 0.0d);
-        assertEquals(0.92d, StringUtils.getJaroWinklerSimilarity("My Gym Children's Fitness Center", "My Gym. Childrens Fitness"), 0.0d);
-        assertEquals(0.88d, StringUtils.getJaroWinklerSimilarity("PENNSYLVANIA", "PENNCISYLVNIA"), 0.0d);
-        assertEquals(0.63d, StringUtils.getJaroWinklerSimilarity("Haus Ingeborg", "Ingeborg Esser"), 0.0d);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetJaroWinklerSimilarity_NullNull() throws Exception {
-        StringUtils.getJaroWinklerSimilarity(null, null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetJaroWinklerSimilarity_StringNull() throws Exception {
-        StringUtils.getJaroWinklerSimilarity(" ", null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetJaroWinklerSimilarity_NullString() throws Exception {
-        StringUtils.getJaroWinklerSimilarity(null, "clear");
-    }
-
-    @Test
     public void testGetFuzzyDistance() throws Exception {
         assertEquals(0, StringUtils.getFuzzyDistance("", "", Locale.ENGLISH));
         assertEquals(0, StringUtils.getFuzzyDistance("Workshop", "b", Locale.ENGLISH));

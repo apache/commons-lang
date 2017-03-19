@@ -8213,61 +8213,7 @@ public class StringUtils {
      * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/JaroWinklerDistance.html">
      * JaroWinklerDistance</a> instead
      */
-    @Deprecated
     public static double getJaroWinklerDistance(final CharSequence first, final CharSequence second) {
-        final double DEFAULT_SCALING_FACTOR = 0.1;
-
-        if (first == null || second == null) {
-            throw new IllegalArgumentException("Strings must not be null");
-        }
-
-        final int[] mtp = matches(first, second);
-        final double m = mtp[0];
-        if (m == 0) {
-            return 0D;
-        }
-        final double j = ((m / first.length() + m / second.length() + (m - mtp[1]) / m)) / 3;
-        final double jw = j < 0.7D ? j : j + Math.min(DEFAULT_SCALING_FACTOR, 1D / mtp[3]) * mtp[2] * (1D - j);
-        return Math.round(jw * 100.0D) / 100.0D;
-    }
-
-    /**
-     * <p>Find the Jaro Winkler Similarity which indicates the similarity score between two Strings.</p>
-     *
-     * <p>The Jaro measure is the weighted sum of percentage of matched characters from each file and transposed characters. 
-     * Winkler increased this measure for matching initial characters.</p>
-     *
-     * <p>This implementation is based on the Jaro Winkler similarity algorithm
-     * from <a href="http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance">http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance</a>.</p>
-     * 
-     * <pre>
-     * StringUtils.getJaroWinklerSimilarity(null, null)          = IllegalArgumentException
-     * StringUtils.getJaroWinklerSimilarity("","")               = 0.0
-     * StringUtils.getJaroWinklerSimilarity("","a")              = 0.0
-     * StringUtils.getJaroWinklerSimilarity("aaapppp", "")       = 0.0
-     * StringUtils.getJaroWinklerSimilarity("frog", "fog")       = 0.93
-     * StringUtils.getJaroWinklerSimilarity("fly", "ant")        = 0.0
-     * StringUtils.getJaroWinklerSimilarity("elephant", "hippo") = 0.44
-     * StringUtils.getJaroWinklerSimilarity("hippo", "elephant") = 0.44
-     * StringUtils.getJaroWinklerSimilarity("hippo", "zzzzzzzz") = 0.0
-     * StringUtils.getJaroWinklerSimilarity("hello", "hallo")    = 0.88
-     * StringUtils.getJaroWinklerSimilarity("ABC Corporation", "ABC Corp") = 0.93
-     * StringUtils.getJaroWinklerSimilarity("D N H Enterprises Inc", "D &amp; H Enterprises, Inc.") = 0.95
-     * StringUtils.getJaroWinklerSimilarity("My Gym Children's Fitness Center", "My Gym. Childrens Fitness") = 0.92
-     * StringUtils.getJaroWinklerSimilarity("PENNSYLVANIA", "PENNCISYLVNIA") = 0.88
-     * </pre>
-     *
-     * @param first the first String, must not be null
-     * @param second the second String, must not be null
-     * @return result similarity
-     * @throws IllegalArgumentException if either String input {@code null}
-     * @since 3.6
-     * @deprecated as of 3.6, use commons-text
-     * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/JaroWinklerDistance.html">
-     * JaroWinklerDistance</a> instead
-     */
-    @Deprecated
-    public static double getJaroWinklerSimilarity(final CharSequence first, final CharSequence second) {
         final double DEFAULT_SCALING_FACTOR = 0.1;
 
         if (first == null || second == null) {
