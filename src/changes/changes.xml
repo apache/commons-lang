@@ -80,6 +80,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1265" type="fix" dev="pschumacher">Build failures when building with Java 9 EA</action>
     <action issue="LANG-1314" type="fix" dev="pschumacher" due-to="Allon Murienik">javadoc creation broken with Java 8</action>
     <action issue="LANG-1316" type="update" dev="pschumacher">Deprecate classes/methods moved to commons-text</action>
+    <action issue="LANG-1310" type="fix" dev="pschumacher" due-to="Don Jeba">MethodUtils.invokeMethod throws ArrayStoreException if using varargs arguments and smaller types than the method defines</action>
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">
