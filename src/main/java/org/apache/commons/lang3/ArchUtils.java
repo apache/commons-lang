@@ -103,14 +103,14 @@ public class ArchUtils {
      *
      * @param key The key as {@link String}.
      * @param processor The {@link Processor} to add.
-     * @throws UnsupportedOperationException When key already exists in map.
+     * @throws IllegalStateException When key already exists in map.
      */
-    private static final void addProcessor(String key, Processor processor) throws UnsupportedOperationException {
+    private static final void addProcessor(String key, Processor processor) throws IllegalStateException {
         if (!map.containsKey(key)) {
             map.put(key, processor);
         } else {
             String msg = "Key " + key + " already exists in processor map";
-            throw new UnsupportedOperationException(msg);
+            throw new IllegalStateException(msg);
         }
     }
 
@@ -119,9 +119,9 @@ public class ArchUtils {
      *
      * @param keys A {@link List} of the key.
      * @param processor The {@link Processor} to add.
-     * @throws UnsupportedOperationException When key already exists in map.
+     * @throws IllegalStateException When key already exists in map.
      */
-    private static final void addProcessors(Processor processor, String... keys) {
+    private static final void addProcessors(Processor processor, String... keys) throws IllegalStateException {
         for (String key : keys) {
             addProcessor(key, processor);
         }
