@@ -29,6 +29,7 @@ import org.junit.Test;
 /**
  * Test class for StrLookup.
  */
+@Deprecated
 public class StrLookupTest  {
 
     //-----------------------------------------------------------------------

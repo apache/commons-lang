@@ -17,7 +17,15 @@
 package org.apache.commons.lang3.reflect;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.reflect.testbed.*;
+
+import org.apache.commons.lang3.reflect.testbed.Ambig;
+import org.apache.commons.lang3.reflect.testbed.Annotated;
+import org.apache.commons.lang3.reflect.testbed.Foo;
+import org.apache.commons.lang3.reflect.testbed.PrivatelyShadowedChild;
+import org.apache.commons.lang3.reflect.testbed.PublicChild;
+import org.apache.commons.lang3.reflect.testbed.PubliclyShadowedChild;
+import org.apache.commons.lang3.reflect.testbed.StaticContainer;
+import org.apache.commons.lang3.reflect.testbed.StaticContainerChild;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +36,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNotNull;
 
 /**

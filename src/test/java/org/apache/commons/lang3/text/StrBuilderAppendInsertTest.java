@@ -18,7 +18,9 @@
 package org.apache.commons.lang3.text;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
@@ -29,6 +31,7 @@ import java.util.Iterator;
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.StrBuilder}.
  */
+@Deprecated
 public class StrBuilderAppendInsertTest {
 
     /** The system line separator. */

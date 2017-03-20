@@ -42,6 +42,8 @@ import org.apache.commons.lang3.text.StrBuilder;
  * @since 1.0
  */
 //@Immutable
+@SuppressWarnings("deprecation") // deprecated class StrBuilder is imported
+// because it is part of the signature of deprecated methods
 public class ObjectUtils {
 
     /**
@@ -373,7 +375,9 @@ public class ObjectUtils {
      * @param builder  the builder to append to
      * @param object  the object to create a toString for
      * @since 3.2
+     * @deprecated as of 3.6, use one of the other {@code identityToString} methods instead
      */
+    @Deprecated
     public static void identityToString(final StrBuilder builder, final Object object) {
         if (object == null) {
             throw new NullPointerException("Cannot get the toString of a null identity");

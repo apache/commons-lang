@@ -27,6 +27,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.EntityArrays}.
  */
+@Deprecated
 public class EntityArraysTest  {
 
     @Test

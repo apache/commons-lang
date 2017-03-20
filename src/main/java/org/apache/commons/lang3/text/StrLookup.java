@@ -32,7 +32,11 @@ import java.util.Map;
  * key as a primary key, and looked up the value on demand from the database
  *
  * @since 2.2
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrLookup.html">
+ * StrLookup</a> instead
  */
+@Deprecated
 public abstract class StrLookup<V> {
 
     /**

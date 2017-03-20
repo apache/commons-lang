@@ -16,12 +16,15 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-
-import org.junit.Assert;
 
 import org.junit.Test;
 
@@ -47,27 +50,27 @@ public class CharSequenceUtilsTest {
         //
         // null input
         //
-        Assert.assertEquals(null, CharSequenceUtils.subSequence(null, -1));
-        Assert.assertEquals(null, CharSequenceUtils.subSequence(null, 0));
-        Assert.assertEquals(null, CharSequenceUtils.subSequence(null, 1));
+        assertEquals(null, CharSequenceUtils.subSequence(null, -1));
+        assertEquals(null, CharSequenceUtils.subSequence(null, 0));
+        assertEquals(null, CharSequenceUtils.subSequence(null, 1));
         //
         // non-null input
         //
-        Assert.assertEquals(StringUtils.EMPTY, CharSequenceUtils.subSequence(StringUtils.EMPTY, 0));
-        Assert.assertEquals("012", CharSequenceUtils.subSequence("012", 0));
-        Assert.assertEquals("12", CharSequenceUtils.subSequence("012", 1));
-        Assert.assertEquals("2", CharSequenceUtils.subSequence("012", 2));
-        Assert.assertEquals(StringUtils.EMPTY, CharSequenceUtils.subSequence("012", 3));
+        assertEquals(StringUtils.EMPTY, CharSequenceUtils.subSequence(StringUtils.EMPTY, 0));
+        assertEquals("012", CharSequenceUtils.subSequence("012", 0));
+        assertEquals("12", CharSequenceUtils.subSequence("012", 1));
+        assertEquals("2", CharSequenceUtils.subSequence("012", 2));
+        assertEquals(StringUtils.EMPTY, CharSequenceUtils.subSequence("012", 3));
     }
 
     @Test(expected=IndexOutOfBoundsException.class)
     public void testSubSequenceNegativeStart() {
-        Assert.assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
+        assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
     }
 
     @Test(expected=IndexOutOfBoundsException.class)
     public void testSubSequenceTooLong() {
-        Assert.assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
+        assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
     }
 
     static class TestData{
@@ -142,15 +145,15 @@ public class CharSequenceUtilsTest {
             if (data.throwable != null) {
                 try {
                     invoke();
-                    Assert.fail(id + " Expected " + data.throwable);
+                    fail(id + " Expected " + data.throwable);
                 } catch (final Exception e) {
                     if (!e.getClass().equals(data.throwable)) {
-                        Assert.fail(id + " Expected " + data.throwable + " got " + e.getClass());
+                        fail(id + " Expected " + data.throwable + " got " + e.getClass());
                     }
                 }
             } else {
                 final boolean stringCheck = invoke();
-                Assert.assertEquals(id + " Failed test " + data, data.expected, stringCheck);                
+                assertEquals(id + " Failed test " + data, data.expected, stringCheck);
             }
         }
         

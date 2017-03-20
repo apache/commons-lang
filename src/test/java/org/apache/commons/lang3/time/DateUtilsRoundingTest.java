@@ -18,7 +18,10 @@ package org.apache.commons.lang3.time;
 
 import org.junit.Test;
 import org.junit.Before;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
@@ -455,12 +454,12 @@ public class TypeUtilsTest<B> {
 
         if (expected) {
             Assert.assertTrue("[" + i1 + ", " + i2 + "]: From "
-                    + StringEscapeUtils.escapeHtml4(String.valueOf(type2)) + " to "
-                    + StringEscapeUtils.escapeHtml4(String.valueOf(type1)), isAssignable);
+                    + String.valueOf(type2) + " to "
+                    + String.valueOf(type1), isAssignable);
         } else {
             Assert.assertFalse("[" + i1 + ", " + i2 + "]: From "
-                    + StringEscapeUtils.escapeHtml4(String.valueOf(type2)) + " to "
-                    + StringEscapeUtils.escapeHtml4(String.valueOf(type1)), isAssignable);
+                    + String.valueOf(type2) + " to "
+                    + String.valueOf(type1), isAssignable);
         }
     }
 

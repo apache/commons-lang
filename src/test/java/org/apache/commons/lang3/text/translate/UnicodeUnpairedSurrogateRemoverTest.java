@@ -16,7 +16,7 @@
  */
 package org.apache.commons.lang3.text.translate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;
@@ -25,6 +25,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover}.
  */
+@Deprecated
 public class UnicodeUnpairedSurrogateRemoverTest {
     final UnicodeUnpairedSurrogateRemover subject = new UnicodeUnpairedSurrogateRemover();
     final CharArrayWriter writer = new CharArrayWriter(); // nothing is ever written to it

@@ -96,6 +96,10 @@ public class MethodUtilsTest {
             return "bar(String...)";
         }
 
+        public static String bar(final long... s) {
+            return "bar(long...)";
+        }
+
         public static String bar(final Integer i, final String... s) {
             return "bar(int, String...)";
         }
@@ -103,41 +107,40 @@ public class MethodUtilsTest {
         public static void oneParameterStatic(final String s) {
             // empty
         }
-        
+
         @SuppressWarnings("unused")
         private void privateStuff() {
         }
 
         @SuppressWarnings("unused")
         private String privateStringStuff() {
-        	return "privateStringStuff()";
-        }
-        
-        @SuppressWarnings("unused")
-        private String privateStringStuff(final int i) {
-        	return "privateStringStuff(int)";
-        }
-        
-        @SuppressWarnings("unused")
-        private String privateStringStuff(final Integer i) {
-        	return "privateStringStuff(Integer)";
-        }
-        
-        @SuppressWarnings("unused")
-        private String privateStringStuff(final double d) {
-        	return "privateStringStuff(double)";
-        }
-        
-        @SuppressWarnings("unused")
-        private String privateStringStuff(final String s) {
-        	return "privateStringStuff(String)";
-        }
-        
-        @SuppressWarnings("unused")
-        private String privateStringStuff(final Object s) {
-        	return "privateStringStuff(Object)";
+            return "privateStringStuff()";
         }
 
+        @SuppressWarnings("unused")
+        private String privateStringStuff(final int i) {
+            return "privateStringStuff(int)";
+        }
+
+        @SuppressWarnings("unused")
+        private String privateStringStuff(final Integer i) {
+            return "privateStringStuff(Integer)";
+        }
+
+        @SuppressWarnings("unused")
+        private String privateStringStuff(final double d) {
+            return "privateStringStuff(double)";
+        }
+
+        @SuppressWarnings("unused")
+        private String privateStringStuff(final String s) {
+            return "privateStringStuff(String)";
+        }
+
+        @SuppressWarnings("unused")
+        private String privateStringStuff(final Object s) {
+            return "privateStringStuff(Object)";
+        }
 
         public String foo() {
             return "foo()";
@@ -155,6 +158,10 @@ public class MethodUtilsTest {
             return "foo(double)";
         }
 
+        public String foo(final long l) {
+            return "foo(long)";
+        }
+
         public String foo(final String s) {
             return "foo(String)";
         }
@@ -165,6 +172,10 @@ public class MethodUtilsTest {
 
         public String foo(final String... s) {
             return "foo(String...)";
+        }
+
+        public String foo(final long... l) {
+            return "foo(long...)";
         }
 
         public String foo(final Integer i, final String... s) {
@@ -356,7 +367,7 @@ public class MethodUtilsTest {
                 NumberUtils.INTEGER_ONE));
         assertEquals("foo(int)", MethodUtils.invokeMethod(testBean, "foo",
                 NumberUtils.BYTE_ONE));
-        assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
+        assertEquals("foo(long)", MethodUtils.invokeMethod(testBean, "foo",
                 NumberUtils.LONG_ONE));
         assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
                 NumberUtils.DOUBLE_ONE));
@@ -366,6 +377,15 @@ public class MethodUtilsTest {
                 "a", "b", "c"));
         assertEquals("foo(int, String...)", MethodUtils.invokeMethod(testBean, "foo",
                 5, "a", "b", "c"));
+        assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo",
+                1L, 2L));
+
+        try {
+            MethodUtils.invokeMethod(testBean, "foo",
+                    1, 2);
+            fail("should throw NoSuchMethodException");
+        } catch (NoSuchMethodException expected) {
+        }
 
         TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
                         MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
@@ -434,11 +454,11 @@ public class MethodUtilsTest {
         assertEquals("bar(int)", MethodUtils.invokeStaticMethod(TestBean.class,
                 "bar", NumberUtils.BYTE_ONE));
         assertEquals("bar(double)", MethodUtils.invokeStaticMethod(
-                TestBean.class, "bar", NumberUtils.LONG_ONE));
-        assertEquals("bar(double)", MethodUtils.invokeStaticMethod(
                 TestBean.class, "bar", NumberUtils.DOUBLE_ONE));
         assertEquals("bar(String...)", MethodUtils.invokeStaticMethod(
                 TestBean.class, "bar", "a", "b"));
+        assertEquals("bar(long...)", MethodUtils.invokeStaticMethod(
+                TestBean.class, "bar", 1L, 2L));
         assertEquals("bar(int, String...)", MethodUtils.invokeStaticMethod(
                 TestBean.class, "bar", NumberUtils.INTEGER_ONE, "a", "b"));
 
@@ -576,9 +596,9 @@ public class MethodUtilsTest {
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
                 singletonArray(Integer.TYPE), singletonArray(Integer.TYPE));
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Long.class), singletonArray(Double.TYPE));
+                singletonArray(Long.class), singletonArray(Long.TYPE));
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Long.TYPE), singletonArray(Double.TYPE));
+                singletonArray(Long.TYPE), singletonArray(Long.TYPE));
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
                 singletonArray(Float.class), singletonArray(Double.TYPE));
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
@@ -760,12 +780,12 @@ public class MethodUtilsTest {
         final int[] actual = (int[])MethodUtils.invokeMethod(testBean, "unboxing", Integer.valueOf(1), Integer.valueOf(2));
         Assert.assertArrayEquals(new int[]{1, 2}, actual);
     }
-    
+
     @Test
     public void testInvokeMethodForceAccessNoArgs() throws Exception {
         Assert.assertEquals("privateStringStuff()", MethodUtils.invokeMethod(testBean, true, "privateStringStuff"));
     }
-    
+
     @Test
     public void testInvokeMethodForceAccessWithArgs() throws Exception {
         Assert.assertEquals("privateStringStuff(Integer)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", 5));
@@ -773,17 +793,17 @@ public class MethodUtilsTest {
         Assert.assertEquals("privateStringStuff(String)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", "Hi There"));
         Assert.assertEquals("privateStringStuff(Object)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", new Date()));
     }
-    
+
     @Test
     public void testDistance() throws Exception {
         final Method distanceMethod = MethodUtils.getMatchingMethod(MethodUtils.class, "distance", Class[].class, Class[].class);
         distanceMethod.setAccessible(true);
-        
+
         Assert.assertEquals(-1, distanceMethod.invoke(null, new Class[]{String.class}, new Class[]{Date.class}));
         Assert.assertEquals(0, distanceMethod.invoke(null, new Class[]{Date.class}, new Class[]{Date.class}));
         Assert.assertEquals(1, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{ClassUtils.wrapperToPrimitive(Integer.class)}));
         Assert.assertEquals(2, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{Object.class}));
-        
+
         distanceMethod.setAccessible(false);
     }
 }

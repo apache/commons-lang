@@ -27,7 +27,11 @@ import java.util.Locale;
  * is completely contextual, the API does not present two separate signatures.
  * 
  * @since 3.0
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/CharSequenceTranslator.html">
+ * CharSequenceTranslator</a> instead
  */
+@Deprecated
 public abstract class CharSequenceTranslator {
 
     static final char[] HEX_DIGITS = new char[] {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};

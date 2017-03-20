@@ -25,6 +25,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.NumericEntityUnescaper}.
  */
+@Deprecated
 public class NumericEntityUnescaperTest  {
 
     @Test

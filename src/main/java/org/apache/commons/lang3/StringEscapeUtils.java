@@ -36,7 +36,11 @@ import org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover;
  *
  * <p>#ThreadSafe#</p>
  * @since 2.0
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StringEscapeUtils.html">
+ * StringEscapeUtils</a> instead
  */
+@Deprecated
 public class StringEscapeUtils {
 
     /* ESCAPE TRANSLATORS */

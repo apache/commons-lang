@@ -26,6 +26,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.StrMatcher}.
  */
+@Deprecated
 public class StrMatcherTest  {
 
     private static final char[] BUFFER1 = "0,1\t2 3\n\r\f\u0000'\"".toCharArray();

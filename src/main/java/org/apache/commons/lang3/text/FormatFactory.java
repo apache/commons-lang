@@ -23,7 +23,11 @@ import java.util.Locale;
  * Format factory.
  * 
  * @since 2.4
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/FormatFactory.html">
+ * FormatFactory</a> instead
  */
+@Deprecated
 public interface FormatFactory {
 
     /**

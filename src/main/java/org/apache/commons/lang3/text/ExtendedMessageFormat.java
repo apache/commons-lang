@@ -65,7 +65,11 @@ import org.apache.commons.lang3.Validate;
  * </ul>
  *
  * @since 2.4
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/ExtendedMessageFormat.html">
+ * ExtendedMessageFormat</a> instead
  */
+@Deprecated
 public class ExtendedMessageFormat extends MessageFormat {
     private static final long serialVersionUID = -2362048321261811743L;
     private static final int HASH_SEED = 31;
