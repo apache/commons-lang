@@ -25,6 +25,13 @@ public class Processor {
     private final ProcessorArch processorArch;
     private final ProcessorType processorType;
 
+    /**
+     * Constructs a {@link Processor}object with the given
+     * parameters.
+     *
+     * @param processorArch The processor architecture.
+     * @param processorType The processor type.
+     */
     public Processor(ProcessorArch processorArch, ProcessorType processorType) {
         this.processorArch = processorArch;
         this.processorType = processorType;

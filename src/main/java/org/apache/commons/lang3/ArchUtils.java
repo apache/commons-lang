@@ -21,7 +21,6 @@ import org.apache.commons.lang3.arch.ProcessorArch;
 import org.apache.commons.lang3.arch.ProcessorType;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -117,7 +116,7 @@ public class ArchUtils {
     /**
      * Adds the given {@link Processor} with the given keys to the map.
      *
-     * @param keys A {@link List} of the key.
+     * @param keys The keys.
      * @param processor The {@link Processor} to add.
      * @throws IllegalStateException When key already exists in map.
      */
