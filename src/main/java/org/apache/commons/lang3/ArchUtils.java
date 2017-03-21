@@ -17,8 +17,6 @@
 package org.apache.commons.lang3;
 
 import org.apache.commons.lang3.arch.Processor;
-import org.apache.commons.lang3.arch.ProcessorArch;
-import org.apache.commons.lang3.arch.ProcessorType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +51,7 @@ public class ArchUtils {
      * Adding x86 32 bit {@link Processor}'s to the map
      */
     private static final void init_X86_32Bit() {
-        Processor processor = new Processor(ProcessorArch.BIT_32, ProcessorType.X86);
+        Processor processor = new Processor(Processor.Arch.BIT_32, Processor.Type.X86);
         addProcessors(processor, "x86", "i386", "i486", "i586", "i686", "pentium");
     }
 
@@ -61,7 +59,7 @@ public class ArchUtils {
      * Adding x86 64 bit {@link Processor}'s to the map
      */
     private static final void init_X86_64Bit() {
-        Processor processor = new Processor(ProcessorArch.BIT_64, ProcessorType.X86);
+        Processor processor = new Processor(Processor.Arch.BIT_64, Processor.Type.X86);
         addProcessors(processor, "x86_64", "amd64", "em64t", "universal");
     }
 
@@ -69,7 +67,7 @@ public class ArchUtils {
      * Adding ia64 32 bit {@link Processor}'s to the map
      */
     private static final void init_IA64_32Bit() {
-        Processor processor = new Processor(ProcessorArch.BIT_32, ProcessorType.IA_64);
+        Processor processor = new Processor(Processor.Arch.BIT_32, Processor.Type.IA_64);
         addProcessors(processor, "ia64_32", "ia64n");
     }
 
@@ -77,7 +75,7 @@ public class ArchUtils {
      * Adding ia64 64 bit {@link Processor}'s to the map
      */
     private static final void init_IA64_64Bit() {
-        Processor processor = new Processor(ProcessorArch.BIT_64, ProcessorType.IA_64);
+        Processor processor = new Processor(Processor.Arch.BIT_64, Processor.Type.IA_64);
         addProcessors(processor, "ia64", "ia64w");
     }
 
@@ -85,7 +83,7 @@ public class ArchUtils {
      * Adding PPC 32 bit {@link Processor}'s to the map
      */
     private static final void init_PPC_32Bit() {
-        Processor processor = new Processor(ProcessorArch.BIT_32, ProcessorType.PPC);
+        Processor processor = new Processor(Processor.Arch.BIT_32, Processor.Type.PPC);
         addProcessors(processor, "ppc", "power", "powerpc", "power_pc", "power_rs");
     }
 
@@ -93,7 +91,7 @@ public class ArchUtils {
      * Adding PPC 64 bit {@link Processor}'s to the map
      */
     private static final void init_PPC_64Bit() {
-        Processor processor = new Processor(ProcessorArch.BIT_64, ProcessorType.PPC);
+        Processor processor = new Processor(Processor.Arch.BIT_64, Processor.Type.PPC);
         addProcessors(processor, "ppc64", "power64", "powerpc64", "power_pc64", "power_rs64");
     }
 

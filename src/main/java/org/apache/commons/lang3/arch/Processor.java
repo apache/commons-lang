@@ -22,41 +22,70 @@ package org.apache.commons.lang3.arch;
  */
 public class Processor {
 
-    private final ProcessorArch processorArch;
-    private final ProcessorType processorType;
+    /**
+     * The {@link Arch} enum defines the architecture of
+     * a microprocessor. The architecture represents the bit value
+     * of the microprocessor.
+     * The following architectures are defined:
+     * <ul>
+     *     <li>32 bit</li>
+     *     <li>64 bit</li>
+     *     <li>unknown</li>
+     * </ul>
+     */
+    public enum Arch {
+        BIT_32, BIT_64, UNKNOWN
+    }
+
+    /**
+     * The {@link Type} enum defines types of a microprocessor.
+     * The following types are defined:
+     * <ul>
+     *     <li>x86</li>
+     *     <li>ia64</li>
+     *     <li>ppc</li>
+     *     <li>unknown</li>
+     * </ul>
+     */
+    public enum Type {
+        X86, IA_64, PPC, UNKNOWN
+    }
+
+    private final Arch arch;
+    private final Type type;
 
     /**
      * Constructs a {@link Processor}object with the given
      * parameters.
      *
-     * @param processorArch The processor architecture.
-     * @param processorType The processor type.
+     * @param arch The processor architecture.
+     * @param type The processor type.
      */
-    public Processor(ProcessorArch processorArch, ProcessorType processorType) {
-        this.processorArch = processorArch;
-        this.processorType = processorType;
+    public Processor(Arch arch, Type type) {
+        this.arch = arch;
+        this.type = type;
     }
 
     /**
-     * Returns the processor architecture as {@link ProcessorArch} enum.
+     * Returns the processor architecture as {@link Arch} enum.
      * The processor architecture defines, if the processor is for example
      * a 32 or 64 bit architecture.
      *
-     * @return A {@link ProcessorArch} enum.
+     * @return A {@link Arch} enum.
      */
-    public ProcessorArch getProcessorArch() {
-        return processorArch;
+    public Arch getArch() {
+        return arch;
     }
 
     /**
-     * Returns the processor type as {@link ProcessorType} enum.
+     * Returns the processor type as {@link Type} enum.
      * The processor type defines, if the processor is for example
      * a x86 or PPA.
      *
-     * @return A {@link ProcessorType} enum.
+     * @return A {@link Type} enum.
      */
-    public ProcessorType getProcessorType() {
-        return processorType;
+    public Type getType() {
+        return type;
     }
 
 }
