@@ -90,7 +90,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
-     * Sets the value to true.
+     * Sets the value to false.
      * 
      * @since 3.3
      */
@@ -99,7 +99,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
-     * Sets the value to false.
+     * Sets the value to true.
      * 
      * @since 3.3
      */
