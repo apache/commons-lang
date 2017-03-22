@@ -19,6 +19,8 @@ package org.apache.commons.lang3;
 import org.apache.commons.lang3.arch.Processor;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
@@ -93,38 +95,89 @@ public class ArchUtilsTest {
 
     @Test
     public void testIs32BitJVM() {
-        assertEqualsArchNotNull(Processor.Arch.BIT_32, ArchUtils.getProcessor(X86));
-        assertEqualsArchNotNull(Processor.Arch.BIT_32, ArchUtils.getProcessor(IA64_32));
-        assertEqualsArchNotNull(Processor.Arch.BIT_32, ArchUtils.getProcessor(PPC));
+        Processor processor = ArchUtils.getProcessor(X86);
+        assertEqualsArchNotNull(Processor.Arch.BIT_32, processor);
+        assertTrue(processor.is32Bit());
 
-        assertNotEqualsArchNotNull(Processor.Arch.BIT_32, ArchUtils.getProcessor(X86_64));
-        assertNotEqualsArchNotNull(Processor.Arch.BIT_32, ArchUtils.getProcessor(PPC64));
-        assertNotEqualsArchNotNull(Processor.Arch.BIT_32, ArchUtils.getProcessor(IA64));
+        processor = ArchUtils.getProcessor(IA64_32);
+        assertEqualsArchNotNull(Processor.Arch.BIT_32, processor);
+        assertTrue(processor.is32Bit());
+
+        processor = ArchUtils.getProcessor(PPC);
+        assertEqualsArchNotNull(Processor.Arch.BIT_32, processor);
+        processor.is32Bit();
+
+        processor = ArchUtils.getProcessor(X86_64);
+        assertNotEqualsArchNotNull(Processor.Arch.BIT_32, processor);
+        assertFalse(processor.is32Bit());
+
+        processor = ArchUtils.getProcessor(PPC64);
+        assertNotEqualsArchNotNull(Processor.Arch.BIT_32, processor);
+        assertFalse(processor.is32Bit());
+
+        processor = ArchUtils.getProcessor(IA64);
+        assertNotEqualsArchNotNull(Processor.Arch.BIT_32, processor);
+        assertFalse(processor.is32Bit());
     }
 
     @Test
     public void testIs64BitJVM() {
-        assertEqualsArchNotNull(Processor.Arch.BIT_64, ArchUtils.getProcessor(X86_64));
-        assertEqualsArchNotNull(Processor.Arch.BIT_64, ArchUtils.getProcessor(PPC64));
-        assertEqualsArchNotNull(Processor.Arch.BIT_64, ArchUtils.getProcessor(IA64));
+        Processor processor = ArchUtils.getProcessor(X86_64);
+        assertEqualsArchNotNull(Processor.Arch.BIT_64, processor);
+        assertTrue(processor.is64Bit());
 
-        assertNotEqualsArchNotNull(Processor.Arch.BIT_64, ArchUtils.getProcessor(X86));
-        assertNotEqualsArchNotNull(Processor.Arch.BIT_64, ArchUtils.getProcessor(PPC));
-        assertNotEqualsArchNotNull(Processor.Arch.BIT_64, ArchUtils.getProcessor(IA64_32));
+        processor = ArchUtils.getProcessor(PPC64);
+        assertEqualsArchNotNull(Processor.Arch.BIT_64, processor);
+        assertTrue(processor.is64Bit());
+
+        processor = ArchUtils.getProcessor(IA64);
+        assertEqualsArchNotNull(Processor.Arch.BIT_64, processor);
+        assertTrue(processor.is64Bit());
+
+        processor = ArchUtils.getProcessor(X86);
+        assertNotEqualsArchNotNull(Processor.Arch.BIT_64, processor);
+        assertFalse(processor.is64Bit());
+
+        processor = ArchUtils.getProcessor(PPC);
+        assertNotEqualsArchNotNull(Processor.Arch.BIT_64, processor);
+        assertFalse(processor.is64Bit());
+
+        processor = ArchUtils.getProcessor(IA64_32);
+        assertNotEqualsArchNotNull(Processor.Arch.BIT_64, processor);
+        assertFalse(processor.is64Bit());
     }
 
     @Test
     public void testArch() {
-        assertEqualsTypeNotNull(Processor.Type.X86, ArchUtils.getProcessor(X86));
-        assertEqualsTypeNotNull(Processor.Type.X86, ArchUtils.getProcessor(X86_64));
-        assertEqualsTypeNotNull(Processor.Type.IA_64, ArchUtils.getProcessor(IA64_32));
-        assertEqualsTypeNotNull(Processor.Type.IA_64, ArchUtils.getProcessor(IA64));
-        assertEqualsTypeNotNull(Processor.Type.PPC, ArchUtils.getProcessor(PPC));
-        assertEqualsTypeNotNull(Processor.Type.PPC, ArchUtils.getProcessor(PPC64));
+        Processor processor = ArchUtils.getProcessor(X86);
+        assertEqualsTypeNotNull(Processor.Type.X86, processor);
+        assertTrue(processor.isX86());
+        assertNotEqualsTypeNotNull(Processor.Type.PPC, processor);
+        assertFalse(processor.isPPC());
 
-        assertNotEqualsTypeNotNull(Processor.Type.X86, ArchUtils.getProcessor(IA64));
-        assertNotEqualsTypeNotNull(Processor.Type.PPC, ArchUtils.getProcessor(X86));
-        assertNotEqualsTypeNotNull(Processor.Type.IA_64, ArchUtils.getProcessor(PPC));
+        processor = ArchUtils.getProcessor(X86_64);
+        assertEqualsTypeNotNull(Processor.Type.X86, processor);
+        assertTrue(processor.isX86());
+
+        processor = ArchUtils.getProcessor(IA64_32);
+        assertEqualsTypeNotNull(Processor.Type.IA_64, processor);
+        assertTrue(processor.isIA64());
+
+        processor = ArchUtils.getProcessor(IA64);
+        assertEqualsTypeNotNull(Processor.Type.IA_64, processor);
+        assertTrue(processor.isIA64());
+        assertNotEqualsTypeNotNull(Processor.Type.X86, processor);
+        assertFalse(processor.isX86());
+
+        processor = ArchUtils.getProcessor(PPC);
+        assertEqualsTypeNotNull(Processor.Type.PPC, processor);
+        assertTrue(processor.isPPC());
+        assertNotEqualsTypeNotNull(Processor.Type.IA_64, processor);
+        assertFalse(processor.isIA64());
+
+        processor = ArchUtils.getProcessor(PPC64);
+        assertEqualsTypeNotNull(Processor.Type.PPC, processor);
+        assertTrue(processor.isPPC());
     }
 
     @Test
