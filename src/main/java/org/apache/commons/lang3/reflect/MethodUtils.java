@@ -871,4 +871,114 @@ public class MethodUtils {
         return annotatedMethods;
     }
 
+    /**
+     * <p>Finds all methods including non public methods of the given class and it's super classes and interfaces
+     * that are annotated with the given annotation.</p>
+     * @param cls
+     *            the {@link Class} to query
+     * @param annotationCls
+     *            the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
+     * @return an array of Methods (possibly empty).
+     * @throws IllegalArgumentException
+     *            if the class or annotation are {@code null}
+     * @since 3.6
+     */
+    public static Method[] findMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+        final List<Method> annotatedMethodsList = findMethodsListWithAnnotation(cls, annotationCls);
+        return annotatedMethodsList.toArray(new Method[annotatedMethodsList.size()]);
+    }
+
+    /**
+     * <p>Finds all methods including non public methods of the given class and it's super classes and interfaces
+     * that are annotated with the given annotation.</p>
+     * @param cls
+     *            the {@link Class} to query
+     * @param annotationCls
+     *            the {@link Annotation} that must be present on a method to be matched
+     * @return a list of Methods (possibly empty).
+     * @throws IllegalArgumentException
+     *            if the class or annotation are {@code null}
+     * @since 3.6
+     */
+    public static List<Method> findMethodsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+        Validate.isTrue(cls != null, "The class must not be null");
+        Validate.isTrue(annotationCls != null, "The annotation class must not be null");
+        List<Class<?>> allSuperclasses = ClassUtils.getAllSuperclasses(cls);
+        allSuperclasses.add(0, cls);
+        int sci = 0;
+        List<Class<?>> allInterfaces = ClassUtils.getAllInterfaces(cls);
+        int ifi = 0;
+        final List<Method> annotatedMethods = new ArrayList<>();
+        while (ifi < allInterfaces.size() ||
+                sci < allSuperclasses.size()) {
+            Class<?> acls;
+            if (ifi >= allInterfaces.size())
+                acls = allSuperclasses.get(sci++);
+            else if (sci >= allSuperclasses.size())
+                acls = allInterfaces.get(ifi++);
+            else if (sci <= ifi)
+                acls = allSuperclasses.get(sci++);
+            else
+                acls = allInterfaces.get(ifi++);
+            final Method[] allMethods = acls.getDeclaredMethods();
+            for (final Method method : allMethods) {
+                if (method.getAnnotation(annotationCls) != null) {
+                    annotatedMethods.add(method);
+                }
+            }
+        }
+        return annotatedMethods;
+    }
+
+    /**
+     * <p>BFS to find the annotation object that is present on the given method or any equivalent method in
+     * super classes and interfaces, with the given annotation type. Returns null if the annotation type was not present
+     * on any of them.</p>
+     * @param method
+     *            the {@link Method} to query
+     * @param annotationCls
+     *            the {@link Annotation} to check if is present on the method
+     * @return an Annotation (possibly null).
+     * @throws IllegalArgumentException
+     *            if the method or annotation are {@code null}
+     * @since 3.6
+     */
+    public static <A extends Annotation> A findAnnotation(final Method method, final Class<A> annotationCls) {
+        Validate.isTrue(method != null, "The method must not be null");
+        Validate.isTrue(annotationCls != null, "The annotation class must not be null");
+        A annotation = method.getAnnotation(annotationCls);
+
+        if(annotation == null) {
+            Class<?> mcls = method.getDeclaringClass();
+            List<Class<?>> allSuperclasses = ClassUtils.getAllSuperclasses(mcls);
+            int sci = 0;
+            List<Class<?>> allInterfaces = ClassUtils.getAllInterfaces(mcls);
+            int ifi = 0;
+            while (ifi < allInterfaces.size() ||
+                    sci < allSuperclasses.size()) {
+                Class<?> acls;
+                if(ifi >= allInterfaces.size())
+                    acls = allSuperclasses.get(sci++);
+                else if(sci >= allSuperclasses.size())
+                    acls = allInterfaces.get(ifi++);
+                else if(ifi <= sci)
+                    acls = allInterfaces.get(ifi++);
+                else
+                    acls = allSuperclasses.get(sci++);
+                Method equivalentMethod = null;
+                try {
+                    equivalentMethod = acls.getDeclaredMethod(method.getName(), method.getParameterTypes());
+                } catch (NoSuchMethodException e) {
+                    // If not found, just keep on breadth first search
+                }
+                if(equivalentMethod != null) {
+                    annotation = equivalentMethod.getAnnotation(annotationCls);
+                    if(annotation != null)
+                        break;
+                }
+            }
+        }
+
+        return annotation;
+    }
 }

@@ -47,6 +47,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.reflect.testbed.Annotated;
 import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
+import org.apache.commons.lang3.reflect.testbed.PublicChild;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.Assert;
@@ -679,6 +680,22 @@ public class MethodUtilsTest {
         assertEquals(2, methodsWithAnnotation.length);
         assertThat(methodsWithAnnotation, hasItemInArray(MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation")));
         assertThat(methodsWithAnnotation, hasItemInArray(MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")));
+    }
+
+    @Test
+    public void testFindAnnotationOnMethod() throws NoSuchMethodException {
+        assertNull(MethodUtils.findAnnotation(Object.class.getDeclaredMethods()[0], Annotated.class));
+        assertNotNull(MethodUtils.findAnnotation(PublicChild.class.getMethod("doIt"), Annotated.class));
+        assertNotNull(MethodUtils.findAnnotation(PublicChild.class.getDeclaredMethod("parentProtectedAnnotatedMethod"), Annotated.class));
+        assertNotNull(MethodUtils.findAnnotation(PublicChild.class.getDeclaredMethod("privateAnnotatedMethod"), Annotated.class));
+    }
+
+    @Test
+    public void testFindMethodsWithAnnotation() throws NoSuchMethodException {
+        assertArrayEquals(new Method[0], MethodUtils.findMethodsWithAnnotation(Object.class, Annotated.class));
+
+        final Method[] methodsWithAnnotation = MethodUtils.findMethodsWithAnnotation(PublicChild.class, Annotated.class);
+        assertEquals(3, methodsWithAnnotation.length);
     }
 
     @Test(expected = IllegalArgumentException.class)
