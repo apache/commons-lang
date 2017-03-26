@@ -912,14 +912,18 @@ public class MethodUtils {
         while (ifi < allInterfaces.size() ||
                 sci < allSuperclasses.size()) {
             Class<?> acls;
-            if (ifi >= allInterfaces.size())
+            if (ifi >= allInterfaces.size()) {
                 acls = allSuperclasses.get(sci++);
-            else if (sci >= allSuperclasses.size())
+            }
+            else if (sci >= allSuperclasses.size()) {
                 acls = allInterfaces.get(ifi++);
-            else if (sci <= ifi)
+            }
+            else if (sci <= ifi) {
                 acls = allSuperclasses.get(sci++);
-            else
+            }
+            else {
                 acls = allInterfaces.get(ifi++);
+            }
             final Method[] allMethods = acls.getDeclaredMethods();
             for (final Method method : allMethods) {
                 if (method.getAnnotation(annotationCls) != null) {
@@ -934,6 +938,8 @@ public class MethodUtils {
      * <p>BFS to find the annotation object that is present on the given method or any equivalent method in
      * super classes and interfaces, with the given annotation type. Returns null if the annotation type was not present
      * on any of them.</p>
+     * @param <A>
+     *            the annotation type
      * @param method
      *            the {@link Method} to query
      * @param annotationCls
@@ -957,14 +963,18 @@ public class MethodUtils {
             while (ifi < allInterfaces.size() ||
                     sci < allSuperclasses.size()) {
                 Class<?> acls;
-                if(ifi >= allInterfaces.size())
+                if(ifi >= allInterfaces.size()) {
                     acls = allSuperclasses.get(sci++);
-                else if(sci >= allSuperclasses.size())
+                }
+                else if(sci >= allSuperclasses.size()) {
                     acls = allInterfaces.get(ifi++);
-                else if(ifi <= sci)
+                }
+                else if(ifi <= sci) {
                     acls = allInterfaces.get(ifi++);
-                else
+                }
+                else {
                     acls = allSuperclasses.get(sci++);
+                }
                 Method equivalentMethod = null;
                 try {
                     equivalentMethod = acls.getDeclaredMethod(method.getName(), method.getParameterTypes());
@@ -973,8 +983,9 @@ public class MethodUtils {
                 }
                 if(equivalentMethod != null) {
                     annotation = equivalentMethod.getAnnotation(annotationCls);
-                    if(annotation != null)
+                    if(annotation != null) {
                         break;
+                    }
                 }
             }
         }
