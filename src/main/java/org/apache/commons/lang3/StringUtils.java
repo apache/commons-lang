@@ -7560,7 +7560,7 @@ public class StringUtils {
      * @param maxWidth  maximum length of result String, must be at least {@code abbrevMarker.length + 1}
      * @return abbreviated String, {@code null} if null String input
      * @throws IllegalArgumentException if the width is too small
-     * @since 3.5
+     * @since 3.6
      */
     public static String abbreviate(final String str, final String abbrevMarker, final int maxWidth) {
         return abbreviate(str, abbrevMarker, 0, maxWidth);
@@ -7601,7 +7601,7 @@ public class StringUtils {
      * @param maxWidth  maximum length of result String, must be at least 4
      * @return abbreviated String, {@code null} if null String input
      * @throws IllegalArgumentException if the width is too small
-     * @since 3.5
+     * @since 3.6
      */
     public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
         if (isEmpty(str) || isEmpty(abbrevMarker)) {
@@ -9137,8 +9137,7 @@ public class StringUtils {
 
         return str;
     }
-    
-    
+
     /**
      * <p>Converts a {@code CharSequence} into an array of code points.</p>
      * 
@@ -9162,14 +9161,14 @@ public class StringUtils {
         if (str.length() == 0) {
             return ArrayUtils.EMPTY_INT_ARRAY;
         }
-        
+
         String s = str.toString();
         int[] result = new int[s.codePointCount(0, s.length())];
         int index = 0;
         for (int i = 0; i < result.length; i++) {
             result[i] = s.codePointAt(index);
             index += Character.charCount(result[i]);
-        }     
+        }
         return result;
-    }    
+    }
 }
