@@ -8055,18 +8055,18 @@ public class ArrayUtils {
 
         return result;
     }
-    
+
     /**
      * <p>Inserts elements into an array at the given index (starting from zero).</p>
-     * 
+     *
      * <p>When an array is returned, it is always a new array.</p>
-     * 
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
-     *  
+     *
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
@@ -8075,7 +8075,7 @@ public class ArrayUtils {
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
-    public static boolean[] insert(final int index, final boolean[] array, final boolean... values) {     
+    public static boolean[] insert(final int index, final boolean[] array, final boolean... values) {
         if (array == null) {
             return null;
         }
@@ -8085,9 +8085,9 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-        
+
         boolean[] result = new boolean[array.length + values.length];
-        
+
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -8097,19 +8097,18 @@ public class ArrayUtils {
         }
         return result;
     }
-    
-    
+
     /**
      * <p>Inserts elements into an array at the given index (starting from zero).</p>
-     * 
+     *
      * <p>When an array is returned, it is always a new array.</p>
-     * 
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
-     *  
+     *
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
@@ -8118,7 +8117,7 @@ public class ArrayUtils {
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
-    public static byte[] insert(final int index, final byte[] array, final byte... values) {     
+    public static byte[] insert(final int index, final byte[] array, final byte... values) {
         if (array == null) {
             return null;
         }
@@ -8128,9 +8127,9 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-        
+
         byte[] result = new byte[array.length + values.length];
-        
+
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -8140,19 +8139,18 @@ public class ArrayUtils {
         }
         return result;
     }
-    
-    
+
     /**
      * <p>Inserts elements into an array at the given index (starting from zero).</p>
-     * 
+     *
      * <p>When an array is returned, it is always a new array.</p>
-     * 
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
-     *  
+     *
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
@@ -8161,7 +8159,7 @@ public class ArrayUtils {
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
-    public static char[] insert(final int index, final char[] array, final char... values) {     
+    public static char[] insert(final int index, final char[] array, final char... values) {
         if (array == null) {
             return null;
         }
@@ -8171,9 +8169,9 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-        
+
         char[] result = new char[array.length + values.length];
-        
+
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -8182,20 +8180,19 @@ public class ArrayUtils {
             System.arraycopy(array, index, result, index + values.length, array.length - index);
         }
         return result;
-    }    
-    
-    
+    }
+
     /**
      * <p>Inserts elements into an array at the given index (starting from zero).</p>
-     * 
+     *
      * <p>When an array is returned, it is always a new array.</p>
-     * 
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
-     *  
+     *
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
@@ -8204,7 +8201,7 @@ public class ArrayUtils {
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
-    public static double[] insert(final int index, final double[] array, final double... values) {     
+    public static double[] insert(final int index, final double[] array, final double... values) {
         if (array == null) {
             return null;
         }
@@ -8214,9 +8211,9 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-        
+
         double[] result = new double[array.length + values.length];
-        
+
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -8225,20 +8222,19 @@ public class ArrayUtils {
             System.arraycopy(array, index, result, index + values.length, array.length - index);
         }
         return result;
-    } 
-    
-    
+    }
+
     /**
      * <p>Inserts elements into an array at the given index (starting from zero).</p>
-     * 
+     *
      * <p>When an array is returned, it is always a new array.</p>
-     * 
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
-     *  
+     *
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
@@ -8247,7 +8243,7 @@ public class ArrayUtils {
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
-    public static float[] insert(final int index, final float[] array, final float... values) {     
+    public static float[] insert(final int index, final float[] array, final float... values) {
         if (array == null) {
             return null;
         }
@@ -8257,9 +8253,9 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-        
+
         float[] result = new float[array.length + values.length];
-        
+
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -8268,19 +8264,19 @@ public class ArrayUtils {
             System.arraycopy(array, index, result, index + values.length, array.length - index);
         }
         return result;
-    }     
-    
+    }
+
     /**
      * <p>Inserts elements into an array at the given index (starting from zero).</p>
-     * 
+     *
      * <p>When an array is returned, it is always a new array.</p>
-     * 
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
-     *  
+     *
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
@@ -8289,7 +8285,7 @@ public class ArrayUtils {
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
-    public static int[] insert(final int index, final int[] array, final int... values) {     
+    public static int[] insert(final int index, final int[] array, final int... values) {
         if (array == null) {
             return null;
         }
@@ -8299,9 +8295,9 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-        
+
         int[] result = new int[array.length + values.length];
-        
+
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -8310,19 +8306,19 @@ public class ArrayUtils {
             System.arraycopy(array, index, result, index + values.length, array.length - index);
         }
         return result;
-    }     
-    
+    }
+
     /**
      * <p>Inserts elements into an array at the given index (starting from zero).</p>
-     * 
+     *
      * <p>When an array is returned, it is always a new array.</p>
-     * 
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
-     *  
+     *
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
@@ -8331,7 +8327,7 @@ public class ArrayUtils {
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
-    public static long[] insert(final int index, final long[] array, final long... values) {     
+    public static long[] insert(final int index, final long[] array, final long... values) {
         if (array == null) {
             return null;
         }
@@ -8341,9 +8337,9 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-        
+
         long[] result = new long[array.length + values.length];
-        
+
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -8352,20 +8348,19 @@ public class ArrayUtils {
             System.arraycopy(array, index, result, index + values.length, array.length - index);
         }
         return result;
-    }    
-    
-    
+    }
+
     /**
      * <p>Inserts elements into an array at the given index (starting from zero).</p>
-     * 
+     *
      * <p>When an array is returned, it is always a new array.</p>
-     * 
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
-     *  
+     *
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
@@ -8374,7 +8369,7 @@ public class ArrayUtils {
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
-    public static short[] insert(final int index, final short[] array, final short... values) {     
+    public static short[] insert(final int index, final short[] array, final short... values) {
         if (array == null) {
             return null;
         }
@@ -8384,9 +8379,9 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-        
+
         short[] result = new short[array.length + values.length];
-        
+
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -8395,14 +8390,13 @@ public class ArrayUtils {
             System.arraycopy(array, index, result, index + values.length, array.length - index);
         }
         return result;
-    }    
-    
-    
+    }
+
     /**
      * <p>Inserts elements into an array at the given index (starting from zero).</p>
-     * 
+     *
      * <p>When an array is returned, it is always a new array.</p>
-     * 
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
@@ -8427,7 +8421,7 @@ public class ArrayUtils {
          * array to the caller. We also avoid relying on the type of the vararg
          * array, by inspecting the component type of 'array'.
          */
-        
+
         if (array == null) {
             return null;
         }
@@ -8437,11 +8431,11 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-        
+
         final Class<?> type = array.getClass().getComponentType();
         @SuppressWarnings("unchecked") // OK, because array and values are of type T
         T[] result = (T[]) Array.newInstance(type, array.length + values.length);
-        
+
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -8450,5 +8444,5 @@ public class ArrayUtils {
             System.arraycopy(array, index, result, index + values.length, array.length - index);
         }
         return result;
-    } 
+    }
 }
