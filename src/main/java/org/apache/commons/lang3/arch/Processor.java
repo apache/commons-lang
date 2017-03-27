@@ -19,6 +19,7 @@ package org.apache.commons.lang3.arch;
 /**
  * The {@link Processor} represents a microprocessor and defines
  * some properties like architecture and type of the microprocessor.
+ * @since 3.6
  */
 public class Processor {
 

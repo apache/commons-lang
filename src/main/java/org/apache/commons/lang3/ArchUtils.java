@@ -28,6 +28,7 @@ import java.util.Map;
  * Important: The os.arch System Property returns the architecture used by the JVM
  * not of the operating system.
  * </p>
+ * @since 3.6
  */
 public class ArchUtils {
 
