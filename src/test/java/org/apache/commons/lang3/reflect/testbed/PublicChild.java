@@ -22,10 +22,14 @@ public class PublicChild extends Parent {
     static final String VALUE = "child";
 
     @Override
-    protected void parentProtectedAnnotatedMethod() {
+    public void parentProtectedAnnotatedMethod() {
     }
 
     @Annotated
     private void privateAnnotatedMethod() {
+    }
+
+    @Annotated
+    public void publicAnnotatedMethod() {
     }
 }

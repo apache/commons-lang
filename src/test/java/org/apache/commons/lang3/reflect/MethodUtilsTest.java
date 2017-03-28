@@ -683,19 +683,122 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testFindAnnotationOnMethod() throws NoSuchMethodException {
-        assertNull(MethodUtils.findAnnotation(Object.class.getDeclaredMethods()[0], Annotated.class));
-        assertNotNull(MethodUtils.findAnnotation(PublicChild.class.getMethod("doIt"), Annotated.class));
-        assertNotNull(MethodUtils.findAnnotation(PublicChild.class.getDeclaredMethod("parentProtectedAnnotatedMethod"), Annotated.class));
-        assertNotNull(MethodUtils.findAnnotation(PublicChild.class.getDeclaredMethod("privateAnnotatedMethod"), Annotated.class));
+    public void testGetMethodsWithAnnotationSearchSupersAndIgnoreAccess() throws NoSuchMethodException {
+        assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
+                true, true));
+
+        final Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(PublicChild.class, Annotated.class,
+                true, true);
+        assertEquals(4, methodsWithAnnotation.length);
+        assertEquals("PublicChild", methodsWithAnnotation[0].getDeclaringClass().getSimpleName());
+        assertEquals("PublicChild", methodsWithAnnotation[1].getDeclaringClass().getSimpleName());
+        assertTrue(methodsWithAnnotation[0].getName().endsWith("AnnotatedMethod"));
+        assertTrue(methodsWithAnnotation[1].getName().endsWith("AnnotatedMethod"));
+        assertEquals("Foo.doIt",
+                methodsWithAnnotation[2].getDeclaringClass().getSimpleName() + '.' +
+                        methodsWithAnnotation[2].getName());
+        assertEquals("Parent.parentProtectedAnnotatedMethod",
+                methodsWithAnnotation[3].getDeclaringClass().getSimpleName() + '.' +
+                        methodsWithAnnotation[3].getName());
     }
 
     @Test
-    public void testFindMethodsWithAnnotation() throws NoSuchMethodException {
-        assertArrayEquals(new Method[0], MethodUtils.findMethodsWithAnnotation(Object.class, Annotated.class));
+    public void testGetMethodsWithAnnotationNotSearchSupersButIgnoreAccess() throws NoSuchMethodException {
+        assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
+                false, true));
 
-        final Method[] methodsWithAnnotation = MethodUtils.findMethodsWithAnnotation(PublicChild.class, Annotated.class);
-        assertEquals(3, methodsWithAnnotation.length);
+        final Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(PublicChild.class, Annotated.class,
+                false, true);
+        assertEquals(2, methodsWithAnnotation.length);
+        assertEquals("PublicChild", methodsWithAnnotation[0].getDeclaringClass().getSimpleName());
+        assertEquals("PublicChild", methodsWithAnnotation[1].getDeclaringClass().getSimpleName());
+        assertTrue(methodsWithAnnotation[0].getName().endsWith("AnnotatedMethod"));
+        assertTrue(methodsWithAnnotation[1].getName().endsWith("AnnotatedMethod"));
+    }
+
+    @Test
+    public void testGetMethodsWithAnnotationSearchSupersButNotIgnoreAccess() throws NoSuchMethodException {
+        assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
+                true, false));
+
+        final Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(PublicChild.class, Annotated.class,
+                true, false);
+        assertEquals(2, methodsWithAnnotation.length);
+        assertEquals("PublicChild.publicAnnotatedMethod",
+                methodsWithAnnotation[0].getDeclaringClass().getSimpleName() + '.' +
+                        methodsWithAnnotation[0].getName());
+        assertEquals("Foo.doIt",
+                methodsWithAnnotation[1].getDeclaringClass().getSimpleName() + '.' +
+                        methodsWithAnnotation[1].getName());
+    }
+
+    @Test
+    public void testGetMethodsWithAnnotationNotSearchSupersAndNotIgnoreAccess() throws NoSuchMethodException {
+        assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
+                false, false));
+
+        final Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(PublicChild.class, Annotated.class,
+                false, false);
+        assertEquals(1, methodsWithAnnotation.length);
+        assertEquals("PublicChild.publicAnnotatedMethod",
+                methodsWithAnnotation[0].getDeclaringClass().getSimpleName() + '.' +
+                        methodsWithAnnotation[0].getName());
+    }
+
+    @Test
+    public void testGetAnnotationSearchSupersAndIgnoreAccess() throws NoSuchMethodException {
+        assertNull(MethodUtils.getAnnotation(Object.class.getDeclaredMethods()[0], Annotated.class, true,
+                true));
+        assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("doIt"), Annotated.class,
+                true, true));
+        assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentProtectedAnnotatedMethod"),
+                Annotated.class, true, true));
+        assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getDeclaredMethod("privateAnnotatedMethod"),
+                Annotated.class, true, true));
+        assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("publicAnnotatedMethod"),
+                Annotated.class, true, true));
+    }
+
+    @Test
+    public void testGetAnnotationNotSearchSupersButIgnoreAccess() throws NoSuchMethodException {
+        assertNull(MethodUtils.getAnnotation(Object.class.getDeclaredMethods()[0], Annotated.class, false,
+                true));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("doIt"), Annotated.class,
+                false, true));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentProtectedAnnotatedMethod"),
+                Annotated.class, false, true));
+        assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getDeclaredMethod("privateAnnotatedMethod"),
+                Annotated.class, false, true));
+        assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("publicAnnotatedMethod"),
+                Annotated.class, false, true));
+    }
+
+    @Test
+    public void testGetAnnotationSearchSupersButNotIgnoreAccess() throws NoSuchMethodException {
+        assertNull(MethodUtils.getAnnotation(Object.class.getDeclaredMethods()[0], Annotated.class, true,
+                false));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("doIt"), Annotated.class,
+                true, false));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentProtectedAnnotatedMethod"),
+                Annotated.class, true, false));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getDeclaredMethod("privateAnnotatedMethod"),
+                Annotated.class, true, false));
+        assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("publicAnnotatedMethod"),
+                Annotated.class, true, false));
+    }
+
+    @Test
+    public void testGetAnnotationNotSearchSupersAndNotIgnoreAccess() throws NoSuchMethodException {
+        assertNull(MethodUtils.getAnnotation(Object.class.getDeclaredMethods()[0], Annotated.class, false,
+                false));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("doIt"), Annotated.class,
+                false, false));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentProtectedAnnotatedMethod"),
+                Annotated.class, false, false));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getDeclaredMethod("privateAnnotatedMethod"),
+                Annotated.class, false, false));
+        assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("publicAnnotatedMethod"),
+                Annotated.class, false, false));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -739,6 +842,22 @@ public class MethodUtilsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetMethodsListWithAnnotationIllegalArgumentException3() {
         MethodUtils.getMethodsListWithAnnotation(null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetAnnotationIllegalArgumentException1() {
+        MethodUtils.getAnnotation(FieldUtilsTest.class.getDeclaredMethods()[0], null, true,
+                true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetAnnotationIllegalArgumentException2() {
+        MethodUtils.getAnnotation(null, Annotated.class, true, true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetAnnotationIllegalArgumentException3() {
+        MethodUtils.getAnnotation(null, null, true, true);
     }
 
     private void expectMatchingAccessibleMethodParameterTypes(final Class<?> cls,

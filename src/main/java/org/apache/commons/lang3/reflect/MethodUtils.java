@@ -832,7 +832,7 @@ public class MethodUtils {
     }
 
     /**
-     * Gets all methods of the given class that are annotated with the given annotation.
+     * Gets all class level public methods of the given class that are annotated with the given annotation.
      * @param cls
      *            the {@link Class} to query
      * @param annotationCls
@@ -843,12 +843,11 @@ public class MethodUtils {
      * @since 3.4
      */
     public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
-        final List<Method> annotatedMethodsList = getMethodsListWithAnnotation(cls, annotationCls);
-        return annotatedMethodsList.toArray(new Method[annotatedMethodsList.size()]);
+        return getMethodsWithAnnotation(cls, annotationCls, false, false);
     }
 
     /**
-     * Gets all methods of the given class that are annotated with the given annotation.
+     * Gets all class level public methods of the given class that are annotated with the given annotation.
      * @param cls
      *            the {@link Class} to query
      * @param annotationCls
@@ -859,73 +858,59 @@ public class MethodUtils {
      * @since 3.4
      */
     public static List<Method> getMethodsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
-        Validate.isTrue(cls != null, "The class must not be null");
-        Validate.isTrue(annotationCls != null, "The annotation class must not be null");
-        final Method[] allMethods = cls.getMethods();
-        final List<Method> annotatedMethods = new ArrayList<>();
-        for (final Method method : allMethods) {
-            if (method.getAnnotation(annotationCls) != null) {
-                annotatedMethods.add(method);
-            }
-        }
-        return annotatedMethods;
+        return getMethodsListWithAnnotation(cls, annotationCls, false, false);
     }
 
     /**
-     * <p>Finds all methods including non public methods of the given class and it's super classes and interfaces
-     * that are annotated with the given annotation.</p>
+     * Gets all methods of the given class that are annotated with the given annotation.
      * @param cls
      *            the {@link Class} to query
      * @param annotationCls
      *            the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
+     * @param searchSupers
+     *            determines if also a lookup in the entire inheritance hierarchy of the given class should be performed
+     * @param ignoreAccess
+     *            determines if also non public methods should be considered
      * @return an array of Methods (possibly empty).
      * @throws IllegalArgumentException
      *            if the class or annotation are {@code null}
      * @since 3.6
      */
-    public static Method[] findMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
-        final List<Method> annotatedMethodsList = findMethodsListWithAnnotation(cls, annotationCls);
+    public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls,
+                                                    boolean searchSupers, boolean ignoreAccess) {
+        final List<Method> annotatedMethodsList = getMethodsListWithAnnotation(cls, annotationCls, searchSupers,
+                ignoreAccess);
         return annotatedMethodsList.toArray(new Method[annotatedMethodsList.size()]);
     }
 
     /**
-     * <p>Finds all methods including non public methods of the given class and it's super classes and interfaces
-     * that are annotated with the given annotation.</p>
+     * Gets all methods of the given class that are annotated with the given annotation.
      * @param cls
      *            the {@link Class} to query
      * @param annotationCls
      *            the {@link Annotation} that must be present on a method to be matched
+     * @param searchSupers
+     *            determines if also a lookup in the entire inheritance hierarchy of the given class should be performed
+     * @param ignoreAccess
+     *            determines if also non public methods should be considered
      * @return a list of Methods (possibly empty).
      * @throws IllegalArgumentException
      *            if the class or annotation are {@code null}
      * @since 3.6
      */
-    public static List<Method> findMethodsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+    public static List<Method> getMethodsListWithAnnotation(final Class<?> cls,
+                                                            final Class<? extends Annotation> annotationCls,
+                                                            boolean searchSupers, boolean ignoreAccess) {
+
         Validate.isTrue(cls != null, "The class must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
-        List<Class<?>> allSuperclasses = ClassUtils.getAllSuperclasses(cls);
-        allSuperclasses.add(0, cls);
-        int sci = 0;
-        List<Class<?>> allInterfaces = ClassUtils.getAllInterfaces(cls);
-        int ifi = 0;
+        List<Class<?>> classes = (searchSupers ? ClassUtils.getAllSuperclassesAndInterfaces(cls,
+                ClassUtils.Priority.INTERFACE) : new ArrayList<Class<?>>());
+        classes.add(0, cls);
         final List<Method> annotatedMethods = new ArrayList<>();
-        while (ifi < allInterfaces.size() ||
-                sci < allSuperclasses.size()) {
-            Class<?> acls;
-            if (ifi >= allInterfaces.size()) {
-                acls = allSuperclasses.get(sci++);
-            }
-            else if (sci >= allSuperclasses.size()) {
-                acls = allInterfaces.get(ifi++);
-            }
-            else if (sci <= ifi) {
-                acls = allSuperclasses.get(sci++);
-            }
-            else {
-                acls = allInterfaces.get(ifi++);
-            }
-            final Method[] allMethods = acls.getDeclaredMethods();
-            for (final Method method : allMethods) {
+        for (Class<?> acls : classes) {
+            final Method[] methods = (ignoreAccess ? acls.getDeclaredMethods() : acls.getMethods());
+            for (final Method method : methods) {
                 if (method.getAnnotation(annotationCls) != null) {
                     annotatedMethods.add(method);
                 }
@@ -935,57 +920,53 @@ public class MethodUtils {
     }
 
     /**
-     * <p>BFS to find the annotation object that is present on the given method or any equivalent method in
-     * super classes and interfaces, with the given annotation type. Returns null if the annotation type was not present
-     * on any of them.</p>
+     * <p>Gets the annotation object that is present on the given method or any equivalent method in
+     * super classes and interfaces, with the given annotation type. Returns null if the annotation
+     * type was not present on any of them.</p>
+     *
+     * <p>Stops searching for an annotation once the first annotation of the specified type has been
+     * found. i.e, additional annotations of the specified type will be silently ignored.</p>
      * @param <A>
      *            the annotation type
      * @param method
      *            the {@link Method} to query
      * @param annotationCls
      *            the {@link Annotation} to check if is present on the method
-     * @return an Annotation (possibly null).
+     * @param searchSupers
+     *            determines if lookup in the entire inheritance hierarchy of the given class if was not directly present
+     * @param ignoreAccess
+     *            determines if underlying method has to be accessible
+     * @return the first matching annotation, or {@code null} if not found
      * @throws IllegalArgumentException
      *            if the method or annotation are {@code null}
      * @since 3.6
      */
-    public static <A extends Annotation> A findAnnotation(final Method method, final Class<A> annotationCls) {
+    public static <A extends Annotation> A getAnnotation(final Method method, final Class<A> annotationCls,
+                                                         boolean searchSupers, boolean ignoreAccess) {
+
         Validate.isTrue(method != null, "The method must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
+        if(!ignoreAccess && !MemberUtils.isAccessible(method)) {
+            return null;
+        }
+
         A annotation = method.getAnnotation(annotationCls);
 
-        if(annotation == null) {
+        if(annotation == null && searchSupers) {
             Class<?> mcls = method.getDeclaringClass();
-            List<Class<?>> allSuperclasses = ClassUtils.getAllSuperclasses(mcls);
-            int sci = 0;
-            List<Class<?>> allInterfaces = ClassUtils.getAllInterfaces(mcls);
-            int ifi = 0;
-            while (ifi < allInterfaces.size() ||
-                    sci < allSuperclasses.size()) {
-                Class<?> acls;
-                if(ifi >= allInterfaces.size()) {
-                    acls = allSuperclasses.get(sci++);
-                }
-                else if(sci >= allSuperclasses.size()) {
-                    acls = allInterfaces.get(ifi++);
-                }
-                else if(ifi <= sci) {
-                    acls = allInterfaces.get(ifi++);
-                }
-                else {
-                    acls = allSuperclasses.get(sci++);
-                }
-                Method equivalentMethod = null;
+            List<Class<?>> classes = ClassUtils.getAllSuperclassesAndInterfaces(mcls, ClassUtils.Priority.INTERFACE);
+            for (Class<?> acls : classes) {
+                Method equivalentMethod;
                 try {
-                    equivalentMethod = acls.getDeclaredMethod(method.getName(), method.getParameterTypes());
+                    equivalentMethod = (ignoreAccess ? acls.getDeclaredMethod(method.getName(), method.getParameterTypes())
+                            : acls.getMethod(method.getName(), method.getParameterTypes()));
                 } catch (NoSuchMethodException e) {
-                    // If not found, just keep on breadth first search
+                    // If not found, just keep on search
+                    continue;
                 }
-                if(equivalentMethod != null) {
-                    annotation = equivalentMethod.getAnnotation(annotationCls);
-                    if(annotation != null) {
-                        break;
-                    }
+                annotation = equivalentMethod.getAnnotation(annotationCls);
+                if (annotation != null) {
+                    break;
                 }
             }
         }
