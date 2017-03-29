@@ -25,6 +25,10 @@ public class PublicChild extends Parent {
     public void parentProtectedAnnotatedMethod() {
     }
 
+    @Override
+    public void parentNotAnnotatedMethod() {
+    }
+
     @Annotated
     private void privateAnnotatedMethod() {
     }

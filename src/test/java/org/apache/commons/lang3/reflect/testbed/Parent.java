@@ -32,4 +32,7 @@ class Parent implements Foo {
     @Annotated
     protected void parentProtectedAnnotatedMethod() {
     }
+
+    public void parentNotAnnotatedMethod() {
+    }
 }

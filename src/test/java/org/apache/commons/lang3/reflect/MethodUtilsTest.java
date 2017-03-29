@@ -747,8 +747,8 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetAnnotationSearchSupersAndIgnoreAccess() throws NoSuchMethodException {
-        assertNull(MethodUtils.getAnnotation(Object.class.getDeclaredMethods()[0], Annotated.class, true,
-                true));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentNotAnnotatedMethod"),
+                Annotated.class, true, true));
         assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("doIt"), Annotated.class,
                 true, true));
         assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentProtectedAnnotatedMethod"),
@@ -761,8 +761,8 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetAnnotationNotSearchSupersButIgnoreAccess() throws NoSuchMethodException {
-        assertNull(MethodUtils.getAnnotation(Object.class.getDeclaredMethods()[0], Annotated.class, false,
-                true));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentNotAnnotatedMethod"),
+                Annotated.class, false, true));
         assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("doIt"), Annotated.class,
                 false, true));
         assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentProtectedAnnotatedMethod"),
@@ -775,8 +775,8 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetAnnotationSearchSupersButNotIgnoreAccess() throws NoSuchMethodException {
-        assertNull(MethodUtils.getAnnotation(Object.class.getDeclaredMethods()[0], Annotated.class, true,
-                false));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentNotAnnotatedMethod"),
+                Annotated.class, true, false));
         assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("doIt"), Annotated.class,
                 true, false));
         assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentProtectedAnnotatedMethod"),
@@ -789,8 +789,8 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetAnnotationNotSearchSupersAndNotIgnoreAccess() throws NoSuchMethodException {
-        assertNull(MethodUtils.getAnnotation(Object.class.getDeclaredMethods()[0], Annotated.class, false,
-                false));
+        assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentNotAnnotatedMethod"),
+                Annotated.class, false, false));
         assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("doIt"), Annotated.class,
                 false, false));
         assertNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("parentProtectedAnnotatedMethod"),
