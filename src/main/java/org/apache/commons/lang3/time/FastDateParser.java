@@ -863,6 +863,8 @@ public class FastDateParser implements DateParser, Serializable {
                     case 5: // offset 5 starts additional names, probably standard time
                         tzInfo = standard;
                         break;
+                    default:
+                        break;
                     }
                     if (zoneNames[i] != null) {
                         final String key = zoneNames[i].toLowerCase(locale);
