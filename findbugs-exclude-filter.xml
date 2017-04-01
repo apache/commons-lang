@@ -139,9 +139,14 @@
     <Method name="insertFormats" />
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
+  <!-- Reason: FindBugs does not correctly recognize default branches in switch statements without break statements.
+   See, e.g., the report at https://sourceforge.net/p/findbugs/bugs/1298 -->
   <Match>
     <Class name="org.apache.commons.lang3.time.FastDateParser"/>
-    <Method name="getStrategy" />
+    <Or>
+      <Method name="getStrategy" />
+      <Method name="simpleQuote" params="java.lang.StringBuilder, java.lang.String"/>
+    </Or>
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
 
