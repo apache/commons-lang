@@ -58,7 +58,11 @@
   <!-- Reason: Optimization to use == -->
   <Match>
     <Class name="org.apache.commons.lang3.StringUtils" />
-    <Method name="indexOfDifference"/>
+    <Or>
+      <Method name="indexOfDifference"/>
+      <Method name="compare" params="java.lang.String,java.lang.String,boolean"/>
+      <Method name="compareIgnoreCase" params="java.lang.String,java.lang.String,boolean"/>
+    </Or>
     <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
   </Match>
 
