@@ -150,6 +150,14 @@
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
 
+  <!-- Reason: FindBugs cannot correctly recognize default branches in switch statements without break statements.
+   See, e.g., the report at https://sourceforge.net/p/findbugs/bugs/1298 -->
+  <Match>
+    <Class name="org.apache.commons.lang3.time.FastDatePrinter"/>
+    <Method name="appendFullDigits" params="java.lang.Appendable, int, int"/>
+    <Bug pattern="SF_SWITCH_NO_DEFAULT" />
+  </Match>
+
   <!-- Reason: The fallthrough on the swich stateme is intentional -->
   <Match>
     <Class name="org.apache.commons.lang3.time.FastDatePrinter"/>
