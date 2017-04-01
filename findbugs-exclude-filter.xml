@@ -150,6 +150,13 @@
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
 
+  <!-- Reason: The fallthrough on the swich stateme is intentional -->
+  <Match>
+    <Class name="org.apache.commons.lang3.time.FastDatePrinter"/>
+    <Method name="appendFullDigits" params="java.lang.Appendable, int, int"/>
+    <Bug pattern="SF_SWITCH_FALLTHROUGH" />
+  </Match>
+
   <!-- Reason: Internal class that is used only as a key for an internal FormatCache. For this reason we can
    be sure, that equals will never be called with null or types other than MultipartKey.
   -->
