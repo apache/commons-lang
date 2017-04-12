@@ -58,9 +58,6 @@ The JavaDoc API documents are available online:
 The <a href="source-repository.html">git repository</a> can be
 <a href="https://git-wip-us.apache.org/repos/asf?p=commons-lang.git">browsed</a>, or you can browse/contribute via <a href="https://github.com/apache/commons-lang">GitHub</a>.
 </p>
-<p>
-The code base is monitored by a Sonar instance running on <a href="https://analysis.apache.org/dashboard/index/72046">analysis.apache.org</a>.
-</p>
 </section>
 <!-- ================================================== -->
 <section name="Release Information">
