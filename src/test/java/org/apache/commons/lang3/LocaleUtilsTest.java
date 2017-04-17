@@ -510,6 +510,10 @@ public class LocaleUtilsTest  {
         assertValidToLocale("en_001", "en", "001");
         assertValidToLocale("en_150", "en", "150");
         assertValidToLocale("ar_001", "ar", "001");
+
+        // LANG-1312
+        assertValidToLocale("en_001_GB", "en", "001", "GB");
+        assertValidToLocale("en_150_US", "en", "150", "US");
     }
 
     /**

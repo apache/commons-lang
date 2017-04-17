@@ -150,7 +150,7 @@ public class LocaleUtils {
             final String country = segments[1];
             final String variant = segments[2];
             if (isISO639LanguageCode(language) &&
-                    (country.length() == 0 || isISO3166CountryCode(country)) &&
+                    (country.length() == 0 || isISO3166CountryCode(country) || isNumericAreaCode(country)) &&
                     variant.length() > 0) {
                 return new Locale(language, country, variant);
             }
