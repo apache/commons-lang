@@ -123,6 +123,10 @@ public class LocaleUtils {
             return new Locale(StringUtils.EMPTY, str.substring(1, 3), str.substring(4));
         }
 
+        return parseLocale(str, len);
+    }
+
+    private static Locale parseLocale(final String str, final int len) {
         final String[] segments = str.split("_", -1);
         final int segmentCount = segments.length -1;
         final String country = segments[0];
