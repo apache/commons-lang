@@ -139,18 +139,20 @@ public class LocaleUtils {
         }
 
         final String[] segments = str.split("_", -1);
-        final int segmentCount = segments.length -1;
         final String language = segments[0];
-        if (segmentCount == 1) {
-            if (isISO639LanguageCode(language) && isISO3166CountryCode(segments[1]) ||
-                    isNumericAreaCode(segments[1])) {
-                return new Locale(language, segments[1]);
+        if (segments.length == 2) {
+            final String country = segments[1];
+            if (isISO639LanguageCode(language) && isISO3166CountryCode(country) ||
+                    isNumericAreaCode(country)) {
+                return new Locale(language, country);
             }
-        } else if (segmentCount == 2) {
+        } else if (segments.length == 3) {
+            final String country = segments[1];
+            final String variant = segments[2];
             if (isISO639LanguageCode(language) &&
-                    (segments[1].length() == 0 || isISO3166CountryCode(segments[1])) &&
-                    segments[2].length() > 0) {
-                return new Locale(language, segments[1], segments[2]);
+                    (country.length() == 0 || isISO3166CountryCode(country)) &&
+                    variant.length() > 0) {
+                return new Locale(language, country, variant);
             }
         }
         throw new IllegalArgumentException("Invalid locale format: " + str);
