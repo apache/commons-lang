@@ -211,10 +211,8 @@ public class MethodUtils {
             messagePrefix = "No such method: ";
             method = getMatchingMethod(object.getClass(),
                     methodName, parameterTypes);
-            if (method != null) {
-                if (!method.isAccessible()) {
-                    method.setAccessible(true);
-                }
+            if (method != null && !method.isAccessible()) {
+                method.setAccessible(true);
             }
         } else {
             messagePrefix = "No such accessible method: ";

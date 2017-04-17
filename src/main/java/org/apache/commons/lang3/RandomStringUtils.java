@@ -372,12 +372,10 @@ public class RandomStringUtils {
         final int zero_digit_ascii = 48;
         final int first_letter_ascii = 65;
 
-        if (chars == null) {
-            if (numbers && end <= zero_digit_ascii
-                    || letters && end <= first_letter_ascii) {
-                throw new IllegalArgumentException("Parameter end (" + end + ") must be greater then (" + zero_digit_ascii + ") for generating digits " +
-                        "or greater then (" + first_letter_ascii + ") for generating letters.");
-            }
+        if (chars == null && (numbers && end <= zero_digit_ascii
+                || letters && end <= first_letter_ascii)) {
+            throw new IllegalArgumentException("Parameter end (" + end + ") must be greater then (" + zero_digit_ascii + ") for generating digits " +
+                    "or greater then (" + first_letter_ascii + ") for generating letters.");
         }
 
         StringBuilder builder = new StringBuilder(count);
