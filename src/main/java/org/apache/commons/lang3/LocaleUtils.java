@@ -123,41 +123,75 @@ public class LocaleUtils {
             return new Locale(StringUtils.EMPTY, str.substring(1, 3), str.substring(4));
         }
 
-        return parseLocale(str, len);
+        return parseLocale(str);
     }
 
-    private static Locale parseLocale(final String str, final int len) {
+    /**
+     * Tries to parse a locale from the given String.
+     *
+     * @param str the String to parse a locale from.
+     * @return a Locale instance parsed from the given String.
+     * @throws IllegalArgumentException if the given String can not be parsed.
+     */
+    private static Locale parseLocale(final String str) {
         final String[] segments = str.split("_", -1);
         final int segmentCount = segments.length -1;
-        final String country = segments[0];
+        final String language = segments[0];
         switch (segmentCount) {
             case 0:
-                if (StringUtils.isAllLowerCase(str) && (len == 2 || len == 3)) {
+                if (isISO639LanguageCode(str)) {
                     return new Locale(str);
                 }
                 throw new IllegalArgumentException("Invalid locale format: " + str);
 
             case 1:
-                if (StringUtils.isAllLowerCase(country) &&
-                    (country.length() == 2 || country.length() == 3) &&
-                     (segments[1].length() == 2 && StringUtils.isAllUpperCase(segments[1])) ||
-                      (segments[1].length() == 3 && StringUtils.isNumeric(segments[1]))) {
-                    return new Locale(country, segments[1]);
+                if (isISO639LanguageCode(language) && isISO3166CountryCode(segments[1]) ||
+                      isNumericAreaCode(segments[1])) {
+                    return new Locale(language, segments[1]);
                 }
                 throw new IllegalArgumentException("Invalid locale format: " + str);
 
             case 2:
-                if (StringUtils.isAllLowerCase(country) &&
-                    (country.length() == 2 || country.length() == 3) &&
-                    (segments[1].length() == 0 || segments[1].length() == 2 && StringUtils.isAllUpperCase(segments[1])) &&
+                if (isISO639LanguageCode(language) &&
+                    (segments[1].length() == 0 || isISO3166CountryCode(segments[1])) &&
                      segments[2].length() > 0) {
-                    return new Locale(country, segments[1], segments[2]);
+                    return new Locale(language, segments[1], segments[2]);
                 }
 
             //$FALL-THROUGH$
             default:
                 throw new IllegalArgumentException("Invalid locale format: " + str);
         }
+    }
+
+    /**
+     * Checks whether the given String is a ISO 639 compliant language code.
+     *
+     * @param str the String to check.
+     * @return true, if the given String is a ISO 639 compliant language code.
+     */
+    private static boolean isISO639LanguageCode(final String str) {
+        return StringUtils.isAllLowerCase(str) && (str.length() == 2 || str.length() == 3);
+    }
+
+    /**
+     * Checks whether the given String is a ISO 3166 alpha-2 country code.
+     *
+     * @param str the String to check
+     * @return true, is the given String is a ISO 3166 compliant country code.
+     */
+    private static boolean isISO3166CountryCode(final String str) {
+        return StringUtils.isAllUpperCase(str) && str.length() == 2;
+    }
+
+    /**
+     * Checks whether the given String is a UN M.49 numeric area code.
+     *
+     * @param str the String to check
+     * @return true, is the given String is a UN M.49 numeric area code.
+     */
+    private static boolean isNumericAreaCode(final String str) {
+        return StringUtils.isNumeric(str) && str.length() == 3;
     }
 
     //-----------------------------------------------------------------------
