@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.6" date="2017-MM-DD" description="TBD">
+  <release version="3.6" date="2017-06-08" description="New features and bug fixes. Requires Java 7.">
     <action issue="LANG-1338" type="update" dev="britter">Add Automatic-Module-Name MANIFEST entry for Java 9 compatibility</action>
     <action issue="LANG-1336" type="add" dev="britter" due-to="Beluga Behr">Add NUL Byte To CharUtils</action>
     <action issue="LANG-1337" type="fix" dev="kinow">Fix test failures in IBM JDK 8 for ToStringBuilderTest</action>
@@ -95,8 +95,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1313" type="add" dev="pschumacher" due-to="Tomschi">Add ArchUtils - An utility class for the "os.arch" system property</action>
     <action issue="LANG-1272" type="add" dev="ebourg">Add shuffle methods to ArrayUtils</action>
     <action issue="LANG-1317" type="add" dev="pschumacher" due-to="Yasser Zamani">Add MethodUtils#findAnnotation and extend MethodUtils#getMethodsWithAnnotation for non-public, super-class and interface methods</action>
-    <action issue="LANG-1331" type="add" dev="ggregory">Add ImmutablePair.nullPair()</action>    
-    <action issue="LANG-1332" type="add" dev="ggregory">Add ImmutableTriple.nullTriple()</action>    
+    <action issue="LANG-1331" type="add" dev="ggregory">Add ImmutablePair.nullPair()</action>
+    <action issue="LANG-1332" type="add" dev="ggregory">Add ImmutableTriple.nullTriple()</action>
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">
