@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.6" date="2017-MM-DD" description="TBD">
+  <release version="3.6" date="2017-05-17" description="New features and bug fixes. Requires Java 7.">
     <action issue="LANG-1325" type="add" dev="kinow" due-to="Arshad Basha">Increase test coverage of ToStringBuilder class to 100%</action>
     <action issue="LANG-1307" type="add" dev="pschumacher" due-to="Arshad Basha">Add a method in StringUtils to extract only digits out of input string</action>
     <action issue="LANG-1110" type="update" dev="pschumacher" due-to="Bruno P. Kinoshita">Implement HashSetvBitSetTest using JMH</action>
@@ -89,8 +89,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1313" type="add" dev="pschumacher" due-to="Tomschi">Add ArchUtils - An utility class for the "os.arch" system property</action>
     <action issue="LANG-1272" type="add" dev="ebourg">Add shuffle methods to ArrayUtils</action>
     <action issue="LANG-1317" type="add" dev="pschumacher" due-to="Yasser Zamani">Add MethodUtils#findAnnotation and extend MethodUtils#getMethodsWithAnnotation for non-public, super-class and interface methods</action>
-    <action issue="LANG-1331" type="add" dev="ggregory">Add ImmutablePair.nullPair()</action>    
-    <action issue="LANG-1332" type="add" dev="ggregory">Add ImmutableTriple.nullTriple()</action>    
+    <action issue="LANG-1331" type="add" dev="ggregory">Add ImmutablePair.nullPair()</action>
+    <action issue="LANG-1332" type="add" dev="ggregory">Add ImmutableTriple.nullTriple()</action>
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">

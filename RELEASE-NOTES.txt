@@ -9,7 +9,7 @@ This document contains the release notes for the 3.6 version of
 Apache Commons Lang as well as a history all changes in the Commons Lang 3.x
 release line. Commons Lang is a set of utility functions and reusable
 components that should be of use in any Java environment. Commons Lang 3.6 at
-least requires Java 7. Note that this has changed from Commons Lang 3.5, which
+least requires Java 7.0. Note that this has changed from Commons Lang 3.5, which
 only required Java 1.6.
 
 For the advice on upgrading from 2.x to 3.x, see the following page:
