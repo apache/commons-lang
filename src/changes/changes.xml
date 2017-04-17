@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.6" date="2017-MM-DD" description="TBD">
+  <release version="3.6" date="2017-04-17" description="New features and bug fixes">
     <action issue="LANG-1312" type="fix" dev="britter">LocaleUtils#toLocale does not support language followed by UN M.49 numeric-3 area code followed by variant</action>
     <action issue="LANG-1300" type="fix" dev="chtompki" due-to="Mark Dacek">Clarify or improve behaviour of int-based indexOf methods in StringUtils</action>
     <action issue="LANG-1299" type="add" dev="djones">Add method for converting string to an array of code points</action>

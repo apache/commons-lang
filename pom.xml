@@ -563,7 +563,7 @@
     <commons.componentid>lang3</commons.componentid>
     <!-- Current 3.x release series -->
     <commons.release.version>3.6</commons.release.version>
-    <commons.release.desc>(Java 6.0+)</commons.release.desc>
+    <commons.release.desc>(Java 7.0+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
     <commons.release.2.desc>(Requires Java 1.2 or later)</commons.release.2.desc>
