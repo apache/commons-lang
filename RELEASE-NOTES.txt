@@ -1,19 +1,167 @@
                            Apache Commons Lang
-                               Version 3.5
+                               Version 3.6
                               Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 3.5 version of
+This document contains the release notes for the 3.6 version of
 Apache Commons Lang as well as a history all changes in the Commons Lang 3.x
 release line. Commons Lang is a set of utility functions and reusable
-components that should be of use in any Java environment. Commons Lang 3.5 at
-least requires Java 6.0.
+components that should be of use in any Java environment. Commons Lang 3.6 at
+least requires Java 7. Note that this has changed from Commons Lang 3.5, which
+only required Java 1.6.
 
 For the advice on upgrading from 2.x to 3.x, see the following page:
 
     http://commons.apache.org/lang/article3_0.html
+
+HIGHLIGHTS
+==========
+
+Some of the highlights in this release include:
+
+o The class org.apache.commons.lang3.concurrent.Memoizer is an implementation
+    of the Memoizer pattern as shown in
+    Goetz, Brian et al. (2006) - Java Concurrency in Practice, p. 108.
+o The class org.apache.commons.lang3.ArchUtils has been added. ArchUtils is
+    a utility class for the "os.arch" system property.
+
+DEPRECATIONS
+============
+
+The Apache Commons Community has recently set up the Commons Text component
+as a home for algorithms working on strings. For this reason most of the string
+focused functionality in Commons Lang has been deprecated and moved to
+Commons Text. This includes:
+
+o Most of the classes in the org.apache.commons.lang3.text package
+o org.apache.commons.lang3.StringEscapeUtils
+o org.apache.commons.lang3.StringUtils.getJaroWinklerDistance and
+    org.apache.commons.lang3.StringUtils.getLevenshteinDistance
+
+For more information see the Commons Text website:
+
+    http://commons.apache.org/text
+
+COMPATIBILITY WITH JAVA 9
+==================
+
+The MANIFEST.MF now contains an additional entry:
+
+  Automatic-Module-Name: org.apache.commons.lang3
+
+This should make it possible to use Commons Lang 3.6 as a module in the Java 9
+module system. For more information see the corresponding issue and the
+referenced mailing list discussions:
+
+    https://issues.apache.org/jira/browse/LANG-1338
+
+The build problems present in the 3.5 release have been resolved. Building
+Commons Lang 3.6 should work out of the box with the latest Java 9 EA build.
+Please report any Java 9 related issues at:
+
+    https://issues.apache.org/jira/browse/LANG
+
+NEW FEATURES
+============
+
+o LANG-1336: Add NUL Byte To CharUtils. Thanks to Beluga Behr.
+o LANG-1304: Add method in StringUtils to determine if string contains both
+             mixed cased characters. Thanks to Andy Klimczak.
+o LANG-1325: Increase test coverage of ToStringBuilder class to 100%.
+             Thanks to Arshad Basha.
+o LANG-1307: Add a method in StringUtils to extract only digits out of input
+             string. Thanks to Arshad Basha.
+o LANG-1256: Add JMH maven dependencies. Thanks to C0rWin.
+o LANG-1167: Add null filter to ReflectionToStringBuilder.
+             Thanks to Mark Dacek.
+o LANG-1299: Add method for converting string to an array of code points.
+o LANG-660:  Add methods to insert arrays into arrays at an index.
+o LANG-1034: Add support for recursive comparison to
+             EqualsBuilder#reflectionEquals. Thanks to Yathos UG.
+o LANG-1067: Add a reflection-based variant of DiffBuilder.
+o LANG-740:  Implementation of a Memomizer. Thanks to James Sawle.
+o LANG-1258: Add ArrayUtils#toStringArray method.
+             Thanks to IG, Grzegorz Rożniecki.
+o LANG-1160: StringUtils#abbreviate should support 'custom ellipses' parameter.
+o LANG-1293: Add StringUtils#isAllEmpty and #isAllBlank methods.
+             Thanks to Pierre Templier, Martin Tarjanyi.
+o LANG-1313: Add ArchUtils - An utility class for the "os.arch" system property.
+             Thanks to Tomschi.
+o LANG-1272: Add shuffle methods to ArrayUtils.
+o LANG-1317: Add MethodUtils#findAnnotation and extend
+             MethodUtils#getMethodsWithAnnotation for non-public, super-class
+             and interface methods. Thanks to Yasser Zamani.
+o LANG-1331: Add ImmutablePair.nullPair().
+o LANG-1332: Add ImmutableTriple.nullTriple().
+
+FIXED BUGS
+==========
+
+o LANG-1337: Fix test failures in IBM JDK 8 for ToStringBuilderTest.
+o LANG-1319: MultilineRecursiveToStringStyle StackOverflowError when object is
+             an array.
+o LANG-1320: LocaleUtils#toLocale does not support language followed by UN M.49
+             numeric-3 area code followed by variant.
+o LANG-1300: Clarify or improve behaviour of int-based indexOf methods in
+             StringUtils. Thanks to Mark Dacek.
+o LANG-1286: RandomStringUtils random method can overflow and return characters
+             outside of specified range.
+o LANG-1292: WordUtils.wrap throws StringIndexOutOfBoundsException.
+o LANG-1287: RandomStringUtils#random can enter infinite loop if end parameter
+             is to small. Thanks to Ivan Morozov.
+o LANG-1285: NullPointerException in FastDateParser$TimeZoneStrategy.
+             Thanks to Francesco Chicchiriccò.
+o LANG-1281: Javadoc of StringUtils.ordinalIndexOf is contradictory.
+             Thanks to Andreas Lundblad.
+o LANG-1188: StringUtils#join(T...): warning: [unchecked] Possible heap
+             pollution from parameterized vararg type T.
+o LANG-1144: Multiple calls of
+             org.apache.commons.lang3.concurrent.LazyInitializer.initialize()
+             are possible. Thanks to Waldemar Maier, Gary Gregory.
+o LANG-1276: StrBuilder#replaceAll ArrayIndexOutOfBoundsException.
+             Thanks to Andy Klimczak.
+o LANG-1278: BooleanUtils javadoc issues. Thanks to Duke Yin.
+o LANG-1070: ArrayUtils#add confusing example in javadoc.
+             Thanks to Paul Pogonyshev.
+o LANG-1271: StringUtils#isAnyEmpty and #isAnyBlank should return false for an
+             empty array. Thanks to Pierre Templier.
+o LANG-1155: Add StringUtils#unwrap. Thanks to Saif Asif, Thiago Andrade.
+o LANG-1311: TypeUtils.toString() doesn't handle primitive and Object arrays
+             correctly. Thanks to Aaron Digulla.
+o LANG-1312: LocaleUtils#toLocale does not support language followed by UN M.49
+             numeric-3 area code.
+o LANG-1265: Build failures when building with Java 9 EA.
+o LANG-1314: javadoc creation broken with Java 8. Thanks to Allon Murienik.
+o LANG-1310: MethodUtils.invokeMethod throws ArrayStoreException if using
+             varargs arguments and smaller types than the method defines.
+             Thanks to Don Jeba.
+
+CHANGES
+=======
+
+o LANG-1338: Add Automatic-Module-Name MANIFEST entry for Java 9
+             compatibility.
+o LANG-1334: Deprecate CharEncoding in favour of
+             java.nio.charset.StandardCharsets.
+o LANG-1110: Implement HashSetvBitSetTest using JMH.
+             Thanks to Bruno P. Kinoshita.
+o LANG-1290: Increase test coverage of org.apache.commons.lang3.ArrayUtils.
+             Thanks to Andrii Abramov.
+o LANG-1274: StrSubstitutor should state its thread safety.
+o LANG-1277: StringUtils#getLevenshteinDistance reduce memory consumption.
+             Thanks to yufcuy.
+o LANG-1279: Update Java requirement from Java 6 to 7.
+o LANG-1143: StringUtils should use toXxxxCase(int) rather than
+             toXxxxCase(char). Thanks to sebb.
+o LANG-1297: Add SystemUtils.getHostName() API.
+o LANG-1301: Moving apache-rat-plugin configuration into pluginManagement.
+             Thanks to Karl Heinz Marbaise.
+o LANG-1316: Deprecate classes/methods moved to commons-text.
+
+                        Release Notes for version 3.5
+
 
 HIGHLIGHTS
 ==========
