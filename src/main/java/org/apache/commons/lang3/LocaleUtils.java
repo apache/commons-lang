@@ -137,31 +137,23 @@ public class LocaleUtils {
         final String[] segments = str.split("_", -1);
         final int segmentCount = segments.length -1;
         final String language = segments[0];
-        switch (segmentCount) {
-            case 0:
-                if (isISO639LanguageCode(str)) {
-                    return new Locale(str);
-                }
-                throw new IllegalArgumentException("Invalid locale format: " + str);
-
-            case 1:
-                if (isISO639LanguageCode(language) && isISO3166CountryCode(segments[1]) ||
-                      isNumericAreaCode(segments[1])) {
-                    return new Locale(language, segments[1]);
-                }
-                throw new IllegalArgumentException("Invalid locale format: " + str);
-
-            case 2:
-                if (isISO639LanguageCode(language) &&
+        if (segmentCount == 0) {
+            if (isISO639LanguageCode(str)) {
+                return new Locale(str);
+            }
+        } else if (segmentCount == 1) {
+            if (isISO639LanguageCode(language) && isISO3166CountryCode(segments[1]) ||
+                    isNumericAreaCode(segments[1])) {
+                return new Locale(language, segments[1]);
+            }
+        } else if (segmentCount == 2) {
+            if (isISO639LanguageCode(language) &&
                     (segments[1].length() == 0 || isISO3166CountryCode(segments[1])) &&
-                     segments[2].length() > 0) {
-                    return new Locale(language, segments[1], segments[2]);
-                }
-
-            //$FALL-THROUGH$
-            default:
-                throw new IllegalArgumentException("Invalid locale format: " + str);
+                    segments[2].length() > 0) {
+                return new Locale(language, segments[1], segments[2]);
+            }
         }
+        throw new IllegalArgumentException("Invalid locale format: " + str);
     }
 
     /**
