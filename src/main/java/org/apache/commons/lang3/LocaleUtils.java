@@ -134,14 +134,14 @@ public class LocaleUtils {
      * @throws IllegalArgumentException if the given String can not be parsed.
      */
     private static Locale parseLocale(final String str) {
+        if (isISO639LanguageCode(str)) {
+            return new Locale(str);
+        }
+
         final String[] segments = str.split("_", -1);
         final int segmentCount = segments.length -1;
         final String language = segments[0];
-        if (segmentCount == 0) {
-            if (isISO639LanguageCode(str)) {
-                return new Locale(str);
-            }
-        } else if (segmentCount == 1) {
+        if (segmentCount == 1) {
             if (isISO639LanguageCode(language) && isISO3166CountryCode(segments[1]) ||
                     isNumericAreaCode(segments[1])) {
                 return new Locale(language, segments[1]);
