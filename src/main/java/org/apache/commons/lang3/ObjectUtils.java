@@ -353,9 +353,7 @@ public class ObjectUtils {
      * @since 3.2
      */
     public static void identityToString(final Appendable appendable, final Object object) throws IOException {
-        if (object == null) {
-            throw new NullPointerException("Cannot get the toString of a null identity");
-        }
+        Validate.notNull(object, "Cannot get the toString of a null identity");
         appendable.append(object.getClass().getName())
               .append('@')
               .append(Integer.toHexString(System.identityHashCode(object)));
@@ -379,9 +377,7 @@ public class ObjectUtils {
      */
     @Deprecated
     public static void identityToString(final StrBuilder builder, final Object object) {
-        if (object == null) {
-            throw new NullPointerException("Cannot get the toString of a null identity");
-        }
+        Validate.notNull(object, "Cannot get the toString of a null identity");
         builder.append(object.getClass().getName())
               .append('@')
               .append(Integer.toHexString(System.identityHashCode(object)));
@@ -403,9 +399,7 @@ public class ObjectUtils {
      * @since 2.4
      */
     public static void identityToString(final StringBuffer buffer, final Object object) {
-        if (object == null) {
-            throw new NullPointerException("Cannot get the toString of a null identity");
-        }
+        Validate.notNull(object, "Cannot get the toString of a null identity");
         buffer.append(object.getClass().getName())
               .append('@')
               .append(Integer.toHexString(System.identityHashCode(object)));
@@ -427,9 +421,7 @@ public class ObjectUtils {
      * @since 3.2
      */
     public static void identityToString(final StringBuilder builder, final Object object) {
-        if (object == null) {
-            throw new NullPointerException("Cannot get the toString of a null identity");
-        }
+        Validate.notNull(object, "Cannot get the toString of a null identity");
         builder.append(object.getClass().getName())
               .append('@')
               .append(Integer.toHexString(System.identityHashCode(object)));

@@ -285,10 +285,8 @@ public final class Range<T> implements Serializable {
      * @return -1, 0 or +1 depending on the element's location relative to the range
      */
     public int elementCompareTo(final T element) {
-        if (element == null) {
-            // Comparable API says throw NPE on null
-            throw new NullPointerException("Element is null");
-        }
+        // Comparable API says throw NPE on null
+        Validate.notNull(element, "Element is null");
         if (isAfter(element)) {
             return -1;
         } else if (isBefore(element)) {

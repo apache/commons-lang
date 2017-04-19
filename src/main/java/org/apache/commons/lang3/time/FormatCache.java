@@ -25,6 +25,8 @@ import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  * <p>FormatCache is a cache and factory for {@link Format}s.</p>
  * 
@@ -67,9 +69,7 @@ abstract class FormatCache<F extends Format> {
      *  or <code>null</code>
      */
     public F getInstance(final String pattern, TimeZone timeZone, Locale locale) {
-        if (pattern == null) {
-            throw new NullPointerException("pattern must not be null");
-        }
+        Validate.notNull(pattern, "pattern must not be null");
         if (timeZone == null) {
             timeZone = TimeZone.getDefault();
         }
