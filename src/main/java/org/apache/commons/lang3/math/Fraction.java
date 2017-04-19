@@ -18,6 +18,8 @@ package org.apache.commons.lang3.math;
 
 import java.math.BigInteger;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  * <p><code>Fraction</code> is a <code>Number</code> implementation that
  * stores fractions accurately.</p>
@@ -313,9 +315,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws NumberFormatException if the number format is invalid
      */
     public static Fraction getFraction(String str) {
-        if (str == null) {
-            throw new IllegalArgumentException("The string must not be null");
-        }
+        Validate.isTrue(str != null, "The string must not be null");
         // parse double format
         int pos = str.indexOf('.');
         if (pos >= 0) {
@@ -733,9 +733,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *   cannot be represented in an <code>int</code>.
      */
     private Fraction addSub(final Fraction fraction, final boolean isAdd) {
-        if (fraction == null) {
-            throw new IllegalArgumentException("The fraction must not be null");
-        }
+        Validate.isTrue(fraction != null, "The fraction must not be null");
         // zero is identity for addition.
         if (numerator == 0) {
             return isAdd ? fraction : fraction.negate();
@@ -783,9 +781,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *  <code>Integer.MAX_VALUE</code>
      */
     public Fraction multiplyBy(final Fraction fraction) {
-        if (fraction == null) {
-            throw new IllegalArgumentException("The fraction must not be null");
-        }
+        Validate.isTrue(fraction != null, "The fraction must not be null");
         if (numerator == 0 || fraction.numerator == 0) {
             return ZERO;
         }
@@ -808,9 +804,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *  <code>Integer.MAX_VALUE</code>
      */
     public Fraction divideBy(final Fraction fraction) {
-        if (fraction == null) {
-            throw new IllegalArgumentException("The fraction must not be null");
-        }
+        Validate.isTrue(fraction != null, "The fraction must not be null");
         if (fraction.numerator == 0) {
             throw new ArithmeticException("The fraction to divide by must not be zero");
         }

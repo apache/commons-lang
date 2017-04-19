@@ -1113,9 +1113,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if {@code array} is either {@code null} or empty
      */
     private static void validateArray(final Object array) {
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        }        
+        Validate.isTrue(array != null, "The Array must not be null");
         Validate.isTrue(Array.getLength(array) != 0, "Array cannot be empty.");        
     }
      

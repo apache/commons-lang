@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  * <p>
  * A {@code DiffResult} contains a collection of the differences between two
@@ -71,18 +73,9 @@ public class DiffResult implements Iterable<Diff<?>> {
      */
     DiffResult(final Object lhs, final Object rhs, final List<Diff<?>> diffs,
             final ToStringStyle style) {
-        if (lhs == null) {
-            throw new IllegalArgumentException(
-                    "Left hand object cannot be null");
-        }
-        if (rhs == null) {
-            throw new IllegalArgumentException(
-                    "Right hand object cannot be null");
-        }
-        if (diffs == null) {
-            throw new IllegalArgumentException(
-                    "List of differences cannot be null");
-        }
+        Validate.isTrue(lhs != null, "Left hand object cannot be null");
+        Validate.isTrue(rhs != null, "Right hand object cannot be null");
+        Validate.isTrue(diffs != null, "List of differences cannot be null");
 
         this.diffs = diffs;
         this.lhs = lhs;

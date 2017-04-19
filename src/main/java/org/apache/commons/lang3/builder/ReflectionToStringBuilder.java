@@ -27,6 +27,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>
@@ -364,9 +365,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
     
     private static Object checkNotNull(final Object obj) {
-        if (obj == null) {
-            throw new IllegalArgumentException("The Object passed in should not be null.");
-        }
+        Validate.isTrue(obj != null, "The Object passed in should not be null.");
         return obj;
     }
 

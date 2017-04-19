@@ -26,6 +26,8 @@ import java.util.NoSuchElementException;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  * <p>A suite of utilities surrounding the use of the
  * {@link java.util.Calendar} and {@link java.util.Date} object.</p>
@@ -511,9 +513,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is null
      */
     private static Date add(final Date date, final int calendarField, final int amount) {
-        if (date == null) {
-            throw new IllegalArgumentException("The date must not be null");
-        }
+        validateDateNotNull(date);
         final Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.add(calendarField, amount);
@@ -640,9 +640,7 @@ public class DateUtils {
      * @since 2.4
      */
     private static Date set(final Date date, final int calendarField, final int amount) {
-        if (date == null) {
-            throw new IllegalArgumentException("The date must not be null");
-        }
+        validateDateNotNull(date);
         // getInstance() returns a new object, so this method is thread safe.
         final Calendar c = Calendar.getInstance();
         c.setLenient(false);
@@ -708,9 +706,7 @@ public class DateUtils {
      * @throws ArithmeticException if the year is over 280 million
      */
     public static Date round(final Date date, final int field) {
-        if (date == null) {
-            throw new IllegalArgumentException("The date must not be null");
-        }
+        validateDateNotNull(date);
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
         modify(gval, field, ModifyType.ROUND);
@@ -811,9 +807,7 @@ public class DateUtils {
      * @throws ArithmeticException if the year is over 280 million
      */
     public static Date truncate(final Date date, final int field) {
-        if (date == null) {
-            throw new IllegalArgumentException("The date must not be null");
-        }
+        validateDateNotNull(date);
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
         modify(gval, field, ModifyType.TRUNCATE);
@@ -891,9 +885,7 @@ public class DateUtils {
      * @since 2.5
      */
     public static Date ceiling(final Date date, final int field) {
-        if (date == null) {
-            throw new IllegalArgumentException("The date must not be null");
-        }
+        validateDateNotNull(date);
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
         modify(gval, field, ModifyType.CEILING);
@@ -1130,9 +1122,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the rangeStyle is invalid
      */
     public static Iterator<Calendar> iterator(final Date focus, final int rangeStyle) {
-        if (focus == null) {
-            throw new IllegalArgumentException("The date must not be null");
-        }
+        validateDateNotNull(focus);
         final Calendar gval = Calendar.getInstance();
         gval.setTime(focus);
         return iterator(gval, rangeStyle);
@@ -1655,9 +1645,7 @@ public class DateUtils {
      * @since 2.4
      */
     private static long getFragment(final Date date, final int fragment, final TimeUnit unit) {
-        if(date == null) {
-            throw  new IllegalArgumentException("The date must not be null");
-        }
+        validateDateNotNull(date);
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return getFragment(calendar, fragment, unit);
@@ -1794,6 +1782,9 @@ public class DateUtils {
         return truncatedDate1.compareTo(truncatedDate2);
     }
 
+    private static void validateDateNotNull(final Date date) {
+        Validate.isTrue(date != null, "The date must not be null");
+    }
 
     //-----------------------------------------------------------------------
     /**

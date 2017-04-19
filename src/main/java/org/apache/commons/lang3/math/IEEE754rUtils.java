@@ -37,12 +37,8 @@ public class IEEE754rUtils {
       * @since 3.4 Changed signature from min(double[]) to min(double...)
      */
     public static double min(final double... array) {
-        // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } 
+        Validate.isTrue(array != null, "The Array must not be null");
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
-        
     
         // Finds and returns min
         double min = array[0];
@@ -63,10 +59,7 @@ public class IEEE754rUtils {
      * @since 3.4 Changed signature from min(float[]) to min(float...)
      */
     public static float min(final float... array) {
-        // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } 
+        Validate.isTrue(array != null, "The Array must not be null");
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
         
         // Finds and returns min
@@ -156,10 +149,7 @@ public class IEEE754rUtils {
      * @since 3.4 Changed signature from max(double[]) to max(double...)
      */
     public static double max(final double... array) {
-        // Validates input
-        if (array== null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        }         
+        Validate.isTrue(array != null, "The Array must not be null");
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
         
         // Finds and returns max
@@ -181,10 +171,7 @@ public class IEEE754rUtils {
      * @since 3.4 Changed signature from max(float[]) to max(float...)
      */
     public static float max(final float... array) {
-        // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        } 
+        Validate.isTrue(array != null, "The Array must not be null");
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
         
         // Finds and returns max

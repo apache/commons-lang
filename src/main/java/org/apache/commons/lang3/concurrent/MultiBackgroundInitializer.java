@@ -23,6 +23,8 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  * <p>
  * A specialized {@link BackgroundInitializer} implementation that can deal with
@@ -131,14 +133,8 @@ public class MultiBackgroundInitializer
      * @throws IllegalStateException if {@code start()} has already been called
      */
     public void addInitializer(final String name, final BackgroundInitializer<?> init) {
-        if (name == null) {
-            throw new IllegalArgumentException(
-                    "Name of child initializer must not be null!");
-        }
-        if (init == null) {
-            throw new IllegalArgumentException(
-                    "Child initializer must not be null!");
-        }
+        Validate.isTrue(name != null, "Name of child initializer must not be null!");
+        Validate.isTrue(init != null, "Child initializer must not be null!");
 
         synchronized (this) {
             if (isStarted()) {

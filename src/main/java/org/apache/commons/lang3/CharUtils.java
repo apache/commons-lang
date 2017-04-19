@@ -128,9 +128,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the Character is null
      */
     public static char toChar(final Character ch) {
-        if (ch == null) {
-            throw new IllegalArgumentException("The Character must not be null");
-        }
+        Validate.isTrue(ch != null, "The Character must not be null");
         return ch.charValue();
     }
     
@@ -171,9 +169,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the String is empty
      */
     public static char toChar(final String str) {
-        if (StringUtils.isEmpty(str)) {
-            throw new IllegalArgumentException("The String must not be empty");
-        }
+        Validate.isTrue(StringUtils.isNotEmpty(str), "The String must not be empty");
         return str.charAt(0);
     }
     
@@ -261,9 +257,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the Character is not ASCII numeric or is null
      */
     public static int toIntValue(final Character ch) {
-        if (ch == null) {
-            throw new IllegalArgumentException("The character must not be null");
-        }
+        Validate.isTrue(ch != null, "The character must not be null");
         return toIntValue(ch.charValue());
     }
     

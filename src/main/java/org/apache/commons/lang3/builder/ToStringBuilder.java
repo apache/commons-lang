@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.builder;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>Assists in implementing {@link Object#toString()} methods.</p>
@@ -132,9 +133,7 @@ public class ToStringBuilder implements Builder<String> {
      * @throws IllegalArgumentException if the style is <code>null</code>
      */
     public static void setDefaultStyle(final ToStringStyle style) {
-        if (style == null) {
-            throw new IllegalArgumentException("The style must not be null");
-        }
+        Validate.isTrue(style != null, "The style must not be null");
         defaultStyle = style;
     }
 

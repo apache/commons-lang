@@ -354,10 +354,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public static <T> int reflectionHashCode(final int initialNonZeroOddNumber, final int multiplierNonZeroOddNumber, final T object,
             final boolean testTransients, final Class<? super T> reflectUpToClass, final String... excludeFields) {
-
-        if (object == null) {
-            throw new IllegalArgumentException("The object to build a hash code for must not be null");
-        }
+        Validate.isTrue(object != null, "The object to build a hash code for must not be null");
         final HashCodeBuilder builder = new HashCodeBuilder(initialNonZeroOddNumber, multiplierNonZeroOddNumber);
         Class<?> clazz = object.getClass();
         reflectionAppend(object, clazz, builder, testTransients, excludeFields);

@@ -29,6 +29,7 @@ import java.util.StringTokenizer;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>Provides utilities for manipulating and examining 
@@ -454,9 +455,7 @@ public class ExceptionUtils {
         if (throwable == null) {
             return;
         }
-        if (stream == null) {
-            throw new IllegalArgumentException("The PrintStream must not be null");
-        }
+        Validate.isTrue(stream != null, "The PrintStream must not be null");
         final String trace[] = getRootCauseStackTrace(throwable);
         for (final String element : trace) {
             stream.println(element);
@@ -487,9 +486,7 @@ public class ExceptionUtils {
         if (throwable == null) {
             return;
         }
-        if (writer == null) {
-            throw new IllegalArgumentException("The PrintWriter must not be null");
-        }
+        Validate.isTrue(writer != null, "The PrintWriter must not be null");
         final String trace[] = getRootCauseStackTrace(throwable);
         for (final String element : trace) {
             writer.println(element);
