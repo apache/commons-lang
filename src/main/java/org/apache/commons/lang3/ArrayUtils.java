@@ -22,6 +22,7 @@ import java.util.BitSet;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -8444,5 +8445,230 @@ public class ArrayUtils {
             System.arraycopy(array, index, result, index + values.length, array.length - index);
         }
         return result;
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(Object[] array) {
+        shuffle(array, new Random());
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @param random  the source of randomness used to permute the elements
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(Object[] array, Random random) {
+        for (int i = array.length; i > 1; i--) {
+            swap(array, i - 1, random.nextInt(i), 1);
+        }
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(boolean[] array) {
+        shuffle(array, new Random());
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @param random  the source of randomness used to permute the elements
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(boolean[] array, Random random) {
+        for (int i = array.length; i > 1; i--) {
+            swap(array, i - 1, random.nextInt(i), 1);
+        }
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(byte[] array) {
+        shuffle(array, new Random());
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @param random  the source of randomness used to permute the elements
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(byte[] array, Random random) {
+        for (int i = array.length; i > 1; i--) {
+            swap(array, i - 1, random.nextInt(i), 1);
+        }
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(char[] array) {
+        shuffle(array, new Random());
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @param random  the source of randomness used to permute the elements
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(char[] array, Random random) {
+        for (int i = array.length; i > 1; i--) {
+            swap(array, i - 1, random.nextInt(i), 1);
+        }
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(short[] array) {
+        shuffle(array, new Random());
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @param random  the source of randomness used to permute the elements
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(short[] array, Random random) {
+        for (int i = array.length; i > 1; i--) {
+            swap(array, i - 1, random.nextInt(i), 1);
+        }
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(int[] array) {
+        shuffle(array, new Random());
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @param random  the source of randomness used to permute the elements
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(int[] array, Random random) {
+        for (int i = array.length; i > 1; i--) {
+            swap(array, i - 1, random.nextInt(i), 1);
+        }
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(long[] array) {
+        shuffle(array, new Random());
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @param random  the source of randomness used to permute the elements
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(long[] array, Random random) {
+        for (int i = array.length; i > 1; i--) {
+            swap(array, i - 1, random.nextInt(i), 1);
+        }
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(float[] array) {
+        shuffle(array, new Random());
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @param random  the source of randomness used to permute the elements
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(float[] array, Random random) {
+        for (int i = array.length; i > 1; i--) {
+            swap(array, i - 1, random.nextInt(i), 1);
+        }
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(double[] array) {
+        shuffle(array, new Random());
+    }
+
+    /**
+     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     *
+     * @param array   the array to shuffle
+     * @param random  the source of randomness used to permute the elements
+     * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
+     * @since 3.6
+     */
+    public static void shuffle(double[] array, Random random) {
+        for (int i = array.length; i > 1; i--) {
+            swap(array, i - 1, random.nextInt(i), 1);
+        }
     }
 }
