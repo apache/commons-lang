@@ -904,8 +904,8 @@ public class MethodUtils {
 
         Validate.isTrue(cls != null, "The class must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
-        List<Class<?>> classes = (searchSupers ? ClassUtils.getAllSuperclassesAndInterfaces(cls,
-                ClassUtils.Priority.INTERFACE) : new ArrayList<Class<?>>());
+        List<Class<?>> classes = (searchSupers ? ClassUtils.getAllSuperclassesAndInterfaces(cls)
+                : new ArrayList<Class<?>>());
         classes.add(0, cls);
         final List<Method> annotatedMethods = new ArrayList<>();
         for (Class<?> acls : classes) {
@@ -954,7 +954,7 @@ public class MethodUtils {
 
         if(annotation == null && searchSupers) {
             Class<?> mcls = method.getDeclaringClass();
-            List<Class<?>> classes = ClassUtils.getAllSuperclassesAndInterfaces(mcls, ClassUtils.Priority.INTERFACE);
+            List<Class<?>> classes = ClassUtils.getAllSuperclassesAndInterfaces(mcls);
             for (Class<?> acls : classes) {
                 Method equivalentMethod;
                 try {

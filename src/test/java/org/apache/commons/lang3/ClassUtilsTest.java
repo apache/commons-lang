@@ -282,8 +282,8 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_getAllSuperclassesAndInterfacesPriorityINTERFACE_Class() {
-        final List<?> list = ClassUtils.getAllSuperclassesAndInterfaces(CY.class, ClassUtils.Priority.INTERFACE);
+    public void test_getAllSuperclassesAndInterfaces_Class() {
+        final List<?> list = ClassUtils.getAllSuperclassesAndInterfaces(CY.class);
         assertEquals(8, list.size());
         assertEquals(IB.class, list.get(0));
         assertEquals(CX.class, list.get(1));
@@ -294,23 +294,7 @@ public class ClassUtilsTest  {
         assertEquals(IF.class, list.get(6));
         assertEquals(IA.class, list.get(7));
 
-        assertEquals(null, ClassUtils.getAllSuperclassesAndInterfaces(null, ClassUtils.Priority.INTERFACE));
-    }
-
-    @Test
-    public void test_getAllSuperclassesAndInterfacesPrioritySUPERCLASS_Class() {
-        final List<?> list = ClassUtils.getAllSuperclassesAndInterfaces(CY.class, ClassUtils.Priority.SUPERCLASS);
-        assertEquals(8, list.size());
-        assertEquals(CX.class, list.get(0));
-        assertEquals(IB.class, list.get(1));
-        assertEquals(Object.class, list.get(2));
-        assertEquals(IC.class, list.get(3));
-        assertEquals(ID.class, list.get(4));
-        assertEquals(IE.class, list.get(5));
-        assertEquals(IF.class, list.get(6));
-        assertEquals(IA.class, list.get(7));
-
-        assertEquals(null, ClassUtils.getAllSuperclassesAndInterfaces(null, ClassUtils.Priority.SUPERCLASS));
+        assertEquals(null, ClassUtils.getAllSuperclassesAndInterfaces(null));
     }
 
     private static interface IA {

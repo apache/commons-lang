@@ -53,14 +53,6 @@ public class ClassUtils {
     }
 
     /**
-     * Inclusivity literals for {@link #getAllSuperclassesAndInterfaces(Class, Priority)}.
-     * @since 3.6
-     */
-    public enum Priority {
-        SUPERCLASS, INTERFACE
-    }
-
-    /**
      * The package separator character: <code>'&#x2e;' == {@value}</code>.
      */
     public static final char PACKAGE_SEPARATOR_CHAR = '.';
@@ -470,11 +462,10 @@ public class ClassUtils {
      * from interfaces, and so on in a breadth first way.</p>
      *
      * @param cls  the class to look up, may be {@code null}
-     * @param p  determines what to peek in same breadth, the superclass or interface
      * @return the {@code List} of superclasses in order going up from this one
      *  {@code null} if null input
      */
-    public static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls, Priority p) {
+    public static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls) {
         if (cls == null) {
             return null;
         }
@@ -496,7 +487,7 @@ public class ClassUtils {
             } else if (sci < ifi) {
                 acls = allSuperclasses.get(sci++);
             } else {
-                acls = (p == Priority.SUPERCLASS ? allSuperclasses.get(sci++) : allInterfaces.get(ifi++));
+                acls = allInterfaces.get(ifi++);
             }
             classes.add(acls);
         }
