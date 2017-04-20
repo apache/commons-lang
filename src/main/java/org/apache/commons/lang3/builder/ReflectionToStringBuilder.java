@@ -342,7 +342,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            whether to include transient fields
      * @param outputStatics
      *            whether to include static fields
-     * @param excludeNulls
+     * @param excludeNullValues
      *            whether to exclude fields whose values are null
      * @param reflectUpToClass
      *            the superclass to reflect up to (inclusive), may be <code>null</code>
@@ -351,12 +351,12 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object is <code>null</code>
      * 
      * @see ToStringExclude
-     * @since 2.1
+     * @since 3.6
      */
     public static <T> String toString(
             final T object, final ToStringStyle style, final boolean outputTransients,
-            final boolean outputStatics, boolean excludeNulls, final Class<? super T> reflectUpToClass) {
-        return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients, outputStatics, excludeNulls)
+            final boolean outputStatics, boolean excludeNullValues, final Class<? super T> reflectUpToClass) {
+        return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients, outputStatics, excludeNullValues)
                 .toString();
     }
 
@@ -565,7 +565,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            whether to include static fields
      * @param excludeNullValues
      *            whether to exclude fields who value is null
-     * @since 2.1
+     * @since 3.6
      */
     public <T> ReflectionToStringBuilder(
             final T object, final ToStringStyle style, final StringBuffer buffer,
@@ -641,7 +641,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
                     // Warning: Field.get(Object) creates wrappers objects
                     // for primitive types.
                     final Object fieldValue = this.getValue(field);
-                    if(!excludeNullValues || fieldValue != null){
+                    if (!excludeNullValues || fieldValue != null) {
                         this.append(fieldName, fieldValue);
                     }
                 } catch (final IllegalAccessException ex) {
@@ -722,6 +722,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * </p>
      *
      * @return Whether or not to append fields whose values are null.
+     * @since 3.6
      */
     public boolean isExcludeNullValues() {
         return this.excludeNullValues;
@@ -773,6 +774,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * @param excludeNullValues
      *            Whether or not to append fields whose values are null.
+     * @since 3.6
      */
     public void setExcludeNullValues(final boolean excludeNullValues) {
         this.excludeNullValues = excludeNullValues;

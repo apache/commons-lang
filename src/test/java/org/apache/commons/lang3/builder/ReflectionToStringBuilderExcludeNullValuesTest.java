@@ -17,17 +17,20 @@
 
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 public class ReflectionToStringBuilderExcludeNullValuesTest {
 
-    class TestFixture{
+    static class TestFixture {
+        @SuppressWarnings("unused")
         private Integer testIntegerField;
+        @SuppressWarnings("unused")
         private String testStringField;
-        
-        public TestFixture(Integer a, String b){
+
+        public TestFixture(Integer a, String b) {
             this.testIntegerField = a;
             this.testStringField = b;
         }
