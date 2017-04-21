@@ -904,7 +904,7 @@ public class MethodUtils {
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
         List<Class<?>> classes = (searchSupers ? getAllSuperclassesAndInterfaces(cls)
                 : new ArrayList<Class<?>>());
-        classes.add(cls);
+        classes.add(0, cls);
         final List<Method> annotatedMethods = new ArrayList<>();
         for (Class<?> acls : classes) {
             final Method[] methods = (ignoreAccess ? acls.getDeclaredMethods() : acls.getMethods());
