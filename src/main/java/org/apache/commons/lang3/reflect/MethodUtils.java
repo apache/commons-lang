@@ -904,7 +904,7 @@ public class MethodUtils {
 
         Validate.isTrue(cls != null, "The class must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
-        List<Class<?>> classes = (searchSupers ? ClassUtils.getAllSuperclassesAndInterfaces(cls)
+        List<Class<?>> classes = (searchSupers ? getAllSuperclassesAndInterfaces(cls)
                 : new ArrayList<Class<?>>());
         classes.add(0, cls);
         final List<Method> annotatedMethods = new ArrayList<>();
@@ -954,7 +954,7 @@ public class MethodUtils {
 
         if(annotation == null && searchSupers) {
             Class<?> mcls = method.getDeclaringClass();
-            List<Class<?>> classes = ClassUtils.getAllSuperclassesAndInterfaces(mcls);
+            List<Class<?>> classes = getAllSuperclassesAndInterfaces(mcls);
             for (Class<?> acls : classes) {
                 Method equivalentMethod;
                 try {
@@ -972,5 +972,45 @@ public class MethodUtils {
         }
 
         return annotation;
+    }
+
+    /**
+     * <p>Gets a combination of {@link ClassUtils#getAllSuperclasses}(Class)} and
+     * {@link ClassUtils#getAllInterfaces}(Class)}, one from superclasses, one
+     * from interfaces, and so on in a breadth first way.</p>
+     *
+     * @param cls  the class to look up, may be {@code null}
+     * @return the combined {@code List} of superclasses and interfaces in order
+     * going up from this one
+     *  {@code null} if null input
+     * @since 3.6
+     */
+    private static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls) {
+        if (cls == null) {
+            return null;
+        }
+
+        final List<Class<?>> classes = new ArrayList<>();
+        List<Class<?>> allSuperclasses = ClassUtils.getAllSuperclasses(cls);
+        int sci = 0;
+        List<Class<?>> allInterfaces = ClassUtils.getAllInterfaces(cls);
+        int ifi = 0;
+        while (ifi < allInterfaces.size() ||
+                sci < allSuperclasses.size()) {
+            Class<?> acls;
+            if (ifi >= allInterfaces.size()) {
+                acls = allSuperclasses.get(sci++);
+            } else if (sci >= allSuperclasses.size()) {
+                acls = allInterfaces.get(ifi++);
+            } else if (ifi < sci) {
+                acls = allInterfaces.get(ifi++);
+            } else if (sci < ifi) {
+                acls = allSuperclasses.get(sci++);
+            } else {
+                acls = allInterfaces.get(ifi++);
+            }
+            classes.add(acls);
+        }
+        return classes;
     }
 }

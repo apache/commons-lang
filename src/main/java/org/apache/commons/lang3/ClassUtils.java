@@ -457,44 +457,6 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Gets a combination of {@link #getAllSuperclasses}(Class)} and
-     * {@link #getAllInterfaces}(Class)}, one from superclasses, one
-     * from interfaces, and so on in a breadth first way.</p>
-     *
-     * @param cls  the class to look up, may be {@code null}
-     * @return the {@code List} of superclasses in order going up from this one
-     *  {@code null} if null input
-     */
-    public static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls) {
-        if (cls == null) {
-            return null;
-        }
-
-        final List<Class<?>> classes = new ArrayList<>();
-        List<Class<?>> allSuperclasses = ClassUtils.getAllSuperclasses(cls);
-        int sci = 0;
-        List<Class<?>> allInterfaces = ClassUtils.getAllInterfaces(cls);
-        int ifi = 0;
-        while (ifi < allInterfaces.size() ||
-                sci < allSuperclasses.size()) {
-            Class<?> acls;
-            if (ifi >= allInterfaces.size()) {
-                acls = allSuperclasses.get(sci++);
-            } else if (sci >= allSuperclasses.size()) {
-                acls = allInterfaces.get(ifi++);
-            } else if (ifi < sci) {
-                acls = allInterfaces.get(ifi++);
-            } else if (sci < ifi) {
-                acls = allSuperclasses.get(sci++);
-            } else {
-                acls = allInterfaces.get(ifi++);
-            }
-            classes.add(acls);
-        }
-        return classes;
-    }
-
-    /**
      * Get the interfaces for the specified class.
      *
      * @param cls  the class to look up, may be {@code null}
