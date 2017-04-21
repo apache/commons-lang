@@ -866,9 +866,9 @@ public class MethodUtils {
      * @param annotationCls
      *            the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
      * @param searchSupers
-     *            determines if also a lookup in the entire inheritance hierarchy of the given class should be performed
+     *            determines if a lookup in the entire inheritance hierarchy of the given class should be performed
      * @param ignoreAccess
-     *            determines if also non public methods should be considered
+     *            determines if non public methods should be considered
      * @return an array of Methods (possibly empty).
      * @throws IllegalArgumentException
      *            if the class or annotation are {@code null}
@@ -888,9 +888,9 @@ public class MethodUtils {
      * @param annotationCls
      *            the {@link Annotation} that must be present on a method to be matched
      * @param searchSupers
-     *            determines if also a lookup in the entire inheritance hierarchy of the given class should be performed
+     *            determines if a lookup in the entire inheritance hierarchy of the given class should be performed
      * @param ignoreAccess
-     *            determines if also non public methods should be considered
+     *            determines if non public methods should be considered
      * @return a list of Methods (possibly empty).
      * @throws IllegalArgumentException
      *            if the class or annotation are {@code null}
@@ -904,7 +904,7 @@ public class MethodUtils {
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
         List<Class<?>> classes = (searchSupers ? getAllSuperclassesAndInterfaces(cls)
                 : new ArrayList<Class<?>>());
-        classes.add(0, cls);
+        classes.add(cls);
         final List<Method> annotatedMethods = new ArrayList<>();
         for (Class<?> acls : classes) {
             final Method[] methods = (ignoreAccess ? acls.getDeclaredMethods() : acls.getMethods());
@@ -918,12 +918,12 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Gets the annotation object that is present on the given method or any equivalent method in
-     * super classes and interfaces, with the given annotation type. Returns null if the annotation
-     * type was not present on any of them.</p>
+     * <p>Gets the annotation object with the given annotation type that is present on the given method
+     * or optionally on any equivalent method in super classes and interfaces. Returns null if the annotation
+     * type was not present.</p>
      *
      * <p>Stops searching for an annotation once the first annotation of the specified type has been
-     * found. i.e, additional annotations of the specified type will be silently ignored.</p>
+     * found. Additional annotations of the specified type will be silently ignored.</p>
      * @param <A>
      *            the annotation type
      * @param method
@@ -931,7 +931,8 @@ public class MethodUtils {
      * @param annotationCls
      *            the {@link Annotation} to check if is present on the method
      * @param searchSupers
-     *            determines if lookup in the entire inheritance hierarchy of the given class if was not directly present
+     *            determines if a lookup in the entire inheritance hierarchy of the given class is performed
+     *            if the annotation was not directly present
      * @param ignoreAccess
      *            determines if underlying method has to be accessible
      * @return the first matching annotation, or {@code null} if not found
@@ -944,13 +945,13 @@ public class MethodUtils {
 
         Validate.isTrue(method != null, "The method must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
-        if(!ignoreAccess && !MemberUtils.isAccessible(method)) {
+        if (!ignoreAccess && !MemberUtils.isAccessible(method)) {
             return null;
         }
 
         A annotation = method.getAnnotation(annotationCls);
 
-        if(annotation == null && searchSupers) {
+        if (annotation == null && searchSupers) {
             Class<?> mcls = method.getDeclaringClass();
             List<Class<?>> classes = getAllSuperclassesAndInterfaces(mcls);
             for (Class<?> acls : classes) {
@@ -959,7 +960,7 @@ public class MethodUtils {
                     equivalentMethod = (ignoreAccess ? acls.getDeclaredMethod(method.getName(), method.getParameterTypes())
                             : acls.getMethod(method.getName(), method.getParameterTypes()));
                 } catch (NoSuchMethodException e) {
-                    // If not found, just keep on search
+                    // if not found, just keep searching
                     continue;
                 }
                 annotation = equivalentMethod.getAnnotation(annotationCls);
@@ -981,34 +982,33 @@ public class MethodUtils {
      * @return the combined {@code List} of superclasses and interfaces in order
      * going up from this one
      *  {@code null} if null input
-     * @since 3.6
      */
     private static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls) {
         if (cls == null) {
             return null;
         }
 
-        final List<Class<?>> classes = new ArrayList<>();
+        final List<Class<?>> allSuperClassesAndInterfaces = new ArrayList<>();
         List<Class<?>> allSuperclasses = ClassUtils.getAllSuperclasses(cls);
-        int sci = 0;
+        int superClassIndex = 0;
         List<Class<?>> allInterfaces = ClassUtils.getAllInterfaces(cls);
-        int ifi = 0;
-        while (ifi < allInterfaces.size() ||
-                sci < allSuperclasses.size()) {
+        int interfaceIndex = 0;
+        while (interfaceIndex < allInterfaces.size() ||
+                superClassIndex < allSuperclasses.size()) {
             Class<?> acls;
-            if (ifi >= allInterfaces.size()) {
-                acls = allSuperclasses.get(sci++);
-            } else if (sci >= allSuperclasses.size()) {
-                acls = allInterfaces.get(ifi++);
-            } else if (ifi < sci) {
-                acls = allInterfaces.get(ifi++);
-            } else if (sci < ifi) {
-                acls = allSuperclasses.get(sci++);
+            if (interfaceIndex >= allInterfaces.size()) {
+                acls = allSuperclasses.get(superClassIndex++);
+            } else if (superClassIndex >= allSuperclasses.size()) {
+                acls = allInterfaces.get(interfaceIndex++);
+            } else if (interfaceIndex < superClassIndex) {
+                acls = allInterfaces.get(interfaceIndex++);
+            } else if (superClassIndex < interfaceIndex) {
+                acls = allSuperclasses.get(superClassIndex++);
             } else {
-                acls = allInterfaces.get(ifi++);
+                acls = allInterfaces.get(interfaceIndex++);
             }
-            classes.add(acls);
+            allSuperClassesAndInterfaces.add(acls);
         }
-        return classes;
+        return allSuperClassesAndInterfaces;
     }
 }
