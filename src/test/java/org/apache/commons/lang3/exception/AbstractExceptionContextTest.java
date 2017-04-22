@@ -63,13 +63,13 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     @Test
     public void testAddContextValue() {
         final String message = exceptionContext.getFormattedExceptionMessage(TEST_MESSAGE);
-        assertTrue(message.indexOf(TEST_MESSAGE) >= 0);
-        assertTrue(message.indexOf("test1") >= 0);
-        assertTrue(message.indexOf("test2") >= 0);
-        assertTrue(message.indexOf("test Date") >= 0);
-        assertTrue(message.indexOf("test Nbr") >= 0);
-        assertTrue(message.indexOf("some value") >= 0);
-        assertTrue(message.indexOf("5") >= 0);
+        assertTrue(message.contains(TEST_MESSAGE));
+        assertTrue(message.contains("test1"));
+        assertTrue(message.contains("test2"));
+        assertTrue(message.contains("test Date"));
+        assertTrue(message.contains("test Nbr"));
+        assertTrue(message.contains("some value"));
+        assertTrue(message.contains("5"));
 
         assertTrue(exceptionContext.getFirstContextValue("test1") == null);
         assertTrue(exceptionContext.getFirstContextValue("test2").equals("some value"));
@@ -85,7 +85,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertTrue(exceptionContext.getContextLabels().contains("test2"));
 
         final String contextMessage = exceptionContext.getFormattedExceptionMessage(null);
-        assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
+        assertTrue(!contextMessage.contains(TEST_MESSAGE));
     }
 
     @Test
@@ -94,9 +94,9 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         exceptionContext.setContextValue("test3", "3");
 
         final String message = exceptionContext.getFormattedExceptionMessage(TEST_MESSAGE);
-        assertTrue(message.indexOf(TEST_MESSAGE) >= 0);
-        assertTrue(message.indexOf("test Poorly written obj") >= 0);
-        assertTrue(message.indexOf("Crap") >= 0);
+        assertTrue(message.contains(TEST_MESSAGE));
+        assertTrue(message.contains("test Poorly written obj"));
+        assertTrue(message.contains("Crap"));
 
         assertTrue(exceptionContext.getFirstContextValue("crap") == null);
         assertTrue(exceptionContext.getFirstContextValue("test Poorly written obj") instanceof ObjectWithFaultyToString);
@@ -118,7 +118,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertEquals(6, exceptionContext.getContextLabels().size());
 
         final String contextMessage = exceptionContext.getFormattedExceptionMessage(null);
-        assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
+        assertTrue(!contextMessage.contains(TEST_MESSAGE));
     }
 
     @Test
