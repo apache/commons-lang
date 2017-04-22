@@ -120,8 +120,8 @@ public class ReflectionToStringBuilderExcludeTest {
     }
 
     private void validateNonSecretField(final String toString) {
-        Assert.assertTrue(toString.indexOf(NOT_SECRET_FIELD) > ArrayUtils.INDEX_NOT_FOUND);
-        Assert.assertTrue(toString.indexOf(NOT_SECRET_VALUE) > ArrayUtils.INDEX_NOT_FOUND);
+        Assert.assertTrue(toString.contains(NOT_SECRET_FIELD));
+        Assert.assertTrue(toString.contains(NOT_SECRET_VALUE));
     }
 
     private void validateSecretFieldAbsent(final String toString) {

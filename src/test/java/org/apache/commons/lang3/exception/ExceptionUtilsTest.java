@@ -388,12 +388,12 @@ public class ExceptionUtilsTest {
         final Throwable cause = createExceptionWithCause();
         ExceptionUtils.printRootCauseStackTrace(cause, new PrintStream(out));
         String stackTrace = out.toString();
-        assertTrue(stackTrace.indexOf(ExceptionUtils.WRAPPED_MARKER) != -1);
+        assertTrue(stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
         
         out = new ByteArrayOutputStream(1024);
         ExceptionUtils.printRootCauseStackTrace(withoutCause, new PrintStream(out));
         stackTrace = out.toString();
-        assertTrue(stackTrace.indexOf(ExceptionUtils.WRAPPED_MARKER) == -1);
+        assertTrue(!stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
     }
 
     @Test
@@ -414,12 +414,12 @@ public class ExceptionUtilsTest {
         final Throwable cause = createExceptionWithCause();
         ExceptionUtils.printRootCauseStackTrace(cause, new PrintWriter(writer));
         String stackTrace = writer.toString();
-        assertTrue(stackTrace.indexOf(ExceptionUtils.WRAPPED_MARKER) != -1);
+        assertTrue(stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
         
         writer = new StringWriter(1024);
         ExceptionUtils.printRootCauseStackTrace(withoutCause, new PrintWriter(writer));
         stackTrace = writer.toString();
-        assertTrue(stackTrace.indexOf(ExceptionUtils.WRAPPED_MARKER) == -1);
+        assertTrue(!stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
     }
 
     //-----------------------------------------------------------------------
