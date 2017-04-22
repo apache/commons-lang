@@ -41,7 +41,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         exceptionContext = new ContextedException();
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
-        assertTrue(trace.indexOf("ContextedException")>=0);
+        assertTrue(trace.contains("ContextedException"));
         assertTrue(StringUtils.isEmpty(message));
     }
 
@@ -51,7 +51,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         assertEquals(TEST_MESSAGE, exceptionContext.getMessage());
         
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
-        assertTrue(trace.indexOf(TEST_MESSAGE)>=0);
+        assertTrue(trace.contains(TEST_MESSAGE));
     }
 
     @Test
@@ -59,9 +59,9 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         exceptionContext = new ContextedException(new Exception(TEST_MESSAGE));
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
-        assertTrue(trace.indexOf("ContextedException")>=0);
-        assertTrue(trace.indexOf(TEST_MESSAGE)>=0);
-        assertTrue(message.indexOf(TEST_MESSAGE)>=0);
+        assertTrue(trace.contains("ContextedException"));
+        assertTrue(trace.contains(TEST_MESSAGE));
+        assertTrue(message.contains(TEST_MESSAGE));
     }
 
     @Test
@@ -69,10 +69,10 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE));
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
-        assertTrue(trace.indexOf("ContextedException")>=0);
-        assertTrue(trace.indexOf(TEST_MESSAGE)>=0);
-        assertTrue(trace.indexOf(TEST_MESSAGE_2)>=0);
-        assertTrue(message.indexOf(TEST_MESSAGE_2)>=0);
+        assertTrue(trace.contains("ContextedException"));
+        assertTrue(trace.contains(TEST_MESSAGE));
+        assertTrue(trace.contains(TEST_MESSAGE_2));
+        assertTrue(message.contains(TEST_MESSAGE_2));
     }
     
     @Test
@@ -80,10 +80,10 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext());
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
-        assertTrue(trace.indexOf("ContextedException")>=0);
-        assertTrue(trace.indexOf(TEST_MESSAGE)>=0);
-        assertTrue(trace.indexOf(TEST_MESSAGE_2)>=0);
-        assertTrue(message.indexOf(TEST_MESSAGE_2)>=0);
+        assertTrue(trace.contains("ContextedException"));
+        assertTrue(trace.contains(TEST_MESSAGE));
+        assertTrue(trace.contains(TEST_MESSAGE_2));
+        assertTrue(message.contains(TEST_MESSAGE_2));
     }
 
     @Test
