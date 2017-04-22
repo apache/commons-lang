@@ -393,7 +393,7 @@ public class ExceptionUtilsTest {
         out = new ByteArrayOutputStream(1024);
         ExceptionUtils.printRootCauseStackTrace(withoutCause, new PrintStream(out));
         stackTrace = out.toString();
-        assertTrue(!stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
+        assertFalse(stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
     }
 
     @Test
@@ -419,7 +419,7 @@ public class ExceptionUtilsTest {
         writer = new StringWriter(1024);
         ExceptionUtils.printRootCauseStackTrace(withoutCause, new PrintWriter(writer));
         stackTrace = writer.toString();
-        assertTrue(!stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
+        assertFalse(stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
     }
 
     //-----------------------------------------------------------------------

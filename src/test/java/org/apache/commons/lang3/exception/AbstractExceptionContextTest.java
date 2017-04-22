@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
@@ -85,7 +86,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertTrue(exceptionContext.getContextLabels().contains("test2"));
 
         final String contextMessage = exceptionContext.getFormattedExceptionMessage(null);
-        assertTrue(!contextMessage.contains(TEST_MESSAGE));
+        assertFalse(contextMessage.contains(TEST_MESSAGE));
     }
 
     @Test
@@ -105,7 +106,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertEquals(6, exceptionContext.getContextLabels().size());
 
         assertTrue(exceptionContext.getContextLabels().contains("test Poorly written obj"));
-        assertTrue(!exceptionContext.getContextLabels().contains("crap"));
+        assertFalse(exceptionContext.getContextLabels().contains("crap"));
 
         exceptionContext.setContextValue("test Poorly written obj", "replacement");
 
@@ -118,7 +119,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertEquals(6, exceptionContext.getContextLabels().size());
 
         final String contextMessage = exceptionContext.getFormattedExceptionMessage(null);
-        assertTrue(!contextMessage.contains(TEST_MESSAGE));
+        assertFalse(contextMessage.contains(TEST_MESSAGE));
     }
 
     @Test
