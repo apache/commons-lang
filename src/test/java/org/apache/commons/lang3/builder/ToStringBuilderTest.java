@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assume.assumeFalse;
@@ -838,6 +839,19 @@ public class ToStringBuilderTest {
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
         assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
     }
+    
+    @Test
+    public void testConstructToStringBuilder(){
+        ToStringBuilder stringBuilder1 = new ToStringBuilder(base, null, null);
+        ToStringBuilder stringBuilder2 = new ToStringBuilder(base, ToStringStyle.DEFAULT_STYLE, new StringBuffer(1024));
+        assertEquals(ToStringStyle.DEFAULT_STYLE, stringBuilder1.getStyle());
+        assertNotNull(stringBuilder1.getStringBuffer());
+        assertNotNull(stringBuilder1.toString());
+        assertEquals(ToStringStyle.DEFAULT_STYLE, stringBuilder2.getStyle());
+        assertNotNull(stringBuilder2.getStringBuffer());
+        assertNotNull(stringBuilder2.toString());
+    }
+
 
     @Test
     public void testObject() {
