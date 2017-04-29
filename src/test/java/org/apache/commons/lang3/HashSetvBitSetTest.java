@@ -39,7 +39,7 @@ public class HashSetvBitSetTest {
 
     @Benchmark
     public int[] testHashSet() {
-        final HashSet<Integer> toRemove = new HashSet<Integer>();
+        final HashSet<Integer> toRemove = new HashSet<>();
         int found = 0;
         for (int i = 0; i < numberOfElementsToCompute; i++) {
             toRemove.add(found++);
