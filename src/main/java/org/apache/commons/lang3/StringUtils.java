@@ -240,6 +240,8 @@ public class StringUtils {
      * StringUtils.isAnyEmpty("  bob  ", null)  = true
      * StringUtils.isAnyEmpty(" ", "bar")       = false
      * StringUtils.isAnyEmpty("foo", "bar")     = false
+     * StringUtils.isAnyEmpty(new String[]{})   = false
+     * StringUtils.isAnyEmpty(new String[]{""}) = true
      * </pre>
      *
      * @param css  the CharSequences to check, may be null or empty
@@ -267,7 +269,8 @@ public class StringUtils {
      * StringUtils.isNoneEmpty("", "bar")        = false
      * StringUtils.isNoneEmpty("bob", "")        = false
      * StringUtils.isNoneEmpty("  bob  ", null)  = false
-     * StringUtils.isNoneEmpty(new String[] {})  = false
+     * StringUtils.isNoneEmpty(new String[] {})  = true
+     * StringUtils.isNoneEmpty(new String[]{""}) = false
      * StringUtils.isNoneEmpty(" ", "bar")       = true
      * StringUtils.isNoneEmpty("foo", "bar")     = true
      * </pre>
@@ -379,6 +382,7 @@ public class StringUtils {
      * StringUtils.isAnyBlank("  bob  ", null)  = true
      * StringUtils.isAnyBlank(" ", "bar")       = true
      * StringUtils.isAnyBlank(new String[] {})  = false
+     * StringUtils.isAnyBlank(new String[]{""}) = true
      * StringUtils.isAnyBlank("foo", "bar")     = false
      * </pre>
      *
@@ -411,7 +415,8 @@ public class StringUtils {
      * StringUtils.isNoneBlank("bob", "")        = false
      * StringUtils.isNoneBlank("  bob  ", null)  = false
      * StringUtils.isNoneBlank(" ", "bar")       = false
-     * StringUtils.isNoneBlank(new String[] {})  = false
+     * StringUtils.isNoneBlank(new String[] {})  = true
+     * StringUtils.isNoneBlank(new String[]{""}) = false
      * StringUtils.isNoneBlank("foo", "bar")     = true
      * </pre>
      *
@@ -1065,7 +1070,7 @@ public class StringUtils {
      * @see String#compareTo(String)
      * @param str1  the String to compare from
      * @param str2  the String to compare to
-     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2}
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal or greater than {@code str2}
      * @since 3.5
      */
     public static int compare(final String str1, final String str2) {
