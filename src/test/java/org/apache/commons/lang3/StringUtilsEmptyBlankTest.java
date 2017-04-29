@@ -70,10 +70,13 @@ public class StringUtilsEmptyBlankTest  {
 
     @Test
     public void testIsAllEmpty() {
-        assertTrue(StringUtils.isAllEmpty());
-        assertTrue(StringUtils.isAllEmpty(new String[]{}));
+        assertFalse(StringUtils.isAllEmpty());
+        assertFalse(StringUtils.isAllEmpty(new String[]{}));
+        assertTrue(StringUtils.isAllEmpty(new String[]{""}));
+        assertTrue(StringUtils.isAllEmpty(new String[]{"", null}));
+        assertFalse(StringUtils.isAllEmpty(new String[]{"", "foo"}));
         assertTrue(StringUtils.isAllEmpty((String) null));
-        assertTrue(StringUtils.isAllEmpty((String[]) null));
+        assertFalse(StringUtils.isAllEmpty((String[]) null));
         assertFalse(StringUtils.isAllEmpty(null, "foo"));
         assertFalse(StringUtils.isAllEmpty("", "bar"));
         assertFalse(StringUtils.isAllEmpty("bob", ""));
@@ -130,7 +133,9 @@ public class StringUtilsEmptyBlankTest  {
     @Test
     public void testIsAllBlank() {
         assertTrue(StringUtils.isAllBlank((String) null));
-        assertTrue(StringUtils.isAllBlank((String[]) null));
+        assertFalse(StringUtils.isAllBlank((String[]) null));
+        assertFalse(StringUtils.isAllBlank(new String[]{"", "foo"}));
+        assertTrue(StringUtils.isAllBlank(new String[]{"", null}));
         assertTrue(StringUtils.isAllBlank(null, null));
         assertTrue(StringUtils.isAllBlank(null, " "));
         assertFalse(StringUtils.isAllBlank(null, "foo"));

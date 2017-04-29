@@ -286,7 +286,8 @@ public class StringUtils {
      * <pre>
      * StringUtils.isAllEmpty(null)             = true
      * StringUtils.isAllEmpty(null, "")         = true
-     * StringUtils.isAllEmpty(new String[] {})  = true
+     * StringUtils.isAllEmpty(new String[] {})  = false
+     * StringUtils.isAllEmpty(new String[]{""}) = true
      * StringUtils.isAllEmpty(null, "foo")      = false
      * StringUtils.isAllEmpty("", "bar")        = false
      * StringUtils.isAllEmpty("bob", "")        = false
@@ -301,7 +302,7 @@ public class StringUtils {
      */
     public static boolean isAllEmpty(final CharSequence... css) {
         if (ArrayUtils.isEmpty(css)) {
-            return true;
+            return false;
         }
         for (final CharSequence cs : css) {
             if (isNotEmpty(cs)) {
@@ -437,7 +438,8 @@ public class StringUtils {
      * StringUtils.isAllBlank("  bob  ", null)  = false
      * StringUtils.isAllBlank(" ", "bar")       = false
      * StringUtils.isAllBlank("foo", "bar")     = false
-     * StringUtils.isAllBlank(new String[] {})  = true
+     * StringUtils.isAllBlank(new String[] {})  = false
+     * StringUtils.isAllBlank(new String[]{""}) = true
      * </pre>
      *
      * @param css  the CharSequences to check, may be null or empty
@@ -446,7 +448,7 @@ public class StringUtils {
      */
     public static boolean isAllBlank(final CharSequence... css) {
         if (ArrayUtils.isEmpty(css)) {  
-            return true;
+            return false;
         }
         for (final CharSequence cs : css) {
             if (isNotBlank(cs)) {
