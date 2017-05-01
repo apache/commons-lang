@@ -7176,6 +7176,7 @@ public class StringUtils {
      * @return String with only digits,
      *           or an empty ("") String if no digits found,
      *           or {@code null} String if {@code str} is null
+     * @since 3.6
      */
     public static String getDigits(final String str) {
         if (isEmpty(str)) {

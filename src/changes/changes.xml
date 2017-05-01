@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="2017-MM-DD" description="TBD">
+    <action issue="LANG-1307" type="add" dev="pschumacher" due-to="Arshad Basha">Add a method in StringUtils to extract only digits out of input string</action>
     <action issue="LANG-1110" type="update" dev="pschumacher" due-to="Bruno P. Kinoshita">Implement HashSetvBitSetTest using JMH</action>
     <action issue="LANG-1256" type="add" dev="pschumacher" due-to="C0rWin">Add JMH maven dependencies</action>
     <action issue="LANG-1167" type="add" dev="chtompki" due-to="Mark Dacek">Add null filter to ReflectionToStringBuilder</action>
