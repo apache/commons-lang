@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assume.assumeFalse;
@@ -613,6 +614,244 @@ public class ToStringBuilderTest {
         assertEquals(baseStr + "[<null>,a=hello]", new ToStringBuilder(base).appendToString("Integer@8888[<null>]").append("a", "hello").toString());
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendToString(null).append("a", "hello").toString());
     }
+
+    @Test
+    public void testAppendAsObjectToString() {
+        String objectToAppend1 = "";
+        Boolean objectToAppend2 = Boolean.TRUE;
+        Object objectToAppend3 = new Object();
+
+        assertEquals(baseStr + "[" + toBaseString(objectToAppend1) + "]",
+                new ToStringBuilder(base).appendAsObjectToString(objectToAppend1).toString());
+        assertEquals(baseStr + "[" + toBaseString(objectToAppend2) + "]",
+                new ToStringBuilder(base).appendAsObjectToString(objectToAppend2).toString());
+        assertEquals(baseStr + "[" + toBaseString(objectToAppend3) + "]",
+                new ToStringBuilder(base).appendAsObjectToString(objectToAppend3).toString());
+    }
+
+    @Test
+    public void testAppendBooleanArrayWithFieldName() {
+        boolean[] array = new boolean[] { true, false, false };
+        assertEquals(baseStr + "[flags={true,false,false}]",
+                new ToStringBuilder(base).append("flags", array).toString());
+        assertEquals(baseStr + "[flags=<null>]",
+                new ToStringBuilder(base).append("flags", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{true,false,false}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendBooleanArrayWithFieldNameAndFullDetatil() {
+        boolean[] array = new boolean[] { true, false, false };
+        assertEquals(baseStr + "[flags={true,false,false}]",
+                new ToStringBuilder(base).append("flags", array, true).toString());
+        assertEquals(baseStr + "[length=<size=3>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[flags=<null>]",
+                new ToStringBuilder(base).append("flags", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=3>]", new ToStringBuilder(base).append(null, array, false).toString());
+     }
+
+    @Test
+    public void testAppendCharArrayWithFieldName() {
+        char[] array = new char[] { 'A', '2', '_', 'D' };
+        assertEquals(baseStr + "[chars={A,2,_,D}]", new ToStringBuilder(base).append("chars", array).toString());
+        assertEquals(baseStr + "[letters={A,2,_,D}]", new ToStringBuilder(base).append("letters", array).toString());
+        assertEquals(baseStr + "[flags=<null>]",
+                new ToStringBuilder(base).append("flags", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{A,2,_,D}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendCharArrayWithFieldNameAndFullDetatil() {
+        char[] array = new char[] { 'A', '2', '_', 'D' };
+        assertEquals(baseStr + "[chars={A,2,_,D}]", new ToStringBuilder(base).append("chars", array, true).toString());
+        assertEquals(baseStr + "[letters=<size=4>]",
+                new ToStringBuilder(base).append("letters", array, false).toString());
+        assertEquals(baseStr + "[flags=<null>]",
+                new ToStringBuilder(base).append("flags", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendDoubleArrayWithFieldName() {
+        double[] array = new double[] { 1.0, 2.9876, -3.00001, 4.3 };
+        assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
+                new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendDoubleArrayWithFieldNameAndFullDetatil() {
+        double[] array = new double[] { 1.0, 2.9876, -3.00001, 4.3 };
+        assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendObjectArrayWithFieldName() {
+        Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
+        assertEquals(baseStr + "[values={<null>,5,{3,6}}]",
+                new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendObjectArrayWithFieldNameAndFullDetatil() {
+       Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
+       assertEquals(baseStr + "[values={<null>,5,{3,6}}]",
+               new ToStringBuilder(base).append("values", array, true).toString());
+       assertEquals(baseStr + "[length=<size=3>]",
+               new ToStringBuilder(base).append("length", array, false).toString());
+       assertEquals(baseStr + "[values=<null>]",
+               new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+       assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+       assertEquals(baseStr + "[<size=3>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendLongArrayWithFieldName() {
+       long[] array = new long[] { 1, 2, -3, 4 };
+       assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
+       assertEquals(baseStr + "[values=<null>]",
+               new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+       assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+       assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendLongArrayWithFieldNameAndFullDetatil() {
+        long[] array = new long[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendIntArrayWithFieldName() {
+        int[] array = new int[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendIntArrayWithFieldNameAndFullDetatil() {
+        int[] array = new int[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendShortArrayWithFieldName() {
+        short[] array = new short[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendShortArrayWithFieldNameAndFullDetatil() {
+        short[] array = new short[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendByteArrayWithFieldName() {
+        byte[] array = new byte[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendByteArrayWithFieldNameAndFullDetatil() {
+        byte[] array = new byte[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendFloatArrayWithFieldName() {
+        float[] array = new float[] { 1.0f, 2.9876f, -3.00001f, 4.3f };
+        assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
+                new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendFloatArrayWithFieldNameAndFullDetatil() {
+        float[] array = new float[] { 1.0f, 2.9876f, -3.00001f, 4.3f };
+        assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+    
+    @Test
+    public void testConstructToStringBuilder(){
+        ToStringBuilder stringBuilder1 = new ToStringBuilder(base, null, null);
+        ToStringBuilder stringBuilder2 = new ToStringBuilder(base, ToStringStyle.DEFAULT_STYLE, new StringBuffer(1024));
+        assertEquals(ToStringStyle.DEFAULT_STYLE, stringBuilder1.getStyle());
+        assertNotNull(stringBuilder1.getStringBuffer());
+        assertNotNull(stringBuilder1.toString());
+        assertEquals(ToStringStyle.DEFAULT_STYLE, stringBuilder2.getStyle());
+        assertNotNull(stringBuilder2.getStringBuffer());
+        assertNotNull(stringBuilder2.toString());
+    }
+
 
     @Test
     public void testObject() {
