@@ -2757,37 +2757,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         }
     }
 
-    //-----------------------------------------------------------------------
-//    /**
-//     * Gets a String version of the string builder by calling the internal
-//     * constructor of String by reflection.
-//     * <p>
-//     * WARNING: You must not use the StrBuilder after calling this method
-//     * as the buffer is now shared with the String object. To ensure this,
-//     * the internal character array is set to null, so you will get
-//     * NullPointerExceptions on all method calls.
-//     *
-//     * @return the builder as a String
-//     */
-//    public String toSharedString() {
-//        try {
-//            Constructor con = String.class.getDeclaredConstructor(
-//                new Class[] {int.class, int.class, char[].class});
-//            con.setAccessible(true);
-//            char[] buffer = buf;
-//            buf = null;
-//            size = -1;
-//            nullText = null;
-//            return (String) con.newInstance(
-//                new Object[] {Integer.valueOf(0), Integer.valueOf(size), buffer});
-//            
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            throw new UnsupportedOperationException("StrBuilder.toSharedString is unsupported: " + ex.getMessage());
-//        }
-//    }
-
-    //-----------------------------------------------------------------------
     /**
      * Checks the contents of this builder against another to see if they
      * contain the same character content ignoring case.
