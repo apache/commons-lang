@@ -197,6 +197,26 @@ public class ObjectUtils {
         return true;
     }
 
+    /**
+     * Exclusive or. Returns true only if exactly one of two values is {@code null}.
+     *
+     * <pre>
+     * ObjectUtils.xorNull(a, b)       = false
+     * ObjectUtils.xorNull(null, null) = false
+     * ObjectUtils.xorNull(a, null)    = true
+     * ObjectUtils.xorNull(null, b)    = true
+     * </pre>
+     *
+     * @param object1  the first object, may be {@code null}
+     * @param object2  the second object, may be {@code null}
+     * @return {@code false} if both values are {@code null}, or if no values is null,
+     * {@code true} if exactly one of two values is {@code null}.
+     * @since 3.6
+     */
+    public static boolean xorNull(final Object object1, final Object object2) {
+        return object1 != null ^ object2 != null;
+    }
+
     // Null-safe equals/hashCode
     //-----------------------------------------------------------------------
     /**

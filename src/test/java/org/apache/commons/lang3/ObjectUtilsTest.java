@@ -118,6 +118,18 @@ public class ObjectUtilsTest {
         assertTrue(ObjectUtils.allNotNull(FOO, BAR, 1, Boolean.TRUE, new Object(), new Object[]{}));
     }
 
+    /**
+     * Tests {@link ObjectUtils#xorNull(Object object1, Object object2)}.
+     */
+    @Test
+    public void testXorNull() {
+        assertFalse(ObjectUtils.xorNull(null, null));
+        assertFalse(ObjectUtils.xorNull(FOO, BAR));
+
+        assertTrue(ObjectUtils.xorNull(null, FOO));
+        assertTrue(ObjectUtils.xorNull(BAR, null));
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testEquals() {
