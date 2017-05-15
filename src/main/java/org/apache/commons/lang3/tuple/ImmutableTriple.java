@@ -34,9 +34,27 @@ package org.apache.commons.lang3.tuple;
  */
 public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
 
+    /**
+     * An immutable triple of nulls.
+     */
+    // This is not defined with generics to avoid warnings in call sites.
+    @SuppressWarnings("rawtypes")
+    private static final ImmutableTriple NULL = ImmutableTriple.of(null, null, null);
+
     /** Serialization version */
     private static final long serialVersionUID = 1L;
 
+    /** 
+     * Returns an immutable triple of nulls.
+     * 
+     * @return an immutable triple of nulls. 
+     * @since 3.6
+     */
+    @SuppressWarnings("unchecked")
+    public static <L, M, R> ImmutableTriple<L, M, R> nullTriple() {
+        return NULL;
+    }
+    
     /** Left object */
     public final L left;
     /** Middle object */
