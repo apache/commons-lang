@@ -90,6 +90,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1313" type="add" dev="pschumacher" due-to="Tomschi">Add ArchUtils - An utility class for the "os.arch" system property</action>
     <action issue="LANG-1272" type="add" dev="ebourg">Add shuffle methods to ArrayUtils</action>
     <action issue="LANG-1317" type="add" dev="pschumacher" due-to="Yasser Zamani">Add MethodUtils#findAnnotation and extend MethodUtils#getMethodsWithAnnotation for non-public, super-class and interface methods</action>
+    <action issue="LANG-1331" type="add" dev="ggregory">Add ImmutablePair.nullPair()</action>    
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">

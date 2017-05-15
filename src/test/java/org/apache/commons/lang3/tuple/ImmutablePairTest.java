@@ -18,7 +18,9 @@ package org.apache.commons.lang3.tuple;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
@@ -76,7 +78,45 @@ public class ImmutablePairTest {
     public void testHashCode() throws Exception {
         assertEquals(ImmutablePair.of(null, "foo").hashCode(), ImmutablePair.of(null, "foo").hashCode());
     }
-
+    
+    @Test
+    public void testNullPairEquals() {
+        assertEquals(ImmutablePair.nullPair(), ImmutablePair.nullPair());
+    }
+        
+    @Test
+    public void testNullPairSame() {
+        assertSame(ImmutablePair.nullPair(), ImmutablePair.nullPair());
+    }
+        
+    @Test
+    public void testNullPairLeft() {
+        assertNull(ImmutablePair.nullPair().getLeft());
+    }
+        
+    @Test
+    public void testNullPairKey() {
+        assertNull(ImmutablePair.nullPair().getKey());
+    }
+        
+    @Test
+    public void testNullPairRight() {
+        assertNull(ImmutablePair.nullPair().getRight());
+    }
+        
+    @Test
+    public void testNullPairValue() {
+        assertNull(ImmutablePair.nullPair().getValue());
+    }
+        
+    @Test
+    public void testNullPairTyped() {
+        // No compiler warnings
+        // How do we assert that?
+        ImmutablePair<String, String> pair = ImmutablePair.nullPair();
+        assertNotNull(pair);
+    }
+        
     @Test
     public void testToString() throws Exception {
         assertEquals("(null,null)", ImmutablePair.of(null, null).toString());

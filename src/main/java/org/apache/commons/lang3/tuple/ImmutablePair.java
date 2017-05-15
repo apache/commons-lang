@@ -33,9 +33,27 @@ package org.apache.commons.lang3.tuple;
  */
 public final class ImmutablePair<L, R> extends Pair<L, R> {
 
+    /**
+     * An immutable pair of nulls.
+     */
+    // This is not defined with generics to avoid warnings in call sites.
+    @SuppressWarnings("rawtypes")
+    private static final ImmutablePair NULL = ImmutablePair.of(null, null);
+
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
+    /** 
+     * Returns an immutable pair of nulls.
+     * 
+     * @return an immutable pair of nulls. 
+     * @since 3.6
+     */
+    @SuppressWarnings("rawtypes")
+    public static <L, R> ImmutablePair<L, R> nullPair() {
+        return NULL;
+    }
+    
     /** Left object */
     public final L left;
     /** Right object */
