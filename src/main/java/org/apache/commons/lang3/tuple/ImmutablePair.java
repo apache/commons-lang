@@ -43,10 +43,12 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
-    /** 
+    /**
      * Returns an immutable pair of nulls.
-     * 
-     * @return an immutable pair of nulls. 
+     *
+     * @param <L> the left element of this pair. Value is {@code null}.
+     * @param <R> the right element of this pair. Value is {@code null}.
+     * @return an immutable pair of nulls.
      * @since 3.6
      */
     @SuppressWarnings("unchecked")

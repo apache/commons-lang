@@ -44,9 +44,12 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     /** Serialization version */
     private static final long serialVersionUID = 1L;
 
-    /** 
+    /**
      * Returns an immutable triple of nulls.
-     * 
+     *
+     * @param <L> the left element of this triple. Value is {@code null}.
+     * @param <M> the middle element of this triple. Value is {@code null}.
+     * @param <R> the right element of this triple. Value is {@code null}.
      * @return an immutable triple of nulls. 
      * @since 3.6
      */
