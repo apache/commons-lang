@@ -2548,6 +2548,19 @@ public class StringUtilsTest {
     }
 
     /**
+     * Test for {@link StringUtils#nullToEmpty(String)}.
+     */
+    @Test
+    public void testNullToEmpty() {
+        assertEquals(StringUtils.EMPTY, StringUtils.nullToEmpty(null));
+        assertEquals(StringUtils.EMPTY, StringUtils.nullToEmpty(StringUtils.EMPTY));
+        assertEquals("abc", StringUtils.nullToEmpty("abc"));
+        assertEquals("  abc", StringUtils.nullToEmpty("  abc"));
+        assertEquals("abc  ", StringUtils.nullToEmpty("abc  "));
+        assertEquals("abc\t", StringUtils.nullToEmpty("abc\t"));
+    }
+
+    /**
      * Test for {@link StringUtils#isAllLowerCase(CharSequence)}.
      */
     @Test

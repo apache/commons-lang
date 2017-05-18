@@ -542,6 +542,28 @@ public class StringUtils {
         return str == null ? EMPTY : str.trim();
     }
 
+	/**
+	 * <p>Checks if a String is {@code null} then return empty ("") String.</p>
+	 *
+	 * <p>This method doesn't strips whitespace nor removes control characters (char &lt;= 32) 
+	 * from the start and end of {@code str} like {@link #stripToEmpty(String)} and
+	 * {@link #trimToEmpty(String)}.</p>
+	 *
+	 * <pre>
+	 * StringUtils.nullToEmpty(null) = ""
+	 * StringUtils.nullToEmpty("") = ""
+	 * StringUtils.nullToEmpty("abc") = "abc"
+	 * StringUtils.nullToEmpty("  abc") = "  abc"
+	 * StringUtils.nullToEmpty("abc  ") = "abc  "
+	 * </pre>
+	 *
+	 * @param str String that may be {@code null}
+	 * @return {@code str} if it is not {@code null} otherwise an empty ("") String
+	 */
+	public static String nullToEmpty(final String str) {
+		return str == null ? EMPTY : str;
+	}
+
     /**
      * <p>Truncates a String. This will turn
      * "Now is the time for all good men" into "Now is the time for".</p>
