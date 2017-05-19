@@ -17,7 +17,7 @@
 
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,6 +199,20 @@ public class MultilineRecursiveToStringStyleTest {
                    + "  }" + BR 
                    + "]";
         assertEquals(exp, toString(wa));
+    }
+    
+    
+    @Test
+    public void testLANG1319() throws Exception {
+        final String[] stringArray = {"1", "2"};
+        
+        final String exp = getClassPrefix(stringArray) + "[" + BR 
+                + "  {" + BR 
+                + "    1," + BR 
+                + "    2" + BR 
+                + "  }" + BR 
+                + "]";
+        assertEquals(exp, toString(stringArray));
     }
 
     private String getClassPrefix(final Object object) {

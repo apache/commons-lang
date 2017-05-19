@@ -138,11 +138,11 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
     protected void reflectionAppendArrayDetail(final StringBuffer buffer, final String fieldName, final Object array) {
         spaces += INDENT;
         resetIndent();
-        super.appendDetail(buffer, fieldName, array);
+        super.reflectionAppendArrayDetail(buffer, fieldName, array);
         spaces -= INDENT;
         resetIndent();
     }
-
+    
     @Override
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final long[] array) {
         spaces += INDENT;

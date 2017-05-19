@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="2017-MM-DD" description="TBD">
+    <action issue="LANG-1319" type="fix" dev="djones">MultilineRecursiveToStringStyle StackOverflowError when object is an array</action>
     <action issue="LANG-1325" type="add" dev="kinow" due-to="Arshad Basha">Increase test coverage of ToStringBuilder class to 100%</action>
     <action issue="LANG-1307" type="add" dev="pschumacher" due-to="Arshad Basha">Add a method in StringUtils to extract only digits out of input string</action>
     <action issue="LANG-1110" type="update" dev="pschumacher" due-to="Bruno P. Kinoshita">Implement HashSetvBitSetTest using JMH</action>
