@@ -27,6 +27,7 @@ import org.junit.Test;
  * 
  * @see CharEncoding
  */
+@SuppressWarnings("deprecation")
 public class CharEncodingTest  {
 
     private void assertSupportedEncoding(final String name) {

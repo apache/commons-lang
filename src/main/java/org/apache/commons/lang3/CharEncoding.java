@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * <p>Character encoding names required of every implementation of the Java platform.</p>
@@ -32,7 +33,11 @@ import java.nio.charset.IllegalCharsetNameException;
  *
  * @see <a href="http://docs.oracle.com/javase/6/docs/technotes/guides/intl/encoding.doc.html">JRE character encoding names</a>
  * @since 2.1
+ * @deprecated Java 7 introduced {@link StandardCharsets}, which defines these constants as
+ * {@link Charset} objects. Use {@link Charset#name()} to get the string values provided in this class.
+ * This class will be removed in a future release.
  */
+@Deprecated
 public class CharEncoding {
 
     /**
@@ -40,7 +45,7 @@ public class CharEncoding {
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String ISO_8859_1 = "ISO-8859-1";
+    public static final String ISO_8859_1 = StandardCharsets.ISO_8859_1.name();
 
     /**
      * <p>Seven-bit ASCII, also known as ISO646-US, also known as the Basic Latin block
@@ -48,7 +53,7 @@ public class CharEncoding {
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String US_ASCII = "US-ASCII";
+    public static final String US_ASCII = StandardCharsets.US_ASCII.name();
 
     /**
      * <p>Sixteen-bit Unicode Transformation Format, byte order specified by a mandatory initial
@@ -56,28 +61,28 @@ public class CharEncoding {
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String UTF_16 = "UTF-16";
+    public static final String UTF_16 = StandardCharsets.UTF_16.name();
 
     /**
      * <p>Sixteen-bit Unicode Transformation Format, big-endian byte order.</p>
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String UTF_16BE = "UTF-16BE";
+    public static final String UTF_16BE = StandardCharsets.UTF_16BE.name();
 
     /**
      * <p>Sixteen-bit Unicode Transformation Format, little-endian byte order.</p>
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String UTF_16LE = "UTF-16LE";
+    public static final String UTF_16LE = StandardCharsets.UTF_16LE.name();
 
     /**
      * <p>Eight-bit Unicode Transformation Format.</p>
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String UTF_8 = "UTF-8";
+    public static final String UTF_8 = StandardCharsets.UTF_8.name();
 
     /**
      * <p>Returns whether the named charset is supported.</p>
@@ -88,6 +93,8 @@ public class CharEncoding {
      *
      * @param name  the name of the requested charset; may be either a canonical name or an alias, null returns false
      * @return {@code true} if the charset is available in the current Java virtual machine
+     * @deprecated Please use {@link Charset#isSupported(String)} instead, although be aware that {@code null}
+     * values are not accepted by that method and an {@link IllegalCharsetNameException} may be thrown.
      */
     public static boolean isSupported(final String name) {
         if (name == null) {
