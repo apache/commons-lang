@@ -35,7 +35,21 @@ public class Processor {
      * </ul>
      */
     public enum Arch {
-        BIT_32, BIT_64, UNKNOWN
+        
+        /**
+         * A 32-bit processor architecture.
+         */
+        BIT_32, 
+        
+        /**
+         * A 64-bit processor architecture.
+         */
+        BIT_64, 
+        
+        /**
+         * An unknown-bit processor architecture.
+         */
+        UNKNOWN
     }
 
     /**
@@ -49,14 +63,33 @@ public class Processor {
      * </ul>
      */
     public enum Type {
-        X86, IA_64, PPC, UNKNOWN
+        
+        /**
+         * Intel x86 series of instruction set architectures.
+         */
+        X86, 
+        
+        /**
+         * Intel Itanium  64-bit architecture.
+         */
+        IA_64, 
+        
+        /**
+         * Apple–IBM–Motorola PowerPC architecture.
+         */
+        PPC, 
+        
+        /**
+         * Unknown architecture.
+         */
+        UNKNOWN
     }
 
     private final Arch arch;
     private final Type type;
 
     /**
-     * Constructs a {@link Processor}object with the given
+     * Constructs a {@link Processor} object with the given
      * parameters.
      *
      * @param arch The processor architecture.
