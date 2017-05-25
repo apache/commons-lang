@@ -873,6 +873,10 @@
       <properties>
         <!-- LANG-1265: allow tests to access private fields/methods of java.base classes via reflection -->
         <argLine>-Xmx512m --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+        <!-- versions below 3.0.0 do not work with java 9 -->
+        <commons.javadoc.version>3.0.0-M1</commons.javadoc.version>
+        <!-- coverall version 4.3.0 does not work with java 9, see https://github.com/trautonen/coveralls-maven-plugin/issues/112 -->
+        <coveralls.skip>true</coveralls.skip>
       </properties>
     </profile>
 
