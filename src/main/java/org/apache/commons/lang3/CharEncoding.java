@@ -96,6 +96,7 @@ public class CharEncoding {
      * @deprecated Please use {@link Charset#isSupported(String)} instead, although be aware that {@code null}
      * values are not accepted by that method and an {@link IllegalCharsetNameException} may be thrown.
      */
+    @Deprecated
     public static boolean isSupported(final String name) {
         if (name == null) {
             return false;
