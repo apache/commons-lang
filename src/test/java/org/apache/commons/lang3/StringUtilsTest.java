@@ -2581,6 +2581,29 @@ public class StringUtilsTest {
         assertFalse(StringUtils.isAllUpperCase("A/C"));
     }
 
+    /**
+     * Test for {@link StringUtils#isMixedCase(CharSequence)}.
+     */
+    @Test
+    public void testIsMixedCase() {
+        assertFalse(StringUtils.isMixedCase(null));
+        assertFalse(StringUtils.isMixedCase(StringUtils.EMPTY));
+        assertFalse(StringUtils.isMixedCase(" "));
+        assertFalse(StringUtils.isMixedCase("A"));
+        assertFalse(StringUtils.isMixedCase("a"));
+        assertFalse(StringUtils.isMixedCase("/"));
+        assertFalse(StringUtils.isMixedCase("A/"));
+        assertFalse(StringUtils.isMixedCase("/b"));
+        assertFalse(StringUtils.isMixedCase("abc"));
+        assertFalse(StringUtils.isMixedCase("ABC"));
+        assertTrue(StringUtils.isMixedCase("aBc"));
+        assertTrue(StringUtils.isMixedCase("aBc "));
+        assertTrue(StringUtils.isMixedCase("A c"));
+        assertTrue(StringUtils.isMixedCase("aBc\n"));
+        assertTrue(StringUtils.isMixedCase("A1c"));
+        assertTrue(StringUtils.isMixedCase("a/C"));
+    }
+
     @Test
     public void testRemoveStart() {
         // StringUtils.removeStart("", *)        = ""
