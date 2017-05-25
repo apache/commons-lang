@@ -78,15 +78,13 @@ public class CharSetUtils {
             if (ch == lastChar) {
                 if (inChars != null && ch == inChars) {
                     continue;
-                } else {
-                    if (notInChars == null || ch != notInChars) {
-                        if (chars.contains(ch)) {
-                            inChars = ch;
-                            continue;
-                        } else {
-                            notInChars = ch;
-                        }
+                }
+                if (notInChars == null || ch != notInChars) {
+                    if (chars.contains(ch)) {
+                        inChars = ch;
+                        continue;
                     }
+                    notInChars = ch;
                 }
             }
             buffer.append(ch);

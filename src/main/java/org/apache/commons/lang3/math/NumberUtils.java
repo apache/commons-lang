@@ -1542,9 +1542,8 @@ public class NumberUtils {
                 return false;
             }
             return withDecimalsParsing(str, 1);
-        } else {
-            return withDecimalsParsing(str, 0);
         }
+        return withDecimalsParsing(str, 0);
     }
 
     private static boolean withDecimalsParsing(final String str, final int beginIdx) {
