@@ -29,6 +29,7 @@ import org.junit.Test;
 /**
  * Unit tests for WordUtils class.
  */
+@Deprecated
 public class WordUtilsTest {
 
     //-----------------------------------------------------------------------

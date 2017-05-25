@@ -31,7 +31,11 @@ import java.util.Random;
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
+ * RandomStringGenerator</a> instead
  */
+@Deprecated
 public class RandomStringUtils {
 
     /**
