@@ -913,6 +913,573 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
 
     @Test
+    public void testGreaterObject1() {
+        Validate.greater("c", "b");
+        try {
+            Validate.greater("b", "b");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value b is not greater than b", ex.getMessage());
+        }
+        try {
+            Validate.greater("a", "b");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value a is not greater than b", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGreaterObject2() {
+        Validate.greater("c", "b", "MSG");
+        try {
+            Validate.greater("b", "b", "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.greater("a", "b", "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGreaterLong1() {
+        Validate.greater(1, 0);
+        try {
+            Validate.greater(0, 0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 0 is not greater than 0", ex.getMessage());
+        }
+        try {
+            Validate.greater(-1, 0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value -1 is not greater than 0", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGreaterLong2() {
+        Validate.greater(1, 0, "MSG");
+        try {
+            Validate.greater(0, 0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.greater(-1, 0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGreaterDouble1() {
+        Validate.greater(1.0, 0.0);
+        Validate.greater(Double.POSITIVE_INFINITY, 0.0);
+        Validate.greater(Double.NaN, 0.0);
+        try {
+            Validate.greater(0.0, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 0.0 is not greater than 0.0", ex.getMessage());
+        }
+        try {
+            Validate.greater(-1.0, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value -1.0 is not greater than 0.0", ex.getMessage());
+        }
+        try {
+            Validate.greater(Double.NEGATIVE_INFINITY, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value -Infinity is not greater than 0.0", ex.getMessage());
+        }
+        try {
+            Validate.greater(0.0, Double.NaN);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 0.0 is not greater than NaN", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGreaterDouble2() {
+        Validate.greater(1.0, 0.0, "MSG");
+        Validate.greater(Double.POSITIVE_INFINITY, 0.0, "MSG");
+        Validate.greater(Double.NaN, 0.0, "MSG");
+        try {
+            Validate.greater(0.0, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.greater(-1.0, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.greater(Double.NEGATIVE_INFINITY, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.greater(0.0, Double.NaN, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
+
+    @Test
+    public void testGreaterOrEqualObject1() {
+        Validate.greaterOrEqual("c", "b");
+        Validate.greaterOrEqual("b", "b");
+        try {
+            Validate.greaterOrEqual("a", "b");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value a is not greater than or equal to b", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGreaterOrEqualObject2() {
+        Validate.greaterOrEqual("c", "b", "MSG");
+        Validate.greaterOrEqual("b", "b", "MSG");
+        try {
+            Validate.greaterOrEqual("a", "b", "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGreaterOrEqualLong1() {
+        Validate.greaterOrEqual(1, 0);
+        Validate.greaterOrEqual(0, 0);
+        try {
+            Validate.greaterOrEqual(-1, 0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value -1 is not greater than or equal to 0", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGreaterOrEqualLong2() {
+        Validate.greaterOrEqual(1, 0, "MSG");
+        Validate.greaterOrEqual(0, 0, "MSG");
+        try {
+            Validate.greaterOrEqual(-1, 0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGreaterOrEqualDouble1() {
+        Validate.greaterOrEqual(1.0, 0.0);
+        Validate.greaterOrEqual(Double.POSITIVE_INFINITY, 0.0);
+        Validate.greaterOrEqual(0.0, 0.0);
+        Validate.greaterOrEqual(Double.NaN, 0.0);
+        Validate.greaterOrEqual(Double.NaN, Double.NaN);
+
+        try {
+            Validate.greaterOrEqual(-1.0, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value -1.0 is not greater than or equal to 0.0", ex.getMessage());
+        }
+        try {
+            Validate.greaterOrEqual(Double.NEGATIVE_INFINITY, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value -Infinity is not greater than or equal to 0.0", ex.getMessage());
+        }
+        try {
+            Validate.greaterOrEqual(0.0, Double.NaN);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 0.0 is not greater than or equal to NaN", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGreaterOrEqualDouble2() {
+        Validate.greaterOrEqual(1.0, 0.0, "MSG");
+        Validate.greaterOrEqual(Double.POSITIVE_INFINITY, 0.0, "MSG");
+        Validate.greaterOrEqual(0.0, 0.0, "MSG");
+        Validate.greaterOrEqual(Double.NaN, 0.0, "MSG");
+        Validate.greaterOrEqual(Double.NaN, Double.NaN, "MSG");
+
+        try {
+            Validate.greaterOrEqual(-1.0, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.greaterOrEqual(Double.NEGATIVE_INFINITY, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.greaterOrEqual(0.0, Double.NaN, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
+
+    @Test
+    public void testLessThanObject1() {
+        Validate.lessThan("a", "b");
+        try {
+            Validate.lessThan("b", "b");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value b is not less than b", ex.getMessage());
+        }
+        try {
+            Validate.lessThan("c", "b");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value c is not less than b", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testLessThanObject2() {
+        Validate.lessThan("a", "b", "MSG");
+        try {
+            Validate.lessThan("b", "b", "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.lessThan("c", "b", "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testLessThanLong1() {
+        Validate.lessThan(-1, 0);
+        try {
+            Validate.lessThan(0, 0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 0 is not less than 0", ex.getMessage());
+        }
+        try {
+            Validate.lessThan(1, 0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 1 is not less than 0", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testLessThanLong2() {
+        Validate.lessThan(-1, 0, "MSG");
+        try {
+            Validate.lessThan(0, 0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.lessThan(1, 0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testLessThanDouble1() {
+        Validate.lessThan(-1.0, 0.0);
+        Validate.lessThan(Double.NEGATIVE_INFINITY, 0.0);
+        Validate.lessThan(0.0, Double.NaN);
+
+        try {
+            Validate.lessThan(0.0, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 0.0 is not less than 0.0", ex.getMessage());
+        }
+        try {
+            Validate.lessThan(1.0, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 1.0 is not less than 0.0", ex.getMessage());
+        }
+        try {
+            Validate.lessThan(Double.POSITIVE_INFINITY, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value Infinity is not less than 0.0", ex.getMessage());
+        }
+        try {
+            Validate.lessThan(Double.NaN, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value NaN is not less than 0.0", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testLessThanDouble2() {
+        Validate.lessThan(-1.0, 0.0, "MSG");
+        Validate.lessThan(Double.NEGATIVE_INFINITY, 0.0, "MSG");
+        Validate.lessThan(0.0, Double.NaN, "MSG");
+
+        try {
+            Validate.lessThan(0.0, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.lessThan(1.0, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.lessThan(Double.POSITIVE_INFINITY, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.lessThan(Double.NaN, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
+
+    @Test
+    public void testLessThanOrEqualObject1() {
+        Validate.lessThanOrEqual("a", "b");
+        Validate.lessThanOrEqual("b", "b");
+        try {
+            Validate.lessThanOrEqual("c", "b");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value c is not less than or equal to b", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testLessThanOrEqualObject2() {
+        Validate.lessThanOrEqual("a", "b", "MSG");
+        Validate.lessThanOrEqual("b", "b", "MSG");
+        try {
+            Validate.lessThanOrEqual("c", "b", "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testLessThanOrEqualLong1() {
+        Validate.lessThanOrEqual(-1, 0);
+        Validate.lessThanOrEqual(0, 0);
+        try {
+            Validate.lessThanOrEqual(1, 0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 1 is not less than or equal to 0", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testLessThanOrEqualLong2() {
+        Validate.lessThanOrEqual(-1, 0, "MSG");
+        Validate.lessThanOrEqual(0, 0, "MSG");
+        try {
+            Validate.lessThanOrEqual(1, 0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testLessThanOrEqualDouble1() {
+        Validate.lessThanOrEqual(-1.0, 0.0);
+        Validate.lessThanOrEqual(Double.NEGATIVE_INFINITY, 0.0);
+        Validate.lessThanOrEqual(0.0, 0.0);
+        Validate.lessThanOrEqual(0.0, Double.NaN);
+
+        try {
+            Validate.lessThanOrEqual(1.0, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 1.0 is not less than or equal to 0.0", ex.getMessage());
+        }
+        try {
+            Validate.lessThanOrEqual(Double.POSITIVE_INFINITY, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value Infinity is not less than or equal to 0.0", ex.getMessage());
+        }
+        try {
+            Validate.lessThanOrEqual(Double.NaN, 0.0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value NaN is not less than or equal to 0.0", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testLessThanOrEqualDouble2() {
+        Validate.lessThanOrEqual(-1.0, 0.0, "MSG");
+        Validate.lessThanOrEqual(Double.NEGATIVE_INFINITY, 0.0, "MSG");
+        Validate.lessThanOrEqual(0.0, 0.0, "MSG");
+        Validate.lessThanOrEqual(0.0, Double.NaN, "MSG");
+
+        try {
+            Validate.lessThanOrEqual(1.0, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.lessThanOrEqual(Double.POSITIVE_INFINITY, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.lessThanOrEqual(Double.NaN, 0.0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
+
+    @Test
+    public void testNotEqual1() {
+        Validate.notEqual("b", "a");
+        try {
+            Validate.notEqual("a", "a");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value a is equal to a", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testNotEqual2() {
+        Validate.notEqual("b", "a", "MSG");
+        try {
+            Validate.notEqual("a", "a", "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testDifferentLong1() {
+        Validate.notEqual(1, 0);
+        try {
+            Validate.notEqual(0, 0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 0 is equal to 0", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testDifferentLong2() {
+        Validate.notEqual(1, 0, "MSG");
+        try {
+            Validate.notEqual(0, 0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testDifferentDouble1() {
+        Validate.notEqual(1.0, 0.0);
+        Validate.notEqual(Double.NaN, 0.0);
+        Validate.notEqual(1.0, Double.NaN);
+        Validate.notEqual(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        try {
+            Validate.notEqual(0, 0);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value 0 is equal to 0", ex.getMessage());
+        }
+        try {
+            Validate.notEqual(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("The value Infinity is equal to Infinity", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testDifferentDouble2() {
+        Validate.notEqual(1.0, 0.0, "MSG");
+        Validate.notEqual(Double.NaN, 0.0, "MSG");
+        Validate.notEqual(1.0, Double.NaN, "MSG");
+        Validate.notEqual(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, "MSG");
+        try {
+            Validate.notEqual(0, 0, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.notEqual(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (final IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
+
+    @Test
     public void testInclusiveBetween()
     {
         Validate.inclusiveBetween("a", "c", "b");
