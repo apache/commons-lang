@@ -576,6 +576,7 @@
        properties that depend on the componentid.
     -->
     <commons.componentid>lang3</commons.componentid>
+    <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
     <commons.release.version>3.5</commons.release.version>
     <commons.release.desc>(Java 6.0+)</commons.release.desc>
