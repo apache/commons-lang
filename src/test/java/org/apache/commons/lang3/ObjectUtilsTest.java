@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -75,13 +75,13 @@ public class ObjectUtilsTest {
         assertEquals("123", firstNonNullGenerics);
         assertEquals("123", ObjectUtils.firstNonNull("123", null, "456", null));
         assertSame(Boolean.TRUE, ObjectUtils.firstNonNull(Boolean.TRUE));
-        
+
         // Explicitly pass in an empty array of Object type to ensure compiler doesn't complain of unchecked generic array creation
         assertNull(ObjectUtils.firstNonNull(new Object[0]));
-        
+
         // Cast to Object in line below ensures compiler doesn't complain of unchecked generic array creation
         assertNull(ObjectUtils.firstNonNull(null, null));
-        
+
         assertNull(ObjectUtils.firstNonNull((Object) null));
         assertNull(ObjectUtils.firstNonNull((Object[]) null));
     }
@@ -159,13 +159,13 @@ public class ObjectUtilsTest {
     public void testHashCodeMulti_multiple_likeList() {
         final List<Object> list0 = new ArrayList<>(Arrays.asList(new Object[0]));
         assertEquals(list0.hashCode(), ObjectUtils.hashCodeMulti());
-        
+
         final List<Object> list1 = new ArrayList<Object>(Arrays.asList("a"));
         assertEquals(list1.hashCode(), ObjectUtils.hashCodeMulti("a"));
-        
+
         final List<Object> list2 = new ArrayList<Object>(Arrays.asList("a", "b"));
         assertEquals(list2.hashCode(), ObjectUtils.hashCodeMulti("a", "b"));
-        
+
         final List<Object> list3 = new ArrayList<Object>(Arrays.asList("a", "b", "c"));
         assertEquals(list3.hashCode(), ObjectUtils.hashCodeMulti("a", "b", "c"));
     }
@@ -190,7 +190,7 @@ public class ObjectUtilsTest {
         } catch(final NullPointerException npe) {
         }
     }
-    
+
     @Test
     public void testIdentityToStringStringBuilder() {
         assertEquals(null, ObjectUtils.identityToString(null));
@@ -199,9 +199,9 @@ public class ObjectUtilsTest {
             ObjectUtils.identityToString(FOO));
         final Integer i = Integer.valueOf(90);
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
-        
+
         assertEquals(expected, ObjectUtils.identityToString(i));
-        
+
         final StringBuilder builder = new StringBuilder();
         ObjectUtils.identityToString(builder, i);
         assertEquals(expected, builder.toString());
@@ -211,14 +211,14 @@ public class ObjectUtilsTest {
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
-        
+
         try {
             ObjectUtils.identityToString(new StringBuilder(), null);
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
     }
-    
+
     @Test
     public void testIdentityToStringStrBuilder() {
         final Integer i = Integer.valueOf(102);
@@ -233,14 +233,14 @@ public class ObjectUtilsTest {
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
-        
+
         try {
             ObjectUtils.identityToString(new StrBuilder(), null);
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
     }
-    
+
     @Test
     public void testIdentityToStringAppendable() {
         final Integer i = Integer.valueOf(121);
@@ -253,7 +253,7 @@ public class ObjectUtilsTest {
         } catch(final IOException ex) {
             fail("IOException unexpected");
         }
-        
+
         try {
             ObjectUtils.identityToString((Appendable)null, "tmp");
             fail("NullPointerException expected");
@@ -298,12 +298,12 @@ public class ObjectUtilsTest {
         final Date nonNullComparable1 = calendar.getTime();
         final Date nonNullComparable2 = calendar.getTime();
         final String[] nullArray = null;
-        
+
         calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
         final Date minComparable = calendar.getTime();
-        
+
         assertNotSame( nonNullComparable1, nonNullComparable2 );
-        
+
         assertNull(ObjectUtils.max( (String) null ) );
         assertNull(ObjectUtils.max( nullArray ) );
         assertSame( nonNullComparable1, ObjectUtils.max( null, nonNullComparable1 ) );
@@ -324,12 +324,12 @@ public class ObjectUtilsTest {
         final Date nonNullComparable1 = calendar.getTime();
         final Date nonNullComparable2 = calendar.getTime();
         final String[] nullArray = null;
-        
+
         calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
         final Date minComparable = calendar.getTime();
-        
+
         assertNotSame( nonNullComparable1, nonNullComparable2 );
-        
+
         assertNull(ObjectUtils.min( (String) null ) );
         assertNull(ObjectUtils.min( nullArray ) );
         assertSame( nonNullComparable1, ObjectUtils.min( null, nonNullComparable1 ) );
@@ -358,7 +358,7 @@ public class ObjectUtilsTest {
 
         assertEquals("Null one false", -1, ObjectUtils.compare(nullValue, one));
         assertEquals("Null one true",   1, ObjectUtils.compare(nullValue, one, true));
-        
+
         assertEquals("one Null false", 1, ObjectUtils.compare(one, nullValue));
         assertEquals("one Null true", -1, ObjectUtils.compare(one, nullValue, true));
 

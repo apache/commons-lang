@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ public class ShortPrefixToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = "Integer";
-    
+
     @Before
     public void setUp() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
@@ -45,7 +45,7 @@ public class ShortPrefixToStringStyleTest {
     }
 
     //----------------------------------------------------------------
-    
+
     @Test
     public void testBlank() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
@@ -55,12 +55,12 @@ public class ShortPrefixToStringStyleTest {
     public void testAppendSuper() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").toString());
-        
+
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[]").append("a", "hello").toString());
         assertEquals(baseStr + "[<null>,a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").append("a", "hello").toString());
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper(null).append("a", "hello").toString());
     }
-    
+
     @Test
     public void testObject() {
         final Integer i3 = Integer.valueOf(3);
@@ -125,5 +125,5 @@ public class ShortPrefixToStringStyleTest {
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
     }
-    
+
 }

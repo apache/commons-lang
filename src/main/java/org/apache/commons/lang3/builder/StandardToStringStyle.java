@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,10 +28,10 @@ package org.apache.commons.lang3.builder;
  * @since 1.0
  */
 public class StandardToStringStyle extends ToStringStyle {
-    
+
     /**
      * Required for serialization support.
-     * 
+     *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 1L;
@@ -42,9 +42,9 @@ public class StandardToStringStyle extends ToStringStyle {
     public StandardToStringStyle() {
         super();
     }
-    
+
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets whether to use the class name.</p>
      *
@@ -66,7 +66,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets whether to output short or long class names.</p>
      *
@@ -90,7 +90,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets whether to use the identity hash code.</p>
      * @return the current useIdentityHashCode flag
@@ -111,7 +111,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets whether to use the field names passed in.</p>
      *
@@ -133,7 +133,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets whether to use full detail when the caller doesn't
      * specify.</p>
@@ -157,7 +157,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets whether to output array content detail.</p>
      *
@@ -167,7 +167,7 @@ public class StandardToStringStyle extends ToStringStyle {
     public boolean isArrayContentDetail() { // NOPMD as this is implementing the abstract class
         return super.isArrayContentDetail();
     }
-    
+
     /**
      * <p>Sets whether to output array content detail.</p>
      *
@@ -179,7 +179,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the array start text.</p>
      *
@@ -204,7 +204,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the array end text.</p>
      *
@@ -229,7 +229,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the array separator text.</p>
      *
@@ -254,7 +254,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the content start text.</p>
      *
@@ -279,7 +279,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the content end text.</p>
      *
@@ -304,7 +304,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the field name value separator text.</p>
      *
@@ -329,7 +329,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the field separator text.</p>
      *
@@ -354,11 +354,11 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
-     * <p>Gets whether the field separator should be added at the start 
+     * <p>Gets whether the field separator should be added at the start
      * of each buffer.</p>
-     * 
+     *
      * @return the fieldSeparatorAtStart flag
      * @since 2.0
      */
@@ -368,9 +368,9 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Sets whether the field separator should be added at the start 
+     * <p>Sets whether the field separator should be added at the start
      * of each buffer.</p>
-     * 
+     *
      * @param fieldSeparatorAtStart  the fieldSeparatorAtStart flag
      * @since 2.0
      */
@@ -380,11 +380,11 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
-     * <p>Gets whether the field separator should be added at the end 
+     * <p>Gets whether the field separator should be added at the end
      * of each buffer.</p>
-     * 
+     *
      * @return fieldSeparatorAtEnd flag
      * @since 2.0
      */
@@ -394,9 +394,9 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Sets whether the field separator should be added at the end 
+     * <p>Sets whether the field separator should be added at the end
      * of each buffer.</p>
-     * 
+     *
      * @param fieldSeparatorAtEnd  the fieldSeparatorAtEnd flag
      * @since 2.0
      */
@@ -406,7 +406,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the text to output when <code>null</code> found.</p>
      *
@@ -431,7 +431,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the text to output when a <code>Collection</code>,
      * <code>Map</code> or <code>Array</code> size is output.</p>
@@ -462,7 +462,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the end text to output when a <code>Collection</code>,
      * <code>Map</code> or <code>Array</code> size is output.</p>
@@ -493,7 +493,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the start text to output when an <code>Object</code> is
      * output in summary mode.</p>
@@ -524,7 +524,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the end text to output when an <code>Object</code> is
      * output in summary mode.</p>
@@ -555,5 +555,5 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     //---------------------------------------------------------------------
-    
+
 }

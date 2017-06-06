@@ -1209,7 +1209,7 @@ public class StrSubstitutor {
     /**
      * Returns the flag controlling whether escapes are preserved during
      * substitution.
-     * 
+     *
      * @return the preserve escape flag
      * @since 3.5
      */
@@ -1225,7 +1225,7 @@ public class StrSubstitutor {
      * character is removed during substitution (e.g.
      * <code>$${this-is-escaped}</code> becomes
      * <code>${this-is-escaped}</code>).  The default value is <b>false</b>
-     * 
+     *
      * @param preserveEscapes true if escapes are to be preserved
      * @since 3.5
      */

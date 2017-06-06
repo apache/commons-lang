@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -99,7 +99,7 @@ public class EqualsBuilderTest {
             return b;
         }
     }
-    
+
     static class TestEmptySubObject extends TestObject {
         public TestEmptySubObject(final int a) {
             super(a);
@@ -150,17 +150,17 @@ public class EqualsBuilderTest {
         private final TestRecursiveInnerObject a;
         private final TestRecursiveInnerObject b;
         private int z;
-        
-        public TestRecursiveObject(final TestRecursiveInnerObject a, 
+
+        public TestRecursiveObject(final TestRecursiveInnerObject a,
                 final TestRecursiveInnerObject b, final int z) {
             this.a = a;
             this.b = b;
         }
-        
+
         public TestRecursiveInnerObject getA() {
             return a;
         }
-        
+
         public TestRecursiveInnerObject getB() {
             return b;
         }
@@ -168,7 +168,7 @@ public class EqualsBuilderTest {
         public int getZ() {
             return z;
         }
-        
+
     }
 
     static class TestRecursiveInnerObject {
@@ -176,7 +176,7 @@ public class EqualsBuilderTest {
         public TestRecursiveInnerObject(final int n) {
             this.n = n;
         }
-        
+
         public int getN() {
             return n;
         }
@@ -189,20 +189,20 @@ public class EqualsBuilderTest {
             this.n = n;
             this.cycle = this;
         }
-        
+
         public TestRecursiveCycleObject(final TestRecursiveCycleObject cycle, final int n) {
             this.n = n;
             this.cycle = cycle;
         }
-        
+
         public int getN() {
             return n;
         }
-        
+
         public TestRecursiveCycleObject getCycle() {
             return cycle;
         }
-        
+
         public void setCycle(final TestRecursiveCycleObject cycle) {
             this.cycle = cycle;
         }
@@ -223,7 +223,7 @@ public class EqualsBuilderTest {
         assertFalse(EqualsBuilder.reflectionEquals(null, o2));
         assertTrue(EqualsBuilder.reflectionEquals(null, null));
     }
-    
+
     @Test
     public void testReflectionHierarchyEquals() {
         testReflectionHierarchyEquals(false);
@@ -306,7 +306,7 @@ public class EqualsBuilderTest {
      * @param toTer Left hand side, equal to to and toBis
      * @param to2 a different TestObject
      * @param oToChange a TestObject that will be changed
-     * @param testTransients whether to test transient instance variables 
+     * @param testTransients whether to test transient instance variables
      */
     private void testReflectionEqualsEquivalenceRelationship(
         final TestObject to,
@@ -371,12 +371,12 @@ public class EqualsBuilderTest {
         assertTrue(new EqualsBuilder().append(o1, o2).isEquals());
 
         assertFalse(new EqualsBuilder().append(o1, this).isEquals());
-        
+
         assertFalse(new EqualsBuilder().append(o1, null).isEquals());
         assertFalse(new EqualsBuilder().append(null, o2).isEquals());
         assertTrue(new EqualsBuilder().append((Object) null, null).isEquals());
     }
-    
+
     @Test
     public void testObjectBuild() {
         final TestObject o1 = new TestObject(4);
@@ -387,7 +387,7 @@ public class EqualsBuilderTest {
         assertEquals(Boolean.TRUE, new EqualsBuilder().append(o1, o2).build());
 
         assertEquals(Boolean.FALSE, new EqualsBuilder().append(o1, this).build());
-        
+
         assertEquals(Boolean.FALSE, new EqualsBuilder().append(o1, null).build());
         assertEquals(Boolean.FALSE, new EqualsBuilder().append(null, o2).build());
         assertEquals(Boolean.TRUE, new EqualsBuilder().append((Object) null, null).build());
@@ -401,17 +401,17 @@ public class EqualsBuilderTest {
         final TestRecursiveInnerObject i2_2 = new TestRecursiveInnerObject(2);
         final TestRecursiveInnerObject i3 = new TestRecursiveInnerObject(3);
         final TestRecursiveInnerObject i4 = new TestRecursiveInnerObject(4);
-        
+
         final TestRecursiveObject o1_a = new TestRecursiveObject(i1_1, i2_1, 1);
         final TestRecursiveObject o1_b = new TestRecursiveObject(i1_2, i2_2, 1);
         final TestRecursiveObject o2 = new TestRecursiveObject(i3, i4, 2);
         final TestRecursiveObject oNull = new TestRecursiveObject(null, null, 2);
-        
+
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_a, o1_a).isEquals());
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_a, o1_b).isEquals());
-        
+
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1_a, o2).isEquals());
-        
+
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(oNull, oNull).isEquals());
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1_a, oNull).isEquals());
     }
@@ -421,7 +421,7 @@ public class EqualsBuilderTest {
         final TestRecursiveCycleObject o1_a = new TestRecursiveCycleObject(1);
         final TestRecursiveCycleObject o1_b = new TestRecursiveCycleObject(1);
         final TestRecursiveCycleObject o2 = new TestRecursiveCycleObject(2);
-        
+
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_a, o1_a).isEquals());
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_a, o1_b).isEquals());
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1_a, o2).isEquals());
@@ -432,19 +432,19 @@ public class EqualsBuilderTest {
         final TestRecursiveCycleObject o1_a = new TestRecursiveCycleObject(1);
         final TestRecursiveCycleObject i1_a = new TestRecursiveCycleObject(o1_a, 100);
         o1_a.setCycle(i1_a);
-        
+
         final TestRecursiveCycleObject o1_b = new TestRecursiveCycleObject(1);
         final TestRecursiveCycleObject i1_b = new TestRecursiveCycleObject(o1_b, 100);
         o1_b.setCycle(i1_b);
-        
+
         final TestRecursiveCycleObject o2 = new TestRecursiveCycleObject(2);
         final TestRecursiveCycleObject i2 = new TestRecursiveCycleObject(o1_b, 200);
         o2.setCycle(i2);
-        
+
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_a, o1_a).isEquals());
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_a, o1_b).isEquals());
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1_a, o2).isEquals());
-        
+
         assertTrue(EqualsBuilder.reflectionEquals(o1_a, o1_b, false, null, true));
         assertFalse(EqualsBuilder.reflectionEquals(o1_a, o2, false, null, true));
     }
@@ -530,7 +530,7 @@ public class EqualsBuilderTest {
         equalsBuilder.reset();
         assertTrue(equalsBuilder.isEquals());
     }
-    
+
     @Test
     public void testBoolean() {
         final boolean o1 = true;
@@ -549,7 +549,7 @@ public class EqualsBuilderTest {
         obj2[0] = new TestObject(4);
         obj2[1] = new TestObject(5);
         obj2[2] = null;
-        
+
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj2, obj2).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
@@ -561,7 +561,7 @@ public class EqualsBuilderTest {
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[2] = null;
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
-                       
+
         obj2 = null;
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1 = null;
@@ -846,7 +846,7 @@ public class EqualsBuilderTest {
         assertTrue(new EqualsBuilder().append(array1, array2).isEquals());
         array1[1][1] = false;
         assertFalse(new EqualsBuilder().append(array1, array2).isEquals());
-        
+
         // compare 1 dim to 2.
         final boolean[] array3 = new boolean[]{true, true};
         assertFalse(new EqualsBuilder().append(array1, array3).isEquals());
@@ -1052,7 +1052,7 @@ public class EqualsBuilderTest {
         array1[1] = true;
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
     }
-    
+
     public static class TestACanEqualB {
         private final int a;
 
@@ -1114,7 +1114,7 @@ public class EqualsBuilderTest {
             return this.b;
         }
     }
-    
+
     /**
      * Tests two instances of classes that can be equal and that are not "related". The two classes are not subclasses
      * of each other and do not share a parent aside from Object.
@@ -1140,7 +1140,7 @@ public class EqualsBuilderTest {
         assertTrue(new EqualsBuilder().append(x, y).isEquals());
         assertTrue(new EqualsBuilder().append(y, x).isEquals());
     }
-    
+
     /**
      * Test from http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
      */
@@ -1193,7 +1193,7 @@ public class EqualsBuilderTest {
             this.three = new TestObject(three);
         }
     }
-    
+
     /**
      * Test cyclical object references which cause a StackOverflowException if
      * not handled properly. s. LANG-606
@@ -1242,7 +1242,7 @@ public class EqualsBuilderTest {
             return EqualsBuilder.reflectionEquals(this, obj);
         }
     }
-    
+
     @Test
     public void testReflectionArrays() throws Exception {
 
@@ -1256,11 +1256,11 @@ public class EqualsBuilderTest {
         assertFalse(EqualsBuilder.reflectionEquals(o1, o2));
         assertTrue(EqualsBuilder.reflectionEquals(o1, o1));
         assertTrue(EqualsBuilder.reflectionEquals(o1, o3));
-        
+
         final double[] d1 = { 0, 1 };
         final double[] d2 = { 2, 3 };
         final double[] d3 = { 0, 1 };
-        
+
         assertFalse(EqualsBuilder.reflectionEquals(d1, d2));
         assertTrue(EqualsBuilder.reflectionEquals(d1, d1));
         assertTrue(EqualsBuilder.reflectionEquals(d1, d3));

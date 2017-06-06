@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,10 +41,10 @@ public class StopWatchTest  {
         watch.stop();
         final long time = watch.getTime();
         assertEquals(time, watch.getTime());
-        
+
         assertTrue(time >= 500);
         assertTrue(time < 700);
-        
+
         watch.reset();
         assertEquals(0, watch.getTime());
     }
@@ -54,13 +54,13 @@ public class StopWatchTest  {
         final StopWatch watch = StopWatch.createStarted();
         assertTrue(watch.isStarted());
     }
-    
+
     @Test
     public void testStopWatchSimpleGet(){
         final StopWatch watch = new StopWatch();
         assertEquals(0, watch.getTime());
         assertEquals("00:00:00.000", watch.toString());
-        
+
         watch.start();
             try {Thread.sleep(500);} catch (final InterruptedException ex) {}
         assertTrue(watch.getTime() < 2000);
@@ -95,14 +95,14 @@ public class StopWatchTest  {
         watch.stop();
         final long totalTime = watch.getTime();
 
-        assertEquals("Formatted split string not the correct length", 
+        assertEquals("Formatted split string not the correct length",
                      splitStr.length(), 12);
         assertTrue(splitTime >= 500);
         assertTrue(splitTime < 700);
         assertTrue(totalTime >= 1500);
         assertTrue(totalTime < 1900);
     }
-    
+
     @Test
     public void testStopWatchSuspend(){
         final StopWatch watch = new StopWatch();
@@ -115,7 +115,7 @@ public class StopWatchTest  {
             try {Thread.sleep(550);} catch (final InterruptedException ex) {}
         watch.stop();
         final long totalTime = watch.getTime();
-        
+
         assertTrue(suspendTime >= 500);
         assertTrue(suspendTime < 700);
         assertTrue(totalTime >= 1000);
@@ -275,7 +275,7 @@ public class StopWatchTest  {
      * Creates a suspended StopWatch object which appears to have elapsed
      * for the requested amount of time in nanoseconds.
      * <p>
-     * 
+     *
      * <pre>
      * // Create a mock StopWatch with a time of 2:59:01.999
      * final long nanos = TimeUnit.HOURS.toNanos(2)
@@ -284,7 +284,7 @@ public class StopWatchTest  {
      *         + TimeUnit.MILLISECONDS.toNanos(999);
      * final StopWatch watch = createMockStopWatch(nanos);
      * </pre>
-     * 
+     *
      * @param nanos Time in nanoseconds to have elapsed on the stop watch
      * @return StopWatch in a suspended state with the elapsed time
      */

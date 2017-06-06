@@ -147,7 +147,7 @@ public class ObjectUtils {
      * ObjectUtils.anyNotNull(null)             = false
      * ObjectUtils.anyNotNull(null, null)       = false
      * </pre>
-     * 
+     *
      * @param values  the values to test, may be {@code null} or empty
      * @return {@code true} if there is at least one non-null value in the array,
      * {@code false} if all values in the array are {@code null}s.
@@ -167,7 +167,7 @@ public class ObjectUtils {
      * {@code null} or the array is empty (contains no elements) {@code true}
      * is returned.
      * </p>
-     * 
+     *
      * <pre>
      * ObjectUtils.allNotNull(*)             = true
      * ObjectUtils.allNotNull(*, *)          = true
@@ -277,7 +277,7 @@ public class ObjectUtils {
 
     /**
      * <p>Gets the hash code for multiple objects.</p>
-     * 
+     *
      * <p>This allows a hash code to be rapidly calculated for a number of objects.
      * The hash code for a single object is the <em>not</em> same as {@link #hashCode(Object)}.
      * The hash code for multiple objects is the same as that calculated by an
@@ -622,7 +622,7 @@ public class ObjectUtils {
     //-----------------------------------------------------------------------
     /**
      * Find the most frequently occurring item.
-     * 
+     *
      * @param <T> type of values processed by this method
      * @param items to check
      * @return most populous T, {@code null} if non-unique or no items supplied
@@ -1008,7 +1008,7 @@ public class ObjectUtils {
      * have to recompile themselves if the field's value
      * changes at some future date.
      *
-     * @param <T> the Object type 
+     * @param <T> the Object type
      * @param v the genericized Object value to return (typically a String).
      * @return the genericized Object v, unchanged (typically a String).
      * @since 3.2

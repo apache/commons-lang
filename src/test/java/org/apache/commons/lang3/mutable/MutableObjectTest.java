@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import org.junit.Test;
 
 /**
  * JUnit tests.
- * 
+ *
  * @see MutableShort
  */
 public class MutableObjectTest {
@@ -35,7 +35,7 @@ public class MutableObjectTest {
     @Test
     public void testConstructors() {
         assertEquals(null, new MutableObject<String>().getValue());
-        
+
         final Integer i = Integer.valueOf(6);
         assertSame(i, new MutableObject<>(i).getValue());
         assertSame("HI", new MutableObject<>("HI").getValue());
@@ -46,10 +46,10 @@ public class MutableObjectTest {
     public void testGetSet() {
         final MutableObject<String> mutNum = new MutableObject<>();
         assertEquals(null, new MutableObject<>().getValue());
-        
+
         mutNum.setValue("HELLO");
         assertSame("HELLO", mutNum.getValue());
-        
+
         mutNum.setValue(null);
         assertSame(null, mutNum.getValue());
     }
@@ -70,7 +70,7 @@ public class MutableObjectTest {
         assertTrue(mutNumC.equals(mutNumC));
         assertFalse(mutNumA.equals(mutNumD));
         assertTrue(mutNumD.equals(mutNumD));
-        
+
         assertFalse(mutNumA.equals(null));
         assertFalse(mutNumA.equals(new Object()));
         assertFalse(mutNumA.equals("0"));

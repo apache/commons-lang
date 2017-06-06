@@ -50,7 +50,7 @@ public class CharSequenceUtils {
      * @param cs  the specified subsequence, null returns null
      * @param start  the start index, inclusive, valid
      * @return a new subsequence, may be null
-     * @throws IndexOutOfBoundsException if {@code start} is negative or if 
+     * @throws IndexOutOfBoundsException if {@code start} is negative or if
      *  {@code start} is greater than {@code length()}
      */
     public static CharSequence subSequence(final CharSequence cs, final int start) {

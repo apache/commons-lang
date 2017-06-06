@@ -28,12 +28,12 @@ public class DiffTest {
 
     private static final String FIELD_NAME = "field";
     private static final Diff<Boolean> booleanDiff = new BooleanDiff(FIELD_NAME);
-    
-    private static class BooleanDiff extends Diff<Boolean> {        
+
+    private static class BooleanDiff extends Diff<Boolean> {
         private static final long serialVersionUID = 1L;
 
         protected BooleanDiff(final String fieldName) {
-            super(fieldName);        
+            super(fieldName);
         }
 
         @Override
@@ -44,27 +44,27 @@ public class DiffTest {
         @Override
         public Boolean getRight() {
             return Boolean.FALSE;
-        }        
+        }
     }
-    
+
     @Test(expected = UnsupportedOperationException.class)
     public void testCannotModify() {
         booleanDiff.setValue(Boolean.FALSE);
     }
-    
+
     @Test
     public void testGetFieldName() {
         assertEquals(FIELD_NAME, booleanDiff.getFieldName());
     }
-    
+
     @Test
     public void testGetType() {
         assertEquals(Boolean.class, booleanDiff.getType());
     }
-    
+
     @Test
     public void testToString() {
-        assertEquals(String.format("[%s: %s, %s]", FIELD_NAME, booleanDiff.getLeft(), 
+        assertEquals(String.format("[%s: %s, %s]", FIELD_NAME, booleanDiff.getLeft(),
                 booleanDiff.getRight()), booleanDiff.toString());
     }
 }

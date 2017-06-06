@@ -106,7 +106,7 @@ public abstract class TypeLiteral<T> implements Typed<T> {
         return TypeUtils.equals(value, other.value);
     }
 
-    @Override 
+    @Override
     public int hashCode() {
         return 37 << 4 | value.hashCode();
     }

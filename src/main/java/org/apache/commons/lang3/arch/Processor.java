@@ -35,17 +35,17 @@ public class Processor {
      * </ul>
      */
     public enum Arch {
-        
+
         /**
          * A 32-bit processor architecture.
          */
-        BIT_32, 
-        
+        BIT_32,
+
         /**
          * A 64-bit processor architecture.
          */
-        BIT_64, 
-        
+        BIT_64,
+
         /**
          * An unknown-bit processor architecture.
          */
@@ -63,22 +63,22 @@ public class Processor {
      * </ul>
      */
     public enum Type {
-        
+
         /**
          * Intel x86 series of instruction set architectures.
          */
-        X86, 
-        
+        X86,
+
         /**
          * Intel Itanium  64-bit architecture.
          */
-        IA_64, 
-        
+        IA_64,
+
         /**
          * Apple–IBM–Motorola PowerPC architecture.
          */
-        PPC, 
-        
+        PPC,
+
         /**
          * Unknown architecture.
          */

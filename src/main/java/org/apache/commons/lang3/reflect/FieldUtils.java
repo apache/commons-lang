@@ -32,7 +32,7 @@ import java.util.List;
  * <p>
  * The ability is provided to break the scoping restrictions coded by the programmer. This can allow fields to be
  * changed that shouldn't be. This facility should be used with care.
- * 
+ *
  * @since 2.5
  */
 public class FieldUtils {
@@ -49,7 +49,7 @@ public class FieldUtils {
 
     /**
      * Gets an accessible {@link Field} by name respecting scope. Superclasses/interfaces will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -67,7 +67,7 @@ public class FieldUtils {
     /**
      * Gets an accessible {@link Field} by name, breaking scope if requested. Superclasses/interfaces will be
      * considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -135,7 +135,7 @@ public class FieldUtils {
 
     /**
      * Gets an accessible {@link Field} by name respecting scope. Only the specified class will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -151,7 +151,7 @@ public class FieldUtils {
     /**
      * Gets an accessible {@link Field} by name, breaking scope if requested. Only the specified class will be
      * considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -186,7 +186,7 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any).
-     * 
+     *
      * @param cls
      *            the {@link Class} to query
      * @return an array of Fields (possibly empty).
@@ -201,7 +201,7 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any).
-     * 
+     *
      * @param cls
      *            the {@link Class} to query
      * @return an array of Fields (possibly empty).
@@ -264,7 +264,7 @@ public class FieldUtils {
 
     /**
      * Reads an accessible {@code static} {@link Field}.
-     * 
+     *
      * @param field
      *            to read
      * @return the field value
@@ -279,7 +279,7 @@ public class FieldUtils {
 
     /**
      * Reads a static {@link Field}.
-     * 
+     *
      * @param field
      *            to read
      * @param forceAccess
@@ -299,7 +299,7 @@ public class FieldUtils {
 
     /**
      * Reads the named {@code public static} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -317,7 +317,7 @@ public class FieldUtils {
 
     /**
      * Reads the named {@code static} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -343,7 +343,7 @@ public class FieldUtils {
     /**
      * Gets the value of a {@code static} {@link Field} by name. The field must be {@code public}. Only the specified
      * class will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -361,7 +361,7 @@ public class FieldUtils {
 
     /**
      * Gets the value of a {@code static} {@link Field} by name. Only the specified class will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -386,7 +386,7 @@ public class FieldUtils {
 
     /**
      * Reads an accessible {@link Field}.
-     * 
+     *
      * @param field
      *            the field to use
      * @param target
@@ -403,7 +403,7 @@ public class FieldUtils {
 
     /**
      * Reads a {@link Field}.
-     * 
+     *
      * @param field
      *            the field to use
      * @param target
@@ -429,7 +429,7 @@ public class FieldUtils {
 
     /**
      * Reads the named {@code public} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -446,7 +446,7 @@ public class FieldUtils {
 
     /**
      * Reads the named {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -472,7 +472,7 @@ public class FieldUtils {
 
     /**
      * Reads the named {@code public} {@link Field}. Only the class of the specified object will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -489,7 +489,7 @@ public class FieldUtils {
 
     /**
      * Gets a {@link Field} value by name. Only the class of the specified object will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -515,7 +515,7 @@ public class FieldUtils {
 
     /**
      * Writes a {@code public static} {@link Field}.
-     * 
+     *
      * @param field
      *            to write
      * @param value
@@ -531,7 +531,7 @@ public class FieldUtils {
 
     /**
      * Writes a static {@link Field}.
-     * 
+     *
      * @param field
      *            to write
      * @param value
@@ -554,7 +554,7 @@ public class FieldUtils {
 
     /**
      * Writes a named {@code public static} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param cls
      *            {@link Class} on which the field is to be found
      * @param fieldName
@@ -573,7 +573,7 @@ public class FieldUtils {
 
     /**
      * Writes a named {@code static} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param cls
      *            {@link Class} on which the field is to be found
      * @param fieldName
@@ -600,7 +600,7 @@ public class FieldUtils {
 
     /**
      * Writes a named {@code public static} {@link Field}. Only the specified class will be considered.
-     * 
+     *
      * @param cls
      *            {@link Class} on which the field is to be found
      * @param fieldName
@@ -619,7 +619,7 @@ public class FieldUtils {
 
     /**
      * Writes a named {@code static} {@link Field}. Only the specified class will be considered.
-     * 
+     *
      * @param cls
      *            {@link Class} on which the field is to be found
      * @param fieldName
@@ -645,7 +645,7 @@ public class FieldUtils {
 
     /**
      * Writes an accessible {@link Field}.
-     * 
+     *
      * @param field
      *            to write
      * @param target
@@ -662,7 +662,7 @@ public class FieldUtils {
 
     /**
      * Writes a {@link Field}.
-     * 
+     *
      * @param field
      *            to write
      * @param target
@@ -691,7 +691,7 @@ public class FieldUtils {
 
     /**
      * Removes the final modifier from a {@link Field}.
-     * 
+     *
      * @param field
      *            to remove the final modifier
      * @throws IllegalArgumentException
@@ -704,7 +704,7 @@ public class FieldUtils {
 
     /**
      * Removes the final modifier from a {@link Field}.
-     * 
+     *
      * @param field
      *            to remove the final modifier
      * @param forceAccess
@@ -743,7 +743,7 @@ public class FieldUtils {
 
     /**
      * Writes a {@code public} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -762,7 +762,7 @@ public class FieldUtils {
 
     /**
      * Writes a {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -791,7 +791,7 @@ public class FieldUtils {
 
     /**
      * Writes a {@code public} {@link Field}. Only the specified class will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -810,7 +810,7 @@ public class FieldUtils {
 
     /**
      * Writes a {@code public} {@link Field}. Only the specified class will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName

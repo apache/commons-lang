@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,13 +32,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>Provides utilities for manipulating and examining 
+ * <p>Provides utilities for manipulating and examining
  * <code>Throwable</code> objects.</p>
  *
  * @since 1.0
  */
 public class ExceptionUtils {
-    
+
     /**
      * <p>Used when printing stack frames to denote the start of a
      * wrapped exception.</p>
@@ -95,7 +95,7 @@ public class ExceptionUtils {
     /**
      * <p>Introspects the <code>Throwable</code> to obtain the cause.</p>
      *
-     * <p>The method searches for methods with specific names that return a 
+     * <p>The method searches for methods with specific names that return a
      * <code>Throwable</code> object. This will pick up most wrapping exceptions,
      * including those from JDK 1.4.
      *
@@ -110,7 +110,7 @@ public class ExceptionUtils {
      *  <li><code>getCausedByException()</code></li>
      *  <li><code>getNested()</code></li>
      * </ul>
-     * 
+     *
      * <p>If none of the above is found, returns <code>null</code>.</p>
      *
      * @param throwable  the throwable to introspect for a cause, may be null
@@ -628,7 +628,7 @@ public class ExceptionUtils {
      * <p>This works in most cases - it will only fail if the exception
      * message contains a line that starts with:
      * <code>&quot;&nbsp;&nbsp;&nbsp;at&quot;.</code></p>
-     * 
+     *
      * @param t is any throwable
      * @return List of stack frames
      */

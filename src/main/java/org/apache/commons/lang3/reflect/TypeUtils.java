@@ -56,7 +56,7 @@ public class TypeUtils {
          */
         private WildcardTypeBuilder() {
         }
-        
+
         private Type[] upperBounds;
         private Type[] lowerBounds;
 
@@ -91,7 +91,7 @@ public class TypeUtils {
 
     /**
      * GenericArrayType implementation class.
-     * @since 3.2 
+     * @since 3.2
      */
     private static final class GenericArrayTypeImpl implements GenericArrayType {
         private final Type componentType;
@@ -141,7 +141,7 @@ public class TypeUtils {
 
     /**
      * ParameterizedType implementation class.
-     * @since 3.2 
+     * @since 3.2
      */
     private static final class ParameterizedTypeImpl implements ParameterizedType {
         private final Class<?> raw;
@@ -217,7 +217,7 @@ public class TypeUtils {
 
     /**
      * WildcardType implementation class.
-     * @since 3.2 
+     * @since 3.2
      */
     private static final class WildcardTypeImpl implements WildcardType {
         private static final Type[] EMPTY_BOUNDS = new Type[0];
@@ -1400,7 +1400,7 @@ public class TypeUtils {
 
     /**
      * Local helper method to unroll variables in a type bounds array.
-     * 
+     *
      * @param typeArguments assignments {@link Map}
      * @param bounds in which to expand variables
      * @return {@code bounds} with any variables reassigned

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import org.apache.commons.lang3.Validate;
  * a <code>Number</code>.</p>
  *
  * <p>Note that this class is intended for common use cases, it is <i>int</i>
- * based and thus suffers from various overflow issues. For a BigInteger based 
+ * based and thus suffers from various overflow issues. For a BigInteger based
  * equivalent, please see the Commons Math BigFraction class. </p>
  *
  * @since 2.0
@@ -37,7 +37,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
 
     /**
      * Required for serialization support. Lang version 2.0.
-     * 
+     *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 65382027393090L;
@@ -166,7 +166,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the denominator is <code>zero</code>
      * @throws ArithmeticException if the denominator is negative
      * @throws ArithmeticException if the numerator is negative
-     * @throws ArithmeticException if the resulting numerator exceeds 
+     * @throws ArithmeticException if the resulting numerator exceeds
      *  <code>Integer.MAX_VALUE</code>
      */
     public static Fraction getFraction(final int whole, final int numerator, final int denominator) {
@@ -240,7 +240,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param value  the double value to convert
      * @return a new fraction instance that is close to the value
-     * @throws ArithmeticException if <code>|value| &gt; Integer.MAX_VALUE</code> 
+     * @throws ArithmeticException if <code>|value| &gt; Integer.MAX_VALUE</code>
      *  or <code>value = NaN</code>
      * @throws ArithmeticException if the calculated denominator is <code>zero</code>
      * @throws ArithmeticException if the the algorithm does not converge
@@ -454,7 +454,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     /**
      * <p>Reduce the fraction to the smallest values for the numerator and
      * denominator, returning the result.</p>
-     * 
+     *
      * <p>For example, if this fraction represents 2/4, then the result
      * will be 1/2.</p>
      *
@@ -473,7 +473,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
 
     /**
      * <p>Gets a fraction that is the inverse (1/fraction) of this one.</p>
-     * 
+     *
      * <p>The returned fraction is not reduced.</p>
      *
      * @return a new fraction instance with the numerator and denominator
@@ -531,7 +531,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param power  the power to raise the fraction to
      * @return <code>this</code> if the power is one, <code>ONE</code> if the power
-     * is zero (even if the fraction equals ZERO) or a new fraction instance 
+     * is zero (even if the fraction equals ZERO) or a new fraction instance
      * raised to the appropriate power
      * @throws ArithmeticException if the resulting numerator or denominator exceeds
      *  <code>Integer.MAX_VALUE</code>
@@ -625,9 +625,9 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     // Arithmetic
     //-------------------------------------------------------------------
 
-    /** 
+    /**
      * Multiply two integers, checking for overflow.
-     * 
+     *
      * @param x a factor
      * @param y a factor
      * @return the product <code>x*y</code>
@@ -641,10 +641,10 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         }
         return (int) m;
     }
-    
+
     /**
      *  Multiply two non-negative integers, checking for overflow.
-     * 
+     *
      * @param x a non-negative factor
      * @param y a non-negative factor
      * @return the product <code>x*y</code>
@@ -659,10 +659,10 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         }
         return (int) m;
     }
-    
-    /** 
+
+    /**
      * Add two integers, checking for overflow.
-     * 
+     *
      * @param x an addend
      * @param y an addend
      * @return the sum <code>x+y</code>
@@ -676,10 +676,10 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         }
         return (int) s;
     }
-    
-    /** 
+
+    /**
      * Subtract two integers, checking for overflow.
-     * 
+     *
      * @param x the minuend
      * @param y the subtrahend
      * @return the difference <code>x-y</code>
@@ -693,7 +693,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         }
         return (int) s;
     }
-    
+
     /**
      * <p>Adds the value of this fraction to another, returning the result in reduced form.
      * The algorithm follows Knuth, 4.5.1.</p>
@@ -709,7 +709,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
-     * <p>Subtracts the value of another fraction from the value of this one, 
+     * <p>Subtracts the value of another fraction from the value of this one,
      * returning the result in reduced form.</p>
      *
      * @param fraction  the fraction to subtract, must not be <code>null</code>
@@ -722,9 +722,9 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         return addSub(fraction, false /* subtract */);
     }
 
-    /** 
+    /**
      * Implement add and subtract using algorithm described in Knuth 4.5.1.
-     * 
+     *
      * @param fraction the fraction to subtract, must not be <code>null</code>
      * @param isAdd true to add, false to subtract
      * @return a <code>Fraction</code> instance with the resulting values
@@ -771,7 +771,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
-     * <p>Multiplies the value of this fraction by another, returning the 
+     * <p>Multiplies the value of this fraction by another, returning the
      * result in reduced form.</p>
      *
      * @param fraction  the fraction to multiply by, must not be <code>null</code>

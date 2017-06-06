@@ -129,7 +129,7 @@ public class UnicodeEscaper extends CodePointTranslator {
 
     /**
      * Converts the given codepoint to a hex string of the form {@code "\\uXXXX"}
-     * 
+     *
      * @param codepoint
      *            a Unicode code point
      * @return the hex string for the given codepoint

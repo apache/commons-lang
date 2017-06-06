@@ -161,17 +161,17 @@ public class SerializationUtils {
      * <p>
      * Deserializes an {@code Object} from the specified stream.
      * </p>
-     * 
+     *
      * <p>
      * The stream will be closed once the object is written. This avoids the need for a finally clause, and maybe also
      * exception handling, in the application code.
      * </p>
-     * 
+     *
      * <p>
      * The stream passed in is not buffered internally within this method. This is the responsibility of your
      * application if desired.
      * </p>
-     * 
+     *
      * <p>
      * If the call site incorrectly types the return value, a {@link ClassCastException} is thrown from the call site.
      * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
@@ -202,13 +202,13 @@ public class SerializationUtils {
      * <p>
      * Deserializes a single {@code Object} from an array of bytes.
      * </p>
-     * 
+     *
      * <p>
      * If the call site incorrectly types the return value, a {@link ClassCastException} is thrown from the call site.
      * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
      * Note that in both cases, the ClassCastException is in the call site, not in this method.
      * </p>
-     * 
+     *
      * @param <T>  the object type to be deserialized
      * @param objectData
      *            the serialized object, must not be null
@@ -232,12 +232,12 @@ public class SerializationUtils {
      * containers and application servers, no matter in which of the
      * <code>ClassLoader</code> the particular class that encapsulates
      * serialization/deserialization lives. </p>
-     * 
+     *
      * <p>For more in-depth information about the problem for which this
      * class here is a workaround, see the JIRA issue LANG-626. </p>
      */
      static class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
-        private static final Map<String, Class<?>> primitiveTypes = 
+        private static final Map<String, Class<?>> primitiveTypes =
                 new HashMap<>();
 
         static {
@@ -253,7 +253,7 @@ public class SerializationUtils {
         }
 
         private final ClassLoader classLoader;
-        
+
         /**
          * Constructor.
          * @param in The <code>InputStream</code>.

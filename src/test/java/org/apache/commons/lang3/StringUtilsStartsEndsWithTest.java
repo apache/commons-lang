@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -99,7 +99,7 @@ public class StringUtilsStartsEndsWithTest {
         assertTrue("StringUtils.startsWithAny(abcxyz, StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny("abcxyz", new StringBuilder("xyz"), new StringBuffer("abc")));
         assertTrue("StringUtils.startsWithAny(StringBuffer(abcxyz), StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny(new StringBuffer("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")));
     }
- 
+
 
     /**
      * Test StringUtils.endsWith()
@@ -183,7 +183,7 @@ public class StringUtilsStartsEndsWithTest {
 
         /*
          * Type null of the last argument to method endsWithAny(CharSequence, CharSequence...)
-         * doesn't exactly match the vararg parameter type. 
+         * doesn't exactly match the vararg parameter type.
          * Cast to CharSequence[] to confirm the non-varargs invocation,
          * or pass individual arguments of type CharSequence for a varargs invocation.
          *

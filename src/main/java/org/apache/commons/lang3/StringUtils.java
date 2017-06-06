@@ -228,7 +228,7 @@ public class StringUtils {
     public static boolean isNotEmpty(final CharSequence cs) {
         return !isEmpty(cs);
     }
-       
+
     /**
      * <p>Checks if any of the CharSequences are empty ("") or null.</p>
      *
@@ -316,7 +316,7 @@ public class StringUtils {
 
     /**
      * <p>Checks if a CharSequence is empty (""), null or whitespace only.</p>
-     * 
+     *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
@@ -347,7 +347,7 @@ public class StringUtils {
 
     /**
      * <p>Checks if a CharSequence is not empty (""), not null and not whitespace only.</p>
-     * 
+     *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
@@ -370,7 +370,7 @@ public class StringUtils {
 
     /**
      * <p>Checks if any of the CharSequences are empty ("") or null or whitespace only.</p>
-     * 
+     *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
@@ -404,7 +404,7 @@ public class StringUtils {
 
     /**
      * <p>Checks if none of the CharSequences are empty (""), null or whitespace only.</p>
-     * 
+     *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
@@ -450,7 +450,7 @@ public class StringUtils {
      * @since 3.6
      */
     public static boolean isAllBlank(final CharSequence... css) {
-        if (ArrayUtils.isEmpty(css)) {  
+        if (ArrayUtils.isEmpty(css)) {
             return true;
         }
         for (final CharSequence cs : css) {
@@ -774,7 +774,7 @@ public class StringUtils {
         str = stripStart(str, stripChars);
         return stripEnd(str, stripChars);
     }
-    
+
     /**
      * <p>Strips any of a set of characters from the start of a String.</p>
      *
@@ -2019,9 +2019,9 @@ public class StringUtils {
 
     /**
      * <p>Check whether the given CharSequence contains any whitespace characters.</p>
-     * 
+     *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
-     * 
+     *
      * @param seq the CharSequence to check (may be {@code null})
      * @return {@code true} if the CharSequence is not empty and
      * contains at least 1 (breaking) whitespace character
@@ -2235,7 +2235,7 @@ public class StringUtils {
      * StringUtils.containsAny("abc", "d", "abc")  = true
      * </pre>
      *
-     * 
+     *
      * @param cs The CharSequence to check, may be null
      * @param searchCharSequences The array of CharSequences to search for, may be null.
      * Individual CharSequences may be null as well.
@@ -5468,7 +5468,7 @@ public class StringUtils {
 
     /**
      * <p>Replaces a String with another String inside a larger String,
-     * for the first {@code max} values of the search String, 
+     * for the first {@code max} values of the search String,
      * case sensitively/insensisitively based on {@code ignoreCase} value.</p>
      *
      * <p>A {@code null} reference passed to this method is a no-op.</p>
@@ -7200,7 +7200,7 @@ public class StringUtils {
 
     /**
      * <p>Checks if the CharSequence contains only whitespace.</p>
-     * 
+     *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <p>{@code null} will return {@code false}.
@@ -7390,7 +7390,7 @@ public class StringUtils {
     /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * whitespace, empty ("") or {@code null}, the value of {@code defaultStr}.</p>
-     * 
+     *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
@@ -7539,7 +7539,7 @@ public class StringUtils {
      *
      * <p>Specifically:</p>
      * <ul>
-     *   <li>If the number of characters in {@code str} is less than or equal to 
+     *   <li>If the number of characters in {@code str} is less than or equal to
      *       {@code maxWidth}, return {@code str}.</li>
      *   <li>Else abbreviate it to {@code (substring(str, 0, max-3) + "...")}.</li>
      *   <li>If {@code maxWidth} is less than {@code 4}, throw an
@@ -7616,7 +7616,7 @@ public class StringUtils {
      *
      * <p>Specifically:</p>
      * <ul>
-     *   <li>If the number of characters in {@code str} is less than or equal to 
+     *   <li>If the number of characters in {@code str} is less than or equal to
      *       {@code maxWidth}, return {@code str}.</li>
      *   <li>Else abbreviate it to {@code (substring(str, 0, max-abbrevMarker.length) + abbrevMarker)}.</li>
      *   <li>If {@code maxWidth} is less than {@code abbrevMarker.length + 1}, throw an
@@ -8009,7 +8009,7 @@ public class StringUtils {
      * another, where each change is a single character modification (deletion,
      * insertion or substitution).</p>
      *
-     * <p>The implementation uses a single-dimensional array of length s.length() + 1. See 
+     * <p>The implementation uses a single-dimensional array of length s.length() + 1. See
      * <a href="http://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html">
      * http://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html</a> for details.</p>
      *
@@ -8260,16 +8260,16 @@ public class StringUtils {
         }
         return -1;
     }
-    
+
     /**
      * <p>Find the Jaro Winkler Distance which indicates the similarity score between two Strings.</p>
      *
-     * <p>The Jaro measure is the weighted sum of percentage of matched characters from each file and transposed characters. 
+     * <p>The Jaro measure is the weighted sum of percentage of matched characters from each file and transposed characters.
      * Winkler increased this measure for matching initial characters.</p>
      *
      * <p>This implementation is based on the Jaro Winkler similarity algorithm
      * from <a href="http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance">http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance</a>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.getJaroWinklerDistance(null, null)          = IllegalArgumentException
      * StringUtils.getJaroWinklerDistance("","")               = 0.0
@@ -8972,7 +8972,7 @@ public class StringUtils {
 
     /**
      * Converts a <code>byte[]</code> to a String using the specified character encoding.
-     * 
+     *
      * @param bytes
      *            the byte array to read from
      * @param charset
@@ -8991,7 +8991,7 @@ public class StringUtils {
      * <p>
      * Wraps a string with a char.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.wrap(null, *)        = null
      * StringUtils.wrap("", *)          = ""
@@ -9000,7 +9000,7 @@ public class StringUtils {
      * StringUtils.wrap("ab", '\'')     = "'ab'"
      * StringUtils.wrap("\"ab\"", '\"') = "\"\"ab\"\""
      * </pre>
-     * 
+     *
      * @param str
      *            the string to be wrapped, may be {@code null}
      * @param wrapWith
@@ -9021,11 +9021,11 @@ public class StringUtils {
      * <p>
      * Wraps a String with another String.
      * </p>
-     * 
+     *
      * <p>
      * A {@code null} input String returns {@code null}.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.wrap(null, *)         = null
      * StringUtils.wrap("", *)           = ""
@@ -9038,7 +9038,7 @@ public class StringUtils {
      * StringUtils.wrap("\"abcd\"", "'") = "'\"abcd\"'"
      * StringUtils.wrap("'abcd'", "\"")  = "\"'abcd'\""
      * </pre>
-     * 
+     *
      * @param str
      *            the String to be wrapper, may be null
      * @param wrapWith
@@ -9059,7 +9059,7 @@ public class StringUtils {
      * <p>
      * Wraps a string with a char if that char is missing from the start or end of the given string.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.wrap(null, *)        = null
      * StringUtils.wrap("", *)          = ""
@@ -9072,7 +9072,7 @@ public class StringUtils {
      * StringUtils.wrap("/a/b/c", '/')  = "/a/b/c/"
      * StringUtils.wrap("a/b/c/", '/')  = "/a/b/c/"
      * </pre>
-     * 
+     *
      * @param str
      *            the string to be wrapped, may be {@code null}
      * @param wrapWith
@@ -9099,7 +9099,7 @@ public class StringUtils {
      * <p>
      * Wraps a string with a string if that string is missing from the start or end of the given string.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.wrap(null, *)         = null
      * StringUtils.wrap("", *)           = ""
@@ -9116,7 +9116,7 @@ public class StringUtils {
      * StringUtils.wrap("/a/b/c", "/")  = "/a/b/c/"
      * StringUtils.wrap("a/b/c/", "/")  = "/a/b/c/"
      * </pre>
-     * 
+     *
      * @param str
      *            the string to be wrapped, may be {@code null}
      * @param wrapWith
@@ -9160,7 +9160,7 @@ public class StringUtils {
      *          the String to be unwrapped, can be null
      * @param wrapToken
      *          the String used to unwrap
-     * @return unwrapped String or the original string 
+     * @return unwrapped String or the original string
      *          if it is not quoted properly with the wrapToken
      * @since 3.6
      */
@@ -9185,7 +9185,7 @@ public class StringUtils {
      * <p>
      * Unwraps a given string from a character.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.unwrap(null, null)         = null
      * StringUtils.unwrap(null, '\0')         = null
@@ -9201,7 +9201,7 @@ public class StringUtils {
      *          the String to be unwrapped, can be null
      * @param wrapChar
      *          the character used to unwrap
-     * @return unwrapped String or the original string 
+     * @return unwrapped String or the original string
      *          if it is not quoted properly with the wrapChar
      * @since 3.6
      */
@@ -9223,16 +9223,16 @@ public class StringUtils {
 
     /**
      * <p>Converts a {@code CharSequence} into an array of code points.</p>
-     * 
+     *
      * <p>Valid pairs of surrogate code units will be converted into a single supplementary
      * code point. Isolated surrogate code units (i.e. a high surrogate not followed by a low surrogate or
      * a low surrogate not preceeded by a high surrogate) will be returned as-is.</p>
-     * 
+     *
      * <pre>
      * StringUtils.toCodePoints(null)   =  null
      * StringUtils.toCodePoints("")     =  []  // empty array
      * </pre>
-     * 
+     *
      * @param str the character sequence to convert
      * @return an array of code points
      * @since 3.6

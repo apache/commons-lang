@@ -91,27 +91,27 @@ public class ImmutableTripleTest {
     public void testNullTripleEquals() {
         assertEquals(ImmutableTriple.nullTriple(), ImmutableTriple.nullTriple());
     }
-        
+
     @Test
     public void testNullTripleSame() {
         assertSame(ImmutableTriple.nullTriple(), ImmutableTriple.nullTriple());
     }
-        
+
     @Test
     public void testNullTripleLeft() {
         assertNull(ImmutableTriple.nullTriple().getLeft());
     }
-        
+
     @Test
     public void testNullTripleMiddle() {
         assertNull(ImmutableTriple.nullTriple().getMiddle());
     }
-                
+
     @Test
     public void testNullTripleRight() {
         assertNull(ImmutableTriple.nullTriple().getRight());
     }
-        
+
     @Test
     public void testNullTripleTyped() {
         // No compiler warnings

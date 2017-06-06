@@ -211,7 +211,7 @@ public class StringUtilsContainsTest  {
         assertFalse(StringUtils.containsAny(CharU20000, CharU20001));
         assertFalse(StringUtils.containsAny(CharU20001, CharU20000));
     }
-    
+
     @Test
     public void testContainsAny_StringStringArray() {
         assertFalse(StringUtils.containsAny(null, (String[]) null));

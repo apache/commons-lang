@@ -224,7 +224,7 @@ public class ArrayUtilsAddTest {
         assertTrue(Arrays.equals(new Float[]{Float.valueOf(3)}, newArray));
         assertEquals(Float.class, newArray.getClass().getComponentType());
     }
-    
+
     @Test
     public void testLANG571(){
         final String[] stringArray=null;

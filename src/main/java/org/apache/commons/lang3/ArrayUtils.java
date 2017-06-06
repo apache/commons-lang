@@ -480,9 +480,9 @@ public class ArrayUtils {
             return type.cast(Array.newInstance(type.getComponentType(), 0));
         }
         return array;
-    }    
-    
-    
+    }
+
+
     /**
      * <p>Defensive programming technique to change a {@code null}
      * reference to an empty one.
@@ -1536,10 +1536,10 @@ public class ArrayUtils {
     /**
      * <p>
      * Reverses the order of the given array in the given range.
-     * 
+     *
      * <p>
      * This method does nothing for a {@code null} input array.
-     * 
+     *
      * @param array
      *            the array to reverse, may be {@code null}
      * @param startIndexInclusive
@@ -1569,10 +1569,10 @@ public class ArrayUtils {
     /**
      * <p>
      * Reverses the order of the given array in the given range.
-     * 
+     *
      * <p>
      * This method does nothing for a {@code null} input array.
-     * 
+     *
      * @param array
      *            the array to reverse, may be {@code null}
      * @param startIndexInclusive
@@ -1602,10 +1602,10 @@ public class ArrayUtils {
     /**
      * <p>
      * Reverses the order of the given array in the given range.
-     * 
+     *
      * <p>
      * This method does nothing for a {@code null} input array.
-     * 
+     *
      * @param array
      *            the array to reverse, may be {@code null}
      * @param startIndexInclusive
@@ -1635,10 +1635,10 @@ public class ArrayUtils {
     /**
      * <p>
      * Reverses the order of the given array in the given range.
-     * 
+     *
      * <p>
      * This method does nothing for a {@code null} input array.
-     * 
+     *
      * @param array
      *            the array to reverse, may be {@code null}
      * @param startIndexInclusive
@@ -1668,10 +1668,10 @@ public class ArrayUtils {
     /**
      * <p>
      * Reverses the order of the given array in the given range.
-     * 
+     *
      * <p>
      * This method does nothing for a {@code null} input array.
-     * 
+     *
      * @param array
      *            the array to reverse, may be {@code null}
      * @param startIndexInclusive
@@ -1701,10 +1701,10 @@ public class ArrayUtils {
     /**
      * <p>
      * Reverses the order of the given array in the given range.
-     * 
+     *
      * <p>
      * This method does nothing for a {@code null} input array.
-     * 
+     *
      * @param array
      *            the array to reverse, may be {@code null}
      * @param startIndexInclusive
@@ -1734,10 +1734,10 @@ public class ArrayUtils {
     /**
      * <p>
      * Reverses the order of the given array in the given range.
-     * 
+     *
      * <p>
      * This method does nothing for a {@code null} input array.
-     * 
+     *
      * @param array
      *            the array to reverse, may be {@code null}
      * @param startIndexInclusive
@@ -1767,10 +1767,10 @@ public class ArrayUtils {
     /**
      * <p>
      * Reverses the order of the given array in the given range.
-     * 
+     *
      * <p>
      * This method does nothing for a {@code null} input array.
-     * 
+     *
      * @param array
      *            the array to reverse, may be {@code null}
      * @param startIndexInclusive
@@ -1800,10 +1800,10 @@ public class ArrayUtils {
     /**
      * <p>
      * Reverses the order of the given array in the given range.
-     * 
+     *
      * <p>
      * This method does nothing for a {@code null} input array.
-     * 
+     *
      * @param array
      *            the array to reverse, may be {@code null}
      * @param startIndexInclusive
@@ -1838,7 +1838,7 @@ public class ArrayUtils {
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for a {@code null} or empty input array or for overflow indices.
      * Negative indices are promoted to 0(zero).</p>
-     * 
+     *
      * Examples:
      * <ul>
      *     <li>ArrayUtils.swap(["1", "2", "3"], 0, 2) -&gt; ["3", "2", "1"]</li>
@@ -1951,7 +1951,7 @@ public class ArrayUtils {
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for a {@code null} or empty input array or for overflow indices.
      * Negative indices are promoted to 0(zero).</p>
-     * 
+     *
      * Examples:
      * <ul>
      *     <li>ArrayUtils.swap([1, 2, 3], 0, 2) -&gt; [3, 2, 1]</li>
@@ -2093,7 +2093,7 @@ public class ArrayUtils {
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
      * are swapped.</p>
-     * 
+     *
      * Examples:
      * <ul>
      *     <li>ArrayUtils.swap([true, false, true, false], 0, 2, 1) -&gt; [true, false, true, false]</li>
@@ -2177,7 +2177,7 @@ public class ArrayUtils {
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
      * are swapped.</p>
-     * 
+     *
      * Examples:
      * <ul>
      *     <li>ArrayUtils.swap([1, 2, 3, 4], 0, 2, 1) -&gt; [3, 2, 1, 4]</li>
@@ -2645,7 +2645,7 @@ public class ArrayUtils {
      *
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for {@code null} or empty input arrays.</p>
-     * 
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -2668,10 +2668,10 @@ public class ArrayUtils {
         }
         if (startIndexInclusive < 0) {
             startIndexInclusive = 0;
-        } 
+        }
         if (endIndexExclusive >= array.length) {
             endIndexExclusive = array.length;
-        }        
+        }
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -2684,7 +2684,7 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int n_offset = n - offset;
-            
+
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
                 n = offset;
@@ -2705,7 +2705,7 @@ public class ArrayUtils {
      *
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for {@code null} or empty input arrays.</p>
-     * 
+     *
      * @param array
      *            the array to shift, may be {@code null}
      * @param startIndexInclusive
@@ -2728,10 +2728,10 @@ public class ArrayUtils {
         }
         if (startIndexInclusive < 0) {
             startIndexInclusive = 0;
-        } 
+        }
         if (endIndexExclusive >= array.length) {
             endIndexExclusive = array.length;
-        }        
+        }
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -2744,7 +2744,7 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int n_offset = n - offset;
-            
+
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
                 n = offset;
@@ -2788,10 +2788,10 @@ public class ArrayUtils {
         }
         if (startIndexInclusive < 0) {
             startIndexInclusive = 0;
-        } 
+        }
         if (endIndexExclusive >= array.length) {
             endIndexExclusive = array.length;
-        }        
+        }
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -2804,7 +2804,7 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int n_offset = n - offset;
-            
+
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
                 n = offset;
@@ -2848,10 +2848,10 @@ public class ArrayUtils {
         }
         if (startIndexInclusive < 0) {
             startIndexInclusive = 0;
-        } 
+        }
         if (endIndexExclusive >= array.length) {
             endIndexExclusive = array.length;
-        }        
+        }
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -2864,7 +2864,7 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int n_offset = n - offset;
-            
+
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
                 n = offset;
@@ -2908,10 +2908,10 @@ public class ArrayUtils {
         }
         if (startIndexInclusive < 0) {
             startIndexInclusive = 0;
-        } 
+        }
         if (endIndexExclusive >= array.length) {
             endIndexExclusive = array.length;
-        }        
+        }
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -2924,7 +2924,7 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int n_offset = n - offset;
-            
+
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
                 n = offset;
@@ -2968,10 +2968,10 @@ public class ArrayUtils {
         }
         if (startIndexInclusive < 0) {
             startIndexInclusive = 0;
-        } 
+        }
         if (endIndexExclusive >= array.length) {
             endIndexExclusive = array.length;
-        }        
+        }
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -2984,7 +2984,7 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int n_offset = n - offset;
-            
+
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
                 n = offset;
@@ -3028,10 +3028,10 @@ public class ArrayUtils {
         }
         if (startIndexInclusive < 0) {
             startIndexInclusive = 0;
-        } 
+        }
         if (endIndexExclusive >= array.length) {
             endIndexExclusive = array.length;
-        }        
+        }
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -3044,7 +3044,7 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int n_offset = n - offset;
-            
+
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
                 n = offset;
@@ -3088,10 +3088,10 @@ public class ArrayUtils {
         }
         if (startIndexInclusive < 0) {
             startIndexInclusive = 0;
-        } 
+        }
         if (endIndexExclusive >= array.length) {
             endIndexExclusive = array.length;
-        }        
+        }
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -3104,7 +3104,7 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int n_offset = n - offset;
-            
+
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
                 n = offset;
@@ -3148,10 +3148,10 @@ public class ArrayUtils {
         }
         if (startIndexInclusive < 0) {
             startIndexInclusive = 0;
-        } 
+        }
         if (endIndexExclusive >= array.length) {
             endIndexExclusive = array.length;
-        }        
+        }
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -3164,7 +3164,7 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int n_offset = n - offset;
-            
+
             if (offset > n_offset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
                 n = offset;
@@ -7428,7 +7428,7 @@ public class ArrayUtils {
 
     /**
      * Removes multiple array elements specified by indices.
-     * 
+     *
      * @param array source
      * @param indices to remove
      * @return new array of same type minus elements specified by the set bits in {@code indices}
@@ -7440,7 +7440,7 @@ public class ArrayUtils {
         // No need to check maxIndex here, because method only currently called from removeElements()
         // which guarantee to generate on;y valid bit entries.
 //        final int maxIndex = indices.length();
-//        if (maxIndex > srcLength) { 
+//        if (maxIndex > srcLength) {
 //            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
 //        }
         final int removals = indices.cardinality(); // true bits are items to remove
@@ -7459,13 +7459,13 @@ public class ArrayUtils {
         }
         count = srcLength - srcIndex;
         if (count > 0) {
-            System.arraycopy(array, srcIndex, result, destIndex, count);            
+            System.arraycopy(array, srcIndex, result, destIndex, count);
         }
         return result;
     }
 
     /**
-     * <p>This method checks whether the provided array is sorted according to the class's 
+     * <p>This method checks whether the provided array is sorted according to the class's
      * {@code compareTo} method.
      *
      * @param array the array to check
@@ -7481,7 +7481,7 @@ public class ArrayUtils {
             }
         });
     }
-   
+
 
     /**
      * <p>This method checks whether the provided array is sorted according to the provided {@code Comparator}.
@@ -7496,7 +7496,7 @@ public class ArrayUtils {
         if (comparator == null) {
             throw new IllegalArgumentException("Comparator should not be null.");
         }
-        
+
         if (array == null || array.length < 2) {
             return true;
         }
@@ -8050,7 +8050,7 @@ public class ArrayUtils {
 
         final String[] result = new String[array.length];
         for (int i = 0; i < array.length; i++) {
-            final Object object = array[i]; 
+            final Object object = array[i];
             result[i] = (object == null ? valueForNullElements : object.toString());
         }
 
@@ -8072,7 +8072,7 @@ public class ArrayUtils {
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
      * @return The new array.
-     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
@@ -8114,7 +8114,7 @@ public class ArrayUtils {
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
      * @return The new array.
-     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
@@ -8156,7 +8156,7 @@ public class ArrayUtils {
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
      * @return The new array.
-     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
@@ -8198,7 +8198,7 @@ public class ArrayUtils {
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
      * @return The new array.
-     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
@@ -8240,7 +8240,7 @@ public class ArrayUtils {
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
      * @return The new array.
-     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
@@ -8282,7 +8282,7 @@ public class ArrayUtils {
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
      * @return The new array.
-     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
@@ -8324,7 +8324,7 @@ public class ArrayUtils {
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
      * @return The new array.
-     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
@@ -8366,7 +8366,7 @@ public class ArrayUtils {
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
      * @return The new array.
-     * @throws IndexOutOfBoundsException if {@code array} is provided 
+     * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
      */
@@ -8417,7 +8417,7 @@ public class ArrayUtils {
     public static <T> T[] insert(final int index, final T[] array, final T... values) {
         /*
          * Note on use of @SafeVarargs:
-         * 
+         *
          * By returning null when 'array' is null, we avoid returning the vararg
          * array to the caller. We also avoid relying on the type of the vararg
          * array, by inspecting the component type of 'array'.

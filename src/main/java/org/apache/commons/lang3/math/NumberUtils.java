@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import org.apache.commons.lang3.Validate;
  * @since 2.0
  */
 public class NumberUtils {
-    
+
     /** Reusable Long constant for zero. */
     public static final Long LONG_ZERO = Long.valueOf(0L);
     /** Reusable Long constant for one. */
@@ -222,7 +222,7 @@ public class NumberUtils {
     public static float toFloat(final String str, final float defaultValue) {
       if (str == null) {
           return defaultValue;
-      }     
+      }
       try {
           return Float.parseFloat(str);
       } catch (final NumberFormatException nfe) {
@@ -425,7 +425,7 @@ public class NumberUtils {
      * prefix is more than 8 - or BigInteger if there are more than 16 digits.
      * </p>
      * <p>Then, the value is examined for a type qualifier on the end, i.e. one of
-     * <code>'f','F','d','D','l','L'</code>.  If it is found, it starts 
+     * <code>'f','F','d','D','l','L'</code>.  If it is found, it starts
      * trying to create successively larger types from the type specified
      * until one is found that can represent the value.</p>
      *
@@ -433,7 +433,7 @@ public class NumberUtils {
      * and then try successively larger types from <code>Integer</code> to
      * <code>BigInteger</code> and from <code>Float</code> to
     * <code>BigDecimal</code>.</p>
-    * 
+    *
      * <p>
      * Integral values with a leading {@code 0} will be interpreted as octal; the returned number will
      * be Integer, Long or BigDecimal as appropriate.
@@ -621,7 +621,7 @@ public class NumberUtils {
      * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
      *
      * <p>Returns mantissa of the given number.</p>
-     * 
+     *
      * @param str the string representation of the number
      * @return mantissa of the given number
      */
@@ -633,7 +633,7 @@ public class NumberUtils {
      * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
      *
      * <p>Returns mantissa of the given number.</p>
-     * 
+     *
      * @param str the string representation of the number
      * @param stopPos the position of the exponent or decimal point
      * @return mantissa of the given number
@@ -649,7 +649,7 @@ public class NumberUtils {
      * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
      *
      * <p>Returns <code>true</code> if s is <code>null</code>.</p>
-     * 
+     *
      * @param str  the String to check
      * @return if it is all zeros or <code>null</code>
      */
@@ -670,7 +670,7 @@ public class NumberUtils {
      * <p>Convert a <code>String</code> to a <code>Float</code>.</p>
      *
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
-     * 
+     *
      * @param str  a <code>String</code> to convert, may be null
      * @return converted <code>Float</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
@@ -684,7 +684,7 @@ public class NumberUtils {
 
     /**
      * <p>Convert a <code>String</code> to a <code>Double</code>.</p>
-     * 
+     *
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      *
      * @param str  a <code>String</code> to convert, may be null
@@ -704,7 +704,7 @@ public class NumberUtils {
      * N.B. a leading zero means octal; spaces are not trimmed.</p>
      *
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
-     * 
+     *
      * @param str  a <code>String</code> to convert, may be null
      * @return converted <code>Integer</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
@@ -718,10 +718,10 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a <code>String</code> to a <code>Long</code>; 
+     * <p>Convert a <code>String</code> to a <code>Long</code>;
      * since 3.1 it handles hex (0Xhhhh) and octal (0ddd) notations.
      * N.B. a leading zero means octal; spaces are not trimmed.</p>
-     * 
+     *
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      *
      * @param str  a <code>String</code> to convert, may be null
@@ -740,7 +740,7 @@ public class NumberUtils {
      * since 3.2 it handles hex (0x or #) and octal (0) notations.</p>
      *
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
-     * 
+     *
      * @param str  a <code>String</code> to convert, may be null
      * @return converted <code>BigInteger</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
@@ -773,7 +773,7 @@ public class NumberUtils {
 
     /**
      * <p>Convert a <code>String</code> to a <code>BigDecimal</code>.</p>
-     * 
+     *
      * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      *
      * @param str  a <code>String</code> to convert, may be null
@@ -790,8 +790,8 @@ public class NumberUtils {
         }
         if (str.trim().startsWith("--")) {
             // this is protection for poorness in java.lang.BigDecimal.
-            // it accepts this as a legal value, but it does not appear 
-            // to be in specification of class. OS X Java parses it to 
+            // it accepts this as a legal value, but it does not appear
+            // to be in specification of class. OS X Java parses it to
             // a wrong value.
             throw new NumberFormatException(str + " is not a valid number.");
         }
@@ -802,7 +802,7 @@ public class NumberUtils {
     //--------------------------------------------------------------------
     /**
      * <p>Returns the minimum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -812,7 +812,7 @@ public class NumberUtils {
     public static long min(final long... array) {
         // Validates input
         validateArray(array);
-    
+
         // Finds and returns min
         long min = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -820,13 +820,13 @@ public class NumberUtils {
                 min = array[i];
             }
         }
-    
+
         return min;
     }
 
     /**
      * <p>Returns the minimum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -836,7 +836,7 @@ public class NumberUtils {
     public static int min(final int... array) {
         // Validates input
         validateArray(array);
-    
+
         // Finds and returns min
         int min = array[0];
         for (int j = 1; j < array.length; j++) {
@@ -844,13 +844,13 @@ public class NumberUtils {
                 min = array[j];
             }
         }
-    
+
         return min;
     }
 
     /**
      * <p>Returns the minimum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -860,7 +860,7 @@ public class NumberUtils {
     public static short min(final short... array) {
         // Validates input
         validateArray(array);
-    
+
         // Finds and returns min
         short min = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -868,13 +868,13 @@ public class NumberUtils {
                 min = array[i];
             }
         }
-    
+
         return min;
     }
 
     /**
      * <p>Returns the minimum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -884,7 +884,7 @@ public class NumberUtils {
     public static byte min(final byte... array) {
         // Validates input
         validateArray(array);
-    
+
         // Finds and returns min
         byte min = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -892,13 +892,13 @@ public class NumberUtils {
                 min = array[i];
             }
         }
-    
+
         return min;
     }
 
      /**
      * <p>Returns the minimum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -909,7 +909,7 @@ public class NumberUtils {
     public static double min(final double... array) {
         // Validates input
         validateArray(array);
-    
+
         // Finds and returns min
         double min = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -920,13 +920,13 @@ public class NumberUtils {
                 min = array[i];
             }
         }
-    
+
         return min;
     }
 
     /**
      * <p>Returns the minimum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -937,7 +937,7 @@ public class NumberUtils {
     public static float min(final float... array) {
         // Validates input
         validateArray(array);
-    
+
         // Finds and returns min
         float min = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -948,7 +948,7 @@ public class NumberUtils {
                 min = array[i];
             }
         }
-    
+
         return min;
     }
 
@@ -956,7 +956,7 @@ public class NumberUtils {
     //--------------------------------------------------------------------
     /**
      * <p>Returns the maximum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -980,7 +980,7 @@ public class NumberUtils {
 
     /**
      * <p>Returns the maximum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -990,7 +990,7 @@ public class NumberUtils {
     public static int max(final int... array) {
         // Validates input
         validateArray(array);
-    
+
         // Finds and returns max
         int max = array[0];
         for (int j = 1; j < array.length; j++) {
@@ -998,13 +998,13 @@ public class NumberUtils {
                 max = array[j];
             }
         }
-    
+
         return max;
     }
 
     /**
      * <p>Returns the maximum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -1014,7 +1014,7 @@ public class NumberUtils {
     public static short max(final short... array) {
         // Validates input
         validateArray(array);
-    
+
         // Finds and returns max
         short max = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -1022,13 +1022,13 @@ public class NumberUtils {
                 max = array[i];
             }
         }
-    
+
         return max;
     }
 
     /**
      * <p>Returns the maximum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -1038,7 +1038,7 @@ public class NumberUtils {
     public static byte max(final byte... array) {
         // Validates input
         validateArray(array);
-    
+
         // Finds and returns max
         byte max = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -1046,13 +1046,13 @@ public class NumberUtils {
                 max = array[i];
             }
         }
-    
+
         return max;
     }
 
     /**
      * <p>Returns the maximum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -1074,13 +1074,13 @@ public class NumberUtils {
                 max = array[j];
             }
         }
-    
+
         return max;
     }
 
     /**
      * <p>Returns the maximum value in an array.</p>
-     * 
+     *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
@@ -1114,14 +1114,14 @@ public class NumberUtils {
      */
     private static void validateArray(final Object array) {
         Validate.isTrue(array != null, "The Array must not be null");
-        Validate.isTrue(Array.getLength(array) != 0, "Array cannot be empty.");        
+        Validate.isTrue(Array.getLength(array) != 0, "Array cannot be empty.");
     }
-     
+
     // 3 param min
     //-----------------------------------------------------------------------
     /**
      * <p>Gets the minimum of three <code>long</code> values.</p>
-     * 
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -1139,7 +1139,7 @@ public class NumberUtils {
 
     /**
      * <p>Gets the minimum of three <code>int</code> values.</p>
-     * 
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -1157,7 +1157,7 @@ public class NumberUtils {
 
     /**
      * <p>Gets the minimum of three <code>short</code> values.</p>
-     * 
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -1175,7 +1175,7 @@ public class NumberUtils {
 
     /**
      * <p>Gets the minimum of three <code>byte</code> values.</p>
-     * 
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -1193,10 +1193,10 @@ public class NumberUtils {
 
     /**
      * <p>Gets the minimum of three <code>double</code> values.</p>
-     * 
+     *
      * <p>If any value is <code>NaN</code>, <code>NaN</code> is
      * returned. Infinity is handled.</p>
-     * 
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -1209,7 +1209,7 @@ public class NumberUtils {
 
     /**
      * <p>Gets the minimum of three <code>float</code> values.</p>
-     * 
+     *
      * <p>If any value is <code>NaN</code>, <code>NaN</code> is
      * returned. Infinity is handled.</p>
      *
@@ -1227,7 +1227,7 @@ public class NumberUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Gets the maximum of three <code>long</code> values.</p>
-     * 
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -1245,7 +1245,7 @@ public class NumberUtils {
 
     /**
      * <p>Gets the maximum of three <code>int</code> values.</p>
-     * 
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -1263,7 +1263,7 @@ public class NumberUtils {
 
     /**
      * <p>Gets the maximum of three <code>short</code> values.</p>
-     * 
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -1281,7 +1281,7 @@ public class NumberUtils {
 
     /**
      * <p>Gets the maximum of three <code>byte</code> values.</p>
-     * 
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -1299,7 +1299,7 @@ public class NumberUtils {
 
     /**
      * <p>Gets the maximum of three <code>double</code> values.</p>
-     * 
+     *
      * <p>If any value is <code>NaN</code>, <code>NaN</code> is
      * returned. Infinity is handled.</p>
      *
@@ -1315,7 +1315,7 @@ public class NumberUtils {
 
     /**
      * <p>Gets the maximum of three <code>float</code> values.</p>
-     * 
+     *
      * <p>If any value is <code>NaN</code>, <code>NaN</code> is
      * returned. Infinity is handled.</p>
      *
@@ -1432,7 +1432,7 @@ public class NumberUtils {
                        return false;
                    }
                }
-               return true;               
+               return true;
            }
         }
         sz--; // don't want to loop to the last char, check it afterwords
@@ -1447,7 +1447,7 @@ public class NumberUtils {
 
             } else if (chars[i] == '.') {
                 if (hasDecPoint || hasExp) {
-                    // two decimal points or dec in exponent   
+                    // two decimal points or dec in exponent
                     return false;
                 }
                 hasDecPoint = true;
@@ -1512,7 +1512,7 @@ public class NumberUtils {
         // found digit it to make sure weird stuff like '.' and '1E-' doesn't pass
         return !allowSigns && foundDigit;
     }
-    
+
     /**
      * <p>Checks whether the given String is a parsable number.</p>
      *

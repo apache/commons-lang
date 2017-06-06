@@ -685,14 +685,14 @@ public class TypeUtilsTest<B> {
             stringComparableType));
         Assert.assertEquals("java.lang.Comparable<java.lang.String>", stringComparableType.toString());
     }
-    
+
     @Test
     public void testParameterizeWithOwner() throws Exception {
         final Type owner = TypeUtils.parameterize(TypeUtilsTest.class, String.class);
         final ParameterizedType dat2Type = TypeUtils.parameterizeWithOwner(owner, That.class, String.class, String.class);
         Assert.assertTrue(TypeUtils.equals(getClass().getField("dat2").getGenericType(), dat2Type));
     }
-    
+
     @Test
     public void testWildcardType() throws Exception {
         final WildcardType simpleWildcard = TypeUtils.wildcardType().withUpperBounds(String.class).build();

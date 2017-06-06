@@ -251,9 +251,9 @@ public class BasicThreadFactory implements ThreadFactory {
      * </p>
      *
      */
-    public static class Builder 
+    public static class Builder
         implements org.apache.commons.lang3.builder.Builder<BasicThreadFactory> {
-        
+
         /** The wrapped factory. */
         private ThreadFactory wrappedFactory;
 

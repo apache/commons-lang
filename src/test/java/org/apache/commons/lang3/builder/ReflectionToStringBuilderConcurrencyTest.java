@@ -42,7 +42,7 @@ import org.junit.Test;
  * <p>
  * The tests on the non-thread-safe collections do not pass.
  * </p>
- * 
+ *
  * @see <a href="https://issues.apache.org/jira/browse/LANG-762">[LANG-762] Handle or document ReflectionToStringBuilder
  *      and ToStringBuilder for collections that are not thread safe</a>
  * @since 3.1

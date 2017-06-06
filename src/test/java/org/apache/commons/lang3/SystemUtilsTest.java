@@ -43,7 +43,7 @@ import org.junit.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.SystemUtils}.
- * 
+ *
  * Only limited testing can be performed.
  */
 public class SystemUtilsTest {

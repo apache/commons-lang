@@ -23,7 +23,7 @@ package org.apache.commons.lang3.concurrent;
  *
  * @param <I> the type of the input to the calculation
  * @param <O> the type of the output of the calculation
- * 
+ *
  * @since 3.6
  */
 public interface Computable<I, O> {

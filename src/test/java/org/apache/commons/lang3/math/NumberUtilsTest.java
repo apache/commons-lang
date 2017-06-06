@@ -114,7 +114,7 @@ public class NumberUtilsTest {
         assertTrue("toFloat(String,int) 1 failed", NumberUtils.toFloat("1.2345", 5.1f) == 1.2345f);
         assertTrue("toFloat(String,int) 2 failed", NumberUtils.toFloat("a", 5.0f) == 5.0f);
     }
-    
+
     /**
      * Test for {(@link NumberUtils#createNumber(String)}
      */
@@ -123,7 +123,7 @@ public class NumberUtilsTest {
         final String shouldBeFloat = "1.23";
         final String shouldBeDouble = "3.40282354e+38";
         final String shouldBeBigDecimal = "1.797693134862315759e+308";
-        
+
         assertTrue(NumberUtils.createNumber(shouldBeFloat) instanceof Float);
         assertTrue(NumberUtils.createNumber(shouldBeDouble) instanceof Double);
         assertTrue(NumberUtils.createNumber(shouldBeBigDecimal) instanceof BigDecimal);
@@ -243,7 +243,7 @@ public class NumberUtilsTest {
         final Number bigNum = NumberUtils.createNumber("-1.1E-700F");
         assertNotNull(bigNum);
         assertEquals(BigDecimal.class, bigNum.getClass());
-        
+
         // LANG-1018
         assertEquals("createNumber(String) LANG-1018 failed",
                 Double.valueOf("-160952.54"), NumberUtils.createNumber("-160952.54"));
@@ -254,7 +254,7 @@ public class NumberUtilsTest {
         assertEquals("createNumber(String) LANG-1215 failed",
                 Double.valueOf("193343.82"), NumberUtils.createNumber("193343.82"));
     }
-    
+
     @Test
     public void testLang1087(){
         // no sign cases
@@ -1418,7 +1418,7 @@ public class NumberUtilsTest {
         }
         fail("Expecting "+ expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
     }
-    
+
     @Test
     public void testIsParsable() {
         assertFalse( NumberUtils.isParsable(null) );

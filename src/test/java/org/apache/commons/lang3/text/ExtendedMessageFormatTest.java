@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -93,12 +93,12 @@ public class ExtendedMessageFormatTest {
      */
     @Test
     public void testEscapedBraces_LANG_948() {
-        // message without placeholder because braces are escaped by quotes 
+        // message without placeholder because braces are escaped by quotes
         final String pattern = "Message without placeholders '{}'";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
         assertEquals("Message without placeholders {}", emf.format(new Object[] {"DUMMY"}));
 
-        // message with placeholder because quotes are escaped by quotes 
+        // message with placeholder because quotes are escaped by quotes
         final String pattern2 = "Message with placeholder ''{0}''";
         final ExtendedMessageFormat emf2 = new ExtendedMessageFormat(pattern2, registry);
         assertEquals("Message with placeholder 'DUMMY'", emf2.format(new Object[] {"DUMMY"}));
@@ -313,7 +313,7 @@ public class ExtendedMessageFormatTest {
         other = new OtherExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
         assertFalse("class, equals()",  emf.equals(other));
         assertTrue("class, hashcode()", emf.hashCode() == other.hashCode()); // same hashcode
-        
+
         // Different pattern
         other = new ExtendedMessageFormat("X" + pattern, Locale.US, fmtRegistry);
         assertFalse("pattern, equals()",   emf.equals(other));
@@ -471,7 +471,7 @@ public class ExtendedMessageFormatTest {
                 final Map<String, ? extends FormatFactory> registry) {
             super(pattern, locale, registry);
         }
-        
+
     }
 
 }

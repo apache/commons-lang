@@ -18,7 +18,7 @@ package org.apache.commons.lang3.text.translate;
 
 /**
  * Translates codepoints to their Unicode escaped value suitable for Java source.
- * 
+ *
  * @since 3.2
  * @deprecated as of 3.6, use commons-text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/UnicodeEscaper.html">
@@ -31,7 +31,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * <p>
      * Constructs a <code>JavaUnicodeEscaper</code> above the specified value (exclusive).
      * </p>
-     * 
+     *
      * @param codepoint
      *            above which to escape
      * @return the newly created {@code UnicodeEscaper} instance
@@ -44,7 +44,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * <p>
      * Constructs a <code>JavaUnicodeEscaper</code> below the specified value (exclusive).
      * </p>
-     * 
+     *
      * @param codepoint
      *            below which to escape
      * @return the newly created {@code UnicodeEscaper} instance
@@ -57,7 +57,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * <p>
      * Constructs a <code>JavaUnicodeEscaper</code> between the specified values (inclusive).
      * </p>
-     * 
+     *
      * @param codepointLow
      *            above which to escape
      * @param codepointHigh
@@ -72,7 +72,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * <p>
      * Constructs a <code>JavaUnicodeEscaper</code> outside of the specified values (exclusive).
      * </p>
-     * 
+     *
      * @param codepointLow
      *            below which to escape
      * @param codepointHigh
@@ -89,7 +89,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * other constructors/builders. The <code>below</code> and <code>above</code> boundaries are inclusive when
      * <code>between</code> is <code>true</code> and exclusive when it is <code>false</code>.
      * </p>
-     * 
+     *
      * @param below
      *            int value representing the lowest codepoint boundary
      * @param above
@@ -103,7 +103,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
 
     /**
      * Converts the given codepoint to a hex string of the form {@code "\\uXXXX\\uXXXX"}
-     * 
+     *
      * @param codepoint
      *            a Unicode code point
      * @return the hex string for the given codepoint

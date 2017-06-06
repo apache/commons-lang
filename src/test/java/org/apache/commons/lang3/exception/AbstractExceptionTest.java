@@ -21,13 +21,13 @@ package org.apache.commons.lang3.exception;
  * Base class for testing {@link Exception} descendants
  */
 public abstract class AbstractExceptionTest {
-    
+
     protected static final String CAUSE_MESSAGE = "Cause message";
     protected static final String EXCEPTION_MESSAGE = "Exception message";
-    
+
     protected static final String WRONG_EXCEPTION_MESSAGE = "Wrong exception message";
     protected static final String WRONG_CAUSE_MESSAGE = "Wrong cause message";
-    
+
     protected Exception generateCause() {
         return new Exception(CAUSE_MESSAGE);
     }

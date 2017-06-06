@@ -294,7 +294,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(2, StringUtils.indexOf("aabaabaa", 'b', -1));
 
         assertEquals(5, StringUtils.indexOf(new StringBuilder("aabaabaa"), 'b', 3));
-        
+
         //LANG-1300 tests go here
         final int CODE_POINT = 0x2070E;
         StringBuilder builder = new StringBuilder();
@@ -545,7 +545,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(0, StringUtils.lastIndexOf("aabaabaa", 'a', 0));
 
         assertEquals(2, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), 'b', 2));
-        
+
         //LANG-1300 addition test
         final int CODE_POINT = 0x2070E;
         StringBuilder builder = new StringBuilder();
@@ -784,7 +784,7 @@ public class StringUtilsEqualsIndexOfTest  {
 
     @Test
     public void testLANG1193() {
-        assertEquals(0, StringUtils.ordinalIndexOf("abc", "ab", 1));        
+        assertEquals(0, StringUtils.ordinalIndexOf("abc", "ab", 1));
     }
 
     @Test

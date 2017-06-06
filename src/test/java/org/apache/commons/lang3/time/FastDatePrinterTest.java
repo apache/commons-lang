@@ -42,7 +42,7 @@ import org.junit.Test;
  * @since 3.0
  */
 public class FastDatePrinterTest {
-    
+
     private static final String YYYY_MM_DD = "yyyy/MM/dd";
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
     private static final TimeZone GMT = TimeZone.getTimeZone("GMT");
@@ -226,36 +226,36 @@ public class FastDatePrinterTest {
 
         assertEquals("fredag, week 53", fdf.format(d));
     }
-    
+
     @Test
     public void testEquals() {
         final DatePrinter printer1= getInstance(YYYY_MM_DD);
         final DatePrinter printer2= getInstance(YYYY_MM_DD);
 
         assertEquals(printer1, printer2);
-        assertEquals(printer1.hashCode(), printer2.hashCode());        
+        assertEquals(printer1.hashCode(), printer2.hashCode());
 
         assertFalse(printer1.equals(new Object()));
     }
-    
+
     @Test
     public void testToStringContainsName() {
         final DatePrinter printer= getInstance(YYYY_MM_DD);
         assertTrue(printer.toString().startsWith("FastDate"));
     }
-    
+
     @Test
     public void testPatternMatches() {
         final DatePrinter printer= getInstance(YYYY_MM_DD);
         assertEquals(YYYY_MM_DD, printer.getPattern());
     }
-    
+
     @Test
     public void testLocaleMatches() {
         final DatePrinter printer= getInstance(YYYY_MM_DD, SWEDEN);
         assertEquals(SWEDEN, printer.getLocale());
     }
-    
+
     @Test
     public void testTimeZoneMatches() {
         final DatePrinter printer= getInstance(YYYY_MM_DD, NEW_YORK);
@@ -268,10 +268,10 @@ public class FastDatePrinterTest {
         final Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         final FastDateFormat noColonFormat = FastDateFormat.getInstance("Z");
         assertEquals("+0000", noColonFormat.format(c));
-        
+
         final FastDateFormat isoFormat = FastDateFormat.getInstance("ZZ");
         assertEquals("Z", isoFormat.format(c));
-        
+
         final FastDateFormat colonFormat = FastDateFormat.getInstance("ZZZ");
         assertEquals("+00:00", colonFormat.format(c));
     }
@@ -325,7 +325,7 @@ public class FastDatePrinterTest {
             assertEquals(trial.three, printer.format(cal));
         }
     }
-    
+
     @Test
     public void testLang1103() throws ParseException {
         final Calendar cal = Calendar.getInstance(SWEDEN);

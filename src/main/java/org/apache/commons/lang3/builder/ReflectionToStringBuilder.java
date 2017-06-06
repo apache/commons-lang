@@ -80,7 +80,7 @@ import org.apache.commons.lang3.Validate;
  * }
  * </pre>
  * <p>
- * Alternatively the {@link ToStringExclude} annotation can be used to exclude fields from being incorporated in the 
+ * Alternatively the {@link ToStringExclude} annotation can be used to exclude fields from being incorporated in the
  * result.
  * </p>
  * <p>
@@ -238,7 +238,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *             if the Object is <code>null</code>
-     * 
+     *
      * @see ToStringExclude
      * @since 2.1
      */
@@ -291,7 +291,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *             if the Object is <code>null</code>
-     * 
+     *
      * @see ToStringExclude
      * @since 2.1
      */
@@ -301,7 +301,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients, outputStatics)
                 .toString();
     }
-    
+
     /**
      * <p>
      * Builds a <code>toString</code> value through reflection.
@@ -349,7 +349,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *             if the Object is <code>null</code>
-     * 
+     *
      * @see ToStringExclude
      * @since 3.6
      */
@@ -421,7 +421,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     public static String toStringExclude(final Object object, final String... excludeFieldNames) {
         return new ReflectionToStringBuilder(object).setExcludeFieldNames(excludeFieldNames).toString();
     }
-    
+
     private static Object checkNotNull(final Object obj) {
         Validate.isTrue(obj != null, "The Object passed in should not be null.");
         return obj;
@@ -436,7 +436,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * Whether or not to append transient fields.
      */
     private boolean appendTransients = false;
-    
+
     /**
      * Whether or not to append fields that are null.
      */
@@ -545,7 +545,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         this.setAppendTransients(outputTransients);
         this.setAppendStatics(outputStatics);
     }
-    
+
     /**
      * Constructor.
      *
@@ -715,7 +715,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     public boolean isAppendTransients() {
         return this.appendTransients;
     }
-    
+
     /**
      * <p>
      * Gets whether or not to append fields whose values are null.
@@ -766,7 +766,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     public void setAppendTransients(final boolean appendTransients) {
         this.appendTransients = appendTransients;
     }
-    
+
     /**
      * <p>
      * Sets whether or not to append fields whose values are null.

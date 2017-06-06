@@ -69,7 +69,7 @@ import org.apache.commons.lang3.tuple.Pair;
  * <code>reflectionEquals</code>, uses <code>AccessibleObject.setAccessible</code> to
  * change the visibility of the fields. This will fail under a security
  * manager, unless the appropriate permissions are set up correctly. It is
- * also slower than testing explicitly.  Non-primitive fields are compared using 
+ * also slower than testing explicitly.  Non-primitive fields are compared using
  * <code>equals()</code>.</p>
  *
  * <p> A typical invocation for this method would look like:</p>
@@ -78,7 +78,7 @@ import org.apache.commons.lang3.tuple.Pair;
  *   return EqualsBuilder.reflectionEquals(this, obj);
  * }
  * </pre>
- * 
+ *
  * <p>The {@link EqualsExclude} annotation can be used to exclude fields from being
  * used by the <code>reflectionEquals</code> methods.</p>
  *
@@ -271,7 +271,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         this.excludeFields = excludeFields;
         return this;
     }
-    
+
 
     /**
      * <p>This method uses reflection to determine if the two <code>Object</code>s
@@ -280,9 +280,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly. Non-primitive fields are compared using 
+     * not as efficient as testing explicitly. Non-primitive fields are compared using
      * <code>equals()</code>.</p>
-     * 
+     *
      * <p>Transient members will be not be tested, as they are likely derived
      * fields, and not part of the value of the Object.</p>
      *
@@ -292,7 +292,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param excludeFields  Collection of String field names to exclude from testing
      * @return <code>true</code> if the two Objects have tested equals.
-     * 
+     *
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final Collection<String> excludeFields) {
@@ -306,7 +306,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly. Non-primitive fields are compared using 
+     * not as efficient as testing explicitly. Non-primitive fields are compared using
      * <code>equals()</code>.</p>
      *
      * <p>Transient members will be not be tested, as they are likely derived
@@ -318,7 +318,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param excludeFields  array of field names to exclude from testing
      * @return <code>true</code> if the two Objects have tested equals.
-     * 
+     *
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final String... excludeFields) {
@@ -332,7 +332,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly. Non-primitive fields are compared using 
+     * not as efficient as testing explicitly. Non-primitive fields are compared using
      * <code>equals()</code>.</p>
      *
      * <p>If the TestTransients parameter is set to <code>true</code>, transient
@@ -345,47 +345,13 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param testTransients  whether to include transient fields
      * @return <code>true</code> if the two Objects have tested equals.
-     * 
+     *
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final boolean testTransients) {
         return reflectionEquals(lhs, rhs, testTransients, null);
     }
 
-    /**
-     * <p>This method uses reflection to determine if the two <code>Object</code>s
-     * are equal.</p>
-     *
-     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
-     * fields. This means that it will throw a security exception if run under
-     * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly. Non-primitive fields are compared using 
-     * <code>equals()</code>.</p>
-     *
-     * <p>If the testTransients parameter is set to <code>true</code>, transient
-     * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the <code>Object</code>.</p>
-     *
-     * <p>Static fields will not be included. Superclass fields will be appended
-     * up to and including the specified superclass. A null superclass is treated
-     * as java.lang.Object.</p>
-     *
-     * @param lhs  <code>this</code> object
-     * @param rhs  the other object
-     * @param testTransients  whether to include transient fields
-     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
-     *  may be <code>null</code>
-     * @param excludeFields  array of field names to exclude from testing
-     * @return <code>true</code> if the two Objects have tested equals.
-     * 
-     * @see EqualsExclude
-     * @since 2.0
-     */
-    public static boolean reflectionEquals(final Object lhs, final Object rhs, final boolean testTransients, final Class<?> reflectUpToClass,
-            final String... excludeFields) {
-        return reflectionEquals(lhs, rhs, testTransients, reflectUpToClass, false, excludeFields);
-    }
-    
     /**
      * <p>This method uses reflection to determine if the two <code>Object</code>s
      * are equal.</p>
@@ -403,10 +369,44 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>Static fields will not be included. Superclass fields will be appended
      * up to and including the specified superclass. A null superclass is treated
      * as java.lang.Object.</p>
-     * 
+     *
+     * @param lhs  <code>this</code> object
+     * @param rhs  the other object
+     * @param testTransients  whether to include transient fields
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
+     *  may be <code>null</code>
+     * @param excludeFields  array of field names to exclude from testing
+     * @return <code>true</code> if the two Objects have tested equals.
+     *
+     * @see EqualsExclude
+     * @since 2.0
+     */
+    public static boolean reflectionEquals(final Object lhs, final Object rhs, final boolean testTransients, final Class<?> reflectUpToClass,
+            final String... excludeFields) {
+        return reflectionEquals(lhs, rhs, testTransients, reflectUpToClass, false, excludeFields);
+    }
+
+    /**
+     * <p>This method uses reflection to determine if the two <code>Object</code>s
+     * are equal.</p>
+     *
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manager, if the permissions are not set up correctly. It is also
+     * not as efficient as testing explicitly. Non-primitive fields are compared using
+     * <code>equals()</code>.</p>
+     *
+     * <p>If the testTransients parameter is set to <code>true</code>, transient
+     * members will be tested, otherwise they are ignored, as they are likely
+     * derived fields, and not part of the value of the <code>Object</code>.</p>
+     *
+     * <p>Static fields will not be included. Superclass fields will be appended
+     * up to and including the specified superclass. A null superclass is treated
+     * as java.lang.Object.</p>
+     *
      * <p>If the testRecursive parameter is set to <code>true</code>, non primitive
-     * (and non primitive wrapper) field types will be compared by 
-     * <code>EqualsBuilder</code> recursively instead of invoking their 
+     * (and non primitive wrapper) field types will be compared by
+     * <code>EqualsBuilder</code> recursively instead of invoking their
      * <code>equals()</code> method. Leading to a deep reflection equals test.
      *
      * @param lhs  <code>this</code> object
@@ -415,10 +415,10 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param reflectUpToClass  the superclass to reflect up to (inclusive),
      *  may be <code>null</code>
      * @param testRecursive  whether to call reflection equals on non primitive
-     *  fields recursively. 
+     *  fields recursively.
      * @param excludeFields  array of field names to exclude from testing
      * @return <code>true</code> if the two Objects have tested equals.
-     * 
+     *
      * @see EqualsExclude
      * @since 3.6
      */
@@ -438,16 +438,16 @@ public class EqualsBuilder implements Builder<Boolean> {
                     .reflectionAppend(lhs, rhs)
                     .isEquals();
     }
-    
+
     /**
      * <p>Tests if two <code>objects</code> by using reflection.</p>
-     * 
+     *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly. Non-primitive fields are compared using 
+     * not as efficient as testing explicitly. Non-primitive fields are compared using
      * <code>equals()</code>.</p>
-     * 
+     *
      * <p>If the testTransients field is set to <code>true</code>, transient
      * members will be tested, otherwise they are ignored, as they are likely
      * derived fields, and not part of the value of the <code>Object</code>.</p>
@@ -455,9 +455,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>Static fields will not be included. Superclass fields will be appended
      * up to and including the specified superclass in field <code>reflectUpToClass</code>.
      * A null superclass is treated as java.lang.Object.</p>
-     * 
+     *
      * <p>Field names listed in field <code>excludeFields</code> will be ignored.</p>
-     * 
+     *
      * @param lhs  the left hand object
      * @param rhs  the left hand object
      * @return EqualsBuilder - used to chain calls.
@@ -583,10 +583,10 @@ public class EqualsBuilder implements Builder<Boolean> {
     //-------------------------------------------------------------------------
 
     /**
-     * <p>Test if two <code>Object</code>s are equal using either 
+     * <p>Test if two <code>Object</code>s are equal using either
      * #{@link #reflectionAppend(Object, Object)}, if object are non
-     * primitives (or wrapper of primitives) or if field <code>testRecursive</code> 
-     * is set to <code>false</code>. Otherwise, using their 
+     * primitives (or wrapper of primitives) or if field <code>testRecursive</code>
+     * is set to <code>false</code>. Otherwise, using their
      * <code>equals</code> method.</p>
      *
      * @param lhs  the left hand object
@@ -794,7 +794,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>This also will be called for the top level of
      * multi-dimensional, ragged, and multi-typed arrays.</p>
-     * 
+     *
      * <p>Note that this method does not compare the type of the arrays; it only
      * compares the contents.</p>
      *

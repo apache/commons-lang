@@ -43,7 +43,7 @@ public class CharSequenceUtilsTest {
         assertTrue(Modifier.isPublic(CharSequenceUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(CharSequenceUtils.class.getModifiers()));
     }
-    
+
     //-----------------------------------------------------------------------
     @Test
     public void testSubSequence() {
@@ -138,9 +138,9 @@ public class CharSequenceUtilsTest {
     };
 
     private static abstract class RunTest {
-        
+
         abstract boolean invoke();
-        
+
         void run(final TestData data, final String id) {
             if (data.throwable != null) {
                 try {
@@ -156,7 +156,7 @@ public class CharSequenceUtilsTest {
                 assertEquals(id + " Failed test " + data, data.expected, stringCheck);
             }
         }
-        
+
     }
 
     @Test
@@ -165,25 +165,25 @@ public class CharSequenceUtilsTest {
             new RunTest() {
                 @Override
                 boolean invoke() {
-                    return data.source.regionMatches(data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);                        
+                    return data.source.regionMatches(data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);
                 }
             }.run(data, "String");
             new RunTest() {
                 @Override
                 boolean invoke() {
-                    return CharSequenceUtils.regionMatches(data.source, data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);                        
+                    return CharSequenceUtils.regionMatches(data.source, data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);
                 }
             }.run(data, "CSString");
             new RunTest() {
                 @Override
                 boolean invoke() {
-                    return CharSequenceUtils.regionMatches(new StringBuilder(data.source), data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);             
+                    return CharSequenceUtils.regionMatches(new StringBuilder(data.source), data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);
                 }
             }.run(data, "CSNonString");
         }
     }
-    
-    
+
+
     @Test
     public void testToCharArray() throws Exception {
         final StringBuilder builder = new StringBuilder("abcdefg");

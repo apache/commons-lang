@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 
 /**
  * JUnit tests.
- * 
+ *
  * @see MutableShort
  */
 public class MutableShortTest {
@@ -34,9 +34,9 @@ public class MutableShortTest {
     @Test
     public void testConstructors() {
         assertEquals((short) 0, new MutableShort().shortValue());
-        
+
         assertEquals((short) 1, new MutableShort((short) 1).shortValue());
-        
+
         assertEquals((short) 2, new MutableShort(Short.valueOf((short) 2)).shortValue());
         assertEquals((short) 3, new MutableShort(new MutableShort((short) 3)).shortValue());
 
@@ -53,15 +53,15 @@ public class MutableShortTest {
         final MutableShort mutNum = new MutableShort((short) 0);
         assertEquals((short) 0, new MutableShort().shortValue());
         assertEquals(Short.valueOf((short) 0), new MutableShort().getValue());
-        
+
         mutNum.setValue((short) 1);
         assertEquals((short) 1, mutNum.shortValue());
         assertEquals(Short.valueOf((short) 1), mutNum.getValue());
-        
+
         mutNum.setValue(Short.valueOf((short) 2));
         assertEquals((short) 2, mutNum.shortValue());
         assertEquals(Short.valueOf((short) 2), mutNum.getValue());
-        
+
         mutNum.setValue(new MutableShort((short) 3));
         assertEquals((short) 3, mutNum.shortValue());
         assertEquals(Short.valueOf((short) 3), mutNum.getValue());
@@ -117,7 +117,7 @@ public class MutableShortTest {
     @Test
     public void testPrimitiveValues() {
         final MutableShort mutNum = new MutableShort( (short) 1 );
-        
+
         assertEquals( 1.0F, mutNum.floatValue(), 0 );
         assertEquals( 1.0, mutNum.doubleValue(), 0 );
         assertEquals( (byte) 1, mutNum.byteValue() );
@@ -136,7 +136,7 @@ public class MutableShortTest {
     public void testIncrement() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.increment();
-        
+
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
     }
@@ -165,7 +165,7 @@ public class MutableShortTest {
     public void testDecrement() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.decrement();
-        
+
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
     }
@@ -194,7 +194,7 @@ public class MutableShortTest {
     public void testAddValuePrimitive() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.add((short) 1);
-        
+
         assertEquals((short) 2, mutNum.shortValue());
     }
 
@@ -202,7 +202,7 @@ public class MutableShortTest {
     public void testAddValueObject() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.add(Short.valueOf((short) 1));
-        
+
         assertEquals((short) 2, mutNum.shortValue());
     }
 
@@ -246,7 +246,7 @@ public class MutableShortTest {
     public void testSubtractValuePrimitive() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.subtract((short) 1);
-        
+
         assertEquals((short) 0, mutNum.shortValue());
     }
 
@@ -254,7 +254,7 @@ public class MutableShortTest {
     public void testSubtractValueObject() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.subtract(Short.valueOf((short) 1));
-        
+
         assertEquals((short) 0, mutNum.shortValue());
     }
 

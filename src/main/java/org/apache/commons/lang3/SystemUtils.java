@@ -955,7 +955,7 @@ public class SystemUtils {
      * </p>
      *
      * @since 3.4
-     * 
+     *
      * @deprecated As of release 3.5, replaced by {@link #IS_JAVA_9}
      */
     @Deprecated
@@ -1497,11 +1497,11 @@ public class SystemUtils {
 
     /**
      * Gets the host name from an environment variable.
-     * 
+     *
      * <p>
      * If you want to know what the network stack says is the host name, you should use {@code InetAddress.getLocalHost().getHostName()}.
      * </p>
-     * 
+     *
      * @return the host name.
      * @since 3.6
      */

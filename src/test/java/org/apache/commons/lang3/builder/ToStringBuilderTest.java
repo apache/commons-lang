@@ -40,7 +40,7 @@ public class ToStringBuilderTest {
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
     /*
-     * All tests should leave the registry empty. 
+     * All tests should leave the registry empty.
      */
     @After
     public void after(){
@@ -839,7 +839,7 @@ public class ToStringBuilderTest {
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
         assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
     }
-    
+
     @Test
     public void testConstructToStringBuilder(){
         ToStringBuilder stringBuilder1 = new ToStringBuilder(base, null, null);
@@ -870,7 +870,7 @@ public class ToStringBuilderTest {
         assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
         assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
     }
-    
+
     @Test
     public void testObjectBuild() {
         final Integer i3 = Integer.valueOf(3);

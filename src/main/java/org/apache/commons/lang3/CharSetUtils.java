@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ package org.apache.commons.lang3;
  * <p>This class handles {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
  * Each method documents its behaviour in more detail.</p>
- * 
+ *
  * <p>#ThreadSafe#</p>
  * @see CharSet
  * @since 1.0
@@ -240,8 +240,8 @@ public class CharSetUtils {
         return buffer.toString();
     }
 
-    /** 
-     * Determines whether or not all the Strings in an array are 
+    /**
+     * Determines whether or not all the Strings in an array are
      * empty or not.
      *
      * @param strings String[] whose elements are being checked for emptiness

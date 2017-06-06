@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,7 +49,7 @@ public class LocaleUtilsTest  {
     private static final Locale LOCALE_FR = new Locale("fr", "");
     private static final Locale LOCALE_FR_CA = new Locale("fr", "CA");
     private static final Locale LOCALE_QQ = new Locale("qq", "");
-    private static final Locale LOCALE_QQ_ZZ = new Locale("qq", "ZZ"); 
+    private static final Locale LOCALE_QQ_ZZ = new Locale("qq", "ZZ");
 
     @Before
     public void setUp() throws Exception {
@@ -111,7 +111,7 @@ public class LocaleUtilsTest  {
      * @param variant of the resulting Locale
      */
     private static void assertValidToLocale(
-            final String localeString, final String language, 
+            final String localeString, final String language,
             final String country, final String variant) {
         final Locale locale = LocaleUtils.toLocale(localeString);
         assertNotNull("valid locale", locale);
@@ -126,7 +126,7 @@ public class LocaleUtilsTest  {
     @Test
     public void testToLocale_1Part() {
         assertNull(LocaleUtils.toLocale(null));
-        
+
         assertValidToLocale("us");
         assertValidToLocale("fr");
         assertValidToLocale("de");
@@ -152,7 +152,7 @@ public class LocaleUtilsTest  {
             LocaleUtils.toLocale("u#");
             fail("Should fail if not lowercase");
         } catch (final IllegalArgumentException iae) {}
-        
+
         try {
             LocaleUtils.toLocale("u");
             fail("Must be 2 chars if less than 5");
@@ -162,7 +162,7 @@ public class LocaleUtilsTest  {
             LocaleUtils.toLocale("uu_U");
             fail("Must be 2 chars if less than 5");
         } catch (final IllegalArgumentException iae) {}
-    }        
+    }
 
     /**
      * Test toLocale() method.
@@ -172,7 +172,7 @@ public class LocaleUtilsTest  {
         assertValidToLocale("us_EN", "us", "EN");
         //valid though doesn't exist
         assertValidToLocale("us_ZH", "us", "ZH");
-        
+
         try {
             LocaleUtils.toLocale("us-EN");
             fail("Should fail as not underscore");
@@ -197,7 +197,7 @@ public class LocaleUtilsTest  {
             LocaleUtils.toLocale("us_E3");
             fail("Should fail second part not uppercase");
         } catch (final IllegalArgumentException iae) {}
-    }        
+    }
 
     /**
      * Test toLocale() method.
@@ -214,7 +214,7 @@ public class LocaleUtilsTest  {
             assertValidToLocale("us_EN_a", "us", "EN", "A");
             assertValidToLocale("us_EN_SFsafdFDsdfF", "us", "EN", "SFSAFDFDSDFF");
         }
-        
+
         try {
             LocaleUtils.toLocale("us_EN-a");
             fail("Should fail as not underscore");
@@ -237,7 +237,7 @@ public class LocaleUtilsTest  {
         final List<Locale> localeList = defaultLocale == null ?
                 LocaleUtils.localeLookupList(locale) :
                 LocaleUtils.localeLookupList(locale, defaultLocale);
-        
+
         assertEquals(expected.length, localeList.size());
         assertEquals(Arrays.asList(expected), localeList);
         assertUnmodifiableCollection(localeList);
@@ -262,19 +262,19 @@ public class LocaleUtilsTest  {
                 LOCALE_EN_US_ZZZZ,
                 LOCALE_EN_US,
                 LOCALE_EN});
-    }        
+    }
 
     /**
      * Test localeLookupList() method.
      */
     @Test
     public void testLocaleLookupList_LocaleLocale() {
-        assertLocaleLookupList(LOCALE_QQ, LOCALE_QQ, 
+        assertLocaleLookupList(LOCALE_QQ, LOCALE_QQ,
                 new Locale[]{LOCALE_QQ});
-        assertLocaleLookupList(LOCALE_EN, LOCALE_EN, 
+        assertLocaleLookupList(LOCALE_EN, LOCALE_EN,
                 new Locale[]{LOCALE_EN});
-        
-        assertLocaleLookupList(LOCALE_EN_US, LOCALE_EN_US, 
+
+        assertLocaleLookupList(LOCALE_EN_US, LOCALE_EN_US,
             new Locale[]{
                 LOCALE_EN_US,
                 LOCALE_EN});
@@ -288,7 +288,7 @@ public class LocaleUtilsTest  {
                 LOCALE_EN_US,
                 LOCALE_EN,
                 LOCALE_QQ_ZZ});
-        
+
         assertLocaleLookupList(LOCALE_EN_US_ZZZZ, null,
             new Locale[] {
                 LOCALE_EN_US_ZZZZ,
@@ -329,7 +329,7 @@ public class LocaleUtilsTest  {
         assertNotNull(list);
         assertSame(list, list2);
         assertUnmodifiableCollection(list);
-        
+
         final Locale[] jdkLocaleArray = Locale.getAvailableLocales();
         final List<Locale> jdkLocaleList = Arrays.asList(jdkLocaleArray);
         assertEquals(jdkLocaleList, list);
@@ -346,7 +346,7 @@ public class LocaleUtilsTest  {
         assertNotNull(set);
         assertSame(set, set2);
         assertUnmodifiableCollection(set);
-        
+
         final Locale[] jdkLocaleArray = Locale.getAvailableLocales();
         final List<Locale> jdkLocaleList = Arrays.asList(jdkLocaleArray);
         final Set<Locale> jdkLocaleSet = new HashSet<>(jdkLocaleList);
@@ -369,10 +369,10 @@ public class LocaleUtilsTest  {
         assertEquals(set.contains(LOCALE_QQ), LocaleUtils.isAvailableLocale(LOCALE_QQ));
         assertEquals(set.contains(LOCALE_QQ_ZZ), LocaleUtils.isAvailableLocale(LOCALE_QQ_ZZ));
     }
-    
+
     /**
      * Test for 3-chars locale, further details at LANG-915
-     * 
+     *
      */
     @Test
     public void testThreeCharsLocale() {
@@ -387,9 +387,9 @@ public class LocaleUtilsTest  {
 
     //-----------------------------------------------------------------------
     /**
-     * Make sure the language by country is correct. It checks that 
-     * the LocaleUtils.languagesByCountry(country) call contains the 
-     * array of languages passed in. It may contain more due to JVM 
+     * Make sure the language by country is correct. It checks that
+     * the LocaleUtils.languagesByCountry(country) call contains the
+     * array of languages passed in. It may contain more due to JVM
      * variations.
      *
      * @param country
@@ -437,9 +437,9 @@ public class LocaleUtilsTest  {
 
     //-----------------------------------------------------------------------
     /**
-     * Make sure the country by language is correct. It checks that 
-     * the LocaleUtils.countryByLanguage(language) call contains the 
-     * array of countries passed in. It may contain more due to JVM 
+     * Make sure the country by language is correct. It checks that
+     * the LocaleUtils.countryByLanguage(language) call contains the
+     * array of countries passed in. It may contain more due to JVM
      * variations.
      *
      *

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -61,7 +61,7 @@ public class HashCodeBuilderTest {
     public void testConstructorExEvenFirst() {
         new HashCodeBuilder(2, 3);
     }
-    
+
     @Test(expected=IllegalArgumentException.class)
     public void testConstructorExEvenSecond() {
         new HashCodeBuilder(3, 2);
@@ -195,7 +195,7 @@ public class HashCodeBuilderTest {
         obj = new Object();
         assertEquals(17 * 37 + obj.hashCode(), new HashCodeBuilder(17, 37).append(obj).toHashCode());
     }
-    
+
     @Test
     public void testObjectBuild() {
         Object obj = null;
@@ -529,7 +529,7 @@ public class HashCodeBuilderTest {
         final ReflectionTestCycleB b = new ReflectionTestCycleB();
         a.b = b;
         b.a = a;
-        
+
         // Used to caused:
         // java.lang.StackOverflowError
         // at java.lang.ClassLoader.getCallerClassLoader(Native Method)
@@ -559,7 +559,7 @@ public class HashCodeBuilderTest {
     @Test
     public void testToHashCodeEqualsHashCode() {
         final HashCodeBuilder hcb = new HashCodeBuilder(17, 37).append(new Object()).append('a');
-        assertEquals("hashCode() is no longer returning the same value as toHashCode() - see LANG-520", 
+        assertEquals("hashCode() is no longer returning the same value as toHashCode() - see LANG-520",
                      hcb.toHashCode(), hcb.hashCode());
     }
 

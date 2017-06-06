@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,11 +38,11 @@ import java.util.concurrent.ConcurrentMap;
 public class LocaleUtils {
 
     /** Concurrent map of language locales by country. */
-    private static final ConcurrentMap<String, List<Locale>> cLanguagesByCountry = 
+    private static final ConcurrentMap<String, List<Locale>> cLanguagesByCountry =
         new ConcurrentHashMap<>();
 
     /** Concurrent map of country locales by language. */
-    private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage = 
+    private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage =
         new ConcurrentHashMap<>();
 
     /**
@@ -243,7 +243,7 @@ public class LocaleUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Obtains an unmodifiable list of installed locales.</p>
-     * 
+     *
      * <p>This method is a wrapper around {@link Locale#getAvailableLocales()}.
      * It is more efficient, as the JDK method must create a new array each
      * time it is called.</p>
@@ -257,7 +257,7 @@ public class LocaleUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Obtains an unmodifiable set of installed locales.</p>
-     * 
+     *
      * <p>This method is a wrapper around {@link Locale#getAvailableLocales()}.
      * It is more efficient, as the JDK method must create a new array each
      * time it is called.</p>
@@ -314,7 +314,7 @@ public class LocaleUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Obtains the list of countries supported for a given language.</p>
-     * 
+     *
      * <p>This method takes a language code and searches to find the
      * countries available for that language. Variant locales are removed.</p>
      *
@@ -351,7 +351,7 @@ public class LocaleUtils {
         private static final List<Locale> AVAILABLE_LOCALE_LIST;
         /** Unmodifiable set of available locales. */
         private static final Set<Locale> AVAILABLE_LOCALE_SET;
-        
+
         static {
             final List<Locale> list = new ArrayList<>(Arrays.asList(Locale.getAvailableLocales()));  // extra safe
             AVAILABLE_LOCALE_LIST = Collections.unmodifiableList(list);

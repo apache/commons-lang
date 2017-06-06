@@ -49,10 +49,10 @@ import org.apache.commons.lang3.Validate;
  * Reflection locates these methods fine and correctly assigns them as {@code public}.
  * However, an {@link IllegalAccessException} is thrown if the method is invoked.</p>
  *
- * <p>{@link MethodUtils} contains a workaround for this situation. 
+ * <p>{@link MethodUtils} contains a workaround for this situation.
  * It will attempt to call {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} on this method.
  * If this call succeeds, then the method can be invoked as normal.
- * This call will only succeed when the application has sufficient security privileges. 
+ * This call will only succeed when the application has sufficient security privileges.
  * If this call fails then the method may fail.</p>
  *
  * @since 2.5
@@ -87,14 +87,14 @@ public class MethodUtils {
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
-     *  
+     *
      *  @since 3.4
      */
     public static Object invokeMethod(final Object object, final String methodName) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
         return invokeMethod(object, methodName, ArrayUtils.EMPTY_OBJECT_ARRAY, null);
     }
-    
+
     /**
      * <p>Invokes a named method without parameters.</p>
      *
@@ -123,7 +123,7 @@ public class MethodUtils {
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
@@ -147,11 +147,11 @@ public class MethodUtils {
         final Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeMethod(object, methodName, args, parameterTypes);
     }
-    
+
     /**
      * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
@@ -182,7 +182,7 @@ public class MethodUtils {
     /**
      * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
@@ -235,7 +235,7 @@ public class MethodUtils {
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
@@ -249,7 +249,7 @@ public class MethodUtils {
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
      */
-    public static Object invokeMethod(final Object object, final String methodName, 
+    public static Object invokeMethod(final Object object, final String methodName,
             final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
@@ -378,7 +378,7 @@ public class MethodUtils {
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} class
      * would match a {@code boolean} primitive.</p>
      *
@@ -410,7 +410,7 @@ public class MethodUtils {
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} class
      * would match a {@code boolean} primitive.</p>
      *
@@ -650,13 +650,13 @@ public class MethodUtils {
 
     /**
      * <p>Finds an accessible method that matches the given name and has compatible parameters.
-     * Compatible parameters mean that every method parameter is assignable from 
+     * Compatible parameters mean that every method parameter is assignable from
      * the given parameters.
-     * In other words, it finds a method with the given name 
+     * In other words, it finds a method with the given name
      * that will take the parameters given.</p>
      *
-     * <p>This method is used by 
-     * {@link 
+     * <p>This method is used by
+     * {@link
      * #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
@@ -667,7 +667,7 @@ public class MethodUtils {
      *
      * @param cls find method in this class
      * @param methodName find method with this name
-     * @param parameterTypes find method with most compatible parameters 
+     * @param parameterTypes find method with most compatible parameters
      * @return The accessible method
      */
     public static Method getMatchingAccessibleMethod(final Class<?> cls,
@@ -714,7 +714,7 @@ public class MethodUtils {
 
         return bestMatch;
     }
-    
+
     /**
      * <p>Retrieves a method whether or not it's accessible. If no such method
      * can be found, return {@code null}.</p>
@@ -722,7 +722,7 @@ public class MethodUtils {
      * @param methodName The method that we wish to call
      * @param parameterTypes Argument class types
      * @return The method
-     * 
+     *
      * @since 3.5
      */
     public static Method getMatchingMethod(final Class<?> cls, final String methodName,
@@ -755,7 +755,7 @@ public class MethodUtils {
         }
         return inexactMatch;
     }
-    
+
     /**
      * <p>Returns the aggregate number of inheritance hops between assignable argument class types.  Returns -1
      * if the arguments aren't assignable.  Fills a specific purpose for getMatchingMethod and is not generalized.</p>

@@ -41,7 +41,7 @@ import org.junit.Test;
 /**
  * @since 3.0
  */
-public class EventUtilsTest 
+public class EventUtilsTest
 {
 
     @Test
@@ -53,7 +53,7 @@ public class EventUtilsTest
         assertTrue(Modifier.isPublic(EventUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(EventUtils.class.getModifiers()));
     }
-    
+
     @Test
     public void testAddEventListener()
     {

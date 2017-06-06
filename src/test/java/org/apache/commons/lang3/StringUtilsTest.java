@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3204,7 +3204,7 @@ public class StringUtilsTest {
         assertNull(StringUtils.unwrap(null, null));
         assertNull(StringUtils.unwrap(null, '\0'));
         assertNull(StringUtils.unwrap(null, '1'));
- 
+
         assertEquals("abc", StringUtils.unwrap("abc", null));
         assertEquals("abc", StringUtils.unwrap("\'abc\'", '\''));
         assertEquals("abc", StringUtils.unwrap("AabcA", 'A'));
@@ -3214,18 +3214,18 @@ public class StringUtilsTest {
         assertEquals("A#", StringUtils.unwrap("A#", '#'));
         assertEquals("ABA", StringUtils.unwrap("AABAA", 'A'));
     }
-    
+
     @Test
     public void testToCodePoints() throws Exception {
         final int orphanedHighSurrogate = 0xD801;
         final int orphanedLowSurrogate = 0xDC00;
         final int supplementary = 0x2070E;
-        
-        final int[] codePoints = {'a', orphanedHighSurrogate, 'b','c', supplementary, 
+
+        final int[] codePoints = {'a', orphanedHighSurrogate, 'b','c', supplementary,
                 'd', orphanedLowSurrogate, 'e'};
         final String s = new String(codePoints, 0, codePoints.length);
         assertArrayEquals(codePoints, StringUtils.toCodePoints(s));
-        
+
         assertNull(StringUtils.toCodePoints(null));
         assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, StringUtils.toCodePoints(""));
     }

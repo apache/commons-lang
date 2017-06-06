@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -150,7 +150,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     @Test
     public void testGetContextLabels() {
         assertEquals(5, exceptionContext.getContextEntries().size());
-        
+
         exceptionContext.addContextValue("test2", "different value");
 
         final Set<String> labels = exceptionContext.getContextLabels();
@@ -165,7 +165,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     @Test
     public void testGetContextEntries() {
         assertEquals(5, exceptionContext.getContextEntries().size());
-        
+
         exceptionContext.addContextValue("test2", "different value");
 
         final List<Pair<String, Object>> entries = exceptionContext.getContextEntries();
@@ -177,7 +177,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertEquals("test Poorly written obj", entries.get(4).getKey());
         assertEquals("test2", entries.get(5).getKey());
     }
-    
+
     @Test
     public void testJavaSerialization() {
         exceptionContext.setContextValue("test Poorly written obj", "serializable replacement");
