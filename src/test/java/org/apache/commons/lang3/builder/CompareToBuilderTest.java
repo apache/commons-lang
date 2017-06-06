@@ -32,7 +32,7 @@ public class CompareToBuilderTest {
 
     static class TestObject implements Comparable<TestObject> {
         private int a;
-        public TestObject(final int a) {
+        TestObject(final int a) {
             this.a = a;
         }
         @Override
@@ -67,10 +67,10 @@ public class CompareToBuilderTest {
 
     static class TestSubObject extends TestObject {
         private int b;
-        public TestSubObject() {
+        TestSubObject() {
             super(0);
         }
-        public TestSubObject(final int a, final int b) {
+        TestSubObject(final int a, final int b) {
             super(a);
             this.b = b;
         }
@@ -90,7 +90,7 @@ public class CompareToBuilderTest {
     static class TestTransientSubObject extends TestObject {
         @SuppressWarnings("unused")
         private transient int t;
-        public TestTransientSubObject(final int a, final int t) {
+        TestTransientSubObject(final int a, final int t) {
             super(a);
             this.t = t;
         }

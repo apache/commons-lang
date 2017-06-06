@@ -281,17 +281,17 @@ public class ClassUtilsTest  {
         assertEquals(null, ClassUtils.getAllInterfaces(null));
     }
 
-    private static interface IA {
+    private interface IA {
     }
-    private static interface IB {
+    private interface IB {
     }
-    private static interface IC extends ID, IE {
+    private interface IC extends ID, IE {
     }
-    private static interface ID {
+    private interface ID {
     }
-    private static interface IE extends IF {
+    private interface IE extends IF {
     }
-    private static interface IF {
+    private interface IF {
     }
     private static class CX implements IB, IA, IE {
     }
@@ -378,7 +378,7 @@ public class ClassUtilsTest  {
         assertTrue(ClassUtils.isAssignable(null, array0));
         assertTrue(ClassUtils.isAssignable(array0, array0));
         assertTrue(ClassUtils.isAssignable(array0, (Class<?>[]) null)); // explicit cast to avoid warning
-        assertTrue(ClassUtils.isAssignable((Class[]) null, (Class<?>[]) null)); // explicit cast to avoid warning
+        assertTrue(ClassUtils.isAssignable(null, (Class<?>[]) null)); // explicit cast to avoid warning
 
         assertFalse(ClassUtils.isAssignable(array1, array1s));
         assertTrue(ClassUtils.isAssignable(array1s, array1s));
@@ -1096,9 +1096,9 @@ public class ClassUtilsTest  {
     public void testShowJavaBug() throws Exception {
         // Tests with Collections$UnmodifiableSet
         final Set<?> set = Collections.unmodifiableSet(new HashSet<>());
-        final Method isEmptyMethod = set.getClass().getMethod("isEmpty",  new Class[0]);
+        final Method isEmptyMethod = set.getClass().getMethod("isEmpty");
         try {
-            isEmptyMethod.invoke(set, new Object[0]);
+            isEmptyMethod.invoke(set);
             fail("Failed to throw IllegalAccessException as expected");
         } catch(final IllegalAccessException iae) {
             // expected
@@ -1109,17 +1109,17 @@ public class ClassUtilsTest  {
     public void testGetPublicMethod() throws Exception {
         // Tests with Collections$UnmodifiableSet
         final Set<?> set = Collections.unmodifiableSet(new HashSet<>());
-        final Method isEmptyMethod = ClassUtils.getPublicMethod(set.getClass(), "isEmpty",  new Class[0]);
+        final Method isEmptyMethod = ClassUtils.getPublicMethod(set.getClass(), "isEmpty");
             assertTrue(Modifier.isPublic(isEmptyMethod.getDeclaringClass().getModifiers()));
 
         try {
-            isEmptyMethod.invoke(set, new Object[0]);
+            isEmptyMethod.invoke(set);
         } catch(final java.lang.IllegalAccessException iae) {
             fail("Should not have thrown IllegalAccessException");
         }
 
         // Tests with a public Class
-        final Method toStringMethod = ClassUtils.getPublicMethod(Object.class, "toString",  new Class[0]);
+        final Method toStringMethod = ClassUtils.getPublicMethod(Object.class, "toString");
             assertEquals(Object.class.getMethod("toString", new Class[0]), toStringMethod);
     }
 
@@ -1136,10 +1136,10 @@ public class ClassUtilsTest  {
         assertSame(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass(ArrayUtils.EMPTY_OBJECT_ARRAY));
 
         assertTrue(Arrays.equals(new Class[] { String.class, Integer.class, Double.class },
-                ClassUtils.toClass(new Object[] { "Test", Integer.valueOf(1), Double.valueOf(99d) })));
+                ClassUtils.toClass("Test", Integer.valueOf(1), Double.valueOf(99d))));
 
         assertTrue(Arrays.equals(new Class[] { String.class, null, Double.class },
-                ClassUtils.toClass(new Object[] { "Test", null, Double.valueOf(99d) })));
+                ClassUtils.toClass("Test", null, Double.valueOf(99d))));
     }
 
     @Test

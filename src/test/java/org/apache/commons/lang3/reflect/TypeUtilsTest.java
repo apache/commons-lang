@@ -811,7 +811,7 @@ class AAAClass extends AAClass<String> {
 //raw types, where used, are used purposely
 class AClass extends AAClass<String>.BBClass<Number> {
 
-    public AClass(final AAClass<String> enclosingInstance) {
+    AClass(final AAClass<String> enclosingInstance) {
         enclosingInstance.super();
     }
 

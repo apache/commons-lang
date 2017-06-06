@@ -565,15 +565,15 @@ public class NumberUtilsTest {
         assertEquals(
             "min(int[]) failed for array length 1",
             5,
-            NumberUtils.min(new int[] { 5 }));
+            NumberUtils.min(5));
 
         assertEquals(
             "min(int[]) failed for array length 2",
             6,
-            NumberUtils.min(new int[] { 6, 9 }));
+            NumberUtils.min(6, 9));
 
-        assertEquals(-10, NumberUtils.min(new int[] { -10, -5, 0, 5, 10 }));
-        assertEquals(-10, NumberUtils.min(new int[] { -5, 0, -10, 5, 10 }));
+        assertEquals(-10, NumberUtils.min(-10, -5, 0, 5, 10));
+        assertEquals(-10, NumberUtils.min(-5, 0, -10, 5, 10));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -609,7 +609,7 @@ public class NumberUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testMinByte_emptyArray() {
-        NumberUtils.min(new byte[0]);
+        NumberUtils.min();
     }
 
     @Test
@@ -643,19 +643,19 @@ public class NumberUtilsTest {
         assertEquals(
             "min(double[]) failed for array length 1",
             5.12,
-            NumberUtils.min(new double[] { 5.12 }),
+            NumberUtils.min(5.12),
             0);
 
         assertEquals(
             "min(double[]) failed for array length 2",
             6.23,
-            NumberUtils.min(new double[] { 6.23, 9.34 }),
+            NumberUtils.min(6.23, 9.34),
             0);
 
         assertEquals(
             "min(double[]) failed for array length 5",
             -10.45,
-            NumberUtils.min(new double[] { -10.45, -5.56, 0, 5.67, 10.78 }),
+            NumberUtils.min(-10.45, -5.56, 0, 5.67, 10.78),
             0);
         assertEquals(-10, NumberUtils.min(new double[] { -10, -5, 0, 5, 10 }), 0.0001);
         assertEquals(-10, NumberUtils.min(new double[] { -5, 0, -10, 5, 10 }), 0.0001);
@@ -676,19 +676,19 @@ public class NumberUtilsTest {
         assertEquals(
             "min(float[]) failed for array length 1",
             5.9f,
-            NumberUtils.min(new float[] { 5.9f }),
+            NumberUtils.min(5.9f),
             0);
 
         assertEquals(
             "min(float[]) failed for array length 2",
             6.8f,
-            NumberUtils.min(new float[] { 6.8f, 9.7f }),
+            NumberUtils.min(6.8f, 9.7f),
             0);
 
         assertEquals(
             "min(float[]) failed for array length 5",
             -10.6f,
-            NumberUtils.min(new float[] { -10.6f, -5.5f, 0, 5.4f, 10.3f }),
+            NumberUtils.min(-10.6f, -5.5f, 0, 5.4f, 10.3f),
             0);
         assertEquals(-10, NumberUtils.min(new float[] { -10, -5, 0, 5, 10 }), 0.0001f);
         assertEquals(-10, NumberUtils.min(new float[] { -5, 0, -10, 5, 10 }), 0.0001f);
@@ -739,19 +739,19 @@ public class NumberUtilsTest {
         assertEquals(
             "max(int[]) failed for array length 1",
             5,
-            NumberUtils.max(new int[] { 5 }));
+            NumberUtils.max(5));
 
         assertEquals(
             "max(int[]) failed for array length 2",
             9,
-            NumberUtils.max(new int[] { 6, 9 }));
+            NumberUtils.max(6, 9));
 
         assertEquals(
             "max(int[]) failed for array length 5",
             10,
-            NumberUtils.max(new int[] { -10, -5, 0, 5, 10 }));
-        assertEquals(10, NumberUtils.max(new int[] { -10, -5, 0, 5, 10 }));
-        assertEquals(10, NumberUtils.max(new int[] { -5, 0, 10, 5, -10 }));
+            NumberUtils.max(-10, -5, 0, 5, 10));
+        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10));
+        assertEquals(10, NumberUtils.max(-5, 0, 10, 5, -10));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -791,7 +791,7 @@ public class NumberUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testMaxByte_emptyArray() {
-        NumberUtils.max(new byte[0]);
+        NumberUtils.max();
     }
 
     @Test
@@ -873,19 +873,19 @@ public class NumberUtilsTest {
         assertEquals(
             "max(float[]) failed for array length 1",
             5.1f,
-            NumberUtils.max(new float[] { 5.1f }),
+            NumberUtils.max(5.1f),
             0);
 
         assertEquals(
             "max(float[]) failed for array length 2",
             9.2f,
-            NumberUtils.max(new float[] { 6.3f, 9.2f }),
+            NumberUtils.max(6.3f, 9.2f),
             0);
 
         assertEquals(
             "max(float[]) failed for float length 5",
             10.4f,
-            NumberUtils.max(new float[] { -10.5f, -5.6f, 0, 5.7f, 10.4f }),
+            NumberUtils.max(-10.5f, -5.6f, 0, 5.7f, 10.4f),
             0);
         assertEquals(10, NumberUtils.max(new float[] { -10, -5, 0, 5, 10 }), 0.0001f);
         assertEquals(10, NumberUtils.max(new float[] { -5, 0, 10, 5, -10 }), 0.0001f);
@@ -1445,10 +1445,7 @@ public class NumberUtilsTest {
     private boolean checkCreateNumber(final String val) {
         try {
             final Object obj = NumberUtils.createNumber(val);
-            if (obj == null) {
-                return false;
-            }
-            return true;
+            return obj != null;
         } catch (final NumberFormatException e) {
             return false;
        }

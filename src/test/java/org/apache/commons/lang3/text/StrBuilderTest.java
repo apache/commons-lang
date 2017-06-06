@@ -170,7 +170,7 @@ public class StrBuilderTest {
 
         private final CharBuffer src;
 
-        public MockReadable(final String src) {
+        MockReadable(final String src) {
             this.src = CharBuffer.wrap(src);
         }
 

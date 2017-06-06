@@ -34,9 +34,9 @@ public class EqualsBuilderTest {
 
     static class TestObject {
         private int a;
-        public TestObject() {
+        TestObject() {
         }
-        public TestObject(final int a) {
+        TestObject(final int a) {
             this.a = a;
         }
         @Override
@@ -67,10 +67,10 @@ public class EqualsBuilderTest {
 
     static class TestSubObject extends TestObject {
         private int b;
-        public TestSubObject() {
+        TestSubObject() {
             super(0);
         }
-        public TestSubObject(final int a, final int b) {
+        TestSubObject(final int a, final int b) {
             super(a);
             this.b = b;
         }
@@ -101,7 +101,7 @@ public class EqualsBuilderTest {
     }
 
     static class TestEmptySubObject extends TestObject {
-        public TestEmptySubObject(final int a) {
+        TestEmptySubObject(final int a) {
             super(a);
         }
     }
@@ -109,7 +109,7 @@ public class EqualsBuilderTest {
     static class TestTSubObject extends TestObject {
         @SuppressWarnings("unused")
         private transient int t;
-        public TestTSubObject(final int a, final int t) {
+        TestTSubObject(final int a, final int t) {
             super(a);
             this.t = t;
         }
@@ -118,7 +118,7 @@ public class EqualsBuilderTest {
     static class TestTTSubObject extends TestTSubObject {
         @SuppressWarnings("unused")
         private transient int tt;
-        public TestTTSubObject(final int a, final int t, final int tt) {
+        TestTTSubObject(final int a, final int t, final int tt) {
             super(a, t);
             this.tt = tt;
         }
@@ -127,7 +127,7 @@ public class EqualsBuilderTest {
     static class TestTTLeafObject extends TestTTSubObject {
         @SuppressWarnings("unused")
         private final int leafValue;
-        public TestTTLeafObject(final int a, final int t, final int tt, final int leafValue) {
+        TestTTLeafObject(final int a, final int t, final int tt, final int leafValue) {
             super(a, t, tt);
             this.leafValue = leafValue;
         }
@@ -135,7 +135,7 @@ public class EqualsBuilderTest {
 
     static class TestTSubObject2 extends TestObject {
         private transient int t;
-        public TestTSubObject2(final int a, final int t) {
+        TestTSubObject2(final int a, final int t) {
             super(a);
         }
         public int getT() {
@@ -151,7 +151,7 @@ public class EqualsBuilderTest {
         private final TestRecursiveInnerObject b;
         private int z;
 
-        public TestRecursiveObject(final TestRecursiveInnerObject a,
+        TestRecursiveObject(final TestRecursiveInnerObject a,
                 final TestRecursiveInnerObject b, final int z) {
             this.a = a;
             this.b = b;
@@ -173,7 +173,7 @@ public class EqualsBuilderTest {
 
     static class TestRecursiveInnerObject {
         private final int n;
-        public TestRecursiveInnerObject(final int n) {
+        TestRecursiveInnerObject(final int n) {
             this.n = n;
         }
 
@@ -185,12 +185,12 @@ public class EqualsBuilderTest {
     static class TestRecursiveCycleObject {
         private TestRecursiveCycleObject cycle;
         private final int n;
-        public TestRecursiveCycleObject(final int n) {
+        TestRecursiveCycleObject(final int n) {
             this.n = n;
             this.cycle = this;
         }
 
-        public TestRecursiveCycleObject(final TestRecursiveCycleObject cycle, final int n) {
+        TestRecursiveCycleObject(final TestRecursiveCycleObject cycle, final int n) {
             this.n = n;
             this.cycle = cycle;
         }
@@ -1164,19 +1164,19 @@ public class EqualsBuilderTest {
 
         // doesn't barf on null, empty array, or non-existent field, but still tests as not equal
         assertFalse(EqualsBuilder.reflectionEquals(x1, x2, (String[]) null));
-        assertFalse(EqualsBuilder.reflectionEquals(x1, x2, new String[] {}));
-        assertFalse(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"xxx"}));
+        assertFalse(EqualsBuilder.reflectionEquals(x1, x2));
+        assertFalse(EqualsBuilder.reflectionEquals(x1, x2, "xxx"));
 
         // not equal if only one of the differing fields excluded
-        assertFalse(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"two"}));
-        assertFalse(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"three"}));
+        assertFalse(EqualsBuilder.reflectionEquals(x1, x2, "two"));
+        assertFalse(EqualsBuilder.reflectionEquals(x1, x2, "three"));
 
         // equal if both differing fields excluded
-        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"two", "three"}));
+        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, "two", "three"));
 
         // still equal as long as both differing fields are among excluded
-        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"one", "two", "three"}));
-        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"one", "two", "three", "xxx"}));
+        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, "one", "two", "three"));
+        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, "one", "two", "three", "xxx"));
     }
 
     static class TestObjectWithMultipleFields {
@@ -1187,7 +1187,7 @@ public class EqualsBuilderTest {
         @SuppressWarnings("unused")
         private final TestObject three;
 
-        public TestObjectWithMultipleFields(final int one, final int two, final int three) {
+        TestObjectWithMultipleFields(final int one, final int two, final int three) {
             this.one = new TestObject(one);
             this.two = new TestObject(two);
             this.three = new TestObject(three);
@@ -1229,7 +1229,7 @@ public class EqualsBuilderTest {
         @SuppressWarnings("unused")
         private final TestObject one;
 
-        public TestObjectReference(final int one) {
+        TestObjectReference(final int one) {
             this.one = new TestObject(one);
         }
 
@@ -1271,7 +1271,7 @@ public class EqualsBuilderTest {
         private final int a;
         private final int b;
 
-        public TestObjectEqualsExclude(final int a, final int b) {
+        TestObjectEqualsExclude(final int a, final int b) {
             this.a = a;
             this.b = b;
         }

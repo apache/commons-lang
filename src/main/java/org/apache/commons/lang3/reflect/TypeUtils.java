@@ -1365,7 +1365,7 @@ public class TypeUtils {
      */
     public static Type unrollVariables(Map<TypeVariable<?>, Type> typeArguments, final Type type) {
         if (typeArguments == null) {
-            typeArguments = Collections.<TypeVariable<?>, Type> emptyMap();
+            typeArguments = Collections.emptyMap();
         }
         if (containsTypeVariables(type)) {
             if (type instanceof TypeVariable<?>) {
@@ -1732,7 +1732,7 @@ public class TypeUtils {
      * @since 3.2
      */
     public static <T> Typed<T> wrap(final Class<T> type) {
-        return TypeUtils.<T> wrap((Type) type);
+        return TypeUtils.wrap((Type) type);
     }
 
     /**

@@ -21,4 +21,5 @@ limitations under the License.
     <suppress checks="JavadocPackage" files=".*[/\\]test[/\\].*"/>
     <!-- exclude generated JMH classes from all checks -->
     <suppress checks="[a-zA-Z0-9]*" files=".*[/\\]generated-test-sources[/\\].*"/>
+    <suppress checks="RedundantModifier" files="ConstructorUtilsTest" lines="0-99999"/>
 </suppressions>

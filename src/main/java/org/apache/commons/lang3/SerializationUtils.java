@@ -220,7 +220,7 @@ public class SerializationUtils {
      */
     public static <T> T deserialize(final byte[] objectData) {
         Validate.isTrue(objectData != null, "The byte[] must not be null");
-        return SerializationUtils.<T>deserialize(new ByteArrayInputStream(objectData));
+        return SerializationUtils.deserialize(new ByteArrayInputStream(objectData));
     }
 
     /**
@@ -261,7 +261,7 @@ public class SerializationUtils {
          * @throws IOException if an I/O error occurs while reading stream header.
          * @see java.io.ObjectInputStream
          */
-        public ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader) throws IOException {
+        ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader) throws IOException {
             super(in);
             this.classLoader = classLoader;
         }

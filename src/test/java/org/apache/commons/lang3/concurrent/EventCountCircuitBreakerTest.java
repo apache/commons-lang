@@ -330,7 +330,7 @@ public class EventCountCircuitBreakerTest {
         /** The current time in nanoseconds. */
         private long currentTime;
 
-        public EventCountCircuitBreakerTestImpl(final int openingThreshold, final long openingInterval,
+        EventCountCircuitBreakerTestImpl(final int openingThreshold, final long openingInterval,
                                                 final TimeUnit openingUnit, final int closingThreshold, final long closingInterval,
                                                 final TimeUnit closingUnit) {
             super(openingThreshold, openingInterval, openingUnit, closingThreshold,
@@ -374,7 +374,7 @@ public class EventCountCircuitBreakerTest {
          *
          * @param source the expected event source
          */
-        public ChangeListener(final Object source) {
+        ChangeListener(final Object source) {
             expectedSource = source;
             changedValues = new ArrayList<>();
         }

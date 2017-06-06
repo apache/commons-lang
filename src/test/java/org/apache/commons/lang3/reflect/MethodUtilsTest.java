@@ -59,7 +59,7 @@ import org.junit.Test;
  */
 public class MethodUtilsTest {
 
-    private static interface PrivateInterface {}
+    private interface PrivateInterface {}
 
     static class TestBeanWithInterfaces implements PrivateInterface {
         public String foo() {

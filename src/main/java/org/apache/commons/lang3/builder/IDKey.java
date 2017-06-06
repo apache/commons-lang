@@ -34,7 +34,7 @@ final class IDKey {
          * Constructor for IDKey
          * @param _value The value
          */
-        public IDKey(final Object _value) {
+        IDKey(final Object _value) {
             // This is the Object hash code
             id = System.identityHashCode(_value);
             // There have been some cases (LANG-459) that return the

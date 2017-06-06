@@ -59,7 +59,7 @@ public class StringUtilsEqualsIndexOfTest  {
     private static class CustomCharSequence implements CharSequence {
         private final CharSequence seq;
 
-        public CustomCharSequence(final CharSequence seq) {
+        CustomCharSequence(final CharSequence seq) {
             this.seq = seq;
         }
 

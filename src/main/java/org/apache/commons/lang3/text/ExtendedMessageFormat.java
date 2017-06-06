@@ -280,10 +280,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (ObjectUtils.notEqual(toPattern, rhs.toPattern)) {
             return false;
         }
-        if (ObjectUtils.notEqual(registry, rhs.registry)) {
-            return false;
-        }
-        return true;
+        return !ObjectUtils.notEqual(registry, rhs.registry);
     }
 
     /**

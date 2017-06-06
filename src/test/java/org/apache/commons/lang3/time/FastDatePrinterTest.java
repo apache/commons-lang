@@ -293,11 +293,11 @@ public class FastDatePrinterTest {
         getInstance("XXXX");
     }
 
-    private static enum Expected1806 {
+    private enum Expected1806 {
         India(INDIA, "+05", "+0530", "+05:30"), Greenwich(GMT, "Z", "Z", "Z"), NewYork(
                 NEW_YORK, "-05", "-0500", "-05:00");
 
-        private Expected1806(final TimeZone zone, final String one, final String two, final String three) {
+        Expected1806(final TimeZone zone, final String one, final String two, final String three) {
             this.zone = zone;
             this.one = one;
             this.two = two;

@@ -472,10 +472,10 @@ public class ToStringBuilderTest {
     static class SimpleReflectionTestFixture {
         Object o;
 
-        public SimpleReflectionTestFixture() {
+        SimpleReflectionTestFixture() {
         }
 
-        public SimpleReflectionTestFixture(final Object o) {
+        SimpleReflectionTestFixture(final Object o) {
             this.o = o;
         }
 
@@ -489,7 +489,7 @@ public class ToStringBuilderTest {
         @SuppressWarnings("unused")
         private final SelfInstanceVarReflectionTestFixture typeIsSelf;
 
-        public SelfInstanceVarReflectionTestFixture() {
+        SelfInstanceVarReflectionTestFixture() {
             this.typeIsSelf = this;
         }
 
@@ -504,7 +504,7 @@ public class ToStringBuilderTest {
         private final SelfInstanceTwoVarsReflectionTestFixture typeIsSelf;
         private final String otherType = "The Other Type";
 
-        public SelfInstanceTwoVarsReflectionTestFixture() {
+        SelfInstanceTwoVarsReflectionTestFixture() {
             this.typeIsSelf = this;
         }
 

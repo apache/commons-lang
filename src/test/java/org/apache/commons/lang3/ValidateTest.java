@@ -721,7 +721,7 @@ public class ValidateTest  {
             assertEquals("Broken: ", ex.getMessage());
         }
 
-        final List<String> strColl = Arrays.asList(new String[] {"Hi"});
+        final List<String> strColl = Arrays.asList("Hi");
         final List<String> test = Validate.validIndex(strColl, 0, "Message");
         assertSame(strColl, test);
     }
@@ -746,7 +746,7 @@ public class ValidateTest  {
             assertEquals("The validated collection index is invalid: 2", ex.getMessage());
         }
 
-        final List<String> strColl = Arrays.asList(new String[] {"Hi"});
+        final List<String> strColl = Arrays.asList("Hi");
         final List<String> test = Validate.validIndex(strColl, 0);
         assertSame(strColl, test);
     }

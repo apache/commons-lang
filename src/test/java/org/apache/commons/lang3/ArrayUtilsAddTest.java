@@ -285,7 +285,7 @@ public class ArrayUtilsAddTest {
 
         // boolean
         assertTrue( Arrays.equals( new boolean[] { true, false, false, true },
-            ArrayUtils.addAll( new boolean[] { true, false }, new boolean[] { false, true } ) ) );
+            ArrayUtils.addAll( new boolean[] { true, false }, false, true) ) );
 
         assertTrue( Arrays.equals( new boolean[] { false, true },
             ArrayUtils.addAll( null, new boolean[] { false, true } ) ) );
@@ -295,7 +295,7 @@ public class ArrayUtilsAddTest {
 
         // char
         assertTrue( Arrays.equals( new char[] { 'a', 'b', 'c', 'd' },
-            ArrayUtils.addAll( new char[] { 'a', 'b' }, new char[] { 'c', 'd' } ) ) );
+            ArrayUtils.addAll( new char[] { 'a', 'b' }, 'c', 'd') ) );
 
         assertTrue( Arrays.equals( new char[] { 'c', 'd' },
             ArrayUtils.addAll( null, new char[] { 'c', 'd' } ) ) );
@@ -305,7 +305,7 @@ public class ArrayUtilsAddTest {
 
         // byte
         assertTrue( Arrays.equals( new byte[] { (byte) 0, (byte) 1, (byte) 2, (byte) 3 },
-            ArrayUtils.addAll( new byte[] { (byte) 0, (byte) 1 }, new byte[] { (byte) 2, (byte) 3 } ) ) );
+            ArrayUtils.addAll( new byte[] { (byte) 0, (byte) 1 }, (byte) 2, (byte) 3) ) );
 
         assertTrue( Arrays.equals( new byte[] { (byte) 2, (byte) 3 },
             ArrayUtils.addAll( null, new byte[] { (byte) 2, (byte) 3 } ) ) );
@@ -315,7 +315,7 @@ public class ArrayUtilsAddTest {
 
         // short
         assertTrue( Arrays.equals( new short[] { (short) 10, (short) 20, (short) 30, (short) 40 },
-            ArrayUtils.addAll( new short[] { (short) 10, (short) 20 }, new short[] { (short) 30, (short) 40 } ) ) );
+            ArrayUtils.addAll( new short[] { (short) 10, (short) 20 }, (short) 30, (short) 40) ) );
 
         assertTrue( Arrays.equals( new short[] { (short) 30, (short) 40 },
             ArrayUtils.addAll( null, new short[] { (short) 30, (short) 40 } ) ) );
@@ -325,7 +325,7 @@ public class ArrayUtilsAddTest {
 
         // int
         assertTrue( Arrays.equals( new int[] { 1, 1000, -1000, -1 },
-            ArrayUtils.addAll( new int[] { 1, 1000 }, new int[] { -1000, -1 } ) ) );
+            ArrayUtils.addAll( new int[] { 1, 1000 }, -1000, -1) ) );
 
         assertTrue( Arrays.equals( new int[] { -1000, -1 },
             ArrayUtils.addAll( null, new int[] { -1000, -1 } ) ) );
@@ -335,7 +335,7 @@ public class ArrayUtilsAddTest {
 
         // long
         assertTrue( Arrays.equals( new long[] { 1L, -1L, 1000L, -1000L },
-            ArrayUtils.addAll( new long[] { 1L, -1L }, new long[] { 1000L, -1000L } ) ) );
+            ArrayUtils.addAll( new long[] { 1L, -1L }, 1000L, -1000L) ) );
 
         assertTrue( Arrays.equals( new long[] { 1000L, -1000L },
             ArrayUtils.addAll( null, new long[] { 1000L, -1000L } ) ) );
@@ -345,7 +345,7 @@ public class ArrayUtilsAddTest {
 
         // float
         assertTrue( Arrays.equals( new float[] { 10.5f, 10.1f, 1.6f, 0.01f },
-            ArrayUtils.addAll( new float[] { 10.5f, 10.1f }, new float[] { 1.6f, 0.01f } ) ) );
+            ArrayUtils.addAll( new float[] { 10.5f, 10.1f }, 1.6f, 0.01f) ) );
 
         assertTrue( Arrays.equals( new float[] { 1.6f, 0.01f },
             ArrayUtils.addAll( null, new float[] { 1.6f, 0.01f } ) ) );
@@ -355,7 +355,7 @@ public class ArrayUtilsAddTest {
 
         // double
         assertTrue( Arrays.equals( new double[] { Math.PI, -Math.PI, 0, 9.99 },
-            ArrayUtils.addAll( new double[] { Math.PI, -Math.PI }, new double[] { 0, 9.99 } ) ) );
+            ArrayUtils.addAll( new double[] { Math.PI, -Math.PI }, 0, 9.99) ) );
 
         assertTrue( Arrays.equals( new double[] { 0, 9.99 },
             ArrayUtils.addAll( null, new double[] { 0, 9.99 } ) ) );

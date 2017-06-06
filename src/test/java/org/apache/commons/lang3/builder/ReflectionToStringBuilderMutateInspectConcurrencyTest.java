@@ -41,7 +41,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
         private final Random random = new Random();
         private final int N = 100;
 
-        public TestFixture() {
+        TestFixture() {
             synchronized (this) {
                 for (int i = 0; i < N; i++) {
                     listField.add(Integer.valueOf(i));
@@ -62,7 +62,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
         private final TestFixture testFixture;
         private final Random random = new Random();
 
-        public MutatingClient(final TestFixture testFixture) {
+        MutatingClient(final TestFixture testFixture) {
             this.testFixture = testFixture;
         }
 
@@ -79,7 +79,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
     class InspectingClient implements Runnable {
         private final TestFixture testFixture;
 
-        public InspectingClient(final TestFixture testFixture) {
+        InspectingClient(final TestFixture testFixture) {
             this.testFixture = testFixture;
         }
 

@@ -377,7 +377,7 @@ public class AnnotationUtilsTest {
         Stooge[] stooges();
     }
 
-    public static enum Stooge {
+    public enum Stooge {
         MOE, LARRY, CURLY, JOE, SHEMP
     }
 

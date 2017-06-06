@@ -75,7 +75,7 @@ public class HashCodeBuilderTest {
     static class TestObject {
         private int a;
 
-        public TestObject(final int a) {
+        TestObject(final int a) {
             this.a = a;
         }
 
@@ -111,11 +111,11 @@ public class HashCodeBuilderTest {
         @SuppressWarnings("unused")
         private transient int t;
 
-        public TestSubObject() {
+        TestSubObject() {
             super(0);
         }
 
-        public TestSubObject(final int a, final int b, final int t) {
+        TestSubObject(final int a, final int b, final int t) {
             super(a);
             this.b = b;
             this.t = t;
@@ -491,16 +491,16 @@ public class HashCodeBuilderTest {
         assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x));
 
         assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, (String[]) null));
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, new String[]{}));
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, new String[]{"xxx"}));
+        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x));
+        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, "xxx"));
 
-        assertEquals((17 * 37 + 1) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, new String[]{"two"}));
-        assertEquals((17 * 37 + 1) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, new String[]{"three"}));
+        assertEquals((17 * 37 + 1) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, "two"));
+        assertEquals((17 * 37 + 1) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, "three"));
 
-        assertEquals(17 * 37 + 1, HashCodeBuilder.reflectionHashCode(x, new String[]{"two", "three"}));
+        assertEquals(17 * 37 + 1, HashCodeBuilder.reflectionHashCode(x, "two", "three"));
 
-        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, new String[]{"one", "two", "three"}));
-        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, new String[]{"one", "two", "three", "xxx"}));
+        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, "one", "two", "three"));
+        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, "one", "two", "three", "xxx"));
     }
 
     static class TestObjectWithMultipleFields {
@@ -513,7 +513,7 @@ public class HashCodeBuilderTest {
         @SuppressWarnings("unused")
         private int three = 0;
 
-        public TestObjectWithMultipleFields(final int one, final int two, final int three) {
+        TestObjectWithMultipleFields(final int one, final int two, final int three) {
             this.one = one;
             this.two = two;
             this.three = three;
@@ -568,7 +568,7 @@ public class HashCodeBuilderTest {
         private final int a;
         private final int b;
 
-        public TestObjectHashCodeExclude(final int a, final int b) {
+        TestObjectHashCodeExclude(final int a, final int b) {
             this.a = a;
             this.b = b;
         }
@@ -588,7 +588,7 @@ public class HashCodeBuilderTest {
         @HashCodeExclude
         private final int b;
 
-        public TestObjectHashCodeExclude2(final int a, final int b) {
+        TestObjectHashCodeExclude2(final int a, final int b) {
             this.a = a;
             this.b = b;
         }

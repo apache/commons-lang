@@ -101,7 +101,7 @@ public class ConstructorUtilsTest {
         }
     }
 
-    private static class PrivateClass {
+    static class PrivateClass {
         @SuppressWarnings("unused")
         public PrivateClass() {
         }

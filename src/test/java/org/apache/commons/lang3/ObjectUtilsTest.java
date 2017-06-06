@@ -77,7 +77,7 @@ public class ObjectUtilsTest {
         assertSame(Boolean.TRUE, ObjectUtils.firstNonNull(Boolean.TRUE));
 
         // Explicitly pass in an empty array of Object type to ensure compiler doesn't complain of unchecked generic array creation
-        assertNull(ObjectUtils.firstNonNull(new Object[0]));
+        assertNull(ObjectUtils.firstNonNull());
 
         // Cast to Object in line below ensures compiler doesn't complain of unchecked generic array creation
         assertNull(ObjectUtils.firstNonNull(null, null));
@@ -631,7 +631,7 @@ public class ObjectUtilsTest {
          *
          * @param value
          */
-        public NonComparableCharSequence(final String value) {
+        NonComparableCharSequence(final String value) {
             super();
             Validate.notNull(value);
             this.value = value;

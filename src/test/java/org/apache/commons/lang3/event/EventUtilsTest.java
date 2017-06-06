@@ -160,11 +160,11 @@ public class EventUtilsTest
         assertEquals(1, counter.getCount());
     }
 
-    public static interface MultipleEventListener
+    public interface MultipleEventListener
     {
-        public void event1(PropertyChangeEvent e);
+        void event1(PropertyChangeEvent e);
 
-        public void event2(PropertyChangeEvent e);
+        void event2(PropertyChangeEvent e);
     }
 
     public static class EventCounter

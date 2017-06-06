@@ -201,7 +201,7 @@ public class EnumUtils {
     @SafeVarargs
     public static <E extends Enum<E>> long generateBitVector(final Class<E> enumClass, final E... values) {
         Validate.noNullElements(values);
-        return generateBitVector(enumClass, Arrays.<E> asList(values));
+        return generateBitVector(enumClass, Arrays.asList(values));
     }
 
     /**

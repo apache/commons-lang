@@ -61,7 +61,7 @@ public class IEEE754rUtilsTest  {
         } catch(final IllegalArgumentException iae) { /* expected */ }
 
         try {
-            IEEE754rUtils.min(new float[0]);
+            IEEE754rUtils.min();
             fail("IllegalArgumentException expected for empty input");
         } catch(final IllegalArgumentException iae) { /* expected */ }
 
@@ -71,7 +71,7 @@ public class IEEE754rUtilsTest  {
         } catch(final IllegalArgumentException iae) { /* expected */ }
 
         try {
-            IEEE754rUtils.max(new float[0]);
+            IEEE754rUtils.max();
             fail("IllegalArgumentException expected for empty input");
         } catch(final IllegalArgumentException iae) { /* expected */ }
 

@@ -182,7 +182,7 @@ public class StrMatcherTest  {
         assertEquals(0, matcher.isMatch(BUFFER2, 3));
         assertEquals(1, matcher.isMatch(BUFFER2, 4));
         assertEquals(0, matcher.isMatch(BUFFER2, 5));
-        assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher(new char[0]));
+        assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher());
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher((char[]) null));
         assertTrue(StrMatcher.charSetMatcher("a".toCharArray()) instanceof StrMatcher.CharMatcher);
     }

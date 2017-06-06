@@ -47,6 +47,7 @@ limitations under the License.
       <property name="scope" value="public" />
     </module>
     <module name="ModifierOrder"/>
+    <module name="RedundantModifier"/>
     <module name="UpperEll" />
  </module>
 </module>

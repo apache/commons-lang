@@ -297,11 +297,11 @@ public class BackgroundInitializerTest {
         /** The number of invocations of initialize(). */
         volatile int initializeCalls;
 
-        public BackgroundInitializerTestImpl() {
+        BackgroundInitializerTestImpl() {
             super();
         }
 
-        public BackgroundInitializerTestImpl(final ExecutorService exec) {
+        BackgroundInitializerTestImpl(final ExecutorService exec) {
             super(exec);
         }
 

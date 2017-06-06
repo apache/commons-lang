@@ -30,7 +30,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
         @SuppressWarnings("unused")
         private String testStringField;
 
-        public TestFixture(Integer a, String b) {
+        TestFixture(Integer a, String b) {
             this.testIntegerField = a;
             this.testStringField = b;
         }

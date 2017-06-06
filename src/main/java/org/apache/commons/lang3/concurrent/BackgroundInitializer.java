@@ -310,7 +310,7 @@ public abstract class BackgroundInitializer<T> implements
          *
          * @param exec the {@code ExecutorService}
          */
-        public InitializationTask(final ExecutorService exec) {
+        InitializationTask(final ExecutorService exec) {
             execFinally = exec;
         }
 

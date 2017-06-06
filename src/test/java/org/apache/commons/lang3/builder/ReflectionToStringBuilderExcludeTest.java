@@ -54,7 +54,7 @@ public class ReflectionToStringBuilderExcludeTest {
 
     @Test
     public void test_toStringExcludeArray() {
-        final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new String[]{SECRET_FIELD});
+        final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), SECRET_FIELD);
         this.validateSecretFieldAbsent(toString);
     }
 
@@ -66,7 +66,7 @@ public class ReflectionToStringBuilderExcludeTest {
 
     @Test
     public void test_toStringExcludeArrayWithNulls() {
-        final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new String[]{null, null});
+        final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), null, null);
         this.validateSecretFieldPresent(toString);
     }
 

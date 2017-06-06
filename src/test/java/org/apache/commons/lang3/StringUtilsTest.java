@@ -243,14 +243,14 @@ public class StringUtilsTest {
 //        assertNull(StringUtils.join(null)); // generates warning
         assertNull(StringUtils.join((Object[]) null)); // equivalent explicit cast
         // test additional varargs calls
-        assertEquals("", StringUtils.join(new Object[0])); // empty array
+        assertEquals("", StringUtils.join()); // empty array
         assertEquals("", StringUtils.join((Object) null)); // => new Object[]{null}
 
         assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST));
         assertEquals("", StringUtils.join(NULL_ARRAY_LIST));
         assertEquals("null", StringUtils.join(NULL_TO_STRING_LIST));
-        assertEquals("abc", StringUtils.join(new String[]{"a", "b", "c"}));
-        assertEquals("a", StringUtils.join(new String[]{null, "a", ""}));
+        assertEquals("abc", StringUtils.join("a", "b", "c"));
+        assertEquals("a", StringUtils.join(null, "a", ""));
         assertEquals("foo", StringUtils.join(MIXED_ARRAY_LIST));
         assertEquals("foo2", StringUtils.join(MIXED_TYPE_LIST));
     }
@@ -422,12 +422,12 @@ public class StringUtilsTest {
 
     @Test
     public void testJoinWith() {
-        assertEquals("", StringUtils.joinWith(",", new Object[0]));        // empty array
+        assertEquals("", StringUtils.joinWith(","));        // empty array
         assertEquals("", StringUtils.joinWith(",", (Object[]) NULL_ARRAY_LIST));
         assertEquals("null", StringUtils.joinWith(",", NULL_TO_STRING_LIST));   //toString method prints 'null'
 
-        assertEquals("a,b,c", StringUtils.joinWith(",", new Object[]{"a", "b", "c"}));
-        assertEquals(",a,", StringUtils.joinWith(",", new Object[]{null, "a", ""}));
+        assertEquals("a,b,c", StringUtils.joinWith(",", "a", "b", "c"));
+        assertEquals(",a,", StringUtils.joinWith(",", null, "a", ""));
 
         assertEquals("ab", StringUtils.joinWith(null, "a", "b"));
     }
@@ -1553,7 +1553,7 @@ public class StringUtilsTest {
         assertEquals("abcabcabc", StringUtils.repeat("abc", 3));
         final String str = StringUtils.repeat("a", 10000);  // bigger than pad limit
         assertEquals(10000, str.length());
-        assertTrue(StringUtils.containsOnly(str, new char[]{'a'}));
+        assertTrue(StringUtils.containsOnly(str, 'a'));
     }
 
     @Test
@@ -1680,7 +1680,7 @@ public class StringUtilsTest {
         assertEquals("abcxx", StringUtils.rightPad("abc", 5, 'x'));
         final String str = StringUtils.rightPad("aaa", 10000, 'a');  // bigger than pad length
         assertEquals(10000, str.length());
-        assertTrue(StringUtils.containsOnly(str, new char[]{'a'}));
+        assertTrue(StringUtils.containsOnly(str, 'a'));
     }
 
     @Test
@@ -1716,7 +1716,7 @@ public class StringUtilsTest {
         assertEquals("abc", StringUtils.leftPad("abc", 2, ' '));
         final String str = StringUtils.leftPad("aaa", 10000, 'a');  // bigger than pad length
         assertEquals(10000, str.length());
-        assertTrue(StringUtils.containsOnly(str, new char[]{'a'}));
+        assertTrue(StringUtils.containsOnly(str, 'a'));
     }
 
     @Test

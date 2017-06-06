@@ -467,7 +467,7 @@ public class ExtendedMessageFormatTest {
     private static class OtherExtendedMessageFormat extends ExtendedMessageFormat {
         private static final long serialVersionUID = 1L;
 
-        public OtherExtendedMessageFormat(final String pattern, final Locale locale,
+        OtherExtendedMessageFormat(final String pattern, final Locale locale,
                 final Map<String, ? extends FormatFactory> registry) {
             super(pattern, locale, registry);
         }

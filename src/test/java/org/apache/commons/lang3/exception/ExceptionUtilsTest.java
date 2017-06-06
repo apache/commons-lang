@@ -489,12 +489,12 @@ public class ExceptionUtilsTest {
 
         private Throwable cause;
 
-        public ExceptionWithCause(final String str, final Throwable cause) {
+        ExceptionWithCause(final String str, final Throwable cause) {
             super(str);
             setCause(cause);
         }
 
-        public ExceptionWithCause(final Throwable cause) {
+        ExceptionWithCause(final Throwable cause) {
             super();
             setCause(cause);
         }
@@ -528,8 +528,8 @@ public class ExceptionUtilsTest {
         private static final long serialVersionUID = 1L;
 
         @SuppressWarnings("unused")
-        public NestableException() { super(); }
-        public NestableException(final Throwable t) { super(t); }
+        NestableException() { super(); }
+        NestableException(final Throwable t) { super(t); }
     }
 
     @Test

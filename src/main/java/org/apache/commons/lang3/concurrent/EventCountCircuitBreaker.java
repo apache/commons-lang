@@ -440,7 +440,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param count the current count value
          * @param intervalStart the start time of the check interval
          */
-        public CheckIntervalData(final int count, final long intervalStart) {
+        CheckIntervalData(final int count, final long intervalStart) {
             eventCount = count;
             checkIntervalStart = intervalStart;
         }

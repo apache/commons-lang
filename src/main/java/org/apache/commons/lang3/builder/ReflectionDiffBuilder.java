@@ -131,10 +131,7 @@ public class ReflectionDiffBuilder implements Builder<DiffResult> {
         if (Modifier.isTransient(field.getModifiers())) {
             return false;
         }
-        if (Modifier.isStatic(field.getModifiers())) {
-            return false;
-        }
-        return true;
+        return !Modifier.isStatic(field.getModifiers());
     }
 
 }
