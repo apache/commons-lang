@@ -196,11 +196,9 @@ abstract class FormatCache<F extends Format> {
                 DateFormat formatter;
                 if (dateStyle == null) {
                     formatter = DateFormat.getTimeInstance(timeStyle.intValue(), locale);
-                }
-                else if (timeStyle == null) {
+                } else if (timeStyle == null) {
                     formatter = DateFormat.getDateInstance(dateStyle.intValue(), locale);
-                }
-                else {
+                } else {
                     formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), locale);
                 }
                 pattern = ((SimpleDateFormat)formatter).toPattern();

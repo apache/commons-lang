@@ -1076,8 +1076,7 @@ public class ClassUtilsTest  {
         try {
             ClassUtils.getClass( className );
             fail( "ClassUtils.getClass() should fail with an exception of type " + exceptionType.getName() + " when given class name \"" + className + "\"." );
-        }
-        catch( final Exception e ) {
+        } catch( final Exception e ) {
             assertTrue( exceptionType.isAssignableFrom( e.getClass() ) );
         }
     }

@@ -179,8 +179,7 @@ public class SerializationUtilsTest {
         };
         try {
             SerializationUtils.serialize(iMap, streamTest);
-        }
-        catch(final SerializationException e) {
+        } catch(final SerializationException e) {
             assertEquals("java.io.IOException: " + SERIALIZE_IO_EXCEPTION_MESSAGE, e.getMessage());
         }
     }
@@ -422,8 +421,7 @@ public class SerializationUtilsTest {
 
 }
 
-class ClassNotFoundSerialization implements Serializable
-{
+class ClassNotFoundSerialization implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

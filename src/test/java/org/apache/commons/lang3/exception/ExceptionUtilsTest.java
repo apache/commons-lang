@@ -40,6 +40,7 @@ import org.junit.Test;
 
 /**
  * Tests {@link org.apache.commons.lang3.exception.ExceptionUtils}.
+ *
  * @since 1.0
  */
 public class ExceptionUtilsTest {
@@ -133,15 +134,15 @@ public class ExceptionUtilsTest {
         // not known type, so match on supplied method names
         assertSame(nested, ExceptionUtils.getCause(withCause, null));  // default names
         assertSame(null, ExceptionUtils.getCause(withCause, new String[0]));
-        assertSame(null, ExceptionUtils.getCause(withCause, new String[] {null}));
-        assertSame(nested, ExceptionUtils.getCause(withCause, new String[] {"getCause"}));
+        assertSame(null, ExceptionUtils.getCause(withCause, new String[]{null}));
+        assertSame(nested, ExceptionUtils.getCause(withCause, new String[]{"getCause"}));
 
         // not known type, so match on supplied method names
         assertSame(null, ExceptionUtils.getCause(withoutCause, null));
         assertSame(null, ExceptionUtils.getCause(withoutCause, new String[0]));
-        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[] {null}));
-        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[] {"getCause"}));
-        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[] {"getTargetException"}));
+        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[]{null}));
+        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[]{"getCause"}));
+        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[]{"getTargetException"}));
     }
 
     @Test
@@ -449,7 +450,7 @@ public class ExceptionUtilsTest {
         assertFalse(match);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testRemoveCommonFrames_ListList() throws Exception {
         ExceptionUtils.removeCommonFrames(null, null);
     }
@@ -479,6 +480,7 @@ public class ExceptionUtilsTest {
     }
 
     //-----------------------------------------------------------------------
+
     /**
      * Provides a method with a well known chained/nested exception
      * name which matches the full signature (e.g. has a return value
@@ -517,7 +519,7 @@ public class ExceptionUtilsTest {
     private static class ExceptionWithoutCause extends Exception {
         private static final long serialVersionUID = 1L;
 
-       @SuppressWarnings("unused")
+        @SuppressWarnings("unused")
         public void getTargetException() {
         }
     }
@@ -528,8 +530,13 @@ public class ExceptionUtilsTest {
         private static final long serialVersionUID = 1L;
 
         @SuppressWarnings("unused")
-        NestableException() { super(); }
-        NestableException(final Throwable t) { super(t); }
+        NestableException() {
+            super();
+        }
+
+        NestableException(final Throwable t) {
+            super(t);
+        }
     }
 
     @Test
@@ -538,8 +545,7 @@ public class ExceptionUtilsTest {
         try {
             ExceptionUtils.rethrow(expected);
             Assert.fail("Exception not thrown");
-        }
-        catch(final Exception actual) {
+        } catch (final Exception actual) {
             Assert.assertSame(expected, actual);
         }
     }
@@ -549,8 +555,7 @@ public class ExceptionUtilsTest {
         try {
             throwsCheckedException();
             Assert.fail("Exception not thrown");
-        }
-        catch(final Exception ioe) {
+        } catch (final Exception ioe) {
             assertTrue(ioe instanceof IOException);
             assertEquals(1, ExceptionUtils.getThrowableCount(ioe));
         }
@@ -558,8 +563,7 @@ public class ExceptionUtilsTest {
         try {
             redeclareCheckedException();
             Assert.fail("Exception not thrown");
-        }
-        catch(final IOException ioe) {
+        } catch (final IOException ioe) {
             assertEquals(1, ExceptionUtils.getThrowableCount(ioe));
         }
     }
@@ -585,8 +589,7 @@ public class ExceptionUtilsTest {
         try {
             ExceptionUtils.wrapAndThrow(new OutOfMemoryError());
             Assert.fail("Error not thrown");
-        }
-        catch(final Throwable t) {
+        } catch (final Throwable t) {
             Assert.assertTrue(ExceptionUtils.hasCause(t, Error.class));
         }
     }
@@ -596,8 +599,7 @@ public class ExceptionUtilsTest {
         try {
             ExceptionUtils.wrapAndThrow(new IllegalArgumentException());
             Assert.fail("RuntimeException not thrown");
-        }
-        catch(final Throwable t) {
+        } catch (final Throwable t) {
             Assert.assertTrue(ExceptionUtils.hasCause(t, RuntimeException.class));
         }
     }
@@ -607,8 +609,7 @@ public class ExceptionUtilsTest {
         try {
             ExceptionUtils.wrapAndThrow(new IOException());
             Assert.fail("Checked Exception not thrown");
-        }
-        catch(final Throwable t) {
+        } catch (final Throwable t) {
             Assert.assertTrue(ExceptionUtils.hasCause(t, IOException.class));
         }
     }
@@ -618,8 +619,7 @@ public class ExceptionUtilsTest {
         try {
             ExceptionUtils.wrapAndThrow(new TestThrowable());
             Assert.fail("Checked Exception not thrown");
-        }
-        catch(final Throwable t) {
+        } catch (final Throwable t) {
             Assert.assertTrue(ExceptionUtils.hasCause(t, TestThrowable.class));
         }
     }

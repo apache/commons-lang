@@ -409,7 +409,9 @@ public class ExtendedMessageFormatTest {
             return toAppendTo.append(((String)obj).toLowerCase());
         }
         @Override
-        public Object parseObject(final String source, final ParsePosition pos) {throw new UnsupportedOperationException();}
+        public Object parseObject(final String source, final ParsePosition pos) {
+            throw new UnsupportedOperationException();
+        }
     }
 
     /**
@@ -423,7 +425,9 @@ public class ExtendedMessageFormatTest {
             return toAppendTo.append(((String)obj).toUpperCase());
         }
         @Override
-        public Object parseObject(final String source, final ParsePosition pos) {throw new UnsupportedOperationException();}
+        public Object parseObject(final String source, final ParsePosition pos) {
+            throw new UnsupportedOperationException();
+        }
     }
 
 

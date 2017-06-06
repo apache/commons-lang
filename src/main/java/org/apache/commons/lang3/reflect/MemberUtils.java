@@ -169,12 +169,10 @@ abstract class MemberUtils {
             if (noVarArgsPassed) {
                 // When no varargs passed, the best match is the most generic matching type, not the most specific.
                 totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
-            }
-            else if (explicitArrayForVarags) {
+            } else if (explicitArrayForVarags) {
                 final Class<?> sourceClass = srcArgs[srcArgs.length-1].getComponentType();
                 totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
-            }
-            else {
+            } else {
                 // This is typical varargs case.
                 for (int i = destArgs.length-1; i < srcArgs.length; i++) {
                     final Class<?> srcClass = srcArgs[i];
@@ -283,8 +281,13 @@ abstract class MemberUtils {
       private final Class<?>[] parameterTypes;
       private final boolean  isVarArgs;
 
-      private static Executable of(final Method method) { return new Executable(method); }
-      private static Executable of(final Constructor<?> constructor) { return new Executable(constructor); }
+      private static Executable of(final Method method) {
+          return new Executable(method);
+      }
+
+      private static Executable of(final Constructor<?> constructor) {
+          return new Executable(constructor);
+      }
 
       private Executable(final Method method) {
         parameterTypes = method.getParameterTypes();
@@ -296,9 +299,13 @@ abstract class MemberUtils {
         isVarArgs = constructor.isVarArgs();
       }
 
-      public Class<?>[] getParameterTypes() { return parameterTypes; }
+      public Class<?>[] getParameterTypes() {
+          return parameterTypes;
+      }
 
-      public boolean isVarArgs() { return isVarArgs; }
+      public boolean isVarArgs() {
+          return isVarArgs;
+      }
     }
 
 }

@@ -8188,9 +8188,8 @@ public class StringUtils {
             return m <= threshold ? m : -1;
         } else if (m == 0) {
             return n <= threshold ? n : -1;
-        }
-        // no need to calculate the distance if the length difference is greater than the threshold
-        else if (Math.abs(n - m) > threshold) {
+        } else if (Math.abs(n - m) > threshold) {
+            // no need to calculate the distance if the length difference is greater than the threshold
             return -1;
         }
 

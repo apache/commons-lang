@@ -34,15 +34,22 @@ public class EqualsBuilderTest {
 
     static class TestObject {
         private int a;
+
         TestObject() {
         }
+
         TestObject(final int a) {
             this.a = a;
         }
+
         @Override
         public boolean equals(final Object o) {
-            if (o == null) { return false; }
-            if (o == this) { return true; }
+            if (o == null) {
+                return false;
+            }
+            if (o == this) {
+                return true;
+            }
             if (o.getClass() != getClass()) {
                 return false;
             }
@@ -67,17 +74,24 @@ public class EqualsBuilderTest {
 
     static class TestSubObject extends TestObject {
         private int b;
+
         TestSubObject() {
             super(0);
         }
+
         TestSubObject(final int a, final int b) {
             super(a);
             this.b = b;
         }
+
         @Override
         public boolean equals(final Object o) {
-            if (o == null) { return false; }
-            if (o == this) { return true; }
+            if (o == null) {
+                return false;
+            }
+            if (o == this) {
+                return true;
+            }
             if (o.getClass() != getClass()) {
                 return false;
             }
@@ -88,7 +102,7 @@ public class EqualsBuilderTest {
 
         @Override
         public int hashCode() {
-            return b *17 + super.hashCode();
+            return b * 17 + super.hashCode();
         }
 
         public void setB(final int b) {
@@ -109,6 +123,7 @@ public class EqualsBuilderTest {
     static class TestTSubObject extends TestObject {
         @SuppressWarnings("unused")
         private transient int t;
+
         TestTSubObject(final int a, final int t) {
             super(a);
             this.t = t;
@@ -118,6 +133,7 @@ public class EqualsBuilderTest {
     static class TestTTSubObject extends TestTSubObject {
         @SuppressWarnings("unused")
         private transient int tt;
+
         TestTTSubObject(final int a, final int t, final int tt) {
             super(a, t);
             this.tt = tt;
@@ -127,6 +143,7 @@ public class EqualsBuilderTest {
     static class TestTTLeafObject extends TestTTSubObject {
         @SuppressWarnings("unused")
         private final int leafValue;
+
         TestTTLeafObject(final int a, final int t, final int tt, final int leafValue) {
             super(a, t, tt);
             this.leafValue = leafValue;
@@ -135,12 +152,15 @@ public class EqualsBuilderTest {
 
     static class TestTSubObject2 extends TestObject {
         private transient int t;
+
         TestTSubObject2(final int a, final int t) {
             super(a);
         }
+
         public int getT() {
             return t;
         }
+
         public void setT(final int t) {
             this.t = t;
         }
@@ -152,7 +172,7 @@ public class EqualsBuilderTest {
         private int z;
 
         TestRecursiveObject(final TestRecursiveInnerObject a,
-                final TestRecursiveInnerObject b, final int z) {
+                            final TestRecursiveInnerObject b, final int z) {
             this.a = a;
             this.b = b;
         }
@@ -173,6 +193,7 @@ public class EqualsBuilderTest {
 
     static class TestRecursiveInnerObject {
         private final int n;
+
         TestRecursiveInnerObject(final int n) {
             this.n = n;
         }
@@ -185,6 +206,7 @@ public class EqualsBuilderTest {
     static class TestRecursiveCycleObject {
         private TestRecursiveCycleObject cycle;
         private final int n;
+
         TestRecursiveCycleObject(final int n) {
             this.n = n;
             this.cycle = this;
@@ -301,20 +323,21 @@ public class EqualsBuilderTest {
      * <li>consistency</li>
      * <li>non-null reference</li>
      * </ul>
-     * @param to a TestObject
-     * @param toBis a TestObject, equal to to and toTer
-     * @param toTer Left hand side, equal to to and toBis
-     * @param to2 a different TestObject
-     * @param oToChange a TestObject that will be changed
+     *
+     * @param to             a TestObject
+     * @param toBis          a TestObject, equal to to and toTer
+     * @param toTer          Left hand side, equal to to and toBis
+     * @param to2            a different TestObject
+     * @param oToChange      a TestObject that will be changed
      * @param testTransients whether to test transient instance variables
      */
     private void testReflectionEqualsEquivalenceRelationship(
-        final TestObject to,
-        final TestObject toBis,
-        final TestObject toTer,
-        final TestObject to2,
-        final TestObject oToChange,
-        final boolean testTransients) {
+            final TestObject to,
+            final TestObject toBis,
+            final TestObject toTer,
+            final TestObject to2,
+            final TestObject oToChange,
+            final boolean testTransients) {
 
         // reflection test
         assertTrue(EqualsBuilder.reflectionEquals(to, to, testTransients));
@@ -325,9 +348,9 @@ public class EqualsBuilderTest {
 
         // transitive test
         assertTrue(
-            EqualsBuilder.reflectionEquals(to, toBis, testTransients)
-                && EqualsBuilder.reflectionEquals(toBis, toTer, testTransients)
-                && EqualsBuilder.reflectionEquals(to, toTer, testTransients));
+                EqualsBuilder.reflectionEquals(to, toBis, testTransients)
+                        && EqualsBuilder.reflectionEquals(toBis, toTer, testTransients)
+                        && EqualsBuilder.reflectionEquals(to, toTer, testTransients));
 
         // consistency test
         oToChange.setA(to.getA());
@@ -1146,8 +1169,8 @@ public class EqualsBuilderTest {
      */
     @Test
     public void testNpeForNullElement() {
-        final Object[] x1 = new Object[] { Integer.valueOf(1), null, Integer.valueOf(3) };
-        final Object[] x2 = new Object[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3) };
+        final Object[] x1 = new Object[]{Integer.valueOf(1), null, Integer.valueOf(3)};
+        final Object[] x2 = new Object[]{Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)};
 
         // causes an NPE in 2.0 according to:
         // http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
@@ -1249,17 +1272,17 @@ public class EqualsBuilderTest {
         final TestObject one = new TestObject(1);
         final TestObject two = new TestObject(2);
 
-        final Object[] o1 = new Object[] { one };
-        final Object[] o2 = new Object[] { two };
-        final Object[] o3 = new Object[] { one };
+        final Object[] o1 = new Object[]{one};
+        final Object[] o2 = new Object[]{two};
+        final Object[] o3 = new Object[]{one};
 
         assertFalse(EqualsBuilder.reflectionEquals(o1, o2));
         assertTrue(EqualsBuilder.reflectionEquals(o1, o1));
         assertTrue(EqualsBuilder.reflectionEquals(o1, o3));
 
-        final double[] d1 = { 0, 1 };
-        final double[] d2 = { 2, 3 };
-        final double[] d3 = { 0, 1 };
+        final double[] d1 = {0, 1};
+        final double[] d2 = {2, 3};
+        final double[] d3 = {0, 1};
 
         assertFalse(EqualsBuilder.reflectionEquals(d1, d2));
         assertTrue(EqualsBuilder.reflectionEquals(d1, d1));

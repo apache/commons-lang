@@ -206,8 +206,7 @@ public class FastDateParserTest {
                 cal.set(Calendar.ERA, 0);
                 cal.set(Calendar.YEAR, 1868-year);
             }
-        }
-        else {
+        } else {
             if (year < 0) {
                 cal.set(Calendar.ERA, GregorianCalendar.BC);
                 year= -year;

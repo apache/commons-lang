@@ -30,14 +30,17 @@ import org.junit.Test;
 /**
  * TestCase for StopWatch.
  */
-public class StopWatchTest  {
+public class StopWatchTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testStopWatchSimple(){
+    public void testStopWatchSimple() {
         final StopWatch watch = new StopWatch();
         watch.start();
-            try {Thread.sleep(550);} catch (final InterruptedException ex) {}
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+        }
         watch.stop();
         final long time = watch.getTime();
         assertEquals(time, watch.getTime());
@@ -56,13 +59,16 @@ public class StopWatchTest  {
     }
 
     @Test
-    public void testStopWatchSimpleGet(){
+    public void testStopWatchSimpleGet() {
         final StopWatch watch = new StopWatch();
         assertEquals(0, watch.getTime());
         assertEquals("00:00:00.000", watch.toString());
 
         watch.start();
-            try {Thread.sleep(500);} catch (final InterruptedException ex) {}
+        try {
+            Thread.sleep(500);
+        } catch (final InterruptedException ex) {
+        }
         assertTrue(watch.getTime() < 2000);
     }
 
@@ -71,9 +77,9 @@ public class StopWatchTest  {
         // Create a mock StopWatch with a time of 2:59:01.999
         final StopWatch watch = createMockStopWatch(
                 TimeUnit.HOURS.toNanos(2)
-              + TimeUnit.MINUTES.toNanos(59)
-              + TimeUnit.SECONDS.toNanos(1)
-              + TimeUnit.MILLISECONDS.toNanos(999));
+                        + TimeUnit.MINUTES.toNanos(59)
+                        + TimeUnit.SECONDS.toNanos(1)
+                        + TimeUnit.MILLISECONDS.toNanos(999));
 
         assertEquals(2L, watch.getTime(TimeUnit.HOURS));
         assertEquals(179L, watch.getTime(TimeUnit.MINUTES));
@@ -82,21 +88,30 @@ public class StopWatchTest  {
     }
 
     @Test
-    public void testStopWatchSplit(){
+    public void testStopWatchSplit() {
         final StopWatch watch = new StopWatch();
         watch.start();
-            try {Thread.sleep(550);} catch (final InterruptedException ex) {}
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+        }
         watch.split();
         final long splitTime = watch.getSplitTime();
         final String splitStr = watch.toSplitString();
-            try {Thread.sleep(550);} catch (final InterruptedException ex) {}
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+        }
         watch.unsplit();
-            try {Thread.sleep(550);} catch (final InterruptedException ex) {}
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+        }
         watch.stop();
         final long totalTime = watch.getTime();
 
         assertEquals("Formatted split string not the correct length",
-                     splitStr.length(), 12);
+                splitStr.length(), 12);
         assertTrue(splitTime >= 500);
         assertTrue(splitTime < 700);
         assertTrue(totalTime >= 1500);
@@ -104,15 +119,24 @@ public class StopWatchTest  {
     }
 
     @Test
-    public void testStopWatchSuspend(){
+    public void testStopWatchSuspend() {
         final StopWatch watch = new StopWatch();
         watch.start();
-            try {Thread.sleep(550);} catch (final InterruptedException ex) {}
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+        }
         watch.suspend();
         final long suspendTime = watch.getTime();
-            try {Thread.sleep(550);} catch (final InterruptedException ex) {}
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+        }
         watch.resume();
-            try {Thread.sleep(550);} catch (final InterruptedException ex) {}
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+        }
         watch.stop();
         final long totalTime = watch.getTime();
 
@@ -126,13 +150,19 @@ public class StopWatchTest  {
     public void testLang315() {
         final StopWatch watch = new StopWatch();
         watch.start();
-            try {Thread.sleep(200);} catch (final InterruptedException ex) {}
+        try {
+            Thread.sleep(200);
+        } catch (final InterruptedException ex) {
+        }
         watch.suspend();
         final long suspendTime = watch.getTime();
-            try {Thread.sleep(200);} catch (final InterruptedException ex) {}
+        try {
+            Thread.sleep(200);
+        } catch (final InterruptedException ex) {
+        }
         watch.stop();
         final long totalTime = watch.getTime();
-        assertTrue( suspendTime == totalTime );
+        assertTrue(suspendTime == totalTime);
     }
 
     // test bad states
@@ -142,42 +172,42 @@ public class StopWatchTest  {
         try {
             watch.stop();
             fail("Calling stop on an unstarted StopWatch should throw an exception. ");
-        } catch(final IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
         try {
             watch.stop();
             fail("Calling stop on an unstarted StopWatch should throw an exception. ");
-        } catch(final IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
         try {
             watch.suspend();
             fail("Calling suspend on an unstarted StopWatch should throw an exception. ");
-        } catch(final IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
         try {
             watch.split();
             fail("Calling split on a non-running StopWatch should throw an exception. ");
-        } catch(final IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
         try {
             watch.unsplit();
             fail("Calling unsplit on an unsplit StopWatch should throw an exception. ");
-        } catch(final IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
         try {
             watch.resume();
             fail("Calling resume on an unsuspended StopWatch should throw an exception. ");
-        } catch(final IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
@@ -186,28 +216,28 @@ public class StopWatchTest  {
         try {
             watch.start();
             fail("Calling start on a started StopWatch should throw an exception. ");
-        } catch(final IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
         try {
             watch.unsplit();
             fail("Calling unsplit on an unsplit StopWatch should throw an exception. ");
-        } catch(final IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
         try {
             watch.getSplitTime();
             fail("Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
-        } catch(final IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
         try {
             watch.resume();
             fail("Calling resume on an unsuspended StopWatch should throw an exception. ");
-        } catch(final IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
@@ -216,7 +246,7 @@ public class StopWatchTest  {
         try {
             watch.start();
             fail("Calling start on a stopped StopWatch should throw an exception as it needs to be reset. ");
-        } catch(final IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // expected
         }
     }
@@ -275,7 +305,7 @@ public class StopWatchTest  {
      * Creates a suspended StopWatch object which appears to have elapsed
      * for the requested amount of time in nanoseconds.
      * <p>
-     *
+     * <p>
      * <pre>
      * // Create a mock StopWatch with a time of 2:59:01.999
      * final long nanos = TimeUnit.HOURS.toNanos(2)

@@ -138,11 +138,9 @@ public class FastDateParser implements DateParser, Serializable {
         if(centuryStart!=null) {
             definingCalendar.setTime(centuryStart);
             centuryStartYear= definingCalendar.get(Calendar.YEAR);
-        }
-        else if(locale.equals(JAPANESE_IMPERIAL)) {
+        } else if(locale.equals(JAPANESE_IMPERIAL)) {
             centuryStartYear= 0;
-        }
-        else {
+        } else {
             // from 80 years ago to 20 years from now
             definingCalendar.setTime(new Date());
             centuryStartYear= definingCalendar.get(Calendar.YEAR)-80;

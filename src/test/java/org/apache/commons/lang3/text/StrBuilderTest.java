@@ -565,29 +565,25 @@ public class StrBuilderTest {
         try {
             sb.getChars(-1,0,a,0);
             fail("no exception");
-        }
-        catch (final IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
         }
 
         try {
             sb.getChars(0,-1,a,0);
             fail("no exception");
-        }
-        catch (final IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
         }
 
         try {
             sb.getChars(0,20,a,0);
             fail("no exception");
-        }
-        catch (final IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
         }
 
         try {
             sb.getChars(4,2,a,0);
             fail("no exception");
-        }
-        catch (final IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
         }
     }
 

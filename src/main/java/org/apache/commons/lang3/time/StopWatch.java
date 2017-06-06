@@ -80,24 +80,60 @@ public class StopWatch {
     private enum State {
 
         UNSTARTED {
-            @Override boolean isStarted() { return false; }
-            @Override boolean isStopped() { return true;  }
-            @Override boolean isSuspended() { return false; }
+            @Override
+            boolean isStarted() {
+                return false;
+            }
+            @Override
+            boolean isStopped() {
+                return true;
+            }
+            @Override
+            boolean isSuspended() {
+                return false;
+            }
         },
         RUNNING {
-            @Override boolean isStarted() { return true; }
-            @Override boolean isStopped() { return false; }
-            @Override boolean isSuspended() { return false; }
+            @Override
+            boolean isStarted() {
+                return true;
+            }
+            @Override
+            boolean isStopped() {
+                return false;
+            }
+            @Override
+            boolean isSuspended() {
+                return false;
+            }
         },
         STOPPED {
-            @Override boolean isStarted() { return false; }
-            @Override boolean isStopped() { return true; }
-            @Override boolean isSuspended() { return false; }
+            @Override
+            boolean isStarted() {
+                return false;
+            }
+            @Override
+            boolean isStopped() {
+                return true;
+            }
+            @Override
+            boolean isSuspended() {
+                return false;
+            }
         },
         SUSPENDED {
-            @Override boolean isStarted() { return true; }
-            @Override boolean isStopped() { return false; }
-            @Override  boolean isSuspended() { return true; }
+            @Override
+            boolean isStarted() {
+                return true;
+            }
+            @Override
+            boolean isStopped() {
+                return false;
+            }
+            @Override
+            boolean isSuspended() {
+                return true;
+            }
         };
 
         /**

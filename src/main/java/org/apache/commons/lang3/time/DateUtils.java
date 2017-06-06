@@ -380,8 +380,7 @@ public class DateUtils {
                 if (fdp.parse(str, pos, calendar) && pos.getIndex()==str.length()) {
                     return calendar.getTime();
                 }
-            }
-            catch(final IllegalArgumentException ignore) {
+            } catch(final IllegalArgumentException ignore) {
                 // leniency is preventing calendar from being set
             }
             pos.setIndex(0);
