@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="2017-MM-DD" description="TBD">
+    <action issue="LANG-1337" type="fix" dev="kinow">Fix test failures in IBM JDK 8 for ToStringBuilderTest</action>
     <action issue="LANG-1304" type="add" dev="pschumacher" due-to="Andy Klimczak">Add method in StringUtils to determine if string contains both mixed cased characters</action>
     <action issue="LANG-1334" type="update" dev="djones">Deprecate CharEncoding in favour of java.nio.charset.StandardCharsets</action>
     <action issue="LANG-1319" type="fix" dev="djones">MultilineRecursiveToStringStyle StackOverflowError when object is an array</action>

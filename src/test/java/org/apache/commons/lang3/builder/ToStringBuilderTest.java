@@ -316,7 +316,7 @@ public class ToStringBuilderTest {
         // representation different for IBM JDK 1.6.0, LANG-727
         assumeFalse("IBM Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".equals(SystemUtils.JAVA_SPECIFICATION_VERSION));
         assumeFalse("Oracle Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".compareTo(SystemUtils.JAVA_SPECIFICATION_VERSION) < 0);
-        final List<Object> list = new ArrayList<>();
+        final List<Object> list = new ArrayList<>(10);
         final String baseString = this.toBaseString(list);
         final String expectedWithTransients = baseString + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]";
         final String toStringWithTransients = ToStringBuilder.reflectionToString(list, null, true);
