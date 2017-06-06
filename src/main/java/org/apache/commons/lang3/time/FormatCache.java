@@ -101,7 +101,7 @@ abstract class FormatCache<F extends Format> {
      * @throws IllegalArgumentException if pattern is invalid
      *  or <code>null</code>
      */
-    abstract protected F createInstance(String pattern, TimeZone timeZone, Locale locale);
+    protected abstract F createInstance(String pattern, TimeZone timeZone, Locale locale);
 
     /**
      * <p>Gets a date/time formatter instance using the specified style,

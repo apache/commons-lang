@@ -37,8 +37,8 @@ import org.junit.Test;
 public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
 
     class TestFixture {
-        final private LinkedList<Integer> listField = new LinkedList<>();
-        final private Random random = new Random();
+        private final LinkedList<Integer> listField = new LinkedList<>();
+        private final Random random = new Random();
         private final int N = 100;
 
         public TestFixture() {
@@ -59,8 +59,8 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
     }
 
     class MutatingClient implements Runnable {
-        final private TestFixture testFixture;
-        final private Random random = new Random();
+        private final TestFixture testFixture;
+        private final Random random = new Random();
 
         public MutatingClient(final TestFixture testFixture) {
             this.testFixture = testFixture;
@@ -77,7 +77,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
     }
 
     class InspectingClient implements Runnable {
-        final private TestFixture testFixture;
+        private final TestFixture testFixture;
 
         public InspectingClient(final TestFixture testFixture) {
             this.testFixture = testFixture;

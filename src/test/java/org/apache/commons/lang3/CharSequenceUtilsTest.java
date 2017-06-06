@@ -137,7 +137,7 @@ public class CharSequenceUtilsTest {
             new TestData("Abcd",false,     1,     "abcD",1,     2,     true),
     };
 
-    private static abstract class RunTest {
+    private abstract static class RunTest {
 
         abstract boolean invoke();
 

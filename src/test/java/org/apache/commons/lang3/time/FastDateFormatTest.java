@@ -253,8 +253,8 @@ public class FastDateFormatTest {
         System.out.println(">>FastDateFormatTest: FastDateParser:"+fdfTime.get(1)+"  SimpleDateFormat:"+sdfTime.get(1));
     }
 
-    final static private int NTHREADS= 10;
-    final static private int NROUNDS= 10000;
+    private static final int NTHREADS= 10;
+    private static final int NROUNDS= 10000;
 
     private AtomicLongArray measureTime(final Format printer, final Format parser) throws InterruptedException {
         final ExecutorService pool = Executors.newFixedThreadPool(NTHREADS);

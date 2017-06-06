@@ -40,7 +40,7 @@ import org.junit.Test;
  */
 @Deprecated
 public class StringEscapeUtilsTest {
-    private final static String FOO = "foo";
+    private static final String FOO = "foo";
 
     @Test
     public void testConstructor() {

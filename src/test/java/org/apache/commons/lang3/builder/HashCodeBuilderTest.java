@@ -109,7 +109,7 @@ public class HashCodeBuilderTest {
         private int b;
 
         @SuppressWarnings("unused")
-        transient private int t;
+        private transient int t;
 
         public TestSubObject() {
             super(0);

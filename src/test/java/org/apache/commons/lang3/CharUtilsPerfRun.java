@@ -56,13 +56,14 @@ run_inlined_CharUtils_isAsciiNumeric: 84,420 milliseconds.
 
  */
 public class CharUtilsPerfRun {
-    final static String VERSION = "$Id$";
+    private static final String VERSION = "$Id$";
 
-    final static int WARM_UP = 100;
+    private static final int WARM_UP = 100;
 
-    final static int COUNT = 5000;
+    private static final int COUNT = 5000;
 
-    final static char[] CHAR_SAMPLES;
+    private static final char[] CHAR_SAMPLES;
+
     static {
         CHAR_SAMPLES = new char[Character.MAX_VALUE];
         for (char i = Character.MIN_VALUE; i < Character.MAX_VALUE; i++) {

@@ -272,7 +272,7 @@ public class ThreadUtils {
     /**
      * A predicate implementation which always returns true.
      */
-    private final static class AlwaysTruePredicate implements ThreadPredicate, ThreadGroupPredicate{
+    private static final class AlwaysTruePredicate implements ThreadPredicate, ThreadGroupPredicate{
 
         private AlwaysTruePredicate() {
         }

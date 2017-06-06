@@ -201,7 +201,7 @@ public class FastDateParser implements DateParser, Serializable {
      * Parse format into Strategies
      */
     private class StrategyParser {
-        final private Calendar definingCalendar;
+        private final Calendar definingCalendar;
         private int currentIdx;
 
         StrategyParser(final Calendar definingCalendar) {
@@ -491,7 +491,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * A strategy to parse a single field from the parsing pattern
      */
-    private static abstract class Strategy {
+    private abstract static class Strategy {
         /**
          * Is this field a number?
          * The default implementation returns false.
@@ -508,7 +508,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * A strategy to parse a single field from the parsing pattern
      */
-    private static abstract class PatternStrategy extends Strategy {
+    private abstract static class PatternStrategy extends Strategy {
 
         private Pattern pattern;
 
@@ -648,7 +648,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private static class CopyQuotedStrategy extends Strategy {
 
-        final private String formatField;
+        private final String formatField;
 
         /**
          * Construct a Strategy that ensures the formatField has literal text
