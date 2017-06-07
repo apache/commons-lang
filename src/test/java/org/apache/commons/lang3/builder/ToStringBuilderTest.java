@@ -36,6 +36,7 @@ import org.junit.Test;
  */
 public class ToStringBuilderTest {
 
+    private final Integer arraylistInitialCapacity = Integer.valueOf(10);
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
@@ -316,7 +317,7 @@ public class ToStringBuilderTest {
         // representation different for IBM JDK 1.6.0, LANG-727
         assumeFalse("IBM Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".equals(SystemUtils.JAVA_SPECIFICATION_VERSION));
         assumeFalse("Oracle Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".compareTo(SystemUtils.JAVA_SPECIFICATION_VERSION) < 0);
-        final List<Object> list = new ArrayList<>(10);
+        final List<Object> list = new ArrayList<>(arraylistInitialCapacity);
         final String baseString = this.toBaseString(list);
         final String expectedWithTransients = baseString + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]";
         final String toStringWithTransients = ToStringBuilder.reflectionToString(list, null, true);
