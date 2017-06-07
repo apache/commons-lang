@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.Builder;
 
@@ -213,7 +214,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             final int newEnd = length;
             size = length;
             for (int i = oldEnd; i < newEnd; i++) {
-                buffer[i] = '\0';
+                buffer[i] = CharUtils.NUL;
             }
         }
         return this;

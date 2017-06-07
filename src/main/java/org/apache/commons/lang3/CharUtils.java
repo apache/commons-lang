@@ -50,6 +50,12 @@ public class CharUtils {
      */
     public static final char CR = '\r';
 
+    /**
+     * {@code \u0000} null control character ('\0'), abbreviated NUL.
+     *
+     * @since 3.6
+     */
+    public static final char NUL = '\0';
 
     static {
         for (char c = 0; c < CHAR_STRING_ARRAY.length; c++) {

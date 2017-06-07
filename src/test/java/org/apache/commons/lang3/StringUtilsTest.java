@@ -3106,10 +3106,10 @@ public class StringUtilsTest {
 
     @Test
     public void testWrap_StringChar() {
-        assertNull(StringUtils.wrap(null, '\0'));
+        assertNull(StringUtils.wrap(null, CharUtils.NUL));
         assertNull(StringUtils.wrap(null, '1'));
 
-        assertEquals("", StringUtils.wrap("", '\0'));
+        assertEquals("", StringUtils.wrap("", CharUtils.NUL));
         assertEquals("xabx", StringUtils.wrap("ab", 'x'));
         assertEquals("\"ab\"", StringUtils.wrap("ab", '\"'));
         assertEquals("\"\"ab\"\"", StringUtils.wrap("\"ab\"", '\"'));
@@ -3121,10 +3121,10 @@ public class StringUtilsTest {
 
     @Test
     public void testWrapIfMissing_StringChar() {
-        assertNull(StringUtils.wrapIfMissing(null, '\0'));
+        assertNull(StringUtils.wrapIfMissing(null, CharUtils.NUL));
         assertNull(StringUtils.wrapIfMissing(null, '1'));
 
-        assertEquals("", StringUtils.wrapIfMissing("", '\0'));
+        assertEquals("", StringUtils.wrapIfMissing("", CharUtils.NUL));
         assertEquals("xabx", StringUtils.wrapIfMissing("ab", 'x'));
         assertEquals("\"ab\"", StringUtils.wrapIfMissing("ab", '\"'));
         assertEquals("\"ab\"", StringUtils.wrapIfMissing("\"ab\"", '\"'));
@@ -3202,7 +3202,7 @@ public class StringUtilsTest {
     @Test
     public void testUnwrap_StringChar() {
         assertNull(StringUtils.unwrap(null, null));
-        assertNull(StringUtils.unwrap(null, '\0'));
+        assertNull(StringUtils.unwrap(null, CharUtils.NUL));
         assertNull(StringUtils.unwrap(null, '1'));
 
         assertEquals("abc", StringUtils.unwrap("abc", null));

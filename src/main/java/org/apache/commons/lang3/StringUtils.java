@@ -9009,7 +9009,7 @@ public class StringUtils {
      */
     public static String wrap(final String str, final char wrapWith) {
 
-        if (isEmpty(str) || wrapWith == '\0') {
+        if (isEmpty(str) || wrapWith == CharUtils.NUL) {
             return str;
         }
 
@@ -9080,7 +9080,7 @@ public class StringUtils {
      * @since 3.5
      */
     public static String wrapIfMissing(final String str, final char wrapWith) {
-        if (isEmpty(str) || wrapWith == '\0') {
+        if (isEmpty(str) || wrapWith == CharUtils.NUL) {
             return str;
         }
         final StringBuilder builder = new StringBuilder(str.length() + 2);
@@ -9205,7 +9205,7 @@ public class StringUtils {
      * @since 3.6
      */
     public static String unwrap(final String str, final char wrapChar) {
-        if (isEmpty(str) || wrapChar == '\0') {
+        if (isEmpty(str) || wrapChar == CharUtils.NUL) {
             return str;
         }
 
