@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.6" date="2017-MM-DD" description="TBD">
+    <action issue="LANG-1338" type="update" dev="britter">Add Automatic-Module-Name MANIFEST entry for Java 9 compatibility</action>
     <action issue="LANG-1336" type="add" dev="britter" due-to="Beluga Behr">Add NUL Byte To CharUtils</action>
     <action issue="LANG-1337" type="fix" dev="kinow">Fix test failures in IBM JDK 8 for ToStringBuilderTest</action>
     <action issue="LANG-1304" type="add" dev="pschumacher" due-to="Andy Klimczak">Add method in StringUtils to determine if string contains both mixed cased characters</action>
