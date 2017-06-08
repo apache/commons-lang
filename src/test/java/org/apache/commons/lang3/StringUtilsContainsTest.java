@@ -474,4 +474,21 @@ public class StringUtilsContainsTest  {
         assertTrue( StringUtils.containsWhitespace("a\t") );
         assertTrue( StringUtils.containsWhitespace("\n") );
     }
+    
+    @Test
+    public void testSupplementaryCharacters() {
+    	StringBuilder builder = new StringBuilder();
+    	final int CODE_POINT = 0x2070E;
+    	builder.appendCodePoint(CODE_POINT);
+    	assertEquals ( StringUtils.lastIndexOf(builder.toString(), CODE_POINT) , 0);
+    	assertEquals( StringUtils.lastIndexOf(builder, CODE_POINT), 0);
+    	
+    	assertTrue( StringUtils.contains(builder, CODE_POINT ));
+    	assertEquals( StringUtils.indexOf(builder, CODE_POINT, 0), 0);
+    	assertEquals( StringUtils.indexOf(builder,  CODE_POINT, 0 ), 0);
+    	
+    	assertEquals( StringUtils.lastIndexOf(builder, CODE_POINT), 0);
+    	assertEquals( StringUtils.lastIndexOf(builder, CODE_POINT, 0), 0);
+
+    }
 }

@@ -1321,7 +1321,7 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return CharSequenceUtils.indexOf(seq, searchChar, 0);
+        return CharSequenceUtils.indexOf(seq.toString(), searchChar, 0);
     }
 
     /**
@@ -1381,7 +1381,7 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return CharSequenceUtils.indexOf(seq, searchChar, startPos);
+        return CharSequenceUtils.indexOf(seq.toString(), searchChar, startPos);
     }
 
     /**
@@ -1672,7 +1672,7 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return CharSequenceUtils.lastIndexOf(seq, searchChar, seq.length());
+        return CharSequenceUtils.lastIndexOf(seq.toString(), searchChar, seq.length());
     }
 
     /**
@@ -1723,7 +1723,7 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return CharSequenceUtils.lastIndexOf(seq, searchChar, startPos);
+        return CharSequenceUtils.lastIndexOf(seq.toString(), searchChar, startPos);
     }
 
     /**
@@ -1947,7 +1947,7 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return false;
         }
-        return CharSequenceUtils.indexOf(seq, searchChar, 0) >= 0;
+        return CharSequenceUtils.indexOf(seq.toString(), searchChar, 0) >= 0;
     }
 
     /**
