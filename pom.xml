@@ -661,6 +661,14 @@
             </goals>
           </execution>
         </executions>
+        <!-- Temporary fix for LANG-1338, remove this after this has implemented in parent pom -->
+        <configuration>
+          <archive combine.children="append">
+            <manifestEntries>
+              <Automatic-Module-Name>org.apache.commons.lang3</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -688,19 +696,6 @@
         <version>${commons.findbugs.version}</version>
         <configuration>
           <excludeFilterFile>${basedir}/findbugs-exclude-filter.xml</excludeFilterFile>
-        </configuration>
-      </plugin>
-
-      <!-- Temporary fix for LANG-1338, remove this after this has implemented in parent pom -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive combine.children="append">
-            <manifestEntries>
-              <Automatic-Module-Name>org.apache.commons.lang3</Automatic-Module-Name>
-            </manifestEntries>
-          </archive>
         </configuration>
       </plugin>
     </plugins>
