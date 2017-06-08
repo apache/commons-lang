@@ -259,6 +259,21 @@ public class StopWatch {
         }
         this.runningState = State.STOPPED;
     }
+    
+    /**
+     * <p>
+     * Restarts the stopwatch. Specifically puts the watch in a stop state, resets it, then starts it up again.
+     * </p>
+     * 
+     * <p>
+     * This method clears the internal values and starts the timer from scratch.
+     * </p>
+     */
+    public void restart() {
+        this.stop();
+        this.reset();
+        this.start();
+    }
 
     /**
      * <p>
