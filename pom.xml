@@ -26,7 +26,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
-  <version>3.6-SNAPSHOT</version>
+  <version>3.7-SNAPSHOT</version>
   <name>Apache Commons Lang</name>
 
   <inceptionYear>2001</inceptionYear>
@@ -47,7 +47,7 @@
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/commons-lang.git</developerConnection>
     <url>https://git-wip-us.apache.org/repos/asf?p=commons-lang.git</url>
-    <tag>HEAD</tag>
+    <tag>LANG_3_6</tag>
   </scm>
 
   <developers>
@@ -578,8 +578,8 @@
     <commons.componentid>lang3</commons.componentid>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.5</commons.release.version>
-    <commons.release.desc>(Java 6.0+)</commons.release.desc>
+    <commons.release.version>3.6</commons.release.version>
+    <commons.release.desc>(Java 7.0+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
     <commons.release.2.desc>(Requires Java 1.2 or later)</commons.release.2.desc>
