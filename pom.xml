@@ -604,7 +604,7 @@
 
 
   <build>
-   <defaultGoal>clean test apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc</defaultGoal>
+   <defaultGoal>clean verify apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc</defaultGoal>
    <pluginManagement>
       <plugins>
         <plugin>
