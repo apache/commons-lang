@@ -605,7 +605,7 @@ public class ExceptionUtils {
     /**
      * <p>Returns an array where each element is a line from the argument.</p>
      *
-     * <p>The end of line is determined by the value of {@link SystemUtils#LINE_SEPARATOR}.</p>
+     * <p>The end of line is determined by the value of {@link System#lineSeparator()}.</p>
      *
      * @param stackTrace  a stack trace String
      * @return an array where each element is a line from the argument
