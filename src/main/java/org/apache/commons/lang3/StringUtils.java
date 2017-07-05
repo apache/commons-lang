@@ -2145,10 +2145,10 @@ public class StringUtils {
      * @param searchChars  the chars to search for, may be null
      * @return the last index of any of the chars, -1 if no match or null input
      */
-     public static int lastIndexOfAnyChar( final CharSequence str,final String searchChars) {
-        return searchChars == null ? INDEX_NOT_FOUND : lastIndexOfAnyChar(str,searchChars.toCharArray());
+     public static int lastIndexOfAnyChar( final CharSequence cs,final String searchChars) {
+        return searchChars == null ? INDEX_NOT_FOUND : lastIndexOfAnyChar(cs,searchChars.toCharArray());
     }
-    
+
    /**
      * <p>Search a CharSequence to find the last index of any
      * character in the given set of characters.</p>
@@ -2170,21 +2170,21 @@ public class StringUtils {
      * @param searchChars  the chars to search for, may be null
      * @return the last index of any of the chars, -1 if no match or null input
      */
-    public static int lastIndexOfAnyChar( final CharSequence str,final char... searchChars) {
-        if (isEmpty(str) || ArrayUtils.isEmpty(searchChars)) {
+    public static int lastIndexOfAnyChar( final CharSequence cs,final char... searchChars) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        int csLen = str.length();
+        int csLen = cs.length();
         int csLast = csLen - 1;
         int searchLen = searchChars.length;
         int searchLast = searchLen - 1;
         for (int i = csLast ; i >= 0 ; i--) {
-            char ch = str.charAt(i);
+            char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
                     if (i < csLast && j < searchLast &&  Character.isHighSurrogate(ch) ) {
                         // ch is a supplementary character
-                        if (searchChars[j + 1] == str.charAt(i + 1)) {
+                        if (searchChars[j + 1] == cs.charAt(i + 1)) {
                             return i;
                         }
                     } else {

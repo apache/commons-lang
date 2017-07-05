@@ -397,8 +397,8 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(0, StringUtils.lastIndexOfAnyChar("ab", 'a'));
         assertEquals(-1, StringUtils.lastIndexOfAnyChar("ab", 'z'));
     }
-    
-      @Test
+
+    @Test
     public void testLastIndexOfAny_String() {
         assertEquals(-1, StringUtils.lastIndexOfAnyChar(null,(String)null));
         assertEquals(-1, StringUtils.lastIndexOfAnyChar(null, ""));
@@ -416,7 +416,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(0, StringUtils.lastIndexOfAnyChar("ab", "a"));
         assertEquals(-1, StringUtils.lastIndexOfAnyChar("ab", "z"));
     }
-    
+
     /**
      * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
