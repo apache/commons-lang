@@ -2607,7 +2607,7 @@ public abstract class ToStringStyle implements Serializable {
          * @param value the value to append.
          */
         private void appendValueAsString(final StringBuffer buffer, final String value) {
-            buffer.append("\"" + value + "\"");
+            buffer.append('"').append(value).append('"');
         }
 
         @Override
