@@ -827,7 +827,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof Fraction == false) {
+        if (!(obj instanceof Fraction)) {
             return false;
         }
         final Fraction other = (Fraction) obj;

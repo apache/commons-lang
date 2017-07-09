@@ -233,7 +233,7 @@ public class LocaleUtils {
             if (locale.getCountry().length() > 0) {
                 list.add(new Locale(locale.getLanguage(), StringUtils.EMPTY));
             }
-            if (list.contains(defaultLocale) == false) {
+            if (!list.contains(defaultLocale)) {
                 list.add(defaultLocale);
             }
         }

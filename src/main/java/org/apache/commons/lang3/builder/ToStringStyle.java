@@ -422,7 +422,7 @@ public abstract class ToStringStyle implements Serializable {
      *  <code>toString</code> for.
      */
     public void appendEnd(final StringBuffer buffer, final Object object) {
-        if (this.fieldSeparatorAtEnd == false) {
+        if (!this.fieldSeparatorAtEnd) {
             removeLastFieldSeparator(buffer);
         }
         appendContentEnd(buffer);

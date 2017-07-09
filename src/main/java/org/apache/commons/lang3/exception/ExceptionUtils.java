@@ -278,7 +278,7 @@ public class ExceptionUtils {
      */
     public static List<Throwable> getThrowableList(Throwable throwable) {
         final List<Throwable> list = new ArrayList<>();
-        while (throwable != null && list.contains(throwable) == false) {
+        while (throwable != null && !list.contains(throwable)) {
             list.add(throwable);
             throwable = ExceptionUtils.getCause(throwable);
         }
