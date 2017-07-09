@@ -351,13 +351,11 @@ public class CharUtils {
      * @return the escaped Unicode string
      */
     public static String unicodeEscaped(final char ch) {
-        final StringBuilder sb = new StringBuilder(6);
-        sb.append("\\u");
-        sb.append(HEX_DIGITS[(ch >> 12) & 15]);
-        sb.append(HEX_DIGITS[(ch >> 8) & 15]);
-        sb.append(HEX_DIGITS[(ch >> 4) & 15]);
-        sb.append(HEX_DIGITS[(ch) & 15]);
-        return sb.toString();
+        return "\\u" +
+            HEX_DIGITS[(ch >> 12) & 15] +
+            HEX_DIGITS[(ch >> 8) & 15] +
+            HEX_DIGITS[(ch >> 4) & 15] +
+            HEX_DIGITS[(ch) & 15];
     }
 
     /**
