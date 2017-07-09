@@ -4611,8 +4611,7 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            final String result = Objects.toString(first, "");
-            return result;
+            return Objects.toString(first, "");
         }
 
         // two or more elements
@@ -4656,8 +4655,7 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            final String result = Objects.toString(first, "");
-            return result;
+            return Objects.toString(first, "");
         }
 
         // two or more elements
