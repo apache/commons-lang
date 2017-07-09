@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
@@ -445,9 +446,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     public List<String> getTokenList() {
         checkTokenized();
         final List<String> list = new ArrayList<>(tokens.length);
-        for (final String element : tokens) {
-            list.add(element);
-        }
+        list.addAll(Arrays.asList(tokens));
         return list;
     }
 

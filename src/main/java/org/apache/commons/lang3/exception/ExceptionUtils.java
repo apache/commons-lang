@@ -527,9 +527,7 @@ public class ExceptionUtils {
             } else {
                 frames.add(WRAPPED_MARKER + throwables[i].toString());
             }
-            for (int j = 0; j < trace.size(); j++) {
-                frames.add(trace.get(j));
-            }
+            frames.addAll(trace);
         }
         return frames.toArray(new String[frames.size()]);
     }
