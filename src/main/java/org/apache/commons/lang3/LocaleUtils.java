@@ -233,7 +233,7 @@ public class LocaleUtils {
             if (locale.getCountry().length() > 0) {
                 list.add(new Locale(locale.getLanguage(), StringUtils.EMPTY));
             }
-            if (list.contains(defaultLocale) == false) {
+            if (!list.contains(defaultLocale)) {
                 list.add(defaultLocale);
             }
         }
@@ -297,10 +297,9 @@ public class LocaleUtils {
         if (langs == null) {
             langs = new ArrayList<>();
             final List<Locale> locales = availableLocaleList();
-            for (int i = 0; i < locales.size(); i++) {
-                final Locale locale = locales.get(i);
+            for (final Locale locale : locales) {
                 if (countryCode.equals(locale.getCountry()) &&
-                        locale.getVariant().isEmpty()) {
+                    locale.getVariant().isEmpty()) {
                     langs.add(locale);
                 }
             }
@@ -329,11 +328,10 @@ public class LocaleUtils {
         if (countries == null) {
             countries = new ArrayList<>();
             final List<Locale> locales = availableLocaleList();
-            for (int i = 0; i < locales.size(); i++) {
-                final Locale locale = locales.get(i);
+            for (final Locale locale : locales) {
                 if (languageCode.equals(locale.getLanguage()) &&
-                        locale.getCountry().length() != 0 &&
-                        locale.getVariant().isEmpty()) {
+                    locale.getCountry().length() != 0 &&
+                    locale.getVariant().isEmpty()) {
                     countries.add(locale);
                 }
             }

@@ -607,7 +607,7 @@ public class ClassUtils {
      * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(Class<?>[] classArray, Class<?>[] toClassArray, final boolean autoboxing) {
-        if (ArrayUtils.isSameLength(classArray, toClassArray) == false) {
+        if (!ArrayUtils.isSameLength(classArray, toClassArray)) {
             return false;
         }
         if (classArray == null) {
@@ -617,7 +617,7 @@ public class ClassUtils {
             toClassArray = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
         for (int i = 0; i < classArray.length; i++) {
-            if (isAssignable(classArray[i], toClassArray[i], autoboxing) == false) {
+            if (!isAssignable(classArray[i], toClassArray[i], autoboxing)) {
                 return false;
             }
         }
@@ -744,7 +744,7 @@ public class ClassUtils {
             return true;
         }
         if (cls.isPrimitive()) {
-            if (toClass.isPrimitive() == false) {
+            if (!toClass.isPrimitive()) {
                 return false;
             }
             if (Integer.TYPE.equals(cls)) {

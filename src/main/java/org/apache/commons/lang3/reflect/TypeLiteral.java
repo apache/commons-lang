@@ -99,7 +99,7 @@ public abstract class TypeLiteral<T> implements Typed<T> {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof TypeLiteral == false) {
+        if (!(obj instanceof TypeLiteral)) {
             return false;
         }
         final TypeLiteral<?> other = (TypeLiteral<?>) obj;

@@ -338,7 +338,7 @@ public class StringUtils {
             return true;
         }
         for (int i = 0; i < strLen; i++) {
-            if (Character.isWhitespace(cs.charAt(i)) == false) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
                 return false;
             }
         }
@@ -4611,8 +4611,7 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            final String result = Objects.toString(first, "");
-            return result;
+            return Objects.toString(first, "");
         }
 
         // two or more elements
@@ -4656,8 +4655,7 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            final String result = Objects.toString(first, "");
-            return result;
+            return Objects.toString(first, "");
         }
 
         // two or more elements
@@ -5981,11 +5979,9 @@ public class StringUtils {
             start = end;
             end = temp;
         }
-        return new StringBuilder(len + start - end + overlay.length() + 1)
-            .append(str.substring(0, start))
-            .append(overlay)
-            .append(str.substring(end))
-            .toString();
+        return str.substring(0, start) +
+            overlay +
+            str.substring(end);
     }
 
     // Chomping
@@ -6927,7 +6923,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetter(cs.charAt(i)) == false) {
+            if (!Character.isLetter(cs.charAt(i))) {
                 return false;
             }
         }
@@ -6962,7 +6958,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetter(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
+            if (!Character.isLetter(cs.charAt(i)) && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -6997,7 +6993,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetterOrDigit(cs.charAt(i)) == false) {
+            if (!Character.isLetterOrDigit(cs.charAt(i))) {
                 return false;
             }
         }
@@ -7032,7 +7028,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetterOrDigit(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
+            if (!Character.isLetterOrDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -7071,7 +7067,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (CharUtils.isAsciiPrintable(cs.charAt(i)) == false) {
+            if (!CharUtils.isAsciiPrintable(cs.charAt(i))) {
                 return false;
             }
         }
@@ -7154,7 +7150,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isDigit(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
+            if (!Character.isDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -7226,7 +7222,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isWhitespace(cs.charAt(i)) == false) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
                 return false;
             }
         }
@@ -7261,7 +7257,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLowerCase(cs.charAt(i)) == false) {
+            if (!Character.isLowerCase(cs.charAt(i))) {
                 return false;
             }
         }
@@ -7296,7 +7292,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isUpperCase(cs.charAt(i)) == false) {
+            if (!Character.isUpperCase(cs.charAt(i))) {
                 return false;
             }
         }
@@ -7761,12 +7757,9 @@ public class StringUtils {
         final int startOffset = targetSting/2+targetSting%2;
         final int endOffset = str.length()-targetSting/2;
 
-        final StringBuilder builder = new StringBuilder(length);
-        builder.append(str.substring(0,startOffset));
-        builder.append(middle);
-        builder.append(str.substring(endOffset));
-
-        return builder.toString();
+        return str.substring(0, startOffset) +
+            middle +
+            str.substring(endOffset);
     }
 
     // Difference
@@ -9212,7 +9205,7 @@ public class StringUtils {
         if (str.charAt(0) == wrapChar && str.charAt(str.length() - 1) == wrapChar) {
             final int startIndex = 0;
             final int endIndex = str.length() - 1;
-            if (startIndex != -1 && endIndex != -1) {
+            if (endIndex != -1) {
                 return str.substring(startIndex + 1, endIndex);
             }
         }

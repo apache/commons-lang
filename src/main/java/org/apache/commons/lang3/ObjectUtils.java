@@ -251,7 +251,7 @@ public class ObjectUtils {
      * @return {@code false} if the values of both objects are the same
      */
     public static boolean notEqual(final Object object1, final Object object2) {
-        return ObjectUtils.equals(object1, object2) == false;
+        return !ObjectUtils.equals(object1, object2);
     }
 
     /**

@@ -24,6 +24,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -215,9 +216,7 @@ public class FieldUtils {
         Class<?> currentClass = cls;
         while (currentClass != null) {
             final Field[] declaredFields = currentClass.getDeclaredFields();
-            for (final Field field : declaredFields) {
-                allFields.add(field);
-            }
+            Collections.addAll(allFields, declaredFields);
             currentClass = currentClass.getSuperclass();
         }
         return allFields;
