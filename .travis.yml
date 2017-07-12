@@ -21,8 +21,15 @@ jdk:
   - oraclejdk7
   - oraclejdk8
 
+services:
+  - docker
+
+before_install:
+  - docker pull ibmcom/ibmjava:8-sdk
+
 script:
   - mvn test apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc -B
+  - docker run -v `pwd`:/work library/ibmjava:8-sdk /bin/bash -c "apt-get update && cd work && apt-get install -y maven && mvn test apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc -B"
 
 after_success:
   - mvn clean cobertura:cobertura coveralls:report
