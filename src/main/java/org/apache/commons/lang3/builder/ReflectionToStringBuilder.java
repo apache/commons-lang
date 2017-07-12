@@ -806,7 +806,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     public void setUpToClass(final Class<?> clazz) {
         if (clazz != null) {
             final Object object = getObject();
-            if (object != null && clazz.isInstance(object) == false) {
+            if (object != null && !clazz.isInstance(object)) {
                 throw new IllegalArgumentException("Specified class is not a superclass of the object");
             }
         }

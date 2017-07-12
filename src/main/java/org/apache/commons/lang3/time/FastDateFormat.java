@@ -632,7 +632,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof FastDateFormat == false) {
+        if (!(obj instanceof FastDateFormat)) {
             return false;
         }
         final FastDateFormat other = (FastDateFormat) obj;

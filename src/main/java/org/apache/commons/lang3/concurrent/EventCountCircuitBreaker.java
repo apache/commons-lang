@@ -405,8 +405,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @throws CircuitBreakingException if the strategy cannot be resolved
      */
     private static StateStrategy stateStrategy(final State state) {
-        final StateStrategy strategy = STRATEGY_MAP.get(state);
-        return strategy;
+        return STRATEGY_MAP.get(state);
     }
 
     /**

@@ -263,7 +263,7 @@ public class CharSet implements Serializable {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof CharSet == false) {
+        if (!(obj instanceof CharSet)) {
             return false;
         }
         final CharSet other = (CharSet) obj;

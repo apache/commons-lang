@@ -126,7 +126,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * @since 2.5
      */
     public boolean isTrue() {
-        return value == true;
+        return value;
     }
 
     /**
@@ -136,7 +136,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * @since 2.5
      */
     public boolean isFalse() {
-        return value == false;
+        return !value;
     }
 
     //-----------------------------------------------------------------------

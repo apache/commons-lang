@@ -278,7 +278,7 @@ public class ExceptionUtils {
      */
     public static List<Throwable> getThrowableList(Throwable throwable) {
         final List<Throwable> list = new ArrayList<>();
-        while (throwable != null && list.contains(throwable) == false) {
+        while (throwable != null && !list.contains(throwable)) {
             list.add(throwable);
             throwable = ExceptionUtils.getCause(throwable);
         }
@@ -527,9 +527,7 @@ public class ExceptionUtils {
             } else {
                 frames.add(WRAPPED_MARKER + throwables[i].toString());
             }
-            for (int j = 0; j < trace.size(); j++) {
-                frames.add(trace.get(j));
-            }
+            frames.addAll(trace);
         }
         return frames.toArray(new String[frames.size()]);
     }
