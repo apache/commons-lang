@@ -7439,12 +7439,12 @@ public class StringUtils {
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * StringUtils.extendIfBlank(null, "pre-", "-post")  = ""
-     * StringUtils.extendIfBlank("", "pre-", "-post")    = ""
-     * StringUtils.extendIfBlank(" ", "pre-", "-post")   = ""
-     * StringUtils.extendIfBlank("bat", "pre-", "-post") = "pre-bat-bost"
-     * StringUtils.extendIfBlank("bat", null, "-post")      = "bat-post"
-     * StringUtils.extendIfBlank("bat", "pre-", null)      = "pre-bat"
+     * StringUtils.extendIfNotBlank(null, "pre-", "-post")  = ""
+     * StringUtils.extendIfNotBlank("", "pre-", "-post")    = ""
+     * StringUtils.extendIfNotBlank(" ", "pre-", "-post")   = ""
+     * StringUtils.extendIfNotBlank("bat", "pre-", "-post") = "pre-bat-bost"
+     * StringUtils.extendIfNotBlank("bat", null, "-post")      = "bat-post"
+     * StringUtils.extendIfNotBlank("bat", "pre-", null)      = "pre-bat"
      * </pre>
      * @param str the String to check, may be null
      * @param prefix  the string to prepend if not blank. Null will be converted to empty string.
