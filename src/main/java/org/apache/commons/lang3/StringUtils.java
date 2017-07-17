@@ -7429,6 +7429,55 @@ public class StringUtils {
         return isEmpty(str) ? defaultStr : str;
     }
 
+    // Extensions
+    //-----------------------------------------------------------------------
+
+    /**
+     * <p>Returns either the passed in String with the specified prefix and suffix attached,
+     * or if the String is whitespace, empty ("") or {@code null}, an empty string.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.extendIfBlank(null, "pre-", "-post")  = ""
+     * StringUtils.extendIfBlank("", "pre-", "-post")    = ""
+     * StringUtils.extendIfBlank(" ", "pre-", "-post")   = ""
+     * StringUtils.extendIfBlank("bat", "pre-", "-post") = "pre-bat-bost"
+     * StringUtils.extendIfBlank("bat", null, "-post")      = "bat-post"
+     * StringUtils.extendIfBlank("bat", "pre-", null)      = "pre-bat"
+     * </pre>
+     * @param str the String to check, may be null
+     * @param prefix  the string to prepend if not blank. Null will be converted to empty string.
+     * @param suffix  the string to append if not blank. Null will be converted to empty string.
+     * @return the passed in String with prefix and suffix added, or empty string
+     * @see StringUtils#defaultString(String, String)
+     */
+    public static String extendIfNotBlank(final String str, final String prefix, final String suffix) {
+        return isBlank(str) ? "" : defaultString(prefix) + str + defaultString(suffix);
+    }
+
+    /**
+     * <p>Returns either the passed in String with the specified prefix and suffix attached,
+     * or if the String is empty ("") or {@code null}, an empty string.</p>
+     *
+     * <pre>
+     * StringUtils.extendIfNotEmpty(null, "pre-", "-post")  = ""
+     * StringUtils.extendIfNotEmpty("", "pre-", "-post")    = ""
+     * StringUtils.extendIfNotEmpty(" ", "pre-", "-post")   = "pre- -post"
+     * StringUtils.extendIfNotEmpty("bat", "pre-", "-post") = "pre-bat-bost"
+     * StringUtils.extendIfNotEmpty("bat", null, "-post")      = "bat-post"
+     * StringUtils.extendIfNotEmpty("bat", "pre-", null)      = "pre-bat"
+     * </pre>
+     * @param str the String to check, may be null
+     * @param prefix  the string to prepend if not empty. Null will be converted to empty string.
+     * @param suffix  the string to append if not empty. Null will be converted to empty string.
+     * @return the passed in String with prefix and suffix added, or empty string
+     * @see StringUtils#defaultString(String, String)
+     */
+    public static String extendIfNotEmpty(final String str, final String prefix, final String suffix) {
+        return isEmpty(str) ? "" : defaultString(prefix) + str + defaultString(suffix);
+    }
+
     // Rotating (circular shift)
     //-----------------------------------------------------------------------
     /**

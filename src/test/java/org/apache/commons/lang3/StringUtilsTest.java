@@ -1956,6 +1956,27 @@ public class StringUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
+    public void testExtendIfNotEmpty() {
+        assertEquals("prefix-string-suffix", StringUtils.extendIfNotEmpty("string", "prefix-", "-suffix"));
+        assertEquals("prefix-string", StringUtils.extendIfNotEmpty("string", "prefix-", null));
+        assertEquals("string-suffix", StringUtils.extendIfNotEmpty("string", null, "-suffix"));
+        assertEquals("", StringUtils.extendIfNotEmpty(null, "prefix-", "-suffix"));
+        assertEquals("", StringUtils.extendIfNotEmpty("", "prefix-", "-suffix"));
+        assertEquals("prefix- \t -suffix", StringUtils.extendIfNotEmpty(" \t ", "prefix-", "-suffix"));
+    }
+
+    @Test
+    public void testExtendIfNotBlank() {
+        assertEquals("prefix-string-suffix", StringUtils.extendIfNotBlank("string", "prefix-", "-suffix"));
+        assertEquals("prefix-string", StringUtils.extendIfNotBlank("string", "prefix-", null));
+        assertEquals("string-suffix", StringUtils.extendIfNotBlank("string", null, "-suffix"));
+        assertEquals("", StringUtils.extendIfNotBlank(null, "prefix-", "-suffix"));
+        assertEquals("", StringUtils.extendIfNotBlank("", "prefix-", "-suffix"));
+        assertEquals("", StringUtils.extendIfNotBlank(" \t ", "prefix-", "-suffix"));
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
     public void testAbbreviate_StringInt() {
         assertNull(StringUtils.abbreviate(null, 10));
         assertEquals("", StringUtils.abbreviate("", 10));
