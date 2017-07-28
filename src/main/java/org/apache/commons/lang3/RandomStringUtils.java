@@ -29,7 +29,7 @@ import java.util.Random;
  * 56320 (dc00) to 57343 (dfff) then it is placed after a randomly
  * chosen high surrogate.</p>
  * <p>RandomStringUtils is intended for simple use cases. For more advanced
- * use cases consider using commons-text 
+ * use cases consider using commons-text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
  * RandomStringGenerator</a> instead.</p>
  *
