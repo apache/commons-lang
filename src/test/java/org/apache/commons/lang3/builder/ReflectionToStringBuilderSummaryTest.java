@@ -20,16 +20,17 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class ReflectionToStringBuilderSummaryTest {
-	
-	@SuppressWarnings("unused")
-	private String stringField = "string";
-	
-	@ToStringSummary
-	private String summaryString = "summary";
-    
+
+    @SuppressWarnings("unused")
+    private String stringField = "string";
+
+    @ToStringSummary
+    private String summaryString = "summary";
+
     @Test
     public void testSummary() {
-    	Assert.assertEquals("[stringField=string,summaryString=<String>]", new ReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
+        Assert.assertEquals("[stringField=string,summaryString=<String>]",
+                new ReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
     }
 
 }

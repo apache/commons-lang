@@ -19,16 +19,16 @@ package org.apache.commons.lang3.builder;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Use this annotation on the fields to get the summary instead
- * of the detailed information when using {@link ReflectionToStringBuilder}.
- * 
+ * Use this annotation on the fields to get the summary instead of the detailed
+ * information when using {@link ReflectionToStringBuilder}.
+ *
  * <p>
- * Notice that not all {@link ToStringStyle} implementations
- * support the appendSummary method.
+ * Notice that not all {@link ToStringStyle} implementations support the
+ * appendSummary method.
  * </p>
  *
  * @since 3.7
