@@ -255,6 +255,10 @@ abstract class MemberUtils {
 
     private static boolean isMatchingExecutable(final Executable method, final Class<?>[] parameterTypes) {
         final Class<?>[] methodParameterTypes = method.getParameterTypes();
+        if (ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true)) {
+            return true;
+        }
+
         if (method.isVarArgs()) {
             int i;
             for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
@@ -270,7 +274,8 @@ abstract class MemberUtils {
             }
             return true;
         }
-        return ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true);
+
+        return false;
     }
 
     /**
