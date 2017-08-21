@@ -47,6 +47,7 @@ The <action> type attribute can be add,update,fix,remove.
 
   <release version="3.7" date="tba" description="tba">
     <action issue="LANG-1346" type="update" dev="pschumacher">Remove deprecation from RandomStringUtils</action>
+    <action issue="LANG-1350" type="update" dev="ggregory" due-to="Brett Kail">ConstructorUtils.invokeConstructor(Class, Object...) regression</action>
   </release>
 
   <release version="3.6" date="2017-06-08" description="New features and bug fixes. Requires Java 7.">
