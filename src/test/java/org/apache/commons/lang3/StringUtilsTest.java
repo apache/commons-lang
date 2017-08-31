@@ -3188,4 +3188,21 @@ public class StringUtilsTest {
         assertNull(StringUtils.toCodePoints(null));
         assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, StringUtils.toCodePoints(""));
     }
+    
+    @Test
+    public void testIsAnagram() throws Exception {
+    	assertTrue(StringUtils.isAnagram("test", "etst"));
+    	assertTrue(StringUtils.isAnagram("apache", "cehaap"));
+    	assertFalse(StringUtils.isAnagram("buff", "buf"));
+    	assertTrue(StringUtils.isAnagram("Java", "AAJV"));
+    	assertFalse(StringUtils.isAnagram("time", "timm"));
+    }
+    
+    @Test
+    public void testIndexOfAll() throws Exception {
+    	assertEquals(null, 3, StringUtils.indexOfAll("anagram", 'a').size());
+    	assertEquals(null, 2, StringUtils.indexOfAll("Reader", 'e').size());
+    	assertNull(StringUtils.indexOfAll("people", null));
+    	assertNotEquals(null, 2, StringUtils.indexOfAll("Automatic", 'o').size());
+    }
 }

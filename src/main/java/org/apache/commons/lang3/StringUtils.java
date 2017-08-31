@@ -9139,4 +9139,38 @@ public class StringUtils {
         }     
         return result;
     }    
+    
+    /**
+     * <p>Finds index of all the occurences of given search key found in source string.
+     * </p>
+     * @param source
+     * @param searchKey
+     * @return list of integer of indexes.
+     */
+    public static List<Integer> indexOfAll(final String source, final Character searchKey) {
+    	if(source == null || source.length() == 0 || searchKey == null ) {
+    		return null;
+    	}
+    	List<Integer> indexList = new ArrayList<>();
+		for(int i = 0 ; i < source.length() ; i++) {
+			if(searchKey.equals(source.charAt(i))) {
+				indexList.add(i);
+			}
+		}
+    	return indexList;    	
+    }
+    
+    /** Check if two Strings are anagram or not  
+     *  @return true, if both Strings are anagram. 
+     */ 
+    public static boolean isAnagram(String word, String anagram){
+    	
+    	if(word.length() != anagram.length()) return false;
+    	
+    	char[] charFromWord = word.toLowerCase().toCharArray(); 
+    	char[] charFromAnagram = anagram.toLowerCase().toCharArray(); 
+    	Arrays.sort(charFromWord); 
+    	Arrays.sort(charFromAnagram); 
+    	return Arrays.equals(charFromWord, charFromAnagram); 
+    }
 }
