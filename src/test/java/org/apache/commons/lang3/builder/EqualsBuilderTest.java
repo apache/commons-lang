@@ -1346,12 +1346,18 @@ public class EqualsBuilderTest {
         Object firstObject = new Object();
         Object secondObject = new Object();
 
-        Method registerMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "register", Object.class, Object.class);
-        registerMethod.setAccessible(true);
-        registerMethod.invoke(null, firstObject, secondObject);
+        try {
+            Method registerMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "register", Object.class, Object.class);
+            registerMethod.setAccessible(true);
+            registerMethod.invoke(null, firstObject, secondObject);
 
-        assertTrue(EqualsBuilder.isRegistered(firstObject, secondObject));
-        assertTrue(EqualsBuilder.isRegistered(secondObject, firstObject)); // LANG-1349
+            assertTrue(EqualsBuilder.isRegistered(firstObject, secondObject));
+            assertTrue(EqualsBuilder.isRegistered(secondObject, firstObject)); // LANG-1349
+        } finally {
+            Method unregisterMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "unregister", Object.class, Object.class);
+            unregisterMethod.setAccessible(true);
+            unregisterMethod.invoke(null, firstObject, secondObject);
+        }
     }
 }
 
