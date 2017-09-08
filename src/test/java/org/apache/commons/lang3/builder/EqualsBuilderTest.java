@@ -21,8 +21,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.Test;
 
 /**
@@ -1339,5 +1341,17 @@ public class EqualsBuilderTest {
         assertFalse(new EqualsBuilder().reflectionAppend(null, o2).build());
     }
 
+    @Test
+    public void testIsRegistered() throws Exception {
+        Object firstObject = new Object();
+        Object secondObject = new Object();
+
+        Method registerMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "register", Object.class, Object.class);
+        registerMethod.setAccessible(true);
+        registerMethod.invoke(null, firstObject, secondObject);
+
+        assertTrue(EqualsBuilder.isRegistered(firstObject, secondObject));
+        assertTrue(EqualsBuilder.isRegistered(secondObject, firstObject)); // LANG-1349
+    }
 }
 
