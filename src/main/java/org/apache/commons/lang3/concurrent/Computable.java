@@ -37,5 +37,5 @@ public interface Computable<I, O> {
      * @throws InterruptedException
      *             thrown if the calculation is interrupted
      */
-    O compute(final I arg) throws InterruptedException;
+    O compute(I arg) throws InterruptedException;
 }
