@@ -67,7 +67,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void test_isEnum() {
+    public void test_isValidEnum() {
         assertTrue(EnumUtils.isValidEnum(Traffic.class, "RED"));
         assertTrue(EnumUtils.isValidEnum(Traffic.class, "AMBER"));
         assertTrue(EnumUtils.isValidEnum(Traffic.class, "GREEN"));
@@ -76,8 +76,22 @@ public class EnumUtilsTest {
     }
 
     @Test(expected=NullPointerException.class)
-    public void test_isEnum_nullClass() {
+    public void test_isValidEnum_nullClass() {
         EnumUtils.isValidEnum(null, "PURPLE");
+    }
+
+    @Test
+    public void test_isValidEnumIgnoreCase() {
+        assertTrue(EnumUtils.isValidEnumIgnoreCase(Traffic.class, "red"));
+        assertTrue(EnumUtils.isValidEnumIgnoreCase(Traffic.class, "Amber"));
+        assertTrue(EnumUtils.isValidEnumIgnoreCase(Traffic.class, "grEEn"));
+        assertFalse(EnumUtils.isValidEnumIgnoreCase(Traffic.class, "purple"));
+        assertFalse(EnumUtils.isValidEnumIgnoreCase(Traffic.class, null));
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void test_isValidEnumIgnoreCase_nullClass() {
+        EnumUtils.isValidEnumIgnoreCase(null, "PURPLE");
     }
 
     @Test
@@ -89,9 +103,35 @@ public class EnumUtilsTest {
         assertNull(EnumUtils.getEnum(Traffic.class, null));
     }
 
+    @Test
+    public void test_getEnum_nonEnumClass() {
+        final Class rawType = Object.class;
+        assertNull(EnumUtils.getEnum(rawType, "rawType"));
+    }
+
     @Test(expected=NullPointerException.class)
     public void test_getEnum_nullClass() {
         EnumUtils.getEnum((Class<Traffic>) null, "PURPLE");
+    }
+
+    @Test
+    public void test_getEnumIgnoreCase() {
+        assertEquals(Traffic.RED, EnumUtils.getEnumIgnoreCase(Traffic.class, "red"));
+        assertEquals(Traffic.AMBER, EnumUtils.getEnumIgnoreCase(Traffic.class, "Amber"));
+        assertEquals(Traffic.GREEN, EnumUtils.getEnumIgnoreCase(Traffic.class, "grEEn"));
+        assertNull(EnumUtils.getEnumIgnoreCase(Traffic.class, "purple"));
+        assertNull(EnumUtils.getEnumIgnoreCase(Traffic.class, null));
+    }
+
+    @Test
+    public void test_getEnumIgnoreCase_nonEnumClass() {
+        final Class rawType = Object.class;
+        assertNull(EnumUtils.getEnumIgnoreCase(rawType, "rawType"));
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void test_getEnumIgnoreCase_nullClass() {
+        EnumUtils.getEnumIgnoreCase((Class<Traffic>) null, "PURPLE");
     }
 
     @Test(expected=NullPointerException.class)
