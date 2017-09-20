@@ -80,34 +80,6 @@
     <Bug pattern="SF_SWITCH_FALLTHROUGH" />
   </Match>
 
-  <!-- Reason: hashCode is lazily loaded in Range classes -->
-  <!-- TODO: Work out why regex didn't work here -->
-  <Match>
-    <Class name="org.apache.commons.lang3.math.DoubleRange" />
-    <Field name="hashCode" />
-    <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED" />
-  </Match>
-  <Match>
-    <Class name="org.apache.commons.lang3.math.FloatRange" />
-    <Field name="hashCode" />
-    <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED" />
-  </Match>
-  <Match>
-    <Class name="org.apache.commons.lang3.math.IntRange" />
-    <Field name="hashCode" />
-    <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED" />
-  </Match>
-  <Match>
-    <Class name="org.apache.commons.lang3.math.LongRange" />
-    <Field name="hashCode" />
-    <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED" />
-  </Match>
-  <Match>
-    <Class name="org.apache.commons.lang3.math.NumberRange" />
-    <Field name="hashCode" />
-    <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED" />
-  </Match>
-
   <!-- Reason: toProperString is lazily loaded -->
   <Match>
     <Class name="org.apache.commons.lang3.math.Fraction" />
