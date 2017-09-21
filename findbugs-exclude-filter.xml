@@ -130,7 +130,7 @@
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
 
-  <!-- Reason: The fallthrough on the swich stateme is intentional -->
+  <!-- Reason: The fallthrough on the swich statement is intentional -->
   <Match>
     <Class name="org.apache.commons.lang3.time.FastDatePrinter"/>
     <Method name="appendFullDigits" params="java.lang.Appendable, int, int"/>
