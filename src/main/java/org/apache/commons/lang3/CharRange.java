@@ -206,7 +206,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof CharRange == false) {
+        if (!(obj instanceof CharRange)) {
             return false;
         }
         final CharRange other = (CharRange) obj;
@@ -335,7 +335,7 @@ final class CharRange implements Iterable<Character>, Serializable {
          */
         @Override
         public Character next() {
-            if (hasNext == false) {
+            if (!hasNext) {
                 throw new NoSuchElementException();
             }
             final char cur = current;
