@@ -46,7 +46,7 @@ Apache Commons Lang
 [![Build Status](https://travis-ci.org/apache/commons-lang.svg?branch=master)](https://travis-ci.org/apache/commons-lang)
 [![Coverage Status](https://coveralls.io/repos/apache/commons-lang/badge.svg?branch=master)](https://coveralls.io/r/apache/commons-lang)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/)
-[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3.svg/3.6)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.6)
+[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.6.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.6)
 
 Apache Commons Lang, a package of Java utility classes for the
   classes that are in java.lang's hierarchy, or are considered to be so
