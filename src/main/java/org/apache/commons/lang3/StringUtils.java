@@ -9270,7 +9270,7 @@ public class StringUtils {
     /** Check if two Strings are anagram or not  
      *  @return true, if both Strings are anagram. 
      */ 
-    public static boolean isAnagram(String word, String anagram){
+    public static boolean isAnagram(final String word, final String anagram){
     	
     	if(word.length() != anagram.length()) return false;
     	
