@@ -3245,6 +3245,7 @@ public class StringUtilsTest {
     	assertEquals(null, 2, StringUtils.indexOfAll("Reader", 'e').size());
     	assertNull(StringUtils.indexOfAll("people", null));
     	assertNotEquals(null, 2, StringUtils.indexOfAll("Automatic", 'o').size());
+    }
 
     @Test
     public void testGetDigits() {
