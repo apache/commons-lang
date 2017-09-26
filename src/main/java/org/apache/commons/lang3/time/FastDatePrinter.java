@@ -37,14 +37,14 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  * <p>FastDatePrinter is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
  *
- * <p>To obtain a FastDatePrinter, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} 
+ * <p>To obtain a FastDatePrinter, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}
  * or another variation of the factory methods of {@link FastDateFormat}.</p>
- * 
+ *
  * <p>Since FastDatePrinter is thread safe, you can use a static member instance:</p>
  * <code>
  *     private static final DatePrinter DATE_PRINTER = FastDateFormat.getInstance("yyyy-MM-dd");
  * </code>
- * 
+ *
  * <p>This class can be used as a direct replacement to
  * {@code SimpleDateFormat} in most formatting situations.
  * This class is especially useful in multi-threaded server environments.
@@ -63,7 +63,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  * ISO 8601 extended format time zones (eg. {@code +08:00} or {@code -11:00}).
  * This introduces a minor incompatibility with Java 1.4, but at a gain of
  * useful functionality.</p>
- * 
+ *
  * <p>Starting with JDK7, ISO 8601 support was added using the pattern {@code 'X'}.
  * To maintain compatibility, {@code 'ZZ'} will continue to be supported, but using
  * one of the {@code 'X'} formats is recommended.
@@ -139,7 +139,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     //-----------------------------------------------------------------------
     /**
      * <p>Constructs a new FastDatePrinter.</p>
-     * Use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}  or another variation of the 
+     * Use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}  or another variation of the
      * factory methods of {@link FastDateFormat} to get a cached FastDatePrinter instance.
      *
      * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern
@@ -276,9 +276,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             case 'K': // hour in am/pm (0..11)
                 rule = selectNumberRule(Calendar.HOUR, tokenLen);
                 break;
-            case 'X': // ISO 8601 
+            case 'X': // ISO 8601
                 rule = Iso8601_Rule.getRule(tokenLen);
-                break;    
+                break;
             case 'z': // time zone (text)
                 if (tokenLen >= 4) {
                     rule = new TimeZoneNameRule(mTimeZone, mLocale, TimeZone.LONG);
@@ -627,12 +627,12 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof FastDatePrinter == false) {
+        if (!(obj instanceof FastDatePrinter)) {
             return false;
         }
         final FastDatePrinter other = (FastDatePrinter) obj;
         return mPattern.equals(other.mPattern)
-            && mTimeZone.equals(other.mTimeZone) 
+            && mTimeZone.equals(other.mTimeZone)
             && mLocale.equals(other.mLocale);
     }
 
@@ -1347,7 +1347,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         TimeZoneNameRule(final TimeZone timeZone, final Locale locale, final int style) {
             mLocale = locale;
             mStyle = style;
-            
+
             mStandard = getTimeZoneDisplay(timeZone, false, style, locale);
             mDaylight = getTimeZoneDisplay(timeZone, true, style, locale);
         }
@@ -1384,7 +1384,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     private static class TimeZoneNumberRule implements Rule {
         static final TimeZoneNumberRule INSTANCE_COLON = new TimeZoneNumberRule(true);
         static final TimeZoneNumberRule INSTANCE_NO_COLON = new TimeZoneNumberRule(false);
-        
+
         final boolean mColon;
 
         /**
@@ -1409,7 +1409,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
-            
+
             int offset = calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET);
 
             if (offset < 0) {
@@ -1436,9 +1436,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * or {@code +/-HH:MM}.</p>
      */
     private static class Iso8601_Rule implements Rule {
-        
+
         // Sign TwoDigitHours or Z
-        static final Iso8601_Rule ISO8601_HOURS = new Iso8601_Rule(3);       
+        static final Iso8601_Rule ISO8601_HOURS = new Iso8601_Rule(3);
         // Sign TwoDigitHours Minutes or Z
         static final Iso8601_Rule ISO8601_HOURS_MINUTES = new Iso8601_Rule(5);
         // Sign TwoDigitHours : Minutes or Z
@@ -1460,10 +1460,10 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             case 3:
                 return Iso8601_Rule.ISO8601_HOURS_COLON_MINUTES;
             default:
-                throw new IllegalArgumentException("invalid number of X");                    
+                throw new IllegalArgumentException("invalid number of X");
             }
-        }        
-        
+        }
+
         final int length;
 
         /**
@@ -1493,7 +1493,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 buffer.append("Z");
                 return;
             }
-            
+
             if (offset < 0) {
                 buffer.append('-');
                 offset = -offset;
@@ -1507,7 +1507,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             if (length<5) {
                 return;
             }
-            
+
             if (length==6) {
                 buffer.append(':');
             }

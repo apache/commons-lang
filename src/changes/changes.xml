@@ -45,7 +45,26 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.6" date="2016-MM-DD" description="TBD">
+  <release version="3.7" date="tba" description="tba">
+    <action issue="LANG-1346" type="update" dev="pschumacher">Remove deprecation from RandomStringUtils</action>
+    <action issue="LANG-1350" type="fix" dev="ggregory" due-to="Brett Kail">ConstructorUtils.invokeConstructor(Class, Object...) regression</action>
+    <action issue="LANG-1349" type="fix" dev="pschumacher" due-to="Naman Nigam">EqualsBuilder#isRegistered: swappedPair construction bug</action>
+  </release>
+
+  <release version="3.6" date="2017-06-08" description="New features and bug fixes. Requires Java 7.">
+    <action issue="LANG-1338" type="update" dev="britter">Add Automatic-Module-Name MANIFEST entry for Java 9 compatibility</action>
+    <action issue="LANG-1336" type="add" dev="britter" due-to="Beluga Behr">Add NUL Byte To CharUtils</action>
+    <action issue="LANG-1337" type="fix" dev="kinow">Fix test failures in IBM JDK 8 for ToStringBuilderTest</action>
+    <action issue="LANG-1304" type="add" dev="pschumacher" due-to="Andy Klimczak">Add method in StringUtils to determine if string contains both mixed cased characters</action>
+    <action issue="LANG-1334" type="update" dev="djones">Deprecate CharEncoding in favour of java.nio.charset.StandardCharsets</action>
+    <action issue="LANG-1319" type="fix" dev="djones">MultilineRecursiveToStringStyle StackOverflowError when object is an array</action>
+    <action issue="LANG-1325" type="add" dev="kinow" due-to="Arshad Basha">Increase test coverage of ToStringBuilder class to 100%</action>
+    <action issue="LANG-1307" type="add" dev="pschumacher" due-to="Arshad Basha">Add a method in StringUtils to extract only digits out of input string</action>
+    <action issue="LANG-1110" type="update" dev="pschumacher" due-to="Bruno P. Kinoshita">Implement HashSetvBitSetTest using JMH</action>
+    <action issue="LANG-1256" type="add" dev="pschumacher" due-to="C0rWin">Add JMH maven dependencies</action>
+    <action issue="LANG-1167" type="add" dev="chtompki" due-to="Mark Dacek">Add null filter to ReflectionToStringBuilder</action>
+    <action issue="LANG-1320" type="fix" dev="britter">LocaleUtils#toLocale does not support language followed by UN M.49 numeric-3 area code followed by variant</action>
+    <action issue="LANG-1300" type="fix" dev="chtompki" due-to="Mark Dacek">Clarify or improve behaviour of int-based indexOf methods in StringUtils</action>
     <action issue="LANG-1299" type="add" dev="djones">Add method for converting string to an array of code points</action>
     <action issue="LANG-1286" type="fix" dev="djones">RandomStringUtils random method can overflow and return characters outside of specified range</action>
     <action issue="LANG-660" type="add" dev="djones">Add methods to insert arrays into arrays at an index</action>
@@ -53,7 +72,6 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1287" type="fix" dev="pschumacher" due-to="Ivan Morozov">RandomStringUtils#random can enter infinite loop if end parameter is to small</action>
     <action issue="LANG-1285" type="fix" dev="pschumacher" due-to="Francesco Chicchiriccò">NullPointerException in FastDateParser$TimeZoneStrategy</action>
     <action issue="LANG-1281" type="fix" dev="pschumacher" due-to="Andreas Lundblad">Javadoc of StringUtils.ordinalIndexOf is contradictory.</action>
-    <action issue="LANG-1269" type="fix" dev="pschumacher">Wrong name or result of StringUtils#getJaroWinklerDistance</action>
     <action issue="LANG-1188" type="fix" dev="pschumacher">StringUtils#join(T...): warning: [unchecked] Possible heap pollution from parameterized vararg type T</action>
     <action issue="LANG-1144" type="fix" dev="ggregory" due-to="Waldemar Maier, Gary Gregory">Multiple calls of org.apache.commons.lang3.concurrent.LazyInitializer.initialize() are possible.</action>
     <action issue="LANG-1276" type="fix" dev="pschumacher" due-to="Andy Klimczak">StrBuilder#replaceAll ArrayIndexOutOfBoundsException</action>
@@ -66,8 +84,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-740" type="add" dev="pschumacher" due-to="James Sawle">Implementation of a Memomizer</action>
     <action issue="LANG-1258" type="add" dev="pschumacher" due-to="IG, Grzegorz Rożniecki">Add ArrayUtils#toStringArray method</action>
     <action issue="LANG-1160" type="add" dev="kinow">StringUtils#abbreviate should support 'custom ellipses' parameter</action>
-    <action issue="LANG-1270" type="add" dev="pschumacher" due-to="Pierre Templier">Add StringUtils#isAnyNotEmpty and #isAnyNotBlank</action>
-    <action issue="LANG-1291" type="add" dev="ggregory">Provide annotations to document thread safety</action>
+    <action issue="LANG-1293" type="add" dev="pschumacher" due-to="Pierre Templier, Martin Tarjanyi">Add StringUtils#isAllEmpty and #isAllBlank methods</action>
     <action issue="LANG-1290" type="update" dev="pschumacher" due-to="Andrii Abramov">Increase test coverage of org.apache.commons.lang3.ArrayUtils</action>
     <action issue="LANG-1274" type="update" dev="pschumacher">StrSubstitutor should state its thread safety</action>
     <action issue="LANG-1277" type="update" dev="pschumacher" due-to="yufcuy">StringUtils#getLevenshteinDistance reduce memory consumption</action>
@@ -75,6 +92,17 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1143" type="update" dev="pschumacher" due-to="sebb">StringUtils should use toXxxxCase(int) rather than toXxxxCase(char)</action>
     <action issue="LANG-1297" type="update" dev="ggregory">Add SystemUtils.getHostName() API.</action>
     <action issue="LANG-1301" type="update" dev="pschumacher" due-to="Karl Heinz Marbaise">Moving apache-rat-plugin configuration into pluginManagement</action>
+    <action issue="LANG-1311" type="fix" dev="pschumacher" due-to="Aaron Digulla">TypeUtils.toString() doesn't handle primitive and Object arrays correctly</action>
+    <action issue="LANG-1312" type="fix" dev="pschumacher">LocaleUtils#toLocale does not support language followed by UN M.49 numeric-3 area code</action>
+    <action issue="LANG-1265" type="fix" dev="pschumacher">Build failures when building with Java 9 EA</action>
+    <action issue="LANG-1314" type="fix" dev="pschumacher" due-to="Allon Murienik">javadoc creation broken with Java 8</action>
+    <action issue="LANG-1316" type="update" dev="pschumacher">Deprecate classes/methods moved to commons-text</action>
+    <action issue="LANG-1310" type="fix" dev="pschumacher" due-to="Don Jeba">MethodUtils.invokeMethod throws ArrayStoreException if using varargs arguments and smaller types than the method defines</action>
+    <action issue="LANG-1313" type="add" dev="pschumacher" due-to="Tomschi">Add ArchUtils - An utility class for the "os.arch" system property</action>
+    <action issue="LANG-1272" type="add" dev="ebourg">Add shuffle methods to ArrayUtils</action>
+    <action issue="LANG-1317" type="add" dev="pschumacher" due-to="Yasser Zamani">Add MethodUtils#findAnnotation and extend MethodUtils#getMethodsWithAnnotation for non-public, super-class and interface methods</action>
+    <action issue="LANG-1331" type="add" dev="ggregory">Add ImmutablePair.nullPair()</action>
+    <action issue="LANG-1332" type="add" dev="ggregory">Add ImmutableTriple.nullTriple()</action>
   </release>
 
   <release version="3.5" date="2016-10-13" description="New features including Java 9 detection">

@@ -699,7 +699,7 @@ public class BooleanUtils {
      *   BooleanUtils.toBooleanObject("y") = true
      *   BooleanUtils.toBooleanObject("n") = false
      *   BooleanUtils.toBooleanObject("t") = true
-     *   BooleanUtils.toBooleanObject("f") = false 
+     *   BooleanUtils.toBooleanObject("f") = false
      * </pre>
      *
      * @param str  the String to check

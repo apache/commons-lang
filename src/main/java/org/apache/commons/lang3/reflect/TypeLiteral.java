@@ -99,14 +99,14 @@ public abstract class TypeLiteral<T> implements Typed<T> {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof TypeLiteral == false) {
+        if (!(obj instanceof TypeLiteral)) {
             return false;
         }
         final TypeLiteral<?> other = (TypeLiteral<?>) obj;
         return TypeUtils.equals(value, other.value);
     }
 
-    @Override 
+    @Override
     public int hashCode() {
         return 37 << 4 | value.hashCode();
     }

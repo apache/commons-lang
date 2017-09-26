@@ -49,7 +49,7 @@ public class MutablePairTest {
         assertNull(pair.getLeft());
         assertNull(pair.getRight());
     }
-    
+
     @Test
     public void testMutate() throws Exception {
         final MutablePair<Integer, String> pair = new MutablePair<>(0, "foo");

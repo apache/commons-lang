@@ -56,7 +56,7 @@ public class TypeUtils {
          */
         private WildcardTypeBuilder() {
         }
-        
+
         private Type[] upperBounds;
         private Type[] lowerBounds;
 
@@ -91,7 +91,7 @@ public class TypeUtils {
 
     /**
      * GenericArrayType implementation class.
-     * @since 3.2 
+     * @since 3.2
      */
     private static final class GenericArrayTypeImpl implements GenericArrayType {
         private final Type componentType;
@@ -141,7 +141,7 @@ public class TypeUtils {
 
     /**
      * ParameterizedType implementation class.
-     * @since 3.2 
+     * @since 3.2
      */
     private static final class ParameterizedTypeImpl implements ParameterizedType {
         private final Class<?> raw;
@@ -217,7 +217,7 @@ public class TypeUtils {
 
     /**
      * WildcardType implementation class.
-     * @since 3.2 
+     * @since 3.2
      */
     private static final class WildcardTypeImpl implements WildcardType {
         private static final Type[] EMPTY_BOUNDS = new Type[0];
@@ -1365,7 +1365,7 @@ public class TypeUtils {
      */
     public static Type unrollVariables(Map<TypeVariable<?>, Type> typeArguments, final Type type) {
         if (typeArguments == null) {
-            typeArguments = Collections.<TypeVariable<?>, Type> emptyMap();
+            typeArguments = Collections.emptyMap();
         }
         if (containsTypeVariables(type)) {
             if (type instanceof TypeVariable<?>) {
@@ -1400,7 +1400,7 @@ public class TypeUtils {
 
     /**
      * Local helper method to unroll variables in a type bounds array.
-     * 
+     *
      * @param typeArguments assignments {@link Map}
      * @param bounds in which to expand variables
      * @return {@code bounds} with any variables reassigned
@@ -1687,7 +1687,7 @@ public class TypeUtils {
     public static String toLongString(final TypeVariable<?> var) {
         Validate.notNull(var, "var is null");
         final StringBuilder buf = new StringBuilder();
-        final GenericDeclaration d = ((TypeVariable<?>) var).getGenericDeclaration();
+        final GenericDeclaration d = var.getGenericDeclaration();
         if (d instanceof Class<?>) {
             Class<?> c = (Class<?>) d;
             while (true) {
@@ -1732,7 +1732,7 @@ public class TypeUtils {
      * @since 3.2
      */
     public static <T> Typed<T> wrap(final Class<T> type) {
-        return TypeUtils.<T> wrap((Type) type);
+        return TypeUtils.wrap((Type) type);
     }
 
     /**
@@ -1742,6 +1742,10 @@ public class TypeUtils {
      * @since 3.2
      */
     private static String classToString(final Class<?> c) {
+        if (c.isArray()) {
+            return toString(c.getComponentType()) + "[]";
+        }
+
         final StringBuilder buf = new StringBuilder();
 
         if (c.getEnclosingClass() != null) {

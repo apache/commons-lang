@@ -40,7 +40,7 @@ import org.junit.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.Validate}.
  */
-public class ValidateTest  {
+public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
@@ -141,7 +141,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNotEmptyArray1() {
-        Validate.notEmpty(new Object[] {null});
+        Validate.notEmpty(new Object[]{null});
         try {
             Validate.notEmpty((Object[]) null);
             fail("Expecting NullPointerException");
@@ -155,7 +155,7 @@ public class ValidateTest  {
             assertEquals("The validated array is empty", ex.getMessage());
         }
 
-        final String[] array = new String[] {"hi"};
+        final String[] array = new String[]{"hi"};
         final String[] test = Validate.notEmpty(array);
         assertSame(array, test);
     }
@@ -163,7 +163,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNotEmptyArray2() {
-        Validate.notEmpty(new Object[] {null}, "MSG");
+        Validate.notEmpty(new Object[]{null}, "MSG");
         try {
             Validate.notEmpty((Object[]) null, "MSG");
             fail("Expecting NullPointerException");
@@ -177,7 +177,7 @@ public class ValidateTest  {
             assertEquals("MSG", ex.getMessage());
         }
 
-        final String[] array = new String[] {"hi"};
+        final String[] array = new String[]{"hi"};
         final String[] test = Validate.notEmpty(array, "Message");
         assertSame(array, test);
     }
@@ -541,7 +541,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNoNullElementsArray1() {
-        String[] array = new String[] {"a", "b"};
+        String[] array = new String[]{"a", "b"};
         Validate.noNullElements(array);
         try {
             Validate.noNullElements((Object[]) null);
@@ -557,7 +557,7 @@ public class ValidateTest  {
             assertEquals("The validated array contains null element at index: 1", ex.getMessage());
         }
 
-        array = new String[] {"a", "b"};
+        array = new String[]{"a", "b"};
         final String[] test = Validate.noNullElements(array);
         assertSame(array, test);
     }
@@ -565,7 +565,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNoNullElementsArray2() {
-        String[] array = new String[] {"a", "b"};
+        String[] array = new String[]{"a", "b"};
         Validate.noNullElements(array, "MSG");
         try {
             Validate.noNullElements((Object[]) null, "MSG");
@@ -581,7 +581,7 @@ public class ValidateTest  {
             assertEquals("MSG", ex.getMessage());
         }
 
-        array = new String[] {"a", "b"};
+        array = new String[]{"a", "b"};
         final String[] test = Validate.noNullElements(array, "Message");
         assertSame(array, test);
     }
@@ -671,7 +671,7 @@ public class ValidateTest  {
             assertEquals("Broken: ", ex.getMessage());
         }
 
-        final String[] strArray = new String[] {"Hi"};
+        final String[] strArray = new String[]{"Hi"};
         final String[] test = Validate.noNullElements(strArray, "Message");
         assertSame(strArray, test);
     }
@@ -694,7 +694,7 @@ public class ValidateTest  {
             assertEquals("The validated array index is invalid: 2", ex.getMessage());
         }
 
-        final String[] strArray = new String[] {"Hi"};
+        final String[] strArray = new String[]{"Hi"};
         final String[] test = Validate.noNullElements(strArray);
         assertSame(strArray, test);
     }
@@ -721,7 +721,7 @@ public class ValidateTest  {
             assertEquals("Broken: ", ex.getMessage());
         }
 
-        final List<String> strColl = Arrays.asList(new String[] {"Hi"});
+        final List<String> strColl = Arrays.asList("Hi");
         final List<String> test = Validate.validIndex(strColl, 0, "Message");
         assertSame(strColl, test);
     }
@@ -746,7 +746,7 @@ public class ValidateTest  {
             assertEquals("The validated collection index is invalid: 2", ex.getMessage());
         }
 
-        final List<String> strColl = Arrays.asList(new String[] {"Hi"});
+        final List<String> strColl = Arrays.asList("Hi");
         final List<String> test = Validate.validIndex(strColl, 0);
         assertSame(strColl, test);
     }
@@ -800,33 +800,25 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testMatchesPattern()
-    {
+    public void testMatchesPattern() {
         final CharSequence str = "hi";
         Validate.matchesPattern(str, "[a-z]*");
-        try
-        {
+        try {
             Validate.matchesPattern(str, "[0-9]*");
             fail("Expecting IllegalArgumentException");
-        }
-        catch (final IllegalArgumentException e)
-        {
+        } catch (final IllegalArgumentException e) {
             assertEquals("The string hi does not match the pattern [0-9]*", e.getMessage());
         }
     }
 
     @Test
-    public void testMatchesPattern_withMessage()
-    {
+    public void testMatchesPattern_withMessage() {
         final CharSequence str = "hi";
         Validate.matchesPattern(str, "[a-z]*", "Does not match");
-        try
-        {
+        try {
             Validate.matchesPattern(str, "[0-9]*", "Does not match");
             fail("Expecting IllegalArgumentException");
-        }
-        catch (final IllegalArgumentException e)
-        {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Does not match", e.getMessage());
         }
     }
@@ -913,8 +905,7 @@ public class ValidateTest  {
     //-----------------------------------------------------------------------
 
     @Test
-    public void testInclusiveBetween()
-    {
+    public void testInclusiveBetween() {
         Validate.inclusiveBetween("a", "c", "b");
         try {
             Validate.inclusiveBetween("0", "5", "6");
@@ -925,8 +916,7 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testInclusiveBetween_withMessage()
-    {
+    public void testInclusiveBetween_withMessage() {
         Validate.inclusiveBetween("a", "c", "b", "Error");
         try {
             Validate.inclusiveBetween("0", "5", "6", "Error");
@@ -937,8 +927,7 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testInclusiveBetweenLong()
-    {
+    public void testInclusiveBetweenLong() {
         Validate.inclusiveBetween(0, 2, 1);
         Validate.inclusiveBetween(0, 2, 2);
         try {
@@ -950,8 +939,7 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testInclusiveBetweenLong_withMessage()
-    {
+    public void testInclusiveBetweenLong_withMessage() {
         Validate.inclusiveBetween(0, 2, 1, "Error");
         Validate.inclusiveBetween(0, 2, 2, "Error");
         try {
@@ -963,8 +951,7 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testInclusiveBetweenDouble()
-    {
+    public void testInclusiveBetweenDouble() {
         Validate.inclusiveBetween(0.1, 2.1, 1.1);
         Validate.inclusiveBetween(0.1, 2.1, 2.1);
         try {
@@ -976,8 +963,7 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testInclusiveBetweenDouble_withMessage()
-    {
+    public void testInclusiveBetweenDouble_withMessage() {
         Validate.inclusiveBetween(0.1, 2.1, 1.1, "Error");
         Validate.inclusiveBetween(0.1, 2.1, 2.1, "Error");
         try {
@@ -989,8 +975,7 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testExclusiveBetween()
-    {
+    public void testExclusiveBetween() {
         Validate.exclusiveBetween("a", "c", "b");
         try {
             Validate.exclusiveBetween("0", "5", "6");
@@ -1007,8 +992,7 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testExclusiveBetween_withMessage()
-    {
+    public void testExclusiveBetween_withMessage() {
         Validate.exclusiveBetween("a", "c", "b", "Error");
         try {
             Validate.exclusiveBetween("0", "5", "6", "Error");
@@ -1025,8 +1009,7 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testExclusiveBetweenLong()
-    {
+    public void testExclusiveBetweenLong() {
         Validate.exclusiveBetween(0, 2, 1);
         try {
             Validate.exclusiveBetween(0, 5, 6);
@@ -1043,8 +1026,7 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testExclusiveBetweenLong_withMessage()
-    {
+    public void testExclusiveBetweenLong_withMessage() {
         Validate.exclusiveBetween(0, 2, 1, "Error");
         try {
             Validate.exclusiveBetween(0, 5, 6, "Error");
@@ -1061,8 +1043,7 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testExclusiveBetweenDouble()
-    {
+    public void testExclusiveBetweenDouble() {
         Validate.exclusiveBetween(0.1, 2.1, 1.1);
         try {
             Validate.exclusiveBetween(0.1, 5.1, 6.1);
@@ -1079,8 +1060,7 @@ public class ValidateTest  {
     }
 
     @Test
-    public void testExclusiveBetweenDouble_withMessage()
-    {
+    public void testExclusiveBetweenDouble_withMessage() {
         Validate.exclusiveBetween(0.1, 2.1, 1.1, "Error");
         try {
             Validate.exclusiveBetween(0.1, 5.1, 6.1, "Error");
@@ -1107,7 +1087,7 @@ public class ValidateTest  {
         try {
             Validate.isInstanceOf(List.class, "hi");
             fail("Expecting IllegalArgumentException");
-        } catch(final IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Expected type: java.util.List, actual: java.lang.String", e.getMessage());
         }
     }
@@ -1119,7 +1099,7 @@ public class ValidateTest  {
         try {
             Validate.isInstanceOf(List.class, "hi", "Error");
             fail("Expecting IllegalArgumentException");
-        } catch(final IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Error", e.getMessage());
         }
     }
@@ -1131,19 +1111,19 @@ public class ValidateTest  {
         try {
             Validate.isInstanceOf(List.class, "hi", "Error %s=%s", "Name", "Value");
             fail("Expecting IllegalArgumentException");
-        } catch(final IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Error Name=Value", e.getMessage());
         }
         try {
             Validate.isInstanceOf(List.class, "hi", "Error %s=%s", List.class, "Value");
             fail("Expecting IllegalArgumentException");
-        } catch(final IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Error interface java.util.List=Value", e.getMessage());
         }
         try {
             Validate.isInstanceOf(List.class, "hi", "Error %s=%s", List.class, null);
             fail("Expecting IllegalArgumentException");
-        } catch(final IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Error interface java.util.List=null", e.getMessage());
         }
     }
@@ -1159,7 +1139,7 @@ public class ValidateTest  {
         try {
             Validate.isAssignableFrom(List.class, String.class);
             fail("Expecting IllegalArgumentException");
-        } catch(final IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Cannot assign a java.lang.String to a java.util.List", e.getMessage());
         }
     }
@@ -1171,7 +1151,7 @@ public class ValidateTest  {
         try {
             Validate.isAssignableFrom(List.class, String.class, "Error");
             fail("Expecting IllegalArgumentException");
-        } catch(final IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Error", e.getMessage());
         }
     }

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>Duration formatting utilities and constants. The following table describes the tokens 
+ * <p>Duration formatting utilities and constants. The following table describes the tokens
  * used in the pattern language for formatting. </p>
  * <table border="1" summary="Pattern Tokens">
  *  <tr><th>character</th><th>duration element</th></tr>
@@ -62,7 +62,7 @@ public class DurationFormatUtils {
     /**
      * <p>Pattern used with <code>FastDateFormat</code> and <code>SimpleDateFormat</code>
      * for the ISO 8601 period format used in durations.</p>
-     * 
+     *
      * @see org.apache.commons.lang3.time.FastDateFormat
      * @see java.text.SimpleDateFormat
      */
@@ -71,7 +71,7 @@ public class DurationFormatUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Formats the time gap as a string.</p>
-     * 
+     *
      * <p>The format used is ISO 8601-like: {@code HH:mm:ss.SSS}.</p>
      *
      * @param durationMillis  the duration to format
@@ -84,12 +84,12 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats the time gap as a string.</p>
-     * 
+     *
      * <p>The format used is the ISO 8601 period format.</p>
-     * 
+     *
      * <p>This method formats durations using the days and lower fields of the
      * ISO format pattern, such as P7D6TH5M4.321S.</p>
-     * 
+     *
      * @param durationMillis  the duration to format
      * @return the formatted duration, not null
      * @throws java.lang.IllegalArgumentException if durationMillis is negative
@@ -100,10 +100,10 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats the time gap as a string, using the specified format, and padding with zeros.</p>
-     * 
+     *
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
-     * 
+     *
      * @param durationMillis  the duration to format
      * @param format  the way in which to format the duration, not null
      * @return the formatted duration, not null
@@ -116,10 +116,10 @@ public class DurationFormatUtils {
     /**
      * <p>Formats the time gap as a string, using the specified format.
      * Padding the left hand side of numbers with zeroes is optional.</p>
-     * 
+     *
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
-     * 
+     *
      * @param durationMillis  the duration to format
      * @param format  the way in which to format the duration, not null
      * @param padWithZeros  whether to pad the left hand side of numbers with 0's
@@ -127,7 +127,7 @@ public class DurationFormatUtils {
      * @throws java.lang.IllegalArgumentException if durationMillis is negative
      */
     public static String formatDuration(final long durationMillis, final String format, final boolean padWithZeros) {
-        Validate.inclusiveBetween(0, Long.MAX_VALUE, durationMillis, "durationMillis must not be negative");        
+        Validate.inclusiveBetween(0, Long.MAX_VALUE, durationMillis, "durationMillis must not be negative");
 
         final Token[] tokens = lexx(format);
 
@@ -136,7 +136,7 @@ public class DurationFormatUtils {
         long minutes      = 0;
         long seconds      = 0;
         long milliseconds = durationMillis;
-        
+
         if (Token.containsTokenWithValue(tokens, d) ) {
             days = milliseconds / DateUtils.MILLIS_PER_DAY;
             milliseconds = milliseconds - (days * DateUtils.MILLIS_PER_DAY);
@@ -159,10 +159,10 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats an elapsed time into a pluralization correct string.</p>
-     * 
+     *
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
-     * 
+     *
      * @param durationMillis  the elapsed time to report in milliseconds
      * @param suppressLeadingZeroElements  suppresses leading 0 elements
      * @param suppressTrailingZeroElements  suppresses trailing 0 elements
@@ -175,7 +175,7 @@ public class DurationFormatUtils {
         final boolean suppressTrailingZeroElements) {
 
         // This method is generally replaceable by the format method, but
-        // there are a series of tweaks and special cases that require 
+        // there are a series of tweaks and special cases that require
         // trickery to replicate.
         String duration = formatDuration(durationMillis, "d' days 'H' hours 'm' minutes 's' seconds'");
         if (suppressLeadingZeroElements) {
@@ -225,9 +225,9 @@ public class DurationFormatUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Formats the time gap as a string.</p>
-     * 
+     *
      * <p>The format used is the ISO 8601 period format.</p>
-     * 
+     *
      * @param startMillis  the start of the duration to format
      * @param endMillis  the end of the duration to format
      * @return the formatted duration, not null
@@ -240,7 +240,7 @@ public class DurationFormatUtils {
     /**
      * <p>Formats the time gap as a string, using the specified format.
      * Padding the left hand side of numbers with zeroes is optional.
-     * 
+     *
      * @param startMillis  the start of the duration
      * @param endMillis  the end of the duration
      * @param format  the way in which to format the duration, not null
@@ -253,20 +253,20 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats the time gap as a string, using the specified format.
-     * Padding the left hand side of numbers with zeroes is optional and 
+     * Padding the left hand side of numbers with zeroes is optional and
      * the timezone may be specified. </p>
      *
-     * <p>When calculating the difference between months/days, it chooses to 
-     * calculate months first. So when working out the number of months and 
-     * days between January 15th and March 10th, it choose 1 month and 
-     * 23 days gained by choosing January-&gt;February = 1 month and then 
-     * calculating days forwards, and not the 1 month and 26 days gained by 
-     * choosing March -&gt; February = 1 month and then calculating days 
+     * <p>When calculating the difference between months/days, it chooses to
+     * calculate months first. So when working out the number of months and
+     * days between January 15th and March 10th, it choose 1 month and
+     * 23 days gained by choosing January-&gt;February = 1 month and then
+     * calculating days forwards, and not the 1 month and 26 days gained by
+     * choosing March -&gt; February = 1 month and then calculating days
      * backwards. </p>
      *
      * <p>For more control, the <a href="http://joda-time.sf.net/">Joda-Time</a>
      * library is recommended.</p>
-     * 
+     *
      * @param startMillis  the start of the duration
      * @param endMillis  the end of the duration
      * @param format  the way in which to format the duration, not null
@@ -275,20 +275,20 @@ public class DurationFormatUtils {
      * @return the formatted duration, not null
      * @throws java.lang.IllegalArgumentException if startMillis is greater than endMillis
      */
-    public static String formatPeriod(final long startMillis, final long endMillis, final String format, final boolean padWithZeros, 
+    public static String formatPeriod(final long startMillis, final long endMillis, final String format, final boolean padWithZeros,
             final TimeZone timezone) {
         Validate.isTrue(startMillis <= endMillis, "startMillis must not be greater than endMillis");
-        
 
-        // Used to optimise for differences under 28 days and 
-        // called formatDuration(millis, format); however this did not work 
-        // over leap years. 
-        // TODO: Compare performance to see if anything was lost by 
-        // losing this optimisation. 
-        
+
+        // Used to optimise for differences under 28 days and
+        // called formatDuration(millis, format); however this did not work
+        // over leap years.
+        // TODO: Compare performance to see if anything was lost by
+        // losing this optimisation.
+
         final Token[] tokens = lexx(format);
 
-        // timezones get funky around 0, so normalizing everything to GMT 
+        // timezones get funky around 0, so normalizing everything to GMT
         // stops the hours being off
         final Calendar start = Calendar.getInstance(timezone);
         start.setTime(new Date(startMillis));
@@ -321,7 +321,7 @@ public class DurationFormatUtils {
             hours += 24;
             days -= 1;
         }
-       
+
         if (Token.containsTokenWithValue(tokens, M)) {
             while (days < 0) {
                 days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -349,42 +349,42 @@ public class DurationFormatUtils {
                     // target is end-year -1
                     target -= 1;
                 }
-                
+
                 while (start.get(Calendar.YEAR) != target) {
                     days += start.getActualMaximum(Calendar.DAY_OF_YEAR) - start.get(Calendar.DAY_OF_YEAR);
-                    
+
                     // Not sure I grok why this is needed, but the brutal tests show it is
                     if (start instanceof GregorianCalendar &&
                             start.get(Calendar.MONTH) == Calendar.FEBRUARY &&
                             start.get(Calendar.DAY_OF_MONTH) == 29) {
                         days += 1;
                     }
-                    
+
                     start.add(Calendar.YEAR, 1);
-                    
+
                     days += start.get(Calendar.DAY_OF_YEAR);
                 }
-                
+
                 years = 0;
             }
-            
+
             while( start.get(Calendar.MONTH) != end.get(Calendar.MONTH) ) {
                 days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
                 start.add(Calendar.MONTH, 1);
             }
-            
-            months = 0;            
+
+            months = 0;
 
             while (days < 0) {
                 days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
                 months -= 1;
                 start.add(Calendar.MONTH, 1);
             }
-            
+
         }
 
-        // The rest of this code adds in values that 
-        // aren't requested. This allows the user to ask for the 
+        // The rest of this code adds in values that
+        // aren't requested. This allows the user to ask for the
         // number of months and get the real count and not just 0->11.
 
         if (!Token.containsTokenWithValue(tokens, d)) {
@@ -410,7 +410,7 @@ public class DurationFormatUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>The internal method to do the formatting.</p>
-     * 
+     *
      * @param tokens  the tokens
      * @param years  the number of years
      * @param months  the number of months
@@ -486,7 +486,7 @@ public class DurationFormatUtils {
     static final Object m = "m";
     static final Object s = "s";
     static final Object S = "S";
-    
+
     /**
      * Parses a classic date format string into Tokens
      *
@@ -602,7 +602,7 @@ public class DurationFormatUtils {
         }
 
         /**
-         * Wraps a token around a repeated number of a value, for example it would 
+         * Wraps a token around a repeated number of a value, for example it would
          * store 'yyyy' as a value for y and a count of 4.
          *
          * @param value to wrap
@@ -616,7 +616,7 @@ public class DurationFormatUtils {
         /**
          * Adds another one of the value
          */
-        void increment() { 
+        void increment() {
             count++;
         }
 
@@ -631,7 +631,7 @@ public class DurationFormatUtils {
 
         /**
          * Gets the particular value this token represents.
-         * 
+         *
          * @return Object value
          */
         Object getValue() {
@@ -666,9 +666,9 @@ public class DurationFormatUtils {
         }
 
         /**
-         * Returns a hash code for the token equal to the 
-         * hash code for the token's value. Thus 'TT' and 'TTTT' 
-         * will have the same hash code. 
+         * Returns a hash code for the token equal to the
+         * hash code for the token's value. Thus 'TT' and 'TTTT'
+         * will have the same hash code.
          *
          * @return The hash code for the token
          */

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -57,19 +57,6 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsAnyNotEmpty() {
-        assertFalse(StringUtils.isAnyNotEmpty((String) null));
-        assertFalse(StringUtils.isAnyNotEmpty((String[]) null));
-        assertTrue(StringUtils.isAnyNotEmpty(null, "foo"));
-        assertTrue(StringUtils.isAnyNotEmpty("", "bar"));
-        assertTrue(StringUtils.isAnyNotEmpty("bob", ""));
-        assertTrue(StringUtils.isAnyNotEmpty("  bob  ", null));
-        assertTrue(StringUtils.isAnyNotEmpty(" ", "bar"));
-        assertTrue(StringUtils.isAnyNotEmpty("foo", "bar"));
-        assertFalse(StringUtils.isAnyNotEmpty("", null));
-    }
-
-    @Test
     public void testIsNoneEmpty() {
         assertFalse(StringUtils.isNoneEmpty((String) null));
         assertTrue(StringUtils.isNoneEmpty((String[]) null));
@@ -79,6 +66,21 @@ public class StringUtilsEmptyBlankTest  {
         assertFalse(StringUtils.isNoneEmpty("  bob  ", null));
         assertTrue(StringUtils.isNoneEmpty(" ", "bar"));
         assertTrue(StringUtils.isNoneEmpty("foo", "bar"));
+    }
+
+    @Test
+    public void testIsAllEmpty() {
+        assertTrue(StringUtils.isAllEmpty());
+        assertTrue(StringUtils.isAllEmpty(new String[]{}));
+        assertTrue(StringUtils.isAllEmpty((String) null));
+        assertTrue(StringUtils.isAllEmpty((String[]) null));
+        assertFalse(StringUtils.isAllEmpty(null, "foo"));
+        assertFalse(StringUtils.isAllEmpty("", "bar"));
+        assertFalse(StringUtils.isAllEmpty("bob", ""));
+        assertFalse(StringUtils.isAllEmpty("  bob  ", null));
+        assertFalse(StringUtils.isAllEmpty(" ", "bar"));
+        assertFalse(StringUtils.isAllEmpty("foo", "bar"));
+        assertTrue(StringUtils.isAllEmpty("", null));
     }
 
     @Test
@@ -113,19 +115,6 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsAnyNotBlank() {
-        assertFalse(StringUtils.isAnyNotBlank((String) null));
-        assertFalse(StringUtils.isAnyNotBlank((String[]) null));
-        assertTrue(StringUtils.isAnyNotBlank(null, "foo"));
-        assertFalse(StringUtils.isAnyNotBlank(null, null));
-        assertTrue(StringUtils.isAnyNotBlank("", "bar"));
-        assertTrue(StringUtils.isAnyNotBlank("bob", ""));
-        assertTrue(StringUtils.isAnyNotBlank("  bob  ", null));
-        assertTrue(StringUtils.isAnyNotBlank(" ", "bar"));
-        assertTrue(StringUtils.isAnyNotBlank("foo", "bar"));
-    }
-
-    @Test
     public void testIsNoneBlank() {
         assertFalse(StringUtils.isNoneBlank((String) null));
         assertTrue(StringUtils.isNoneBlank((String[]) null));
@@ -136,5 +125,19 @@ public class StringUtilsEmptyBlankTest  {
         assertFalse(StringUtils.isNoneBlank("  bob  ", null));
         assertFalse(StringUtils.isNoneBlank(" ", "bar"));
         assertTrue(StringUtils.isNoneBlank("foo", "bar"));
+    }
+
+    @Test
+    public void testIsAllBlank() {
+        assertTrue(StringUtils.isAllBlank((String) null));
+        assertTrue(StringUtils.isAllBlank((String[]) null));
+        assertTrue(StringUtils.isAllBlank(null, null));
+        assertTrue(StringUtils.isAllBlank(null, " "));
+        assertFalse(StringUtils.isAllBlank(null, "foo"));
+        assertFalse(StringUtils.isAllBlank("", "bar"));
+        assertFalse(StringUtils.isAllBlank("bob", ""));
+        assertFalse(StringUtils.isAllBlank("  bob  ", null));
+        assertFalse(StringUtils.isAllBlank(" ", "bar"));
+        assertFalse(StringUtils.isAllBlank("foo", "bar"));
     }
 }

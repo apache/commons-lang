@@ -36,11 +36,11 @@ public class DiffResultTest {
     private static class SimpleClass implements Diffable<SimpleClass> {
         private final boolean booleanField;
 
-        public SimpleClass(final boolean booleanField) {
+        SimpleClass(final boolean booleanField) {
             this.booleanField = booleanField;
         }
 
-        public static String getFieldName() {
+        static String getFieldName() {
             return "booleanField";
         }
 

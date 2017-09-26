@@ -26,49 +26,49 @@ import static org.junit.Assert.assertNull;
  * JUnit tests for {@link CloneFailedExceptionTest}.
  */
 public class CloneFailedExceptionTest extends AbstractExceptionTest {
-    
+
     @Test(expected = CloneFailedException.class)
     public void testThrowingInformativeException() throws Exception {
         throw new CloneFailedException(EXCEPTION_MESSAGE, generateCause());
     }
-    
+
     @Test(expected = CloneFailedException.class)
     public void testThrowingExceptionWithMessage() throws Exception {
         throw new CloneFailedException(EXCEPTION_MESSAGE);
     }
-    
+
     @Test(expected = CloneFailedException.class)
     public void testThrowingExceptionWithCause() throws Exception {
         throw new CloneFailedException(generateCause());
     }
-    
+
     @Test
     public void testWithCauseAndMessage() throws Exception {
         final Exception exception = new CloneFailedException(EXCEPTION_MESSAGE, generateCause());
         assertNotNull(exception);
         assertEquals(WRONG_EXCEPTION_MESSAGE, EXCEPTION_MESSAGE, exception.getMessage());
-        
+
         final Throwable cause = exception.getCause();
         assertNotNull(cause);
         assertEquals(WRONG_CAUSE_MESSAGE, CAUSE_MESSAGE, cause.getMessage());
     }
-    
+
     @Test
     public void testWithoutCause() throws Exception {
         final Exception exception = new CloneFailedException(EXCEPTION_MESSAGE);
         assertNotNull(exception);
         assertEquals(WRONG_EXCEPTION_MESSAGE, EXCEPTION_MESSAGE, exception.getMessage());
-        
+
         final Throwable cause = exception.getCause();
         assertNull(cause);
     }
-    
+
     @Test
     public void testWithoutMessage() throws Exception {
         final Exception exception = new CloneFailedException(generateCause());
         assertNotNull(exception);
         assertNotNull(exception.getMessage());
-        
+
         final Throwable cause = exception.getCause();
         assertNotNull(cause);
         assertEquals(WRONG_CAUSE_MESSAGE, CAUSE_MESSAGE, cause.getMessage());

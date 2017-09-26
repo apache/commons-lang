@@ -52,13 +52,13 @@ import org.apache.commons.lang3.StringUtils;
  * Map valuesMap = HashMap();
  * valuesMap.put(&quot;animal&quot;, &quot;quick brown fox&quot;);
  * valuesMap.put(&quot;target&quot;, &quot;lazy dog&quot;);
- * String templateString = &quot;The ${animal} jumped over the ${target}.&quot;;
+ * String templateString = &quot;The ${animal} jumps over the ${target}.&quot;;
  * StrSubstitutor sub = new StrSubstitutor(valuesMap);
  * String resolvedString = sub.replace(templateString);
  * </pre>
  * yielding:
  * <pre>
- *      The quick brown fox jumped over the lazy dog.
+ *      The quick brown fox jumps over the lazy dog.
  * </pre>
  * <p>
  * Also, this class allows to set a default value for unresolved variables.
@@ -72,13 +72,13 @@ import org.apache.commons.lang3.StringUtils;
  * Map valuesMap = HashMap();
  * valuesMap.put(&quot;animal&quot;, &quot;quick brown fox&quot;);
  * valuesMap.put(&quot;target&quot;, &quot;lazy dog&quot;);
- * String templateString = &quot;The ${animal} jumped over the ${target}. ${undefined.number:-1234567890}.&quot;;
+ * String templateString = &quot;The ${animal} jumps over the ${target}. ${undefined.number:-1234567890}.&quot;;
  * StrSubstitutor sub = new StrSubstitutor(valuesMap);
  * String resolvedString = sub.replace(templateString);
  * </pre>
  * yielding:
  * <pre>
- *      The quick brown fox jumped over the lazy dog. 1234567890.
+ *      The quick brown fox jumps over the lazy dog. 1234567890.
  * </pre>
  * <p>
  * In addition to this usage pattern there are some static convenience methods that
@@ -121,7 +121,11 @@ import org.apache.commons.lang3.StringUtils;
  * <p>This class is <b>not</b> thread safe.</p>
  *
  * @since 2.2
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrSubstitutor.html">
+ * StrSubstitutor</a> instead
  */
+@Deprecated
 public class StrSubstitutor {
 
     /**
@@ -241,7 +245,7 @@ public class StrSubstitutor {
      * and the escaping character.
      */
     public StrSubstitutor() {
-        this((StrLookup<?>) null, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
+        this(null, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
     /**
@@ -1205,7 +1209,7 @@ public class StrSubstitutor {
     /**
      * Returns the flag controlling whether escapes are preserved during
      * substitution.
-     * 
+     *
      * @return the preserve escape flag
      * @since 3.5
      */
@@ -1221,7 +1225,7 @@ public class StrSubstitutor {
      * character is removed during substitution (e.g.
      * <code>$${this-is-escaped}</code> becomes
      * <code>${this-is-escaped}</code>).  The default value is <b>false</b>
-     * 
+     *
      * @param preserveEscapes true if escapes are to be preserved
      * @since 3.5
      */

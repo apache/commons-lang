@@ -94,7 +94,7 @@ import org.apache.commons.lang3.Validate;
  *   return HashCodeBuilder.reflectionHashCode(this);
  * }
  * </pre>
- * 
+ *
  * <p>The {@link HashCodeExclude} annotation can be used to exclude fields from being
  * used by the <code>reflectionHashCode</code> methods.</p>
  *
@@ -105,12 +105,12 @@ public class HashCodeBuilder implements Builder<Integer> {
      * The default initial value to use in reflection hash code building.
      */
     private static final int DEFAULT_INITIAL_VALUE = 17;
-    
+
     /**
      * The default multiplier value to use in reflection hash code building.
      */
     private static final int DEFAULT_MULTIPLIER_VALUE = 37;
-    
+
     /**
      * <p>
      * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
@@ -354,10 +354,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public static <T> int reflectionHashCode(final int initialNonZeroOddNumber, final int multiplierNonZeroOddNumber, final T object,
             final boolean testTransients, final Class<? super T> reflectUpToClass, final String... excludeFields) {
-
-        if (object == null) {
-            throw new IllegalArgumentException("The object to build a hash code for must not be null");
-        }
+        Validate.isTrue(object != null, "The object to build a hash code for must not be null");
         final HashCodeBuilder builder = new HashCodeBuilder(initialNonZeroOddNumber, multiplierNonZeroOddNumber);
         Class<?> clazz = object.getClass();
         reflectionAppend(object, clazz, builder, testTransients, excludeFields);
@@ -404,7 +401,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final Object object, final boolean testTransients) {
-        return reflectionHashCode(DEFAULT_INITIAL_VALUE, DEFAULT_MULTIPLIER_VALUE, object, 
+        return reflectionHashCode(DEFAULT_INITIAL_VALUE, DEFAULT_MULTIPLIER_VALUE, object,
                 testTransients, null);
     }
 
@@ -485,7 +482,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final Object object, final String... excludeFields) {
-        return reflectionHashCode(DEFAULT_INITIAL_VALUE, DEFAULT_MULTIPLIER_VALUE, object, false, 
+        return reflectionHashCode(DEFAULT_INITIAL_VALUE, DEFAULT_MULTIPLIER_VALUE, object, false,
                 null, excludeFields);
     }
 

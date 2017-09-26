@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +18,10 @@ package org.apache.commons.lang3.text;
 
 import org.junit.Test;
 import org.junit.Before;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -39,6 +42,7 @@ import java.util.Map;
  *
  * @since 2.4
  */
+@Deprecated
 public class ExtendedMessageFormatTest {
 
     private final Map<String, FormatFactory> registry = new HashMap<>();
@@ -89,12 +93,12 @@ public class ExtendedMessageFormatTest {
      */
     @Test
     public void testEscapedBraces_LANG_948() {
-        // message without placeholder because braces are escaped by quotes 
+        // message without placeholder because braces are escaped by quotes
         final String pattern = "Message without placeholders '{}'";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
         assertEquals("Message without placeholders {}", emf.format(new Object[] {"DUMMY"}));
 
-        // message with placeholder because quotes are escaped by quotes 
+        // message with placeholder because quotes are escaped by quotes
         final String pattern2 = "Message with placeholder ''{0}''";
         final ExtendedMessageFormat emf2 = new ExtendedMessageFormat(pattern2, registry);
         assertEquals("Message with placeholder 'DUMMY'", emf2.format(new Object[] {"DUMMY"}));
@@ -309,7 +313,7 @@ public class ExtendedMessageFormatTest {
         other = new OtherExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
         assertFalse("class, equals()",  emf.equals(other));
         assertTrue("class, hashcode()", emf.hashCode() == other.hashCode()); // same hashcode
-        
+
         // Different pattern
         other = new ExtendedMessageFormat("X" + pattern, Locale.US, fmtRegistry);
         assertFalse("pattern, equals()",   emf.equals(other));
@@ -405,7 +409,9 @@ public class ExtendedMessageFormatTest {
             return toAppendTo.append(((String)obj).toLowerCase());
         }
         @Override
-        public Object parseObject(final String source, final ParsePosition pos) {throw new UnsupportedOperationException();}
+        public Object parseObject(final String source, final ParsePosition pos) {
+            throw new UnsupportedOperationException();
+        }
     }
 
     /**
@@ -419,7 +425,9 @@ public class ExtendedMessageFormatTest {
             return toAppendTo.append(((String)obj).toUpperCase());
         }
         @Override
-        public Object parseObject(final String source, final ParsePosition pos) {throw new UnsupportedOperationException();}
+        public Object parseObject(final String source, final ParsePosition pos) {
+            throw new UnsupportedOperationException();
+        }
     }
 
 
@@ -463,11 +471,11 @@ public class ExtendedMessageFormatTest {
     private static class OtherExtendedMessageFormat extends ExtendedMessageFormat {
         private static final long serialVersionUID = 1L;
 
-        public OtherExtendedMessageFormat(final String pattern, final Locale locale,
+        OtherExtendedMessageFormat(final String pattern, final Locale locale,
                 final Map<String, ? extends FormatFactory> registry) {
             super(pattern, locale, registry);
         }
-        
+
     }
 
 }

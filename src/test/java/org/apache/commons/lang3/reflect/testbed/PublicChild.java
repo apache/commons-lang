@@ -20,4 +20,20 @@ package org.apache.commons.lang3.reflect.testbed;
  */
 public class PublicChild extends Parent {
     static final String VALUE = "child";
+
+    @Override
+    public void parentProtectedAnnotatedMethod() {
+    }
+
+    @Override
+    public void parentNotAnnotatedMethod() {
+    }
+
+    @Annotated
+    private void privateAnnotatedMethod() {
+    }
+
+    @Annotated
+    public void publicAnnotatedMethod() {
+    }
 }

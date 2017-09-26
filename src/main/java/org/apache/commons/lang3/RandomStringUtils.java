@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,14 +20,18 @@ import java.util.Random;
 
 /**
  * <p>Operations for random {@code String}s.</p>
- * <p>Currently <em>private high surrogate</em> characters are ignored. 
+ * <p>Currently <em>private high surrogate</em> characters are ignored.
  * These are Unicode characters that fall between the values 56192 (db80)
- * and 56319 (dbff) as we don't know how to handle them. 
- * High and low surrogates are correctly dealt with - that is if a 
- * high surrogate is randomly chosen, 55296 (d800) to 56191 (db7f) 
- * then it is followed by a low surrogate. If a low surrogate is chosen, 
- * 56320 (dc00) to 57343 (dfff) then it is placed after a randomly 
- * chosen high surrogate. </p>
+ * and 56319 (dbff) as we don't know how to handle them.
+ * High and low surrogates are correctly dealt with - that is if a
+ * high surrogate is randomly chosen, 55296 (d800) to 56191 (db7f)
+ * then it is followed by a low surrogate. If a low surrogate is chosen,
+ * 56320 (dc00) to 57343 (dfff) then it is placed after a randomly
+ * chosen high surrogate.</p>
+ * <p>RandomStringUtils is intended for simple use cases. For more advanced
+ * use cases consider using commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
+ * RandomStringGenerator</a> instead.</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
@@ -36,7 +40,7 @@ public class RandomStringUtils {
 
     /**
      * <p>Random object used by random method. This has to be not local
-     * to the random method so as to not return the same value in the 
+     * to the random method so as to not return the same value in the
      * same millisecond.</p>
      */
     private static final Random RANDOM = new Random();
@@ -161,7 +165,7 @@ public class RandomStringUtils {
      * <p>Creates a random string whose length is the number of characters specified.</p>
      *
      * <p>Characters will be chosen from the set of characters which match the POSIX [:graph:]
-     * regular expression character class. This class contains all visible ASCII characters 
+     * regular expression character class. This class contains all visible ASCII characters
      * (i.e. anything except spaces and control characters).</p>
      *
      * @param count  the length of random string to create
@@ -263,7 +267,7 @@ public class RandomStringUtils {
     public static String random(final int count, final boolean letters, final boolean numbers) {
         return random(count, 0, 0, letters, numbers);
     }
-    
+
     /**
      * <p>Creates a random string whose length is the number of characters
      * specified.</p>
@@ -322,7 +326,7 @@ public class RandomStringUtils {
      * end are chosen.</p>
      *
      * <p>This method accepts a user-supplied {@link Random}
-     * instance to use as a source of randomness. By seeding a single 
+     * instance to use as a source of randomness. By seeding a single
      * {@link Random} instance with a fixed seed and using it for each call,
      * the same random sequence of strings can be generated repeatedly
      * and predictably.</p>
@@ -360,7 +364,7 @@ public class RandomStringUtils {
                     end = Character.MAX_CODE_POINT;
                 } else {
                     end = 'z' + 1;
-                    start = ' ';                
+                    start = ' ';
                 }
             }
         } else {
@@ -372,22 +376,20 @@ public class RandomStringUtils {
         final int zero_digit_ascii = 48;
         final int first_letter_ascii = 65;
 
-        if (chars == null) {
-            if (numbers && end <= zero_digit_ascii
-                    || letters && end <= first_letter_ascii) {
-                throw new IllegalArgumentException("Parameter end (" + end + ") must be greater then (" + zero_digit_ascii + ") for generating digits " +
-                        "or greater then (" + first_letter_ascii + ") for generating letters.");
-            }
+        if (chars == null && (numbers && end <= zero_digit_ascii
+                || letters && end <= first_letter_ascii)) {
+            throw new IllegalArgumentException("Parameter end (" + end + ") must be greater then (" + zero_digit_ascii + ") for generating digits " +
+                    "or greater then (" + first_letter_ascii + ") for generating letters.");
         }
 
-        StringBuffer buffer = new StringBuffer(count);
+        StringBuilder builder = new StringBuilder(count);
         final int gap = end - start;
 
         while (count-- != 0) {
             int codePoint;
             if (chars == null) {
                 codePoint = random.nextInt(gap) + start;
-                
+
                 switch (Character.getType(codePoint)) {
                 case Character.UNASSIGNED:
                 case Character.PRIVATE_USE:
@@ -395,31 +397,31 @@ public class RandomStringUtils {
                     count++;
                     continue;
                 }
-                
+
             } else {
                 codePoint = chars[random.nextInt(gap) + start];
             }
-            
+
             final int numberOfChars = Character.charCount(codePoint);
             if (count == 0 && numberOfChars > 1) {
                 count++;
                 continue;
             }
-            
+
             if (letters && Character.isLetter(codePoint)
                     || numbers && Character.isDigit(codePoint)
-                    || !letters && !numbers) {               
-                buffer.appendCodePoint(codePoint);
-                
+                    || !letters && !numbers) {
+                builder.appendCodePoint(codePoint);
+
                 if (numberOfChars == 2) {
                     count--;
                 }
-                
+
             } else {
                 count++;
             }
         }
-        return buffer.toString();
+        return builder.toString();
     }
 
 
@@ -428,7 +430,7 @@ public class RandomStringUtils {
      * specified.</p>
      *
      * <p>Characters will be chosen from the set of characters
-     * specified by the string, must not be empty. 
+     * specified by the string, must not be empty.
      * If null, the set of all characters is used.</p>
      *
      * @param count  the length of random string to create
@@ -462,5 +464,5 @@ public class RandomStringUtils {
         }
         return random(count, 0, chars.length, false, false, chars, RANDOM);
     }
-    
+
 }

@@ -68,7 +68,7 @@ public class CallableBackgroundInitializerTest  {
             exec.shutdown();
             exec.awaitTermination(1, TimeUnit.SECONDS);
         }
-        
+
     }
 
     /**

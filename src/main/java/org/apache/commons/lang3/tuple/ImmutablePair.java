@@ -18,12 +18,12 @@ package org.apache.commons.lang3.tuple;
 
 /**
  * <p>An immutable pair consisting of two {@code Object} elements.</p>
- * 
+ *
  * <p>Although the implementation is immutable, there is no restriction on the objects
  * that may be stored. If mutable objects are stored in the pair, then the pair
  * itself effectively becomes mutable. The class is also {@code final}, so a subclass
  * can not add undesirable behaviour.</p>
- * 
+ *
  * <p>#ThreadSafe# if both paired objects are thread-safe</p>
  *
  * @param <L> the left element type
@@ -33,8 +33,28 @@ package org.apache.commons.lang3.tuple;
  */
 public final class ImmutablePair<L, R> extends Pair<L, R> {
 
+    /**
+     * An immutable pair of nulls.
+     */
+    // This is not defined with generics to avoid warnings in call sites.
+    @SuppressWarnings("rawtypes")
+    private static final ImmutablePair NULL = ImmutablePair.of(null, null);
+
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
+
+    /**
+     * Returns an immutable pair of nulls.
+     *
+     * @param <L> the left element of this pair. Value is {@code null}.
+     * @param <R> the right element of this pair. Value is {@code null}.
+     * @return an immutable pair of nulls.
+     * @since 3.6
+     */
+    @SuppressWarnings("unchecked")
+    public static <L, R> ImmutablePair<L, R> nullPair() {
+        return NULL;
+    }
 
     /** Left object */
     public final L left;
@@ -43,10 +63,10 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
 
     /**
      * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
-     * 
+     *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
-     * 
+     *
      * @param <L> the left element type
      * @param <R> the right element type
      * @param left  the left element, may be null
@@ -88,7 +108,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
 
     /**
      * <p>Throws {@code UnsupportedOperationException}.</p>
-     * 
+     *
      * <p>This pair is immutable, so this operation is not supported.</p>
      *
      * @param value  the value to set

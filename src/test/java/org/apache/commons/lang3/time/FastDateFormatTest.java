@@ -162,10 +162,10 @@ public class FastDateFormatTest {
         final FastDateFormat format = FastDateFormat.getInstance();
         final FastDateFormat medium = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.SHORT);
         assertEquals(medium, format);
-        
+
         final SimpleDateFormat sdf = new SimpleDateFormat();
         assertEquals(sdf.toPattern(), format.getPattern());
-        
+
         assertEquals(Locale.getDefault(), format.getLocale());
         assertEquals(TimeZone.getDefault(), format.getTimeZone());
     }
@@ -176,7 +176,7 @@ public class FastDateFormatTest {
         final FastDateFormat shortLong = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.LONG, Locale.US);
         final FastDateFormat longShort = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.SHORT, Locale.US);
         final FastDateFormat longLong = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.LONG, Locale.US);
-        
+
         assertFalse(shortShort.equals(shortLong));
         assertFalse(shortShort.equals(longShort));
         assertFalse(shortShort.equals(longLong));
@@ -187,13 +187,13 @@ public class FastDateFormatTest {
 
     @Test
     public void testDateDefaults() {
-        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, Locale.CANADA), 
+        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, Locale.CANADA),
                 FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.CANADA));
-        
-        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getTimeZone("America/New_York")), 
+
+        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getTimeZone("America/New_York")),
                 FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getTimeZone("America/New_York"), Locale.getDefault()));
 
-        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG), 
+        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG),
                 FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.getDefault()));
     }
 
@@ -253,9 +253,9 @@ public class FastDateFormatTest {
         System.out.println(">>FastDateFormatTest: FastDateParser:"+fdfTime.get(1)+"  SimpleDateFormat:"+sdfTime.get(1));
     }
 
-    final static private int NTHREADS= 10;
-    final static private int NROUNDS= 10000;
-    
+    private static final int NTHREADS= 10;
+    private static final int NROUNDS= 10000;
+
     private AtomicLongArray measureTime(final Format printer, final Format parser) throws InterruptedException {
         final ExecutorService pool = Executors.newFixedThreadPool(NTHREADS);
         final AtomicInteger failures= new AtomicInteger(0);

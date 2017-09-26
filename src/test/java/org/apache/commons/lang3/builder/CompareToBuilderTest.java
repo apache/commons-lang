@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ public class CompareToBuilderTest {
 
     static class TestObject implements Comparable<TestObject> {
         private int a;
-        public TestObject(final int a) {
+        TestObject(final int a) {
             this.a = a;
         }
         @Override
@@ -67,10 +67,10 @@ public class CompareToBuilderTest {
 
     static class TestSubObject extends TestObject {
         private int b;
-        public TestSubObject() {
+        TestSubObject() {
             super(0);
         }
-        public TestSubObject(final int a, final int b) {
+        TestSubObject(final int a, final int b) {
             super(a);
             this.b = b;
         }
@@ -90,12 +90,12 @@ public class CompareToBuilderTest {
     static class TestTransientSubObject extends TestObject {
         @SuppressWarnings("unused")
         private transient int t;
-        public TestTransientSubObject(final int a, final int t) {
+        TestTransientSubObject(final int a, final int t) {
             super(a);
             this.t = t;
         }
     }
-    
+
     @Test
     public void testReflectionCompare() {
         final TestObject o1 = new TestObject(4);
@@ -124,16 +124,16 @@ public class CompareToBuilderTest {
     public void testReflectionHierarchyCompare() {
         testReflectionHierarchyCompare(false, null);
     }
-    
+
     @Test
     public void testReflectionHierarchyCompareExcludeFields() {
         final String[] excludeFields = new String[] { "b" };
         testReflectionHierarchyCompare(true, excludeFields);
-        
+
         TestSubObject x;
         TestSubObject y;
         TestSubObject z;
-        
+
         x = new TestSubObject(1, 1);
         y = new TestSubObject(2, 1);
         z = new TestSubObject(3, 1);
@@ -144,7 +144,7 @@ public class CompareToBuilderTest {
         z = new TestSubObject(3, 1);
         assertXYZCompareOrder(x, y, z, true, excludeFields);
     }
-    
+
     @Test
     public void testReflectionHierarchyCompareTransients() {
         testReflectionHierarchyCompare(true, null);
@@ -157,27 +157,27 @@ public class CompareToBuilderTest {
         y = new TestTransientSubObject(2, 2);
         z = new TestTransientSubObject(3, 3);
         assertXYZCompareOrder(x, y, z, true, null);
-        
+
         x = new TestTransientSubObject(1, 1);
         y = new TestTransientSubObject(1, 2);
         z = new TestTransientSubObject(1, 3);
-        assertXYZCompareOrder(x, y, z, true, null);  
+        assertXYZCompareOrder(x, y, z, true, null);
     }
-    
+
     private void assertXYZCompareOrder(final Object x, final Object y, final Object z, final boolean testTransients, final String[] excludeFields) {
         assertTrue(0 == CompareToBuilder.reflectionCompare(x, x, testTransients, null, excludeFields));
         assertTrue(0 == CompareToBuilder.reflectionCompare(y, y, testTransients, null, excludeFields));
         assertTrue(0 == CompareToBuilder.reflectionCompare(z, z, testTransients, null, excludeFields));
-        
+
         assertTrue(0 > CompareToBuilder.reflectionCompare(x, y, testTransients, null, excludeFields));
         assertTrue(0 > CompareToBuilder.reflectionCompare(x, z, testTransients, null, excludeFields));
         assertTrue(0 > CompareToBuilder.reflectionCompare(y, z, testTransients, null, excludeFields));
-        
+
         assertTrue(0 < CompareToBuilder.reflectionCompare(y, x, testTransients, null, excludeFields));
         assertTrue(0 < CompareToBuilder.reflectionCompare(z, x, testTransients, null, excludeFields));
         assertTrue(0 < CompareToBuilder.reflectionCompare(z, y, testTransients, null, excludeFields));
     }
-    
+
     private void testReflectionHierarchyCompare(final boolean testTransients, final String[] excludeFields) {
         final TestObject to1 = new TestObject(1);
         final TestObject to2 = new TestObject(2);
@@ -185,26 +185,26 @@ public class CompareToBuilderTest {
         final TestSubObject tso1 = new TestSubObject(1, 1);
         final TestSubObject tso2 = new TestSubObject(2, 2);
         final TestSubObject tso3 = new TestSubObject(3, 3);
-        
+
         assertReflectionCompareContract(to1, to1, to1, false, excludeFields);
         assertReflectionCompareContract(to1, to2, to3, false, excludeFields);
         assertReflectionCompareContract(tso1, tso1, tso1, false, excludeFields);
         assertReflectionCompareContract(tso1, tso2, tso3, false, excludeFields);
         assertReflectionCompareContract("1", "2", "3", false, excludeFields);
-        
+
         assertTrue(0 != CompareToBuilder.reflectionCompare(tso1, new TestSubObject(1, 0), testTransients));
         assertTrue(0 != CompareToBuilder.reflectionCompare(tso1, new TestSubObject(0, 1), testTransients));
 
         // root class
         assertXYZCompareOrder(to1, to2, to3, true, null);
-        // subclass  
-        assertXYZCompareOrder(tso1, tso2, tso3, true, null);  
+        // subclass
+        assertXYZCompareOrder(tso1, tso2, tso3, true, null);
     }
 
     /**
      * See "Effective Java" under "Consider Implementing Comparable".
-     *  
-     * @param x an object to compare 
+     *
+     * @param x an object to compare
      * @param y an object to compare
      * @param z an object to compare
      * @param testTransients Whether to include transients in the comparison
@@ -214,26 +214,26 @@ public class CompareToBuilderTest {
 
         // signum
         assertTrue(reflectionCompareSignum(x, y, testTransients, excludeFields) == -reflectionCompareSignum(y, x, testTransients, excludeFields));
-        
+
         // transitive
-        if (CompareToBuilder.reflectionCompare(x, y, testTransients, null, excludeFields) > 0 
+        if (CompareToBuilder.reflectionCompare(x, y, testTransients, null, excludeFields) > 0
                 && CompareToBuilder.reflectionCompare(y, z, testTransients, null, excludeFields) > 0){
             assertTrue(CompareToBuilder.reflectionCompare(x, z, testTransients, null, excludeFields) > 0);
         }
-        
+
         // un-named
         if (CompareToBuilder.reflectionCompare(x, y, testTransients, null, excludeFields) == 0) {
             assertTrue(reflectionCompareSignum(x, z, testTransients, excludeFields) == -reflectionCompareSignum(y, z, testTransients, excludeFields));
         }
-        
+
         // strongly recommended but not strictly required
         assertTrue(CompareToBuilder.reflectionCompare(x, y, testTransients) ==0 == EqualsBuilder.reflectionEquals(x, y, testTransients));
     }
-    
+
     /**
      * Returns the signum of the result of comparing x and y with
      * <code>CompareToBuilder.reflectionCompare</code>
-     * 
+     *
      * @param lhs The "left-hand-side" of the comparison.
      * @param rhs The "right-hand-side" of the comparison.
      * @param testTransients Whether to include transients in the comparison
@@ -243,7 +243,7 @@ public class CompareToBuilderTest {
     private int reflectionCompareSignum(final Object lhs, final Object rhs, final boolean testTransients, final String[] excludeFields) {
         return BigInteger.valueOf(CompareToBuilder.reflectionCompare(lhs, rhs, testTransients)).signum();
     }
-    
+
     @Test
     public void testAppendSuper() {
         final TestObject o1 = new TestObject(4);
@@ -251,14 +251,14 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().appendSuper(0).append(o1, o1).toComparison() == 0);
         assertTrue(new CompareToBuilder().appendSuper(0).append(o1, o2).toComparison() < 0);
         assertTrue(new CompareToBuilder().appendSuper(0).append(o2, o1).toComparison() > 0);
-        
+
         assertTrue(new CompareToBuilder().appendSuper(-1).append(o1, o1).toComparison() < 0);
         assertTrue(new CompareToBuilder().appendSuper(-1).append(o1, o2).toComparison() < 0);
-        
+
         assertTrue(new CompareToBuilder().appendSuper(1).append(o1, o1).toComparison() > 0);
         assertTrue(new CompareToBuilder().appendSuper(1).append(o1, o2).toComparison() > 0);
     }
-    
+
     @Test
     public void testObject() {
         final TestObject o1 = new TestObject(4);
@@ -268,12 +268,12 @@ public class CompareToBuilderTest {
         o2.setA(5);
         assertTrue(new CompareToBuilder().append(o1, o2).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1).toComparison() > 0);
-        
+
         assertTrue(new CompareToBuilder().append(o1, null).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((Object) null, (Object) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append((Object) null, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, o1).toComparison() < 0);
     }
-    
+
     @Test
     public void testObjectBuild() {
         final TestObject o1 = new TestObject(4);
@@ -283,9 +283,9 @@ public class CompareToBuilderTest {
         o2.setA(5);
         assertTrue(new CompareToBuilder().append(o1, o2).build().intValue() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1).build().intValue() > 0);
-        
+
         assertTrue(new CompareToBuilder().append(o1, null).build().intValue() > 0);
-        assertEquals(Integer.valueOf(0), new CompareToBuilder().append((Object) null, (Object) null).build());
+        assertEquals(Integer.valueOf(0), new CompareToBuilder().append((Object) null, null).build());
         assertTrue(new CompareToBuilder().append(null, o1).build().intValue() < 0);
     }
 
@@ -308,12 +308,12 @@ public class CompareToBuilderTest {
         o2 = "FREDA";
         assertTrue(new CompareToBuilder().append(o1, o2, String.CASE_INSENSITIVE_ORDER).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1, String.CASE_INSENSITIVE_ORDER).toComparison() > 0);
-        
+
         assertTrue(new CompareToBuilder().append(o1, null, String.CASE_INSENSITIVE_ORDER).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((Object) null, (Object) null, String.CASE_INSENSITIVE_ORDER).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, null, String.CASE_INSENSITIVE_ORDER).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, o1, String.CASE_INSENSITIVE_ORDER).toComparison() < 0);
     }
-    
+
     @Test
     public void testObjectComparatorNull() {
         final String o1 = "Fred";
@@ -323,9 +323,9 @@ public class CompareToBuilderTest {
         o2 = "Zebra";
         assertTrue(new CompareToBuilder().append(o1, o2, null).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1, null).toComparison() > 0);
-        
+
         assertTrue(new CompareToBuilder().append(o1, null, null).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((Object) null, (Object) null, null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, null, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, o1, null).toComparison() < 0);
     }
 
@@ -458,18 +458,18 @@ public class CompareToBuilderTest {
         obj3[0] = new TestObject(4);
         obj3[1] = new TestObject(5);
         obj3[2] = new TestObject(6);
-        
+
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(obj3, obj1).toComparison() > 0);
-        
+
         obj1[1] = new TestObject(7);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
 
         assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((Object[]) null, (Object[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append((Object[]) null, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
@@ -485,7 +485,7 @@ public class CompareToBuilderTest {
         obj3[0] = 5L;
         obj3[1] = 6L;
         obj3[2] = 7L;
-        
+
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);
@@ -496,7 +496,7 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
 
         assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((long[]) null, (long[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append((long[]) null, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
@@ -523,7 +523,7 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
 
         assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((int[]) null, (int[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append((int[]) null, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
@@ -550,7 +550,7 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
 
         assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((short[]) null, (short[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append((short[]) null, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
@@ -577,7 +577,7 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
 
         assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((char[]) null, (char[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append((char[]) null, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
@@ -604,7 +604,7 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
 
         assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((byte[]) null, (byte[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append((byte[]) null, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
@@ -631,7 +631,7 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
 
         assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((double[]) null, (double[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append((double[]) null, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
@@ -658,7 +658,7 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
 
         assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((float[]) null, (float[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append((float[]) null, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
@@ -685,7 +685,7 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
 
         assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append((boolean[]) null, (boolean[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append((boolean[]) null, null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
@@ -703,7 +703,7 @@ public class CompareToBuilderTest {
         }
         array3[1][2] = 100;
         array3[1][2] = 100;
-        
+
         assertTrue(new CompareToBuilder().append(array1, array1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array3).toComparison() < 0);
@@ -727,7 +727,7 @@ public class CompareToBuilderTest {
         }
         array3[1][2] = 100;
         array3[1][2] = 100;
-        
+
         assertTrue(new CompareToBuilder().append(array1, array1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array3).toComparison() < 0);
@@ -751,7 +751,7 @@ public class CompareToBuilderTest {
         }
         array3[1][2] = 100;
         array3[1][2] = 100;
-        
+
         assertTrue(new CompareToBuilder().append(array1, array1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array3).toComparison() < 0);
@@ -775,7 +775,7 @@ public class CompareToBuilderTest {
         }
         array3[1][2] = 100;
         array3[1][2] = 100;
-        
+
         assertTrue(new CompareToBuilder().append(array1, array1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array3).toComparison() < 0);
@@ -799,7 +799,7 @@ public class CompareToBuilderTest {
         }
         array3[1][2] = 100;
         array3[1][2] = 100;
-        
+
         assertTrue(new CompareToBuilder().append(array1, array1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array3).toComparison() < 0);
@@ -808,7 +808,7 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(array1, array2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(array2, array1).toComparison() < 0);
     }
-    
+
     @Test
     public void testMultiFloatArray() {
         final float[][] array1 = new float[2][2];
@@ -823,7 +823,7 @@ public class CompareToBuilderTest {
         }
         array3[1][2] = 100;
         array3[1][2] = 100;
-        
+
         assertTrue(new CompareToBuilder().append(array1, array1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array3).toComparison() < 0);
@@ -847,7 +847,7 @@ public class CompareToBuilderTest {
         }
         array3[1][2] = 100;
         array3[1][2] = 100;
-        
+
         assertTrue(new CompareToBuilder().append(array1, array1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array3).toComparison() < 0);
@@ -871,7 +871,7 @@ public class CompareToBuilderTest {
         }
         array3[1][2] = false;
         array3[1][2] = false;
-        
+
         assertTrue(new CompareToBuilder().append(array1, array1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array3).toComparison() < 0);
@@ -898,8 +898,8 @@ public class CompareToBuilderTest {
         }
         array3[1][2] = 100;
         array3[1][2] = 100;
-        
-        
+
+
         assertTrue(new CompareToBuilder().append(array1, array1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(array1, array3).toComparison() < 0);
@@ -947,11 +947,11 @@ public class CompareToBuilderTest {
         array3[0] = new TestObject(4);
         array3[1] = new TestObject(5);
         array3[2] = new TestObject(6);
-        
+
         final Object obj1 = array1;
         final Object obj2 = array2;
         final Object obj3 = array3;
-        
+
         assertTrue(new CompareToBuilder().append(obj1, obj1).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);
@@ -1161,5 +1161,5 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
     }
-  
+
  }

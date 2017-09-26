@@ -23,7 +23,11 @@ import java.io.Writer;
  * Translates codepoints to their XML numeric entity escaped value.
  *
  * @since 3.0
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityEscaper.html">
+ * NumericEntityEscaper</a> instead
  */
+@Deprecated
 public class NumericEntityEscaper extends CodePointTranslator {
 
     private final int below;

@@ -59,7 +59,7 @@ public class StringUtilsEqualsIndexOfTest  {
     private static class CustomCharSequence implements CharSequence {
         private final CharSequence seq;
 
-        public CustomCharSequence(final CharSequence seq) {
+        CustomCharSequence(final CharSequence seq) {
             this.seq = seq;
         }
 
@@ -294,6 +294,27 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(2, StringUtils.indexOf("aabaabaa", 'b', -1));
 
         assertEquals(5, StringUtils.indexOf(new StringBuilder("aabaabaa"), 'b', 3));
+
+        //LANG-1300 tests go here
+        final int CODE_POINT = 0x2070E;
+        StringBuilder builder = new StringBuilder();
+        builder.appendCodePoint(CODE_POINT);
+        assertEquals(0, StringUtils.indexOf(builder, CODE_POINT, 0));
+        assertEquals(0, StringUtils.indexOf(builder.toString(), CODE_POINT, 0));
+        builder.appendCodePoint(CODE_POINT);
+        assertEquals(2, StringUtils.indexOf(builder, CODE_POINT, 1));
+        assertEquals(2, StringUtils.indexOf(builder.toString(), CODE_POINT, 1));
+        // inner branch on the supplementary character block
+        char[] tmp = { (char) 55361 };
+        builder = new StringBuilder();
+        builder.append(tmp);
+        assertEquals(-1, StringUtils.indexOf(builder, CODE_POINT, 0));
+        assertEquals(-1, StringUtils.indexOf(builder.toString(), CODE_POINT, 0));
+        builder.appendCodePoint(CODE_POINT);
+        assertEquals(1, StringUtils.indexOf(builder, CODE_POINT, 0));
+        assertEquals(1, StringUtils.indexOf(builder.toString(), CODE_POINT, 0));
+        assertEquals(-1, StringUtils.indexOf(builder, CODE_POINT, 2));
+        assertEquals(-1, StringUtils.indexOf(builder.toString(), CODE_POINT, 2));
     }
 
     @Test
@@ -431,7 +452,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(0, StringUtils.indexOfAnyBut("zzabyycdxx", 'b','y'));
         assertEquals(-1, StringUtils.indexOfAnyBut("aba", 'a', 'b'));
         assertEquals(0, StringUtils.indexOfAnyBut("aba", 'z'));
-
     }
 
     @Test
@@ -525,6 +545,29 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(0, StringUtils.lastIndexOf("aabaabaa", 'a', 0));
 
         assertEquals(2, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), 'b', 2));
+
+        //LANG-1300 addition test
+        final int CODE_POINT = 0x2070E;
+        StringBuilder builder = new StringBuilder();
+        builder.appendCodePoint(CODE_POINT);
+        assertEquals(0, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
+        builder.appendCodePoint(CODE_POINT);
+        assertEquals(0, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
+        assertEquals(0, StringUtils.lastIndexOf(builder, CODE_POINT, 1));
+        assertEquals(2, StringUtils.lastIndexOf(builder, CODE_POINT, 2));
+
+        builder.append("aaaaa");
+        assertEquals(2, StringUtils.lastIndexOf(builder, CODE_POINT, 4));
+        // inner branch on the supplementary character block
+        char[] tmp = { (char) 55361 };
+        builder = new StringBuilder();
+        builder.append(tmp);
+        assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
+        builder.appendCodePoint(CODE_POINT);
+        assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
+        assertEquals(1, StringUtils.lastIndexOf(builder, CODE_POINT, 1 ));
+        assertEquals(-1, StringUtils.lastIndexOf(builder.toString(), CODE_POINT, 0));
+        assertEquals(1, StringUtils.lastIndexOf(builder.toString(), CODE_POINT, 1));
     }
 
     @Test
@@ -737,12 +780,11 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(2, StringUtils.ordinalIndexOf("abababab", "abab", 2));
         assertEquals(4, StringUtils.ordinalIndexOf("abababab", "abab", 3));
         assertEquals(-1, StringUtils.ordinalIndexOf("abababab", "abab", 4));
-
     }
-    
+
     @Test
     public void testLANG1193() {
-        assertEquals(0, StringUtils.ordinalIndexOf("abc", "ab", 1));        
+        assertEquals(0, StringUtils.ordinalIndexOf("abc", "ab", 1));
     }
 
     @Test

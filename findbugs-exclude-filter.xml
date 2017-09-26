@@ -58,7 +58,11 @@
   <!-- Reason: Optimization to use == -->
   <Match>
     <Class name="org.apache.commons.lang3.StringUtils" />
-    <Method name="indexOfDifference"/>
+    <Or>
+      <Method name="indexOfDifference"/>
+      <Method name="compare" params="java.lang.String,java.lang.String,boolean"/>
+      <Method name="compareIgnoreCase" params="java.lang.String,java.lang.String,boolean"/>
+    </Or>
     <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
   </Match>
 
@@ -74,34 +78,6 @@
     <Class name="org.apache.commons.lang3.time.DateUtils" />
     <Method name="getFragment"/>
     <Bug pattern="SF_SWITCH_FALLTHROUGH" />
-  </Match>
-
-  <!-- Reason: hashCode is lazily loaded in Range classes -->
-  <!-- TODO: Work out why regex didn't work here -->
-  <Match>
-    <Class name="org.apache.commons.lang3.math.DoubleRange" />
-    <Field name="hashCode" />
-    <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED" />
-  </Match>
-  <Match>
-    <Class name="org.apache.commons.lang3.math.FloatRange" />
-    <Field name="hashCode" />
-    <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED" />
-  </Match>
-  <Match>
-    <Class name="org.apache.commons.lang3.math.IntRange" />
-    <Field name="hashCode" />
-    <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED" />
-  </Match>
-  <Match>
-    <Class name="org.apache.commons.lang3.math.LongRange" />
-    <Field name="hashCode" />
-    <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED" />
-  </Match>
-  <Match>
-    <Class name="org.apache.commons.lang3.math.NumberRange" />
-    <Field name="hashCode" />
-    <Bug pattern="SE_TRANSIENT_FIELD_NOT_RESTORED" />
   </Match>
 
   <!-- Reason: toProperString is lazily loaded -->
@@ -135,10 +111,30 @@
     <Method name="insertFormats" />
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
+  <!-- Reason: FindBugs does not correctly recognize default branches in switch statements without break statements.
+   See, e.g., the report at https://sourceforge.net/p/findbugs/bugs/1298 -->
   <Match>
     <Class name="org.apache.commons.lang3.time.FastDateParser"/>
-    <Method name="getStrategy" />
+    <Or>
+      <Method name="getStrategy" />
+      <Method name="simpleQuote" params="java.lang.StringBuilder, java.lang.String"/>
+    </Or>
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
+  </Match>
+
+  <!-- Reason: FindBugs cannot correctly recognize default branches in switch statements without break statements.
+   See, e.g., the report at https://sourceforge.net/p/findbugs/bugs/1298 -->
+  <Match>
+    <Class name="org.apache.commons.lang3.time.FastDatePrinter"/>
+    <Method name="appendFullDigits" params="java.lang.Appendable, int, int"/>
+    <Bug pattern="SF_SWITCH_NO_DEFAULT" />
+  </Match>
+
+  <!-- Reason: The fallthrough on the swich statement is intentional -->
+  <Match>
+    <Class name="org.apache.commons.lang3.time.FastDatePrinter"/>
+    <Method name="appendFullDigits" params="java.lang.Appendable, int, int"/>
+    <Bug pattern="SF_SWITCH_FALLTHROUGH" />
   </Match>
 
   <!-- Reason: Internal class that is used only as a key for an internal FormatCache. For this reason we can

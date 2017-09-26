@@ -15,11 +15,16 @@
 
 language: java
 sudo: false
+# trusty is required for oraclejdk9
+dist: trusty
 
 jdk:
   - openjdk7
-  - oraclejdk7
   - oraclejdk8
+  - oraclejdk9
+
+script:
+  - mvn
 
 after_success:
-  - mvn clean apache-rat:check cobertura:cobertura coveralls:report
+  - mvn clean cobertura:cobertura coveralls:report

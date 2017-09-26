@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,7 +42,7 @@ public class DateFormatUtilsTest {
 
     @Rule
     public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
-    
+
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
@@ -53,7 +53,7 @@ public class DateFormatUtilsTest {
         assertTrue(Modifier.isPublic(DateFormatUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(DateFormatUtils.class.getModifiers()));
     }
-    
+
     //-----------------------------------------------------------------------
     @Test
     public void testFormat() {
@@ -70,14 +70,14 @@ public class DateFormatUtilsTest {
         buffer.append(day);
         buffer.append(hour);
         assertEquals(buffer.toString(), DateFormatUtils.format(c.getTime(), "yyyyMdH"));
-        
+
         assertEquals(buffer.toString(), DateFormatUtils.format(c.getTime().getTime(), "yyyyMdH"));
-        
+
         assertEquals(buffer.toString(), DateFormatUtils.format(c.getTime(), "yyyyMdH", Locale.US));
-        
+
         assertEquals(buffer.toString(), DateFormatUtils.format(c.getTime().getTime(), "yyyyMdH", Locale.US));
     }
-    
+
     //-----------------------------------------------------------------------
     @Test
     public void testFormatCalendar() {
@@ -94,24 +94,24 @@ public class DateFormatUtilsTest {
         buffer.append(day);
         buffer.append(hour);
         assertEquals(buffer.toString(), DateFormatUtils.format(c, "yyyyMdH"));
-        
+
         assertEquals(buffer.toString(), DateFormatUtils.format(c.getTime(), "yyyyMdH"));
-        
+
         assertEquals(buffer.toString(), DateFormatUtils.format(c, "yyyyMdH", Locale.US));
-        
+
         assertEquals(buffer.toString(), DateFormatUtils.format(c.getTime(), "yyyyMdH", Locale.US));
     }
-    
+
     @Test
     public void testFormatUTC() {
         final Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         c.set(2005, Calendar.JANUARY, 1, 12, 0, 0);
         assertEquals ("2005-01-01T12:00:00", DateFormatUtils.formatUTC(c.getTime(), DateFormatUtils.ISO_DATETIME_FORMAT.getPattern()));
-        
+
         assertEquals ("2005-01-01T12:00:00", DateFormatUtils.formatUTC(c.getTime().getTime(), DateFormatUtils.ISO_DATETIME_FORMAT.getPattern()));
-        
+
         assertEquals ("2005-01-01T12:00:00", DateFormatUtils.formatUTC(c.getTime(), DateFormatUtils.ISO_DATETIME_FORMAT.getPattern(), Locale.US));
-        
+
         assertEquals ("2005-01-01T12:00:00", DateFormatUtils.formatUTC(c.getTime().getTime(), DateFormatUtils.ISO_DATETIME_FORMAT.getPattern(), Locale.US));
     }
 
@@ -142,7 +142,7 @@ public class DateFormatUtilsTest {
         final TimeZone timeZone = TimeZone.getTimeZone("UTC");
         assertFormats(expectedValue, pattern, timeZone, createFebruaryTestDate(timeZone));
     }
-    
+
     @Test
     public void testDateTimeISO() throws Exception {
         testGmtMinus3("2002-02-23T09:11:12", DateFormatUtils.ISO_DATETIME_FORMAT.getPattern());
@@ -225,7 +225,7 @@ public class DateFormatUtilsTest {
     public void testLang530() throws ParseException {
         final Date d = new Date();
         final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
-        final Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });
+        final Date d2 = DateUtils.parseDate(isoDateStr, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
         // the format loses milliseconds so have to reintroduce them
         assertEquals("Date not equal to itself ISO formatted and parsed", d.getTime(), d2.getTime() + d.getTime() % 1000);
     }

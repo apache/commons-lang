@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
@@ -83,7 +84,11 @@ import org.apache.commons.lang3.StringUtils;
  * </table>
  *
  * @since 2.2
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrTokenizer.html">
+ * StrTokenizer</a> instead
  */
+@Deprecated
 public class StrTokenizer implements ListIterator<String>, Cloneable {
 
     private static final StrTokenizer CSV_TOKENIZER_PROTOTYPE;
@@ -131,7 +136,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
 
     /**
      * Returns a clone of <code>CSV_TOKENIZER_PROTOTYPE</code>.
-     * 
+     *
      * @return a clone of <code>CSV_TOKENIZER_PROTOTYPE</code>.
      */
     private static StrTokenizer getCSVClone() {
@@ -183,7 +188,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
 
     /**
      * Returns a clone of <code>TSV_TOKENIZER_PROTOTYPE</code>.
-     * 
+     *
      * @return a clone of <code>TSV_TOKENIZER_PROTOTYPE</code>.
      */
     private static StrTokenizer getTSVClone() {
@@ -441,9 +446,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     public List<String> getTokenList() {
         checkTokenized();
         final List<String> list = new ArrayList<>(tokens.length);
-        for (final String element : tokens) {
-            list.add(element);
-        }
+        list.addAll(Arrays.asList(tokens));
         return list;
     }
 
@@ -625,7 +628,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * <code>StrTokenizer</code> will always pass a zero offset and a count
      * equal to the length of the array to this method, however a subclass
      * may pass other values, or even an entirely different array.
-     * 
+     *
      * @param srcChars  the character array being tokenized, may be null
      * @param offset  the start position within the character array, must be valid
      * @param count  the number of characters to tokenize, must be valid
@@ -638,12 +641,12 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         final StrBuilder buf = new StrBuilder();
         final List<String> tokenList = new ArrayList<>();
         int pos = offset;
-        
+
         // loop around the entire buffer
         while (pos >= 0 && pos < count) {
             // find next token
             pos = readNextToken(srcChars, pos, count, buf, tokenList);
-            
+
             // handle case where end of string is a delimiter
             if (pos >= count) {
                 addToken(tokenList, StringUtils.EMPTY);
@@ -695,20 +698,20 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
             }
             start += removeLen;
         }
-        
+
         // handle reaching end
         if (start >= len) {
             addToken(tokenList, StringUtils.EMPTY);
             return -1;
         }
-        
+
         // handle empty token
         final int delimLen = getDelimiterMatcher().isMatch(srcChars, start, start, len);
         if (delimLen > 0) {
             addToken(tokenList, StringUtils.EMPTY);
             return start + delimLen;
         }
-        
+
         // handle found token
         final int quoteLen = getQuoteMatcher().isMatch(srcChars, start, start, len);
         if (quoteLen > 0) {
@@ -731,7 +734,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      *  immediately after the delimiter, or if end of string found,
      *  then the length of string
      */
-    private int readWithQuotes(final char[] srcChars, final int start, final int len, final StrBuilder workArea, 
+    private int readWithQuotes(final char[] srcChars, final int start, final int len, final StrBuilder workArea,
                                final List<String> tokenList, final int quoteStart, final int quoteLen) {
         // Loop until we've found the end of the quoted
         // string or the end of the input
@@ -739,14 +742,14 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         int pos = start;
         boolean quoting = quoteLen > 0;
         int trimStart = 0;
-        
+
         while (pos < len) {
             // quoting mode can occur several times throughout a string
             // we must switch between quoting and non-quoting until we
             // encounter a non-quoted delimiter, or end of string
             if (quoting) {
                 // In quoting mode
-                
+
                 // If we've found a quote character, see if it's
                 // followed by a second quote.  If so, then we need
                 // to actually put the quote character into the token
@@ -759,20 +762,20 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                         trimStart = workArea.size();
                         continue;
                     }
-                    
+
                     // end of quoting
                     quoting = false;
                     pos += quoteLen;
                     continue;
                 }
-                
+
                 // copy regular character from inside quotes
                 workArea.append(srcChars[pos++]);
                 trimStart = workArea.size();
-                
+
             } else {
                 // Not in quoting mode
-                
+
                 // check for delimiter, and thus end of token
                 final int delimLen = getDelimiterMatcher().isMatch(srcChars, pos, start, len);
                 if (delimLen > 0) {
@@ -780,21 +783,21 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                     addToken(tokenList, workArea.substring(0, trimStart));
                     return pos + delimLen;
                 }
-                
+
                 // check for quote, and thus back into quoting mode
                 if (quoteLen > 0 && isQuote(srcChars, pos, len, quoteStart, quoteLen)) {
                     quoting = true;
                     pos += quoteLen;
                     continue;
                 }
-                
+
                 // check for ignored (outside quotes), and ignore
                 final int ignoredLen = getIgnoredMatcher().isMatch(srcChars, pos, start, len);
                 if (ignoredLen > 0) {
                     pos += ignoredLen;
                     continue;
                 }
-                
+
                 // check for trimmed character
                 // don't yet know if its at the end, so copy to workArea
                 // use trimStart to keep track of trim at the end
@@ -804,13 +807,13 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                     pos += trimmedLen;
                     continue;
                 }
-                
+
                 // copy regular character from outside quotes
                 workArea.append(srcChars[pos++]);
                 trimStart = workArea.size();
             }
         }
-        
+
         // return condition when end of string found
         addToken(tokenList, workArea.substring(0, trimStart));
         return -1;
@@ -1067,7 +1070,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * Creates a new instance of this Tokenizer. The new instance is reset so
      * that it will be at the start of the token list.
      * If a {@link CloneNotSupportedException} is caught, return <code>null</code>.
-     * 
+     *
      * @return a new instance of this Tokenizer which has been reset.
      */
     @Override
@@ -1082,7 +1085,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     /**
      * Creates a new instance of this Tokenizer. The new instance is reset so that
      * it will be at the start of the token list.
-     * 
+     *
      * @return a new instance of this Tokenizer which has been reset.
      * @throws CloneNotSupportedException if there is a problem cloning
      */

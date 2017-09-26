@@ -28,4 +28,11 @@ class Parent implements Foo {
     @Override
     public void doIt() {
     }
+
+    @Annotated
+    protected void parentProtectedAnnotatedMethod() {
+    }
+
+    public void parentNotAnnotatedMethod() {
+    }
 }

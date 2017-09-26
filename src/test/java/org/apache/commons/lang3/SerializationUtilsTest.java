@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,7 +47,7 @@ public class SerializationUtilsTest {
 
   static final String CLASS_NOT_FOUND_MESSAGE = "ClassNotFoundSerialization.readObject fake exception";
     protected static final String SERIALIZE_IO_EXCEPTION_MESSAGE = "Anonymous OutputStream I/O exception";
-  
+
     private String iString;
     private Integer iInteger;
     private HashMap<Object, Object> iMap;
@@ -72,29 +72,29 @@ public class SerializationUtilsTest {
         assertTrue(Modifier.isPublic(SerializationUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(SerializationUtils.class.getModifiers()));
     }
-    
+
     @Test
     public void testException() {
         SerializationException serEx;
         final Exception ex = new Exception();
-        
+
         serEx = new SerializationException();
         assertSame(null, serEx.getMessage());
         assertSame(null, serEx.getCause());
-        
+
         serEx = new SerializationException("Message");
         assertSame("Message", serEx.getMessage());
         assertSame(null, serEx.getCause());
-        
+
         serEx = new SerializationException(ex);
         assertEquals("java.lang.Exception", serEx.getMessage());
         assertSame(ex, serEx.getCause());
-        
+
         serEx = new SerializationException("Message", ex);
         assertSame("Message", serEx.getMessage());
         assertSame(ex, serEx.getCause());
     }
-    
+
     //-----------------------------------------------------------------------
 
     @Test
@@ -166,7 +166,7 @@ public class SerializationUtilsTest {
         }
         fail();
     }
-    
+
     @Test
     public void testSerializeIOException() throws Exception {
         // forces an IOException when the ObjectOutputStream is created, to test not closing the stream
@@ -179,8 +179,7 @@ public class SerializationUtilsTest {
         };
         try {
             SerializationUtils.serialize(iMap, streamTest);
-        }
-        catch(final SerializationException e) {
+        } catch(final SerializationException e) {
             assertEquals("java.io.IOException: " + SERIALIZE_IO_EXCEPTION_MESSAGE, e.getMessage());
         }
     }
@@ -268,13 +267,13 @@ public class SerializationUtilsTest {
             assertEquals("java.lang.ClassNotFoundException: " + CLASS_NOT_FOUND_MESSAGE, se.getMessage());
         }
     }
-    
-    @Test 
+
+    @Test
     public void testRoundtrip() {
         final HashMap<Object, Object> newMap = SerializationUtils.roundtrip(iMap);
         assertEquals(iMap, newMap);
     }
-    
+
     //-----------------------------------------------------------------------
 
     @Test
@@ -408,7 +407,7 @@ public class SerializationUtilsTest {
         }
         fail();
     }
-    
+
     @Test
     public void testPrimitiveTypeClassSerialization() {
         final Class<?>[] primitiveTypes = { byte.class, short.class, int.class, long.class, float.class, double.class,
@@ -422,8 +421,7 @@ public class SerializationUtilsTest {
 
 }
 
-class ClassNotFoundSerialization implements Serializable
-{
+class ClassNotFoundSerialization implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -65,7 +65,11 @@ import org.apache.commons.lang3.Validate;
  * </ul>
  *
  * @since 2.4
+ * @deprecated as of 3.6, use commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/ExtendedMessageFormat.html">
+ * ExtendedMessageFormat</a> instead
  */
+@Deprecated
 public class ExtendedMessageFormat extends MessageFormat {
     private static final long serialVersionUID = -2362048321261811743L;
     private static final int HASH_SEED = 31;
@@ -276,10 +280,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (ObjectUtils.notEqual(toPattern, rhs.toPattern)) {
             return false;
         }
-        if (ObjectUtils.notEqual(registry, rhs.registry)) {
-            return false;
-        }
-        return true;
+        return !ObjectUtils.notEqual(registry, rhs.registry);
     }
 
     /**
@@ -473,7 +474,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      */
     private StringBuilder appendQuotedString(final String pattern, final ParsePosition pos,
             final StringBuilder appendTo) {
-        assert pattern.toCharArray()[pos.getIndex()] == QUOTE : 
+        assert pattern.toCharArray()[pos.getIndex()] == QUOTE :
             "Quoted string must start with quote character";
 
         // handle quote character at the beginning of the string

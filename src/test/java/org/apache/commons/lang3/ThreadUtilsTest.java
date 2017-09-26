@@ -337,11 +337,11 @@ public class ThreadUtilsTest {
     private static class TestThread extends Thread {
         private final CountDownLatch latch = new CountDownLatch(1);
 
-        public TestThread(final String name) {
+        TestThread(final String name) {
             super(name);
         }
 
-        public TestThread(final ThreadGroup group, final String name) {
+        TestThread(final ThreadGroup group, final String name) {
             super(group, name);
         }
 

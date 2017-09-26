@@ -228,7 +228,7 @@ public class StringUtils {
     public static boolean isNotEmpty(final CharSequence cs) {
         return !isEmpty(cs);
     }
-       
+
     /**
      * <p>Checks if any of the CharSequences are empty ("") or null.</p>
      *
@@ -240,6 +240,8 @@ public class StringUtils {
      * StringUtils.isAnyEmpty("  bob  ", null)  = true
      * StringUtils.isAnyEmpty(" ", "bar")       = false
      * StringUtils.isAnyEmpty("foo", "bar")     = false
+     * StringUtils.isAnyEmpty(new String[]{})   = false
+     * StringUtils.isAnyEmpty(new String[]{""}) = true
      * </pre>
      *
      * @param css  the CharSequences to check, may be null or empty
@@ -259,36 +261,6 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if any of the CharSequences are not empty ("") and not null.</p>
-     *
-     * <pre>
-     * StringUtils.isAnyNotEmpty(null)             = false
-     * StringUtils.isAnyNotEmpty(new String[] {})  = false
-     * StringUtils.isAnyNotEmpty(null, "foo")      = true
-     * StringUtils.isAnyNotEmpty("", "bar")        = true
-     * StringUtils.isAnyNotEmpty("bob", "")        = true
-     * StringUtils.isAnyNotEmpty("  bob  ", null)  = true
-     * StringUtils.isAnyNotEmpty(" ", "bar")       = true
-     * StringUtils.isAnyNotEmpty("foo", "bar")     = true
-     * </pre>
-     *
-     * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if any of the CharSequences are not empty and not null
-     * @since 3.6
-     */
-    public static boolean isAnyNotEmpty(final CharSequence... css) {
-      if (ArrayUtils.isEmpty(css)) {
-        return false;
-      }
-      for (final CharSequence cs : css) {
-        if (isNotEmpty(cs)) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    /**
      * <p>Checks if none of the CharSequences are empty ("") or null.</p>
      *
      * <pre>
@@ -297,7 +269,8 @@ public class StringUtils {
      * StringUtils.isNoneEmpty("", "bar")        = false
      * StringUtils.isNoneEmpty("bob", "")        = false
      * StringUtils.isNoneEmpty("  bob  ", null)  = false
-     * StringUtils.isNoneEmpty(new String[] {})  = false
+     * StringUtils.isNoneEmpty(new String[] {})  = true
+     * StringUtils.isNoneEmpty(new String[]{""}) = false
      * StringUtils.isNoneEmpty(" ", "bar")       = true
      * StringUtils.isNoneEmpty("foo", "bar")     = true
      * </pre>
@@ -311,9 +284,40 @@ public class StringUtils {
     }
 
     /**
+     * <p>Checks if all of the CharSequences are empty ("") or null.</p>
+     *
+     * <pre>
+     * StringUtils.isAllEmpty(null)             = true
+     * StringUtils.isAllEmpty(null, "")         = true
+     * StringUtils.isAllEmpty(new String[] {})  = true
+     * StringUtils.isAllEmpty(null, "foo")      = false
+     * StringUtils.isAllEmpty("", "bar")        = false
+     * StringUtils.isAllEmpty("bob", "")        = false
+     * StringUtils.isAllEmpty("  bob  ", null)  = false
+     * StringUtils.isAllEmpty(" ", "bar")       = false
+     * StringUtils.isAllEmpty("foo", "bar")     = false
+     * </pre>
+     *
+     * @param css  the CharSequences to check, may be null or empty
+     * @return {@code true} if all of the CharSequences are empty or null
+     * @since 3.6
+     */
+    public static boolean isAllEmpty(final CharSequence... css) {
+        if (ArrayUtils.isEmpty(css)) {
+            return true;
+        }
+        for (final CharSequence cs : css) {
+            if (isNotEmpty(cs)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * <p>Checks if a CharSequence is empty (""), null or whitespace only.</p>
-     * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isBlank(null)      = true
@@ -334,7 +338,7 @@ public class StringUtils {
             return true;
         }
         for (int i = 0; i < strLen; i++) {
-            if (Character.isWhitespace(cs.charAt(i)) == false) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
                 return false;
             }
         }
@@ -343,8 +347,8 @@ public class StringUtils {
 
     /**
      * <p>Checks if a CharSequence is not empty (""), not null and not whitespace only.</p>
-     * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isNotBlank(null)      = false
@@ -366,8 +370,8 @@ public class StringUtils {
 
     /**
      * <p>Checks if any of the CharSequences are empty ("") or null or whitespace only.</p>
-     * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isAnyBlank(null)             = true
@@ -378,6 +382,7 @@ public class StringUtils {
      * StringUtils.isAnyBlank("  bob  ", null)  = true
      * StringUtils.isAnyBlank(" ", "bar")       = true
      * StringUtils.isAnyBlank(new String[] {})  = false
+     * StringUtils.isAnyBlank(new String[]{""}) = true
      * StringUtils.isAnyBlank("foo", "bar")     = false
      * </pre>
      *
@@ -398,42 +403,9 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if any of the CharSequences are not empty (""), not null and not whitespace only.</p>
-     * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
-     *
-     * <pre>
-     * StringUtils.isAnyNotBlank(null)             = false
-     * StringUtils.isAnyNotBlank(null, "foo")      = true
-     * StringUtils.isAnyNotBlank(null, null)       = false
-     * StringUtils.isAnyNotBlank("", "bar")        = true
-     * StringUtils.isAnyNotBlank("bob", "")        = true
-     * StringUtils.isAnyNotBlank("  bob  ", null)  = true
-     * StringUtils.isAnyNotBlank(" ", "bar")       = true
-     * StringUtils.isAnyNotBlank("foo", "bar")     = true
-     * StringUtils.isAnyNotBlank(new String[] {})  = false
-     * </pre>
-     *
-     * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if any of the CharSequences are not empty and not null and not whitespace only
-     * @since 3.6
-     */
-    public static boolean isAnyNotBlank(final CharSequence... css) {
-      if (ArrayUtils.isEmpty(css)) {
-        return false;
-      }
-      for (final CharSequence cs : css) {
-        if (isNotBlank(cs)) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    /**
      * <p>Checks if none of the CharSequences are empty (""), null or whitespace only.</p>
-     * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.isNoneBlank(null)             = false
@@ -443,7 +415,8 @@ public class StringUtils {
      * StringUtils.isNoneBlank("bob", "")        = false
      * StringUtils.isNoneBlank("  bob  ", null)  = false
      * StringUtils.isNoneBlank(" ", "bar")       = false
-     * StringUtils.isNoneBlank(new String[] {})  = false
+     * StringUtils.isNoneBlank(new String[] {})  = true
+     * StringUtils.isNoneBlank(new String[]{""}) = false
      * StringUtils.isNoneBlank("foo", "bar")     = true
      * </pre>
      *
@@ -453,6 +426,39 @@ public class StringUtils {
      */
     public static boolean isNoneBlank(final CharSequence... css) {
       return !isAnyBlank(css);
+    }
+
+    /**
+     * <p>Checks if all of the CharSequences are empty (""), null or whitespace only.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.isAllBlank(null)             = true
+     * StringUtils.isAllBlank(null, "foo")      = false
+     * StringUtils.isAllBlank(null, null)       = true
+     * StringUtils.isAllBlank("", "bar")        = false
+     * StringUtils.isAllBlank("bob", "")        = false
+     * StringUtils.isAllBlank("  bob  ", null)  = false
+     * StringUtils.isAllBlank(" ", "bar")       = false
+     * StringUtils.isAllBlank("foo", "bar")     = false
+     * StringUtils.isAllBlank(new String[] {})  = true
+     * </pre>
+     *
+     * @param css  the CharSequences to check, may be null or empty
+     * @return {@code true} if all of the CharSequences are empty or null or whitespace only
+     * @since 3.6
+     */
+    public static boolean isAllBlank(final CharSequence... css) {
+        if (ArrayUtils.isEmpty(css)) {
+            return true;
+        }
+        for (final CharSequence cs : css) {
+            if (isNotBlank(cs)) {
+               return false;
+            }
+        }
+        return true;
     }
 
     // Trim
@@ -768,7 +774,7 @@ public class StringUtils {
         str = stripStart(str, stripChars);
         return stripEnd(str, stripChars);
     }
-    
+
     /**
      * <p>Strips any of a set of characters from the start of a String.</p>
      *
@@ -1064,7 +1070,7 @@ public class StringUtils {
      * @see String#compareTo(String)
      * @param str1  the String to compare from
      * @param str2  the String to compare to
-     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2}
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal or greater than {@code str2}
      * @since 3.5
      */
     public static int compare(final String str1, final String str2) {
@@ -1275,10 +1281,26 @@ public class StringUtils {
     // IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Finds the first index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#indexOf(int, int)} if possible.</p>
+     * Returns the index within <code>seq</code> of the first occurrence of
+     * the specified character. If a character with value
+     * <code>searchChar</code> occurs in the character sequence represented by
+     * <code>seq</code> <code>CharSequence</code> object, then the index (in Unicode
+     * code units) of the first such occurrence is returned. For
+     * values of <code>searchChar</code> in the range from 0 to 0xFFFF
+     * (inclusive), this is the smallest value <i>k</i> such that:
+     * <blockquote><pre>
+     * this.charAt(<i>k</i>) == searchChar
+     * </pre></blockquote>
+     * is true. For other values of <code>searchChar</code>, it is the
+     * smallest value <i>k</i> such that:
+     * <blockquote><pre>
+     * this.codePointAt(<i>k</i>) == searchChar
+     * </pre></blockquote>
+     * is true. In either case, if no such character occurs in <code>seq</code>,
+     * then {@code INDEX_NOT_FOUND (-1)} is returned.
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code INDEX_NOT_FOUND (-1)}.</p>
+     * <p>Furthermore, a {@code null} or empty ("") CharSequence will
+     * return {@code INDEX_NOT_FOUND (-1)}.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *)         = -1
@@ -1293,6 +1315,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int) to indexOf(CharSequence, int)
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
      */
     public static int indexOf(final CharSequence seq, final int searchChar) {
         if (isEmpty(seq)) {
@@ -1302,13 +1325,39 @@ public class StringUtils {
     }
 
     /**
-     * <p>Finds the first index within a CharSequence from a start position,
-     * handling {@code null}.
-     * This method uses {@link String#indexOf(int, int)} if possible.</p>
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code (INDEX_NOT_FOUND) -1}.
-     * A negative start position is treated as zero.
-     * A start position greater than the string length returns {@code -1}.</p>
+     * Returns the index within <code>seq</code> of the first occurrence of the
+     * specified character, starting the search at the specified index.
+     * <p>
+     * If a character with value <code>searchChar</code> occurs in the
+     * character sequence represented by the <code>seq</code> <code>CharSequence</code>
+     * object at an index no smaller than <code>startPos</code>, then
+     * the index of the first such occurrence is returned. For values
+     * of <code>searchChar</code> in the range from 0 to 0xFFFF (inclusive),
+     * this is the smallest value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
+     * </pre></blockquote>
+     * is true. For other values of <code>searchChar</code>, it is the
+     * smallest value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
+     * </pre></blockquote>
+     * is true. In either case, if no such character occurs in <code>seq</code>
+     * at or after position <code>startPos</code>, then
+     * <code>-1</code> is returned.
+     *
+     * <p>
+     * There is no restriction on the value of <code>startPos</code>. If it
+     * is negative, it has the same effect as if it were zero: this entire
+     * string may be searched. If it is greater than the length of this
+     * string, it has the same effect as if it were equal to the length of
+     * this string: {@code (INDEX_NOT_FOUND) -1} is returned. Furthermore, a
+     * {@code null} or empty ("") CharSequence will
+     * return {@code (INDEX_NOT_FOUND) -1}.
+     *
+     * <p>All indices are specified in <code>char</code> values
+     * (Unicode code units).
      *
      * <pre>
      * StringUtils.indexOf(null, *, *)          = -1
@@ -1326,6 +1375,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int, int) to indexOf(CharSequence, int, int)
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
      */
     public static int indexOf(final CharSequence seq, final int searchChar, final int startPos) {
         if (isEmpty(seq)) {
@@ -1585,10 +1635,23 @@ public class StringUtils {
     // LastIndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Finds the last index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#lastIndexOf(int)} if possible.</p>
-     *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code -1}.</p>
+     * Returns the index within <code>seq</code> of the last occurrence of
+     * the specified character. For values of <code>searchChar</code> in the
+     * range from 0 to 0xFFFF (inclusive), the index (in Unicode code
+     * units) returned is the largest value <i>k</i> such that:
+     * <blockquote><pre>
+     * this.charAt(<i>k</i>) == searchChar
+     * </pre></blockquote>
+     * is true. For other values of <code>searchChar</code>, it is the
+     * largest value <i>k</i> such that:
+     * <blockquote><pre>
+     * this.codePointAt(<i>k</i>) == searchChar
+     * </pre></blockquote>
+     * is true.  In either case, if no such character occurs in this
+     * string, then <code>-1</code> is returned. Furthermore, a {@code null} or empty ("")
+     * <code>CharSequence</code> will return {@code -1}. The
+     * <code>seq</code> <code>CharSequence</code> object is searched backwards
+     * starting at the last character.
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *)         = -1
@@ -1597,12 +1660,13 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
+     * @param seq  the <code>CharSequence</code> to check, may be null
      * @param searchChar  the character to find
      * @return the last index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, int) to lastIndexOf(CharSequence, int)
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
      */
     public static int lastIndexOf(final CharSequence seq, final int searchChar) {
         if (isEmpty(seq)) {
@@ -1612,16 +1676,29 @@ public class StringUtils {
     }
 
     /**
-     * <p>Finds the last index within a CharSequence from a start position,
-     * handling {@code null}.
-     * This method uses {@link String#lastIndexOf(int, int)} if possible.</p>
+     * Returns the index within <code>seq</code> of the last occurrence of
+     * the specified character, searching backward starting at the
+     * specified index. For values of <code>searchChar</code> in the range
+     * from 0 to 0xFFFF (inclusive), the index returned is the largest
+     * value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= startPos)
+     * </pre></blockquote>
+     * is true. For other values of <code>searchChar</code>, it is the
+     * largest value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= startPos)
+     * </pre></blockquote>
+     * is true. In either case, if no such character occurs in <code>seq</code>
+     * at or before position <code>startPos</code>, then
+     * <code>-1</code> is returned. Furthermore, a {@code null} or empty ("")
+     * <code>CharSequence</code> will return {@code -1}. A start position greater
+     * than the string length searches the whole string.
+     * The search starts at the <code>startPos</code> and works backwards;
+     * matches starting after the start position are ignored.
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code -1}.
-     * A negative start position returns {@code -1}.
-     * A start position greater than the string length searches the whole string.
-     * The search starts at the startPos and works backwards; matches starting after the start
-     * position are ignored.
-     * </p>
+     * <p>All indices are specified in <code>char</code> values
+     * (Unicode code units).
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *, *)          = -1
@@ -1942,9 +2019,9 @@ public class StringUtils {
 
     /**
      * <p>Check whether the given CharSequence contains any whitespace characters.</p>
-     * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
-     * 
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
      * @param seq the CharSequence to check (may be {@code null})
      * @return {@code true} if the CharSequence is not empty and
      * contains at least 1 (breaking) whitespace character
@@ -2158,7 +2235,7 @@ public class StringUtils {
      * StringUtils.containsAny("abc", "d", "abc")  = true
      * </pre>
      *
-     * 
+     *
      * @param cs The CharSequence to check, may be null
      * @param searchCharSequences The array of CharSequences to search for, may be null.
      * Individual CharSequences may be null as well.
@@ -2461,14 +2538,12 @@ public class StringUtils {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
-        final int sz = searchStrs.length;
 
         // String's can't have a MAX_VALUEth index.
         int ret = Integer.MAX_VALUE;
 
         int tmp = 0;
-        for (int i = 0; i < sz; i++) {
-            final CharSequence search = searchStrs[i];
+        for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
             }
@@ -2515,11 +2590,9 @@ public class StringUtils {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
-        final int sz = searchStrs.length;
         int ret = INDEX_NOT_FOUND;
         int tmp = 0;
-        for (int i = 0; i < sz; i++) {
-            final CharSequence search = searchStrs[i];
+        for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
             }
@@ -4538,8 +4611,7 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            final String result = Objects.toString(first, "");
-            return result;
+            return Objects.toString(first, "");
         }
 
         // two or more elements
@@ -4583,8 +4655,7 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            final String result = Objects.toString(first, "");
-            return result;
+            return Objects.toString(first, "");
         }
 
         // two or more elements
@@ -5395,7 +5466,7 @@ public class StringUtils {
 
     /**
      * <p>Replaces a String with another String inside a larger String,
-     * for the first {@code max} values of the search String, 
+     * for the first {@code max} values of the search String,
      * case sensitively/insensisitively based on {@code ignoreCase} value.</p>
      *
      * <p>A {@code null} reference passed to this method is a no-op.</p>
@@ -5908,11 +5979,9 @@ public class StringUtils {
             start = end;
             end = temp;
         }
-        return new StringBuilder(len + start - end + overlay.length() + 1)
-            .append(str.substring(0, start))
-            .append(overlay)
-            .append(str.substring(end))
-            .toString();
+        return str.substring(0, start) +
+            overlay +
+            str.substring(end);
     }
 
     // Chomping
@@ -6854,7 +6923,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetter(cs.charAt(i)) == false) {
+            if (!Character.isLetter(cs.charAt(i))) {
                 return false;
             }
         }
@@ -6889,7 +6958,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetter(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
+            if (!Character.isLetter(cs.charAt(i)) && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -6924,7 +6993,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetterOrDigit(cs.charAt(i)) == false) {
+            if (!Character.isLetterOrDigit(cs.charAt(i))) {
                 return false;
             }
         }
@@ -6959,7 +7028,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetterOrDigit(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
+            if (!Character.isLetterOrDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -6998,7 +7067,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (CharUtils.isAsciiPrintable(cs.charAt(i)) == false) {
+            if (!CharUtils.isAsciiPrintable(cs.charAt(i))) {
                 return false;
             }
         }
@@ -7081,7 +7150,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isDigit(cs.charAt(i)) == false && cs.charAt(i) != ' ') {
+            if (!Character.isDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
                 return false;
             }
         }
@@ -7089,9 +7158,46 @@ public class StringUtils {
     }
 
     /**
+     * <p>Checks if a String {@code str} contains Unicode digits,
+     * if yes then concatenate all the digits in {@code str} and return it as a String.</p>
+     *
+     * <p>An empty ("") String will be returned if no digits found in {@code str}.</p>
+     *
+     * <pre>
+     * StringUtils.getDigits(null)  = null
+     * StringUtils.getDigits("")    = ""
+     * StringUtils.getDigits("abc") = ""
+     * StringUtils.getDigits("1000$") = "1000"
+     * StringUtils.getDigits("1123~45") = "12345"
+     * StringUtils.getDigits("(541) 754-3010") = "5417543010"
+     * StringUtils.getDigits("\u0967\u0968\u0969") = "\u0967\u0968\u0969"
+     * </pre>
+     *
+     * @param str the String to extract digits from, may be null
+     * @return String with only digits,
+     *           or an empty ("") String if no digits found,
+     *           or {@code null} String if {@code str} is null
+     * @since 3.6
+     */
+    public static String getDigits(final String str) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        final int sz = str.length();
+        final StringBuilder strDigits = new StringBuilder(sz);
+        for (int i = 0; i < sz; i++) {
+            final char tempChar = str.charAt(i);
+            if (Character.isDigit(tempChar)) {
+                strDigits.append(tempChar);
+            }
+        }
+        return strDigits.toString();
+    }
+
+    /**
      * <p>Checks if the CharSequence contains only whitespace.</p>
-     * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code true}.</p>
@@ -7116,7 +7222,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isWhitespace(cs.charAt(i)) == false) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
                 return false;
             }
         }
@@ -7151,7 +7257,7 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLowerCase(cs.charAt(i)) == false) {
+            if (!Character.isLowerCase(cs.charAt(i))) {
                 return false;
             }
         }
@@ -7186,11 +7292,52 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isUpperCase(cs.charAt(i)) == false) {
+            if (!Character.isUpperCase(cs.charAt(i))) {
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * <p>Checks if the CharSequence contains mixed casing of both uppercase and lowercase characters.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence ({@code length()=0}) will return
+     * {@code false}.</p>
+     *
+     * <pre>
+     * StringUtils.isMixedCase(null)    = false
+     * StringUtils.isMixedCase("")      = false
+     * StringUtils.isMixedCase("ABC")   = false
+     * StringUtils.isMixedCase("abc")   = false
+     * StringUtils.isMixedCase("aBc")   = true
+     * StringUtils.isMixedCase("A c")   = true
+     * StringUtils.isMixedCase("A1c")   = true
+     * StringUtils.isMixedCase("a/C")   = true
+     * StringUtils.isMixedCase("aC\t")  = true
+     * </pre>
+     *
+     * @param cs the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence contains both uppercase and lowercase characters
+     * @since 3.5
+     */
+    public static boolean isMixedCase(final CharSequence cs) {
+        if (isEmpty(cs) || cs.length() == 1) {
+            return false;
+        }
+        boolean containsUppercase = false;
+        boolean containsLowercase = false;
+        final int sz = cs.length();
+        for (int i = 0; i < sz; i++) {
+            if (containsUppercase && containsLowercase) {
+                return true;
+            } else if (Character.isUpperCase(cs.charAt(i))) {
+                containsUppercase = true;
+            } else if (Character.isLowerCase(cs.charAt(i))) {
+                containsLowercase = true;
+            }
+        }
+        return containsUppercase && containsLowercase;
     }
 
     // Defaults
@@ -7239,8 +7386,8 @@ public class StringUtils {
     /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * whitespace, empty ("") or {@code null}, the value of {@code defaultStr}.</p>
-     * 
-     * </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
      * StringUtils.defaultIfBlank(null, "NULL")  = "NULL"
@@ -7388,7 +7535,7 @@ public class StringUtils {
      *
      * <p>Specifically:</p>
      * <ul>
-     *   <li>If the number of characters in {@code str} is less than or equal to 
+     *   <li>If the number of characters in {@code str} is less than or equal to
      *       {@code maxWidth}, return {@code str}.</li>
      *   <li>Else abbreviate it to {@code (substring(str, 0, max-3) + "...")}.</li>
      *   <li>If {@code maxWidth} is less than {@code 4}, throw an
@@ -7465,7 +7612,7 @@ public class StringUtils {
      *
      * <p>Specifically:</p>
      * <ul>
-     *   <li>If the number of characters in {@code str} is less than or equal to 
+     *   <li>If the number of characters in {@code str} is less than or equal to
      *       {@code maxWidth}, return {@code str}.</li>
      *   <li>Else abbreviate it to {@code (substring(str, 0, max-abbrevMarker.length) + abbrevMarker)}.</li>
      *   <li>If {@code maxWidth} is less than {@code abbrevMarker.length + 1}, throw an
@@ -7492,7 +7639,7 @@ public class StringUtils {
      * @param maxWidth  maximum length of result String, must be at least {@code abbrevMarker.length + 1}
      * @return abbreviated String, {@code null} if null String input
      * @throws IllegalArgumentException if the width is too small
-     * @since 3.5
+     * @since 3.6
      */
     public static String abbreviate(final String str, final String abbrevMarker, final int maxWidth) {
         return abbreviate(str, abbrevMarker, 0, maxWidth);
@@ -7533,7 +7680,7 @@ public class StringUtils {
      * @param maxWidth  maximum length of result String, must be at least 4
      * @return abbreviated String, {@code null} if null String input
      * @throws IllegalArgumentException if the width is too small
-     * @since 3.5
+     * @since 3.6
      */
     public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
         if (isEmpty(str) || isEmpty(abbrevMarker)) {
@@ -7610,12 +7757,9 @@ public class StringUtils {
         final int startOffset = targetSting/2+targetSting%2;
         final int endOffset = str.length()-targetSting/2;
 
-        final StringBuilder builder = new StringBuilder(length);
-        builder.append(str.substring(0,startOffset));
-        builder.append(middle);
-        builder.append(str.substring(endOffset));
-
-        return builder.toString();
+        return str.substring(0, startOffset) +
+            middle +
+            str.substring(endOffset);
     }
 
     // Difference
@@ -7751,14 +7895,14 @@ public class StringUtils {
         // find the min and max string lengths; this avoids checking to make
         // sure we are not exceeding the length of the string each time through
         // the bottom loop.
-        for (int i = 0; i < arrayLen; i++) {
-            if (css[i] == null) {
+        for (CharSequence cs : css) {
+            if (cs == null) {
                 anyStringNull = true;
                 shortestStrLen = 0;
             } else {
                 allStringsNull = false;
-                shortestStrLen = Math.min(css[i].length(), shortestStrLen);
-                longestStrLen = Math.max(css[i].length(), longestStrLen);
+                shortestStrLen = Math.min(cs.length(), shortestStrLen);
+                longestStrLen = Math.max(cs.length(), longestStrLen);
             }
         }
 
@@ -7858,7 +8002,7 @@ public class StringUtils {
      * another, where each change is a single character modification (deletion,
      * insertion or substitution).</p>
      *
-     * <p>The implementation uses a single-dimensional array of length s.length() + 1. See 
+     * <p>The implementation uses a single-dimensional array of length s.length() + 1. See
      * <a href="http://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html">
      * http://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html</a> for details.</p>
      *
@@ -7882,7 +8026,11 @@ public class StringUtils {
      * @throws IllegalArgumentException if either String input {@code null}
      * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to
      * getLevenshteinDistance(CharSequence, CharSequence)
+     * @deprecated as of 3.6, use commons-text
+     * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
+     * LevenshteinDistance</a> instead
      */
+    @Deprecated
     public static int getLevenshteinDistance(CharSequence s, CharSequence t) {
         if (s == null || t == null) {
             throw new IllegalArgumentException("Strings must not be null");
@@ -7968,7 +8116,11 @@ public class StringUtils {
      * @param threshold the target threshold, must not be negative
      * @return result distance, or {@code -1} if the distance would be greater than the threshold
      * @throws IllegalArgumentException if either String input {@code null} or negative threshold
+     * @deprecated as of 3.6, use commons-text
+     * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
+     * LevenshteinDistance</a> instead
      */
+    @Deprecated
     public static int getLevenshteinDistance(CharSequence s, CharSequence t, final int threshold) {
         if (s == null || t == null) {
             throw new IllegalArgumentException("Strings must not be null");
@@ -8029,9 +8181,8 @@ public class StringUtils {
             return m <= threshold ? m : -1;
         } else if (m == 0) {
             return n <= threshold ? n : -1;
-        }
-        // no need to calculate the distance if the length difference is greater than the threshold
-        else if (Math.abs(n - m) > threshold) {
+        } else if (Math.abs(n - m) > threshold) {
+            // no need to calculate the distance if the length difference is greater than the threshold
             return -1;
         }
 
@@ -8101,16 +8252,16 @@ public class StringUtils {
         }
         return -1;
     }
-    
+
     /**
      * <p>Find the Jaro Winkler Distance which indicates the similarity score between two Strings.</p>
      *
-     * <p>The Jaro measure is the weighted sum of percentage of matched characters from each file and transposed characters. 
+     * <p>The Jaro measure is the weighted sum of percentage of matched characters from each file and transposed characters.
      * Winkler increased this measure for matching initial characters.</p>
      *
      * <p>This implementation is based on the Jaro Winkler similarity algorithm
      * from <a href="http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance">http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance</a>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.getJaroWinklerDistance(null, null)          = IllegalArgumentException
      * StringUtils.getJaroWinklerDistance("","")               = 0.0
@@ -8133,59 +8284,12 @@ public class StringUtils {
      * @return result distance
      * @throws IllegalArgumentException if either String input {@code null}
      * @since 3.3
-     * @deprecated as of 3.6, due to a misleading name, use {@link #getJaroWinklerSimilarity(CharSequence, CharSequence)} instead
+     * @deprecated as of 3.6, use commons-text
+     * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/JaroWinklerDistance.html">
+     * JaroWinklerDistance</a> instead
      */
     @Deprecated
     public static double getJaroWinklerDistance(final CharSequence first, final CharSequence second) {
-        final double DEFAULT_SCALING_FACTOR = 0.1;
-
-        if (first == null || second == null) {
-            throw new IllegalArgumentException("Strings must not be null");
-        }
-
-        final int[] mtp = matches(first, second);
-        final double m = mtp[0];
-        if (m == 0) {
-            return 0D;
-        }
-        final double j = ((m / first.length() + m / second.length() + (m - mtp[1]) / m)) / 3;
-        final double jw = j < 0.7D ? j : j + Math.min(DEFAULT_SCALING_FACTOR, 1D / mtp[3]) * mtp[2] * (1D - j);
-        return Math.round(jw * 100.0D) / 100.0D;
-    }
-
-    /**
-     * <p>Find the Jaro Winkler Similarity which indicates the similarity score between two Strings.</p>
-     *
-     * <p>The Jaro measure is the weighted sum of percentage of matched characters from each file and transposed characters. 
-     * Winkler increased this measure for matching initial characters.</p>
-     *
-     * <p>This implementation is based on the Jaro Winkler similarity algorithm
-     * from <a href="http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance">http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance</a>.</p>
-     * 
-     * <pre>
-     * StringUtils.getJaroWinklerSimilarity(null, null)          = IllegalArgumentException
-     * StringUtils.getJaroWinklerSimilarity("","")               = 0.0
-     * StringUtils.getJaroWinklerSimilarity("","a")              = 0.0
-     * StringUtils.getJaroWinklerSimilarity("aaapppp", "")       = 0.0
-     * StringUtils.getJaroWinklerSimilarity("frog", "fog")       = 0.93
-     * StringUtils.getJaroWinklerSimilarity("fly", "ant")        = 0.0
-     * StringUtils.getJaroWinklerSimilarity("elephant", "hippo") = 0.44
-     * StringUtils.getJaroWinklerSimilarity("hippo", "elephant") = 0.44
-     * StringUtils.getJaroWinklerSimilarity("hippo", "zzzzzzzz") = 0.0
-     * StringUtils.getJaroWinklerSimilarity("hello", "hallo")    = 0.88
-     * StringUtils.getJaroWinklerSimilarity("ABC Corporation", "ABC Corp") = 0.93
-     * StringUtils.getJaroWinklerSimilarity("D N H Enterprises Inc", "D &amp; H Enterprises, Inc.") = 0.95
-     * StringUtils.getJaroWinklerSimilarity("My Gym Children's Fitness Center", "My Gym. Childrens Fitness") = 0.92
-     * StringUtils.getJaroWinklerSimilarity("PENNSYLVANIA", "PENNCISYLVNIA") = 0.88
-     * </pre>
-     *
-     * @param first the first String, must not be null
-     * @param second the second String, must not be null
-     * @return result similarity
-     * @throws IllegalArgumentException if either String input {@code null}
-     * @since 3.6
-     */
-    public static double getJaroWinklerSimilarity(final CharSequence first, final CharSequence second) {
         final double DEFAULT_SCALING_FACTOR = 0.1;
 
         if (first == null || second == null) {
@@ -8283,7 +8387,11 @@ public class StringUtils {
      * @return result score
      * @throws IllegalArgumentException if either String input {@code null} or Locale input {@code null}
      * @since 3.4
+     * @deprecated as of 3.6, use commons-text
+     * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/FuzzyScore.html">
+     * FuzzyScore</a> instead
      */
+    @Deprecated
     public static int getFuzzyDistance(final CharSequence term, final CharSequence query, final Locale locale) {
         if (term == null || query == null) {
             throw new IllegalArgumentException("Strings must not be null");
@@ -8856,7 +8964,7 @@ public class StringUtils {
 
     /**
      * Converts a <code>byte[]</code> to a String using the specified character encoding.
-     * 
+     *
      * @param bytes
      *            the byte array to read from
      * @param charset
@@ -8875,7 +8983,7 @@ public class StringUtils {
      * <p>
      * Wraps a string with a char.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.wrap(null, *)        = null
      * StringUtils.wrap("", *)          = ""
@@ -8884,7 +8992,7 @@ public class StringUtils {
      * StringUtils.wrap("ab", '\'')     = "'ab'"
      * StringUtils.wrap("\"ab\"", '\"') = "\"\"ab\"\""
      * </pre>
-     * 
+     *
      * @param str
      *            the string to be wrapped, may be {@code null}
      * @param wrapWith
@@ -8894,7 +9002,7 @@ public class StringUtils {
      */
     public static String wrap(final String str, final char wrapWith) {
 
-        if (isEmpty(str) || wrapWith == '\0') {
+        if (isEmpty(str) || wrapWith == CharUtils.NUL) {
             return str;
         }
 
@@ -8905,11 +9013,11 @@ public class StringUtils {
      * <p>
      * Wraps a String with another String.
      * </p>
-     * 
+     *
      * <p>
      * A {@code null} input String returns {@code null}.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.wrap(null, *)         = null
      * StringUtils.wrap("", *)           = ""
@@ -8922,7 +9030,7 @@ public class StringUtils {
      * StringUtils.wrap("\"abcd\"", "'") = "'\"abcd\"'"
      * StringUtils.wrap("'abcd'", "\"")  = "\"'abcd'\""
      * </pre>
-     * 
+     *
      * @param str
      *            the String to be wrapper, may be null
      * @param wrapWith
@@ -8943,7 +9051,7 @@ public class StringUtils {
      * <p>
      * Wraps a string with a char if that char is missing from the start or end of the given string.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.wrap(null, *)        = null
      * StringUtils.wrap("", *)          = ""
@@ -8956,7 +9064,7 @@ public class StringUtils {
      * StringUtils.wrap("/a/b/c", '/')  = "/a/b/c/"
      * StringUtils.wrap("a/b/c/", '/')  = "/a/b/c/"
      * </pre>
-     * 
+     *
      * @param str
      *            the string to be wrapped, may be {@code null}
      * @param wrapWith
@@ -8965,7 +9073,7 @@ public class StringUtils {
      * @since 3.5
      */
     public static String wrapIfMissing(final String str, final char wrapWith) {
-        if (isEmpty(str) || wrapWith == '\0') {
+        if (isEmpty(str) || wrapWith == CharUtils.NUL) {
             return str;
         }
         final StringBuilder builder = new StringBuilder(str.length() + 2);
@@ -8983,7 +9091,7 @@ public class StringUtils {
      * <p>
      * Wraps a string with a string if that string is missing from the start or end of the given string.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.wrap(null, *)         = null
      * StringUtils.wrap("", *)           = ""
@@ -9000,7 +9108,7 @@ public class StringUtils {
      * StringUtils.wrap("/a/b/c", "/")  = "/a/b/c/"
      * StringUtils.wrap("a/b/c/", "/")  = "/a/b/c/"
      * </pre>
-     * 
+     *
      * @param str
      *            the string to be wrapped, may be {@code null}
      * @param wrapWith
@@ -9044,7 +9152,7 @@ public class StringUtils {
      *          the String to be unwrapped, can be null
      * @param wrapToken
      *          the String used to unwrap
-     * @return unwrapped String or the original string 
+     * @return unwrapped String or the original string
      *          if it is not quoted properly with the wrapToken
      * @since 3.6
      */
@@ -9069,7 +9177,7 @@ public class StringUtils {
      * <p>
      * Unwraps a given string from a character.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.unwrap(null, null)         = null
      * StringUtils.unwrap(null, '\0')         = null
@@ -9085,39 +9193,38 @@ public class StringUtils {
      *          the String to be unwrapped, can be null
      * @param wrapChar
      *          the character used to unwrap
-     * @return unwrapped String or the original string 
+     * @return unwrapped String or the original string
      *          if it is not quoted properly with the wrapChar
      * @since 3.6
      */
     public static String unwrap(final String str, final char wrapChar) {
-        if (isEmpty(str) || wrapChar == '\0') {
+        if (isEmpty(str) || wrapChar == CharUtils.NUL) {
             return str;
         }
 
         if (str.charAt(0) == wrapChar && str.charAt(str.length() - 1) == wrapChar) {
             final int startIndex = 0;
             final int endIndex = str.length() - 1;
-            if (startIndex != -1 && endIndex != -1) {
+            if (endIndex != -1) {
                 return str.substring(startIndex + 1, endIndex);
             }
         }
 
         return str;
     }
-    
-    
+
     /**
      * <p>Converts a {@code CharSequence} into an array of code points.</p>
-     * 
+     *
      * <p>Valid pairs of surrogate code units will be converted into a single supplementary
      * code point. Isolated surrogate code units (i.e. a high surrogate not followed by a low surrogate or
      * a low surrogate not preceeded by a high surrogate) will be returned as-is.</p>
-     * 
+     *
      * <pre>
      * StringUtils.toCodePoints(null)   =  null
      * StringUtils.toCodePoints("")     =  []  // empty array
      * </pre>
-     * 
+     *
      * @param str the character sequence to convert
      * @return an array of code points
      * @since 3.6
@@ -9129,14 +9236,14 @@ public class StringUtils {
         if (str.length() == 0) {
             return ArrayUtils.EMPTY_INT_ARRAY;
         }
-        
+
         String s = str.toString();
         int[] result = new int[s.codePointCount(0, s.length())];
         int index = 0;
         for (int i = 0; i < result.length; i++) {
             result[i] = s.codePointAt(index);
             index += Character.charCount(result[i]);
-        }     
+        }
         return result;
     }    
     

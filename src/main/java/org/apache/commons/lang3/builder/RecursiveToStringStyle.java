@@ -30,7 +30,7 @@ import org.apache.commons.lang3.ClassUtils;
  *   String title;
  *   ...
  * }
- * 
+ *
  * public class Person {
  *   String name;
  *   int age;
@@ -47,14 +47,14 @@ import org.apache.commons.lang3.ClassUtils;
  *
  * <p>This will produce a toString of the format:
  * <code>Person@7f54[name=Stephen,age=29,smoker=false,job=Job@43cd2[title=Manager]]</code></p>
- * 
+ *
  * @since 3.2
  */
 public class RecursiveToStringStyle extends ToStringStyle {
 
     /**
      * Required for serialization support.
-     * 
+     *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 1L;
@@ -83,7 +83,7 @@ public class RecursiveToStringStyle extends ToStringStyle {
         appendIdentityHashCode(buffer, coll);
         appendDetail(buffer, fieldName, coll.toArray());
     }
-    
+
     /**
      * Returns whether or not to recursively format the given <code>Class</code>.
      * By default, this method always returns {@code true}, but may be overwritten by

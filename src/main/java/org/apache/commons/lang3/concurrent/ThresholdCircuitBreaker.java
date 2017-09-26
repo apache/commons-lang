@@ -55,7 +55,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     /**
      * The initial value of the internal counter.
      */
-    private final static long INITIAL_COUNT = 0L;
+    private static final long INITIAL_COUNT = 0L;
 
     /**
      * The threshold.

@@ -350,7 +350,7 @@ public class AnnotationUtilsTest {
         NestAnnotation nest();
         NestAnnotation[] nests();
     }
-    
+
     @Retention(RUNTIME)
     public @interface NestAnnotation {
         String string();
@@ -377,8 +377,8 @@ public class AnnotationUtilsTest {
         Stooge[] stooges();
     }
 
-    public static enum Stooge {
-        MOE, LARRY, CURLY, JOE, SHEMP;
+    public enum Stooge {
+        MOE, LARRY, CURLY, JOE, SHEMP
     }
 
     private Field field1;
