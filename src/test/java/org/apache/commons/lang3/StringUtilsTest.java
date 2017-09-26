@@ -3244,7 +3244,7 @@ public class StringUtilsTest {
     	assertEquals(null, 3, StringUtils.indexOfAll("anagram", 'a').size());
     	assertEquals(null, 2, StringUtils.indexOfAll("Reader", 'e').size());
     	assertNull(StringUtils.indexOfAll("people", null));
-    	assertNotEquals(null, 2, StringUtils.indexOfAll("Automatic", 'o').size());
+    	assertEquals(null, 1, StringUtils.indexOfAll("Automatic", 'o').size());
     }
 
     @Test
