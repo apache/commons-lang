@@ -781,6 +781,12 @@ public class TypeUtilsTest<B> {
         Assert.assertTrue(TypeUtils.isAssignable(fromType, failingToType));
     }
 
+    @Test
+    public void testLANG1348() throws Exception {
+        final Method method = Enum.class.getMethod("valueOf", Class.class, String.class);
+        Assert.assertEquals("T extends java.lang.Enum<T>", TypeUtils.toString(method.getGenericReturnType()));
+    }
+
     public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;
 
     public static <G extends Comparable<G>> G stub() {
