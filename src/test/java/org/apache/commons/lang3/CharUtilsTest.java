@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -84,6 +85,7 @@ public class CharUtilsTest {
         assertEquals('B', CharUtils.toChar(CHARACTER_B));
         try {
             CharUtils.toChar((Character) null);
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
     }
 
@@ -100,9 +102,11 @@ public class CharUtilsTest {
         assertEquals('B', CharUtils.toChar("BA"));
         try {
             CharUtils.toChar((String) null);
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
         try {
             CharUtils.toChar("");
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
     }
 
@@ -128,6 +132,7 @@ public class CharUtilsTest {
         assertEquals(9, CharUtils.toIntValue('9'));
         try {
             CharUtils.toIntValue('a');
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
     }
 
@@ -144,9 +149,11 @@ public class CharUtilsTest {
         assertEquals(3, CharUtils.toIntValue(new Character('3')));
         try {
             CharUtils.toIntValue(null);
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
         try {
             CharUtils.toIntValue(CHARACTER_A);
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
     }
 
