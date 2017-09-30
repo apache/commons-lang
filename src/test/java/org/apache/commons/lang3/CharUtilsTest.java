@@ -220,11 +220,7 @@ public class CharUtilsTest {
         assertFalse(CharUtils.isAscii(CHAR_COPY));
 
         for (int i = 0; i < 128; i++) {
-            if (i < 128) {
-                assertTrue(CharUtils.isAscii((char) i));
-            } else {
-                assertFalse(CharUtils.isAscii((char) i));
-            }
+            assertEquals(i < 128, CharUtils.isAscii((char) i));
         }
     }
 
