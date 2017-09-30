@@ -219,7 +219,7 @@ public class CharUtilsTest {
         assertTrue(CharUtils.isAscii('\n'));
         assertFalse(CharUtils.isAscii(CHAR_COPY));
 
-        for (int i = 0; i < 128; i++) {
+        for (int i = 0; i < 255; i++) {
             assertEquals(i < 128, CharUtils.isAscii((char) i));
         }
     }
