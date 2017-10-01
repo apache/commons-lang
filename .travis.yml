@@ -15,8 +15,6 @@
 
 language: java
 sudo: false
-# trusty is required for oraclejdk9
-dist: trusty
 
 jdk:
   - openjdk7
