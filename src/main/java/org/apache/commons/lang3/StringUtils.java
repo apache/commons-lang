@@ -9254,14 +9254,14 @@ public class StringUtils {
      * @param searchKey
      * @return list of integer of indexes.
      */
-    public static List<Integer> indexesOf(final String source, final Character searchKey) {
-    	if(source == null || source.length() == 0 || searchKey == null ) {
-    		return null;
+    public static List<Integer> indexesOf(final CharSequence source, final Character searchKey) {
+    	if(isEmpty(source) || searchKey == CharUtils.NUL ) {
+    	    return null;
     	}
     	List<Integer> indexList = new ArrayList<>();
     	for(int i = 0 ; i < source.length() ; i++) {
-    		if(searchKey.equals(source.charAt(i))) {
-    			indexList.add(i);
+    	    if(searchKey.equals(source.charAt(i))) {
+    		    indexList.add(i);
     		}
     	}
     	return indexList;    	
