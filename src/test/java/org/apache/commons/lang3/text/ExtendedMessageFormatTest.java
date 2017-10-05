@@ -110,7 +110,7 @@ public class ExtendedMessageFormatTest {
     @Test
     public void testExtendedAndBuiltInFormats() {
         final Calendar cal = Calendar.getInstance();
-        cal.set(2007, Calendar.JANUARY, 23, 18, 33, 05);
+        cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
         final Object[] args = new Object[] {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
         final String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
         final String extendedPattern = "Name: {0,upper} ";
@@ -229,7 +229,7 @@ public class ExtendedMessageFormatTest {
     @Test
     public void testBuiltInDateTimeFormat() {
         final Calendar cal = Calendar.getInstance();
-        cal.set(2007, Calendar.JANUARY, 23, 18, 33, 05);
+        cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
         final Object[] args = new Object[] {cal.getTime()};
         final Locale[] availableLocales = DateFormat.getAvailableLocales();
 
