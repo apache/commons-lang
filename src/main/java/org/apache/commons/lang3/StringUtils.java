@@ -9245,5 +9245,25 @@ public class StringUtils {
             index += Character.charCount(result[i]);
         }
         return result;
+    }    
+    
+    /**
+     * <p>Finds index of all the occurences of given search key found in source string.
+     * </p>
+     * @param source
+     * @param searchKey
+     * @return list of integer of indexes.
+     */
+    public static List<Integer> indexesOf(final CharSequence source, final Character searchKey) {
+    	if(isEmpty(source) || searchKey == CharUtils.NUL ) {
+    	    return null;
+    	}
+    	List<Integer> indexList = new ArrayList<>();
+    	for(int i = 0 ; i < source.length() ; i++) {
+    	    if(searchKey.equals(source.charAt(i))) {
+    		    indexList.add(i);
+    	    }
+    	}
+    	return indexList;    	
     }
 }
