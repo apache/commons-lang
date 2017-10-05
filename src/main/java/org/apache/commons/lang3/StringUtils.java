@@ -9262,7 +9262,7 @@ public class StringUtils {
     	for(int i = 0 ; i < source.length() ; i++) {
     	    if(searchKey.equals(source.charAt(i))) {
     		    indexList.add(i);
-    		}
+    	    }
     	}
     	return indexList;    	
     }
