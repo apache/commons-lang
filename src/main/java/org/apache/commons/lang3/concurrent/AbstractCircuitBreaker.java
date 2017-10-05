@@ -138,7 +138,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
      * transitions. This is done to avoid complex if-conditions in the code of
      * {@code CircuitBreaker}.
      */
-    protected static enum State {
+    protected enum State {
         CLOSED {
             /**
              * {@inheritDoc}

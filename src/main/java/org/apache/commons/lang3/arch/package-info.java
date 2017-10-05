@@ -14,20 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3.concurrent.annotation;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 /**
- * Describes a type as immutable.
+ * Provides classes to work with the values of the os.arch system property.
+ * @since 3.6
  */
-@Documented
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.CLASS)
-public @interface Immutable {
-    // marker annotation, empty body
-}
+package org.apache.commons.lang3.arch;

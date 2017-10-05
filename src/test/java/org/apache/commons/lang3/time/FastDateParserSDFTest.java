@@ -36,7 +36,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * Compare FastDateParser with SimpleDateFormat 
+ * Compare FastDateParser with SimpleDateFormat
  */
 @RunWith(Parameterized.class)
 public class FastDateParserSDFTest {
@@ -184,9 +184,9 @@ public class FastDateParserSDFTest {
             fdfE = e.getClass();
         }
         if (valid) {
-            assertEquals(locale.toString()+" "+formattedDate +"\n",expectedTime, actualTime);            
+            assertEquals(locale.toString()+" "+formattedDate +"\n",expectedTime, actualTime);
         } else {
-            assertEquals(locale.toString()+" "+formattedDate + " expected same Exception ", sdfE, fdfE);            
+            assertEquals(locale.toString()+" "+formattedDate + " expected same Exception ", sdfE, fdfE);
         }
     }
     private void checkParsePosition(final String formattedDate) {
@@ -203,12 +203,12 @@ public class FastDateParserSDFTest {
             final int length = formattedDate.length();
             if (endIndex != length) {
                 // Error in test data
-                throw new RuntimeException("Test data error: expected SDF parse to consume entire string; endindex " + endIndex + " != " + length);                
+                throw new RuntimeException("Test data error: expected SDF parse to consume entire string; endindex " + endIndex + " != " + length);
             }
         } else {
             final int errorIndex = sdfP.getErrorIndex();
             if (errorIndex == -1) {
-                throw new RuntimeException("Test data error: expected SDF parse to fail, but got " + expectedTime);                
+                throw new RuntimeException("Test data error: expected SDF parse to fail, but got " + expectedTime);
             }
         }
 
@@ -225,6 +225,6 @@ public class FastDateParserSDFTest {
             assertNotEquals("Test data error: expected FDF parse to fail, but got " + actualTime, -1, fdferrorIndex);
             assertTrue("FDF error index ("+ fdferrorIndex + ") should approximate SDF index (" + sdferrorIndex + ")",
                     sdferrorIndex - fdferrorIndex <= 4);
-        }        
+        }
     }
 }

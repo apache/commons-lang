@@ -21,24 +21,25 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>
  * Assists in implementing {@link Diffable#diff(Object)} methods.
  * </p>
- * 
+ *
  * <p>
  * To use this class, write code as follows:
  * </p>
- * 
+ *
  * <pre>
  * public class Person implements Diffable&lt;Person&gt; {
  *   String name;
  *   int age;
  *   boolean smoker;
- *   
+ *
  *   ...
- *   
+ *
  *   public DiffResult diff(Person obj) {
  *     // No need for null check, as NullPointerException correct if obj is null
  *     return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -49,14 +50,14 @@ import org.apache.commons.lang3.ArrayUtils;
  *   }
  * }
  * </pre>
- * 
+ *
  * <p>
  * The {@code ToStringStyle} passed to the constructor is embedded in the
  * returned {@code DiffResult} and influences the style of the
  * {@code DiffResult.toString()} method. This style choice can be overridden by
  * calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
- * 
+ *
  * @since 3.3
  * @see Diffable
  * @see Diff
@@ -75,13 +76,13 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Constructs a builder for the specified objects with the specified style.
      * </p>
-     * 
+     *
      * <p>
      * If {@code lhs == rhs} or {@code lhs.equals(rhs)} then the builder will
      * not evaluate any calls to {@code append(...)} and will return an empty
      * {@link DiffResult} when {@link #build()} is executed.
      * </p>
-     * 
+     *
      * @param lhs
      *            {@code this} object
      * @param rhs
@@ -102,12 +103,8 @@ public class DiffBuilder implements Builder<DiffResult> {
     public DiffBuilder(final Object lhs, final Object rhs,
             final ToStringStyle style, final boolean testTriviallyEqual) {
 
-        if (lhs == null) {
-            throw new IllegalArgumentException("lhs cannot be null");
-        }
-        if (rhs == null) {
-            throw new IllegalArgumentException("rhs cannot be null");
-        }
+        Validate.isTrue(lhs != null, "lhs cannot be null");
+        Validate.isTrue(rhs != null, "rhs cannot be null");
 
         this.diffs = new ArrayList<>();
         this.left = lhs;
@@ -122,13 +119,13 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Constructs a builder for the specified objects with the specified style.
      * </p>
-     * 
+     *
      * <p>
      * If {@code lhs == rhs} or {@code lhs.equals(rhs)} then the builder will
      * not evaluate any calls to {@code append(...)} and will return an empty
      * {@link DiffResult} when {@link #build()} is executed.
      * </p>
-     * 
+     *
      * <p>
      * This delegates to {@link #DiffBuilder(Object, Object, ToStringStyle, boolean)}
      * with the testTriviallyEqual flag enabled.
@@ -154,7 +151,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code boolean}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -167,9 +164,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final boolean lhs,
             final boolean rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -196,7 +191,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code boolean[]}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -209,9 +204,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final boolean[] lhs,
             final boolean[] rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
             return this;
         }
@@ -237,7 +230,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code byte}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -250,9 +243,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final byte lhs,
             final byte rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
             return this;
         }
@@ -278,7 +269,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code byte[]}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -291,9 +282,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final byte[] lhs,
             final byte[] rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -320,7 +309,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code char}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -333,9 +322,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final char lhs,
             final char rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -362,7 +349,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code char[]}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -375,9 +362,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final char[] lhs,
             final char[] rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -404,7 +389,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code double}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -417,9 +402,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final double lhs,
             final double rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -446,7 +429,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code double[]}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -459,9 +442,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final double[] lhs,
             final double[] rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -488,7 +469,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code float}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -501,9 +482,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final float lhs,
             final float rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -530,7 +509,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code float[]}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -543,9 +522,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final float[] lhs,
             final float[] rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -572,7 +549,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code int}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -585,9 +562,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final int lhs,
             final int rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -614,7 +589,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code int[]}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -627,9 +602,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final int[] lhs,
             final int[] rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -656,7 +629,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code long}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -669,9 +642,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final long lhs,
             final long rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -698,7 +669,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code long[]}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -711,9 +682,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final long[] lhs,
             final long[] rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -740,7 +709,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code short}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -753,9 +722,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final short lhs,
             final short rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -782,7 +749,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code short[]}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -795,9 +762,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final short[] lhs,
             final short[] rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
             return this;
@@ -824,7 +789,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code Objects}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -837,9 +802,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final Object lhs,
             final Object rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
             return this;
         }
@@ -910,7 +873,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Test if two {@code Object[]}s are equal.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param lhs
@@ -923,9 +886,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName, final Object[] lhs,
             final Object[] rhs) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
             return this;
         }
@@ -953,20 +914,20 @@ public class DiffBuilder implements Builder<DiffResult> {
      * <p>
      * Append diffs from another {@code DiffResult}.
      * </p>
-     * 
+     *
      * <p>
      * This method is useful if you want to compare properties which are
      * themselves Diffable and would like to know which specific part of
      * it is different.
      * </p>
-     * 
+     *
      * <pre>
      * public class Person implements Diffable&lt;Person&gt; {
      *   String name;
      *   Address address; // implements Diffable&lt;Address&gt;
-     *   
+     *
      *   ...
-     *   
+     *
      *   public DiffResult diff(Person obj) {
      *     return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
      *       .append("name", this.name, obj.name)
@@ -975,7 +936,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      *   }
      * }
      * </pre>
-     * 
+     *
      * @param fieldName
      *            the field name
      * @param diffResult
@@ -987,12 +948,8 @@ public class DiffBuilder implements Builder<DiffResult> {
      */
     public DiffBuilder append(final String fieldName,
             final DiffResult diffResult) {
-        if (fieldName == null) {
-            throw new IllegalArgumentException("Field name cannot be null");
-        }
-        if (diffResult == null) {
-            throw new IllegalArgumentException("Diff result cannot be null");
-        }
+        validateFieldNameNotNull(fieldName);
+        Validate.isTrue(diffResult != null, "Diff result cannot be null");
         if (objectsTriviallyEqual) {
             return this;
         }
@@ -1010,13 +967,17 @@ public class DiffBuilder implements Builder<DiffResult> {
      * Builds a {@link DiffResult} based on the differences appended to this
      * builder.
      * </p>
-     * 
+     *
      * @return a {@code DiffResult} containing the differences between the two
      *         objects.
      */
     @Override
     public DiffResult build() {
         return new DiffResult(left, right, diffs, style);
+    }
+
+    private void validateFieldNameNotNull(final String fieldName) {
+        Validate.isTrue(fieldName != null, "Field name cannot be null");
     }
 
 }

@@ -144,7 +144,7 @@ public class ConcurrentUtils {
     static Throwable checkedException(final Throwable ex) {
         Validate.isTrue(ex != null && !(ex instanceof RuntimeException)
                 && !(ex instanceof Error), "Not a checked exception: " + ex);
-        
+
         return ex;
     }
 

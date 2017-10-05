@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,8 +21,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 /**
  * A mutable <code>short</code> wrapper.
  * <p>
- * Note that as MutableShort does not extend Short, it is not treated by String.format as a Short parameter. 
- * 
+ * Note that as MutableShort does not extend Short, it is not treated by String.format as a Short parameter.
+ *
  * @see Short
  * @since 2.1
  */
@@ -30,7 +30,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     /**
      * Required for serialization support.
-     * 
+     *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = -2135791679L;
@@ -47,7 +47,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     /**
      * Constructs a new MutableShort with the specified value.
-     * 
+     *
      * @param value  the initial value to store
      */
     public MutableShort(final short value) {
@@ -57,7 +57,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     /**
      * Constructs a new MutableShort with the specified value.
-     * 
+     *
      * @param value  the initial value to store, not null
      * @throws NullPointerException if the object is null
      */
@@ -68,7 +68,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     /**
      * Constructs a new MutableShort parsing the given string.
-     * 
+     *
      * @param value  the string to parse, not null
      * @throws NumberFormatException if the string cannot be parsed into a short
      * @since 2.5
@@ -81,7 +81,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     //-----------------------------------------------------------------------
     /**
      * Gets the value as a Short instance.
-     * 
+     *
      * @return the value as a Short, never null
      */
     @Override
@@ -91,7 +91,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     /**
      * Sets the value.
-     * 
+     *
      * @param value  the value to set
      */
     public void setValue(final short value) {
@@ -100,7 +100,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     /**
      * Sets the value from any Number instance.
-     * 
+     *
      * @param value  the value to set, not null
      * @throws NullPointerException if the object is null
      */
@@ -181,7 +181,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     //-----------------------------------------------------------------------
     /**
      * Adds a value to the value of this instance.
-     * 
+     *
      * @param operand  the value to add, not null
      * @since Commons Lang 2.2
      */
@@ -191,7 +191,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     /**
      * Adds a value to the value of this instance.
-     * 
+     *
      * @param operand  the value to add, not null
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
@@ -202,7 +202,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     /**
      * Subtracts a value from the value of this instance.
-     * 
+     *
      * @param operand  the value to subtract, not null
      * @since Commons Lang 2.2
      */
@@ -212,7 +212,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     /**
      * Subtracts a value from the value of this instance.
-     * 
+     *
      * @param operand  the value to subtract, not null
      * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
@@ -344,7 +344,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Compares this object to the specified object. The result is <code>true</code> if and only if the argument
      * is not <code>null</code> and is a <code>MutableShort</code> object that contains the same <code>short</code>
      * value as this object.
-     * 
+     *
      * @param obj  the object to compare with, null returns false
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
@@ -358,7 +358,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     /**
      * Returns a suitable hash code for this mutable.
-     * 
+     *
      * @return a suitable hash code
      */
     @Override
@@ -369,7 +369,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
-     * 
+     *
      * @param other  the other mutable to compare to, not null
      * @return negative if this is less, zero if equal, positive if greater
      */
@@ -381,7 +381,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
-     * 
+     *
      * @return the mutable value as a string
      */
     @Override

@@ -434,12 +434,12 @@ public class TimedSemaphoreTest {
         /** Counter for the endOfPeriod() invocations. */
         private int periodEnds;
 
-        public TimedSemaphoreTestImpl(final long timePeriod, final TimeUnit timeUnit,
+        TimedSemaphoreTestImpl(final long timePeriod, final TimeUnit timeUnit,
                 final int limit) {
             super(timePeriod, timeUnit, limit);
         }
 
-        public TimedSemaphoreTestImpl(final ScheduledExecutorService service,
+        TimedSemaphoreTestImpl(final ScheduledExecutorService service,
                 final long timePeriod, final TimeUnit timeUnit, final int limit) {
             super(service, timePeriod, timeUnit, limit);
         }
@@ -449,7 +449,7 @@ public class TimedSemaphoreTest {
          *
          * @return the endOfPeriod() invocations
          */
-        public int getPeriodEnds() {
+        int getPeriodEnds() {
             synchronized (this) {
                 return periodEnds;
             }
@@ -504,7 +504,7 @@ public class TimedSemaphoreTest {
         /** The number of invocations of the latch. */
         private final int latchCount;
 
-        public SemaphoreThread(final TimedSemaphore b, final CountDownLatch l, final int c, final int lc) {
+        SemaphoreThread(final TimedSemaphore b, final CountDownLatch l, final int c, final int lc) {
             semaphore = b;
             latch = l;
             count = c;
@@ -546,7 +546,7 @@ public class TimedSemaphoreTest {
         /** Flag whether a permit could be acquired. */
         private boolean acquired;
 
-        public TryAcquireThread(final TimedSemaphore s, final CountDownLatch l) {
+        TryAcquireThread(final TimedSemaphore s, final CountDownLatch l) {
             semaphore = s;
             latch = l;
         }

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -75,16 +75,13 @@ public class ObjectUtilsTest {
         assertEquals("123", firstNonNullGenerics);
         assertEquals("123", ObjectUtils.firstNonNull("123", null, "456", null));
         assertSame(Boolean.TRUE, ObjectUtils.firstNonNull(Boolean.TRUE));
-        
+
         // Explicitly pass in an empty array of Object type to ensure compiler doesn't complain of unchecked generic array creation
-        assertNull(ObjectUtils.firstNonNull(new Object[0]));
-        
+        assertNull(ObjectUtils.firstNonNull());
+
         // Cast to Object in line below ensures compiler doesn't complain of unchecked generic array creation
-        assertNull(ObjectUtils.firstNonNull((Object) null, (Object) null));
-        
-//        assertSame("123", ObjectUtils.firstNonNull(null, ObjectUtils.NULL, "123", "456"));
-//        assertSame("456", ObjectUtils.firstNonNull(ObjectUtils.NULL, "456", "123", null));
-//        assertNull(ObjectUtils.firstNonNull(null, null, ObjectUtils.NULL));
+        assertNull(ObjectUtils.firstNonNull(null, null));
+
         assertNull(ObjectUtils.firstNonNull((Object) null));
         assertNull(ObjectUtils.firstNonNull((Object[]) null));
     }
@@ -162,58 +159,17 @@ public class ObjectUtilsTest {
     public void testHashCodeMulti_multiple_likeList() {
         final List<Object> list0 = new ArrayList<>(Arrays.asList(new Object[0]));
         assertEquals(list0.hashCode(), ObjectUtils.hashCodeMulti());
-        
+
         final List<Object> list1 = new ArrayList<Object>(Arrays.asList("a"));
         assertEquals(list1.hashCode(), ObjectUtils.hashCodeMulti("a"));
-        
+
         final List<Object> list2 = new ArrayList<Object>(Arrays.asList("a", "b"));
         assertEquals(list2.hashCode(), ObjectUtils.hashCodeMulti("a", "b"));
-        
+
         final List<Object> list3 = new ArrayList<Object>(Arrays.asList("a", "b", "c"));
         assertEquals(list3.hashCode(), ObjectUtils.hashCodeMulti("a", "b", "c"));
     }
 
-//    /**
-//     * Show that java.util.Date and java.sql.Timestamp are apples and oranges.
-//     * Prompted by an email discussion. 
-//     * 
-//     * The behavior is different b/w Sun Java 1.3.1_10 and 1.4.2_03.
-//     */
-//    public void testDateEqualsJava() {
-//        long now = 1076957313284L; // Feb 16, 2004 10:49... PST
-//        java.util.Date date = new java.util.Date(now);
-//        java.sql.Timestamp realTimestamp = new java.sql.Timestamp(now);
-//        java.util.Date timestamp = realTimestamp;
-//        // sanity check 1:
-//        assertEquals(284000000, realTimestamp.getNanos());
-//        assertEquals(1076957313284L, date.getTime());
-//        //
-//        // On Sun 1.3.1_10:
-//        //junit.framework.AssertionFailedError: expected:<1076957313284> but was:<1076957313000>
-//        //
-//        //assertEquals(1076957313284L, timestamp.getTime());
-//        //
-//        //junit.framework.AssertionFailedError: expected:<1076957313284> but was:<1076957313000>
-//        //
-//        //assertEquals(1076957313284L, realTimestamp.getTime());
-//        // sanity check 2:        
-//        assertEquals(date.getDay(), realTimestamp.getDay());
-//        assertEquals(date.getHours(), realTimestamp.getHours());
-//        assertEquals(date.getMinutes(), realTimestamp.getMinutes());
-//        assertEquals(date.getMonth(), realTimestamp.getMonth());
-//        assertEquals(date.getSeconds(), realTimestamp.getSeconds());
-//        assertEquals(date.getTimezoneOffset(), realTimestamp.getTimezoneOffset());
-//        assertEquals(date.getYear(), realTimestamp.getYear());
-//        //
-//        // Time values are == and equals() on Sun 1.4.2_03 but NOT on Sun 1.3.1_10:
-//        //
-//        //assertFalse("Sanity check failed: date.getTime() == timestamp.getTime()", date.getTime() == timestamp.getTime());
-//        //assertFalse("Sanity check failed: timestamp.equals(date)", timestamp.equals(date));
-//        //assertFalse("Sanity check failed: date.equals(timestamp)", date.equals(timestamp));
-//        // real test:
-//        //assertFalse("java.util.Date and java.sql.Timestamp should be equal", ObjectUtils.equals(date, timestamp));
-//    }
-    
     @Test
     public void testIdentityToStringStringBuffer() {
         final Integer i = Integer.valueOf(45);
@@ -234,7 +190,7 @@ public class ObjectUtilsTest {
         } catch(final NullPointerException npe) {
         }
     }
-    
+
     @Test
     public void testIdentityToStringStringBuilder() {
         assertEquals(null, ObjectUtils.identityToString(null));
@@ -243,9 +199,9 @@ public class ObjectUtilsTest {
             ObjectUtils.identityToString(FOO));
         final Integer i = Integer.valueOf(90);
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
-        
+
         assertEquals(expected, ObjectUtils.identityToString(i));
-        
+
         final StringBuilder builder = new StringBuilder();
         ObjectUtils.identityToString(builder, i);
         assertEquals(expected, builder.toString());
@@ -255,14 +211,14 @@ public class ObjectUtilsTest {
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
-        
+
         try {
             ObjectUtils.identityToString(new StringBuilder(), null);
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
     }
-    
+
     @Test
     public void testIdentityToStringStrBuilder() {
         final Integer i = Integer.valueOf(102);
@@ -277,14 +233,14 @@ public class ObjectUtilsTest {
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
-        
+
         try {
             ObjectUtils.identityToString(new StrBuilder(), null);
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
     }
-    
+
     @Test
     public void testIdentityToStringAppendable() {
         final Integer i = Integer.valueOf(121);
@@ -297,31 +253,33 @@ public class ObjectUtilsTest {
         } catch(final IOException ex) {
             fail("IOException unexpected");
         }
-        
+
         try {
             ObjectUtils.identityToString((Appendable)null, "tmp");
             fail("NullPointerException expected");
-        } catch(final NullPointerException npe) {
-        } catch (final IOException ex) {
+        } catch(final NullPointerException expectedException) {
+        } catch(final IOException ex) {
+          fail("IOException unexpected");
         }
-        
+
         try {
             ObjectUtils.identityToString((Appendable)(new StringBuilder()), null);
             fail("NullPointerException expected");
-        } catch(final NullPointerException npe) {
-        } catch (final IOException ex) {
+        } catch(final NullPointerException expectedException) {
+        } catch(final IOException ex) {
+          fail("IOException unexpected");
         }
     }
 
     @Test
     public void testToString_Object() {
-        assertEquals("", ObjectUtils.toString((Object) null) );
+        assertEquals("", ObjectUtils.toString(null) );
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE) );
     }
 
     @Test
     public void testToString_ObjectString() {
-        assertEquals(BAR, ObjectUtils.toString((Object) null, BAR) );
+        assertEquals(BAR, ObjectUtils.toString(null, BAR) );
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, BAR) );
     }
 
@@ -340,12 +298,12 @@ public class ObjectUtilsTest {
         final Date nonNullComparable1 = calendar.getTime();
         final Date nonNullComparable2 = calendar.getTime();
         final String[] nullArray = null;
-        
+
         calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
         final Date minComparable = calendar.getTime();
-        
+
         assertNotSame( nonNullComparable1, nonNullComparable2 );
-        
+
         assertNull(ObjectUtils.max( (String) null ) );
         assertNull(ObjectUtils.max( nullArray ) );
         assertSame( nonNullComparable1, ObjectUtils.max( null, nonNullComparable1 ) );
@@ -357,7 +315,7 @@ public class ObjectUtilsTest {
         assertSame( nonNullComparable1, ObjectUtils.max( minComparable, nonNullComparable1 ) );
         assertSame( nonNullComparable1, ObjectUtils.max( null, minComparable, null, nonNullComparable1 ) );
 
-        assertNull( ObjectUtils.max((String)null, (String)null) );
+        assertNull( ObjectUtils.max(null, null) );
     }
 
     @Test
@@ -366,12 +324,12 @@ public class ObjectUtilsTest {
         final Date nonNullComparable1 = calendar.getTime();
         final Date nonNullComparable2 = calendar.getTime();
         final String[] nullArray = null;
-        
+
         calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
         final Date minComparable = calendar.getTime();
-        
+
         assertNotSame( nonNullComparable1, nonNullComparable2 );
-        
+
         assertNull(ObjectUtils.min( (String) null ) );
         assertNull(ObjectUtils.min( nullArray ) );
         assertSame( nonNullComparable1, ObjectUtils.min( null, nonNullComparable1 ) );
@@ -383,7 +341,7 @@ public class ObjectUtilsTest {
         assertSame( minComparable, ObjectUtils.min( minComparable, nonNullComparable1 ) );
         assertSame( minComparable, ObjectUtils.min( null, nonNullComparable1, null, minComparable ) );
 
-        assertNull( ObjectUtils.min((String)null, (String)null) );
+        assertNull( ObjectUtils.min(null, null) );
     }
 
     /**
@@ -400,7 +358,7 @@ public class ObjectUtilsTest {
 
         assertEquals("Null one false", -1, ObjectUtils.compare(nullValue, one));
         assertEquals("Null one true",   1, ObjectUtils.compare(nullValue, one, true));
-        
+
         assertEquals("one Null false", 1, ObjectUtils.compare(one, nullValue));
         assertEquals("one Null true", -1, ObjectUtils.compare(one, nullValue, true));
 
@@ -575,7 +533,7 @@ public class ObjectUtilsTest {
         assertEquals("CONST(char)", (char) 3, ObjectUtils.CONST((char) 3));
         assertEquals("CONST(short)", (short) 3, ObjectUtils.CONST((short) 3));
         assertEquals("CONST(int)", 3, ObjectUtils.CONST(3));
-        assertEquals("CONST(long)", 3l, ObjectUtils.CONST(3l));
+        assertEquals("CONST(long)", 3L, ObjectUtils.CONST(3L));
         assertEquals("CONST(float)", 3f, ObjectUtils.CONST(3f), 0);
         assertEquals("CONST(double)", 3.0, ObjectUtils.CONST(3.0), 0);
         assertEquals("CONST(Object)", "abc", ObjectUtils.CONST("abc"));
@@ -673,7 +631,7 @@ public class ObjectUtilsTest {
          *
          * @param value
          */
-        public NonComparableCharSequence(final String value) {
+        NonComparableCharSequence(final String value) {
             super();
             Validate.notNull(value);
             this.value = value;

@@ -49,7 +49,7 @@ public class EventListenerSupportTest {
         assertEquals(0, listeners.length);
         assertEquals(VetoableChangeListener.class, listeners.getClass().getComponentType());
         final VetoableChangeListener[] empty = listeners;
-        //for fun, show that the same empty instance is used 
+        //for fun, show that the same empty instance is used
         assertSame(empty, listenerSupport.getListeners());
 
         final VetoableChangeListener listener1 = EasyMock.createNiceMock(VetoableChangeListener.class);
@@ -117,7 +117,7 @@ public class EventListenerSupportTest {
         assertEquals(0, listeners.length);
         assertEquals(VetoableChangeListener.class, listeners.getClass().getComponentType());
         final VetoableChangeListener[] empty = listeners;
-        //for fun, show that the same empty instance is used 
+        //for fun, show that the same empty instance is used
         assertSame(empty, listenerSupport.getListeners());
 
         final VetoableChangeListener listener1 = EasyMock.createNiceMock(VetoableChangeListener.class);

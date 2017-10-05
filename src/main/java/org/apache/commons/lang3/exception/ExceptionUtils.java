@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,16 +29,16 @@ import java.util.StringTokenizer;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
- * <p>Provides utilities for manipulating and examining 
+ * <p>Provides utilities for manipulating and examining
  * <code>Throwable</code> objects.</p>
  *
  * @since 1.0
  */
 public class ExceptionUtils {
-    
+
     /**
      * <p>Used when printing stack frames to denote the start of a
      * wrapped exception.</p>
@@ -95,7 +95,7 @@ public class ExceptionUtils {
     /**
      * <p>Introspects the <code>Throwable</code> to obtain the cause.</p>
      *
-     * <p>The method searches for methods with specific names that return a 
+     * <p>The method searches for methods with specific names that return a
      * <code>Throwable</code> object. This will pick up most wrapping exceptions,
      * including those from JDK 1.4.
      *
@@ -110,7 +110,7 @@ public class ExceptionUtils {
      *  <li><code>getCausedByException()</code></li>
      *  <li><code>getNested()</code></li>
      * </ul>
-     * 
+     *
      * <p>If none of the above is found, returns <code>null</code>.</p>
      *
      * @param throwable  the throwable to introspect for a cause, may be null
@@ -183,7 +183,7 @@ public class ExceptionUtils {
      */
     public static Throwable getRootCause(final Throwable throwable) {
         final List<Throwable> list = getThrowableList(throwable);
-        return list.size() < 2 ? null : (Throwable)list.get(list.size() - 1);
+        return list.size() < 2 ? null : list.get(list.size() - 1);
     }
 
     /**
@@ -278,7 +278,7 @@ public class ExceptionUtils {
      */
     public static List<Throwable> getThrowableList(Throwable throwable) {
         final List<Throwable> list = new ArrayList<>();
-        while (throwable != null && list.contains(throwable) == false) {
+        while (throwable != null && !list.contains(throwable)) {
             list.add(throwable);
             throwable = ExceptionUtils.getCause(throwable);
         }
@@ -455,9 +455,7 @@ public class ExceptionUtils {
         if (throwable == null) {
             return;
         }
-        if (stream == null) {
-            throw new IllegalArgumentException("The PrintStream must not be null");
-        }
+        Validate.isTrue(stream != null, "The PrintStream must not be null");
         final String trace[] = getRootCauseStackTrace(throwable);
         for (final String element : trace) {
             stream.println(element);
@@ -488,9 +486,7 @@ public class ExceptionUtils {
         if (throwable == null) {
             return;
         }
-        if (writer == null) {
-            throw new IllegalArgumentException("The PrintWriter must not be null");
-        }
+        Validate.isTrue(writer != null, "The PrintWriter must not be null");
         final String trace[] = getRootCauseStackTrace(throwable);
         for (final String element : trace) {
             writer.println(element);
@@ -531,9 +527,7 @@ public class ExceptionUtils {
             } else {
                 frames.add(WRAPPED_MARKER + throwables[i].toString());
             }
-            for (int j = 0; j < trace.size(); j++) {
-                frames.add(trace.get(j));
-            }
+            frames.addAll(trace);
         }
         return frames.toArray(new String[frames.size()]);
     }
@@ -609,7 +603,7 @@ public class ExceptionUtils {
     /**
      * <p>Returns an array where each element is a line from the argument.</p>
      *
-     * <p>The end of line is determined by the value of {@link SystemUtils#LINE_SEPARATOR}.</p>
+     * <p>The end of line is determined by the value of {@link System#lineSeparator()}.</p>
      *
      * @param stackTrace  a stack trace String
      * @return an array where each element is a line from the argument
@@ -632,7 +626,7 @@ public class ExceptionUtils {
      * <p>This works in most cases - it will only fail if the exception
      * message contains a line that starts with:
      * <code>&quot;&nbsp;&nbsp;&nbsp;at&quot;.</code></p>
-     * 
+     *
      * @param t is any throwable
      * @return List of stack frames
      */

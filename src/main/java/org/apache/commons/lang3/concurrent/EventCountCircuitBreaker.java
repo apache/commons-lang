@@ -405,8 +405,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @throws CircuitBreakingException if the strategy cannot be resolved
      */
     private static StateStrategy stateStrategy(final State state) {
-        final StateStrategy strategy = STRATEGY_MAP.get(state);
-        return strategy;
+        return STRATEGY_MAP.get(state);
     }
 
     /**
@@ -440,7 +439,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param count the current count value
          * @param intervalStart the start time of the check interval
          */
-        public CheckIntervalData(final int count, final long intervalStart) {
+        CheckIntervalData(final int count, final long intervalStart) {
             eventCount = count;
             checkIntervalStart = intervalStart;
         }

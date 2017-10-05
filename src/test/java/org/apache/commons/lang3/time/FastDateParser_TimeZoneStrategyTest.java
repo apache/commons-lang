@@ -40,8 +40,7 @@ public class FastDateParser_TimeZoneStrategyTest {
                     }
                     try {
                         parser.parse(tzDisplay);
-                    }
-                    catch(final Exception ex) {
+                    } catch(final Exception ex) {
                         Assert.fail("'" + tzDisplay + "'"
                                 + " Locale: '" + locale.getDisplayName() + "'"
                                 + " TimeZone: " + zone[0]

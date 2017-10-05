@@ -52,7 +52,7 @@ public class MutableTripleTest {
         assertNull(triple.getMiddle());
         assertNull(triple.getRight());
     }
-    
+
     @Test
     public void testMutate() throws Exception {
         final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<>(0, "foo", Boolean.TRUE);

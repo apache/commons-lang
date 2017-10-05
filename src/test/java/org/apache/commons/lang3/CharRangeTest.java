@@ -390,11 +390,18 @@ public class CharRangeTest  {
     @Test
     public void testSerialization() {
         CharRange range = CharRange.is('a');
-        assertEquals(range, SerializationUtils.clone(range)); 
+        assertEquals(range, SerializationUtils.clone(range));
         range = CharRange.isIn('a', 'e');
-        assertEquals(range, SerializationUtils.clone(range)); 
+        assertEquals(range, SerializationUtils.clone(range));
         range = CharRange.isNotIn('a', 'e');
-        assertEquals(range, SerializationUtils.clone(range)); 
+        assertEquals(range, SerializationUtils.clone(range));
     }
 
+    //-----------------------------------------------------------------------
+    @Test(expected = UnsupportedOperationException.class)
+    public void testIteratorRemove() {
+        CharRange a = CharRange.is('a');
+        final Iterator<Character> aIt = a.iterator();
+        aIt.remove();
+    }
 }

@@ -23,24 +23,37 @@ limitations under the License.
 <!-- commons lang customization of default Checkstyle behavior -->
 <module name="Checker">
   <property name="localeLanguage" value="en"/>
-  <module name="JavadocPackage">
-    <!-- setting allowLegacy means it will check for package.html instead of just package-info.java -->
-    <property name="allowLegacy" value="true"/>
+  <module name="JavadocPackage"/>
+  <module name="NewlineAtEndOfFile">
+    <property name="lineSeparator" value="lf" />
   </module>
   <module name="FileTabCharacter">
     <property name="fileExtensions" value="java,xml"/>
   </module>
+  <module name="RegexpSingleline">
+    <!-- \s matches whitespace character, $ matches end of line. -->
+    <property name="format" value="\s+$"/>
+    <property name="message" value="Line has trailing spaces."/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="checkstyle-suppressions.xml"/>
+  </module>
   <module name="TreeWalker">
     <property name="cacheFile" value="target/cachefile"/>
     <module name="AvoidStarImport"/>
+    <module name="IllegalImport"/>
     <module name="RedundantImport"/>
     <module name="UnusedImports"/>
     <module name="NeedBraces"/>
-    <module name="RedundantThrows">
-      <property name="allowUnchecked" value="true"/>
-    </module>
     <module name="JavadocMethod">
       <property name="allowUndeclaredRTE" value="true"/>
+      <property name="scope" value="public" />
     </module>
+    <module name="ModifierOrder"/>
+    <module name="RedundantModifier"/>
+    <module name="UpperEll" />
+    <module name="LeftCurly"/>
+    <module name="NeedBraces"/>
+    <module name="RightCurly"/>
  </module>
 </module>

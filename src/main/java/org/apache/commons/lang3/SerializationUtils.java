@@ -81,7 +81,7 @@ public class SerializationUtils {
         final byte[] objectData = serialize(object);
         final ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
 
-        try (final ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais,
+        try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais,
                 object.getClass().getClassLoader())) {
             /*
              * when we serialize and deserialize an object,
@@ -133,9 +133,7 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static void serialize(final Serializable obj, final OutputStream outputStream) {
-        if (outputStream == null) {
-            throw new IllegalArgumentException("The OutputStream must not be null");
-        }
+        Validate.isTrue(outputStream != null, "The OutputStream must not be null");
         try (ObjectOutputStream out = new ObjectOutputStream(outputStream)){
             out.writeObject(obj);
         } catch (final IOException ex) {
@@ -163,17 +161,17 @@ public class SerializationUtils {
      * <p>
      * Deserializes an {@code Object} from the specified stream.
      * </p>
-     * 
+     *
      * <p>
      * The stream will be closed once the object is written. This avoids the need for a finally clause, and maybe also
      * exception handling, in the application code.
      * </p>
-     * 
+     *
      * <p>
      * The stream passed in is not buffered internally within this method. This is the responsibility of your
      * application if desired.
      * </p>
-     * 
+     *
      * <p>
      * If the call site incorrectly types the return value, a {@link ClassCastException} is thrown from the call site.
      * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
@@ -190,9 +188,7 @@ public class SerializationUtils {
      *             (runtime) if the serialization fails
      */
     public static <T> T deserialize(final InputStream inputStream) {
-        if (inputStream == null) {
-            throw new IllegalArgumentException("The InputStream must not be null");
-        }
+        Validate.isTrue(inputStream != null, "The InputStream must not be null");
         try (ObjectInputStream in = new ObjectInputStream(inputStream)) {
             @SuppressWarnings("unchecked")
             final T obj = (T) in.readObject();
@@ -206,13 +202,13 @@ public class SerializationUtils {
      * <p>
      * Deserializes a single {@code Object} from an array of bytes.
      * </p>
-     * 
+     *
      * <p>
      * If the call site incorrectly types the return value, a {@link ClassCastException} is thrown from the call site.
      * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
      * Note that in both cases, the ClassCastException is in the call site, not in this method.
      * </p>
-     * 
+     *
      * @param <T>  the object type to be deserialized
      * @param objectData
      *            the serialized object, must not be null
@@ -223,10 +219,8 @@ public class SerializationUtils {
      *             (runtime) if the serialization fails
      */
     public static <T> T deserialize(final byte[] objectData) {
-        if (objectData == null) {
-            throw new IllegalArgumentException("The byte[] must not be null");
-        }
-        return SerializationUtils.<T>deserialize(new ByteArrayInputStream(objectData));
+        Validate.isTrue(objectData != null, "The byte[] must not be null");
+        return SerializationUtils.deserialize(new ByteArrayInputStream(objectData));
     }
 
     /**
@@ -238,12 +232,12 @@ public class SerializationUtils {
      * containers and application servers, no matter in which of the
      * <code>ClassLoader</code> the particular class that encapsulates
      * serialization/deserialization lives. </p>
-     * 
+     *
      * <p>For more in-depth information about the problem for which this
      * class here is a workaround, see the JIRA issue LANG-626. </p>
      */
      static class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
-        private static final Map<String, Class<?>> primitiveTypes = 
+        private static final Map<String, Class<?>> primitiveTypes =
                 new HashMap<>();
 
         static {
@@ -259,7 +253,7 @@ public class SerializationUtils {
         }
 
         private final ClassLoader classLoader;
-        
+
         /**
          * Constructor.
          * @param in The <code>InputStream</code>.
@@ -267,7 +261,7 @@ public class SerializationUtils {
          * @throws IOException if an I/O error occurs while reading stream header.
          * @see java.io.ObjectInputStream
          */
-        public ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader) throws IOException {
+        ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader) throws IOException {
             super(in);
             this.classLoader = classLoader;
         }

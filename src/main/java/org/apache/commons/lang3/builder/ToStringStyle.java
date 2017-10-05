@@ -168,10 +168,10 @@ public abstract class ToStringStyle implements Serializable {
     /*
      * Note that objects of this class are generally shared between threads, so
      * an instance variable would not be suitable here.
-     * 
+     *
      * In normal use the registry should always be left empty, because the caller
      * should call toString() which will clean up.
-     * 
+     *
      * See LANG-792
      */
 
@@ -422,7 +422,7 @@ public abstract class ToStringStyle implements Serializable {
      *  <code>toString</code> for.
      */
     public void appendEnd(final StringBuffer buffer, final Object object) {
-        if (this.fieldSeparatorAtEnd == false) {
+        if (!this.fieldSeparatorAtEnd) {
             removeLastFieldSeparator(buffer);
         }
         appendContentEnd(buffer);
@@ -2602,12 +2602,12 @@ public abstract class ToStringStyle implements Serializable {
 
         /**
          * Appends the given String in parenthesis to the given StringBuffer.
-         * 
+         *
          * @param buffer the StringBuffer to append the value to.
          * @param value the value to append.
          */
         private void appendValueAsString(final StringBuffer buffer, final String value) {
-            buffer.append("\"" + value + "\"");
+            buffer.append('"').append(value).append('"');
         }
 
         @Override

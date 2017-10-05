@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,15 +21,15 @@ import java.io.Serializable;
 
 /**
  * A mutable <code>Object</code> wrapper.
- * 
- * @param <T> the type to set and get 
+ *
+ * @param <T> the type to set and get
  * @since 2.1
  */
 public class MutableObject<T> implements Mutable<T>, Serializable {
 
     /**
      * Required for serialization support.
-     * 
+     *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 86241875189L;
@@ -46,7 +46,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
 
     /**
      * Constructs a new MutableObject with the specified value.
-     * 
+     *
      * @param value  the initial value to store
      */
     public MutableObject(final T value) {
@@ -57,7 +57,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     //-----------------------------------------------------------------------
     /**
      * Gets the value.
-     * 
+     *
      * @return the value, may be null
      */
     @Override
@@ -67,7 +67,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
 
     /**
      * Sets the value.
-     * 
+     *
      * @param value  the value to set
      */
     @Override
@@ -82,7 +82,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      * is not <code>null</code> and is a <code>MutableObject</code> object that contains the same <code>T</code>
      * value as this object.
      * </p>
-     * 
+     *
      * @param obj  the object to compare with, <code>null</code> returns <code>false</code>
      * @return  <code>true</code> if the objects are the same;
      *          <code>true</code> if the objects have equivalent <code>value</code> fields;
@@ -105,7 +105,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
 
     /**
      * Returns the value's hash code or <code>0</code> if the value is <code>null</code>.
-     * 
+     *
      * @return the value's hash code or <code>0</code> if the value is <code>null</code>.
      */
     @Override
@@ -116,7 +116,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
-     * 
+     *
      * @return the mutable value as a string
      */
     @Override

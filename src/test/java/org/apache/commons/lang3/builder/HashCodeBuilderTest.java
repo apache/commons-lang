@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -61,7 +61,7 @@ public class HashCodeBuilderTest {
     public void testConstructorExEvenFirst() {
         new HashCodeBuilder(2, 3);
     }
-    
+
     @Test(expected=IllegalArgumentException.class)
     public void testConstructorExEvenSecond() {
         new HashCodeBuilder(3, 2);
@@ -75,7 +75,7 @@ public class HashCodeBuilderTest {
     static class TestObject {
         private int a;
 
-        public TestObject(final int a) {
+        TestObject(final int a) {
             this.a = a;
         }
 
@@ -109,13 +109,13 @@ public class HashCodeBuilderTest {
         private int b;
 
         @SuppressWarnings("unused")
-        transient private int t;
+        private transient int t;
 
-        public TestSubObject() {
+        TestSubObject() {
             super(0);
         }
 
-        public TestSubObject(final int a, final int b, final int t) {
+        TestSubObject(final int a, final int b, final int t) {
             super(a);
             this.b = b;
             this.t = t;
@@ -195,7 +195,7 @@ public class HashCodeBuilderTest {
         obj = new Object();
         assertEquals(17 * 37 + obj.hashCode(), new HashCodeBuilder(17, 37).append(obj).toHashCode());
     }
-    
+
     @Test
     public void testObjectBuild() {
         Object obj = null;
@@ -207,16 +207,16 @@ public class HashCodeBuilderTest {
     @Test
     @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testLong() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((long) 0L).toHashCode());
+        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0L).toHashCode());
         assertEquals(17 * 37 + (int) (123456789L ^ 123456789L >> 32), new HashCodeBuilder(17, 37).append(
-                (long) 123456789L).toHashCode());
+                123456789L).toHashCode());
     }
 
     @Test
     @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testInt() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((int) 0).toHashCode());
-        assertEquals(17 * 37 + 123456, new HashCodeBuilder(17, 37).append((int) 123456).toHashCode());
+        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0).toHashCode());
+        assertEquals(17 * 37 + 123456, new HashCodeBuilder(17, 37).append(123456).toHashCode());
     }
 
     @Test
@@ -240,7 +240,7 @@ public class HashCodeBuilderTest {
     @Test
     @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testDouble() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((double) 0d).toHashCode());
+        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0d).toHashCode());
         final double d = 1234567.89;
         final long l = Double.doubleToLongBits(d);
         assertEquals(17 * 37 + (int) (l ^ l >> 32), new HashCodeBuilder(17, 37).append(d).toHashCode());
@@ -249,7 +249,7 @@ public class HashCodeBuilderTest {
     @Test
     @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testFloat() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((float) 0f).toHashCode());
+        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0f).toHashCode());
         final float f = 1234.89f;
         final int i = Float.floatToIntBits(f);
         assertEquals(17 * 37 + i, new HashCodeBuilder(17, 37).append(f).toHashCode());
@@ -491,16 +491,16 @@ public class HashCodeBuilderTest {
         assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x));
 
         assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, (String[]) null));
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, new String[]{}));
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, new String[]{"xxx"}));
+        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x));
+        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, "xxx"));
 
-        assertEquals((17 * 37 + 1) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, new String[]{"two"}));
-        assertEquals((17 * 37 + 1) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, new String[]{"three"}));
+        assertEquals((17 * 37 + 1) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, "two"));
+        assertEquals((17 * 37 + 1) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, "three"));
 
-        assertEquals(17 * 37 + 1, HashCodeBuilder.reflectionHashCode(x, new String[]{"two", "three"}));
+        assertEquals(17 * 37 + 1, HashCodeBuilder.reflectionHashCode(x, "two", "three"));
 
-        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, new String[]{"one", "two", "three"}));
-        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, new String[]{"one", "two", "three", "xxx"}));
+        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, "one", "two", "three"));
+        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, "one", "two", "three", "xxx"));
     }
 
     static class TestObjectWithMultipleFields {
@@ -513,7 +513,7 @@ public class HashCodeBuilderTest {
         @SuppressWarnings("unused")
         private int three = 0;
 
-        public TestObjectWithMultipleFields(final int one, final int two, final int three) {
+        TestObjectWithMultipleFields(final int one, final int two, final int three) {
             this.one = one;
             this.two = two;
             this.three = three;
@@ -529,7 +529,7 @@ public class HashCodeBuilderTest {
         final ReflectionTestCycleB b = new ReflectionTestCycleB();
         a.b = b;
         b.a = a;
-        
+
         // Used to caused:
         // java.lang.StackOverflowError
         // at java.lang.ClassLoader.getCallerClassLoader(Native Method)
@@ -559,7 +559,7 @@ public class HashCodeBuilderTest {
     @Test
     public void testToHashCodeEqualsHashCode() {
         final HashCodeBuilder hcb = new HashCodeBuilder(17, 37).append(new Object()).append('a');
-        assertEquals("hashCode() is no longer returning the same value as toHashCode() - see LANG-520", 
+        assertEquals("hashCode() is no longer returning the same value as toHashCode() - see LANG-520",
                      hcb.toHashCode(), hcb.hashCode());
     }
 
@@ -568,7 +568,7 @@ public class HashCodeBuilderTest {
         private final int a;
         private final int b;
 
-        public TestObjectHashCodeExclude(final int a, final int b) {
+        TestObjectHashCodeExclude(final int a, final int b) {
             this.a = a;
             this.b = b;
         }
@@ -588,7 +588,7 @@ public class HashCodeBuilderTest {
         @HashCodeExclude
         private final int b;
 
-        public TestObjectHashCodeExclude2(final int a, final int b) {
+        TestObjectHashCodeExclude2(final int a, final int b) {
             this.a = a;
             this.b = b;
         }

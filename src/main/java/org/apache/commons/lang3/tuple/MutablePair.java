@@ -18,7 +18,7 @@ package org.apache.commons.lang3.tuple;
 
 /**
  * <p>A mutable pair consisting of two {@code Object} elements.</p>
- * 
+ *
  * <p>Not #ThreadSafe#</p>
  *
  * @param <L> the left element type
@@ -38,10 +38,10 @@ public class MutablePair<L, R> extends Pair<L, R> {
 
     /**
      * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
-     * 
+     *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
-     * 
+     *
      * @param <L> the left element type
      * @param <R> the right element type
      * @param left  the left element, may be null
@@ -82,7 +82,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
 
     /**
      * Sets the left element of the pair.
-     * 
+     *
      * @param left  the new value of the left element, may be null
      */
     public void setLeft(final L left) {
@@ -99,7 +99,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
 
     /**
      * Sets the right element of the pair.
-     * 
+     *
      * @param right  the new value of the right element, may be null
      */
     public void setRight(final R right) {
@@ -109,7 +109,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Sets the {@code Map.Entry} value.
      * This sets the right element of the pair.
-     * 
+     *
      * @param value  the right value to set, not null
      * @return the old value for the right element
      */

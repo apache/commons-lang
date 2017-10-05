@@ -36,6 +36,7 @@ import org.junit.Test;
 /**
  * Test class for StrSubstitutor.
  */
+@Deprecated
 public class StrSubstitutorTest {
 
     private Map<String, String> values;
@@ -477,7 +478,7 @@ public class StrSubstitutorTest {
         sub.setVariablePrefix("<<");
         assertTrue(sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
         try {
-            sub.setVariablePrefix((String) null);
+            sub.setVariablePrefix(null);
             fail();
         } catch (final IllegalArgumentException ex) {
             // expected
@@ -488,7 +489,7 @@ public class StrSubstitutorTest {
         sub.setVariablePrefixMatcher(matcher);
         assertSame(matcher, sub.getVariablePrefixMatcher());
         try {
-            sub.setVariablePrefixMatcher((StrMatcher) null);
+            sub.setVariablePrefixMatcher(null);
             fail();
         } catch (final IllegalArgumentException ex) {
             // expected
@@ -509,7 +510,7 @@ public class StrSubstitutorTest {
         sub.setVariableSuffix("<<");
         assertTrue(sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
         try {
-            sub.setVariableSuffix((String) null);
+            sub.setVariableSuffix(null);
             fail();
         } catch (final IllegalArgumentException ex) {
             // expected
@@ -520,7 +521,7 @@ public class StrSubstitutorTest {
         sub.setVariableSuffixMatcher(matcher);
         assertSame(matcher, sub.getVariableSuffixMatcher());
         try {
-            sub.setVariableSuffixMatcher((StrMatcher) null);
+            sub.setVariableSuffixMatcher(null);
             fail();
         } catch (final IllegalArgumentException ex) {
             // expected
@@ -540,13 +541,13 @@ public class StrSubstitutorTest {
 
         sub.setValueDelimiter("||");
         assertTrue(sub.getValueDelimiterMatcher() instanceof StrMatcher.StringMatcher);
-        sub.setValueDelimiter((String) null);
+        sub.setValueDelimiter(null);
         assertNull(sub.getValueDelimiterMatcher());
 
         final StrMatcher matcher = StrMatcher.commaMatcher();
         sub.setValueDelimiterMatcher(matcher);
         assertSame(matcher, sub.getValueDelimiterMatcher());
-        sub.setValueDelimiterMatcher((StrMatcher) null);
+        sub.setValueDelimiterMatcher(null);
         assertNull(sub.getValueDelimiterMatcher());
     }
 

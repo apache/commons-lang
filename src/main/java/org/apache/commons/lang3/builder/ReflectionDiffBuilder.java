@@ -33,18 +33,18 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  * of the objects to diff are discovered using reflection and compared
  * for differences.
  * </p>
- * 
+ *
  * <p>
  * To use this class, write code as follows:
  * </p>
- * 
+ *
  * <pre>
  * public class Person implements Diffable&lt;Person&gt; {
  *   String name;
  *   int age;
  *   boolean smoker;
  *   ...
- *   
+ *
  *   public DiffResult diff(Person obj) {
  *     // No need for null check, as NullPointerException correct if obj is null
  *     return new ReflectionDiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -52,7 +52,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  *   }
  * }
  * </pre>
- * 
+ *
  * <p>
  * The {@code ToStringStyle} passed to the constructor is embedded in the
  * returned {@code DiffResult} and influences the style of the
@@ -75,7 +75,7 @@ public class ReflectionDiffBuilder implements Builder<DiffResult> {
      * <p>
      * Constructs a builder for the specified objects with the specified style.
      * </p>
-     * 
+     *
      * <p>
      * If {@code lhs == rhs} or {@code lhs.equals(rhs)} then the builder will
      * not evaluate any calls to {@code append(...)} and will return an empty
@@ -131,10 +131,7 @@ public class ReflectionDiffBuilder implements Builder<DiffResult> {
         if (Modifier.isTransient(field.getModifiers())) {
             return false;
         }
-        if (Modifier.isStatic(field.getModifiers())) {
-            return false;
-        }
-        return true;
+        return !Modifier.isStatic(field.getModifiers());
     }
 
 }

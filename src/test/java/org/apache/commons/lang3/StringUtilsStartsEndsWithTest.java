@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,8 +17,10 @@
 package org.apache.commons.lang3;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.apache.commons.lang3.text.StrBuilder;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - StartsWith/EndsWith methods
@@ -38,8 +40,8 @@ public class StringUtilsStartsEndsWithTest {
      */
     @Test
     public void testStartsWith() {
-        assertTrue("startsWith(null, null)", StringUtils.startsWith(null, (String)null));
-        assertFalse("startsWith(FOOBAR, null)", StringUtils.startsWith(FOOBAR, (String)null));
+        assertTrue("startsWith(null, null)", StringUtils.startsWith(null, null));
+        assertFalse("startsWith(FOOBAR, null)", StringUtils.startsWith(FOOBAR, null));
         assertFalse("startsWith(null, FOO)",    StringUtils.startsWith(null, FOO));
         assertTrue("startsWith(FOOBAR, \"\")",  StringUtils.startsWith(FOOBAR, ""));
 
@@ -62,8 +64,8 @@ public class StringUtilsStartsEndsWithTest {
      */
     @Test
     public void testStartsWithIgnoreCase() {
-        assertTrue("startsWithIgnoreCase(null, null)",    StringUtils.startsWithIgnoreCase(null, (String)null));
-        assertFalse("startsWithIgnoreCase(FOOBAR, null)", StringUtils.startsWithIgnoreCase(FOOBAR, (String)null));
+        assertTrue("startsWithIgnoreCase(null, null)",    StringUtils.startsWithIgnoreCase(null, null));
+        assertFalse("startsWithIgnoreCase(FOOBAR, null)", StringUtils.startsWithIgnoreCase(FOOBAR, null));
         assertFalse("startsWithIgnoreCase(null, FOO)",    StringUtils.startsWithIgnoreCase(null, FOO));
         assertTrue("startsWithIgnoreCase(FOOBAR, \"\")",  StringUtils.startsWithIgnoreCase(FOOBAR, ""));
 
@@ -95,17 +97,17 @@ public class StringUtilsStartsEndsWithTest {
         assertFalse(StringUtils.startsWithAny("ABCXYZ", null, "xyz", "abc"));
 
         assertTrue("StringUtils.startsWithAny(abcxyz, StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny("abcxyz", new StringBuilder("xyz"), new StringBuffer("abc")));
-        assertTrue("StringUtils.startsWithAny( StrBuilder(abcxyz), StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny( new StrBuilder("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")));
+        assertTrue("StringUtils.startsWithAny(StringBuffer(abcxyz), StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny(new StringBuffer("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")));
     }
- 
+
 
     /**
      * Test StringUtils.endsWith()
      */
     @Test
     public void testEndsWith() {
-        assertTrue("endsWith(null, null)",    StringUtils.endsWith(null, (String)null));
-        assertFalse("endsWith(FOOBAR, null)", StringUtils.endsWith(FOOBAR, (String)null));
+        assertTrue("endsWith(null, null)",    StringUtils.endsWith(null, null));
+        assertFalse("endsWith(FOOBAR, null)", StringUtils.endsWith(FOOBAR, null));
         assertFalse("endsWith(null, FOO)",    StringUtils.endsWith(null, FOO));
         assertTrue("endsWith(FOOBAR, \"\")",  StringUtils.endsWith(FOOBAR, ""));
 
@@ -135,8 +137,8 @@ public class StringUtilsStartsEndsWithTest {
      */
     @Test
     public void testEndsWithIgnoreCase() {
-        assertTrue("endsWithIgnoreCase(null, null)",    StringUtils.endsWithIgnoreCase(null, (String)null));
-        assertFalse("endsWithIgnoreCase(FOOBAR, null)", StringUtils.endsWithIgnoreCase(FOOBAR, (String)null));
+        assertTrue("endsWithIgnoreCase(null, null)",    StringUtils.endsWithIgnoreCase(null, null));
+        assertFalse("endsWithIgnoreCase(FOOBAR, null)", StringUtils.endsWithIgnoreCase(FOOBAR, null));
         assertFalse("endsWithIgnoreCase(null, FOO)",    StringUtils.endsWithIgnoreCase(null, FOO));
         assertTrue("endsWithIgnoreCase(FOOBAR, \"\")",  StringUtils.endsWithIgnoreCase(FOOBAR, ""));
 
@@ -181,7 +183,7 @@ public class StringUtilsStartsEndsWithTest {
 
         /*
          * Type null of the last argument to method endsWithAny(CharSequence, CharSequence...)
-         * doesn't exactly match the vararg parameter type. 
+         * doesn't exactly match the vararg parameter type.
          * Cast to CharSequence[] to confirm the non-varargs invocation,
          * or pass individual arguments of type CharSequence for a varargs invocation.
          *
@@ -192,7 +194,7 @@ public class StringUtilsStartsEndsWithTest {
         assertTrue(StringUtils.endsWithAny("abcXYZ", ""));
 
         assertTrue("StringUtils.endsWithAny(abcxyz, StringBuilder(abc), StringBuffer(xyz))", StringUtils.endsWithAny("abcxyz", new StringBuilder("abc"), new StringBuffer("xyz")));
-        assertTrue("StringUtils.endsWithAny( StrBuilder(abcxyz), StringBuilder(abc), StringBuffer(xyz))", StringUtils.endsWithAny( new StrBuilder("abcxyz"), new StringBuilder("abc"), new StringBuffer("xyz")));
+        assertTrue("StringUtils.endsWithAny(StringBuffer(abcxyz), StringBuilder(abc), StringBuffer(xyz))", StringUtils.endsWithAny(new StringBuffer("abcxyz"), new StringBuilder("abc"), new StringBuffer("xyz")));
     }
 
 

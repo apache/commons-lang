@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,11 +17,14 @@
 package org.apache.commons.lang3.mutable;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * JUnit tests.
- * 
+ *
  * @see MutableLong
  */
 public class MutableLongTest {
@@ -30,9 +33,9 @@ public class MutableLongTest {
     @Test
     public void testConstructors() {
         assertEquals(0, new MutableLong().longValue());
-        
+
         assertEquals(1, new MutableLong(1).longValue());
-        
+
         assertEquals(2, new MutableLong(Long.valueOf(2)).longValue());
         assertEquals(3, new MutableLong(new MutableLong(3)).longValue());
 
@@ -50,15 +53,15 @@ public class MutableLongTest {
         final MutableLong mutNum = new MutableLong(0);
         assertEquals(0, new MutableLong().longValue());
         assertEquals(Long.valueOf(0), new MutableLong().getValue());
-        
+
         mutNum.setValue(1);
         assertEquals(1, mutNum.longValue());
         assertEquals(Long.valueOf(1), mutNum.getValue());
-        
+
         mutNum.setValue(Long.valueOf(2));
         assertEquals(2, mutNum.longValue());
         assertEquals(Long.valueOf(2), mutNum.getValue());
-        
+
         mutNum.setValue(new MutableLong(3));
         assertEquals(3, mutNum.longValue());
         assertEquals(Long.valueOf(3), mutNum.getValue());
@@ -137,14 +140,14 @@ public class MutableLongTest {
     public void testIncrement() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.increment();
-        
+
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
     }
 
     @Test
     public void testIncrementAndGet() {
-        final MutableLong mutNum = new MutableLong((long) 1);
+        final MutableLong mutNum = new MutableLong(1L);
         final long result = mutNum.incrementAndGet();
 
         assertEquals(2, result);
@@ -154,7 +157,7 @@ public class MutableLongTest {
 
     @Test
     public void testGetAndIncrement() {
-        final MutableLong mutNum = new MutableLong((long) 1);
+        final MutableLong mutNum = new MutableLong(1L);
         final long result = mutNum.getAndIncrement();
 
         assertEquals(1, result);
@@ -166,14 +169,14 @@ public class MutableLongTest {
     public void testDecrement() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.decrement();
-        
+
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
     }
 
     @Test
     public void testDecrementAndGet() {
-        final MutableLong mutNum = new MutableLong((long) 1);
+        final MutableLong mutNum = new MutableLong(1L);
         final long result = mutNum.decrementAndGet();
 
         assertEquals(0, result);
@@ -183,7 +186,7 @@ public class MutableLongTest {
 
     @Test
     public void testGetAndDecrement() {
-        final MutableLong mutNum = new MutableLong((long) 1);
+        final MutableLong mutNum = new MutableLong(1L);
         final long result = mutNum.getAndDecrement();
 
         assertEquals(1, result);
@@ -195,7 +198,7 @@ public class MutableLongTest {
     public void testAddValuePrimitive() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.add(1);
-        
+
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
     }
@@ -204,52 +207,52 @@ public class MutableLongTest {
     public void testAddValueObject() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.add(Long.valueOf(1));
-        
+
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
     }
 
     @Test
     public void testGetAndAddValuePrimitive() {
-        final MutableLong mutableLong = new MutableLong((long)0);
-        final long result = mutableLong.getAndAdd((long) 1);
+        final MutableLong mutableLong = new MutableLong(0L);
+        final long result = mutableLong.getAndAdd(1L);
 
-        assertEquals((long) 0, result);
-        assertEquals((long) 1, mutableLong.longValue());
+        assertEquals(0L, result);
+        assertEquals(1L, mutableLong.longValue());
     }
 
     @Test
     public void testGetAndAddValueObject() {
-        final MutableLong mutableLong = new MutableLong((long)0);
-        final long result = mutableLong.getAndAdd(Long.valueOf((long) 1));
+        final MutableLong mutableLong = new MutableLong(0L);
+        final long result = mutableLong.getAndAdd(Long.valueOf(1L));
 
-        assertEquals((long) 0, result);
-        assertEquals((long) 1, mutableLong.longValue());
+        assertEquals(0L, result);
+        assertEquals(1L, mutableLong.longValue());
     }
 
     @Test
     public void testAddAndGetValuePrimitive() {
-        final MutableLong mutableLong = new MutableLong((long)0);
-        final long result = mutableLong.addAndGet((long) 1);
+        final MutableLong mutableLong = new MutableLong(0L);
+        final long result = mutableLong.addAndGet(1L);
 
-        assertEquals((long) 1, result);
-        assertEquals((long) 1, mutableLong.longValue());
+        assertEquals(1L, result);
+        assertEquals(1L, mutableLong.longValue());
     }
 
     @Test
     public void testAddAndGetValueObject() {
-        final MutableLong mutableLong = new MutableLong((long)0);
-        final long result = mutableLong.addAndGet(Long.valueOf((long) 1));
+        final MutableLong mutableLong = new MutableLong(0L);
+        final long result = mutableLong.addAndGet(Long.valueOf(1L));
 
-        assertEquals((long) 1, result);
-        assertEquals((long) 1, mutableLong.longValue());
+        assertEquals(1L, result);
+        assertEquals(1L, mutableLong.longValue());
     }
 
     @Test
     public void testSubtractValuePrimitive() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.subtract(1);
-        
+
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
     }
@@ -258,7 +261,7 @@ public class MutableLongTest {
     public void testSubtractValueObject() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.subtract(Long.valueOf(1));
-        
+
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
     }

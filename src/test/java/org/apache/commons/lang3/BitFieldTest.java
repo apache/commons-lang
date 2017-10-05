@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -88,15 +88,15 @@ public class BitFieldTest  {
      */
     @Test
     public void testIsSet() {
-        assertTrue(!bf_multi.isSet(0));
-        assertTrue(!bf_zero.isSet(0));
+        assertFalse(bf_multi.isSet(0));
+        assertFalse(bf_zero.isSet(0));
         for (int j = 0x80; j <= 0x3F80; j += 0x80) {
             assertTrue(bf_multi.isSet(j));
         }
         for (int j = 0x80; j <= 0x3F80; j += 0x80) {
-            assertTrue(!bf_zero.isSet(j));
+            assertFalse(bf_zero.isSet(j));
         }
-        assertTrue(!bf_single.isSet(0));
+        assertFalse(bf_single.isSet(0));
         assertTrue(bf_single.isSet(0x4000));
     }
 
@@ -106,11 +106,11 @@ public class BitFieldTest  {
     @Test
     public void testIsAllSet() {
         for (int j = 0; j < 0x3F80; j += 0x80) {
-            assertTrue(!bf_multi.isAllSet(j));
+            assertFalse(bf_multi.isAllSet(j));
             assertTrue(bf_zero.isAllSet(j));
         }
         assertTrue(bf_multi.isAllSet(0x3F80));
-        assertTrue(!bf_single.isAllSet(0));
+        assertFalse(bf_single.isAllSet(0));
         assertTrue(bf_single.isAllSet(0x4000));
     }
 

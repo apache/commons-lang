@@ -30,16 +30,16 @@ import java.util.TimeZone;
  * <p>FastDateFormat is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
  *
- * <p>To obtain an instance of FastDateFormat, use one of the static factory methods: 
- * {@link #getInstance(String, TimeZone, Locale)}, {@link #getDateInstance(int, TimeZone, Locale)}, 
- * {@link #getTimeInstance(int, TimeZone, Locale)}, or {@link #getDateTimeInstance(int, int, TimeZone, Locale)} 
+ * <p>To obtain an instance of FastDateFormat, use one of the static factory methods:
+ * {@link #getInstance(String, TimeZone, Locale)}, {@link #getDateInstance(int, TimeZone, Locale)},
+ * {@link #getTimeInstance(int, TimeZone, Locale)}, or {@link #getDateTimeInstance(int, int, TimeZone, Locale)}
  * </p>
- * 
+ *
  * <p>Since FastDateFormat is thread safe, you can use a static member instance:</p>
  * <code>
  *   private static final FastDateFormat DATE_FORMATTER = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.SHORT);
  * </code>
- * 
+ *
  * <p>This class can be used as a direct replacement to
  * {@code SimpleDateFormat} in most formatting and parsing situations.
  * This class is especially useful in multi-threaded server environments.
@@ -70,7 +70,7 @@ import java.util.TimeZone;
  * @since 2.0
  */
 public class FastDateFormat extends Format implements DateParser, DatePrinter {
-    
+
     /**
      * Required for serialization support.
      *
@@ -81,19 +81,19 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * FULL locale dependent date or time style.
      */
-    
+
     public static final int FULL = DateFormat.FULL;
-    
+
     /**
      * LONG locale dependent date or time style.
      */
     public static final int LONG = DateFormat.LONG;
-    
+
     /**
      * MEDIUM locale dependent date or time style.
      */
     public static final int MEDIUM = DateFormat.MEDIUM;
-    
+
     /**
      * SHORT locale dependent date or time style.
      */
@@ -632,7 +632,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof FastDateFormat == false) {
+        if (!(obj instanceof FastDateFormat)) {
             return false;
         }
         final FastDateFormat other = (FastDateFormat) obj;

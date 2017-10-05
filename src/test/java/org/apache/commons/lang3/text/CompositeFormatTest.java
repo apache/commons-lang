@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +18,9 @@
 package org.apache.commons.lang3.text;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
@@ -28,10 +30,11 @@ import java.util.Locale;
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.CompositeFormat}.
  */
+@Deprecated
 public class CompositeFormatTest {
 
     /**
-     * Ensures that the parse/format separation is correctly maintained. 
+     * Ensures that the parse/format separation is correctly maintained.
      */
     @Test
     public void testCompositeFormat() {

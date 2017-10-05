@@ -26,6 +26,7 @@ import org.junit.Test;
 /**
  * Unit tests {@link FormattableUtils}.
  */
+@Deprecated
 public class FormattableUtilsTest {
 
     @Test
