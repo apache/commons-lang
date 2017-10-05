@@ -9255,7 +9255,7 @@ public class StringUtils {
      * @return list of integer of indexes.
      */
     public static List<Integer> indexesOf(final CharSequence source, final Character searchKey) {
-    	if(isEmpty(source) || searchKey == CharUtils.NUL ) {
+    	if(isEmpty(source) || searchKey == null ) {
     	    return null;
     	}
     	List<Integer> indexList = new ArrayList<>();
