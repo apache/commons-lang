@@ -919,7 +919,7 @@ public class FastDateParser implements DateParser, Serializable {
         @Override
         void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
             if (value.equals("Z")) {
-                cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+                cal.setTimeZone(TimeZone.getTimeZone(TimeZones.GMT_ID));
             } else {
                 cal.setTimeZone(TimeZone.getTimeZone(TimeZones.GMT_ID + value));
             }
