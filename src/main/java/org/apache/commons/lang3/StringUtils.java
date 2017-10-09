@@ -5501,7 +5501,7 @@ public class StringUtils {
          }
          String searchText = text;
          if (ignoreCase) {
-             searchText = text.toLowerCase();
+             searchText = text.toLowerCase(Locale.ENGLISH);
              searchString = searchString.toLowerCase();
          }
          int start = 0;
