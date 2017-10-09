@@ -888,11 +888,8 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         void setCalendar(final FastDateParser parser, final Calendar cal, final String timeZone) {
-            if (timeZone.charAt(0) == '+' || timeZone.charAt(0) == '-') {
-                final TimeZone tz = TimeZone.getTimeZone(TimeZones.GMT_ID + timeZone);
-                cal.setTimeZone(tz);
-            } else if (timeZone.regionMatches(true, 0, TimeZones.GMT_ID, 0, 3)) {
-                final TimeZone tz = TimeZone.getTimeZone(timeZone.toUpperCase(Locale.ROOT));
+            TimeZone tz = FastTimeZone.getGmtTimeZone(timeZone);
+            if (tz != null) {
                 cal.setTimeZone(tz);
             } else {
                 final TzInfo tzInfo = tzNames.get(timeZone.toLowerCase(locale));
@@ -918,11 +915,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
-            if (value.equals("Z")) {
-                cal.setTimeZone(TimeZone.getTimeZone(TimeZones.GMT_ID));
-            } else {
-                cal.setTimeZone(TimeZone.getTimeZone(TimeZones.GMT_ID + value));
-            }
+            cal.setTimeZone(FastTimeZone.getGmtTimeZone(value));
         }
 
         private static final Strategy ISO_8601_1_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}))");

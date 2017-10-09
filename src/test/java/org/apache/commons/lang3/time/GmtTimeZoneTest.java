@@ -1,0 +1,80 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.lang3.time;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+/**
+ * Tests for GmtTimeZone
+ */
+public class GmtTimeZoneTest {
+
+    @Test(expected = IllegalArgumentException.class)
+    public void hoursOutOfRange() {
+        new GmtTimeZone(false, 24, 0);
+    }
+
+    @Test
+    public void hoursInRange() {
+        Assert.assertEquals(23 * 60 * 60 * 1000, new GmtTimeZone(false, 23, 0).getRawOffset());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void minutesOutOfRange() {
+        Assert.assertEquals(0, new GmtTimeZone(false, 60, 0));
+    }
+
+    @Test
+    public void minutesInRange() {
+        Assert.assertEquals(59 * 60 * 1000, new GmtTimeZone(false, 0, 59).getRawOffset());
+    }
+
+    @Test
+    public void getOffset() {
+        Assert.assertEquals(0, new GmtTimeZone(false, 0, 0).getOffset(234304));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void setRawOffset() {
+        new GmtTimeZone(false, 0, 0).setRawOffset(0);
+    }
+
+    @Test
+    public void getRawOffset() {
+        Assert.assertEquals(0, new GmtTimeZone(false, 0, 0).getRawOffset());
+    }
+
+    @Test
+    public void getID() {
+        Assert.assertEquals("GMT+00:00", new GmtTimeZone(false, 0, 0).getID());
+        Assert.assertEquals("GMT+01:02", new GmtTimeZone(false, 1, 2).getID());
+        Assert.assertEquals("GMT+11:22", new GmtTimeZone(false, 11, 22).getID());
+        Assert.assertEquals("GMT-01:02", new GmtTimeZone(true, 1, 2).getID());
+        Assert.assertEquals("GMT-11:22", new GmtTimeZone(true, 11, 22).getID());
+    }
+
+    @Test
+    public void useDaylightTime() {
+        Assert.assertFalse(new GmtTimeZone(false, 0, 0).useDaylightTime());
+    }
+
+    @Test
+    public void inDaylightTime() {
+        Assert.assertFalse(new GmtTimeZone(false, 0, 0).useDaylightTime());
+    }
+}
