@@ -956,6 +956,7 @@ public class FastDateParser implements DateParser, Serializable {
             return iValue-1;
         }
     };
+    
     private static final Strategy LITERAL_YEAR_STRATEGY = new NumberStrategy(Calendar.YEAR);
     private static final Strategy WEEK_OF_YEAR_STRATEGY = new NumberStrategy(Calendar.WEEK_OF_YEAR);
     private static final Strategy WEEK_OF_MONTH_STRATEGY = new NumberStrategy(Calendar.WEEK_OF_MONTH);
@@ -967,6 +968,7 @@ public class FastDateParser implements DateParser, Serializable {
             return iValue != 7 ? iValue + 1 : Calendar.SUNDAY;
         }
     };
+    
     private static final Strategy DAY_OF_WEEK_IN_MONTH_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK_IN_MONTH);
     private static final Strategy HOUR_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY);
     private static final Strategy HOUR24_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY) {
@@ -975,12 +977,14 @@ public class FastDateParser implements DateParser, Serializable {
             return iValue == 24 ? 0 : iValue;
         }
     };
+    
     private static final Strategy HOUR12_STRATEGY = new NumberStrategy(Calendar.HOUR) {
         @Override
         int modify(final FastDateParser parser, final int iValue) {
             return iValue == 12 ? 0 : iValue;
         }
     };
+    
     private static final Strategy HOUR_STRATEGY = new NumberStrategy(Calendar.HOUR);
     private static final Strategy MINUTE_STRATEGY = new NumberStrategy(Calendar.MINUTE);
     private static final Strategy SECOND_STRATEGY = new NumberStrategy(Calendar.SECOND);
