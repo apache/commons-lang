@@ -6609,7 +6609,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return str.toUpperCase();
+        return str.toUpperCase(Locale.ENGLISH);
     }
 
     /**
