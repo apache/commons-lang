@@ -844,7 +844,7 @@ public class FastDateParser implements DateParser, Serializable {
             for (final String[] zoneNames : zones) {
                 // offset 0 is the time zone ID and is not localized
                 final String tzId = zoneNames[ID];
-                if (tzId.equalsIgnoreCase("GMT")) {
+                if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
                     continue;
                 }
                 final TimeZone tz = TimeZone.getTimeZone(tzId);
@@ -889,9 +889,9 @@ public class FastDateParser implements DateParser, Serializable {
         @Override
         void setCalendar(final FastDateParser parser, final Calendar cal, final String timeZone) {
             if (timeZone.charAt(0) == '+' || timeZone.charAt(0) == '-') {
-                final TimeZone tz = TimeZone.getTimeZone("GMT" + timeZone);
+                final TimeZone tz = TimeZone.getTimeZone(TimeZones.GMT_ID + timeZone);
                 cal.setTimeZone(tz);
-            } else if (timeZone.regionMatches(true, 0, "GMT", 0, 3)) {
+            } else if (timeZone.regionMatches(true, 0, TimeZones.GMT_ID, 0, 3)) {
                 final TimeZone tz = TimeZone.getTimeZone(timeZone.toUpperCase(Locale.ROOT));
                 cal.setTimeZone(tz);
             } else {
