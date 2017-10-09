@@ -406,7 +406,7 @@ public class ExtendedMessageFormatTest {
 
         @Override
         public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
-            return toAppendTo.append(((String)obj).toLowerCase());
+            return toAppendTo.append(((String)obj).toLowerCase(Locale.ROOT));
         }
         @Override
         public Object parseObject(final String source, final ParsePosition pos) {
