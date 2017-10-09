@@ -887,15 +887,15 @@ public class FastDateParser implements DateParser, Serializable {
          * {@inheritDoc}
          */
         @Override
-        void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
-            if (value.charAt(0) == '+' || value.charAt(0) == '-') {
-                final TimeZone tz = TimeZone.getTimeZone("GMT" + value);
+        void setCalendar(final FastDateParser parser, final Calendar cal, final String timeZone) {
+            if (timeZone.charAt(0) == '+' || timeZone.charAt(0) == '-') {
+                final TimeZone tz = TimeZone.getTimeZone("GMT" + timeZone);
                 cal.setTimeZone(tz);
-            } else if (value.regionMatches(true, 0, "GMT", 0, 3)) {
-                final TimeZone tz = TimeZone.getTimeZone(value.toUpperCase());
+            } else if (timeZone.regionMatches(true, 0, "GMT", 0, 3)) {
+                final TimeZone tz = TimeZone.getTimeZone(timeZone.toUpperCase(Locale.ROOT));
                 cal.setTimeZone(tz);
             } else {
-                final TzInfo tzInfo = tzNames.get(value.toLowerCase(locale));
+                final TzInfo tzInfo = tzNames.get(timeZone.toLowerCase(locale));
                 cal.set(Calendar.DST_OFFSET, tzInfo.dstOffset);
                 cal.set(Calendar.ZONE_OFFSET, tzInfo.zone.getRawOffset());
             }
