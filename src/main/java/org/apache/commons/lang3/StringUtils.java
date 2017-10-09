@@ -5501,8 +5501,8 @@ public class StringUtils {
          }
          String searchText = text;
          if (ignoreCase) {
-             searchText = text.toLowerCase();
-             searchString = searchString.toLowerCase();
+             searchText = text.toLowerCase(Locale.ENGLISH);
+             searchString = searchString.toLowerCase(Locale.ENGLISH);
          }
          int start = 0;
          int end = searchText.indexOf(searchString, start);
@@ -6609,7 +6609,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return str.toUpperCase();
+        return str.toUpperCase(Locale.ENGLISH);
     }
 
     /**
@@ -6658,7 +6658,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return str.toLowerCase();
+        return str.toLowerCase(Locale.ENGLISH);
     }
 
     /**
