@@ -6658,7 +6658,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return str.toLowerCase();
+        return str.toLowerCase(Locale.ENGLISH);
     }
 
     /**
