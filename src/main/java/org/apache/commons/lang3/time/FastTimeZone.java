@@ -63,7 +63,7 @@ public class FastTimeZone {
      * @return A TimeZone with offset from GMT or null, if pattern does not match.
      */
     public static TimeZone getGmtTimeZone(String pattern) {
-        if ("Z".equals(pattern)) {
+        if ("Z".equals(pattern) || "UTC".equals(pattern)) {
             return GREENWICH;
         }
 

@@ -47,6 +47,11 @@ public class FastTimeZoneTest {
     }
 
     @Test
+    public void testUTC() {
+        Assert.assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("UTC"));
+    }
+
+    @Test
     public void testZeroOffsetsReturnSingleton() {
         Assert.assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("+0"));
         Assert.assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("-0"));
