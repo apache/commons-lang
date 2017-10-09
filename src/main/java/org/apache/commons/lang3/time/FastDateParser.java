@@ -921,7 +921,7 @@ public class FastDateParser implements DateParser, Serializable {
             if (value.equals("Z")) {
                 cal.setTimeZone(TimeZone.getTimeZone("UTC"));
             } else {
-                cal.setTimeZone(TimeZone.getTimeZone("GMT" + value));
+                cal.setTimeZone(TimeZone.getTimeZone(TimeZones.GMT_ID + value));
             }
         }
 
