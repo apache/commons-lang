@@ -424,7 +424,7 @@ public class ExtendedMessageFormatTest {
         public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
             return toAppendTo.append(((String) obj).toUpperCase(Locale.ROOT));
         }
-        
+
         @Override
         public Object parseObject(final String source, final ParsePosition pos) {
             throw new UnsupportedOperationException();
@@ -438,7 +438,7 @@ public class ExtendedMessageFormatTest {
      */
     private static class LowerCaseFormatFactory implements FormatFactory {
         private static final Format LOWER_INSTANCE = new LowerCaseFormat();
-        
+
         @Override
         public Format getFormat(final String name, final String arguments, final Locale locale) {
             return LOWER_INSTANCE;
@@ -449,7 +449,7 @@ public class ExtendedMessageFormatTest {
      */
     private static class UpperCaseFormatFactory implements FormatFactory {
         private static final Format UPPER_INSTANCE = new UpperCaseFormat();
-        
+
         @Override
         public Format getFormat(final String name, final String arguments, final Locale locale) {
             return UPPER_INSTANCE;
@@ -459,7 +459,7 @@ public class ExtendedMessageFormatTest {
      * {@link FormatFactory} implementation to override date format "short" to "default".
      */
     private static class OverrideShortDateFormatFactory implements FormatFactory {
-        
+
         @Override
         public Format getFormat(final String name, final String arguments, final Locale locale) {
             return !"short".equals(arguments) ? null
