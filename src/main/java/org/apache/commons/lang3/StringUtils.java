@@ -5502,7 +5502,7 @@ public class StringUtils {
          String searchText = text;
          if (ignoreCase) {
              searchText = text.toLowerCase(Locale.ENGLISH);
-             searchString = searchString.toLowerCase();
+             searchString = searchString.toLowerCase(Locale.ENGLISH);
          }
          int start = 0;
          int end = searchText.indexOf(searchString, start);
