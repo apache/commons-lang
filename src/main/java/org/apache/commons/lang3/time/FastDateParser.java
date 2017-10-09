@@ -808,7 +808,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     static class TimeZoneStrategy extends PatternStrategy {
         private static final String RFC_822_TIME_ZONE = "[+-]\\d{4}";
-        private static final String GMT_OPTION= "GMT[+-]\\d{1,2}:\\d{2}";
+        private static final String GMT_OPTION = TimeZones.GMT_ID + "[+-]\\d{1,2}:\\d{2}";
 
         private final Locale locale;
         private final Map<String, TzInfo> tzNames= new HashMap<>();
