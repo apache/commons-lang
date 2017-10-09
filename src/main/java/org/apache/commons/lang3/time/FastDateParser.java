@@ -892,7 +892,7 @@ public class FastDateParser implements DateParser, Serializable {
                 final TimeZone tz = TimeZone.getTimeZone("GMT" + value);
                 cal.setTimeZone(tz);
             } else if (value.regionMatches(true, 0, "GMT", 0, 3)) {
-                final TimeZone tz = TimeZone.getTimeZone(value.toUpperCase());
+                final TimeZone tz = TimeZone.getTimeZone(value.toUpperCase(Locale.ENGLISH));
                 cal.setTimeZone(tz);
             } else {
                 final TzInfo tzInfo = tzNames.get(value.toLowerCase(locale));
