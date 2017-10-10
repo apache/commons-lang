@@ -99,8 +99,7 @@ class GmtTimeZone extends TimeZone {
     public boolean equals(Object other) {
         if (!(other instanceof GmtTimeZone)) {
             return false;
-        } else {
-            return zoneId == ((GmtTimeZone) other).zoneId;
         }
+        return zoneId == ((GmtTimeZone) other).zoneId;
     }
 }
