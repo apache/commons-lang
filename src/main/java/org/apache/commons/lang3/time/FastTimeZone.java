@@ -27,11 +27,9 @@ import java.util.regex.Pattern;
  */
 public class FastTimeZone {
 
-    private static final TimeZone GREENWICH = new GmtTimeZone(false, 0, 0);
+    private static final Pattern GMT_PATTERN = Pattern.compile("^(?:(?i)GMT)?([+-])?(\\d\\d?)?(:?(\\d\\d?))?$");
 
-    // do not instantiate
-    private FastTimeZone() {
-    }
+    private static final TimeZone GREENWICH = new GmtTimeZone(false, 0, 0);
 
     /**
      * Gets the GMT TimeZone.
@@ -40,25 +38,6 @@ public class FastTimeZone {
     public static TimeZone getGmtTimeZone() {
         return GREENWICH;
     }
-
-    /**
-     * Gets a TimeZone, looking first for GMT custom ids, then falling back to Olson ids.
-     * A GMT custom id can be 'Z', or 'UTC', or has an optional prefix of GMT,
-     * followed by sign, hours digit(s), optional colon(':'), and optional minutes digits.
-     * i.e. <em>[GMT] (+|-) Hours [[:] Minutes]</em>
-     *
-     * @param id A GMT custom id (or Olson id
-     * @return A timezone
-     */
-    public static TimeZone getTimeZone(String id) {
-        TimeZone tz = getGmtTimeZone(id);
-        if (tz != null) {
-            return tz;
-        }
-        return TimeZone.getTimeZone(id);
-    }
-
-    private static final Pattern GMT_PATTERN = Pattern.compile("^(?:(?i)GMT)?([+-])?(\\d\\d?)?(:?(\\d\\d?))?$");
 
     /**
      * Gets a TimeZone with GMT offsets.  A GMT offset must be either 'Z', or 'UTC', or match
@@ -84,12 +63,33 @@ public class FastTimeZone {
         return null;
     }
 
+    /**
+     * Gets a TimeZone, looking first for GMT custom ids, then falling back to Olson ids.
+     * A GMT custom id can be 'Z', or 'UTC', or has an optional prefix of GMT,
+     * followed by sign, hours digit(s), optional colon(':'), and optional minutes digits.
+     * i.e. <em>[GMT] (+|-) Hours [[:] Minutes]</em>
+     *
+     * @param id A GMT custom id (or Olson id
+     * @return A timezone
+     */
+    public static TimeZone getTimeZone(String id) {
+        TimeZone tz = getGmtTimeZone(id);
+        if (tz != null) {
+            return tz;
+        }
+        return TimeZone.getTimeZone(id);
+    }
+
     private static int parseInt(String group) {
         return group != null ? Integer.parseInt(group) : 0;
     }
 
     private static boolean parseSign(String group) {
         return group != null && group.charAt(0) == '-';
+    }
+
+    // do not instantiate
+    private FastTimeZone() {
     }
 
 }
