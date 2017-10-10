@@ -265,7 +265,7 @@ public class FastDatePrinterTest {
     @SystemDefaults(timezone="UTC")
     @Test
     public void testTimeZoneAsZ() throws Exception {
-        final Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
         final FastDateFormat noColonFormat = FastDateFormat.getInstance("Z");
         assertEquals("+0000", noColonFormat.format(c));
 
