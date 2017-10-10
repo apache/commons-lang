@@ -593,6 +593,7 @@
     <uberjar.name>benchmarks</uberjar.name>
 
     <!-- Override versions for Java 9 -->
+    <commons.compiler.version>3.7.0</commons.compiler.version>
     <commons.felix.version>3.3.0</commons.felix.version>
     <!-- Skip animal sniffer, as it doesn't work on Java 9 and the release flag does the same job -->
     <animal.sniffer.skip>true</animal.sniffer.skip>

@@ -17,12 +17,10 @@ language: java
 sudo: false
 
 jdk:
-  - openjdk7
-  - oraclejdk8
   - oraclejdk9
 
 script:
   - mvn
 
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report -Ptravis-cobertura
+  - mvn clean cobertura:cobertura -Ptravis-cobertura
