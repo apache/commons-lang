@@ -27,25 +27,25 @@ public class ReflectionDiffBuilderTest {
 
     @SuppressWarnings("unused")
     private static class TypeTestClass implements Diffable<TypeTestClass> {
-        private ToStringStyle style = SHORT_STYLE;
-        private boolean booleanField = true;
-        private boolean[] booleanArrayField = {true};
-        private byte byteField = (byte) 0xFF;
-        private byte[] byteArrayField = {(byte) 0xFF};
+        private final ToStringStyle style = SHORT_STYLE;
+        private final boolean booleanField = true;
+        private final boolean[] booleanArrayField = {true};
+        private final byte byteField = (byte) 0xFF;
+        private final byte[] byteArrayField = {(byte) 0xFF};
         private char charField = 'a';
         private char[] charArrayField = {'a'};
-        private double doubleField = 1.0;
-        private double[] doubleArrayField = {1.0};
-        private float floatField = 1.0f;
-        private float[] floatArrayField = {1.0f};
+        private final double doubleField = 1.0;
+        private final double[] doubleArrayField = {1.0};
+        private final float floatField = 1.0f;
+        private final float[] floatArrayField = {1.0f};
         int intField = 1;
-        private int[] intArrayField = {1};
-        private long longField = 1L;
-        private long[] longArrayField = {1L};
-        private short shortField = 1;
-        private short[] shortArrayField = {1};
-        private Object objectField = null;
-        private Object[] objectArrayField = {null};
+        private final int[] intArrayField = {1};
+        private final long longField = 1L;
+        private final long[] longArrayField = {1L};
+        private final short shortField = 1;
+        private final short[] shortArrayField = {1};
+        private final Object objectField = null;
+        private final Object[] objectArrayField = {null};
         private static int staticField;
         private transient String transientField;
 
