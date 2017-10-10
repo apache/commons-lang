@@ -311,7 +311,7 @@ public class FastDateFormatTest {
 
     @Test
     public void testLANG_1152() {
-        final TimeZone utc = TimeZone.getTimeZone("UTC");
+        final TimeZone utc = FastTimeZone.getGmtTimeZone();
         final Date date = new Date(Long.MAX_VALUE);
 
         String dateAsString = FastDateFormat.getInstance("yyyy-MM-dd", utc, Locale.US).format(date);
