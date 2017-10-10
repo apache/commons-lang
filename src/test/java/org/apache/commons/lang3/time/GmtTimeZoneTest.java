@@ -36,7 +36,7 @@ public class GmtTimeZoneTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void minutesOutOfRange() {
-        Assert.assertEquals(0, new GmtTimeZone(false, 60, 0));
+        new GmtTimeZone(false, 0, 60);
     }
 
     @Test
@@ -76,5 +76,17 @@ public class GmtTimeZoneTest {
     @Test
     public void inDaylightTime() {
         Assert.assertFalse(new GmtTimeZone(false, 0, 0).useDaylightTime());
+    }
+
+    @Test
+    public void testToString() {
+        Assert.assertEquals("[GmtTimeZone id=\"GMT-12:00\",offset=-43200000]",
+            new GmtTimeZone(true, 12, 0).toString());
+    }
+
+    @Test
+    public void testGetOffset() {
+        Assert.assertEquals(-(6 * 60 + 30) * 60 * 1000,
+            new GmtTimeZone(true, 6, 30).getOffset(1, 1, 1, 1, 1, 1));
     }
 }

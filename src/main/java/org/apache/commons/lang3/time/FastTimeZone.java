@@ -29,6 +29,10 @@ public class FastTimeZone {
 
     private static final TimeZone GREENWICH = new GmtTimeZone(false, 0, 0);
 
+    // do not instantiate
+    private FastTimeZone() {
+    }
+
     /**
      * Get the GMT TimeZone.
      * @return A TimeZone with a raw offset of zero.
@@ -39,10 +43,11 @@ public class FastTimeZone {
 
     /**
      * Get a TimeZone, looking first for GMT custom ids, then falling back to Olson ids.
-     * A GMT custom id has an optional prefix of GMT, followed by sign, hours digit(s), optional
-     * colon(':'), and optional minutes digits: <em>[GMT] (+|-) Hours [[:] Minutes]</em>
+     * A GMT custom id can be 'Z', or 'UTC', or has an optional prefix of GMT,
+     * followed by sign, hours digit(s), optional colon(':'), and optional minutes digits.
+     * i.e. <em>[GMT] (+|-) Hours [[:] Minutes]</em>
      *
-     * @param id A GMT custom id or Olsen id
+     * @param id A GMT custom id (or Olson id
      * @return A timezone
      */
     public static TimeZone getTimeZone(String id) {
@@ -56,8 +61,8 @@ public class FastTimeZone {
     private static final Pattern GMT_PATTERN = Pattern.compile("^(?:(?i)GMT)?([+-])?(\\d\\d?)?(:?(\\d\\d?))?$");
 
     /**
-     * Get a TimeZone with GMT offsets.  A GMT offset must be either 'Z' or match
-     * (GMT)? hh?(:?mm?)?, where h and m are digits representing hours and minutes.
+     * Get a TimeZone with GMT offsets.  A GMT offset must be either 'Z', or 'UTC', or match
+     * <em>(GMT)? hh?(:?mm?)?</em>, where h and m are digits representing hours and minutes.
      *
      * @param pattern The GMT offset
      * @return A TimeZone with offset from GMT or null, if pattern does not match.

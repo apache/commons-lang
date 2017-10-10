@@ -30,6 +30,9 @@ class GmtTimeZone extends TimeZone {
     private static final int MINUTES_PER_HOUR = 60;
     private static final int HOURS_PER_DAY = 24;
 
+    // Serializable!
+    static final long serialVersionUID = 1L;
+
     private final int offset;
     private final String zoneId;
 
