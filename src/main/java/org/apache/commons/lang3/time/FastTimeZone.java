@@ -34,7 +34,7 @@ public class FastTimeZone {
     }
 
     /**
-     * Get the GMT TimeZone.
+     * Gets the GMT TimeZone.
      * @return A TimeZone with a raw offset of zero.
      */
     public static TimeZone getGmtTimeZone() {
@@ -42,7 +42,7 @@ public class FastTimeZone {
     }
 
     /**
-     * Get a TimeZone, looking first for GMT custom ids, then falling back to Olson ids.
+     * Gets a TimeZone, looking first for GMT custom ids, then falling back to Olson ids.
      * A GMT custom id can be 'Z', or 'UTC', or has an optional prefix of GMT,
      * followed by sign, hours digit(s), optional colon(':'), and optional minutes digits.
      * i.e. <em>[GMT] (+|-) Hours [[:] Minutes]</em>
@@ -61,7 +61,7 @@ public class FastTimeZone {
     private static final Pattern GMT_PATTERN = Pattern.compile("^(?:(?i)GMT)?([+-])?(\\d\\d?)?(:?(\\d\\d?))?$");
 
     /**
-     * Get a TimeZone with GMT offsets.  A GMT offset must be either 'Z', or 'UTC', or match
+     * Gets a TimeZone with GMT offsets.  A GMT offset must be either 'Z', or 'UTC', or match
      * <em>(GMT)? hh?(:?mm?)?</em>, where h and m are digits representing hours and minutes.
      *
      * @param pattern The GMT offset
