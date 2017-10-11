@@ -187,6 +187,7 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any).
+     * Does not return any synthetic fields.
      *
      * @param cls
      *            the {@link Class} to query
@@ -202,6 +203,7 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any).
+     * Does not return any synthetic fields.
      *
      * @param cls
      *            the {@link Class} to query
@@ -215,8 +217,11 @@ public class FieldUtils {
         final List<Field> allFields = new ArrayList<>();
         Class<?> currentClass = cls;
         while (currentClass != null) {
-            final Field[] declaredFields = currentClass.getDeclaredFields();
-            Collections.addAll(allFields, declaredFields);
+            for(final Field declaredField : currentClass.getDeclaredFields()) {
+                if(!declaredField.isSynthetic()) {
+                    allFields.add(declaredField);
+                }
+            }
             currentClass = currentClass.getSuperclass();
         }
         return allFields;
@@ -224,6 +229,8 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
+     * Does not return any synthetic fields.
+     *
      * @param cls
      *            the {@link Class} to query
      * @param annotationCls
