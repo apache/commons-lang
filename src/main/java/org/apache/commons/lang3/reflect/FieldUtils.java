@@ -24,6 +24,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -186,7 +187,6 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any).
-     * Does not return any synthetic fields.
      *
      * @param cls
      *            the {@link Class} to query
@@ -202,7 +202,6 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any).
-     * Does not return any synthetic fields.
      *
      * @param cls
      *            the {@link Class} to query
@@ -216,11 +215,8 @@ public class FieldUtils {
         final List<Field> allFields = new ArrayList<>();
         Class<?> currentClass = cls;
         while (currentClass != null) {
-            for(final Field declaredField : currentClass.getDeclaredFields()) {
-                if(!declaredField.isSynthetic()) {
-                    allFields.add(declaredField);
-                }
-            }
+            final Field[] declaredFields = currentClass.getDeclaredFields();
+            Collections.addAll(allFields, declaredFields);
             currentClass = currentClass.getSuperclass();
         }
         return allFields;
@@ -228,8 +224,6 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
-     * Does not return any synthetic fields.
-     *
      * @param cls
      *            the {@link Class} to query
      * @param annotationCls
