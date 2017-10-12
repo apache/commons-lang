@@ -308,7 +308,7 @@ public class WordUtils {
 
             if (spaceToWrapAt >= offset) {
                 // normal case
-                wrappedLine.append(str.substring(offset, spaceToWrapAt));
+                wrappedLine.append(str, offset, spaceToWrapAt);
                 wrappedLine.append(newLineStr);
                 offset = spaceToWrapAt + 1;
 
@@ -316,7 +316,7 @@ public class WordUtils {
                 // really long word or URL
                 if (wrapLongWords) {
                     // wrap really long word one line at a time
-                    wrappedLine.append(str.substring(offset, wrapLength + offset));
+                    wrappedLine.append(str, offset, wrapLength + offset);
                     wrappedLine.append(newLineStr);
                     offset += wrapLength;
                 } else {
@@ -327,11 +327,11 @@ public class WordUtils {
                     }
 
                     if (spaceToWrapAt >= 0) {
-                        wrappedLine.append(str.substring(offset, spaceToWrapAt));
+                        wrappedLine.append(str, offset, spaceToWrapAt);
                         wrappedLine.append(newLineStr);
                         offset = spaceToWrapAt + 1;
                     } else {
-                        wrappedLine.append(str.substring(offset));
+                        wrappedLine.append(str, offset, str.length());
                         offset = inputLineLength;
                     }
                 }
@@ -339,7 +339,7 @@ public class WordUtils {
         }
 
         // Whatever is left in line is short enough to just pass through
-        wrappedLine.append(str.substring(offset));
+        wrappedLine.append(str, offset, str.length());
 
         return wrappedLine.toString();
     }
