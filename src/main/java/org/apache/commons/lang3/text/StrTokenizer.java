@@ -853,7 +853,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     /**
      * Sets the field delimiter matcher.
      * <p>
-     * The delimitier is used to separate one token from another.
+     * The delimiter is used to separate one token from another.
      *
      * @param delim  the delimiter matcher to use
      * @return this, to enable chaining

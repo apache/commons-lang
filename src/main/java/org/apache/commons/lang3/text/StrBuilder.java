@@ -1194,7 +1194,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     public <T> StrBuilder appendAll(@SuppressWarnings("unchecked") final T... array) {
         /*
          * @SuppressWarnings used to hide warning about vararg usage. We cannot
-         * use @SafeVarargs, since this method is not final. Using @SupressWarnings
+         * use @SafeVarargs, since this method is not final. Using @SuppressWarnings
          * is fine, because it isn't inherited by subclasses, so each subclass must
          * vouch for itself whether its use of 'array' is safe.
          */
