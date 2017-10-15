@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3.builder;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -113,7 +115,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
         tasks.add(producer);
         final List<Future<Integer>> futures = threadPool.invokeAll(tasks);
         for (final Future<Integer> future : futures) {
-            Assert.assertEquals(REPEAT, future.get().intValue());
+            assertEquals(REPEAT, future.get().intValue());
         }
         threadPool.shutdown();
         threadPool.awaitTermination(1, TimeUnit.SECONDS);

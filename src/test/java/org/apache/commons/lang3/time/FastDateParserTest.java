@@ -19,6 +19,7 @@ package org.apache.commons.lang3.time;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -34,7 +35,6 @@ import java.util.TimeZone;
 
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.SerializationUtils;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -272,7 +272,7 @@ public class FastDateParserTest {
                 final Date expected= cal.getTime();
 
                 final Date actual = fdp.parse("2000/02/10 "+tz.getDisplayName(locale));
-                Assert.assertEquals("tz:"+tz.getID()+" locale:"+locale.getDisplayName(), expected, actual);
+                assertEquals("tz:"+tz.getID()+" locale:"+locale.getDisplayName(), expected, actual);
             }
         }
     }
@@ -338,7 +338,7 @@ public class FastDateParserTest {
             try {
                 checkParse(locale, cal, sdf, fdf);
             } catch(final ParseException ex) {
-                Assert.fail("Locale "+locale+ " failed with "+format+" era "+(eraBC?"BC":"AD")+"\n" + trimMessage(ex.toString()));
+                fail("Locale "+locale+ " failed with "+format+" era "+(eraBC?"BC":"AD")+"\n" + trimMessage(ex.toString()));
             }
         }
     }
@@ -360,7 +360,7 @@ public class FastDateParserTest {
             try {
                 checkParse(locale, cal, sdf, fdf);
             } catch(final ParseException ex) {
-                Assert.fail("Locale "+locale+ " failed with "+LONG_FORMAT+"\n" + trimMessage(ex.toString()));
+                fail("Locale "+locale+ " failed with "+LONG_FORMAT+"\n" + trimMessage(ex.toString()));
             }
         }
     }
@@ -452,7 +452,7 @@ public class FastDateParserTest {
             sdf.setTimeZone(NEW_YORK);
             dsdf = sdf.parse(date);
             if (shouldFail) {
-                Assert.fail("Expected SDF failure, but got " + dsdf + " for ["+format+","+date+"]");
+                fail("Expected SDF failure, but got " + dsdf + " for ["+format+","+date+"]");
             }
         } catch (final Exception e) {
             s = e;
@@ -465,7 +465,7 @@ public class FastDateParserTest {
             final DateParser fdp = getInstance(format, NEW_YORK, Locale.US);
             dfdp = fdp.parse(date);
             if (shouldFail) {
-                Assert.fail("Expected FDF failure, but got " + dfdp + " for ["+format+","+date+"]");
+                fail("Expected FDF failure, but got " + dfdp + " for ["+format+","+date+"]");
             }
         } catch (final Exception e) {
             f = e;
@@ -670,7 +670,7 @@ public class FastDateParserTest {
 
         try {
             fdp.parse("2015");
-            Assert.fail("expected parse exception");
+            fail("expected parse exception");
         } catch (final ParseException pe) {
             // expected parse exception
         }
@@ -681,7 +681,7 @@ public class FastDateParserTest {
         cal.clear();
         cal.set(2015, 3, 29);
         Date expected = cal.getTime();
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
         final SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
         df.setTimeZone(kst);
@@ -689,7 +689,7 @@ public class FastDateParserTest {
 
         // Thu Mar 16 00:00:00 KST 81724
         actual = fdp.parse("20150429113100");
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -700,7 +700,7 @@ public class FastDateParserTest {
         final Calendar cal = Calendar.getInstance();
         cal.clear();
         cal.set(2015, Calendar.JULY, 4);
-        Assert.assertEquals(cal.getTime(), date);
+        assertEquals(cal.getTime(), date);
     }
 
     @Test
@@ -709,12 +709,12 @@ public class FastDateParserTest {
         final Calendar calendar = Calendar.getInstance();
 
         calendar.setTime(parser.parse("1"));
-        Assert.assertEquals(Calendar.MONDAY, calendar.get(Calendar.DAY_OF_WEEK));
+        assertEquals(Calendar.MONDAY, calendar.get(Calendar.DAY_OF_WEEK));
 
         calendar.setTime(parser.parse("6"));
-        Assert.assertEquals(Calendar.SATURDAY, calendar.get(Calendar.DAY_OF_WEEK));
+        assertEquals(Calendar.SATURDAY, calendar.get(Calendar.DAY_OF_WEEK));
 
         calendar.setTime(parser.parse("7"));
-        Assert.assertEquals(Calendar.SUNDAY, calendar.get(Calendar.DAY_OF_WEEK));
+        assertEquals(Calendar.SUNDAY, calendar.get(Calendar.DAY_OF_WEEK));
     }
 }

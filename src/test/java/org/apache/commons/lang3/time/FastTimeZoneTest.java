@@ -16,8 +16,9 @@
  */
 package org.apache.commons.lang3.time;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 import java.util.TimeZone;
 
@@ -33,67 +34,67 @@ public class FastTimeZoneTest {
 
     @Test
     public void testGetGmtTimeZone() {
-        Assert.assertEquals(0, FastTimeZone.getGmtTimeZone().getRawOffset());
+        assertEquals(0, FastTimeZone.getGmtTimeZone().getRawOffset());
     }
 
     @Test
     public void testBareGmt() {
-        Assert.assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("GMT"));
+        assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("GMT"));
     }
 
     @Test
     public void testZ() {
-        Assert.assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("Z"));
+        assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("Z"));
     }
 
     @Test
     public void testUTC() {
-        Assert.assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("UTC"));
+        assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("UTC"));
     }
 
     @Test
     public void testZeroOffsetsReturnSingleton() {
-        Assert.assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("+0"));
-        Assert.assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("-0"));
+        assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("+0"));
+        assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("-0"));
     }
 
     @Test
     public void testOlson() {
-        Assert.assertEquals(TimeZone.getTimeZone("America/New_York"), FastTimeZone.getTimeZone("America/New_York"));
+        assertEquals(TimeZone.getTimeZone("America/New_York"), FastTimeZone.getTimeZone("America/New_York"));
     }
 
     @Test
     public void testGmtPrefix() {
-        Assert.assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("GMT+23:00").getRawOffset());
-        Assert.assertEquals(-HOURS_23, FastTimeZone.getGmtTimeZone("GMT-23:00").getRawOffset());
+        assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("GMT+23:00").getRawOffset());
+        assertEquals(-HOURS_23, FastTimeZone.getGmtTimeZone("GMT-23:00").getRawOffset());
     }
 
     @Test
     public void testSign() {
-        Assert.assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("+23:00").getRawOffset());
-        Assert.assertEquals(HOURS_2, FastTimeZone.getGmtTimeZone("+2:00").getRawOffset());
-        Assert.assertEquals(-HOURS_23, FastTimeZone.getGmtTimeZone("-23:00").getRawOffset());
-        Assert.assertEquals(-HOURS_2, FastTimeZone.getGmtTimeZone("-2:00").getRawOffset());
+        assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("+23:00").getRawOffset());
+        assertEquals(HOURS_2, FastTimeZone.getGmtTimeZone("+2:00").getRawOffset());
+        assertEquals(-HOURS_23, FastTimeZone.getGmtTimeZone("-23:00").getRawOffset());
+        assertEquals(-HOURS_2, FastTimeZone.getGmtTimeZone("-2:00").getRawOffset());
     }
 
     @Test
     public void testHoursColonMinutes() {
-        Assert.assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("23:00").getRawOffset());
-        Assert.assertEquals(HOURS_2, FastTimeZone.getGmtTimeZone("2:00").getRawOffset());
-        Assert.assertEquals(MINUTES_59, FastTimeZone.getGmtTimeZone("00:59").getRawOffset());
-        Assert.assertEquals(MINUTES_5, FastTimeZone.getGmtTimeZone("00:5").getRawOffset());
-        Assert.assertEquals(HOURS_23+MINUTES_59, FastTimeZone.getGmtTimeZone("23:59").getRawOffset());
-        Assert.assertEquals(HOURS_2+MINUTES_5, FastTimeZone.getGmtTimeZone("2:5").getRawOffset());
+        assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("23:00").getRawOffset());
+        assertEquals(HOURS_2, FastTimeZone.getGmtTimeZone("2:00").getRawOffset());
+        assertEquals(MINUTES_59, FastTimeZone.getGmtTimeZone("00:59").getRawOffset());
+        assertEquals(MINUTES_5, FastTimeZone.getGmtTimeZone("00:5").getRawOffset());
+        assertEquals(HOURS_23+MINUTES_59, FastTimeZone.getGmtTimeZone("23:59").getRawOffset());
+        assertEquals(HOURS_2+MINUTES_5, FastTimeZone.getGmtTimeZone("2:5").getRawOffset());
     }
 
     @Test
     public void testHoursMinutes() {
-        Assert.assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("2300").getRawOffset());
-        Assert.assertEquals(HOURS_2, FastTimeZone.getGmtTimeZone("0200").getRawOffset());
-        Assert.assertEquals(MINUTES_59, FastTimeZone.getGmtTimeZone("0059").getRawOffset());
-        Assert.assertEquals(MINUTES_5, FastTimeZone.getGmtTimeZone("0005").getRawOffset());
-        Assert.assertEquals(HOURS_23+MINUTES_59, FastTimeZone.getGmtTimeZone("2359").getRawOffset());
-        Assert.assertEquals(HOURS_2+MINUTES_5, FastTimeZone.getGmtTimeZone("0205").getRawOffset());
+        assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("2300").getRawOffset());
+        assertEquals(HOURS_2, FastTimeZone.getGmtTimeZone("0200").getRawOffset());
+        assertEquals(MINUTES_59, FastTimeZone.getGmtTimeZone("0059").getRawOffset());
+        assertEquals(MINUTES_5, FastTimeZone.getGmtTimeZone("0005").getRawOffset());
+        assertEquals(HOURS_23+MINUTES_59, FastTimeZone.getGmtTimeZone("2359").getRawOffset());
+        assertEquals(HOURS_2+MINUTES_5, FastTimeZone.getGmtTimeZone("0205").getRawOffset());
     }
 
 }

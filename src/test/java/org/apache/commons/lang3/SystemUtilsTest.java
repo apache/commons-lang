@@ -38,7 +38,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Locale;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -62,7 +61,7 @@ public class SystemUtilsTest {
     public void testGetHostName() {
         final String hostName = SystemUtils.getHostName();
         String expected = SystemUtils.IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
-        Assert.assertEquals(expected, hostName);
+        assertEquals(expected, hostName);
     }
 
     /**
@@ -71,8 +70,8 @@ public class SystemUtilsTest {
     @Test
     public void testGetJavaHome() {
         final File dir = SystemUtils.getJavaHome();
-        Assert.assertNotNull(dir);
-        Assert.assertTrue(dir.exists());
+        assertNotNull(dir);
+        assertTrue(dir.exists());
     }
 
     /**
@@ -81,8 +80,8 @@ public class SystemUtilsTest {
     @Test
     public void testGetJavaIoTmpDir() {
         final File dir = SystemUtils.getJavaIoTmpDir();
-        Assert.assertNotNull(dir);
-        Assert.assertTrue(dir.exists());
+        assertNotNull(dir);
+        assertTrue(dir.exists());
     }
 
     /**
@@ -91,8 +90,8 @@ public class SystemUtilsTest {
     @Test
     public void testGetUserDir() {
         final File dir = SystemUtils.getUserDir();
-        Assert.assertNotNull(dir);
-        Assert.assertTrue(dir.exists());
+        assertNotNull(dir);
+        assertTrue(dir.exists());
     }
 
     /**
@@ -101,8 +100,8 @@ public class SystemUtilsTest {
     @Test
     public void testGetUserHome() {
         final File dir = SystemUtils.getUserHome();
-        Assert.assertNotNull(dir);
-        Assert.assertTrue(dir.exists());
+        assertNotNull(dir);
+        assertTrue(dir.exists());
     }
 
     @Test

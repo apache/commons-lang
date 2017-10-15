@@ -24,7 +24,6 @@ import static org.junit.Assert.fail;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -264,7 +263,7 @@ public class StopWatchTest {
         watch.start();
         try {
             watch.getStartTime();
-            Assert.assertTrue(watch.getStartTime() >= beforeStopWatch);
+            assertTrue(watch.getStartTime() >= beforeStopWatch);
         } catch (final IllegalStateException ex) {
             fail("Start time should be available: " + ex.getMessage());
         }

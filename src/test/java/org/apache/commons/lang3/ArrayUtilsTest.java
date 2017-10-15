@@ -33,7 +33,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -4968,12 +4967,12 @@ public class ArrayUtilsTest {
 
     @Test
     public void testCreatePrimitiveArray() {
-        Assert.assertNull(ArrayUtils.toPrimitive((Object[]) null));
-        Assert.assertArrayEquals(new int[]{}, ArrayUtils.toPrimitive(new Integer[]{}));
-        Assert.assertArrayEquals(new short[]{2}, ArrayUtils.toPrimitive(new Short[]{2}));
-        Assert.assertArrayEquals(new long[]{2, 3}, ArrayUtils.toPrimitive(new Long[]{2L, 3L}));
-        Assert.assertArrayEquals(new float[]{3.14f}, ArrayUtils.toPrimitive(new Float[]{3.14f}), 0.1f);
-        Assert.assertArrayEquals(new double[]{2.718}, ArrayUtils.toPrimitive(new Double[]{2.718}), 0.1);
+        assertNull(ArrayUtils.toPrimitive((Object[]) null));
+        assertArrayEquals(new int[]{}, ArrayUtils.toPrimitive(new Integer[]{}));
+        assertArrayEquals(new short[]{2}, ArrayUtils.toPrimitive(new Short[]{2}));
+        assertArrayEquals(new long[]{2, 3}, ArrayUtils.toPrimitive(new Long[]{2L, 3L}));
+        assertArrayEquals(new float[]{3.14f}, ArrayUtils.toPrimitive(new Float[]{3.14f}), 0.1f);
+        assertArrayEquals(new double[]{2.718}, ArrayUtils.toPrimitive(new Double[]{2.718}), 0.1);
     }
 
     @Test
@@ -5009,9 +5008,9 @@ public class ArrayUtilsTest {
         String[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (String element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5021,8 +5020,8 @@ public class ArrayUtilsTest {
         boolean[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
-        Assert.assertEquals(5, ArrayUtils.removeAllOccurences(array1, true).length);
+        assertFalse(Arrays.equals(array1, array2));
+        assertEquals(5, ArrayUtils.removeAllOccurences(array1, true).length);
     }
 
     @Test
@@ -5031,9 +5030,9 @@ public class ArrayUtilsTest {
         byte[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (byte element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5043,9 +5042,9 @@ public class ArrayUtilsTest {
         char[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (char element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5055,9 +5054,9 @@ public class ArrayUtilsTest {
         short[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (short element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5067,9 +5066,9 @@ public class ArrayUtilsTest {
         int[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (int element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5079,9 +5078,9 @@ public class ArrayUtilsTest {
         long[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (long element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5091,9 +5090,9 @@ public class ArrayUtilsTest {
         float[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (float element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5103,9 +5102,9 @@ public class ArrayUtilsTest {
         double[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (double element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 }
