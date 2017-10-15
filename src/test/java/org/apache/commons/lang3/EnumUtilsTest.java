@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -84,8 +85,8 @@ public class EnumUtilsTest {
         assertEquals(Traffic.RED, EnumUtils.getEnum(Traffic.class, "RED"));
         assertEquals(Traffic.AMBER, EnumUtils.getEnum(Traffic.class, "AMBER"));
         assertEquals(Traffic.GREEN, EnumUtils.getEnum(Traffic.class, "GREEN"));
-        assertEquals(null, EnumUtils.getEnum(Traffic.class, "PURPLE"));
-        assertEquals(null, EnumUtils.getEnum(Traffic.class, null));
+        assertNull(EnumUtils.getEnum(Traffic.class, "PURPLE"));
+        assertNull(EnumUtils.getEnum(Traffic.class, null));
     }
 
     @Test(expected=NullPointerException.class)

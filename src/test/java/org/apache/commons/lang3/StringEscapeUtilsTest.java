@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -54,7 +55,7 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testEscapeJava() throws IOException {
-        assertEquals(null, StringEscapeUtils.escapeJava(null));
+        assertNull(StringEscapeUtils.escapeJava(null));
         try {
             StringEscapeUtils.ESCAPE_JAVA.translate(null, null);
             fail();
@@ -123,7 +124,7 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testUnescapeJava() throws IOException {
-        assertEquals(null, StringEscapeUtils.unescapeJava(null));
+        assertNull(StringEscapeUtils.unescapeJava(null));
         try {
             StringEscapeUtils.UNESCAPE_JAVA.translate(null, null);
             fail();
@@ -179,7 +180,7 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testEscapeEcmaScript() {
-        assertEquals(null, StringEscapeUtils.escapeEcmaScript(null));
+        assertNull(StringEscapeUtils.escapeEcmaScript(null));
         try {
             StringEscapeUtils.ESCAPE_ECMASCRIPT.translate(null, null);
             fail();
@@ -202,7 +203,7 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testUnescapeEcmaScript() {
-        assertEquals(null, StringEscapeUtils.escapeEcmaScript(null));
+        assertNull(StringEscapeUtils.escapeEcmaScript(null));
         try {
             StringEscapeUtils.UNESCAPE_ECMASCRIPT.translate(null, null);
             fail();
@@ -333,8 +334,8 @@ public class StringEscapeUtilsTest {
         assertEquals("ain't", StringEscapeUtils.unescapeXml("ain&apos;t"));
         assertEquals("ain&apos;t", StringEscapeUtils.escapeXml("ain't"));
         assertEquals("", StringEscapeUtils.escapeXml(""));
-        assertEquals(null, StringEscapeUtils.escapeXml(null));
-        assertEquals(null, StringEscapeUtils.unescapeXml(null));
+        assertNull(StringEscapeUtils.escapeXml(null));
+        assertNull(StringEscapeUtils.unescapeXml(null));
 
         StringWriter sw = new StringWriter();
         try {
@@ -466,7 +467,7 @@ public class StringEscapeUtilsTest {
         assertEquals("\"foo\"\"bar\"",     StringEscapeUtils.escapeCsv("foo\"bar"));
         assertEquals("foo\uD84C\uDFB4bar", StringEscapeUtils.escapeCsv("foo\uD84C\uDFB4bar"));
         assertEquals("",   StringEscapeUtils.escapeCsv(""));
-        assertEquals(null, StringEscapeUtils.escapeCsv(null));
+        assertNull(StringEscapeUtils.escapeCsv(null));
     }
 
     @Test
@@ -506,7 +507,7 @@ public class StringEscapeUtilsTest {
         assertEquals("foo\"bar",             StringEscapeUtils.unescapeCsv("\"foo\"\"bar\""));
         assertEquals("foo\uD84C\uDFB4bar",   StringEscapeUtils.unescapeCsv("foo\uD84C\uDFB4bar"));
         assertEquals("",   StringEscapeUtils.unescapeCsv(""));
-        assertEquals(null, StringEscapeUtils.unescapeCsv(null));
+        assertNull(StringEscapeUtils.unescapeCsv(null));
 
         assertEquals("\"foo.bar\"",          StringEscapeUtils.unescapeCsv("\"foo.bar\""));
     }
@@ -621,7 +622,7 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testEscapeJson() {
-        assertEquals(null, StringEscapeUtils.escapeJson(null));
+        assertNull(StringEscapeUtils.escapeJson(null));
         try {
             StringEscapeUtils.ESCAPE_JSON.translate(null, null);
             fail();
@@ -647,7 +648,7 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testUnescapeJson() {
-        assertEquals(null, StringEscapeUtils.unescapeJson(null));
+        assertNull(StringEscapeUtils.unescapeJson(null));
         try {
             StringEscapeUtils.UNESCAPE_JSON.translate(null, null);
             fail();

@@ -19,6 +19,7 @@ package org.apache.commons.lang3.text;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Constructor;
@@ -46,8 +47,8 @@ public class WordUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testWrap_StringInt() {
-        assertEquals(null, WordUtils.wrap(null, 20));
-        assertEquals(null, WordUtils.wrap(null, -1));
+        assertNull(WordUtils.wrap(null, 20));
+        assertNull(WordUtils.wrap(null, -1));
 
         assertEquals("", WordUtils.wrap("", 20));
         assertEquals("", WordUtils.wrap("", -1));
@@ -80,12 +81,12 @@ public class WordUtilsTest {
 
     @Test
     public void testWrap_StringIntStringBoolean() {
-        assertEquals(null, WordUtils.wrap(null, 20, "\n", false));
-        assertEquals(null, WordUtils.wrap(null, 20, "\n", true));
-        assertEquals(null, WordUtils.wrap(null, 20, null, true));
-        assertEquals(null, WordUtils.wrap(null, 20, null, false));
-        assertEquals(null, WordUtils.wrap(null, -1, null, true));
-        assertEquals(null, WordUtils.wrap(null, -1, null, false));
+        assertNull(WordUtils.wrap(null, 20, "\n", false));
+        assertNull(WordUtils.wrap(null, 20, "\n", true));
+        assertNull(WordUtils.wrap(null, 20, null, true));
+        assertNull(WordUtils.wrap(null, 20, null, false));
+        assertNull(WordUtils.wrap(null, -1, null, true));
+        assertNull(WordUtils.wrap(null, -1, null, false));
 
         assertEquals("", WordUtils.wrap("", 20, "\n", false));
         assertEquals("", WordUtils.wrap("", 20, "\n", true));
@@ -184,7 +185,7 @@ public class WordUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testCapitalize_String() {
-        assertEquals(null, WordUtils.capitalize(null));
+        assertNull(WordUtils.capitalize(null));
         assertEquals("", WordUtils.capitalize(""));
         assertEquals("  ", WordUtils.capitalize("  "));
 
@@ -198,7 +199,7 @@ public class WordUtilsTest {
 
     @Test
     public void testCapitalizeWithDelimiters_String() {
-        assertEquals(null, WordUtils.capitalize(null, null));
+        assertNull(WordUtils.capitalize(null, null));
         assertEquals("", WordUtils.capitalize("", new char[0]));
         assertEquals("  ", WordUtils.capitalize("  ", new char[0]));
 
@@ -216,7 +217,7 @@ public class WordUtilsTest {
 
     @Test
     public void testCapitalizeFully_String() {
-        assertEquals(null, WordUtils.capitalizeFully(null));
+        assertNull(WordUtils.capitalizeFully(null));
         assertEquals("", WordUtils.capitalizeFully(""));
         assertEquals("  ", WordUtils.capitalizeFully("  "));
 
@@ -230,7 +231,7 @@ public class WordUtilsTest {
 
     @Test
     public void testCapitalizeFullyWithDelimiters_String() {
-        assertEquals(null, WordUtils.capitalizeFully(null, null));
+        assertNull(WordUtils.capitalizeFully(null, null));
         assertEquals("", WordUtils.capitalizeFully("", new char[0]));
         assertEquals("  ", WordUtils.capitalizeFully("  ", new char[0]));
 
@@ -268,7 +269,7 @@ public class WordUtilsTest {
 
     @Test
     public void testUncapitalize_String() {
-        assertEquals(null, WordUtils.uncapitalize(null));
+        assertNull(WordUtils.uncapitalize(null));
         assertEquals("", WordUtils.uncapitalize(""));
         assertEquals("  ", WordUtils.uncapitalize("  "));
 
@@ -282,7 +283,7 @@ public class WordUtilsTest {
 
     @Test
     public void testUncapitalizeWithDelimiters_String() {
-        assertEquals(null, WordUtils.uncapitalize(null, null));
+        assertNull(WordUtils.uncapitalize(null, null));
         assertEquals("", WordUtils.uncapitalize("", new char[0]));
         assertEquals("  ", WordUtils.uncapitalize("  ", new char[0]));
 
@@ -301,7 +302,7 @@ public class WordUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testInitials_String() {
-        assertEquals(null, WordUtils.initials(null));
+        assertNull(WordUtils.initials(null));
         assertEquals("", WordUtils.initials(""));
         assertEquals("", WordUtils.initials("  "));
 
@@ -318,7 +319,7 @@ public class WordUtilsTest {
     @Test
     public void testInitials_String_charArray() {
         char[] array = null;
-        assertEquals(null, WordUtils.initials(null, array));
+        assertNull(WordUtils.initials(null, array));
         assertEquals("", WordUtils.initials("", array));
         assertEquals("", WordUtils.initials("  ", array));
         assertEquals("I", WordUtils.initials("I", array));
@@ -332,7 +333,7 @@ public class WordUtilsTest {
         assertEquals("iah1", WordUtils.initials("i am here 123", array));
 
         array = new char[0];
-        assertEquals(null, WordUtils.initials(null, array));
+        assertNull(WordUtils.initials(null, array));
         assertEquals("", WordUtils.initials("", array));
         assertEquals("", WordUtils.initials("  ", array));
         assertEquals("", WordUtils.initials("I", array));
@@ -346,7 +347,7 @@ public class WordUtilsTest {
         assertEquals("", WordUtils.initials("i am here 123", array));
 
         array = " ".toCharArray();
-        assertEquals(null, WordUtils.initials(null, array));
+        assertNull(WordUtils.initials(null, array));
         assertEquals("", WordUtils.initials("", array));
         assertEquals("", WordUtils.initials("  ", array));
         assertEquals("I", WordUtils.initials("I", array));
@@ -360,7 +361,7 @@ public class WordUtilsTest {
         assertEquals("iah1", WordUtils.initials("i am here 123", array));
 
         array = " .".toCharArray();
-        assertEquals(null, WordUtils.initials(null, array));
+        assertNull(WordUtils.initials(null, array));
         assertEquals("", WordUtils.initials("", array));
         assertEquals("", WordUtils.initials("  ", array));
         assertEquals("I", WordUtils.initials("I", array));
@@ -373,7 +374,7 @@ public class WordUtilsTest {
         assertEquals("iah1", WordUtils.initials("i am here 123", array));
 
         array = " .'".toCharArray();
-        assertEquals(null, WordUtils.initials(null, array));
+        assertNull(WordUtils.initials(null, array));
         assertEquals("", WordUtils.initials("", array));
         assertEquals("", WordUtils.initials("  ", array));
         assertEquals("I", WordUtils.initials("I", array));
@@ -386,7 +387,7 @@ public class WordUtilsTest {
         assertEquals("iah1", WordUtils.initials("i am here 123", array));
 
         array = "SIJo1".toCharArray();
-        assertEquals(null, WordUtils.initials(null, array));
+        assertNull(WordUtils.initials(null, array));
         assertEquals("", WordUtils.initials("", array));
         assertEquals(" ", WordUtils.initials("  ", array));
         assertEquals("", WordUtils.initials("I", array));
@@ -402,7 +403,7 @@ public class WordUtilsTest {
     // -----------------------------------------------------------------------
     @Test
     public void testSwapCase_String() {
-        assertEquals(null, WordUtils.swapCase(null));
+        assertNull(WordUtils.swapCase(null));
         assertEquals("", WordUtils.swapCase(""));
         assertEquals("  ", WordUtils.swapCase("  "));
 

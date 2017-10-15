@@ -38,7 +38,7 @@ public class StringUtilsTrimStripTest  {
         assertEquals("", StringUtils.trim(StringUtilsTest.TRIMMABLE));
         assertEquals(StringUtilsTest.NON_TRIMMABLE, StringUtils.trim(StringUtilsTest.NON_TRIMMABLE));
         assertEquals("", StringUtils.trim(""));
-        assertEquals(null, StringUtils.trim(null));
+        assertNull(StringUtils.trim(null));
     }
 
     @Test
@@ -47,11 +47,11 @@ public class StringUtilsTrimStripTest  {
         assertEquals(FOO, StringUtils.trimToNull(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.trimToNull(" " + FOO));
         assertEquals(FOO, StringUtils.trimToNull(FOO + ""));
-        assertEquals(null, StringUtils.trimToNull(" \t\r\n\b "));
-        assertEquals(null, StringUtils.trimToNull(StringUtilsTest.TRIMMABLE));
+        assertNull(StringUtils.trimToNull(" \t\r\n\b "));
+        assertNull(StringUtils.trimToNull(StringUtilsTest.TRIMMABLE));
         assertEquals(StringUtilsTest.NON_TRIMMABLE, StringUtils.trimToNull(StringUtilsTest.NON_TRIMMABLE));
-        assertEquals(null, StringUtils.trimToNull(""));
-        assertEquals(null, StringUtils.trimToNull(null));
+        assertNull(StringUtils.trimToNull(""));
+        assertNull(StringUtils.trimToNull(null));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class StringUtilsTrimStripTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testStrip_String() {
-        assertEquals(null, StringUtils.strip(null));
+        assertNull(StringUtils.strip(null));
         assertEquals("", StringUtils.strip(""));
         assertEquals("", StringUtils.strip("        "));
         assertEquals("abc", StringUtils.strip("  abc  "));
@@ -80,10 +80,10 @@ public class StringUtilsTrimStripTest  {
 
     @Test
     public void testStripToNull_String() {
-        assertEquals(null, StringUtils.stripToNull(null));
-        assertEquals(null, StringUtils.stripToNull(""));
-        assertEquals(null, StringUtils.stripToNull("        "));
-        assertEquals(null, StringUtils.stripToNull(StringUtilsTest.WHITESPACE));
+        assertNull(StringUtils.stripToNull(null));
+        assertNull(StringUtils.stripToNull(""));
+        assertNull(StringUtils.stripToNull("        "));
+        assertNull(StringUtils.stripToNull(StringUtilsTest.WHITESPACE));
         assertEquals("ab c", StringUtils.stripToNull("  ab c  "));
         assertEquals(StringUtilsTest.NON_WHITESPACE,
             StringUtils.stripToNull(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE));
@@ -103,7 +103,7 @@ public class StringUtilsTrimStripTest  {
     @Test
     public void testStrip_StringString() {
         // null strip
-        assertEquals(null, StringUtils.strip(null, null));
+        assertNull(StringUtils.strip(null, null));
         assertEquals("", StringUtils.strip("", null));
         assertEquals("", StringUtils.strip("        ", null));
         assertEquals("abc", StringUtils.strip("  abc  ", null));
@@ -111,20 +111,20 @@ public class StringUtilsTrimStripTest  {
             StringUtils.strip(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE, null));
 
         // "" strip
-        assertEquals(null, StringUtils.strip(null, ""));
+        assertNull(StringUtils.strip(null, ""));
         assertEquals("", StringUtils.strip("", ""));
         assertEquals("        ", StringUtils.strip("        ", ""));
         assertEquals("  abc  ", StringUtils.strip("  abc  ", ""));
         assertEquals(StringUtilsTest.WHITESPACE, StringUtils.strip(StringUtilsTest.WHITESPACE, ""));
 
         // " " strip
-        assertEquals(null, StringUtils.strip(null, " "));
+        assertNull(StringUtils.strip(null, " "));
         assertEquals("", StringUtils.strip("", " "));
         assertEquals("", StringUtils.strip("        ", " "));
         assertEquals("abc", StringUtils.strip("  abc  ", " "));
 
         // "ab" strip
-        assertEquals(null, StringUtils.strip(null, "ab"));
+        assertNull(StringUtils.strip(null, "ab"));
         assertEquals("", StringUtils.strip("", "ab"));
         assertEquals("        ", StringUtils.strip("        ", "ab"));
         assertEquals("  abc  ", StringUtils.strip("  abc  ", "ab"));
@@ -135,7 +135,7 @@ public class StringUtilsTrimStripTest  {
     @Test
     public void testStripStart_StringString() {
         // null stripStart
-        assertEquals(null, StringUtils.stripStart(null, null));
+        assertNull(StringUtils.stripStart(null, null));
         assertEquals("", StringUtils.stripStart("", null));
         assertEquals("", StringUtils.stripStart("        ", null));
         assertEquals("abc  ", StringUtils.stripStart("  abc  ", null));
@@ -143,20 +143,20 @@ public class StringUtilsTrimStripTest  {
             StringUtils.stripStart(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE, null));
 
         // "" stripStart
-        assertEquals(null, StringUtils.stripStart(null, ""));
+        assertNull(StringUtils.stripStart(null, ""));
         assertEquals("", StringUtils.stripStart("", ""));
         assertEquals("        ", StringUtils.stripStart("        ", ""));
         assertEquals("  abc  ", StringUtils.stripStart("  abc  ", ""));
         assertEquals(StringUtilsTest.WHITESPACE, StringUtils.stripStart(StringUtilsTest.WHITESPACE, ""));
 
         // " " stripStart
-        assertEquals(null, StringUtils.stripStart(null, " "));
+        assertNull(StringUtils.stripStart(null, " "));
         assertEquals("", StringUtils.stripStart("", " "));
         assertEquals("", StringUtils.stripStart("        ", " "));
         assertEquals("abc  ", StringUtils.stripStart("  abc  ", " "));
 
         // "ab" stripStart
-        assertEquals(null, StringUtils.stripStart(null, "ab"));
+        assertNull(StringUtils.stripStart(null, "ab"));
         assertEquals("", StringUtils.stripStart("", "ab"));
         assertEquals("        ", StringUtils.stripStart("        ", "ab"));
         assertEquals("  abc  ", StringUtils.stripStart("  abc  ", "ab"));
@@ -167,7 +167,7 @@ public class StringUtilsTrimStripTest  {
     @Test
     public void testStripEnd_StringString() {
         // null stripEnd
-        assertEquals(null, StringUtils.stripEnd(null, null));
+        assertNull(StringUtils.stripEnd(null, null));
         assertEquals("", StringUtils.stripEnd("", null));
         assertEquals("", StringUtils.stripEnd("        ", null));
         assertEquals("  abc", StringUtils.stripEnd("  abc  ", null));
@@ -175,20 +175,20 @@ public class StringUtilsTrimStripTest  {
             StringUtils.stripEnd(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE, null));
 
         // "" stripEnd
-        assertEquals(null, StringUtils.stripEnd(null, ""));
+        assertNull(StringUtils.stripEnd(null, ""));
         assertEquals("", StringUtils.stripEnd("", ""));
         assertEquals("        ", StringUtils.stripEnd("        ", ""));
         assertEquals("  abc  ", StringUtils.stripEnd("  abc  ", ""));
         assertEquals(StringUtilsTest.WHITESPACE, StringUtils.stripEnd(StringUtilsTest.WHITESPACE, ""));
 
         // " " stripEnd
-        assertEquals(null, StringUtils.stripEnd(null, " "));
+        assertNull(StringUtils.stripEnd(null, " "));
         assertEquals("", StringUtils.stripEnd("", " "));
         assertEquals("", StringUtils.stripEnd("        ", " "));
         assertEquals("  abc", StringUtils.stripEnd("  abc  ", " "));
 
         // "ab" stripEnd
-        assertEquals(null, StringUtils.stripEnd(null, "ab"));
+        assertNull(StringUtils.stripEnd(null, "ab"));
         assertEquals("", StringUtils.stripEnd("", "ab"));
         assertEquals("        ", StringUtils.stripEnd("        ", "ab"));
         assertEquals("  abc  ", StringUtils.stripEnd("  abc  ", "ab"));

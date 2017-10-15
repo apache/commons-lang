@@ -193,7 +193,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringStringBuilder() {
-        assertEquals(null, ObjectUtils.identityToString(null));
+        assertNull(ObjectUtils.identityToString(null));
         assertEquals(
             "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
             ObjectUtils.identityToString(FOO));

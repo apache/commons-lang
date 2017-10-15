@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -72,8 +73,8 @@ public class CharUtilsTest {
 
     @Test
     public void testToCharacterObject_String() {
-        assertEquals(null, CharUtils.toCharacterObject(null));
-        assertEquals(null, CharUtils.toCharacterObject(""));
+        assertNull(CharUtils.toCharacterObject(null));
+        assertNull(CharUtils.toCharacterObject(""));
         assertEquals(new Character('a'), CharUtils.toCharacterObject("a"));
         assertEquals(new Character('a'), CharUtils.toCharacterObject("abc"));
         assertSame(CharUtils.toCharacterObject("a"), CharUtils.toCharacterObject("a"));
@@ -191,7 +192,7 @@ public class CharUtilsTest {
 
     @Test
     public void testToString_Character() {
-        assertEquals(null, CharUtils.toString(null));
+        assertNull(CharUtils.toString(null));
         assertEquals("A", CharUtils.toString(CHARACTER_A));
         assertSame(CharUtils.toString(CHARACTER_A), CharUtils.toString(CHARACTER_A));
     }
@@ -213,7 +214,7 @@ public class CharUtilsTest {
 
     @Test
     public void testToUnicodeEscaped_Character() {
-        assertEquals(null, CharUtils.unicodeEscaped(null));
+        assertNull(CharUtils.unicodeEscaped(null));
         assertEquals("\\u0041", CharUtils.unicodeEscaped(CHARACTER_A));
     }
 

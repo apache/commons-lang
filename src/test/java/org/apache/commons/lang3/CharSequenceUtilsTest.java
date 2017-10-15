@@ -20,6 +20,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -50,9 +51,9 @@ public class CharSequenceUtilsTest {
         //
         // null input
         //
-        assertEquals(null, CharSequenceUtils.subSequence(null, -1));
-        assertEquals(null, CharSequenceUtils.subSequence(null, 0));
-        assertEquals(null, CharSequenceUtils.subSequence(null, 1));
+        assertNull(CharSequenceUtils.subSequence(null, -1));
+        assertNull(CharSequenceUtils.subSequence(null, 0));
+        assertNull(CharSequenceUtils.subSequence(null, 1));
         //
         // non-null input
         //
@@ -65,12 +66,12 @@ public class CharSequenceUtilsTest {
 
     @Test(expected=IndexOutOfBoundsException.class)
     public void testSubSequenceNegativeStart() {
-        assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
+        assertNull(CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
     }
 
     @Test(expected=IndexOutOfBoundsException.class)
     public void testSubSequenceTooLong() {
-        assertEquals(null, CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
+        assertNull(CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
     }
 
     static class TestData{
