@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.time;
 
+import static org.junit.Assert.assertEquals;
+
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.Arrays;
@@ -25,7 +27,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -75,7 +76,7 @@ public class WeekYearTest {
         cal.clear();
 
         parser.parse(isoForm, new ParsePosition(0), cal);
-        Assert.assertEquals(vulgar.getTime(), cal.getTime());
+        assertEquals(vulgar.getTime(), cal.getTime());
     }
 
     @Test
@@ -85,6 +86,6 @@ public class WeekYearTest {
         vulgar.setMinimalDaysInFirstWeek(4);
         vulgar.setFirstDayOfWeek(Calendar.MONDAY);
 
-        Assert.assertEquals(isoForm, printer.format(vulgar));
+        assertEquals(isoForm, printer.format(vulgar));
     }
 }

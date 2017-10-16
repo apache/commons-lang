@@ -19,8 +19,10 @@ package org.apache.commons.lang3;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -71,8 +73,8 @@ public class CharUtilsTest {
 
     @Test
     public void testToCharacterObject_String() {
-        assertEquals(null, CharUtils.toCharacterObject(null));
-        assertEquals(null, CharUtils.toCharacterObject(""));
+        assertNull(CharUtils.toCharacterObject(null));
+        assertNull(CharUtils.toCharacterObject(""));
         assertEquals(new Character('a'), CharUtils.toCharacterObject("a"));
         assertEquals(new Character('a'), CharUtils.toCharacterObject("abc"));
         assertSame(CharUtils.toCharacterObject("a"), CharUtils.toCharacterObject("a"));
@@ -84,6 +86,7 @@ public class CharUtilsTest {
         assertEquals('B', CharUtils.toChar(CHARACTER_B));
         try {
             CharUtils.toChar((Character) null);
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
     }
 
@@ -100,9 +103,11 @@ public class CharUtilsTest {
         assertEquals('B', CharUtils.toChar("BA"));
         try {
             CharUtils.toChar((String) null);
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
         try {
             CharUtils.toChar("");
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
     }
 
@@ -128,6 +133,7 @@ public class CharUtilsTest {
         assertEquals(9, CharUtils.toIntValue('9'));
         try {
             CharUtils.toIntValue('a');
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
     }
 
@@ -144,9 +150,11 @@ public class CharUtilsTest {
         assertEquals(3, CharUtils.toIntValue(new Character('3')));
         try {
             CharUtils.toIntValue(null);
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
         try {
             CharUtils.toIntValue(CHARACTER_A);
+            fail("An IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException ex) {}
     }
 
@@ -184,7 +192,7 @@ public class CharUtilsTest {
 
     @Test
     public void testToString_Character() {
-        assertEquals(null, CharUtils.toString(null));
+        assertNull(CharUtils.toString(null));
         assertEquals("A", CharUtils.toString(CHARACTER_A));
         assertSame(CharUtils.toString(CHARACTER_A), CharUtils.toString(CHARACTER_A));
     }
@@ -206,7 +214,7 @@ public class CharUtilsTest {
 
     @Test
     public void testToUnicodeEscaped_Character() {
-        assertEquals(null, CharUtils.unicodeEscaped(null));
+        assertNull(CharUtils.unicodeEscaped(null));
         assertEquals("\\u0041", CharUtils.unicodeEscaped(CHARACTER_A));
     }
 
@@ -219,12 +227,8 @@ public class CharUtilsTest {
         assertTrue(CharUtils.isAscii('\n'));
         assertFalse(CharUtils.isAscii(CHAR_COPY));
 
-        for (int i = 0; i < 128; i++) {
-            if (i < 128) {
-                assertTrue(CharUtils.isAscii((char) i));
-            } else {
-                assertFalse(CharUtils.isAscii((char) i));
-            }
+        for (int i = 0; i < 255; i++) {
+            assertEquals(i < 128, CharUtils.isAscii((char) i));
         }
     }
 

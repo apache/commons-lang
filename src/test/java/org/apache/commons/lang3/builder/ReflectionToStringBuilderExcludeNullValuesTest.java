@@ -26,9 +26,9 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
 
     static class TestFixture {
         @SuppressWarnings("unused")
-        private Integer testIntegerField;
+        private final Integer testIntegerField;
         @SuppressWarnings("unused")
-        private String testStringField;
+        private final String testStringField;
 
         TestFixture(Integer a, String b) {
             this.testIntegerField = a;

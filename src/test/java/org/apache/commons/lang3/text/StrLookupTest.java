@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.text;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
@@ -35,16 +36,16 @@ public class StrLookupTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testNoneLookup() {
-        assertEquals(null, StrLookup.noneLookup().lookup(null));
-        assertEquals(null, StrLookup.noneLookup().lookup(""));
-        assertEquals(null, StrLookup.noneLookup().lookup("any"));
+        assertNull(StrLookup.noneLookup().lookup(null));
+        assertNull(StrLookup.noneLookup().lookup(""));
+        assertNull(StrLookup.noneLookup().lookup("any"));
     }
 
     @Test
     public void testSystemPropertiesLookup() {
         assertEquals(System.getProperty("os.name"), StrLookup.systemPropertiesLookup().lookup("os.name"));
-        assertEquals(null, StrLookup.systemPropertiesLookup().lookup(""));
-        assertEquals(null, StrLookup.systemPropertiesLookup().lookup("other"));
+        assertNull(StrLookup.systemPropertiesLookup().lookup(""));
+        assertNull(StrLookup.systemPropertiesLookup().lookup("other"));
         try {
             StrLookup.systemPropertiesLookup().lookup(null);
             fail();
@@ -101,17 +102,17 @@ public class StrLookupTest  {
         map.put("number", Integer.valueOf(2));
         assertEquals("value", StrLookup.mapLookup(map).lookup("key"));
         assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
-        assertEquals(null, StrLookup.mapLookup(map).lookup(null));
-        assertEquals(null, StrLookup.mapLookup(map).lookup(""));
-        assertEquals(null, StrLookup.mapLookup(map).lookup("other"));
+        assertNull(StrLookup.mapLookup(map).lookup(null));
+        assertNull(StrLookup.mapLookup(map).lookup(""));
+        assertNull(StrLookup.mapLookup(map).lookup("other"));
     }
 
     @Test
     public void testMapLookup_nullMap() {
         final Map<String, ?> map = null;
-        assertEquals(null, StrLookup.mapLookup(map).lookup(null));
-        assertEquals(null, StrLookup.mapLookup(map).lookup(""));
-        assertEquals(null, StrLookup.mapLookup(map).lookup("any"));
+        assertNull(StrLookup.mapLookup(map).lookup(null));
+        assertNull(StrLookup.mapLookup(map).lookup(""));
+        assertNull(StrLookup.mapLookup(map).lookup("any"));
     }
 
 }

@@ -110,7 +110,7 @@ public class ExtendedMessageFormatTest {
     @Test
     public void testExtendedAndBuiltInFormats() {
         final Calendar cal = Calendar.getInstance();
-        cal.set(2007, Calendar.JANUARY, 23, 18, 33, 05);
+        cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
         final Object[] args = new Object[] {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
         final String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
         final String extendedPattern = "Name: {0,upper} ";
@@ -138,7 +138,7 @@ public class ExtendedMessageFormatTest {
             }
             final StringBuilder expected = new StringBuilder();
             expected.append("Name: ");
-            expected.append(args[0].toString().toUpperCase());
+            expected.append(args[0].toString().toUpperCase(Locale.ROOT));
             expected.append(" DOB: ");
             expected.append(df.format(args[1]));
             expected.append(" Salary: ");
@@ -229,7 +229,7 @@ public class ExtendedMessageFormatTest {
     @Test
     public void testBuiltInDateTimeFormat() {
         final Calendar cal = Calendar.getInstance();
-        cal.set(2007, Calendar.JANUARY, 23, 18, 33, 05);
+        cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
         final Object[] args = new Object[] {cal.getTime()};
         final Locale[] availableLocales = DateFormat.getAvailableLocales();
 
@@ -406,7 +406,7 @@ public class ExtendedMessageFormatTest {
 
         @Override
         public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
-            return toAppendTo.append(((String)obj).toLowerCase());
+            return toAppendTo.append(((String)obj).toLowerCase(Locale.ROOT));
         }
         @Override
         public Object parseObject(final String source, final ParsePosition pos) {
@@ -422,8 +422,9 @@ public class ExtendedMessageFormatTest {
 
         @Override
         public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
-            return toAppendTo.append(((String)obj).toUpperCase());
+            return toAppendTo.append(((String) obj).toUpperCase(Locale.ROOT));
         }
+
         @Override
         public Object parseObject(final String source, final ParsePosition pos) {
             throw new UnsupportedOperationException();
@@ -437,6 +438,7 @@ public class ExtendedMessageFormatTest {
      */
     private static class LowerCaseFormatFactory implements FormatFactory {
         private static final Format LOWER_INSTANCE = new LowerCaseFormat();
+
         @Override
         public Format getFormat(final String name, final String arguments, final Locale locale) {
             return LOWER_INSTANCE;
@@ -447,6 +449,7 @@ public class ExtendedMessageFormatTest {
      */
     private static class UpperCaseFormatFactory implements FormatFactory {
         private static final Format UPPER_INSTANCE = new UpperCaseFormat();
+
         @Override
         public Format getFormat(final String name, final String arguments, final Locale locale) {
             return UPPER_INSTANCE;
@@ -456,6 +459,7 @@ public class ExtendedMessageFormatTest {
      * {@link FormatFactory} implementation to override date format "short" to "default".
      */
     private static class OverrideShortDateFormatFactory implements FormatFactory {
+
         @Override
         public Format getFormat(final String name, final String arguments, final Locale locale) {
             return !"short".equals(arguments) ? null

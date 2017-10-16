@@ -319,7 +319,7 @@ public class StrTokenizerTest {
         tok.setIgnoreEmptyTokens(false);
         tok.setEmptyTokenAsNull(true);
         assertEquals("a", tok.next());
-        assertEquals(null, tok.next());
+        assertNull(tok.next());
         assertEquals("b", tok.next());
         assertEquals("c", tok.next());
         assertFalse(tok.hasNext());
@@ -343,7 +343,7 @@ public class StrTokenizerTest {
         tok.setEmptyTokenAsNull(true);
         assertEquals("a", tok.next());
         assertEquals("b", tok.next());
-        assertEquals(null, tok.next());
+        assertNull(tok.next());
         assertFalse(tok.hasNext());
     }
 
@@ -414,7 +414,7 @@ public class StrTokenizerTest {
         tok.setEmptyTokenAsNull(true);
         assertEquals("a", tok.next());
         assertEquals("b", tok.next());
-        assertEquals(null, tok.next());
+        assertNull(tok.next());
         assertFalse(tok.hasNext());
     }
 
@@ -427,7 +427,7 @@ public class StrTokenizerTest {
         tok.setEmptyTokenAsNull(true);
         assertEquals("a", tok.next());
         assertEquals("b", tok.next());
-        assertEquals(null, tok.next());
+        assertNull(tok.next());
         assertFalse(tok.hasNext());
     }
 
@@ -440,7 +440,7 @@ public class StrTokenizerTest {
         tok.setEmptyTokenAsNull(true);
         assertEquals("a", tok.next());
         assertEquals("b", tok.next());
-        assertEquals(null, tok.next());
+        assertNull(tok.next());
         assertFalse(tok.hasNext());
     }
 
@@ -454,7 +454,7 @@ public class StrTokenizerTest {
         tok.setEmptyTokenAsNull(true);
         assertEquals("a", tok.next());
         assertEquals("bc", tok.next());
-        assertEquals(null, tok.next());
+        assertNull(tok.next());
         assertFalse(tok.hasNext());
     }
 
@@ -468,7 +468,7 @@ public class StrTokenizerTest {
         tok.setEmptyTokenAsNull(true);
         assertEquals("a", tok.next());
         assertEquals("bc", tok.next());
-        assertEquals(null, tok.next());
+        assertNull(tok.next());
         assertFalse(tok.hasNext());
     }
 
@@ -495,7 +495,7 @@ public class StrTokenizerTest {
         tok.setEmptyTokenAsNull(true);
         assertEquals("a", tok.next());
         assertEquals("bIGNOREcd", tok.next());
-        assertEquals(null, tok.next());
+        assertNull(tok.next());
         assertFalse(tok.hasNext());
     }
 
@@ -539,7 +539,7 @@ public class StrTokenizerTest {
         this.checkClone(tokenizer);
         assertFalse(tokenizer.hasNext());
         assertFalse(tokenizer.hasPrevious());
-        assertEquals(null, tokenizer.nextToken());
+        assertNull(tokenizer.nextToken());
         assertEquals(0, tokenizer.size());
         try {
             tokenizer.next();
@@ -557,7 +557,7 @@ public class StrTokenizerTest {
         assertEquals(input, tok.getContent());
 
         tok = new StrTokenizer();
-        assertEquals(null, tok.getContent());
+        assertNull(tok.getContent());
     }
 
     //-----------------------------------------------------------------------
@@ -598,14 +598,14 @@ public class StrTokenizerTest {
     public void testCloneNull() {
         final StrTokenizer tokenizer = new StrTokenizer((char[]) null);
         // Start sanity check
-        assertEquals(null, tokenizer.nextToken());
+        assertNull(tokenizer.nextToken());
         tokenizer.reset();
-        assertEquals(null, tokenizer.nextToken());
+        assertNull(tokenizer.nextToken());
         // End sanity check
         final StrTokenizer clonedTokenizer = (StrTokenizer) tokenizer.clone();
         tokenizer.reset();
-        assertEquals(null, tokenizer.nextToken());
-        assertEquals(null, clonedTokenizer.nextToken());
+        assertNull(tokenizer.nextToken());
+        assertNull(clonedTokenizer.nextToken());
     }
 
     @Test
@@ -780,14 +780,14 @@ public class StrTokenizerTest {
         this.checkClone(tokenizer);
         assertEquals(-1, tokenizer.previousIndex());
         assertEquals(0, tokenizer.nextIndex());
-        assertEquals(null, tokenizer.previousToken());
+        assertNull(tokenizer.previousToken());
         assertEquals("A", tokenizer.nextToken());
         assertEquals(1, tokenizer.nextIndex());
         assertEquals("b", tokenizer.nextToken());
         assertEquals(2, tokenizer.nextIndex());
         assertEquals("c", tokenizer.nextToken());
         assertEquals(3, tokenizer.nextIndex());
-        assertEquals(null, tokenizer.nextToken());
+        assertNull(tokenizer.nextToken());
         assertEquals(3, tokenizer.nextIndex());
         assertEquals("c", tokenizer.previousToken());
         assertEquals(2, tokenizer.nextIndex());
@@ -795,7 +795,7 @@ public class StrTokenizerTest {
         assertEquals(1, tokenizer.nextIndex());
         assertEquals("A", tokenizer.previousToken());
         assertEquals(0, tokenizer.nextIndex());
-        assertEquals(null, tokenizer.previousToken());
+        assertNull(tokenizer.previousToken());
         assertEquals(0, tokenizer.nextIndex());
         assertEquals(-1, tokenizer.previousIndex());
         assertEquals(3, tokenizer.size());

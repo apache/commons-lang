@@ -36,7 +36,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -211,7 +210,7 @@ public class SerializationUtilsTest {
     public void testDeserializeClassCastException() {
         final String value = "Hello";
         final byte[] serialized = SerializationUtils.serialize(value);
-        Assert.assertEquals(value, SerializationUtils.deserialize(serialized));
+        assertEquals(value, SerializationUtils.deserialize(serialized));
         // Causes ClassCastException in call site, not in SerializationUtils.deserialize
         @SuppressWarnings("unused") // needed to cause Exception
         final Integer i = SerializationUtils.deserialize(serialized);

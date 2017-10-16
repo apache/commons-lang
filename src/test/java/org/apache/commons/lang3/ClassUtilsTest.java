@@ -264,7 +264,7 @@ public class ClassUtilsTest  {
         assertEquals(CX.class, list.get(0));
         assertEquals(Object.class, list.get(1));
 
-        assertEquals(null, ClassUtils.getAllSuperclasses(null));
+        assertNull(ClassUtils.getAllSuperclasses(null));
     }
 
     @Test
@@ -278,7 +278,7 @@ public class ClassUtilsTest  {
         assertEquals(IF.class, list.get(4));
         assertEquals(IA.class, list.get(5));
 
-        assertEquals(null, ClassUtils.getAllInterfaces(null));
+        assertNull(ClassUtils.getAllInterfaces(null));
     }
 
     private interface IA {
@@ -311,7 +311,7 @@ public class ClassUtilsTest  {
         result = ClassUtils.convertClassNamesToClasses(list);
         assertEquals(3, result.size());
         assertEquals(String.class, result.get(0));
-        assertEquals(null, result.get(1));
+        assertNull(result.get(1));
         assertEquals(Object.class, result.get(2));
 
         @SuppressWarnings("unchecked") // test what happens when non-generic code adds wrong type of element
@@ -322,7 +322,7 @@ public class ClassUtilsTest  {
             ClassUtils.convertClassNamesToClasses(list);
             fail("Should not have been able to convert list");
         } catch (final ClassCastException expected) {}
-        assertEquals(null, ClassUtils.convertClassNamesToClasses(null));
+        assertNull(ClassUtils.convertClassNamesToClasses(null));
     }
 
     @Test
@@ -337,7 +337,7 @@ public class ClassUtilsTest  {
         result = ClassUtils.convertClassesToClassNames(list);
         assertEquals(3, result.size());
         assertEquals("java.lang.String", result.get(0));
-        assertEquals(null, result.get(1));
+        assertNull(result.get(1));
         assertEquals("java.lang.Object", result.get(2));
 
         @SuppressWarnings("unchecked") // test what happens when non-generic code adds wrong type of element
@@ -348,7 +348,7 @@ public class ClassUtilsTest  {
             ClassUtils.convertClassesToClassNames(list);
             fail("Should not have been able to convert list");
         } catch (final ClassCastException expected) {}
-        assertEquals(null, ClassUtils.convertClassesToClassNames(null));
+        assertNull(ClassUtils.convertClassesToClassNames(null));
     }
 
     // -------------------------------------------------------------------------

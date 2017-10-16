@@ -717,15 +717,15 @@ public class StrSubstitutorTest {
         final StrSubstitutor sub = new StrSubstitutor(values);
 
         if (replaceTemplate == null) {
-            assertEquals(null, sub.replace((String) null));
-            assertEquals(null, sub.replace((String) null, 0, 100));
-            assertEquals(null, sub.replace((char[]) null));
-            assertEquals(null, sub.replace((char[]) null, 0, 100));
-            assertEquals(null, sub.replace((StringBuffer) null));
-            assertEquals(null, sub.replace((StringBuffer) null, 0, 100));
-            assertEquals(null, sub.replace((StrBuilder) null));
-            assertEquals(null, sub.replace((StrBuilder) null, 0, 100));
-            assertEquals(null, sub.replace((Object) null));
+            assertNull(sub.replace((String) null));
+            assertNull(sub.replace((String) null, 0, 100));
+            assertNull(sub.replace((char[]) null));
+            assertNull(sub.replace((char[]) null, 0, 100));
+            assertNull(sub.replace((StringBuffer) null));
+            assertNull(sub.replace((StringBuffer) null, 0, 100));
+            assertNull(sub.replace((StrBuilder) null));
+            assertNull(sub.replace((StrBuilder) null, 0, 100));
+            assertNull(sub.replace((Object) null));
             assertFalse(sub.replaceIn((StringBuffer) null));
             assertFalse(sub.replaceIn((StringBuffer) null, 0, 100));
             assertFalse(sub.replaceIn((StrBuilder) null));

@@ -18,6 +18,7 @@ package org.apache.commons.lang3.mutable;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -34,7 +35,7 @@ public class MutableObjectTest {
     // ----------------------------------------------------------------
     @Test
     public void testConstructors() {
-        assertEquals(null, new MutableObject<String>().getValue());
+        assertNull(new MutableObject<String>().getValue());
 
         final Integer i = Integer.valueOf(6);
         assertSame(i, new MutableObject<>(i).getValue());
@@ -45,7 +46,7 @@ public class MutableObjectTest {
     @Test
     public void testGetSet() {
         final MutableObject<String> mutNum = new MutableObject<>();
-        assertEquals(null, new MutableObject<>().getValue());
+        assertNull(new MutableObject<>().getValue());
 
         mutNum.setValue("HELLO");
         assertSame("HELLO", mutNum.getValue());

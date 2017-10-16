@@ -33,7 +33,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -225,7 +224,7 @@ public class ArrayUtilsTest {
         assertEquals("bar", map.get("foo"));
         assertEquals("world", map.get("hello"));
 
-        assertEquals(null, ArrayUtils.toMap(null));
+        assertNull(ArrayUtils.toMap(null));
         try {
             ArrayUtils.toMap(new String[][]{{"foo", "bar"}, {"short"}});
             fail("exception expected");
@@ -292,7 +291,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testCloneBoolean() {
-        assertEquals(null, ArrayUtils.clone((boolean[]) null));
+        assertNull(ArrayUtils.clone((boolean[]) null));
         final boolean[] original = new boolean[]{true, false};
         final boolean[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -301,7 +300,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testCloneLong() {
-        assertEquals(null, ArrayUtils.clone((long[]) null));
+        assertNull(ArrayUtils.clone((long[]) null));
         final long[] original = new long[]{0L, 1L};
         final long[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -310,7 +309,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testCloneInt() {
-        assertEquals(null, ArrayUtils.clone((int[]) null));
+        assertNull(ArrayUtils.clone((int[]) null));
         final int[] original = new int[]{5, 8};
         final int[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -319,7 +318,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testCloneShort() {
-        assertEquals(null, ArrayUtils.clone((short[]) null));
+        assertNull(ArrayUtils.clone((short[]) null));
         final short[] original = new short[]{1, 4};
         final short[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -328,7 +327,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testCloneChar() {
-        assertEquals(null, ArrayUtils.clone((char[]) null));
+        assertNull(ArrayUtils.clone((char[]) null));
         final char[] original = new char[]{'a', '4'};
         final char[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -337,7 +336,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testCloneByte() {
-        assertEquals(null, ArrayUtils.clone((byte[]) null));
+        assertNull(ArrayUtils.clone((byte[]) null));
         final byte[] original = new byte[]{1, 6};
         final byte[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -346,7 +345,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testCloneDouble() {
-        assertEquals(null, ArrayUtils.clone((double[]) null));
+        assertNull(ArrayUtils.clone((double[]) null));
         final double[] original = new double[]{2.4d, 5.7d};
         final double[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -355,7 +354,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testCloneFloat() {
-        assertEquals(null, ArrayUtils.clone((float[]) null));
+        assertNull(ArrayUtils.clone((float[]) null));
         final float[] original = new float[]{2.6f, 6.4f};
         final float[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -1745,7 +1744,7 @@ public class ArrayUtilsTest {
 
         array = null;
         ArrayUtils.reverse(array);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1758,7 +1757,7 @@ public class ArrayUtilsTest {
 
         array = null;
         ArrayUtils.reverse(array);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1771,7 +1770,7 @@ public class ArrayUtilsTest {
 
         array = null;
         ArrayUtils.reverse(array);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1784,7 +1783,7 @@ public class ArrayUtilsTest {
 
         array = null;
         ArrayUtils.reverse(array);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1797,7 +1796,7 @@ public class ArrayUtilsTest {
 
         array = null;
         ArrayUtils.reverse(array);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1810,7 +1809,7 @@ public class ArrayUtilsTest {
 
         array = null;
         ArrayUtils.reverse(array);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1823,7 +1822,7 @@ public class ArrayUtilsTest {
 
         array = null;
         ArrayUtils.reverse(array);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1836,7 +1835,7 @@ public class ArrayUtilsTest {
 
         array = null;
         ArrayUtils.reverse(array);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1868,7 +1867,7 @@ public class ArrayUtilsTest {
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1900,7 +1899,7 @@ public class ArrayUtilsTest {
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1932,7 +1931,7 @@ public class ArrayUtilsTest {
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1964,7 +1963,7 @@ public class ArrayUtilsTest {
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -1996,7 +1995,7 @@ public class ArrayUtilsTest {
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -2028,7 +2027,7 @@ public class ArrayUtilsTest {
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -2060,7 +2059,7 @@ public class ArrayUtilsTest {
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -2092,7 +2091,7 @@ public class ArrayUtilsTest {
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     @Test
@@ -2124,7 +2123,7 @@ public class ArrayUtilsTest {
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(null, array);
+        assertNull(array);
     }
 
     //-----------------------------------------------------------------------
@@ -4126,7 +4125,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_boolean() {
         final Boolean[] b = null;
-        assertEquals(null, ArrayUtils.toPrimitive(b));
+        assertNull(ArrayUtils.toPrimitive(b));
         assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.toPrimitive(new Boolean[0]));
         assertTrue(Arrays.equals(
                 new boolean[]{true, false, true},
@@ -4142,7 +4141,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testToPrimitive_boolean_boolean() {
-        assertEquals(null, ArrayUtils.toPrimitive(null, false));
+        assertNull(ArrayUtils.toPrimitive(null, false));
         assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.toPrimitive(new Boolean[0], false));
         assertTrue(Arrays.equals(
                 new boolean[]{true, false, true},
@@ -4174,7 +4173,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_char() {
         final Character[] b = null;
-        assertEquals(null, ArrayUtils.toPrimitive(b));
+        assertNull(ArrayUtils.toPrimitive(b));
 
         assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.toPrimitive(new Character[0]));
 
@@ -4194,7 +4193,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_char_char() {
         final Character[] b = null;
-        assertEquals(null, ArrayUtils.toPrimitive(b, Character.MIN_VALUE));
+        assertNull(ArrayUtils.toPrimitive(b, Character.MIN_VALUE));
 
         assertSame(ArrayUtils.EMPTY_CHAR_ARRAY,
                 ArrayUtils.toPrimitive(new Character[0], (char) 0));
@@ -4234,7 +4233,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_byte() {
         final Byte[] b = null;
-        assertEquals(null, ArrayUtils.toPrimitive(b));
+        assertNull(ArrayUtils.toPrimitive(b));
 
         assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.toPrimitive(new Byte[0]));
 
@@ -4254,7 +4253,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_byte_byte() {
         final Byte[] b = null;
-        assertEquals(null, ArrayUtils.toPrimitive(b, Byte.MIN_VALUE));
+        assertNull(ArrayUtils.toPrimitive(b, Byte.MIN_VALUE));
 
         assertSame(ArrayUtils.EMPTY_BYTE_ARRAY,
                 ArrayUtils.toPrimitive(new Byte[0], (byte) 1));
@@ -4294,7 +4293,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_short() {
         final Short[] b = null;
-        assertEquals(null, ArrayUtils.toPrimitive(b));
+        assertNull(ArrayUtils.toPrimitive(b));
 
         assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.toPrimitive(new Short[0]));
 
@@ -4314,7 +4313,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_short_short() {
         final Short[] s = null;
-        assertEquals(null, ArrayUtils.toPrimitive(s, Short.MIN_VALUE));
+        assertNull(ArrayUtils.toPrimitive(s, Short.MIN_VALUE));
 
         assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.toPrimitive(new Short[0],
                 Short.MIN_VALUE));
@@ -4353,7 +4352,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_int() {
         final Integer[] b = null;
-        assertEquals(null, ArrayUtils.toPrimitive(b));
+        assertNull(ArrayUtils.toPrimitive(b));
         assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.toPrimitive(new Integer[0]));
         assertTrue(Arrays.equals(
                 new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999},
@@ -4371,7 +4370,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_int_int() {
         final Long[] l = null;
-        assertEquals(null, ArrayUtils.toPrimitive(l, Integer.MIN_VALUE));
+        assertNull(ArrayUtils.toPrimitive(l, Integer.MIN_VALUE));
         assertSame(ArrayUtils.EMPTY_INT_ARRAY,
                 ArrayUtils.toPrimitive(new Integer[0], 1));
         assertTrue(Arrays.equals(
@@ -4388,7 +4387,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_intNull() {
         final Integer[] iArray = null;
-        assertEquals(null, ArrayUtils.toPrimitive(iArray, Integer.MIN_VALUE));
+        assertNull(ArrayUtils.toPrimitive(iArray, Integer.MIN_VALUE));
     }
 
     @Test
@@ -4415,7 +4414,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_long() {
         final Long[] b = null;
-        assertEquals(null, ArrayUtils.toPrimitive(b));
+        assertNull(ArrayUtils.toPrimitive(b));
 
         assertSame(ArrayUtils.EMPTY_LONG_ARRAY,
                 ArrayUtils.toPrimitive(new Long[0]));
@@ -4436,7 +4435,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_long_long() {
         final Long[] l = null;
-        assertEquals(null, ArrayUtils.toPrimitive(l, Long.MIN_VALUE));
+        assertNull(ArrayUtils.toPrimitive(l, Long.MIN_VALUE));
 
         assertSame(ArrayUtils.EMPTY_LONG_ARRAY,
                 ArrayUtils.toPrimitive(new Long[0], 1));
@@ -4477,7 +4476,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_float() {
         final Float[] b = null;
-        assertEquals(null, ArrayUtils.toPrimitive(b));
+        assertNull(ArrayUtils.toPrimitive(b));
 
         assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY,
                 ArrayUtils.toPrimitive(new Float[0]));
@@ -4498,7 +4497,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_float_float() {
         final Float[] l = null;
-        assertEquals(null, ArrayUtils.toPrimitive(l, Float.MIN_VALUE));
+        assertNull(ArrayUtils.toPrimitive(l, Float.MIN_VALUE));
 
         assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY,
                 ArrayUtils.toPrimitive(new Float[0], 1));
@@ -4539,7 +4538,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_double() {
         final Double[] b = null;
-        assertEquals(null, ArrayUtils.toPrimitive(b));
+        assertNull(ArrayUtils.toPrimitive(b));
 
         assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY,
                 ArrayUtils.toPrimitive(new Double[0]));
@@ -4560,7 +4559,7 @@ public class ArrayUtilsTest {
     @Test
     public void testToPrimitive_double_double() {
         final Double[] l = null;
-        assertEquals(null, ArrayUtils.toPrimitive(l, Double.MIN_VALUE));
+        assertNull(ArrayUtils.toPrimitive(l, Double.MIN_VALUE));
 
         assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY,
                 ArrayUtils.toPrimitive(new Double[0], 1));
@@ -4968,12 +4967,12 @@ public class ArrayUtilsTest {
 
     @Test
     public void testCreatePrimitiveArray() {
-        Assert.assertNull(ArrayUtils.toPrimitive((Object[]) null));
-        Assert.assertArrayEquals(new int[]{}, ArrayUtils.toPrimitive(new Integer[]{}));
-        Assert.assertArrayEquals(new short[]{2}, ArrayUtils.toPrimitive(new Short[]{2}));
-        Assert.assertArrayEquals(new long[]{2, 3}, ArrayUtils.toPrimitive(new Long[]{2L, 3L}));
-        Assert.assertArrayEquals(new float[]{3.14f}, ArrayUtils.toPrimitive(new Float[]{3.14f}), 0.1f);
-        Assert.assertArrayEquals(new double[]{2.718}, ArrayUtils.toPrimitive(new Double[]{2.718}), 0.1);
+        assertNull(ArrayUtils.toPrimitive((Object[]) null));
+        assertArrayEquals(new int[]{}, ArrayUtils.toPrimitive(new Integer[]{}));
+        assertArrayEquals(new short[]{2}, ArrayUtils.toPrimitive(new Short[]{2}));
+        assertArrayEquals(new long[]{2, 3}, ArrayUtils.toPrimitive(new Long[]{2L, 3L}));
+        assertArrayEquals(new float[]{3.14f}, ArrayUtils.toPrimitive(new Float[]{3.14f}), 0.1f);
+        assertArrayEquals(new double[]{2.718}, ArrayUtils.toPrimitive(new Double[]{2.718}), 0.1);
     }
 
     @Test
@@ -5009,9 +5008,9 @@ public class ArrayUtilsTest {
         String[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (String element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5021,8 +5020,8 @@ public class ArrayUtilsTest {
         boolean[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
-        Assert.assertEquals(5, ArrayUtils.removeAllOccurences(array1, true).length);
+        assertFalse(Arrays.equals(array1, array2));
+        assertEquals(5, ArrayUtils.removeAllOccurences(array1, true).length);
     }
 
     @Test
@@ -5031,9 +5030,9 @@ public class ArrayUtilsTest {
         byte[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (byte element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5043,9 +5042,9 @@ public class ArrayUtilsTest {
         char[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (char element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5055,9 +5054,9 @@ public class ArrayUtilsTest {
         short[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (short element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5067,9 +5066,9 @@ public class ArrayUtilsTest {
         int[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (int element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5079,9 +5078,9 @@ public class ArrayUtilsTest {
         long[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (long element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5091,9 +5090,9 @@ public class ArrayUtilsTest {
         float[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (float element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 
@@ -5103,9 +5102,9 @@ public class ArrayUtilsTest {
         double[] array2 = ArrayUtils.clone(array1);
 
         ArrayUtils.shuffle(array1);
-        Assert.assertFalse(Arrays.equals(array1, array2));
+        assertFalse(Arrays.equals(array1, array2));
         for (double element : array2) {
-            Assert.assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
 }
