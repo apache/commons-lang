@@ -17,10 +17,23 @@ language: java
 sudo: false
 
 jdk:
+  - openjdk7
+  - oraclejdk8
   - oraclejdk9
 
+cache:
+  directories:
+    - "$HOME/.m2/repository"
+
+before_cache:
+  - rm -rf $HOME/.m2/repository/org/apache/commons/commons-lang3
+
+install:
+  - mvn --version
+
 script:
-  - mvn
+  - mvn clean install -e -B
 
 after_success:
-  - mvn clean cobertura:cobertura -Ptravis-cobertura
+  - if [ $TRAVIS_JDK_VERSION == "openjdk7" ] || [ $TRAVIS_JDK_VERSION == "oraclejdk8" ]; then mvn -e -B clean cobertura:cobertura coveralls:report -Ptravis-cobertura; fi
+  - if [ $TRAVIS_JDK_VERSION == "oraclejdk9" ]; then mvn -e -B clean cobertura:cobertura -Ptravis-cobertura; fi
