@@ -595,6 +595,7 @@
     <!-- Override versions for Java 9 -->
     <commons.compiler.version>3.7.0</commons.compiler.version>
     <commons.felix.version>3.3.0</commons.felix.version>
+    <commons.javadoc.version>3.0.0-M1</commons.javadoc.version>
   </properties>
 
 
@@ -685,6 +686,7 @@
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <enableRulesSummary>false</enableRulesSummary>
+          <excludes>module-info.java</excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -855,6 +857,16 @@
               </execution>
             </executions>
           </plugin>
+          <!-- Avoid errors from module-info -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <sourceFileExcludes>
+                <sourceFileExclude>module-info.java</sourceFileExclude>
+              </sourceFileExcludes>
+            </configuration>
+          </plugin>
         </plugins>
       </build>
     </profile>
@@ -872,6 +884,8 @@
         <coveralls.skip>true</coveralls.skip>
         <!-- Skip animal sniffer, as it doesn't work on Java 9 and the release flag does the same job -->
         <animal.sniffer.skip>true</animal.sniffer.skip>
+        <!-- Skip clirr, as it doesn't work on Java 9 -->
+        <clirr.skip>true</clirr.skip>
       </properties>
       <build>
         <plugins>

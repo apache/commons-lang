@@ -32,7 +32,7 @@ install:
   - mvn --version
 
 script:
-  - mvn clean install -e -B
+  - mvn -e -B
 
 after_success:
   - if [ $TRAVIS_JDK_VERSION == "openjdk7" ] || [ $TRAVIS_JDK_VERSION == "oraclejdk8" ]; then mvn -e -B clean cobertura:cobertura coveralls:report -Ptravis-cobertura; fi
