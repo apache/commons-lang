@@ -38,6 +38,7 @@ import java.util.List;
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.text.StrBuilder;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -665,5 +666,37 @@ public class ObjectUtilsTest {
             return o1.toString().compareTo(o2.toString());
         }
 
+    }
+
+    /**
+     * @since 3.7
+     */
+    @Test
+    public void testGetClassName() {
+        Assert.assertNull(ObjectUtils.getClassName(null));
+        Assert.assertEquals("java.lang.String", ObjectUtils.getClassName(new String()));
+        Assert.assertEquals("org.apache.commons.lang3.ObjectUtilsTest$CloneableString",
+                ObjectUtils.getClassName(new CloneableString("test")));
+    }
+
+    /**
+     * @since 3.7
+     */
+    @Test
+    public void testGetSimpleName() {
+        Assert.assertNull(ObjectUtils.getClassSimpleName(null));
+        Assert.assertEquals("String", ObjectUtils.getClassSimpleName(new String()));
+        Assert.assertEquals("CloneableString", ObjectUtils.getClassSimpleName(new CloneableString("test")));
+    }
+
+    /**
+     * @since 3.7
+     */
+    @Test
+    public void testGetCanonicalName() {
+        Assert.assertNull(ObjectUtils.getClassCanonicalName(null));
+        Assert.assertEquals("java.lang.String", ObjectUtils.getClassCanonicalName(new String()));
+        Assert.assertEquals("org.apache.commons.lang3.ObjectUtilsTest.CloneableString",
+                ObjectUtils.getClassCanonicalName(new CloneableString("test")));
     }
 }

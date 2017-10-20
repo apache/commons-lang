@@ -1033,4 +1033,36 @@ public class ObjectUtils {
         return v;
     }
 
+    /**
+     * Gets the class name of the given object.
+     * 
+     * @param object the object to query, may be null
+     * @return the given object's class name or null if the object is null
+     * @since 3.7
+     */
+    public static String getClassName(final Object object) {
+        return object == null ? null : object.getClass().getName();
+    }
+
+    /**
+     * Gets the class simple name of the given object.
+     * 
+     * @param object the object to query, may be null
+     * @return the given object's class simple name or null if the object is null
+     * @since 3.7
+     */
+    public static String getClassSimpleName(final Object object) {
+        return object == null ? null : object.getClass().getSimpleName();
+    }
+
+    /**
+     * Gets the class canonical name of the given object.
+     * 
+     * @param object the object to query, may be null
+     * @return the given object's class canonical name or null if the object is null
+     * @since 3.7
+     */
+    public static String getClassCanonicalName(final Object object) {
+        return object == null ? null : object.getClass().getCanonicalName();
+    }
 }
