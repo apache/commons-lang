@@ -36,14 +36,14 @@ class GmtTimeZone extends TimeZone {
     private final int offset;
     private final String zoneId;
 
-    GmtTimeZone(boolean negate, int hours, int minutes) {
+    GmtTimeZone(final boolean negate, final int hours, final int minutes) {
         if (hours >= HOURS_PER_DAY) {
             throw new IllegalArgumentException(hours + " hours out of range");
         }
         if (minutes >= MINUTES_PER_HOUR) {
             throw new IllegalArgumentException(minutes + " minutes out of range");
         }
-        int milliseconds = (minutes + (hours * MINUTES_PER_HOUR)) * MILLISECONDS_PER_MINUTE;
+        final int milliseconds = (minutes + (hours * MINUTES_PER_HOUR)) * MILLISECONDS_PER_MINUTE;
         offset = negate ? -milliseconds : milliseconds;
         zoneId = twoDigits(
             twoDigits(new StringBuilder(9).append("GMT").append(negate ? '-' : '+'), hours)
@@ -51,17 +51,17 @@ class GmtTimeZone extends TimeZone {
 
     }
 
-    private static StringBuilder twoDigits(StringBuilder sb, int n) {
+    private static StringBuilder twoDigits(final StringBuilder sb, final int n) {
         return sb.append((char) ('0' + (n / 10))).append((char) ('0' + (n % 10)));
     }
 
     @Override
-    public int getOffset(int era, int year, int month, int day, int dayOfWeek, int milliseconds) {
+    public int getOffset(final int era, final int year, final int month, final int day, final int dayOfWeek, final int milliseconds) {
         return offset;
     }
 
     @Override
-    public void setRawOffset(int offsetMillis) {
+    public void setRawOffset(final int offsetMillis) {
         throw new UnsupportedOperationException();
     }
 
@@ -81,7 +81,7 @@ class GmtTimeZone extends TimeZone {
     }
 
     @Override
-    public boolean inDaylightTime(Date date) {
+    public boolean inDaylightTime(final Date date) {
         return false;
     }
 
@@ -96,7 +96,7 @@ class GmtTimeZone extends TimeZone {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
         if (!(other instanceof GmtTimeZone)) {
             return false;
         }

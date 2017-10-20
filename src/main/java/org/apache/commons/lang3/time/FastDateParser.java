@@ -888,7 +888,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         void setCalendar(final FastDateParser parser, final Calendar cal, final String timeZone) {
-            TimeZone tz = FastTimeZone.getGmtTimeZone(timeZone);
+            final TimeZone tz = FastTimeZone.getGmtTimeZone(timeZone);
             if (tz != null) {
                 cal.setTimeZone(tz);
             } else {

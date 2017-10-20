@@ -382,7 +382,7 @@ public class RandomStringUtils {
                     "or greater then (" + first_letter_ascii + ") for generating letters.");
         }
 
-        StringBuilder builder = new StringBuilder(count);
+        final StringBuilder builder = new StringBuilder(count);
         final int gap = end - start;
 
         while (count-- != 0) {

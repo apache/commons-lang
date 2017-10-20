@@ -7895,7 +7895,7 @@ public class StringUtils {
         // find the min and max string lengths; this avoids checking to make
         // sure we are not exceeding the length of the string each time through
         // the bottom loop.
-        for (CharSequence cs : css) {
+        for (final CharSequence cs : css) {
             if (cs == null) {
                 anyStringNull = true;
                 shortestStrLen = 0;
@@ -9229,7 +9229,7 @@ public class StringUtils {
      * @return an array of code points
      * @since 3.6
      */
-    public static int[] toCodePoints(CharSequence str) {
+    public static int[] toCodePoints(final CharSequence str) {
         if (str == null) {
             return null;
         }
@@ -9237,8 +9237,8 @@ public class StringUtils {
             return ArrayUtils.EMPTY_INT_ARRAY;
         }
 
-        String s = str.toString();
-        int[] result = new int[s.codePointCount(0, s.length())];
+        final String s = str.toString();
+        final int[] result = new int[s.codePointCount(0, s.length())];
         int index = 0;
         for (int i = 0; i < result.length; i++) {
             result[i] = s.codePointAt(index);

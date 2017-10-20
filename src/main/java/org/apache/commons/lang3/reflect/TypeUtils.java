@@ -1811,7 +1811,7 @@ public class TypeUtils {
         return buf.toString();
     }
 
-    private static void appendRecursiveTypes(StringBuilder buf, int[] recursiveTypeIndexes, Type[] argumentTypes) {
+    private static void appendRecursiveTypes(final StringBuilder buf, final int[] recursiveTypeIndexes, final Type[] argumentTypes) {
         for (int i = 0; i < recursiveTypeIndexes.length; i++) {
             appendAllTo(buf.append('<'), ", ", argumentTypes[i].toString()).append('>');
         }
@@ -1823,8 +1823,8 @@ public class TypeUtils {
         }
     }
 
-    private static int[] findRecursiveTypes(ParameterizedType p) {
-        Type[] filteredArgumentTypes = Arrays.copyOf(p.getActualTypeArguments(), p.getActualTypeArguments().length);
+    private static int[] findRecursiveTypes(final ParameterizedType p) {
+        final Type[] filteredArgumentTypes = Arrays.copyOf(p.getActualTypeArguments(), p.getActualTypeArguments().length);
         int[] indexesToRemove = new int[] {};
         for (int i = 0; i < filteredArgumentTypes.length; i++) {
             if (filteredArgumentTypes[i] instanceof TypeVariable<?>) {
@@ -1836,7 +1836,7 @@ public class TypeUtils {
         return indexesToRemove;
     }
 
-    private static boolean containsVariableTypeSameParametrizedTypeBound(TypeVariable<?> typeVariable, ParameterizedType p) {
+    private static boolean containsVariableTypeSameParametrizedTypeBound(final TypeVariable<?> typeVariable, final ParameterizedType p) {
         return ArrayUtils.contains(typeVariable.getBounds(), p);
     }
 
@@ -1887,7 +1887,7 @@ public class TypeUtils {
         return buf;
     }
 
-    private static <T> String toString(T object) {
+    private static <T> String toString(final T object) {
         return object instanceof Type ? toString((Type) object) : object.toString();
     }
 

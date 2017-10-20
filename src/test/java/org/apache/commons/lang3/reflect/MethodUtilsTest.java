@@ -438,7 +438,7 @@ public class MethodUtilsTest {
             MethodUtils.invokeMethod(testBean, "foo",
                     1, 2);
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException expected) {
+        } catch (final NoSuchMethodException expected) {
         }
 
         TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),

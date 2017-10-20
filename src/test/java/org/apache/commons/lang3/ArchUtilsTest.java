@@ -133,25 +133,25 @@ public class ArchUtilsTest {
         assertNull(ArchUtils.getProcessor("NA"));
     }
 
-    private void assertEqualsArchNotNull(Processor.Arch arch, Processor processor) {
+    private void assertEqualsArchNotNull(final Processor.Arch arch, final Processor processor) {
         assertNotNull(arch);
         assertNotNull(processor);
         assertEquals(arch, processor.getArch());
     }
 
-    private void assertNotEqualsArchNotNull(Processor.Arch arch, Processor processor) {
+    private void assertNotEqualsArchNotNull(final Processor.Arch arch, final Processor processor) {
         assertNotNull(arch);
         assertNotNull(processor);
         assertNotEquals(arch, processor.getArch());
     }
 
-    private void assertEqualsTypeNotNull(Processor.Type type, Processor processor) {
+    private void assertEqualsTypeNotNull(final Processor.Type type, final Processor processor) {
         assertNotNull(type);
         assertNotNull(processor);
         assertEquals(type, processor.getType());
     }
 
-    private void assertNotEqualsTypeNotNull(Processor.Type type, Processor processor) {
+    private void assertNotEqualsTypeNotNull(final Processor.Type type, final Processor processor) {
         assertNotNull(type);
         assertNotNull(processor);
         assertNotEquals(type, processor.getType());

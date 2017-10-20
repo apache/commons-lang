@@ -1343,18 +1343,18 @@ public class EqualsBuilderTest {
 
     @Test
     public void testIsRegistered() throws Exception {
-        Object firstObject = new Object();
-        Object secondObject = new Object();
+        final Object firstObject = new Object();
+        final Object secondObject = new Object();
 
         try {
-            Method registerMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "register", Object.class, Object.class);
+            final Method registerMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "register", Object.class, Object.class);
             registerMethod.setAccessible(true);
             registerMethod.invoke(null, firstObject, secondObject);
 
             assertTrue(EqualsBuilder.isRegistered(firstObject, secondObject));
             assertTrue(EqualsBuilder.isRegistered(secondObject, firstObject)); // LANG-1349
         } finally {
-            Method unregisterMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "unregister", Object.class, Object.class);
+            final Method unregisterMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "unregister", Object.class, Object.class);
             unregisterMethod.setAccessible(true);
             unregisterMethod.invoke(null, firstObject, secondObject);
         }

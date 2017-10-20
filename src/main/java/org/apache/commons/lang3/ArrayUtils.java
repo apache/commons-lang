@@ -8087,7 +8087,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        boolean[] result = new boolean[array.length + values.length];
+        final boolean[] result = new boolean[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8129,7 +8129,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        byte[] result = new byte[array.length + values.length];
+        final byte[] result = new byte[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8171,7 +8171,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        char[] result = new char[array.length + values.length];
+        final char[] result = new char[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8213,7 +8213,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        double[] result = new double[array.length + values.length];
+        final double[] result = new double[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8255,7 +8255,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        float[] result = new float[array.length + values.length];
+        final float[] result = new float[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8297,7 +8297,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        int[] result = new int[array.length + values.length];
+        final int[] result = new int[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8339,7 +8339,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        long[] result = new long[array.length + values.length];
+        final long[] result = new long[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8381,7 +8381,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        short[] result = new short[array.length + values.length];
+        final short[] result = new short[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8435,6 +8435,7 @@ public class ArrayUtils {
 
         final Class<?> type = array.getClass().getComponentType();
         @SuppressWarnings("unchecked") // OK, because array and values are of type T
+        final
         T[] result = (T[]) Array.newInstance(type, array.length + values.length);
 
         System.arraycopy(values, 0, result, index, values.length);
@@ -8454,7 +8455,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(Object[] array) {
+    public static void shuffle(final Object[] array) {
         shuffle(array, new Random());
     }
 
@@ -8466,7 +8467,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(Object[] array, Random random) {
+    public static void shuffle(final Object[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8479,7 +8480,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(boolean[] array) {
+    public static void shuffle(final boolean[] array) {
         shuffle(array, new Random());
     }
 
@@ -8491,7 +8492,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(boolean[] array, Random random) {
+    public static void shuffle(final boolean[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8504,7 +8505,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(byte[] array) {
+    public static void shuffle(final byte[] array) {
         shuffle(array, new Random());
     }
 
@@ -8516,7 +8517,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(byte[] array, Random random) {
+    public static void shuffle(final byte[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8529,7 +8530,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(char[] array) {
+    public static void shuffle(final char[] array) {
         shuffle(array, new Random());
     }
 
@@ -8541,7 +8542,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(char[] array, Random random) {
+    public static void shuffle(final char[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8554,7 +8555,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(short[] array) {
+    public static void shuffle(final short[] array) {
         shuffle(array, new Random());
     }
 
@@ -8566,7 +8567,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(short[] array, Random random) {
+    public static void shuffle(final short[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8579,7 +8580,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(int[] array) {
+    public static void shuffle(final int[] array) {
         shuffle(array, new Random());
     }
 
@@ -8591,7 +8592,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(int[] array, Random random) {
+    public static void shuffle(final int[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8604,7 +8605,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(long[] array) {
+    public static void shuffle(final long[] array) {
         shuffle(array, new Random());
     }
 
@@ -8616,7 +8617,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(long[] array, Random random) {
+    public static void shuffle(final long[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8629,7 +8630,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(float[] array) {
+    public static void shuffle(final float[] array) {
         shuffle(array, new Random());
     }
 
@@ -8641,7 +8642,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(float[] array, Random random) {
+    public static void shuffle(final float[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8654,7 +8655,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(double[] array) {
+    public static void shuffle(final double[] array) {
         shuffle(array, new Random());
     }
 
@@ -8666,7 +8667,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(double[] array, Random random) {
+    public static void shuffle(final double[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }

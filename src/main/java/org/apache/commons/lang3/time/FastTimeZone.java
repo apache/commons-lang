@@ -46,15 +46,15 @@ public class FastTimeZone {
      * @param pattern The GMT offset
      * @return A TimeZone with offset from GMT or null, if pattern does not match.
      */
-    public static TimeZone getGmtTimeZone(String pattern) {
+    public static TimeZone getGmtTimeZone(final String pattern) {
         if ("Z".equals(pattern) || "UTC".equals(pattern)) {
             return GREENWICH;
         }
 
-        Matcher m = GMT_PATTERN.matcher(pattern);
+        final Matcher m = GMT_PATTERN.matcher(pattern);
         if (m.matches()) {
-            int hours = parseInt(m.group(2));
-            int minutes = parseInt(m.group(4));
+            final int hours = parseInt(m.group(2));
+            final int minutes = parseInt(m.group(4));
             if (hours == 0 && minutes == 0) {
                 return GREENWICH;
             }
@@ -72,19 +72,19 @@ public class FastTimeZone {
      * @param id A GMT custom id (or Olson id
      * @return A timezone
      */
-    public static TimeZone getTimeZone(String id) {
-        TimeZone tz = getGmtTimeZone(id);
+    public static TimeZone getTimeZone(final String id) {
+        final TimeZone tz = getGmtTimeZone(id);
         if (tz != null) {
             return tz;
         }
         return TimeZone.getTimeZone(id);
     }
 
-    private static int parseInt(String group) {
+    private static int parseInt(final String group) {
         return group != null ? Integer.parseInt(group) : 0;
     }
 
-    private static boolean parseSign(String group) {
+    private static boolean parseSign(final String group) {
         return group != null && group.charAt(0) == '-';
     }
 

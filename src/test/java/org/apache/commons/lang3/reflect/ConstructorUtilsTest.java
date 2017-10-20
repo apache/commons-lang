@@ -77,7 +77,7 @@ public class ConstructorUtilsTest {
             varArgs = s;
         }
 
-        public TestBean(final BaseClass bc, String... s) {
+        public TestBean(final BaseClass bc, final String... s) {
             toString = "(BaseClass, String...)";
             varArgs = s;
         }

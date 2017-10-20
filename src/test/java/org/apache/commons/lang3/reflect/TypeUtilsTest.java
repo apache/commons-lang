@@ -752,7 +752,7 @@ public class TypeUtilsTest<B> {
     public void testToStringLang1311() {
         assertEquals("int[]", TypeUtils.toString(int[].class));
         assertEquals("java.lang.Integer[]", TypeUtils.toString(Integer[].class));
-        Field stringListField = FieldUtils.getDeclaredField(getClass(), "stringListArray");
+        final Field stringListField = FieldUtils.getDeclaredField(getClass(), "stringListArray");
         assertEquals("java.util.List<java.lang.String>[]", TypeUtils.toString(stringListField.getGenericType()));
     }
 

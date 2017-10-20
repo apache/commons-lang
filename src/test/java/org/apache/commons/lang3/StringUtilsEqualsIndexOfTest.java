@@ -307,7 +307,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(2, StringUtils.indexOf(builder, CODE_POINT, 1));
         assertEquals(2, StringUtils.indexOf(builder.toString(), CODE_POINT, 1));
         // inner branch on the supplementary character block
-        char[] tmp = { (char) 55361 };
+        final char[] tmp = { (char) 55361 };
         builder = new StringBuilder();
         builder.append(tmp);
         assertEquals(-1, StringUtils.indexOf(builder, CODE_POINT, 0));
@@ -561,7 +561,7 @@ public class StringUtilsEqualsIndexOfTest  {
         builder.append("aaaaa");
         assertEquals(2, StringUtils.lastIndexOf(builder, CODE_POINT, 4));
         // inner branch on the supplementary character block
-        char[] tmp = { (char) 55361 };
+        final char[] tmp = { (char) 55361 };
         builder = new StringBuilder();
         builder.append(tmp);
         assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
