@@ -27,7 +27,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Tokenizes a string based based on delimiters (separators)
+ * Tokenizes a string based on delimiters (separators)
  * and supporting quoting and ignored character concepts.
  * <p>
  * This class can split a String into many smaller strings. It aims
