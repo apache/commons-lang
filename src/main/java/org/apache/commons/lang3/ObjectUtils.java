@@ -1035,7 +1035,7 @@ public class ObjectUtils {
 
     /**
      * Gets the class name of the given object.
-     * 
+     *
      * @param object the object to query, may be null
      * @return the given object's class name or null if the object is null
      * @since 3.7
@@ -1046,7 +1046,7 @@ public class ObjectUtils {
 
     /**
      * Gets the class simple name of the given object.
-     * 
+     *
      * @param object the object to query, may be null
      * @return the given object's class simple name or null if the object is null
      * @since 3.7
@@ -1057,7 +1057,7 @@ public class ObjectUtils {
 
     /**
      * Gets the class canonical name of the given object.
-     * 
+     *
      * @param object the object to query, may be null
      * @return the given object's class canonical name or null if the object is null
      * @since 3.7
