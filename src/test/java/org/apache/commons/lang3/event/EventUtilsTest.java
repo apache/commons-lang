@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -36,12 +35,17 @@ import java.util.TreeMap;
 
 import javax.naming.event.ObjectChangeListener;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * @since 3.0
  */
 public class EventUtilsTest {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void testConstructor() {
@@ -70,28 +74,21 @@ public class EventUtilsTest {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
         final ObjectChangeListener listener = handler.createListener(ObjectChangeListener.class);
-        try {
-            EventUtils.addEventListener(src, ObjectChangeListener.class, listener);
-            fail("Should not be allowed to add a listener to an object that doesn't support it.");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Class " + src.getClass().getName() + " does not have a public add" + ObjectChangeListener.class.getSimpleName() + " method which takes a parameter of type " + ObjectChangeListener.class.getName() + ".", e.getMessage());
-        }
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Class " + src.getClass().getName() + " does not have a public add" + ObjectChangeListener.class.getSimpleName() + " method which takes a parameter of type " + ObjectChangeListener.class.getName() + ".");
+        EventUtils.addEventListener(src, ObjectChangeListener.class, listener);
     }
 
     @Test
     public void testAddEventListenerThrowsException() {
         final ExceptionEventSource src = new ExceptionEventSource();
-        try {
-            EventUtils.addEventListener(src, PropertyChangeListener.class, new PropertyChangeListener() {
-                @Override
-                public void propertyChange(final PropertyChangeEvent e) {
-                    // Do nothing!
-                }
-            });
-            fail("Add method should have thrown an exception, so method should fail.");
-        } catch (final RuntimeException e) {
-
-        }
+        expectedException.expect(RuntimeException.class);
+        EventUtils.addEventListener(src, PropertyChangeListener.class, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(final PropertyChangeEvent e) {
+                // Do nothing!
+            }
+        });
     }
 
     @Test
@@ -99,12 +96,9 @@ public class EventUtilsTest {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
         final VetoableChangeListener listener = handler.createListener(VetoableChangeListener.class);
-        try {
-            EventUtils.addEventListener(src, VetoableChangeListener.class, listener);
-            fail("Should not be allowed to add a listener to an object that doesn't support it.");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Class " + src.getClass().getName() + " does not have a public add" + VetoableChangeListener.class.getSimpleName() + " method which takes a parameter of type " + VetoableChangeListener.class.getName() + ".", e.getMessage());
-        }
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Class " + src.getClass().getName() + " does not have a public add" + VetoableChangeListener.class.getSimpleName() + " method which takes a parameter of type " + VetoableChangeListener.class.getName() + ".");
+        EventUtils.addEventListener(src, VetoableChangeListener.class, listener);
     }
 
     @Test
