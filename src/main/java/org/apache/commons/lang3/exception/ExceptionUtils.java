@@ -168,7 +168,7 @@ public class ExceptionUtils {
      * <p>Introspects the <code>Throwable</code> to obtain the root cause.</p>
      *
      * <p>This method walks through the exception chain to the last element,
-     * "root" of the tree, using {@link #getCause(Throwable)}, and
+     * "root" of the tree, using {@link Throwable#getCause()}, and
      * returns that exception.</p>
      *
      * <p>From version 2.2, this method handles recursive cause structures
