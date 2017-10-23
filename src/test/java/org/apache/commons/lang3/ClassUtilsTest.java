@@ -51,29 +51,37 @@ import org.junit.Test;
 public class ClassUtilsTest  {
 
     private static class CX implements IB, IA, IE {
+        // empty
     }
 
     private static class CY extends CX implements IB, IC {
+        // empty
     }
 
     private interface IA {
+        // empty
     }
 
     private interface IB {
+        // empty
     }
 
 
 
     private interface IC extends ID, IE {
+        // empty
     }
 
     private interface ID {
+        // empty
     }
 
     private interface IE extends IF {
+        // empty
     }
 
     private interface IF {
+        // empty
     }
 
     private static class Inner {
