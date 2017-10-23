@@ -668,35 +668,4 @@ public class ObjectUtilsTest {
 
     }
 
-    /**
-     * @since 3.7
-     */
-    @Test
-    public void testGetClassName() {
-        Assert.assertNull(ObjectUtils.getClassName(null));
-        Assert.assertEquals("java.lang.String", ObjectUtils.getClassName(new String()));
-        Assert.assertEquals("org.apache.commons.lang3.ObjectUtilsTest$CloneableString",
-                ObjectUtils.getClassName(new CloneableString("test")));
-    }
-
-    /**
-     * @since 3.7
-     */
-    @Test
-    public void testGetSimpleName() {
-        Assert.assertNull(ObjectUtils.getClassSimpleName(null));
-        Assert.assertEquals("String", ObjectUtils.getClassSimpleName(new String()));
-        Assert.assertEquals("CloneableString", ObjectUtils.getClassSimpleName(new CloneableString("test")));
-    }
-
-    /**
-     * @since 3.7
-     */
-    @Test
-    public void testGetCanonicalName() {
-        Assert.assertNull(ObjectUtils.getClassCanonicalName(null));
-        Assert.assertEquals("java.lang.String", ObjectUtils.getClassCanonicalName(new String()));
-        Assert.assertEquals("org.apache.commons.lang3.ObjectUtilsTest.CloneableString",
-                ObjectUtils.getClassCanonicalName(new CloneableString("test")));
-    }
 }

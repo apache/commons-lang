@@ -44,6 +44,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
  * @since 2.0
  */
 public class ClassUtils {
+    
     /**
      * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
      * @since 3.2
@@ -242,32 +243,101 @@ public class ClassUtils {
     /**
      * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
      *
-     * @param cls the class for which to get the simple name.
+     * @param cls the class for which to get the simple name; may be null
      * @return the simple class name.
      * @since 3.0
      * @see Class#getSimpleName()
      */
     public static String getSimpleName(final Class<?> cls) {
-        if (cls == null) {
-            return StringUtils.EMPTY;
-        }
-        return cls.getSimpleName();
+        return getSimpleName(cls, StringUtils.EMPTY);
     }
 
     /**
      * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
      *
-     * @param object the object for which to get the simple class name.
+     * @param cls the class for which to get the simple name; may be null
+     * @param valueIfNull  the value to return if null
+     * @return the simple class name or {@code valueIfNull}
+     * @since 3.0
+     * @see Class#getSimpleName()
+     */
+    public static String getSimpleName(final Class<?> cls, String valueIfNull) {
+        return cls == null ? valueIfNull : cls.getSimpleName();
+    }
+
+    /**
+     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     *
+     * @param object the object for which to get the simple class name; may be null
+     * @return the simple class name or the empty String
+     * @since 3.7
+     * @see Class#getSimpleName()
+     */
+    public static String getSimpleName(final Object object) {
+        return getSimpleName(object, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     *
+     * @param object the object for which to get the simple class name; may be null
      * @param valueIfNull the value to return if <code>object</code> is <code>null</code>
-     * @return the simple class name.
+     * @return the simple class name or {@code valueIfNull}
      * @since 3.0
      * @see Class#getSimpleName()
      */
     public static String getSimpleName(final Object object, final String valueIfNull) {
-        if (object == null) {
-            return valueIfNull;
-        }
-        return getSimpleName(object.getClass());
+        return object == null ? valueIfNull : object.getClass().getSimpleName();
+    }
+
+    /**
+     * <p>Null-safe version of <code>Class.getName()</code></p>
+     *
+     * @param cls the class for which to get the class name; may be null
+     * @return the class name or the empty String.
+     * @since 3.7
+     * @see Class#getSimpleName()
+     */
+    public static String getName(final Class<?> cls) {
+        return getName(cls, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Null-safe version of <code>aClass.getName()</code></p>
+     *
+     * @param cls the class for which to get the class name; may be null
+     * @param valueIfNull the return value if <code>cls</code> is <code>null</code>
+     * @return the class name or {@code valueIfNull}
+     * @since 3.7
+     * @see Class#getName()
+     */
+    public static String getName(final Class<?> cls, final String valueIfNull) {
+        return cls == null ? valueIfNull : cls.getName();
+    }
+
+    /**
+     * <p>Null-safe version of <code>Class.getName()</code></p>
+     *
+     * @param object the object for which to get the class name; may be null
+     * @return the class name or the empty String
+     * @since 3.7
+     * @see Class#getSimpleName()
+     */
+    public static String getName(final Object object) {
+        return getName(object, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     *
+     * @param object the object for which to get the class name; may be null
+     * @param valueIfNull the value to return if <code>object</code> is <code>null</code>
+     * @return the class name or {@code valueIfNull}
+     * @since 3.0
+     * @see Class#getName()
+     */
+    public static String getName(final Object object, final String valueIfNull) {
+        return object == null ? valueIfNull : object.getClass().getName();
     }
 
     // Package name
@@ -1112,9 +1182,55 @@ public class ClassUtils {
     }
 
     /**
+     * <p>Gets the canonical class name for a {@code Class}.</p>
+     *
+     * @param cls the class for which to get the canonical class name; may be null
+     * @return the canonical name of the class or the empty String
+     * @since 3.7
+     */
+    public static String getCanonicalName(final Class<?> cls) {
+        return getCanonicalName(cls, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Gets the canonical name for a {@code Class}.</p>
+     *
+     * @param cls the class for which to get the canonical class name; may be null
+     * @param valueIfNull  the return value if null
+     * @return the canonical name of the class or {@code valueIfNull}
+     * @since 3.7
+     */
+    public static String getCanonicalName(final Class<?> cls, final String valueIfNull) {
+        return cls == null ? valueIfNull : cls.getClass().getCanonicalName();
+    }
+
+    /**
+     * <p>Gets the canonical name for an {@code Object}.</p>
+     *
+     * @param object the object for which to get the canonical class name; may be null
+     * @return the canonical name of the object, or the empty String
+     * @since 3.7
+     */
+    public static String getCanonicalName(final Object object) {
+        return getCanonicalName(object, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Gets the canonical name for an {@code Object}.</p>
+     *
+     * @param object the object for which to get the canonical class name; may be null
+     * @param valueIfNull  the return value if null
+     * @return the canonical name of the object or {@code valueIfNull}
+     * @since 3.7
+     */
+    public static String getCanonicalName(final Object object, final String valueIfNull) {
+        return object == null ? valueIfNull : object.getClass().getCanonicalName();
+    }
+
+    /**
      * <p>Gets the canonical name minus the package name from a {@code Class}.</p>
      *
-     * @param cls  the class to get the short name for.
+     * @param cls the class for which to get the short canonical class name; may be null
      * @return the canonical name without the package name or an empty string
      * @since 2.4
      */
