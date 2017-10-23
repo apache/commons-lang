@@ -280,7 +280,7 @@ public class ExceptionUtils {
         final List<Throwable> list = new ArrayList<>();
         while (throwable != null && !list.contains(throwable)) {
             list.add(throwable);
-            throwable = ExceptionUtils.getCause(throwable);
+            throwable = throwable.getCause();
         }
         return list;
     }
