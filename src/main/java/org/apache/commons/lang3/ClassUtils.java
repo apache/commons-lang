@@ -1185,8 +1185,9 @@ public class ClassUtils {
      * <p>Gets the canonical class name for a {@code Class}.</p>
      *
      * @param cls the class for which to get the canonical class name; may be null
-     * @return the canonical name of the class or the empty String
+     * @return the canonical name of the class, or the empty String
      * @since 3.7
+     * @see Class#getCanonicalName()
      */
     public static String getCanonicalName(final Class<?> cls) {
         return getCanonicalName(cls, StringUtils.EMPTY);
@@ -1197,11 +1198,16 @@ public class ClassUtils {
      *
      * @param cls the class for which to get the canonical class name; may be null
      * @param valueIfNull  the return value if null
-     * @return the canonical name of the class or {@code valueIfNull}
+     * @return the canonical name of the class, or {@code valueIfNull}
      * @since 3.7
+     * @see Class#getCanonicalName()
      */
     public static String getCanonicalName(final Class<?> cls, final String valueIfNull) {
-        return cls == null ? valueIfNull : cls.getClass().getCanonicalName();
+        if (cls == null) {
+            return valueIfNull;
+        }
+        final String canonicalName = cls.getCanonicalName();
+        return canonicalName == null ? valueIfNull : canonicalName;
     }
 
     /**
@@ -1210,6 +1216,7 @@ public class ClassUtils {
      * @param object the object for which to get the canonical class name; may be null
      * @return the canonical name of the object, or the empty String
      * @since 3.7
+     * @see Class#getCanonicalName()
      */
     public static String getCanonicalName(final Object object) {
         return getCanonicalName(object, StringUtils.EMPTY);
@@ -1222,9 +1229,14 @@ public class ClassUtils {
      * @param valueIfNull  the return value if null
      * @return the canonical name of the object or {@code valueIfNull}
      * @since 3.7
+     * @see Class#getCanonicalName()
      */
     public static String getCanonicalName(final Object object, final String valueIfNull) {
-        return object == null ? valueIfNull : object.getClass().getCanonicalName();
+        if (object == null) {
+            return valueIfNull;
+        }
+        final String canonicalName = object.getClass().getCanonicalName();
+        return canonicalName == null ? valueIfNull : canonicalName;
     }
 
     /**
