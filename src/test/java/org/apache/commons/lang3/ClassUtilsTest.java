@@ -66,8 +66,6 @@ public class ClassUtilsTest  {
         // empty
     }
 
-
-
     private interface IC extends ID, IE {
         // empty
     }
@@ -181,19 +179,19 @@ public class ClassUtilsTest  {
     public void test_getAbbreviatedName_Class_NegativeLen() {
         ClassUtils.getAbbreviatedName(String.class, -10);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void test_getAbbreviatedName_Class_ZeroLen() {
         ClassUtils.getAbbreviatedName(String.class, 0);
     }
-    
+
     @Test
     public void test_getAbbreviatedName_String() {
         assertEquals("", ClassUtils.getAbbreviatedName((String) null, 1));
         assertEquals("WithoutPackage", ClassUtils.getAbbreviatedName("WithoutPackage", 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", 1));
     }
-    
+
     @Test
     public void test_getAllInterfaces_Class() {
         final List<?> list = ClassUtils.getAllInterfaces(CY.class);
@@ -207,7 +205,7 @@ public class ClassUtilsTest  {
 
         assertNull(ClassUtils.getAllInterfaces(null));
     }
-    
+
     // -------------------------------------------------------------------------
     @Test
     public void test_getAllSuperclasses_Class() {
@@ -218,7 +216,7 @@ public class ClassUtilsTest  {
 
         assertNull(ClassUtils.getAllSuperclasses(null));
     }
-    
+
     @Test
     public void test_getCanonicalName_Class() {
         assertEquals("org.apache.commons.lang3.ClassUtils", ClassUtils.getCanonicalName(ClassUtils.class));
@@ -263,7 +261,7 @@ public class ClassUtilsTest  {
         assertEquals(StringUtils.EMPTY, ClassUtils.getCanonicalName(Named.class));
         assertEquals("org.apache.commons.lang3.ClassUtilsTest.Inner", ClassUtils.getCanonicalName(Inner.class));
     }
-    
+
     @Test
     public void test_getCanonicalName_Class_String() {
         assertEquals("org.apache.commons.lang3.ClassUtils", ClassUtils.getCanonicalName(ClassUtils.class, "X"));
@@ -308,7 +306,7 @@ public class ClassUtilsTest  {
         assertEquals("X", ClassUtils.getCanonicalName(Named.class, "X"));
         assertEquals("org.apache.commons.lang3.ClassUtilsTest.Inner", ClassUtils.getCanonicalName(Inner.class, "X"));
     }
-    
+
     @Test
     public void test_getName_Class() {
         assertEquals("org.apache.commons.lang3.ClassUtils", ClassUtils.getName(ClassUtils.class));
@@ -353,7 +351,7 @@ public class ClassUtilsTest  {
         assertEquals("org.apache.commons.lang3.ClassUtilsTest$3Named", ClassUtils.getName(Named.class));
         assertEquals("org.apache.commons.lang3.ClassUtilsTest$Inner", ClassUtils.getName(Inner.class));
     }
-    
+
     @Test
     public void test_getName_Object() {
         assertEquals("org.apache.commons.lang3.ClassUtils", ClassUtils.getName(new ClassUtils(), "<null>"));
@@ -371,7 +369,7 @@ public class ClassUtilsTest  {
         assertEquals("org.apache.commons.lang3.ClassUtilsTest$4Named", ClassUtils.getName(new Named(), "<null>"));
         assertEquals("org.apache.commons.lang3.ClassUtilsTest$Inner", ClassUtils.getName(new Inner(), "<null>"));
     }
-    
+
     @Test
     public void test_getPackageCanonicalName_Class() {
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName(ClassUtils.class));

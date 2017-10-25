@@ -38,7 +38,6 @@ import java.util.List;
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.text.StrBuilder;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**

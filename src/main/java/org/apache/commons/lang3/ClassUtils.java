@@ -44,7 +44,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
  * @since 2.0
  */
 public class ClassUtils {
-    
+
     /**
      * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
      * @since 3.2
