@@ -42,11 +42,10 @@
  * In addition to StringUtils, there are a series of other String manipulating classes; {@link org.apache.commons.lang3.RandomStringUtils} and {@link org.apache.commons.lang3.StringEscapeUtils StringEscapeUtils}.
  * RandomStringUtils speaks for itself.
  * It's provides ways in which to generate pieces of text, such as might be used for default passwords.
- * StringEscapeUtils contains methods to escape and unescape Java, JavaScript, HTML, XML and SQL.</p>
+ * StringEscapeUtils contains methods to escape and unescape Java, JavaScript, JSON, HTML and XML.</p>
  *
  * <p>These are ideal classes to start using if you're looking to get into Lang.
- * StringUtils' {@link org.apache.commons.lang3.StringUtils#capitalize(String)}, {@link org.apache.commons.lang3.StringUtils#substringBetween(String, String)}/{@link org.apache.commons.lang3.StringUtils#substringBefore(String, String) Before}/{@link org.apache.commons.lang3.StringUtils#substringAfter(String, String) After}, {@link org.apache.commons.lang3.StringUtils#split(String)} and {@link org.apache.commons.lang3.StringUtils#join(Object[])} are good methods to begin with.
- * If you use java.sql.Statements a lot, StringEscapeUtils.escapeSql might be of interest.</p>
+ * StringUtils' {@link org.apache.commons.lang3.StringUtils#capitalize(String)}, {@link org.apache.commons.lang3.StringUtils#substringBetween(String, String)}/{@link org.apache.commons.lang3.StringUtils#substringBefore(String, String) Before}/{@link org.apache.commons.lang3.StringUtils#substringAfter(String, String) After}, {@link org.apache.commons.lang3.StringUtils#split(String)} and {@link org.apache.commons.lang3.StringUtils#join(Object[])} are good methods to begin with.</p>
  *
  * <h3>Character handling - CharSetUtils, CharSet, CharRange, CharUtils</h3>
  *
