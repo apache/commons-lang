@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.After;
 import org.junit.Test;
 
@@ -1308,4 +1310,17 @@ public class ToStringBuilderTest {
         assertEquals(testBuilder.toString().indexOf("testInt=31337"), -1);
     }
 
+    @Test
+    @SuppressWarnings("serial")
+    public void testOmitNulls() {
+        final Person person = new Person();
+        final ToStringStyle omitNullsStyle = new ToStringStyle() {
+            { setOmitNulls(true); }
+        };
+        final ToStringBuilder builder = new ToStringBuilder(person, omitNullsStyle);
+
+        final String personString = builder.append("name", person.name).append("age", person.age).toString();
+
+        assertTrue(personString.endsWith("[age=0]"));
+    }
 }
