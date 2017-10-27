@@ -100,7 +100,7 @@ public class EventCountCircuitBreakerTest {
                 TimeUnit.SECONDS);
         final long now = breaker.now();
         final long delta = Math.abs(System.nanoTime() - now);
-        assertTrue("Delta to current time too large", delta < 100000);
+        assertTrue(String.format("Delta %d ns to current time too large", delta), delta < 100000);
     }
 
     /**
