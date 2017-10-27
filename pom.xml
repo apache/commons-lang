@@ -886,6 +886,8 @@
         <animal.sniffer.skip>true</animal.sniffer.skip>
         <!-- Skip clirr, as it doesn't work on Java 9 -->
         <clirr.skip>true</clirr.skip>
+        <!-- Skip findbugs, as it doesn't work on Java 9 and is replaced by spotbugs -->
+        <findbugs.skip>true</findbugs.skip>
       </properties>
       <build>
         <plugins>
@@ -920,6 +922,18 @@
               </jdkToolchain>
               <release>7</release>
             </configuration>
+          </plugin>
+          <plugin>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-maven-plugin</artifactId>
+            <version>3.1.0-RC6</version>
+            <dependencies>
+              <dependency>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs</artifactId>
+                <version>3.1.0</version>
+              </dependency>
+            </dependencies>
           </plugin>
         </plugins>
       </build>
