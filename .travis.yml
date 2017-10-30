@@ -34,6 +34,6 @@ install:
 script:
   - mvn -e -B
 
+# coveralls does not work on Java 9 at present
 after_success:
   - if [ $TRAVIS_JDK_VERSION == "openjdk7" ] || [ $TRAVIS_JDK_VERSION == "oraclejdk8" ]; then mvn -e -B clean cobertura:cobertura coveralls:report -Ptravis-cobertura; fi
-  - if [ $TRAVIS_JDK_VERSION == "oraclejdk9" ]; then mvn -e -B clean cobertura:cobertura -Ptravis-cobertura; fi

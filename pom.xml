@@ -19,6 +19,11 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <!-- ==================================================================== -->
+  <!-- Build requires Java SE 7 or later -->
+  <!-- Releases require Java SE 9 or later -->
+  <!-- ==================================================================== -->
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
@@ -711,6 +716,7 @@
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <enableRulesSummary>false</enableRulesSummary>
+          <excludes>module-info.java</excludes>
         </configuration>
         <reportSets>
           <reportSet>
@@ -735,6 +741,9 @@
         <version>3.7</version>
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
+          <excludes>
+            <exclude>module-info.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -786,6 +795,11 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>javancss-maven-plugin</artifactId>
         <version>2.1</version>
+        <configuration>
+          <excludes>
+            <exclude>module-info.java</exclude>
+          </excludes>
+        </configuration>
       </plugin>
     </plugins>
   </reporting>
@@ -869,11 +883,25 @@
           </plugin>
         </plugins>
       </build>
+      <reporting>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-plugin.version}</version>
+            <configuration>
+              <sourceFileExcludes>
+                <sourceFileExclude>module-info.java</sourceFileExclude>
+              </sourceFileExcludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </reporting>
     </profile>
     <profile>
-      <id>java9</id>
+      <id>java9plus</id>
       <activation>
-        <jdk>9</jdk>
+        <jdk>[9,)</jdk>
       </activation>
       <properties>
         <!-- LANG-1265: allow tests to access private fields/methods of java.base classes via reflection -->
@@ -888,6 +916,8 @@
         <clirr.skip>true</clirr.skip>
         <!-- Skip findbugs, as it doesn't work on Java 9 and is replaced by spotbugs -->
         <findbugs.skip>true</findbugs.skip>
+        <!-- Skip cobertura, as it doesn't work on Java 9, should be replaced by jacoco -->
+        <cobertura.skip>true</cobertura.skip>
       </properties>
       <build>
         <plugins>

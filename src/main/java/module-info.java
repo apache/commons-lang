@@ -20,7 +20,10 @@
  */
 module org.apache.commons.lang3 {
 
-    // see AbstractCircuitBreaker
+    // the AbstractCircuitBreaker class relies on java.desktop
+    // this is a large dependency, and unsuited for most users of commons-lang
+    // as such, the dependency is declared to be "static", making it optional
+    // if you use AbstractCircuitBreaker, then you must add "requires java.desktop" to your module file
     requires static java.desktop;
 
     // all packages are exported
