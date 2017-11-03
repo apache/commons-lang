@@ -379,7 +379,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testIsJavaVersionAtLeat() throws Exception {
+    public void testIsJavaVersionAtLeast() throws Exception {
         if (SystemUtils.IS_JAVA_1_7) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
