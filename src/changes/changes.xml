@@ -45,7 +45,8 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.7" date="2017-MM-DD" description="New features and bug fixes. Requires Java 7.">
+  <release version="3.7" date="2017-MM-DD" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
+    <action issue="LANG-1365" type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in isJavaVersionAtLeast on Java 10, add SystemUtils.IS_JAVA_10, add JavaVersion.JAVA_10</action>
     <action issue="LANG-1358" type="update" dev="pschumacher" due-to="Stephane Landelle">Improve StringUtils#replace throughput</action>
     <action issue="LANG-1355" type="add" dev="ggregory" due-to="Chas Honton">TimeZone.getTimeZone() in FastDateParser causes resource contention (PR #296.)</action>
     <action issue="LANG-1348" type="fix" dev="pschumacher" due-to="mbusso">StackOverflowError on TypeUtils.toString(...) for a generic return type of Enum.valueOf</action>

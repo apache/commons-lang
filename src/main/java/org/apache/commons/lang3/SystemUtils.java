@@ -973,6 +973,18 @@ public class SystemUtils {
      */
     public static final boolean IS_JAVA_9 = getJavaVersionMatches("9");
 
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 10 (also 10.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.7
+     */
+    public static final boolean IS_JAVA_10 = getJavaVersionMatches("10");
+
     // Operating system checks
     // -----------------------------------------------------------------------
     // These MUST be declared after those above as they depend on the
