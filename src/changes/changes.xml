@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.7" date="2017-MM-DD" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
+  <release version="3.7" date="2017-11-04" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
     <action issue="LANG-1362" type="fix" dev="ggregory" due-to="Stephen Colebourne">Fix tests DateUtilsTest for Java 9 with en_GB locale</action>
     <action issue="LANG-1365" type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in isJavaVersionAtLeast on Java 10, add SystemUtils.IS_JAVA_10, add JavaVersion.JAVA_10</action>
     <action issue="LANG-1348" type="fix" dev="pschumacher" due-to="mbusso">StackOverflowError on TypeUtils.toString(...) for a generic return type of Enum.valueOf</action>
