@@ -111,32 +111,32 @@ limitations under the License.
       </p>
     </subsection>
     </section>
-    <section name="Apache Commons Lang 3.6 (Java 7.0+)">
+    <section name="Apache Commons Lang 3.7 (Java 7.0+)">
       <subsection name="Binaries">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.6-bin.tar.gz">commons-lang3-3.6-bin.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.6-bin.tar.gz.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.6-bin.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang3/binaries/commons-lang3-3.7-bin.tar.gz">commons-lang3-3.7-bin.tar.gz</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang3-3.7-bin.tar.gz.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang3-3.7-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.6-bin.zip">commons-lang3-3.6-bin.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.6-bin.zip.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.6-bin.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang3/binaries/commons-lang3-3.7-bin.zip">commons-lang3-3.7-bin.zip</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang3-3.7-bin.zip.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang3-3.7-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
       <subsection name="Source">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.6-src.tar.gz">commons-lang3-3.6-src.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.6-src.tar.gz.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.6-src.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang3/source/commons-lang3-3.7-src.tar.gz">commons-lang3-3.7-src.tar.gz</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang3-3.7-src.tar.gz.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang3-3.7-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.6-src.zip">commons-lang3-3.6-src.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.6-src.zip.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.6-src.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang3/source/commons-lang3-3.7-src.zip">commons-lang3-3.7-src.zip</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang3-3.7-src.zip.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang3-3.7-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -145,28 +145,28 @@ limitations under the License.
       <subsection name="Binaries">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang-2.6-bin.tar.gz">commons-lang-2.6-bin.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang3/binaries/commons-lang-2.6-bin.tar.gz">commons-lang-2.6-bin.tar.gz</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang-2.6-bin.tar.gz.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang-2.6-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang-2.6-bin.zip">commons-lang-2.6-bin.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.zip.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang3/binaries/commons-lang-2.6-bin.zip">commons-lang-2.6-bin.zip</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang-2.6-bin.zip.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang-2.6-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
       <subsection name="Source">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang-2.6-src.tar.gz">commons-lang-2.6-src.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.tar.gz.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang3/source/commons-lang-2.6-src.tar.gz">commons-lang-2.6-src.tar.gz</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang-2.6-src.tar.gz.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang-2.6-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang-2.6-src.zip">commons-lang-2.6-src.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.zip.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang3/source/commons-lang-2.6-src.zip">commons-lang-2.6-src.zip</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang-2.6-src.zip.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang-2.6-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -176,8 +176,8 @@ limitations under the License.
           Older releases can be obtained from the archives.
         </p>
         <ul>
-          <li class="download"><a href="[preferred]/commons/lang/">browse download area</a></li>
-          <li><a href="https://archive.apache.org/dist/commons/lang/">archives...</a></li>
+          <li class="download"><a href="[preferred]/commons/lang3/">browse download area</a></li>
+          <li><a href="https://archive.apache.org/dist/commons/lang3/">archives...</a></li>
         </ul>
     </section>
   </body>
