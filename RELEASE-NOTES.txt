@@ -180,6 +180,8 @@ o LANG-1301: Moving apache-rat-plugin configuration into pluginManagement.
              Thanks to Karl Heinz Marbaise.
 o LANG-1316: Deprecate classes/methods moved to commons-text.
 
+=============================================================================
+
                         Release Notes for version 3.5
 
 
@@ -477,6 +479,8 @@ o LANG-1107: Fix parsing edge cases in FastDateParser.
 o LANG-1273: Added new property IS_OS_MAC_OSX_EL_CAPITAN in SystemUtils. Thanks
              to Jake Wang.
 
+=============================================================================
+
                         Release Notes for version 3.4
 
 
@@ -611,6 +615,8 @@ o LANG-1003: DurationFormatUtils are not able to handle negative
 o LANG-998:  Javadoc is not clear on preferred pattern to instantiate
              FastDateParser / FastDatePrinter
 
+=============================================================================
+
                         Release Notes for version 3.3.2
 
 NEW FEATURES
@@ -622,6 +628,8 @@ FIXED BUGS
 ============
 
 o LANG-992:  NumberUtils#isNumber() returns false for "0.0", "0.4790", et al
+
+=============================================================================
 
                         Release Notes for version 3.3.1
 
@@ -636,6 +644,8 @@ o LANG-984:  DurationFormatUtils does not handle large durations correctly
 o LANG-982:  DurationFormatUtils.formatDuration(61999, "s.SSSS") - ms field
              size should be 4 digits
 o LANG-978:  Failing tests with Java 8 b128
+
+=============================================================================
 
                         Release Notes for version 3.3
 
@@ -702,6 +712,8 @@ o LANG-953:  Convert package.html files to package-info.java files
 o LANG-940:  Fix deprecation warnings
 o LANG-819:  EnumUtils.generateBitVector needs a "? extends"
 
+=============================================================================
+
                         Release Notes for version 3.2.1
 
 BUG FIXES
@@ -713,6 +725,8 @@ o LANG-942:  Test failure in FastDateParserTest and FastDateFormat_ParserTest
              when building with JDK8. Thanks to Bruno P. Kinoshita,
              Henri Yandell.
 o LANG-938:  Build fails with test failures when building with JDK 8 
+
+=============================================================================
 
                         Release Notes for version 3.2
 
@@ -874,6 +888,7 @@ CHANGES WITHOUT TICKET
 
 o Fixed URLs in javadoc to point to new oracle.com pages
 
+=============================================================================
 
                         Release Notes for version 3.1
 
@@ -908,6 +923,7 @@ o LANG-748:  Deprecating chomp(String, String)
 o LANG-736:  CharUtils static final array CHAR_STRING is not needed to compute
              CHAR_STRING_ARRAY
 
+=============================================================================
 
                         Release Notes for version 3.0
 
