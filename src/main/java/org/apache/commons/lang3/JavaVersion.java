@@ -82,14 +82,14 @@ public enum JavaVersion {
 
     /**
      * Java 9
-     * 
+     *
      * @since 3.5
      */
     JAVA_9(9.0f, "9"),
 
     /**
      * Java 10
-     * 
+     *
      * @since 3.7
      */
     JAVA_10(10.0f, "10"),
@@ -103,6 +103,7 @@ public enum JavaVersion {
      * The float value.
      */
     private final float value;
+
     /**
      * The standard name.
      */
