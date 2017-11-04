@@ -1,31 +1,70 @@
-The Apache Commons Lang team is pleased to announce the commons-lang3-3.7 release!
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+                        Apache Commons Lang
+                            Version 3.7
+                           Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for the 3.7 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.0 and onwards now targets Java 5.0, making use of features that arrived with Java 5.0 such as generics, 
+variable arguments, autoboxing, concurrency and formatted output.
+
+For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    http://commons.apache.org/lang/article3_0.html
 
 Apache Commons Lang, a package of Java utility classes for the
-  classes that are in java.lang's hierarchy, or are considered to be so
-  standard as to justify existence in java.lang.
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.
 
 Changes in this version include:
 
 New features:
-o TimeZone.getTimeZone() in FastDateParser causes resource contention (PR #296.)  Issue: LANG-1355. Thanks to Chas Honton. 
-o Add methods to ObjectUtils to get various forms of class names in a null-safe manner  Issue: LANG-1360. Thanks to Gary Gregory. 
+o LANG-1355: TimeZone.getTimeZone() in FastDateParser causes resource contention (PR #296.) Thanks to Chas Honton.
+o LANG-1360: Add methods to ObjectUtils to get various forms of class names in a null-safe manner Thanks to Gary Gregory.
 
 Fixed Bugs:
-o Fix tests DateUtilsTest for Java 9 with en_GB locale  Issue: LANG-1362. Thanks to Stephen Colebourne. 
-o Fix NullPointerException in isJavaVersionAtLeast on Java 10, add SystemUtils.IS_JAVA_10, add JavaVersion.JAVA_10  Issue: LANG-1365. Thanks to Gary Gregory. 
-o StackOverflowError on TypeUtils.toString(...) for a generic return type of Enum.valueOf  Issue: LANG-1348. Thanks to mbusso. 
-o ConstructorUtils.invokeConstructor(Class, Object...) regression  Issue: LANG-1350. Thanks to Brett Kail. 
-o EqualsBuilder#isRegistered: swappedPair construction bug  Issue: LANG-1349. Thanks to Naman Nigam. 
-o org.apache.commons.lang3.time.FastDateParser should use toUpperCase(Locale)  Issue: LANG-1357. Thanks to BruceKuiLiu. 
+o LANG-1362: Fix tests DateUtilsTest for Java 9 with en_GB locale Thanks to Stephen Colebourne.
+o LANG-1365: Fix NullPointerException in isJavaVersionAtLeast on Java 10, add SystemUtils.IS_JAVA_10, add JavaVersion.JAVA_10 Thanks to Gary Gregory.
+o LANG-1348: StackOverflowError on TypeUtils.toString(...) for a generic return type of Enum.valueOf Thanks to mbusso.
+o LANG-1350: ConstructorUtils.invokeConstructor(Class, Object...) regression Thanks to Brett Kail.
+o LANG-1349: EqualsBuilder#isRegistered: swappedPair construction bug Thanks to Naman Nigam.
+o LANG-1357: org.apache.commons.lang3.time.FastDateParser should use toUpperCase(Locale) Thanks to BruceKuiLiu.
 
 Changes:
-o Improve StringUtils#replace throughput  Issue: LANG-1358. Thanks to Stephane Landelle. 
-o Remove deprecation from RandomStringUtils  Issue: LANG-1346. 
-o ExceptionUtils.getThrowableList() is using deprecated ExceptionUtils.getCause()  Issue: LANG-1361. Thanks to Ana. 
+o LANG-1358: Improve StringUtils#replace throughput Thanks to Stephane Landelle.
+o LANG-1346: Remove deprecation from RandomStringUtils
+o LANG-1361: ExceptionUtils.getThrowableList() is using deprecated ExceptionUtils.getCause() Thanks to Ana.
 
 
-Have fun!
--Apache Commons Lang team
+Historical list of changes: http://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+
+http://commons.apache.org/proper/commons-lang/
 
 =============================================================================
 
