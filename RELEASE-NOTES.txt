@@ -1,3 +1,34 @@
+The Apache Commons Lang team is pleased to announce the commons-lang3-3.7 release!
+
+Apache Commons Lang, a package of Java utility classes for the
+  classes that are in java.lang's hierarchy, or are considered to be so
+  standard as to justify existence in java.lang.
+
+Changes in this version include:
+
+New features:
+o TimeZone.getTimeZone() in FastDateParser causes resource contention (PR #296.)  Issue: LANG-1355. Thanks to Chas Honton. 
+o Add methods to ObjectUtils to get various forms of class names in a null-safe manner  Issue: LANG-1360. Thanks to Gary Gregory. 
+
+Fixed Bugs:
+o Fix tests DateUtilsTest for Java 9 with en_GB locale  Issue: LANG-1362. Thanks to Stephen Colebourne. 
+o Fix NullPointerException in isJavaVersionAtLeast on Java 10, add SystemUtils.IS_JAVA_10, add JavaVersion.JAVA_10  Issue: LANG-1365. Thanks to Gary Gregory. 
+o StackOverflowError on TypeUtils.toString(...) for a generic return type of Enum.valueOf  Issue: LANG-1348. Thanks to mbusso. 
+o ConstructorUtils.invokeConstructor(Class, Object...) regression  Issue: LANG-1350. Thanks to Brett Kail. 
+o EqualsBuilder#isRegistered: swappedPair construction bug  Issue: LANG-1349. Thanks to Naman Nigam. 
+o org.apache.commons.lang3.time.FastDateParser should use toUpperCase(Locale)  Issue: LANG-1357. Thanks to BruceKuiLiu. 
+
+Changes:
+o Improve StringUtils#replace throughput  Issue: LANG-1358. Thanks to Stephane Landelle. 
+o Remove deprecation from RandomStringUtils  Issue: LANG-1346. 
+o ExceptionUtils.getThrowableList() is using deprecated ExceptionUtils.getCause()  Issue: LANG-1361. Thanks to Ana. 
+
+
+Have fun!
+-Apache Commons Lang team
+
+=============================================================================
+
                            Apache Commons Lang
                                Version 3.6
                               Release Notes
