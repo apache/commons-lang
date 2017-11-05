@@ -2371,7 +2371,6 @@ public class StringUtilsTest {
         assertEquals(7, StringUtils.indexOfDifference("i am a machine", "i am a robot"));
         assertEquals(-1, StringUtils.indexOfDifference("foo", "foo"));
         assertEquals(0, StringUtils.indexOfDifference("i am a robot", "you are a robot"));
-        //System.out.println("indexOfDiff: " + StringUtils.indexOfDifference("i am a robot", "not machine"));
     }
 
     //-----------------------------------------------------------------------

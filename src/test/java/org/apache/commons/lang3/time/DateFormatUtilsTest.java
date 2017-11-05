@@ -186,34 +186,6 @@ public class DateFormatUtilsTest {
                 timeZone, june);
     }
 
-    /*
-    public void testLang312() {
-        String pattern = "dd/MM/yyyy";
-        String expected = "19/04/1948";
-        TimeZone timeZone = TimeZone.getTimeZone("CET");
-        Locale locale = Locale.GERMANY;
-
-        // show Calendar is good
-        Calendar cal = Calendar.getInstance(timeZone, locale);
-        cal.set(1948, 3, 19);
-        assertEquals(expected, DateFormatUtils.format( cal.getTime(), pattern, timeZone, locale ) );
-
-        Date date = new Date(48, 3, 19);
-
-        // test JDK
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern, locale);
-        sdf.setTimeZone(timeZone);
-// There's nothing we can do if the JDK fails, so just going to print a warning in this case
-//        assertEquals(expected, sdf.format( date ) );
-        if( ! expected.equals( sdf.format( date ) ) ) {
-            System.out.println("WARNING: JDK test failed - testLang312()");
-        }
-
-        // test Commons
-        assertEquals(expected, DateFormatUtils.format( date, pattern, timeZone, locale ) );
-    }
-    */
-
     @Test
     public void testLANG1000() throws Exception {
         final String date = "2013-11-18T12:48:05Z";
