@@ -370,7 +370,6 @@ public class ExtendedMessageFormatTest {
         buffer.append(locale);
         buffer.append("]");
         final MessageFormat mf = createMessageFormat(pattern, locale);
-        // System.out.println(buffer + ", result=[" + mf.format(args) +"]");
         ExtendedMessageFormat emf = null;
         if (locale == null) {
             emf = new ExtendedMessageFormat(pattern);
