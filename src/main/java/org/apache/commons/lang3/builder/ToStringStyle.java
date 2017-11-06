@@ -2648,6 +2648,8 @@ public abstract class ToStringStyle implements Serializable {
 
     }
 
+    // ----------------------------------------------------------------------------
+
     /**
      * <p>
      * <code>ToStringStyle</code> that outputs with No Class Name in a Multi Line format.
@@ -2688,6 +2690,5 @@ public abstract class ToStringStyle implements Serializable {
         private Object readResolve() {
             return ToStringStyle.NO_CLASS_NAME_MULTI_LINE_STYLE;
         }
-
     }
 }

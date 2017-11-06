@@ -123,5 +123,4 @@ public class NoClassNameMultiLineToStringStyleTest {
         assertEquals(base +  System.lineSeparator() + "<null>" + System.lineSeparator(), new ToStringBuilder(base).append(base.toString()).append(array).toString());
         assertEquals("<null>" + System.lineSeparator(), new ToStringBuilder(base).append((Object) array).toString());
     }
-
 }
