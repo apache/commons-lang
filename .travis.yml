@@ -15,10 +15,13 @@
 
 language: java
 sudo: false
+# currently (11-01-2017) required for ibm jdk
+group: edge
 
 jdk:
   - openjdk7
   - oraclejdk8
+  - ibmjava8
   - oraclejdk9
 
 script:
