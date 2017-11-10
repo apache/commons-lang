@@ -46,6 +46,8 @@ import org.apache.commons.lang3.text.StrBuilder;
 // because it is part of the signature of deprecated methods
 public class ObjectUtils {
 
+    private static final char AT_SIGN = '@';
+    
     /**
      * <p>Singleton used as a {@code null} placeholder where
      * {@code null} has another meaning.</p>
@@ -355,7 +357,7 @@ public class ObjectUtils {
     public static void identityToString(final Appendable appendable, final Object object) throws IOException {
         Validate.notNull(object, "Cannot get the toString of a null object");
         appendable.append(object.getClass().getName())
-              .append('@')
+              .append(AT_SIGN)
               .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
@@ -380,7 +382,7 @@ public class ObjectUtils {
     public static void identityToString(final StrBuilder builder, final Object object) {
         Validate.notNull(object, "Cannot get the toString of a null object");
         builder.append(object.getClass().getName())
-              .append('@')
+              .append(AT_SIGN)
               .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
@@ -402,7 +404,7 @@ public class ObjectUtils {
     public static void identityToString(final StringBuffer buffer, final Object object) {
         Validate.notNull(object, "Cannot get the toString of a null object");
         buffer.append(object.getClass().getName())
-              .append('@')
+              .append(AT_SIGN)
               .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
@@ -424,7 +426,7 @@ public class ObjectUtils {
     public static void identityToString(final StringBuilder builder, final Object object) {
         Validate.notNull(object, "Cannot get the toString of a null object");
         builder.append(object.getClass().getName())
-              .append('@')
+              .append(AT_SIGN)
               .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
