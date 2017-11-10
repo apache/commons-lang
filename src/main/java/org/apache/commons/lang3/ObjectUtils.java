@@ -47,7 +47,7 @@ import org.apache.commons.lang3.text.StrBuilder;
 public class ObjectUtils {
 
     private static final char AT_SIGN = '@';
-    
+
     /**
      * <p>Singleton used as a {@code null} placeholder where
      * {@code null} has another meaning.</p>
@@ -333,8 +333,14 @@ public class ObjectUtils {
         if (object == null) {
             return null;
         }
-        final StringBuilder builder = new StringBuilder();
-        identityToString(builder, object);
+        final String name = object.getClass().getName();
+        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final StringBuilder builder = new StringBuilder(name.length() + 1 + hexString.length());
+        // @formatter:off
+        builder.append(name)
+              .append(AT_SIGN)
+              .append(hexString);
+        // @formatter:off
         return builder.toString();
     }
 
@@ -381,9 +387,12 @@ public class ObjectUtils {
     @Deprecated
     public static void identityToString(final StrBuilder builder, final Object object) {
         Validate.notNull(object, "Cannot get the toString of a null object");
-        builder.append(object.getClass().getName())
+        final String name = object.getClass().getName();
+        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
+        builder.append(name)
               .append(AT_SIGN)
-              .append(Integer.toHexString(System.identityHashCode(object)));
+              .append(hexString);
     }
 
     /**
@@ -403,9 +412,12 @@ public class ObjectUtils {
      */
     public static void identityToString(final StringBuffer buffer, final Object object) {
         Validate.notNull(object, "Cannot get the toString of a null object");
-        buffer.append(object.getClass().getName())
+        final String name = object.getClass().getName();
+        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        buffer.ensureCapacity(buffer.length() + name.length() + 1 + hexString.length());
+        buffer.append(name)
               .append(AT_SIGN)
-              .append(Integer.toHexString(System.identityHashCode(object)));
+              .append(hexString);
     }
 
     /**
@@ -425,9 +437,12 @@ public class ObjectUtils {
      */
     public static void identityToString(final StringBuilder builder, final Object object) {
         Validate.notNull(object, "Cannot get the toString of a null object");
-        builder.append(object.getClass().getName())
+        final String name = object.getClass().getName();
+        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
+        builder.append(name)
               .append(AT_SIGN)
-              .append(Integer.toHexString(System.identityHashCode(object)));
+              .append(hexString);
     }
 
     // ToString

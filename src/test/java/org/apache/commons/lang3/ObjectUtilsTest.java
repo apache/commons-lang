@@ -195,7 +195,7 @@ public class ObjectUtilsTest {
     public void testIdentityToStringObjectNull() {
         assertNull(ObjectUtils.identityToString(null));
     }
-    
+
     @Test
     public void testIdentityToStringInteger() {
         final Integer i = Integer.valueOf(90);
@@ -203,14 +203,14 @@ public class ObjectUtilsTest {
 
         assertEquals(expected, ObjectUtils.identityToString(i));
     }
-    
+
     @Test
     public void testIdentityToStringString() {
         assertEquals(
                 "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
                 ObjectUtils.identityToString(FOO));
     }
-    
+
     @Test
     public void testIdentityToStringStringBuilder() {
         final Integer i = Integer.valueOf(90);
