@@ -216,9 +216,17 @@ public class ObjectUtilsTest {
         final Integer i = Integer.valueOf(90);
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
-        assertEquals(expected, ObjectUtils.identityToString(i));
-
         final StringBuilder builder = new StringBuilder();
+        ObjectUtils.identityToString(builder, i);
+        assertEquals(expected, builder.toString());
+    }
+
+    @Test
+    public void testIdentityToStringStringBuilderInUse() {
+        final Integer i = Integer.valueOf(90);
+        final String expected = "ABC = java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
+
+        final StringBuilder builder = new StringBuilder("ABC = ");
         ObjectUtils.identityToString(builder, i);
         assertEquals(expected, builder.toString());
     }
