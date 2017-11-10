@@ -353,7 +353,7 @@ public class ObjectUtils {
      * @since 3.2
      */
     public static void identityToString(final Appendable appendable, final Object object) throws IOException {
-        Validate.notNull(object, "Cannot get the toString of a null identity");
+        Validate.notNull(object, "Cannot get the toString of a null object");
         appendable.append(object.getClass().getName())
               .append('@')
               .append(Integer.toHexString(System.identityHashCode(object)));
@@ -378,7 +378,7 @@ public class ObjectUtils {
      */
     @Deprecated
     public static void identityToString(final StrBuilder builder, final Object object) {
-        Validate.notNull(object, "Cannot get the toString of a null identity");
+        Validate.notNull(object, "Cannot get the toString of a null object");
         builder.append(object.getClass().getName())
               .append('@')
               .append(Integer.toHexString(System.identityHashCode(object)));
@@ -400,7 +400,7 @@ public class ObjectUtils {
      * @since 2.4
      */
     public static void identityToString(final StringBuffer buffer, final Object object) {
-        Validate.notNull(object, "Cannot get the toString of a null identity");
+        Validate.notNull(object, "Cannot get the toString of a null object");
         buffer.append(object.getClass().getName())
               .append('@')
               .append(Integer.toHexString(System.identityHashCode(object)));
@@ -422,7 +422,7 @@ public class ObjectUtils {
      * @since 3.2
      */
     public static void identityToString(final StringBuilder builder, final Object object) {
-        Validate.notNull(object, "Cannot get the toString of a null identity");
+        Validate.notNull(object, "Cannot get the toString of a null object");
         builder.append(object.getClass().getName())
               .append('@')
               .append(Integer.toHexString(System.identityHashCode(object)));
