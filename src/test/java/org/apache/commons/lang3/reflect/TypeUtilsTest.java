@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -688,6 +689,15 @@ public class TypeUtilsTest<B> {
         assertTrue(TypeUtils.equals(getClass().getField("stringComparable").getGenericType(),
             stringComparableType));
         assertEquals("java.lang.Comparable<java.lang.String>", stringComparableType.toString());
+    }
+
+    @Test
+    public void testParameterizeNarrowerTypeArray() {
+        final TypeVariable<?>[] variables = ArrayList.class.getTypeParameters();
+        final ParameterizedType parameterizedType = TypeUtils.parameterize(ArrayList.class, variables);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(variables[0], String.class);
+        final Type unrolled = TypeUtils.unrollVariables(mapping, parameterizedType);
+        assertEquals(TypeUtils.parameterize(ArrayList.class, String.class), unrolled);
     }
 
     @Test
