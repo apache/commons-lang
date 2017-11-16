@@ -1551,7 +1551,7 @@ public class SystemUtils {
     /**
      * Decides if the operating system matches.
      *
-     * @param osNamePrefix the prefix for the os name
+     * @param osNamePrefix the prefix for the OS name
      * @param osVersionPrefix the prefix for the version
      * @return true if matches, or false if not or can't determine
      */
@@ -1562,7 +1562,7 @@ public class SystemUtils {
     /**
      * Decides if the operating system matches.
      *
-     * @param osNamePrefix the prefix for the os name
+     * @param osNamePrefix the prefix for the OS name
      * @return true if matches, or false if not or can't determine
      */
     private static boolean getOsMatchesName(final String osNamePrefix) {
