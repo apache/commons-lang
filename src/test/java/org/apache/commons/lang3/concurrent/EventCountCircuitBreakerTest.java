@@ -155,6 +155,21 @@ public class EventCountCircuitBreakerTest {
     }
 
     /**
+     * Tests that the circuit breaker opens if all conditions are met when using
+     * {@link EventCountCircuitBreaker#incrementAndCheckState(Integer increment)}.
+     */
+    @Test
+    public void testOpeningWhenThresholdReachedThroughBatch() {
+        final long timeIncrement = NANO_FACTOR / OPENING_THRESHOLD - 1;
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
+            TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        long startTime = timeIncrement * (OPENING_THRESHOLD + 1);
+        boolean open = !breaker.at(startTime).incrementAndCheckState(OPENING_THRESHOLD + 1);
+        assertTrue("Not open", open);
+        assertFalse("Closed", breaker.isClosed());
+    }
+
+    /**
      * Tests that an open circuit breaker does not close itself when the number of events
      * received is over the threshold.
      */
