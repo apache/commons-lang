@@ -157,7 +157,7 @@ public class TypeUtils {
         private ParameterizedTypeImpl(final Class<?> raw, final Type useOwner, final Type[] typeArguments) {
             this.raw = raw;
             this.useOwner = useOwner;
-            this.typeArguments = typeArguments.clone();
+            this.typeArguments = Arrays.copyOf(typeArguments, typeArguments.length, Type[].class);
         }
 
         /**
