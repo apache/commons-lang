@@ -7168,7 +7168,7 @@ public class StringUtils {
      * StringUtils.getDigits("")    = ""
      * StringUtils.getDigits("abc") = ""
      * StringUtils.getDigits("1000$") = "1000"
-     * StringUtils.getDigits("1123~45") = "12345"
+     * StringUtils.getDigits("1123~45") = "112345"
      * StringUtils.getDigits("(541) 754-3010") = "5417543010"
      * StringUtils.getDigits("\u0967\u0968\u0969") = "\u0967\u0968\u0969"
      * </pre>
