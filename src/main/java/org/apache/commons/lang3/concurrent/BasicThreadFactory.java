@@ -198,15 +198,15 @@ public class BasicThreadFactory implements ThreadFactory {
      * factory for creating the thread. Then, on the newly created thread the
      * corresponding configuration options are set.
      *
-     * @param r the {@code Runnable} to be executed by the new thread
+     * @param runnable the {@code Runnable} to be executed by the new thread
      * @return the newly created thread
      */
     @Override
-    public Thread newThread(final Runnable r) {
-        final Thread t = getWrappedFactory().newThread(r);
-        initializeThread(t);
+    public Thread newThread(final Runnable runnable) {
+        final Thread thread = getWrappedFactory().newThread(runnable);
+        initializeThread(thread);
 
-        return t;
+        return thread;
     }
 
     /**
@@ -306,11 +306,11 @@ public class BasicThreadFactory implements ThreadFactory {
          * flag is set to <b>true</b> the new thread factory will create daemon
          * threads.
          *
-         * @param f the value of the daemon flag
+         * @param daemon the value of the daemon flag
          * @return a reference to this {@code Builder}
          */
-        public Builder daemon(final boolean f) {
-            daemon = Boolean.valueOf(f);
+        public Builder daemon(final boolean daemon) {
+            this.daemon = Boolean.valueOf(daemon);
             return this;
         }
 
@@ -318,11 +318,11 @@ public class BasicThreadFactory implements ThreadFactory {
          * Sets the priority for the threads created by the new {@code
          * BasicThreadFactory}.
          *
-         * @param prio the priority
+         * @param priority the priority
          * @return a reference to this {@code Builder}
          */
-        public Builder priority(final int prio) {
-            priority = Integer.valueOf(prio);
+        public Builder priority(final int priority) {
+            this.priority = Integer.valueOf(priority);
             return this;
         }
 
