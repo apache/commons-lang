@@ -105,7 +105,7 @@ public class BasicThreadFactory implements ThreadFactory {
     private final Integer priority;
 
     /** Stores the daemon status flag. */
-    private final Boolean daemonFlag;
+    private final Boolean daemon;
 
     /**
      * Creates a new instance of {@code ThreadFactoryImpl} and configures it
@@ -122,7 +122,7 @@ public class BasicThreadFactory implements ThreadFactory {
 
         namingPattern = builder.namingPattern;
         priority = builder.priority;
-        daemonFlag = builder.daemon;
+        daemon = builder.daemon;
         uncaughtExceptionHandler = builder.exceptionHandler;
 
         threadCounter = new AtomicLong();
@@ -159,7 +159,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * @return the daemon flag
      */
     public final Boolean getDaemonFlag() {
-        return daemonFlag;
+        return daemon;
     }
 
     /**
