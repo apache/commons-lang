@@ -122,7 +122,7 @@ public class BasicThreadFactory implements ThreadFactory {
 
         namingPattern = builder.namingPattern;
         priority = builder.priority;
-        daemonFlag = builder.daemonFlag;
+        daemonFlag = builder.daemon;
         uncaughtExceptionHandler = builder.exceptionHandler;
 
         threadCounter = new AtomicLong();
@@ -267,7 +267,7 @@ public class BasicThreadFactory implements ThreadFactory {
         private Integer priority;
 
         /** The daemon flag. */
-        private Boolean daemonFlag;
+        private Boolean daemon;
 
         /**
          * Sets the {@code ThreadFactory} to be wrapped by the new {@code
@@ -310,7 +310,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * @return a reference to this {@code Builder}
          */
         public Builder daemon(final boolean f) {
-            daemonFlag = Boolean.valueOf(f);
+            daemon = Boolean.valueOf(f);
             return this;
         }
 
@@ -354,7 +354,7 @@ public class BasicThreadFactory implements ThreadFactory {
             exceptionHandler = null;
             namingPattern = null;
             priority = null;
-            daemonFlag = null;
+            daemon = null;
         }
 
         /**
