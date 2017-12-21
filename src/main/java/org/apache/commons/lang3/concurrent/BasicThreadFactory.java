@@ -215,25 +215,25 @@ public class BasicThreadFactory implements ThreadFactory {
      * the wrapped thread factory. It initializes the thread according to the
      * options set for this factory.
      *
-     * @param t the thread to be initialized
+     * @param thread the thread to be initialized
      */
-    private void initializeThread(final Thread t) {
+    private void initializeThread(final Thread thread) {
 
         if (getNamingPattern() != null) {
             final Long count = Long.valueOf(threadCounter.incrementAndGet());
-            t.setName(String.format(getNamingPattern(), count));
+            thread.setName(String.format(getNamingPattern(), count));
         }
 
         if (getUncaughtExceptionHandler() != null) {
-            t.setUncaughtExceptionHandler(getUncaughtExceptionHandler());
+            thread.setUncaughtExceptionHandler(getUncaughtExceptionHandler());
         }
 
         if (getPriority() != null) {
-            t.setPriority(getPriority().intValue());
+            thread.setPriority(getPriority().intValue());
         }
 
         if (getDaemonFlag() != null) {
-            t.setDaemon(getDaemonFlag().booleanValue());
+            thread.setDaemon(getDaemonFlag().booleanValue());
         }
     }
 
