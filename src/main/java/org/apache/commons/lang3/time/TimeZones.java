@@ -15,22 +15,21 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang3.builder;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package org.apache.commons.lang3.time;
 
 /**
- * Use this annotation to exclude a field from being used by
- * the various <code>reflectionEquals</code> methods defined on
- * {@link EqualsBuilder}.
+ * Helps to deal with {@link java.util.TimeZone}s.
  *
- * @since 3.5
+ * @since 3.7
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface EqualsExclude {
+public class TimeZones {
 
+    // do not instantiate
+    private TimeZones() {
+    }
+
+    /**
+     * A public version of {@link java.util.TimeZone}'s package private {@code GMT_ID} field.
+     */
+    public static final String GMT_ID = "GMT";
 }

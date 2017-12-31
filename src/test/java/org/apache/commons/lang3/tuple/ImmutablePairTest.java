@@ -113,7 +113,7 @@ public class ImmutablePairTest {
     public void testNullPairTyped() {
         // No compiler warnings
         // How do we assert that?
-        ImmutablePair<String, String> pair = ImmutablePair.nullPair();
+        final ImmutablePair<String, String> pair = ImmutablePair.nullPair();
         assertNotNull(pair);
     }
 

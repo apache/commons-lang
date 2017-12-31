@@ -38,7 +38,7 @@ public class DateFormatUtils {
      * The UTC time zone (often referred to as GMT).
      * This is private as it is mutable.
      */
-    private static final TimeZone UTC_TIME_ZONE = TimeZone.getTimeZone("GMT");
+    private static final TimeZone UTC_TIME_ZONE = FastTimeZone.getGmtTimeZone();
 
     /**
      * ISO 8601 formatter for date-time without time zone.

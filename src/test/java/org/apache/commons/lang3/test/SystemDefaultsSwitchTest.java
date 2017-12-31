@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.time.FastTimeZone;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -46,7 +47,7 @@ public class SystemDefaultsSwitchTest {
         TEST_DEFAULT_LOCALE = Locale.getDefault();
 
         DEFAULT_TIMEZONE_BEFORE_TEST = TimeZone.getDefault();
-        final TimeZone utc = TimeZone.getTimeZone("UTC");
+        final TimeZone utc = FastTimeZone.getGmtTimeZone();
         if (!DEFAULT_TIMEZONE_BEFORE_TEST.equals(utc)) {
             TimeZone.setDefault(utc);
         } else {

@@ -192,28 +192,58 @@ public class ObjectUtilsTest {
     }
 
     @Test
-    public void testIdentityToStringStringBuilder() {
-        assertEquals(null, ObjectUtils.identityToString(null));
-        assertEquals(
-            "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
-            ObjectUtils.identityToString(FOO));
+    public void testIdentityToStringObjectNull() {
+        assertNull(ObjectUtils.identityToString(null));
+    }
+
+    @Test
+    public void testIdentityToStringInteger() {
         final Integer i = Integer.valueOf(90);
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         assertEquals(expected, ObjectUtils.identityToString(i));
+    }
+
+    @Test
+    public void testIdentityToStringString() {
+        assertEquals(
+                "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
+                ObjectUtils.identityToString(FOO));
+    }
+
+    @Test
+    public void testIdentityToStringStringBuilder() {
+        final Integer i = Integer.valueOf(90);
+        final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final StringBuilder builder = new StringBuilder();
         ObjectUtils.identityToString(builder, i);
         assertEquals(expected, builder.toString());
+    }
 
+    @Test
+    public void testIdentityToStringStringBuilderInUse() {
+        final Integer i = Integer.valueOf(90);
+        final String expected = "ABC = java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
+
+        final StringBuilder builder = new StringBuilder("ABC = ");
+        ObjectUtils.identityToString(builder, i);
+        assertEquals(expected, builder.toString());
+    }
+
+    @Test
+    public void testIdentityToStringStringBuilderNullValue() {
         try {
-            ObjectUtils.identityToString((StringBuilder)null, "tmp");
+            ObjectUtils.identityToString(new StringBuilder(), null);
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
+    }
 
+    @Test
+    public  void testIdentityToStringStringBuilderNullStringBuilder() {
         try {
-            ObjectUtils.identityToString(new StringBuilder(), null);
+            ObjectUtils.identityToString((StringBuilder)null, "tmp");
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
@@ -666,4 +696,5 @@ public class ObjectUtilsTest {
         }
 
     }
+
 }

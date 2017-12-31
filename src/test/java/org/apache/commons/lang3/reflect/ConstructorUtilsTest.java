@@ -77,6 +77,11 @@ public class ConstructorUtilsTest {
             varArgs = s;
         }
 
+        public TestBean(final BaseClass bc, final String... s) {
+            toString = "(BaseClass, String...)";
+            varArgs = s;
+        }
+
         public TestBean(final Integer i, final String... s) {
             toString = "(Integer, String...)";
             varArgs = s;
@@ -100,6 +105,10 @@ public class ConstructorUtilsTest {
           assertArrayEquals(args, varArgs);
         }
     }
+
+    private static class BaseClass {}
+
+    private static class SubClass extends BaseClass {}
 
     static class PrivateClass {
         @SuppressWarnings("unused")
@@ -157,6 +166,8 @@ public class ConstructorUtilsTest {
           .verify("(String...)", new String[]{"a", "b"});
         ConstructorUtils.invokeConstructor(TestBean.class, NumberUtils.INTEGER_ONE, "a", "b")
           .verify("(Integer, String...)", new String[]{"a", "b"});
+        ConstructorUtils.invokeConstructor(TestBean.class, new SubClass(), new String[]{"a", "b"})
+          .verify("(BaseClass, String...)", new String[]{"a", "b"});
     }
 
     @Test
@@ -252,6 +263,9 @@ public class ConstructorUtilsTest {
                 singletonArray(Double.class), singletonArray(Double.TYPE));
         expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
                 singletonArray(Double.TYPE), singletonArray(Double.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                new Class<?>[]{SubClass.class, String[].class},
+                new Class<?>[]{BaseClass.class, String[].class});
     }
 
     @Test

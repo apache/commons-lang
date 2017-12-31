@@ -113,10 +113,10 @@ public class CharSequenceUtils {
         }
         //supplementary characters (LANG1300)
         if (searchChar <= Character.MAX_CODE_POINT) {
-            char[] chars = Character.toChars(searchChar);
+            final char[] chars = Character.toChars(searchChar);
             for (int i = start; i < sz - 1; i++) {
-                char high = cs.charAt(i);
-                char low = cs.charAt(i + 1);
+                final char high = cs.charAt(i);
+                final char low = cs.charAt(i + 1);
                 if (high == chars[0] && low == chars[1]) {
                     return i;
                 }
@@ -193,14 +193,14 @@ public class CharSequenceUtils {
         //supplementary characters (LANG1300)
         //NOTE - we must do a forward traversal for this to avoid duplicating code points
         if (searchChar <= Character.MAX_CODE_POINT) {
-            char[] chars = Character.toChars(searchChar);
+            final char[] chars = Character.toChars(searchChar);
             //make sure it's not the last index
             if (start == sz - 1) {
                 return NOT_FOUND;
             }
             for (int i = start; i >= 0; i--) {
-                char high = cs.charAt(i);
-                char low = cs.charAt(i + 1);
+                final char high = cs.charAt(i);
+                final char low = cs.charAt(i + 1);
                 if (chars[0] == high && chars[1] == low) {
                     return i;
                 }

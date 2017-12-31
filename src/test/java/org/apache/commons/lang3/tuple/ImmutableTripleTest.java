@@ -116,7 +116,7 @@ public class ImmutableTripleTest {
     public void testNullTripleTyped() {
         // No compiler warnings
         // How do we assert that?
-        ImmutableTriple<String, String, String> triple = ImmutableTriple.nullTriple();
+        final ImmutableTriple<String, String, String> triple = ImmutableTriple.nullTriple();
         assertNotNull(triple);
     }
 

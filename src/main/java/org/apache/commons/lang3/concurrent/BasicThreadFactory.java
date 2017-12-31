@@ -105,7 +105,7 @@ public class BasicThreadFactory implements ThreadFactory {
     private final Integer priority;
 
     /** Stores the daemon status flag. */
-    private final Boolean daemonFlag;
+    private final Boolean daemon;
 
     /**
      * Creates a new instance of {@code ThreadFactoryImpl} and configures it
@@ -122,7 +122,7 @@ public class BasicThreadFactory implements ThreadFactory {
 
         namingPattern = builder.namingPattern;
         priority = builder.priority;
-        daemonFlag = builder.daemonFlag;
+        daemon = builder.daemon;
         uncaughtExceptionHandler = builder.exceptionHandler;
 
         threadCounter = new AtomicLong();
@@ -159,7 +159,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * @return the daemon flag
      */
     public final Boolean getDaemonFlag() {
-        return daemonFlag;
+        return daemon;
     }
 
     /**
@@ -198,15 +198,15 @@ public class BasicThreadFactory implements ThreadFactory {
      * factory for creating the thread. Then, on the newly created thread the
      * corresponding configuration options are set.
      *
-     * @param r the {@code Runnable} to be executed by the new thread
+     * @param runnable the {@code Runnable} to be executed by the new thread
      * @return the newly created thread
      */
     @Override
-    public Thread newThread(final Runnable r) {
-        final Thread t = getWrappedFactory().newThread(r);
-        initializeThread(t);
+    public Thread newThread(final Runnable runnable) {
+        final Thread thread = getWrappedFactory().newThread(runnable);
+        initializeThread(thread);
 
-        return t;
+        return thread;
     }
 
     /**
@@ -215,25 +215,25 @@ public class BasicThreadFactory implements ThreadFactory {
      * the wrapped thread factory. It initializes the thread according to the
      * options set for this factory.
      *
-     * @param t the thread to be initialized
+     * @param thread the thread to be initialized
      */
-    private void initializeThread(final Thread t) {
+    private void initializeThread(final Thread thread) {
 
         if (getNamingPattern() != null) {
             final Long count = Long.valueOf(threadCounter.incrementAndGet());
-            t.setName(String.format(getNamingPattern(), count));
+            thread.setName(String.format(getNamingPattern(), count));
         }
 
         if (getUncaughtExceptionHandler() != null) {
-            t.setUncaughtExceptionHandler(getUncaughtExceptionHandler());
+            thread.setUncaughtExceptionHandler(getUncaughtExceptionHandler());
         }
 
         if (getPriority() != null) {
-            t.setPriority(getPriority().intValue());
+            thread.setPriority(getPriority().intValue());
         }
 
         if (getDaemonFlag() != null) {
-            t.setDaemon(getDaemonFlag().booleanValue());
+            thread.setDaemon(getDaemonFlag().booleanValue());
         }
     }
 
@@ -267,7 +267,7 @@ public class BasicThreadFactory implements ThreadFactory {
         private Integer priority;
 
         /** The daemon flag. */
-        private Boolean daemonFlag;
+        private Boolean daemon;
 
         /**
          * Sets the {@code ThreadFactory} to be wrapped by the new {@code
@@ -306,11 +306,11 @@ public class BasicThreadFactory implements ThreadFactory {
          * flag is set to <b>true</b> the new thread factory will create daemon
          * threads.
          *
-         * @param f the value of the daemon flag
+         * @param daemon the value of the daemon flag
          * @return a reference to this {@code Builder}
          */
-        public Builder daemon(final boolean f) {
-            daemonFlag = Boolean.valueOf(f);
+        public Builder daemon(final boolean daemon) {
+            this.daemon = Boolean.valueOf(daemon);
             return this;
         }
 
@@ -318,11 +318,11 @@ public class BasicThreadFactory implements ThreadFactory {
          * Sets the priority for the threads created by the new {@code
          * BasicThreadFactory}.
          *
-         * @param prio the priority
+         * @param priority the priority
          * @return a reference to this {@code Builder}
          */
-        public Builder priority(final int prio) {
-            priority = Integer.valueOf(prio);
+        public Builder priority(final int priority) {
+            this.priority = Integer.valueOf(priority);
             return this;
         }
 
@@ -354,7 +354,7 @@ public class BasicThreadFactory implements ThreadFactory {
             exceptionHandler = null;
             namingPattern = null;
             priority = null;
-            daemonFlag = null;
+            daemon = null;
         }
 
         /**

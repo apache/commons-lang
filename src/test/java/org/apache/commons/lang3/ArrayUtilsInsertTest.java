@@ -34,7 +34,7 @@ public class ArrayUtilsInsertTest {
         final boolean[] array = {true,false,true};
         final boolean[] values = {false,true,false};
 
-        boolean[] result = ArrayUtils.insert(42, array, null);
+        final boolean[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
         assertFalse(array == result);
 
@@ -45,14 +45,14 @@ public class ArrayUtilsInsertTest {
         try {
             ArrayUtils.insert(-1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             ArrayUtils.insert(array.length + 1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -70,7 +70,7 @@ public class ArrayUtilsInsertTest {
         final byte[] array = {1,2,3};
         final byte[] values = {4,5,6};
 
-        byte[] result = ArrayUtils.insert(42, array, null);
+        final byte[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
         assertFalse(array == result);
 
@@ -81,14 +81,14 @@ public class ArrayUtilsInsertTest {
         try {
             ArrayUtils.insert(-1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             ArrayUtils.insert(array.length + 1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -105,7 +105,7 @@ public class ArrayUtilsInsertTest {
         final char[] array = {'a','b','c'};
         final char[] values = {'d','e','f'};
 
-        char[] result = ArrayUtils.insert(42, array, null);
+        final char[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
         assertFalse(array == result);
 
@@ -116,14 +116,14 @@ public class ArrayUtilsInsertTest {
         try {
             ArrayUtils.insert(-1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             ArrayUtils.insert(array.length + 1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -141,7 +141,7 @@ public class ArrayUtilsInsertTest {
         final double[] values = {4,5,6};
         final double delta = 0.000001;
 
-        double[] result = ArrayUtils.insert(42, array, null);
+        final double[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result, delta);
         assertFalse(array == result);
 
@@ -152,14 +152,14 @@ public class ArrayUtilsInsertTest {
         try {
             ArrayUtils.insert(-1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             ArrayUtils.insert(array.length + 1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -177,7 +177,7 @@ public class ArrayUtilsInsertTest {
         final float[] values = {4,5,6};
         final float delta = 0.000001f;
 
-        float[] result = ArrayUtils.insert(42, array, null);
+        final float[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result, delta);
         assertFalse(array == result);
 
@@ -188,14 +188,14 @@ public class ArrayUtilsInsertTest {
         try {
             ArrayUtils.insert(-1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             ArrayUtils.insert(array.length + 1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -212,7 +212,7 @@ public class ArrayUtilsInsertTest {
         final int[] array = {1,2,3};
         final int[] values = {4,5,6};
 
-        int[] result = ArrayUtils.insert(42, array, null);
+        final int[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
         assertFalse(array == result);
 
@@ -223,14 +223,14 @@ public class ArrayUtilsInsertTest {
         try {
             ArrayUtils.insert(-1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             ArrayUtils.insert(array.length + 1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -248,7 +248,7 @@ public class ArrayUtilsInsertTest {
         final long[] array = {1,2,3};
         final long[] values = {4,5,6};
 
-        long[] result = ArrayUtils.insert(42, array, null);
+        final long[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
         assertFalse(array == result);
 
@@ -259,14 +259,14 @@ public class ArrayUtilsInsertTest {
         try {
             ArrayUtils.insert(-1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             ArrayUtils.insert(array.length + 1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -284,7 +284,7 @@ public class ArrayUtilsInsertTest {
         final short[] array = {1,2,3};
         final short[] values = {4,5,6};
 
-        short[] result = ArrayUtils.insert(42, array, null);
+        final short[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
         assertFalse(array == result);
 
@@ -295,14 +295,14 @@ public class ArrayUtilsInsertTest {
         try {
             ArrayUtils.insert(-1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             ArrayUtils.insert(array.length + 1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -320,7 +320,7 @@ public class ArrayUtilsInsertTest {
         final String[] array = {"a","b","c"};
         final String[] values = {"d","e","f"};
 
-        String[] result = ArrayUtils.insert(42, array, (String[]) null);
+        final String[] result = ArrayUtils.insert(42, array, (String[]) null);
         assertArrayEquals(array, result);
         assertFalse(array == result);
 
@@ -331,14 +331,14 @@ public class ArrayUtilsInsertTest {
         try {
             ArrayUtils.insert(-1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             ArrayUtils.insert(array.length + 1, array, array);
             fail("Expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (final IndexOutOfBoundsException e) {
             // expected
         }
 

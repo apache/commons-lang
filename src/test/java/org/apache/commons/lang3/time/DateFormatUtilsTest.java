@@ -57,7 +57,7 @@ public class DateFormatUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testFormat() {
-        final Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
         c.set(2005, Calendar.JANUARY, 1, 12, 0, 0);
         c.setTimeZone(TimeZone.getDefault());
         final StringBuilder buffer = new StringBuilder ();
@@ -81,7 +81,7 @@ public class DateFormatUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testFormatCalendar() {
-        final Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
         c.set(2005, Calendar.JANUARY, 1, 12, 0, 0);
         c.setTimeZone(TimeZone.getDefault());
         final StringBuilder buffer = new StringBuilder ();
@@ -104,7 +104,7 @@ public class DateFormatUtilsTest {
 
     @Test
     public void testFormatUTC() {
-        final Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
         c.set(2005, Calendar.JANUARY, 1, 12, 0, 0);
         assertEquals ("2005-01-01T12:00:00", DateFormatUtils.formatUTC(c.getTime(), DateFormatUtils.ISO_DATETIME_FORMAT.getPattern()));
 
@@ -139,7 +139,7 @@ public class DateFormatUtilsTest {
     }
 
     private void testUTC(final String expectedValue, final String pattern) {
-        final TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        final TimeZone timeZone = FastTimeZone.getGmtTimeZone();
         assertFormats(expectedValue, pattern, timeZone, createFebruaryTestDate(timeZone));
     }
 
@@ -180,39 +180,11 @@ public class DateFormatUtilsTest {
         assertFormats("Sun, 08 Jun 2003 10:11:12 -0300", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
                 timeZone, june);
 
-        timeZone = TimeZone.getTimeZone("UTC");
+        timeZone = FastTimeZone.getGmtTimeZone();
         june = createJuneTestDate(timeZone);
         assertFormats("Sun, 08 Jun 2003 10:11:12 +0000", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
                 timeZone, june);
     }
-
-    /*
-    public void testLang312() {
-        String pattern = "dd/MM/yyyy";
-        String expected = "19/04/1948";
-        TimeZone timeZone = TimeZone.getTimeZone("CET");
-        Locale locale = Locale.GERMANY;
-
-        // show Calendar is good
-        Calendar cal = Calendar.getInstance(timeZone, locale);
-        cal.set(1948, 3, 19);
-        assertEquals(expected, DateFormatUtils.format( cal.getTime(), pattern, timeZone, locale ) );
-
-        Date date = new Date(48, 3, 19);
-
-        // test JDK
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern, locale);
-        sdf.setTimeZone(timeZone);
-// There's nothing we can do if the JDK fails, so just going to print a warning in this case
-//        assertEquals(expected, sdf.format( date ) );
-        if( ! expected.equals( sdf.format( date ) ) ) {
-            System.out.println("WARNING: JDK test failed - testLang312()");
-        }
-
-        // test Commons
-        assertEquals(expected, DateFormatUtils.format( date, pattern, timeZone, locale ) );
-    }
-    */
 
     @Test
     public void testLANG1000() throws Exception {

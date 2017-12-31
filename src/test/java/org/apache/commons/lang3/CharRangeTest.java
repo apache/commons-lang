@@ -400,7 +400,7 @@ public class CharRangeTest  {
     //-----------------------------------------------------------------------
     @Test(expected = UnsupportedOperationException.class)
     public void testIteratorRemove() {
-        CharRange a = CharRange.is('a');
+        final CharRange a = CharRange.is('a');
         final Iterator<Character> aIt = a.iterator();
         aIt.remove();
     }

@@ -95,7 +95,7 @@ public class Processor {
      * @param arch The processor architecture.
      * @param type The processor type.
      */
-    public Processor(Arch arch, Type type) {
+    public Processor(final Arch arch, final Type type) {
         this.arch = arch;
         this.type = type;
     }

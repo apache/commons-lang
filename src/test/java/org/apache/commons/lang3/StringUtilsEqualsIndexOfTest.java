@@ -21,6 +21,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Locale;
+
 import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.hamcrest.core.IsNot;
 import org.junit.Rule;
@@ -166,7 +168,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.equalsAny(null, FOO, BAR, FOOBAR));
         assertFalse(StringUtils.equalsAny(FOO, null, BAR));
         assertTrue(StringUtils.equalsAny(FOO, BAR, null, "", FOO, BAR));
-        assertFalse(StringUtils.equalsAny(FOO, FOO.toUpperCase()));
+        assertFalse(StringUtils.equalsAny(FOO, FOO.toUpperCase(Locale.ROOT)));
 
         assertFalse(StringUtils.equalsAny(null, (CharSequence[]) null));
         assertTrue(StringUtils.equalsAny(FOO, new CustomCharSequence("foo")));
@@ -181,7 +183,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, new String[]{}));
 
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO));
-        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO.toUpperCase()));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO.toUpperCase(Locale.ROOT)));
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO, new String(new char[]{'f', 'o', 'o'})));
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, BAR, new String(new char[]{'f', 'O', 'O'})));
         assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, BAR));
@@ -193,8 +195,8 @@ public class StringUtilsEqualsIndexOfTest  {
         assertTrue(StringUtils.equalsAnyIgnoreCase(null, null, null));
         assertFalse(StringUtils.equalsAnyIgnoreCase(null, FOO, BAR, FOOBAR));
         assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, null, BAR));
-        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, BAR, null, "", FOO.toUpperCase(), BAR));
-        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO.toUpperCase()));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, BAR, null, "", FOO.toUpperCase(Locale.ROOT), BAR));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO.toUpperCase(Locale.ROOT)));
 
         assertFalse(StringUtils.equalsAnyIgnoreCase(null, (CharSequence[]) null));
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, new CustomCharSequence("fOo")));
@@ -305,7 +307,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(2, StringUtils.indexOf(builder, CODE_POINT, 1));
         assertEquals(2, StringUtils.indexOf(builder.toString(), CODE_POINT, 1));
         // inner branch on the supplementary character block
-        char[] tmp = { (char) 55361 };
+        final char[] tmp = { (char) 55361 };
         builder = new StringBuilder();
         builder.append(tmp);
         assertEquals(-1, StringUtils.indexOf(builder, CODE_POINT, 0));
@@ -559,7 +561,7 @@ public class StringUtilsEqualsIndexOfTest  {
         builder.append("aaaaa");
         assertEquals(2, StringUtils.lastIndexOf(builder, CODE_POINT, 4));
         // inner branch on the supplementary character block
-        char[] tmp = { (char) 55361 };
+        final char[] tmp = { (char) 55361 };
         builder = new StringBuilder();
         builder.append(tmp);
         assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));

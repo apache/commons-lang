@@ -26,11 +26,11 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
 
     static class TestFixture {
         @SuppressWarnings("unused")
-        private Integer testIntegerField;
+        private final Integer testIntegerField;
         @SuppressWarnings("unused")
-        private String testStringField;
+        private final String testStringField;
 
-        TestFixture(Integer a, String b) {
+        TestFixture(final Integer a, final String b) {
             this.testIntegerField = a;
             this.testStringField = b;
         }
@@ -116,7 +116,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
 
     @Test
     public void test_ConstructorOptionNormal(){
-        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(BOTH_NULL, null, null, null, false, false, false);
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(BOTH_NULL, null, null, null, false, false, false);
         assertFalse(builder.isExcludeNullValues());
         String toString = builder.toString();
         assertTrue(toString.contains(STRING_FIELD_NAME));
@@ -153,7 +153,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
         assertFalse(toString.contains(STRING_FIELD_NAME));
         assertFalse(toString.contains(INTEGER_FIELD_NAME));
 
-        ReflectionToStringBuilder oldBuilder = new ReflectionToStringBuilder(BOTH_NULL);
+        final ReflectionToStringBuilder oldBuilder = new ReflectionToStringBuilder(BOTH_NULL);
         oldBuilder.setExcludeNullValues(true);
         assertTrue(oldBuilder.isExcludeNullValues());
         toString = oldBuilder.toString();

@@ -82,8 +82,17 @@ public enum JavaVersion {
 
     /**
      * Java 9
+     *
+     * @since 3.5
      */
     JAVA_9(9.0f, "9"),
+
+    /**
+     * Java 10
+     *
+     * @since 3.7
+     */
+    JAVA_10(10.0f, "10"),
 
     /**
      * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
@@ -94,6 +103,7 @@ public enum JavaVersion {
      * The float value.
      */
     private final float value;
+
     /**
      * The standard name.
      */
@@ -168,6 +178,8 @@ public enum JavaVersion {
             return JAVA_1_8;
         } else if ("9".equals(nom)) {
             return JAVA_9;
+        } else if ("10".equals(nom)) {
+            return JAVA_10;
         }
         if (nom == null) {
             return null;

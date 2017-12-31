@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Constructor;
@@ -45,8 +46,8 @@ public class CharSetUtilsTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testSqueeze_StringString() {
-        assertEquals(null, CharSetUtils.squeeze(null, (String) null));
-        assertEquals(null, CharSetUtils.squeeze(null, ""));
+        assertNull(CharSetUtils.squeeze(null, (String) null));
+        assertNull(CharSetUtils.squeeze(null, ""));
 
         assertEquals("", CharSetUtils.squeeze("", (String) null));
         assertEquals("", CharSetUtils.squeeze("", ""));
@@ -62,10 +63,10 @@ public class CharSetUtilsTest  {
 
     @Test
     public void testSqueeze_StringStringarray() {
-        assertEquals(null, CharSetUtils.squeeze(null, (String[]) null));
-        assertEquals(null, CharSetUtils.squeeze(null, new String[0]));
-        assertEquals(null, CharSetUtils.squeeze(null, new String[] {null}));
-        assertEquals(null, CharSetUtils.squeeze(null, new String[] {"el"}));
+        assertNull(CharSetUtils.squeeze(null, (String[]) null));
+        assertNull(CharSetUtils.squeeze(null, new String[0]));
+        assertNull(CharSetUtils.squeeze(null, new String[] {null}));
+        assertNull(CharSetUtils.squeeze(null, new String[] {"el"}));
 
         assertEquals("", CharSetUtils.squeeze("", (String[]) null));
         assertEquals("", CharSetUtils.squeeze(""));
@@ -166,8 +167,8 @@ public class CharSetUtilsTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testKeep_StringString() {
-        assertEquals(null, CharSetUtils.keep(null, (String) null));
-        assertEquals(null, CharSetUtils.keep(null, ""));
+        assertNull(CharSetUtils.keep(null, (String) null));
+        assertNull(CharSetUtils.keep(null, ""));
 
         assertEquals("", CharSetUtils.keep("", (String) null));
         assertEquals("", CharSetUtils.keep("", ""));
@@ -183,10 +184,10 @@ public class CharSetUtilsTest  {
 
     @Test
     public void testKeep_StringStringarray() {
-        assertEquals(null, CharSetUtils.keep(null, (String[]) null));
-        assertEquals(null, CharSetUtils.keep(null, new String[0]));
-        assertEquals(null, CharSetUtils.keep(null, new String[] {null}));
-        assertEquals(null, CharSetUtils.keep(null, new String[] {"a-e"}));
+        assertNull(CharSetUtils.keep(null, (String[]) null));
+        assertNull(CharSetUtils.keep(null, new String[0]));
+        assertNull(CharSetUtils.keep(null, new String[] {null}));
+        assertNull(CharSetUtils.keep(null, new String[] {"a-e"}));
 
         assertEquals("", CharSetUtils.keep("", (String[]) null));
         assertEquals("", CharSetUtils.keep(""));
@@ -209,8 +210,8 @@ public class CharSetUtilsTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testDelete_StringString() {
-        assertEquals(null, CharSetUtils.delete(null, (String) null));
-        assertEquals(null, CharSetUtils.delete(null, ""));
+        assertNull(CharSetUtils.delete(null, (String) null));
+        assertNull(CharSetUtils.delete(null, ""));
 
         assertEquals("", CharSetUtils.delete("", (String) null));
         assertEquals("", CharSetUtils.delete("", ""));
@@ -225,10 +226,10 @@ public class CharSetUtilsTest  {
 
     @Test
     public void testDelete_StringStringarray() {
-        assertEquals(null, CharSetUtils.delete(null, (String[]) null));
-        assertEquals(null, CharSetUtils.delete(null, new String[0]));
-        assertEquals(null, CharSetUtils.delete(null, new String[] {null}));
-        assertEquals(null, CharSetUtils.delete(null, new String[] {"el"}));
+        assertNull(CharSetUtils.delete(null, (String[]) null));
+        assertNull(CharSetUtils.delete(null, new String[0]));
+        assertNull(CharSetUtils.delete(null, new String[] {null}));
+        assertNull(CharSetUtils.delete(null, new String[] {"el"}));
 
         assertEquals("", CharSetUtils.delete("", (String[]) null));
         assertEquals("", CharSetUtils.delete(""));

@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -184,7 +185,7 @@ public class StrBuilderTest {
     @Test
     public void testGetSetNewLineText() {
         final StrBuilder sb = new StrBuilder();
-        assertEquals(null, sb.getNewLineText());
+        assertNull(sb.getNewLineText());
 
         sb.setNewLineText("#");
         assertEquals("#", sb.getNewLineText());
@@ -193,26 +194,26 @@ public class StrBuilderTest {
         assertEquals("", sb.getNewLineText());
 
         sb.setNewLineText(null);
-        assertEquals(null, sb.getNewLineText());
+        assertNull(sb.getNewLineText());
     }
 
     //-----------------------------------------------------------------------
     @Test
     public void testGetSetNullText() {
         final StrBuilder sb = new StrBuilder();
-        assertEquals(null, sb.getNullText());
+        assertNull(sb.getNullText());
 
         sb.setNullText("null");
         assertEquals("null", sb.getNullText());
 
         sb.setNullText("");
-        assertEquals(null, sb.getNullText());
+        assertNull(sb.getNullText());
 
         sb.setNullText("NULL");
         assertEquals("NULL", sb.getNullText());
 
         sb.setNullText(null);
-        assertEquals(null, sb.getNullText());
+        assertNull(sb.getNullText());
     }
 
     //-----------------------------------------------------------------------

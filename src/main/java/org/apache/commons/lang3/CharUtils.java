@@ -206,7 +206,7 @@ public class CharUtils {
      * <p>Converts the character to the Integer it represents, throwing an
      * exception if the character is not numeric.</p>
      *
-     * <p>This method coverts the char '1' to the int 1 and so on.</p>
+     * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
      *   CharUtils.toIntValue('3')  = 3
@@ -228,7 +228,7 @@ public class CharUtils {
      * <p>Converts the character to the Integer it represents, throwing an
      * exception if the character is not numeric.</p>
      *
-     * <p>This method coverts the char '1' to the int 1 and so on.</p>
+     * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
      *   CharUtils.toIntValue('3', -1)  = 3
@@ -250,7 +250,7 @@ public class CharUtils {
      * <p>Converts the character to the Integer it represents, throwing an
      * exception if the character is not numeric.</p>
      *
-     * <p>This method coverts the char '1' to the int 1 and so on.</p>
+     * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
      *   CharUtils.toIntValue('3')  = 3
@@ -271,7 +271,7 @@ public class CharUtils {
      * <p>Converts the character to the Integer it represents, throwing an
      * exception if the character is not numeric.</p>
      *
-     * <p>This method coverts the char '1' to the int 1 and so on.</p>
+     * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
      *   CharUtils.toIntValue(null, -1) = -1

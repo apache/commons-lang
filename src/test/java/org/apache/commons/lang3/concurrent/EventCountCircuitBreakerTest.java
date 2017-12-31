@@ -100,7 +100,7 @@ public class EventCountCircuitBreakerTest {
                 TimeUnit.SECONDS);
         final long now = breaker.now();
         final long delta = Math.abs(System.nanoTime() - now);
-        assertTrue("Delta to current time too large", delta < 100000);
+        assertTrue(String.format("Delta %d ns to current time too large", delta), delta < 100000);
     }
 
     /**
@@ -150,6 +150,21 @@ public class EventCountCircuitBreakerTest {
             open = !breaker.at(startTime).incrementAndCheckState();
             startTime += timeIncrement;
         }
+        assertTrue("Not open", open);
+        assertFalse("Closed", breaker.isClosed());
+    }
+
+    /**
+     * Tests that the circuit breaker opens if all conditions are met when using
+     * {@link EventCountCircuitBreaker#incrementAndCheckState(Integer increment)}.
+     */
+    @Test
+    public void testOpeningWhenThresholdReachedThroughBatch() {
+        final long timeIncrement = NANO_FACTOR / OPENING_THRESHOLD - 1;
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
+            TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        long startTime = timeIncrement * (OPENING_THRESHOLD + 1);
+        boolean open = !breaker.at(startTime).incrementAndCheckState(OPENING_THRESHOLD + 1);
         assertTrue("Not open", open);
         assertFalse("Closed", breaker.isClosed());
     }

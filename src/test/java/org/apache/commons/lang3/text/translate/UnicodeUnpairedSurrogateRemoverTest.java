@@ -17,6 +17,8 @@
 package org.apache.commons.lang3.text.translate;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;
@@ -32,15 +34,15 @@ public class UnicodeUnpairedSurrogateRemoverTest {
 
     @Test
     public void testValidCharacters() throws IOException {
-        assertEquals(false, subject.translate(0xd7ff, writer));
-        assertEquals(false, subject.translate(0xe000, writer));
+        assertFalse(subject.translate(0xd7ff, writer));
+        assertFalse(subject.translate(0xe000, writer));
         assertEquals(0, writer.size());
     }
 
     @Test
     public void testInvalidCharacters() throws IOException {
-        assertEquals(true, subject.translate(0xd800, writer));
-        assertEquals(true, subject.translate(0xdfff, writer));
+        assertTrue(subject.translate(0xd800, writer));
+        assertTrue(subject.translate(0xdfff, writer));
         assertEquals(0, writer.size());
     }
 }

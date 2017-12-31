@@ -27,7 +27,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Tokenizes a string based based on delimiters (separators)
+ * Tokenizes a string based on delimiters (separators)
  * and supporting quoting and ignored character concepts.
  * <p>
  * This class can split a String into many smaller strings. It aims
@@ -853,7 +853,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     /**
      * Sets the field delimiter matcher.
      * <p>
-     * The delimitier is used to separate one token from another.
+     * The delimiter is used to separate one token from another.
      *
      * @param delim  the delimiter matcher to use
      * @return this, to enable chaining

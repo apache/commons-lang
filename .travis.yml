@@ -15,8 +15,6 @@
 
 language: java
 sudo: false
-# trusty is required for oraclejdk9
-dist: trusty
 
 jdk:
   - openjdk7
@@ -27,4 +25,4 @@ script:
   - mvn
 
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report
+  - mvn clean cobertura:cobertura coveralls:report -Ptravis-cobertura
