@@ -2591,7 +2591,7 @@ public abstract class ToStringStyle implements Serializable {
 
         private boolean isJsonArray(final String valueAsString) {
             return valueAsString.startsWith(getArrayStart())
-                    && valueAsString.startsWith(getArrayEnd());
+                    && valueAsString.endsWith(getArrayEnd());
         }
 
         private boolean isJsonObject(final String valueAsString) {

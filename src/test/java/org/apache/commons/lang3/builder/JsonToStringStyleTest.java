@@ -358,6 +358,26 @@ public class JsonToStringStyleTest {
         }
     }
 
+    @Test
+    public void testArray() {
+        final Person p = new Person();
+        p.name = "Jane Doe";
+        p.age = 25;
+        p.smoker = true;
+
+        assertEquals(
+                "{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true,\"groups\":['admin', 'manager', 'user']}",
+                new ToStringBuilder(p).append("name", p.name)
+                        .append("age", p.age).append("smoker", p.smoker)
+                        .append("groups", new Object() {
+                            @Override
+                            public String toString() {
+                                return "['admin', 'manager', 'user']";
+                            }
+                        })
+                        .toString());
+    }
+
     /**
      * An object with nested object structures used to test {@link ToStringStyle.JsonToStringStyle}.
      *
