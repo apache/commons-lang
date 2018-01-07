@@ -654,7 +654,6 @@
             </goals>
           </execution>
         </executions>
-        <!-- Temporary fix for LANG-1338, remove this after this has implemented in parent pom -->
         <configuration>
           <archive combine.children="append">
             <manifestEntries>
