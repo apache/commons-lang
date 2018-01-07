@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>42</version>
+    <version>43</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
@@ -588,8 +588,6 @@
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
 
-    <!-- Override clirr version to be able to build the site on Java 8 -->
-    <commons.clirr.version>2.8</commons.clirr.version>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
@@ -837,8 +835,6 @@
       <properties>
         <!-- LANG-1265: allow tests to access private fields/methods of java.base classes via reflection -->
         <argLine>-Xmx512m --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
-        <!-- versions below 3.0.0 do not work with java 9 -->
-        <commons.javadoc.version>3.0.0-M1</commons.javadoc.version>
         <!-- coverall version 4.3.0 does not work with java 9, see https://github.com/trautonen/coveralls-maven-plugin/issues/112 -->
         <coveralls.skip>true</coveralls.skip>
       </properties>
