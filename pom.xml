@@ -19,6 +19,11 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <!-- ==================================================================== -->
+  <!-- Build requires Java SE 7 or later -->
+  <!-- Releases require Java SE 9 or later -->
+  <!-- ==================================================================== -->
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
@@ -63,8 +68,6 @@
     <developer>
       <name>Stephen Colebourne</name>
       <id>scolebourne</id>
-      <email>scolebourne@joda.org</email>
-      <organization>SITA ATS Ltd</organization>
       <timezone>0</timezone>
       <roles>
         <role>Java Developer</role>
@@ -593,6 +596,11 @@
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
     <jmh.version>1.19</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
+
+    <!-- Override versions for Java 9 -->
+    <commons.compiler.version>3.7.0</commons.compiler.version>
+    <commons.felix.version>3.3.0</commons.felix.version>
+    <commons.javadoc.version>3.0.0-M1</commons.javadoc.version>
   </properties>
 
 
@@ -654,14 +662,18 @@
             </goals>
           </execution>
         </executions>
-        <!-- Temporary fix for LANG-1338, remove this after this has implemented in parent pom -->
-        <configuration>
-          <archive combine.children="append">
-            <manifestEntries>
-              <Automatic-Module-Name>org.apache.commons.lang3</Automatic-Module-Name>
-            </manifestEntries>
-          </archive>
-        </configuration>
+      </plugin>
+      <!-- https://issues.apache.org/jira/browse/FELIX-5698 -->
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>biz.aQute.bnd</groupId>
+            <artifactId>biz.aQute.bndlib</artifactId>
+            <version>3.5.0</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -679,6 +691,7 @@
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <enableRulesSummary>false</enableRulesSummary>
+          <excludes>module-info.java</excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -703,6 +716,7 @@
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <enableRulesSummary>false</enableRulesSummary>
+          <excludes>module-info.java</excludes>
         </configuration>
         <reportSets>
           <reportSet>
@@ -727,6 +741,9 @@
         <version>3.8</version>
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
+          <excludes>
+            <exclude>module-info.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -778,6 +795,11 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>javancss-maven-plugin</artifactId>
         <version>2.1</version>
+        <configuration>
+          <excludes>
+            <exclude>module-info.java</exclude>
+          </excludes>
+        </configuration>
       </plugin>
     </plugins>
   </reporting>
@@ -828,16 +850,121 @@
     </profile>
 
     <profile>
-      <id>java9</id>
+      <id>java7and8</id>
       <activation>
-        <jdk>9</jdk>
+        <jdk>[1.7,9)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <!-- Don't compile module-info.java, see java 9 profile -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>default-compile</id>
+                <configuration>
+                  <excludes>
+                    <exclude>module-info.java</exclude>
+                  </excludes>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <!-- Avoid errors from module-info -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <sourceFileExcludes>
+                <sourceFileExclude>module-info.java</sourceFileExclude>
+              </sourceFileExcludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <reporting>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-plugin.version}</version>
+            <configuration>
+              <sourceFileExcludes>
+                <sourceFileExclude>module-info.java</sourceFileExclude>
+              </sourceFileExcludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </reporting>
+    </profile>
+    <profile>
+      <id>java9plus</id>
+      <activation>
+        <jdk>[9,)</jdk>
       </activation>
       <properties>
         <!-- LANG-1265: allow tests to access private fields/methods of java.base classes via reflection -->
         <argLine>-Xmx512m --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
         <!-- coverall version 4.3.0 does not work with java 9, see https://github.com/trautonen/coveralls-maven-plugin/issues/112 -->
         <coveralls.skip>true</coveralls.skip>
+        <!-- Skip animal sniffer, as it doesn't work on Java 9 and the release flag does the same job -->
+        <animal.sniffer.skip>true</animal.sniffer.skip>
+        <!-- Skip clirr, as it doesn't work on Java 9 -->
+        <clirr.skip>true</clirr.skip>
+        <!-- Skip findbugs, as it doesn't work on Java 9 and is replaced by spotbugs -->
+        <findbugs.skip>true</findbugs.skip>
+        <!-- Skip cobertura, as it doesn't work on Java 9, should be replaced by jacoco -->
+        <cobertura.skip>true</cobertura.skip>
       </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <executions>
+              <!--  compile first with module-info for Java 9 -->
+              <execution>
+                <id>default-compile</id>
+                <configuration>
+                  <release>9</release>
+                </configuration>
+              </execution>
+              <!--  then compile without module-info for Java 7 -->
+              <execution>
+                <id>base-compile</id>
+                <goals>
+                  <goal>compile</goal>
+                </goals>
+                <configuration>
+                  <excludes>
+                    <exclude>module-info.java</exclude>
+                  </excludes>
+                </configuration>
+              </execution>
+            </executions>
+            <!-- setup defaults for compile and testCompile -->
+            <configuration>
+              <jdkToolchain>
+                <version>9</version>
+              </jdkToolchain>
+              <release>7</release>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-maven-plugin</artifactId>
+            <version>3.1.0-RC6</version>
+            <dependencies>
+              <dependency>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs</artifactId>
+                <version>3.1.0</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
 
     <profile>

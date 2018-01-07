@@ -21,8 +21,19 @@ jdk:
   - oraclejdk8
   - oraclejdk9
 
-script:
-  - mvn
+cache:
+  directories:
+    - "$HOME/.m2/repository"
 
+before_cache:
+  - rm -rf $HOME/.m2/repository/org/apache/commons/commons-lang3
+
+install:
+  - mvn --version
+
+script:
+  - mvn -e -B
+
+# coveralls does not work on Java 9 at present
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report -Ptravis-cobertura
+  - if [ $TRAVIS_JDK_VERSION == "openjdk7" ] || [ $TRAVIS_JDK_VERSION == "oraclejdk8" ]; then mvn -e -B clean cobertura:cobertura coveralls:report -Ptravis-cobertura; fi
