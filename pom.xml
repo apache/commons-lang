@@ -657,7 +657,7 @@
         <configuration>
           <archive combine.children="append">
             <manifestEntries>
-              <Automatic-Module-Name>org.apache.commons.lang3</Automatic-Module-Name>
+              <Automatic-Module-Name>${commons.module.name}</Automatic-Module-Name>
             </manifestEntries>
           </archive>
         </configuration>
