@@ -51,6 +51,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1370" type="fix" dev="kinow" due-to="Andre Dieb">Fix EventCountCircuitBreaker increment batch</action>
     <action issue="LANG-1367" type="update" dev="ggregory" due-to="Gary Gregory">ObjectUtils.identityToString(Object) and friends should allocate builders and buffers with a size</action>
     <action issue="LANG-1352" type="add" dev="pschumacher" due-to="Ruslan Sibgatullin">EnumUtils.getEnumIgnoreCase and isValidEnumIgnoreCase methods added</action>
+    <action issue="LANG-1372" type="add" dev="pschumacher" due-to="Sérgio Ozaki">Add ToStringSummary annotation</action>
   </release>
 
   <release version="3.7" date="2017-11-04" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
