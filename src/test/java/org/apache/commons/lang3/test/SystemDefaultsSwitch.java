@@ -44,7 +44,7 @@ import org.junit.runners.model.Statement;
  *     }
  *
  *     {@literal @}Test
- *     {@literal @}SystemDefaults(local="zh_CN")
+ *     {@literal @}SystemDefaults(locale="zh_CN")
  *     public void testWithSimplifiedChinaDefaultLocale() {
  *         // Locale.getDefault() will return Locale.CHINA until the end of this test method
  *     }
