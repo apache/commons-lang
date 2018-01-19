@@ -4743,7 +4743,7 @@ public class StringUtils {
             throw new IllegalArgumentException("Object varargs must not be null");
         }
 
-        final String sanitizedSeparator = defaultString(separator, StringUtils.EMPTY);
+        final String sanitizedSeparator = defaultString(separator);
 
         final StringBuilder result = new StringBuilder();
 
@@ -7359,7 +7359,7 @@ public class StringUtils {
      *  was {@code null}
      */
     public static String defaultString(final String str) {
-        return str == null ? EMPTY : str;
+        return defaultString(str, EMPTY);
     }
 
     /**
