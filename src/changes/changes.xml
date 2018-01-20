@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.8" date="2017-MM-DD" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
+    <action issue="LANG-1375" type="fix" dev="kinow" due-to=" Jerry Zhao">defaultString(final String str) in StringUtils to reuse defaultString(final String str, final String defaultStr)</action>
     <action issue="LANG-1374" type="fix" dev="kinow" due-to="Jaswanth Bala">Parsing Json Array failed</action>
     <action issue="LANG-1371" type="fix" dev="pschumacher" due-to="Dmitry Ovchinnikov">Fix TypeUtils#parameterize to work correctly with narrower-typed array</action>
     <action issue="LANG-1370" type="fix" dev="kinow" due-to="Andre Dieb">Fix EventCountCircuitBreaker increment batch</action>
