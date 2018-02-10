@@ -1326,6 +1326,10 @@ public class NumberUtilsTest {
         compareIsNumberWithCreateNumber("-1234", true);
         compareIsNumberWithCreateNumber("-1234.5", true);
         compareIsNumberWithCreateNumber("-.12345", true);
+        compareIsNumberWithCreateNumber("-0001.12345", true);
+        compareIsNumberWithCreateNumber("-000.12345", true);
+        compareIsNumberWithCreateNumber("+00.12345", true);
+        compareIsNumberWithCreateNumber("+0002.12345", true);
         compareIsNumberWithCreateNumber("-1234E5", true);
         compareIsNumberWithCreateNumber("0", true);
         compareIsNumberWithCreateNumber("-0", true);
@@ -1342,6 +1346,7 @@ public class NumberUtilsTest {
         compareIsNumberWithCreateNumber(" ", false);
         compareIsNumberWithCreateNumber("\r\n\t", false);
         compareIsNumberWithCreateNumber("--2.3", false);
+
         compareIsNumberWithCreateNumber(".12.3", false);
         compareIsNumberWithCreateNumber("-123E", false);
         compareIsNumberWithCreateNumber("-123E+-212", false);
@@ -1352,6 +1357,8 @@ public class NumberUtilsTest {
         compareIsNumberWithCreateNumber("-0ABC123", false);
         compareIsNumberWithCreateNumber("123.4E-D", false);
         compareIsNumberWithCreateNumber("123.4ED", false);
+        compareIsNumberWithCreateNumber("+000E.12345", false);
+        compareIsNumberWithCreateNumber("-000E.12345", false);
         compareIsNumberWithCreateNumber("1234E5l", false);
         compareIsNumberWithCreateNumber("11a", false);
         compareIsNumberWithCreateNumber("1a", false);
