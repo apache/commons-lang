@@ -147,10 +147,10 @@ public class ExceptionUtilsTest {
     @Test
     public void testGetRootCause_Throwable() {
         assertSame(null, ExceptionUtils.getRootCause(null));
-        assertSame(null, ExceptionUtils.getRootCause(withoutCause));
+        assertSame(withoutCause, ExceptionUtils.getRootCause(withoutCause));
         assertSame(withoutCause, ExceptionUtils.getRootCause(nested));
         assertSame(withoutCause, ExceptionUtils.getRootCause(withCause));
-        assertSame(null, ExceptionUtils.getRootCause(jdkNoCause));
+        assertSame(jdkNoCause, ExceptionUtils.getRootCause(jdkNoCause));
         assertSame(cyclicCause.getCause().getCause(), ExceptionUtils.getRootCause(cyclicCause));
     }
 

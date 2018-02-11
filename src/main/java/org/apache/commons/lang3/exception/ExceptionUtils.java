@@ -179,11 +179,11 @@ public class ExceptionUtils {
      *
      * @param throwable  the throwable to get the root cause for, may be null
      * @return the root cause of the <code>Throwable</code>,
-     *  <code>null</code> if none found or null throwable input
+     *  <code>null</code> if null throwable input
      */
     public static Throwable getRootCause(final Throwable throwable) {
         final List<Throwable> list = getThrowableList(throwable);
-        return list.size() < 2 ? null : list.get(list.size() - 1);
+        return list.isEmpty() ? null : list.get(list.size() - 1);
     }
 
     /**
