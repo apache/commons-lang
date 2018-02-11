@@ -168,6 +168,19 @@ public class EqualsBuilderTest {
         }
     }
 
+    static class TestRecursiveGenericObject<T> {
+
+        private final T a;
+
+        TestRecursiveGenericObject(final T a) {
+            this.a = a;
+        }
+
+        public T getA() {
+            return a;
+        }
+    }
+
     static class TestRecursiveObject {
         private final TestRecursiveInnerObject a;
         private final TestRecursiveInnerObject b;
@@ -416,6 +429,35 @@ public class EqualsBuilderTest {
         assertEquals(Boolean.FALSE, new EqualsBuilder().append(o1, null).build());
         assertEquals(Boolean.FALSE, new EqualsBuilder().append(null, o2).build());
         assertEquals(Boolean.TRUE, new EqualsBuilder().append((Object) null, null).build());
+    }
+
+    @Test
+    public void testObjectRecursiveGenericInteger() {
+        final TestRecursiveGenericObject<Integer> o1_a = new TestRecursiveGenericObject<Integer>(1);
+        final TestRecursiveGenericObject<Integer> o1_b = new TestRecursiveGenericObject<Integer>(1);
+        final TestRecursiveGenericObject<Integer> o2 = new TestRecursiveGenericObject<Integer>(2);
+
+        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_a, o1_b).isEquals());
+        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_b, o1_a).isEquals());
+
+        assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1_b, o2).isEquals());
+    }
+
+    @Test
+    public void testObjectRecursiveGenericString() {
+        // Note: Do not use literals, because string literals are always mapped by same object (internal() of String))!
+        String s1_a = String.valueOf(1);
+        final TestRecursiveGenericObject<String> o1_a = new TestRecursiveGenericObject<String>(s1_a);
+        final TestRecursiveGenericObject<String> o1_b = new TestRecursiveGenericObject<String>(String.valueOf(1));
+        final TestRecursiveGenericObject<String> o2 = new TestRecursiveGenericObject<String>(String.valueOf(2));
+
+        // To trigger bug reported in LANG-1356, call hashCode only on string in instance o1_a
+        s1_a.hashCode();
+
+        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_a, o1_b).isEquals());
+        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_b, o1_a).isEquals());
+
+        assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1_b, o2).isEquals());
     }
 
     @Test
