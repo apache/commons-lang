@@ -21,7 +21,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -1394,7 +1393,7 @@ public class NumberUtils {
      *
      * @param str  the <code>String</code> to check
      * @return <code>true</code> if the string is a correctly formatted number
-     * @since 3.5 the code supports the "+" suffix on numbers except for integers in Java 1.6
+     * @since 3.5
      */
     public static boolean isCreatable(final String str) {
         if (StringUtils.isEmpty(str)) {
@@ -1410,6 +1409,7 @@ public class NumberUtils {
         final int start = chars[0] == '-' || chars[0] == '+' ? 1 : 0;
         final boolean hasLeadingPlusSign = start == 1 && chars[0] == '+';
         if (sz > start + 1 && chars[start] == '0' && !StringUtils.contains(str, ".")) { // leading 0, skip if is a decimal number 
+
             if (chars[start + 1] == 'x' || chars[start + 1] == 'X') { // leading 0x/0X
                 int i = start + 2;
                 if (i == sz) {
@@ -1475,9 +1475,6 @@ public class NumberUtils {
         }
         if (i < chars.length) {
             if (chars[i] >= '0' && chars[i] <= '9') {
-                if (SystemUtils.IS_JAVA_1_6 && hasLeadingPlusSign && !hasDecPoint) {
-                    return false;
-                }
                 // no type qualifier, OK
                 return true;
             }

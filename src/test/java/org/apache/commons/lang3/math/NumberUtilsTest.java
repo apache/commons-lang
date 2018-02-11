@@ -27,7 +27,6 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
 /**
@@ -1343,14 +1342,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testLANG1252() {
-        //Check idiosyncrasies between java 1.6 and 1.7, 1.8 regarding leading + signs
-        if (SystemUtils.IS_JAVA_1_6) {
-            compareIsCreatableWithCreateNumber("+2", false);
-        } else {
-            compareIsCreatableWithCreateNumber("+2", true);
-        }
-
-        //The Following should work regardless of 1.6, 1.7, or 1.8
+        compareIsCreatableWithCreateNumber("+2", true);
         compareIsCreatableWithCreateNumber("+2.0", true);
     }
 
@@ -1399,7 +1391,6 @@ public class NumberUtilsTest {
         compareIsNumberWithCreateNumber(" ", false);
         compareIsNumberWithCreateNumber("\r\n\t", false);
         compareIsNumberWithCreateNumber("--2.3", false);
-        
         compareIsNumberWithCreateNumber(".12.3", false);
         compareIsNumberWithCreateNumber("-123E", false);
         compareIsNumberWithCreateNumber("-123E+-212", false);
@@ -1451,14 +1442,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testIsNumberLANG1252() {
-        //Check idiosyncrasies between java 1.6 and 1.7,1.8 regarding leading + signs
-        if (SystemUtils.IS_JAVA_1_6) {
-            compareIsNumberWithCreateNumber("+2", false);
-        } else {
-            compareIsNumberWithCreateNumber("+2", true);
-        }
-
-        //The Following should work regardless of 1.6, 1.7, or 1.8
+        compareIsNumberWithCreateNumber("+2", true);
         compareIsNumberWithCreateNumber("+2.0", true);
     }
 

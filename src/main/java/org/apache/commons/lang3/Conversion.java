@@ -60,7 +60,7 @@ import java.util.UUID;
  * so far.
  * </p>
  *
- * @since Lang 3.2
+ * @since 3.2
  */
 
 public class Conversion {

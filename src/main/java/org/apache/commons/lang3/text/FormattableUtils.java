@@ -32,7 +32,7 @@ import org.apache.commons.lang3.Validate;
  * when using a {@code Formatter}. It is primarily concerned with numeric precision
  * and padding, and is not designed to allow generalised alternate formats.</p>
  *
- * @since Lang 3.0
+ * @since 3.0
  * @deprecated as of 3.6, use commons-text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/FormattableUtils.html">
  * FormattableUtils</a> instead
