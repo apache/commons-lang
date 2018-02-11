@@ -24,7 +24,7 @@ package org.apache.commons.lang3.tuple;
  * @param <L> the left element type
  * @param <R> the right element type
  *
- * @since Lang 3.0
+ * @since 3.0
  */
 public class MutablePair<L, R> extends Pair<L, R> {
 

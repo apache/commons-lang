@@ -274,7 +274,7 @@ public class ExceptionUtils {
      *
      * @param throwable  the throwable to inspect, may be null
      * @return the list of throwables, never null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public static List<Throwable> getThrowableList(Throwable throwable) {
         final List<Throwable> list = new ArrayList<>();
@@ -659,7 +659,7 @@ public class ExceptionUtils {
      *
      * @param th  the throwable to get a message for, null returns empty string
      * @return the message, non-null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public static String getMessage(final Throwable th) {
         if (th == null) {
@@ -679,7 +679,7 @@ public class ExceptionUtils {
      *
      * @param th  the throwable to get a message for, null returns empty string
      * @return the message, non-null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public static String getRootCauseMessage(final Throwable th) {
         Throwable root = ExceptionUtils.getRootCause(th);
