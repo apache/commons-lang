@@ -99,6 +99,12 @@ public class NumberUtilsTest {
         assertTrue("toFloat(String) 1 failed", NumberUtils.toFloat("-1.2345") == -1.2345f);
         assertTrue("toFloat(String) 2 failed", NumberUtils.toFloat("1.2345") == 1.2345f);
         assertTrue("toFloat(String) 3 failed", NumberUtils.toFloat("abc") == 0.0f);
+        // LANG-1060
+        assertTrue("toFloat(String) 4 failed", NumberUtils.toFloat("-001.2345") == -1.2345f);
+        assertTrue("toFloat(String) 5 failed", NumberUtils.toFloat("+001.2345") == 1.2345f);
+        assertTrue("toFloat(String) 6 failed", NumberUtils.toFloat("001.2345") == 1.2345f);
+        assertTrue("toFloat(String) 7 failed", NumberUtils.toFloat("000.00") == 0f);
+        
         assertTrue("toFloat(Float.MAX_VALUE) failed", NumberUtils.toFloat(Float.MAX_VALUE+"") ==  Float.MAX_VALUE);
         assertTrue("toFloat(Float.MIN_VALUE) failed", NumberUtils.toFloat(Float.MIN_VALUE+"") == Float.MIN_VALUE);
         assertTrue("toFloat(empty) failed", NumberUtils.toFloat("") == 0.0f);
@@ -112,6 +118,10 @@ public class NumberUtilsTest {
     public void testToFloatStringF() {
         assertTrue("toFloat(String,int) 1 failed", NumberUtils.toFloat("1.2345", 5.1f) == 1.2345f);
         assertTrue("toFloat(String,int) 2 failed", NumberUtils.toFloat("a", 5.0f) == 5.0f);
+        // LANG-1060
+        assertTrue("toFloat(String,int) 3 failed", NumberUtils.toFloat("-001Z.2345", 5.0f) == 5.0f);
+        assertTrue("toFloat(String,int) 4 failed", NumberUtils.toFloat("+001AB.2345", 5.0f) == 5.0f);
+        assertTrue("toFloat(String,int) 5 failed", NumberUtils.toFloat("001Z.2345", 5.0f) == 5.0f);
     }
 
     /**
@@ -122,10 +132,19 @@ public class NumberUtilsTest {
         final String shouldBeFloat = "1.23";
         final String shouldBeDouble = "3.40282354e+38";
         final String shouldBeBigDecimal = "1.797693134862315759e+308";
-
         assertTrue(NumberUtils.createNumber(shouldBeFloat) instanceof Float);
         assertTrue(NumberUtils.createNumber(shouldBeDouble) instanceof Double);
         assertTrue(NumberUtils.createNumber(shouldBeBigDecimal) instanceof BigDecimal);
+        // LANG-1060
+        assertTrue(NumberUtils.createNumber("001.12") instanceof Float);
+        assertTrue(NumberUtils.createNumber("-001.12") instanceof Float);
+        assertTrue(NumberUtils.createNumber("+001.12") instanceof Float);
+        assertTrue(NumberUtils.createNumber("003.40282354e+38") instanceof Double);
+        assertTrue(NumberUtils.createNumber("-003.40282354e+38") instanceof Double);
+        assertTrue(NumberUtils.createNumber("+003.40282354e+38") instanceof Double);
+        assertTrue(NumberUtils.createNumber("0001.797693134862315759e+308") instanceof BigDecimal);
+        assertTrue(NumberUtils.createNumber("-001.797693134862315759e+308") instanceof BigDecimal);
+        assertTrue(NumberUtils.createNumber("+001.797693134862315759e+308") instanceof BigDecimal);
     }
     /**
      * Test for {@link NumberUtils#toDouble(String)}.
@@ -135,6 +154,12 @@ public class NumberUtilsTest {
         assertTrue("toDouble(String) 1 failed", NumberUtils.toDouble("-1.2345") == -1.2345d);
         assertTrue("toDouble(String) 2 failed", NumberUtils.toDouble("1.2345") == 1.2345d);
         assertTrue("toDouble(String) 3 failed", NumberUtils.toDouble("abc") == 0.0d);
+        // LANG-1060
+        assertTrue("toDouble(String) 4 failed", NumberUtils.toDouble("-001.2345") == -1.2345d);
+        assertTrue("toDouble(String) 5 failed", NumberUtils.toDouble("+001.2345") == 1.2345d);
+        assertTrue("toDouble(String) 6 failed", NumberUtils.toDouble("001.2345") == 1.2345d);
+        assertTrue("toDouble(String) 7 failed", NumberUtils.toDouble("000.00000") == 0d);
+        
         assertTrue("toDouble(Double.MAX_VALUE) failed", NumberUtils.toDouble(Double.MAX_VALUE+"") == Double.MAX_VALUE);
         assertTrue("toDouble(Double.MIN_VALUE) failed", NumberUtils.toDouble(Double.MIN_VALUE+"") == Double.MIN_VALUE);
         assertTrue("toDouble(empty) failed", NumberUtils.toDouble("") == 0.0d);
@@ -148,6 +173,11 @@ public class NumberUtilsTest {
     public void testStringToDoubleStringD() {
         assertTrue("toDouble(String,int) 1 failed", NumberUtils.toDouble("1.2345", 5.1d) == 1.2345d);
         assertTrue("toDouble(String,int) 2 failed", NumberUtils.toDouble("a", 5.0d) == 5.0d);
+        // LANG-1060
+        assertTrue("toDouble(String,int) 3 failed", NumberUtils.toDouble("001.2345", 5.1d) == 1.2345d);
+        assertTrue("toDouble(String,int) 4 failed", NumberUtils.toDouble("-001.2345", 5.1d) == -1.2345d);
+        assertTrue("toDouble(String,int) 5 failed", NumberUtils.toDouble("+001.2345", 5.1d) == 1.2345d);
+        assertTrue("toDouble(String,int) 7 failed", NumberUtils.toDouble("000.00", 5.1d) == 0d);
     }
 
      /**
@@ -252,8 +282,23 @@ public class NumberUtilsTest {
         // LANG-1215
         assertEquals("createNumber(String) LANG-1215 failed",
                 Double.valueOf("193343.82"), NumberUtils.createNumber("193343.82"));
+        // LANG-1060
+        assertEquals("createNumber(String) LANG-1060a failed", Double.valueOf("001234.5678"), NumberUtils.createNumber("001234.5678"));
+        assertEquals("createNumber(String) LANG-1060b failed", Double.valueOf("+001234.5678"), NumberUtils.createNumber("+001234.5678"));
+        assertEquals("createNumber(String) LANG-1060c failed", Double.valueOf("-001234.5678"), NumberUtils.createNumber("-001234.5678"));
+        assertEquals("createNumber(String) LANG-1060d failed", Double.valueOf("0000.00000"), NumberUtils.createNumber("0000.00000d"));
+        assertEquals("createNumber(String) LANG-1060e failed", Float.valueOf("001234.56"), NumberUtils.createNumber("001234.56"));
+        assertEquals("createNumber(String) LANG-1060f failed", Float.valueOf("+001234.56"), NumberUtils.createNumber("+001234.56"));
+        assertEquals("createNumber(String) LANG-1060g failed", Float.valueOf("-001234.56"), NumberUtils.createNumber("-001234.56"));
+        assertEquals("createNumber(String) LANG-1060h failed", Float.valueOf("0000.10"), NumberUtils.createNumber("0000.10"));
+        assertEquals("createNumber(String) LANG-1060i failed", Float.valueOf("001.1E20"), NumberUtils.createNumber("001.1E20"));
+        assertEquals("createNumber(String) LANG-1060j failed", Float.valueOf("+001.1E20"), NumberUtils.createNumber("+001.1E20"));
+        assertEquals("createNumber(String) LANG-1060k failed", Float.valueOf("-001.1E20"), NumberUtils.createNumber("-001.1E20"));
+        assertEquals("createNumber(String) LANG-1060l failed", Double.valueOf("001.1E200"), NumberUtils.createNumber("001.1E200"));
+        assertEquals("createNumber(String) LANG-1060m failed", Double.valueOf("+001.1E200"), NumberUtils.createNumber("+001.1E200"));
+        assertEquals("createNumber(String) LANG-1060n failed", Double.valueOf("-001.1E200"), NumberUtils.createNumber("-001.1E200"));
     }
-
+    
     @Test
     public void testLang1087(){
         // no sign cases
@@ -1346,7 +1391,6 @@ public class NumberUtilsTest {
         compareIsNumberWithCreateNumber(" ", false);
         compareIsNumberWithCreateNumber("\r\n\t", false);
         compareIsNumberWithCreateNumber("--2.3", false);
-
         compareIsNumberWithCreateNumber(".12.3", false);
         compareIsNumberWithCreateNumber("-123E", false);
         compareIsNumberWithCreateNumber("-123E+-212", false);

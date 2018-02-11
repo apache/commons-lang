@@ -1407,7 +1407,9 @@ public class NumberUtils {
         boolean foundDigit = false;
         // deal with any possible sign up front
         final int start = chars[0] == '-' || chars[0] == '+' ? 1 : 0;
-        if (sz > start + 1 && chars[start] == '0' && !StringUtils.contains(str, '.')) { // leading 0, skip if is a decimal number
+        final boolean hasLeadingPlusSign = start == 1 && chars[0] == '+';
+        if (sz > start + 1 && chars[start] == '0' && !StringUtils.contains(str, ".")) { // leading 0, skip if is a decimal number 
+
             if (chars[start + 1] == 'x' || chars[start + 1] == 'X') { // leading 0x/0X
                 int i = start + 2;
                 if (i == sz) {
