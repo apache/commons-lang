@@ -8626,7 +8626,7 @@ public class StringUtils {
      */
     private static boolean endsWith(final CharSequence str, final CharSequence suffix, final boolean ignoreCase) {
         if (str == null || suffix == null) {
-            return str == null && suffix == null;
+            return str == suffix;
         }
         if (suffix.length() > str.length()) {
             return false;
