@@ -8513,7 +8513,7 @@ public class StringUtils {
      */
     private static boolean startsWith(final CharSequence str, final CharSequence prefix, final boolean ignoreCase) {
         if (str == null || prefix == null) {
-            return str == null && prefix == null;
+            return str == prefix;
         }
         if (prefix.length() > str.length()) {
             return false;
