@@ -44,6 +44,58 @@ public class StackWatchTest {
         new StackWatch<>(null);
     }
 
+
+    @Test
+    public void testStaticFactory(){
+        StackWatch<String,String> watch = StackWatch.startStackWatch("staticFactory");
+        assertNotNull(watch);
+        watch.startTiming("one");
+        watch.stopTiming();
+        watch.stop();
+        watch.visit(new StackWatch.TimingVisitor<String,String>() {
+            @Override
+            public void visitTiming(int level, List<String> path, StackWatch.Timing<String,String> node) {
+                assertTrue(node.getName().equals("staticFactory") || node.getName().equals("one"));
+            }
+        });
+    }
+
+    @Test
+    public void testStackWatchStaticFactoryFiltered() throws Exception {
+        StackWatch<String,String> watch = StackWatch.startStackWatch("testStackWatch");
+        final List<String> filter = new ArrayList<>();
+        filter.add("ThreeFunc");
+        watch.startTiming("Test");
+        functionOne(watch);
+        functionTwo(watch);
+        functionThree(watch);
+        watch.stopTiming();
+        watch.stop();
+        final ArrayList<Integer> levels = new ArrayList<>();
+        watch.visit(new StackWatch.TimingVisitor<String,String>() {
+            @Override
+            public void visitTiming(int level, List<String> path, StackWatch.Timing<String,String> node) {
+                List<String> tags = node.getTags();
+                if (tags != null) {
+                    if (tags.containsAll(filter)) {
+                        levels.add(level);
+                    }
+                }
+            }
+        });
+
+        // validate that we have the right number of 'timings'
+        // there is only one ThreeFunc
+        assertEquals(levels.size(), 1);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testStaticFactoryDoubleStartException(){
+        StackWatch<String,String> watch = StackWatch.startStackWatch("staticFactory");
+        assertNotNull(watch);
+        watch.start();
+    }
+
     @Test
     public void start() {
         final StopWatch stopWatch = new StopWatch();

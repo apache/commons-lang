@@ -103,6 +103,27 @@ import java.util.List;
  *   </code>
  * </pre>
  * <p>
+ *     {@code StackWatch} also has a static factory method to create and start an instance.
+ * </p>
+ * <pre>
+ *   <code>
+ *    private void outerFunction() {
+ *      try {
+ *        StackWatch{@code <String,String> watch = StackWatch.startStackWatch("OuterFunction");}
+ *        watch.start();
+ *        functionOne(watch);
+ *        watch.stop();
+ *        watch.visit({@code new StackWatch.TimingVisitor<String,String>()} {
+ *         {@literal @}Override
+ *          public void visitTiming({@code int level, List<String> path,  StackWatch.Timing<String,String>} timing) {
+ *            System.out.println("Visit level " + level + " timing: " + timing.getName()) + " path: " + path + " time: " + timing.getStopWatch().getNanoTime() + "ns");
+ *          }
+ *        });
+ *      } catch (Exception e){}
+ *    }
+ *   </code>
+ * </pre>
+ * <p>
  * This class is not thread safe, and is meant to track timings across multiple calls on the same
  * thread
  * </p>
@@ -116,11 +137,25 @@ public class StackWatch<N,T> {
     private Deque<TimingNode> deque = new LinkedList<>();
 
     /**
-     * The root {@code TimingNodeInternal}.
-     * The root node represents the root of a tree structure, and contains all {@code TimingNodeInternal}
+     * The root {@link TimingNode}.
+     * The root node represents the root of a tree structure, and contains all {@link TimingNode}
      * instances.
      */
     private TimingNode<N,T> rootNode;
+
+    /**
+     * Creates and starts a new {@code StackWatch} instance.
+     * @param <N> type of the names
+     * @param <T> type of the tags
+     * @param rootName the root name
+     * @return started StackWatch
+     * @throws NullPointerException if rootName is null
+     */
+    public static <N,T> StackWatch<N,T> startStackWatch(N rootName) {
+        StackWatch<N,T> stackWatch = new StackWatch<>(rootName);
+        stackWatch.start();
+        return stackWatch;
+    }
 
     /**
      * <p>
