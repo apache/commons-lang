@@ -216,10 +216,7 @@ public final class Range<T> implements Serializable {
      * @return true if the specified element occurs within this range
      */
     public boolean contains(final T element) {
-        if (element == null) {
-            return false;
-        }
-        return comparator.compare(element, minimum) > -1 && comparator.compare(element, maximum) < 1;
+        return element != null && comparator.compare(element, minimum) > -1 && comparator.compare(element, maximum) < 1;
     }
 
     /**
@@ -229,10 +226,7 @@ public final class Range<T> implements Serializable {
      * @return true if this range is entirely after the specified element
      */
     public boolean isAfter(final T element) {
-        if (element == null) {
-            return false;
-        }
-        return comparator.compare(element, minimum) < 0;
+        return element != null && comparator.compare(element, minimum) < 0;
     }
 
     /**
@@ -242,10 +236,7 @@ public final class Range<T> implements Serializable {
      * @return true if the specified element occurs within this range
      */
     public boolean isStartedBy(final T element) {
-        if (element == null) {
-            return false;
-        }
-        return comparator.compare(element, minimum) == 0;
+        return element != null && comparator.compare(element, minimum) == 0;
     }
 
     /**
@@ -255,10 +246,7 @@ public final class Range<T> implements Serializable {
      * @return true if the specified element occurs within this range
      */
     public boolean isEndedBy(final T element) {
-        if (element == null) {
-            return false;
-        }
-        return comparator.compare(element, maximum) == 0;
+        return element != null && comparator.compare(element, maximum) == 0;
     }
 
     /**
@@ -268,10 +256,7 @@ public final class Range<T> implements Serializable {
      * @return true if this range is entirely before the specified element
      */
     public boolean isBefore(final T element) {
-        if (element == null) {
-            return false;
-        }
-        return comparator.compare(element, maximum) > 0;
+        return element != null && comparator.compare(element, maximum) > 0;
     }
 
     /**
@@ -309,11 +294,7 @@ public final class Range<T> implements Serializable {
      * @throws RuntimeException if ranges cannot be compared
      */
     public boolean containsRange(final Range<T> otherRange) {
-        if (otherRange == null) {
-            return false;
-        }
-        return contains(otherRange.minimum)
-            && contains(otherRange.maximum);
+        return otherRange != null && contains(otherRange.minimum) && contains(otherRange.maximum);
     }
 
     /**
@@ -326,10 +307,7 @@ public final class Range<T> implements Serializable {
      * @throws RuntimeException if ranges cannot be compared
      */
     public boolean isAfterRange(final Range<T> otherRange) {
-        if (otherRange == null) {
-            return false;
-        }
-        return isAfter(otherRange.maximum);
+        return otherRange != null && isAfter(otherRange.maximum);
     }
 
     /**
@@ -345,12 +323,7 @@ public final class Range<T> implements Serializable {
      * @throws RuntimeException if ranges cannot be compared
      */
     public boolean isOverlappedBy(final Range<T> otherRange) {
-        if (otherRange == null) {
-            return false;
-        }
-        return otherRange.contains(minimum)
-            || otherRange.contains(maximum)
-            || contains(otherRange.minimum);
+        return otherRange != null && (otherRange.contains(minimum) || otherRange.contains(maximum) || contains(otherRange.minimum));
     }
 
     /**
@@ -363,10 +336,7 @@ public final class Range<T> implements Serializable {
      * @throws RuntimeException if ranges cannot be compared
      */
     public boolean isBeforeRange(final Range<T> otherRange) {
-        if (otherRange == null) {
-            return false;
-        }
-        return isBefore(otherRange.minimum);
+        return otherRange != null && isBefore(otherRange.minimum);
     }
 
     /**
