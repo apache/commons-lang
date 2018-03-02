@@ -827,9 +827,9 @@
     </profile>
 
     <profile>
-      <id>java9</id>
+      <id>java9+</id>
       <activation>
-        <jdk>9</jdk>
+        <jdk>[9,)</jdk>
       </activation>
       <properties>
         <!-- LANG-1265: allow tests to access private fields/methods of java.base classes via reflection -->
