@@ -56,10 +56,11 @@ public class JavaVersionTest {
         assertEquals("1.8 failed", JAVA_1_8, get("1.8"));
         assertEquals("9 failed", JAVA_9, get("9"));
         assertEquals("10 failed", JAVA_10, get("10"));
+        assertEquals("11 failed", JavaVersion.JAVA_11, get("11"));
         assertEquals("1.10 failed", JAVA_RECENT, get("1.10"));
         // assertNull("2.10 unexpectedly worked", get("2.10"));
         assertEquals("Wrapper method failed", get("1.5"), getJavaVersion("1.5"));
-        assertEquals("Unhandled", JAVA_RECENT, get("11")); // LANG-1384
+        assertEquals("Unhandled", JAVA_RECENT, get("12")); // LANG-1384
     }
 
     @Test
