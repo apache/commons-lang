@@ -191,6 +191,8 @@ public enum JavaVersion {
             if (Float.parseFloat(nom.substring(firstComma + 1, end)) > .9f) {
                 return JAVA_RECENT;
             }
+        } else if (v > 10) {
+            return JAVA_RECENT;
         }
         return null;
     }
