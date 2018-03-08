@@ -227,7 +227,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      */
     public EqualsBuilder() {
         // set up default classes to bypass reflection for
-        bypassReflectionClasses = new ArrayList<Class<?>>();
+        bypassReflectionClasses = new ArrayList<>();
         bypassReflectionClasses.add(String.class); //hashCode field being lazy but not transient
     }
 
