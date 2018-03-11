@@ -1447,6 +1447,11 @@ public class NumberUtilsTest {
         compareIsNumberWithCreateNumber("+2.0", true);
     }
 
+    @Test
+    public void testIsNumberLANG1385() {
+        compareIsNumberWithCreateNumber("L", false);
+    }
+
     private void compareIsNumberWithCreateNumber(final String val, final boolean expected) {
         final boolean isValid = NumberUtils.isCreatable(val);
         final boolean canCreate = checkCreateNumber(val);
