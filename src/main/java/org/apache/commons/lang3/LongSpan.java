@@ -18,20 +18,31 @@
 
 package org.apache.commons.lang3;
 
+import java.math.BigInteger;
+
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * Describes a span of data. Starting point and ending point.
+ * Describes a span of data.
  * 
- * Start, length and end values are limited to long values.
+ * Spans are immutable.
+ *  
+ * Implementations of span may record start and end positions or start position and length.
+ *
+ * Since spans are described by the first and last position in the span a zero length span
+ * has a first position but the last position will be in the previous position, while a span
+ * with a length of one will have the same value for starting and ending position.
+ *
+ * In this implementation start, length and end values are limited to long values.
+ *
  */
 public interface LongSpan
 {
 
 	/**
-	 * Starting position
+	 * The first position in  the span
 	 * 
-	 * @return start position
+	 * @return first position in the span.
 	 */
 	long getStart();
 
@@ -43,7 +54,7 @@ public interface LongSpan
 	long getLength();
 
 	/**
-	 * Ending position of span
+	 * Ending (last) position in the span.
 	 * 
 	 * @return end position
 	 */
@@ -146,7 +157,7 @@ public interface LongSpan
 
 		/**
 		 * A method to calculate the length of a span from the start and end.
-		 * Intended to be used by span implementations that stoare start and
+		 * Intended to be used by span implementations that store start and
 		 * end.
 		 * 
 		 * @param span
@@ -219,23 +230,8 @@ public interface LongSpan
 		 */
 		public static LongSpan fromEnd(long start, long end)
 		{
-			try
-			{
-				if (NumberUtils.isUnderflow(end, start))
-				{
-					return new Impl(start,
-							Math.subtractExact(Math.addExact(end, 1), start));
-				} else
-				{
-					return new Impl(start,
-							Math.addExact(Math.subtractExact(end, start), 1));
-				}
-			} catch (ArithmeticException e)
-			{
-				throw new IllegalArgumentException(String.format(
-						"end (%s) - start (%s) + 1  must fall between [Long.MIN_VALUE (%s), Long.MAX_VALUE (%s)]",
-						end, start, Long.MIN_VALUE, Long.MAX_VALUE));
-			}
+			return new Impl( start, end );
+
 		}
 
 		/**
@@ -249,7 +245,17 @@ public interface LongSpan
 		 */
 		public static LongSpan fromLength(long start, long length)
 		{
-			return new Impl(start, length);
+			if (length < 0)
+			{
+				throw new IllegalArgumentException( "Length may not be less than 0");
+			}
+			// will handle Long.MIN_value + (-1)
+			if (NumberUtils.isOverflow( start, length-1))
+			{
+				throw new IllegalArgumentException( String.format( 
+					"The end positions is too large start+length+1>%s", Long.MAX_VALUE));
+			}
+			return new Impl(start, start + (length-1));
 		}
 	}
 
@@ -261,22 +267,29 @@ public interface LongSpan
 	{
 
 		private final long start;
-		private final long length;
+		private final long end;
 
 		/**
-		 * Constructor using a starting position and a length. To construct
-		 * using a starting position and an endpoint use fromEnd().
+		 * Constructor using a starting position and an ending position.
 		 * 
 		 * @param start
 		 *            The starting position.
-		 * @param length
-		 *            The length.
+		 * @param end
+		 *            The ending position.
 		 */
-		protected Impl(long start, long length)
+		protected Impl(long start, long end)
 		{
-			Util.checkStartAndLength(start, length);
+			if (end < start && end+1 != start)
+			{
+				throw new IllegalArgumentException( String.format( "The end position too small (%s) end+1 >= start (%s)", end, start));
+			}
+			if (NumberUtils.isUnderflow( end, start))
+			{
+				throw new IllegalArgumentException( String.format( 
+						"The distance between start (%s) and end (%s) positions is too larg end-start>%s", start,end,Long.MAX_VALUE));
+			}
 			this.start = start;
-			this.length = length;
+			this.end = end;
 		}
 
 		@Override
@@ -288,13 +301,13 @@ public interface LongSpan
 		@Override
 		public final long getLength()
 		{
-			return length;
+			return Util.calcLength( this );
 		}
 
 		@Override
 		public final long getEnd()
 		{
-			return Util.calcEnd(this);
+			return end;
 		}
 
 		@Override

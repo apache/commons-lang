@@ -1635,14 +1635,12 @@ public class NumberUtils {
 	 */
 	public static boolean isOverflow(int a, int b)
 	{
-		try
-		{
-			Math.addExact(a, b);
-			return false;
-		} catch (ArithmeticException e)
-		{
-			return true;
-		}
+		long la = a;
+		long lb = b;
+		long lv = la + lb;
+		
+		return lv > Integer.MAX_VALUE || lv < Integer.MIN_VALUE;
+
 	}
 
 	/**
@@ -1657,7 +1655,10 @@ public class NumberUtils {
 	 */
 	public static void checkOverflow(int a, int b) throws ArithmeticException
 	{
-		Math.addExact(a, b);
+		if (isOverflow( a, b ))
+		{
+			throw new ArithmeticException( String.format( "Overflow (%s+%s)", a,b));
+		}
 	}
 
 	/**
@@ -1672,15 +1673,12 @@ public class NumberUtils {
 	 */
 	public static boolean isUnderflow(int a, int b)
 	{
+		long la = a;
+		long lb = b;
+		long lv = la - lb;
+		
+		return lv > Integer.MAX_VALUE || lv < Integer.MIN_VALUE;
 
-		try
-		{
-			Math.subtractExact(a, b);
-			return false;
-		} catch (ArithmeticException e)
-		{
-			return true;
-		}
 	}
 
 	/**
@@ -1695,7 +1693,10 @@ public class NumberUtils {
 	 */
 	public static void checkUnderflow(int a, int b) throws ArithmeticException
 	{
-		Math.subtractExact(a, b);
+		if (isUnderflow( a, b ))
+		{
+			throw new ArithmeticException( String.format( "Underflow (%s-%s)", a,b));
+		}
 	}
 
 	/**
@@ -1710,15 +1711,13 @@ public class NumberUtils {
 	 */
 	public static boolean isOverflow(long a, long b)
 	{
-
-		try
-		{
-			Math.addExact(a, b);
-			return false;
-		} catch (ArithmeticException e)
-		{
-			return true;
-		}
+		BigInteger ba = BigInteger.valueOf(a);
+		BigInteger bb = BigInteger.valueOf(b);
+		
+		BigInteger bv = ba.add(bb);
+		BigInteger max = BigInteger.valueOf( Long.MAX_VALUE );
+		BigInteger min = BigInteger.valueOf( Long.MIN_VALUE );
+		return (bv.compareTo(max) == 1 || bv.compareTo(min) == -1);
 	}
 
 	/**
@@ -1733,7 +1732,11 @@ public class NumberUtils {
 	 */
 	public static void checkOverflow(long a, long b) throws ArithmeticException
 	{
-		Math.addExact(a, b);
+		if (isOverflow( a, b ))
+		{
+			throw new ArithmeticException( String.format( "Overflow (%s+%s)", a,b));
+		}
+
 	}
 
 	/**
@@ -1749,14 +1752,13 @@ public class NumberUtils {
 	public static boolean isUnderflow(long a, long b)
 	{
 
-		try
-		{
-			Math.subtractExact(a, b);
-			return false;
-		} catch (ArithmeticException e)
-		{
-			return true;
-		}
+		BigInteger ba = BigInteger.valueOf(a);
+		BigInteger bb = BigInteger.valueOf(b);
+		
+		BigInteger bv = ba.subtract(bb);
+		BigInteger max = BigInteger.valueOf( Long.MAX_VALUE );
+		BigInteger min = BigInteger.valueOf( Long.MIN_VALUE );
+		return (bv.compareTo(max) == 1 || bv.compareTo(min) == -1);
 	}
 
 	/**
@@ -1771,7 +1773,10 @@ public class NumberUtils {
 	 */
 	public static void checkUnderflow(long a, long b) throws ArithmeticException
 	{
-		Math.subtractExact(a, b);
+		if (isUnderflow( a, b ))
+		{
+			throw new ArithmeticException( String.format( "Underflow (%s-%s)", a,b));
+		}
 	}
 
 }

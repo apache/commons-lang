@@ -21,9 +21,17 @@ package org.apache.commons.lang3;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * Describes a span of data. Starting point and ending point.
+ * Describes a span of data.
  * 
- * Start, length and end values are limited to integer values.
+ * Spans are immutable.
+ *  
+ * Implementations of span may record start and end positions or start position and length.
+ *
+ * Since spans are described by the first and last position in the span a zero length span
+ * has a first position but the last position will be in the previous position, while a span
+ * with a length of one will have the same value for starting and ending position.
+ *
+ * In this implementation start, length and end values are limited to int values.
  *
  */
 public interface IntSpan {
@@ -163,18 +171,18 @@ public interface IntSpan {
 				return start;
 			}
 			if (NumberUtils.isOverflow(start, increment)) {
-			if (increment < 0) {
-				// this really subtracts
-					throw new IllegalArgumentException(String.format(
-							"Start (%s) - length (%s) < Integer.MIN_VALUE (%s)",
-							start, increment, Integer.MIN_VALUE));
-		
+				if (increment < 0) {
+					// this really subtracts
+						throw new IllegalArgumentException(String.format(
+								"Start (%s) - length (%s) < Integer.MIN_VALUE (%s)",
+								start, increment, Integer.MIN_VALUE));
 			
-			} else {
-					throw new IllegalArgumentException(String.format(
-							"Length (%s) + Start (%s) > Integer.MAX_VALUE (%s)",
-							increment, start, Integer.MAX_VALUE));
-			}
+				
+				} else {
+						throw new IllegalArgumentException(String.format(
+								"Length (%s) + Start (%s) > Integer.MAX_VALUE (%s)",
+								increment, start, Integer.MAX_VALUE));
+				}
 			}
 			return start + increment;
 		}
@@ -237,6 +245,9 @@ public interface IntSpan {
 	
 	/**
      * An implementation of IntSpan for factory use.
+     * 
+     * This implementation uses start and length tracking.  For an example of start and 
+     * end tracking set LongSpan.
      *
      */
     public static class Impl implements IntSpan {
