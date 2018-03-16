@@ -1591,4 +1591,94 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.compare((byte)113, (byte)113)==0);
         assertTrue(NumberUtils.compare((byte)123, (byte)32) > 0);
     }
+    
+    @Test
+	public void isOverflow_Long()
+	{
+		assertFalse( "Min+Max should not overflow", NumberUtils.isOverflow(Long.MIN_VALUE, Long.MAX_VALUE));
+		assertFalse( "Max+Min should not overflow", NumberUtils.isOverflow(Long.MAX_VALUE, Long.MIN_VALUE));
+
+		assertFalse( "negative+Max should not overflow", NumberUtils.isOverflow(-1, Long.MAX_VALUE));
+		assertFalse( "Max+negative should not overflow", NumberUtils.isOverflow(Long.MAX_VALUE, -1));
+
+		assertFalse( "positive+Min should not overflow", NumberUtils.isOverflow(1, Long.MIN_VALUE));
+		assertFalse( "Min+positive should not overflow", NumberUtils.isOverflow(Long.MIN_VALUE, 1));
+
+		assertFalse( "0+Max should not overflow", NumberUtils.isOverflow(0, Long.MAX_VALUE));
+		assertFalse( "Max+0 should not overflow", NumberUtils.isOverflow(Long.MAX_VALUE, 0));
+
+		assertTrue( "positive+Max should overflow", NumberUtils.isOverflow(1, Long.MAX_VALUE));
+		assertTrue( "Max+positive should overflow", NumberUtils.isOverflow(Long.MAX_VALUE, 1));
+
+		assertTrue( "negative+Min should overflow", NumberUtils.isOverflow(-1, Long.MIN_VALUE));
+		assertTrue( "Max+positive should overflow", NumberUtils.isOverflow(Long.MIN_VALUE, -11));
+
+	}
+
+	@Test
+	public void isUnderflow_Long()
+	{
+		assertFalse( "0-Max should not underflow", NumberUtils.isUnderflow(0, Long.MAX_VALUE));
+		assertFalse( "Min-0 should not underflow", NumberUtils.isUnderflow(Long.MIN_VALUE, 0));
+		
+			
+		assertFalse( "Min-negative should not underflow", NumberUtils.isUnderflow(Long.MIN_VALUE, -1));
+		assertFalse( "negative-Min should not underflow", NumberUtils.isUnderflow(-1, Long.MIN_VALUE));
+
+		assertTrue( "Min-positive should underflow", NumberUtils.isUnderflow(Long.MIN_VALUE, 1));
+		assertTrue( "positive-Min should underflow", NumberUtils.isUnderflow(1, Long.MIN_VALUE));
+		
+		assertTrue( "positive-Min should overflow", NumberUtils.isUnderflow(1, Long.MIN_VALUE));
+		assertTrue( "Min-positive should overflow", NumberUtils.isUnderflow(Long.MIN_VALUE, 1));
+
+		long half = -1 * (Long.MIN_VALUE / 2);
+		assertTrue( "-half-half should overflow", NumberUtils.isUnderflow(-half, half+1));
+
+
+	}
+	
+	@Test
+	public void isOverflow_Integer()
+	{
+		assertFalse( "Min+Max should not overflow", NumberUtils.isOverflow(Integer.MIN_VALUE, Integer.MAX_VALUE));
+		assertFalse( "Max+Min should not overflow", NumberUtils.isOverflow(Integer.MAX_VALUE, Integer.MIN_VALUE));
+
+		assertFalse( "negative+Max should not overflow", NumberUtils.isOverflow(-1, Integer.MAX_VALUE));
+		assertFalse( "Max+negative should not overflow", NumberUtils.isOverflow(Integer.MAX_VALUE, -1));
+
+		assertFalse( "positive+Min should not overflow", NumberUtils.isOverflow(1, Integer.MIN_VALUE));
+		assertFalse( "Min+positive should not overflow", NumberUtils.isOverflow(Integer.MIN_VALUE, 1));
+
+		assertFalse( "0+Max should not overflow", NumberUtils.isOverflow(0, Integer.MAX_VALUE));
+		assertFalse( "Max+0 should not overflow", NumberUtils.isOverflow(Integer.MAX_VALUE, 0));
+
+		assertTrue( "positive+Max should overflow", NumberUtils.isOverflow(1, Integer.MAX_VALUE));
+		assertTrue( "Max+positive should overflow", NumberUtils.isOverflow(Integer.MAX_VALUE, 1));
+
+		assertTrue( "negative+Min should overflow", NumberUtils.isOverflow(-1, Integer.MIN_VALUE));
+		assertTrue( "Max+positive should overflow", NumberUtils.isOverflow(Integer.MIN_VALUE, -11));
+
+	}
+	
+	@Test
+	public void isUnderflow_Integer()
+	{
+		assertFalse( "0-Max should not underflow", NumberUtils.isUnderflow(0, Integer.MAX_VALUE));
+		assertFalse( "Min-0 should not underflow", NumberUtils.isUnderflow(Integer.MIN_VALUE, 0));
+		
+			
+		assertFalse( "Min-negative should not underflow", NumberUtils.isUnderflow(Integer.MIN_VALUE, -1));
+		assertFalse( "negative-Min should not underflow", NumberUtils.isUnderflow(-1, Integer.MIN_VALUE));
+
+		assertTrue( "Min-positive should underflow", NumberUtils.isUnderflow(Integer.MIN_VALUE, 1));
+		assertTrue( "positive-Min should underflow", NumberUtils.isUnderflow(1, Integer.MIN_VALUE));
+		
+		assertTrue( "positive-Min should overflow", NumberUtils.isUnderflow(1, Integer.MIN_VALUE));
+		assertTrue( "Min-positive should overflow", NumberUtils.isUnderflow(Integer.MIN_VALUE, 1));
+
+		int half = -1 * (Integer.MIN_VALUE / 2);
+		assertTrue( "-half-half should overflow", NumberUtils.isUnderflow(-half, half+1));
+
+
+	}
 }
