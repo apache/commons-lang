@@ -1622,4 +1622,156 @@ public class NumberUtils {
     public static int compare(final byte x, final byte y) {
         return x - y;
     }
+    
+    /**
+	 * Return true if a + b is greater than Integer.MAX_VALUE or less than
+	 * Integer.MIN_VALUE.
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @return true if an overflow occurs.
+	 */
+	public static boolean isOverflow(int a, int b)
+	{
+		try
+		{
+			Math.addExact(a, b);
+			return false;
+		} catch (ArithmeticException e)
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Simple wrapper on Math.addExtract( a, b )
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @throws ArithmeticException
+	 *             if underflow occurs
+	 */
+	public static void checkOverflow(int a, int b) throws ArithmeticException
+	{
+		Math.addExact(a, b);
+	}
+
+	/**
+	 * Return true if a - b is greater than Integer.MAX_VALUE or less than
+	 * Integer.MIN_VALUE.
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @return true if an underflow occurs.
+	 */
+	public static boolean isUnderflow(int a, int b)
+	{
+
+		try
+		{
+			Math.subtractExact(a, b);
+			return false;
+		} catch (ArithmeticException e)
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Simple wrapper on Math.subtractExtract( a, b )
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @throws ArithmeticException
+	 *             if underflow occurs
+	 */
+	public static void checkUnderflow(int a, int b) throws ArithmeticException
+	{
+		Math.subtractExact(a, b);
+	}
+
+	/**
+	 * Return true if a + b is greater than Integer.MAX_VALUE or less than
+	 * Integer.MIN_VALUE.
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @return true if an overflow occurs.
+	 */
+	public static boolean isOverflow(long a, long b)
+	{
+
+		try
+		{
+			Math.addExact(a, b);
+			return false;
+		} catch (ArithmeticException e)
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Simple wrapper on Math.addExtract( a, b )
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @throws ArithmeticException
+	 *             if underflow occurs
+	 */
+	public static void checkOverflow(long a, long b) throws ArithmeticException
+	{
+		Math.addExact(a, b);
+	}
+
+	/**
+	 * Return true if a - b is greater than Integer.MAX_VALUE or less than
+	 * Integer.MIN_VALUE.
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @return true if an underflow occurs.
+	 */
+	public static boolean isUnderflow(long a, long b)
+	{
+
+		try
+		{
+			Math.subtractExact(a, b);
+			return false;
+		} catch (ArithmeticException e)
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Simple wrapper on Math.subtractExtract( a, b )
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @throws ArithmeticException
+	 *             if underflow occurs
+	 */
+	public static void checkUnderflow(long a, long b) throws ArithmeticException
+	{
+		Math.subtractExact(a, b);
+	}
+
 }
