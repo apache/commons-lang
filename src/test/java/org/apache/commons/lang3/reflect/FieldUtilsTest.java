@@ -50,6 +50,7 @@ import static org.junit.Assume.assumeNotNull;
  */
 public class FieldUtilsTest {
 
+    private static final String JACOCO_DATA_FIELD_NAME = "$jacocoData";
     static final Integer I0 = Integer.valueOf(0);
     static final Integer I1 = Integer.valueOf(1);
     static final Double D0 = Double.valueOf(0.0);
@@ -169,7 +170,7 @@ public class FieldUtilsTest {
         // Under Jacoco,0.8.1 and Java 10, the field count is 7.
         int expected = 5;
         for (Field field : allFields) {
-            if (field.getName().equals("$jacocoData")) {
+            if (field.getName().equals(JACOCO_DATA_FIELD_NAME)) {
                 expected++;
             }
         }
@@ -189,7 +190,7 @@ public class FieldUtilsTest {
         // Under Jacoco,0.8.1 and Java 10, the field count is 7.
         int expected = 5;
         for (Field field : allFields) {
-            if (field.getName().equals("$jacocoData")) {
+            if (field.getName().equals(JACOCO_DATA_FIELD_NAME)) {
                 expected++;
             }
         }
