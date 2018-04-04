@@ -23,7 +23,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -116,16 +115,11 @@ public class SerializationUtilsTest {
         }
     }
 
-    @Test
+    @Test(expected = SerializationException.class)
     public void testSerializeStreamUnserializable() throws Exception {
         final ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
-        try {
-            iMap.put(new Object(), new Object());
-            SerializationUtils.serialize(iMap, streamTest);
-        } catch (final SerializationException ex) {
-            return;
-        }
-        fail();
+        iMap.put(new Object(), new Object());
+        SerializationUtils.serialize(iMap, streamTest);
     }
 
     @Test
@@ -147,24 +141,14 @@ public class SerializationUtilsTest {
         }
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testSerializeStreamObjNull() throws Exception {
-        try {
-            SerializationUtils.serialize(iMap, null);
-        } catch (final IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.serialize(iMap, null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testSerializeStreamNullNull() throws Exception {
-        try {
-            SerializationUtils.serialize(null, null);
-        } catch (final IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.serialize(null, null);
     }
 
     @Test
@@ -230,24 +214,14 @@ public class SerializationUtilsTest {
         assertNull(test);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testDeserializeStreamNull() throws Exception {
-        try {
-            SerializationUtils.deserialize((InputStream) null);
-        } catch (final IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.deserialize((InputStream) null);
     }
 
-    @Test
+    @Test(expected = SerializationException.class)
     public void testDeserializeStreamBadStream() throws Exception {
-        try {
-            SerializationUtils.deserialize(new ByteArrayInputStream(new byte[0]));
-        } catch (final SerializationException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.deserialize(new ByteArrayInputStream(new byte[0]));
     }
 
     @Test
@@ -293,15 +267,10 @@ public class SerializationUtilsTest {
         }
     }
 
-    @Test
+    @Test(expected = SerializationException.class)
     public void testSerializeBytesUnserializable() throws Exception {
-        try {
-            iMap.put(new Object(), new Object());
-            SerializationUtils.serialize(iMap);
-        } catch (final SerializationException ex) {
-            return;
-        }
-        fail();
+        iMap.put(new Object(), new Object());
+        SerializationUtils.serialize(iMap);
     }
 
     @Test
@@ -355,24 +324,14 @@ public class SerializationUtilsTest {
         assertNull(test);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testDeserializeBytesNull() throws Exception {
-        try {
-            SerializationUtils.deserialize((byte[]) null);
-        } catch (final IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.deserialize((byte[]) null);
     }
 
-    @Test
+    @Test(expected = SerializationException.class)
     public void testDeserializeBytesBadStream() throws Exception {
-        try {
-            SerializationUtils.deserialize(new byte[0]);
-        } catch (final SerializationException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.deserialize(new byte[0]);
     }
 
     //-----------------------------------------------------------------------
@@ -397,15 +356,10 @@ public class SerializationUtilsTest {
         assertNull(test);
     }
 
-    @Test
+    @Test(expected = SerializationException.class)
     public void testCloneUnserializable() throws Exception {
-        try {
-            iMap.put(new Object(), new Object());
-            SerializationUtils.clone(iMap);
-        } catch (final SerializationException ex) {
-            return;
-        }
-        fail();
+        iMap.put(new Object(), new Object());
+        SerializationUtils.clone(iMap);
     }
 
     @Test
