@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -110,9 +111,7 @@ public class SerializationUtilsTest {
         final byte[] testBytes = streamTest.toByteArray();
         final byte[] realBytes = streamReal.toByteArray();
         assertEquals(testBytes.length, realBytes.length);
-        for (int i = 0; i < realBytes.length; i++) {
-            assertEquals(realBytes[i], testBytes[i]);
-        }
+        assertArrayEquals(realBytes, testBytes);
     }
 
     @Test(expected = SerializationException.class)
@@ -136,9 +135,7 @@ public class SerializationUtilsTest {
         final byte[] testBytes = streamTest.toByteArray();
         final byte[] realBytes = streamReal.toByteArray();
         assertEquals(testBytes.length, realBytes.length);
-        for (int i = 0; i < realBytes.length; i++) {
-            assertEquals(realBytes[i], testBytes[i]);
-        }
+        assertArrayEquals(realBytes, testBytes);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -262,9 +259,7 @@ public class SerializationUtilsTest {
 
         final byte[] realBytes = streamReal.toByteArray();
         assertEquals(testBytes.length, realBytes.length);
-        for (int i = 0; i < realBytes.length; i++) {
-            assertEquals(realBytes[i], testBytes[i]);
-        }
+        assertArrayEquals(realBytes, testBytes);
     }
 
     @Test(expected = SerializationException.class)
@@ -285,9 +280,7 @@ public class SerializationUtilsTest {
 
         final byte[] realBytes = streamReal.toByteArray();
         assertEquals(testBytes.length, realBytes.length);
-        for (int i = 0; i < realBytes.length; i++) {
-            assertEquals(realBytes[i], testBytes[i]);
-        }
+        assertArrayEquals(realBytes, testBytes);
     }
 
     //-----------------------------------------------------------------------
