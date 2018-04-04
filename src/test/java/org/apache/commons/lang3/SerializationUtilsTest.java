@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -197,12 +198,12 @@ public class SerializationUtilsTest {
         final Object test = SerializationUtils.deserialize(inTest);
         assertNotNull(test);
         assertTrue(test instanceof HashMap<?, ?>);
-        assertTrue(test != iMap);
+        assertNotSame(test, iMap);
         final HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));
-        assertTrue(iString != testMap.get("FOO"));
+        assertNotSame(iString, testMap.get("FOO"));
         assertEquals(iInteger, testMap.get("BAR"));
-        assertTrue(iInteger != testMap.get("BAR"));
+        assertNotSame(iInteger, testMap.get("BAR"));
         assertEquals(iMap, testMap);
     }
 
@@ -333,12 +334,12 @@ public class SerializationUtilsTest {
         final Object test = SerializationUtils.deserialize(streamReal.toByteArray());
         assertNotNull(test);
         assertTrue(test instanceof HashMap<?, ?>);
-        assertTrue(test != iMap);
+        assertNotSame(test, iMap);
         final HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));
-        assertTrue(iString != testMap.get("FOO"));
+        assertNotSame(iString, testMap.get("FOO"));
         assertEquals(iInteger, testMap.get("BAR"));
-        assertTrue(iInteger != testMap.get("BAR"));
+        assertNotSame(iInteger, testMap.get("BAR"));
         assertEquals(iMap, testMap);
     }
 
@@ -381,12 +382,12 @@ public class SerializationUtilsTest {
         final Object test = SerializationUtils.clone(iMap);
         assertNotNull(test);
         assertTrue(test instanceof HashMap<?,?>);
-        assertTrue(test != iMap);
+        assertNotSame(test, iMap);
         final HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));
-        assertTrue(iString != testMap.get("FOO"));
+        assertNotSame(iString, testMap.get("FOO"));
         assertEquals(iInteger, testMap.get("BAR"));
-        assertTrue(iInteger != testMap.get("BAR"));
+        assertNotSame(iInteger, testMap.get("BAR"));
         assertEquals(iMap, testMap);
     }
 
