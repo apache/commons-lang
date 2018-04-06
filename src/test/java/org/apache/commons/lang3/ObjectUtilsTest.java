@@ -396,6 +396,78 @@ public class ObjectUtilsTest {
         assertEquals("one two true",  -1, ObjectUtils.compare(one, two, true));
     }
 
+    /**
+     * Tests {@link ObjectUtils#isGreaterThan(Comparable, Comparable)}.
+     */
+    @Test
+    public void testIsGreaterThan() {
+        final Integer one = Integer.valueOf(1);
+        final Integer two = Integer.valueOf(2);
+        final Integer nullValue = null;
+
+        assertFalse("Null Null", ObjectUtils.isGreaterThan(nullValue, nullValue));
+        assertFalse("Null one", ObjectUtils.isGreaterThan(nullValue, one));
+        assertTrue("one Null", ObjectUtils.isGreaterThan(one, nullValue));
+
+        assertFalse("one one", ObjectUtils.isGreaterThan(one, one));
+        assertFalse("one two", ObjectUtils.isGreaterThan(one, two));
+        assertTrue("two one", ObjectUtils.isGreaterThan(two, one));
+    }
+
+    /**
+     * Tests {@link ObjectUtils#isGreaterOrEqualTo(Comparable, Comparable)}.
+     */
+    @Test
+    public void testIsGreaterOrEqualTo() {
+        final Integer one = Integer.valueOf(1);
+        final Integer two = Integer.valueOf(2);
+        final Integer nullValue = null;
+
+        assertTrue("Null Null", ObjectUtils.isGreaterOrEqualTo(nullValue, nullValue));
+        assertFalse("Null one", ObjectUtils.isGreaterOrEqualTo(nullValue, one));
+        assertTrue("one Null", ObjectUtils.isGreaterOrEqualTo(one, nullValue));
+
+        assertTrue("one one", ObjectUtils.isGreaterOrEqualTo(one, one));
+        assertFalse("one two", ObjectUtils.isGreaterOrEqualTo(one, two));
+        assertTrue("two one", ObjectUtils.isGreaterOrEqualTo(two, one));
+    }
+
+    /**
+     * Tests {@link ObjectUtils#isLessThan(Comparable, Comparable)}.
+     */
+    @Test
+    public void testIsLessThan() {
+        final Integer one = Integer.valueOf(1);
+        final Integer two = Integer.valueOf(2);
+        final Integer nullValue = null;
+
+        assertFalse("Null Null", ObjectUtils.isLessThan(nullValue, nullValue));
+        assertTrue("Null one", ObjectUtils.isLessThan(nullValue, one));
+        assertFalse("one Null", ObjectUtils.isLessThan(one, nullValue));
+
+        assertFalse("one one", ObjectUtils.isLessThan(one, one));
+        assertTrue("one two", ObjectUtils.isLessThan(one, two));
+        assertFalse("two one", ObjectUtils.isLessThan(two, one));
+    }
+
+    /**
+     * Tests {@link ObjectUtils#isLessOrEqualTo(Comparable, Comparable)}.
+     */
+    @Test
+    public void testIsLessOrEqualTo() {
+        final Integer one = Integer.valueOf(1);
+        final Integer two = Integer.valueOf(2);
+        final Integer nullValue = null;
+
+        assertTrue("Null Null", ObjectUtils.isLessOrEqualTo(nullValue, nullValue));
+        assertTrue("Null one", ObjectUtils.isLessOrEqualTo(nullValue, one));
+        assertFalse("one Null", ObjectUtils.isLessOrEqualTo(one, nullValue));
+
+        assertTrue("one one", ObjectUtils.isLessOrEqualTo(one, one));
+        assertTrue("one two", ObjectUtils.isLessOrEqualTo(one, two));
+        assertFalse("two one", ObjectUtils.isLessOrEqualTo(two, one));
+    }
+
     @Test
     public void testMedian() {
         assertEquals("foo", ObjectUtils.median("foo"));

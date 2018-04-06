@@ -591,6 +591,58 @@ public class ObjectUtils {
     }
 
     /**
+     * <p>Null safe comparison of Comparables.
+     * {@code null} is assumed to be less than a non-{@code null} value.</p>
+     *
+     * @param <T> type of the values processed by this method
+     * @param c1  the first comparable, may be null
+     * @param c2  the second comparable, may be null
+     * @return {@code false} value if c1 &lt;= c2, and {@code true} value if c1 &gt; c2
+     */
+    public static <T extends Comparable<? super T>> boolean isGreaterThan(final T c1, final T c2) {
+        return compare(c1, c2, false) > 0;
+    }
+
+    /**
+     * <p>Null safe comparison of Comparables.
+     * {@code null} is assumed to be less than a non-{@code null} value.</p>
+     *
+     * @param <T> type of the values processed by this method
+     * @param c1  the first comparable, may be null
+     * @param c2  the second comparable, may be null
+     * @return {@code false} value if c1 &lt; c2, and {@code true} value if c1 &gt;= c2
+     */
+    public static <T extends Comparable<? super T>> boolean isGreaterOrEqualTo(final T c1, final T c2) {
+        return compare(c1, c2, false) >= 0;
+    }
+
+    /**
+     * <p>Null safe comparison of Comparables.
+     * {@code null} is assumed to be less than a non-{@code null} value.</p>
+     *
+     * @param <T> type of the values processed by this method
+     * @param c1  the first comparable, may be null
+     * @param c2  the second comparable, may be null
+     * @return {@code false} value if c1 &gt;= c2, and {@code true} value if c1 &lt; c2
+     */
+    public static <T extends Comparable<? super T>> boolean isLessThan(final T c1, final T c2) {
+        return compare(c1, c2, false) < 0;
+    }
+
+    /**
+     * <p>Null safe comparison of Comparables.
+     * {@code null} is assumed to be less than a non-{@code null} value.</p>
+     *
+     * @param <T> type of the values processed by this method
+     * @param c1  the first comparable, may be null
+     * @param c2  the second comparable, may be null
+     * @return {@code false} value if c1 &gt; c2, and {@code true} value if c1 &lt;= c2
+     */
+    public static <T extends Comparable<? super T>> boolean isLessOrEqualTo(final T c1, final T c2) {
+        return compare(c1, c2, false) <= 0;
+    }
+
+    /**
      * Find the "best guess" middle value among comparables. If there is an even
      * number of total values, the lower of the two middle values will be returned.
      * @param <T> type of values processed by this method
