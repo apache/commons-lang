@@ -4719,6 +4719,82 @@ public class StringUtils {
     }
 
     /**
+     * <p>Joins the elements of the provided {@code List} into a single String
+     * containing the provided list of elements.</p>
+     *
+     * <p>No delimiter is added before or after the list.
+     * Null objects or empty strings within the array are represented by
+     * empty strings.</p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join(["a", "b", "c"], ';')  = "a;b;c"
+     * StringUtils.join(["a", "b", "c"], null) = "abc"
+     * StringUtils.join([null, "", "a"], ';')  = ";;a"
+     * </pre>
+     *
+     * @param list  the {@code List} of values to join together, may be null
+     * @param separator  the separator character to use
+     * @param startIndex the first index to start joining from.  It is
+     * an error to pass in an end index past the end of the list
+     * @param endIndex the index to stop joining from (exclusive). It is
+     * an error to pass in an end index past the end of the list
+     * @return the joined String, {@code null} if null list input
+     * @since 2.0
+     */
+    public static String join(final List<?> list, final char separator, final int startIndex, final int endIndex) {
+        if (list == null) {
+            return null;
+        }
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
+            return EMPTY;
+        }
+        final List<?> subList = list.subList(startIndex, endIndex);
+        return join(subList.iterator(), separator);
+    }
+
+    /**
+     * <p>Joins the elements of the provided {@code List} into a single String
+     * containing the provided list of elements.</p>
+     *
+     * <p>No delimiter is added before or after the list.
+     * Null objects or empty strings within the array are represented by
+     * empty strings.</p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join(["a", "b", "c"], ';')  = "a;b;c"
+     * StringUtils.join(["a", "b", "c"], null) = "abc"
+     * StringUtils.join([null, "", "a"], ';')  = ";;a"
+     * </pre>
+     *
+     * @param list  the {@code List} of values to join together, may be null
+     * @param separator  the separator character to use
+     * @param startIndex the first index to start joining from.  It is
+     * an error to pass in an end index past the end of the list
+     * @param endIndex the index to stop joining from (exclusive). It is
+     * an error to pass in an end index past the end of the list
+     * @return the joined String, {@code null} if null list input
+     * @since 2.0
+     */
+    public static String join(final List<?> list, final String separator, final int startIndex, final int endIndex) {
+        if (list == null) {
+            return null;
+        }
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
+            return EMPTY;
+        }
+        final List<?> subList = list.subList(startIndex, endIndex);
+        return join(subList.iterator(), separator);
+    }
+
+    /**
      * <p>Joins the elements of the provided varargs into a
      * single String containing the provided elements.</p>
      *
