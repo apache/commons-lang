@@ -233,7 +233,8 @@ public class StringUtils {
      * <p>Checks if any of the CharSequences are empty ("") or null.</p>
      *
      * <pre>
-     * StringUtils.isAnyEmpty(null)             = true
+     * StringUtils.isAnyEmpty((String) null)    = true
+     * StringUtils.isAnyEmpty((String[]) null)  = false
      * StringUtils.isAnyEmpty(null, "foo")      = true
      * StringUtils.isAnyEmpty("", "bar")        = true
      * StringUtils.isAnyEmpty("bob", "")        = true
