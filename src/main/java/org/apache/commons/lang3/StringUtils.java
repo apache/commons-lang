@@ -7390,13 +7390,13 @@ public class StringUtils {
      * or empty then {@code null} is returned.</p>
      *
      * <pre>
-     * ObjectUtils.firstNonBlank(null, null, null)   = null
-     * ObjectUtils.firstNonBlank(null, "", " ")      = null
-     * ObjectUtils.firstNonBlank(null, null, " ")     = null
-     * ObjectUtils.firstNonBlank("abc")              = "abc"
-     * ObjectUtils.firstNonBlank(null, "xyz")        = "xyz"
-     * ObjectUtils.firstNonBlank(null, "xyz", "abc") = "xyz"
-     * ObjectUtils.firstNonBlank()                   = null
+     * StringUtils.firstNonBlank(null, null, null)   = null
+     * StringUtils.firstNonBlank(null, "", " ")      = null
+     * StringUtils.firstNonBlank(null, null, " ")     = null
+     * StringUtils.firstNonBlank("abc")              = "abc"
+     * StringUtils.firstNonBlank(null, "xyz")        = "xyz"
+     * StringUtils.firstNonBlank(null, "xyz", "abc") = "xyz"
+     * StringUtils.firstNonBlank()                   = null
      * </pre>
      *
      * @param <T> the specific kind of CharSequence
@@ -7423,13 +7423,13 @@ public class StringUtils {
      * or empty then {@code null} is returned.</p>
      *
      * <pre>
-     * ObjectUtils.firstNonBlank(null, null, null)   = null
-     * ObjectUtils.firstNonBlank(null, "", " ")      = " "
-     * ObjectUtils.firstNonBlank(null, null, "")     = null
-     * ObjectUtils.firstNonBlank("abc")              = "abc"
-     * ObjectUtils.firstNonBlank(null, "xyz")        = "xyz"
-     * ObjectUtils.firstNonBlank(null, "xyz", "abc") = "xyz"
-     * ObjectUtils.firstNonBlank()                   = null
+     * StringUtils.firstNonBlank(null, null, null)   = null
+     * StringUtils.firstNonBlank(null, "", " ")      = " "
+     * StringUtils.firstNonBlank(null, null, "")     = null
+     * StringUtils.firstNonBlank("abc")              = "abc"
+     * StringUtils.firstNonBlank(null, "xyz")        = "xyz"
+     * StringUtils.firstNonBlank(null, "xyz", "abc") = "xyz"
+     * StringUtils.firstNonBlank()                   = null
      * </pre>
      *
      * @param <T> the specific kind of CharSequence
