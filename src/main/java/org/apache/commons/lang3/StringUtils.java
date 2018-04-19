@@ -7407,7 +7407,7 @@ public class StringUtils {
      */
     @SafeVarargs
     public static <T extends CharSequence> T firstNonBlank(final T... values) {
-    	if (values != null) {
+        if (values != null) {
             for (final T val : values) {
                 if (isNotBlank(val)) {
                     return val;
@@ -7440,7 +7440,7 @@ public class StringUtils {
      */
     @SafeVarargs
     public static <T extends CharSequence> T firstNonEmpty(final T... values) {
-    	if (values != null) {
+        if (values != null) {
             for (final T val : values) {
                 if (isNotEmpty(val)) {
                     return val;
