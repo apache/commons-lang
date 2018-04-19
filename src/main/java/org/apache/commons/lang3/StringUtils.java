@@ -7479,6 +7479,72 @@ public class StringUtils {
     }
 
     /**
+     * <p>Returns the first value in the array which is not blank.
+     * If all the values are blank or the array is {@code null}
+     * or empty then {@code null} is returned.</p>
+     *
+     * <pre>
+     * StringUtils.firstNonBlank(null, null, null)   = null
+     * StringUtils.firstNonBlank(null, "", " ")      = null
+     * StringUtils.firstNonBlank(null, null, " ")     = null
+     * StringUtils.firstNonBlank("abc")              = "abc"
+     * StringUtils.firstNonBlank(null, "xyz")        = "xyz"
+     * StringUtils.firstNonBlank(null, "xyz", "abc") = "xyz"
+     * StringUtils.firstNonBlank()                   = null
+     * </pre>
+     *
+     * @param <T> the specific kind of CharSequence
+     * @param values  the values to test, may be {@code null} or empty
+     * @return the first value from {@code values} which is not blank,
+     *  or {@code null} if there are no non-blank values
+     * @since 3.8
+     */
+    @SafeVarargs
+    public static <T extends CharSequence> T firstNonBlank(final T... values) {
+        if (values != null) {
+            for (final T val : values) {
+                if (isNotBlank(val)) {
+                    return val;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * <p>Returns the first value in the array which is not empty.
+     * If all the values are empty or the array is {@code null}
+     * or empty then {@code null} is returned.</p>
+     *
+     * <pre>
+     * StringUtils.firstNonBlank(null, null, null)   = null
+     * StringUtils.firstNonBlank(null, "", " ")      = " "
+     * StringUtils.firstNonBlank(null, null, "")     = null
+     * StringUtils.firstNonBlank("abc")              = "abc"
+     * StringUtils.firstNonBlank(null, "xyz")        = "xyz"
+     * StringUtils.firstNonBlank(null, "xyz", "abc") = "xyz"
+     * StringUtils.firstNonBlank()                   = null
+     * </pre>
+     *
+     * @param <T> the specific kind of CharSequence
+     * @param values  the values to test, may be {@code null} or empty
+     * @return the first value from {@code values} which is not empty,
+     *  or {@code null} if there are no non-empty values
+     * @since 3.8
+     */
+    @SafeVarargs
+    public static <T extends CharSequence> T firstNonEmpty(final T... values) {
+        if (values != null) {
+            for (final T val : values) {
+                if (isNotEmpty(val)) {
+                    return val;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * whitespace, empty ("") or {@code null}, the value of {@code defaultStr}.</p>
      *
