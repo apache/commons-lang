@@ -16,7 +16,9 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -139,5 +141,29 @@ public class StringUtilsEmptyBlankTest  {
         assertFalse(StringUtils.isAllBlank("  bob  ", null));
         assertFalse(StringUtils.isAllBlank(" ", "bar"));
         assertFalse(StringUtils.isAllBlank("foo", "bar"));
+    }
+
+    @Test
+    public void testFirstNonBlank() {
+    	assertNull(StringUtils.firstNonBlank());
+    	assertNull(StringUtils.firstNonBlank(null, null, null));
+    	assertNull(StringUtils.firstNonBlank(null, "", " "));
+    	assertNull(StringUtils.firstNonBlank(null, null, " "));
+    	assertEquals("zz", StringUtils.firstNonBlank(null, "zz"));
+    	assertEquals("abc", StringUtils.firstNonBlank("abc"));
+    	assertEquals("xyz", StringUtils.firstNonBlank(null, "xyz"));
+    	assertEquals("xyz", StringUtils.firstNonBlank(null, "xyz", "abc"));
+    }
+
+    @Test
+    public void testFirstNonEmpty() {
+    	assertNull(StringUtils.firstNonEmpty());
+    	assertNull(StringUtils.firstNonEmpty(null, null, null));
+    	assertEquals(" ", StringUtils.firstNonEmpty(null, "", " "));
+    	assertNull(StringUtils.firstNonEmpty(null, null, ""));
+    	assertEquals("zz", StringUtils.firstNonEmpty(null, "zz"));
+    	assertEquals("abc", StringUtils.firstNonEmpty("abc"));
+    	assertEquals("xyz", StringUtils.firstNonEmpty(null, "xyz"));
+    	assertEquals("xyz", StringUtils.firstNonEmpty(null, "xyz", "abc"));
     }
 }
