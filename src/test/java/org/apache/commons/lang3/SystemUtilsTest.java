@@ -40,6 +40,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Locale;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -57,6 +58,23 @@ public class SystemUtilsTest {
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(SystemUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(SystemUtils.class.getModifiers()));
+    }
+
+    @Test
+    public void testGetEnvironmentVariableAbsent() {
+        final String name = "THIS_ENV_VAR_SHOULD_NOT_EXIST_FOR_THIS_TEST_TO_PASS";
+        final String expected = System.getenv(name);
+        Assert.assertNull(expected);
+        final String value = SystemUtils.getEnvironmentVariable(name, "DEFAULT");
+        assertEquals("DEFAULT", value);
+    }
+
+    @Test
+    public void testGetEnvironmentVariablePresent() {
+        final String name = "PATH";
+        final String expected = System.getenv(name);
+        final String value = SystemUtils.getEnvironmentVariable(name, null);
+        assertEquals(expected, value);
     }
 
     @Test
