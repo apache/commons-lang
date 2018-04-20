@@ -146,6 +146,7 @@ public class StringUtilsEmptyBlankTest  {
     @Test
     public void testFirstNonBlank() {
         assertNull(StringUtils.firstNonBlank());
+        assertNull(StringUtils.firstNonBlank((String[]) null));
         assertNull(StringUtils.firstNonBlank(null, null, null));
         assertNull(StringUtils.firstNonBlank(null, "", " "));
         assertNull(StringUtils.firstNonBlank(null, null, " "));
@@ -158,6 +159,7 @@ public class StringUtilsEmptyBlankTest  {
     @Test
     public void testFirstNonEmpty() {
         assertNull(StringUtils.firstNonEmpty());
+        assertNull(StringUtils.firstNonEmpty((String[]) null));
         assertNull(StringUtils.firstNonEmpty(null, null, null));
         assertEquals(" ", StringUtils.firstNonEmpty(null, "", " "));
         assertNull(StringUtils.firstNonEmpty(null, null, ""));
