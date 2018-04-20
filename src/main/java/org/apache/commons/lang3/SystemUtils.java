@@ -1619,7 +1619,7 @@ public class SystemUtils {
      * @param defaultValue
      *            the default value
      * @return the environment variable value or {@code defaultValue} if a security problem occurs
-     * @since 3.7
+     * @since 3.8
      */
     public static String getEnvironmentVariable(final String name, final String defaultValue) {
         try {
