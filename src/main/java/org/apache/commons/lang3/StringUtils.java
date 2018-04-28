@@ -1822,7 +1822,6 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", "b", 0)  = -1
      * StringUtils.lastIndexOf("aabaabaa", "b", 1)  = -1
      * StringUtils.lastIndexOf("aabaabaa", "b", 2)  = 2
-     * StringUtils.lastIndexOf("aabaabaa", "ba", 2)  = -1
      * StringUtils.lastIndexOf("aabaabaa", "ba", 2)  = 2
      * </pre>
      *
