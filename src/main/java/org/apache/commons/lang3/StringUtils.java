@@ -5142,7 +5142,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.removeFirst(null, *)      = null
-     * StringUtils.removeFirst("any", null)  = "any"
+     * StringUtils.removeFirst("any", (String) null)  = "any"
      * StringUtils.removeFirst("any", "")    = "any"
      * StringUtils.removeFirst("any", ".*")  = ""
      * StringUtils.removeFirst("any", ".+")  = ""
@@ -5280,7 +5280,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.replacePattern(null, *, *)       = null
-     * StringUtils.replacePattern("any", null, *)   = "any"
+     * StringUtils.replacePattern("any", (String) null, *)   = "any"
      * StringUtils.replacePattern("any", *, null)   = "any"
      * StringUtils.replacePattern("", "", "zzz")    = "zzz"
      * StringUtils.replacePattern("", ".*", "zzz")  = "zzz"
@@ -5370,7 +5370,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.removePattern(null, *)       = null
-     * StringUtils.removePattern("any", null)   = "any"
+     * StringUtils.removePattern("any", (String) null)   = "any"
      * StringUtils.removePattern("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")  = "AB"
      * StringUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
      * </pre>
@@ -5608,7 +5608,7 @@ public class StringUtils {
      * @return  the text with the first replacement processed,
      *              {@code null} if null String input
      *
-     * @see java.util.regex.Matcher#replaceFirst(String, String)
+     * @see java.util.regex.Matcher#replaceFirst(String)
      * @see java.util.regex.Pattern
      * @since 3.8
      */
