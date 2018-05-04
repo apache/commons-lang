@@ -840,6 +840,17 @@
     </profile>
 
     <profile>
+      <id>java11+</id>
+      <activation>
+        <jdk>[11,)</jdk>
+      </activation>
+      <properties>
+        <!-- jacoco does not work with java 11 yet, see https://github.com/jacoco/jacoco/issues/663 -->
+        <jacoco.skip>true</jacoco.skip>
+      </properties>
+    </profile>
+
+    <profile>
       <id>benchmark</id>
       <properties>
         <skipTests>true</skipTests>

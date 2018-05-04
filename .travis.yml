@@ -42,4 +42,4 @@ script:
   - mvn
 
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report -Ptravis-cobertura
+  - mvn clean test jacoco:report coveralls:report -Ptravis-jacoco
