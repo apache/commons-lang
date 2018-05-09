@@ -2600,7 +2600,7 @@ public abstract class ToStringStyle implements Serializable {
         }
 
         /**
-         * Appends the given String in parenthesis to the given StringBuffer.
+         * Appends the given String enclosed in double-quotes to the given StringBuffer.
          *
          * @param buffer the StringBuffer to append the value to.
          * @param value the value to append.
