@@ -378,6 +378,15 @@ public class JsonToStringStyleTest {
                         .toString());
     }
 
+    @Test
+    public void testLANG1395() {
+        assertEquals("{\"name\":\"value\"}",new ToStringBuilder(base).append("name","value").toString());
+        assertEquals("{\"name\":\"\"}",new ToStringBuilder(base).append("name","").toString());
+        assertEquals("{\"name\":\"\\\"\"}",new ToStringBuilder(base).append("name",'"').toString());
+        assertEquals("{\"name\":\"\\\\\"}",new ToStringBuilder(base).append("name",'\\').toString());
+        assertEquals("{\"name\":\"Let's \\\"quote\\\" this\"}",new ToStringBuilder(base).append("name","Let's \"quote\" this").toString());
+    }
+
     /**
      * An object with nested object structures used to test {@link ToStringStyle.JsonToStringStyle}.
      *

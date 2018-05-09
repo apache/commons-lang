@@ -24,6 +24,7 @@ import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -62,6 +63,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @since 1.0
  */
+@SuppressWarnings("deprecation") // StringEscapeUtils
 public abstract class ToStringStyle implements Serializable {
 
     /**
@@ -2606,7 +2608,7 @@ public abstract class ToStringStyle implements Serializable {
          * @param value the value to append.
          */
         private void appendValueAsString(final StringBuffer buffer, final String value) {
-            buffer.append('"').append(value).append('"');
+            buffer.append('"').append(StringEscapeUtils.escapeJson(value)).append('"');
         }
 
         @Override

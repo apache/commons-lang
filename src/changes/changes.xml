@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.8" date="2018-MM-DD" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
+    <action issue="LANG-1395" type="fix" dev="sebb" due=to="Jim Gan">JsonToStringStyle does not escape double quote in a string value</action>
     <action issue="LANG-1384" type="fix" dev="erans" due-to="Ian Young">New Java version ("11") must be handled</action>
     <action issue="LANG-1364" type="fix" dev="pschumacher" due-to="Zheng Xie">ExceptionUtils#getRootCause(Throwable t) should return t if no lower level cause exists</action>
     <action issue="LANG-1060" type="fix" dev="pschumacher" due-to="Piotr Kosmala">NumberUtils.isNumber assumes number starting with Zero</action>
