@@ -2619,7 +2619,7 @@ public abstract class ToStringStyle implements Serializable {
                         "Field names are mandatory when using JsonToStringStyle");
             }
 
-            super.appendFieldStart(buffer, FIELD_NAME_QUOTE + fieldName
+            super.appendFieldStart(buffer, FIELD_NAME_QUOTE + StringEscapeUtils.escapeJson(fieldName)
                     + FIELD_NAME_QUOTE);
         }
 

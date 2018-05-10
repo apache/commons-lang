@@ -387,6 +387,11 @@ public class JsonToStringStyleTest {
         assertEquals("{\"name\":\"Let's \\\"quote\\\" this\"}",new ToStringBuilder(base).append("name","Let's \"quote\" this").toString());
     }
 
+    @Test
+    public void testLANG1396() {
+        assertEquals("{\"Let's \\\"quote\\\" this\":\"value\"}",new ToStringBuilder(base).append("Let's \"quote\" this","value").toString());
+    }
+
     /**
      * An object with nested object structures used to test {@link ToStringStyle.JsonToStringStyle}.
      *
