@@ -43,11 +43,11 @@ Note that Lang 3.0 (and subsequent versions) use a different package (<em>org.ap
 <!-- ================================================== -->
 <section name="Documentation">
 <p>
-The package descriptions in the <a href="javadocs/api-release/index.html">JavaDoc</a> give an overview of the available features
+The package descriptions in the <a href="javadocs/api-release/index.html">Javadoc</a> give an overview of the available features
 and various <a href="project-reports.html">project reports</a> are provided.
 </p>
 <p>
-The JavaDoc API documents are available online:
+The Javadoc API documents are available online:
 </p>
 <ul>
 <li>The <a href="javadocs/api-3.7/index.html">current stable release 3.7</a> [Java 7.0+]</li>

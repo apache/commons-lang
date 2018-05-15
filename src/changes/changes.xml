@@ -147,7 +147,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1224" type="add" dev="pschumacher" due-to="Caleb Cushing">Extend RandomStringUtils with methods that generate strings between a min and max length</action>
     <action issue="LANG-1214" type="fix" dev="pschumacher" due-to="Henry Tung">Handle "void" in ClassUtils.getClass()</action>
     <action issue="LANG-1250" type="fix" dev="pschumacher" due-to="Glease Wang">SerializationUtils#deserialize has unnecessary code and a comment for that</action>
-    <action issue="LANG-1259" type="update" dev="britter" due-to="Dominik Stadler">JavaDoc for ArrayUtils.isNotEmpty() is slightly misleading</action>
+    <action issue="LANG-1259" type="update" dev="britter" due-to="Dominik Stadler">Javadoc for ArrayUtils.isNotEmpty() is slightly misleading</action>
     <action issue="LANG-1257" type="add" dev="ggregory" due-to="Gary Gregory">Add APIs StringUtils.wrapIfMissing(String, char|String)</action>
     <action issue="LANG-1190" type="fix" dev="pschumacher" due-to="pschumacher">TypeUtils.isAssignable throws NullPointerException when fromType has type variables and toType generic superclass specifies type variable</action>
     <action issue="LANG-1226" type="fix" dev="pschumacher" due-to="pschumacher">StringUtils#normalizeSpace does not trim the string anymore</action>
@@ -197,7 +197,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1194" type="fix" dev="chas">Limit max heap memory for consistent Travis CI build</action>
     <action issue="LANG-1186" type="fix" dev="chas" due-to="NickManley">Fix NullPointerException in FastDateParser$TimeZoneStrategy</action>
     <action issue="LANG-1193" type="fix" dev="sebb" due-to="Qin Li">ordinalIndexOf("abc", "ab", 1) gives incorrect answer of -1 (correct answer should be 0); revert fix for LANG-1077</action>
-    <action issue="LANG-1182" type="update" dev="britter" due-to="Larry West, Pascal Schumacher">Clarify JavaDoc of StringUtils.containsAny()</action>
+    <action issue="LANG-1182" type="update" dev="britter" due-to="Larry West, Pascal Schumacher">Clarify Javadoc of StringUtils.containsAny()</action>
     <action issue="LANG-1169" type="add" dev="lguibert" due-to="Rafal Glowinski, Robert Parr, Arman Sharif">Add StringUtils methods to compare a string to multiple strings</action>
     <action issue="LANG-1185" type="add" dev="lguibert">Add remove by regular expression methods in StringUtils</action>
     <action issue="LANG-1183" type="update" dev="lguibert">Making replacePattern/removePattern methods null safe in StringUtils</action>
@@ -244,7 +244,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1107" type="update" dev="chas">Fix parsing edge cases in FastDateParser</action>
     <action issue="LANG-1162" type="fix" dev="sebb">StringUtils#equals fails with Index OOBE on non-Strings with identical leading prefix</action>
     <action issue="LANG-1163" type="fix" dev="sebb">There are no tests for CharSequenceUtils.regionMatches</action>
-    <action issue="LANG-1200" type="fix" dev="ggregory" due-to="BarkZhang">StringUtils.ordinalIndexOf: Add missing right parenthesis in JavaDoc example</action>
+    <action issue="LANG-1200" type="fix" dev="ggregory" due-to="BarkZhang">StringUtils.ordinalIndexOf: Add missing right parenthesis in Javadoc example</action>
     <action issue="LANG-1191" type="fix" dev="ggregory" due-to="qed, Brent Worden, Gary Gregory">Incorrect Javadoc StringUtils.containsAny(CharSequence, CharSequence...)</action>
     <action type="update" dev="ebourg" due-to="Jake Wang">Added new property IS_OS_MAC_OSX_EL_CAPITAN in SystemUtils</action>
   </release>
@@ -278,7 +278,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1083" type="fix" dev="britter" due-to="Jonathan Baker">Add (T) casts to get unit tests to pass in old JDK</action>
     <action issue="LANG-1015" type="add" dev="britter" due-to="Thiago Andrade">Add JsonToStringStyle implementation to ToStringStyle</action>
     <action issue="LANG-1080" type="add" dev="britter" due-to="Innokenty Shuvalov">Add NoClassNameToStringStyle implementation of ToStringStyle</action>
-    <action issue="LANG-1071" type="update" dev="britter" due-to="Arno Noordover">Fix wrong examples in JavaDoc of StringUtils.replaceEachRepeatedly(...), StringUtils.replaceEach(...)</action>
+    <action issue="LANG-1071" type="update" dev="britter" due-to="Arno Noordover">Fix wrong examples in Javadoc of StringUtils.replaceEachRepeatedly(...), StringUtils.replaceEach(...)</action>
     <action issue="LANG-883" type="add" dev="britter" due-to="Daniel Stewart">Add StringUtils.containsAny(CharSequence, CharSequence...) method</action>
     <action issue="LANG-1073" type="fix" dev="kinow" due-to="haiyang li">Read wrong component type of array in add in ArrayUtils</action>
     <action issue="LANG-1077" type="fix" dev="kinow" due-to="haiyang li">StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) != 3 in StringUtils</action>
@@ -344,7 +344,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-958" type="update" dev="chas">FastDateParser javadoc incorrectly states that SimpleDateFormat is used internally</action>
     <action issue="LANG-637" type="add" dev="djones">There should be a DifferenceBuilder with a ReflectionDifferenceBuilder implementation</action>
     <action issue="LANG-954" type="fix" due-to="Michael Keppler" dev="sebb">uncaught PatternSyntaxException in FastDateFormat on Android</action>
-    <action issue="LANG-956" type="update" dev="britter">Improve JavaDoc of WordUtils.wrap methods</action>
+    <action issue="LANG-956" type="update" dev="britter">Improve Javadoc of WordUtils.wrap methods</action>
     <action issue="LANG-944" type="add" dev="britter" due-to="Rekha Joshi">Add the Jaro-Winkler string distance algorithm to StringUtils</action>
     <action issue="LANG-936" type="fix" dev="bayard" due-to="Yaniv Kunda, Eli Lindsey">StringUtils.getLevenshteinDistance with too big of a threshold returns wrong result</action>
     <action issue="LANG-943" type="fix" dev="kinow">Test DurationFormatUtilsTest.testEdgeDuration fails in JDK 1.6, 1.7 and 1.8, BRST time zone</action>

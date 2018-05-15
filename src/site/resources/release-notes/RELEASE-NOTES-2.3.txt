@@ -91,7 +91,7 @@ BUG FIXES IN 2.3:
 
 IMPROVEMENTS IN 2.3:
 
-    * [LANG-258] - Enum JavaDoc
+    * [LANG-258] - Enum Javadoc
     * [LANG-266] - Wish for StringUtils.join(Collection, *)
     * [LANG-268] - StringUtils.join should allow you to pass a range for it (so it only joins a part of the array)
     * [LANG-275] - StringUtils substringsBetween
