@@ -56,7 +56,7 @@ Documentation
 -------------
 
 More information can be found on the [homepage](https://commons.apache.org/proper/commons-lang).
-The [JavaDoc](https://commons.apache.org/proper/commons-lang/javadocs/api-release) can be browsed.
+The [Javadoc](https://commons.apache.org/proper/commons-lang/javadocs/api-release) can be browsed.
 Questions related to the usage of Apache Commons Lang should be posted to the [user mailing list][ml].
 
 Where can I get the latest release?

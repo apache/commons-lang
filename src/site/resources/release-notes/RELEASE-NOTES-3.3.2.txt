@@ -115,7 +115,7 @@ o LANG-961:  org.apache.commons.lang3.reflect.FieldUtils.removeFinalModifier(Fie
              does not clean up after itself
 o LANG-958:  FastDateParser javadoc incorrectly states that SimpleDateFormat
              is used internally
-o LANG-956:  Improve JavaDoc of WordUtils.wrap methods
+o LANG-956:  Improve Javadoc of WordUtils.wrap methods
 o LANG-939:  Move Documentation from user guide to package-info files
 o LANG-953:  Convert package.html files to package-info.java files
 o LANG-940:  Fix deprecation warnings
