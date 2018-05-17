@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 /**
  * <p>Helpers to process Strings using regular expressions.</p>
- * * @see java.util.regex.Pattern
+ * @see java.util.regex.Pattern
  * @since 3.8
  */
 public class RegExUtils {
@@ -66,7 +66,6 @@ public class RegExUtils {
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
      */
     public static String removeAll(final String text, final String regex) {
         return replaceAll(text, regex, StringUtils.EMPTY);
@@ -103,7 +102,6 @@ public class RegExUtils {
      * @see #replaceAll(String, Pattern, String)
      * @see java.util.regex.Matcher#replaceAll(String)
      * @see java.util.regex.Pattern
-     * @since 3.8
      */
     public static String removeAll(final String text, final Pattern regex) {
         return replaceAll(text, regex, StringUtils.EMPTY);
@@ -149,7 +147,6 @@ public class RegExUtils {
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
      */
     public static String removeFirst(final String text, final String regex) {
         return replaceFirst(text, regex, StringUtils.EMPTY);
@@ -186,7 +183,6 @@ public class RegExUtils {
      * @see #replaceFirst(String, Pattern, String)
      * @see java.util.regex.Matcher#replaceFirst(String)
      * @see java.util.regex.Pattern
-     * @since 3.8
      */
     public static String removeFirst(final String text, final Pattern regex) {
         return replaceFirst(text, regex, StringUtils.EMPTY);
@@ -228,8 +224,6 @@ public class RegExUtils {
      * @see #replaceAll(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
-     * @since 3.2
-     * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
      */
     public static String replacePattern(final String text, final String regex, final String replacement) {
         if (text == null || regex == null || replacement == null) {
@@ -264,9 +258,6 @@ public class RegExUtils {
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
-     * @since 3.2
-     * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     *
      */
     public static String removePattern(final String text, final String regex) {
         return replacePattern(text, regex, StringUtils.EMPTY);
@@ -318,7 +309,6 @@ public class RegExUtils {
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
      */
     public static String replaceAll(final String text, final String regex, final String replacement) {
         if (text == null || regex == null || replacement == null) {
@@ -362,7 +352,6 @@ public class RegExUtils {
      *
      * @see java.util.regex.Matcher#replaceAll(String)
      * @see java.util.regex.Pattern
-     * @since 3.8
      */
     public static String replaceAll(final String text, final Pattern regex, final String replacement) {
         if (text == null || regex == null || replacement == null) {
@@ -415,7 +404,6 @@ public class RegExUtils {
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
      */
     public static String replaceFirst(final String text, final String regex, final String replacement) {
         if (text == null || regex == null|| replacement == null ) {
@@ -459,7 +447,6 @@ public class RegExUtils {
      *
      * @see java.util.regex.Matcher#replaceFirst(String)
      * @see java.util.regex.Pattern
-     * @since 3.8
      */
     public static String replaceFirst(final String text, final Pattern regex, final String replacement) {
         if (text == null || regex == null|| replacement == null ) {
