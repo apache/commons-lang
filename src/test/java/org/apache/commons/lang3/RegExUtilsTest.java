@@ -26,8 +26,7 @@ import java.util.regex.PatternSyntaxException;
 import org.junit.Test;
 
 /**
- * Unit tests for methods of {@link org.apache.commons.lang3.RegExUtils}
- * which been moved to their own test classes.
+ * Unit tests for methods of {@link org.apache.commons.lang3.RegExUtils} which been moved to their own test classes.
  */
 public class RegExUtilsTest {
 
@@ -173,8 +172,7 @@ public class RegExUtilsTest {
         assertEquals("ABC___123", RegExUtils.replaceAll("ABCabc123", "[a-z]", "_"));
         assertEquals("ABC_123", RegExUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "_"));
         assertEquals("ABC123", RegExUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", ""));
-        assertEquals("Lorem_ipsum_dolor_sit",
-                RegExUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
+        assertEquals("Lorem_ipsum_dolor_sit", RegExUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
 
         try {
             RegExUtils.replaceAll("any", "{badRegexSyntax}", "");
@@ -203,7 +201,7 @@ public class RegExUtilsTest {
         assertEquals("ABC_123abc", RegExUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "_"));
         assertEquals("ABC123abc", RegExUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), ""));
         assertEquals("Lorem_ipsum  dolor   sit",
-                     RegExUtils.replaceFirst("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2"));
+                RegExUtils.replaceFirst("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2"));
     }
 
     @Test
