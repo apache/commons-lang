@@ -1190,7 +1190,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testReplacePattern() {
+    public void testReplacePattern_StringStringString() {
         assertNull(StringUtils.replacePattern(null, "", ""));
         assertEquals("any", StringUtils.replacePattern("any", null, ""));
         assertEquals("any", StringUtils.replacePattern("any", "", null));
@@ -1211,7 +1211,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testRemovePattern() {
+    public void testRemovePattern_StringString() {
         assertNull(StringUtils.removePattern(null, ""));
         assertEquals("any", StringUtils.removePattern("any", null));
 
@@ -1228,7 +1228,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testReplaceAll() {
+    public void testReplaceAll_StringStringString() {
         assertNull(StringUtils.replaceAll(null, "", ""));
 
         assertEquals("any", StringUtils.replaceAll("any", null, ""));
@@ -1257,7 +1257,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testReplaceFirst() {
+    public void testReplaceFirst_StringStringString() {
         assertNull(StringUtils.replaceFirst(null, "", ""));
 
         assertEquals("any", StringUtils.replaceFirst("any", null, ""));
@@ -2773,7 +2773,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testRemoveAll() {
+    public void testRemoveAll_StringString() {
         assertNull(StringUtils.removeAll(null, ""));
         assertEquals("any", StringUtils.removeAll("any", null));
 
@@ -2795,7 +2795,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testRemoveFirst() {
+    public void testRemoveFirst_StringString() {
         assertNull(StringUtils.removeFirst(null, ""));
         assertEquals("any", StringUtils.removeFirst("any", null));
 

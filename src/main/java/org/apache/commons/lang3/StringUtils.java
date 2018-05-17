@@ -5059,7 +5059,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.removeAll(null, *)      = null
-     * StringUtils.removeAll("any", null)  = "any"
+     * StringUtils.removeAll("any", (String) null)  = "any"
      * StringUtils.removeAll("any", "")    = "any"
      * StringUtils.removeAll("any", ".*")  = ""
      * StringUtils.removeAll("any", ".+")  = ""
@@ -5083,9 +5083,12 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String removeAll(final String text, final String regex) {
-        return replaceAll(text, regex, StringUtils.EMPTY);
+        return RegExUtils.removeAll(text, regex);
     }
 
     /**
@@ -5105,7 +5108,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.removeFirst(null, *)      = null
-     * StringUtils.removeFirst("any", null)  = "any"
+     * StringUtils.removeFirst("any", (String) null)  = "any"
      * StringUtils.removeFirst("any", "")    = "any"
      * StringUtils.removeFirst("any", ".*")  = ""
      * StringUtils.removeFirst("any", ".+")  = ""
@@ -5129,7 +5132,10 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String removeFirst(final String text, final String regex) {
         return replaceFirst(text, regex, StringUtils.EMPTY);
     }
@@ -5206,7 +5212,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.replacePattern(null, *, *)       = null
-     * StringUtils.replacePattern("any", null, *)   = "any"
+     * StringUtils.replacePattern("any", (String) null, *)   = "any"
      * StringUtils.replacePattern("any", *, null)   = "any"
      * StringUtils.replacePattern("", "", "zzz")    = "zzz"
      * StringUtils.replacePattern("", ".*", "zzz")  = "zzz"
@@ -5230,12 +5236,12 @@ public class StringUtils {
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String replacePattern(final String source, final String regex, final String replacement) {
-        if (source == null || regex == null || replacement == null) {
-            return source;
-        }
-        return Pattern.compile(regex, Pattern.DOTALL).matcher(source).replaceAll(replacement);
+        return RegExUtils.replacePattern(source, regex, replacement);
     }
 
     /**
@@ -5252,7 +5258,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.removePattern(null, *)       = null
-     * StringUtils.removePattern("any", null)   = "any"
+     * StringUtils.removePattern("any", (String) null)   = "any"
      * StringUtils.removePattern("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")  = "AB"
      * StringUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
      * </pre>
@@ -5267,9 +5273,12 @@ public class StringUtils {
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String removePattern(final String source, final String regex) {
-        return replacePattern(source, regex, StringUtils.EMPTY);
+        return RegExUtils.removePattern(source, regex);
     }
 
     /**
@@ -5291,7 +5300,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.replaceAll(null, *, *)       = null
-     * StringUtils.replaceAll("any", null, *)   = "any"
+     * StringUtils.replaceAll("any", (String) null, *)   = "any"
      * StringUtils.replaceAll("any", *, null)   = "any"
      * StringUtils.replaceAll("", "", "zzz")    = "zzz"
      * StringUtils.replaceAll("", ".*", "zzz")  = "zzz"
@@ -5319,12 +5328,12 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String replaceAll(final String text, final String regex, final String replacement) {
-        if (text == null || regex == null|| replacement == null ) {
-            return text;
-        }
-        return text.replaceAll(regex, replacement);
+        return RegExUtils.replaceAll(text, regex, replacement);
     }
 
     /**
@@ -5345,7 +5354,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.replaceFirst(null, *, *)       = null
-     * StringUtils.replaceFirst("any", null, *)   = "any"
+     * StringUtils.replaceFirst("any", (String) null, *)   = "any"
      * StringUtils.replaceFirst("any", *, null)   = "any"
      * StringUtils.replaceFirst("", "", "zzz")    = "zzz"
      * StringUtils.replaceFirst("", ".*", "zzz")  = "zzz"
@@ -5372,12 +5381,12 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String replaceFirst(final String text, final String regex, final String replacement) {
-        if (text == null || regex == null|| replacement == null ) {
-            return text;
-        }
-        return text.replaceFirst(regex, replacement);
+        return RegExUtils.replaceFirst(text, regex, replacement);
     }
 
     /**
