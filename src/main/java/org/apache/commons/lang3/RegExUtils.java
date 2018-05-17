@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * @since 3.8
  */
 public class RegExUtils {
-    
+
     /**
      * <p>Removes each substring of the text String that matches the given regular expression.</p>
      *
@@ -71,7 +71,7 @@ public class RegExUtils {
     public static String removeAll(final String text, final String regex) {
         return replaceAll(text, regex, StringUtils.EMPTY);
     }
-    
+
     /**
      * <p>Removes each substring of the text String that matches the given regular expression pattern.</p>
      *
@@ -108,7 +108,7 @@ public class RegExUtils {
     public static String removeAll(final String text, final Pattern regex) {
         return replaceAll(text, regex, StringUtils.EMPTY);
     }
-    
+
     /**
      * <p>Removes the first substring of the text string that matches the given regular expression.</p>
      *
@@ -266,12 +266,12 @@ public class RegExUtils {
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     * 
+     *
      */
     public static String removePattern(final String text, final String regex) {
         return replacePattern(text, regex, StringUtils.EMPTY);
     }
-    
+
     /**
      * <p>Replaces each substring of the text String that matches the given regular expression
      * with the given replacement.</p>
@@ -370,7 +370,7 @@ public class RegExUtils {
         }
         return regex.matcher(text).replaceAll(replacement);
     }
-    
+
     /**
      * <p>Replaces the first substring of the text string that matches the given regular expression
      * with the given replacement.</p>
@@ -416,14 +416,14 @@ public class RegExUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     */    
+     */
     public static String replaceFirst(final String text, final String regex, final String replacement) {
         if (text == null || regex == null|| replacement == null ) {
             return text;
         }
         return text.replaceFirst(regex, replacement);
     }
-    
+
     /**
      * <p>Replaces the first substring of the text string that matches the given regular expression pattern
      * with the given replacement.</p>
@@ -467,6 +467,5 @@ public class RegExUtils {
         }
         return regex.matcher(text).replaceFirst(replacement);
     }
-
 
 }

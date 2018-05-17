@@ -5083,7 +5083,7 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     * 
+     *
      * @deprecated Moved to RegExUtils.
      */
     @Deprecated
@@ -5132,7 +5132,7 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     * 
+     *
      * @deprecated Moved to RegExUtils.
      */
     @Deprecated
@@ -5236,7 +5236,7 @@ public class StringUtils {
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     * 
+     *
      * @deprecated Moved to RegExUtils.
      */
     @Deprecated
@@ -5273,7 +5273,7 @@ public class StringUtils {
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     * 
+     *
      * @deprecated Moved to RegExUtils.
      */
     @Deprecated
