@@ -288,7 +288,8 @@ public class WordUtils {
 
         while (offset < inputLineLength) {
             int spaceToWrapAt = -1;
-            Matcher matcher = patternToWrapOn.matcher(str.substring(offset, Math.min(offset + wrapLength + 1, inputLineLength)));
+            Matcher matcher = patternToWrapOn.matcher(
+                str.substring(offset, Math.min((int)Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));
             if (matcher.find()) {
                 if (matcher.start() == 0) {
                     offset += matcher.end();
