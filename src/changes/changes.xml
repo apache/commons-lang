@@ -47,7 +47,7 @@ The <action> type attribute can be add,update,fix,remove.
 
   <release version="3.8" date="2018-MM-DD" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
     <action issue="LANG-1396" type="fix" dev="sebb">JsonToStringStyle does not escape string names</action>
-    <action issue="LANG-1395" type="fix" dev="sebb" due=to="Jim Gan">JsonToStringStyle does not escape double quote in a string value</action>
+    <action issue="LANG-1395" type="fix" dev="sebb" due-to="Jim Gan">JsonToStringStyle does not escape double quote in a string value</action>
     <action issue="LANG-1384" type="fix" dev="erans" due-to="Ian Young">New Java version ("11") must be handled</action>
     <action issue="LANG-1364" type="fix" dev="pschumacher" due-to="Zheng Xie">ExceptionUtils#getRootCause(Throwable t) should return t if no lower level cause exists</action>
     <action issue="LANG-1060" type="fix" dev="pschumacher" due-to="Piotr Kosmala">NumberUtils.isNumber assumes number starting with Zero</action>
@@ -63,6 +63,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1391" type="add" dev="ggregory" due-to="Sauro Matulli, Oleg Chubaryov">Improve Javadoc for StringUtils.isAnyEmpty(null)</action>   
     <action issue="LANG-1393" type="add" dev="ggregory" due-to="Gary Gregory">Add API SystemUtils.String getEnvironmentVariable(final String name, final String defaultValue)</action>   
     <action issue="LANG-1394" type="add" dev="ggregory" due-to="Sebb, Gary Gregory">org.apache.commons.lang3.SystemUtils should not write to System.err.</action>   
+    <action issue="LANG-1238" type="add" dev="ggregory" due-to="Christopher Cordeiro, Gary Gregory, Bruno P. Kinoshita, Oleg Chubaryov">Add RegexUtils class instead of overloadinh methods in StringUtils that take a regex to take precompiled Pattern.</action>   
   </release>
 
   <release version="3.7" date="2017-11-04" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">

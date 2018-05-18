@@ -20,10 +20,46 @@ import java.util.regex.Pattern;
 
 /**
  * <p>Helpers to process Strings using regular expressions.</p>
- * * @see java.util.regex.Pattern
+ * @see java.util.regex.Pattern
  * @since 3.8
  */
 public class RegExUtils {
+
+    /**
+     * <p>Removes each substring of the text String that matches the given regular expression pattern.</p>
+     *
+     * This method is a {@code null} safe equivalent to:
+     * <ul>
+     *  <li>{@code pattern.matcher(text).replaceAll(StringUtils.EMPTY)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.removeAll(null, *)      = null
+     * StringUtils.removeAll("any", (Pattern) null)  = "any"
+     * StringUtils.removeAll("any", Pattern.compile(""))    = "any"
+     * StringUtils.removeAll("any", Pattern.compile(".*"))  = ""
+     * StringUtils.removeAll("any", Pattern.compile(".+"))  = ""
+     * StringUtils.removeAll("abc", Pattern.compile(".?"))  = ""
+     * StringUtils.removeAll("A&lt;__&gt;\n&lt;__&gt;B", Pattern.compile("&lt;.*&gt;"))      = "A\nB"
+     * StringUtils.removeAll("A&lt;__&gt;\n&lt;__&gt;B", Pattern.compile("(?s)&lt;.*&gt;"))  = "AB"
+     * StringUtils.removeAll("A&lt;__&gt;\n&lt;__&gt;B", Pattern.compile("&lt;.*&gt;", Pattern.DOTALL))  = "AB"
+     * StringUtils.removeAll("ABCabc123abc", Pattern.compile("[a-z]"))     = "ABC123"
+     * </pre>
+     *
+     * @param text  text to remove from, may be null
+     * @param regex  the regular expression to which this string is to be matched
+     * @return  the text with any removes processed,
+     *              {@code null} if null String input
+     *
+     * @see #replaceAll(String, Pattern, String)
+     * @see java.util.regex.Matcher#replaceAll(String)
+     * @see java.util.regex.Pattern
+     */
+    public static String removeAll(final String text, final Pattern regex) {
+        return replaceAll(text, regex, StringUtils.EMPTY);
+    }
 
     /**
      * <p>Removes each substring of the text String that matches the given regular expression.</p>
@@ -66,47 +102,45 @@ public class RegExUtils {
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
      */
     public static String removeAll(final String text, final String regex) {
         return replaceAll(text, regex, StringUtils.EMPTY);
     }
 
     /**
-     * <p>Removes each substring of the text String that matches the given regular expression pattern.</p>
+     * <p>Removes the first substring of the text string that matches the given regular expression pattern.</p>
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
-     *  <li>{@code pattern.matcher(text).replaceAll(StringUtils.EMPTY)}</li>
+     *  <li>{@code pattern.matcher(text).replaceFirst(StringUtils.EMPTY)}</li>
      * </ul>
      *
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>
-     * StringUtils.removeAll(null, *)      = null
-     * StringUtils.removeAll("any", (Pattern) null)  = "any"
-     * StringUtils.removeAll("any", Pattern.compile(""))    = "any"
-     * StringUtils.removeAll("any", Pattern.compile(".*"))  = ""
-     * StringUtils.removeAll("any", Pattern.compile(".+"))  = ""
-     * StringUtils.removeAll("abc", Pattern.compile(".?"))  = ""
-     * StringUtils.removeAll("A&lt;__&gt;\n&lt;__&gt;B", Pattern.compile("&lt;.*&gt;"))      = "A\nB"
-     * StringUtils.removeAll("A&lt;__&gt;\n&lt;__&gt;B", Pattern.compile("(?s)&lt;.*&gt;"))  = "AB"
-     * StringUtils.removeAll("A&lt;__&gt;\n&lt;__&gt;B", Pattern.compile("&lt;.*&gt;", Pattern.DOTALL))  = "AB"
-     * StringUtils.removeAll("ABCabc123abc", Pattern.compile("[a-z]"))     = "ABC123"
+     * StringUtils.removeFirst(null, *)      = null
+     * StringUtils.removeFirst("any", (Pattern) null)  = "any"
+     * StringUtils.removeFirst("any", Pattern.compile(""))    = "any"
+     * StringUtils.removeFirst("any", Pattern.compile(".*"))  = ""
+     * StringUtils.removeFirst("any", Pattern.compile(".+"))  = ""
+     * StringUtils.removeFirst("abc", Pattern.compile(".?"))  = "bc"
+     * StringUtils.removeFirst("A&lt;__&gt;\n&lt;__&gt;B", Pattern.compile("&lt;.*&gt;"))      = "A\n&lt;__&gt;B"
+     * StringUtils.removeFirst("A&lt;__&gt;\n&lt;__&gt;B", Pattern.compile("(?s)&lt;.*&gt;"))  = "AB"
+     * StringUtils.removeFirst("ABCabc123", Pattern.compile("[a-z]"))          = "ABCbc123"
+     * StringUtils.removeFirst("ABCabc123abc", Pattern.compile("[a-z]+"))      = "ABC123abc"
      * </pre>
      *
      * @param text  text to remove from, may be null
-     * @param regex  the regular expression to which this string is to be matched
-     * @return  the text with any removes processed,
+     * @param regex  the regular expression pattern to which this string is to be matched
+     * @return  the text with the first replacement processed,
      *              {@code null} if null String input
      *
-     * @see #replaceAll(String, Pattern, String)
-     * @see java.util.regex.Matcher#replaceAll(String)
+     * @see #replaceFirst(String, Pattern, String)
+     * @see java.util.regex.Matcher#replaceFirst(String)
      * @see java.util.regex.Pattern
-     * @since 3.8
      */
-    public static String removeAll(final String text, final Pattern regex) {
-        return replaceAll(text, regex, StringUtils.EMPTY);
+    public static String removeFirst(final String text, final Pattern regex) {
+        return replaceFirst(text, regex, StringUtils.EMPTY);
     }
 
     /**
@@ -149,93 +183,9 @@ public class RegExUtils {
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
      */
     public static String removeFirst(final String text, final String regex) {
         return replaceFirst(text, regex, StringUtils.EMPTY);
-    }
-
-    /**
-     * <p>Removes the first substring of the text string that matches the given regular expression pattern.</p>
-     *
-     * This method is a {@code null} safe equivalent to:
-     * <ul>
-     *  <li>{@code pattern.matcher(text).replaceFirst(StringUtils.EMPTY)}</li>
-     * </ul>
-     *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
-     *
-     * <pre>
-     * StringUtils.removeFirst(null, *)      = null
-     * StringUtils.removeFirst("any", (Pattern) null)  = "any"
-     * StringUtils.removeFirst("any", Pattern.compile(""))    = "any"
-     * StringUtils.removeFirst("any", Pattern.compile(".*"))  = ""
-     * StringUtils.removeFirst("any", Pattern.compile(".+"))  = ""
-     * StringUtils.removeFirst("abc", Pattern.compile(".?"))  = "bc"
-     * StringUtils.removeFirst("A&lt;__&gt;\n&lt;__&gt;B", Pattern.compile("&lt;.*&gt;"))      = "A\n&lt;__&gt;B"
-     * StringUtils.removeFirst("A&lt;__&gt;\n&lt;__&gt;B", Pattern.compile("(?s)&lt;.*&gt;"))  = "AB"
-     * StringUtils.removeFirst("ABCabc123", Pattern.compile("[a-z]"))          = "ABCbc123"
-     * StringUtils.removeFirst("ABCabc123abc", Pattern.compile("[a-z]+"))      = "ABC123abc"
-     * </pre>
-     *
-     * @param text  text to remove from, may be null
-     * @param regex  the regular expression pattern to which this string is to be matched
-     * @return  the text with the first replacement processed,
-     *              {@code null} if null String input
-     *
-     * @see #replaceFirst(String, Pattern, String)
-     * @see java.util.regex.Matcher#replaceFirst(String)
-     * @see java.util.regex.Pattern
-     * @since 3.8
-     */
-    public static String removeFirst(final String text, final Pattern regex) {
-        return replaceFirst(text, regex, StringUtils.EMPTY);
-    }
-
-    /**
-     * <p>Replaces each substring of the source String that matches the given regular expression with the given
-     * replacement using the {@link Pattern#DOTALL} option. DOTALL is also known as single-line mode in Perl.</p>
-     *
-     * This call is a {@code null} safe equivalent to:
-     * <ul>
-     * <li>{@code text.replaceAll(&quot;(?s)&quot; + regex, replacement)}</li>
-     * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(replacement)}</li>
-     * </ul>
-     *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
-     *
-     * <pre>
-     * StringUtils.replacePattern(null, *, *)       = null
-     * StringUtils.replacePattern("any", (String) null, *)   = "any"
-     * StringUtils.replacePattern("any", *, null)   = "any"
-     * StringUtils.replacePattern("", "", "zzz")    = "zzz"
-     * StringUtils.replacePattern("", ".*", "zzz")  = "zzz"
-     * StringUtils.replacePattern("", ".+", "zzz")  = ""
-     * StringUtils.replacePattern("&lt;__&gt;\n&lt;__&gt;", "&lt;.*&gt;", "z")       = "z"
-     * StringUtils.replacePattern("ABCabc123", "[a-z]", "_")       = "ABC___123"
-     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
-     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
-     * StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
-     * </pre>
-     *
-     * @param text
-     *            the source string
-     * @param regex
-     *            the regular expression to which this string is to be matched
-     * @param replacement
-     *            the string to be substituted for each match
-     * @return The resulting {@code String}
-     * @see #replaceAll(String, String, String)
-     * @see String#replaceAll(String, String)
-     * @see Pattern#DOTALL
-     * @since 3.2
-     * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     */
-    public static String replacePattern(final String text, final String regex, final String replacement) {
-        if (text == null || regex == null || replacement == null) {
-            return text;
-        }
-        return Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(replacement);
     }
 
     /**
@@ -264,12 +214,52 @@ public class RegExUtils {
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
-     * @since 3.2
-     * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     *
      */
     public static String removePattern(final String text, final String regex) {
         return replacePattern(text, regex, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Replaces each substring of the text String that matches the given regular expression pattern with the given replacement.</p>
+     *
+     * This method is a {@code null} safe equivalent to:
+     * <ul>
+     *  <li>{@code pattern.matcher(text).replaceAll(replacement)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.replaceAll(null, *, *)       = null
+     * StringUtils.replaceAll("any", (Pattern) null, *)   = "any"
+     * StringUtils.replaceAll("any", *, null)   = "any"
+     * StringUtils.replaceAll("", Pattern.compile(""), "zzz")    = "zzz"
+     * StringUtils.replaceAll("", Pattern.compile(".*"), "zzz")  = "zzz"
+     * StringUtils.replaceAll("", Pattern.compile(".+"), "zzz")  = ""
+     * StringUtils.replaceAll("abc", Pattern.compile(""), "ZZ")  = "ZZaZZbZZcZZ"
+     * StringUtils.replaceAll("&lt;__&gt;\n&lt;__&gt;", Pattern.compile("&lt;.*&gt;"), "z")                 = "z\nz"
+     * StringUtils.replaceAll("&lt;__&gt;\n&lt;__&gt;", Pattern.compile("&lt;.*&gt;", Pattern.DOTALL), "z") = "z"
+     * StringUtils.replaceAll("&lt;__&gt;\n&lt;__&gt;", Pattern.compile("(?s)&lt;.*&gt;"), "z")             = "z"
+     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[a-z]"), "_")       = "ABC___123"
+     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123"
+     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123"
+     * StringUtils.replaceAll("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum_dolor_sit"
+     * </pre>
+     *
+     * @param text  text to search and replace in, may be null
+     * @param regex  the regular expression pattern to which this string is to be matched
+     * @param replacement  the string to be substituted for each match
+     * @return  the text with any replacements processed,
+     *              {@code null} if null String input
+     *
+     * @see java.util.regex.Matcher#replaceAll(String)
+     * @see java.util.regex.Pattern
+     */
+    public static String replaceAll(final String text, final Pattern regex, final String replacement) {
+        if (text == null || regex == null || replacement == null) {
+            return text;
+        }
+        return regex.matcher(text).replaceAll(replacement);
     }
 
     /**
@@ -318,7 +308,6 @@ public class RegExUtils {
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
      */
     public static String replaceAll(final String text, final String regex, final String replacement) {
         if (text == null || regex == null || replacement == null) {
@@ -328,47 +317,46 @@ public class RegExUtils {
     }
 
     /**
-     * <p>Replaces each substring of the text String that matches the given regular expression pattern with the given replacement.</p>
+     * <p>Replaces the first substring of the text string that matches the given regular expression pattern
+     * with the given replacement.</p>
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
-     *  <li>{@code pattern.matcher(text).replaceAll(replacement)}</li>
+     *  <li>{@code pattern.matcher(text).replaceFirst(replacement)}</li>
      * </ul>
      *
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>
-     * StringUtils.replaceAll(null, *, *)       = null
-     * StringUtils.replaceAll("any", (Pattern) null, *)   = "any"
-     * StringUtils.replaceAll("any", *, null)   = "any"
-     * StringUtils.replaceAll("", Pattern.compile(""), "zzz")    = "zzz"
-     * StringUtils.replaceAll("", Pattern.compile(".*"), "zzz")  = "zzz"
-     * StringUtils.replaceAll("", Pattern.compile(".+"), "zzz")  = ""
-     * StringUtils.replaceAll("abc", Pattern.compile(""), "ZZ")  = "ZZaZZbZZcZZ"
-     * StringUtils.replaceAll("&lt;__&gt;\n&lt;__&gt;", Pattern.compile("&lt;.*&gt;"), "z")                 = "z\nz"
-     * StringUtils.replaceAll("&lt;__&gt;\n&lt;__&gt;", Pattern.compile("&lt;.*&gt;", Pattern.DOTALL), "z") = "z"
-     * StringUtils.replaceAll("&lt;__&gt;\n&lt;__&gt;", Pattern.compile("(?s)&lt;.*&gt;"), "z")             = "z"
-     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[a-z]"), "_")       = "ABC___123"
-     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123"
-     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123"
-     * StringUtils.replaceAll("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum_dolor_sit"
+     * StringUtils.replaceFirst(null, *, *)       = null
+     * StringUtils.replaceFirst("any", (Pattern) null, *)   = "any"
+     * StringUtils.replaceFirst("any", *, null)   = "any"
+     * StringUtils.replaceFirst("", Pattern.compile(""), "zzz")    = "zzz"
+     * StringUtils.replaceFirst("", Pattern.compile(".*"), "zzz")  = "zzz"
+     * StringUtils.replaceFirst("", Pattern.compile(".+"), "zzz")  = ""
+     * StringUtils.replaceFirst("abc", Pattern.compile(""), "ZZ")  = "ZZabc"
+     * StringUtils.replaceFirst("&lt;__&gt;\n&lt;__&gt;", Pattern.compile("&lt;.*&gt;"), "z")      = "z\n&lt;__&gt;"
+     * StringUtils.replaceFirst("&lt;__&gt;\n&lt;__&gt;", Pattern.compile("(?s)&lt;.*&gt;"), "z")  = "z"
+     * StringUtils.replaceFirst("ABCabc123", Pattern.compile("[a-z]"), "_")          = "ABC_bc123"
+     * StringUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123abc"
+     * StringUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123abc"
+     * StringUtils.replaceFirst("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum  dolor   sit"
      * </pre>
      *
      * @param text  text to search and replace in, may be null
      * @param regex  the regular expression pattern to which this string is to be matched
-     * @param replacement  the string to be substituted for each match
-     * @return  the text with any replacements processed,
+     * @param replacement  the string to be substituted for the first match
+     * @return  the text with the first replacement processed,
      *              {@code null} if null String input
      *
-     * @see java.util.regex.Matcher#replaceAll(String)
+     * @see java.util.regex.Matcher#replaceFirst(String)
      * @see java.util.regex.Pattern
-     * @since 3.8
      */
-    public static String replaceAll(final String text, final Pattern regex, final String replacement) {
-        if (text == null || regex == null || replacement == null) {
+    public static String replaceFirst(final String text, final Pattern regex, final String replacement) {
+        if (text == null || regex == null|| replacement == null ) {
             return text;
         }
-        return regex.matcher(text).replaceAll(replacement);
+        return regex.matcher(text).replaceFirst(replacement);
     }
 
     /**
@@ -415,7 +403,6 @@ public class RegExUtils {
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
      */
     public static String replaceFirst(final String text, final String regex, final String replacement) {
         if (text == null || regex == null|| replacement == null ) {
@@ -425,47 +412,47 @@ public class RegExUtils {
     }
 
     /**
-     * <p>Replaces the first substring of the text string that matches the given regular expression pattern
-     * with the given replacement.</p>
+     * <p>Replaces each substring of the source String that matches the given regular expression with the given
+     * replacement using the {@link Pattern#DOTALL} option. DOTALL is also known as single-line mode in Perl.</p>
      *
-     * This method is a {@code null} safe equivalent to:
+     * This call is a {@code null} safe equivalent to:
      * <ul>
-     *  <li>{@code pattern.matcher(text).replaceFirst(replacement)}</li>
+     * <li>{@code text.replaceAll(&quot;(?s)&quot; + regex, replacement)}</li>
+     * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(replacement)}</li>
      * </ul>
      *
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>
-     * StringUtils.replaceFirst(null, *, *)       = null
-     * StringUtils.replaceFirst("any", (Pattern) null, *)   = "any"
-     * StringUtils.replaceFirst("any", *, null)   = "any"
-     * StringUtils.replaceFirst("", Pattern.compile(""), "zzz")    = "zzz"
-     * StringUtils.replaceFirst("", Pattern.compile(".*"), "zzz")  = "zzz"
-     * StringUtils.replaceFirst("", Pattern.compile(".+"), "zzz")  = ""
-     * StringUtils.replaceFirst("abc", Pattern.compile(""), "ZZ")  = "ZZabc"
-     * StringUtils.replaceFirst("&lt;__&gt;\n&lt;__&gt;", Pattern.compile("&lt;.*&gt;"), "z")      = "z\n&lt;__&gt;"
-     * StringUtils.replaceFirst("&lt;__&gt;\n&lt;__&gt;", Pattern.compile("(?s)&lt;.*&gt;"), "z")  = "z"
-     * StringUtils.replaceFirst("ABCabc123", Pattern.compile("[a-z]"), "_")          = "ABC_bc123"
-     * StringUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123abc"
-     * StringUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123abc"
-     * StringUtils.replaceFirst("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum  dolor   sit"
+     * StringUtils.replacePattern(null, *, *)       = null
+     * StringUtils.replacePattern("any", (String) null, *)   = "any"
+     * StringUtils.replacePattern("any", *, null)   = "any"
+     * StringUtils.replacePattern("", "", "zzz")    = "zzz"
+     * StringUtils.replacePattern("", ".*", "zzz")  = "zzz"
+     * StringUtils.replacePattern("", ".+", "zzz")  = ""
+     * StringUtils.replacePattern("&lt;__&gt;\n&lt;__&gt;", "&lt;.*&gt;", "z")       = "z"
+     * StringUtils.replacePattern("ABCabc123", "[a-z]", "_")       = "ABC___123"
+     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
+     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
+     * StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
      * </pre>
      *
-     * @param text  text to search and replace in, may be null
-     * @param regex  the regular expression pattern to which this string is to be matched
-     * @param replacement  the string to be substituted for the first match
-     * @return  the text with the first replacement processed,
-     *              {@code null} if null String input
-     *
-     * @see java.util.regex.Matcher#replaceFirst(String)
-     * @see java.util.regex.Pattern
-     * @since 3.8
+     * @param text
+     *            the source string
+     * @param regex
+     *            the regular expression to which this string is to be matched
+     * @param replacement
+     *            the string to be substituted for each match
+     * @return The resulting {@code String}
+     * @see #replaceAll(String, String, String)
+     * @see String#replaceAll(String, String)
+     * @see Pattern#DOTALL
      */
-    public static String replaceFirst(final String text, final Pattern regex, final String replacement) {
-        if (text == null || regex == null|| replacement == null ) {
+    public static String replacePattern(final String text, final String regex, final String replacement) {
+        if (text == null || regex == null || replacement == null) {
             return text;
         }
-        return regex.matcher(text).replaceFirst(replacement);
+        return Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(replacement);
     }
 
 }
