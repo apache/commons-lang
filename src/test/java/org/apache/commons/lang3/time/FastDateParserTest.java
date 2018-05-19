@@ -32,7 +32,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
@@ -716,5 +715,17 @@ public class FastDateParserTest {
 
         calendar.setTime(parser.parse("7"));
         assertEquals(Calendar.SUNDAY, calendar.get(Calendar.DAY_OF_WEEK));
+    }
+
+    @Test
+    public void testLang1380() throws ParseException {
+        final Calendar expected = Calendar.getInstance(GMT, Locale.FRANCE);
+        expected.clear();
+        expected.set(2014, Calendar.APRIL, 14);
+
+        final DateParser fdp = getInstance("dd MMM yyyy", GMT, Locale.FRANCE);
+        assertEquals(expected.getTime(), fdp.parse("14 avril 2014"));
+        assertEquals(expected.getTime(), fdp.parse("14 avr. 2014"));
+        assertEquals(expected.getTime(), fdp.parse("14 avr 2014"));
     }
 }
