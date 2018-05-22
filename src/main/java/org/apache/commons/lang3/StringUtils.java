@@ -3263,7 +3263,7 @@ public class StringUtils {
      * @return an array of parsed Strings, {@code null} if null String was input
      */
     public static String[] splitByWholeSeparator(final String str, final String separator) {
-        return splitByWholeSeparatorWorker( str, separator, -1, false ) ;
+        return splitByWholeSeparatorWorker(str, separator, -1, false ) ;
     }
 
     /**
