@@ -115,6 +115,9 @@ import java.util.regex.Pattern;
  */
 //@Immutable
 public class StringUtils {
+    
+    private static final int STRING_BUILDER_SIZE = 256;
+
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
     // Whitespace:
     // Character.isWhitespace() is faster than WHITESPACE.indexOf()
@@ -4618,7 +4621,7 @@ public class StringUtils {
         }
 
         // two or more elements
-        final StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
+        final StringBuilder buf = new StringBuilder(STRING_BUILDER_SIZE); // Java default is 16, probably too small
         if (first != null) {
             buf.append(first);
         }
@@ -4662,7 +4665,7 @@ public class StringUtils {
         }
 
         // two or more elements
-        final StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
+        final StringBuilder buf = new StringBuilder(STRING_BUILDER_SIZE); // Java default is 16, probably too small
         if (first != null) {
             buf.append(first);
         }
