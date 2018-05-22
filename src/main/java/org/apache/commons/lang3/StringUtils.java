@@ -4742,7 +4742,7 @@ public class StringUtils {
      * @param endIndex the index to stop joining from (exclusive). It is
      * an error to pass in an end index past the end of the list
      * @return the joined String, {@code null} if null list input
-     * @since 2.0
+     * @since 3.8
      */
     public static String join(final List<?> list, final char separator, final int startIndex, final int endIndex) {
         if (list == null) {
@@ -4780,7 +4780,7 @@ public class StringUtils {
      * @param endIndex the index to stop joining from (exclusive). It is
      * an error to pass in an end index past the end of the list
      * @return the joined String, {@code null} if null list input
-     * @since 2.0
+     * @since 3.8
      */
     public static String join(final List<?> list, final String separator, final int startIndex, final int endIndex) {
         if (list == null) {
