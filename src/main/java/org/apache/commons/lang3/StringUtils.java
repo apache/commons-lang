@@ -2833,6 +2833,10 @@ public class StringUtils {
         return str.substring(pos, pos + len);
     }
 
+    private static StringBuilder newStringBuilder(final int noOfItems) {
+        return new StringBuilder(noOfItems * 16);
+    }
+
     // SubStringAfter/SubStringBefore
     //-----------------------------------------------------------------------
     /**
@@ -4143,7 +4147,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4194,7 +4198,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4243,7 +4247,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4292,7 +4296,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4341,7 +4345,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4390,7 +4394,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4439,7 +4443,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4488,7 +4492,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4579,7 +4583,7 @@ public class StringUtils {
             return EMPTY;
         }
 
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
 
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
