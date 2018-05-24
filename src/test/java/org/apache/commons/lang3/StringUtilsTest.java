@@ -34,6 +34,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.PatternSyntaxException;
@@ -100,6 +101,11 @@ public class StringUtilsTest {
     private static final char[] CHAR_PRIM_LIST = {'1', '2'};
     private static final float[] FLOAT_PRIM_LIST = {1, 2};
     private static final double[] DOUBLE_PRIM_LIST = {1, 2};
+    private static final List<String> MIXED_STRING_LIST = Arrays.asList(null, "", "foo");
+    private static final List<Object> MIXED_TYPE_OBJECT_LIST = Arrays.<Object>asList("foo", Long.valueOf(2L));
+    private static final List<String> STRING_LIST = Arrays.asList("foo", "bar", "baz");
+    private static final List<String> EMPTY_STRING_LIST = Collections.emptyList();
+    private static final List<String> NULL_STRING_LIST = Collections.singletonList(null);
 
     private static final String SEPARATOR = ",";
     private static final char SEPARATOR_CHAR = ';';
@@ -364,6 +370,38 @@ public class StringUtilsTest {
         assertEquals("foo/2", StringUtils.join(MIXED_TYPE_LIST, "/", 0, 2));
         assertEquals("2", StringUtils.join(MIXED_TYPE_LIST, "/", 1, 2));
         assertEquals("", StringUtils.join(MIXED_TYPE_LIST, "/", 2, 1));
+    }
+
+    @Test
+    public void testJoin_List() {
+        assertNull(StringUtils.join((List<String>) null, null));
+        assertEquals(TEXT_LIST_NOSEP, StringUtils.join(STRING_LIST, null));
+        assertEquals(TEXT_LIST_NOSEP, StringUtils.join(STRING_LIST, ""));
+
+        assertEquals("", StringUtils.join(NULL_STRING_LIST, null));
+
+        assertEquals("", StringUtils.join(EMPTY_STRING_LIST, null));
+        assertEquals("", StringUtils.join(EMPTY_STRING_LIST, ""));
+        assertEquals("", StringUtils.join(EMPTY_STRING_LIST, SEPARATOR));
+
+        assertEquals(TEXT_LIST, StringUtils.join(STRING_LIST, SEPARATOR));
+        assertEquals(",,foo", StringUtils.join(MIXED_STRING_LIST, SEPARATOR));
+        assertEquals("foo,2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, SEPARATOR));
+
+        assertEquals("/", StringUtils.join(MIXED_STRING_LIST, "/", 0, MIXED_STRING_LIST.size() - 1));
+        assertEquals("", StringUtils.join(MIXED_STRING_LIST, "", 0, MIXED_STRING_LIST.size()- 1));
+        assertEquals("foo", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 0, 1));
+        assertEquals("foo/2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 0, 2));
+        assertEquals("2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 1, 2));
+        assertEquals("", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 2, 1));
+        assertNull(null, StringUtils.join((List) null, "/", 0, 1));
+
+        assertEquals("/", StringUtils.join(MIXED_STRING_LIST, '/', 0, MIXED_STRING_LIST.size() - 1));
+        assertEquals("foo", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 0, 1));
+        assertEquals("foo/2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 0, 2));
+        assertEquals("2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 1, 2));
+        assertEquals("", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 2, 1));
+        assertNull(null, StringUtils.join((List) null, '/', 0, 1));
     }
 
     @Test

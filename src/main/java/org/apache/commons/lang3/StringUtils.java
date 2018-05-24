@@ -115,6 +115,9 @@ import java.util.regex.Pattern;
  */
 //@Immutable
 public class StringUtils {
+    
+    private static final int STRING_BUILDER_SIZE = 256;
+
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
     // Whitespace:
     // Character.isWhitespace() is faster than WHITESPACE.indexOf()
@@ -2830,6 +2833,10 @@ public class StringUtils {
         return str.substring(pos, pos + len);
     }
 
+    private static StringBuilder newStringBuilder(final int noOfItems) {
+        return new StringBuilder(noOfItems * 16);
+    }
+
     // SubStringAfter/SubStringBefore
     //-----------------------------------------------------------------------
     /**
@@ -3263,7 +3270,7 @@ public class StringUtils {
      * @return an array of parsed Strings, {@code null} if null String was input
      */
     public static String[] splitByWholeSeparator(final String str, final String separator) {
-        return splitByWholeSeparatorWorker( str, separator, -1, false ) ;
+        return splitByWholeSeparatorWorker(str, separator, -1, false ) ;
     }
 
     /**
@@ -4140,7 +4147,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4191,7 +4198,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4240,7 +4247,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4289,7 +4296,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4338,7 +4345,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4387,7 +4394,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4436,7 +4443,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4485,7 +4492,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4576,7 +4583,7 @@ public class StringUtils {
             return EMPTY;
         }
 
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
 
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
@@ -4614,11 +4621,11 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            return Objects.toString(first, "");
+            return Objects.toString(first, EMPTY);
         }
 
         // two or more elements
-        final StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
+        final StringBuilder buf = new StringBuilder(STRING_BUILDER_SIZE); // Java default is 16, probably too small
         if (first != null) {
             buf.append(first);
         }
@@ -4662,7 +4669,7 @@ public class StringUtils {
         }
 
         // two or more elements
-        final StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
+        final StringBuilder buf = new StringBuilder(STRING_BUILDER_SIZE); // Java default is 16, probably too small
         if (first != null) {
             buf.append(first);
         }
@@ -4719,6 +4726,82 @@ public class StringUtils {
             return null;
         }
         return join(iterable.iterator(), separator);
+    }
+
+    /**
+     * <p>Joins the elements of the provided {@code List} into a single String
+     * containing the provided list of elements.</p>
+     *
+     * <p>No delimiter is added before or after the list.
+     * Null objects or empty strings within the array are represented by
+     * empty strings.</p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join(["a", "b", "c"], ';')  = "a;b;c"
+     * StringUtils.join(["a", "b", "c"], null) = "abc"
+     * StringUtils.join([null, "", "a"], ';')  = ";;a"
+     * </pre>
+     *
+     * @param list  the {@code List} of values to join together, may be null
+     * @param separator  the separator character to use
+     * @param startIndex the first index to start joining from.  It is
+     * an error to pass in an end index past the end of the list
+     * @param endIndex the index to stop joining from (exclusive). It is
+     * an error to pass in an end index past the end of the list
+     * @return the joined String, {@code null} if null list input
+     * @since 3.8
+     */
+    public static String join(final List<?> list, final char separator, final int startIndex, final int endIndex) {
+        if (list == null) {
+            return null;
+        }
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
+            return EMPTY;
+        }
+        final List<?> subList = list.subList(startIndex, endIndex);
+        return join(subList.iterator(), separator);
+    }
+
+    /**
+     * <p>Joins the elements of the provided {@code List} into a single String
+     * containing the provided list of elements.</p>
+     *
+     * <p>No delimiter is added before or after the list.
+     * Null objects or empty strings within the array are represented by
+     * empty strings.</p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join(["a", "b", "c"], ';')  = "a;b;c"
+     * StringUtils.join(["a", "b", "c"], null) = "abc"
+     * StringUtils.join([null, "", "a"], ';')  = ";;a"
+     * </pre>
+     *
+     * @param list  the {@code List} of values to join together, may be null
+     * @param separator  the separator character to use
+     * @param startIndex the first index to start joining from.  It is
+     * an error to pass in an end index past the end of the list
+     * @param endIndex the index to stop joining from (exclusive). It is
+     * an error to pass in an end index past the end of the list
+     * @return the joined String, {@code null} if null list input
+     * @since 3.8
+     */
+    public static String join(final List<?> list, final String separator, final int startIndex, final int endIndex) {
+        if (list == null) {
+            return null;
+        }
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
+            return EMPTY;
+        }
+        final List<?> subList = list.subList(startIndex, endIndex);
+        return join(subList.iterator(), separator);
     }
 
     /**
