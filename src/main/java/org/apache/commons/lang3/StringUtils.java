@@ -115,7 +115,7 @@ import java.util.regex.Pattern;
  */
 //@Immutable
 public class StringUtils {
-    
+
     private static final int STRING_BUILDER_SIZE = 256;
 
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
