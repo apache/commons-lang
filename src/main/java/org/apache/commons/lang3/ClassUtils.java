@@ -429,8 +429,8 @@ public class ClassUtils {
      * If enough space is available, rightmost sub-packages will be displayed in full
      * length.</p>
      *
-     * <p>The following table illustrates the algorithm:</p>
-     * <table summary="abbreviation examples">
+     * <table>
+     * <caption>Examples</caption>
      * <tr><td>className</td><td>len</td><td>return</td></tr>
      * <tr><td>              null</td><td> 1</td><td>""</td></tr>
      * <tr><td>"java.lang.String"</td><td> 5</td><td>"j.l.String"</td></tr>
