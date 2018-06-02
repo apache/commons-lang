@@ -9341,4 +9341,136 @@ public class StringUtils {
         }
         return result;
     }
+
+    /**
+     * <p>Masks the given {@code str} by replacing, starting from the first character of the {@link String}, at list
+     * {@code minMasked} characters.</p>
+     *
+     * <p>The result will have up to the last {@code maxUnmasked} characters with the same value as the original
+     * {@code str} with the rest being replaced by {@code mask}.</p>
+     *
+     * <p>For {@code null} or {@link String#isEmpty() empty} {@code str}, the same {@link String} is returned.</p>
+     *
+     * <p>Negative values for {@code minMasked} and {@code maxUnmasked} are set to zero.</p>
+     *
+     * <pre>
+     * StringUtils.maskStart(null, *, *, *)       =  null
+     * StringUtils.maskStart("", *, *, *)         =  null
+     * StringUtils.maskStart("test", *, -1, 4)    =  "test"
+     * StringUtils.maskStart("test", *, 0, 4)     =  "test"
+     * StringUtils.maskStart("test", 'X', 1, 4)   =  "Xest"
+     * StringUtils.maskStart("test", 'X', 1, 2)   =  "XXst"
+     * StringUtils.maskStart("test", 'X', 1, -1)  =  "XXXX"
+     * StringUtils.maskStart("test", 'X', 1, 0)   =  "XXXX"
+     * </pre>
+     *
+     * @param str the String to mask it's content
+     * @param mask the character used as the mask
+     * @param minMasked the minimum number of characters to mask
+     * @param maxUnmasked the maximum number of characters that will remain unmasked
+     *
+     * @return the masked String
+     *
+     * @since 3.8
+     */
+    public static String maskStart(final String str, final char mask, int minMasked, int maxUnmasked) {
+        if (isEmpty(str)) {
+            //Nothing to mask
+            return str;
+        }
+        if (minMasked < 0) {
+            minMasked = 0;
+        }
+        if (maxUnmasked < 0) {
+            maxUnmasked = 0;
+        }
+
+        final int strLength = str.length();
+        final int maskLength;
+        if (strLength <= minMasked) {
+            maskLength = strLength;
+        } else if (strLength < minMasked + maxUnmasked) {
+            maskLength = minMasked;
+        } else {
+            maskLength = strLength - maxUnmasked;
+        }
+
+        if (maskLength == 0) {
+            //Fast path, no need to mask
+            return str;
+        }
+
+        final char[] values = str.toCharArray();
+        for (int i = 0; i < maskLength; i++) {
+            values[i] = mask;
+        }
+
+        return new String(values);
+    }
+
+    /**
+     * <p>Masks the given {@code str} by replacing, starting from the last character of the {@link String}, at list
+     * {@code minMasked} characters.</p>
+     *
+     * <p>The result will have up to the first {@code maxUnmasked} characters with the same value as the original
+     * {@code str} with the rest being replaced by {@code mask}.</p>
+     *
+     * <p>For {@code null} or {@link String#isEmpty() empty} {@code str}, the same {@link String} is returned.</p>
+     *
+     * <p>Negative values for {@code minMasked} and {@code maxUnmasked} are set to zero.</p>
+     *
+     * <pre>
+     * StringUtils.maskEnd(null, *, *, *)       =  null
+     * StringUtils.maskEnd("", *, *, *)         =  null
+     * StringUtils.maskEnd("test", *, -1, 4)    =  "test"
+     * StringUtils.maskEnd("test", *, 0, 4)     =  "test"
+     * StringUtils.maskEnd("test", 'X', 1, 4)   =  "tesX"
+     * StringUtils.maskEnd("test", 'X', 1, 2)   =  "teXX"
+     * StringUtils.maskEnd("test", 'X', 1, -1)  =  "XXXX"
+     * StringUtils.maskEnd("test", 'X', 1, 0)   =  "XXXX"
+     * </pre>
+     *
+     * @param str the String to mask it's content
+     * @param mask the character used as the mask
+     * @param minMasked the minimum number of characters to mask
+     * @param maxUnmasked the maximum number of characters that will remain unmasked
+     *
+     * @return the masked String
+     *
+     * @since 3.8
+     */
+    public static String maskEnd(final String str, final char mask, int minMasked, int maxUnmasked) {
+        if (isEmpty(str)) {
+            //Nothing to mask
+            return str;
+        }
+        if (minMasked < 0) {
+            minMasked = 0;
+        }
+        if (maxUnmasked < 0) {
+            maxUnmasked = 0;
+        }
+
+        final int strLength = str.length();
+        final int maskLength;
+        if (strLength <= minMasked) {
+            maskLength = strLength;
+        } else if (strLength < minMasked + maxUnmasked) {
+            maskLength = minMasked;
+        } else {
+            maskLength = strLength - maxUnmasked;
+        }
+
+        if (maskLength == 0) {
+            //Fast path, no need to mask
+            return str;
+        }
+
+        final char[] values = str.toCharArray();
+        for (int i = strLength - 1; i > strLength - maskLength - 1; i--) {
+            values[i] = mask;
+        }
+
+        return new String(values);
+    }
 }

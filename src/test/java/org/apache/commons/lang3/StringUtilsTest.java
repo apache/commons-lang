@@ -3277,4 +3277,38 @@ public class StringUtilsTest {
         assertEquals("5417543010", StringUtils.getDigits("(541) 754-3010"));
         assertEquals("\u0967\u0968\u0969", StringUtils.getDigits("\u0967\u0968\u0969"));
     }
+
+    @Test
+    public void testMaskStart() {
+        assertNull(StringUtils.maskStart(null, 'a', 0, 0));
+        assertEquals("", StringUtils.maskStart("", 'a', 0, 0));
+        assertEquals("test", StringUtils.maskStart("test", 'X', -1, 4));
+        assertEquals("XXXX", StringUtils.maskStart("test", 'X', 0, -1));
+        assertEquals("test", StringUtils.maskStart("test", 'X', 0, 4));
+        assertEquals("Xest", StringUtils.maskStart("test", 'X', 0, 3));
+        assertEquals("XXst", StringUtils.maskStart("test", 'X', 0, 2));
+        assertEquals("XXXt", StringUtils.maskStart("test", 'X', 0, 1));
+        assertEquals("XXXX", StringUtils.maskStart("test", 'X', 0, 0));
+        assertEquals("Xest", StringUtils.maskStart("test", 'X', 1, 4));
+        assertEquals("XXst", StringUtils.maskStart("test", 'X', 2, 4));
+        assertEquals("XXXt", StringUtils.maskStart("test", 'X', 3, 4));
+        assertEquals("XXXX", StringUtils.maskStart("test", 'X', 4, 4));
+    }
+
+    @Test
+    public void testMaskEnd() {
+        assertNull(StringUtils.maskEnd(null, 'a', 0, 0));
+        assertEquals("", StringUtils.maskEnd("", 'a', 0, 0));
+        assertEquals("test", StringUtils.maskEnd("test", 'X', -1, 4));
+        assertEquals("XXXX", StringUtils.maskEnd("test", 'X', 0, -1));
+        assertEquals("test", StringUtils.maskEnd("test", 'X', 0, 4));
+        assertEquals("tesX", StringUtils.maskEnd("test", 'X', 0, 3));
+        assertEquals("teXX", StringUtils.maskEnd("test", 'X', 0, 2));
+        assertEquals("tXXX", StringUtils.maskEnd("test", 'X', 0, 1));
+        assertEquals("XXXX", StringUtils.maskEnd("test", 'X', 0, 0));
+        assertEquals("tesX", StringUtils.maskEnd("test", 'X', 1, 4));
+        assertEquals("teXX", StringUtils.maskEnd("test", 'X', 2, 4));
+        assertEquals("tXXX", StringUtils.maskEnd("test", 'X', 3, 4));
+        assertEquals("XXXX", StringUtils.maskEnd("test", 'X', 4, 4));
+    }
 }
