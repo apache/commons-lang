@@ -65,7 +65,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1393" type="add" dev="ggregory" due-to="Gary Gregory">Add API SystemUtils.String getEnvironmentVariable(final String name, final String defaultValue)</action>   
     <action issue="LANG-1394" type="add" dev="ggregory" due-to="Sebb, Gary Gregory">org.apache.commons.lang3.SystemUtils should not write to System.err.</action>   
     <action issue="LANG-1238" type="add" dev="ggregory" due-to="Christopher Cordeiro, Gary Gregory, Bruno P. Kinoshita, Oleg Chubaryov">Add RegexUtils class instead of overloading methods in StringUtils that take a regex to take precompiled Pattern.</action>   
-    <action issue="LANG-1290" type="add" dev="ggregory" due-to="Jochen Schalanda">StringUtils.join() with support for List&lt;?> with configurable start/end indices.</action>   
+    <action issue="LANG-1290" type="add" dev="ggregory" due-to="Jochen Schalanda">StringUtils.join() with support for List&lt;?> with configurable start/end indices.</action>
+    <action issue="LANG-1392" type="add" dev="pschumacher" due-to="Jeff Nelson">Methods for getting first non empty or non blank value</action> 
   </release>
 
   <release version="3.7" date="2017-11-04" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
