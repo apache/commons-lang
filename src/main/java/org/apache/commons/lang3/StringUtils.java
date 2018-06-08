@@ -7479,18 +7479,22 @@ public class StringUtils {
     }
 
     /**
-     * <p>Returns the first value in the array which is not blank.
-     * If all the values are blank or the array is {@code null}
+     * <p>Returns the first value in the array which is not empty (""),
+     * {@code null} or whitespace only.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>If all values are blank or the array is {@code null}
      * or empty then {@code null} is returned.</p>
      *
      * <pre>
-     * StringUtils.firstNonBlank(null, null, null)   = null
-     * StringUtils.firstNonBlank(null, "", " ")      = null
-     * StringUtils.firstNonBlank(null, null, " ")     = null
-     * StringUtils.firstNonBlank("abc")              = "abc"
-     * StringUtils.firstNonBlank(null, "xyz")        = "xyz"
-     * StringUtils.firstNonBlank(null, "xyz", "abc") = "xyz"
-     * StringUtils.firstNonBlank()                   = null
+     * StringUtils.firstNonBlank(null, null, null)     = null
+     * StringUtils.firstNonBlank(null, "", " ")        = null
+     * StringUtils.firstNonBlank("abc")                = "abc"
+     * StringUtils.firstNonBlank(null, "xyz")          = "xyz"
+     * StringUtils.firstNonBlank(null, "", " ", "xyz") = "xyz"
+     * StringUtils.firstNonBlank(null, "xyz", "abc")   = "xyz"
+     * StringUtils.firstNonBlank()                     = null
      * </pre>
      *
      * @param <T> the specific kind of CharSequence
@@ -7512,18 +7516,20 @@ public class StringUtils {
     }
 
     /**
-     * <p>Returns the first value in the array which is not empty.
-     * If all the values are empty or the array is {@code null}
+     * <p>Returns the first value in the array which is not empty.</p>
+     *
+     * <p>If all values are empty or the array is {@code null}
      * or empty then {@code null} is returned.</p>
      *
      * <pre>
-     * StringUtils.firstNonBlank(null, null, null)   = null
-     * StringUtils.firstNonBlank(null, "", " ")      = " "
-     * StringUtils.firstNonBlank(null, null, "")     = null
-     * StringUtils.firstNonBlank("abc")              = "abc"
-     * StringUtils.firstNonBlank(null, "xyz")        = "xyz"
-     * StringUtils.firstNonBlank(null, "xyz", "abc") = "xyz"
-     * StringUtils.firstNonBlank()                   = null
+     * StringUtils.firstNonEmpty(null, null, null)   = null
+     * StringUtils.firstNonEmpty(null, null, "")     = null
+     * StringUtils.firstNonEmpty(null, "", " ")      = " "
+     * StringUtils.firstNonEmpty("abc")              = "abc"
+     * StringUtils.firstNonEmpty(null, "xyz")        = "xyz"
+     * StringUtils.firstNonEmpty("", "xyz")          = "xyz"
+     * StringUtils.firstNonEmpty(null, "xyz", "abc") = "xyz"
+     * StringUtils.firstNonEmpty()                   = null
      * </pre>
      *
      * @param <T> the specific kind of CharSequence
