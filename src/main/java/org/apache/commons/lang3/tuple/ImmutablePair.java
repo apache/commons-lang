@@ -62,7 +62,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
     public final R right;
 
     /**
-     * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
+     * <p>Obtains an immutable pair of two objects inferring the generic types.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
