@@ -1216,7 +1216,7 @@ public class TypeUtils {
      */
     public static boolean typesSatisfyVariables(final Map<TypeVariable<?>, Type> typeVarAssigns) {
         Validate.notNull(typeVarAssigns, "typeVarAssigns is null");
-        // all types must be assignable to all the bounds of the their mapped
+        // all types must be assignable to all the bounds of their mapped
         // type variable.
         for (final Map.Entry<TypeVariable<?>, Type> entry : typeVarAssigns.entrySet()) {
             final TypeVariable<?> typeVar = entry.getKey();
