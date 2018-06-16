@@ -243,7 +243,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if <code>|value| &gt; Integer.MAX_VALUE</code>
      *  or <code>value = NaN</code>
      * @throws ArithmeticException if the calculated denominator is <code>zero</code>
-     * @throws ArithmeticException if the the algorithm does not converge
+     * @throws ArithmeticException if the algorithm does not converge
      */
     public static Fraction getFraction(double value) {
         final int sign = value < 0 ? -1 : 1;
