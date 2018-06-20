@@ -170,7 +170,7 @@ public class DiffResult implements Iterable<Diff<?>> {
      * @return a {@code String} description of the differences.
      */
     public String toString(final ToStringStyle style) {
-        if (diffs.size() == 0) {
+        if (diffs.isEmpty()) {
             return OBJECTS_SAME_STRING;
         }
 

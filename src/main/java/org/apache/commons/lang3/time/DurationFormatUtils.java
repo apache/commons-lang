@@ -195,7 +195,7 @@ public class DurationFormatUtils {
                     }
                 }
             }
-            if (duration.length() != 0) {
+            if (!duration.isEmpty()) {
                 // strip the space off again
                 duration = duration.substring(1);
             }

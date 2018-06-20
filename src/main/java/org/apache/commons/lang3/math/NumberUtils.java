@@ -526,7 +526,7 @@ public class NumberUtils {
                 case 'L' :
                     if (dec == null
                         && exp == null
-                        && (numeric.length() > 0 && numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
+                        && (!numeric.isEmpty() && numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
                         try {
                             return createLong(numeric);
                         } catch (final NumberFormatException nfe) { // NOPMD
@@ -661,7 +661,7 @@ public class NumberUtils {
                 return false;
             }
         }
-        return str.length() > 0;
+        return !str.isEmpty();
     }
 
     //-----------------------------------------------------------------------

@@ -171,7 +171,7 @@ public abstract class StrLookup<V> {
          */
         @Override
         public String lookup(final String key) {
-            if (key.length() > 0) {
+            if (!key.isEmpty()) {
                 try {
                     return System.getProperty(key);
                 } catch (final SecurityException scex) {

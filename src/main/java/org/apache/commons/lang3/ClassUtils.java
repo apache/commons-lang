@@ -1347,7 +1347,7 @@ public class ClassUtils {
                     ? className.length() - 1
                     : className.length());
         } else {
-            if (className.length() > 0) {
+            if (!className.isEmpty()) {
                 className = reverseAbbreviationMap.get(className.substring(0, 1));
             }
         }

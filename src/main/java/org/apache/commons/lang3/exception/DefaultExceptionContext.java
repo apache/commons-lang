@@ -130,7 +130,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
             buffer.append(baseMessage);
         }
 
-        if (contextValues.size() > 0) {
+        if (!contextValues.isEmpty()) {
             if (buffer.length() > 0) {
                 buffer.append('\n');
             }
