@@ -1825,7 +1825,7 @@ public class TypeUtils {
 
     private static int[] findRecursiveTypes(final ParameterizedType p) {
         final Type[] filteredArgumentTypes = Arrays.copyOf(p.getActualTypeArguments(), p.getActualTypeArguments().length);
-        int[] indexesToRemove = new int[] {};
+        int[] indexesToRemove = {};
         for (int i = 0; i < filteredArgumentTypes.length; i++) {
             if (filteredArgumentTypes[i] instanceof TypeVariable<?>) {
                 if (containsVariableTypeSameParametrizedTypeBound(((TypeVariable<?>) filteredArgumentTypes[i]), p)) {

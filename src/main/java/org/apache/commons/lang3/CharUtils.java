@@ -30,7 +30,7 @@ public class CharUtils {
 
     private static final String[] CHAR_STRING_ARRAY = new String[128];
 
-    private static final char[] HEX_DIGITS = new char[] {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     /**
      * {@code \u000a} linefeed LF ('\n').
