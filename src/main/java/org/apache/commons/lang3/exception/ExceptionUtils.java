@@ -389,7 +389,7 @@ public class ExceptionUtils {
         if (fromIndex < 0) {
             fromIndex = 0;
         }
-        final Throwable[] throwables = ExceptionUtils.getThrowables(throwable);
+        final Throwable[] throwables = getThrowables(throwable);
         if (fromIndex >= throwables.length) {
             return -1;
         }
@@ -682,7 +682,7 @@ public class ExceptionUtils {
      * @since 2.2
      */
     public static String getRootCauseMessage(final Throwable th) {
-        Throwable root = ExceptionUtils.getRootCause(th);
+        Throwable root = getRootCause(th);
         root = root == null ? th : root;
         return getMessage(root);
     }

@@ -1530,7 +1530,7 @@ public class SystemUtils {
      * @since 3.6
      */
     public static String getHostName() {
-        return SystemUtils.IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
+        return IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
     }
 
     /**

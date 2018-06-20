@@ -465,7 +465,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (gcd == 1) {
             return this;
         }
-        return Fraction.getFraction(numerator / gcd, denominator / gcd);
+        return getFraction(numerator / gcd, denominator / gcd);
     }
 
     /**

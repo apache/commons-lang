@@ -225,7 +225,7 @@ public class StrSubstitutor {
             final String propValue = valueProperties.getProperty(propName);
             valueMap.put(propName, propValue);
         }
-        return StrSubstitutor.replace(source, valueMap);
+        return replace(source, valueMap);
     }
 
     /**

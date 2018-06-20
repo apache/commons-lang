@@ -3870,7 +3870,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int indexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -3902,7 +3902,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int indexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -3964,7 +3964,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -3998,7 +3998,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4077,7 +4077,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int indexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4120,7 +4120,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4181,7 +4181,7 @@ public class ArrayUtils {
      *  array input
      */
     public static int indexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4225,7 +4225,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -7436,7 +7436,7 @@ public class ArrayUtils {
      */
     // package protected for access by unit tests
     static Object removeAll(final Object array, final BitSet indices) {
-        final int srcLength = ArrayUtils.getLength(array);
+        final int srcLength = getLength(array);
         // No need to check maxIndex here, because method only currently called from removeElements()
         // which guarantee to generate on;y valid bit entries.
 //        final int maxIndex = indices.length();

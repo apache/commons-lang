@@ -1263,7 +1263,7 @@ public class ClassUtils {
      * @since 2.4
      */
     public static String getShortCanonicalName(final String canonicalName) {
-        return ClassUtils.getShortClassName(getCanonicalName(canonicalName));
+        return getShortClassName(getCanonicalName(canonicalName));
     }
 
     // Package name
@@ -1308,7 +1308,7 @@ public class ClassUtils {
      * @since 2.4
      */
     public static String getPackageCanonicalName(final String canonicalName) {
-        return ClassUtils.getPackageName(getCanonicalName(canonicalName));
+        return getPackageName(getCanonicalName(canonicalName));
     }
 
     /**

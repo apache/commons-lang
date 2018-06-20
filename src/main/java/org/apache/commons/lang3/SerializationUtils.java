@@ -112,7 +112,7 @@ public class SerializationUtils {
      */
     @SuppressWarnings("unchecked") // OK, because we serialized a type `T`
     public static <T extends Serializable> T roundtrip(final T msg) {
-        return (T) SerializationUtils.deserialize(SerializationUtils.serialize(msg));
+        return (T) deserialize(serialize(msg));
     }
 
     // Serialize
@@ -220,7 +220,7 @@ public class SerializationUtils {
      */
     public static <T> T deserialize(final byte[] objectData) {
         Validate.isTrue(objectData != null, "The byte[] must not be null");
-        return SerializationUtils.deserialize(new ByteArrayInputStream(objectData));
+        return deserialize(new ByteArrayInputStream(objectData));
     }
 
     /**

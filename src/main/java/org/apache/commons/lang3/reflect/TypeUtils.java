@@ -1378,7 +1378,7 @@ public class TypeUtils {
                     parameterizedTypeArguments = typeArguments;
                 } else {
                     parameterizedTypeArguments = new HashMap<>(typeArguments);
-                    parameterizedTypeArguments.putAll(TypeUtils.getTypeArguments(p));
+                    parameterizedTypeArguments.putAll(getTypeArguments(p));
                 }
                 final Type[] args = p.getActualTypeArguments();
                 for (int i = 0; i < args.length; i++) {
@@ -1444,8 +1444,8 @@ public class TypeUtils {
         }
         if (type instanceof WildcardType) {
             final WildcardType wild = (WildcardType) type;
-            return containsTypeVariables(TypeUtils.getImplicitLowerBounds(wild)[0])
-                || containsTypeVariables(TypeUtils.getImplicitUpperBounds(wild)[0]);
+            return containsTypeVariables(getImplicitLowerBounds(wild)[0])
+                || containsTypeVariables(getImplicitUpperBounds(wild)[0]);
         }
         return false;
     }
@@ -1497,7 +1497,7 @@ public class TypeUtils {
         } else if (owner == null) {
             useOwner = raw.getEnclosingClass();
         } else {
-            Validate.isTrue(TypeUtils.isAssignable(owner, raw.getEnclosingClass()),
+            Validate.isTrue(isAssignable(owner, raw.getEnclosingClass()),
                 "%s is invalid owner type for parameterized %s", owner, raw);
             useOwner = owner;
         }
@@ -1732,7 +1732,7 @@ public class TypeUtils {
      * @since 3.2
      */
     public static <T> Typed<T> wrap(final Class<T> type) {
-        return TypeUtils.wrap((Type) type);
+        return wrap((Type) type);
     }
 
     /**

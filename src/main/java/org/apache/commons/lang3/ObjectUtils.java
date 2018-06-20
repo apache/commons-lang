@@ -253,7 +253,7 @@ public class ObjectUtils {
      * @return {@code false} if the values of both objects are the same
      */
     public static boolean notEqual(final Object object1, final Object object2) {
-        return !ObjectUtils.equals(object1, object2);
+        return !equals(object1, object2);
     }
 
     /**
@@ -304,7 +304,7 @@ public class ObjectUtils {
         int hash = 1;
         if (objects != null) {
             for (final Object object : objects) {
-                final int tmpHash = ObjectUtils.hashCode(object);
+                final int tmpHash = hashCode(object);
                 hash = hash * 31 + tmpHash;
             }
         }
@@ -779,7 +779,7 @@ public class ObjectUtils {
          * @return the singleton value
          */
         private Object readResolve() {
-            return ObjectUtils.NULL;
+            return NULL;
         }
     }
 

@@ -959,7 +959,7 @@ public class StringUtils {
         final StringBuilder decomposed = new StringBuilder(Normalizer.normalize(input, Normalizer.Form.NFD));
         convertRemainingAccentCharacters(decomposed);
         // Note that this doesn't correctly remove ligatures...
-        return pattern.matcher(decomposed).replaceAll(StringUtils.EMPTY);
+        return pattern.matcher(decomposed).replaceAll(EMPTY);
     }
 
     private static void convertRemainingAccentCharacters(final StringBuilder decomposed) {
@@ -5220,7 +5220,7 @@ public class StringUtils {
      */
     @Deprecated
     public static String removeFirst(final String text, final String regex) {
-        return replaceFirst(text, regex, StringUtils.EMPTY);
+        return replaceFirst(text, regex, EMPTY);
     }
 
     // Replacing
@@ -6897,7 +6897,7 @@ public class StringUtils {
      * @return the changed String, {@code null} if null String input
      */
     public static String swapCase(final String str) {
-        if (StringUtils.isEmpty(str)) {
+        if (isEmpty(str)) {
             return str;
         }
 

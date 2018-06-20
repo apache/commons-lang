@@ -39,7 +39,7 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      */
     // This is not defined with generics to avoid warnings in call sites.
     @SuppressWarnings("rawtypes")
-    private static final ImmutableTriple NULL = ImmutableTriple.of(null, null, null);
+    private static final ImmutableTriple NULL = of(null, null, null);
 
     /** Serialization version */
     private static final long serialVersionUID = 1L;

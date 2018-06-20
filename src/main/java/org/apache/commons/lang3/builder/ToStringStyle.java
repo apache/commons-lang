@@ -2164,7 +2164,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.DEFAULT_STYLE;
+            return DEFAULT_STYLE;
         }
 
     }
@@ -2198,7 +2198,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.NO_FIELD_NAMES_STYLE;
+            return NO_FIELD_NAMES_STYLE;
         }
 
     }
@@ -2232,7 +2232,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.SHORT_PREFIX_STYLE;
+            return SHORT_PREFIX_STYLE;
         }
 
     }
@@ -2269,7 +2269,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.SIMPLE_STYLE;
+            return SIMPLE_STYLE;
         }
 
     }
@@ -2305,7 +2305,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.MULTI_LINE_STYLE;
+            return MULTI_LINE_STYLE;
         }
 
     }
@@ -2340,7 +2340,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.NO_CLASS_NAME_STYLE;
+            return NO_CLASS_NAME_STYLE;
         }
 
     }
@@ -2631,7 +2631,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.JSON_STYLE;
+            return JSON_STYLE;
         }
 
     }

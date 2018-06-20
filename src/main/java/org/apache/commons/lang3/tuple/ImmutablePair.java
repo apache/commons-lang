@@ -38,7 +38,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      */
     // This is not defined with generics to avoid warnings in call sites.
     @SuppressWarnings("rawtypes")
-    private static final ImmutablePair NULL = ImmutablePair.of(null, null);
+    private static final ImmutablePair NULL = of(null, null);
 
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;

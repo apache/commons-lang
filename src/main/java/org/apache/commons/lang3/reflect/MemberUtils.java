@@ -246,11 +246,11 @@ abstract class MemberUtils {
     }
 
     static boolean isMatchingMethod(final Method method, final Class<?>[] parameterTypes) {
-      return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
+      return isMatchingExecutable(Executable.of(method), parameterTypes);
     }
 
     static boolean isMatchingConstructor(final Constructor<?> method, final Class<?>[] parameterTypes) {
-      return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
+      return isMatchingExecutable(Executable.of(method), parameterTypes);
     }
 
     private static boolean isMatchingExecutable(final Executable method, final Class<?>[] parameterTypes) {

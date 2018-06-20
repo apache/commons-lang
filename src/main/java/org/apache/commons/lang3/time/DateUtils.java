@@ -88,7 +88,7 @@ public class DateUtils {
             {Calendar.DATE, Calendar.DAY_OF_MONTH, Calendar.AM_PM
                 /* Calendar.DAY_OF_YEAR, Calendar.DAY_OF_WEEK, Calendar.DAY_OF_WEEK_IN_MONTH */
             },
-            {Calendar.MONTH, DateUtils.SEMI_MONTH},
+            {Calendar.MONTH, SEMI_MONTH},
             {Calendar.YEAR},
             {Calendar.ERA}};
 
@@ -1011,7 +1011,7 @@ public class DateUtils {
                 if (element == field) {
                     //This is our field... we stop looping
                     if (modType == ModifyType.CEILING || modType == ModifyType.ROUND && roundUp) {
-                        if (field == DateUtils.SEMI_MONTH) {
+                        if (field == SEMI_MONTH) {
                             //This is a special case that's hard to generalize
                             //If the date is 1, we round up to 16, otherwise
                             //  we subtract 15 days and add 1 month
@@ -1047,7 +1047,7 @@ public class DateUtils {
             boolean offsetSet = false;
             //These are special types of fields that require different rounding rules
             switch (field) {
-                case DateUtils.SEMI_MONTH:
+                case SEMI_MONTH:
                     if (aField[0] == Calendar.DATE) {
                         //If we're going to drop the DATE field's value,
                         //  we want to do this our own way.
