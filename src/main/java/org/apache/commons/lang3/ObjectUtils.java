@@ -689,14 +689,14 @@ public class ObjectUtils {
             final Object result;
             if (obj.getClass().isArray()) {
                 final Class<?> componentType = obj.getClass().getComponentType();
-                if (!componentType.isPrimitive()) {
-                    result = ((Object[]) obj).clone();
-                } else {
+                if (componentType.isPrimitive()) {
                     int length = Array.getLength(obj);
                     result = Array.newInstance(componentType, length);
                     while (length-- > 0) {
                         Array.set(result, length, Array.get(obj, length));
                     }
+                } else {
+                    result = ((Object[]) obj).clone();
                 }
             } else {
                 try {

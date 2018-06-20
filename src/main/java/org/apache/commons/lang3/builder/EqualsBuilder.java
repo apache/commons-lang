@@ -637,17 +637,17 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         final Class<?> lhsClass = lhs.getClass();
-        if (!lhsClass.isArray()) {
+        if (lhsClass.isArray()) {
+            // factor out array case in order to keep method small enough
+            // to be inlined
+            appendArray(lhs, rhs);
+        } else {
             // The simple case, not an array, just test the element
             if (testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass)) {
                 reflectionAppend(lhs, rhs);
             } else {
                 isEquals = lhs.equals(rhs);
             }
-        } else {
-            // factor out array case in order to keep method small enough
-            // to be inlined
-            appendArray(lhs, rhs);
         }
         return this;
     }

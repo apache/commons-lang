@@ -958,7 +958,7 @@ public class FastDateParser implements DateParser, Serializable {
     private static final Strategy DAY_OF_WEEK_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK) {
         @Override
         int modify(final FastDateParser parser, final int iValue) {
-            return iValue != 7 ? iValue + 1 : Calendar.SUNDAY;
+            return iValue == 7 ? Calendar.SUNDAY : iValue + 1;
         }
     };
 

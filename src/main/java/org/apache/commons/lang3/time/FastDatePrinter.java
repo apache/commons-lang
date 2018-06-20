@@ -1266,7 +1266,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
             final int value = calendar.get(Calendar.DAY_OF_WEEK);
-            mRule.appendTo(buffer, value != Calendar.SUNDAY ? value - 1 : 7);
+            mRule.appendTo(buffer, value == Calendar.SUNDAY ? 7 : value - 1);
         }
 
         @Override
@@ -1369,10 +1369,10 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
             final TimeZone zone = calendar.getTimeZone();
-            if (calendar.get(Calendar.DST_OFFSET) != 0) {
-                buffer.append(getTimeZoneDisplay(zone, true, mStyle, mLocale));
-            } else {
+            if (calendar.get(Calendar.DST_OFFSET) == 0) {
                 buffer.append(getTimeZoneDisplay(zone, false, mStyle, mLocale));
+            } else {
+                buffer.append(getTimeZoneDisplay(zone, true, mStyle, mLocale));
             }
         }
     }

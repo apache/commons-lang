@@ -86,12 +86,10 @@ public class ArchUtils {
      * @throws IllegalStateException If the key already exists.
      */
     private static void addProcessor(final String key, final Processor processor) {
-        if (!ARCH_TO_PROCESSOR.containsKey(key)) {
-            ARCH_TO_PROCESSOR.put(key, processor);
-        } else {
-            final String msg = "Key " + key + " already exists in processor map";
-            throw new IllegalStateException(msg);
+        if (ARCH_TO_PROCESSOR.containsKey(key)) {
+            throw new IllegalStateException("Key " + key + " already exists in processor map");
         }
+        ARCH_TO_PROCESSOR.put(key, processor);
     }
 
     /**

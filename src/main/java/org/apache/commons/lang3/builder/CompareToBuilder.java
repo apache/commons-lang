@@ -600,10 +600,10 @@ public class CompareToBuilder implements Builder<Integer> {
         if (lhs == rhs) {
             return this;
         }
-        if (!lhs) {
-            comparison = -1;
-        } else {
+        if (lhs) {
             comparison = +1;
+        } else {
+            comparison = -1;
         }
         return this;
     }

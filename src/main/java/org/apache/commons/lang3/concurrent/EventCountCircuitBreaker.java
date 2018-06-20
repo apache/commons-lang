@@ -469,8 +469,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @return the updated instance
          */
         public CheckIntervalData increment(final int delta) {
-            return (delta != 0) ? new CheckIntervalData(getEventCount() + delta,
-                    getCheckIntervalStart()) : this;
+            return (delta == 0) ? this : new CheckIntervalData(getEventCount() + delta,
+                    getCheckIntervalStart());
         }
     }
 

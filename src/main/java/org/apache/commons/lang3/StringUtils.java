@@ -8857,15 +8857,15 @@ public class StringUtils {
         for (int i = 0; i < size; i++) {
             final char actualChar = str.charAt(i);
             final boolean isWhitespace = Character.isWhitespace(actualChar);
-            if (!isWhitespace) {
-                startWhitespaces = false;
-                newChars[count++] = (actualChar == 160 ? 32 : actualChar);
-                whitespacesCount = 0;
-            } else {
+            if (isWhitespace) {
                 if (whitespacesCount == 0 && !startWhitespaces) {
                     newChars[count++] = SPACE.charAt(0);
                 }
                 whitespacesCount++;
+            } else {
+                startWhitespaces = false;
+                newChars[count++] = (actualChar == 160 ? 32 : actualChar);
+                whitespacesCount = 0;
             }
         }
         if (startWhitespaces) {
