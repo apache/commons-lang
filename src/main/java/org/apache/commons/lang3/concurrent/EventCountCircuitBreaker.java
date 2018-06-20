@@ -269,8 +269,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * {@inheritDoc}
      */
     @Override
-    public boolean incrementAndCheckState(final Integer increment)
-            throws CircuitBreakingException {
+    public boolean incrementAndCheckState(final Integer increment) {
         return performStateCheck(increment);
     }
 

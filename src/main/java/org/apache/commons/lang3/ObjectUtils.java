@@ -867,7 +867,7 @@ public class ObjectUtils {
      * @return the byte v, unchanged
      * @since 3.2
      */
-    public static byte CONST_BYTE(final int v) throws IllegalArgumentException {
+    public static byte CONST_BYTE(final int v) {
         if (v < Byte.MIN_VALUE || v > Byte.MAX_VALUE) {
             throw new IllegalArgumentException("Supplied value must be a valid byte literal between -128 and 127: [" + v + "]");
         }
@@ -936,7 +936,7 @@ public class ObjectUtils {
      * @return the byte v, unchanged
      * @since 3.2
      */
-    public static short CONST_SHORT(final int v) throws IllegalArgumentException {
+    public static short CONST_SHORT(final int v) {
         if (v < Short.MIN_VALUE || v > Short.MAX_VALUE) {
             throw new IllegalArgumentException("Supplied value must be a valid byte literal between -32768 and 32767: [" + v + "]");
         }

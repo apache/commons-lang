@@ -447,7 +447,7 @@ public class NumberUtils {
      * @return Number created from the string (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Number createNumber(final String str) throws NumberFormatException {
+    public static Number createNumber(final String str) {
         if (str == null) {
             return null;
         }

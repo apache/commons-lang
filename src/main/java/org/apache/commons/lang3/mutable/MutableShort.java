@@ -73,7 +73,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @throws NumberFormatException if the string cannot be parsed into a short
      * @since 2.5
      */
-    public MutableShort(final String value) throws NumberFormatException {
+    public MutableShort(final String value) {
         super();
         this.value = Short.parseShort(value);
     }

@@ -1084,7 +1084,7 @@ public class ClassUtils {
      *  or if the method doesn't conform with the requirements
      */
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes)
-            throws SecurityException, NoSuchMethodException {
+            throws NoSuchMethodException {
 
         final Method declaredMethod = cls.getMethod(methodName, parameterTypes);
         if (Modifier.isPublic(declaredMethod.getDeclaringClass().getModifiers())) {

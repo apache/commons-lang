@@ -85,7 +85,7 @@ public class ArchUtils {
      * @param processor The {@link Processor} to add.
      * @throws IllegalStateException If the key already exists.
      */
-    private static void addProcessor(final String key, final Processor processor) throws IllegalStateException {
+    private static void addProcessor(final String key, final Processor processor) {
         if (!ARCH_TO_PROCESSOR.containsKey(key)) {
             ARCH_TO_PROCESSOR.put(key, processor);
         } else {
@@ -101,7 +101,7 @@ public class ArchUtils {
      * @param processor The {@link Processor} to add.
      * @throws IllegalStateException If the key already exists.
      */
-    private static void addProcessors(final Processor processor, final String... keys) throws IllegalStateException {
+    private static void addProcessors(final Processor processor, final String... keys) {
         for (final String key : keys) {
             addProcessor(key, processor);
         }

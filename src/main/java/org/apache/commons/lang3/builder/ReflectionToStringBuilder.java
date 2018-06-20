@@ -696,7 +696,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * @see java.lang.reflect.Field#get(Object)
      */
-    protected Object getValue(final Field field) throws IllegalArgumentException, IllegalAccessException {
+    protected Object getValue(final Field field) throws IllegalAccessException {
         return field.get(this.getObject());
     }
 

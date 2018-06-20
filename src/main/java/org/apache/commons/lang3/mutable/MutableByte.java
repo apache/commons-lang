@@ -73,7 +73,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @throws NumberFormatException if the string cannot be parsed into a byte
      * @since 2.5
      */
-    public MutableByte(final String value) throws NumberFormatException {
+    public MutableByte(final String value) {
         super();
         this.value = Byte.parseByte(value);
     }
