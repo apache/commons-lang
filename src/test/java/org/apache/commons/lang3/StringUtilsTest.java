@@ -2384,6 +2384,23 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.truncate("abcdefghijklmno", Integer.MAX_VALUE, Integer.MAX_VALUE));
     }
 
+    @Test
+    public void testMask() {
+        assertNull(StringUtils.mask(null, 4, 4, '*'));
+        assertEquals("", StringUtils.mask("", 4, 4, '*'));
+        assertEquals("1234********3456", StringUtils.mask("1234567890123456", 4, 4, '*'));
+        assertEquals("1234************", StringUtils.mask("1234567890123456", 4, 0, '*'));
+        assertEquals("************3456", StringUtils.mask("1234567890123456", 0, 4, '*'));
+        assertEquals("****************", StringUtils.mask("1234567890123456", 0, 0, '*'));
+        assertEquals("****************", StringUtils.mask("1234567890123456", Integer.MIN_VALUE, Integer.MIN_VALUE, '*'));
+        assertEquals("****************", StringUtils.mask("1234567890123456", Integer.MAX_VALUE, Integer.MAX_VALUE, '*'));
+        assertEquals("*", StringUtils.mask("1", 4, 4, '*'));
+        assertEquals("12****", StringUtils.mask("123456", 4, 4, '*'));
+        assertEquals("12****", StringUtils.mask("123456", 4, 7, '*'));
+        assertEquals("******", StringUtils.mask("123456", 7, 4, '*'));
+        assertEquals("******", StringUtils.mask("123456", 7, 7, '*'));
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testDifference_StringString() {

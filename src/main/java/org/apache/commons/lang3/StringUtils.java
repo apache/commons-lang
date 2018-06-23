@@ -663,6 +663,69 @@ public class StringUtils {
         return str.substring(offset);
     }
 
+    /**
+     * <p>Mask string i.e. show only few first and few last symbols.
+     *
+     * <p>Useful to hide sensitive information from logs, by using it in toString() of classes.
+     * E.g. to mask credit card:
+     * {@code mask("3566002020360505", 4, 4, '*') = "3566********0505"}
+     * Thus the number was hidden by asterisks while first and last four digits are unmasked and seen.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.mask(null, 4, 4, '*') = null
+     * StringUtils.mask("", 4, 4, '*') = ""
+     * StringUtils.mask("1234567890123456", 4, 4, '*') = "1234********3456"
+     * StringUtils.mask("1234567890123456", 4, 0, '*') = "1234************"
+     * StringUtils.mask("1234567890123456", 0, 4, '*') = "************3456"
+     * StringUtils.mask("1234567890123456", 0, 0, '*') = "****************"
+     * StringUtils.mask("1234567890123456", Integer.MIN_VALUE, Integer.MIN_VALUE, '*') = "****************"
+     * StringUtils.mask("1234567890123456", Integer.MAX_VALUE, Integer.MAX_VALUE, '*') = "****************"
+     * StringUtils.mask("1", 4, 4, '*') = "*"
+     * StringUtils.mask("123456", 4, 4, '*') = "12****"
+     * StringUtils.mask("123456", 4, 7, '*') = "12****"
+     * StringUtils.mask("123456", 7, 4, '*') = "******"
+     * StringUtils.mask("123456", 7, 7, '*') = "******"
+     * </pre>
+     *
+     * @param str the string with sensitive information which should be masked (password, card number, last name etc.)
+     * @param unmaskedStart how many symbols to keep unmasked from start. Use 0 if you don't want to show anything from start.
+     * @param unmaskedEnd how many symbols to keep unmasked from end. Use 0 if you don't want to show anything from end.
+     * @param mask char to use as mask e.g. '*'
+     * @return masked string, {@code null} if null String input
+     * @since 3.8
+     */
+    public static String mask(final CharSequence str, int unmaskedStart, int unmaskedEnd, final char mask) {
+        if (str == null) {
+            return null;
+        }
+        int strLength = str.length();
+        // normalize unmaskedStart and unmaskedEnd to fit in str len
+        unmaskedStart = Math.min(strLength, Math.max(unmaskedStart, 0));
+        unmaskedEnd = Math.min(strLength, Math.max(unmaskedEnd, 0));
+        // we prefer to unmask from start and mask end if str len is smaller
+        unmaskedEnd = Math.min(unmaskedEnd, strLength - unmaskedStart - unmaskedEnd);
+        unmaskedEnd = Math.max(unmaskedEnd, 0);
+        // only when whe calculated unmaskedEnd we can count unmaskedStart
+        unmaskedStart = Math.min(unmaskedStart, strLength - unmaskedStart);
+        unmaskedStart = Math.max(unmaskedStart, 0);
+        char[] maskedStr = new char[strLength];
+        int i;
+        // keep unmaskedStart chars from start as is
+        for (i = 0; i < unmaskedStart; i++) {
+            maskedStr[i] = str.charAt(i);
+        }
+        // replace intermediate chars with mask
+        for (; i < strLength - unmaskedEnd; i++) {
+            maskedStr[i] = mask;
+        }
+        // keep unmaskedEnd chars from end as is
+        for (; i < strLength; i++) {
+            maskedStr[i] = str.charAt(i);
+        }
+        return new String(maskedStr);
+    }
+
     // Stripping
     //-----------------------------------------------------------------------
     /**
