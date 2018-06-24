@@ -695,7 +695,7 @@ public class StringUtils {
      * @return masked string, {@code null} if null String input
      * @since 3.8
      */
-    public static String mask(final CharSequence str, int unmaskedStart, int unmaskedEnd, final char mask) {
+    public static String mask(final String str, int unmaskedStart, int unmaskedEnd, final char mask) {
         if (str == null) {
             return null;
         }
