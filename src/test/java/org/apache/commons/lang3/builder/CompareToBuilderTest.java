@@ -61,7 +61,7 @@ public class CompareToBuilderTest {
         }
         @Override
         public int compareTo(final TestObject rhs) {
-            return a < rhs.a ? -1 : a > rhs.a ? +1 : 0;
+            return Integer.compare(a, rhs.a);
         }
     }
 
