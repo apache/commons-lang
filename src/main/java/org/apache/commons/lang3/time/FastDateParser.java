@@ -448,6 +448,10 @@ public class FastDateParser implements DateParser, Serializable {
                 sb.append(c);
             }
         }
+        if(sb.charAt(sb.length() - 1) == '.') {
+            // trailing '.' is optional
+            sb.append('?');
+        }
         return sb;
     }
 
@@ -713,7 +717,12 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
-            final Integer iVal = lKeyValues.get(value.toLowerCase(locale));
+            final String lowerCase = value.toLowerCase(locale);
+            Integer iVal = lKeyValues.get(lowerCase);
+            if(iVal == null) {
+                // match missing the optional trailing period
+                iVal = lKeyValues.get(lowerCase + '.');
+            }
             cal.set(field, iVal.intValue());
         }
     }
@@ -892,7 +901,12 @@ public class FastDateParser implements DateParser, Serializable {
             if (tz != null) {
                 cal.setTimeZone(tz);
             } else {
-                final TzInfo tzInfo = tzNames.get(timeZone.toLowerCase(locale));
+                final String lowerCase = timeZone.toLowerCase(locale);
+                TzInfo tzInfo = tzNames.get(lowerCase);
+                if (tzInfo == null) {
+                    // match missing the optional trailing period
+                    tzInfo = tzNames.get(lowerCase + '.');
+                }
                 cal.set(Calendar.DST_OFFSET, tzInfo.dstOffset);
                 cal.set(Calendar.ZONE_OFFSET, tzInfo.zone.getRawOffset());
             }
