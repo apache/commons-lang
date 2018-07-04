@@ -8672,4 +8672,20 @@ public class ArrayUtils {
             swap(array, i - 1, random.nextInt(i), 1);
         }
     }
+    
+    /**
+     * Get boolean value if the size of array is between two integer values
+     *
+     * @param array  the array that has the number of records to compare
+     * @param first  initial value to be compared
+     * @param last   final value to be compared
+     * @return boolean value that will tell if the result is true or false
+     * @author marcos.cantor@gmail.com
+     */
+    public static boolean sizeIsBetween(final Object[] array, final int first, final int last) {
+    		if (array.length < first || array.length > last) {
+    			return false;
+    		}
+    		return true;
+    }
 }
