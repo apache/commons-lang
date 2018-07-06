@@ -3293,6 +3293,9 @@ public class StringUtilsTest {
         assertEquals("XXst", StringUtils.maskStart("test", 'X', 2, 4));
         assertEquals("XXXt", StringUtils.maskStart("test", 'X', 3, 4));
         assertEquals("XXXX", StringUtils.maskStart("test", 'X', 4, 4));
+
+        assertEquals("Xest", StringUtils.maskStart("test", 'X', 1, Integer.MAX_VALUE));
+        assertEquals("XXXX", StringUtils.maskStart("test", 'X', 1, Integer.MIN_VALUE));
     }
 
     @Test
@@ -3310,5 +3313,41 @@ public class StringUtilsTest {
         assertEquals("teXX", StringUtils.maskEnd("test", 'X', 2, 4));
         assertEquals("tXXX", StringUtils.maskEnd("test", 'X', 3, 4));
         assertEquals("XXXX", StringUtils.maskEnd("test", 'X', 4, 4));
+
+        assertEquals("tesX", StringUtils.maskEnd("test", 'X', 1, Integer.MAX_VALUE));
+        assertEquals("XXXX", StringUtils.maskEnd("test", 'X', 1, Integer.MIN_VALUE));
+    }
+
+    @Test
+    public void testMask() {
+        assertNull(StringUtils.mask(null, '*', 4, 4, 4 ));
+        assertEquals("", StringUtils.mask("", '*', 4, 4, 4));
+        assertEquals("test", StringUtils.mask("test", 'X', -1, 2, 2));
+        assertEquals("XXXX", StringUtils.mask("test", 'X', 0, -1, -1));
+        assertEquals("test", StringUtils.mask("test", 'X', 0, 2, 2));
+        assertEquals("tesX", StringUtils.mask("test", 'X', 0, 3, 0));
+        assertEquals("teXX", StringUtils.mask("test", 'X', 0, 2, 0));
+        assertEquals("tXXX", StringUtils.mask("test", 'X', 0, 1, 0));
+        assertEquals("XXXX", StringUtils.mask("test", 'X', 0, 0, 0));
+
+        assertEquals("Xest", StringUtils.mask("test", 'X', 0, 0, 3));
+        assertEquals("XXst", StringUtils.mask("test", 'X', 0, 0, 2));
+        assertEquals("XXXt", StringUtils.mask("test", 'X', 0, 0, 1));
+
+        assertEquals("tXst", StringUtils.mask("test", 'X', 1, 4, 4));
+        assertEquals("tXXt", StringUtils.mask("test", 'X', 2, 4, 4));
+        assertEquals("XXXt", StringUtils.mask("test", 'X', 3, 4, 4));
+        assertEquals("XXXX", StringUtils.mask("test", 'X', 4, 4, 4));
+
+        assertEquals("tXst", StringUtils.mask("test", 'X', 1, Integer.MAX_VALUE, Integer.MAX_VALUE));
+        assertEquals("teXst", StringUtils.mask("teest", 'X', 1, Integer.MAX_VALUE, Integer.MAX_VALUE));
+        assertEquals("tesX", StringUtils.mask("test", 'X', 1, Integer.MAX_VALUE, 0));
+        assertEquals("Xest", StringUtils.mask("test", 'X', 1, 0, Integer.MAX_VALUE));
+        assertEquals("Xest", StringUtils.mask("test", 'X', 1, Integer.MAX_VALUE - 5, Integer.MAX_VALUE));
+        assertEquals("tesX", StringUtils.mask("test", 'X', 1, Integer.MAX_VALUE, Integer.MAX_VALUE - 5));
+        assertEquals("tXst", StringUtils.mask("test", 'X', 1, Integer.MAX_VALUE -1, Integer.MAX_VALUE));
+        assertEquals("teXt", StringUtils.mask("test", 'X', 1, Integer.MAX_VALUE, Integer.MAX_VALUE -1));
+        assertEquals("tXXst", StringUtils.mask("teest", 'X', 2, Integer.MAX_VALUE -1, Integer.MAX_VALUE));
+        assertEquals("teXXt", StringUtils.mask("teest", 'X', 2, Integer.MAX_VALUE, Integer.MAX_VALUE -1));
     }
 }
