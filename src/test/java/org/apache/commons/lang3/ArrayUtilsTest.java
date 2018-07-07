@@ -5111,4 +5111,20 @@ public class ArrayUtilsTest {
             assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
         }
     }
+
+    @Test
+    public void testGet(){
+        assertNull(ArrayUtils.get(null, 0));
+        String[] array = new String[1];
+        assertNull(ArrayUtils.get(array, 1));
+        array[0] = "Hello World";
+        //test with happy path
+        assertNotNull(ArrayUtils.get(array, 0));
+
+        //test with default getter
+        assertEquals("Test", ArrayUtils.get(array, 10, "Test"));
+
+        //negative index
+        assertEquals("Hello World", ArrayUtils.get(array, -1));
+    }
 }

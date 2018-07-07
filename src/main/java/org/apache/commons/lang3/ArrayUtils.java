@@ -8672,4 +8672,37 @@ public class ArrayUtils {
             swap(array, i - 1, random.nextInt(i), 1);
         }
     }
+
+    /**
+     * Gets an element from the array if the array is non-null and appropriately long, otherwise returns null
+     *
+     * @param array   the array holding the desired object
+     * @param index  the index of the object in the array
+     * @return The Object in the array at the index, or null if it is ill-formatted
+     * @since 3.8
+     */
+    public static Object get(Object[] array, int index){
+        return get(array, index, null);
+    }
+
+    /**
+     * Gets an element from the array if the array is non-null and appropriately long, otherwise returns the specified value
+     *
+     * @param array   the array holding the desired object
+     * @param index  the index of the object in the array
+     * @param defaultReturn the object to be returned if the array is null or shorter than the index
+     * @return The object in the array at the specified index, or the given Object if it is ill-formatted
+     * @since 3.8
+     */
+    public static Object get(Object[] array, int index, Object defaultReturn){
+        if(getLength(array) == 0 || array.length <= index){
+            return defaultReturn;
+        }
+
+        if(index < 0 ){
+            index = 0;
+        }
+
+        return array[index];
+    }
 }
