@@ -8678,7 +8678,7 @@ public class ArrayUtils {
      * @param <T> the component type of the array, may be null
      * @param array   the array holding the desired element
      * @param index  the index of the element in the array
-     * @return The element in the array at the index, or null if it is ill-formatted
+     * @return The element in the array at the index, or null if the array is not sufficiently long for the index. May return null if the array contains null
      * @since 3.8
      */
     public static <T> T get(T[] array, int index){
