@@ -8707,7 +8707,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Gets an element from the array if the array is non-null and appropriately long, otherwise returns the specified value
+     * Returns whether a given array can safely be accessed at the given index.
      * @param <T> the component type of the array
      * @param array   the array holding the desired element
      * @param index  the index of the element in the array
