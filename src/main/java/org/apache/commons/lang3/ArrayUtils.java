@@ -8675,26 +8675,26 @@ public class ArrayUtils {
 
     /**
      * Gets an element from the array if the array is non-null and appropriately long, otherwise returns null
-     *
-     * @param array   the array holding the desired object
-     * @param index  the index of the object in the array
-     * @return The Object in the array at the index, or null if it is ill-formatted
+     * @param <T> the component type of the array
+     * @param array   the array holding the desired element
+     * @param index  the index of the element in the array
+     * @return The element in the array at the index, or null if it is ill-formatted
      * @since 3.8
      */
-    public static Object get(Object[] array, int index){
+    public static <T> T get(T[] array, int index){
         return get(array, index, null);
     }
 
     /**
      * Gets an element from the array if the array is non-null and appropriately long, otherwise returns the specified value
-     *
-     * @param array   the array holding the desired object
-     * @param index  the index of the object in the array
+     * @param <T> the component type of the array
+     * @param array   the array holding the desired element
+     * @param index  the index of the element in the array
      * @param defaultReturn the object to be returned if the array is null or shorter than the index
-     * @return The object in the array at the specified index, or the given Object if it is ill-formatted
+     * @return The element in the array at the specified index, or the given argument if it is ill-formatted
      * @since 3.8
      */
-    public static Object get(Object[] array, int index, Object defaultReturn){
+    public static <T> T get(T[] array, int index, T defaultReturn){
         if(getLength(array) == 0 || array.length <= index){
             return defaultReturn;
         }
@@ -8704,5 +8704,21 @@ public class ArrayUtils {
         }
 
         return array[index];
+    }
+
+    /**
+     * Gets an element from the array if the array is non-null and appropriately long, otherwise returns the specified value
+     * @param <T> the component type of the array
+     * @param array   the array holding the desired element
+     * @param index  the index of the element in the array
+     * @return Whether the given index is safely-accessible in the given array
+     * @since 3.8
+     */
+    public static <T> boolean isArrayIndexValid(T[] array, int index){
+        if(getLength(array) == 0 || array.length <= index){
+            return false;
+        }
+
+        return index >= 0;
     }
 }

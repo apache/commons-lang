@@ -5127,4 +5127,19 @@ public class ArrayUtilsTest {
         //negative index
         assertEquals("Hello World", ArrayUtils.get(array, -1));
     }
+
+    @Test
+    public void testIsArrayIndexValid(){
+        assertFalse(ArrayUtils.isArrayIndexValid(null, 0));
+        String[] array = new String[1];
+
+        //too big
+        assertFalse(ArrayUtils.isArrayIndexValid(array, 1));
+
+        //negative index
+        assertFalse(ArrayUtils.isArrayIndexValid(array, -1));
+
+        //good to go
+        assertTrue(ArrayUtils.isArrayIndexValid(array, 0));
+    }
 }
