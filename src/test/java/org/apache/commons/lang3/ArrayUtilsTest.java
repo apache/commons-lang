@@ -5125,7 +5125,7 @@ public class ArrayUtilsTest {
         assertEquals("Test", ArrayUtils.get(array, 10, "Test"));
 
         //negative index
-        assertEquals("Hello World", ArrayUtils.get(array, -1));
+        assertEquals("Default", ArrayUtils.get(array, -1, "Default"));
     }
 
     @Test

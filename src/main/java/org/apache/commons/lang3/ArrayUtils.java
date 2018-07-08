@@ -8700,7 +8700,7 @@ public class ArrayUtils {
         }
 
         if(index < 0 ){
-            index = 0;
+            return defaultReturn;
         }
 
         return array[index];
