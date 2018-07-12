@@ -199,6 +199,26 @@ public class BooleanUtils {
     }
 
     /**
+     * <p>Converts an Integer to a boolean using the convention that {@code zero}
+     * and {@code null} is {@code false}.</p>
+     *
+     * <pre>
+     *   BooleanUtils.toBoolean(null) = false
+     *   BooleanUtils.toBoolean(Integer.valueOf(0)) = false
+     *   BooleanUtils.toBoolean(Integer.valueOf(1)) = true
+     *   BooleanUtils.toBoolean(Integer.valueOf(2)) = true
+     * </pre>
+     *
+     * @param value  the int to convert
+     * @return {@code true} if non-zero and non-null,
+     * {@code false} otherwise
+     * @since 3.8
+     */
+    public static boolean toBoolean(final Integer value) {
+        return value != null && value != 0;
+    }
+
+    /**
      * <p>Converts an int to a Boolean using the convention that {@code zero}
      * is {@code false}.</p>
      *

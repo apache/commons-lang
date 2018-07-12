@@ -110,6 +110,19 @@ public class BooleanUtilsTest {
     }
 
     @Test
+    public void test_toBoolean_Integer() {
+        final Integer one = Integer.valueOf(1);
+        final Integer minusOne = Integer.valueOf(-1);
+        final Integer zero = Integer.valueOf(0);
+        final Integer nullInteger = null;
+
+        assertEquals(Boolean.TRUE, BooleanUtils.toBoolean(one));
+        assertEquals(Boolean.TRUE, BooleanUtils.toBoolean(minusOne));
+        assertEquals(Boolean.FALSE, BooleanUtils.toBoolean(zero));
+        assertEquals(Boolean.FALSE, BooleanUtils.toBoolean(nullInteger));
+    }
+
+    @Test
     public void test_toBooleanObject_int() {
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(1));
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(-1));
