@@ -8674,39 +8674,6 @@ public class ArrayUtils {
     }
 
     /**
-     * Gets an element from the array if the array is non-null and appropriately long, otherwise returns null
-     * @param <T> the component type of the array, may be null
-     * @param array   the array holding the desired element
-     * @param index  the index of the element in the array
-     * @return The element in the array at the index, or null if the array is not sufficiently long for the index. May return null if the array contains null
-     * @since 3.8
-     */
-    public static <T> T get(T[] array, int index){
-        return get(array, index, null);
-    }
-
-    /**
-     * Gets an element from the array if the array is non-null and appropriately long, otherwise returns the specified value
-     * @param <T> the component type of the array
-     * @param array   the array holding the desired element, may be null
-     * @param index  the index of the element in the array
-     * @param defaultReturn the object to be returned if the array is null or shorter than the index
-     * @return The element in the array at the specified index, or the given argument if it the array is not sufficiently long for the index. May return null if the array contains null
-     * @since 3.8
-     */
-    public static <T> T get(T[] array, int index, T defaultReturn){
-        if(getLength(array) == 0 || array.length <= index){
-            return defaultReturn;
-        }
-
-        if(index < 0 ){
-            return defaultReturn;
-        }
-
-        return array[index];
-    }
-
-    /**
      * Returns whether a given array can safely be accessed at the given index.
      * @param <T> the component type of the array
      * @param array the array to inspect

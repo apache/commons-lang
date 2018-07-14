@@ -5113,22 +5113,6 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testGet(){
-        assertNull(ArrayUtils.get(null, 0));
-        String[] array = new String[1];
-        assertNull(ArrayUtils.get(array, 1));
-        array[0] = "Hello World";
-        //test with happy path
-        assertNotNull(ArrayUtils.get(array, 0));
-
-        //test with default getter
-        assertEquals("Test", ArrayUtils.get(array, 10, "Test"));
-
-        //negative index
-        assertEquals("Default", ArrayUtils.get(array, -1, "Default"));
-    }
-
-    @Test
     public void testIsArrayIndexValid(){
         assertFalse(ArrayUtils.isArrayIndexValid(null, 0));
         String[] array = new String[1];
