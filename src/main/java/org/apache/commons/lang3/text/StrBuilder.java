@@ -74,8 +74,8 @@ import org.apache.commons.lang3.builder.Builder;
  *
  * @since 2.2
  * @deprecated as of 3.6, use commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrBuilder.html">
- * StrBuilder</a> instead
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/TextStringBuilder.html">
+ * TextStringBuilder</a> instead
  */
 @Deprecated
 public class StrBuilder implements CharSequence, Appendable, Serializable, Builder<String> {

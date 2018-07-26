@@ -122,8 +122,8 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @since 2.2
  * @deprecated as of 3.6, use commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrSubstitutor.html">
- * StrSubstitutor</a> instead
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StringSubstitutor.html">
+ * StringSubstitutor</a> instead
  */
 @Deprecated
 public class StrSubstitutor {
