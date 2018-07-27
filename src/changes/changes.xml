@@ -57,7 +57,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1371" type="fix" dev="pschumacher" due-to="Dmitry Ovchinnikov">Fix TypeUtils#parameterize to work correctly with narrower-typed array</action>
     <action issue="LANG-1370" type="fix" dev="kinow" due-to="Andre Dieb">Fix EventCountCircuitBreaker increment batch</action>
     <action issue="LANG-1385" type="fix" dev="ggregory" due-to="Rohan Padhye">NumberUtils.createNumber() throws StringIndexOutOfBoundsException instead of NumberFormatException</action>
-    <action issue="LANG-1397" type="fix" dev="ggregory" due-to="Takanobu Asanuma">WordUtils.wrap throws StringIndexOutOfBoundsException when wrapLength is Integer.MAX_VALUE.</action>   
+    <action issue="LANG-1397" type="fix" dev="ggregory" due-to="Takanobu Asanuma">WordUtils.wrap throws StringIndexOutOfBoundsException when wrapLength is Integer.MAX_VALUE.</action>
+    <action issue="LANG-1401" type="fix" dev="pschumacher" due-to="Roman Golyshev, Alex Mamedov">Typo in JavaDoc for lastIndexOf</action>
     <action issue="LANG-1367" type="update" dev="ggregory" due-to="Gary Gregory">ObjectUtils.identityToString(Object) and friends should allocate builders and buffers with a size</action>
     <action issue="LANG-1352" type="add" dev="pschumacher" due-to="Ruslan Sibgatullin">EnumUtils.getEnumIgnoreCase and isValidEnumIgnoreCase methods added</action>
     <action issue="LANG-1372" type="add" dev="pschumacher" due-to="Sérgio Ozaki">Add ToStringSummary annotation</action>
