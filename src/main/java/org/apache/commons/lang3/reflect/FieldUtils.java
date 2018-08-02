@@ -24,7 +24,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,6 +36,52 @@ import java.util.List;
  * @since 2.5
  */
 public class FieldUtils {
+
+    // an interface that tests the specified Field and returns true if the test passes. when we move to JDK 8+ this can be replaced with java.util.function.Predicate
+    private interface FieldPredicate {
+        boolean test(Field field);
+    }
+
+    // A FieldPredicate that always returns true.
+    private static final FieldPredicate ACCEPT_ALL_FIELD_PREDICATE = new FieldPredicate() {
+        @Override
+        public boolean test(Field field) {
+            return true;
+        }
+    };
+
+    // A FieldPredicate that returns true if the specified Field is non-synthetic.
+    private static final FieldPredicate NON_SYNTHETIC_FIELD_PREDICATE = new FieldPredicate() {
+        @Override
+        public boolean test(Field field) {
+            return !field.isSynthetic();
+        }
+    };
+
+    // A FieldPredicate that returns true if the given Field is annotated with the given Annotation.
+    private static final class AnnotatedFieldPredicate implements FieldPredicate {
+        private final Class<? extends Annotation> m_annotationClass;
+
+        AnnotatedFieldPredicate(Class<? extends Annotation> annotationClass) {
+            m_annotationClass = annotationClass;
+        }
+
+        @Override
+        public boolean test(Field field) {
+            return field.isAnnotationPresent(m_annotationClass);
+        }
+    }
+
+    // gets all fields from the given class that adhere to the given FieldPredicate
+    private static List<Field> getFields(final Field[] declaredFields, FieldPredicate fieldPredicate) {
+        List<Field> fields = new ArrayList<>(declaredFields.length);
+        for (Field declaredField : declaredFields) {
+            if (fieldPredicate.test(declaredField)) {
+                fields.add(declaredField);
+            }
+        }
+        return fields;
+    }
 
     /**
      * {@link FieldUtils} instances should NOT be constructed in standard programming.
@@ -205,7 +250,7 @@ public class FieldUtils {
      *
      * @param cls
      *            the {@link Class} to query
-     * @return an array of Fields (possibly empty).
+     * @return a List of Fields (possibly empty).
      * @throws IllegalArgumentException
      *             if the class is {@code null}
      * @since 3.2
@@ -213,11 +258,42 @@ public class FieldUtils {
     public static List<Field> getAllFieldsList(final Class<?> cls) {
         Validate.isTrue(cls != null, "The class must not be null");
         final List<Field> allFields = new ArrayList<>();
-        Class<?> currentClass = cls;
-        while (currentClass != null) {
-            final Field[] declaredFields = currentClass.getDeclaredFields();
-            Collections.addAll(allFields, declaredFields);
-            currentClass = currentClass.getSuperclass();
+        for (Class<?> currentClass = cls; currentClass != null; currentClass = currentClass.getSuperclass()) {
+            allFields.addAll(getFields(currentClass.getDeclaredFields(), ACCEPT_ALL_FIELD_PREDICATE));
+        }
+        return allFields;
+    }
+
+    /**
+     * Gets all non-synthetic fields of the given class and its parents (if any).
+     *
+     * @param cls
+     *            the {@link Class} to query
+     * @return an array of Fields (possibly empty).
+     * @throws IllegalArgumentException
+     *             if the class is {@code null}
+     * @since 3.7
+     */
+    public static Field[] getAllFieldsNonSynthetic(final Class<?> cls) {
+        final List<Field> allFieldsList = getAllFieldsNonSyntheticList(cls);
+        return allFieldsList.toArray(new Field[allFieldsList.size()]);
+    }
+
+    /**
+     * Gets all non-synthetic fields of the given class and its parents (if any).
+     *
+     * @param cls
+     *            the {@link Class} to query
+     * @return a List of Fields (possibly empty).
+     * @throws IllegalArgumentException
+     *             if the class is {@code null}
+     * @since 3.7
+     */
+    public static List<Field> getAllFieldsNonSyntheticList(final Class<?> cls) {
+        Validate.isTrue(cls != null, "The class must not be null");
+        final List<Field> allFields = new ArrayList<>();
+        for (Class<?> currentClass = cls; currentClass != null; currentClass = currentClass.getSuperclass()) {
+            allFields.addAll(getFields(currentClass.getDeclaredFields(), NON_SYNTHETIC_FIELD_PREDICATE));
         }
         return allFields;
     }
@@ -250,15 +326,9 @@ public class FieldUtils {
      * @since 3.4
      */
     public static List<Field> getFieldsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+        Validate.isTrue(cls != null, "The class must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
-        final List<Field> allFields = getAllFieldsList(cls);
-        final List<Field> annotatedFields = new ArrayList<>();
-        for (final Field field : allFields) {
-            if (field.getAnnotation(annotationCls) != null) {
-                annotatedFields.add(field);
-            }
-        }
-        return annotatedFields;
+        return getFields(cls.getDeclaredFields(), new AnnotatedFieldPredicate(annotationCls));
     }
 
     /**

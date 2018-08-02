@@ -18,14 +18,7 @@ package org.apache.commons.lang3.reflect;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import org.apache.commons.lang3.reflect.testbed.Ambig;
-import org.apache.commons.lang3.reflect.testbed.Annotated;
-import org.apache.commons.lang3.reflect.testbed.Foo;
-import org.apache.commons.lang3.reflect.testbed.PrivatelyShadowedChild;
-import org.apache.commons.lang3.reflect.testbed.PublicChild;
-import org.apache.commons.lang3.reflect.testbed.PubliclyShadowedChild;
-import org.apache.commons.lang3.reflect.testbed.StaticContainer;
-import org.apache.commons.lang3.reflect.testbed.StaticContainerChild;
+import org.apache.commons.lang3.reflect.testbed.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -196,6 +189,28 @@ public class FieldUtilsTest {
         }
         assertEquals(allFields.toString(), expected, allFields.size());
 
+    }
+
+    @Test
+    public void testGetAllFieldNonSyntheticList() {
+        assertEquals(0, FieldUtils.getAllFieldsNonSyntheticList(Object.class).size());
+
+        final List<Field> fieldsNumber = Arrays.asList(Number.class.getDeclaredFields());
+        assertEquals(fieldsNumber, FieldUtils.getAllFieldsNonSyntheticList(Number.class));
+
+        // at the time of this writing Integer contains a synthetic field called $assertionsDisabled
+        assertEquals(Integer.class.getDeclaredFields().length - 1 + Number.class.getDeclaredFields().length + Object.class.getDeclaredFields().length, FieldUtils.getAllFieldsNonSyntheticList(Integer.class).size());
+    }
+
+    @Test
+    public void testGetAllFieldsNonSynthetic() {
+        assertEquals(0, FieldUtils.getAllFieldsNonSynthetic(Object.class).length);
+
+        final Field[] fieldsNumber = Number.class.getDeclaredFields();
+        assertArrayEquals(fieldsNumber, FieldUtils.getAllFieldsNonSynthetic(Number.class));
+
+        // at the time of this writing Integer contains a synthetic field called $assertionsDisabled
+        assertEquals(FieldUtils.getAllFields(Integer.class).length - 1, FieldUtils.getAllFieldsNonSynthetic(Integer.class).length);
     }
 
     @Test
