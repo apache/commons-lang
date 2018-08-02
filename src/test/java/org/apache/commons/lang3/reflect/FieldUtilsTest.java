@@ -18,7 +18,14 @@ package org.apache.commons.lang3.reflect;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import org.apache.commons.lang3.reflect.testbed.*;
+import org.apache.commons.lang3.reflect.testbed.Ambig;
+import org.apache.commons.lang3.reflect.testbed.Annotated;
+import org.apache.commons.lang3.reflect.testbed.Foo;
+import org.apache.commons.lang3.reflect.testbed.PrivatelyShadowedChild;
+import org.apache.commons.lang3.reflect.testbed.PublicChild;
+import org.apache.commons.lang3.reflect.testbed.PubliclyShadowedChild;
+import org.apache.commons.lang3.reflect.testbed.StaticContainer;
+import org.apache.commons.lang3.reflect.testbed.StaticContainerChild;
 import org.junit.Before;
 import org.junit.Test;
 
