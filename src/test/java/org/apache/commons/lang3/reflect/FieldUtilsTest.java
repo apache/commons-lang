@@ -21,6 +21,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.reflect.testbed.Ambig;
 import org.apache.commons.lang3.reflect.testbed.Annotated;
 import org.apache.commons.lang3.reflect.testbed.Foo;
+import org.apache.commons.lang3.reflect.testbed.FooEnum;
 import org.apache.commons.lang3.reflect.testbed.PrivatelyShadowedChild;
 import org.apache.commons.lang3.reflect.testbed.PublicChild;
 import org.apache.commons.lang3.reflect.testbed.PubliclyShadowedChild;
@@ -199,14 +200,22 @@ public class FieldUtilsTest {
     }
 
     @Test
-    public void testGetAllFieldNonSyntheticList() {
+    public void testGetAllFieldsNonSyntheticList() {
         assertEquals(0, FieldUtils.getAllFieldsNonSyntheticList(Object.class).size());
 
         final List<Field> fieldsNumber = Arrays.asList(Number.class.getDeclaredFields());
         assertEquals(fieldsNumber, FieldUtils.getAllFieldsNonSyntheticList(Number.class));
 
-        // at the time of this writing Integer contains a synthetic field called $assertionsDisabled
-        assertEquals(Integer.class.getDeclaredFields().length - 1 + Number.class.getDeclaredFields().length + Object.class.getDeclaredFields().length, FieldUtils.getAllFieldsNonSyntheticList(Integer.class).size());
+        Field[] allFields = FieldUtils.getAllFields(FooEnum.class);
+
+        // the JVM changes all the time. so who knows how many synthetic fields it will generate tomorrow.
+        // here we get the number of non-synthetic fields from the enum and use that for an assertion later on.
+        final int expectedNumberOfNonSyntheticFields = getNumberOfNonSyntheticFields(allFields);
+
+        assertTrue(expectedNumberOfNonSyntheticFields > 0);
+
+        final Field[] allFieldsNonSynthetic = FieldUtils.getAllFieldsNonSynthetic(FooEnum.class);
+        assertEquals(expectedNumberOfNonSyntheticFields, allFieldsNonSynthetic.length);
     }
 
     @Test
@@ -216,8 +225,16 @@ public class FieldUtilsTest {
         final Field[] fieldsNumber = Number.class.getDeclaredFields();
         assertArrayEquals(fieldsNumber, FieldUtils.getAllFieldsNonSynthetic(Number.class));
 
-        // at the time of this writing Integer contains a synthetic field called $assertionsDisabled
-        assertEquals(FieldUtils.getAllFields(Integer.class).length - 1, FieldUtils.getAllFieldsNonSynthetic(Integer.class).length);
+        Field[] allFields = FieldUtils.getAllFields(FooEnum.class);
+
+        // the JVM changes all the time. so who knows how many synthetic fields it will generate tomorrow.
+        // here we get the number of non-synthetic fields from the enum and use that for an assertion later on.
+        final int expectedNumberOfNonSyntheticFields = getNumberOfNonSyntheticFields(allFields);
+
+        assertTrue(expectedNumberOfNonSyntheticFields > 0);
+
+        Field[] allFieldsNonSynthetic = FieldUtils.getAllFieldsNonSynthetic(FooEnum.class);
+        assertEquals(expectedNumberOfNonSyntheticFields, allFieldsNonSynthetic.length);
     }
 
     @Test
@@ -1406,4 +1423,14 @@ public class FieldUtilsTest {
         assertFalse(field.isAccessible());
     }
 
+    private static int getNumberOfNonSyntheticFields(Field[] fields) {
+        int numberOfNonSyntheticFields = 0;
+        for (Field field : fields) {
+            if (!field.isSynthetic()) {
+                ++numberOfNonSyntheticFields;
+            }
+        }
+
+        return numberOfNonSyntheticFields;
+    }
 }
