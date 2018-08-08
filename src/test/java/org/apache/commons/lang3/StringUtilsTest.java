@@ -1225,6 +1225,9 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.replaceIgnoreCase("foofoofoo", "FOO", ""));
         assertEquals("barbarbar", StringUtils.replaceIgnoreCase("fooFOOfoo", "foo", "bar"));
         assertEquals("farfarfar", StringUtils.replaceIgnoreCase("foofOOfoo", "OO", "ar"));
+
+        //UniCode
+        assertEquals("\u0130", StringUtils.replaceIgnoreCase("\u0130x", "x", ""));
     }
 
     @Test
