@@ -5596,8 +5596,8 @@ public class StringUtils {
          }
          String searchText = text;
          if (ignoreCase) {
-             searchText = text.toLowerCase();
-             searchString = searchString.toLowerCase();
+             searchText = text.toUpperCase();
+             searchString = searchString.toUpperCase();
          }
          int start = 0;
          int end = searchText.indexOf(searchString, start);
