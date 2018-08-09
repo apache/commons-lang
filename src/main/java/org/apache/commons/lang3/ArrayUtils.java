@@ -8672,4 +8672,20 @@ public class ArrayUtils {
             swap(array, i - 1, random.nextInt(i), 1);
         }
     }
+
+    /**
+     * Returns whether a given array can safely be accessed at the given index.
+     * @param <T> the component type of the array
+     * @param array the array to inspect, may be null
+     * @param index the index of the array to be inspected
+     * @return Whether the given index is safely-accessible in the given array
+     * @since 3.8
+     */
+    public static <T> boolean isArrayIndexValid(T[] array, int index){
+        if(getLength(array) == 0 || array.length <= index){
+            return false;
+        }
+
+        return index >= 0;
+    }
 }
