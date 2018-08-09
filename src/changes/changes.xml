@@ -70,6 +70,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1290" type="add" dev="ggregory" due-to="Jochen Schalanda">StringUtils.join() with support for List&lt;?> with configurable start/end indices.</action>
     <action issue="LANG-1392" type="add" dev="pschumacher" due-to="Jeff Nelson">Methods for getting first non empty or non blank value</action>
     <action issue="LANG-1405" type="update" dev="ggregory" due-to="Lars Grefer">Remove checks for java versions below the minimum supported one</action>
+    <action issue="LANG-1402" type="update" dev="chtompki" due-to="Mark Dacek">Null/index safe get methods for ArrayUtils</action>
   </release>
 
   <release version="3.7" date="2017-11-04" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
