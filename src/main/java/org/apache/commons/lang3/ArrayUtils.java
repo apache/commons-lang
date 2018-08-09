@@ -8676,7 +8676,7 @@ public class ArrayUtils {
     /**
      * Returns whether a given array can safely be accessed at the given index.
      * @param <T> the component type of the array
-     * @param array the array to inspect
+     * @param array the array to inspect, may be null
      * @param index the index of the array to be inspected
      * @return Whether the given index is safely-accessible in the given array
      * @since 3.8
