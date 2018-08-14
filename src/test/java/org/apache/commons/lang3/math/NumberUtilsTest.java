@@ -163,7 +163,7 @@ public class NumberUtilsTest {
         assertTrue("toDouble(Double.MAX_VALUE) failed", NumberUtils.toDouble(Double.MAX_VALUE+"") == Double.MAX_VALUE);
         assertTrue("toDouble(Double.MIN_VALUE) failed", NumberUtils.toDouble(Double.MIN_VALUE+"") == Double.MIN_VALUE);
         assertTrue("toDouble(empty) failed", NumberUtils.toDouble("") == 0.0d);
-        assertTrue("toDouble(null) failed", NumberUtils.toDouble(null) == 0.0d);
+        assertTrue("toDouble(null) failed", NumberUtils.toDouble((String) null) == 0.0d);
     }
 
     /**
@@ -178,6 +178,24 @@ public class NumberUtilsTest {
         assertTrue("toDouble(String,int) 4 failed", NumberUtils.toDouble("-001.2345", 5.1d) == -1.2345d);
         assertTrue("toDouble(String,int) 5 failed", NumberUtils.toDouble("+001.2345", 5.1d) == 1.2345d);
         assertTrue("toDouble(String,int) 7 failed", NumberUtils.toDouble("000.00", 5.1d) == 0d);
+    }
+
+    /**
+     * Test for {@link NumberUtils#toDouble(BigDecimal)}
+     */
+    @Test
+    public void testBigIntegerToDoubleBigInteger() {
+        assertTrue("toDouble(BigInteger) 1 failed", NumberUtils.toDouble((BigDecimal) null) == 0.0d);
+        assertTrue("toDouble(BigInteger) 2 failed", NumberUtils.toDouble(BigDecimal.valueOf(8.5d)) == 8.5d);
+    }
+
+    /**
+     * Test for {@link NumberUtils#toDouble(BigDecimal, double)}
+     */
+    @Test
+    public void testBigIntegerToDoubleBigIntegerD() {
+        assertTrue("toDouble(BigInteger) 1 failed", NumberUtils.toDouble((BigDecimal) null, 1.1d) == 1.1d);
+        assertTrue("toDouble(BigInteger) 2 failed", NumberUtils.toDouble(BigDecimal.valueOf(8.5d), 1.1d) == 8.5d);
     }
 
      /**

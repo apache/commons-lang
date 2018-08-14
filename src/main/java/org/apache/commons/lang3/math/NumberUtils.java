@@ -67,6 +67,7 @@ public class NumberUtils {
     /** Reusable Float constant for minus one. */
     public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
 
+
     /**
      * <p><code>NumberUtils</code> instances should NOT be constructed in standard programming.
      * Instead, the class should be used as <code>NumberUtils.toInt("6");</code>.</p>
@@ -279,6 +280,47 @@ public class NumberUtils {
       } catch (final NumberFormatException nfe) {
           return defaultValue;
       }
+    }
+
+    /**
+     * <p>Convert a <code>BigDecimal</code> to a <code>double</code>.</p>
+     *
+     * <p>If the <code>BigDecimal</code> <code>value</code> is
+     * <code>null</code>, then the specified default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toDouble(null)                     = 0.0d
+     *   NumberUtils.toDouble(BigDecimal.valudOf(8.5d)) = 8.5d
+     * </pre>
+     *
+     * @param value the <code>BigDecimal</code> to convert, may be <code>null</code>.
+     * @return the double represented by the <code>BigDecimal</code> or
+     *  <code>0.0d</code> if the <code>BigDecimal</code> is <code>null</code>.
+     * @since 3.8
+     */
+    public static double toDouble(BigDecimal value) {
+        return toDouble(value, 0.0d);
+    }
+
+    /**
+     * <p>Convert a <code>BigDecimal</code> to a <code>double</code>.</p>
+     *
+     * <p>If the <code>BigDecimal</code> <code>value</code> is
+     * <code>null</code>, then the specified default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toDouble(null, 1.1d)                     = 1.1d
+     *   NumberUtils.toDouble(BigDecimal.valudOf(8.5d), 1.1d) = 8.5d
+     * </pre>
+     *
+     * @param value the <code>BigDecimal</code> to convert, may be <code>null</code>.
+     * @param defaultValue the default value
+     * @return the double represented by the <code>BigDecimal</code> or the
+     *  defaultValue if the <code>BigDecimal</code> is <code>null</code>.
+     * @since 3.8
+     */
+    public static double toDouble(BigDecimal value, double defaultValue) {
+        return value == null ? defaultValue : value.doubleValue();
     }
 
      //-----------------------------------------------------------------------
