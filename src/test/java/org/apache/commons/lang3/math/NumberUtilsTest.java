@@ -27,6 +27,7 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import java.math.RoundingMode;
 import org.junit.Test;
 
 /**
@@ -236,6 +237,169 @@ public class NumberUtilsTest {
     public void testToShortStringI() {
         assertTrue("toShort(String,short) 1 failed", NumberUtils.toShort("12345", (short) 5) == 12345);
         assertTrue("toShort(String,short) 2 failed", NumberUtils.toShort("1234.5", (short) 5) == 5);
+    }
+
+    /**
+     * Test for {@link NumberUtils#toScaledBigDecimal(BigDecimal)}.
+     */
+    @Test
+    public void testToScaledBigDecimalBigDecimal() {
+        assertTrue("toScaledBigDecimal(BigDecimal) 1 failed",
+            NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(123.456)).equals(BigDecimal.valueOf(123.46)));
+        // Test RoudingMode.HALF_EVEN default rounding.
+        assertTrue("toScaledBigDecimal(BigDecimal) 2 failed",
+            NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.515)).equals(BigDecimal.valueOf(23.52)));
+        assertTrue("toScaledBigDecimal(BigDecimal) 3 failed",
+            NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.525)).equals(BigDecimal.valueOf(23.52)));
+        assertTrue("toScaledBigDecimal(BigDecimal) 4 failed",
+            NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.525))
+                .multiply(BigDecimal.valueOf(100)).toString()
+                .equals("2352.00"));
+        assertTrue("toScaledBigDecimal(BigDecimal) 5 failed",
+            NumberUtils.toScaledBigDecimal((BigDecimal) null).equals(BigDecimal.ZERO));
+    }
+
+    /**
+     * Test for {@link NumberUtils#toScaledBigDecimal(BigDecimal, int, RoundingMode)}.
+     */
+    @Test
+    public void testToScaledBigDecimalBigDecimalIRM() {
+        assertTrue("toScaledBigDecimal(BigDecimal, int, RoudingMode) 1 failed",
+            NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(123.456), 1, RoundingMode.CEILING).equals(BigDecimal.valueOf(123.5)));
+        assertTrue("toScaledBigDecimal(BigDecimal, int, RoudingMode) 2 failed",
+            NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.5159), 3, RoundingMode.FLOOR).equals(BigDecimal.valueOf(23.515)));
+        assertTrue("toScaledBigDecimal(BigDecimal, int, RoudingMode) 3 failed",
+            NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.525), 2, RoundingMode.HALF_UP).equals(BigDecimal.valueOf(23.53)));
+        assertTrue("toScaledBigDecimal(BigDecimal, int, RoudingMode) 4 failed",
+            NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.521), 4, RoundingMode.HALF_EVEN)
+                .multiply(BigDecimal.valueOf(1000))
+                .toString()
+                .equals("23521.0000"));
+        assertTrue("toScaledBigDecimal(BigDecimal, int, RoudingMode) 5 failed",
+            NumberUtils.toScaledBigDecimal((BigDecimal) null, 2, RoundingMode.HALF_UP).equals(BigDecimal.ZERO));
+    }
+
+    /**
+     * Test for {@link NumberUtils#toScaledBigDecimal(Float)}.
+     */
+    @Test
+    public void testToScaledBigDecimalFloat() {
+        assertTrue("toScaledBigDecimal(Float) 1 failed",
+            NumberUtils.toScaledBigDecimal(Float.valueOf(123.456f)).equals(BigDecimal.valueOf(123.46)));
+        // Test RoudingMode.HALF_EVEN default rounding.
+        assertTrue("toScaledBigDecimal(Float) 2 failed",
+            NumberUtils.toScaledBigDecimal(Float.valueOf(23.515f)).equals(BigDecimal.valueOf(23.51)));
+        // Note. NumberUtils.toScaledBigDecimal(Float.valueOf(23.515f)).equals(BigDecimal.valueOf(23.51))
+        // because of roundoff error. It is ok.
+        assertTrue("toScaledBigDecimal(Float) 3 failed",
+            NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f)).equals(BigDecimal.valueOf(23.52)));
+        assertTrue("toScaledBigDecimal(Float) 4 failed",
+            NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f))
+                .multiply(BigDecimal.valueOf(100)).toString()
+                .equals("2352.00"));
+        assertTrue("toScaledBigDecimal(Float) 5 failed",
+            NumberUtils.toScaledBigDecimal((Float) null).equals(BigDecimal.ZERO));
+    }
+
+    /**
+     * Test for {@link NumberUtils#toScaledBigDecimal(Float, int, RoundingMode)}.
+     */
+    @Test
+    public void testToScaledBigDecimalFloatIRM() {
+        assertTrue("toScaledBigDecimal(Float, int, RoudingMode) 1 failed",
+            NumberUtils.toScaledBigDecimal(Float.valueOf(123.456f), 1, RoundingMode.CEILING).equals(BigDecimal.valueOf(123.5)));
+        assertTrue("toScaledBigDecimal(Float, int, RoudingMode) 2 failed",
+            NumberUtils.toScaledBigDecimal(Float.valueOf(23.5159f), 3, RoundingMode.FLOOR).equals(BigDecimal.valueOf(23.515)));
+        // The following happens due to roundoff error. We're ok with this.
+        assertTrue("toScaledBigDecimal(Float, int, RoudingMode) 3 failed",
+            NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f), 2, RoundingMode.HALF_UP).equals(BigDecimal.valueOf(23.52)));
+        assertTrue("toScaledBigDecimal(Float, int, RoudingMode) 4 failed",
+            NumberUtils.toScaledBigDecimal(Float.valueOf(23.521f), 4, RoundingMode.HALF_EVEN)
+                .multiply(BigDecimal.valueOf(1000))
+                .toString()
+                .equals("23521.0000"));
+        assertTrue("toScaledBigDecimal(Float, int, RoudingMode) 5 failed",
+            NumberUtils.toScaledBigDecimal((Float) null, 2, RoundingMode.HALF_UP).equals(BigDecimal.ZERO));
+    }
+
+    /**
+     * Test for {@link NumberUtils#toScaledBigDecimal(Double)}.
+     */
+    @Test
+    public void testToScaledBigDecimalDouble() {
+        assertTrue("toScaledBigDecimal(Double) 1 failed",
+            NumberUtils.toScaledBigDecimal(Double.valueOf(123.456d)).equals(BigDecimal.valueOf(123.46)));
+        // Test RoudingMode.HALF_EVEN default rounding.
+        assertTrue("toScaledBigDecimal(Double) 2 failed",
+            NumberUtils.toScaledBigDecimal(Double.valueOf(23.515d)).equals(BigDecimal.valueOf(23.52)));
+        assertTrue("toScaledBigDecimal(Double) 3 failed",
+            NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d)).equals(BigDecimal.valueOf(23.52)));
+        assertTrue("toScaledBigDecimal(Double) 4 failed",
+            NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d))
+                .multiply(BigDecimal.valueOf(100)).toString()
+                .equals("2352.00"));
+        assertTrue("toScaledBigDecimal(Double) 5 failed",
+            NumberUtils.toScaledBigDecimal((Double) null).equals(BigDecimal.ZERO));
+    }
+
+    /**
+     * Test for {@link NumberUtils#toScaledBigDecimal(Double, int, RoundingMode)}.
+     */
+    @Test
+    public void testToScaledBigDecimalDoubleIRM() {
+        assertTrue("toScaledBigDecimal(Double, int, RoudingMode) 1 failed",
+            NumberUtils.toScaledBigDecimal(Double.valueOf(123.456d), 1, RoundingMode.CEILING).equals(BigDecimal.valueOf(123.5)));
+        assertTrue("toScaledBigDecimal(Double, int, RoudingMode) 2 failed",
+            NumberUtils.toScaledBigDecimal(Double.valueOf(23.5159d), 3, RoundingMode.FLOOR).equals(BigDecimal.valueOf(23.515)));
+        assertTrue("toScaledBigDecimal(Double, int, RoudingMode) 3 failed",
+            NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d), 2, RoundingMode.HALF_UP).equals(BigDecimal.valueOf(23.53)));
+        assertTrue("toScaledBigDecimal(Double, int, RoudingMode) 4 failed",
+            NumberUtils.toScaledBigDecimal(Double.valueOf(23.521d), 4, RoundingMode.HALF_EVEN)
+                .multiply(BigDecimal.valueOf(1000))
+                .toString()
+                .equals("23521.0000"));
+        assertTrue("toScaledBigDecimal(Double, int, RoudingMode) 5 failed",
+            NumberUtils.toScaledBigDecimal((Double) null, 2, RoundingMode.HALF_UP).equals(BigDecimal.ZERO));
+    }
+
+    /**
+     * Test for {@link NumberUtils#toScaledBigDecimal(Double)}.
+     */
+    @Test
+    public void testToScaledBigDecimalString() {
+        assertTrue("toScaledBigDecimal(String) 1 failed",
+            NumberUtils.toScaledBigDecimal("123.456").equals(BigDecimal.valueOf(123.46)));
+        // Test RoudingMode.HALF_EVEN default rounding.
+        assertTrue("toScaledBigDecimal(String) 2 failed",
+            NumberUtils.toScaledBigDecimal("23.515").equals(BigDecimal.valueOf(23.52)));
+        assertTrue("toScaledBigDecimal(String) 3 failed",
+            NumberUtils.toScaledBigDecimal("23.525").equals(BigDecimal.valueOf(23.52)));
+        assertTrue("toScaledBigDecimal(String) 4 failed",
+            NumberUtils.toScaledBigDecimal("23.525")
+                .multiply(BigDecimal.valueOf(100)).toString()
+                .equals("2352.00"));
+        assertTrue("toScaledBigDecimal(String) 5 failed",
+            NumberUtils.toScaledBigDecimal((String) null).equals(BigDecimal.ZERO));
+    }
+
+    /**
+     * Test for {@link NumberUtils#toScaledBigDecimal(Double, int, RoundingMode)}.
+     */
+    @Test
+    public void testToScaledBigDecimalStringIRM() {
+        assertTrue("toScaledBigDecimal(String, int, RoudingMode) 1 failed",
+            NumberUtils.toScaledBigDecimal("123.456", 1, RoundingMode.CEILING).equals(BigDecimal.valueOf(123.5)));
+        assertTrue("toScaledBigDecimal(String, int, RoudingMode) 2 failed",
+            NumberUtils.toScaledBigDecimal("23.5159", 3, RoundingMode.FLOOR).equals(BigDecimal.valueOf(23.515)));
+        assertTrue("toScaledBigDecimal(String, int, RoudingMode) 3 failed",
+            NumberUtils.toScaledBigDecimal("23.525", 2, RoundingMode.HALF_UP).equals(BigDecimal.valueOf(23.53)));
+        assertTrue("toScaledBigDecimal(String, int, RoudingMode) 4 failed",
+            NumberUtils.toScaledBigDecimal("23.521", 4, RoundingMode.HALF_EVEN)
+                .multiply(BigDecimal.valueOf(1000))
+                .toString()
+                .equals("23521.0000"));
+        assertTrue("toScaledBigDecimal(String, int, RoudingMode) 5 failed",
+            NumberUtils.toScaledBigDecimal((String) null, 2, RoundingMode.HALF_UP).equals(BigDecimal.ZERO));
     }
 
     @Test

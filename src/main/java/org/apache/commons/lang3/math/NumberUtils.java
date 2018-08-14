@@ -20,6 +20,7 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import java.math.RoundingMode;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -40,6 +41,8 @@ public class NumberUtils {
     public static final Integer INTEGER_ZERO = Integer.valueOf(0);
     /** Reusable Integer constant for one. */
     public static final Integer INTEGER_ONE = Integer.valueOf(1);
+    /** Reusable Integer constant for two */
+    public static final Integer INTEGER_TWO = Integer.valueOf(2);
     /** Reusable Integer constant for minus one. */
     public static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
     /** Reusable Short constant for zero. */
@@ -298,7 +301,7 @@ public class NumberUtils {
      *  <code>0.0d</code> if the <code>BigDecimal</code> is <code>null</code>.
      * @since 3.8
      */
-    public static double toDouble(BigDecimal value) {
+    public static double toDouble(final BigDecimal value) {
         return toDouble(value, 0.0d);
     }
 
@@ -319,7 +322,7 @@ public class NumberUtils {
      *  defaultValue if the <code>BigDecimal</code> is <code>null</code>.
      * @since 3.8
      */
-    public static double toDouble(BigDecimal value, double defaultValue) {
+    public static double toDouble(final BigDecimal value, final double defaultValue) {
         return value == null ? defaultValue : value.doubleValue();
     }
 
@@ -420,6 +423,161 @@ public class NumberUtils {
         } catch (final NumberFormatException nfe) {
             return defaultValue;
         }
+    }
+
+    /**
+     * Convert a <code>BigDecimal</code> to a <code>BigDecimal</code> with a scale of
+     * two that has been rounded using <code>RoundingMode.HALF_EVEN</code>. If the supplied
+     * <code>value</code> is null, then <code>BigDecimal.ZERO</code> is returned.
+     *
+     * <p>Note, the scale of a <code>BigDecimal</code> is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the <code>BigDecimal</code> to convert, may be null.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(BigDecimal value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
+    }
+
+    /**
+     * Convert a <code>BigDecimal</code> to a <code>BigDecimal</code> whose scale is the
+     * specified value with a <code>RoundingMode</code> applied. If the input <code>value</code>
+     * is <code>null</code>, we simply return <code>BigDecimal.ZERO</code>.
+     *
+     * @param value the <code>BigDecimal</code> to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(BigDecimal value, int scale, RoundingMode roundingMode) {
+        if (value == null) {
+            return BigDecimal.ZERO;
+        }
+        return value.setScale(
+            scale,
+            (roundingMode == null) ? RoundingMode.HALF_EVEN : roundingMode
+        );
+    }
+
+    /**
+     * Convert a <code>Float</code> to a <code>BigDecimal</code> with a scale of
+     * two that has been rounded using <code>RoundingMode.HALF_EVEN</code>. If the supplied
+     * <code>value</code> is null, then <code>BigDecimal.ZERO</code> is returned.
+     *
+     * <p>Note, the scale of a <code>BigDecimal</code> is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the <code>Float</code> to convert, may be null.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(Float value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
+    }
+
+    /**
+     * Convert a <code>Float</code> to a <code>BigDecimal</code> whose scale is the
+     * specified value with a <code>RoundingMode</code> applied. If the input <code>value</code>
+     * is <code>null</code>, we simply return <code>BigDecimal.ZERO</code>.
+     *
+     * @param value the <code>Float</code> to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(Float value, int scale, RoundingMode roundingMode) {
+        if (value == null) {
+            return BigDecimal.ZERO;
+        }
+        return toScaledBigDecimal(
+            BigDecimal.valueOf(value),
+            scale,
+            roundingMode
+        );
+    }
+
+    /**
+     * Convert a <code>Double</code> to a <code>BigDecimal</code> with a scale of
+     * two that has been rounded using <code>RoundingMode.HALF_EVEN</code>. If the supplied
+     * <code>value</code> is null, then <code>BigDecimal.ZERO</code> is returned.
+     *
+     * <p>Note, the scale of a <code>BigDecimal</code> is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the <code>Double</code> to convert, may be null.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(Double value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
+    }
+
+    /**
+     * Convert a <code>Double</code> to a <code>BigDecimal</code> whose scale is the
+     * specified value with a <code>RoundingMode</code> applied. If the input <code>value</code>
+     * is <code>null</code>, we simply return <code>BigDecimal.ZERO</code>.
+     *
+     * @param value the <code>Double</code> to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(Double value, int scale, RoundingMode roundingMode) {
+        if (value == null) {
+            return BigDecimal.ZERO;
+        }
+        return toScaledBigDecimal(
+            BigDecimal.valueOf(value),
+            scale,
+            roundingMode
+        );
+    }
+
+    /**
+     * Convert a <code>String</code> to a <code>BigDecimal</code> with a scale of
+     * two that has been rounded using <code>RoundingMode.HALF_EVEN</code>. If the supplied
+     * <code>value</code> is null, then <code>BigDecimal.ZERO</code> is returned.
+     *
+     * <p>Note, the scale of a <code>BigDecimal</code> is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the <code>String</code> to convert, may be null.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(String value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
+    }
+
+    /**
+     * Convert a <code>String</code> to a <code>BigDecimal</code> whose scale is the
+     * specified value with a <code>RoundingMode</code> applied. If the input <code>value</code>
+     * is <code>null</code>, we simply return <code>BigDecimal.ZERO</code>.
+     *
+     * @param value the <code>String</code> to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(String value, int scale, RoundingMode roundingMode) {
+        if (value == null) {
+            return BigDecimal.ZERO;
+        }
+        return toScaledBigDecimal(
+            createBigDecimal(value),
+            scale,
+            roundingMode
+        );
     }
 
     //-----------------------------------------------------------------------
