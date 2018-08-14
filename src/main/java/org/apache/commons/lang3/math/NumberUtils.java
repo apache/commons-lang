@@ -437,7 +437,7 @@ public class NumberUtils {
      * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
      * @since 3.8
      */
-    public static BigDecimal toScaledBigDecimal(BigDecimal value) {
+    public static BigDecimal toScaledBigDecimal(final BigDecimal value) {
         return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
     }
 
@@ -453,7 +453,7 @@ public class NumberUtils {
      * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
      * @since 3.8
      */
-    public static BigDecimal toScaledBigDecimal(BigDecimal value, int scale, RoundingMode roundingMode) {
+    public static BigDecimal toScaledBigDecimal(final BigDecimal value, final int scale, final RoundingMode roundingMode) {
         if (value == null) {
             return BigDecimal.ZERO;
         }
@@ -475,7 +475,7 @@ public class NumberUtils {
      * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
      * @since 3.8
      */
-    public static BigDecimal toScaledBigDecimal(Float value) {
+    public static BigDecimal toScaledBigDecimal(final Float value) {
         return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
     }
 
@@ -491,7 +491,7 @@ public class NumberUtils {
      * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
      * @since 3.8
      */
-    public static BigDecimal toScaledBigDecimal(Float value, int scale, RoundingMode roundingMode) {
+    public static BigDecimal toScaledBigDecimal(final Float value, final int scale, final RoundingMode roundingMode) {
         if (value == null) {
             return BigDecimal.ZERO;
         }
@@ -514,7 +514,7 @@ public class NumberUtils {
      * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
      * @since 3.8
      */
-    public static BigDecimal toScaledBigDecimal(Double value) {
+    public static BigDecimal toScaledBigDecimal(final Double value) {
         return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
     }
 
@@ -530,7 +530,7 @@ public class NumberUtils {
      * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
      * @since 3.8
      */
-    public static BigDecimal toScaledBigDecimal(Double value, int scale, RoundingMode roundingMode) {
+    public static BigDecimal toScaledBigDecimal(final Double value, final int scale, final RoundingMode roundingMode) {
         if (value == null) {
             return BigDecimal.ZERO;
         }
@@ -553,7 +553,7 @@ public class NumberUtils {
      * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
      * @since 3.8
      */
-    public static BigDecimal toScaledBigDecimal(String value) {
+    public static BigDecimal toScaledBigDecimal(final String value) {
         return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
     }
 
@@ -569,7 +569,7 @@ public class NumberUtils {
      * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
      * @since 3.8
      */
-    public static BigDecimal toScaledBigDecimal(String value, int scale, RoundingMode roundingMode) {
+    public static BigDecimal toScaledBigDecimal(final String value, final int scale, final RoundingMode roundingMode) {
         if (value == null) {
             return BigDecimal.ZERO;
         }
