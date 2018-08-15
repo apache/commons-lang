@@ -589,11 +589,16 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
+    <japicmp.skip>false</japicmp.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
     <jmh.version>1.21</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
+    <!-- generate report even if there are binary incompatible changes -->
+    <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
+    <!-- 0.12.0 dies with a NullPointerException -->
+    <commons.japicmp.version>0.11.1</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.7</commons.bc.version>
@@ -620,6 +625,14 @@
               <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
               <exclude>src/test/resources/lang-708-input.txt</exclude>
             </excludes>
+          </configuration>
+        </plugin>
+        <!-- override skip property of parent pom -->
+        <plugin>
+          <groupId>com.github.siom79.japicmp</groupId>
+          <artifactId>japicmp-maven-plugin</artifactId>
+          <configuration>
+            <skip>false</skip>
           </configuration>
         </plugin>
       </plugins>
