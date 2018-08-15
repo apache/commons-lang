@@ -17,13 +17,13 @@ limitations under the License.
 =============================================================================
 
                         Apache Commons Lang
-                            Version 3.7
+                            Version 3.8
                            Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 3.7 version of Apache Commons Lang.
+This document contains the release notes for the 3.8 version of Apache Commons Lang.
 Commons Lang is a set of utility functions and reusable components that should be of use in any 
 Java environment.
 
@@ -31,6 +31,74 @@ Lang 3.0 and onwards now targets Java 5.0, making use of features that arrived w
 variable arguments, autoboxing, concurrency and formatted output.
 
 For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    http://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.
+
+Changes in this version include:
+
+New features:
+o LANG-1352: EnumUtils.getEnumIgnoreCase and isValidEnumIgnoreCase methods added Thanks to Ruslan Sibgatullin.
+o LANG-1372: Add ToStringSummary annotation Thanks to SÈrgio Ozaki.
+o LANG-1356: Add bypass option for classes to recursive and reflective EqualsBuilder Thanks to Yathos UG.
+o LANG-1391: Improve Javadoc for StringUtils.isAnyEmpty(null) Thanks to Sauro Matulli, Oleg Chubaryov.
+o LANG-1393: Add API SystemUtils.String getEnvironmentVariable(final String name, final String defaultValue) Thanks to Gary Gregory.
+o LANG-1394: org.apache.commons.lang3.SystemUtils should not write to System.err. Thanks to Sebb, Gary Gregory.
+o LANG-1238: Add RegexUtils class instead of overloading methods in StringUtils that take a regex to take precompiled Pattern. Thanks to Christopher Cordeiro, Gary Gregory, Bruno P. Kinoshita, Oleg Chubaryov.
+o LANG-1290: StringUtils.join() with support for List<?> with configurable start/end indices. Thanks to Jochen Schalanda.
+o LANG-1392: Methods for getting first non empty or non blank value Thanks to Jeff Nelson.
+o LANG-1408: Rounding utilities for converting to BigDecimal
+
+Fixed Bugs:
+o LANG-1380: FastDateParser too strict on abbreviated short month symbols Thanks to Markus Jelsma.
+o LANG-1396: JsonToStringStyle does not escape string names
+o LANG-1395: JsonToStringStyle does not escape double quote in a string value Thanks to Jim Gan.
+o LANG-1384: New Java version ("11") must be handled Thanks to Ian Young.
+o LANG-1364: ExceptionUtils#getRootCause(Throwable t) should return t if no lower level cause exists Thanks to Zheng Xie.
+o LANG-1060: NumberUtils.isNumber assumes number starting with Zero Thanks to Piotr Kosmala.
+o LANG-1375: defaultString(final String str) in StringUtils to reuse defaultString(final String str, final String defaultStr) Thanks to Jerry Zhao.
+o LANG-1374: Parsing Json Array failed Thanks to Jaswanth Bala.
+o LANG-1371: Fix TypeUtils#parameterize to work correctly with narrower-typed array Thanks to Dmitry Ovchinnikov.
+o LANG-1370: Fix EventCountCircuitBreaker increment batch Thanks to Andre Dieb.
+o LANG-1385: NumberUtils.createNumber() throws StringIndexOutOfBoundsException instead of NumberFormatException Thanks to Rohan Padhye.
+o LANG-1397: WordUtils.wrap throws StringIndexOutOfBoundsException when wrapLength is Integer.MAX_VALUE. Thanks to Takanobu Asanuma.
+o LANG-1401: Typo in JavaDoc for lastIndexOf Thanks to Roman Golyshev, Alex Mamedov.
+
+Changes:
+o LANG-1367: ObjectUtils.identityToString(Object) and friends should allocate builders and buffers with a size Thanks to Gary Gregory.
+o LANG-1405: Remove checks for java versions below the minimum supported one Thanks to Lars Grefer.
+o LANG-1402: Null/index safe get methods for ArrayUtils Thanks to Mark Dacek.
+
+
+Historical list of changes: http://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+
+http://commons.apache.org/proper/commons-lang/
+
+=============================================================================
+
+                        Apache Commons Lang
+                            Version 3.7
+                           Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for the 3.7 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any
+Java environment.
+
+Lang 3.0 and onwards now targets Java 5.0, making use of features that arrived with Java 5.0 such as generics,
+variable arguments, autoboxing, concurrency and formatted output.
+
+For the advice on upgrading from 2.x to 3.x, see the following page:
 
     http://commons.apache.org/lang/article3_0.html
 
@@ -58,14 +126,6 @@ Changes:
 o LANG-1358: Improve StringUtils#replace throughput Thanks to Stephane Landelle.
 o LANG-1346: Remove deprecation from RandomStringUtils
 o LANG-1361: ExceptionUtils.getThrowableList() is using deprecated ExceptionUtils.getCause() Thanks to Ana.
-
-
-Historical list of changes: http://commons.apache.org/proper/commons-lang/changes-report.html
-
-For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
-
-http://commons.apache.org/proper/commons-lang/
 
 =============================================================================
 
@@ -174,7 +234,7 @@ o LANG-1034: Add support for recursive comparison to
 o LANG-1067: Add a reflection-based variant of DiffBuilder.
 o LANG-740:  Implementation of a Memomizer. Thanks to James Sawle.
 o LANG-1258: Add ArrayUtils#toStringArray method.
-             Thanks to IG, Grzegorz Ro≈ºniecki.
+             Thanks to IG, Grzegorz Ro?niecki.
 o LANG-1160: StringUtils#abbreviate should support 'custom ellipses' parameter.
 o LANG-1293: Add StringUtils#isAllEmpty and #isAllBlank methods.
              Thanks to Pierre Templier, Martin Tarjanyi.
@@ -203,7 +263,7 @@ o LANG-1292: WordUtils.wrap throws StringIndexOutOfBoundsException.
 o LANG-1287: RandomStringUtils#random can enter infinite loop if end parameter
              is to small. Thanks to Ivan Morozov.
 o LANG-1285: NullPointerException in FastDateParser$TimeZoneStrategy.
-             Thanks to Francesco Chicchiricc√≤.
+             Thanks to Francesco ChicchiriccÚ.
 o LANG-1281: Javadoc of StringUtils.ordinalIndexOf is contradictory.
              Thanks to Andreas Lundblad.
 o LANG-1188: StringUtils#join(T...): warning: [unchecked] Possible heap
@@ -447,7 +507,7 @@ o LANG-1232: DiffBuilder: Add null check on fieldName when appending Object or
              Object[]. Thanks to Nick Manley.
 o LANG-1178: ArrayUtils.removeAll(Object array, int... indices) should do the
              clone, not its callers. Thanks to Henri Yandell.
-o LANG-1120: StringUtils.stripAccents should remove accents from "≈Å" and "≈Ç".
+o LANG-1120: StringUtils.stripAccents should remove accents from "?" and "?".
              Thanks to kaching88.
 o LANG-1205: NumberUtils.createNumber() behaves inconsistently with
              NumberUtils.isNumber(). Thanks to pbrose.
@@ -521,9 +581,9 @@ o LANG-1176: Improve ArrayUtils removeElements time complexity to O(n). Thanks
              to Jeffery Yuan.
 o LANG-1234: getLevenshteinDistance with a threshold: optimize implementation
              if the strings lengths differ more than the threshold. Thanks to
-             Jonatan J√∂nsson.
+             Jonatan Jˆnsson.
 o LANG-1151: Performance improvements for NumberUtils.isParsable. Thanks to
-             Juan Pablo Santos Rodr√≠guez.
+             Juan Pablo Santos RodrÌguez.
 o LANG-1218: EqualsBuilder.append(Object,Object) is too big to be inlined,
              which prevents whole builder to be scalarized. Thanks to
              Ruslan Cheremin.
@@ -535,7 +595,7 @@ o LANG-1182: Clarify Javadoc of StringUtils.containsAny(). Thanks to
 o LANG-1183: Making replacePattern/removePattern methods null safe in
              StringUtils.
 o LANG-1057: Replace StringBuilder with String concatenation for better
-             optimization. Thanks to Ot√°vio Santana.
+             optimization. Thanks to Ot·vio Santana.
 o LANG-1075: Deprecate SystemUtils.FILE_SEPARATOR and
              SystemUtils.PATH_SEPARATOR.
 o LANG-979:  TypeUtils.parameterizeWithOwner - wrong format descriptor for
@@ -582,13 +642,13 @@ o LANG-1080: Add NoClassNameToStringStyle implementation of ToStringStyle.
              Thanks to Innokenty Shuvalov.
 o LANG-883:  Add StringUtils.containsAny(CharSequence, CharSequence...) method.
              Thanks to Daniel Stewart.
-o LANG-1052: Multiline recursive to string style. Thanks to Jan Mat√®rne.
+o LANG-1052: Multiline recursive to string style. Thanks to Jan MatËrne.
 o LANG-536:  Add isSorted() to ArrayUtils. Thanks to James Sawle.
 o LANG-1033: Add StringUtils.countMatches(CharSequence, char)
 o LANG-1021: Provide methods to retrieve all fields/methods annotated with a
-             specific type. Thanks to Alexander M√ºller.
+             specific type. Thanks to Alexander M¸ller.
 o LANG-1016: NumberUtils#isParsable method(s). Thanks to
-             Juan Pablo Santos Rodr√≠guez.
+             Juan Pablo Santos RodrÌguez.
 o LANG-999:  Add fuzzy String matching logic to StringUtils. Thanks to
              Ben Ripkens.
 o LANG-994:  Add zero copy read method to StrBuilder. Thanks to
@@ -625,9 +685,9 @@ o LANG-1073: Read wrong component type of array in add in ArrayUtils.
              Thanks to haiyang li.
 o LANG-1077: StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) != 3 in StringUtils.
              Thanks to haiyang li.
-o LANG-1072: Duplicated "0x" check in createBigInteger in NumberUtils. Thanks 
+o LANG-1072: Duplicated "0x" check in createBigInteger in NumberUtils. Thanks
              to haiyang li.
-o LANG-1064: StringUtils.abbreviate description doesn't agree with the 
+o LANG-1064: StringUtils.abbreviate description doesn't agree with the
              examples. Thanks to B.J. Herbison.
 o LANG-1041: Fix MethodUtilsTest so it does not depend on JDK method ordering.
              Thanks to Alexandre Bartel.
@@ -658,8 +718,8 @@ o LANG-1096: Update maven-pmd-plugin to 3.4. Thanks to Micha? Kordas.
 o LANG-1095: Update maven-antrun-plugin to 1.8. Thanks to Micha? Kordas.
 o LANG-877:  Performance improvements for StringEscapeUtils. Thanks to
              Fabian Lange.
-o LANG-1071: Fix wrong examples in Javadoc of 
-             StringUtils.replaceEachRepeatedly(...), 
+o LANG-1071: Fix wrong examples in Javadoc of
+             StringUtils.replaceEachRepeatedly(...),
              StringUtils.replaceEach(...) Thanks to Arno Noordover.
 o LANG-827:  CompareToBuilder's doc doesn't specify precedence of fields it
              uses in performing comparisons
@@ -668,7 +728,7 @@ o LANG-1027: org.apache.commons.lang3.SystemUtils#isJavaVersionAtLeast should
              return true by default
 o LANG-1026: Bring static method references in StringUtils to consistent style.
              Thanks to Alex Yursha.
-o LANG-1017: Use non-ASCII digits in Javadoc examples for 
+o LANG-1017: Use non-ASCII digits in Javadoc examples for
              StringUtils.isNumeric. Thanks to Christoph Schneegans.
 o LANG-1008: Change min/max methods in NumberUtils/IEEE754rUtils from array
              input parameters to varargs. Thanks to Thiago Andrade.
@@ -763,12 +823,12 @@ o LANG-943:  Test DurationFormatUtilsTest.testEdgeDuration fails in
 o LANG-613:  ConstructorUtils.getAccessibleConstructor() Does Not Check the
              Accessibility of Enclosing Classes
 o LANG-951:  Fragments are wrong by 1 day when using fragment YEAR or MONTH.
-             Thanks to Sebastian G√∂tz.
+             Thanks to Sebastian Gˆtz.
 o LANG-950:  FastDateParser does not handle two digit year parsing like
              SimpleDateFormat
 o LANG-949:  FastDateParserTest.testParses does not test FastDateParser
 o LANG-915:  Wrong locale handling in LocaleUtils.toLocale().
-             Thanks to Sergio Fern√°ndez.
+             Thanks to Sergio Fern·ndez.
 
 CHANGES
 =========
@@ -795,7 +855,7 @@ o LANG-941:  Test failure in LocaleUtilsTest when building with JDK 8
 o LANG-942:  Test failure in FastDateParserTest and FastDateFormat_ParserTest
              when building with JDK8. Thanks to Bruno P. Kinoshita,
              Henri Yandell.
-o LANG-938:  Build fails with test failures when building with JDK 8 
+o LANG-938:  Build fails with test failures when building with JDK 8
 
 =============================================================================
 
@@ -804,7 +864,7 @@ o LANG-938:  Build fails with test failures when building with JDK 8
 COMPATIBILITY WITH 3.1
 ========================
 
-This release introduces backwards incompatible changes in 
+This release introduces backwards incompatible changes in
 org.apache.commons.lang3.time.FastDateFormat:
 o Method 'protected java.util.List parsePattern()' has been removed
 o Method 'protected java.lang.String parseToken(java.lang.String, int[])' has
@@ -812,15 +872,15 @@ o Method 'protected java.lang.String parseToken(java.lang.String, int[])' has
 o Method 'protected org.apache.commons.lang3.time.FastDateFormat$NumberRule
   selectNumberRule(int, int)' has been removed
 
-These changes were the result of [LANG-462]. It is assumed that this change 
+These changes were the result of [LANG-462]. It is assumed that this change
 will not break clients as Charles Honton pointed out on 25/Jan/12:
 "
- 1. Methods "FastDateFormat$NumberRule selectNumberRule(int, int)" and 
+ 1. Methods "FastDateFormat$NumberRule selectNumberRule(int, int)" and
     "List<Rule> parsePattern()" couldn't have been overridden because
     NumberRule and Rule were private to FastDateFormat.
- 2. Due to the factory pattern used, it's unlikely other two methods would have 
+ 2. Due to the factory pattern used, it's unlikely other two methods would have
     been overridden.
- 3. The four methods are highly implementation specific. I consider it a 
+ 3. The four methods are highly implementation specific. I consider it a
     mistake that the methods were exposed.
 "
 For more information see https://issues.apache.org/jira/browse/LANG-462.
@@ -855,10 +915,10 @@ o LANG-856:  Code refactoring in NumberUtils.
 o LANG-855:  NumberUtils#createBigInteger does not allow for hex and octal
              numbers.
 o LANG-854:  NumberUtils#createNumber - does not allow for hex numbers to be
-             larger than Long. 
-o LANG-853:  StringUtils join APIs for primitives. 
+             larger than Long.
+o LANG-853:  StringUtils join APIs for primitives.
 o LANG-841:  Add StringUtils API to call String.replaceAll in DOTALL a.k.a.
-             single-line mode. 
+             single-line mode.
 o LANG-825:  Create StrBuilder APIs similar to
              String.format(String, Object...).
 o LANG-675:  Add Triple class (ternary version of Pair).
@@ -867,7 +927,7 @@ o LANG-462:  FastDateFormat supports parse methods.
 BUG FIXES
 ===========
 
-o LANG-932:  Spelling fixes. Thanks to Ville Skytt√§.
+o LANG-932:  Spelling fixes. Thanks to Ville Skytt‰.
 o LANG-929:  OctalUnescaper tried to parse all of \279.
 o LANG-928:  OctalUnescaper had bugs when parsing octals starting with a zero.
 o LANG-905:  EqualsBuilder returned true when comparing arrays, even when the
@@ -896,7 +956,7 @@ o LANG-865:  LocaleUtils.toLocale does not parse strings starting with an
              underscore.
 o LANG-858:  StringEscapeUtils.escapeJava() and escapeEcmaScript() do not
              output the escaped surrogate pairs that are Java parsable.
-o LANG-849:  FastDateFormat and FastDatePrinter generates Date objects 
+o LANG-849:  FastDateFormat and FastDatePrinter generates Date objects
              wastefully.
 o LANG-845:  Spelling fixes.
 o LANG-844:  Fix examples contained in javadoc of StringUtils.center methods.
@@ -917,7 +977,7 @@ o LANG-805:  RandomStringUtils.random(count, 0, 0, false, false, universe,
              random) always throws java.lang.ArrayIndexOutOfBoundsException.
 o LANG-802:  LocaleUtils - unnecessary recursive call in SyncAvoid class.
 o LANG-800:  Javadoc bug in DateUtils#ceiling for Calendar and Object versions.
-o LANG-788:  SerializationUtils throws ClassNotFoundException when cloning 
+o LANG-788:  SerializationUtils throws ClassNotFoundException when cloning
              primitive classes.
 o LANG-786:  StringUtils equals() relies on undefined behavior.
 o LANG-783:  Documentation bug: StringUtils.split.
@@ -927,7 +987,7 @@ o LANG-775:  TypeUtils.getTypeArguments() misses type arguments for
              partially-assigned classes.
 o LANG-773:  ImmutablePair doc contains nonsense text.
 o LANG-772:  ClassUtils.PACKAGE_SEPARATOR Javadoc contains garbage text.
-o LANG-765:  EventListenerSupport.ProxyInvocationHandler no longer defines 
+o LANG-765:  EventListenerSupport.ProxyInvocationHandler no longer defines
              serialVersionUID.
 o LANG-764:  StrBuilder is now serializable.
 o LANG-761:  Fix Javadoc Ant warnings.
@@ -941,7 +1001,7 @@ o LANG-931:  Misleading Javadoc comment in StrBuilderReader class. Thanks
              to Christoph Schneegans.
 o LANG-910:  StringUtils.normalizeSpace now handles non-breaking spaces
              (Unicode 00A0). Thanks to Timur Yarosh.
-o LANG-804:  Redundant check for zero in HashCodeBuilder ctor. Thanks to 
+o LANG-804:  Redundant check for zero in HashCodeBuilder ctor. Thanks to
              Allon Mureinik.
 o LANG-884:  Simplify FastDateFormat; eliminate boxing.
 o LANG-882:  LookupTranslator now works with implementations of CharSequence
@@ -968,7 +1028,7 @@ NEW FEATURES
 
 o LANG-801:  Add Conversion utility to convert between data types on byte level
 o LANG-760:  Add API StringUtils.toString(byte[] intput, String charsetName)
-o LANG-756:  Add APIs ClassUtils.isPrimitiveWrapper(Class<?>) and 
+o LANG-756:  Add APIs ClassUtils.isPrimitiveWrapper(Class<?>) and
              isPrimitiveOrWrapper(Class<?>)
 o LANG-695:  SystemUtils.IS_OS_UNIX doesn't recognize FreeBSD as a Unix system
 
@@ -1052,7 +1112,7 @@ REMOVALS
 o LANG-438:  Remove @deprecateds.
 o LANG-492:  Remove code handled now by the JDK.
 o LANG-493:  Remove code that does not hold enough value to remain.
-o LANG-590:  Remove JDK 1.2/1.3 bug handling in 
+o LANG-590:  Remove JDK 1.2/1.3 bug handling in
              StringUtils.indexOf(String, String, int).
 o LANG-673:  WordUtils.abbreviate() removed
 o LANG-691:  Removed DateUtils.UTC_TIME_ZONE
@@ -1121,7 +1181,7 @@ o LANG-585:  exception.DefaultExceptionContext.getFormattedExceptionMessage
              catches Throwable.
 o LANG-596:  StrSubstitutor should also handle the default properties of a
              java.util.Properties class
-o LANG-600:  Javadoc is incorrect for public static int 
+o LANG-600:  Javadoc is incorrect for public static int
              lastIndexOf(String str, String searchStr).
 o LANG-602:  ContextedRuntimeException no longer an 'unchecked' exception.
 o LANG-606:  EqualsBuilder causes StackOverflowException.
@@ -1129,7 +1189,7 @@ o LANG-608:  Some StringUtils methods should take an int character instead of
              char to use String API features.
 o LANG-617:  StringEscapeUtils.escapeXML() can't process UTF-16 supplementary
              characters
-o LANG-624:  SystemUtils.getJavaVersionAsFloat throws 
+o LANG-624:  SystemUtils.getJavaVersionAsFloat throws
              StringIndexOutOfBoundsException on Android runtime/Dalvik VM
 o LANG-629:  Charset may not be threadsafe, because the HashSet is not synch.
 o LANG-638:  NumberUtils createNumber throws a StringIndexOutOfBoundsException
@@ -1167,7 +1227,7 @@ o LANG-716:  swapCase and *capitalize speedups.
 Historical list of changes: http://commons.apache.org/lang/changes-report.html
 
 For complete information on Commons Lang, including instructions on how to
-submit bug reports, patches, or suggestions for improvement, see the 
+submit bug reports, patches, or suggestions for improvement, see the
 Apache Commons Lang website:
 
 http://commons.apache.org/lang/
