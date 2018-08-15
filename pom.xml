@@ -525,7 +525,7 @@
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>3.5.1</version>
+      <version>3.6</version>
       <scope>test</scope>
     </dependency>
 
