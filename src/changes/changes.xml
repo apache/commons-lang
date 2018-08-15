@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.8" date="2018-MM-DD" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
+  <release version="3.8" date="2018-08-15" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
     <action issue="LANG-1380" type="fix" dev="chas" due-to="Markus Jelsma">FastDateParser too strict on abbreviated short month symbols</action>
     <action issue="LANG-1396" type="fix" dev="sebb">JsonToStringStyle does not escape string names</action>
     <action issue="LANG-1395" type="fix" dev="sebb" due-to="Jim Gan">JsonToStringStyle does not escape double quote in a string value</action>

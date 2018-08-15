@@ -32,7 +32,7 @@ limitations under the License.
           <th>Version</th><th>Release date</th><th>Required Java Version</th><th>Javadoc</th><th>Release notes</th>
         </tr>
         <tr>
-          <td>3.8</td><td>2018-MM-DD</td><td>7</td><td><a href="javadocs/api-3.8/">api-3.8</a></td><td><a href="release-notes/RELEASE-NOTES-3.8.txt">release notes for 3.8</a></td>
+          <td>3.8</td><td>2018-08-15</td><td>7</td><td><a href="javadocs/api-3.8/">api-3.8</a></td><td><a href="release-notes/RELEASE-NOTES-3.8.txt">release notes for 3.8</a></td>
         </tr>
         <tr>
           <td>3.7</td><td>2017-10-04</td><td>7</td><td><a href="javadocs/api-3.7/">api-3.7</a></td><td><a href="release-notes/RELEASE-NOTES-3.7.txt">release notes for 3.7</a></td>
