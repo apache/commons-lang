@@ -127,6 +127,7 @@ o LANG-1358: Improve StringUtils#replace throughput Thanks to Stephane Landelle.
 o LANG-1346: Remove deprecation from RandomStringUtils
 o LANG-1361: ExceptionUtils.getThrowableList() is using deprecated ExceptionUtils.getCause() Thanks to Ana.
 
+
 =============================================================================
 
                            Apache Commons Lang
