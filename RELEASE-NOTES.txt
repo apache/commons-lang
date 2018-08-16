@@ -50,7 +50,7 @@ o LANG-1391: Improve Javadoc for StringUtils.isAnyEmpty(null) Thanks to Sauro Ma
 o LANG-1393: Add API SystemUtils.String getEnvironmentVariable(final String name, final String defaultValue) Thanks to Gary Gregory.
 o LANG-1394: org.apache.commons.lang3.SystemUtils should not write to System.err. Thanks to Sebb, Gary Gregory.
 o LANG-1238: Add RegexUtils class instead of overloading methods in StringUtils that take a regex to take precompiled Pattern. Thanks to Christopher Cordeiro, Gary Gregory, Bruno P. Kinoshita, Oleg Chubaryov.
-o LANG-1290: StringUtils.join() with support for List<?> with configurable start/end indices. Thanks to Jochen Schalanda.
+o LANG-1390: StringUtils.join() with support for List<?> with configurable start/end indices. Thanks to Jochen Schalanda.
 o LANG-1392: Methods for getting first non empty or non blank value Thanks to Jeff Nelson.
 o LANG-1408: Rounding utilities for converting to BigDecimal
 
