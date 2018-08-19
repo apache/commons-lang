@@ -26,7 +26,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
-  <version>3.8</version>
+  <version>3.9-SNAPSHOT</version>
   <name>Apache Commons Lang</name>
 
   <inceptionYear>2001</inceptionYear>
@@ -573,7 +573,7 @@
     <commons.componentid>lang3</commons.componentid>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.8</commons.release.version>
+    <commons.release.version>3.9</commons.release.version>
     <commons.release.desc>(Java 7+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
@@ -601,7 +601,7 @@
     <commons.japicmp.version>0.11.1</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.7</commons.bc.version>
+    <commons.bc.version>3.8</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
