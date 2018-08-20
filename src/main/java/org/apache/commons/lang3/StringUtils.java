@@ -8875,6 +8875,28 @@ public class StringUtils {
     }
 
     /**
+     * <p>Removes all special characters from String.</p>
+     *
+     * <p>A {@code null} String returns {@code null}.</p>
+     *
+     * <pre>
+     * StringUtils.removeSpecialCharacters(null)  = null
+     * StringUtils.removeSpecialCharacters("")    = ""
+     * StringUtils.removeSpecialCharacters("risqué") = "risque"
+     * </pre>
+     *
+     * @param str the String to remove special characters, may be null
+     * @return the remove special characters String, {@code null} if null String input
+     */
+    public static String removeSpecialCharacters(final String str) {
+        if (isEmpty(str)) {
+            return str;
+        }
+
+        return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+    }
+
+    /**
      * <p>Check if a CharSequence ends with any of the provided case-sensitive suffixes.</p>
      *
      * <pre>
