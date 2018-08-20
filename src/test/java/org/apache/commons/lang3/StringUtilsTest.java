@@ -2925,6 +2925,18 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testRemoveSpecialCharacters() {
+        assertNull(StringUtils.removeSpecialCharacters(null));
+        assertEquals("", StringUtils.removeSpecialCharacters(""));
+        assertEquals("risque", StringUtils.removeSpecialCharacters("risqué"));
+        assertEquals("resume", StringUtils.removeSpecialCharacters("resumé"));
+        assertEquals("precis", StringUtils.removeSpecialCharacters("précis"));
+        assertEquals("tete-a-tete", StringUtils.removeSpecialCharacters("tête-a-tête"));
+        assertEquals("coracao", StringUtils.removeSpecialCharacters("coração"));
+        assertEquals("bambole", StringUtils.removeSpecialCharacters("bambolê"));
+    }
+
+    @Test
     public void testLANG666() {
         assertEquals("12", StringUtils.stripEnd("120.00", ".0"));
         assertEquals("121", StringUtils.stripEnd("121.00", ".0"));
