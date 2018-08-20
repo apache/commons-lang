@@ -103,6 +103,7 @@ public class ObjectUtils {
      * @param object  the {@code Object} to test, may be {@code null}
      * @return {@code true} if the object has a supported type and is empty or null,
      * {@code false} otherwise
+     * @since 3.9
      */
     public static boolean isEmpty(final Object object) {
         if (object == null) {
@@ -146,6 +147,7 @@ public class ObjectUtils {
      * @param object  the {@code Object} to test, may be {@code null}
      * @return {@code true} if the object has an unsupported type or is not empty
      * and not null, {@code false} otherwise
+     * @since 3.9
      */
     public static boolean isNotEmpty(final Object object) {
         return !isEmpty(object);
