@@ -31,7 +31,7 @@ public class JVMLaunchersTest implements Serializable
                         return 1;
                     }
                 })
-                .addUserjars(Arrays.<URL>asList())
+                .addUserjars(Collections.<URL>emptyList())
                 .setConsole(new Consumer<String>() {
                     @Override
                     public void accept(String msg)
