@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.vm;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.BufferedOutputStream;
@@ -34,8 +35,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -64,7 +63,7 @@ public final class JVMLauncher<R extends Serializable>
     {
         byte[] bytes = startAndGetByte();
         VmFuture<R> vmFuture = (VmFuture<R>) Serializables.byteToObject(bytes, classLoader);
-        if (!vmFuture.get().isPresent()) {
+        if (vmFuture.get() == null) {
             throw new JVMException(vmFuture.getOnFailure());
         }
         return vmFuture;
@@ -101,9 +100,11 @@ public final class JVMLauncher<R extends Serializable>
 
     private String getUserAddClasspath()
     {
-        return userJars.stream()
-                .map(URL::getPath)
-                .collect(Collectors.joining(File.pathSeparator));
+        List<String> builder = new ArrayList<>();
+        for(URL url: userJars){
+            builder.add(url.getPath());
+        }
+        return StringUtils.join(builder, File.pathSeparator);
     }
 
     private List<String> buildMainArg(int port)

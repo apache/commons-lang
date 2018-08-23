@@ -17,7 +17,6 @@
 package org.apache.commons.lang3.vm;
 
 import java.io.Serializable;
-import java.util.Optional;
 
 public class VmFuture<V extends Serializable>
         implements Serializable
@@ -25,9 +24,9 @@ public class VmFuture<V extends Serializable>
     private V result;
     private String errorMessage;
 
-    public Optional<V> get()
+    public V get()
     {
-        return Optional.ofNullable(result);
+        return result;
     }
 
     public String getOnFailure()
