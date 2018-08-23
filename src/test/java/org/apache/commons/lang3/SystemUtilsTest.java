@@ -141,19 +141,6 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.IS_JAVA_9);
             assertFalse(SystemUtils.IS_JAVA_10);
             assertFalse(SystemUtils.IS_JAVA_11);
-        } else if (javaVersion.startsWith("1.7")) {
-            assertFalse(SystemUtils.IS_JAVA_1_1);
-            assertFalse(SystemUtils.IS_JAVA_1_2);
-            assertFalse(SystemUtils.IS_JAVA_1_3);
-            assertFalse(SystemUtils.IS_JAVA_1_4);
-            assertFalse(SystemUtils.IS_JAVA_1_5);
-            assertFalse(SystemUtils.IS_JAVA_1_6);
-            assertTrue(SystemUtils.IS_JAVA_1_7);
-            assertFalse(SystemUtils.IS_JAVA_1_8);
-            assertFalse(SystemUtils.IS_JAVA_1_9);
-            assertFalse(SystemUtils.IS_JAVA_9);
-            assertFalse(SystemUtils.IS_JAVA_10);
-            assertFalse(SystemUtils.IS_JAVA_11);
         } else if (javaVersion.startsWith("1.8")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
