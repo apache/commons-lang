@@ -864,7 +864,7 @@ public class TypeUtils {
                     getRawType(parameterizedOwnerType), subtypeVarAssigns);
         } else {
             // no owner, prep the type variable assignments map
-            typeVarAssigns = subtypeVarAssigns == null ? new HashMap<TypeVariable<?>, Type>()
+            typeVarAssigns = subtypeVarAssigns == null ? new HashMap<>()
                     : new HashMap<>(subtypeVarAssigns);
         }
 
@@ -918,7 +918,7 @@ public class TypeUtils {
         }
 
         // create a copy of the incoming map, or an empty one if it's null
-        final HashMap<TypeVariable<?>, Type> typeVarAssigns = subtypeVarAssigns == null ? new HashMap<TypeVariable<?>, Type>()
+        final HashMap<TypeVariable<?>, Type> typeVarAssigns = subtypeVarAssigns == null ? new HashMap<>()
                 : new HashMap<>(subtypeVarAssigns);
 
         // has target class been reached?

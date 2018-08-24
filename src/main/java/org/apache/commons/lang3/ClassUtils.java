@@ -1383,7 +1383,7 @@ public class ClassUtils {
 
             @Override
             public Iterator<Class<?>> iterator() {
-                final MutableObject<Class<?>> next = new MutableObject<Class<?>>(type);
+                final MutableObject<Class<?>> next = new MutableObject<>(type);
                 return new Iterator<Class<?>>() {
 
                     @Override

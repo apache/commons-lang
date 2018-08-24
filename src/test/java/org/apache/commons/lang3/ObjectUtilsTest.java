@@ -207,13 +207,13 @@ public class ObjectUtilsTest {
         final List<Object> list0 = new ArrayList<>(Arrays.asList(new Object[0]));
         assertEquals(list0.hashCode(), ObjectUtils.hashCodeMulti());
 
-        final List<Object> list1 = new ArrayList<Object>(Arrays.asList("a"));
+        final List<Object> list1 = new ArrayList<>(Arrays.asList("a"));
         assertEquals(list1.hashCode(), ObjectUtils.hashCodeMulti("a"));
 
-        final List<Object> list2 = new ArrayList<Object>(Arrays.asList("a", "b"));
+        final List<Object> list2 = new ArrayList<>(Arrays.asList("a", "b"));
         assertEquals(list2.hashCode(), ObjectUtils.hashCodeMulti("a", "b"));
 
-        final List<Object> list3 = new ArrayList<Object>(Arrays.asList("a", "b", "c"));
+        final List<Object> list3 = new ArrayList<>(Arrays.asList("a", "b", "c"));
         assertEquals(list3.hashCode(), ObjectUtils.hashCodeMulti("a", "b", "c"));
     }
 

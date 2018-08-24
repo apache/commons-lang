@@ -433,9 +433,9 @@ public class EqualsBuilderTest {
 
     @Test
     public void testObjectRecursiveGenericInteger() {
-        final TestRecursiveGenericObject<Integer> o1_a = new TestRecursiveGenericObject<Integer>(1);
-        final TestRecursiveGenericObject<Integer> o1_b = new TestRecursiveGenericObject<Integer>(1);
-        final TestRecursiveGenericObject<Integer> o2 = new TestRecursiveGenericObject<Integer>(2);
+        final TestRecursiveGenericObject<Integer> o1_a = new TestRecursiveGenericObject<>(1);
+        final TestRecursiveGenericObject<Integer> o1_b = new TestRecursiveGenericObject<>(1);
+        final TestRecursiveGenericObject<Integer> o2 = new TestRecursiveGenericObject<>(2);
 
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_a, o1_b).isEquals());
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_b, o1_a).isEquals());
@@ -447,9 +447,9 @@ public class EqualsBuilderTest {
     public void testObjectRecursiveGenericString() {
         // Note: Do not use literals, because string literals are always mapped by same object (internal() of String))!
         String s1_a = String.valueOf(1);
-        final TestRecursiveGenericObject<String> o1_a = new TestRecursiveGenericObject<String>(s1_a);
-        final TestRecursiveGenericObject<String> o1_b = new TestRecursiveGenericObject<String>(String.valueOf(1));
-        final TestRecursiveGenericObject<String> o2 = new TestRecursiveGenericObject<String>(String.valueOf(2));
+        final TestRecursiveGenericObject<String> o1_a = new TestRecursiveGenericObject<>(s1_a);
+        final TestRecursiveGenericObject<String> o1_b = new TestRecursiveGenericObject<>(String.valueOf(1));
+        final TestRecursiveGenericObject<String> o2 = new TestRecursiveGenericObject<>(String.valueOf(2));
 
         // To trigger bug reported in LANG-1356, call hashCode only on string in instance o1_a
         s1_a.hashCode();

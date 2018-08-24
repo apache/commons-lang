@@ -275,19 +275,19 @@ public class MethodUtilsTest {
         // not only is the correct overloaded variant invoked, but that the varags arguments
         // are also delivered correctly to the method.
         public ImmutablePair<String, Object[]> varOverloadEcho(final String... args) {
-            return new ImmutablePair<String, Object[]>("String...", args);
+            return new ImmutablePair<>("String...", args);
         }
 
         public ImmutablePair<String, Object[]> varOverloadEcho(final Number... args) {
-            return new ImmutablePair<String, Object[]>("Number...", args);
+            return new ImmutablePair<>("Number...", args);
         }
 
         public static ImmutablePair<String, Object[]> varOverloadEchoStatic(final String... args) {
-            return new ImmutablePair<String, Object[]>("String...", args);
+            return new ImmutablePair<>("String...", args);
         }
 
         public static ImmutablePair<String, Object[]> varOverloadEchoStatic(final Number... args) {
-            return new ImmutablePair<String, Object[]>("Number...", args);
+            return new ImmutablePair<>("Number...", args);
         }
 
         static void verify(final ImmutablePair<String, Object[]> a, final ImmutablePair<String, Object[]> b) {
@@ -441,13 +441,13 @@ public class MethodUtilsTest {
         } catch (final NoSuchMethodException expected) {
         }
 
-        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
+        TestBean.verify(new ImmutablePair<>("String...", new String[]{"x", "y"}),
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
-        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
+        TestBean.verify(new ImmutablePair<>("Number...", new Number[]{17, 23, 42}),
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
-        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
+        TestBean.verify(new ImmutablePair<>("String...", new String[]{"x", "y"}),
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
-        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
+        TestBean.verify(new ImmutablePair<>("Number...", new Number[]{17, 23, 42}),
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
     }
 
@@ -516,13 +516,13 @@ public class MethodUtilsTest {
         assertEquals("bar(int, String...)", MethodUtils.invokeStaticMethod(
                 TestBean.class, "bar", NumberUtils.INTEGER_ONE, "a", "b"));
 
-        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
+        TestBean.verify(new ImmutablePair<>("String...", new String[]{"x", "y"}),
                 MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", "x", "y"));
-        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
+        TestBean.verify(new ImmutablePair<>("Number...", new Number[]{17, 23, 42}),
                 MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", 17, 23, 42));
-        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
+        TestBean.verify(new ImmutablePair<>("String...", new String[]{"x", "y"}),
                 MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", "x", "y"));
-        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
+        TestBean.verify(new ImmutablePair<>("Number...", new Number[]{17, 23, 42}),
                 MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", 17, 23, 42));
 
         try {
