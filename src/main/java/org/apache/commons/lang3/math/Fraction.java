@@ -869,13 +869,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         // otherwise see which is less
         final long first = (long) numerator * (long) other.denominator;
         final long second = (long) other.numerator * (long) denominator;
-        if (first == second) {
-            return 0;
-        } else if (first < second) {
-            return -1;
-        } else {
-            return 1;
-        }
+        return Long.compare(first, second);
     }
 
     /**
