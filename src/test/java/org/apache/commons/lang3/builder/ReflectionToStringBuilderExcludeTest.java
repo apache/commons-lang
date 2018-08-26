@@ -104,7 +104,7 @@ public class ReflectionToStringBuilderExcludeTest {
 
     @Test
     public void test_toStringExcludeEmptyCollection() {
-        final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new ArrayList<String>());
+        final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new ArrayList<>());
         this.validateSecretFieldPresent(toString);
     }
 

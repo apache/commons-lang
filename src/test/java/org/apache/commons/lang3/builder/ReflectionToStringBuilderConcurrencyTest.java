@@ -65,19 +65,19 @@ public class ReflectionToStringBuilderConcurrencyTest {
     @Test
     @Ignore
     public void testLinkedList() throws InterruptedException, ExecutionException {
-        this.testConcurrency(new CollectionHolder<List<Integer>>(new LinkedList<Integer>()));
+        this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 
     @Test
     @Ignore
     public void testArrayList() throws InterruptedException, ExecutionException {
-        this.testConcurrency(new CollectionHolder<List<Integer>>(new ArrayList<Integer>()));
+        this.testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
     @Test
     @Ignore
     public void testCopyOnWriteArrayList() throws InterruptedException, ExecutionException {
-        this.testConcurrency(new CollectionHolder<List<Integer>>(new CopyOnWriteArrayList<Integer>()));
+        this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
     private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException,
