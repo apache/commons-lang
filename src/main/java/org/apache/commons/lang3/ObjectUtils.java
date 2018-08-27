@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -75,6 +76,81 @@ public class ObjectUtils {
      */
     public ObjectUtils() {
         super();
+    }
+
+    // Empty checks
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Checks if an Object is empty or null.</p>
+     *
+     * The following types are supported:
+     * <ul>
+     * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
+     * <li>{@code Array}: Considered empty if its length is zero.</li>
+     * <li>{@link Collection}: Considered empty if it has zero elements.</li>
+     * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
+     * </ul>
+     *
+     * <pre>
+     * ObjectUtils.isEmpty(null)             = true
+     * ObjectUtils.isEmpty("")               = true
+     * ObjectUtils.isEmpty("ab")             = false
+     * ObjectUtils.isEmpty(new int[]{})      = true
+     * ObjectUtils.isEmpty(new int[]{1,2,3}) = false
+     * ObjectUtils.isEmpty(1234)             = false
+     * </pre>
+     *
+     * @param object  the {@code Object} to test, may be {@code null}
+     * @return {@code true} if the object has a supported type and is empty or null,
+     * {@code false} otherwise
+     * @since 3.9
+     */
+    public static boolean isEmpty(final Object object) {
+        if (object == null) {
+            return true;
+        }
+        if (object instanceof CharSequence) {
+            return ((CharSequence) object).length() == 0;
+        }
+        if (object.getClass().isArray()) {
+            return Array.getLength(object) == 0;
+        }
+        if (object instanceof Collection<?>) {
+            return ((Collection<?>) object).isEmpty();
+        }
+        if (object instanceof Map<?, ?>) {
+            return ((Map<?, ?>) object).isEmpty();
+        }
+        return false;
+    }
+
+    /**
+     * <p>Checks if an Object is not empty and not null.</p>
+     *
+     * The following types are supported:
+     * <ul>
+     * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
+     * <li>{@code Array}: Considered empty if its length is zero.</li>
+     * <li>{@link Collection}: Considered empty if it has zero elements.</li>
+     * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
+     * </ul>
+     *
+     * <pre>
+     * ObjectUtils.isNotEmpty(null)             = false
+     * ObjectUtils.isNotEmpty("")               = false
+     * ObjectUtils.isNotEmpty("ab")             = true
+     * ObjectUtils.isNotEmpty(new int[]{})      = false
+     * ObjectUtils.isNotEmpty(new int[]{1,2,3}) = true
+     * ObjectUtils.isNotEmpty(1234)             = true
+     * </pre>
+     *
+     * @param object  the {@code Object} to test, may be {@code null}
+     * @return {@code true} if the object has an unsupported type or is not empty
+     * and not null, {@code false} otherwise
+     * @since 3.9
+     */
+    public static boolean isNotEmpty(final Object object) {
+        return !isEmpty(object);
     }
 
     // Defaulting

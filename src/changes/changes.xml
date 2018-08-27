@@ -45,7 +45,12 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.8" date="2018-MM-DD" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
+  <release version="3.9" date="????-??-??" description="??">
+    <action issue="LANG-1415" type="update" dev="britter">Update Java Language requirement to 1.8</action>
+    <action issue="LANG-1411" type="add" dev="britter" due-to="Alexander Tsvetkov">Add isEmpty method to ObjectUtils</action>
+  </release>
+
+  <release version="3.8" date="2018-08-15" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
     <action issue="LANG-1380" type="fix" dev="chas" due-to="Markus Jelsma">FastDateParser too strict on abbreviated short month symbols</action>
     <action issue="LANG-1396" type="fix" dev="sebb">JsonToStringStyle does not escape string names</action>
     <action issue="LANG-1395" type="fix" dev="sebb" due-to="Jim Gan">JsonToStringStyle does not escape double quote in a string value</action>
@@ -67,9 +72,11 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1393" type="add" dev="ggregory" due-to="Gary Gregory">Add API SystemUtils.String getEnvironmentVariable(final String name, final String defaultValue)</action>   
     <action issue="LANG-1394" type="add" dev="ggregory" due-to="Sebb, Gary Gregory">org.apache.commons.lang3.SystemUtils should not write to System.err.</action>   
     <action issue="LANG-1238" type="add" dev="ggregory" due-to="Christopher Cordeiro, Gary Gregory, Bruno P. Kinoshita, Oleg Chubaryov">Add RegexUtils class instead of overloading methods in StringUtils that take a regex to take precompiled Pattern.</action>
-    <action issue="LANG-1290" type="add" dev="ggregory" due-to="Jochen Schalanda">StringUtils.join() with support for List&lt;?> with configurable start/end indices.</action>
+    <action issue="LANG-1390" type="add" dev="ggregory" due-to="Jochen Schalanda">StringUtils.join() with support for List&lt;?> with configurable start/end indices.</action>
     <action issue="LANG-1392" type="add" dev="pschumacher" due-to="Jeff Nelson">Methods for getting first non empty or non blank value</action>
     <action issue="LANG-1405" type="update" dev="ggregory" due-to="Lars Grefer">Remove checks for java versions below the minimum supported one</action>
+    <action issue="LANG-1402" type="update" dev="chtompki" due-to="Mark Dacek">Null/index safe get methods for ArrayUtils</action>
+    <action issue="LANG-1408" type="add" dev="chtompki">Rounding utilities for converting to BigDecimal</action>
   </release>
 
   <release version="3.7" date="2017-11-04" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">

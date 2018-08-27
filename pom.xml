@@ -26,7 +26,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
-  <version>3.8-SNAPSHOT</version>
+  <version>3.9-SNAPSHOT</version>
   <name>Apache Commons Lang</name>
 
   <inceptionYear>2001</inceptionYear>
@@ -47,7 +47,7 @@
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/commons-lang.git</developerConnection>
     <url>https://git-wip-us.apache.org/repos/asf?p=commons-lang.git</url>
-    <tag>LANG_3_6</tag>
+    <tag>LANG_3_8</tag>
   </scm>
 
   <developers>
@@ -525,7 +525,7 @@
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>3.5.1</version>
+      <version>3.6</version>
       <scope>test</scope>
     </dependency>
 
@@ -557,8 +557,8 @@
     <argLine>-Xmx512m</argLine>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <!--
        This is also  used to generate download_xxx file name.
        To override this when generating the download page:
@@ -573,8 +573,8 @@
     <commons.componentid>lang3</commons.componentid>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.8</commons.release.version>
-    <commons.release.desc>(Java 7+)</commons.release.desc>
+    <commons.release.version>3.9</commons.release.version>
+    <commons.release.desc>(Java 8+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
     <commons.release.2.desc>(Requires Java 1.2 or later)</commons.release.2.desc>
@@ -589,10 +589,24 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
+    <japicmp.skip>false</japicmp.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
-    <jmh.version>1.19</jmh.version>
+    <jmh.version>1.21</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
+
+    <!-- generate report even if there are binary incompatible changes -->
+    <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
+    <!-- 0.12.0 dies with a NullPointerException -->
+    <commons.japicmp.version>0.11.1</commons.japicmp.version>
+
+    <!-- Commons Release Plugin -->
+    <commons.bc.version>3.8</commons.bc.version>
+    <commons.rc.version>RC1</commons.rc.version>
+    <commons.release.isDistModule>true</commons.release.isDistModule>
+    <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
+    <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
+    <commons.releaseManagerKey>B6E73D84EA4FCC47166087253FAAD2CD5ECBB314</commons.releaseManagerKey>
   </properties>
 
 
@@ -611,6 +625,14 @@
               <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
               <exclude>src/test/resources/lang-708-input.txt</exclude>
             </excludes>
+          </configuration>
+        </plugin>
+        <!-- override skip property of parent pom -->
+        <plugin>
+          <groupId>com.github.siom79.japicmp</groupId>
+          <artifactId>japicmp-maven-plugin</artifactId>
+          <configuration>
+            <skip>false</skip>
           </configuration>
         </plugin>
       </plugins>
@@ -723,7 +745,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.9.0</version>
+        <version>3.10.0</version>
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>

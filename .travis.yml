@@ -22,8 +22,6 @@ before_install:
 
 matrix:
   include:
-    - env: JDK_RELEASE='OpenJDK 7'
-      jdk: openjdk7
     - env: JDK_RELEASE='OracleJDK 8'
       jdk: oraclejdk8
     - env: JDK_RELEASE='OracleJDK 9'
@@ -35,9 +33,6 @@ matrix:
 # Java 11 "Oracle JDK" (not yet provided by Travis CI)
     - env: JDK='Oracle JDK 11'
       install: . ./target/install-jdk.sh -F 11 -L BCL
-# some FastDateParser tests currently fail with java.text.ParseException: Unparseable date
-  allow_failures:
-    - env: JDK='Oracle JDK 11'
 
 script:
   - mvn

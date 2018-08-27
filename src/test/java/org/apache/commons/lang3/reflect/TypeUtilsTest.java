@@ -430,7 +430,7 @@ public class TypeUtilsTest<B> {
         final Type dClassType = AClass.class.getField("dClass").getGenericType();
         final Type eClassType = AClass.class.getField("eClass").getGenericType();
         final Type fClassType = AClass.class.getField("fClass").getGenericType();
-        final AClass aClass = new AClass(new AAClass<String>());
+        final AClass aClass = new AClass(new AAClass<>());
         aClass.bClass = aClass.cClass;
         assertTrue(TypeUtils.isAssignable(cClassType, bClassType));
         aClass.bClass = aClass.dClass;

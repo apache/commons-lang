@@ -272,7 +272,7 @@ public class ThreadUtils {
     /**
      * A predicate implementation which always returns true.
      */
-    private static final class AlwaysTruePredicate implements ThreadPredicate, ThreadGroupPredicate{
+    private static final class AlwaysTruePredicate implements ThreadPredicate, ThreadGroupPredicate {
 
         private AlwaysTruePredicate() {
         }
@@ -357,7 +357,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<Thread> findThreads(final ThreadPredicate predicate){
+    public static Collection<Thread> findThreads(final ThreadPredicate predicate) {
         return findThreads(getSystemThreadGroup(), true, predicate);
     }
 
@@ -372,7 +372,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate){
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate) {
         return findThreadGroups(getSystemThreadGroup(), true, predicate);
     }
 
@@ -419,7 +419,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup group, final boolean recurse, final ThreadGroupPredicate predicate){
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup group, final boolean recurse, final ThreadGroupPredicate predicate) {
         Validate.isTrue(group != null, "The group must not be null");
         Validate.isTrue(predicate != null, "The predicate must not be null");
 

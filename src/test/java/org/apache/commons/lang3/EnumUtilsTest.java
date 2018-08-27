@@ -407,6 +407,7 @@ public class EnumUtilsTest {
         EnumUtils.processBitVector(TooMany.class, 0L);
     }
 
+    @Test
     public void test_processBitVectors_longClass() {
         assertEquals(EnumSet.noneOf(TooMany.class), EnumUtils.processBitVectors(TooMany.class, 0L));
         assertEquals(EnumSet.of(TooMany.A), EnumUtils.processBitVectors(TooMany.class, 1L));
