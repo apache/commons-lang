@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.9" date="????-??-??" description="??">
+    <action issue="LANG-1417" type="update" dev="britter">Deprecate ThreadPredicate and ThreadGroupPredicate in favor of java.util.function.Predicate</action>
     <action issue="LANG-1415" type="update" dev="britter">Update Java Language requirement to 1.8</action>
     <action issue="LANG-1411" type="add" dev="britter" due-to="Alexander Tsvetkov">Add isEmpty method to ObjectUtils</action>
   </release>
