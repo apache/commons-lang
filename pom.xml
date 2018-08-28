@@ -868,6 +868,8 @@
       <properties>
         <!-- jacoco does not work with java 11 yet, see https://github.com/jacoco/jacoco/issues/663 -->
         <jacoco.skip>true</jacoco.skip>
+        <!-- spotbugs does not work with java 11 yet -->
+        <spotbugs.skip>true</spotbugs.skip>
       </properties>
     </profile>
 
