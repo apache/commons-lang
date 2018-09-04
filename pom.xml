@@ -507,12 +507,35 @@
     </contributor>
   </contributors>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <!-- Lang should depend on very little -->
   <dependencies>
+    <!-- testing -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- Vintage engine needed for exectuing JUnit 4.x tests. Remove once all tests have been migrated to JUnit 5. -->
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -594,6 +617,8 @@
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
     <jmh.version>1.21</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
+
+    <junit.version>5.3.0</junit.version>
 
     <!-- generate report even if there are binary incompatible changes -->
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
