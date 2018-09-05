@@ -16,10 +16,8 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class ReflectionDiffBuilderTest {
 
@@ -27,26 +25,47 @@ public class ReflectionDiffBuilderTest {
 
     @SuppressWarnings("unused")
     private static class TypeTestClass implements Diffable<TypeTestClass> {
+
         private final ToStringStyle style = SHORT_STYLE;
+
         private final boolean booleanField = true;
-        private final boolean[] booleanArrayField = {true};
+
+        private final boolean[] booleanArrayField = { true };
+
         private final byte byteField = (byte) 0xFF;
-        private final byte[] byteArrayField = {(byte) 0xFF};
+
+        private final byte[] byteArrayField = { (byte) 0xFF };
+
         private char charField = 'a';
-        private char[] charArrayField = {'a'};
+
+        private char[] charArrayField = { 'a' };
+
         private final double doubleField = 1.0;
-        private final double[] doubleArrayField = {1.0};
+
+        private final double[] doubleArrayField = { 1.0 };
+
         private final float floatField = 1.0f;
-        private final float[] floatArrayField = {1.0f};
+
+        private final float[] floatArrayField = { 1.0f };
+
         int intField = 1;
-        private final int[] intArrayField = {1};
+
+        private final int[] intArrayField = { 1 };
+
         private final long longField = 1L;
-        private final long[] longArrayField = {1L};
+
+        private final long[] longArrayField = { 1L };
+
         private final short shortField = 1;
-        private final short[] shortArrayField = {1};
+
+        private final short[] shortArrayField = { 1 };
+
         private final Object objectField = null;
-        private final Object[] objectArrayField = {null};
+
+        private final Object[] objectArrayField = { null };
+
         private static int staticField;
+
         private transient String transientField;
 
         @Override
@@ -67,6 +86,7 @@ public class ReflectionDiffBuilderTest {
 
     @SuppressWarnings("unused")
     private static class TypeTestChildClass extends TypeTestClass {
+
         String field = "a";
     }
 
@@ -74,7 +94,6 @@ public class ReflectionDiffBuilderTest {
     public void test_no_differences() {
         final TypeTestClass firstObject = new TypeTestClass();
         final TypeTestClass secondObject = new TypeTestClass();
-
         final DiffResult list = firstObject.diff(secondObject);
         assertEquals(0, list.getNumberOfDiffs());
     }
@@ -84,7 +103,6 @@ public class ReflectionDiffBuilderTest {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.charField = 'c';
         final TypeTestClass secondObject = new TypeTestClass();
-
         final DiffResult list = firstObject.diff(secondObject);
         assertEquals(1, list.getNumberOfDiffs());
     }
@@ -94,7 +112,6 @@ public class ReflectionDiffBuilderTest {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.charArrayField = new char[] { 'c' };
         final TypeTestClass secondObject = new TypeTestClass();
-
         final DiffResult list = firstObject.diff(secondObject);
         assertEquals(1, list.getNumberOfDiffs());
     }
@@ -105,7 +122,6 @@ public class ReflectionDiffBuilderTest {
         firstObject.transientField = "a";
         final TypeTestClass secondObject = new TypeTestClass();
         firstObject.transientField = "b";
-
         final DiffResult list = firstObject.diff(secondObject);
         assertEquals(0, list.getNumberOfDiffs());
     }
@@ -114,7 +130,6 @@ public class ReflectionDiffBuilderTest {
     public void test_no_differences_inheritance() {
         final TypeTestChildClass firstObject = new TypeTestChildClass();
         final TypeTestChildClass secondObject = new TypeTestChildClass();
-
         final DiffResult list = firstObject.diff(secondObject);
         assertEquals(0, list.getNumberOfDiffs());
     }
@@ -124,7 +139,6 @@ public class ReflectionDiffBuilderTest {
         final TypeTestChildClass firstObject = new TypeTestChildClass();
         firstObject.intField = 99;
         final TypeTestChildClass secondObject = new TypeTestChildClass();
-
         final DiffResult list = firstObject.diff(secondObject);
         assertEquals(1, list.getNumberOfDiffs());
     }

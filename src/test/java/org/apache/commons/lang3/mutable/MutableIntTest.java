@@ -16,11 +16,10 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * JUnit tests.
@@ -33,19 +32,15 @@ public class MutableIntTest {
     @Test
     public void testConstructors() {
         assertEquals(0, new MutableInt().intValue());
-
         assertEquals(1, new MutableInt(1).intValue());
-
         assertEquals(2, new MutableInt(Integer.valueOf(2)).intValue());
         assertEquals(3, new MutableInt(new MutableLong(3)).intValue());
-
         assertEquals(2, new MutableInt("2").intValue());
-
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testConstructorNull() {
-        new MutableInt((Number)null);
+        new MutableInt((Number) null);
     }
 
     @Test
@@ -53,21 +48,18 @@ public class MutableIntTest {
         final MutableInt mutNum = new MutableInt(0);
         assertEquals(0, new MutableInt().intValue());
         assertEquals(Integer.valueOf(0), new MutableInt().getValue());
-
         mutNum.setValue(1);
         assertEquals(1, mutNum.intValue());
         assertEquals(Integer.valueOf(1), mutNum.getValue());
-
         mutNum.setValue(Integer.valueOf(2));
         assertEquals(2, mutNum.intValue());
         assertEquals(Integer.valueOf(2), mutNum.getValue());
-
         mutNum.setValue(new MutableLong(3));
         assertEquals(3, mutNum.intValue());
         assertEquals(Integer.valueOf(3), mutNum.getValue());
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testSetNull() {
         final MutableInt mutNum = new MutableInt(0);
         mutNum.setValue(null);
@@ -76,8 +68,8 @@ public class MutableIntTest {
     @Test
     public void testEquals() {
         this.testEquals(new MutableInt(0), new MutableInt(0), new MutableInt(1));
-        // Should Numbers be supported? GaryG July-21-2005.
-        //this.testEquals(mutNumA, Integer.valueOf(0), mutNumC);
+    // Should Numbers be supported? GaryG July-21-2005.
+    //this.testEquals(mutNumA, Integer.valueOf(0), mutNumC);
     }
 
     /**
@@ -103,7 +95,6 @@ public class MutableIntTest {
         final MutableInt mutNumA = new MutableInt(0);
         final MutableInt mutNumB = new MutableInt(0);
         final MutableInt mutNumC = new MutableInt(1);
-
         assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
         assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
         assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
@@ -113,13 +104,12 @@ public class MutableIntTest {
     @Test
     public void testCompareTo() {
         final MutableInt mutNum = new MutableInt(0);
-
         assertEquals(0, mutNum.compareTo(new MutableInt(0)));
         assertEquals(+1, mutNum.compareTo(new MutableInt(-1)));
         assertEquals(-1, mutNum.compareTo(new MutableInt(1)));
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testCompareToNull() {
         final MutableInt mutNum = new MutableInt(0);
         mutNum.compareTo(null);
@@ -128,12 +118,11 @@ public class MutableIntTest {
     @Test
     public void testPrimitiveValues() {
         final MutableInt mutNum = new MutableInt(1);
-
-        assertEquals( (byte) 1, mutNum.byteValue() );
-        assertEquals( (short) 1, mutNum.shortValue() );
-        assertEquals( 1.0F, mutNum.floatValue(), 0 );
-        assertEquals( 1.0, mutNum.doubleValue(), 0 );
-        assertEquals( 1L, mutNum.longValue() );
+        assertEquals((byte) 1, mutNum.byteValue());
+        assertEquals((short) 1, mutNum.shortValue());
+        assertEquals(mutNum.floatValue(), 0, 1.0F);
+        assertEquals(mutNum.doubleValue(), 0, 1.0);
+        assertEquals(1L, mutNum.longValue());
     }
 
     @Test
@@ -146,7 +135,6 @@ public class MutableIntTest {
     public void testIncrement() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.increment();
-
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
     }
@@ -155,7 +143,6 @@ public class MutableIntTest {
     public void testIncrementAndGet() {
         final MutableInt mutNum = new MutableInt(1);
         final int result = mutNum.incrementAndGet();
-
         assertEquals(2, result);
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
@@ -165,7 +152,6 @@ public class MutableIntTest {
     public void testGetAndIncrement() {
         final MutableInt mutNum = new MutableInt(1);
         final int result = mutNum.getAndIncrement();
-
         assertEquals(1, result);
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
@@ -175,7 +161,6 @@ public class MutableIntTest {
     public void testDecrement() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.decrement();
-
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
     }
@@ -184,7 +169,6 @@ public class MutableIntTest {
     public void testDecrementAndGet() {
         final MutableInt mutNum = new MutableInt(1);
         final int result = mutNum.decrementAndGet();
-
         assertEquals(0, result);
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
@@ -194,7 +178,6 @@ public class MutableIntTest {
     public void testGetAndDecrement() {
         final MutableInt mutNum = new MutableInt(1);
         final int result = mutNum.getAndDecrement();
-
         assertEquals(1, result);
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
@@ -204,7 +187,6 @@ public class MutableIntTest {
     public void testAddValuePrimitive() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.add(1);
-
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
     }
@@ -213,7 +195,6 @@ public class MutableIntTest {
     public void testAddValueObject() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.add(Integer.valueOf(1));
-
         assertEquals(2, mutNum.intValue());
         assertEquals(2L, mutNum.longValue());
     }
@@ -222,7 +203,6 @@ public class MutableIntTest {
     public void testGetAndAddValuePrimitive() {
         final MutableInt mutableInteger = new MutableInt(0);
         final int result = mutableInteger.getAndAdd(1);
-
         assertEquals(0, result);
         assertEquals(1, mutableInteger.intValue());
     }
@@ -231,7 +211,6 @@ public class MutableIntTest {
     public void testGetAndAddValueObject() {
         final MutableInt mutableInteger = new MutableInt(0);
         final int result = mutableInteger.getAndAdd(Integer.valueOf(1));
-
         assertEquals(0, result);
         assertEquals(1, mutableInteger.intValue());
     }
@@ -240,7 +219,6 @@ public class MutableIntTest {
     public void testAddAndGetValuePrimitive() {
         final MutableInt mutableInteger = new MutableInt(0);
         final int result = mutableInteger.addAndGet(1);
-
         assertEquals(1, result);
         assertEquals(1, mutableInteger.intValue());
     }
@@ -249,7 +227,6 @@ public class MutableIntTest {
     public void testAddAndGetValueObject() {
         final MutableInt mutableInteger = new MutableInt(0);
         final int result = mutableInteger.addAndGet(Integer.valueOf(1));
-
         assertEquals(1, result);
         assertEquals(1, mutableInteger.intValue());
     }
@@ -258,7 +235,6 @@ public class MutableIntTest {
     public void testSubtractValuePrimitive() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.subtract(1);
-
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
     }
@@ -267,7 +243,6 @@ public class MutableIntTest {
     public void testSubtractValueObject() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.subtract(Integer.valueOf(1));
-
         assertEquals(0, mutNum.intValue());
         assertEquals(0L, mutNum.longValue());
     }
@@ -278,5 +253,4 @@ public class MutableIntTest {
         assertEquals("10", new MutableInt(10).toString());
         assertEquals("-123", new MutableInt(-123).toString());
     }
-
 }

@@ -16,14 +16,12 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
@@ -150,7 +148,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testNextDoubleMinimalRange() {
-        assertEquals(42.1, RandomUtils.nextDouble(42.1, 42.1), DELTA);
+        assertEquals(RandomUtils.nextDouble(42.1, 42.1), DELTA, 42.1);
     }
 
     /**
@@ -158,7 +156,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testNextFloatMinimalRange() {
-        assertEquals(42.1f, RandomUtils.nextFloat(42.1f, 42.1f), DELTA);
+        assertEquals(RandomUtils.nextFloat(42.1f, 42.1f), DELTA, 42.1f);
     }
 
     /**

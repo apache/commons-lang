@@ -16,26 +16,26 @@
  */
 package org.apache.commons.lang3.test;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Locale;
 import java.util.TimeZone;
-
 import org.apache.commons.lang3.time.FastTimeZone;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Rule;
+import org.junit.jupiter.api.Test;
 
 public class SystemDefaultsSwitchTest {
 
     private static Locale TEST_DEFAULT_LOCALE;
+
     private static Locale DEFAULT_LOCALE_BEFORE_TEST;
 
     private static TimeZone DEFAULT_TIMEZONE_BEFORE_TEST;
+
     private static TimeZone TEST_DEFAULT_TIMEZONE;
 
-    @BeforeClass
+    @BeforeAll
     public static void classSetUp() {
         DEFAULT_LOCALE_BEFORE_TEST = Locale.getDefault();
         if (!DEFAULT_LOCALE_BEFORE_TEST.equals(Locale.CANADA)) {
@@ -45,7 +45,6 @@ public class SystemDefaultsSwitchTest {
             Locale.setDefault(Locale.CHINESE);
         }
         TEST_DEFAULT_LOCALE = Locale.getDefault();
-
         DEFAULT_TIMEZONE_BEFORE_TEST = TimeZone.getDefault();
         final TimeZone utc = FastTimeZone.getGmtTimeZone();
         if (!DEFAULT_TIMEZONE_BEFORE_TEST.equals(utc)) {
@@ -81,7 +80,7 @@ public class SystemDefaultsSwitchTest {
         assertEquals(TimeZone.getTimeZone("CET"), TimeZone.getDefault());
     }
 
-    @AfterClass
+    @AfterAll
     public static void classTearDown() {
         Locale.setDefault(DEFAULT_LOCALE_BEFORE_TEST);
         TimeZone.setDefault(DEFAULT_TIMEZONE_BEFORE_TEST);

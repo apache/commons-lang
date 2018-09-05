@@ -16,17 +16,15 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.JsonToStringStyleTest}.
@@ -35,18 +33,17 @@ public class JsonToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.JSON_STYLE);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
     // ----------------------------------------------------------------
-
     @Test
     public void testNull() {
         assertEquals("null", new ToStringBuilder(null).toString());
@@ -59,34 +56,12 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testAppendSuper() {
-        assertEquals(
-                "{}",
-                new ToStringBuilder(base).appendSuper(
-                        "Integer@8888[" + System.lineSeparator() + "]")
-                        .toString());
-        assertEquals(
-                "{}",
-                new ToStringBuilder(base).appendSuper(
-                        "Integer@8888[" + System.lineSeparator() + "  null"
-                                + System.lineSeparator() + "]").toString());
-        assertEquals(
-                "{\"a\":\"hello\"}",
-                new ToStringBuilder(base)
-                        .appendSuper(
-                                "Integer@8888[" + System.lineSeparator()
-                                        + "]").append("a", "hello").toString());
-        assertEquals(
-                "{\"a\":\"hello\"}",
-                new ToStringBuilder(base)
-                        .appendSuper(
-                                "Integer@8888[" + System.lineSeparator()
-                                        + "  null" + System.lineSeparator()
-                                        + "]").append("a", "hello").toString());
-        assertEquals("{\"a\":\"hello\"}", new ToStringBuilder(base)
-                .appendSuper(null).append("a", "hello").toString());
-
-        assertEquals("{\"a\":\"hello\",\"b\":\"world\"}", new ToStringBuilder(base)
-                .appendSuper("{\"a\":\"hello\"}").append("b", "world").toString());
+        assertEquals("{}", new ToStringBuilder(base).appendSuper("Integer@8888[" + System.lineSeparator() + "]").toString());
+        assertEquals("{}", new ToStringBuilder(base).appendSuper("Integer@8888[" + System.lineSeparator() + "  null" + System.lineSeparator() + "]").toString());
+        assertEquals("{\"a\":\"hello\"}", new ToStringBuilder(base).appendSuper("Integer@8888[" + System.lineSeparator() + "]").append("a", "hello").toString());
+        assertEquals("{\"a\":\"hello\"}", new ToStringBuilder(base).appendSuper("Integer@8888[" + System.lineSeparator() + "  null" + System.lineSeparator() + "]").append("a", "hello").toString());
+        assertEquals("{\"a\":\"hello\"}", new ToStringBuilder(base).appendSuper(null).append("a", "hello").toString());
+        assertEquals("{\"a\":\"hello\",\"b\":\"world\"}", new ToStringBuilder(base).appendSuper("{\"a\":\"hello\"}").append("b", "world").toString());
     }
 
     @Test
@@ -96,119 +71,75 @@ public class JsonToStringStyleTest {
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
-        assertEquals("{\"a\":\"A\"}", new ToStringBuilder(base).append("a", 'A')
-                .toString());
-        assertEquals("{\"a\":\"A\",\"b\":\"B\"}", new ToStringBuilder(base).append("a", 'A').append("b", 'B')
-                .toString());
+        assertEquals("{\"a\":\"A\"}", new ToStringBuilder(base).append("a", 'A').toString());
+        assertEquals("{\"a\":\"A\",\"b\":\"B\"}", new ToStringBuilder(base).append("a", 'A').append("b", 'B').toString());
     }
 
     @Test
     public void testDate() {
         final Date now = new Date();
         final Date afterNow = new Date(System.currentTimeMillis() + 1);
-
         try {
             new ToStringBuilder(base).append(now).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
-        assertEquals("{\"now\":\"" + now.toString() +"\"}", new ToStringBuilder(base).append("now", now)
-                .toString());
-        assertEquals("{\"now\":\"" + now.toString() +"\",\"after\":\"" + afterNow.toString() + "\"}", new ToStringBuilder(base).append("now", now).append("after", afterNow)
-                .toString());
+        assertEquals("{\"now\":\"" + now.toString() + "\"}", new ToStringBuilder(base).append("now", now).toString());
+        assertEquals("{\"now\":\"" + now.toString() + "\",\"after\":\"" + afterNow.toString() + "\"}", new ToStringBuilder(base).append("now", now).append("after", afterNow).toString());
     }
 
     @Test
     public void testObject() {
-
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
-
         try {
             new ToStringBuilder(base).append((Object) null).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
         try {
             new ToStringBuilder(base).append(i3).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
-        assertEquals("{\"a\":null}",
-                new ToStringBuilder(base).append("a", (Object) null).toString());
-        assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", i3)
-                .toString());
-        assertEquals("{\"a\":3,\"b\":4}",
-                new ToStringBuilder(base).append("a", i3).append("b", i4)
-                        .toString());
-
+        assertEquals("{\"a\":null}", new ToStringBuilder(base).append("a", (Object) null).toString());
+        assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", i3).toString());
+        assertEquals("{\"a\":3,\"b\":4}", new ToStringBuilder(base).append("a", i3).append("b", i4).toString());
         try {
             new ToStringBuilder(base).append("a", i3, false).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
         try {
             new ToStringBuilder(base).append("a", new ArrayList<>(), false).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
-        assertEquals(
-                "{\"a\":[]}",
-                new ToStringBuilder(base).append("a", new ArrayList<>(),
-                        true).toString());
-
+        assertEquals("{\"a\":[]}", new ToStringBuilder(base).append("a", new ArrayList<>(), true).toString());
         try {
             new ToStringBuilder(base).append("a", new HashMap<>(), false).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
-        assertEquals(
-                "{\"a\":{}}",
-                new ToStringBuilder(base).append("a",
-                        new HashMap<>(), true).toString());
-
+        assertEquals("{\"a\":{}}", new ToStringBuilder(base).append("a", new HashMap<>(), true).toString());
         try {
             new ToStringBuilder(base).append("a", (Object) new String[0], false).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
-        assertEquals(
-                "{\"a\":[]}",
-                new ToStringBuilder(base).append("a", (Object) new String[0],
-                        true).toString());
-
+        assertEquals("{\"a\":[]}", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
         try {
-            new ToStringBuilder(base).append("a", (Object) new int[]{1, 2, 3}, false).toString();
+            new ToStringBuilder(base).append("a", (Object) new int[] { 1, 2, 3 }, false).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
-
-        assertEquals(
-                "{\"a\":[1,2,3]}",
-                new ToStringBuilder(base).append("a",
-                        (Object) new int[]{1, 2, 3}, true).toString());
-
+        assertEquals("{\"a\":[1,2,3]}", new ToStringBuilder(base).append("a", (Object) new int[] { 1, 2, 3 }, true).toString());
         try {
-            new ToStringBuilder(base).append("a", (Object) new String[]{"v", "x", "y", "z"}, false).toString();
+            new ToStringBuilder(base).append("a", (Object) new String[] { "v", "x", "y", "z" }, false).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
-
-        assertEquals(
-                "{\"a\":[\"v\",\"x\",\"y\",\"z\"]}",
-                new ToStringBuilder(base).append("a",
-                        (Object) new String[]{"v", "x", "y", "z"}, true)
-                        .toString());
+        assertEquals("{\"a\":[\"v\",\"x\",\"y\",\"z\"]}", new ToStringBuilder(base).append("a", (Object) new String[] { "v", "x", "y", "z" }, true).toString());
     }
 
     @Test
@@ -217,78 +148,57 @@ public class JsonToStringStyleTest {
         p.name = "Jane Doe";
         p.age = 25;
         p.smoker = true;
-
-        assertEquals(
-                "{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true}",
-                new ToStringBuilder(p).append("name", p.name)
-                        .append("age", p.age).append("smoker", p.smoker)
-                        .toString());
+        assertEquals("{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true}", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 
     @Test
     public void testNestingPerson() {
-        final Person p = new Person(){
+        final Person p = new Person() {
+
             @Override
-            public String toString(){
-                return new ToStringBuilder(this).append("name", this.name)
-                    .append("age", this.age).append("smoker", this.smoker)
-                    .toString();
+            public String toString() {
+                return new ToStringBuilder(this).append("name", this.name).append("age", this.age).append("smoker", this.smoker).toString();
             }
         };
         p.name = "Jane Doe";
         p.age = 25;
         p.smoker = true;
-
         final NestingPerson nestP = new NestingPerson();
-        nestP.pid="#1@Jane";
+        nestP.pid = "#1@Jane";
         nestP.person = p;
-
-        assertEquals(
-                "{\"pid\":\"#1@Jane\",\"person\":{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true}}",
-                new ToStringBuilder(nestP).append("pid", nestP.pid)
-                        .append("person", nestP.person)
-                        .toString());
+        assertEquals("{\"pid\":\"#1@Jane\",\"person\":{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true}}", new ToStringBuilder(nestP).append("pid", nestP.pid).append("person", nestP.person).toString());
     }
 
     @Test
     public void testLong() {
-
         try {
             new ToStringBuilder(base).append(3L).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
-        assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", 3L)
-                .toString());
-        assertEquals("{\"a\":3,\"b\":4}",
-                new ToStringBuilder(base).append("a", 3L).append("b", 4L)
-                        .toString());
+        assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", 3L).toString());
+        assertEquals("{\"a\":3,\"b\":4}", new ToStringBuilder(base).append("a", 3L).append("b", 4L).toString());
     }
 
     @Test
     public void testObjectArray() {
-        Object[] array = new Object[]{null, base, new int[]{3, 6}};
-
+        Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
         array = null;
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
@@ -298,28 +208,23 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testLongArray() {
-        long[] array = new long[]{1, 2, -3, 4};
-
+        long[] array = new long[] { 1, 2, -3, 4 };
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
         array = null;
-
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
@@ -329,28 +234,23 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testLongArrayArray() {
-        long[][] array = new long[][]{{1, 2}, null, {5}};
-
+        long[][] array = new long[][] { { 1, 2 }, null, { 5 } };
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
         array = null;
-
         try {
             new ToStringBuilder(base).append(array).toString();
             fail("Should have generated UnsupportedOperationException");
         } catch (final UnsupportedOperationException e) {
         }
-
         try {
             new ToStringBuilder(base).append((Object) array).toString();
             fail("Should have generated UnsupportedOperationException");
@@ -364,32 +264,27 @@ public class JsonToStringStyleTest {
         p.name = "Jane Doe";
         p.age = 25;
         p.smoker = true;
+        assertEquals("{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true,\"groups\":['admin', 'manager', 'user']}", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).append("groups", new Object() {
 
-        assertEquals(
-                "{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true,\"groups\":['admin', 'manager', 'user']}",
-                new ToStringBuilder(p).append("name", p.name)
-                        .append("age", p.age).append("smoker", p.smoker)
-                        .append("groups", new Object() {
-                            @Override
-                            public String toString() {
-                                return "['admin', 'manager', 'user']";
-                            }
-                        })
-                        .toString());
+            @Override
+            public String toString() {
+                return "['admin', 'manager', 'user']";
+            }
+        }).toString());
     }
 
     @Test
     public void testLANG1395() {
-        assertEquals("{\"name\":\"value\"}",new ToStringBuilder(base).append("name","value").toString());
-        assertEquals("{\"name\":\"\"}",new ToStringBuilder(base).append("name","").toString());
-        assertEquals("{\"name\":\"\\\"\"}",new ToStringBuilder(base).append("name",'"').toString());
-        assertEquals("{\"name\":\"\\\\\"}",new ToStringBuilder(base).append("name",'\\').toString());
-        assertEquals("{\"name\":\"Let's \\\"quote\\\" this\"}",new ToStringBuilder(base).append("name","Let's \"quote\" this").toString());
+        assertEquals("{\"name\":\"value\"}", new ToStringBuilder(base).append("name", "value").toString());
+        assertEquals("{\"name\":\"\"}", new ToStringBuilder(base).append("name", "").toString());
+        assertEquals("{\"name\":\"\\\"\"}", new ToStringBuilder(base).append("name", '"').toString());
+        assertEquals("{\"name\":\"\\\\\"}", new ToStringBuilder(base).append("name", '\\').toString());
+        assertEquals("{\"name\":\"Let's \\\"quote\\\" this\"}", new ToStringBuilder(base).append("name", "Let's \"quote\" this").toString());
     }
 
     @Test
     public void testLANG1396() {
-        assertEquals("{\"Let's \\\"quote\\\" this\":\"value\"}",new ToStringBuilder(base).append("Let's \"quote\" this","value").toString());
+        assertEquals("{\"Let's \\\"quote\\\" this\":\"value\"}", new ToStringBuilder(base).append("Let's \"quote\" this", "value").toString());
     }
 
     /**
@@ -397,6 +292,7 @@ public class JsonToStringStyleTest {
      *
      */
     static class NestingPerson {
+
         /**
          * Test String field.
          */

@@ -16,14 +16,12 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit tests.
@@ -36,7 +34,6 @@ public class MutableObjectTest {
     @Test
     public void testConstructors() {
         assertNull(new MutableObject<String>().getValue());
-
         final Integer i = Integer.valueOf(6);
         assertSame(i, new MutableObject<>(i).getValue());
         assertSame("HI", new MutableObject<>("HI").getValue());
@@ -47,10 +44,8 @@ public class MutableObjectTest {
     public void testGetSet() {
         final MutableObject<String> mutNum = new MutableObject<>();
         assertNull(new MutableObject<>().getValue());
-
         mutNum.setValue("HELLO");
         assertSame("HELLO", mutNum.getValue());
-
         mutNum.setValue(null);
         assertSame(null, mutNum.getValue());
     }
@@ -61,7 +56,6 @@ public class MutableObjectTest {
         final MutableObject<String> mutNumB = new MutableObject<>("ALPHA");
         final MutableObject<String> mutNumC = new MutableObject<>("BETA");
         final MutableObject<String> mutNumD = new MutableObject<>(null);
-
         assertTrue(mutNumA.equals(mutNumA));
         assertTrue(mutNumA.equals(mutNumB));
         assertTrue(mutNumB.equals(mutNumA));
@@ -71,7 +65,6 @@ public class MutableObjectTest {
         assertTrue(mutNumC.equals(mutNumC));
         assertFalse(mutNumA.equals(mutNumD));
         assertTrue(mutNumD.equals(mutNumD));
-
         assertFalse(mutNumA.equals(null));
         assertFalse(mutNumA.equals(new Object()));
         assertFalse(mutNumA.equals("0"));
@@ -83,7 +76,6 @@ public class MutableObjectTest {
         final MutableObject<String> mutNumB = new MutableObject<>("ALPHA");
         final MutableObject<String> mutNumC = new MutableObject<>("BETA");
         final MutableObject<String> mutNumD = new MutableObject<>(null);
-
         assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
         assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
         assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
@@ -98,5 +90,4 @@ public class MutableObjectTest {
         assertEquals("10.0", new MutableObject<>(Double.valueOf(10)).toString());
         assertEquals("null", new MutableObject<>(null).toString());
     }
-
 }

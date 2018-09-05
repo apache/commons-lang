@@ -16,13 +16,12 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.text.DateFormat;
@@ -35,13 +34,12 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
-
 import org.apache.commons.lang3.test.SystemDefaults;
 import org.apache.commons.lang3.test.SystemDefaultsSwitch;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Rule;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.DateUtils}.
@@ -50,7 +48,7 @@ public class DateUtilsTest {
 
     private static Date BASE_DATE;
 
-    @BeforeClass
+    @BeforeAll
     public static void classSetup() {
         final GregorianCalendar cal = new GregorianCalendar(2000, 6, 5, 4, 3, 2);
         cal.set(Calendar.MILLISECOND, 1);
@@ -61,40 +59,67 @@ public class DateUtilsTest {
     public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
 
     private DateFormat dateParser = null;
+
     private DateFormat dateTimeParser = null;
+
     private Date dateAmPm1 = null;
+
     private Date dateAmPm2 = null;
+
     private Date dateAmPm3 = null;
+
     private Date dateAmPm4 = null;
+
     private Date date0 = null;
+
     private Date date1 = null;
+
     private Date date2 = null;
+
     private Date date3 = null;
+
     private Date date4 = null;
+
     private Date date5 = null;
+
     private Date date6 = null;
+
     private Date date7 = null;
+
     private Date date8 = null;
+
     private Calendar calAmPm1 = null;
+
     private Calendar calAmPm2 = null;
+
     private Calendar calAmPm3 = null;
+
     private Calendar calAmPm4 = null;
+
     private Calendar cal1 = null;
+
     private Calendar cal2 = null;
+
     private Calendar cal3 = null;
+
     private Calendar cal4 = null;
+
     private Calendar cal5 = null;
+
     private Calendar cal6 = null;
+
     private Calendar cal7 = null;
+
     private Calendar cal8 = null;
+
     private TimeZone zone = null;
+
     private TimeZone defaultZone = null;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         dateParser = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
         dateTimeParser = new SimpleDateFormat("MMM dd, yyyy H:mm:ss.SSS", Locale.ENGLISH);
-
         dateAmPm1 = dateTimeParser.parse("February 3, 2002 01:10:00.000");
         dateAmPm2 = dateTimeParser.parse("February 3, 2002 11:10:00.000");
         dateAmPm3 = dateTimeParser.parse("February 3, 2002 13:10:00.000");
@@ -256,7 +281,6 @@ public class DateUtilsTest {
         calb.set(2004, Calendar.JULY, 9, 13, 45, 0);
         calb.set(Calendar.MILLISECOND, 0);
         assertFalse(DateUtils.isSameInstant(cala, calb));
-
         calb.set(2004, Calendar.JULY, 9, 11, 45, 0);
         assertTrue(DateUtils.isSameInstant(cala, calb));
     }
@@ -286,15 +310,13 @@ public class DateUtilsTest {
         calb.set(2004, Calendar.JULY, 9, 13, 45, 0);
         calb.set(Calendar.MILLISECOND, 0);
         assertTrue(DateUtils.isSameLocalTime(cala, calb));
-
         final Calendar calc = Calendar.getInstance();
         final Calendar cald = Calendar.getInstance();
-        calc.set(2004, Calendar.JULY, 9, 4,  0, 0);
+        calc.set(2004, Calendar.JULY, 9, 4, 0, 0);
         cald.set(2004, Calendar.JULY, 9, 16, 0, 0);
         calc.set(Calendar.MILLISECOND, 0);
         cald.set(Calendar.MILLISECOND, 0);
-        assertFalse("LANG-677", DateUtils.isSameLocalTime(calc, cald));
-
+        assertFalse(DateUtils.isSameLocalTime(calc, cald), "LANG-677");
         calb.set(2004, Calendar.JULY, 9, 11, 45, 0);
         assertFalse(DateUtils.isSameLocalTime(cala, calb));
     }
@@ -319,14 +341,12 @@ public class DateUtilsTest {
     public void testParseDate() throws Exception {
         final GregorianCalendar cal = new GregorianCalendar(1972, 11, 3);
         String dateStr = "1972-12-03";
-        final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        final String[] parsers = new String[] { "yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd" };
         Date date = DateUtils.parseDate(dateStr, parsers);
         assertEquals(cal.getTime(), date);
-
         dateStr = "1972-338";
         date = DateUtils.parseDate(dateStr, parsers);
         assertEquals(cal.getTime(), date);
-
         dateStr = "19721203";
         date = DateUtils.parseDate(dateStr, parsers);
         assertEquals(cal.getTime(), date);
@@ -334,19 +354,19 @@ public class DateUtilsTest {
 
     @Test(expected = ParseException.class)
     public void testParseDate_NoDateString() throws Exception {
-        final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        final String[] parsers = new String[] { "yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd" };
         DateUtils.parseDate("PURPLE", parsers);
     }
 
     @Test(expected = ParseException.class)
     public void testParseDate_InvalidDateString() throws Exception {
-        final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        final String[] parsers = new String[] { "yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd" };
         DateUtils.parseDate("197212AB", parsers);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testParseDate_Null() throws Exception {
-        final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        final String[] parsers = new String[] { "yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd" };
         DateUtils.parseDate(null, parsers);
     }
 
@@ -365,15 +385,14 @@ public class DateUtilsTest {
     public void testParseDateWithLeniency() throws Exception {
         final GregorianCalendar cal = new GregorianCalendar(1998, 6, 30);
         final String dateStr = "02 942, 1996";
-        final String[] parsers = new String[] {"MM DDD, yyyy"};
-
+        final String[] parsers = new String[] { "MM DDD, yyyy" };
         final Date date = DateUtils.parseDate(dateStr, parsers);
         assertEquals(cal.getTime(), date);
-
         try {
             DateUtils.parseDateStrictly(dateStr, parsers);
             fail();
-        } catch (final ParseException ex) {}
+        } catch (final ParseException ex) {
+        }
     }
 
     //-----------------------------------------------------------------------
@@ -383,12 +402,10 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
-
         result = DateUtils.addYears(BASE_DATE, 1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2001, 6, 5, 4, 3, 2, 1);
-
         result = DateUtils.addYears(BASE_DATE, -1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -402,12 +419,10 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
-
         result = DateUtils.addMonths(BASE_DATE, 1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 7, 5, 4, 3, 2, 1);
-
         result = DateUtils.addMonths(BASE_DATE, -1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -421,16 +436,16 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
-
         result = DateUtils.addWeeks(BASE_DATE, 1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 12, 4, 3, 2, 1);
-
         result = DateUtils.addWeeks(BASE_DATE, -1);
         assertNotSame(BASE_DATE, result);
-        assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);      // july
-        assertDate(result, 2000, 5, 28, 4, 3, 2, 1);   // june
+        // july
+        assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
+        // june
+        assertDate(result, 2000, 5, 28, 4, 3, 2, 1);
     }
 
     //-----------------------------------------------------------------------
@@ -440,12 +455,10 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
-
         result = DateUtils.addDays(BASE_DATE, 1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 6, 4, 3, 2, 1);
-
         result = DateUtils.addDays(BASE_DATE, -1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -459,12 +472,10 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
-
         result = DateUtils.addHours(BASE_DATE, 1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 5, 3, 2, 1);
-
         result = DateUtils.addHours(BASE_DATE, -1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -478,12 +489,10 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
-
         result = DateUtils.addMinutes(BASE_DATE, 1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 4, 2, 1);
-
         result = DateUtils.addMinutes(BASE_DATE, -1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -497,12 +506,10 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
-
         result = DateUtils.addSeconds(BASE_DATE, 1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 3, 1);
-
         result = DateUtils.addSeconds(BASE_DATE, -1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -516,12 +523,10 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
-
         result = DateUtils.addMilliseconds(BASE_DATE, 1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 2);
-
         result = DateUtils.addMilliseconds(BASE_DATE, -1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -535,12 +540,10 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
-
         result = DateUtils.setYears(BASE_DATE, 2008);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2008, 6, 5, 4, 3, 2, 1);
-
         result = DateUtils.setYears(BASE_DATE, 2005);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -554,17 +557,14 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 5, 5, 4, 3, 2, 1);
-
         result = DateUtils.setMonths(BASE_DATE, 1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 1, 5, 4, 3, 2, 1);
-
         try {
             DateUtils.setMonths(BASE_DATE, 12);
             fail("DateUtils.setMonths did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
-
         }
     }
 
@@ -575,17 +575,14 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 1, 4, 3, 2, 1);
-
         result = DateUtils.setDays(BASE_DATE, 29);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 29, 4, 3, 2, 1);
-
         try {
             DateUtils.setDays(BASE_DATE, 32);
             fail("DateUtils.setDays did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
-
         }
     }
 
@@ -596,17 +593,14 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 0, 3, 2, 1);
-
         result = DateUtils.setHours(BASE_DATE, 23);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 23, 3, 2, 1);
-
         try {
             DateUtils.setHours(BASE_DATE, 24);
             fail("DateUtils.setHours did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
-
         }
     }
 
@@ -617,17 +611,14 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 0, 2, 1);
-
         result = DateUtils.setMinutes(BASE_DATE, 59);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 59, 2, 1);
-
         try {
             DateUtils.setMinutes(BASE_DATE, 60);
             fail("DateUtils.setMinutes did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
-
         }
     }
 
@@ -638,17 +629,14 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 0, 1);
-
         result = DateUtils.setSeconds(BASE_DATE, 59);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 59, 1);
-
         try {
             DateUtils.setSeconds(BASE_DATE, 60);
             fail("DateUtils.setSeconds did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
-
         }
     }
 
@@ -659,17 +647,14 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 0);
-
         result = DateUtils.setMilliseconds(BASE_DATE, 999);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 999);
-
         try {
             DateUtils.setMilliseconds(BASE_DATE, 1000);
             fail("DateUtils.setMilliseconds did not throw an expected IllegalArgumentException.");
         } catch (final IllegalArgumentException e) {
-
         }
     }
 
@@ -689,23 +674,23 @@ public class DateUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testToCalendar() {
-        assertEquals("Failed to convert to a Calendar and back", date1, DateUtils.toCalendar(date1).getTime());
+        assertEquals(date1, DateUtils.toCalendar(date1).getTime(), "Failed to convert to a Calendar and back");
         try {
             DateUtils.toCalendar(null);
             fail("Expected NullPointerException to be thrown");
-        } catch(final NullPointerException npe) {
-            // expected
+        } catch (final NullPointerException npe) {
+        // expected
         }
     }
 
     //-----------------------------------------------------------------------
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testToCalendarWithDateNull() {
         DateUtils.toCalendar(null, zone);
     }
 
     //-----------------------------------------------------------------------
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testToCalendarWithTimeZoneNull() {
         DateUtils.toCalendar(date1, null);
     }
@@ -714,12 +699,12 @@ public class DateUtilsTest {
     @Test
     public void testToCalendarWithDateAndTimeZoneNotNull() {
         final Calendar c = DateUtils.toCalendar(date2, defaultZone);
-        assertEquals("Convert Date and TimeZone to a Calendar, but failed to get the Date back", date2, c.getTime());
-        assertEquals("Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back", defaultZone, c.getTimeZone());
+        assertEquals(date2, c.getTime(), "Convert Date and TimeZone to a Calendar, but failed to get the Date back");
+        assertEquals(defaultZone, c.getTimeZone(), "Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back");
     }
 
     //-----------------------------------------------------------------------
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testToCalendarWithDateAndTimeZoneNull() {
         DateUtils.toCalendar(null, null);
     }
@@ -733,216 +718,95 @@ public class DateUtilsTest {
     @Test
     public void testRound() throws Exception {
         // tests for public static Date round(Date date, int field)
-        assertEquals("round year-1 failed",
-                dateParser.parse("January 1, 2002"),
-                DateUtils.round(date1, Calendar.YEAR));
-        assertEquals("round year-2 failed",
-                dateParser.parse("January 1, 2002"),
-                DateUtils.round(date2, Calendar.YEAR));
-        assertEquals("round month-1 failed",
-                dateParser.parse("February 1, 2002"),
-                DateUtils.round(date1, Calendar.MONTH));
-        assertEquals("round month-2 failed",
-                dateParser.parse("December 1, 2001"),
-                DateUtils.round(date2, Calendar.MONTH));
-        assertEquals("round semimonth-0 failed",
-                dateParser.parse("February 1, 2002"),
-                DateUtils.round(date0, DateUtils.SEMI_MONTH));
-        assertEquals("round semimonth-1 failed",
-                dateParser.parse("February 16, 2002"),
-                DateUtils.round(date1, DateUtils.SEMI_MONTH));
-        assertEquals("round semimonth-2 failed",
-                dateParser.parse("November 16, 2001"),
-                DateUtils.round(date2, DateUtils.SEMI_MONTH));
-
-
-        assertEquals("round date-1 failed",
-                dateParser.parse("February 13, 2002"),
-                DateUtils.round(date1, Calendar.DATE));
-        assertEquals("round date-2 failed",
-                dateParser.parse("November 18, 2001"),
-                DateUtils.round(date2, Calendar.DATE));
-        assertEquals("round hour-1 failed",
-                dateTimeParser.parse("February 12, 2002 13:00:00.000"),
-                DateUtils.round(date1, Calendar.HOUR));
-        assertEquals("round hour-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:00:00.000"),
-                DateUtils.round(date2, Calendar.HOUR));
-        assertEquals("round minute-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:35:00.000"),
-                DateUtils.round(date1, Calendar.MINUTE));
-        assertEquals("round minute-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:00.000"),
-                DateUtils.round(date2, Calendar.MINUTE));
-        assertEquals("round second-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:34:57.000"),
-                DateUtils.round(date1, Calendar.SECOND));
-        assertEquals("round second-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:11.000"),
-                DateUtils.round(date2, Calendar.SECOND));
-        assertEquals("round ampm-1 failed",
-                dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.round(dateAmPm1, Calendar.AM_PM));
-        assertEquals("round ampm-2 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round(dateAmPm2, Calendar.AM_PM));
-        assertEquals("round ampm-3 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round(dateAmPm3, Calendar.AM_PM));
-        assertEquals("round ampm-4 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.round(dateAmPm4, Calendar.AM_PM));
-
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.round(date1, Calendar.YEAR), "round year-1 failed");
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.round(date2, Calendar.YEAR), "round year-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"), DateUtils.round(date1, Calendar.MONTH), "round month-1 failed");
+        assertEquals(dateParser.parse("December 1, 2001"), DateUtils.round(date2, Calendar.MONTH), "round month-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"), DateUtils.round(date0, DateUtils.SEMI_MONTH), "round semimonth-0 failed");
+        assertEquals(dateParser.parse("February 16, 2002"), DateUtils.round(date1, DateUtils.SEMI_MONTH), "round semimonth-1 failed");
+        assertEquals(dateParser.parse("November 16, 2001"), DateUtils.round(date2, DateUtils.SEMI_MONTH), "round semimonth-2 failed");
+        assertEquals(dateParser.parse("February 13, 2002"), DateUtils.round(date1, Calendar.DATE), "round date-1 failed");
+        assertEquals(dateParser.parse("November 18, 2001"), DateUtils.round(date2, Calendar.DATE), "round date-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 13:00:00.000"), DateUtils.round(date1, Calendar.HOUR), "round hour-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:00:00.000"), DateUtils.round(date2, Calendar.HOUR), "round hour-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:35:00.000"), DateUtils.round(date1, Calendar.MINUTE), "round minute-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:00.000"), DateUtils.round(date2, Calendar.MINUTE), "round minute-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"), DateUtils.round(date1, Calendar.SECOND), "round second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"), DateUtils.round(date2, Calendar.SECOND), "round second-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.round(dateAmPm1, Calendar.AM_PM), "round ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round(dateAmPm2, Calendar.AM_PM), "round ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round(dateAmPm3, Calendar.AM_PM), "round ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.round(dateAmPm4, Calendar.AM_PM), "round ampm-4 failed");
         // tests for public static Date round(Object date, int field)
-        assertEquals("round year-1 failed",
-                dateParser.parse("January 1, 2002"),
-                DateUtils.round((Object) date1, Calendar.YEAR));
-        assertEquals("round year-2 failed",
-                dateParser.parse("January 1, 2002"),
-                DateUtils.round((Object) date2, Calendar.YEAR));
-        assertEquals("round month-1 failed",
-                dateParser.parse("February 1, 2002"),
-                DateUtils.round((Object) date1, Calendar.MONTH));
-        assertEquals("round month-2 failed",
-                dateParser.parse("December 1, 2001"),
-                DateUtils.round((Object) date2, Calendar.MONTH));
-        assertEquals("round semimonth-1 failed",
-                dateParser.parse("February 16, 2002"),
-                DateUtils.round((Object) date1, DateUtils.SEMI_MONTH));
-        assertEquals("round semimonth-2 failed",
-                dateParser.parse("November 16, 2001"),
-                DateUtils.round((Object) date2, DateUtils.SEMI_MONTH));
-        assertEquals("round date-1 failed",
-                dateParser.parse("February 13, 2002"),
-                DateUtils.round((Object) date1, Calendar.DATE));
-        assertEquals("round date-2 failed",
-                dateParser.parse("November 18, 2001"),
-                DateUtils.round((Object) date2, Calendar.DATE));
-        assertEquals("round hour-1 failed",
-                dateTimeParser.parse("February 12, 2002 13:00:00.000"),
-                DateUtils.round((Object) date1, Calendar.HOUR));
-        assertEquals("round hour-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:00:00.000"),
-                DateUtils.round((Object) date2, Calendar.HOUR));
-        assertEquals("round minute-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:35:00.000"),
-                DateUtils.round((Object) date1, Calendar.MINUTE));
-        assertEquals("round minute-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:00.000"),
-                DateUtils.round((Object) date2, Calendar.MINUTE));
-        assertEquals("round second-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:34:57.000"),
-                DateUtils.round((Object) date1, Calendar.SECOND));
-        assertEquals("round second-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:11.000"),
-                DateUtils.round((Object) date2, Calendar.SECOND));
-        assertEquals("round calendar second-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:34:57.000"),
-                DateUtils.round((Object) cal1, Calendar.SECOND));
-        assertEquals("round calendar second-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:11.000"),
-                DateUtils.round((Object) cal2, Calendar.SECOND));
-        assertEquals("round ampm-1 failed",
-                dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.round((Object) dateAmPm1, Calendar.AM_PM));
-        assertEquals("round ampm-2 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round((Object) dateAmPm2, Calendar.AM_PM));
-        assertEquals("round ampm-3 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round((Object) dateAmPm3, Calendar.AM_PM));
-        assertEquals("round ampm-4 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.round((Object) dateAmPm4, Calendar.AM_PM));
-
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.round((Object) date1, Calendar.YEAR), "round year-1 failed");
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.round((Object) date2, Calendar.YEAR), "round year-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"), DateUtils.round((Object) date1, Calendar.MONTH), "round month-1 failed");
+        assertEquals(dateParser.parse("December 1, 2001"), DateUtils.round((Object) date2, Calendar.MONTH), "round month-2 failed");
+        assertEquals(dateParser.parse("February 16, 2002"), DateUtils.round((Object) date1, DateUtils.SEMI_MONTH), "round semimonth-1 failed");
+        assertEquals(dateParser.parse("November 16, 2001"), DateUtils.round((Object) date2, DateUtils.SEMI_MONTH), "round semimonth-2 failed");
+        assertEquals(dateParser.parse("February 13, 2002"), DateUtils.round((Object) date1, Calendar.DATE), "round date-1 failed");
+        assertEquals(dateParser.parse("November 18, 2001"), DateUtils.round((Object) date2, Calendar.DATE), "round date-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 13:00:00.000"), DateUtils.round((Object) date1, Calendar.HOUR), "round hour-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:00:00.000"), DateUtils.round((Object) date2, Calendar.HOUR), "round hour-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:35:00.000"), DateUtils.round((Object) date1, Calendar.MINUTE), "round minute-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:00.000"), DateUtils.round((Object) date2, Calendar.MINUTE), "round minute-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"), DateUtils.round((Object) date1, Calendar.SECOND), "round second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"), DateUtils.round((Object) date2, Calendar.SECOND), "round second-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"), DateUtils.round((Object) cal1, Calendar.SECOND), "round calendar second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"), DateUtils.round((Object) cal2, Calendar.SECOND), "round calendar second-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.round((Object) dateAmPm1, Calendar.AM_PM), "round ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round((Object) dateAmPm2, Calendar.AM_PM), "round ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round((Object) dateAmPm3, Calendar.AM_PM), "round ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.round((Object) dateAmPm4, Calendar.AM_PM), "round ampm-4 failed");
         try {
             DateUtils.round((Date) null, Calendar.SECOND);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.round((Calendar) null, Calendar.SECOND);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.round((Object) null, Calendar.SECOND);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.round("", Calendar.SECOND);
             fail();
-        } catch (final ClassCastException ex) {}
+        } catch (final ClassCastException ex) {
+        }
         try {
             DateUtils.round(date1, -9999);
             fail();
-        } catch(final IllegalArgumentException ex) {}
-
-        assertEquals("round ampm-1 failed",
-                dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.round((Object) calAmPm1, Calendar.AM_PM));
-        assertEquals("round ampm-2 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round((Object) calAmPm2, Calendar.AM_PM));
-        assertEquals("round ampm-3 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round((Object) calAmPm3, Calendar.AM_PM));
-        assertEquals("round ampm-4 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.round((Object) calAmPm4, Calendar.AM_PM));
-
-        // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560 / LANG-13
+        } catch (final IllegalArgumentException ex) {
+        }
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.round((Object) calAmPm1, Calendar.AM_PM), "round ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round((Object) calAmPm2, Calendar.AM_PM), "round ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round((Object) calAmPm3, Calendar.AM_PM), "round ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.round((Object) calAmPm4, Calendar.AM_PM), "round ampm-4 failed");
         // Test rounding across the beginning of daylight saving time
         try {
             TimeZone.setDefault(zone);
             dateTimeParser.setTimeZone(zone);
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round(date4, Calendar.DATE));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round((Object) cal4, Calendar.DATE));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round(date5, Calendar.DATE));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round((Object) cal5, Calendar.DATE));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round(date6, Calendar.DATE));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round((Object) cal6, Calendar.DATE));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round(date7, Calendar.DATE));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round((Object) cal7, Calendar.DATE));
-
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 01:00:00.000"),
-                    DateUtils.round(date4, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 01:00:00.000"),
-                    DateUtils.round((Object) cal4, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round(date5, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round((Object) cal5, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round(date6, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round((Object) cal6, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.round(date7, Calendar.HOUR_OF_DAY));
-            assertEquals("round MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY));
+            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round(date4, Calendar.DATE), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round((Object) cal4, Calendar.DATE), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round(date5, Calendar.DATE), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round((Object) cal5, Calendar.DATE), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round(date6, Calendar.DATE), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round((Object) cal6, Calendar.DATE), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round(date7, Calendar.DATE), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round((Object) cal7, Calendar.DATE), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 01:00:00.000"), DateUtils.round(date4, Calendar.HOUR_OF_DAY), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 01:00:00.000"), DateUtils.round((Object) cal4, Calendar.HOUR_OF_DAY), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.round(date5, Calendar.HOUR_OF_DAY), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.round((Object) cal5, Calendar.HOUR_OF_DAY), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.round(date6, Calendar.HOUR_OF_DAY), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.round((Object) cal6, Calendar.HOUR_OF_DAY), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.round(date7, Calendar.HOUR_OF_DAY), "round MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY), "round MET date across DST change-over");
         } finally {
             TimeZone.setDefault(defaultZone);
             dateTimeParser.setTimeZone(defaultZone);
@@ -960,56 +824,32 @@ public class DateUtilsTest {
         final Calendar testCalendar = Calendar.getInstance();
         testCalendar.set(2007, Calendar.JULY, 2, 8, 8, 50);
         Date date = testCalendar.getTime();
-        assertEquals("Minute Round Up Failed",
-                     dateTimeParser.parse("July 2, 2007 08:09:00.000"),
-                     DateUtils.round(date, Calendar.MINUTE));
-
+        assertEquals(dateTimeParser.parse("July 2, 2007 08:09:00.000"), DateUtils.round(date, Calendar.MINUTE), "Minute Round Up Failed");
         testCalendar.set(2007, Calendar.JULY, 2, 8, 8, 20);
         date = testCalendar.getTime();
-        assertEquals("Minute No Round Failed",
-                     dateTimeParser.parse("July 2, 2007 08:08:00.000"),
-                     DateUtils.round(date, Calendar.MINUTE));
-
+        assertEquals(dateTimeParser.parse("July 2, 2007 08:08:00.000"), DateUtils.round(date, Calendar.MINUTE), "Minute No Round Failed");
         testCalendar.set(2007, Calendar.JULY, 2, 8, 8, 50);
         testCalendar.set(Calendar.MILLISECOND, 600);
         date = testCalendar.getTime();
-
-        assertEquals("Second Round Up with 600 Milli Seconds Failed",
-                     dateTimeParser.parse("July 2, 2007 08:08:51.000"),
-                     DateUtils.round(date, Calendar.SECOND));
-
+        assertEquals(dateTimeParser.parse("July 2, 2007 08:08:51.000"), DateUtils.round(date, Calendar.SECOND), "Second Round Up with 600 Milli Seconds Failed");
         testCalendar.set(2007, Calendar.JULY, 2, 8, 8, 50);
         testCalendar.set(Calendar.MILLISECOND, 200);
         date = testCalendar.getTime();
-        assertEquals("Second Round Down with 200 Milli Seconds Failed",
-                     dateTimeParser.parse("July 2, 2007 08:08:50.000"),
-                     DateUtils.round(date, Calendar.SECOND));
-
+        assertEquals(dateTimeParser.parse("July 2, 2007 08:08:50.000"), DateUtils.round(date, Calendar.SECOND), "Second Round Down with 200 Milli Seconds Failed");
         testCalendar.set(2007, Calendar.JULY, 2, 8, 8, 20);
         testCalendar.set(Calendar.MILLISECOND, 600);
         date = testCalendar.getTime();
-        assertEquals("Second Round Up with 200 Milli Seconds Failed",
-                     dateTimeParser.parse("July 2, 2007 08:08:21.000"),
-                     DateUtils.round(date, Calendar.SECOND));
-
+        assertEquals(dateTimeParser.parse("July 2, 2007 08:08:21.000"), DateUtils.round(date, Calendar.SECOND), "Second Round Up with 200 Milli Seconds Failed");
         testCalendar.set(2007, Calendar.JULY, 2, 8, 8, 20);
         testCalendar.set(Calendar.MILLISECOND, 200);
         date = testCalendar.getTime();
-        assertEquals("Second Round Down with 200 Milli Seconds Failed",
-                     dateTimeParser.parse("July 2, 2007 08:08:20.000"),
-                     DateUtils.round(date, Calendar.SECOND));
-
+        assertEquals(dateTimeParser.parse("July 2, 2007 08:08:20.000"), DateUtils.round(date, Calendar.SECOND), "Second Round Down with 200 Milli Seconds Failed");
         testCalendar.set(2007, Calendar.JULY, 2, 8, 8, 50);
         date = testCalendar.getTime();
-        assertEquals("Hour Round Down Failed",
-                     dateTimeParser.parse("July 2, 2007 08:00:00.000"),
-                     DateUtils.round(date, Calendar.HOUR));
-
+        assertEquals(dateTimeParser.parse("July 2, 2007 08:00:00.000"), DateUtils.round(date, Calendar.HOUR), "Hour Round Down Failed");
         testCalendar.set(2007, Calendar.JULY, 2, 8, 31, 50);
         date = testCalendar.getTime();
-        assertEquals("Hour Round Up Failed",
-                     dateTimeParser.parse("July 2, 2007 09:00:00.000"),
-                     DateUtils.round(date, Calendar.HOUR));
+        assertEquals(dateTimeParser.parse("July 2, 2007 09:00:00.000"), DateUtils.round(date, Calendar.HOUR), "Hour Round Up Failed");
     }
 
     /**
@@ -1020,190 +860,98 @@ public class DateUtilsTest {
     @Test
     public void testTruncate() throws Exception {
         // tests public static Date truncate(Date date, int field)
-        assertEquals("truncate year-1 failed",
-                dateParser.parse("January 1, 2002"),
-                DateUtils.truncate(date1, Calendar.YEAR));
-        assertEquals("truncate year-2 failed",
-                dateParser.parse("January 1, 2001"),
-                DateUtils.truncate(date2, Calendar.YEAR));
-        assertEquals("truncate month-1 failed",
-                dateParser.parse("February 1, 2002"),
-                DateUtils.truncate(date1, Calendar.MONTH));
-        assertEquals("truncate month-2 failed",
-                dateParser.parse("November 1, 2001"),
-                DateUtils.truncate(date2, Calendar.MONTH));
-        assertEquals("truncate semimonth-1 failed",
-                dateParser.parse("February 1, 2002"),
-                DateUtils.truncate(date1, DateUtils.SEMI_MONTH));
-        assertEquals("truncate semimonth-2 failed",
-                dateParser.parse("November 16, 2001"),
-                DateUtils.truncate(date2, DateUtils.SEMI_MONTH));
-        assertEquals("truncate date-1 failed",
-                dateParser.parse("February 12, 2002"),
-                DateUtils.truncate(date1, Calendar.DATE));
-        assertEquals("truncate date-2 failed",
-                dateParser.parse("November 18, 2001"),
-                DateUtils.truncate(date2, Calendar.DATE));
-        assertEquals("truncate hour-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:00:00.000"),
-                DateUtils.truncate(date1, Calendar.HOUR));
-        assertEquals("truncate hour-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:00:00.000"),
-                DateUtils.truncate(date2, Calendar.HOUR));
-        assertEquals("truncate minute-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:34:00.000"),
-                DateUtils.truncate(date1, Calendar.MINUTE));
-        assertEquals("truncate minute-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:00.000"),
-                DateUtils.truncate(date2, Calendar.MINUTE));
-        assertEquals("truncate second-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:34:56.000"),
-                DateUtils.truncate(date1, Calendar.SECOND));
-        assertEquals("truncate second-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:11.000"),
-                DateUtils.truncate(date2, Calendar.SECOND));
-        assertEquals("truncate ampm-1 failed",
-                dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.truncate(dateAmPm1, Calendar.AM_PM));
-        assertEquals("truncate ampm-2 failed",
-                dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.truncate(dateAmPm2, Calendar.AM_PM));
-        assertEquals("truncate ampm-3 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.truncate(dateAmPm3, Calendar.AM_PM));
-        assertEquals("truncate ampm-4 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.truncate(dateAmPm4, Calendar.AM_PM));
-
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.truncate(date1, Calendar.YEAR), "truncate year-1 failed");
+        assertEquals(dateParser.parse("January 1, 2001"), DateUtils.truncate(date2, Calendar.YEAR), "truncate year-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"), DateUtils.truncate(date1, Calendar.MONTH), "truncate month-1 failed");
+        assertEquals(dateParser.parse("November 1, 2001"), DateUtils.truncate(date2, Calendar.MONTH), "truncate month-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"), DateUtils.truncate(date1, DateUtils.SEMI_MONTH), "truncate semimonth-1 failed");
+        assertEquals(dateParser.parse("November 16, 2001"), DateUtils.truncate(date2, DateUtils.SEMI_MONTH), "truncate semimonth-2 failed");
+        assertEquals(dateParser.parse("February 12, 2002"), DateUtils.truncate(date1, Calendar.DATE), "truncate date-1 failed");
+        assertEquals(dateParser.parse("November 18, 2001"), DateUtils.truncate(date2, Calendar.DATE), "truncate date-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:00:00.000"), DateUtils.truncate(date1, Calendar.HOUR), "truncate hour-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:00:00.000"), DateUtils.truncate(date2, Calendar.HOUR), "truncate hour-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:00.000"), DateUtils.truncate(date1, Calendar.MINUTE), "truncate minute-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:00.000"), DateUtils.truncate(date2, Calendar.MINUTE), "truncate minute-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:56.000"), DateUtils.truncate(date1, Calendar.SECOND), "truncate second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"), DateUtils.truncate(date2, Calendar.SECOND), "truncate second-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.truncate(dateAmPm1, Calendar.AM_PM), "truncate ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.truncate(dateAmPm2, Calendar.AM_PM), "truncate ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.truncate(dateAmPm3, Calendar.AM_PM), "truncate ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.truncate(dateAmPm4, Calendar.AM_PM), "truncate ampm-4 failed");
         // tests public static Date truncate(Object date, int field)
-        assertEquals("truncate year-1 failed",
-                dateParser.parse("January 1, 2002"),
-                DateUtils.truncate((Object) date1, Calendar.YEAR));
-        assertEquals("truncate year-2 failed",
-                dateParser.parse("January 1, 2001"),
-                DateUtils.truncate((Object) date2, Calendar.YEAR));
-        assertEquals("truncate month-1 failed",
-                dateParser.parse("February 1, 2002"),
-                DateUtils.truncate((Object) date1, Calendar.MONTH));
-        assertEquals("truncate month-2 failed",
-                dateParser.parse("November 1, 2001"),
-                DateUtils.truncate((Object) date2, Calendar.MONTH));
-        assertEquals("truncate semimonth-1 failed",
-                dateParser.parse("February 1, 2002"),
-                DateUtils.truncate((Object) date1, DateUtils.SEMI_MONTH));
-        assertEquals("truncate semimonth-2 failed",
-                dateParser.parse("November 16, 2001"),
-                DateUtils.truncate((Object) date2, DateUtils.SEMI_MONTH));
-        assertEquals("truncate date-1 failed",
-                dateParser.parse("February 12, 2002"),
-                DateUtils.truncate((Object) date1, Calendar.DATE));
-        assertEquals("truncate date-2 failed",
-                dateParser.parse("November 18, 2001"),
-                DateUtils.truncate((Object) date2, Calendar.DATE));
-        assertEquals("truncate hour-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:00:00.000"),
-                DateUtils.truncate((Object) date1, Calendar.HOUR));
-        assertEquals("truncate hour-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:00:00.000"),
-                DateUtils.truncate((Object) date2, Calendar.HOUR));
-        assertEquals("truncate minute-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:34:00.000"),
-                DateUtils.truncate((Object) date1, Calendar.MINUTE));
-        assertEquals("truncate minute-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:00.000"),
-                DateUtils.truncate((Object) date2, Calendar.MINUTE));
-        assertEquals("truncate second-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:34:56.000"),
-                DateUtils.truncate((Object) date1, Calendar.SECOND));
-        assertEquals("truncate second-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:11.000"),
-                DateUtils.truncate((Object) date2, Calendar.SECOND));
-        assertEquals("truncate ampm-1 failed",
-                dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.truncate((Object) dateAmPm1, Calendar.AM_PM));
-        assertEquals("truncate ampm-2 failed",
-                dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.truncate((Object) dateAmPm2, Calendar.AM_PM));
-        assertEquals("truncate ampm-3 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.truncate((Object) dateAmPm3, Calendar.AM_PM));
-        assertEquals("truncate ampm-4 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.truncate((Object) dateAmPm4, Calendar.AM_PM));
-
-        assertEquals("truncate calendar second-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:34:56.000"),
-                DateUtils.truncate((Object) cal1, Calendar.SECOND));
-        assertEquals("truncate calendar second-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:11.000"),
-                DateUtils.truncate((Object) cal2, Calendar.SECOND));
-
-        assertEquals("truncate ampm-1 failed",
-                dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.truncate((Object) calAmPm1, Calendar.AM_PM));
-        assertEquals("truncate ampm-2 failed",
-                dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.truncate((Object) calAmPm2, Calendar.AM_PM));
-        assertEquals("truncate ampm-3 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.truncate((Object) calAmPm3, Calendar.AM_PM));
-        assertEquals("truncate ampm-4 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.truncate((Object) calAmPm4, Calendar.AM_PM));
-
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.truncate((Object) date1, Calendar.YEAR), "truncate year-1 failed");
+        assertEquals(dateParser.parse("January 1, 2001"), DateUtils.truncate((Object) date2, Calendar.YEAR), "truncate year-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"), DateUtils.truncate((Object) date1, Calendar.MONTH), "truncate month-1 failed");
+        assertEquals(dateParser.parse("November 1, 2001"), DateUtils.truncate((Object) date2, Calendar.MONTH), "truncate month-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"), DateUtils.truncate((Object) date1, DateUtils.SEMI_MONTH), "truncate semimonth-1 failed");
+        assertEquals(dateParser.parse("November 16, 2001"), DateUtils.truncate((Object) date2, DateUtils.SEMI_MONTH), "truncate semimonth-2 failed");
+        assertEquals(dateParser.parse("February 12, 2002"), DateUtils.truncate((Object) date1, Calendar.DATE), "truncate date-1 failed");
+        assertEquals(dateParser.parse("November 18, 2001"), DateUtils.truncate((Object) date2, Calendar.DATE), "truncate date-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:00:00.000"), DateUtils.truncate((Object) date1, Calendar.HOUR), "truncate hour-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:00:00.000"), DateUtils.truncate((Object) date2, Calendar.HOUR), "truncate hour-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:00.000"), DateUtils.truncate((Object) date1, Calendar.MINUTE), "truncate minute-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:00.000"), DateUtils.truncate((Object) date2, Calendar.MINUTE), "truncate minute-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:56.000"), DateUtils.truncate((Object) date1, Calendar.SECOND), "truncate second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"), DateUtils.truncate((Object) date2, Calendar.SECOND), "truncate second-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.truncate((Object) dateAmPm1, Calendar.AM_PM), "truncate ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.truncate((Object) dateAmPm2, Calendar.AM_PM), "truncate ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.truncate((Object) dateAmPm3, Calendar.AM_PM), "truncate ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.truncate((Object) dateAmPm4, Calendar.AM_PM), "truncate ampm-4 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:56.000"), DateUtils.truncate((Object) cal1, Calendar.SECOND), "truncate calendar second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"), DateUtils.truncate((Object) cal2, Calendar.SECOND), "truncate calendar second-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.truncate((Object) calAmPm1, Calendar.AM_PM), "truncate ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.truncate((Object) calAmPm2, Calendar.AM_PM), "truncate ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.truncate((Object) calAmPm3, Calendar.AM_PM), "truncate ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.truncate((Object) calAmPm4, Calendar.AM_PM), "truncate ampm-4 failed");
         try {
             DateUtils.truncate((Date) null, Calendar.SECOND);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.truncate((Calendar) null, Calendar.SECOND);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.truncate((Object) null, Calendar.SECOND);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.truncate("", Calendar.SECOND);
             fail();
-        } catch (final ClassCastException ex) {}
-
-        // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
+        } catch (final ClassCastException ex) {
+        }
         // Test truncate across beginning of daylight saving time
         try {
             TimeZone.setDefault(zone);
             dateTimeParser.setTimeZone(zone);
-            assertEquals("truncate MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.truncate(date3, Calendar.DATE));
-            assertEquals("truncate MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.truncate((Object) cal3, Calendar.DATE));
+            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.truncate(date3, Calendar.DATE), "truncate MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.truncate((Object) cal3, Calendar.DATE), "truncate MET date across DST change-over");
             // Test truncate across end of daylight saving time
-            assertEquals("truncate MET date across DST change-over",
-                    dateTimeParser.parse("October 26, 2003 00:00:00.000"),
-                    DateUtils.truncate(date8, Calendar.DATE));
-            assertEquals("truncate MET date across DST change-over",
-                    dateTimeParser.parse("October 26, 2003 00:00:00.000"),
-                    DateUtils.truncate((Object) cal8, Calendar.DATE));
+            assertEquals(dateTimeParser.parse("October 26, 2003 00:00:00.000"), DateUtils.truncate(date8, Calendar.DATE), "truncate MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("October 26, 2003 00:00:00.000"), DateUtils.truncate((Object) cal8, Calendar.DATE), "truncate MET date across DST change-over");
         } finally {
             TimeZone.setDefault(defaultZone);
             dateTimeParser.setTimeZone(defaultZone);
         }
-
         // Bug 31395, large dates
-        final Date endOfTime = new Date(Long.MAX_VALUE); // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
+        // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
+        final Date endOfTime = new Date(Long.MAX_VALUE);
         final GregorianCalendar endCal = new GregorianCalendar();
         endCal.setTime(endOfTime);
         try {
             DateUtils.truncate(endCal, Calendar.DATE);
             fail();
-        } catch (final ArithmeticException ex) {}
+        } catch (final ArithmeticException ex) {
+        }
         endCal.set(Calendar.YEAR, 280000001);
         try {
             DateUtils.truncate(endCal, Calendar.DATE);
             fail();
-        } catch (final ArithmeticException ex) {}
+        } catch (final ArithmeticException ex) {
+        }
         endCal.set(Calendar.YEAR, 280000000);
         final Calendar cal = DateUtils.truncate(endCal, Calendar.DATE);
         assertEquals(0, cal.get(Calendar.HOUR));
@@ -1224,63 +972,40 @@ public class DateUtilsTest {
             TimeZone.setDefault(denverZone);
             final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS XXX");
             format.setTimeZone(denverZone);
-
             final Date oct31_01MDT = new Date(1099206000000L);
-
-            final Date oct31MDT = new Date(oct31_01MDT.getTime() - 3600000L); // - 1 hour
-            final Date oct31_01_02MDT = new Date(oct31_01MDT.getTime() + 120000L);  // + 2 minutes
-            final Date oct31_01_02_03MDT = new Date(oct31_01_02MDT.getTime() + 3000L);    // + 3 seconds
-            final Date oct31_01_02_03_04MDT = new Date(oct31_01_02_03MDT.getTime() + 4L);       // + 4 milliseconds
-
-            assertEquals("Check 00:00:00.000", "2004-10-31 00:00:00.000 -06:00", format.format(oct31MDT));
-            assertEquals("Check 01:00:00.000", "2004-10-31 01:00:00.000 -06:00", format.format(oct31_01MDT));
-            assertEquals("Check 01:02:00.000", "2004-10-31 01:02:00.000 -06:00", format.format(oct31_01_02MDT));
-            assertEquals("Check 01:02:03.000", "2004-10-31 01:02:03.000 -06:00", format.format(oct31_01_02_03MDT));
-            assertEquals("Check 01:02:03.004", "2004-10-31 01:02:03.004 -06:00", format.format(oct31_01_02_03_04MDT));
-
+            // - 1 hour
+            final Date oct31MDT = new Date(oct31_01MDT.getTime() - 3600000L);
+            // + 2 minutes
+            final Date oct31_01_02MDT = new Date(oct31_01MDT.getTime() + 120000L);
+            // + 3 seconds
+            final Date oct31_01_02_03MDT = new Date(oct31_01_02MDT.getTime() + 3000L);
+            // + 4 milliseconds
+            final Date oct31_01_02_03_04MDT = new Date(oct31_01_02_03MDT.getTime() + 4L);
+            assertEquals("2004-10-31 00:00:00.000 -06:00", format.format(oct31MDT), "Check 00:00:00.000");
+            assertEquals("2004-10-31 01:00:00.000 -06:00", format.format(oct31_01MDT), "Check 01:00:00.000");
+            assertEquals("2004-10-31 01:02:00.000 -06:00", format.format(oct31_01_02MDT), "Check 01:02:00.000");
+            assertEquals("2004-10-31 01:02:03.000 -06:00", format.format(oct31_01_02_03MDT), "Check 01:02:03.000");
+            assertEquals("2004-10-31 01:02:03.004 -06:00", format.format(oct31_01_02_03_04MDT), "Check 01:02:03.004");
             // ------- Demonstrate Problem -------
             final Calendar gval = Calendar.getInstance();
             gval.setTime(new Date(oct31_01MDT.getTime()));
-            gval.set(Calendar.MINUTE, gval.get(Calendar.MINUTE)); // set minutes to the same value
-            assertEquals("Demonstrate Problem", gval.getTime().getTime(), oct31_01MDT.getTime() + 3600000L);
-
+            // set minutes to the same value
+            gval.set(Calendar.MINUTE, gval.get(Calendar.MINUTE));
+            assertEquals(gval.getTime().getTime(), oct31_01MDT.getTime() + 3600000L, "Demonstrate Problem");
             // ---------- Test Truncate ----------
-            assertEquals("Truncate Calendar.MILLISECOND",
-                    oct31_01_02_03_04MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MILLISECOND));
-
-            assertEquals("Truncate Calendar.SECOND",
-                    oct31_01_02_03MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.SECOND));
-
-            assertEquals("Truncate Calendar.MINUTE",
-                    oct31_01_02MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MINUTE));
-
-            assertEquals("Truncate Calendar.HOUR_OF_DAY",
-                    oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY));
-
-            assertEquals("Truncate Calendar.HOUR",
-                    oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR));
-
-            assertEquals("Truncate Calendar.DATE",
-                    oct31MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.DATE));
-
+            assertEquals(oct31_01_02_03_04MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MILLISECOND), "Truncate Calendar.MILLISECOND");
+            assertEquals(oct31_01_02_03MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.SECOND), "Truncate Calendar.SECOND");
+            assertEquals(oct31_01_02MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MINUTE), "Truncate Calendar.MINUTE");
+            assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY), "Truncate Calendar.HOUR_OF_DAY");
+            assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR), "Truncate Calendar.HOUR");
+            assertEquals(oct31MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.DATE), "Truncate Calendar.DATE");
             // ---------- Test Round (down) ----------
-            assertEquals("Round Calendar.MILLISECOND",
-                    oct31_01_02_03_04MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MILLISECOND));
-
-            assertEquals("Round Calendar.SECOND",
-                    oct31_01_02_03MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.SECOND));
-
-            assertEquals("Round Calendar.MINUTE",
-                    oct31_01_02MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MINUTE));
-
-            assertEquals("Round Calendar.HOUR_OF_DAY",
-                    oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY));
-
-            assertEquals("Round Calendar.HOUR",
-                    oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR));
-
-            assertEquals("Round Calendar.DATE",
-                    oct31MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.DATE));
+            assertEquals(oct31_01_02_03_04MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MILLISECOND), "Round Calendar.MILLISECOND");
+            assertEquals(oct31_01_02_03MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.SECOND), "Round Calendar.SECOND");
+            assertEquals(oct31_01_02MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MINUTE), "Round Calendar.MINUTE");
+            assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY), "Round Calendar.HOUR_OF_DAY");
+            assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR), "Round Calendar.HOUR");
+            assertEquals(oct31MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.DATE), "Round Calendar.DATE");
         } finally {
             // restore default time zone
             TimeZone.setDefault(defaultZone);
@@ -1295,7 +1020,7 @@ public class DateUtilsTest {
         final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
         final Date d2 = DateUtils.parseDate(isoDateStr, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
         // the format loses milliseconds so have to reintroduce them
-        assertEquals("Date not equal to itself ISO formatted and parsed", d.getTime(), d2.getTime() + d.getTime() % 1000);
+        assertEquals(d.getTime(), d2.getTime() + d.getTime() % 1000, "Date not equal to itself ISO formatted and parsed");
     }
 
     /**
@@ -1306,245 +1031,117 @@ public class DateUtilsTest {
     @Test
     public void testCeil() throws Exception {
         // test javadoc
-        assertEquals("ceiling javadoc-1 failed",
-                dateTimeParser.parse("March 28, 2002 14:00:00.000"),
-                DateUtils.ceiling(
-                    dateTimeParser.parse("March 28, 2002 13:45:01.231"),
-                Calendar.HOUR));
-        assertEquals("ceiling javadoc-2 failed",
-                dateTimeParser.parse("April 1, 2002 00:00:00.000"),
-                DateUtils.ceiling(
-                    dateTimeParser.parse("March 28, 2002 13:45:01.231"),
-                Calendar.MONTH));
-
+        assertEquals(dateTimeParser.parse("March 28, 2002 14:00:00.000"), DateUtils.ceiling(dateTimeParser.parse("March 28, 2002 13:45:01.231"), Calendar.HOUR), "ceiling javadoc-1 failed");
+        assertEquals(dateTimeParser.parse("April 1, 2002 00:00:00.000"), DateUtils.ceiling(dateTimeParser.parse("March 28, 2002 13:45:01.231"), Calendar.MONTH), "ceiling javadoc-2 failed");
         // tests public static Date ceiling(Date date, int field)
-        assertEquals("ceiling year-1 failed",
-                dateParser.parse("January 1, 2003"),
-                DateUtils.ceiling(date1, Calendar.YEAR));
-        assertEquals("ceiling year-2 failed",
-                dateParser.parse("January 1, 2002"),
-                DateUtils.ceiling(date2, Calendar.YEAR));
-        assertEquals("ceiling month-1 failed",
-                dateParser.parse("March 1, 2002"),
-                DateUtils.ceiling(date1, Calendar.MONTH));
-        assertEquals("ceiling month-2 failed",
-                dateParser.parse("December 1, 2001"),
-                DateUtils.ceiling(date2, Calendar.MONTH));
-        assertEquals("ceiling semimonth-1 failed",
-                dateParser.parse("February 16, 2002"),
-                DateUtils.ceiling(date1, DateUtils.SEMI_MONTH));
-        assertEquals("ceiling semimonth-2 failed",
-                dateParser.parse("December 1, 2001"),
-                DateUtils.ceiling(date2, DateUtils.SEMI_MONTH));
-        assertEquals("ceiling date-1 failed",
-                dateParser.parse("February 13, 2002"),
-                DateUtils.ceiling(date1, Calendar.DATE));
-        assertEquals("ceiling date-2 failed",
-                dateParser.parse("November 19, 2001"),
-                DateUtils.ceiling(date2, Calendar.DATE));
-        assertEquals("ceiling hour-1 failed",
-                dateTimeParser.parse("February 12, 2002 13:00:00.000"),
-                DateUtils.ceiling(date1, Calendar.HOUR));
-        assertEquals("ceiling hour-2 failed",
-                dateTimeParser.parse("November 18, 2001 2:00:00.000"),
-                DateUtils.ceiling(date2, Calendar.HOUR));
-        assertEquals("ceiling minute-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:35:00.000"),
-                DateUtils.ceiling(date1, Calendar.MINUTE));
-        assertEquals("ceiling minute-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:24:00.000"),
-                DateUtils.ceiling(date2, Calendar.MINUTE));
-        assertEquals("ceiling second-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:34:57.000"),
-                DateUtils.ceiling(date1, Calendar.SECOND));
-        assertEquals("ceiling second-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:12.000"),
-                DateUtils.ceiling(date2, Calendar.SECOND));
-        assertEquals("ceiling ampm-1 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.ceiling(dateAmPm1, Calendar.AM_PM));
-        assertEquals("ceiling ampm-2 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.ceiling(dateAmPm2, Calendar.AM_PM));
-        assertEquals("ceiling ampm-3 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.ceiling(dateAmPm3, Calendar.AM_PM));
-        assertEquals("ceiling ampm-4 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.ceiling(dateAmPm4, Calendar.AM_PM));
-
-     // tests public static Date ceiling(Object date, int field)
-        assertEquals("ceiling year-1 failed",
-                dateParser.parse("January 1, 2003"),
-                DateUtils.ceiling((Object) date1, Calendar.YEAR));
-        assertEquals("ceiling year-2 failed",
-                dateParser.parse("January 1, 2002"),
-                DateUtils.ceiling((Object) date2, Calendar.YEAR));
-        assertEquals("ceiling month-1 failed",
-                dateParser.parse("March 1, 2002"),
-                DateUtils.ceiling((Object) date1, Calendar.MONTH));
-        assertEquals("ceiling month-2 failed",
-                dateParser.parse("December 1, 2001"),
-                DateUtils.ceiling((Object) date2, Calendar.MONTH));
-        assertEquals("ceiling semimonth-1 failed",
-                dateParser.parse("February 16, 2002"),
-                DateUtils.ceiling((Object) date1, DateUtils.SEMI_MONTH));
-        assertEquals("ceiling semimonth-2 failed",
-                dateParser.parse("December 1, 2001"),
-                DateUtils.ceiling((Object) date2, DateUtils.SEMI_MONTH));
-        assertEquals("ceiling date-1 failed",
-                dateParser.parse("February 13, 2002"),
-                DateUtils.ceiling((Object) date1, Calendar.DATE));
-        assertEquals("ceiling date-2 failed",
-                dateParser.parse("November 19, 2001"),
-                DateUtils.ceiling((Object) date2, Calendar.DATE));
-        assertEquals("ceiling hour-1 failed",
-                dateTimeParser.parse("February 12, 2002 13:00:00.000"),
-                DateUtils.ceiling((Object) date1, Calendar.HOUR));
-        assertEquals("ceiling hour-2 failed",
-                dateTimeParser.parse("November 18, 2001 2:00:00.000"),
-                DateUtils.ceiling((Object) date2, Calendar.HOUR));
-        assertEquals("ceiling minute-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:35:00.000"),
-                DateUtils.ceiling((Object) date1, Calendar.MINUTE));
-        assertEquals("ceiling minute-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:24:00.000"),
-                DateUtils.ceiling((Object) date2, Calendar.MINUTE));
-        assertEquals("ceiling second-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:34:57.000"),
-                DateUtils.ceiling((Object) date1, Calendar.SECOND));
-        assertEquals("ceiling second-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:12.000"),
-                DateUtils.ceiling((Object) date2, Calendar.SECOND));
-        assertEquals("ceiling ampm-1 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.ceiling((Object) dateAmPm1, Calendar.AM_PM));
-        assertEquals("ceiling ampm-2 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.ceiling((Object) dateAmPm2, Calendar.AM_PM));
-        assertEquals("ceiling ampm-3 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.ceiling((Object) dateAmPm3, Calendar.AM_PM));
-        assertEquals("ceiling ampm-4 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.ceiling((Object) dateAmPm4, Calendar.AM_PM));
-
-        assertEquals("ceiling calendar second-1 failed",
-                dateTimeParser.parse("February 12, 2002 12:34:57.000"),
-                DateUtils.ceiling((Object) cal1, Calendar.SECOND));
-        assertEquals("ceiling calendar second-2 failed",
-                dateTimeParser.parse("November 18, 2001 1:23:12.000"),
-                DateUtils.ceiling((Object) cal2, Calendar.SECOND));
-
-        assertEquals("ceiling ampm-1 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.ceiling((Object) calAmPm1, Calendar.AM_PM));
-        assertEquals("ceiling ampm-2 failed",
-                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.ceiling((Object) calAmPm2, Calendar.AM_PM));
-        assertEquals("ceiling ampm-3 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.ceiling((Object) calAmPm3, Calendar.AM_PM));
-        assertEquals("ceiling ampm-4 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.ceiling((Object) calAmPm4, Calendar.AM_PM));
-
+        assertEquals(dateParser.parse("January 1, 2003"), DateUtils.ceiling(date1, Calendar.YEAR), "ceiling year-1 failed");
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.ceiling(date2, Calendar.YEAR), "ceiling year-2 failed");
+        assertEquals(dateParser.parse("March 1, 2002"), DateUtils.ceiling(date1, Calendar.MONTH), "ceiling month-1 failed");
+        assertEquals(dateParser.parse("December 1, 2001"), DateUtils.ceiling(date2, Calendar.MONTH), "ceiling month-2 failed");
+        assertEquals(dateParser.parse("February 16, 2002"), DateUtils.ceiling(date1, DateUtils.SEMI_MONTH), "ceiling semimonth-1 failed");
+        assertEquals(dateParser.parse("December 1, 2001"), DateUtils.ceiling(date2, DateUtils.SEMI_MONTH), "ceiling semimonth-2 failed");
+        assertEquals(dateParser.parse("February 13, 2002"), DateUtils.ceiling(date1, Calendar.DATE), "ceiling date-1 failed");
+        assertEquals(dateParser.parse("November 19, 2001"), DateUtils.ceiling(date2, Calendar.DATE), "ceiling date-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 13:00:00.000"), DateUtils.ceiling(date1, Calendar.HOUR), "ceiling hour-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 2:00:00.000"), DateUtils.ceiling(date2, Calendar.HOUR), "ceiling hour-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:35:00.000"), DateUtils.ceiling(date1, Calendar.MINUTE), "ceiling minute-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:24:00.000"), DateUtils.ceiling(date2, Calendar.MINUTE), "ceiling minute-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"), DateUtils.ceiling(date1, Calendar.SECOND), "ceiling second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:12.000"), DateUtils.ceiling(date2, Calendar.SECOND), "ceiling second-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.ceiling(dateAmPm1, Calendar.AM_PM), "ceiling ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.ceiling(dateAmPm2, Calendar.AM_PM), "ceiling ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.ceiling(dateAmPm3, Calendar.AM_PM), "ceiling ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.ceiling(dateAmPm4, Calendar.AM_PM), "ceiling ampm-4 failed");
+        // tests public static Date ceiling(Object date, int field)
+        assertEquals(dateParser.parse("January 1, 2003"), DateUtils.ceiling((Object) date1, Calendar.YEAR), "ceiling year-1 failed");
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.ceiling((Object) date2, Calendar.YEAR), "ceiling year-2 failed");
+        assertEquals(dateParser.parse("March 1, 2002"), DateUtils.ceiling((Object) date1, Calendar.MONTH), "ceiling month-1 failed");
+        assertEquals(dateParser.parse("December 1, 2001"), DateUtils.ceiling((Object) date2, Calendar.MONTH), "ceiling month-2 failed");
+        assertEquals(dateParser.parse("February 16, 2002"), DateUtils.ceiling((Object) date1, DateUtils.SEMI_MONTH), "ceiling semimonth-1 failed");
+        assertEquals(dateParser.parse("December 1, 2001"), DateUtils.ceiling((Object) date2, DateUtils.SEMI_MONTH), "ceiling semimonth-2 failed");
+        assertEquals(dateParser.parse("February 13, 2002"), DateUtils.ceiling((Object) date1, Calendar.DATE), "ceiling date-1 failed");
+        assertEquals(dateParser.parse("November 19, 2001"), DateUtils.ceiling((Object) date2, Calendar.DATE), "ceiling date-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 13:00:00.000"), DateUtils.ceiling((Object) date1, Calendar.HOUR), "ceiling hour-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 2:00:00.000"), DateUtils.ceiling((Object) date2, Calendar.HOUR), "ceiling hour-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:35:00.000"), DateUtils.ceiling((Object) date1, Calendar.MINUTE), "ceiling minute-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:24:00.000"), DateUtils.ceiling((Object) date2, Calendar.MINUTE), "ceiling minute-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"), DateUtils.ceiling((Object) date1, Calendar.SECOND), "ceiling second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:12.000"), DateUtils.ceiling((Object) date2, Calendar.SECOND), "ceiling second-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.ceiling((Object) dateAmPm1, Calendar.AM_PM), "ceiling ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.ceiling((Object) dateAmPm2, Calendar.AM_PM), "ceiling ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.ceiling((Object) dateAmPm3, Calendar.AM_PM), "ceiling ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.ceiling((Object) dateAmPm4, Calendar.AM_PM), "ceiling ampm-4 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"), DateUtils.ceiling((Object) cal1, Calendar.SECOND), "ceiling calendar second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:12.000"), DateUtils.ceiling((Object) cal2, Calendar.SECOND), "ceiling calendar second-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.ceiling((Object) calAmPm1, Calendar.AM_PM), "ceiling ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.ceiling((Object) calAmPm2, Calendar.AM_PM), "ceiling ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.ceiling((Object) calAmPm3, Calendar.AM_PM), "ceiling ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.ceiling((Object) calAmPm4, Calendar.AM_PM), "ceiling ampm-4 failed");
         try {
             DateUtils.ceiling((Date) null, Calendar.SECOND);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.ceiling((Calendar) null, Calendar.SECOND);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.ceiling((Object) null, Calendar.SECOND);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.ceiling("", Calendar.SECOND);
             fail();
-        } catch (final ClassCastException ex) {}
+        } catch (final ClassCastException ex) {
+        }
         try {
             DateUtils.ceiling(date1, -9999);
             fail();
-        } catch(final IllegalArgumentException ex) {}
-
-
-        // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
+        } catch (final IllegalArgumentException ex) {
+        }
         // Test ceiling across the beginning of daylight saving time
         try {
             TimeZone.setDefault(zone);
             dateTimeParser.setTimeZone(zone);
-
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling(date4, Calendar.DATE));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling((Object) cal4, Calendar.DATE));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling(date5, Calendar.DATE));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling((Object) cal5, Calendar.DATE));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling(date6, Calendar.DATE));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling((Object) cal6, Calendar.DATE));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling(date7, Calendar.DATE));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling((Object) cal7, Calendar.DATE));
-
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.ceiling(date4, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.ceiling((Object) cal4, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.ceiling(date5, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.ceiling((Object) cal5, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling(date6, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling((Object) cal6, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling(date7, Calendar.HOUR_OF_DAY));
-            assertEquals("ceiling MET date across DST change-over",
-                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling((Object) cal7, Calendar.HOUR_OF_DAY));
-
+            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling(date4, Calendar.DATE), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling((Object) cal4, Calendar.DATE), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling(date5, Calendar.DATE), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling((Object) cal5, Calendar.DATE), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling(date6, Calendar.DATE), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling((Object) cal6, Calendar.DATE), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling(date7, Calendar.DATE), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling((Object) cal7, Calendar.DATE), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.ceiling(date4, Calendar.HOUR_OF_DAY), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.ceiling((Object) cal4, Calendar.HOUR_OF_DAY), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.ceiling(date5, Calendar.HOUR_OF_DAY), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.ceiling((Object) cal5, Calendar.HOUR_OF_DAY), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.ceiling(date6, Calendar.HOUR_OF_DAY), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.ceiling((Object) cal6, Calendar.HOUR_OF_DAY), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.ceiling(date7, Calendar.HOUR_OF_DAY), "ceiling MET date across DST change-over");
+            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.ceiling((Object) cal7, Calendar.HOUR_OF_DAY), "ceiling MET date across DST change-over");
         } finally {
             TimeZone.setDefault(defaultZone);
             dateTimeParser.setTimeZone(defaultZone);
         }
-
-     // Bug 31395, large dates
-        final Date endOfTime = new Date(Long.MAX_VALUE); // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
+        // Bug 31395, large dates
+        // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
+        final Date endOfTime = new Date(Long.MAX_VALUE);
         final GregorianCalendar endCal = new GregorianCalendar();
         endCal.setTime(endOfTime);
         try {
             DateUtils.ceiling(endCal, Calendar.DATE);
             fail();
-        } catch (final ArithmeticException ex) {}
+        } catch (final ArithmeticException ex) {
+        }
         endCal.set(Calendar.YEAR, 280000001);
         try {
             DateUtils.ceiling(endCal, Calendar.DATE);
             fail();
-        } catch (final ArithmeticException ex) {}
+        } catch (final ArithmeticException ex) {
+        }
         endCal.set(Calendar.YEAR, 280000000);
         final Calendar cal = DateUtils.ceiling(endCal, Calendar.DATE);
         assertEquals(0, cal.get(Calendar.HOUR));
@@ -1559,23 +1156,28 @@ public class DateUtilsTest {
     public void testIteratorEx() throws Exception {
         try {
             DateUtils.iterator(Calendar.getInstance(), -9999);
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.iterator((Object) null, DateUtils.RANGE_WEEK_CENTER);
             fail();
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             DateUtils.iterator("", DateUtils.RANGE_WEEK_CENTER);
             fail();
-        } catch (final ClassCastException ex) {}
+        } catch (final ClassCastException ex) {
+        }
     }
 
     /**
@@ -1586,7 +1188,7 @@ public class DateUtilsTest {
     @Test
     public void testWeekIterator() throws Exception {
         final Calendar now = Calendar.getInstance();
-        for (int i = 0; i< 7; i++) {
+        for (int i = 0; i < 7; i++) {
             final Calendar today = DateUtils.truncate(now, Calendar.DATE);
             final Calendar sunday = DateUtils.truncate(now, Calendar.DATE);
             sunday.add(Calendar.DATE, 1 - sunday.get(Calendar.DAY_OF_WEEK));
@@ -1599,7 +1201,6 @@ public class DateUtilsTest {
             }
             final Calendar centered = DateUtils.truncate(now, Calendar.DATE);
             centered.add(Calendar.DATE, -3);
-
             Iterator<?> it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_SUNDAY);
             assertWeekIterator(it, sunday);
             it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_MONDAY);
@@ -1608,7 +1209,6 @@ public class DateUtilsTest {
             assertWeekIterator(it, today);
             it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_CENTER);
             assertWeekIterator(it, centered);
-
             it = DateUtils.iterator((Object) now, DateUtils.RANGE_WEEK_CENTER);
             assertWeekIterator(it, centered);
             it = DateUtils.iterator((Object) now.getTime(), DateUtils.RANGE_WEEK_CENTER);
@@ -1616,14 +1216,15 @@ public class DateUtilsTest {
             try {
                 it.next();
                 fail();
-            } catch (final NoSuchElementException ex) {}
+            } catch (final NoSuchElementException ex) {
+            }
             it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_CENTER);
             it.next();
             try {
                 it.remove();
-            } catch( final UnsupportedOperationException ex) {}
-
-            now.add(Calendar.DATE,1);
+            } catch (final UnsupportedOperationException ex) {
+            }
+            now.add(Calendar.DATE, 1);
         }
     }
 
@@ -1635,27 +1236,16 @@ public class DateUtilsTest {
     @Test
     public void testMonthIterator() throws Exception {
         Iterator<?> it = DateUtils.iterator(date1, DateUtils.RANGE_MONTH_SUNDAY);
-        assertWeekIterator(it,
-                dateParser.parse("January 27, 2002"),
-                dateParser.parse("March 2, 2002"));
-
+        assertWeekIterator(it, dateParser.parse("January 27, 2002"), dateParser.parse("March 2, 2002"));
         it = DateUtils.iterator(date1, DateUtils.RANGE_MONTH_MONDAY);
-        assertWeekIterator(it,
-                dateParser.parse("January 28, 2002"),
-                dateParser.parse("March 3, 2002"));
-
+        assertWeekIterator(it, dateParser.parse("January 28, 2002"), dateParser.parse("March 3, 2002"));
         it = DateUtils.iterator(date2, DateUtils.RANGE_MONTH_SUNDAY);
-        assertWeekIterator(it,
-                dateParser.parse("October 28, 2001"),
-                dateParser.parse("December 1, 2001"));
-
+        assertWeekIterator(it, dateParser.parse("October 28, 2001"), dateParser.parse("December 1, 2001"));
         it = DateUtils.iterator(date2, DateUtils.RANGE_MONTH_MONDAY);
-        assertWeekIterator(it,
-                dateParser.parse("October 29, 2001"),
-                dateParser.parse("December 2, 2001"));
+        assertWeekIterator(it, dateParser.parse("October 29, 2001"), dateParser.parse("December 2, 2001"));
     }
 
-    @SystemDefaults(locale="en")
+    @SystemDefaults(locale = "en")
     @Test
     public void testLANG799_EN_OK() throws ParseException {
         DateUtils.parseDate("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
@@ -1663,13 +1253,13 @@ public class DateUtilsTest {
     }
 
     // Parse German date with English Locale
-    @SystemDefaults(locale="en")
+    @SystemDefaults(locale = "en")
     @Test(expected = ParseException.class)
     public void testLANG799_EN_FAIL() throws ParseException {
         DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
     }
 
-    @SystemDefaults(locale="de")
+    @SystemDefaults(locale = "de")
     @Test
     public void testLANG799_DE_OK() throws ParseException {
         DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
@@ -1677,14 +1267,14 @@ public class DateUtilsTest {
     }
 
     // Parse English date with German Locale
-    @SystemDefaults(locale="de")
-    @Test(expected=ParseException.class)
+    @SystemDefaults(locale = "de")
+    @Test(expected = ParseException.class)
     public void testLANG799_DE_FAIL() throws ParseException {
         DateUtils.parseDate("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
     }
 
     // Parse German date with English Locale, specifying German Locale override
-    @SystemDefaults(locale="en")
+    @SystemDefaults(locale = "en")
     @Test
     public void testLANG799_EN_WITH_DE_LOCALE() throws ParseException {
         DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", Locale.GERMAN, "EEE, dd MMM yyyy HH:mm:ss zzz");
@@ -1697,7 +1287,6 @@ public class DateUtilsTest {
     private static void assertWeekIterator(final Iterator<?> it, final Calendar start) {
         final Calendar end = (Calendar) start.clone();
         end.add(Calendar.DATE, 6);
-
         assertWeekIterator(it, start, end);
     }
 
@@ -1709,7 +1298,6 @@ public class DateUtilsTest {
         calStart.setTime(start);
         final Calendar calEnd = Calendar.getInstance();
         calEnd.setTime(end);
-
         assertWeekIterator(it, calStart, calEnd);
     }
 
@@ -1726,17 +1314,14 @@ public class DateUtilsTest {
         while (it.hasNext()) {
             //Check this is just a date (no time component)
             assertCalendarsEquals("", cal, DateUtils.truncate(cal, Calendar.DATE), 0);
-
             last = cal;
             cal = (Calendar) it.next();
             count++;
-
             //Check that this is one day more than the last date
             last.add(Calendar.DATE, 1);
             assertCalendarsEquals("", last, cal, 0);
         }
-
-        assertFalse("There were " + count + " days in this iterator", count % 7 != 0);
+        assertFalse(count % 7 != 0, "There were " + count + " days in this iterator");
         assertCalendarsEquals("", end, cal, 0);
     }
 
@@ -1745,8 +1330,7 @@ public class DateUtilsTest {
      * delta is in milliseconds
      */
     private static void assertCalendarsEquals(final String message, final Calendar cal1, final Calendar cal2, final long delta) {
-        assertFalse(message + " expected " + cal1.getTime() + " but got " + cal2.getTime(),
-                Math.abs(cal1.getTime().getTime() - cal2.getTime().getTime()) > delta);
+        assertFalse(Math.abs(cal1.getTime().getTime() - cal2.getTime().getTime()) > delta, message + " expected " + cal1.getTime() + " but got " + cal2.getTime());
     }
 
     @Test
@@ -1754,4 +1338,3 @@ public class DateUtilsTest {
         DateUtils.parseDateStrictly("09 abril 2008 23:55:38 GMT", new Locale("es"), "dd MMM yyyy HH:mm:ss zzz");
     }
 }
-

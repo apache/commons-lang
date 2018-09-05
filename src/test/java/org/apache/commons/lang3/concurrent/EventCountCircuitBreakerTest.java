@@ -16,25 +16,24 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@code EventCountCircuitBreaker}.
  */
 public class EventCountCircuitBreakerTest {
+
     /** Constant for the opening threshold. */
     private static final int OPENING_THRESHOLD = 10;
 
@@ -49,11 +48,9 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testIntervalCalculation() {
-        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
-                TimeUnit.SECONDS, CLOSING_THRESHOLD, 2, TimeUnit.MILLISECONDS);
-        assertEquals("Wrong opening interval", NANO_FACTOR, breaker.getOpeningInterval());
-        assertEquals("Wrong closing interval", 2 * NANO_FACTOR / 1000,
-                breaker.getClosingInterval());
+        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1, TimeUnit.SECONDS, CLOSING_THRESHOLD, 2, TimeUnit.MILLISECONDS);
+        assertEquals(NANO_FACTOR, breaker.getOpeningInterval(), "Wrong opening interval");
+        assertEquals(2 * NANO_FACTOR / 1000, breaker.getClosingInterval(), "Wrong closing interval");
     }
 
     /**
@@ -62,9 +59,8 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testDefaultClosingInterval() {
-        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
-                TimeUnit.SECONDS, CLOSING_THRESHOLD);
-        assertEquals("Wrong closing interval", NANO_FACTOR, breaker.getClosingInterval());
+        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1, TimeUnit.SECONDS, CLOSING_THRESHOLD);
+        assertEquals(NANO_FACTOR, breaker.getClosingInterval(), "Wrong closing interval");
     }
 
     /**
@@ -73,11 +69,9 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testDefaultClosingThreshold() {
-        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
-                TimeUnit.SECONDS);
-        assertEquals("Wrong closing interval", NANO_FACTOR, breaker.getClosingInterval());
-        assertEquals("Wrong closing threshold", OPENING_THRESHOLD,
-                breaker.getClosingThreshold());
+        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1, TimeUnit.SECONDS);
+        assertEquals(NANO_FACTOR, breaker.getClosingInterval(), "Wrong closing interval");
+        assertEquals(OPENING_THRESHOLD, breaker.getClosingThreshold(), "Wrong closing threshold");
     }
 
     /**
@@ -85,10 +79,9 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testInitiallyClosed() {
-        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
-                TimeUnit.SECONDS);
-        assertFalse("Open", breaker.isOpen());
-        assertTrue("Not closed", breaker.isClosed());
+        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1, TimeUnit.SECONDS);
+        assertFalse(breaker.isOpen(), "Open");
+        assertTrue(breaker.isClosed(), "Not closed");
     }
 
     /**
@@ -96,11 +89,10 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testNow() {
-        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
-                TimeUnit.SECONDS);
+        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1, TimeUnit.SECONDS);
         final long now = breaker.now();
         final long delta = Math.abs(System.nanoTime() - now);
-        assertTrue(String.format("Delta %d ns to current time too large", delta), delta < 100000);
+        assertTrue(delta < 100000, String.format("Delta %d ns to current time too large", delta));
     }
 
     /**
@@ -110,13 +102,12 @@ public class EventCountCircuitBreakerTest {
     @Test
     public void testNotOpeningUnderThreshold() {
         long startTime = 1000;
-        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
-                TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         for (int i = 0; i < OPENING_THRESHOLD - 1; i++) {
-            assertTrue("In open state", breaker.at(startTime).incrementAndCheckState());
+            assertTrue(breaker.at(startTime).incrementAndCheckState(), "In open state");
             startTime++;
         }
-        assertTrue("Not closed", breaker.isClosed());
+        assertTrue(breaker.isClosed(), "Not closed");
     }
 
     /**
@@ -127,13 +118,12 @@ public class EventCountCircuitBreakerTest {
     public void testNotOpeningCheckIntervalExceeded() {
         long startTime = 0L;
         final long timeIncrement = 3 * NANO_FACTOR / (2 * OPENING_THRESHOLD);
-        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
-                TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         for (int i = 0; i < 5 * OPENING_THRESHOLD; i++) {
-            assertTrue("In open state", breaker.at(startTime).incrementAndCheckState());
+            assertTrue(breaker.at(startTime).incrementAndCheckState(), "In open state");
             startTime += timeIncrement;
         }
-        assertTrue("Not closed", breaker.isClosed());
+        assertTrue(breaker.isClosed(), "Not closed");
     }
 
     /**
@@ -143,15 +133,14 @@ public class EventCountCircuitBreakerTest {
     public void testOpeningWhenThresholdReached() {
         long startTime = 0;
         final long timeIncrement = NANO_FACTOR / OPENING_THRESHOLD - 1;
-        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
-                TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         boolean open = false;
         for (int i = 0; i < OPENING_THRESHOLD + 1; i++) {
             open = !breaker.at(startTime).incrementAndCheckState();
             startTime += timeIncrement;
         }
-        assertTrue("Not open", open);
-        assertFalse("Closed", breaker.isClosed());
+        assertTrue(open, "Not open");
+        assertFalse(breaker.isClosed(), "Closed");
     }
 
     /**
@@ -161,12 +150,11 @@ public class EventCountCircuitBreakerTest {
     @Test
     public void testOpeningWhenThresholdReachedThroughBatch() {
         final long timeIncrement = NANO_FACTOR / OPENING_THRESHOLD - 1;
-        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
-            TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         long startTime = timeIncrement * (OPENING_THRESHOLD + 1);
         boolean open = !breaker.at(startTime).incrementAndCheckState(OPENING_THRESHOLD + 1);
-        assertTrue("Not open", open);
-        assertFalse("Closed", breaker.isClosed());
+        assertTrue(open, "Not open");
+        assertFalse(breaker.isClosed(), "Closed");
     }
 
     /**
@@ -175,17 +163,15 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testNotClosingOverThreshold() {
-        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD,
-                10, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 10, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         long startTime = 0;
         breaker.open();
         for (int i = 0; i <= CLOSING_THRESHOLD; i++) {
-            assertFalse("Not open", breaker.at(startTime).incrementAndCheckState());
+            assertFalse(breaker.at(startTime).incrementAndCheckState(), "Not open");
             startTime += 1000;
         }
-        assertFalse("Closed in new interval", breaker.at(startTime + NANO_FACTOR)
-                .incrementAndCheckState());
-        assertTrue("Not open at end", breaker.isOpen());
+        assertFalse(breaker.at(startTime + NANO_FACTOR).incrementAndCheckState(), "Closed in new interval");
+        assertTrue(breaker.isOpen(), "Not open at end");
     }
 
     /**
@@ -194,15 +180,13 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testClosingWhenThresholdReached() {
-        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD,
-                10, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 10, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         breaker.open();
         breaker.at(1000).incrementAndCheckState();
-        assertFalse("Already closed", breaker.at(2000).checkState());
-        assertFalse("Closed at interval end", breaker.at(NANO_FACTOR).checkState());
-        assertTrue("Not closed after interval end", breaker.at(NANO_FACTOR + 1)
-                .checkState());
-        assertTrue("Not closed at end", breaker.isClosed());
+        assertFalse(breaker.at(2000).checkState(), "Already closed");
+        assertFalse(breaker.at(NANO_FACTOR).checkState(), "Closed at interval end");
+        assertTrue(breaker.at(NANO_FACTOR + 1).checkState(), "Not closed after interval end");
+        assertTrue(breaker.isClosed(), "Not closed at end");
     }
 
     /**
@@ -211,11 +195,10 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testOpenStartsNewCheckInterval() {
-        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2,
-                TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         breaker.at(NANO_FACTOR - 1000).open();
-        assertTrue("Not open", breaker.isOpen());
-        assertFalse("Already closed", breaker.at(NANO_FACTOR + 100).checkState());
+        assertTrue(breaker.isOpen(), "Not open");
+        assertFalse(breaker.at(NANO_FACTOR + 100).checkState(), "Already closed");
     }
 
     /**
@@ -224,17 +207,16 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testAutomaticOpenStartsNewCheckInterval() {
-        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2,
-                TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         long time = 10 * NANO_FACTOR;
         for (int i = 0; i <= OPENING_THRESHOLD; i++) {
             breaker.at(time++).incrementAndCheckState();
         }
-        assertTrue("Not open", breaker.isOpen());
+        assertTrue(breaker.isOpen(), "Not open");
         time += NANO_FACTOR - 1000;
-        assertFalse("Already closed", breaker.at(time).incrementAndCheckState());
+        assertFalse(breaker.at(time).incrementAndCheckState(), "Already closed");
         time += 1001;
-        assertTrue("Not closed in time interval", breaker.at(time).checkState());
+        assertTrue(breaker.at(time).checkState(), "Not closed in time interval");
     }
 
     /**
@@ -242,16 +224,15 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testClose() {
-        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2,
-                TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         long time = 0;
         for (int i = 0; i <= OPENING_THRESHOLD; i++, time += 1000) {
             breaker.at(time).incrementAndCheckState();
         }
-        assertTrue("Not open", breaker.isOpen());
+        assertTrue(breaker.isOpen(), "Not open");
         breaker.close();
-        assertTrue("Not closed", breaker.isClosed());
-        assertTrue("Open again", breaker.at(time + 1000).incrementAndCheckState());
+        assertTrue(breaker.isClosed(), "Not closed");
+        assertTrue(breaker.at(time + 1000).incrementAndCheckState(), "Open again");
     }
 
     /**
@@ -259,8 +240,7 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testChangeEvents() {
-        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
-                TimeUnit.SECONDS);
+        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1, TimeUnit.SECONDS);
         final ChangeListener listener = new ChangeListener(breaker);
         breaker.addChangeListener(listener);
         breaker.open();
@@ -273,8 +253,7 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testRemoveChangeListener() {
-        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
-                TimeUnit.SECONDS);
+        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1, TimeUnit.SECONDS);
         final ChangeListener listener = new ChangeListener(breaker);
         breaker.addChangeListener(listener);
         breaker.open();
@@ -289,22 +268,21 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testStateTransitionGuarded() throws InterruptedException {
-        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
-                TimeUnit.SECONDS);
+        final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1, TimeUnit.SECONDS);
         final ChangeListener listener = new ChangeListener(breaker);
         breaker.addChangeListener(listener);
-
         final int threadCount = 128;
         final CountDownLatch latch = new CountDownLatch(1);
         final Thread[] threads = new Thread[threadCount];
         for (int i = 0; i < threadCount; i++) {
             threads[i] = new Thread() {
+
                 @Override
                 public void run() {
                     try {
                         latch.await();
                     } catch (final InterruptedException iex) {
-                        // ignore
+                    // ignore
                     }
                     breaker.open();
                 }
@@ -323,8 +301,7 @@ public class EventCountCircuitBreakerTest {
      */
     @Test
     public void testChangeEventsGeneratedByAutomaticTransitions() {
-        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2,
-                TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         final ChangeListener listener = new ChangeListener(breaker);
         breaker.addChangeListener(listener);
         long time = 0;
@@ -342,14 +319,12 @@ public class EventCountCircuitBreakerTest {
      * breaker's state.
      */
     private static class EventCountCircuitBreakerTestImpl extends EventCountCircuitBreaker {
+
         /** The current time in nanoseconds. */
         private long currentTime;
 
-        EventCountCircuitBreakerTestImpl(final int openingThreshold, final long openingInterval,
-                                                final TimeUnit openingUnit, final int closingThreshold, final long closingInterval,
-                                                final TimeUnit closingUnit) {
-            super(openingThreshold, openingInterval, openingUnit, closingThreshold,
-                    closingInterval, closingUnit);
+        EventCountCircuitBreakerTestImpl(final int openingThreshold, final long openingInterval, final TimeUnit openingUnit, final int closingThreshold, final long closingInterval, final TimeUnit closingUnit) {
+            super(openingThreshold, openingInterval, openingUnit, closingThreshold, closingInterval, closingUnit);
         }
 
         /**
@@ -377,6 +352,7 @@ public class EventCountCircuitBreakerTest {
      * A test change listener for checking whether correct change events are generated.
      */
     private static class ChangeListener implements PropertyChangeListener {
+
         /** The expected event source. */
         private final Object expectedSource;
 
@@ -396,11 +372,11 @@ public class EventCountCircuitBreakerTest {
 
         @Override
         public void propertyChange(final PropertyChangeEvent evt) {
-            assertEquals("Wrong event source", expectedSource, evt.getSource());
-            assertEquals("Wrong property name", "open", evt.getPropertyName());
+            assertEquals(expectedSource, evt.getSource(), "Wrong event source");
+            assertEquals("open", evt.getPropertyName(), "Wrong property name");
             final Boolean newValue = (Boolean) evt.getNewValue();
             final Boolean oldValue = (Boolean) evt.getOldValue();
-            assertNotEquals("Old and new value are equal", newValue, oldValue);
+            assertNotEquals(newValue, oldValue, "Old and new value are equal");
             changedValues.add(newValue);
         }
 
@@ -410,8 +386,7 @@ public class EventCountCircuitBreakerTest {
          * @param values the expected values
          */
         public void verify(final Boolean... values) {
-            assertArrayEquals(values,
-                    changedValues.toArray(new Boolean[changedValues.size()]));
+            assertArrayEquals(values, changedValues.toArray(new Boolean[changedValues.size()]));
         }
     }
 }

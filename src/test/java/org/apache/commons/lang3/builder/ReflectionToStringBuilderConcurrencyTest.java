@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -30,10 +28,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests concurrent access for {@link ReflectionToStringBuilder}.
@@ -52,6 +49,7 @@ import org.junit.Test;
 public class ReflectionToStringBuilderConcurrencyTest {
 
     static class CollectionHolder<T extends Collection<?>> {
+
         T collection;
 
         CollectionHolder(final T collection) {
@@ -60,28 +58,28 @@ public class ReflectionToStringBuilderConcurrencyTest {
     }
 
     private static final int DATA_SIZE = 100000;
+
     private static final int REPEAT = 100;
 
     @Test
-    @Ignore
+    @Disabled
     public void testLinkedList() throws InterruptedException, ExecutionException {
         this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testArrayList() throws InterruptedException, ExecutionException {
         this.testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testCopyOnWriteArrayList() throws InterruptedException, ExecutionException {
         this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
-    private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException,
-            ExecutionException {
+    private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException, ExecutionException {
         final List<Integer> list = holder.collection;
         // make a big array that takes a long time to toString()
         for (int i = 0; i < DATA_SIZE; i++) {
@@ -91,17 +89,19 @@ public class ReflectionToStringBuilderConcurrencyTest {
         final ExecutorService threadPool = Executors.newFixedThreadPool(2);
         // Consumes toStrings
         final Callable<Integer> consumer = new Callable<Integer>() {
+
             @Override
             public Integer call() {
                 for (int i = 0; i < REPEAT; i++) {
                     final String s = ReflectionToStringBuilder.toString(holder);
-                    Assert.assertNotNull(s);
+                    Assertions.assertNotNull(s);
                 }
                 return Integer.valueOf(REPEAT);
             }
         };
         // Produces changes in the list
         final Callable<Integer> producer = new Callable<Integer>() {
+
             @Override
             public Integer call() {
                 for (int i = 0; i < DATA_SIZE; i++) {

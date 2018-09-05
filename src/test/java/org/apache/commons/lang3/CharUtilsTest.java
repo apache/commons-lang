@@ -16,26 +16,26 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.CharUtils}.
  */
 public class CharUtilsTest {
 
-    private static final char CHAR_COPY = '\u00a9';
+    private static final char CHAR_COPY = '©';
+
     private static final Character CHARACTER_A = new Character('A');
+
     private static final Character CHARACTER_B = new Character('B');
 
     @Test
@@ -63,7 +63,6 @@ public class CharUtilsTest {
         assertTrue(CharUtils.isAscii('-'));
         assertTrue(CharUtils.isAscii('\n'));
         assertFalse(CharUtils.isAscii(CHAR_COPY));
-
         for (int i = 0; i < 255; i++) {
             assertEquals(i < 128, CharUtils.isAscii((char) i));
         }
@@ -77,7 +76,6 @@ public class CharUtilsTest {
         assertFalse(CharUtils.isAsciiAlpha('-'));
         assertFalse(CharUtils.isAsciiAlpha('\n'));
         assertFalse(CharUtils.isAsciiAlpha(CHAR_COPY));
-
         for (int i = 0; i < 196; i++) {
             if ((i >= 'A' && i <= 'Z') || (i >= 'a' && i <= 'z')) {
                 assertTrue(CharUtils.isAsciiAlpha((char) i));
@@ -95,7 +93,6 @@ public class CharUtilsTest {
         assertFalse(CharUtils.isAsciiAlphaLower('-'));
         assertFalse(CharUtils.isAsciiAlphaLower('\n'));
         assertFalse(CharUtils.isAsciiAlphaLower(CHAR_COPY));
-
         for (int i = 0; i < 196; i++) {
             if (i >= 'a' && i <= 'z') {
                 assertTrue(CharUtils.isAsciiAlphaLower((char) i));
@@ -113,7 +110,6 @@ public class CharUtilsTest {
         assertFalse(CharUtils.isAsciiAlphanumeric('-'));
         assertFalse(CharUtils.isAsciiAlphanumeric('\n'));
         assertFalse(CharUtils.isAsciiAlphanumeric(CHAR_COPY));
-
         for (int i = 0; i < 196; i++) {
             if ((i >= 'A' && i <= 'Z') || (i >= 'a' && i <= 'z') || (i >= '0' && i <= '9')) {
                 assertTrue(CharUtils.isAsciiAlphanumeric((char) i));
@@ -131,7 +127,6 @@ public class CharUtilsTest {
         assertFalse(CharUtils.isAsciiAlphaUpper('-'));
         assertFalse(CharUtils.isAsciiAlphaUpper('\n'));
         assertFalse(CharUtils.isAsciiAlphaUpper(CHAR_COPY));
-
         for (int i = 0; i < 196; i++) {
             if (i >= 'A' && i <= 'Z') {
                 assertTrue(CharUtils.isAsciiAlphaUpper((char) i));
@@ -149,7 +144,6 @@ public class CharUtilsTest {
         assertFalse(CharUtils.isAsciiControl('-'));
         assertTrue(CharUtils.isAsciiControl('\n'));
         assertFalse(CharUtils.isAsciiControl(CHAR_COPY));
-
         for (int i = 0; i < 196; i++) {
             if (i < 32 || i == 127) {
                 assertTrue(CharUtils.isAsciiControl((char) i));
@@ -167,7 +161,6 @@ public class CharUtilsTest {
         assertFalse(CharUtils.isAsciiNumeric('-'));
         assertFalse(CharUtils.isAsciiNumeric('\n'));
         assertFalse(CharUtils.isAsciiNumeric(CHAR_COPY));
-
         for (int i = 0; i < 196; i++) {
             if (i >= '0' && i <= '9') {
                 assertTrue(CharUtils.isAsciiNumeric((char) i));
@@ -185,7 +178,6 @@ public class CharUtilsTest {
         assertTrue(CharUtils.isAsciiPrintable('-'));
         assertFalse(CharUtils.isAsciiPrintable('\n'));
         assertFalse(CharUtils.isAsciiPrintable(CHAR_COPY));
-
         for (int i = 0; i < 196; i++) {
             if (i >= 32 && i <= 126) {
                 assertTrue(CharUtils.isAsciiPrintable((char) i));
@@ -202,7 +194,8 @@ public class CharUtilsTest {
         try {
             CharUtils.toChar((Character) null);
             fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
     }
 
     @Test
@@ -219,11 +212,13 @@ public class CharUtilsTest {
         try {
             CharUtils.toChar((String) null);
             fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             CharUtils.toChar("");
             fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
     }
 
     @Test
@@ -234,12 +229,12 @@ public class CharUtilsTest {
         assertEquals('X', CharUtils.toChar((String) null, 'X'));
     }
 
-    @SuppressWarnings("deprecation") // intentional test of deprecated method
+    // intentional test of deprecated method
+    @SuppressWarnings("deprecation")
     @Test
     public void testToCharacterObject_char() {
         assertEquals(new Character('a'), CharUtils.toCharacterObject('a'));
         assertSame(CharUtils.toCharacterObject('a'), CharUtils.toCharacterObject('a'));
-
         for (int i = 0; i < 128; i++) {
             final Character ch = CharUtils.toCharacterObject((char) i);
             final Character ch2 = CharUtils.toCharacterObject((char) i);
@@ -281,7 +276,8 @@ public class CharUtilsTest {
         try {
             CharUtils.toIntValue('a');
             fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
     }
 
     @Test
@@ -298,11 +294,13 @@ public class CharUtilsTest {
         try {
             CharUtils.toIntValue(null);
             fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
         try {
             CharUtils.toIntValue(CHARACTER_A);
             fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
+        } catch (final IllegalArgumentException ex) {
+        }
     }
 
     @Test
@@ -317,7 +315,6 @@ public class CharUtilsTest {
     public void testToString_char() {
         assertEquals("a", CharUtils.toString('a'));
         assertSame(CharUtils.toString('a'), CharUtils.toString('a'));
-
         for (int i = 0; i < 128; i++) {
             final String str = CharUtils.toString((char) i);
             final String str2 = CharUtils.toString((char) i);
@@ -348,7 +345,6 @@ public class CharUtilsTest {
     public void testToUnicodeEscaped_char() {
         assertEquals("\\u0041", CharUtils.unicodeEscaped('A'));
         assertEquals("\\u004c", CharUtils.unicodeEscaped('L'));
-
         for (int i = 0; i < 196; i++) {
             final String str = CharUtils.unicodeEscaped((char) i);
             assertEquals(6, str.length());

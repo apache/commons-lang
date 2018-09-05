@@ -16,21 +16,23 @@
  */
 package org.apache.commons.lang3.text.translate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.CharArrayWriter;
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover}.
  */
 @Deprecated
 public class UnicodeUnpairedSurrogateRemoverTest {
+
     final UnicodeUnpairedSurrogateRemover subject = new UnicodeUnpairedSurrogateRemover();
-    final CharArrayWriter writer = new CharArrayWriter(); // nothing is ever written to it
+
+    // nothing is ever written to it
+    final CharArrayWriter writer = new CharArrayWriter();
 
     @Test
     public void testValidCharacters() throws IOException {
@@ -46,4 +48,3 @@ public class UnicodeUnpairedSurrogateRemoverTest {
         assertEquals(0, writer.size());
     }
 }
-

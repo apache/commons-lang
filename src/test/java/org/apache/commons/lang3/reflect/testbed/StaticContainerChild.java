@@ -19,5 +19,4 @@ package org.apache.commons.lang3.reflect.testbed;
 /**
  */
 public class StaticContainerChild extends StaticContainer {
-
 }

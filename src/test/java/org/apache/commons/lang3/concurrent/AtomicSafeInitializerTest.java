@@ -16,22 +16,20 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@code AtomicSafeInitializer}.
  */
-public class AtomicSafeInitializerTest extends
-        AbstractConcurrentInitializerTest {
+public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest {
+
     /** The instance to be tested. */
     private AtomicSafeInitializerTestImpl initializer;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         initializer = new AtomicSafeInitializerTestImpl();
     }
@@ -53,11 +51,9 @@ public class AtomicSafeInitializerTest extends
      * @throws java.lang.InterruptedException because {@link #testGetConcurrent()} may throw it
      */
     @Test
-    public void testNumberOfInitializeInvocations() throws ConcurrentException,
-            InterruptedException {
+    public void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
         testGetConcurrent();
-        assertEquals("Wrong number of invocations", 1,
-                initializer.initCounter.get());
+        assertEquals(1, initializer.initCounter.get(), "Wrong number of invocations");
     }
 
     /**
@@ -65,8 +61,8 @@ public class AtomicSafeInitializerTest extends
      * implementation also counts the number of invocations of the initialize()
      * method.
      */
-    private static class AtomicSafeInitializerTestImpl extends
-            AtomicSafeInitializer<Object> {
+    private static class AtomicSafeInitializerTestImpl extends AtomicSafeInitializer<Object> {
+
         /** A counter for initialize() invocations. */
         final AtomicInteger initCounter = new AtomicInteger();
 

@@ -16,11 +16,10 @@
  */
 package org.apache.commons.lang3.event;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.VetoableChangeListener;
@@ -32,12 +31,10 @@ import java.lang.reflect.Proxy;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
-
 import javax.naming.event.ObjectChangeListener;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Rule;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.rules.ExpectedException;
 
 /**
  * @since 3.0
@@ -84,9 +81,10 @@ public class EventUtilsTest {
         final ExceptionEventSource src = new ExceptionEventSource();
         expectedException.expect(RuntimeException.class);
         EventUtils.addEventListener(src, PropertyChangeListener.class, new PropertyChangeListener() {
+
             @Override
             public void propertyChange(final PropertyChangeEvent e) {
-                // Do nothing!
+            // Do nothing!
             }
         });
     }
@@ -111,7 +109,6 @@ public class EventUtilsTest {
         assertEquals(1, counter.getCount());
     }
 
-
     @Test
     public void testBindEventsToMethodWithEvent() {
         final PropertyChangeSource src = new PropertyChangeSource();
@@ -121,7 +118,6 @@ public class EventUtilsTest {
         src.setProperty("newValue");
         assertEquals(1, counter.getCount());
     }
-
 
     @Test
     public void testBindFilteredEventsToMethod() {
@@ -136,12 +132,14 @@ public class EventUtilsTest {
     }
 
     public interface MultipleEventListener {
+
         void event1(PropertyChangeEvent e);
 
         void event2(PropertyChangeEvent e);
     }
 
     public static class EventCounter {
+
         private int count;
 
         public void eventOccurred() {
@@ -154,6 +152,7 @@ public class EventUtilsTest {
     }
 
     public static class EventCounterWithEvent {
+
         private int count;
 
         public void eventOccurred(final PropertyChangeEvent e) {
@@ -165,14 +164,12 @@ public class EventUtilsTest {
         }
     }
 
-
     private static class EventCountingInvociationHandler implements InvocationHandler {
+
         private final Map<String, Integer> eventCounts = new TreeMap<>();
 
         public <L> L createListener(final Class<L> listenerType) {
-            return listenerType.cast(Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
-                    new Class[]{listenerType},
-                    this));
+            return listenerType.cast(Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[] { listenerType }, this));
         }
 
         public int getEventCount(final String eventName) {
@@ -193,6 +190,7 @@ public class EventUtilsTest {
     }
 
     public static class MultipleEventSource {
+
         private final EventListenerSupport<MultipleEventListener> listeners = EventListenerSupport.create(MultipleEventListener.class);
 
         public void addMultipleEventListener(final MultipleEventListener listener) {
@@ -201,12 +199,14 @@ public class EventUtilsTest {
     }
 
     public static class ExceptionEventSource {
+
         public void addPropertyChangeListener(final PropertyChangeListener listener) {
             throw new RuntimeException();
         }
     }
 
     public static class PropertyChangeSource {
+
         private final EventListenerSupport<PropertyChangeListener> listeners = EventListenerSupport.create(PropertyChangeListener.class);
 
         private String property;
@@ -218,7 +218,7 @@ public class EventUtilsTest {
         }
 
         protected void addVetoableChangeListener(final VetoableChangeListener listener) {
-            // Do nothing!
+        // Do nothing!
         }
 
         public void addPropertyChangeListener(final PropertyChangeListener listener) {

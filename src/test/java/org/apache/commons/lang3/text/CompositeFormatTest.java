@@ -14,13 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang3.text;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
@@ -38,8 +35,8 @@ public class CompositeFormatTest {
      */
     @Test
     public void testCompositeFormat() {
-
         final Format parser = new Format() {
+
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -49,16 +46,18 @@ public class CompositeFormatTest {
 
             @Override
             public Object parseObject(final String source, final ParsePosition pos) {
-                return null;    // do nothing
+                // do nothing
+                return null;
             }
         };
-
         final Format formatter = new Format() {
+
             private static final long serialVersionUID = 1L;
 
             @Override
             public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
-                return null;    // do nothing
+                // do nothing
+                return null;
             }
 
             @Override
@@ -66,13 +65,11 @@ public class CompositeFormatTest {
                 throw new UnsupportedOperationException("Not implemented");
             }
         };
-
         final CompositeFormat composite = new CompositeFormat(parser, formatter);
-
         composite.parseObject("", null);
         composite.format(new Object(), new StringBuffer(), null);
-        assertEquals( "Parser get method incorrectly implemented", parser, composite.getParser() );
-        assertEquals( "Formatter get method incorrectly implemented", formatter, composite.getFormatter() );
+        assertEquals(parser, composite.getParser(), "Parser get method incorrectly implemented");
+        assertEquals(formatter, composite.getFormatter(), "Formatter get method incorrectly implemented");
     }
 
     @Test
@@ -84,5 +81,4 @@ public class CompositeFormatTest {
         assertEquals(testString, c.format(c.parseObject("01032005")));
         assertEquals(testString, c.reformat("01032005"));
     }
-
 }

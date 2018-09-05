@@ -18,11 +18,10 @@ package org.apache.commons.lang3.test;
 
 import java.util.Locale;
 import java.util.TimeZone;
-
 import org.apache.commons.lang3.LocaleUtils;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import org.junit.jupiter.api.rules.TestRule;
+import org.junit.jupiter.api.runner.Description;
+import org.junit.jupiter.api.runners.model.Statement;
 
 /**
  * Test Rule used with {@link SystemDefaults} annotation that sets and restores the system default Locale and TimeZone.
@@ -72,10 +71,9 @@ public class SystemDefaultsSwitch implements TestRule {
         if (defaults.timezone().isEmpty()) {
             return stmt;
         }
-
         final TimeZone newTimeZone = TimeZone.getTimeZone(defaults.timezone());
-
         return new Statement() {
+
             @Override
             public void evaluate() throws Throwable {
                 final TimeZone save = TimeZone.getDefault();
@@ -93,10 +91,9 @@ public class SystemDefaultsSwitch implements TestRule {
         if (defaults.locale().isEmpty()) {
             return stmt;
         }
-
         final Locale newLocale = LocaleUtils.toLocale(defaults.locale());
-
         return new Statement() {
+
             @Override
             public void evaluate() throws Throwable {
                 final Locale save = Locale.getDefault();
@@ -109,5 +106,4 @@ public class SystemDefaultsSwitch implements TestRule {
             }
         };
     }
-
 }

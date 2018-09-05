@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang3;
 
 import java.text.NumberFormat;
@@ -56,6 +55,7 @@ run_inlined_CharUtils_isAsciiNumeric: 84,420 milliseconds.
 
  */
 public class CharUtilsPerfRun {
+
     private static final String VERSION = "$Id$";
 
     private static final int WARM_UP = 100;
@@ -78,23 +78,9 @@ public class CharUtilsPerfRun {
     private void printSysInfo() {
         System.out.println(VERSION);
         System.out.println("Now: " + Calendar.getInstance().getTime());
-        System.out.println(System.getProperty("java.vendor")
-                + " "
-                + System.getProperty("java.runtime.name")
-                + " "
-                + System.getProperty("java.runtime.version"));
-        System.out.println(System.getProperty("java.vm.vendor")
-                + " "
-                + System.getProperty("java.vm.name")
-                + " "
-                + System.getProperty("java.vm.version"));
-        System.out.println(System.getProperty("os.name")
-            + " "
-            + System.getProperty("os.version")
-            + " "
-            + System.getProperty("os.arch")
-            + " "
-            + System.getProperty("sun.cpu.isalist"));
+        System.out.println(System.getProperty("java.vendor") + " " + System.getProperty("java.runtime.name") + " " + System.getProperty("java.runtime.version"));
+        System.out.println(System.getProperty("java.vm.vendor") + " " + System.getProperty("java.vm.name") + " " + System.getProperty("java.vm.version"));
+        System.out.println(System.getProperty("os.name") + " " + System.getProperty("os.version") + " " + System.getProperty("os.arch") + " " + System.getProperty("sun.cpu.isalist"));
     }
 
     private void run() {

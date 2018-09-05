@@ -14,43 +14,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang3.text.translate;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeEscaper}.
  */
 @Deprecated
-public class UnicodeEscaperTest  {
+public class UnicodeEscaperTest {
 
     @Test
     public void testBelow() {
         final UnicodeEscaper ue = UnicodeEscaper.below('F');
-
         final String input = "ADFGZ";
         final String result = ue.translate(input);
-        assertEquals("Failed to escape Unicode characters via the below method", "\\u0041\\u0044FGZ", result);
+        assertEquals("\\u0041\\u0044FGZ", result, "Failed to escape Unicode characters via the below method");
     }
 
     @Test
     public void testBetween() {
         final UnicodeEscaper ue = UnicodeEscaper.between('F', 'L');
-
         final String input = "ADFGZ";
         final String result = ue.translate(input);
-        assertEquals("Failed to escape Unicode characters via the between method", "AD\\u0046\\u0047Z", result);
+        assertEquals("AD\\u0046\\u0047Z", result, "Failed to escape Unicode characters via the between method");
     }
 
     @Test
     public void testAbove() {
         final UnicodeEscaper ue = UnicodeEscaper.above('F');
-
         final String input = "ADFGZ";
         final String result = ue.translate(input);
-        assertEquals("Failed to escape Unicode characters via the above method", "ADF\\u0047\\u005A", result);
+        assertEquals("ADF\\u0047\\u005A", result, "Failed to escape Unicode characters via the above method");
     }
 }

@@ -22,10 +22,9 @@ import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.CURLY;
 import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.LARRY;
 import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.MOE;
 import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.SHEMP;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -36,357 +35,141 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Collection;
 import java.util.Map;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  */
 public class AnnotationUtilsTest {
-    @TestAnnotation(
-            booleanValue = false,
-            booleanValues = { false },
-            byteValue = 0,
-            byteValues = { 0 },
-            charValue = 0,
-            charValues = { 0 },
-            doubleValue = 0,
-            doubleValues = { 0 },
-            floatValue = 0,
-            floatValues = { 0 },
-            intValue = 0,
-            intValues = { 0 },
-            longValue = 0,
-            longValues = { 0 },
-            nest = @NestAnnotation(
-                    booleanValue = false,
-                    booleanValues = { false },
-                    byteValue = 0,
-                    byteValues = { 0 },
-                    charValue = 0,
-                    charValues = { 0 },
-                    doubleValue = 0,
-                    doubleValues = { 0 },
-                    floatValue = 0,
-                    floatValues = { 0 },
-                    intValue = 0,
-                    intValues = { 0 },
-                    longValue = 0,
-                    longValues = { 0 },
-                    shortValue = 0,
-                    shortValues = { 0 },
-                    stooge = CURLY,
-                    stooges = { MOE, LARRY, SHEMP },
-                    string = "",
-                    strings = { "" },
-                    type = Object.class,
-                    types = { Object.class }
-            ),
-            nests = {
-                @NestAnnotation(
-                        booleanValue = false,
-                        booleanValues = { false },
-                        byteValue = 0,
-                        byteValues = { 0 },
-                        charValue = 0,
-                        charValues = { 0 },
-                        doubleValue = 0,
-                        doubleValues = { 0 },
-                        floatValue = 0,
-                        floatValues = { 0 },
-                        intValue = 0,
-                        intValues = { 0 },
-                        longValue = 0,
-                        longValues = { 0 },
-                        shortValue = 0,
-                        shortValues = { 0 },
-                        stooge = CURLY,
-                        stooges = { MOE, LARRY, SHEMP },
-                        string = "",
-                        strings = { "" },
-                        type = Object[].class,
-                        types = { Object[].class }
-                )
-            },
-            shortValue = 0,
-            shortValues = { 0 },
-            stooge = SHEMP,
-            stooges = { MOE, LARRY, CURLY },
-            string = "",
-            strings = { "" },
-            type = Object.class,
-            types = { Object.class }
-    )
+
+    @TestAnnotation(booleanValue = false, booleanValues = { false }, byteValue = 0, byteValues = { 0 }, charValue = 0, charValues = { 0 }, doubleValue = 0, doubleValues = { 0 }, floatValue = 0, floatValues = { 0 }, intValue = 0, intValues = { 0 }, longValue = 0, longValues = { 0 }, nest = @NestAnnotation(booleanValue = false, booleanValues = { false }, byteValue = 0, byteValues = { 0 }, charValue = 0, charValues = { 0 }, doubleValue = 0, doubleValues = { 0 }, floatValue = 0, floatValues = { 0 }, intValue = 0, intValues = { 0 }, longValue = 0, longValues = { 0 }, shortValue = 0, shortValues = { 0 }, stooge = CURLY, stooges = { MOE, LARRY, SHEMP }, string = "", strings = { "" }, type = Object.class, types = { Object.class }), nests = { @NestAnnotation(booleanValue = false, booleanValues = { false }, byteValue = 0, byteValues = { 0 }, charValue = 0, charValues = { 0 }, doubleValue = 0, doubleValues = { 0 }, floatValue = 0, floatValues = { 0 }, intValue = 0, intValues = { 0 }, longValue = 0, longValues = { 0 }, shortValue = 0, shortValues = { 0 }, stooge = CURLY, stooges = { MOE, LARRY, SHEMP }, string = "", strings = { "" }, type = Object[].class, types = { Object[].class }) }, shortValue = 0, shortValues = { 0 }, stooge = SHEMP, stooges = { MOE, LARRY, CURLY }, string = "", strings = { "" }, type = Object.class, types = { Object.class })
     public Object dummy1;
 
-    @TestAnnotation(
-            booleanValue = false,
-            booleanValues = { false },
-            byteValue = 0,
-            byteValues = { 0 },
-            charValue = 0,
-            charValues = { 0 },
-            doubleValue = 0,
-            doubleValues = { 0 },
-            floatValue = 0,
-            floatValues = { 0 },
-            intValue = 0,
-            intValues = { 0 },
-            longValue = 0,
-            longValues = { 0 },
-            nest = @NestAnnotation(
-                    booleanValue = false,
-                    booleanValues = { false },
-                    byteValue = 0,
-                    byteValues = { 0 },
-                    charValue = 0,
-                    charValues = { 0 },
-                    doubleValue = 0,
-                    doubleValues = { 0 },
-                    floatValue = 0,
-                    floatValues = { 0 },
-                    intValue = 0,
-                    intValues = { 0 },
-                    longValue = 0,
-                    longValues = { 0 },
-                    shortValue = 0,
-                    shortValues = { 0 },
-                    stooge = CURLY,
-                    stooges = { MOE, LARRY, SHEMP },
-                    string = "",
-                    strings = { "" },
-                    type = Object.class,
-                    types = { Object.class }
-            ),
-            nests = {
-                @NestAnnotation(
-                        booleanValue = false,
-                        booleanValues = { false },
-                        byteValue = 0,
-                        byteValues = { 0 },
-                        charValue = 0,
-                        charValues = { 0 },
-                        doubleValue = 0,
-                        doubleValues = { 0 },
-                        floatValue = 0,
-                        floatValues = { 0 },
-                        intValue = 0,
-                        intValues = { 0 },
-                        longValue = 0,
-                        longValues = { 0 },
-                        shortValue = 0,
-                        shortValues = { 0 },
-                        stooge = CURLY,
-                        stooges = { MOE, LARRY, SHEMP },
-                        string = "",
-                        strings = { "" },
-                        type = Object[].class,
-                        types = { Object[].class }
-                )
-            },
-            shortValue = 0,
-            shortValues = { 0 },
-            stooge = SHEMP,
-            stooges = { MOE, LARRY, CURLY },
-            string = "",
-            strings = { "" },
-            type = Object.class,
-            types = { Object.class }
-    )
+    @TestAnnotation(booleanValue = false, booleanValues = { false }, byteValue = 0, byteValues = { 0 }, charValue = 0, charValues = { 0 }, doubleValue = 0, doubleValues = { 0 }, floatValue = 0, floatValues = { 0 }, intValue = 0, intValues = { 0 }, longValue = 0, longValues = { 0 }, nest = @NestAnnotation(booleanValue = false, booleanValues = { false }, byteValue = 0, byteValues = { 0 }, charValue = 0, charValues = { 0 }, doubleValue = 0, doubleValues = { 0 }, floatValue = 0, floatValues = { 0 }, intValue = 0, intValues = { 0 }, longValue = 0, longValues = { 0 }, shortValue = 0, shortValues = { 0 }, stooge = CURLY, stooges = { MOE, LARRY, SHEMP }, string = "", strings = { "" }, type = Object.class, types = { Object.class }), nests = { @NestAnnotation(booleanValue = false, booleanValues = { false }, byteValue = 0, byteValues = { 0 }, charValue = 0, charValues = { 0 }, doubleValue = 0, doubleValues = { 0 }, floatValue = 0, floatValues = { 0 }, intValue = 0, intValues = { 0 }, longValue = 0, longValues = { 0 }, shortValue = 0, shortValues = { 0 }, stooge = CURLY, stooges = { MOE, LARRY, SHEMP }, string = "", strings = { "" }, type = Object[].class, types = { Object[].class }) }, shortValue = 0, shortValues = { 0 }, stooge = SHEMP, stooges = { MOE, LARRY, CURLY }, string = "", strings = { "" }, type = Object.class, types = { Object.class })
     public Object dummy2;
 
-    @TestAnnotation(
-            booleanValue = false,
-            booleanValues = { false },
-            byteValue = 0,
-            byteValues = { 0 },
-            charValue = 0,
-            charValues = { 0 },
-            doubleValue = 0,
-            doubleValues = { 0 },
-            floatValue = 0,
-            floatValues = { 0 },
-            intValue = 0,
-            intValues = { 0 },
-            longValue = 0,
-            longValues = { 0 },
-            nest = @NestAnnotation(
-                    booleanValue = false,
-                    booleanValues = { false },
-                    byteValue = 0,
-                    byteValues = { 0 },
-                    charValue = 0,
-                    charValues = { 0 },
-                    doubleValue = 0,
-                    doubleValues = { 0 },
-                    floatValue = 0,
-                    floatValues = { 0 },
-                    intValue = 0,
-                    intValues = { 0 },
-                    longValue = 0,
-                    longValues = { 0 },
-                    shortValue = 0,
-                    shortValues = { 0 },
-                    stooge = CURLY,
-                    stooges = { MOE, LARRY, SHEMP },
-                    string = "",
-                    strings = { "" },
-                    type = Object.class,
-                    types = { Object.class }
-            ),
-            nests = {
-                @NestAnnotation(
-                        booleanValue = false,
-                        booleanValues = { false },
-                        byteValue = 0,
-                        byteValues = { 0 },
-                        charValue = 0,
-                        charValues = { 0 },
-                        doubleValue = 0,
-                        doubleValues = { 0 },
-                        floatValue = 0,
-                        floatValues = { 0 },
-                        intValue = 0,
-                        intValues = { 0 },
-                        longValue = 0,
-                        longValues = { 0 },
-                        shortValue = 0,
-                        shortValues = { 0 },
-                        stooge = CURLY,
-                        stooges = { MOE, LARRY, SHEMP },
-                        string = "",
-                        strings = { "" },
-                        type = Object[].class,
-                        types = { Object[].class }
-                ),
-                //add a second NestAnnotation to break equality:
-                @NestAnnotation(
-                        booleanValue = false,
-                        booleanValues = { false },
-                        byteValue = 0,
-                        byteValues = { 0 },
-                        charValue = 0,
-                        charValues = { 0 },
-                        doubleValue = 0,
-                        doubleValues = { 0 },
-                        floatValue = 0,
-                        floatValues = { 0 },
-                        intValue = 0,
-                        intValues = { 0 },
-                        longValue = 0,
-                        longValues = { 0 },
-                        shortValue = 0,
-                        shortValues = { 0 },
-                        stooge = CURLY,
-                        stooges = { MOE, LARRY, SHEMP },
-                        string = "",
-                        strings = { "" },
-                        type = Object[].class,
-                        types = { Object[].class }
-                )
-            },
-            shortValue = 0,
-            shortValues = { 0 },
-            stooge = SHEMP,
-            stooges = { MOE, LARRY, CURLY },
-            string = "",
-            strings = { "" },
-            type = Object.class,
-            types = { Object.class }
-    )
+    @TestAnnotation(booleanValue = false, booleanValues = { false }, byteValue = 0, byteValues = { 0 }, charValue = 0, charValues = { 0 }, doubleValue = 0, doubleValues = { 0 }, floatValue = 0, floatValues = { 0 }, intValue = 0, intValues = { 0 }, longValue = 0, longValues = { 0 }, nest = @NestAnnotation(booleanValue = false, booleanValues = { false }, byteValue = 0, byteValues = { 0 }, charValue = 0, charValues = { 0 }, doubleValue = 0, doubleValues = { 0 }, floatValue = 0, floatValues = { 0 }, intValue = 0, intValues = { 0 }, longValue = 0, longValues = { 0 }, shortValue = 0, shortValues = { 0 }, stooge = CURLY, stooges = { MOE, LARRY, SHEMP }, string = "", strings = { "" }, type = Object.class, types = { Object.class }), nests = { @NestAnnotation(booleanValue = false, booleanValues = { false }, byteValue = 0, byteValues = { 0 }, charValue = 0, charValues = { 0 }, doubleValue = 0, doubleValues = { 0 }, floatValue = 0, floatValues = { 0 }, intValue = 0, intValues = { 0 }, longValue = 0, longValues = { 0 }, shortValue = 0, shortValues = { 0 }, stooge = CURLY, stooges = { MOE, LARRY, SHEMP }, string = "", strings = { "" }, type = Object[].class, types = { Object[].class }), //add a second NestAnnotation to break equality:
+    @NestAnnotation(booleanValue = false, booleanValues = { false }, byteValue = 0, byteValues = { 0 }, charValue = 0, charValues = { 0 }, doubleValue = 0, doubleValues = { 0 }, floatValue = 0, floatValues = { 0 }, intValue = 0, intValues = { 0 }, longValue = 0, longValues = { 0 }, shortValue = 0, shortValues = { 0 }, stooge = CURLY, stooges = { MOE, LARRY, SHEMP }, string = "", strings = { "" }, type = Object[].class, types = { Object[].class }) }, shortValue = 0, shortValues = { 0 }, stooge = SHEMP, stooges = { MOE, LARRY, CURLY }, string = "", strings = { "" }, type = Object.class, types = { Object.class })
     public Object dummy3;
 
-    @NestAnnotation(
-            booleanValue = false,
-            booleanValues = { false },
-            byteValue = 0,
-            byteValues = { 0 },
-            charValue = 0,
-            charValues = { 0 },
-            doubleValue = 0,
-            doubleValues = { 0 },
-            floatValue = 0,
-            floatValues = { 0 },
-            intValue = 0,
-            intValues = { 0 },
-            longValue = 0,
-            longValues = { 0 },
-            shortValue = 0,
-            shortValues = { 0 },
-            stooge = CURLY,
-            stooges = { MOE, LARRY, SHEMP },
-            string = "",
-            strings = { "" },
-            type = Object[].class,
-            types = { Object[].class }
-    )
+    @NestAnnotation(booleanValue = false, booleanValues = { false }, byteValue = 0, byteValues = { 0 }, charValue = 0, charValues = { 0 }, doubleValue = 0, doubleValues = { 0 }, floatValue = 0, floatValues = { 0 }, intValue = 0, intValues = { 0 }, longValue = 0, longValues = { 0 }, shortValue = 0, shortValues = { 0 }, stooge = CURLY, stooges = { MOE, LARRY, SHEMP }, string = "", strings = { "" }, type = Object[].class, types = { Object[].class })
     public Object dummy4;
 
     @Target(FIELD)
     @Retention(RUNTIME)
     public @interface TestAnnotation {
+
         String string();
+
         String[] strings();
+
         Class<?> type();
+
         Class<?>[] types();
+
         byte byteValue();
+
         byte[] byteValues();
+
         short shortValue();
+
         short[] shortValues();
+
         int intValue();
+
         int[] intValues();
+
         char charValue();
+
         char[] charValues();
+
         long longValue();
+
         long[] longValues();
+
         float floatValue();
+
         float[] floatValues();
+
         double doubleValue();
+
         double[] doubleValues();
+
         boolean booleanValue();
+
         boolean[] booleanValues();
+
         Stooge stooge();
+
         Stooge[] stooges();
+
         NestAnnotation nest();
+
         NestAnnotation[] nests();
     }
 
     @Retention(RUNTIME)
     public @interface NestAnnotation {
+
         String string();
+
         String[] strings();
+
         Class<?> type();
+
         Class<?>[] types();
+
         byte byteValue();
+
         byte[] byteValues();
+
         short shortValue();
+
         short[] shortValues();
+
         int intValue();
+
         int[] intValues();
+
         char charValue();
+
         char[] charValues();
+
         long longValue();
+
         long[] longValues();
+
         float floatValue();
+
         float[] floatValues();
+
         double doubleValue();
+
         double[] doubleValues();
+
         boolean booleanValue();
+
         boolean[] booleanValues();
+
         Stooge stooge();
+
         Stooge[] stooges();
     }
 
     public enum Stooge {
+
         MOE, LARRY, CURLY, JOE, SHEMP
     }
 
     private Field field1;
+
     private Field field2;
+
     private Field field3;
+
     private Field field4;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         field1 = getClass().getDeclaredField("dummy1");
         field2 = getClass().getDeclaredField("dummy2");
@@ -430,25 +213,19 @@ public class AnnotationUtilsTest {
 
     @Test
     public void testIsValidAnnotationMemberType() {
-        for (final Class<?> type : new Class[] { byte.class, short.class, int.class, char.class,
-                long.class, float.class, double.class, boolean.class, String.class, Class.class,
-                NestAnnotation.class, TestAnnotation.class, Stooge.class, ElementType.class }) {
+        for (final Class<?> type : new Class[] { byte.class, short.class, int.class, char.class, long.class, float.class, double.class, boolean.class, String.class, Class.class, NestAnnotation.class, TestAnnotation.class, Stooge.class, ElementType.class }) {
             assertTrue(AnnotationUtils.isValidAnnotationMemberType(type));
-            assertTrue(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0)
-                    .getClass()));
+            assertTrue(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0).getClass()));
         }
         for (final Class<?> type : new Class[] { Object.class, Map.class, Collection.class }) {
             assertFalse(AnnotationUtils.isValidAnnotationMemberType(type));
-            assertFalse(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0)
-                    .getClass()));
+            assertFalse(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0).getClass()));
         }
     }
 
     @Test(timeout = 666000)
     public void testGeneratedAnnotationEquivalentToRealAnnotation() throws Exception {
-        final Test real = getClass().getDeclaredMethod(
-                "testGeneratedAnnotationEquivalentToRealAnnotation").getAnnotation(Test.class);
-
+        final Test real = getClass().getDeclaredMethod("testGeneratedAnnotationEquivalentToRealAnnotation").getAnnotation(Test.class);
         final InvocationHandler generatedTestInvocationHandler = new InvocationHandler() {
 
             @Override
@@ -465,18 +242,12 @@ public class AnnotationUtilsTest {
                 return method.invoke(real, args);
             }
         };
-
-        final Test generated = (Test) Proxy.newProxyInstance(Thread.currentThread()
-                .getContextClassLoader(), new Class[] { Test.class },
-                generatedTestInvocationHandler);
+        final Test generated = (Test) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[] { Test.class }, generatedTestInvocationHandler);
         assertTrue(real.equals(generated));
         assertFalse(generated.equals(real));
         assertTrue(AnnotationUtils.equals(generated, real));
         assertTrue(AnnotationUtils.equals(real, generated));
-
-        final Test generated2 = (Test) Proxy.newProxyInstance(Thread.currentThread()
-                .getContextClassLoader(), new Class[] { Test.class },
-                generatedTestInvocationHandler);
+        final Test generated2 = (Test) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[] { Test.class }, generatedTestInvocationHandler);
         assertFalse(generated.equals(generated2));
         assertFalse(generated2.equals(generated));
         assertTrue(AnnotationUtils.equals(generated, generated2));
@@ -495,14 +266,12 @@ public class AnnotationUtilsTest {
 
     @Test(timeout = 666000)
     public void testToString() throws Exception {
-        final Test testAnnotation = getClass().getDeclaredMethod("testToString")
-                .getAnnotation(Test.class);
+        final Test testAnnotation = getClass().getDeclaredMethod("testToString").getAnnotation(Test.class);
         final String annotationString = AnnotationUtils.toString(testAnnotation);
-        assertTrue(annotationString.startsWith("@org.junit.Test("));
+        assertTrue(annotationString.startsWith("@org.junit.jupiter.api.Test("));
         assertTrue(annotationString.endsWith(")"));
-        assertTrue(annotationString.contains("expected=class org.junit.Test$None"));
+        assertTrue(annotationString.contains("expected=class org.junit.jupiter.api.Test$None"));
         assertTrue(annotationString.contains("timeout=666000"));
         assertTrue(annotationString.contains(", "));
     }
-
 }

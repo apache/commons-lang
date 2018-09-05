@@ -19,6 +19,7 @@ package org.apache.commons.lang3.reflect.testbed;
 /**
  */
 public class PublicChild extends Parent {
+
     static final String VALUE = "child";
 
     @Override

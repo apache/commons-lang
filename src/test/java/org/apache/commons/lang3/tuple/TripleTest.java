@@ -16,14 +16,12 @@
  */
 package org.apache.commons.lang3.tuple;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Calendar;
 import java.util.HashSet;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the Triple class.
@@ -120,6 +118,4 @@ public class TripleTest {
         final Triple<String, String, String> triple = Triple.of("Key", "Something", "Value");
         assertEquals("         (Key,Something,Value)", String.format("%1$30s", triple));
     }
-
 }
-

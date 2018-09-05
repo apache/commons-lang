@@ -16,13 +16,12 @@
  */
 package org.apache.commons.lang3.exception;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -31,11 +30,10 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.List;
-
 import org.apache.commons.lang3.test.NotVisibleExceptionFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link org.apache.commons.lang3.exception.ExceptionUtils}.
@@ -45,14 +43,18 @@ import org.junit.Test;
 public class ExceptionUtilsTest {
 
     private NestableException nested;
+
     private Throwable withCause;
+
     private Throwable withoutCause;
+
     private Throwable jdkNoCause;
+
     private ExceptionWithCause cyclicCause;
+
     private Throwable notVisibleException;
 
-
-    @Before
+    @BeforeEach
     public void setUp() {
         withoutCause = createExceptionWithoutCause();
         nested = new NestableException(withoutCause);
@@ -65,8 +67,7 @@ public class ExceptionUtilsTest {
         notVisibleException = NotVisibleExceptionFactory.createException(withoutCause);
     }
 
-
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         withoutCause = null;
         nested = null;
@@ -98,7 +99,6 @@ public class ExceptionUtilsTest {
     }
 
     //-----------------------------------------------------------------------
-
     @Test
     public void testConstructor() {
         assertNotNull(new ExceptionUtils());
@@ -110,7 +110,8 @@ public class ExceptionUtilsTest {
     }
 
     //-----------------------------------------------------------------------
-    @SuppressWarnings("deprecation") // Specifically tests the deprecated methods
+    // Specifically tests the deprecated methods
+    @SuppressWarnings("deprecation")
     @Test
     public void testGetCause_Throwable() {
         assertSame(null, ExceptionUtils.getCause(null));
@@ -124,24 +125,24 @@ public class ExceptionUtilsTest {
         assertSame(withoutCause, ExceptionUtils.getCause(notVisibleException));
     }
 
-    @SuppressWarnings("deprecation") // Specifically tests the deprecated methods
+    // Specifically tests the deprecated methods
+    @SuppressWarnings("deprecation")
     @Test
     public void testGetCause_ThrowableArray() {
         assertSame(null, ExceptionUtils.getCause(null, null));
         assertSame(null, ExceptionUtils.getCause(null, new String[0]));
-
         // not known type, so match on supplied method names
-        assertSame(nested, ExceptionUtils.getCause(withCause, null));  // default names
+        // default names
+        assertSame(nested, ExceptionUtils.getCause(withCause, null));
         assertSame(null, ExceptionUtils.getCause(withCause, new String[0]));
-        assertSame(null, ExceptionUtils.getCause(withCause, new String[]{null}));
-        assertSame(nested, ExceptionUtils.getCause(withCause, new String[]{"getCause"}));
-
+        assertSame(null, ExceptionUtils.getCause(withCause, new String[] { null }));
+        assertSame(nested, ExceptionUtils.getCause(withCause, new String[] { "getCause" }));
         // not known type, so match on supplied method names
         assertSame(null, ExceptionUtils.getCause(withoutCause, null));
         assertSame(null, ExceptionUtils.getCause(withoutCause, new String[0]));
-        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[]{null}));
-        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[]{"getCause"}));
-        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[]{"getTargetException"}));
+        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[] { null }));
+        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[] { "getCause" }));
+        assertSame(null, ExceptionUtils.getCause(withoutCause, new String[] { "getTargetException" }));
     }
 
     @Test
@@ -263,22 +264,18 @@ public class ExceptionUtilsTest {
     public void testIndexOf_ThrowableClass() {
         assertEquals(-1, ExceptionUtils.indexOfThrowable(null, null));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(null, NestableException.class));
-
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withoutCause, null));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withoutCause, ExceptionWithCause.class));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withoutCause, NestableException.class));
         assertEquals(0, ExceptionUtils.indexOfThrowable(withoutCause, ExceptionWithoutCause.class));
-
         assertEquals(-1, ExceptionUtils.indexOfThrowable(nested, null));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(nested, ExceptionWithCause.class));
         assertEquals(0, ExceptionUtils.indexOfThrowable(nested, NestableException.class));
         assertEquals(1, ExceptionUtils.indexOfThrowable(nested, ExceptionWithoutCause.class));
-
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withCause, null));
         assertEquals(0, ExceptionUtils.indexOfThrowable(withCause, ExceptionWithCause.class));
         assertEquals(1, ExceptionUtils.indexOfThrowable(withCause, NestableException.class));
         assertEquals(2, ExceptionUtils.indexOfThrowable(withCause, ExceptionWithoutCause.class));
-
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withCause, Exception.class));
     }
 
@@ -286,27 +283,22 @@ public class ExceptionUtilsTest {
     public void testIndexOf_ThrowableClassInt() {
         assertEquals(-1, ExceptionUtils.indexOfThrowable(null, null, 0));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(null, NestableException.class, 0));
-
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withoutCause, null));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withoutCause, ExceptionWithCause.class, 0));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withoutCause, NestableException.class, 0));
         assertEquals(0, ExceptionUtils.indexOfThrowable(withoutCause, ExceptionWithoutCause.class, 0));
-
         assertEquals(-1, ExceptionUtils.indexOfThrowable(nested, null, 0));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(nested, ExceptionWithCause.class, 0));
         assertEquals(0, ExceptionUtils.indexOfThrowable(nested, NestableException.class, 0));
         assertEquals(1, ExceptionUtils.indexOfThrowable(nested, ExceptionWithoutCause.class, 0));
-
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withCause, null));
         assertEquals(0, ExceptionUtils.indexOfThrowable(withCause, ExceptionWithCause.class, 0));
         assertEquals(1, ExceptionUtils.indexOfThrowable(withCause, NestableException.class, 0));
         assertEquals(2, ExceptionUtils.indexOfThrowable(withCause, ExceptionWithoutCause.class, 0));
-
         assertEquals(0, ExceptionUtils.indexOfThrowable(withCause, ExceptionWithCause.class, -1));
         assertEquals(0, ExceptionUtils.indexOfThrowable(withCause, ExceptionWithCause.class, 0));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withCause, ExceptionWithCause.class, 1));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withCause, ExceptionWithCause.class, 9));
-
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withCause, Exception.class, 0));
     }
 
@@ -315,22 +307,18 @@ public class ExceptionUtilsTest {
     public void testIndexOfType_ThrowableClass() {
         assertEquals(-1, ExceptionUtils.indexOfType(null, null));
         assertEquals(-1, ExceptionUtils.indexOfType(null, NestableException.class));
-
         assertEquals(-1, ExceptionUtils.indexOfType(withoutCause, null));
         assertEquals(-1, ExceptionUtils.indexOfType(withoutCause, ExceptionWithCause.class));
         assertEquals(-1, ExceptionUtils.indexOfType(withoutCause, NestableException.class));
         assertEquals(0, ExceptionUtils.indexOfType(withoutCause, ExceptionWithoutCause.class));
-
         assertEquals(-1, ExceptionUtils.indexOfType(nested, null));
         assertEquals(-1, ExceptionUtils.indexOfType(nested, ExceptionWithCause.class));
         assertEquals(0, ExceptionUtils.indexOfType(nested, NestableException.class));
         assertEquals(1, ExceptionUtils.indexOfType(nested, ExceptionWithoutCause.class));
-
         assertEquals(-1, ExceptionUtils.indexOfType(withCause, null));
         assertEquals(0, ExceptionUtils.indexOfType(withCause, ExceptionWithCause.class));
         assertEquals(1, ExceptionUtils.indexOfType(withCause, NestableException.class));
         assertEquals(2, ExceptionUtils.indexOfType(withCause, ExceptionWithoutCause.class));
-
         assertEquals(0, ExceptionUtils.indexOfType(withCause, Exception.class));
     }
 
@@ -338,27 +326,22 @@ public class ExceptionUtilsTest {
     public void testIndexOfType_ThrowableClassInt() {
         assertEquals(-1, ExceptionUtils.indexOfType(null, null, 0));
         assertEquals(-1, ExceptionUtils.indexOfType(null, NestableException.class, 0));
-
         assertEquals(-1, ExceptionUtils.indexOfType(withoutCause, null));
         assertEquals(-1, ExceptionUtils.indexOfType(withoutCause, ExceptionWithCause.class, 0));
         assertEquals(-1, ExceptionUtils.indexOfType(withoutCause, NestableException.class, 0));
         assertEquals(0, ExceptionUtils.indexOfType(withoutCause, ExceptionWithoutCause.class, 0));
-
         assertEquals(-1, ExceptionUtils.indexOfType(nested, null, 0));
         assertEquals(-1, ExceptionUtils.indexOfType(nested, ExceptionWithCause.class, 0));
         assertEquals(0, ExceptionUtils.indexOfType(nested, NestableException.class, 0));
         assertEquals(1, ExceptionUtils.indexOfType(nested, ExceptionWithoutCause.class, 0));
-
         assertEquals(-1, ExceptionUtils.indexOfType(withCause, null));
         assertEquals(0, ExceptionUtils.indexOfType(withCause, ExceptionWithCause.class, 0));
         assertEquals(1, ExceptionUtils.indexOfType(withCause, NestableException.class, 0));
         assertEquals(2, ExceptionUtils.indexOfType(withCause, ExceptionWithoutCause.class, 0));
-
         assertEquals(0, ExceptionUtils.indexOfType(withCause, ExceptionWithCause.class, -1));
         assertEquals(0, ExceptionUtils.indexOfType(withCause, ExceptionWithCause.class, 0));
         assertEquals(-1, ExceptionUtils.indexOfType(withCause, ExceptionWithCause.class, 1));
         assertEquals(-1, ExceptionUtils.indexOfType(withCause, ExceptionWithCause.class, 9));
-
         assertEquals(0, ExceptionUtils.indexOfType(withCause, Exception.class, 0));
     }
 
@@ -366,8 +349,8 @@ public class ExceptionUtilsTest {
     @Test
     public void testPrintRootCauseStackTrace_Throwable() throws Exception {
         ExceptionUtils.printRootCauseStackTrace(null);
-        // could pipe system.err to a known stream, but not much point as
-        // internally this method calls stream method anyway
+    // could pipe system.err to a known stream, but not much point as
+    // internally this method calls stream method anyway
     }
 
     @Test
@@ -376,20 +359,17 @@ public class ExceptionUtilsTest {
         ExceptionUtils.printRootCauseStackTrace(null, (PrintStream) null);
         ExceptionUtils.printRootCauseStackTrace(null, new PrintStream(out));
         assertEquals(0, out.toString().length());
-
         out = new ByteArrayOutputStream(1024);
         try {
             ExceptionUtils.printRootCauseStackTrace(withCause, (PrintStream) null);
             fail();
         } catch (final IllegalArgumentException ex) {
         }
-
         out = new ByteArrayOutputStream(1024);
         final Throwable cause = createExceptionWithCause();
         ExceptionUtils.printRootCauseStackTrace(cause, new PrintStream(out));
         String stackTrace = out.toString();
         assertTrue(stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
-
         out = new ByteArrayOutputStream(1024);
         ExceptionUtils.printRootCauseStackTrace(withoutCause, new PrintStream(out));
         stackTrace = out.toString();
@@ -402,20 +382,17 @@ public class ExceptionUtilsTest {
         ExceptionUtils.printRootCauseStackTrace(null, (PrintWriter) null);
         ExceptionUtils.printRootCauseStackTrace(null, new PrintWriter(writer));
         assertEquals(0, writer.getBuffer().length());
-
         writer = new StringWriter(1024);
         try {
             ExceptionUtils.printRootCauseStackTrace(withCause, (PrintWriter) null);
             fail();
         } catch (final IllegalArgumentException ex) {
         }
-
         writer = new StringWriter(1024);
         final Throwable cause = createExceptionWithCause();
         ExceptionUtils.printRootCauseStackTrace(cause, new PrintWriter(writer));
         String stackTrace = writer.toString();
         assertTrue(stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
-
         writer = new StringWriter(1024);
         ExceptionUtils.printRootCauseStackTrace(withoutCause, new PrintWriter(writer));
         stackTrace = writer.toString();
@@ -426,7 +403,6 @@ public class ExceptionUtilsTest {
     @Test
     public void testGetRootCauseStackTrace_Throwable() throws Exception {
         assertEquals(0, ExceptionUtils.getRootCauseStackTrace(null).length);
-
         final Throwable cause = createExceptionWithCause();
         String[] stackTrace = ExceptionUtils.getRootCauseStackTrace(cause);
         boolean match = false;
@@ -437,7 +413,6 @@ public class ExceptionUtilsTest {
             }
         }
         assertTrue(match);
-
         stackTrace = ExceptionUtils.getRootCauseStackTrace(withoutCause);
         match = false;
         for (final String element : stackTrace) {
@@ -458,10 +433,8 @@ public class ExceptionUtilsTest {
     public void test_getMessage_Throwable() {
         Throwable th = null;
         assertEquals("", ExceptionUtils.getMessage(th));
-
         th = new IllegalArgumentException("Base");
         assertEquals("IllegalArgumentException: Base", ExceptionUtils.getMessage(th));
-
         th = new ExceptionWithCause("Wrapper", th);
         assertEquals("ExceptionUtilsTest.ExceptionWithCause: Wrapper", ExceptionUtils.getMessage(th));
     }
@@ -470,15 +443,11 @@ public class ExceptionUtilsTest {
     public void test_getRootCauseMessage_Throwable() {
         Throwable th = null;
         assertEquals("", ExceptionUtils.getRootCauseMessage(th));
-
         th = new IllegalArgumentException("Base");
         assertEquals("IllegalArgumentException: Base", ExceptionUtils.getRootCauseMessage(th));
-
         th = new ExceptionWithCause("Wrapper", th);
         assertEquals("IllegalArgumentException: Base", ExceptionUtils.getRootCauseMessage(th));
     }
-
-    //-----------------------------------------------------------------------
 
     /**
      * Provides a method with a well known chained/nested exception
@@ -486,6 +455,7 @@ public class ExceptionUtilsTest {
      * of <code>Throwable</code>.
      */
     private static class ExceptionWithCause extends Exception {
+
         private static final long serialVersionUID = 1L;
 
         private Throwable cause;
@@ -516,6 +486,7 @@ public class ExceptionUtilsTest {
      * return value of <code>Throwable</code>.
      */
     private static class ExceptionWithoutCause extends Exception {
+
         private static final long serialVersionUID = 1L;
 
         @SuppressWarnings("unused")
@@ -523,9 +494,9 @@ public class ExceptionUtilsTest {
         }
     }
 
-    // Temporary classes to allow the nested exception code to be removed
     // prior to a rewrite of this test class.
     private static class NestableException extends Exception {
+
         private static final long serialVersionUID = 1L;
 
         @SuppressWarnings("unused")
@@ -558,7 +529,6 @@ public class ExceptionUtilsTest {
             assertTrue(ioe instanceof IOException);
             assertEquals(1, ExceptionUtils.getThrowableCount(ioe));
         }
-
         try {
             redeclareCheckedException();
             fail("Exception not thrown");
@@ -580,6 +550,7 @@ public class ExceptionUtilsTest {
     }
 
     public static class TestThrowable extends Throwable {
+
         private static final long serialVersionUID = 1L;
     }
 

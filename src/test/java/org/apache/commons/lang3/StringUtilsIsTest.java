@@ -16,15 +16,14 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - IsX methods
  */
-public class StringUtilsIsTest  {
+public class StringUtilsIsTest {
 
     @Test
     public void testIsAlpha() {
@@ -119,13 +118,13 @@ public class StringUtilsIsTest  {
         assertTrue(StringUtils.isAsciiPrintable("10,00"));
         assertTrue(StringUtils.isAsciiPrintable("!ab-c~"));
         assertTrue(StringUtils.isAsciiPrintable("hkHK=Hik6i?UGH_KJgU7.tUJgKJ*GI87GI,kug"));
-        assertTrue(StringUtils.isAsciiPrintable("\u0020"));
-        assertTrue(StringUtils.isAsciiPrintable("\u0021"));
-        assertTrue(StringUtils.isAsciiPrintable("\u007e"));
-        assertFalse(StringUtils.isAsciiPrintable("\u007f"));
+        assertTrue(StringUtils.isAsciiPrintable(" "));
+        assertTrue(StringUtils.isAsciiPrintable("!"));
+        assertTrue(StringUtils.isAsciiPrintable("~"));
+        assertFalse(StringUtils.isAsciiPrintable(""));
         assertTrue(StringUtils.isAsciiPrintable("G?lc?"));
         assertTrue(StringUtils.isAsciiPrintable("=?iso-8859-1?Q?G=FClc=FC?="));
-        assertFalse(StringUtils.isAsciiPrintable("G\u00fclc\u00fc"));
+        assertFalse(StringUtils.isAsciiPrintable("Gülcü"));
     }
 
     @Test
@@ -139,8 +138,8 @@ public class StringUtilsIsTest  {
         assertFalse(StringUtils.isNumeric("ham kso"));
         assertTrue(StringUtils.isNumeric("1"));
         assertTrue(StringUtils.isNumeric("1000"));
-        assertTrue(StringUtils.isNumeric("\u0967\u0968\u0969"));
-        assertFalse(StringUtils.isNumeric("\u0967\u0968 \u0969"));
+        assertTrue(StringUtils.isNumeric("१२३"));
+        assertFalse(StringUtils.isNumeric("१२ ३"));
         assertFalse(StringUtils.isNumeric("2.3"));
         assertFalse(StringUtils.isNumeric("10 00"));
         assertFalse(StringUtils.isNumeric("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
@@ -163,11 +162,10 @@ public class StringUtilsIsTest  {
         assertTrue(StringUtils.isNumericSpace("1000"));
         assertFalse(StringUtils.isNumericSpace("2.3"));
         assertTrue(StringUtils.isNumericSpace("10 00"));
-        assertTrue(StringUtils.isNumericSpace("\u0967\u0968\u0969"));
-        assertTrue(StringUtils.isNumericSpace("\u0967\u0968 \u0969"));
+        assertTrue(StringUtils.isNumericSpace("१२३"));
+        assertTrue(StringUtils.isNumericSpace("१२ ३"));
         assertFalse(StringUtils.isNumericSpace("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
         assertFalse(StringUtils.isNumericSpace("_"));
         assertFalse(StringUtils.isNumericSpace("hkHKHik*khbkuh"));
     }
-
 }

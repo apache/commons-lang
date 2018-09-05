@@ -16,25 +16,24 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
 import org.easymock.EasyMock;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for TimedSemaphore.
  */
 public class TimedSemaphoreTest {
+
     /** Constant for the time period. */
     private static final long PERIOD = 500;
 
@@ -49,21 +48,17 @@ public class TimedSemaphoreTest {
      */
     @Test
     public void testInit() {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         EasyMock.replay(service);
-        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT,
-                LIMIT);
+        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT, LIMIT);
         EasyMock.verify(service);
-        assertEquals("Wrong service", service, semaphore.getExecutorService());
-        assertEquals("Wrong period", PERIOD, semaphore.getPeriod());
-        assertEquals("Wrong unit", UNIT, semaphore.getUnit());
-        assertEquals("Statistic available", 0, semaphore
-                .getLastAcquiresPerPeriod());
-        assertEquals("Average available", 0.0, semaphore
-                .getAverageCallsPerPeriod(), .05);
-        assertFalse("Already shutdown", semaphore.isShutdown());
-        assertEquals("Wrong limit", LIMIT, semaphore.getLimit());
+        assertEquals(service, semaphore.getExecutorService(), "Wrong service");
+        assertEquals(PERIOD, semaphore.getPeriod(), "Wrong period");
+        assertEquals(UNIT, semaphore.getUnit(), "Wrong unit");
+        assertEquals(0, semaphore.getLastAcquiresPerPeriod(), "Statistic available");
+        assertEquals(0.0, semaphore.getAverageCallsPerPeriod(), .05, "Average available");
+        assertFalse(semaphore.isShutdown(), "Already shutdown");
+        assertEquals(LIMIT, semaphore.getLimit(), "Wrong limit");
     }
 
     /**
@@ -82,13 +77,10 @@ public class TimedSemaphoreTest {
     @Test
     public void testInitDefaultService() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
-        final ScheduledThreadPoolExecutor exec = (ScheduledThreadPoolExecutor) semaphore
-                .getExecutorService();
-        assertFalse("Wrong periodic task policy", exec
-                .getContinueExistingPeriodicTasksAfterShutdownPolicy());
-        assertFalse("Wrong delayed task policy", exec
-                .getExecuteExistingDelayedTasksAfterShutdownPolicy());
-        assertFalse("Already shutdown", exec.isShutdown());
+        final ScheduledThreadPoolExecutor exec = (ScheduledThreadPoolExecutor) semaphore.getExecutorService();
+        assertFalse(exec.getContinueExistingPeriodicTasksAfterShutdownPolicy(), "Wrong periodic task policy");
+        assertFalse(exec.getExecuteExistingDelayedTasksAfterShutdownPolicy(), "Wrong delayed task policy");
+        assertFalse(exec.isShutdown(), "Already shutdown");
         semaphore.shutdown();
     }
 
@@ -99,10 +91,9 @@ public class TimedSemaphoreTest {
      */
     @Test
     public void testStartTimer() throws InterruptedException {
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(PERIOD,
-                UNIT, LIMIT);
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(PERIOD, UNIT, LIMIT);
         final ScheduledFuture<?> future = semaphore.startTimer();
-        assertNotNull("No future returned", future);
+        assertNotNull(future, "No future returned");
         Thread.sleep(PERIOD);
         final int trials = 10;
         int count = 0;
@@ -123,9 +114,8 @@ public class TimedSemaphoreTest {
     public void testShutdownOwnExecutor() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
         semaphore.shutdown();
-        assertTrue("Not shutdown", semaphore.isShutdown());
-        assertTrue("Executor not shutdown", semaphore.getExecutorService()
-                .isShutdown());
+        assertTrue(semaphore.isShutdown(), "Not shutdown");
+        assertTrue(semaphore.getExecutorService().isShutdown(), "Executor not shutdown");
     }
 
     /**
@@ -134,13 +124,11 @@ public class TimedSemaphoreTest {
      */
     @Test
     public void testShutdownSharedExecutorNoTask() {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         EasyMock.replay(service);
-        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT,
-                LIMIT);
+        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT, LIMIT);
         semaphore.shutdown();
-        assertTrue("Not shutdown", semaphore.isShutdown());
+        assertTrue(semaphore.isShutdown(), "Not shutdown");
         EasyMock.verify(service);
     }
 
@@ -150,10 +138,8 @@ public class TimedSemaphoreTest {
      * @param service the mock
      * @param future the future
      */
-    private void prepareStartTimer(final ScheduledExecutorService service,
-            final ScheduledFuture<?> future) {
-        service.scheduleAtFixedRate((Runnable) EasyMock.anyObject(), EasyMock
-                .eq(PERIOD), EasyMock.eq(PERIOD), EasyMock.eq(UNIT));
+    private void prepareStartTimer(final ScheduledExecutorService service, final ScheduledFuture<?> future) {
+        service.scheduleAtFixedRate((Runnable) EasyMock.anyObject(), EasyMock.eq(PERIOD), EasyMock.eq(PERIOD), EasyMock.eq(UNIT));
         EasyMock.expectLastCall().andReturn(future);
     }
 
@@ -165,17 +151,15 @@ public class TimedSemaphoreTest {
      */
     @Test
     public void testShutdownSharedExecutorTask() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.expect(Boolean.valueOf(future.cancel(false))).andReturn(Boolean.TRUE);
         EasyMock.replay(service, future);
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service,
-                PERIOD, UNIT, LIMIT);
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service, PERIOD, UNIT, LIMIT);
         semaphore.acquire();
         semaphore.shutdown();
-        assertTrue("Not shutdown", semaphore.isShutdown());
+        assertTrue(semaphore.isShutdown(), "Not shutdown");
         EasyMock.verify(service, future);
     }
 
@@ -186,14 +170,12 @@ public class TimedSemaphoreTest {
      */
     @Test
     public void testShutdownMultipleTimes() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.expect(Boolean.valueOf(future.cancel(false))).andReturn(Boolean.TRUE);
         EasyMock.replay(service, future);
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service,
-                PERIOD, UNIT, LIMIT);
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service, PERIOD, UNIT, LIMIT);
         semaphore.acquire();
         for (int i = 0; i < 10; i++) {
             semaphore.shutdown();
@@ -208,32 +190,25 @@ public class TimedSemaphoreTest {
      */
     @Test
     public void testAcquireLimit() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.replay(service, future);
         final int count = 10;
         final CountDownLatch latch = new CountDownLatch(count - 1);
         final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT, 1);
-        final SemaphoreThread t = new SemaphoreThread(semaphore, latch, count,
-                count - 1);
+        final SemaphoreThread t = new SemaphoreThread(semaphore, latch, count, count - 1);
         semaphore.setLimit(count - 1);
-
         // start a thread that calls the semaphore count times
         t.start();
         latch.await();
         // now the semaphore's limit should be reached and the thread blocked
-        assertEquals("Wrong semaphore count", count - 1, semaphore
-                .getAcquireCount());
-
+        assertEquals(count - 1, semaphore.getAcquireCount(), "Wrong semaphore count");
         // this wakes up the thread, it should call the semaphore once more
         semaphore.endOfPeriod();
         t.join();
-        assertEquals("Wrong semaphore count (2)", 1, semaphore
-                .getAcquireCount());
-        assertEquals("Wrong acquire() count", count - 1, semaphore
-                .getLastAcquiresPerPeriod());
+        assertEquals(1, semaphore.getAcquireCount(), "Wrong semaphore count (2)");
+        assertEquals(count - 1, semaphore.getLastAcquiresPerPeriod(), "Wrong acquire() count");
         EasyMock.verify(service, future);
     }
 
@@ -247,13 +222,11 @@ public class TimedSemaphoreTest {
      */
     @Test
     public void testAcquireMultipleThreads() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.replay(service, future);
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service,
-                PERIOD, UNIT, 1);
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service, PERIOD, UNIT, 1);
         semaphore.latch = new CountDownLatch(1);
         final int count = 10;
         final SemaphoreThread[] threads = new SemaphoreThread[count];
@@ -263,11 +236,10 @@ public class TimedSemaphoreTest {
         }
         for (int i = 0; i < count; i++) {
             semaphore.latch.await();
-            assertEquals("Wrong count", 1, semaphore.getAcquireCount());
+            assertEquals(1, semaphore.getAcquireCount(), "Wrong count");
             semaphore.latch = new CountDownLatch(1);
             semaphore.endOfPeriod();
-            assertEquals("Wrong acquire count", 1, semaphore
-                    .getLastAcquiresPerPeriod());
+            assertEquals(1, semaphore.getLastAcquiresPerPeriod(), "Wrong acquire count");
         }
         for (int i = 0; i < count; i++) {
             threads[i].join();
@@ -284,13 +256,11 @@ public class TimedSemaphoreTest {
      */
     @Test
     public void testAcquireNoLimit() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.replay(service, future);
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service,
-                PERIOD, UNIT, TimedSemaphore.NO_LIMIT);
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service, PERIOD, UNIT, TimedSemaphore.NO_LIMIT);
         final int count = 1000;
         final CountDownLatch latch = new CountDownLatch(count);
         final SemaphoreThread t = new SemaphoreThread(semaphore, latch, count, count);
@@ -322,15 +292,14 @@ public class TimedSemaphoreTest {
     @Test
     public void testAcquireMultiplePeriods() throws InterruptedException {
         final int count = 1000;
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(
-                PERIOD / 10, TimeUnit.MILLISECONDS, 1);
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(PERIOD / 10, TimeUnit.MILLISECONDS, 1);
         semaphore.setLimit(count / 4);
         final CountDownLatch latch = new CountDownLatch(count);
         final SemaphoreThread t = new SemaphoreThread(semaphore, latch, count, count);
         t.start();
         latch.await();
         semaphore.shutdown();
-        assertTrue("End of period not reached", semaphore.getPeriodEnds() > 0);
+        assertTrue(semaphore.getPeriodEnds() > 0, "End of period not reached");
     }
 
     /**
@@ -340,22 +309,18 @@ public class TimedSemaphoreTest {
      */
     @Test
     public void testGetAverageCallsPerPeriod() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.replay(service, future);
-        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT,
-                LIMIT);
+        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT, LIMIT);
         semaphore.acquire();
         semaphore.endOfPeriod();
-        assertEquals("Wrong average (1)", 1.0, semaphore
-                .getAverageCallsPerPeriod(), .005);
+        assertEquals(1.0, semaphore.getAverageCallsPerPeriod(), .005, "Wrong average (1)");
         semaphore.acquire();
         semaphore.acquire();
         semaphore.endOfPeriod();
-        assertEquals("Wrong average (2)", 1.5, semaphore
-                .getAverageCallsPerPeriod(), .005);
+        assertEquals(1.5, semaphore.getAverageCallsPerPeriod(), .005, "Wrong average (2)");
         EasyMock.verify(service, future);
     }
 
@@ -366,21 +331,17 @@ public class TimedSemaphoreTest {
      */
     @Test
     public void testGetAvailablePermits() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.replay(service, future);
-        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT,
-                LIMIT);
+        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT, LIMIT);
         for (int i = 0; i < LIMIT; i++) {
-            assertEquals("Wrong available count at " + i, LIMIT - i, semaphore
-                    .getAvailablePermits());
+            assertEquals(LIMIT - i, semaphore.getAvailablePermits(), "Wrong available count at " + i);
             semaphore.acquire();
         }
         semaphore.endOfPeriod();
-        assertEquals("Wrong available count in new period", LIMIT, semaphore
-                .getAvailablePermits());
+        assertEquals(LIMIT, semaphore.getAvailablePermits(), "Wrong available count in new period");
         EasyMock.verify(service, future);
     }
 
@@ -390,15 +351,13 @@ public class TimedSemaphoreTest {
      */
     @Test
     public void testTryAcquire() throws InterruptedException {
-        final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, TimeUnit.SECONDS,
-                LIMIT);
+        final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, TimeUnit.SECONDS, LIMIT);
         final TryAcquireThread[] threads = new TryAcquireThread[3 * LIMIT];
         final CountDownLatch latch = new CountDownLatch(1);
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new TryAcquireThread(semaphore, latch);
             threads[i].start();
         }
-
         latch.countDown();
         int permits = 0;
         for (final TryAcquireThread t : threads) {
@@ -407,7 +366,7 @@ public class TimedSemaphoreTest {
                 permits++;
             }
         }
-        assertEquals("Wrong number of permits granted", LIMIT, permits);
+        assertEquals(LIMIT, permits, "Wrong number of permits granted");
     }
 
     /**
@@ -425,6 +384,7 @@ public class TimedSemaphoreTest {
      * test.
      */
     private static class TimedSemaphoreTestImpl extends TimedSemaphore {
+
         /** A mock scheduled future. */
         ScheduledFuture<?> schedFuture;
 
@@ -434,13 +394,11 @@ public class TimedSemaphoreTest {
         /** Counter for the endOfPeriod() invocations. */
         private int periodEnds;
 
-        TimedSemaphoreTestImpl(final long timePeriod, final TimeUnit timeUnit,
-                final int limit) {
+        TimedSemaphoreTestImpl(final long timePeriod, final TimeUnit timeUnit, final int limit) {
             super(timePeriod, timeUnit, limit);
         }
 
-        TimedSemaphoreTestImpl(final ScheduledExecutorService service,
-                final long timePeriod, final TimeUnit timeUnit, final int limit) {
+        TimedSemaphoreTestImpl(final ScheduledExecutorService service, final long timePeriod, final TimeUnit timeUnit, final int limit) {
             super(service, timePeriod, timeUnit, limit);
         }
 
@@ -492,6 +450,7 @@ public class TimedSemaphoreTest {
      * When this is done, it can notify the main thread.
      */
     private static class SemaphoreThread extends Thread {
+
         /** The semaphore. */
         private final TimedSemaphore semaphore;
 
@@ -521,7 +480,6 @@ public class TimedSemaphoreTest {
             try {
                 for (int i = 0; i < count; i++) {
                     semaphore.acquire();
-
                     if (i < latchCount) {
                         latch.countDown();
                     }
@@ -537,6 +495,7 @@ public class TimedSemaphoreTest {
      * records the return value.
      */
     private static class TryAcquireThread extends Thread {
+
         /** The semaphore. */
         private final TimedSemaphore semaphore;
 
@@ -558,7 +517,7 @@ public class TimedSemaphoreTest {
                     acquired = semaphore.tryAcquire();
                 }
             } catch (final InterruptedException iex) {
-                // ignore
+            // ignore
             }
         }
     }
