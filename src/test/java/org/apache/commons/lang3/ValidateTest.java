@@ -18,6 +18,7 @@
  */
 package org.apache.commons.lang3;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -42,63 +44,98 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 class ValidateTest {
 
-    //-----------------------------------------------------------------------
-    @Test
-    void testIsTrue1() {
-        Validate.isTrue(true);
-        try {
-            Validate.isTrue(false);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("The validated expression is false", ex.getMessage());
-        }
-    }
+    @Nested
+    class IsTrue {
 
-    //-----------------------------------------------------------------------
-    @Test
-    void testIsTrue2() {
-        Validate.isTrue(true, "MSG");
-        try {
-            Validate.isTrue(false, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-    }
+        @Nested
+        class WithoutMessage {
 
-    //-----------------------------------------------------------------------
-    @Test
-    void testIsTrue3() {
-        Validate.isTrue(true, "MSG", 6);
-        try {
-            Validate.isTrue(false, "MSG", 6);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-    }
+            @Test
+            void shouldNotThrowForTrueExpression() {
+                Validate.isTrue(true);
+            }
 
-    //-----------------------------------------------------------------------
-    @Test
-    void testIsTrue4() {
-        Validate.isTrue(true, "MSG", 7);
-        try {
-            Validate.isTrue(false, "MSG", 7);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-    }
+            @Test
+            void shouldThrowExceptionWithDefaultMessageForFalseExpression() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isTrue(false));
 
-    //-----------------------------------------------------------------------
-    @Test
-    void testIsTrue5() {
-        Validate.isTrue(true, "MSG", 7.4d);
-        try {
-            Validate.isTrue(false, "MSG", 7.4d);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
+                assertEquals("The validated expression is false", ex.getMessage());
+            }
+
+        }
+
+        @Nested
+        class WithMessage {
+
+            @Test
+            void shouldNotThrowForTrueExpression() {
+                Validate.isTrue(true, "MSG");
+            }
+
+            @Test
+            void shouldThrowExceptionWithGivenMessageForFalseExpression() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isTrue(false, "MSG"));
+
+                assertEquals("MSG", ex.getMessage());
+            }
+        }
+
+        @Nested
+        class WithLongTemplate {
+
+            @Test
+            void shouldNotThrowForTrueExpression() {
+                Validate.isTrue(true, "MSG", 6);
+            }
+
+            @Test
+            void shouldThrowExceptionWithLongInsertedIntoTemplateMessageForFalseExpression() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isTrue(false, "MSG %s", 6));
+
+                assertEquals("MSG 6", ex.getMessage());
+            }
+        }
+
+        @Nested
+        class WithDoubleTemplate {
+
+            @Test
+            void shouldNotThrowForTrueExpression() {
+                Validate.isTrue(true, "MSG", 7.4d);
+            }
+
+            @Test
+            void shouldThrowExceptionWithDoubleInsertedIntoTemplateMessageForFalseExpression() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isTrue(false, "MSG %s", 7.4d));
+
+                assertEquals("MSG 7.4", ex.getMessage());
+            }
+        }
+
+        @Nested
+        class WithObjectTemplate {
+
+            @Test
+            void shouldNotThrowForTrueExpression() {
+                Validate.isTrue(true, "MSG", "Object 1", "Object 2");
+            }
+
+            @Test
+            void shouldThrowExceptionWithDoubleInsertedIntoTemplateMessageForFalseExpression() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isTrue(false, "MSG %s %s", "Object 1", "Object 2"));
+
+                assertEquals("MSG Object 1 Object 2", ex.getMessage());
+            }
         }
     }
 
