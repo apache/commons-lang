@@ -16,15 +16,13 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.ToStringStyle}.
@@ -32,6 +30,7 @@ import org.junit.Test;
 public class StandardToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
+
     private final String baseStr = "Integer";
 
     private static final StandardToStringStyle STYLE = new StandardToStringStyle();
@@ -49,18 +48,17 @@ public class StandardToStringStyleTest {
         STYLE.setSummaryObjectEndText("%");
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         ToStringBuilder.setDefaultStyle(STYLE);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
     //----------------------------------------------------------------
-
     @Test
     public void testBlank() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
@@ -70,7 +68,6 @@ public class StandardToStringStyleTest {
     public void testAppendSuper() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
         assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).appendSuper("Integer@8888[%NULL%]").toString());
-
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[]").append("a", "hello").toString());
         assertEquals(baseStr + "[%NULL%,a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[%NULL%]").append("a", "hello").toString());
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper(null).append("a", "hello").toString());
@@ -113,7 +110,7 @@ public class StandardToStringStyleTest {
 
     @Test
     public void testObjectArray() {
-        Object[] array = new Object[] {null, base, new int[] {3, 6}};
+        Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
         assertEquals(baseStr + "[[%NULL%, 5, [3, 6]]]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[[%NULL%, 5, [3, 6]]]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
@@ -123,7 +120,7 @@ public class StandardToStringStyleTest {
 
     @Test
     public void testLongArray() {
-        long[] array = new long[] {1, 2, -3, 4};
+        long[] array = new long[] { 1, 2, -3, 4 };
         assertEquals(baseStr + "[[1, 2, -3, 4]]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[[1, 2, -3, 4]]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
@@ -133,12 +130,11 @@ public class StandardToStringStyleTest {
 
     @Test
     public void testLongArrayArray() {
-        long[][] array = new long[][] {{1, 2}, null, {5}};
+        long[][] array = new long[][] { { 1, 2 }, null, { 5 } };
         assertEquals(baseStr + "[[[1, 2], %NULL%, [5]]]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[[[1, 2], %NULL%, [5]]]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
         assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).append((Object) array).toString());
     }
-
 }

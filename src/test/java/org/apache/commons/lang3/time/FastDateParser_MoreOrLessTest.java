@@ -16,17 +16,15 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import java.text.ParsePosition;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FastDateParser_MoreOrLessTest {
 
@@ -49,7 +47,6 @@ public class FastDateParser_MoreOrLessTest {
         final ParsePosition parsePosition = new ParsePosition(0);
         final Date date = parser.parse(" 3/ 23/ 1961", parsePosition);
         assertEquals(12, parsePosition.getIndex());
-
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         assertEquals(1961, calendar.get(Calendar.YEAR));
@@ -63,7 +60,6 @@ public class FastDateParser_MoreOrLessTest {
         final ParsePosition parsePosition = new ParsePosition(0);
         final Date date = parser.parse("3/23/61", parsePosition);
         assertEquals(4, parsePosition.getIndex());
-
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         assertEquals(2, calendar.get(Calendar.MONTH));
@@ -89,14 +85,12 @@ public class FastDateParser_MoreOrLessTest {
     @Test
     public void testInputHasWrongTimeZone() {
         final FastDateParser parser = new FastDateParser("mm:ss z", NEW_YORK, Locale.US);
-
         final String input = "11:23 Pacific Standard Time";
         final ParsePosition parsePosition = new ParsePosition(0);
         assertNotNull(parser.parse(input, parsePosition));
         assertEquals(input.length(), parsePosition.getIndex());
-
         parsePosition.setIndex(0);
-        assertNull(parser.parse( "11:23 Pacific Standard ", parsePosition));
+        assertNull(parser.parse("11:23 Pacific Standard ", parsePosition));
         assertEquals(6, parsePosition.getErrorIndex());
     }
 
@@ -107,9 +101,8 @@ public class FastDateParser_MoreOrLessTest {
         final ParsePosition parsePosition = new ParsePosition(0);
         assertNotNull(parser.parse(input, parsePosition));
         assertEquals(input.length(), parsePosition.getIndex());
-
         parsePosition.setIndex(0);
-        assertNull(parser.parse( "Thorsday, 03/23/61", parsePosition));
+        assertNull(parser.parse("Thorsday, 03/23/61", parsePosition));
         assertEquals(0, parsePosition.getErrorIndex());
     }
 }

@@ -18,22 +18,20 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.CharRange}.
  */
-public class CharRangeTest  {
+public class CharRangeTest {
 
     //-----------------------------------------------------------------------
     @Test
@@ -122,16 +120,13 @@ public class CharRangeTest  {
         final CharRange rangea = CharRange.is('a');
         final CharRange rangeae = CharRange.isIn('a', 'e');
         final CharRange rangenotbf = CharRange.isIn('b', 'f');
-
         assertFalse(rangea.equals(null));
-
         assertTrue(rangea.equals(rangea));
         assertTrue(rangea.equals(CharRange.is('a')));
         assertTrue(rangeae.equals(rangeae));
         assertTrue(rangeae.equals(CharRange.isIn('a', 'e')));
         assertTrue(rangenotbf.equals(rangenotbf));
         assertTrue(rangenotbf.equals(CharRange.isIn('b', 'f')));
-
         assertFalse(rangea.equals(rangeae));
         assertFalse(rangea.equals(rangenotbf));
         assertFalse(rangeae.equals(rangea));
@@ -145,14 +140,12 @@ public class CharRangeTest  {
         final CharRange rangea = CharRange.is('a');
         final CharRange rangeae = CharRange.isIn('a', 'e');
         final CharRange rangenotbf = CharRange.isIn('b', 'f');
-
         assertTrue(rangea.hashCode() == rangea.hashCode());
         assertTrue(rangea.hashCode() == CharRange.is('a').hashCode());
         assertTrue(rangeae.hashCode() == rangeae.hashCode());
         assertTrue(rangeae.hashCode() == CharRange.isIn('a', 'e').hashCode());
         assertTrue(rangenotbf.hashCode() == rangenotbf.hashCode());
         assertTrue(rangenotbf.hashCode() == CharRange.isIn('b', 'f').hashCode());
-
         assertFalse(rangea.hashCode() == rangeae.hashCode());
         assertFalse(rangea.hashCode() == rangenotbf.hashCode());
         assertFalse(rangeae.hashCode() == rangea.hashCode());
@@ -169,19 +162,16 @@ public class CharRangeTest  {
         assertTrue(range.contains('c'));
         assertFalse(range.contains('d'));
         assertFalse(range.contains('e'));
-
         range = CharRange.isIn('c', 'd');
         assertFalse(range.contains('b'));
         assertTrue(range.contains('c'));
         assertTrue(range.contains('d'));
         assertFalse(range.contains('e'));
-
         range = CharRange.isIn('d', 'c');
         assertFalse(range.contains('b'));
         assertTrue(range.contains('c'));
         assertTrue(range.contains('d'));
         assertFalse(range.contains('e'));
-
         range = CharRange.isNotIn('c', 'd');
         assertTrue(range.contains('b'));
         assertFalse(range.contains('c'));
@@ -207,31 +197,26 @@ public class CharRangeTest  {
         final CharRange de = CharRange.isIn('d', 'e');
         final CharRange ef = CharRange.isIn('e', 'f');
         final CharRange ae = CharRange.isIn('a', 'e');
-
         // normal/normal
         assertFalse(c.contains(b));
         assertTrue(c.contains(c));
         assertTrue(c.contains(c2));
         assertFalse(c.contains(d));
-
         assertFalse(c.contains(cd));
         assertFalse(c.contains(bd));
         assertFalse(c.contains(bc));
         assertFalse(c.contains(ab));
         assertFalse(c.contains(de));
-
         assertTrue(cd.contains(c));
         assertTrue(bd.contains(c));
         assertTrue(bc.contains(c));
         assertFalse(ab.contains(c));
         assertFalse(de.contains(c));
-
         assertTrue(ae.contains(b));
         assertTrue(ae.contains(ab));
         assertTrue(ae.contains(bc));
         assertTrue(ae.contains(cd));
         assertTrue(ae.contains(de));
-
         final CharRange notb = CharRange.isNot('b');
         final CharRange notc = CharRange.isNot('c');
         final CharRange notd = CharRange.isNot('d');
@@ -243,7 +228,6 @@ public class CharRangeTest  {
         final CharRange notae = CharRange.isNotIn('a', 'e');
         final CharRange all = CharRange.isIn((char) 0, Character.MAX_VALUE);
         final CharRange allbutfirst = CharRange.isIn((char) 1, Character.MAX_VALUE);
-
         // normal/negated
         assertFalse(c.contains(notc));
         assertFalse(c.contains(notbd));
@@ -251,14 +235,12 @@ public class CharRangeTest  {
         assertTrue(all.contains(notbd));
         assertFalse(allbutfirst.contains(notc));
         assertFalse(allbutfirst.contains(notbd));
-
         // negated/normal
         assertTrue(notc.contains(a));
         assertTrue(notc.contains(b));
         assertFalse(notc.contains(c));
         assertTrue(notc.contains(d));
         assertTrue(notc.contains(e));
-
         assertTrue(notc.contains(ab));
         assertFalse(notc.contains(bc));
         assertFalse(notc.contains(bd));
@@ -267,13 +249,11 @@ public class CharRangeTest  {
         assertFalse(notc.contains(ae));
         assertFalse(notc.contains(all));
         assertFalse(notc.contains(allbutfirst));
-
         assertTrue(notbd.contains(a));
         assertFalse(notbd.contains(b));
         assertFalse(notbd.contains(c));
         assertFalse(notbd.contains(d));
         assertTrue(notbd.contains(e));
-
         assertTrue(notcd.contains(ab));
         assertFalse(notcd.contains(bc));
         assertFalse(notcd.contains(bd));
@@ -283,22 +263,18 @@ public class CharRangeTest  {
         assertTrue(notcd.contains(ef));
         assertFalse(notcd.contains(all));
         assertFalse(notcd.contains(allbutfirst));
-
         // negated/negated
         assertFalse(notc.contains(notb));
         assertTrue(notc.contains(notc));
         assertFalse(notc.contains(notd));
-
         assertFalse(notc.contains(notab));
         assertTrue(notc.contains(notbc));
         assertTrue(notc.contains(notbd));
         assertTrue(notc.contains(notcd));
         assertFalse(notc.contains(notde));
-
         assertFalse(notbd.contains(notb));
         assertFalse(notbd.contains(notc));
         assertFalse(notbd.contains(notd));
-
         assertFalse(notbd.contains(notab));
         assertFalse(notbd.contains(notbc));
         assertTrue(notbd.contains(notbd));
@@ -311,10 +287,8 @@ public class CharRangeTest  {
     public void testContainsNullArg() {
         final CharRange range = CharRange.is('a');
         try {
-            @SuppressWarnings("unused")
-            final
-            boolean contains = range.contains(null);
-        } catch(final IllegalArgumentException e) {
+            @SuppressWarnings("unused") final boolean contains = range.contains(null);
+        } catch (final IllegalArgumentException e) {
             assertEquals("The Range must not be null", e.getMessage());
         }
     }
@@ -327,13 +301,11 @@ public class CharRangeTest  {
         final CharRange emptySet = CharRange.isNotIn((char) 0, Character.MAX_VALUE);
         final CharRange notFirst = CharRange.isNotIn((char) 1, Character.MAX_VALUE);
         final CharRange notLast = CharRange.isNotIn((char) 0, (char) (Character.MAX_VALUE - 1));
-
         final Iterator<Character> aIt = a.iterator();
         assertNotNull(aIt);
         assertTrue(aIt.hasNext());
         assertEquals(Character.valueOf('a'), aIt.next());
         assertFalse(aIt.hasNext());
-
         final Iterator<Character> adIt = ad.iterator();
         assertNotNull(adIt);
         assertTrue(adIt.hasNext());
@@ -342,7 +314,6 @@ public class CharRangeTest  {
         assertEquals(Character.valueOf('c'), adIt.next());
         assertEquals(Character.valueOf('d'), adIt.next());
         assertFalse(adIt.hasNext());
-
         final Iterator<Character> notaIt = nota.iterator();
         assertNotNull(notaIt);
         assertTrue(notaIt.hasNext());
@@ -350,7 +321,6 @@ public class CharRangeTest  {
             final Character c = notaIt.next();
             assertFalse('a' == c.charValue());
         }
-
         final Iterator<Character> emptySetIt = emptySet.iterator();
         assertNotNull(emptySetIt);
         assertFalse(emptySetIt.hasNext());
@@ -360,7 +330,6 @@ public class CharRangeTest  {
         } catch (final NoSuchElementException e) {
             assertTrue(true);
         }
-
         final Iterator<Character> notFirstIt = notFirst.iterator();
         assertNotNull(notFirstIt);
         assertTrue(notFirstIt.hasNext());
@@ -372,7 +341,6 @@ public class CharRangeTest  {
         } catch (final NoSuchElementException e) {
             assertTrue(true);
         }
-
         final Iterator<Character> notLastIt = notLast.iterator();
         assertNotNull(notLastIt);
         assertTrue(notLastIt.hasNext());

@@ -19,6 +19,7 @@ package org.apache.commons.lang3.reflect.testbed;
 /**
  */
 public interface Bar {
+
     String VALUE = "bar";
 
     void doIt();

@@ -14,24 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang3.text;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for StrLookup.
  */
 @Deprecated
-public class StrLookupTest  {
+public class StrLookupTest {
 
     //-----------------------------------------------------------------------
     @Test
@@ -50,7 +47,7 @@ public class StrLookupTest  {
             StrLookup.systemPropertiesLookup().lookup(null);
             fail();
         } catch (final NullPointerException ex) {
-            // expected
+        // expected
         }
     }
 
@@ -64,13 +61,12 @@ public class StrLookupTest  {
         final Properties oldProperties = System.getProperties();
         final String osName = "os.name";
         final String newOsName = oldProperties.getProperty(osName) + "_changed";
-
         final StrLookup<String> sysLookup = StrLookup.systemPropertiesLookup();
         final Properties newProps = new Properties();
         newProps.setProperty(osName, newOsName);
         System.setProperties(newProps);
         try {
-            assertEquals("Changed properties not detected", newOsName, sysLookup.lookup(osName));
+            assertEquals(newOsName, sysLookup.lookup(osName), "Changed properties not detected");
         } finally {
             System.setProperties(oldProperties);
         }
@@ -85,11 +81,10 @@ public class StrLookupTest  {
         final String osName = "os.name";
         final String oldOs = System.getProperty(osName);
         final String newOsName = oldOs + "_changed";
-
         final StrLookup<String> sysLookup = StrLookup.systemPropertiesLookup();
         System.setProperty(osName, newOsName);
         try {
-            assertEquals("Changed properties not detected", newOsName, sysLookup.lookup(osName));
+            assertEquals(newOsName, sysLookup.lookup(osName), "Changed properties not detected");
         } finally {
             System.setProperty(osName, oldOs);
         }
@@ -114,5 +109,4 @@ public class StrLookupTest  {
         assertNull(StrLookup.mapLookup(map).lookup(""));
         assertNull(StrLookup.mapLookup(map).lookup("any"));
     }
-
 }

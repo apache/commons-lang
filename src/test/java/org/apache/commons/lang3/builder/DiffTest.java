@@ -16,10 +16,8 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link Diff}.
@@ -27,9 +25,11 @@ import org.junit.Test;
 public class DiffTest {
 
     private static final String FIELD_NAME = "field";
+
     private static final Diff<Boolean> booleanDiff = new BooleanDiff(FIELD_NAME);
 
     private static class BooleanDiff extends Diff<Boolean> {
+
         private static final long serialVersionUID = 1L;
 
         protected BooleanDiff(final String fieldName) {
@@ -64,7 +64,6 @@ public class DiffTest {
 
     @Test
     public void testToString() {
-        assertEquals(String.format("[%s: %s, %s]", FIELD_NAME, booleanDiff.getLeft(),
-                booleanDiff.getRight()), booleanDiff.toString());
+        assertEquals(String.format("[%s: %s, %s]", FIELD_NAME, booleanDiff.getLeft(), booleanDiff.getRight()), booleanDiff.toString());
     }
 }

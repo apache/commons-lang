@@ -16,14 +16,12 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.RecursiveToStringStyleTest}.
@@ -31,20 +29,20 @@ import org.junit.Test;
 public class RecursiveToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
+
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         ToStringBuilder.setDefaultStyle(new RecursiveToStringStyle());
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
     //----------------------------------------------------------------
-
     @Test
     public void testBlank() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
@@ -54,7 +52,6 @@ public class RecursiveToStringStyleTest {
     public void testAppendSuper() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").toString());
-
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[]").append("a", "hello").toString());
         assertEquals(baseStr + "[<null>,a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").append("a", "hello").toString());
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper(null).append("a", "hello").toString());
@@ -65,7 +62,6 @@ public class RecursiveToStringStyleTest {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
         final ArrayList<Object> emptyList = new ArrayList<>();
-
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(i3).toString());
         assertEquals(baseStr + "[a=<null>]", new ToStringBuilder(base).append("a", (Object) null).toString());
@@ -73,8 +69,7 @@ public class RecursiveToStringStyleTest {
         assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", i3).append("b", i4).toString());
         assertEquals(baseStr + "[a=<Integer>]", new ToStringBuilder(base).append("a", i3, false).toString());
         assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", emptyList, false).toString());
-        assertEquals(baseStr + "[a=java.util.ArrayList@" + Integer.toHexString(System.identityHashCode(emptyList)) + "{}]",
-                new ToStringBuilder(base).append("a", emptyList, true).toString());
+        assertEquals(baseStr + "[a=java.util.ArrayList@" + Integer.toHexString(System.identityHashCode(emptyList)) + "{}]", new ToStringBuilder(base).append("a", emptyList, true).toString());
         assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", new HashMap<>(), false).toString());
         assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", new HashMap<>(), true).toString());
         assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
@@ -90,9 +85,8 @@ public class RecursiveToStringStyleTest {
         p.job = new Job();
         p.job.title = "Manager";
         final String pBaseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
-        final String pJobStr  = p.job.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p.job));
-        assertEquals(pBaseStr + "[name=John Doe,age=33,smoker=false,job=" + pJobStr + "[title=Manager]]",
-                     new ReflectionToStringBuilder(p, new RecursiveToStringStyle()).toString());
+        final String pJobStr = p.job.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p.job));
+        assertEquals(pBaseStr + "[name=John Doe,age=33,smoker=false,job=" + pJobStr + "[title=Manager]]", new ReflectionToStringBuilder(p, new RecursiveToStringStyle()).toString());
     }
 
     @Test
@@ -104,7 +98,7 @@ public class RecursiveToStringStyleTest {
 
     @Test
     public void testObjectArray() {
-        Object[] array = new Object[] {null, base, new int[] {3, 6}};
+        Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
         assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
@@ -114,7 +108,7 @@ public class RecursiveToStringStyleTest {
 
     @Test
     public void testLongArray() {
-        long[] array = new long[] {1, 2, -3, 4};
+        long[] array = new long[] { 1, 2, -3, 4 };
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
@@ -124,7 +118,7 @@ public class RecursiveToStringStyleTest {
 
     @Test
     public void testLongArrayArray() {
-        long[][] array = new long[][] {{1, 2}, null, {5}};
+        long[][] array = new long[][] { { 1, 2 }, null, { 5 } };
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
@@ -133,6 +127,7 @@ public class RecursiveToStringStyleTest {
     }
 
     static class Person {
+
         /**
          * Test String field.
          */
@@ -155,10 +150,10 @@ public class RecursiveToStringStyleTest {
     }
 
     static class Job {
+
         /**
          * Test String field.
          */
         String title;
     }
-
 }

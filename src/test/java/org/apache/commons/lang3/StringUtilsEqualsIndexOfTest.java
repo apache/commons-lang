@@ -16,49 +16,47 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Locale;
-
 import org.apache.commons.lang3.test.SystemDefaultsSwitch;
 import org.hamcrest.core.IsNot;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Rule;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Equals/IndexOf methods
  */
-public class StringUtilsEqualsIndexOfTest  {
+public class StringUtilsEqualsIndexOfTest {
 
     @Rule
     public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
 
     private static final String BAR = "bar";
+
     /**
      * Supplementary character U+20000
      * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
-    private static final String CharU20000 = "\uD840\uDC00";
+    private static final String CharU20000 = "𠀀";
+
     /**
      * Supplementary character U+20001
      * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
-    private static final String CharU20001 = "\uD840\uDC01";
+    private static final String CharU20001 = "𠀁";
 
     private static final String FOO = "foo";
 
     private static final String FOOBAR = "foobar";
 
-    private static final String[] FOOBAR_SUB_ARRAY = new String[] {"ob", "ba"};
+    private static final String[] FOOBAR_SUB_ARRAY = new String[] { "ob", "ba" };
 
-    // The purpose of this class is to test StringUtils#equals(CharSequence, CharSequence)
-    // with a CharSequence implementation whose equals(Object) override requires that the
-    // other object be an instance of CustomCharSequence, even though, as char sequences,
     // `seq` may equal the other object.
     private static class CustomCharSequence implements CharSequence {
+
         private final CharSequence seq;
 
         CustomCharSequence(final CharSequence seq) {
@@ -146,15 +144,14 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.equalsIgnoreCase(FOO, BAR));
         assertFalse(StringUtils.equalsIgnoreCase(FOO, null));
         assertFalse(StringUtils.equalsIgnoreCase(null, FOO));
-        assertTrue(StringUtils.equalsIgnoreCase("",""));
-        assertFalse(StringUtils.equalsIgnoreCase("abcd","abcd "));
+        assertTrue(StringUtils.equalsIgnoreCase("", ""));
+        assertFalse(StringUtils.equalsIgnoreCase("abcd", "abcd "));
     }
 
     @Test
     public void testEqualsAny() {
         assertFalse(StringUtils.equalsAny(FOO));
-        assertFalse(StringUtils.equalsAny(FOO, new String[]{}));
-
+        assertFalse(StringUtils.equalsAny(FOO, new String[] {}));
         assertTrue(StringUtils.equalsAny(FOO, FOO));
         assertTrue(StringUtils.equalsAny(FOO, BAR, new String(new char[] { 'f', 'o', 'o' })));
         assertFalse(StringUtils.equalsAny(FOO, BAR, new String(new char[] { 'f', 'O', 'O' })));
@@ -163,13 +160,11 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.equalsAny(null, FOO));
         assertFalse(StringUtils.equalsAny(FOO, FOOBAR));
         assertFalse(StringUtils.equalsAny(FOOBAR, FOO));
-
         assertTrue(StringUtils.equalsAny(null, null, null));
         assertFalse(StringUtils.equalsAny(null, FOO, BAR, FOOBAR));
         assertFalse(StringUtils.equalsAny(FOO, null, BAR));
         assertTrue(StringUtils.equalsAny(FOO, BAR, null, "", FOO, BAR));
         assertFalse(StringUtils.equalsAny(FOO, FOO.toUpperCase(Locale.ROOT)));
-
         assertFalse(StringUtils.equalsAny(null, (CharSequence[]) null));
         assertTrue(StringUtils.equalsAny(FOO, new CustomCharSequence("foo")));
         assertTrue(StringUtils.equalsAny(FOO, new StringBuilder("foo")));
@@ -180,24 +175,21 @@ public class StringUtilsEqualsIndexOfTest  {
     @Test
     public void testEqualsAnyIgnoreCase() {
         assertFalse(StringUtils.equalsAnyIgnoreCase(FOO));
-        assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, new String[]{}));
-
+        assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, new String[] {}));
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO));
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO.toUpperCase(Locale.ROOT)));
-        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO, new String(new char[]{'f', 'o', 'o'})));
-        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, BAR, new String(new char[]{'f', 'O', 'O'})));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO, new String(new char[] { 'f', 'o', 'o' })));
+        assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, BAR, new String(new char[] { 'f', 'O', 'O' })));
         assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, BAR));
         assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, BAR, null));
         assertFalse(StringUtils.equalsAnyIgnoreCase(null, FOO));
         assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, FOOBAR));
         assertFalse(StringUtils.equalsAnyIgnoreCase(FOOBAR, FOO));
-
         assertTrue(StringUtils.equalsAnyIgnoreCase(null, null, null));
         assertFalse(StringUtils.equalsAnyIgnoreCase(null, FOO, BAR, FOOBAR));
         assertFalse(StringUtils.equalsAnyIgnoreCase(FOO, null, BAR));
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, BAR, null, "", FOO.toUpperCase(Locale.ROOT), BAR));
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, FOO.toUpperCase(Locale.ROOT)));
-
         assertFalse(StringUtils.equalsAnyIgnoreCase(null, (CharSequence[]) null));
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, new CustomCharSequence("fOo")));
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, new StringBuilder("fOo")));
@@ -279,7 +271,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.indexOf("", ' '));
         assertEquals(0, StringUtils.indexOf("aabaabaa", 'a'));
         assertEquals(2, StringUtils.indexOf("aabaabaa", 'b'));
-
         assertEquals(2, StringUtils.indexOf(new StringBuilder("aabaabaa"), 'b'));
     }
 
@@ -294,9 +285,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(5, StringUtils.indexOf("aabaabaa", 'b', 3));
         assertEquals(-1, StringUtils.indexOf("aabaabaa", 'b', 9));
         assertEquals(2, StringUtils.indexOf("aabaabaa", 'b', -1));
-
         assertEquals(5, StringUtils.indexOf(new StringBuilder("aabaabaa"), 'b', 3));
-
         //LANG-1300 tests go here
         final int CODE_POINT = 0x2070E;
         StringBuilder builder = new StringBuilder();
@@ -328,7 +317,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(2, StringUtils.indexOf("aabaabaa", "b"));
         assertEquals(1, StringUtils.indexOf("aabaabaa", "ab"));
         assertEquals(0, StringUtils.indexOf("aabaabaa", ""));
-
         assertEquals(2, StringUtils.indexOf(new StringBuilder("aabaabaa"), "b"));
     }
 
@@ -353,14 +341,13 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(5, StringUtils.indexOf("aabaabaa", "b", 3));
         assertEquals(-1, StringUtils.indexOf("aabaabaa", "b", 9));
         assertEquals(2, StringUtils.indexOf("aabaabaa", "b", -1));
-        assertEquals(2,StringUtils.indexOf("aabaabaa", "", 2));
-
+        assertEquals(2, StringUtils.indexOf("aabaabaa", "", 2));
         // Test that startIndex works correctly, i.e. cannot match before startIndex
         assertEquals(7, StringUtils.indexOf("12345678", "8", 5));
         assertEquals(7, StringUtils.indexOf("12345678", "8", 6));
-        assertEquals(7, StringUtils.indexOf("12345678", "8", 7)); // 7 is last index
+        // 7 is last index
+        assertEquals(7, StringUtils.indexOf("12345678", "8", 7));
         assertEquals(-1, StringUtils.indexOf("12345678", "8", 8));
-
         assertEquals(5, StringUtils.indexOf(new StringBuilder("aabaabaa"), "b", 3));
     }
 
@@ -368,16 +355,14 @@ public class StringUtilsEqualsIndexOfTest  {
     public void testIndexOfAny_StringCharArray() {
         assertEquals(-1, StringUtils.indexOfAny(null, (char[]) null));
         assertEquals(-1, StringUtils.indexOfAny(null, new char[0]));
-        assertEquals(-1, StringUtils.indexOfAny(null, 'a','b'));
-
+        assertEquals(-1, StringUtils.indexOfAny(null, 'a', 'b'));
         assertEquals(-1, StringUtils.indexOfAny("", (char[]) null));
         assertEquals(-1, StringUtils.indexOfAny("", new char[0]));
-        assertEquals(-1, StringUtils.indexOfAny("", 'a','b'));
-
+        assertEquals(-1, StringUtils.indexOfAny("", 'a', 'b'));
         assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", (char[]) null));
         assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", new char[0]));
-        assertEquals(0, StringUtils.indexOfAny("zzabyycdxx", 'z','a'));
-        assertEquals(3, StringUtils.indexOfAny("zzabyycdxx", 'b','y'));
+        assertEquals(0, StringUtils.indexOfAny("zzabyycdxx", 'z', 'a'));
+        assertEquals(3, StringUtils.indexOfAny("zzabyycdxx", 'b', 'y'));
         assertEquals(-1, StringUtils.indexOfAny("ab", 'z'));
     }
 
@@ -397,11 +382,9 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.indexOfAny(null, (String) null));
         assertEquals(-1, StringUtils.indexOfAny(null, ""));
         assertEquals(-1, StringUtils.indexOfAny(null, "ab"));
-
         assertEquals(-1, StringUtils.indexOfAny("", (String) null));
         assertEquals(-1, StringUtils.indexOfAny("", ""));
         assertEquals(-1, StringUtils.indexOfAny("", "ab"));
-
         assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", (String) null));
         assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", ""));
         assertEquals(0, StringUtils.indexOfAny("zzabyycdxx", "za"));
@@ -418,13 +401,13 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.indexOfAny(FOOBAR, new String[0]));
         assertEquals(-1, StringUtils.indexOfAny(null, new String[0]));
         assertEquals(-1, StringUtils.indexOfAny("", new String[0]));
-        assertEquals(-1, StringUtils.indexOfAny(FOOBAR, new String[] {"llll"}));
-        assertEquals(0, StringUtils.indexOfAny(FOOBAR, new String[] {""}));
-        assertEquals(0, StringUtils.indexOfAny("", new String[] {""}));
-        assertEquals(-1, StringUtils.indexOfAny("", new String[] {"a"}));
-        assertEquals(-1, StringUtils.indexOfAny("", new String[] {null}));
-        assertEquals(-1, StringUtils.indexOfAny(FOOBAR, new String[] {null}));
-        assertEquals(-1, StringUtils.indexOfAny(null, new String[] {null}));
+        assertEquals(-1, StringUtils.indexOfAny(FOOBAR, new String[] { "llll" }));
+        assertEquals(0, StringUtils.indexOfAny(FOOBAR, new String[] { "" }));
+        assertEquals(0, StringUtils.indexOfAny("", new String[] { "" }));
+        assertEquals(-1, StringUtils.indexOfAny("", new String[] { "a" }));
+        assertEquals(-1, StringUtils.indexOfAny("", new String[] { null }));
+        assertEquals(-1, StringUtils.indexOfAny(FOOBAR, new String[] { null }));
+        assertEquals(-1, StringUtils.indexOfAny(null, new String[] { null }));
     }
 
     /**
@@ -442,16 +425,14 @@ public class StringUtilsEqualsIndexOfTest  {
     public void testIndexOfAnyBut_StringCharArray() {
         assertEquals(-1, StringUtils.indexOfAnyBut(null, (char[]) null));
         assertEquals(-1, StringUtils.indexOfAnyBut(null));
-        assertEquals(-1, StringUtils.indexOfAnyBut(null, 'a','b'));
-
+        assertEquals(-1, StringUtils.indexOfAnyBut(null, 'a', 'b'));
         assertEquals(-1, StringUtils.indexOfAnyBut("", (char[]) null));
         assertEquals(-1, StringUtils.indexOfAnyBut(""));
-        assertEquals(-1, StringUtils.indexOfAnyBut("", 'a','b'));
-
+        assertEquals(-1, StringUtils.indexOfAnyBut("", 'a', 'b'));
         assertEquals(-1, StringUtils.indexOfAnyBut("zzabyycdxx", (char[]) null));
         assertEquals(-1, StringUtils.indexOfAnyBut("zzabyycdxx"));
-        assertEquals(3, StringUtils.indexOfAnyBut("zzabyycdxx", 'z','a'));
-        assertEquals(0, StringUtils.indexOfAnyBut("zzabyycdxx", 'b','y'));
+        assertEquals(3, StringUtils.indexOfAnyBut("zzabyycdxx", 'z', 'a'));
+        assertEquals(0, StringUtils.indexOfAnyBut("zzabyycdxx", 'b', 'y'));
         assertEquals(-1, StringUtils.indexOfAnyBut("aba", 'a', 'b'));
         assertEquals(0, StringUtils.indexOfAnyBut("aba", 'z'));
     }
@@ -469,11 +450,9 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.indexOfAnyBut(null, (String) null));
         assertEquals(-1, StringUtils.indexOfAnyBut(null, ""));
         assertEquals(-1, StringUtils.indexOfAnyBut(null, "ab"));
-
         assertEquals(-1, StringUtils.indexOfAnyBut("", (String) null));
         assertEquals(-1, StringUtils.indexOfAnyBut("", ""));
         assertEquals(-1, StringUtils.indexOfAnyBut("", "ab"));
-
         assertEquals(-1, StringUtils.indexOfAnyBut("zzabyycdxx", (String) null));
         assertEquals(-1, StringUtils.indexOfAnyBut("zzabyycdxx", ""));
         assertEquals(3, StringUtils.indexOfAnyBut("zzabyycdxx", "za"));
@@ -529,7 +508,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.lastIndexOf("", ' '));
         assertEquals(7, StringUtils.lastIndexOf("aabaabaa", 'a'));
         assertEquals(5, StringUtils.lastIndexOf("aabaabaa", 'b'));
-
         assertEquals(5, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), 'b'));
     }
 
@@ -545,9 +523,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(5, StringUtils.lastIndexOf("aabaabaa", 'b', 9));
         assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", 'b', -1));
         assertEquals(0, StringUtils.lastIndexOf("aabaabaa", 'a', 0));
-
         assertEquals(2, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), 'b', 2));
-
         //LANG-1300 addition test
         final int CODE_POINT = 0x2070E;
         StringBuilder builder = new StringBuilder();
@@ -557,7 +533,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(0, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
         assertEquals(0, StringUtils.lastIndexOf(builder, CODE_POINT, 1));
         assertEquals(2, StringUtils.lastIndexOf(builder, CODE_POINT, 2));
-
         builder.append("aaaaa");
         assertEquals(2, StringUtils.lastIndexOf(builder, CODE_POINT, 4));
         // inner branch on the supplementary character block
@@ -567,7 +542,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
         builder.appendCodePoint(CODE_POINT);
         assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
-        assertEquals(1, StringUtils.lastIndexOf(builder, CODE_POINT, 1 ));
+        assertEquals(1, StringUtils.lastIndexOf(builder, CODE_POINT, 1));
         assertEquals(-1, StringUtils.lastIndexOf(builder.toString(), CODE_POINT, 0));
         assertEquals(1, StringUtils.lastIndexOf(builder.toString(), CODE_POINT, 1));
     }
@@ -582,7 +557,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(7, StringUtils.lastIndexOf("aabaabaa", "a"));
         assertEquals(5, StringUtils.lastIndexOf("aabaabaa", "b"));
         assertEquals(4, StringUtils.lastIndexOf("aabaabaa", "ab"));
-
         assertEquals(4, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), "ab"));
     }
 
@@ -609,41 +583,45 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "b", 0));
         assertEquals(0, StringUtils.lastIndexOf("aabaabaa", "a", 0));
         assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "a", -1));
-
         // Test that fromIndex works correctly, i.e. cannot match after fromIndex
         assertEquals(7, StringUtils.lastIndexOf("12345678", "8", 9));
         assertEquals(7, StringUtils.lastIndexOf("12345678", "8", 8));
-        assertEquals(7, StringUtils.lastIndexOf("12345678", "8", 7)); // 7 is last index
+        // 7 is last index
+        assertEquals(7, StringUtils.lastIndexOf("12345678", "8", 7));
         assertEquals(-1, StringUtils.lastIndexOf("12345678", "8", 6));
-
         assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "b", 1));
         assertEquals(2, StringUtils.lastIndexOf("aabaabaa", "b", 2));
         assertEquals(2, StringUtils.lastIndexOf("aabaabaa", "ba", 2));
         assertEquals(2, StringUtils.lastIndexOf("aabaabaa", "ba", 3));
-
         assertEquals(2, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), "b", 3));
     }
 
     @Test
     public void testLastIndexOfAny_StringStringArray() {
-        assertEquals(-1, StringUtils.lastIndexOfAny(null, (CharSequence) null));   // test both types of ...
-        assertEquals(-1, StringUtils.lastIndexOfAny(null, (CharSequence[]) null)); // ... varargs invocation
-        assertEquals(-1, StringUtils.lastIndexOfAny(null)); // Missing varag
+        // test both types of ...
+        assertEquals(-1, StringUtils.lastIndexOfAny(null, (CharSequence) null));
+        // ... varargs invocation
+        assertEquals(-1, StringUtils.lastIndexOfAny(null, (CharSequence[]) null));
+        // Missing varag
+        assertEquals(-1, StringUtils.lastIndexOfAny(null));
         assertEquals(-1, StringUtils.lastIndexOfAny(null, FOOBAR_SUB_ARRAY));
-        assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, (CharSequence) null));   // test both types of ...
-        assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, (CharSequence[]) null)); // ... varargs invocation
-        assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR)); // Missing vararg
+        // test both types of ...
+        assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, (CharSequence) null));
+        // ... varargs invocation
+        assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, (CharSequence[]) null));
+        // Missing vararg
+        assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR));
         assertEquals(3, StringUtils.lastIndexOfAny(FOOBAR, FOOBAR_SUB_ARRAY));
         assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, new String[0]));
         assertEquals(-1, StringUtils.lastIndexOfAny(null, new String[0]));
         assertEquals(-1, StringUtils.lastIndexOfAny("", new String[0]));
-        assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, new String[] {"llll"}));
-        assertEquals(6, StringUtils.lastIndexOfAny(FOOBAR, new String[] {""}));
-        assertEquals(0, StringUtils.lastIndexOfAny("", new String[] {""}));
-        assertEquals(-1, StringUtils.lastIndexOfAny("", new String[] {"a"}));
-        assertEquals(-1, StringUtils.lastIndexOfAny("", new String[] {null}));
-        assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, new String[] {null}));
-        assertEquals(-1, StringUtils.lastIndexOfAny(null, new String[] {null}));
+        assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, new String[] { "llll" }));
+        assertEquals(6, StringUtils.lastIndexOfAny(FOOBAR, new String[] { "" }));
+        assertEquals(0, StringUtils.lastIndexOfAny("", new String[] { "" }));
+        assertEquals(-1, StringUtils.lastIndexOfAny("", new String[] { "a" }));
+        assertEquals(-1, StringUtils.lastIndexOfAny("", new String[] { null }));
+        assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, new String[] { null }));
+        assertEquals(-1, StringUtils.lastIndexOfAny(null, new String[] { null }));
     }
 
     @Test
@@ -691,17 +669,17 @@ public class StringUtilsEqualsIndexOfTest  {
 
     @Test
     public void testLastOrdinalIndexOf() {
-        assertEquals(-1, StringUtils.lastOrdinalIndexOf(null, "*", 42) );
-        assertEquals(-1, StringUtils.lastOrdinalIndexOf("*", null, 42) );
-        assertEquals(0, StringUtils.lastOrdinalIndexOf("", "", 42) );
-        assertEquals(7, StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 1) );
-        assertEquals(6, StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 2) );
-        assertEquals(5, StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 1) );
-        assertEquals(2, StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 2) );
-        assertEquals(4, StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 1) );
-        assertEquals(1, StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 2) );
-        assertEquals(8, StringUtils.lastOrdinalIndexOf("aabaabaa", "", 1) );
-        assertEquals(8, StringUtils.lastOrdinalIndexOf("aabaabaa", "", 2) );
+        assertEquals(-1, StringUtils.lastOrdinalIndexOf(null, "*", 42));
+        assertEquals(-1, StringUtils.lastOrdinalIndexOf("*", null, 42));
+        assertEquals(0, StringUtils.lastOrdinalIndexOf("", "", 42));
+        assertEquals(7, StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 1));
+        assertEquals(6, StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 2));
+        assertEquals(5, StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 1));
+        assertEquals(2, StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 2));
+        assertEquals(4, StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 1));
+        assertEquals(1, StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 2));
+        assertEquals(8, StringUtils.lastOrdinalIndexOf("aabaabaa", "", 1));
+        assertEquals(8, StringUtils.lastOrdinalIndexOf("aabaabaa", "", 2));
     }
 
     @Test
@@ -713,7 +691,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "b", Integer.MIN_VALUE));
         assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "ab", Integer.MIN_VALUE));
         assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "", Integer.MIN_VALUE));
-
         assertEquals(-1, StringUtils.ordinalIndexOf(null, null, -1));
         assertEquals(-1, StringUtils.ordinalIndexOf("", null, -1));
         assertEquals(-1, StringUtils.ordinalIndexOf("", "", -1));
@@ -721,7 +698,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "b", -1));
         assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "ab", -1));
         assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "", -1));
-
         assertEquals(-1, StringUtils.ordinalIndexOf(null, null, 0));
         assertEquals(-1, StringUtils.ordinalIndexOf("", null, 0));
         assertEquals(-1, StringUtils.ordinalIndexOf("", "", 0));
@@ -729,7 +705,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "b", 0));
         assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "ab", 0));
         assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "", 0));
-
         assertEquals(-1, StringUtils.ordinalIndexOf(null, null, 1));
         assertEquals(-1, StringUtils.ordinalIndexOf("", null, 1));
         assertEquals(0, StringUtils.ordinalIndexOf("", "", 1));
@@ -737,7 +712,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(2, StringUtils.ordinalIndexOf("aabaabaa", "b", 1));
         assertEquals(1, StringUtils.ordinalIndexOf("aabaabaa", "ab", 1));
         assertEquals(0, StringUtils.ordinalIndexOf("aabaabaa", "", 1));
-
         assertEquals(-1, StringUtils.ordinalIndexOf(null, null, 2));
         assertEquals(-1, StringUtils.ordinalIndexOf("", null, 2));
         assertEquals(0, StringUtils.ordinalIndexOf("", "", 2));
@@ -745,7 +719,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(5, StringUtils.ordinalIndexOf("aabaabaa", "b", 2));
         assertEquals(4, StringUtils.ordinalIndexOf("aabaabaa", "ab", 2));
         assertEquals(0, StringUtils.ordinalIndexOf("aabaabaa", "", 2));
-
         assertEquals(-1, StringUtils.ordinalIndexOf(null, null, Integer.MAX_VALUE));
         assertEquals(-1, StringUtils.ordinalIndexOf("", null, Integer.MAX_VALUE));
         assertEquals(0, StringUtils.ordinalIndexOf("", "", Integer.MAX_VALUE));
@@ -753,7 +726,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "b", Integer.MAX_VALUE));
         assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "ab", Integer.MAX_VALUE));
         assertEquals(0, StringUtils.ordinalIndexOf("aabaabaa", "", Integer.MAX_VALUE));
-
         assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 0));
         assertEquals(0, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 1));
         assertEquals(1, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 2));
@@ -765,7 +737,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(7, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 8));
         assertEquals(8, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 9));
         assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 10));
-
         // match at each possible position
         assertEquals(0, StringUtils.ordinalIndexOf("aaaaaa", "aa", 1));
         assertEquals(1, StringUtils.ordinalIndexOf("aaaaaa", "aa", 2));
@@ -773,11 +744,9 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(3, StringUtils.ordinalIndexOf("aaaaaa", "aa", 4));
         assertEquals(4, StringUtils.ordinalIndexOf("aaaaaa", "aa", 5));
         assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaa", "aa", 6));
-
         assertEquals(0, StringUtils.ordinalIndexOf("ababab", "aba", 1));
         assertEquals(2, StringUtils.ordinalIndexOf("ababab", "aba", 2));
         assertEquals(-1, StringUtils.ordinalIndexOf("ababab", "aba", 3));
-
         assertEquals(0, StringUtils.ordinalIndexOf("abababab", "abab", 1));
         assertEquals(2, StringUtils.ordinalIndexOf("abababab", "abab", 2));
         assertEquals(4, StringUtils.ordinalIndexOf("abababab", "abab", 3));
@@ -790,8 +759,8 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     @Test
-    // Non-overlapping test
-    public void testLANG1241_1() {
+    public // Non-overlapping test
+    void testLANG1241_1() {
         //                                          0  3  6
         assertEquals(0, StringUtils.ordinalIndexOf("abaabaab", "ab", 1));
         assertEquals(3, StringUtils.ordinalIndexOf("abaabaab", "ab", 2));
@@ -799,8 +768,8 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     @Test
-    // Overlapping matching test
-    public void testLANG1241_2() {
+    public // Overlapping matching test
+    void testLANG1241_2() {
         //                                          0 2 4
         assertEquals(0, StringUtils.ordinalIndexOf("abababa", "aba", 1));
         assertEquals(2, StringUtils.ordinalIndexOf("abababa", "aba", 2));

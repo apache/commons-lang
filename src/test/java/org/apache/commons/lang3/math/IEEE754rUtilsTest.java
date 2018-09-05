@@ -16,90 +16,92 @@
  */
 package org.apache.commons.lang3.math;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.math.IEEE754rUtils}.
  */
-public class IEEE754rUtilsTest  {
+public class IEEE754rUtilsTest {
 
     @Test
     public void testLang381() {
-        assertEquals(1.2, IEEE754rUtils.min(1.2, 2.5, Double.NaN), 0.01);
-        assertEquals(2.5, IEEE754rUtils.max(1.2, 2.5, Double.NaN), 0.01);
+        assertEquals(IEEE754rUtils.min(1.2, 2.5, Double.NaN), 0.01, 1.2);
+        assertEquals(IEEE754rUtils.max(1.2, 2.5, Double.NaN), 0.01, 2.5);
         assertTrue(Double.isNaN(IEEE754rUtils.max(Double.NaN, Double.NaN, Double.NaN)));
-        assertEquals(1.2f, IEEE754rUtils.min(1.2f, 2.5f, Float.NaN), 0.01);
-        assertEquals(2.5f, IEEE754rUtils.max(1.2f, 2.5f, Float.NaN), 0.01);
+        assertEquals(IEEE754rUtils.min(1.2f, 2.5f, Float.NaN), 0.01, 1.2f);
+        assertEquals(IEEE754rUtils.max(1.2f, 2.5f, Float.NaN), 0.01, 2.5f);
         assertTrue(Float.isNaN(IEEE754rUtils.max(Float.NaN, Float.NaN, Float.NaN)));
-
         final double[] a = new double[] { 1.2, Double.NaN, 3.7, 27.0, 42.0, Double.NaN };
-        assertEquals(42.0, IEEE754rUtils.max(a), 0.01);
-        assertEquals(1.2, IEEE754rUtils.min(a), 0.01);
-
+        assertEquals(IEEE754rUtils.max(a), 0.01, 42.0);
+        assertEquals(IEEE754rUtils.min(a), 0.01, 1.2);
         final double[] b = new double[] { Double.NaN, 1.2, Double.NaN, 3.7, 27.0, 42.0, Double.NaN };
-        assertEquals(42.0, IEEE754rUtils.max(b), 0.01);
-        assertEquals(1.2, IEEE754rUtils.min(b), 0.01);
-
+        assertEquals(IEEE754rUtils.max(b), 0.01, 42.0);
+        assertEquals(IEEE754rUtils.min(b), 0.01, 1.2);
         final float[] aF = new float[] { 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
-        assertEquals(1.2f, IEEE754rUtils.min(aF), 0.01);
-        assertEquals(42.0f, IEEE754rUtils.max(aF), 0.01);
-
+        assertEquals(IEEE754rUtils.min(aF), 0.01, 1.2f);
+        assertEquals(IEEE754rUtils.max(aF), 0.01, 42.0f);
         final float[] bF = new float[] { Float.NaN, 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
-        assertEquals(1.2f, IEEE754rUtils.min(bF), 0.01);
-        assertEquals(42.0f, IEEE754rUtils.max(bF), 0.01);
+        assertEquals(IEEE754rUtils.min(bF), 0.01, 1.2f);
+        assertEquals(IEEE754rUtils.max(bF), 0.01, 42.0f);
     }
 
     @Test
     public void testEnforceExceptions() {
         try {
-            IEEE754rUtils.min( (float[]) null);
+            IEEE754rUtils.min((float[]) null);
             fail("IllegalArgumentException expected for null input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
-
+        } catch (final IllegalArgumentException iae) {
+        /* expected */
+        }
         try {
             IEEE754rUtils.min();
             fail("IllegalArgumentException expected for empty input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
-
+        } catch (final IllegalArgumentException iae) {
+        /* expected */
+        }
         try {
-            IEEE754rUtils.max( (float[]) null);
+            IEEE754rUtils.max((float[]) null);
             fail("IllegalArgumentException expected for null input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
-
+        } catch (final IllegalArgumentException iae) {
+        /* expected */
+        }
         try {
             IEEE754rUtils.max();
             fail("IllegalArgumentException expected for empty input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
-
+        } catch (final IllegalArgumentException iae) {
+        /* expected */
+        }
         try {
-            IEEE754rUtils.min( (double[]) null);
+            IEEE754rUtils.min((double[]) null);
             fail("IllegalArgumentException expected for null input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
-
+        } catch (final IllegalArgumentException iae) {
+        /* expected */
+        }
         try {
             IEEE754rUtils.min(new double[0]);
             fail("IllegalArgumentException expected for empty input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
-
+        } catch (final IllegalArgumentException iae) {
+        /* expected */
+        }
         try {
-            IEEE754rUtils.max( (double[]) null);
+            IEEE754rUtils.max((double[]) null);
             fail("IllegalArgumentException expected for null input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
-
+        } catch (final IllegalArgumentException iae) {
+        /* expected */
+        }
         try {
             IEEE754rUtils.max(new double[0]);
             fail("IllegalArgumentException expected for empty input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
-
+        } catch (final IllegalArgumentException iae) {
+        /* expected */
+        }
     }
 
     @Test
     public void testConstructorExists() {
         new IEEE754rUtils();
     }
-
 }

@@ -19,9 +19,13 @@ package org.apache.commons.lang3.reflect.testbed;
 /**
  */
 public class StaticContainer {
+
     public static final Object IMMUTABLE_PUBLIC = "public";
+
     protected static final Object IMMUTABLE_PROTECTED = "protected";
+
     static final Object IMMUTABLE_PACKAGE = "";
+
     @SuppressWarnings("unused")
     private static final Object IMMUTABLE_PRIVATE = "private";
 
@@ -33,8 +37,11 @@ public class StaticContainer {
     private static final Object IMMUTABLE_PRIVATE_2 = "private";
 
     public static Object mutablePublic;
+
     protected static Object mutableProtected;
+
     static Object mutablePackage;
+
     private static Object mutablePrivate;
 
     public static void reset() {

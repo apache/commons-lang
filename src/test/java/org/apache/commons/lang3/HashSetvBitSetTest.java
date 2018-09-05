@@ -19,7 +19,6 @@ package org.apache.commons.lang3;
 import java.util.BitSet;
 import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
-
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;
@@ -71,7 +70,7 @@ public class HashSetvBitSetTest {
         final int[] array = new int[100];
         toRemove.set(10, 20);
         final int[] extractIndices = extractIndices(toRemove);
-        return (int[]) ArrayUtils.removeAll((Object)array, extractIndices);
+        return (int[]) ArrayUtils.removeAll((Object) array, extractIndices);
     }
 
     // --- utility methods
@@ -87,8 +86,8 @@ public class HashSetvBitSetTest {
     private static int[] extractIndices(final BitSet coll) {
         final int[] result = new int[coll.cardinality()];
         int i = 0;
-        int j=0;
-        while((j=coll.nextSetBit(j)) != -1) {
+        int j = 0;
+        while ((j = coll.nextSetBit(j)) != -1) {
             result[i++] = j++;
         }
         return result;

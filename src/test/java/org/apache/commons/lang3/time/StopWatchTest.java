@@ -16,15 +16,13 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * TestCase for StopWatch.
@@ -43,10 +41,8 @@ public class StopWatchTest {
         watch.stop();
         final long time = watch.getTime();
         assertEquals(time, watch.getTime());
-
         assertTrue(time >= 500);
         assertTrue(time < 700);
-
         watch.reset();
         assertEquals(0, watch.getTime());
     }
@@ -62,7 +58,6 @@ public class StopWatchTest {
         final StopWatch watch = new StopWatch();
         assertEquals(0, watch.getTime());
         assertEquals("00:00:00.000", watch.toString());
-
         watch.start();
         try {
             Thread.sleep(500);
@@ -74,12 +69,7 @@ public class StopWatchTest {
     @Test
     public void testStopWatchGetWithTimeUnit() {
         // Create a mock StopWatch with a time of 2:59:01.999
-        final StopWatch watch = createMockStopWatch(
-                TimeUnit.HOURS.toNanos(2)
-                        + TimeUnit.MINUTES.toNanos(59)
-                        + TimeUnit.SECONDS.toNanos(1)
-                        + TimeUnit.MILLISECONDS.toNanos(999));
-
+        final StopWatch watch = createMockStopWatch(TimeUnit.HOURS.toNanos(2) + TimeUnit.MINUTES.toNanos(59) + TimeUnit.SECONDS.toNanos(1) + TimeUnit.MILLISECONDS.toNanos(999));
         assertEquals(2L, watch.getTime(TimeUnit.HOURS));
         assertEquals(179L, watch.getTime(TimeUnit.MINUTES));
         assertEquals(10741L, watch.getTime(TimeUnit.SECONDS));
@@ -108,9 +98,7 @@ public class StopWatchTest {
         }
         watch.stop();
         final long totalTime = watch.getTime();
-
-        assertEquals("Formatted split string not the correct length",
-                splitStr.length(), 12);
+        assertEquals(splitStr.length(), 12, "Formatted split string not the correct length");
         assertTrue(splitTime >= 500);
         assertTrue(splitTime < 700);
         assertTrue(totalTime >= 1500);
@@ -138,7 +126,6 @@ public class StopWatchTest {
         }
         watch.stop();
         final long totalTime = watch.getTime();
-
         assertTrue(suspendTime >= 500);
         assertTrue(suspendTime < 700);
         assertTrue(totalTime >= 1000);
@@ -172,81 +159,69 @@ public class StopWatchTest {
             watch.stop();
             fail("Calling stop on an unstarted StopWatch should throw an exception. ");
         } catch (final IllegalStateException ise) {
-            // expected
+        // expected
         }
-
         try {
             watch.stop();
             fail("Calling stop on an unstarted StopWatch should throw an exception. ");
         } catch (final IllegalStateException ise) {
-            // expected
+        // expected
         }
-
         try {
             watch.suspend();
             fail("Calling suspend on an unstarted StopWatch should throw an exception. ");
         } catch (final IllegalStateException ise) {
-            // expected
+        // expected
         }
-
         try {
             watch.split();
             fail("Calling split on a non-running StopWatch should throw an exception. ");
         } catch (final IllegalStateException ise) {
-            // expected
+        // expected
         }
-
         try {
             watch.unsplit();
             fail("Calling unsplit on an unsplit StopWatch should throw an exception. ");
         } catch (final IllegalStateException ise) {
-            // expected
+        // expected
         }
-
         try {
             watch.resume();
             fail("Calling resume on an unsuspended StopWatch should throw an exception. ");
         } catch (final IllegalStateException ise) {
-            // expected
+        // expected
         }
-
         watch.start();
-
         try {
             watch.start();
             fail("Calling start on a started StopWatch should throw an exception. ");
         } catch (final IllegalStateException ise) {
-            // expected
+        // expected
         }
-
         try {
             watch.unsplit();
             fail("Calling unsplit on an unsplit StopWatch should throw an exception. ");
         } catch (final IllegalStateException ise) {
-            // expected
+        // expected
         }
-
         try {
             watch.getSplitTime();
             fail("Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
         } catch (final IllegalStateException ise) {
-            // expected
+        // expected
         }
-
         try {
             watch.resume();
             fail("Calling resume on an unsuspended StopWatch should throw an exception. ");
         } catch (final IllegalStateException ise) {
-            // expected
+        // expected
         }
-
         watch.stop();
-
         try {
             watch.start();
             fail("Calling start on a stopped StopWatch should throw an exception as it needs to be reset. ");
         } catch (final IllegalStateException ise) {
-            // expected
+        // expected
         }
     }
 
@@ -258,7 +233,7 @@ public class StopWatchTest {
             watch.getStartTime();
             fail("Calling getStartTime on an unstarted StopWatch should throw an exception");
         } catch (final IllegalStateException expected) {
-            // expected
+        // expected
         }
         watch.start();
         try {
@@ -272,7 +247,7 @@ public class StopWatchTest {
             watch.getStartTime();
             fail("Calling getStartTime on a reset, but unstarted StopWatch should throw an exception");
         } catch (final IllegalStateException expected) {
-            // expected
+        // expected
         }
     }
 
@@ -282,17 +257,14 @@ public class StopWatchTest {
         assertFalse(watch.isStarted());
         assertFalse(watch.isSuspended());
         assertTrue(watch.isStopped());
-
         watch.start();
         assertTrue(watch.isStarted());
         assertFalse(watch.isSuspended());
         assertFalse(watch.isStopped());
-
         watch.suspend();
         assertTrue(watch.isStarted());
         assertTrue(watch.isSuspended());
         assertFalse(watch.isStopped());
-
         watch.stop();
         assertFalse(watch.isStarted());
         assertFalse(watch.isSuspended());

@@ -14,14 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang3.builder;
 
 import java.util.LinkedList;
 import java.util.Random;
-
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests concurrent access for {@link ReflectionToStringBuilder}.
@@ -37,8 +35,11 @@ import org.junit.Test;
 public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
 
     class TestFixture {
+
         private final LinkedList<Integer> listField = new LinkedList<>();
+
         private final Random random = new Random();
+
         private final int N = 100;
 
         TestFixture() {
@@ -59,7 +60,9 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
     }
 
     class MutatingClient implements Runnable {
+
         private final TestFixture testFixture;
+
         private final Random random = new Random();
 
         MutatingClient(final TestFixture testFixture) {
@@ -77,6 +80,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
     }
 
     class InspectingClient implements Runnable {
+
         private final TestFixture testFixture;
 
         InspectingClient(final TestFixture testFixture) {
@@ -90,7 +94,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testConcurrency() throws Exception {
         final TestFixture testFixture = new TestFixture();
         final int numMutators = 10;

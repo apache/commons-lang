@@ -16,12 +16,10 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.concurrent.CountDownLatch;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * <p>
@@ -35,6 +33,7 @@ import org.junit.Test;
  * </p>
  */
 public abstract class AbstractConcurrentInitializerTest {
+
     /**
      * Tests a simple invocation of the get() method.
      *
@@ -42,7 +41,7 @@ public abstract class AbstractConcurrentInitializerTest {
      */
     @Test
     public void testGet() throws ConcurrentException {
-        assertNotNull("No managed object", createInitializer().get());
+        assertNotNull(createInitializer().get(), "No managed object");
     }
 
     /**
@@ -56,7 +55,7 @@ public abstract class AbstractConcurrentInitializerTest {
         final ConcurrentInitializer<Object> initializer = createInitializer();
         final Object obj = initializer.get();
         for (int i = 0; i < 10; i++) {
-            assertEquals("Got different object at " + i, obj, initializer.get());
+            assertEquals(obj, initializer.get(), "Got different object at " + i);
         }
     }
 
@@ -68,12 +67,12 @@ public abstract class AbstractConcurrentInitializerTest {
      * @throws java.lang.InterruptedException because the threading API my throw it
      */
     @Test
-    public void testGetConcurrent() throws ConcurrentException,
-            InterruptedException {
+    public void testGetConcurrent() throws ConcurrentException, InterruptedException {
         final ConcurrentInitializer<Object> initializer = createInitializer();
         final int threadCount = 20;
         final CountDownLatch startLatch = new CountDownLatch(1);
         class GetThread extends Thread {
+
             Object object;
 
             @Override
@@ -84,29 +83,26 @@ public abstract class AbstractConcurrentInitializerTest {
                     // access the initializer
                     object = initializer.get();
                 } catch (final InterruptedException iex) {
-                    // ignore
+                // ignore
                 } catch (final ConcurrentException cex) {
                     object = cex;
                 }
             }
         }
-
         final GetThread[] threads = new GetThread[threadCount];
         for (int i = 0; i < threadCount; i++) {
             threads[i] = new GetThread();
             threads[i].start();
         }
-
         // fire all threads and wait until they are ready
         startLatch.countDown();
         for (final Thread t : threads) {
             t.join();
         }
-
         // check results
         final Object managedObject = initializer.get();
         for (final GetThread t : threads) {
-            assertEquals("Wrong object", managedObject, t.object);
+            assertEquals(managedObject, t.object, "Wrong object");
         }
     }
 

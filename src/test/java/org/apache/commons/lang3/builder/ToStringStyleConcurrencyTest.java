@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang3.builder;
 
 import java.util.ArrayList;
@@ -28,8 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests concurrent access for the default {@link ToStringStyle}.
@@ -48,6 +46,7 @@ import org.junit.Test;
 public class ToStringStyleConcurrencyTest {
 
     static class CollectionHolder<T extends Collection<?>> {
+
         T collection;
 
         CollectionHolder(final T collection) {
@@ -56,7 +55,9 @@ public class ToStringStyleConcurrencyTest {
     }
 
     private static final List<Integer> LIST;
+
     private static final int LIST_SIZE = 100000;
+
     private static final int REPEAT = 100;
 
     static {
@@ -81,8 +82,7 @@ public class ToStringStyleConcurrencyTest {
         this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
-    private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException,
-            ExecutionException {
+    private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException, ExecutionException {
         final List<Integer> list = holder.collection;
         // make a big array that takes a long time to toString()
         list.addAll(LIST);
@@ -90,6 +90,7 @@ public class ToStringStyleConcurrencyTest {
         final ExecutorService threadPool = Executors.newFixedThreadPool(2);
         // Consumes toStrings
         final Callable<Integer> consumer = new Callable<Integer>() {
+
             @Override
             public Integer call() {
                 for (int i = 0; i < REPEAT; i++) {

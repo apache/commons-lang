@@ -16,15 +16,13 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  */
@@ -54,7 +52,6 @@ public class ClassPathUtilsTest {
     public void testToFullyQualifiedNameClassString() throws Exception {
         final String expected = "org.apache.commons.lang3.Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, "Test.properties");
-
         assertEquals(expected, actual);
     }
 
@@ -72,7 +69,6 @@ public class ClassPathUtilsTest {
     public void testToFullyQualifiedNamePackageString() throws Exception {
         final String expected = "org.apache.commons.lang3.Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class.getPackage(), "Test.properties");
-
         assertEquals(expected, actual);
     }
 
@@ -90,7 +86,6 @@ public class ClassPathUtilsTest {
     public void testToFullyQualifiedPathClass() throws Exception {
         final String expected = "org/apache/commons/lang3/Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, "Test.properties");
-
         assertEquals(expected, actual);
     }
 
@@ -108,7 +103,6 @@ public class ClassPathUtilsTest {
     public void testToFullyQualifiedPathPackage() throws Exception {
         final String expected = "org/apache/commons/lang3/Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class.getPackage(), "Test.properties");
-
         assertEquals(expected, actual);
     }
 }

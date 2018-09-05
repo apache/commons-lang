@@ -14,14 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang3.builder;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
-
-import org.junit.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for ToStringExclude annotation
@@ -29,6 +27,7 @@ import org.junit.Test;
 public class ReflectionToStringBuilderExcludeWithAnnotationTest {
 
     class TestFixture {
+
         @ToStringExclude
         private final String excludedField = EXCLUDED_FIELD_VALUE;
 
@@ -47,11 +46,9 @@ public class ReflectionToStringBuilderExcludeWithAnnotationTest {
     @Test
     public void test_toStringExclude() {
         final String toString = ReflectionToStringBuilder.toString(new TestFixture());
-
         assertThat(toString, not(containsString(EXCLUDED_FIELD_NAME)));
         assertThat(toString, not(containsString(EXCLUDED_FIELD_VALUE)));
         assertThat(toString, containsString(INCLUDED_FIELD_NAME));
         assertThat(toString, containsString(INCLUDED_FIELD_VALUE));
     }
-
 }

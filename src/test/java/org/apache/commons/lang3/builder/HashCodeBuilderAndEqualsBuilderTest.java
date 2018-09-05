@@ -16,9 +16,8 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link org.apache.commons.lang3.builder.HashCodeBuilder} and
@@ -28,7 +27,6 @@ import org.junit.Test;
 public class HashCodeBuilderAndEqualsBuilderTest {
 
     //-----------------------------------------------------------------------
-
     private void testInteger(final boolean testTransients) {
         final Integer i1 = Integer.valueOf(12345);
         final Integer i2 = Integer.valueOf(12345);
@@ -57,18 +55,9 @@ public class HashCodeBuilderAndEqualsBuilderTest {
 
     private void testFixture(final boolean testTransients) {
         assertEqualsAndHashCodeContract(new TestFixture(2, 'c', "Test", (short) 2), new TestFixture(2, 'c', "Test", (short) 2), testTransients);
-        assertEqualsAndHashCodeContract(
-            new AllTransientFixture(2, 'c', "Test", (short) 2),
-            new AllTransientFixture(2, 'c', "Test", (short) 2),
-            testTransients);
-        assertEqualsAndHashCodeContract(
-            new SubTestFixture(2, 'c', "Test", (short) 2, "Same"),
-            new SubTestFixture(2, 'c', "Test", (short) 2, "Same"),
-            testTransients);
-        assertEqualsAndHashCodeContract(
-            new SubAllTransientFixture(2, 'c', "Test", (short) 2, "Same"),
-            new SubAllTransientFixture(2, 'c', "Test", (short) 2, "Same"),
-            testTransients);
+        assertEqualsAndHashCodeContract(new AllTransientFixture(2, 'c', "Test", (short) 2), new AllTransientFixture(2, 'c', "Test", (short) 2), testTransients);
+        assertEqualsAndHashCodeContract(new SubTestFixture(2, 'c', "Test", (short) 2, "Same"), new SubTestFixture(2, 'c', "Test", (short) 2, "Same"), testTransients);
+        assertEqualsAndHashCodeContract(new SubAllTransientFixture(2, 'c', "Test", (short) 2, "Same"), new SubAllTransientFixture(2, 'c', "Test", (short) 2, "Same"), testTransients);
     }
 
     /**
@@ -89,9 +78,13 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     }
 
     static class TestFixture {
+
         int i;
+
         char c;
+
         String string;
+
         short s;
 
         TestFixture(final int i, final char c, final String string, final short s) {
@@ -103,6 +96,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     }
 
     static class SubTestFixture extends TestFixture {
+
         transient String tString;
 
         SubTestFixture(final int i, final char c, final String string, final short s, final String tString) {
@@ -112,9 +106,13 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     }
 
     static class AllTransientFixture {
+
         transient int i;
+
         transient char c;
+
         transient String string;
+
         transient short s;
 
         AllTransientFixture(final int i, final char c, final String string, final short s) {
@@ -126,6 +124,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     }
 
     static class SubAllTransientFixture extends AllTransientFixture {
+
         transient String tString;
 
         SubAllTransientFixture(final int i, final char c, final String string, final short s, final String tString) {
@@ -133,6 +132,4 @@ public class HashCodeBuilderAndEqualsBuilderTest {
             this.tString = tString;
         }
     }
-
-
 }

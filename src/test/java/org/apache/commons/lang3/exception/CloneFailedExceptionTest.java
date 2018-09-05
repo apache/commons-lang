@@ -16,11 +16,10 @@
  */
 package org.apache.commons.lang3.exception;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * JUnit tests for {@link CloneFailedExceptionTest}.
@@ -46,19 +45,17 @@ public class CloneFailedExceptionTest extends AbstractExceptionTest {
     public void testWithCauseAndMessage() throws Exception {
         final Exception exception = new CloneFailedException(EXCEPTION_MESSAGE, generateCause());
         assertNotNull(exception);
-        assertEquals(WRONG_EXCEPTION_MESSAGE, EXCEPTION_MESSAGE, exception.getMessage());
-
+        assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
         final Throwable cause = exception.getCause();
         assertNotNull(cause);
-        assertEquals(WRONG_CAUSE_MESSAGE, CAUSE_MESSAGE, cause.getMessage());
+        assertEquals(CAUSE_MESSAGE, cause.getMessage(), WRONG_CAUSE_MESSAGE);
     }
 
     @Test
     public void testWithoutCause() throws Exception {
         final Exception exception = new CloneFailedException(EXCEPTION_MESSAGE);
         assertNotNull(exception);
-        assertEquals(WRONG_EXCEPTION_MESSAGE, EXCEPTION_MESSAGE, exception.getMessage());
-
+        assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
         final Throwable cause = exception.getCause();
         assertNull(cause);
     }
@@ -68,9 +65,8 @@ public class CloneFailedExceptionTest extends AbstractExceptionTest {
         final Exception exception = new CloneFailedException(generateCause());
         assertNotNull(exception);
         assertNotNull(exception.getMessage());
-
         final Throwable cause = exception.getCause();
         assertNotNull(cause);
-        assertEquals(WRONG_CAUSE_MESSAGE, CAUSE_MESSAGE, cause.getMessage());
+        assertEquals(CAUSE_MESSAGE, cause.getMessage(), WRONG_CAUSE_MESSAGE);
     }
 }

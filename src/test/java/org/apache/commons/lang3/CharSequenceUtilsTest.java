@@ -16,18 +16,16 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests CharSequenceUtils
@@ -64,27 +62,35 @@ public class CharSequenceUtilsTest {
         assertEquals(StringUtils.EMPTY, CharSequenceUtils.subSequence("012", 3));
     }
 
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void testSubSequenceNegativeStart() {
         assertNull(CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
     }
 
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void testSubSequenceTooLong() {
         assertNull(CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
     }
 
-    static class TestData{
+    static class TestData {
+
         final String source;
+
         final boolean ignoreCase;
+
         final int toffset;
+
         final String other;
+
         final int ooffset;
+
         final int len;
+
         final boolean expected;
+
         final Class<?> throwable;
-        TestData(final String source, final boolean ignoreCase, final int toffset,
-                final String other, final int ooffset, final int len, final boolean expected){
+
+        TestData(final String source, final boolean ignoreCase, final int toffset, final String other, final int ooffset, final int len, final boolean expected) {
             this.source = source;
             this.ignoreCase = ignoreCase;
             this.toffset = toffset;
@@ -94,8 +100,8 @@ public class CharSequenceUtilsTest {
             this.expected = expected;
             this.throwable = null;
         }
-        TestData(final String source, final boolean ignoreCase, final int toffset,
-                final String other, final int ooffset, final int len, final Class<?> throwable){
+
+        TestData(final String source, final boolean ignoreCase, final int toffset, final String other, final int ooffset, final int len, final Class<?> throwable) {
             this.source = source;
             this.ignoreCase = ignoreCase;
             this.toffset = toffset;
@@ -105,11 +111,12 @@ public class CharSequenceUtilsTest {
             this.expected = false;
             this.throwable = throwable;
         }
+
         @Override
-        public String toString(){
+        public String toString() {
             final StringBuilder sb = new StringBuilder();
             sb.append(source).append("[").append(toffset).append("]");
-            sb.append(ignoreCase? " caseblind ":" samecase ");
+            sb.append(ignoreCase ? " caseblind " : " samecase ");
             sb.append(other).append("[").append(ooffset).append("]");
             sb.append(" ").append(len).append(" => ");
             if (throwable != null) {
@@ -121,22 +128,8 @@ public class CharSequenceUtilsTest {
         }
     }
 
-    private static final TestData[] TEST_DATA = {
-            //          Source  IgnoreCase Offset Other  Offset Length Result
-            new TestData("",    true,      -1,    "",    -1,    -1,    false),
-            new TestData("",    true,      0,     "",    0,     1,     false),
-            new TestData("a",   true,      0,     "abc", 0,     0,     true),
-            new TestData("a",   true,      0,     "abc", 0,     1,     true),
-            new TestData("a",   true,      0,     null,  0,     0,     NullPointerException.class),
-            new TestData(null,  true,      0,     null,  0,     0,     NullPointerException.class),
-            new TestData(null,  true,      0,     "",    0,     0,     NullPointerException.class),
-            new TestData("Abc", true,      0,     "abc", 0,     3,     true),
-            new TestData("Abc", false,     0,     "abc", 0,     3,     false),
-            new TestData("Abc", true,      1,     "abc", 1,     2,     true),
-            new TestData("Abc", false,     1,     "abc", 1,     2,     true),
-            new TestData("Abcd",true,      1,     "abcD",1,     2,     true),
-            new TestData("Abcd",false,     1,     "abcD",1,     2,     true),
-    };
+    private static final TestData[] TEST_DATA = { //          Source  IgnoreCase Offset Other  Offset Length Result
+    new TestData("", true, -1, "", -1, -1, false), new TestData("", true, 0, "", 0, 1, false), new TestData("a", true, 0, "abc", 0, 0, true), new TestData("a", true, 0, "abc", 0, 1, true), new TestData("a", true, 0, null, 0, 0, NullPointerException.class), new TestData(null, true, 0, null, 0, 0, NullPointerException.class), new TestData(null, true, 0, "", 0, 0, NullPointerException.class), new TestData("Abc", true, 0, "abc", 0, 3, true), new TestData("Abc", false, 0, "abc", 0, 3, false), new TestData("Abc", true, 1, "abc", 1, 2, true), new TestData("Abc", false, 1, "abc", 1, 2, true), new TestData("Abcd", true, 1, "abcD", 1, 2, true), new TestData("Abcd", false, 1, "abcD", 1, 2, true) };
 
     private abstract static class RunTest {
 
@@ -154,28 +147,30 @@ public class CharSequenceUtilsTest {
                 }
             } else {
                 final boolean stringCheck = invoke();
-                assertEquals(id + " Failed test " + data, data.expected, stringCheck);
+                assertEquals(data.expected, stringCheck, id + " Failed test " + data);
             }
         }
-
     }
 
     @Test
     public void testRegionMatches() {
         for (final TestData data : TEST_DATA) {
             new RunTest() {
+
                 @Override
                 boolean invoke() {
                     return data.source.regionMatches(data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);
                 }
             }.run(data, "String");
             new RunTest() {
+
                 @Override
                 boolean invoke() {
                     return CharSequenceUtils.regionMatches(data.source, data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);
                 }
             }.run(data, "CSString");
             new RunTest() {
+
                 @Override
                 boolean invoke() {
                     return CharSequenceUtils.regionMatches(new StringBuilder(data.source), data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);
@@ -184,7 +179,6 @@ public class CharSequenceUtilsTest {
         }
     }
 
-
     @Test
     public void testToCharArray() throws Exception {
         final StringBuilder builder = new StringBuilder("abcdefg");
@@ -192,5 +186,4 @@ public class CharSequenceUtilsTest {
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder));
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder.toString()));
     }
-
 }

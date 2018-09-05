@@ -19,6 +19,7 @@ package org.apache.commons.lang3.reflect.testbed;
 /**
  */
 public interface Foo {
+
     String VALUE = "foo";
 
     @Annotated

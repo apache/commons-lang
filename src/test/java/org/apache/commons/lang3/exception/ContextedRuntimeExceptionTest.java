@@ -16,15 +16,13 @@
  */
 package org.apache.commons.lang3.exception;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Date;
-
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit tests for ContextedRuntimeException.
@@ -32,7 +30,7 @@ import org.junit.Test;
 public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<ContextedRuntimeException> {
 
     @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         exceptionContext = new ContextedRuntimeException(new Exception(TEST_MESSAGE));
         super.setUp();
@@ -51,7 +49,6 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     public void testContextedExceptionString() {
         exceptionContext = new ContextedRuntimeException(TEST_MESSAGE);
         assertEquals(TEST_MESSAGE, exceptionContext.getMessage());
-
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
         assertTrue(trace.contains(TEST_MESSAGE));
     }
@@ -80,8 +77,10 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     @Test
     public void testContextedExceptionStringThrowableContext() {
         // Use an anonymous subclass to make sure users can provide custom implementations
-        exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE),
-        new DefaultExceptionContext() {private static final long serialVersionUID = 1L;});
+        exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext() {
+
+            private static final long serialVersionUID = 1L;
+        });
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
         assertTrue(trace.contains("ContextedException"));
@@ -92,13 +91,7 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
 
     @Test
     public void testNullExceptionPassing() {
-        exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), null)
-        .addContextValue("test1", null)
-        .addContextValue("test2", "some value")
-        .addContextValue("test Date", new Date())
-        .addContextValue("test Nbr", Integer.valueOf(5))
-        .addContextValue("test Poorly written obj", new ObjectWithFaultyToString());
-
+        exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), null).addContextValue("test1", null).addContextValue("test2", "some value").addContextValue("test Date", new Date()).addContextValue("test Nbr", Integer.valueOf(5)).addContextValue("test Poorly written obj", new ObjectWithFaultyToString());
         final String message = exceptionContext.getMessage();
         assertTrue(message != null);
     }

@@ -24,5 +24,4 @@ public class GenericParent<T> implements GenericConsumer<T> {
     @Override
     public void consume(final T t) {
     }
-
 }

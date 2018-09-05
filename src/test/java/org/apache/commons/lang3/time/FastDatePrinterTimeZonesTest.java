@@ -16,18 +16,16 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.TimeZone;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.runner.RunWith;
+import org.junit.jupiter.api.runners.Parameterized;
 
 @RunWith(Parameterized.class)
 public class FastDatePrinterTimeZonesTest {
@@ -53,12 +51,10 @@ public class FastDatePrinterTimeZonesTest {
     @Test
     public void testCalendarTimezoneRespected() {
         final Calendar cal = Calendar.getInstance(timeZone);
-
         final SimpleDateFormat sdf = new SimpleDateFormat(PATTERN);
         sdf.setTimeZone(timeZone);
         final String expectedValue = sdf.format(cal.getTime());
         final String actualValue = FastDateFormat.getInstance(PATTERN, this.timeZone).format(cal);
         assertEquals(expectedValue, actualValue);
     }
-
 }

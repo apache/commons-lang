@@ -17,12 +17,10 @@
 package org.apache.commons.lang3.concurrent;
 
 import org.apache.commons.lang3.exception.AbstractExceptionTest;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * JUnit tests for {@link CircuitBreakingException}.
@@ -53,19 +51,17 @@ public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
     public void testWithCauseAndMessage() throws Exception {
         final Exception exception = new CircuitBreakingException(EXCEPTION_MESSAGE, generateCause());
         assertNotNull(exception);
-        assertEquals(WRONG_EXCEPTION_MESSAGE, EXCEPTION_MESSAGE, exception.getMessage());
-
+        assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
         final Throwable cause = exception.getCause();
         assertNotNull(cause);
-        assertEquals(WRONG_CAUSE_MESSAGE, CAUSE_MESSAGE, cause.getMessage());
+        assertEquals(CAUSE_MESSAGE, cause.getMessage(), WRONG_CAUSE_MESSAGE);
     }
 
     @Test
     public void testWithoutCause() throws Exception {
         final Exception exception = new CircuitBreakingException(EXCEPTION_MESSAGE);
         assertNotNull(exception);
-        assertEquals(WRONG_EXCEPTION_MESSAGE, EXCEPTION_MESSAGE, exception.getMessage());
-
+        assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
         final Throwable cause = exception.getCause();
         assertNull(cause);
     }
@@ -75,9 +71,8 @@ public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
         final Exception exception = new CircuitBreakingException(generateCause());
         assertNotNull(exception);
         assertNotNull(exception.getMessage());
-
         final Throwable cause = exception.getCause();
         assertNotNull(cause);
-        assertEquals(WRONG_CAUSE_MESSAGE, CAUSE_MESSAGE, cause.getMessage());
+        assertEquals(CAUSE_MESSAGE, cause.getMessage(), WRONG_CAUSE_MESSAGE);
     }
 }

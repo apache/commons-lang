@@ -17,5 +17,6 @@
 package org.apache.commons.lang3.reflect.testbed;
 
 public interface GenericConsumer<T> {
+
     void consume(T t);
 }

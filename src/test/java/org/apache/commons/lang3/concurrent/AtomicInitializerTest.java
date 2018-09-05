@@ -20,6 +20,7 @@ package org.apache.commons.lang3.concurrent;
  * Test class for {@code AtomicInitializer}.
  */
 public class AtomicInitializerTest extends AbstractConcurrentInitializerTest {
+
     /**
      * Returns the initializer to be tested.
      *
@@ -28,6 +29,7 @@ public class AtomicInitializerTest extends AbstractConcurrentInitializerTest {
     @Override
     protected ConcurrentInitializer<Object> createInitializer() {
         return new AtomicInitializer<Object>() {
+
             @Override
             protected Object initialize() throws ConcurrentException {
                 return new Object();

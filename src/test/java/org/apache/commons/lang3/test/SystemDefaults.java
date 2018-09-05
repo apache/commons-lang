@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang3.test;
 
 import java.lang.annotation.ElementType;
@@ -29,10 +28,12 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SystemDefaults {
+
     /**
      * The name of the Locale to be used while running a test method
      */
     String locale() default "";
+
     /**
      * The name of the TimeZone to be used while running a test method
      */

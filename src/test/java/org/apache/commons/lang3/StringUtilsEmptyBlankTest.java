@@ -16,17 +16,16 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Empty/Blank methods
  */
-public class StringUtilsEmptyBlankTest  {
+public class StringUtilsEmptyBlankTest {
 
     @Test
     public void testIsEmpty() {
@@ -73,7 +72,7 @@ public class StringUtilsEmptyBlankTest  {
     @Test
     public void testIsAllEmpty() {
         assertTrue(StringUtils.isAllEmpty());
-        assertTrue(StringUtils.isAllEmpty(new String[]{}));
+        assertTrue(StringUtils.isAllEmpty(new String[] {}));
         assertTrue(StringUtils.isAllEmpty((String) null));
         assertTrue(StringUtils.isAllEmpty((String[]) null));
         assertFalse(StringUtils.isAllEmpty(null, "foo"));

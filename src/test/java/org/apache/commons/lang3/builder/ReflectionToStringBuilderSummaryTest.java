@@ -16,8 +16,8 @@
  */
 package org.apache.commons.lang3.builder;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ReflectionToStringBuilderSummaryTest {
 
@@ -29,8 +29,6 @@ public class ReflectionToStringBuilderSummaryTest {
 
     @Test
     public void testSummary() {
-        Assert.assertEquals("[stringField=string,summaryString=<String>]",
-                new ReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
+        Assertions.assertEquals("[stringField=string,summaryString=<String>]", new ReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
     }
-
 }

@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
@@ -30,18 +29,16 @@ import static org.apache.commons.lang3.JavaVersion.JAVA_1_8;
 import static org.apache.commons.lang3.JavaVersion.JAVA_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_10;
 import static org.apache.commons.lang3.JavaVersion.JAVA_11;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Locale;
-
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.SystemUtils}.
@@ -64,7 +61,7 @@ public class SystemUtilsTest {
     public void testGetEnvironmentVariableAbsent() {
         final String name = "THIS_ENV_VAR_SHOULD_NOT_EXIST_FOR_THIS_TEST_TO_PASS";
         final String expected = System.getenv(name);
-        Assert.assertNull(expected);
+        Assertions.assertNull(expected);
         final String value = SystemUtils.getEnvironmentVariable(name, "DEFAULT");
         assertEquals("DEFAULT", value);
     }
@@ -527,34 +524,28 @@ public class SystemUtilsTest {
     public void testOsVersionMatches() throws Exception {
         String osVersion = null;
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
-
         osVersion = "";
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
-
         osVersion = "10";
         assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
         assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
         assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
         assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
-
         osVersion = "10.1";
         assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
         assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
-
         osVersion = "10.1.1";
         assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
         assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
-
         osVersion = "10.10";
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
         assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
         assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
-
         osVersion = "10.10.1";
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));

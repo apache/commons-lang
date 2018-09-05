@@ -16,17 +16,15 @@
  */
 package org.apache.commons.lang3.tuple;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the MutableTriple class.
@@ -82,7 +80,6 @@ public class MutableTripleTest {
         assertFalse(MutableTriple.of("foo", 0, Boolean.TRUE).equals(MutableTriple.of("foo", null, Boolean.TRUE)));
         assertFalse(MutableTriple.of("foo", "bar", "baz").equals(MutableTriple.of("xyz", "bar", "baz")));
         assertFalse(MutableTriple.of("foo", "bar", "baz").equals(MutableTriple.of("foo", "bar", "blo")));
-
         final MutableTriple<String, String, String> p = MutableTriple.of("foo", "bar", "baz");
         assertTrue(p.equals(p));
         assertFalse(p.equals(new Object()));
@@ -111,10 +108,8 @@ public class MutableTripleTest {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         final ObjectOutputStream out = new ObjectOutputStream(baos);
         out.writeObject(origTriple);
-        final MutableTriple<Integer, String, Boolean> deserializedTriple = (MutableTriple<Integer, String, Boolean>) new ObjectInputStream(
-                new ByteArrayInputStream(baos.toByteArray())).readObject();
+        final MutableTriple<Integer, String, Boolean> deserializedTriple = (MutableTriple<Integer, String, Boolean>) new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origTriple, deserializedTriple);
         assertEquals(origTriple.hashCode(), deserializedTriple.hashCode());
     }
 }
-

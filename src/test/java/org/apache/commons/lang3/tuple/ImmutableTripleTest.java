@@ -16,19 +16,17 @@
  */
 package org.apache.commons.lang3.tuple;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the Triple class.
@@ -76,7 +74,6 @@ public class ImmutableTripleTest {
         assertEquals(ImmutableTriple.of(null, "foo", 42), ImmutableTriple.of(null, "foo", 42));
         assertFalse(ImmutableTriple.of("foo", 0, Boolean.TRUE).equals(ImmutableTriple.of("foo", null, null)));
         assertFalse(ImmutableTriple.of("foo", "bar", "baz").equals(ImmutableTriple.of("xyz", "bar", "blo")));
-
         final ImmutableTriple<String, String, String> p = ImmutableTriple.of("foo", "bar", "baz");
         assertTrue(p.equals(p));
         assertFalse(p.equals(new Object()));
@@ -138,10 +135,8 @@ public class ImmutableTripleTest {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         final ObjectOutputStream out = new ObjectOutputStream(baos);
         out.writeObject(origTriple);
-        final ImmutableTriple<Integer, String, Boolean> deserializedTriple = (ImmutableTriple<Integer, String, Boolean>) new ObjectInputStream(
-                new ByteArrayInputStream(baos.toByteArray())).readObject();
+        final ImmutableTriple<Integer, String, Boolean> deserializedTriple = (ImmutableTriple<Integer, String, Boolean>) new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origTriple, deserializedTriple);
         assertEquals(origTriple.hashCode(), deserializedTriple.hashCode());
     }
 }
-

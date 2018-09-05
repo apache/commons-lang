@@ -16,17 +16,15 @@
  */
 package org.apache.commons.lang3.tuple;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the MutablePair class.
@@ -74,7 +72,6 @@ public class MutablePairTest {
         assertEquals(MutablePair.of(null, "foo"), MutablePair.of(null, "foo"));
         assertFalse(MutablePair.of("foo", 0).equals(MutablePair.of("foo", null)));
         assertFalse(MutablePair.of("foo", "bar").equals(MutablePair.of("xyz", "bar")));
-
         final MutablePair<String, String> p = MutablePair.of("foo", "bar");
         assertTrue(p.equals(p));
         assertFalse(p.equals(new Object()));
@@ -100,8 +97,7 @@ public class MutablePairTest {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         final ObjectOutputStream out = new ObjectOutputStream(baos);
         out.writeObject(origPair);
-        final MutablePair<Integer, String> deserializedPair = (MutablePair<Integer, String>) new ObjectInputStream(
-                new ByteArrayInputStream(baos.toByteArray())).readObject();
+        final MutablePair<Integer, String> deserializedPair = (MutablePair<Integer, String>) new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origPair, deserializedPair);
         assertEquals(origPair.hashCode(), deserializedPair.hashCode());
     }

@@ -16,14 +16,12 @@
  */
 package org.apache.commons.lang3.exception;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Date;
-
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit tests for ContextedException.
@@ -49,7 +47,6 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
     public void testContextedExceptionString() {
         exceptionContext = new ContextedException(TEST_MESSAGE);
         assertEquals(TEST_MESSAGE, exceptionContext.getMessage());
-
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
         assertTrue(trace.contains(TEST_MESSAGE));
     }
@@ -88,13 +85,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
 
     @Test
     public void testNullExceptionPassing() {
-        exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), null)
-        .addContextValue("test1", null)
-        .addContextValue("test2", "some value")
-        .addContextValue("test Date", new Date())
-        .addContextValue("test Nbr", Integer.valueOf(5))
-        .addContextValue("test Poorly written obj", new ObjectWithFaultyToString());
-
+        exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), null).addContextValue("test1", null).addContextValue("test2", "some value").addContextValue("test Date", new Date()).addContextValue("test Nbr", Integer.valueOf(5)).addContextValue("test Poorly written obj", new ObjectWithFaultyToString());
         final String message = exceptionContext.getMessage();
         assertTrue(message != null);
     }
