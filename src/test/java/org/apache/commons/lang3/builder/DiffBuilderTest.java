@@ -20,6 +20,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.apache.commons.lang3.ArrayUtils;
@@ -378,14 +379,18 @@ public class DiffBuilderTest {
         assertEquals("prop1.int", list.getDiffs().get(0).getFieldName());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNullLhs() {
-        new DiffBuilder(null, this, ToStringStyle.DEFAULT_STYLE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new DiffBuilder(null, this, ToStringStyle.DEFAULT_STYLE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNullRhs() {
-        new DiffBuilder(this, null, ToStringStyle.DEFAULT_STYLE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new DiffBuilder(this, null, ToStringStyle.DEFAULT_STYLE);
+        });
     }
 
     @Test

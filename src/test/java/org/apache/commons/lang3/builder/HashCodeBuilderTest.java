@@ -18,6 +18,8 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -52,24 +54,32 @@ public class HashCodeBuilderTest {
     }
 
     // -----------------------------------------------------------------------
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testConstructorExZero() {
-        new HashCodeBuilder(0, 0);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new HashCodeBuilder(0, 0);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testConstructorExEvenFirst() {
-        new HashCodeBuilder(2, 3);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new HashCodeBuilder(2, 3);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testConstructorExEvenSecond() {
-        new HashCodeBuilder(3, 2);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new HashCodeBuilder(3, 2);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testConstructorExEvenNegative() {
-        new HashCodeBuilder(-2, -2);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new HashCodeBuilder(-2, -2);
+        });
     }
 
     static class TestObject {
@@ -151,39 +161,52 @@ public class HashCodeBuilderTest {
     public void testReflectionHierarchyHashCode() {
         assertEquals(17 * 37 * 37, HashCodeBuilder.reflectionHashCode(new TestSubObject(0, 0, 0)));
         assertEquals(17 * 37 * 37 * 37, HashCodeBuilder.reflectionHashCode(new TestSubObject(0, 0, 0), true));
-        assertEquals((17 * 37 + 7890) * 37 + 123456, HashCodeBuilder.reflectionHashCode(new TestSubObject(123456, 7890, 0)));
-        assertEquals(((17 * 37 + 7890) * 37 + 0) * 37 + 123456, HashCodeBuilder.reflectionHashCode(new TestSubObject(123456, 7890, 0), true));
+        assertEquals((17 * 37 + 7890) * 37 + 123456,
+                HashCodeBuilder.reflectionHashCode(new TestSubObject(123456, 7890, 0)));
+        assertEquals(((17 * 37 + 7890) * 37 + 0) * 37 + 123456,
+                HashCodeBuilder.reflectionHashCode(new TestSubObject(123456, 7890, 0), true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testReflectionHierarchyHashCodeEx1() {
-        HashCodeBuilder.reflectionHashCode(0, 0, new TestSubObject(0, 0, 0), true);
+        assertThrows(IllegalArgumentException.class, () -> {
+            HashCodeBuilder.reflectionHashCode(0, 0, new TestSubObject(0, 0, 0), true);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testReflectionHierarchyHashCodeEx2() {
-        HashCodeBuilder.reflectionHashCode(2, 2, new TestSubObject(0, 0, 0), true);
+        assertThrows(IllegalArgumentException.class, () -> {
+            HashCodeBuilder.reflectionHashCode(2, 2, new TestSubObject(0, 0, 0), true);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testReflectionHashCodeEx1() {
-        HashCodeBuilder.reflectionHashCode(0, 0, new TestObject(0), true);
+        assertThrows(IllegalArgumentException.class, () -> {
+            HashCodeBuilder.reflectionHashCode(0, 0, new TestObject(0), true);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testReflectionHashCodeEx2() {
-        HashCodeBuilder.reflectionHashCode(2, 2, new TestObject(0), true);
+        assertThrows(IllegalArgumentException.class, () -> {
+            HashCodeBuilder.reflectionHashCode(2, 2, new TestObject(0), true);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testReflectionHashCodeEx3() {
-        HashCodeBuilder.reflectionHashCode(13, 19, null, true);
+        assertThrows(IllegalArgumentException.class, () -> {
+            HashCodeBuilder.reflectionHashCode(13, 19, null, true);
+        });
     }
 
     @Test
     public void testSuper() {
         final Object obj = new Object();
-        assertEquals(17 * 37 + 19 * 41 + obj.hashCode(), new HashCodeBuilder(17, 37).appendSuper(new HashCodeBuilder(19, 41).append(obj).toHashCode()).toHashCode());
+        assertEquals(17 * 37 + 19 * 41 + obj.hashCode(), new HashCodeBuilder(17, 37)
+                .appendSuper(new HashCodeBuilder(19, 41).append(obj).toHashCode()).toHashCode());
     }
 
     @Test
@@ -207,7 +230,8 @@ public class HashCodeBuilderTest {
     @SuppressWarnings("cast")
     public void testLong() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0L).toHashCode());
-        assertEquals(17 * 37 + (int) (123456789L ^ 123456789L >> 32), new HashCodeBuilder(17, 37).append(123456789L).toHashCode());
+        assertEquals(17 * 37 + (int) (123456789L ^ 123456789L >> 32),
+                new HashCodeBuilder(17, 37).append(123456789L).toHashCode());
     }
 
     @Test
@@ -270,7 +294,8 @@ public class HashCodeBuilderTest {
         obj[0] = new Object();
         assertEquals((17 * 37 + obj[0].hashCode()) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
         obj[1] = new Object();
-        assertEquals((17 * 37 + obj[0].hashCode()) * 37 + obj[1].hashCode(), new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((17 * 37 + obj[0].hashCode()) * 37 + obj[1].hashCode(),
+                new HashCodeBuilder(17, 37).append(obj).toHashCode());
     }
 
     @Test
@@ -280,7 +305,8 @@ public class HashCodeBuilderTest {
         obj[0] = new Object();
         assertEquals((17 * 37 + obj[0].hashCode()) * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
         obj[1] = new Object();
-        assertEquals((17 * 37 + obj[0].hashCode()) * 37 + obj[1].hashCode(), new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((17 * 37 + obj[0].hashCode()) * 37 + obj[1].hashCode(),
+                new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
     }
 
     @Test
@@ -528,18 +554,26 @@ public class HashCodeBuilderTest {
         // java.lang.StackOverflowError
         // at java.lang.ClassLoader.getCallerClassLoader(Native Method)
         // at java.lang.Class.getDeclaredFields(Class.java:992)
-        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionAppend(HashCodeBuilder.java:373)
-        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:349)
-        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:155)
+        // at
+        // org.apache.commons.lang.builder.HashCodeBuilder.reflectionAppend(HashCodeBuilder.java:373)
+        // at
+        // org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:349)
+        // at
+        // org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:155)
         // at
         // org.apache.commons.lang.builder.HashCodeBuilderTest$ReflectionTestCycleB.hashCode(HashCodeBuilderTest.java:53)
-        // at org.apache.commons.lang.builder.HashCodeBuilder.append(HashCodeBuilder.java:422)
-        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionAppend(HashCodeBuilder.java:383)
-        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:349)
-        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:155)
+        // at
+        // org.apache.commons.lang.builder.HashCodeBuilder.append(HashCodeBuilder.java:422)
+        // at
+        // org.apache.commons.lang.builder.HashCodeBuilder.reflectionAppend(HashCodeBuilder.java:383)
+        // at
+        // org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:349)
+        // at
+        // org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:155)
         // at
         // org.apache.commons.lang.builder.HashCodeBuilderTest$ReflectionTestCycleA.hashCode(HashCodeBuilderTest.java:42)
-        // at org.apache.commons.lang.builder.HashCodeBuilder.append(HashCodeBuilder.java:422)
+        // at
+        // org.apache.commons.lang.builder.HashCodeBuilder.append(HashCodeBuilder.java:422)
         a.hashCode();
         assertNull(HashCodeBuilder.getRegistry());
         b.hashCode();
@@ -552,7 +586,8 @@ public class HashCodeBuilderTest {
     @Test
     public void testToHashCodeEqualsHashCode() {
         final HashCodeBuilder hcb = new HashCodeBuilder(17, 37).append(new Object()).append('a');
-        assertEquals(hcb.toHashCode(), hcb.hashCode(), "hashCode() is no longer returning the same value as toHashCode() - see LANG-520");
+        assertEquals(hcb.toHashCode(), hcb.hashCode(),
+                "hashCode() is no longer returning the same value as toHashCode() - see LANG-520");
     }
 
     static class TestObjectHashCodeExclude {

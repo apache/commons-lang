@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.math.BigInteger;
 import org.junit.jupiter.api.Test;
@@ -113,17 +114,21 @@ public class CompareToBuilderTest {
         assertTrue(CompareToBuilder.reflectionCompare(o2, o1) > 0);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testReflectionCompareEx1() {
-        final TestObject o1 = new TestObject(4);
-        CompareToBuilder.reflectionCompare(o1, null);
+        assertThrows(NullPointerException.class, () -> {
+            final TestObject o1 = new TestObject(4);
+            CompareToBuilder.reflectionCompare(o1, null);
+        });
     }
 
-    @Test(expected = ClassCastException.class)
+    @Test
     public void testReflectionCompareEx2() {
-        final TestObject o1 = new TestObject(4);
-        final Object o2 = new Object();
-        CompareToBuilder.reflectionCompare(o1, o2);
+        assertThrows(ClassCastException.class, () -> {
+            final TestObject o1 = new TestObject(4);
+            final Object o2 = new Object();
+            CompareToBuilder.reflectionCompare(o1, o2);
+        });
     }
 
     @Test
@@ -164,7 +169,8 @@ public class CompareToBuilderTest {
         assertXYZCompareOrder(x, y, z, true, null);
     }
 
-    private void assertXYZCompareOrder(final Object x, final Object y, final Object z, final boolean testTransients, final String[] excludeFields) {
+    private void assertXYZCompareOrder(final Object x, final Object y, final Object z, final boolean testTransients,
+            final String[] excludeFields) {
         assertTrue(0 == CompareToBuilder.reflectionCompare(x, x, testTransients, null, excludeFields));
         assertTrue(0 == CompareToBuilder.reflectionCompare(y, y, testTransients, null, excludeFields));
         assertTrue(0 == CompareToBuilder.reflectionCompare(z, z, testTransients, null, excludeFields));
@@ -199,38 +205,44 @@ public class CompareToBuilderTest {
     /**
      * See "Effective Java" under "Consider Implementing Comparable".
      *
-     * @param x an object to compare
-     * @param y an object to compare
-     * @param z an object to compare
+     * @param x              an object to compare
+     * @param y              an object to compare
+     * @param z              an object to compare
      * @param testTransients Whether to include transients in the comparison
-     * @param excludeFields fields to exclude
+     * @param excludeFields  fields to exclude
      */
-    private void assertReflectionCompareContract(final Object x, final Object y, final Object z, final boolean testTransients, final String[] excludeFields) {
+    private void assertReflectionCompareContract(final Object x, final Object y, final Object z,
+            final boolean testTransients, final String[] excludeFields) {
         // signum
-        assertTrue(reflectionCompareSignum(x, y, testTransients, excludeFields) == -reflectionCompareSignum(y, x, testTransients, excludeFields));
+        assertTrue(reflectionCompareSignum(x, y, testTransients,
+                excludeFields) == -reflectionCompareSignum(y, x, testTransients, excludeFields));
         // transitive
-        if (CompareToBuilder.reflectionCompare(x, y, testTransients, null, excludeFields) > 0 && CompareToBuilder.reflectionCompare(y, z, testTransients, null, excludeFields) > 0) {
+        if (CompareToBuilder.reflectionCompare(x, y, testTransients, null, excludeFields) > 0
+                && CompareToBuilder.reflectionCompare(y, z, testTransients, null, excludeFields) > 0) {
             assertTrue(CompareToBuilder.reflectionCompare(x, z, testTransients, null, excludeFields) > 0);
         }
         // un-named
         if (CompareToBuilder.reflectionCompare(x, y, testTransients, null, excludeFields) == 0) {
-            assertTrue(reflectionCompareSignum(x, z, testTransients, excludeFields) == -reflectionCompareSignum(y, z, testTransients, excludeFields));
+            assertTrue(reflectionCompareSignum(x, z, testTransients,
+                    excludeFields) == -reflectionCompareSignum(y, z, testTransients, excludeFields));
         }
         // strongly recommended but not strictly required
-        assertTrue(CompareToBuilder.reflectionCompare(x, y, testTransients) == 0 == EqualsBuilder.reflectionEquals(x, y, testTransients));
+        assertTrue(CompareToBuilder.reflectionCompare(x, y, testTransients) == 0 == EqualsBuilder.reflectionEquals(x, y,
+                testTransients));
     }
 
     /**
      * Returns the signum of the result of comparing x and y with
      * <code>CompareToBuilder.reflectionCompare</code>
      *
-     * @param lhs The "left-hand-side" of the comparison.
-     * @param rhs The "right-hand-side" of the comparison.
+     * @param lhs            The "left-hand-side" of the comparison.
+     * @param rhs            The "right-hand-side" of the comparison.
      * @param testTransients Whether to include transients in the comparison
-     * @param excludeFields fields to exclude
+     * @param excludeFields  fields to exclude
      * @return int The signum
      */
-    private int reflectionCompareSignum(final Object lhs, final Object rhs, final boolean testTransients, final String[] excludeFields) {
+    private int reflectionCompareSignum(final Object lhs, final Object rhs, final boolean testTransients,
+            final String[] excludeFields) {
         return BigInteger.valueOf(CompareToBuilder.reflectionCompare(lhs, rhs, testTransients)).signum();
     }
 
@@ -275,11 +287,13 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(null, o1).build().intValue() < 0);
     }
 
-    @Test(expected = ClassCastException.class)
+    @Test
     public void testObjectEx2() {
-        final TestObject o1 = new TestObject(4);
-        final Object o2 = new Object();
-        new CompareToBuilder().append(o1, o2);
+        assertThrows(ClassCastException.class, () -> {
+            final TestObject o1 = new TestObject(4);
+            final Object o2 = new Object();
+            new CompareToBuilder().append(o1, o2);
+        });
     }
 
     @Test

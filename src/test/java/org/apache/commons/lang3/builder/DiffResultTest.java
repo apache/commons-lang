@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Iterator;
 import java.util.List;
@@ -47,14 +48,15 @@ public class DiffResultTest {
 
         @Override
         public DiffResult diff(final SimpleClass obj) {
-            return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE).append(getFieldName(), booleanField, obj.booleanField).build();
+            return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
+                    .append(getFieldName(), booleanField, obj.booleanField).build();
         }
     }
 
     private static class EmptyClass {
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testListIsNonModifiable() {
         final SimpleClass lhs = new SimpleClass(true);
         final SimpleClass rhs = new SimpleClass(false);
@@ -62,7 +64,9 @@ public class DiffResultTest {
         final DiffResult list = new DiffResult(lhs, rhs, diffs, SHORT_STYLE);
         assertEquals(diffs, list.getDiffs());
         assertEquals(1, list.getNumberOfDiffs());
-        list.getDiffs().remove(0);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            list.getDiffs().remove(0);
+        });
     }
 
     @Test
@@ -81,38 +85,49 @@ public class DiffResultTest {
 
     @Test
     public void testToStringOutput() {
-        final DiffResult list = new DiffBuilder(new EmptyClass(), new EmptyClass(), ToStringStyle.SHORT_PREFIX_STYLE).append("test", false, true).build();
-        assertEquals("DiffResultTest.EmptyClass[test=false] differs from DiffResultTest.EmptyClass[test=true]", list.toString());
+        final DiffResult list = new DiffBuilder(new EmptyClass(), new EmptyClass(), ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("test", false, true).build();
+        assertEquals("DiffResultTest.EmptyClass[test=false] differs from DiffResultTest.EmptyClass[test=true]",
+                list.toString());
     }
 
     @Test
     public void testToStringSpecifyStyleOutput() {
         final DiffResult list = SIMPLE_FALSE.diff(SIMPLE_TRUE);
         assertTrue(list.getToStringStyle().equals(SHORT_STYLE));
-        final String lhsString = new ToStringBuilder(SIMPLE_FALSE, ToStringStyle.MULTI_LINE_STYLE).append(SimpleClass.getFieldName(), SIMPLE_FALSE.booleanField).build();
-        final String rhsString = new ToStringBuilder(SIMPLE_TRUE, ToStringStyle.MULTI_LINE_STYLE).append(SimpleClass.getFieldName(), SIMPLE_TRUE.booleanField).build();
+        final String lhsString = new ToStringBuilder(SIMPLE_FALSE, ToStringStyle.MULTI_LINE_STYLE)
+                .append(SimpleClass.getFieldName(), SIMPLE_FALSE.booleanField).build();
+        final String rhsString = new ToStringBuilder(SIMPLE_TRUE, ToStringStyle.MULTI_LINE_STYLE)
+                .append(SimpleClass.getFieldName(), SIMPLE_TRUE.booleanField).build();
         final String expectedOutput = String.format("%s differs from %s", lhsString, rhsString);
         assertEquals(expectedOutput, list.toString(ToStringStyle.MULTI_LINE_STYLE));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNullLhs() {
-        new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNullRhs() {
-        new DiffResult(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new DiffResult(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNullList() {
-        new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE);
+        });
     }
 
     @Test
     public void testNullStyle() {
-        final DiffResult diffResult = new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), null);
+        final DiffResult diffResult = new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE,
+                SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), null);
         assertEquals(ToStringStyle.DEFAULT_STYLE, diffResult.getToStringStyle());
     }
 
