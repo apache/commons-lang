@@ -40,11 +40,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 /**
  * Unit tests {@link org.apache.commons.lang3.Validate}.
  */
-public class ValidateTest {
+class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsTrue1() {
+    void testIsTrue1() {
         Validate.isTrue(true);
         try {
             Validate.isTrue(false);
@@ -56,7 +56,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsTrue2() {
+    void testIsTrue2() {
         Validate.isTrue(true, "MSG");
         try {
             Validate.isTrue(false, "MSG");
@@ -68,7 +68,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsTrue3() {
+    void testIsTrue3() {
         Validate.isTrue(true, "MSG", 6);
         try {
             Validate.isTrue(false, "MSG", 6);
@@ -80,7 +80,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsTrue4() {
+    void testIsTrue4() {
         Validate.isTrue(true, "MSG", 7);
         try {
             Validate.isTrue(false, "MSG", 7);
@@ -92,7 +92,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsTrue5() {
+    void testIsTrue5() {
         Validate.isTrue(true, "MSG", 7.4d);
         try {
             Validate.isTrue(false, "MSG", 7.4d);
@@ -106,7 +106,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     @SuppressWarnings("unused")
     @Test
-    public void testNotNull1() {
+    void testNotNull1() {
         Validate.notNull(new Object());
         try {
             Validate.notNull(null);
@@ -123,7 +123,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     @SuppressWarnings("unused")
     @Test
-    public void testNotNull2() {
+    void testNotNull2() {
         Validate.notNull(new Object(), "MSG");
         try {
             Validate.notNull(null, "MSG");
@@ -140,7 +140,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
-    public void testNotEmptyArray1() {
+    void testNotEmptyArray1() {
         Validate.notEmpty(new Object[]{null});
         try {
             Validate.notEmpty((Object[]) null);
@@ -162,7 +162,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotEmptyArray2() {
+    void testNotEmptyArray2() {
         Validate.notEmpty(new Object[]{null}, "MSG");
         try {
             Validate.notEmpty((Object[]) null, "MSG");
@@ -185,7 +185,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
-    public void testNotEmptyCollection1() {
+    void testNotEmptyCollection1() {
         final Collection<Integer> coll = new ArrayList<>();
         try {
             Validate.notEmpty((Collection<?>) null);
@@ -208,7 +208,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotEmptyCollection2() {
+    void testNotEmptyCollection2() {
         final Collection<Integer> coll = new ArrayList<>();
         try {
             Validate.notEmpty((Collection<?>) null, "MSG");
@@ -232,7 +232,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
-    public void testNotEmptyMap1() {
+    void testNotEmptyMap1() {
         final Map<String, Integer> map = new HashMap<>();
         try {
             Validate.notEmpty((Map<?, ?>) null);
@@ -255,7 +255,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotEmptyMap2() {
+    void testNotEmptyMap2() {
         final Map<String, Integer> map = new HashMap<>();
         try {
             Validate.notEmpty((Map<?, ?>) null, "MSG");
@@ -279,7 +279,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
-    public void testNotEmptyString1() {
+    void testNotEmptyString1() {
         Validate.notEmpty("hjl");
         try {
             Validate.notEmpty((String) null);
@@ -301,7 +301,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotEmptyString2() {
+    void testNotEmptyString2() {
         Validate.notEmpty("a", "MSG");
         try {
             Validate.notEmpty((String) null, "MSG");
@@ -324,7 +324,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankNullStringShouldThrow() {
+    void testNotBlankNullStringShouldThrow() {
         //given
         final String string = null;
 
@@ -340,7 +340,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankMsgNullStringShouldThrow() {
+    void testNotBlankMsgNullStringShouldThrow() {
         //given
         final String string = null;
 
@@ -356,7 +356,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankEmptyStringShouldThrow() {
+    void testNotBlankEmptyStringShouldThrow() {
         //given
         final String string = "";
 
@@ -372,7 +372,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankBlankStringWithWhitespacesShouldThrow() {
+    void testNotBlankBlankStringWithWhitespacesShouldThrow() {
         //given
         final String string = "   ";
 
@@ -388,7 +388,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankBlankStringWithNewlinesShouldThrow() {
+    void testNotBlankBlankStringWithNewlinesShouldThrow() {
         //given
         final String string = " \n \t \r \n ";
 
@@ -404,7 +404,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankMsgBlankStringShouldThrow() {
+    void testNotBlankMsgBlankStringShouldThrow() {
         //given
         final String string = " \n \t \r \n ";
 
@@ -420,7 +420,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankMsgBlankStringWithWhitespacesShouldThrow() {
+    void testNotBlankMsgBlankStringWithWhitespacesShouldThrow() {
         //given
         final String string = "   ";
 
@@ -436,7 +436,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankMsgEmptyStringShouldThrow() {
+    void testNotBlankMsgEmptyStringShouldThrow() {
         //given
         final String string = "";
 
@@ -452,7 +452,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankNotBlankStringShouldNotThrow() {
+    void testNotBlankNotBlankStringShouldNotThrow() {
         //given
         final String string = "abc";
 
@@ -464,7 +464,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankNotBlankStringWithWhitespacesShouldNotThrow() {
+    void testNotBlankNotBlankStringWithWhitespacesShouldNotThrow() {
         //given
         final String string = "  abc   ";
 
@@ -476,7 +476,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankNotBlankStringWithNewlinesShouldNotThrow() {
+    void testNotBlankNotBlankStringWithNewlinesShouldNotThrow() {
         //given
         final String string = " \n \t abc \r \n ";
 
@@ -488,7 +488,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankMsgNotBlankStringShouldNotThrow() {
+    void testNotBlankMsgNotBlankStringShouldNotThrow() {
         //given
         final String string = "abc";
 
@@ -500,7 +500,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankMsgNotBlankStringWithWhitespacesShouldNotThrow() {
+    void testNotBlankMsgNotBlankStringWithWhitespacesShouldNotThrow() {
         //given
         final String string = "  abc   ";
 
@@ -512,7 +512,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankMsgNotBlankStringWithNewlinesShouldNotThrow() {
+    void testNotBlankMsgNotBlankStringWithNewlinesShouldNotThrow() {
         //given
         final String string = " \n \t abc \r \n ";
 
@@ -524,14 +524,14 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNotBlankReturnValues1() {
+    void testNotBlankReturnValues1() {
         final String str = "Hi";
         final String test = Validate.notBlank(str);
         assertSame(str, test);
     }
 
     @Test
-    public void testNotBlankReturnValues2() {
+    void testNotBlankReturnValues2() {
         final String str = "Hi";
         final String test = Validate.notBlank(str, "Message");
         assertSame(str, test);
@@ -540,7 +540,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
-    public void testNoNullElementsArray1() {
+    void testNoNullElementsArray1() {
         String[] array = new String[]{"a", "b"};
         Validate.noNullElements(array);
         try {
@@ -564,7 +564,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNoNullElementsArray2() {
+    void testNoNullElementsArray2() {
         String[] array = new String[]{"a", "b"};
         Validate.noNullElements(array, "MSG");
         try {
@@ -589,7 +589,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
-    public void testNoNullElementsCollection1() {
+    void testNoNullElementsCollection1() {
         final List<String> coll = new ArrayList<>();
         coll.add("a");
         coll.add("b");
@@ -615,7 +615,7 @@ public class ValidateTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNoNullElementsCollection2() {
+    void testNoNullElementsCollection2() {
         final List<String> coll = new ArrayList<>();
         coll.add("a");
         coll.add("b");
@@ -642,7 +642,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new Validate());
         final Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -654,7 +654,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
-    public void testValidIndex_withMessage_array() {
+    void testValidIndex_withMessage_array() {
         final Object[] array = new Object[2];
         Validate.validIndex(array, 0, "Broken: ");
         Validate.validIndex(array, 1, "Broken: ");
@@ -677,7 +677,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testValidIndex_array() {
+    void testValidIndex_array() {
         final Object[] array = new Object[2];
         Validate.validIndex(array, 0);
         Validate.validIndex(array, 1);
@@ -702,7 +702,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
-    public void testValidIndex_withMessage_collection() {
+    void testValidIndex_withMessage_collection() {
         final Collection<String> coll = new ArrayList<>();
         coll.add(null);
         coll.add(null);
@@ -727,7 +727,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testValidIndex_collection() {
+    void testValidIndex_collection() {
         final Collection<String> coll = new ArrayList<>();
         coll.add(null);
         coll.add(null);
@@ -754,7 +754,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     @Test
-    public void testValidIndex_withMessage_charSequence() {
+    void testValidIndex_withMessage_charSequence() {
         final CharSequence str = "Hi";
         Validate.validIndex(str, 0, "Broken: ");
         Validate.validIndex(str, 1, "Broken: ");
@@ -777,7 +777,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testValidIndex_charSequence() {
+    void testValidIndex_charSequence() {
         final CharSequence str = "Hi";
         Validate.validIndex(str, 0);
         Validate.validIndex(str, 1);
@@ -800,7 +800,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testMatchesPattern() {
+    void testMatchesPattern() {
         final CharSequence str = "hi";
         Validate.matchesPattern(str, "[a-z]*");
         try {
@@ -812,7 +812,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testMatchesPattern_withMessage() {
+    void testMatchesPattern_withMessage() {
         final CharSequence str = "hi";
         Validate.matchesPattern(str, "[a-z]*", "Does not match");
         try {
@@ -827,7 +827,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
 
     @Test
-    public void testNotNaN1() {
+    void testNotNaN1() {
         Validate.notNaN(0.0);
         Validate.notNaN(Double.POSITIVE_INFINITY);
         Validate.notNaN(Double.NEGATIVE_INFINITY);
@@ -840,7 +840,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testNotNaN2() {
+    void testNotNaN2() {
         Validate.notNaN(0.0, "MSG");
         Validate.notNaN(Double.POSITIVE_INFINITY, "MSG");
         Validate.notNaN(Double.NEGATIVE_INFINITY, "MSG");
@@ -856,7 +856,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
 
     @Test
-    public void testFinite1() {
+    void testFinite1() {
         Validate.finite(0.0);
         try {
             Validate.finite(Double.POSITIVE_INFINITY);
@@ -879,7 +879,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testFinite2() {
+    void testFinite2() {
         Validate.finite(0.0, "MSG");
         try {
             Validate.finite(Double.POSITIVE_INFINITY, "MSG");
@@ -905,7 +905,7 @@ public class ValidateTest {
     //-----------------------------------------------------------------------
 
     @Test
-    public void testInclusiveBetween() {
+    void testInclusiveBetween() {
         Validate.inclusiveBetween("a", "c", "b");
         try {
             Validate.inclusiveBetween("0", "5", "6");
@@ -916,7 +916,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testInclusiveBetween_withMessage() {
+    void testInclusiveBetween_withMessage() {
         Validate.inclusiveBetween("a", "c", "b", "Error");
         try {
             Validate.inclusiveBetween("0", "5", "6", "Error");
@@ -927,7 +927,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testInclusiveBetweenLong() {
+    void testInclusiveBetweenLong() {
         Validate.inclusiveBetween(0, 2, 1);
         Validate.inclusiveBetween(0, 2, 2);
         try {
@@ -939,7 +939,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testInclusiveBetweenLong_withMessage() {
+    void testInclusiveBetweenLong_withMessage() {
         Validate.inclusiveBetween(0, 2, 1, "Error");
         Validate.inclusiveBetween(0, 2, 2, "Error");
         try {
@@ -951,7 +951,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testInclusiveBetweenDouble() {
+    void testInclusiveBetweenDouble() {
         Validate.inclusiveBetween(0.1, 2.1, 1.1);
         Validate.inclusiveBetween(0.1, 2.1, 2.1);
         try {
@@ -963,7 +963,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testInclusiveBetweenDouble_withMessage() {
+    void testInclusiveBetweenDouble_withMessage() {
         Validate.inclusiveBetween(0.1, 2.1, 1.1, "Error");
         Validate.inclusiveBetween(0.1, 2.1, 2.1, "Error");
         try {
@@ -975,7 +975,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testExclusiveBetween() {
+    void testExclusiveBetween() {
         Validate.exclusiveBetween("a", "c", "b");
         try {
             Validate.exclusiveBetween("0", "5", "6");
@@ -992,7 +992,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testExclusiveBetween_withMessage() {
+    void testExclusiveBetween_withMessage() {
         Validate.exclusiveBetween("a", "c", "b", "Error");
         try {
             Validate.exclusiveBetween("0", "5", "6", "Error");
@@ -1009,7 +1009,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testExclusiveBetweenLong() {
+    void testExclusiveBetweenLong() {
         Validate.exclusiveBetween(0, 2, 1);
         try {
             Validate.exclusiveBetween(0, 5, 6);
@@ -1026,7 +1026,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testExclusiveBetweenLong_withMessage() {
+    void testExclusiveBetweenLong_withMessage() {
         Validate.exclusiveBetween(0, 2, 1, "Error");
         try {
             Validate.exclusiveBetween(0, 5, 6, "Error");
@@ -1043,7 +1043,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testExclusiveBetweenDouble() {
+    void testExclusiveBetweenDouble() {
         Validate.exclusiveBetween(0.1, 2.1, 1.1);
         try {
             Validate.exclusiveBetween(0.1, 5.1, 6.1);
@@ -1060,7 +1060,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testExclusiveBetweenDouble_withMessage() {
+    void testExclusiveBetweenDouble_withMessage() {
         Validate.exclusiveBetween(0.1, 2.1, 1.1, "Error");
         try {
             Validate.exclusiveBetween(0.1, 5.1, 6.1, "Error");
@@ -1077,13 +1077,13 @@ public class ValidateTest {
     }
 
     @Test
-    public void testIsInstanceOf() {
+    void testIsInstanceOf() {
         Validate.isInstanceOf(String.class, "hi");
         Validate.isInstanceOf(Integer.class, 1);
     }
 
     @Test
-    public void testIsInstanceOfExceptionMessage() {
+    void testIsInstanceOfExceptionMessage() {
         try {
             Validate.isInstanceOf(List.class, "hi");
             fail("Expecting IllegalArgumentException");
@@ -1093,7 +1093,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testIsInstanceOf_withMessage() {
+    void testIsInstanceOf_withMessage() {
         Validate.isInstanceOf(String.class, "hi", "Error");
         Validate.isInstanceOf(Integer.class, 1, "Error");
         try {
@@ -1105,7 +1105,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testIsInstanceOf_withMessageArgs() {
+    void testIsInstanceOf_withMessageArgs() {
         Validate.isInstanceOf(String.class, "hi", "Error %s=%s", "Name", "Value");
         Validate.isInstanceOf(Integer.class, 1, "Error %s=%s", "Name", "Value");
         try {
@@ -1129,13 +1129,13 @@ public class ValidateTest {
     }
 
     @Test
-    public void testIsAssignable() {
+    void testIsAssignable() {
         Validate.isAssignableFrom(CharSequence.class, String.class);
         Validate.isAssignableFrom(AbstractList.class, ArrayList.class);
     }
 
     @Test
-    public void testIsAssignableExceptionMessage() {
+    void testIsAssignableExceptionMessage() {
         try {
             Validate.isAssignableFrom(List.class, String.class);
             fail("Expecting IllegalArgumentException");
@@ -1145,7 +1145,7 @@ public class ValidateTest {
     }
 
     @Test
-    public void testIsAssignable_withMessage() {
+    void testIsAssignable_withMessage() {
         Validate.isAssignableFrom(CharSequence.class, String.class, "Error");
         Validate.isAssignableFrom(AbstractList.class, ArrayList.class, "Error");
         try {
