@@ -1785,55 +1785,61 @@ class ValidateTest {
         }
     }
 
-    @Test
-    void testIsInstanceOf() {
-        Validate.isInstanceOf(String.class, "hi");
-        Validate.isInstanceOf(Integer.class, 1);
-    }
+    @Nested
+    class IsInstanceOf {
 
-    @Test
-    void testIsInstanceOfExceptionMessage() {
-        try {
-            Validate.isInstanceOf(List.class, "hi");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Expected type: java.util.List, actual: java.lang.String", e.getMessage());
-        }
-    }
+        @Nested
+        class WithoutMessage {
 
-    @Test
-    void testIsInstanceOf_withMessage() {
-        Validate.isInstanceOf(String.class, "hi", "Error");
-        Validate.isInstanceOf(Integer.class, 1, "Error");
-        try {
-            Validate.isInstanceOf(List.class, "hi", "Error");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Error", e.getMessage());
-        }
-    }
+            @Test
+            void shouldNotThrowExceptionWhenValueIsInstanceOfClass() {
+                Validate.isInstanceOf(String.class, "hi");
+            }
 
-    @Test
-    void testIsInstanceOf_withMessageArgs() {
-        Validate.isInstanceOf(String.class, "hi", "Error %s=%s", "Name", "Value");
-        Validate.isInstanceOf(Integer.class, 1, "Error %s=%s", "Name", "Value");
-        try {
-            Validate.isInstanceOf(List.class, "hi", "Error %s=%s", "Name", "Value");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Error Name=Value", e.getMessage());
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsNotInstanceOfClass() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isInstanceOf(List.class, "hi"));
+
+                assertEquals("Expected type: java.util.List, actual: java.lang.String", ex.getMessage());
+            }
         }
-        try {
-            Validate.isInstanceOf(List.class, "hi", "Error %s=%s", List.class, "Value");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Error interface java.util.List=Value", e.getMessage());
+
+        @Nested
+        class WithMessage {
+
+            @Test
+            void shouldNotThrowExceptionWhenValueIsInstanceOfClass() {
+                Validate.isInstanceOf(String.class, "hi", "MSG");
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsNotInstanceOfClass() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isInstanceOf(List.class, "hi", "MSG"));
+
+                assertEquals("MSG", ex.getMessage());
+            }
         }
-        try {
-            Validate.isInstanceOf(List.class, "hi", "Error %s=%s", List.class, null);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Error interface java.util.List=null", e.getMessage());
+
+        @Nested
+        class WithMessageTemplate {
+
+            @Test
+            void shouldNotThrowExceptionWhenValueIsInstanceOfClass() {
+                Validate.isInstanceOf(String.class, "hi", "Error %s=%s", "Name", "Value");
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsNotInstanceOfClass() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isInstanceOf(List.class, "hi", "Error %s=%s", "Name", "Value"));
+
+                assertEquals("Error Name=Value", ex.getMessage());
+            }
         }
     }
 
