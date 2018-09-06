@@ -1490,105 +1490,298 @@ class ValidateTest {
         }
     }
 
-    @Test
-    void testExclusiveBetween() {
-        Validate.exclusiveBetween("a", "c", "b");
-        try {
-            Validate.exclusiveBetween("0", "5", "6");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("The value 6 is not in the specified exclusive range of 0 to 5", e.getMessage());
-        }
-        try {
-            Validate.exclusiveBetween("0", "5", "5");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("The value 5 is not in the specified exclusive range of 0 to 5", e.getMessage());
-        }
-    }
+    @Nested
+    class ExclusiveBetween {
 
-    @Test
-    void testExclusiveBetween_withMessage() {
-        Validate.exclusiveBetween("a", "c", "b", "Error");
-        try {
-            Validate.exclusiveBetween("0", "5", "6", "Error");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Error", e.getMessage());
-        }
-        try {
-            Validate.exclusiveBetween("0", "5", "5", "Error");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Error", e.getMessage());
-        }
-    }
+        @Nested
+        class WithComparable {
 
-    @Test
-    void testExclusiveBetweenLong() {
-        Validate.exclusiveBetween(0, 2, 1);
-        try {
-            Validate.exclusiveBetween(0, 5, 6);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("The value 6 is not in the specified exclusive range of 0 to 5", e.getMessage());
-        }
-        try {
-            Validate.exclusiveBetween(0, 5, 5);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("The value 5 is not in the specified exclusive range of 0 to 5", e.getMessage());
-        }
-    }
+            private static final String LOWER_BOUND = "1";
+            private static final String UPPER_BOUND = "3";
 
-    @Test
-    void testExclusiveBetweenLong_withMessage() {
-        Validate.exclusiveBetween(0, 2, 1, "Error");
-        try {
-            Validate.exclusiveBetween(0, 5, 6, "Error");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Error", e.getMessage());
-        }
-        try {
-            Validate.exclusiveBetween(0, 5, 5, "Error");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Error", e.getMessage());
-        }
-    }
+            @Nested
+            class WithoutMessage {
 
-    @Test
-    void testExclusiveBetweenDouble() {
-        Validate.exclusiveBetween(0.1, 2.1, 1.1);
-        try {
-            Validate.exclusiveBetween(0.1, 5.1, 6.1);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("The value 6.1 is not in the specified exclusive range of 0.1 to 5.1", e.getMessage());
-        }
-        try {
-            Validate.exclusiveBetween(0.1, 5.1, 5.1);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("The value 5.1 is not in the specified exclusive range of 0.1 to 5.1", e.getMessage());
-        }
-    }
+                @Test
+                void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
+                    Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "2");
+                }
 
-    @Test
-    void testExclusiveBetweenDouble_withMessage() {
-        Validate.exclusiveBetween(0.1, 2.1, 1.1, "Error");
-        try {
-            Validate.exclusiveBetween(0.1, 5.1, 6.1, "Error");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Error", e.getMessage());
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND));
+
+                    assertEquals("The value 1 is not in the specified exclusive range of 1 to 3", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND));
+
+                    assertEquals("The value 3 is not in the specified exclusive range of 1 to 3", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsBelowLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "0"));
+
+                    assertEquals("The value 0 is not in the specified exclusive range of 1 to 3", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "4"));
+
+                    assertEquals("The value 4 is not in the specified exclusive range of 1 to 3", ex.getMessage());
+                }
+            }
+
+            @Nested
+            class WithMessage {
+
+                @Test
+                void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
+                    Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "2", "MSG");
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsBelowLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "0", "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "4", "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
         }
-        try {
-            Validate.exclusiveBetween(0.1, 5.1, 5.1, "Error");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Error", e.getMessage());
+
+        @Nested
+        class WithLong {
+
+            private static final long LOWER_BOUND = 1;
+            private static final long UPPER_BOUND = 3;
+
+            @Nested
+            class WithoutMessage {
+
+                @Test
+                void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
+                    Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 2);
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND));
+
+                    assertEquals("The value 1 is not in the specified exclusive range of 1 to 3", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND));
+
+                    assertEquals("The value 3 is not in the specified exclusive range of 1 to 3", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsBelowLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0));
+
+                    assertEquals("The value 0 is not in the specified exclusive range of 1 to 3", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4));
+
+                    assertEquals("The value 4 is not in the specified exclusive range of 1 to 3", ex.getMessage());
+                }
+            }
+
+            @Nested
+            class WithMessage {
+
+                @Test
+                void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
+                    Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 2, "MSG");
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsBelowLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
+        }
+
+        @Nested
+        class WithDouble {
+
+            private static final double LOWER_BOUND = 0.1;
+            private static final double UPPER_BOUND = 3.1;
+
+            @Nested
+            class WithoutMessage {
+
+                @Test
+                void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
+                    Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 2.1);
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExcdeptionWhenValueIsLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND));
+
+                    assertEquals("The value 0.1 is not in the specified exclusive range of 0.1 to 3.1", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExcdeptionWhenValueIsUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND));
+
+                    assertEquals("The value 3.1 is not in the specified exclusive range of 0.1 to 3.1", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsBelowLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0.01));
+
+                    assertEquals("The value 0.01 is not in the specified exclusive range of 0.1 to 3.1", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4.1));
+
+                    assertEquals("The value 4.1 is not in the specified exclusive range of 0.1 to 3.1", ex.getMessage());
+                }
+            }
+
+            @Nested
+            class WithMessage {
+
+                @Test
+                void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
+                    Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 2.1, "MSG");
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExcdeptionWhenValueIsLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExcdeptionWhenValueIsUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsBelowLowerBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0.01, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsAboveUpperBound() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4.1, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
         }
     }
 
