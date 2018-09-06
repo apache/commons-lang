@@ -1167,53 +1167,79 @@ class ValidateTest {
         }
     }
 
+    @Nested
+    class Finite {
 
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
+        @Nested
+        class WithoutMessage {
 
-    @Test
-    void testFinite1() {
-        Validate.finite(0.0);
-        try {
-            Validate.finite(Double.POSITIVE_INFINITY);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("The value is invalid: Infinity", ex.getMessage());
-        }
-        try {
-            Validate.finite(Double.NEGATIVE_INFINITY);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("The value is invalid: -Infinity", ex.getMessage());
-        }
-        try {
-            Validate.finite(Double.NaN);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("The value is invalid: NaN", ex.getMessage());
-        }
-    }
+            @Test
+            void shouldNotThrowExceptionForFiniteValue() {
+                Validate.finite(0.0);
+            }
 
-    @Test
-    void testFinite2() {
-        Validate.finite(0.0, "MSG");
-        try {
-            Validate.finite(Double.POSITIVE_INFINITY, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithDefaultMessageForPositiveInfinity() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.finite(Double.POSITIVE_INFINITY));
+
+                assertEquals("The value is invalid: Infinity", ex.getMessage());
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithDefaultMessageForNegativeInfinity() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.finite(Double.NEGATIVE_INFINITY));
+
+                assertEquals("The value is invalid: -Infinity", ex.getMessage());
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithDefaultMessageForNaN() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.finite(Double.NaN));
+
+                assertEquals("The value is invalid: NaN", ex.getMessage());
+            }
         }
-        try {
-            Validate.finite(Double.NEGATIVE_INFINITY, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-        try {
-            Validate.finite(Double.NaN, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
+
+        @Nested
+        class WithMessage {
+
+            @Test
+            void shouldNotThrowExceptionForFiniteValue() {
+                Validate.finite(0.0, "MSG");
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithDefaultMessageForPositiveInfinity() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.finite(Double.POSITIVE_INFINITY, "MSG"));
+
+                assertEquals("MSG", ex.getMessage());
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithDefaultMessageForNegativeInfinity() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.finite(Double.NEGATIVE_INFINITY, "MSG"));
+
+                assertEquals("MSG", ex.getMessage());
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithDefaultMessageForNaN() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.finite(Double.NaN, "MSG"));
+
+                assertEquals("MSG", ex.getMessage());
+            }
         }
     }
 
