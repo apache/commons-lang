@@ -139,39 +139,60 @@ class ValidateTest {
         }
     }
 
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    @SuppressWarnings("unused")
-    @Test
-    void testNotNull1() {
-        Validate.notNull(new Object());
-        try {
-            Validate.notNull(null);
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("The validated object is null", ex.getMessage());
+    @Nested
+    class NotNull {
+
+        @Nested
+        class WithoutMessage {
+
+            @Test
+            void shouldNotThrowForNonNullReference() {
+                Validate.notNull(new Object());
+            }
+
+            @Test
+            void shouldReturnTheSameInstance() {
+                final String str = "Hi";
+                final String result = Validate.notNull(str);
+
+                assertSame(str, result);
+            }
+
+            @Test
+            void shouldThrowExceptionWithDefaultMessageForNullReference() {
+                final NullPointerException ex = assertThrows(
+                        NullPointerException.class,
+                        () -> Validate.notNull(null));
+
+                assertEquals("The validated object is null", ex.getMessage());
+            }
         }
 
-        final String str = "Hi";
-        final String testStr = Validate.notNull(str);
-        assertSame(str, testStr);
-    }
+        @Nested
+        class WithMessage {
 
-    //-----------------------------------------------------------------------
-    @SuppressWarnings("unused")
-    @Test
-    void testNotNull2() {
-        Validate.notNull(new Object(), "MSG");
-        try {
-            Validate.notNull(null, "MSG");
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("MSG", ex.getMessage());
+            @Test
+            void shouldNotThrowForNonNullReference() {
+                Validate.notNull(new Object(), "MSG");
+            }
+
+            @Test
+            void shouldReturnTheSameInstance() {
+                final String str = "Hi";
+                final String result = Validate.notNull(str, "MSG");
+
+                assertSame(str, result);
+            }
+
+            @Test
+            void shouldThrowExceptionWithGivenMessageForNullReference() {
+                final NullPointerException ex = assertThrows(
+                        NullPointerException.class,
+                        () -> Validate.notNull(null, "MSG"));
+
+                assertEquals("MSG", ex.getMessage());
+            }
         }
-
-        final String str = "Hi";
-        final String testStr = Validate.notNull(str, "Message");
-        assertSame(str, testStr);
     }
 
     //-----------------------------------------------------------------------
