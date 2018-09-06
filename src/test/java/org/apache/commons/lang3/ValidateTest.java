@@ -1843,32 +1843,43 @@ class ValidateTest {
         }
     }
 
-    @Test
-    void testIsAssignable() {
-        Validate.isAssignableFrom(CharSequence.class, String.class);
-        Validate.isAssignableFrom(AbstractList.class, ArrayList.class);
-    }
+    @Nested
+    class IsAssignable {
 
-    @Test
-    void testIsAssignableExceptionMessage() {
-        try {
-            Validate.isAssignableFrom(List.class, String.class);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Cannot assign a java.lang.String to a java.util.List", e.getMessage());
+        @Nested
+        class WithoutMessage {
+
+            @Test
+            void shouldNotThrowExceptionWhenClassIsAssignable() {
+                Validate.isAssignableFrom(CharSequence.class, String.class);
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenClassIsNotAssignable() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isAssignableFrom(List.class, String.class));
+
+                assertEquals("Cannot assign a java.lang.String to a java.util.List", ex.getMessage());
+            }
+        }
+
+        @Nested
+        class WithMessage {
+
+            @Test
+            void shouldNotThrowExceptionWhenClassIsAssignable() {
+                Validate.isAssignableFrom(CharSequence.class, String.class, "MSG");
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithGiventMessageWhenClassIsNotAssignable() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isAssignableFrom(List.class, String.class, "MSG"));
+
+                assertEquals("MSG", ex.getMessage());
+            }
         }
     }
-
-    @Test
-    void testIsAssignable_withMessage() {
-        Validate.isAssignableFrom(CharSequence.class, String.class, "Error");
-        Validate.isAssignableFrom(AbstractList.class, ArrayList.class, "Error");
-        try {
-            Validate.isAssignableFrom(List.class, String.class, "Error");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Error", e.getMessage());
-        }
-    }
-
 }
