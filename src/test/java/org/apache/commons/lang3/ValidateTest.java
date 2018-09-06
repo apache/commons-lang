@@ -1067,32 +1067,45 @@ class ValidateTest {
         }
     }
 
-    @Test
-    void testMatchesPattern() {
-        final CharSequence str = "hi";
-        Validate.matchesPattern(str, "[a-z]*");
-        try {
-            Validate.matchesPattern(str, "[0-9]*");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("The string hi does not match the pattern [0-9]*", e.getMessage());
+    @Nested
+    class MatchesPattern {
+
+        @Nested
+        class WithoutMessage {
+
+            @Test
+            void shouldNotThrowExceptionWhenStringMatchesPattern() {
+                Validate.matchesPattern("hi", "[a-z]*");
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenStringDoesNotMatchPattern() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.matchesPattern("hi", "[0-9]*"));
+
+                assertEquals("The string hi does not match the pattern [0-9]*", ex.getMessage());
+            }
+        }
+
+        @Nested
+        class WithMessage {
+
+            @Test
+            void shouldNotThrowExceptionWhenStringMatchesPattern() {
+                Validate.matchesPattern("hi", "[a-z]*", "MSG");
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWhenStringDoesNotMatchPattern() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.matchesPattern("hi", "[0-9]*", "MSG"));
+
+                assertEquals("MSG", ex.getMessage());
+            }
         }
     }
-
-    @Test
-    void testMatchesPattern_withMessage() {
-        final CharSequence str = "hi";
-        Validate.matchesPattern(str, "[a-z]*", "Does not match");
-        try {
-            Validate.matchesPattern(str, "[0-9]*", "Does not match");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            assertEquals("Does not match", e.getMessage());
-        }
-    }
-
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
 
     @Test
     void testNotNaN1() {
