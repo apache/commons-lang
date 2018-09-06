@@ -45,6 +45,16 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 class ValidateTest {
 
+    @Test
+    void testConstructor() {
+        assertNotNull(new Validate());
+        final Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(Validate.class.getModifiers()));
+        assertFalse(Modifier.isFinal(Validate.class.getModifiers()));
+    }
+
     @Nested
     class IsTrue {
 
@@ -776,18 +786,6 @@ class ValidateTest {
                 }
             }
         }
-    }
-
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    @Test
-    void testConstructor() {
-        assertNotNull(new Validate());
-        final Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(Validate.class.getModifiers()));
-        assertFalse(Modifier.isFinal(Validate.class.getModifiers()));
     }
 
     //-----------------------------------------------------------------------
