@@ -626,106 +626,156 @@ class ValidateTest {
         }
     }
 
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    @Test
-    void testNoNullElementsArray1() {
-        String[] array = new String[]{"a", "b"};
-        Validate.noNullElements(array);
-        try {
-            Validate.noNullElements((Object[]) null);
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("The validated object is null", ex.getMessage());
-        }
-        array[1] = null;
-        try {
-            Validate.noNullElements(array);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("The validated array contains null element at index: 1", ex.getMessage());
+    @Nested
+    class NoNullElements {
+
+        @Nested
+        class WithArray {
+
+            @Nested
+            class WithoutMessage {
+
+                @Test
+                void shouldNotThrowExceptionForNonEmptyArray() {
+                    Validate.noNullElements(new String[]{"a", "b"});
+                }
+
+                @Test
+                void shouldReturnSameInstance() {
+                    final String[] array = {"a", "b"};
+                    final String[] result = Validate.noNullElements(array);
+
+                    assertSame(array, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.noNullElements((Object[]) null));
+
+                    assertEquals("The validated object is null", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageForArrayWithNullElement() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.noNullElements(new String[]{"a", null}));
+
+                    assertEquals("The validated array contains null element at index: 1", ex.getMessage());
+                }
+            }
+
+            @Nested
+            class WithMessage {
+
+                @Test
+                void shouldNotThrowExceptionForNonEmptyArray() {
+                    Validate.noNullElements(new String[]{"a", "b"}, "MSG");
+                }
+
+                @Test
+                void shouldReturnSameInstance() {
+                    final String[] array = {"a", "b"};
+                    final String[] result = Validate.noNullElements(array, "MSG");
+
+                    assertSame(array, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.noNullElements((Object[]) null, "MSG"));
+
+                    assertEquals("The validated object is null", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageForArrayWithNullElement() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.noNullElements(new String[]{"a", null}, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
         }
 
-        array = new String[]{"a", "b"};
-        final String[] test = Validate.noNullElements(array);
-        assertSame(array, test);
-    }
+        @Nested
+        class WithCollection {
 
-    //-----------------------------------------------------------------------
-    @Test
-    void testNoNullElementsArray2() {
-        String[] array = new String[]{"a", "b"};
-        Validate.noNullElements(array, "MSG");
-        try {
-            Validate.noNullElements((Object[]) null, "MSG");
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("The validated object is null", ex.getMessage());
-        }
-        array[1] = null;
-        try {
-            Validate.noNullElements(array, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
+            @Nested
+            class WithoutMessage {
 
-        array = new String[]{"a", "b"};
-        final String[] test = Validate.noNullElements(array, "Message");
-        assertSame(array, test);
-    }
+                @Test
+                void shouldNotThrowExceptionForNonEmptyCollection() {
+                    Validate.noNullElements(Collections.singleton("a"));
+                }
 
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    @Test
-    void testNoNullElementsCollection1() {
-        final List<String> coll = new ArrayList<>();
-        coll.add("a");
-        coll.add("b");
-        Validate.noNullElements(coll);
-        try {
-            Validate.noNullElements((Collection<?>) null);
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("The validated object is null", ex.getMessage());
-        }
-        coll.set(1, null);
-        try {
-            Validate.noNullElements(coll);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("The validated collection contains null element at index: 1", ex.getMessage());
-        }
+                @Test
+                void shouldReturnSameInstance() {
+                    Set<String> col = Collections.singleton("a");
+                    final Set<String> result = Validate.noNullElements(col);
 
-        coll.set(1, "b");
-        final List<String> test = Validate.noNullElements(coll);
-        assertSame(coll, test);
-    }
+                    assertSame(col, result);
+                }
 
-    //-----------------------------------------------------------------------
-    @Test
-    void testNoNullElementsCollection2() {
-        final List<String> coll = new ArrayList<>();
-        coll.add("a");
-        coll.add("b");
-        Validate.noNullElements(coll, "MSG");
-        try {
-            Validate.noNullElements((Collection<?>) null, "MSG");
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("The validated object is null", ex.getMessage());
-        }
-        coll.set(1, null);
-        try {
-            Validate.noNullElements(coll, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.noNullElements((Collection<?>) null));
 
-        coll.set(1, "b");
-        final List<String> test = Validate.noNullElements(coll, "Message");
-        assertSame(coll, test);
+                    assertEquals("The validated object is null", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageForCollectionWithNullElement() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.noNullElements(Collections.singleton(null)));
+
+                    assertEquals("The validated collection contains null element at index: 0", ex.getMessage());
+                }
+            }
+
+            @Nested
+            class WithMessage {
+
+                @Test
+                void shouldNotThrowExceptionForNonEmptyCollection() {
+                    Validate.noNullElements(Collections.singleton("a"), "MSG");
+                }
+
+                @Test
+                void shouldReturnSameInstance() {
+                    Set<String> col = Collections.singleton("a");
+                    final Set<String> result = Validate.noNullElements(col, "MSG");
+
+                    assertSame(col, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.noNullElements((Collection<?>) null, "MSG"));
+
+                    assertEquals("The validated object is null", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageForCollectionWithNullElement() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.noNullElements(Collections.singleton(null), "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
+        }
     }
 
     //-----------------------------------------------------------------------
