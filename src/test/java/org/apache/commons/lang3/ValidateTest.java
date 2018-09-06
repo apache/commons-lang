@@ -27,9 +27,11 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -195,188 +197,304 @@ class ValidateTest {
         }
     }
 
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    @Test
-    void testNotEmptyArray1() {
-        Validate.notEmpty(new Object[]{null});
-        try {
-            Validate.notEmpty((Object[]) null);
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("The validated array is empty", ex.getMessage());
-        }
-        try {
-            Validate.notEmpty(new Object[0]);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("The validated array is empty", ex.getMessage());
+    @Nested
+    class NotEmpty {
+
+        @Nested
+        class WithArray {
+
+            @Nested
+            class WithoutMessage {
+
+                @Test
+                void shouldNotThrowExceptionForArrayContainingNullReference() {
+                    Validate.notEmpty(new Object[]{null});
+                }
+
+                @Test
+                void shouldReturnTheSameInstance() {
+                    final String[] array = new String[]{"hi"};
+                    final String[] result = Validate.notEmpty(array);
+
+                    assertSame(array, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.notEmpty((Object[]) null));
+
+                    assertEquals("The validated array is empty", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageForEmptyArray() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.notEmpty(new Object[0]));
+
+                    assertEquals("The validated array is empty", ex.getMessage());
+                }
+            }
+
+            @Nested
+            class WithMessage {
+
+                @Test
+                void shouldNotThrowExceptionForArrayContainingNullReference() {
+                    Validate.notEmpty(new Object[]{null}, "MSG");
+                }
+
+                @Test
+                void shouldReturnTheSameInstance() {
+                    final String[] array = new String[]{"hi"};
+                    final String[] result = Validate.notEmpty(array, "MSG");
+
+                    assertSame(array, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithGivenMessageForNullArray() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.notEmpty((Object[]) null, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageForEmptyArray() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.notEmpty(new Object[0], "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
         }
 
-        final String[] array = new String[]{"hi"};
-        final String[] test = Validate.notEmpty(array);
-        assertSame(array, test);
-    }
+        @Nested
+        class WithCollection {
 
-    //-----------------------------------------------------------------------
-    @Test
-    void testNotEmptyArray2() {
-        Validate.notEmpty(new Object[]{null}, "MSG");
-        try {
-            Validate.notEmpty((Object[]) null, "MSG");
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-        try {
-            Validate.notEmpty(new Object[0], "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
+            @Nested
+            class WithoutMessage {
 
-        final String[] array = new String[]{"hi"};
-        final String[] test = Validate.notEmpty(array, "Message");
-        assertSame(array, test);
-    }
+                @Test
+                void shouldNotThrowExceptionForCollectionContainingNullReference() {
+                    Validate.notEmpty(Collections.singleton(null));
+                }
 
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    @Test
-    void testNotEmptyCollection1() {
-        final Collection<Integer> coll = new ArrayList<>();
-        try {
-            Validate.notEmpty((Collection<?>) null);
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("The validated collection is empty", ex.getMessage());
-        }
-        try {
-            Validate.notEmpty(coll);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("The validated collection is empty", ex.getMessage());
-        }
-        coll.add(Integer.valueOf(8));
-        Validate.notEmpty(coll);
+                @Test
+                void shouldReturnTheSameInstance() {
+                    final Set<String> col = Collections.singleton("Hi");
+                    final Set<String> result = Validate.notEmpty(col);
 
-        final Collection<Integer> test = Validate.notEmpty(coll);
-        assertSame(coll, test);
-    }
+                    assertSame(col, result);
+                }
 
-    //-----------------------------------------------------------------------
-    @Test
-    void testNotEmptyCollection2() {
-        final Collection<Integer> coll = new ArrayList<>();
-        try {
-            Validate.notEmpty((Collection<?>) null, "MSG");
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-        try {
-            Validate.notEmpty(coll, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-        coll.add(Integer.valueOf(8));
-        Validate.notEmpty(coll, "MSG");
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.notEmpty((Collection<?>) null));
 
-        final Collection<Integer> test = Validate.notEmpty(coll, "Message");
-        assertSame(coll, test);
-    }
+                    assertEquals("The validated collection is empty", ex.getMessage());
+                }
 
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    @Test
-    void testNotEmptyMap1() {
-        final Map<String, Integer> map = new HashMap<>();
-        try {
-            Validate.notEmpty((Map<?, ?>) null);
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("The validated map is empty", ex.getMessage());
-        }
-        try {
-            Validate.notEmpty(map);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("The validated map is empty", ex.getMessage());
-        }
-        map.put("ll", Integer.valueOf(8));
-        Validate.notEmpty(map);
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageForEmptyCollection() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.notEmpty(Collections.emptySet()));
 
-        final Map<String, Integer> test = Validate.notEmpty(map);
-        assertSame(map, test);
-    }
+                    assertEquals("The validated collection is empty", ex.getMessage());
+                }
+            }
 
-    //-----------------------------------------------------------------------
-    @Test
-    void testNotEmptyMap2() {
-        final Map<String, Integer> map = new HashMap<>();
-        try {
-            Validate.notEmpty((Map<?, ?>) null, "MSG");
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-        try {
-            Validate.notEmpty(map, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-        map.put("ll", Integer.valueOf(8));
-        Validate.notEmpty(map, "MSG");
+            @Nested
+            class WithMessage {
 
-        final Map<String, Integer> test = Validate.notEmpty(map, "Message");
-        assertSame(map, test);
-    }
+                @Test
+                void shouldNotThrowExceptionForCollectionContainingNullReference() {
+                    Validate.notEmpty(Collections.singleton(null), "MSG");
+                }
 
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    @Test
-    void testNotEmptyString1() {
-        Validate.notEmpty("hjl");
-        try {
-            Validate.notEmpty((String) null);
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("The validated character sequence is empty", ex.getMessage());
-        }
-        try {
-            Validate.notEmpty("");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("The validated character sequence is empty", ex.getMessage());
+                @Test
+                void shouldReturnTheSameInstance() {
+                    final Set<String> col = Collections.singleton("Hi");
+                    final Set<String> result = Validate.notEmpty(col, "MSG");
+
+                    assertSame(col, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithGivenMessageForNullCollection() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.notEmpty((Collection<?>) null, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageForEmptyCollection() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.notEmpty(Collections.emptySet(), "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
         }
 
-        final String str = "Hi";
-        final String testStr = Validate.notEmpty(str);
-        assertSame(str, testStr);
-    }
+        @Nested
+        class WithMap {
 
-    //-----------------------------------------------------------------------
-    @Test
-    void testNotEmptyString2() {
-        Validate.notEmpty("a", "MSG");
-        try {
-            Validate.notEmpty((String) null, "MSG");
-            fail("Expecting NullPointerException");
-        } catch (final NullPointerException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-        try {
-            Validate.notEmpty("", "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
+            @Nested
+            class WithoutMessage {
+
+                @Test
+                void shouldNotThrowExceptionForMapContainingNullMapping() {
+                    Validate.notEmpty(Collections.singletonMap("key", null));
+                }
+
+                @Test
+                void shouldReturnTheSameInstance() {
+                    final Map<String, String> map = Collections.singletonMap("key", "value");
+                    final Map<String, String> result = Validate.notEmpty(map);
+
+                    assertSame(map, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultMessageForNullMap() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.notEmpty((Map<?, ?>) null));
+
+                    assertEquals("The validated map is empty", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageForEmptyMap() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.notEmpty(Collections.emptyMap()));
+
+                    assertEquals("The validated map is empty", ex.getMessage());
+                }
+            }
+
+            @Nested
+            class WithMessage {
+
+                @Test
+                void shouldNotThrowExceptionForMapContainingNullMapping() {
+                    Validate.notEmpty(Collections.singletonMap("key", null), "MSG");
+                }
+
+                @Test
+                void shouldReturnTheSameInstance() {
+                    final Map<String, String> map = Collections.singletonMap("key", "value");
+                    final Map<String, String> result = Validate.notEmpty(map, "MSG");
+
+                    assertSame(map, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithGivenMessageForNullMap() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.notEmpty((Map<?, ?>) null, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageForEmptyMap() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.notEmpty(Collections.emptyMap(), "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
         }
 
-        final String str = "Hi";
-        final String testStr = Validate.notEmpty(str, "Message");
-        assertSame(str, testStr);
+        @Nested
+        class WithCharSequence {
+
+            @Nested
+            class WithoutMessage {
+
+                @Test
+                void shouldNotThrowExceptionForNonEmptyString() {
+                    Validate.notEmpty("Hi");
+                }
+
+                @Test
+                void shouldReturnTheSameInstance() {
+                    final String str = "Hi";
+                    final String result = Validate.notEmpty(str);
+
+                    assertSame(str, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultMessageForNullCharSequence() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.notEmpty((CharSequence) null));
+
+                    assertEquals("The validated character sequence is empty", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithDefaultMessageForEmptyString() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.notEmpty(""));
+
+                    assertEquals("The validated character sequence is empty", ex.getMessage());
+                }
+            }
+
+            @Nested
+            class WithMessage {
+
+                @Test
+                void shouldNotThrowExceptionForNonEmptyString() {
+                    Validate.notEmpty("Hi", "MSG");
+                }
+
+                @Test
+                void shouldReturnTheSameInstance() {
+                    final String str = "Hi";
+                    final String result = Validate.notEmpty(str, "MSG");
+
+                    assertSame(str, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithGivenMessageForNullCharSequence() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.notEmpty((CharSequence) null, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageForEmptyString() {
+                    final IllegalArgumentException ex = assertThrows(
+                            IllegalArgumentException.class,
+                            () -> Validate.notEmpty("", "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
+        }
     }
 
     //-----------------------------------------------------------------------
