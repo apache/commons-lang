@@ -25,7 +25,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -788,152 +787,284 @@ class ValidateTest {
         }
     }
 
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    @Test
-    void testValidIndex_withMessage_array() {
-        final Object[] array = new Object[2];
-        Validate.validIndex(array, 0, "Broken: ");
-        Validate.validIndex(array, 1, "Broken: ");
-        try {
-            Validate.validIndex(array, -1, "Broken: ");
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("Broken: ", ex.getMessage());
-        }
-        try {
-            Validate.validIndex(array, 2, "Broken: ");
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("Broken: ", ex.getMessage());
+    @Nested
+    class ValidIndex {
+
+        @Nested
+        class WithArray {
+
+            @Nested
+            class WithoutMessage {
+
+                @Test
+                void shouldNotThrowExceptionForValidIndex() {
+                    Validate.validIndex(new String[]{"a"}, 0);
+                }
+
+                @Test
+                void shouldReturnSameInstance() {
+                    final String[] array = {"a"};
+                    final String[] result = Validate.validIndex(array, 0);
+
+                    assertSame(array, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultForNullArray() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.validIndex((Object[]) null, 1));
+
+                    assertEquals("The validated object is null", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForNegativeIndex() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex(new String[]{"a"}, -1));
+
+                    assertEquals("The validated array index is invalid: -1", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForIndexOutOfBounds() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex(new String[]{"a"}, 1));
+
+                    assertEquals("The validated array index is invalid: 1", ex.getMessage());
+                }
+            }
+
+            @Nested
+            class WithMessage {
+
+                @Test
+                void shouldNotThrowExceptionForValidIndex() {
+                    Validate.validIndex(new String[]{"a"}, 0, "MSG");
+                }
+
+                @Test
+                void shouldReturnSameInstance() {
+                    final String[] array = {"a"};
+                    final String[] result = Validate.validIndex(array, 0, "MSG");
+
+                    assertSame(array, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.validIndex((Object[]) null, 1, "MSG"));
+
+                    assertEquals("The validated object is null", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForNegativeIndex() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex(new String[]{"a"}, -1, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForIndexOutOfBounds() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex(new String[]{"a"}, 1, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
         }
 
-        final String[] strArray = new String[]{"Hi"};
-        final String[] test = Validate.noNullElements(strArray, "Message");
-        assertSame(strArray, test);
-    }
+        @Nested
+        class WithCollection {
 
-    @Test
-    void testValidIndex_array() {
-        final Object[] array = new Object[2];
-        Validate.validIndex(array, 0);
-        Validate.validIndex(array, 1);
-        try {
-            Validate.validIndex(array, -1);
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("The validated array index is invalid: -1", ex.getMessage());
-        }
-        try {
-            Validate.validIndex(array, 2);
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("The validated array index is invalid: 2", ex.getMessage());
-        }
+            @Nested
+            class WithoutMessage {
 
-        final String[] strArray = new String[]{"Hi"};
-        final String[] test = Validate.noNullElements(strArray);
-        assertSame(strArray, test);
-    }
+                @Test
+                void shouldNotThrowExceptionForValidIndex() {
+                    Validate.validIndex(Collections.singleton("a"), 0);
+                }
 
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    @Test
-    void testValidIndex_withMessage_collection() {
-        final Collection<String> coll = new ArrayList<>();
-        coll.add(null);
-        coll.add(null);
-        Validate.validIndex(coll, 0, "Broken: ");
-        Validate.validIndex(coll, 1, "Broken: ");
-        try {
-            Validate.validIndex(coll, -1, "Broken: ");
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("Broken: ", ex.getMessage());
-        }
-        try {
-            Validate.validIndex(coll, 2, "Broken: ");
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("Broken: ", ex.getMessage());
-        }
+                @Test
+                void shouldReturnSameInstance() {
+                    final Set<String> col = Collections.singleton("a");
+                    final Set<String> result = Validate.validIndex(col, 0);
 
-        final List<String> strColl = Arrays.asList("Hi");
-        final List<String> test = Validate.validIndex(strColl, 0, "Message");
-        assertSame(strColl, test);
-    }
+                    assertSame(col, result);
+                }
 
-    @Test
-    void testValidIndex_collection() {
-        final Collection<String> coll = new ArrayList<>();
-        coll.add(null);
-        coll.add(null);
-        Validate.validIndex(coll, 0);
-        Validate.validIndex(coll, 1);
-        try {
-            Validate.validIndex(coll, -1);
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("The validated collection index is invalid: -1", ex.getMessage());
-        }
-        try {
-            Validate.validIndex(coll, 2);
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("The validated collection index is invalid: 2", ex.getMessage());
-        }
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultForNullCollection() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.validIndex((Collection<?>) null, 1));
 
-        final List<String> strColl = Arrays.asList("Hi");
-        final List<String> test = Validate.validIndex(strColl, 0);
-        assertSame(strColl, test);
-    }
+                    assertEquals("The validated object is null", ex.getMessage());
+                }
 
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    @Test
-    void testValidIndex_withMessage_charSequence() {
-        final CharSequence str = "Hi";
-        Validate.validIndex(str, 0, "Broken: ");
-        Validate.validIndex(str, 1, "Broken: ");
-        try {
-            Validate.validIndex(str, -1, "Broken: ");
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("Broken: ", ex.getMessage());
-        }
-        try {
-            Validate.validIndex(str, 2, "Broken: ");
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("Broken: ", ex.getMessage());
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForNegativeIndex() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex(Collections.singleton("a"), -1));
+
+                    assertEquals("The validated collection index is invalid: -1", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForIndexOutOfBounds() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex(Collections.singleton("a"), 1));
+
+                    assertEquals("The validated collection index is invalid: 1", ex.getMessage());
+                }
+            }
+
+            @Nested
+            class WithMessage {
+
+                @Test
+                void shouldNotThrowExceptionForValidIndex() {
+                    Validate.validIndex(Collections.singleton("a"), 0, "MSG");
+                }
+
+                @Test
+                void shouldReturnSameInstance() {
+                    final Set<String> col = Collections.singleton("a");
+                    final Set<String> result = Validate.validIndex(col, 0, "MSG");
+
+                    assertSame(col, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.validIndex((Collection<?>) null, 1, "MSG"));
+
+                    assertEquals("The validated object is null", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForNegativeIndex() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex(Collections.singleton("a"), -1, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForIndexOutOfBounds() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex(Collections.singleton("a"), 1, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
         }
 
-        final String input = "Hi";
-        final String test = Validate.validIndex(input, 0, "Message");
-        assertSame(input, test);
-    }
+        @Nested
+        class WithCharSequence {
 
-    @Test
-    void testValidIndex_charSequence() {
-        final CharSequence str = "Hi";
-        Validate.validIndex(str, 0);
-        Validate.validIndex(str, 1);
-        try {
-            Validate.validIndex(str, -1);
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("The validated character sequence index is invalid: -1", ex.getMessage());
-        }
-        try {
-            Validate.validIndex(str, 2);
-            fail("Expecting IndexOutOfBoundsException");
-        } catch (final IndexOutOfBoundsException ex) {
-            assertEquals("The validated character sequence index is invalid: 2", ex.getMessage());
-        }
+            @Nested
+            class WithoutMessage {
 
-        final String input = "Hi";
-        final String test = Validate.validIndex(input, 0);
-        assertSame(input, test);
+                @Test
+                void shouldNotThrowExceptionForValidIndex() {
+                    Validate.validIndex("a", 0);
+                }
+
+                @Test
+                void shouldReturnSameInstance() {
+                    final String str = "a";
+                    final String result = Validate.validIndex(str, 0);
+
+                    assertSame(str, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultForNullString() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.validIndex((String) null, 1));
+
+                    assertEquals("The validated object is null", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForNegativeIndex() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex("a", -1));
+
+                    assertEquals("The validated character sequence index is invalid: -1", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForIndexOutOfBounds() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex("a", 1));
+
+                    assertEquals("The validated character sequence index is invalid: 1", ex.getMessage());
+                }
+            }
+
+            @Nested
+            class WithMessage {
+
+                @Test
+                void shouldNotThrowExceptionForValidIndex() {
+                    Validate.validIndex("a", 0, "MSG");
+                }
+
+                @Test
+                void shouldReturnSameInstance() {
+                    final String str = "a";
+                    final String result = Validate.validIndex(str, 0, "MSG");
+
+                    assertSame(str, result);
+                }
+
+                @Test
+                void shouldThrowNullPointerExceptionWithDefaultMessageForNullStr() {
+                    final NullPointerException ex = assertThrows(
+                            NullPointerException.class,
+                            () -> Validate.validIndex((String) null, 1, "MSG"));
+
+                    assertEquals("The validated object is null", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForNegativeIndex() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex("a", -1, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForIndexOutOfBounds() {
+                    final IndexOutOfBoundsException ex = assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> Validate.validIndex("a", 1, "MSG"));
+
+                    assertEquals("MSG", ex.getMessage());
+                }
+            }
+        }
     }
 
     @Test
