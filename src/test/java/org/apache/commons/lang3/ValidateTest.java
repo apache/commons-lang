@@ -1107,31 +1107,66 @@ class ValidateTest {
         }
     }
 
-    @Test
-    void testNotNaN1() {
-        Validate.notNaN(0.0);
-        Validate.notNaN(Double.POSITIVE_INFINITY);
-        Validate.notNaN(Double.NEGATIVE_INFINITY);
-        try {
-            Validate.notNaN(Double.NaN);
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("The validated value is not a number", ex.getMessage());
+    @Nested
+    class NotNaN {
+
+        @Nested
+        class WithoutMessage {
+
+            @Test
+            void shouldNotThrowExceptionForNumber() {
+                Validate.notNaN(0.0);
+            }
+
+            @Test
+            void shouldNotThrowExceptionForPositiveInfinity() {
+                Validate.notNaN(Double.POSITIVE_INFINITY);
+            }
+
+            @Test
+            void shouldNotThrowExceptionForNegativeInfinity() {
+                Validate.notNaN(Double.NEGATIVE_INFINITY);
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithDefaultMessageForNaN() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.notNaN(Double.NaN));
+
+                assertEquals("The validated value is not a number", ex.getMessage());
+            }
+        }
+
+        @Nested
+        class WithMessage {
+
+            @Test
+            void shouldNotThrowExceptionForNumber() {
+                Validate.notNaN(0.0, "MSG");
+            }
+
+            @Test
+            void shouldNotThrowExceptionForPositiveInfinity() {
+                Validate.notNaN(Double.POSITIVE_INFINITY, "MSG");
+            }
+
+            @Test
+            void shouldNotThrowExceptionForNegativeInfinity() {
+                Validate.notNaN(Double.NEGATIVE_INFINITY, "MSG");
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithGivenMessageForNaN() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.notNaN(Double.NaN, "MSG"));
+
+                assertEquals("MSG", ex.getMessage());
+            }
         }
     }
 
-    @Test
-    void testNotNaN2() {
-        Validate.notNaN(0.0, "MSG");
-        Validate.notNaN(Double.POSITIVE_INFINITY, "MSG");
-        Validate.notNaN(Double.NEGATIVE_INFINITY, "MSG");
-        try {
-            Validate.notNaN(Double.NaN, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-    }
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
