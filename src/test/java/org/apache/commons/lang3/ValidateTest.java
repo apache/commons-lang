@@ -23,8 +23,6 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -37,22 +35,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.Validate}.
  */
 class ValidateTest {
-
-    @Test
-    void testConstructor() {
-        assertNotNull(new Validate());
-        final Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(Validate.class.getModifiers()));
-        assertFalse(Modifier.isFinal(Validate.class.getModifiers()));
-    }
 
     @Nested
     class IsTrue {
@@ -1880,6 +1867,31 @@ class ValidateTest {
 
                 assertEquals("MSG", ex.getMessage());
             }
+        }
+    }
+
+    @Nested
+    class UtilClassConventions {
+
+        @Test
+        void instancesCanBeConstrcuted() {
+            assertNotNull(new Validate());
+        }
+
+        @Test
+        void hasOnlyOnePublicConstructor() {
+            final Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
+            assertEquals(1, cons.length);
+        }
+
+        @Test
+        void isPublicClass() {
+            assertTrue(Modifier.isPublic(Validate.class.getModifiers()));
+        }
+
+        @Test
+        void isNonFinalClass() {
+            assertFalse(Modifier.isFinal(Validate.class.getModifiers()));
         }
     }
 }
