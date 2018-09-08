@@ -709,8 +709,8 @@
           </execution>
         </executions>
         <configuration>
-          <archive combine.children="append">
-            <manifestEntries>
+          <archive>
+            <manifestEntries combine.children="append">
               <Automatic-Module-Name>${commons.module.name}</Automatic-Module-Name>
             </manifestEntries>
           </archive>
