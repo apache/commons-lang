@@ -624,7 +624,7 @@
     <jmh.version>1.21</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
-    <junit.version>5.3.0</junit.version>
+    <junit.version>5.3.1</junit.version>
 
     <!-- generate report even if there are binary incompatible changes -->
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
