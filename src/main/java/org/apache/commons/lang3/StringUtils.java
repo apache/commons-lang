@@ -5596,8 +5596,10 @@ public class StringUtils {
          }
          String searchText = text;
          if (ignoreCase) {
-             searchText = text.toUpperCase();
-             searchString = searchString.toUpperCase();
+             searchText = toLowerCase(text);
+             searchString = toLowerCase(searchString);
+//             searchText = text.toUpperCase();
+//             searchString = searchString.toUpperCase();
          }
          int start = 0;
          int end = searchText.indexOf(searchString, start);
@@ -9413,4 +9415,18 @@ public class StringUtils {
         }
         return result;
     }
+
+    /**
+     * Test
+     * @param str
+     * @return
+     */
+    public static String toLowerCase (String str) {
+        char[] arr = str.toCharArray();
+        for (int i = 0 ; i<arr.length ; i++){
+            arr[i] = Character.toLowerCase(arr[i]);
+        }
+        return new String(arr);
+    }
+
 }

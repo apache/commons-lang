@@ -1390,6 +1390,16 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testReplaceIgnoreCase_UniCodeOutBound() {
+        assertEquals("\u0130i", StringUtils.replaceIgnoreCase("\u0130xix", "x", ""));
+
+        //Not pass
+        //Although out bound is not happend in this case, however \u0130 would be converted into [i] and leads to mis match happen.
+        assertEquals("\u0130xx", StringUtils.replaceIgnoreCase("\u0130xix", "i", ""));
+        assertEquals("xix", StringUtils.replaceIgnoreCase("\u0130xix", "\u0130", ""));
+    }
+
+    @Test
     public void testReplaceOnce_StringStringString() {
         assertNull(StringUtils.replaceOnce(null, null, null));
         assertNull(StringUtils.replaceOnce(null, null, "any"));

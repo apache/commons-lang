@@ -5,18 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 public class CharToLowerCase {
 
 
-    /**
-     * Test
-     * @param str
-     * @return
-     */
-    public static String toLowerCase (String str) {
-        StringBuilder sb = new StringBuilder();
-        for (char ch : str.toCharArray()){
-            sb.append(ch);
-        }
-        return sb.toString();
-    }
 
 
 
