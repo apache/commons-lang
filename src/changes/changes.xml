@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.8" date="2018-08-15" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
+  <release version="3.8.1" date="2018-09-19" description="This release is a bugfix for Restoring Bundle-SymbolicName in the MANIFEST.mf file.">
     <action issue="LANG-1419" type="fix" dev="chtompki">Restore BundleSymbolicName for OSGi</action>
   </release>
 

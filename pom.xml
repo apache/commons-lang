@@ -47,7 +47,7 @@
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/commons-lang.git</developerConnection>
     <url>https://git-wip-us.apache.org/repos/asf?p=commons-lang.git</url>
-    <tag>LANG_3_8</tag>
+    <tag>LANG_3_8_1</tag>
   </scm>
 
   <developers>
@@ -602,7 +602,7 @@
     <commons.japicmp.version>0.11.1</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.7</commons.bc.version>
+    <commons.bc.version>3.8</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
