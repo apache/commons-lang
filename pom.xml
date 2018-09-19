@@ -26,7 +26,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
-  <version>3.8</version>
+  <version>3.8.1</version>
   <name>Apache Commons Lang</name>
 
   <inceptionYear>2001</inceptionYear>
@@ -570,10 +570,11 @@
 
        N.B. The componentid is also used by the parent pom as part of the OSGI symbolic name.
     -->
-    <commons.componentid>lang3</commons.componentid>
+    <commons.componentid>lang</commons.componentid>
+    <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.8</commons.release.version>
+    <commons.release.version>3.8.1</commons.release.version>
     <commons.release.desc>(Java 7+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
