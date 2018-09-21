@@ -236,6 +236,31 @@ public class ObjectUtils {
         return firstNonNull(values) != null;
     }
 
+    /**
+     * Checks if any value in the given array is {@code null}.
+     *
+     * <p>
+     * If none of the values are {@code null} or the array is {@code null}
+     * or empty then {@code false} is returned. Otherwise {@code true} is returned.
+     * </p>
+     *
+     * <pre>
+     * ObjectUtils.anyNull(*)                   = false
+     * ObjectUtils.anyNull(*, null)             = true
+     * ObjectUtils.anyNull(null, *)             = true
+     * ObjectUtils.anyNull(null, null, *, *)    = true
+     * ObjectUtils.anyNull(null)                = true
+     * ObjectUtils.anyNull(null, null)          = true
+     * ObjectUtils.anyNull()                    = false
+     * ObjectUtils.anyNull((Object[]) null)     = false
+     * </pre>
+     *
+     * @param values  the values to test, may be {@code null} or empty
+     * @return {@code true} if there is at least one null value in the array,
+     * {@code false} if all values in the array are not {@code null}s.
+     * If the array is {@code null} or empty {@code false} is also returned.
+     * @since 3.9
+     */
     public static boolean anyNull(final Object... values) {
         if (values == null || values.length == 0) {
             return false;
