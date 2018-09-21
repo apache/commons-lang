@@ -136,6 +136,22 @@ class ObjectUtilsTest {
     }
 
     /**
+     * Tests {@link ObjectUtils#anyNull(Object...)}.
+     */
+    @Test
+    void testAnyNull() {
+        assertTrue(ObjectUtils.anyNull((Object) null));
+        assertTrue(ObjectUtils.anyNull(null, null, null));
+
+        assertFalse(ObjectUtils.anyNull());
+        assertFalse(ObjectUtils.anyNull((Object[]) null));
+        assertFalse(ObjectUtils.anyNull(FOO));
+        assertFalse(ObjectUtils.anyNull(null, FOO, null));
+        assertFalse(ObjectUtils.anyNull(null, null, null, null, FOO, BAR));
+    }
+
+
+    /**
      * Tests {@link ObjectUtils#allNotNull(Object...)}.
      */
     @Test

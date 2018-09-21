@@ -236,6 +236,14 @@ public class ObjectUtils {
         return firstNonNull(values) != null;
     }
 
+    public static boolean anyNull(final Object... values) {
+        if (values == null || values.length == 0) {
+            return false;
+        }
+        return !anyNotNull(values);
+    }
+
+
     /**
      * Checks if all values in the array are not {@code nulls}.
      *
