@@ -47,7 +47,7 @@
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/commons-lang.git</developerConnection>
     <url>https://git-wip-us.apache.org/repos/asf?p=commons-lang.git</url>
-    <tag>LANG_3_8</tag>
+    <tag>LANG_3_8_1</tag>
   </scm>
 
   <developers>
@@ -598,7 +598,8 @@
 
        N.B. The componentid is also used by the parent pom as part of the OSGI symbolic name.
     -->
-    <commons.componentid>lang3</commons.componentid>
+    <commons.componentid>lang</commons.componentid>
+    <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
     <commons.release.version>3.9</commons.release.version>
