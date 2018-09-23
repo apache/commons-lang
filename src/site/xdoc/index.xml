@@ -50,6 +50,7 @@ and various <a href="project-reports.html">project reports</a> are provided.
 The Javadoc API documents are available online:
 </p>
 <ul>
+<!--TODO: (from:Rob Tompkins) when upversioning the following to 3.9, change parenthetical to "[Java 8 and up]" -->
 <li>The <a href="javadocs/api-3.8.1/index.html">current stable release 3.8.1</a> [Java 7 and up]</li>
 <li>The <a href="javadocs/api-2.6/index.html">legacy release 2.6</a> [Java 1.2 and up]</li>
 <li>Older releases - see the <a href="release-history.html">Release History</a> page</li>
