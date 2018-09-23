@@ -116,28 +116,28 @@ limitations under the License.
       <subsection name="Binaries">
         <table>
           <tr>
-            <td><a href="[preferred]/commons/lang3/binaries/commons-lang3-3.8.1-bin.tar.gz">commons-lang3-3.8.1-bin.tar.gz</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang3-3.8.1-bin.tar.gz.sha256">sha256</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang3-3.8.1-bin.tar.gz.asc">pgp</a></td>
+            <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.8.1-bin.tar.gz">commons-lang3-3.8.1-bin.tar.gz</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.8.1-bin.tar.gz.sha256">sha256</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.8.1-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-            <td><a href="[preferred]/commons/lang3/binaries/commons-lang3-3.8.1-bin.zip">commons-lang3-3.8.1-bin.zip</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang3-3.8.1-bin.zip.sha256">sha256</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang3-3.8.1-bin.zip.asc">pgp</a></td>
+            <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.8.1-bin.zip">commons-lang3-3.8.1-bin.zip</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.8.1-bin.zip.sha256">sha256</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.8.1-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
       <subsection name="Source">
         <table>
           <tr>
-            <td><a href="[preferred]/commons/lang3/source/commons-lang3-3.8.1-src.tar.gz">commons-lang3-3.8.1-src.tar.gz</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang3-3.8.1-src.tar.gz.sha256">sha256</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang3-3.8.1-src.tar.gz.asc">pgp</a></td>
+            <td><a href="[preferred]/commons/lang/source/commons-lang3-3.8.1-src.tar.gz">commons-lang3-3.8.1-src.tar.gz</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.8.1-src.tar.gz.sha256">sha256</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.8.1-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-            <td><a href="[preferred]/commons/lang3/source/commons-lang3-3.8.1-src.zip">commons-lang3-3.8.1-src.zip</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang3-3.8.1-src.zip.sha256">sha256</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang3-3.8.1-src.zip.asc">pgp</a></td>
+            <td><a href="[preferred]/commons/lang/source/commons-lang3-3.8.1-src.zip">commons-lang3-3.8.1-src.zip</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.8.1-src.zip.sha256">sha256</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.8.1-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -146,28 +146,28 @@ limitations under the License.
       <subsection name="Binaries">
         <table>
           <tr>
-            <td><a href="[preferred]/commons/lang3/binaries/commons-lang-2.6-bin.tar.gz">commons-lang-2.6-bin.tar.gz</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang-2.6-bin.tar.gz.sha1">sha1</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang-2.6-bin.tar.gz.asc">pgp</a></td>
+            <td><a href="[preferred]/commons/lang/binaries/commons-lang-2.6-bin.tar.gz">commons-lang-2.6-bin.tar.gz</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.sha1">sha1</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-            <td><a href="[preferred]/commons/lang3/binaries/commons-lang-2.6-bin.zip">commons-lang-2.6-bin.zip</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang-2.6-bin.zip.sha1">sha1</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/binaries/commons-lang-2.6-bin.zip.asc">pgp</a></td>
+            <td><a href="[preferred]/commons/lang/binaries/commons-lang-2.6-bin.zip">commons-lang-2.6-bin.zip</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.zip.sha1">sha1</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
       <subsection name="Source">
         <table>
           <tr>
-            <td><a href="[preferred]/commons/lang3/source/commons-lang-2.6-src.tar.gz">commons-lang-2.6-src.tar.gz</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang-2.6-src.tar.gz.sha1">sha1</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang-2.6-src.tar.gz.asc">pgp</a></td>
+            <td><a href="[preferred]/commons/lang/source/commons-lang-2.6-src.tar.gz">commons-lang-2.6-src.tar.gz</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.tar.gz.sha1">sha1</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-            <td><a href="[preferred]/commons/lang3/source/commons-lang-2.6-src.zip">commons-lang-2.6-src.zip</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang-2.6-src.zip.sha1">sha1</a></td>
-            <td><a href="https://www.apache.org/dist/commons/lang3/source/commons-lang-2.6-src.zip.asc">pgp</a></td>
+            <td><a href="[preferred]/commons/lang/source/commons-lang-2.6-src.zip">commons-lang-2.6-src.zip</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.zip.sha1">sha1</a></td>
+            <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -177,8 +177,8 @@ limitations under the License.
         Older releases can be obtained from the archives.
       </p>
       <ul>
-        <li class="download"><a href="[preferred]/commons/lang3/">browse download area</a></li>
-        <li><a href="https://archive.apache.org/dist/commons/lang3/">archives...</a></li>
+        <li class="download"><a href="[preferred]/commons/lang/">browse download area</a></li>
+        <li><a href="https://archive.apache.org/dist/commons/lang/">archives...</a></li>
       </ul>
     </section>
   </body>
