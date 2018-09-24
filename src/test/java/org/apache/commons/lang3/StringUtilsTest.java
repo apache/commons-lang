@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -3265,6 +3266,14 @@ public class StringUtilsTest {
 
         assertNull(StringUtils.toCodePoints(null));
         assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, StringUtils.toCodePoints(""));
+    }
+    
+    @Test
+    public void testIndexesOf() throws Exception {
+    	assertEquals(null, 3, StringUtils.indexesOf("anagram", 'a').size());
+    	assertEquals(null, 2, StringUtils.indexesOf("Reader", 'e').size());
+    	assertNull(StringUtils.indexesOf("people", null));
+    	assertNotEquals(null, 2, StringUtils.indexesOf("Automatic", 'o').size());
     }
 
     @Test
