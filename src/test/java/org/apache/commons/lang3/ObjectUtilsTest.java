@@ -160,12 +160,13 @@ class ObjectUtilsTest {
     void testAnyNull() {
         assertTrue(ObjectUtils.anyNull((Object) null));
         assertTrue(ObjectUtils.anyNull(null, null, null));
+        assertTrue(ObjectUtils.anyNull(null, null, null, null, FOO, BAR));
+        assertTrue(ObjectUtils.anyNull(null, FOO, null));
 
         assertFalse(ObjectUtils.anyNull());
         assertFalse(ObjectUtils.anyNull((Object[]) null));
         assertFalse(ObjectUtils.anyNull(FOO));
-        assertFalse(ObjectUtils.anyNull(null, FOO, null));
-        assertFalse(ObjectUtils.anyNull(null, null, null, null, FOO, BAR));
+        assertFalse(ObjectUtils.anyNull(FOO, BAR));
     }
 
 

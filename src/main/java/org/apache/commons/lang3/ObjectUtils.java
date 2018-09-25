@@ -265,7 +265,14 @@ public class ObjectUtils {
         if (values == null || values.length == 0) {
             return false;
         }
-        return !anyNotNull(values);
+
+        for (final Object val : values) {
+            if (val == null) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
