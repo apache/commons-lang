@@ -13,6 +13,7 @@ import java.time.Duration;
 public class DurationUtils {
 
     private static final long NANOS_IN_HOUR = 3_600_000_000_000L;
+    private static final long NANOS_IN_MINUTE = 60_000_000_000L;
 
     /**
      * <p>DurationUtils instances should NOT be constructed in standard programming.</p>
@@ -46,4 +47,27 @@ public class DurationUtils {
         return duration.toHours();
     }
 
+    /**
+     * @param duration the given duration from which the quantity of minutes should be rounded up
+     * @return rounded minutes value
+     */
+    public static long roundUpMinutes(final Duration duration) {
+        boolean shouldRoundUpMinutes = (duration.toNanos() % NANOS_IN_MINUTE != 0);
+        if (shouldRoundUpMinutes) {
+            return duration.toMinutes() + 1;
+        }
+        return duration.toMinutes();
+    }
+
+    /**
+     * @param duration the given duration from which the quantity of minutes should be rounded
+     * @return rounded minutes value
+     */
+    public static long roundMinutes(final Duration duration) {
+        boolean shouldRoundMinutes = ((duration.toNanos() % NANOS_IN_MINUTE) >= NANOS_IN_MINUTE / 2);
+        if (shouldRoundMinutes) {
+            return duration.toMinutes() + 1;
+        }
+        return duration.toMinutes();
+    }
 }

@@ -56,4 +56,47 @@ public class DurationUtilsTest {
         Assertions.assertEquals(1, hours);
     }
 
+    @DisplayName("the quantity of minutes from duration 62 seconds should be rounded up to 2 minutes")
+    @Test
+    void roundUpMinutesShouldRoundUpDuration() {
+        //given
+        Duration duration = Duration.of(62, ChronoUnit.SECONDS);
+        //when
+        long minutes = DurationUtils.roundUpMinutes(duration);
+        //then
+        Assertions.assertEquals(2, minutes);
+    }
+
+    @DisplayName("the quantity of minutes from duration 60 seconds should not be rounded up")
+    @Test
+    void roundUpMinutesShouldNotRoundUpDuration() {
+        //given
+        Duration duration = Duration.of(60, ChronoUnit.SECONDS);
+        //when
+        long minutes = DurationUtils.roundUpMinutes(duration);
+        //then
+        Assertions.assertEquals(1, minutes);
+    }
+
+    @DisplayName("the quantity of minutes from duration 90 second should be rounded up to 2")
+    @Test
+    void roundMinutesShouldRoundUpMinutes() {
+        //given
+        Duration duration = Duration.of(90, ChronoUnit.SECONDS);
+        //when
+        long minutes = DurationUtils.roundMinutes(duration);
+        //then
+        Assertions.assertEquals(2, minutes);
+    }
+
+    @DisplayName("the quantity of minutes from duration 89 second should not be rounded up to 2")
+    @Test
+    void roundMinutesShouldNotRoundUpMinutes() {
+        //given
+        Duration duration = Duration.of(89, ChronoUnit.SECONDS);
+        //when
+        long minutes = DurationUtils.roundMinutes(duration);
+        //then
+        Assertions.assertEquals(1, minutes);
+    }
 }
