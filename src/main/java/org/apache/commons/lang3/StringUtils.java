@@ -7599,52 +7599,6 @@ public class StringUtils {
     // Extensions
     //-----------------------------------------------------------------------
 
-    /**
-     * <p>Returns either the passed in String with the specified prefix and suffix attached,
-     * or if the String is whitespace, empty ("") or {@code null}, an empty string.</p>
-     *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
-     *
-     * <pre>
-     * StringUtils.extendIfNotBlank(null, "pre-", "-post")  = ""
-     * StringUtils.extendIfNotBlank("", "pre-", "-post")    = ""
-     * StringUtils.extendIfNotBlank(" ", "pre-", "-post")   = ""
-     * StringUtils.extendIfNotBlank("bat", "pre-", "-post") = "pre-bat-bost"
-     * StringUtils.extendIfNotBlank("bat", null, "-post")      = "bat-post"
-     * StringUtils.extendIfNotBlank("bat", "pre-", null)      = "pre-bat"
-     * </pre>
-     * @param str the String to check, may be null
-     * @param prefix  the string to prepend if not blank. Null will be converted to empty string.
-     * @param suffix  the string to append if not blank. Null will be converted to empty string.
-     * @return the passed in String with prefix and suffix added, or empty string
-     * @see StringUtils#defaultString(String, String)
-     */
-    public static String extendIfNotBlank(final String str, final String prefix, final String suffix) {
-        return isBlank(str) ? "" : defaultString(prefix) + str + defaultString(suffix);
-    }
-
-    /**
-     * <p>Returns either the passed in String with the specified prefix and suffix attached,
-     * or if the String is empty ("") or {@code null}, an empty string.</p>
-     *
-     * <pre>
-     * StringUtils.extendIfNotEmpty(null, "pre-", "-post")  = ""
-     * StringUtils.extendIfNotEmpty("", "pre-", "-post")    = ""
-     * StringUtils.extendIfNotEmpty(" ", "pre-", "-post")   = "pre- -post"
-     * StringUtils.extendIfNotEmpty("bat", "pre-", "-post") = "pre-bat-bost"
-     * StringUtils.extendIfNotEmpty("bat", null, "-post")      = "bat-post"
-     * StringUtils.extendIfNotEmpty("bat", "pre-", null)      = "pre-bat"
-     * </pre>
-     * @param str the String to check, may be null
-     * @param prefix  the string to prepend if not empty. Null will be converted to empty string.
-     * @param suffix  the string to append if not empty. Null will be converted to empty string.
-     * @return the passed in String with prefix and suffix added, or empty string
-     * @see StringUtils#defaultString(String, String)
-     */
-    public static String extendIfNotEmpty(final String str, final String prefix, final String suffix) {
-        return isEmpty(str) ? "" : defaultString(prefix) + str + defaultString(suffix);
-    }
-
     // Rotating (circular shift)
     //-----------------------------------------------------------------------
     /**
@@ -9058,6 +9012,56 @@ public class StringUtils {
     }
 
     /**
+     * <p>Returns either the passed in String with the specified suffix attached,
+     * or if the String is empty ("")/{@code null}, an empty string.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.appendIfNotBlank(null, " ")      = ""
+     * StringUtils.appendIfNotBlank(null, "-post")  = ""
+     * StringUtils.appendIfNotBlank("", "-post")    = ""
+     * StringUtils.appendIfNotBlank(" ", " ")       = "  "
+     * StringUtils.appendIfNotBlank(" ", "-post")   = " -post"
+     * StringUtils.appendIfNotBlank("abc", null)    = "abc"
+     * StringUtils.appendIfNotBlank("abc", "")      = "abc"
+     * StringUtils.appendIfNotBlank("abc", " ")     = "abc "
+     * StringUtils.appendIfNotBlank("abc", "-post") = "abc-post"
+     * </pre>
+     * @param str the String to check, may be null
+     * @param suffix  the string to append if 'str' is not empty. Null will be converted to empty string.
+     * @return the passed in String with suffix added, or empty string
+     */
+    public static String appendIfNotEmpty(final String str, final String suffix) {
+        return isEmpty(str) ? EMPTY : str + defaultString(suffix);
+    }
+
+    /**
+     * <p>Returns either the passed in String with the specified suffix attached,
+     * or if the String is whitespace/empty ("")/{@code null}, an empty string.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.appendIfNotBlank(null, " ")      = ""
+     * StringUtils.appendIfNotBlank(null, "-post")  = ""
+     * StringUtils.appendIfNotBlank("", "-post")    = ""
+     * StringUtils.appendIfNotBlank(" ", " ")       = ""
+     * StringUtils.appendIfNotBlank(" ", "-post")   = ""
+     * StringUtils.appendIfNotBlank("abc", null)    = "abc"
+     * StringUtils.appendIfNotBlank("abc", "")      = "abc"
+     * StringUtils.appendIfNotBlank("abc", " ")     = "abc"
+     * StringUtils.appendIfNotBlank("abc", "-post") = "abc-post"
+     * </pre>
+     * @param str the String to check, may be null
+     * @param suffix  the string to append if 'str' is not blank. Null will be converted to empty string.
+     * @return the passed in String with suffix added, or empty string
+     */
+    public static String appendIfNotBlank(final String str, final String suffix) {
+        return isBlank(str) ? EMPTY : str + defaultString(suffix);
+    }
+
+    /**
      * Prepends the prefix to the start of the string if the string does not
      * already start with any of the prefixes.
      *
@@ -9156,6 +9160,56 @@ public class StringUtils {
      */
     public static String prependIfMissingIgnoreCase(final String str, final CharSequence prefix, final CharSequence... prefixes) {
         return prependIfMissing(str, prefix, true, prefixes);
+    }
+
+    /**
+     * <p>Returns either the passed in String with the specified prefix attached,
+     * or if the String is whitespace/empty ("")/{@code null}, an empty string.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.prependIfNotEmpty(null, " ")     = ""
+     * StringUtils.prependIfNotEmpty(null, "pre-")  = ""
+     * StringUtils.prependIfNotEmpty("", "pre-")    = ""
+     * StringUtils.prependIfNotEmpty(" ", " ")      = "  "
+     * StringUtils.prependIfNotEmpty(" ", "pre-")   = "pre- "
+     * StringUtils.prependIfNotEmpty("abc", null)   = "abc"
+     * StringUtils.prependIfNotEmpty("abc", "")     = "abc"
+     * StringUtils.prependIfNotEmpty("abc", " ")    = " abc"
+     * StringUtils.prependIfNotEmpty("abc", "pre-") = "pre-abc"
+     * </pre>
+     * @param str the String to check, may be null
+     * @param prefix  the string to prepend if 'str' is not blank. Null will be converted to empty string.
+     * @return the passed in String with prefix added, or empty string
+     */
+    public static String prependIfNotEmpty(final String str, final String prefix) {
+        return isEmpty(str) ? EMPTY : defaultString(prefix) + str;
+    }
+
+    /**
+     * <p>Returns either the passed in String with the specified prefix attached,
+     * or if the String is whitespace/empty ("")/{@code null}, an empty string.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.prependIfNotBlank(null, " ")     = ""
+     * StringUtils.prependIfNotBlank(null, "pre-")  = ""
+     * StringUtils.prependIfNotBlank("", "pre-")    = ""
+     * StringUtils.prependIfNotBlank(" ", " ")      = ""
+     * StringUtils.prependIfNotBlank(" ", "pre-")   = ""
+     * StringUtils.prependIfNotBlank("abc", null)   = "abc"
+     * StringUtils.prependIfNotBlank("abc", "")     = "abc"
+     * StringUtils.prependIfNotBlank("abc", " ")    = "abc"
+     * StringUtils.prependIfNotBlank("abc", "pre-") = "pre-abc"
+     * </pre>
+     * @param str the String to check, may be null
+     * @param prefix  the string to prepend if 'str' is not blank. Null will be converted to empty string.
+     * @return the passed in String with prefix added, or empty string
+     */
+    public static String prependIfNotBlank(final String str, final String prefix) {
+        return isBlank(str) ? EMPTY : defaultString(prefix) + str;
     }
 
     /**
