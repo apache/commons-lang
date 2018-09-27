@@ -99,4 +99,49 @@ public class DurationUtilsTest {
         //then
         Assertions.assertEquals(1, minutes);
     }
+
+    @DisplayName("the quantity of seconds from duration 1001 millisecond should be rounded up to 2 minutes")
+    @Test
+    void roundUpSecondShouldRoundUpSeconds() {
+        //given
+        Duration duration = Duration.of(1001, ChronoUnit.MILLIS);
+        //when
+        long seconds = DurationUtils.roundUpSeconds(duration);
+        //then
+        Assertions.assertEquals(2, seconds);
+    }
+
+    @DisplayName("the quantity of seconds from duration 1000 millisecond should not be rounded up")
+    @Test
+    void roundUpSecondShouldNotRoundUpSeconds() {
+        //given
+        Duration duration = Duration.of(1000, ChronoUnit.MILLIS);
+        //when
+        long seconds = DurationUtils.roundUpSeconds(duration);
+        //then
+        Assertions.assertEquals(1, seconds);
+    }
+
+    @DisplayName("the quantity of seconds from duration 1500 millisecond should be rounded up to 2 minutes")
+    @Test
+    void roundSecondsShouldRoundUpSeconds() {
+        //given
+        Duration duration = Duration.of(1500, ChronoUnit.MILLIS);
+        //when
+        long seconds = DurationUtils.roundSeconds(duration);
+        //then
+        Assertions.assertEquals(2, seconds);
+    }
+
+    @DisplayName("the quantity of seconds from duration 1499 millisecond should not be rounded up")
+    @Test
+    void roundSecondsShouldNotRoundUpSeconds() {
+        //given
+        Duration duration = Duration.of(1499, ChronoUnit.MILLIS);
+        //when
+        long seconds = DurationUtils.roundSeconds(duration);
+        //then
+        Assertions.assertEquals(1, seconds);
+    }
+
 }

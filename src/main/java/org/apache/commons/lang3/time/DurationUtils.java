@@ -14,6 +14,7 @@ public class DurationUtils {
 
     private static final long NANOS_IN_HOUR = 3_600_000_000_000L;
     private static final long NANOS_IN_MINUTE = 60_000_000_000L;
+    private static final long NANOS_IN_SECOND = 1_000_000_000L;
 
     /**
      * <p>DurationUtils instances should NOT be constructed in standard programming.</p>
@@ -70,4 +71,29 @@ public class DurationUtils {
         }
         return duration.toMinutes();
     }
+
+    /**
+     * @param duration the given duration from which the quantity of seconds should be rounded up
+     * @return rounded quantity of seconds
+     */
+    public static long roundUpSeconds(final Duration duration) {
+        boolean shouldRoundUpSeconds = (duration.toNanos() % NANOS_IN_SECOND != 0);
+        if (shouldRoundUpSeconds) {
+            return duration.getSeconds() + 1;
+        }
+        return duration.getSeconds();
+    }
+
+    /**
+     * @param duration the given duration from which the quantity of seconds should be rounded up
+     * @return rounded quantity of seconds
+     */
+    public static long roundSeconds(final Duration duration) {
+        boolean shouldRoundSeconds = ((duration.toNanos() % NANOS_IN_SECOND) >= NANOS_IN_SECOND / 2);
+        if (shouldRoundSeconds) {
+            return duration.getSeconds() + 1;
+        }
+        return duration.getSeconds();
+    }
+    
 }
