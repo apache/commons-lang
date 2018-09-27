@@ -1,21 +1,19 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.apache.commons.lang3;
 
 import java.util.UUID;
@@ -60,27 +58,27 @@ import java.util.UUID;
  * so far.
  * </p>
  *
- * @since Lang 3.2
+ * @since 3.2
  */
 
 public class Conversion {
 
-    private static final boolean[] TTTT = new boolean[] { true, true, true, true };
-    private static final boolean[] FTTT = new boolean[] { false, true, true, true };
-    private static final boolean[] TFTT = new boolean[] { true, false, true, true };
-    private static final boolean[] FFTT = new boolean[] { false, false, true, true };
-    private static final boolean[] TTFT = new boolean[] { true, true, false, true };
-    private static final boolean[] FTFT = new boolean[] { false, true, false, true };
-    private static final boolean[] TFFT = new boolean[] { true, false, false, true };
-    private static final boolean[] FFFT = new boolean[] { false, false, false, true };
-    private static final boolean[] TTTF = new boolean[] { true, true, true, false };
-    private static final boolean[] FTTF = new boolean[] { false, true, true, false };
-    private static final boolean[] TFTF = new boolean[] { true, false, true, false };
-    private static final boolean[] FFTF = new boolean[] { false, false, true, false };
-    private static final boolean[] TTFF = new boolean[] { true, true, false, false };
-    private static final boolean[] FTFF = new boolean[] { false, true, false, false };
-    private static final boolean[] TFFF = new boolean[] { true, false, false, false };
-    private static final boolean[] FFFF = new boolean[] { false, false, false, false };
+    private static final boolean[] TTTT = {true, true, true, true};
+    private static final boolean[] FTTT = {false, true, true, true};
+    private static final boolean[] TFTT = {true, false, true, true};
+    private static final boolean[] FFTT = {false, false, true, true};
+    private static final boolean[] TTFT = {true, true, false, true};
+    private static final boolean[] FTFT = {false, true, false, true};
+    private static final boolean[] TFFT = {true, false, false, true};
+    private static final boolean[] FFFT = {false, false, false, true};
+    private static final boolean[] TTTF = {true, true, true, false};
+    private static final boolean[] FTTF = {false, true, true, false};
+    private static final boolean[] TFTF = {true, false, true, false};
+    private static final boolean[] FFTF = {false, false, true, false};
+    private static final boolean[] TTFF = {true, true, false, false};
+    private static final boolean[] FTFF = {false, true, false, false};
+    private static final boolean[] TFFF = {true, false, false, false};
+    private static final boolean[] FFFF = {false, false, false, false};
 
     /**
      * <p>

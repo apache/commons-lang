@@ -580,7 +580,7 @@ public class ConcurrentUtilsTest {
         EasyMock.replay(init);
         try {
             ConcurrentUtils.createIfAbsentUnchecked(
-                    new ConcurrentHashMap<String, Integer>(), "test", init);
+                    new ConcurrentHashMap<>(), "test", init);
             fail("Exception not thrown!");
         } catch (final ConcurrentRuntimeException crex) {
             assertEquals("Wrong cause", ex, crex.getCause());

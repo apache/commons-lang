@@ -43,15 +43,16 @@ Note that Lang 3.0 (and subsequent versions) use a different package (<em>org.ap
 <!-- ================================================== -->
 <section name="Documentation">
 <p>
-The package descriptions in the <a href="javadocs/api-release/index.html">JavaDoc</a> give an overview of the available features
+The package descriptions in the <a href="javadocs/api-release/index.html">Javadoc</a> give an overview of the available features
 and various <a href="project-reports.html">project reports</a> are provided.
 </p>
 <p>
-The JavaDoc API documents are available online:
+The Javadoc API documents are available online:
 </p>
 <ul>
-<li>The <a href="javadocs/api-3.6/index.html">current stable release 3.6</a> [Java 7.0+]</li>
-<li>The <a href="javadocs/api-2.6/index.html">legacy release 2.6</a> [Java 1.2+]</li>
+<!--TODO: (from:Rob Tompkins) when upversioning the following to 3.9, change parenthetical to "[Java 8 and up]" -->
+<li>The <a href="javadocs/api-3.8.1/index.html">current stable release 3.8.1</a> [Java 7 and up]</li>
+<li>The <a href="javadocs/api-2.6/index.html">legacy release 2.6</a> [Java 1.2 and up]</li>
 <li>Older releases - see the <a href="release-history.html">Release History</a> page</li>
 </ul>
 <p>
@@ -61,10 +62,10 @@ The <a href="source-repository.html">git repository</a> can be
 </section>
 <!-- ================================================== -->
 <section name="Release Information">
-<p>The latest stable release of Lang is 3.6. You may: </p>
+<p>The latest stable release of Lang is 3.8.1. You may: </p>
 <ul>
-<li>Download <a href="http://commons.apache.org/lang/download_lang.cgi">3.6</a></li>
-<li>Read the <a href="release-notes/RELEASE-NOTES-3.6.txt">3.6 release notes</a></li>
+<li>Download <a href="http://commons.apache.org/lang/download_lang.cgi">3.8.1</a></li>
+<li>Read the <a href="release-notes/RELEASE-NOTES-3.8.1.txt">3.8.1 release notes</a></li>
 <li>Examine the <a href="article3_0.html">2.x to 3.0 upgrade notes</a></li>
 <li>Compare major versions via the <a href="lang2-lang3-clirr-report.html">Lang2 to Lang3 Clirr report</a></li>
 </ul>
@@ -74,7 +75,7 @@ Alternatively you can pull it from the central Maven repositories:
 &lt;dependency&gt;
   &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
   &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
-  &lt;version&gt;3.6&lt;/version&gt;
+  &lt;version&gt;3.8.1&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 </p>

@@ -32,28 +32,37 @@ limitations under the License.
           <th>Version</th><th>Release date</th><th>Required Java Version</th><th>Javadoc</th><th>Release notes</th>
         </tr>
         <tr>
-          <td>3.6</td><td>2016-04-17</td><td>7.0</td><td><a href="javadocs/api-3.6/">api-3.6</a></td><td><a href="release-notes/RELEASE-NOTES-3.6.txt">release notes for 3.6</a></td>
+          <td>3.8.1</td><td>2018-09-19</td><td>7</td><td><a href="javadocs/api-3.8.1/">api-3.8.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.8.1.txt">release notes for 3.8.1</a></td>
         </tr>
         <tr>
-          <td>3.5</td><td>2016-10-02</td><td>6.0</td><td><a href="javadocs/api-3.5/">api-3.5</a></td><td><a href="release-notes/RELEASE-NOTES-3.5.txt">release notes for 3.5</a></td>
+          <td>3.8</td><td>2018-08-15</td><td>7</td><td><a href="javadocs/api-3.8/">api-3.8</a></td><td><a href="release-notes/RELEASE-NOTES-3.8.txt">release notes for 3.8</a></td>
         </tr>
         <tr>
-          <td>3.4</td><td>2014-04-06</td><td>6.0</td><td><a href="javadocs/api-3.4/">api-3.4</a></td><td><a href="release-notes/RELEASE-NOTES-3.4.txt">release notes for 3.4</a></td>
+          <td>3.7</td><td>2017-10-04</td><td>7</td><td><a href="javadocs/api-3.7/">api-3.7</a></td><td><a href="release-notes/RELEASE-NOTES-3.7.txt">release notes for 3.7</a></td>
         </tr>
         <tr>
-          <td>3.3.2</td><td>2014-04-09</td><td>6.0</td><td><a href="javadocs/api-3.3.2/">api-3.3.2</a></td><td><a href="release-notes/RELEASE-NOTES-3.3.2.txt">release notes for 3.3.2</a></td>
+          <td>3.6</td><td>2016-04-17</td><td>7</td><td><a href="javadocs/api-3.6/">api-3.6</a></td><td><a href="release-notes/RELEASE-NOTES-3.6.txt">release notes for 3.6</a></td>
         </tr>
         <tr>
-          <td>3.3.1</td><td>2014-03-18</td><td>6.0</td><td><a href="javadocs/api-3.3.1/">api-3.3.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.3.1.txt">release notes for 3.3.1</a></td>
+          <td>3.5</td><td>2016-10-02</td><td>6</td><td><a href="javadocs/api-3.5/">api-3.5</a></td><td><a href="release-notes/RELEASE-NOTES-3.5.txt">release notes for 3.5</a></td>
         </tr>
         <tr>
-          <td>3.3</td><td>2014-03-04</td><td>6.0</td><td><a href="javadocs/api-3.3/">api-3.3</a></td><td><a href="release-notes/RELEASE-NOTES-3.3.txt">release notes for 3.3</a></td>
+          <td>3.4</td><td>2014-04-06</td><td>6</td><td><a href="javadocs/api-3.4/">api-3.4</a></td><td><a href="release-notes/RELEASE-NOTES-3.4.txt">release notes for 3.4</a></td>
         </tr>
         <tr>
-          <td>3.2.1</td><td>2014-01-05</td><td>6.0</td><td><a href="javadocs/api-3.2.1/">api-3.2.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.2.1.txt">release notes for 3.2.1</a></td>
+          <td>3.3.2</td><td>2014-04-09</td><td>6</td><td><a href="javadocs/api-3.3.2/">api-3.3.2</a></td><td><a href="release-notes/RELEASE-NOTES-3.3.2.txt">release notes for 3.3.2</a></td>
         </tr>
         <tr>
-          <td>3.2</td><td>2014-01-01</td><td>6.0</td><td><a href="javadocs/api-3.2/">api-3.2</a></td><td><a href="release-notes/RELEASE-NOTES-3.2.txt">release notes for 3.2</a></td>
+          <td>3.3.1</td><td>2014-03-18</td><td>6</td><td><a href="javadocs/api-3.3.1/">api-3.3.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.3.1.txt">release notes for 3.3.1</a></td>
+        </tr>
+        <tr>
+          <td>3.3</td><td>2014-03-04</td><td>6</td><td><a href="javadocs/api-3.3/">api-3.3</a></td><td><a href="release-notes/RELEASE-NOTES-3.3.txt">release notes for 3.3</a></td>
+        </tr>
+        <tr>
+          <td>3.2.1</td><td>2014-01-05</td><td>6</td><td><a href="javadocs/api-3.2.1/">api-3.2.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.2.1.txt">release notes for 3.2.1</a></td>
+        </tr>
+        <tr>
+          <td>3.2</td><td>2014-01-01</td><td>6</td><td><a href="javadocs/api-3.2/">api-3.2</a></td><td><a href="release-notes/RELEASE-NOTES-3.2.txt">release notes for 3.2</a></td>
         </tr>
         <tr>
           <td>3.1</td><td>2011-11-14</td><td>5.0</td><td><a href="javadocs/api-3.1/">api-3.1</a></td><td><a href="release-notes/RELEASE-NOTES-3.1.txt">release notes for 3.1</a></td>

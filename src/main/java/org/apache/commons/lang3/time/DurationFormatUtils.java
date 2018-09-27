@@ -27,8 +27,9 @@ import org.apache.commons.lang3.Validate;
 
 /**
  * <p>Duration formatting utilities and constants. The following table describes the tokens
- * used in the pattern language for formatting. </p>
- * <table border="1" summary="Pattern Tokens">
+ * used in the pattern language for formatting.</p>
+ * <table border="1">
+ *  <caption>Pattern Tokens</caption>
  *  <tr><th>character</th><th>duration element</th></tr>
  *  <tr><td>y</td><td>years</td></tr>
  *  <tr><td>M</td><td>months</td></tr>
@@ -194,7 +195,7 @@ public class DurationFormatUtils {
                     }
                 }
             }
-            if (duration.length() != 0) {
+            if (!duration.isEmpty()) {
                 // strip the space off again
                 duration = duration.substring(1);
             }

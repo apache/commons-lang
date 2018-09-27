@@ -24,7 +24,7 @@ package org.apache.commons.lang3.tuple;
  * @param <L> the left element type
  * @param <R> the right element type
  *
- * @since Lang 3.0
+ * @since 3.0
  */
 public class MutablePair<L, R> extends Pair<L, R> {
 
@@ -37,7 +37,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
     public R right;
 
     /**
-     * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
+     * <p>Obtains a mutable pair of two objects inferring the generic types.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>

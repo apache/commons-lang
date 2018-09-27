@@ -232,7 +232,7 @@ public class CharSetUtils {
         final CharSet chars = CharSet.getInstance(set);
         final StringBuilder buffer = new StringBuilder(str.length());
         final char[] chrs = str.toCharArray();
-        for (char chr : chrs) {
+        for (final char chr : chrs) {
             if (chars.contains(chr) == expect) {
                 buffer.append(chr);
             }

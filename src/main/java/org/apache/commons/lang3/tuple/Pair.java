@@ -36,7 +36,7 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  * @param <L> the left element type
  * @param <R> the right element type
  *
- * @since Lang 3.0
+ * @since 3.0
  */
 public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Serializable {
 
@@ -44,7 +44,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     private static final long serialVersionUID = 4954918890077093841L;
 
     /**
-     * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
+     * <p>Obtains an immutable pair of two objects inferring the generic types.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>

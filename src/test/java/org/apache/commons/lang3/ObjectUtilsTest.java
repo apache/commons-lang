@@ -31,9 +31,14 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableObject;
@@ -47,6 +52,13 @@ import org.junit.Test;
 public class ObjectUtilsTest {
     private static final String FOO = "foo";
     private static final String BAR = "bar";
+    private static final String[] NON_EMPTY_ARRAY = new String[] { FOO, BAR, };
+    private static final List<String> NON_EMPTY_LIST = Arrays.asList(NON_EMPTY_ARRAY);
+    private static final Set<String> NON_EMPTY_SET = new HashSet<>(NON_EMPTY_LIST);
+    private static final Map<String, String> NON_EMPTY_MAP = new HashMap<>();
+    static {
+        NON_EMPTY_MAP.put(FOO, BAR);
+    }
 
     //-----------------------------------------------------------------------
     @Test
@@ -57,6 +69,41 @@ public class ObjectUtilsTest {
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(ObjectUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(ObjectUtils.class.getModifiers()));
+    }
+
+    //-----------------------------------------------------------------------
+    @Test
+    public void testIsEmpty() {
+        assertTrue(ObjectUtils.isEmpty(null));
+        assertTrue(ObjectUtils.isEmpty(""));
+        assertTrue(ObjectUtils.isEmpty(new int[] {}));
+        assertTrue(ObjectUtils.isEmpty(Collections.emptyList()));
+        assertTrue(ObjectUtils.isEmpty(Collections.emptySet()));
+        assertTrue(ObjectUtils.isEmpty(Collections.emptyMap()));
+
+        assertFalse(ObjectUtils.isEmpty("  "));
+        assertFalse(ObjectUtils.isEmpty("ab"));
+        assertFalse(ObjectUtils.isEmpty(NON_EMPTY_ARRAY));
+        assertFalse(ObjectUtils.isEmpty(NON_EMPTY_LIST));
+        assertFalse(ObjectUtils.isEmpty(NON_EMPTY_SET));
+        assertFalse(ObjectUtils.isEmpty(NON_EMPTY_MAP));
+    }
+
+    @Test
+    public void testIsNotEmpty() {
+        assertFalse(ObjectUtils.isNotEmpty(null));
+        assertFalse(ObjectUtils.isNotEmpty(""));
+        assertFalse(ObjectUtils.isNotEmpty(new int[] {}));
+        assertFalse(ObjectUtils.isNotEmpty(Collections.emptyList()));
+        assertFalse(ObjectUtils.isNotEmpty(Collections.emptySet()));
+        assertFalse(ObjectUtils.isNotEmpty(Collections.emptyMap()));
+
+        assertTrue(ObjectUtils.isNotEmpty("  "));
+        assertTrue(ObjectUtils.isNotEmpty("ab"));
+        assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_ARRAY));
+        assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_LIST));
+        assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_SET));
+        assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_MAP));
     }
 
     //-----------------------------------------------------------------------
@@ -160,13 +207,13 @@ public class ObjectUtilsTest {
         final List<Object> list0 = new ArrayList<>(Arrays.asList(new Object[0]));
         assertEquals(list0.hashCode(), ObjectUtils.hashCodeMulti());
 
-        final List<Object> list1 = new ArrayList<Object>(Arrays.asList("a"));
+        final List<Object> list1 = new ArrayList<>(Arrays.asList("a"));
         assertEquals(list1.hashCode(), ObjectUtils.hashCodeMulti("a"));
 
-        final List<Object> list2 = new ArrayList<Object>(Arrays.asList("a", "b"));
+        final List<Object> list2 = new ArrayList<>(Arrays.asList("a", "b"));
         assertEquals(list2.hashCode(), ObjectUtils.hashCodeMulti("a", "b"));
 
-        final List<Object> list3 = new ArrayList<Object>(Arrays.asList("a", "b", "c"));
+        final List<Object> list3 = new ArrayList<>(Arrays.asList("a", "b", "c"));
         assertEquals(list3.hashCode(), ObjectUtils.hashCodeMulti("a", "b", "c"));
     }
 
@@ -192,28 +239,58 @@ public class ObjectUtilsTest {
     }
 
     @Test
-    public void testIdentityToStringStringBuilder() {
-        assertEquals(null, ObjectUtils.identityToString(null));
-        assertEquals(
-            "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
-            ObjectUtils.identityToString(FOO));
+    public void testIdentityToStringObjectNull() {
+        assertNull(ObjectUtils.identityToString(null));
+    }
+
+    @Test
+    public void testIdentityToStringInteger() {
         final Integer i = Integer.valueOf(90);
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         assertEquals(expected, ObjectUtils.identityToString(i));
+    }
+
+    @Test
+    public void testIdentityToStringString() {
+        assertEquals(
+                "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
+                ObjectUtils.identityToString(FOO));
+    }
+
+    @Test
+    public void testIdentityToStringStringBuilder() {
+        final Integer i = Integer.valueOf(90);
+        final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final StringBuilder builder = new StringBuilder();
         ObjectUtils.identityToString(builder, i);
         assertEquals(expected, builder.toString());
+    }
 
+    @Test
+    public void testIdentityToStringStringBuilderInUse() {
+        final Integer i = Integer.valueOf(90);
+        final String expected = "ABC = java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
+
+        final StringBuilder builder = new StringBuilder("ABC = ");
+        ObjectUtils.identityToString(builder, i);
+        assertEquals(expected, builder.toString());
+    }
+
+    @Test
+    public void testIdentityToStringStringBuilderNullValue() {
         try {
-            ObjectUtils.identityToString((StringBuilder)null, "tmp");
+            ObjectUtils.identityToString(new StringBuilder(), null);
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
+    }
 
+    @Test
+    public  void testIdentityToStringStringBuilderNullStringBuilder() {
         try {
-            ObjectUtils.identityToString(new StringBuilder(), null);
+            ObjectUtils.identityToString((StringBuilder)null, "tmp");
             fail("NullPointerException expected");
         } catch(final NullPointerException npe) {
         }
@@ -666,4 +743,5 @@ public class ObjectUtilsTest {
         }
 
     }
+
 }

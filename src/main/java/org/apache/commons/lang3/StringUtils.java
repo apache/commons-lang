@@ -115,6 +115,9 @@ import java.util.regex.Pattern;
  */
 //@Immutable
 public class StringUtils {
+
+    private static final int STRING_BUILDER_SIZE = 256;
+
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
     // Whitespace:
     // Character.isWhitespace() is faster than WHITESPACE.indexOf()
@@ -233,7 +236,8 @@ public class StringUtils {
      * <p>Checks if any of the CharSequences are empty ("") or null.</p>
      *
      * <pre>
-     * StringUtils.isAnyEmpty(null)             = true
+     * StringUtils.isAnyEmpty((String) null)    = true
+     * StringUtils.isAnyEmpty((String[]) null)  = false
      * StringUtils.isAnyEmpty(null, "foo")      = true
      * StringUtils.isAnyEmpty("", "bar")        = true
      * StringUtils.isAnyEmpty("bob", "")        = true
@@ -264,7 +268,8 @@ public class StringUtils {
      * <p>Checks if none of the CharSequences are empty ("") or null.</p>
      *
      * <pre>
-     * StringUtils.isNoneEmpty(null)             = false
+     * StringUtils.isNoneEmpty((String) null)    = false
+     * StringUtils.isNoneEmpty((String[]) null)  = true
      * StringUtils.isNoneEmpty(null, "foo")      = false
      * StringUtils.isNoneEmpty("", "bar")        = false
      * StringUtils.isNoneEmpty("bob", "")        = false
@@ -374,7 +379,8 @@ public class StringUtils {
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * StringUtils.isAnyBlank(null)             = true
+     * StringUtils.isAnyBlank((String) null)    = true
+     * StringUtils.isAnyBlank((String[]) null)  = false
      * StringUtils.isAnyBlank(null, "foo")      = true
      * StringUtils.isAnyBlank(null, null)       = true
      * StringUtils.isAnyBlank("", "bar")        = true
@@ -408,7 +414,8 @@ public class StringUtils {
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * StringUtils.isNoneBlank(null)             = false
+     * StringUtils.isNoneBlank((String) null)    = false
+     * StringUtils.isNoneBlank((String[]) null)  = true
      * StringUtils.isNoneBlank(null, "foo")      = false
      * StringUtils.isNoneBlank(null, null)       = false
      * StringUtils.isNoneBlank("", "bar")        = false
@@ -952,7 +959,7 @@ public class StringUtils {
         final StringBuilder decomposed = new StringBuilder(Normalizer.normalize(input, Normalizer.Form.NFD));
         convertRemainingAccentCharacters(decomposed);
         // Note that this doesn't correctly remove ligatures...
-        return pattern.matcher(decomposed).replaceAll(StringUtils.EMPTY);
+        return pattern.matcher(decomposed).replaceAll(EMPTY);
     }
 
     private static void convertRemainingAccentCharacters(final StringBuilder decomposed) {
@@ -1818,7 +1825,6 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", "b", 0)  = -1
      * StringUtils.lastIndexOf("aabaabaa", "b", 1)  = -1
      * StringUtils.lastIndexOf("aabaabaa", "b", 2)  = 2
-     * StringUtils.lastIndexOf("aabaabaa", "ba", 2)  = -1
      * StringUtils.lastIndexOf("aabaabaa", "ba", 2)  = 2
      * </pre>
      *
@@ -2827,6 +2833,10 @@ public class StringUtils {
         return str.substring(pos, pos + len);
     }
 
+    private static StringBuilder newStringBuilder(final int noOfItems) {
+        return new StringBuilder(noOfItems * 16);
+    }
+
     // SubStringAfter/SubStringBefore
     //-----------------------------------------------------------------------
     /**
@@ -3260,7 +3270,7 @@ public class StringUtils {
      * @return an array of parsed Strings, {@code null} if null String was input
      */
     public static String[] splitByWholeSeparator(final String str, final String separator) {
-        return splitByWholeSeparatorWorker( str, separator, -1, false ) ;
+        return splitByWholeSeparatorWorker(str, separator, -1, false ) ;
     }
 
     /**
@@ -4137,7 +4147,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4188,7 +4198,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4237,7 +4247,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4286,7 +4296,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4335,7 +4345,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4384,7 +4394,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4433,7 +4443,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4482,7 +4492,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4573,7 +4583,7 @@ public class StringUtils {
             return EMPTY;
         }
 
-        final StringBuilder buf = new StringBuilder(noOfItems * 16);
+        final StringBuilder buf = newStringBuilder(noOfItems);
 
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
@@ -4611,11 +4621,11 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            return Objects.toString(first, "");
+            return Objects.toString(first, EMPTY);
         }
 
         // two or more elements
-        final StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
+        final StringBuilder buf = new StringBuilder(STRING_BUILDER_SIZE); // Java default is 16, probably too small
         if (first != null) {
             buf.append(first);
         }
@@ -4659,7 +4669,7 @@ public class StringUtils {
         }
 
         // two or more elements
-        final StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
+        final StringBuilder buf = new StringBuilder(STRING_BUILDER_SIZE); // Java default is 16, probably too small
         if (first != null) {
             buf.append(first);
         }
@@ -4719,6 +4729,82 @@ public class StringUtils {
     }
 
     /**
+     * <p>Joins the elements of the provided {@code List} into a single String
+     * containing the provided list of elements.</p>
+     *
+     * <p>No delimiter is added before or after the list.
+     * Null objects or empty strings within the array are represented by
+     * empty strings.</p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join(["a", "b", "c"], ';')  = "a;b;c"
+     * StringUtils.join(["a", "b", "c"], null) = "abc"
+     * StringUtils.join([null, "", "a"], ';')  = ";;a"
+     * </pre>
+     *
+     * @param list  the {@code List} of values to join together, may be null
+     * @param separator  the separator character to use
+     * @param startIndex the first index to start joining from.  It is
+     * an error to pass in an end index past the end of the list
+     * @param endIndex the index to stop joining from (exclusive). It is
+     * an error to pass in an end index past the end of the list
+     * @return the joined String, {@code null} if null list input
+     * @since 3.8
+     */
+    public static String join(final List<?> list, final char separator, final int startIndex, final int endIndex) {
+        if (list == null) {
+            return null;
+        }
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
+            return EMPTY;
+        }
+        final List<?> subList = list.subList(startIndex, endIndex);
+        return join(subList.iterator(), separator);
+    }
+
+    /**
+     * <p>Joins the elements of the provided {@code List} into a single String
+     * containing the provided list of elements.</p>
+     *
+     * <p>No delimiter is added before or after the list.
+     * Null objects or empty strings within the array are represented by
+     * empty strings.</p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join(["a", "b", "c"], ';')  = "a;b;c"
+     * StringUtils.join(["a", "b", "c"], null) = "abc"
+     * StringUtils.join([null, "", "a"], ';')  = ";;a"
+     * </pre>
+     *
+     * @param list  the {@code List} of values to join together, may be null
+     * @param separator  the separator character to use
+     * @param startIndex the first index to start joining from.  It is
+     * an error to pass in an end index past the end of the list
+     * @param endIndex the index to stop joining from (exclusive). It is
+     * an error to pass in an end index past the end of the list
+     * @return the joined String, {@code null} if null list input
+     * @since 3.8
+     */
+    public static String join(final List<?> list, final String separator, final int startIndex, final int endIndex) {
+        if (list == null) {
+            return null;
+        }
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
+            return EMPTY;
+        }
+        final List<?> subList = list.subList(startIndex, endIndex);
+        return join(subList.iterator(), separator);
+    }
+
+    /**
      * <p>Joins the elements of the provided varargs into a
      * single String containing the provided elements.</p>
      *
@@ -4743,7 +4829,7 @@ public class StringUtils {
             throw new IllegalArgumentException("Object varargs must not be null");
         }
 
-        final String sanitizedSeparator = defaultString(separator, StringUtils.EMPTY);
+        final String sanitizedSeparator = defaultString(separator);
 
         final StringBuilder result = new StringBuilder();
 
@@ -5052,11 +5138,11 @@ public class StringUtils {
      * <p>Unlike in the {@link #removePattern(String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
      * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
-     * DOTALL is also know as single-line mode in Perl.</p>
+     * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
      * StringUtils.removeAll(null, *)      = null
-     * StringUtils.removeAll("any", null)  = "any"
+     * StringUtils.removeAll("any", (String) null)  = "any"
      * StringUtils.removeAll("any", "")    = "any"
      * StringUtils.removeAll("any", ".*")  = ""
      * StringUtils.removeAll("any", ".+")  = ""
@@ -5080,9 +5166,12 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String removeAll(final String text, final String regex) {
-        return replaceAll(text, regex, StringUtils.EMPTY);
+        return RegExUtils.removeAll(text, regex);
     }
 
     /**
@@ -5098,11 +5187,11 @@ public class StringUtils {
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
      * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
-     * DOTALL is also know as single-line mode in Perl.</p>
+     * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
      * StringUtils.removeFirst(null, *)      = null
-     * StringUtils.removeFirst("any", null)  = "any"
+     * StringUtils.removeFirst("any", (String) null)  = "any"
      * StringUtils.removeFirst("any", "")    = "any"
      * StringUtils.removeFirst("any", ".*")  = ""
      * StringUtils.removeFirst("any", ".+")  = ""
@@ -5126,9 +5215,12 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String removeFirst(final String text, final String regex) {
-        return replaceFirst(text, regex, StringUtils.EMPTY);
+        return replaceFirst(text, regex, EMPTY);
     }
 
     // Replacing
@@ -5191,7 +5283,7 @@ public class StringUtils {
 
     /**
      * <p>Replaces each substring of the source String that matches the given regular expression with the given
-     * replacement using the {@link Pattern#DOTALL} option. DOTALL is also know as single-line mode in Perl.</p>
+     * replacement using the {@link Pattern#DOTALL} option. DOTALL is also known as single-line mode in Perl.</p>
      *
      * This call is a {@code null} safe equivalent to:
      * <ul>
@@ -5203,7 +5295,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.replacePattern(null, *, *)       = null
-     * StringUtils.replacePattern("any", null, *)   = "any"
+     * StringUtils.replacePattern("any", (String) null, *)   = "any"
      * StringUtils.replacePattern("any", *, null)   = "any"
      * StringUtils.replacePattern("", "", "zzz")    = "zzz"
      * StringUtils.replacePattern("", ".*", "zzz")  = "zzz"
@@ -5227,12 +5319,12 @@ public class StringUtils {
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String replacePattern(final String source, final String regex, final String replacement) {
-        if (source == null || regex == null || replacement == null) {
-            return source;
-        }
-        return Pattern.compile(regex, Pattern.DOTALL).matcher(source).replaceAll(replacement);
+        return RegExUtils.replacePattern(source, regex, replacement);
     }
 
     /**
@@ -5249,7 +5341,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.removePattern(null, *)       = null
-     * StringUtils.removePattern("any", null)   = "any"
+     * StringUtils.removePattern("any", (String) null)   = "any"
      * StringUtils.removePattern("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")  = "AB"
      * StringUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
      * </pre>
@@ -5264,9 +5356,12 @@ public class StringUtils {
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String removePattern(final String source, final String regex) {
-        return replacePattern(source, regex, StringUtils.EMPTY);
+        return RegExUtils.removePattern(source, regex);
     }
 
     /**
@@ -5284,11 +5379,11 @@ public class StringUtils {
      * <p>Unlike in the {@link #replacePattern(String, String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
      * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
-     * DOTALL is also know as single-line mode in Perl.</p>
+     * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
      * StringUtils.replaceAll(null, *, *)       = null
-     * StringUtils.replaceAll("any", null, *)   = "any"
+     * StringUtils.replaceAll("any", (String) null, *)   = "any"
      * StringUtils.replaceAll("any", *, null)   = "any"
      * StringUtils.replaceAll("", "", "zzz")    = "zzz"
      * StringUtils.replaceAll("", ".*", "zzz")  = "zzz"
@@ -5316,12 +5411,12 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String replaceAll(final String text, final String regex, final String replacement) {
-        if (text == null || regex == null|| replacement == null ) {
-            return text;
-        }
-        return text.replaceAll(regex, replacement);
+        return RegExUtils.replaceAll(text, regex, replacement);
     }
 
     /**
@@ -5338,11 +5433,11 @@ public class StringUtils {
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
      * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
-     * DOTALL is also know as single-line mode in Perl.</p>
+     * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
      * StringUtils.replaceFirst(null, *, *)       = null
-     * StringUtils.replaceFirst("any", null, *)   = "any"
+     * StringUtils.replaceFirst("any", (String) null, *)   = "any"
      * StringUtils.replaceFirst("any", *, null)   = "any"
      * StringUtils.replaceFirst("", "", "zzz")    = "zzz"
      * StringUtils.replaceFirst("", ".*", "zzz")  = "zzz"
@@ -5369,12 +5464,12 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
+     *
+     * @deprecated Moved to RegExUtils.
      */
+    @Deprecated
     public static String replaceFirst(final String text, final String regex, final String replacement) {
-        if (text == null || regex == null|| replacement == null ) {
-            return text;
-        }
-        return text.replaceFirst(regex, replacement);
+        return RegExUtils.replaceFirst(text, regex, replacement);
     }
 
     /**
@@ -5515,14 +5610,14 @@ public class StringUtils {
          increase *= max < 0 ? 16 : max > 64 ? 64 : max;
          final StringBuilder buf = new StringBuilder(text.length() + increase);
          while (end != INDEX_NOT_FOUND) {
-             buf.append(text.substring(start, end)).append(replacement);
+             buf.append(text, start, end).append(replacement);
              start = end + replLength;
              if (--max == 0) {
                  break;
              }
              end = searchText.indexOf(searchString, start);
          }
-         buf.append(text.substring(start));
+         buf.append(text, start, text.length());
          return buf.toString();
      }
 
@@ -6212,7 +6307,7 @@ public class StringUtils {
      * StringUtils.repeat('e', -2) = ""
      * </pre>
      *
-     * <p>Note: this method doesn't not support padding with
+     * <p>Note: this method does not support padding with
      * <a href="http://www.unicode.org/glossary/#supplementary_character">Unicode Supplementary Characters</a>
      * as they require a pair of {@code char}s to be represented.
      * If you are needing to support full I18N of your applications
@@ -6802,7 +6897,7 @@ public class StringUtils {
      * @return the changed String, {@code null} if null String input
      */
     public static String swapCase(final String str) {
-        if (StringUtils.isEmpty(str)) {
+        if (isEmpty(str)) {
             return str;
         }
 
@@ -7168,7 +7263,7 @@ public class StringUtils {
      * StringUtils.getDigits("")    = ""
      * StringUtils.getDigits("abc") = ""
      * StringUtils.getDigits("1000$") = "1000"
-     * StringUtils.getDigits("1123~45") = "12345"
+     * StringUtils.getDigits("1123~45") = "112345"
      * StringUtils.getDigits("(541) 754-3010") = "5417543010"
      * StringUtils.getDigits("\u0967\u0968\u0969") = "\u0967\u0968\u0969"
      * </pre>
@@ -7359,7 +7454,7 @@ public class StringUtils {
      *  was {@code null}
      */
     public static String defaultString(final String str) {
-        return str == null ? EMPTY : str;
+        return defaultString(str, EMPTY);
     }
 
     /**
@@ -7381,6 +7476,78 @@ public class StringUtils {
      */
     public static String defaultString(final String str, final String defaultStr) {
         return str == null ? defaultStr : str;
+    }
+
+    /**
+     * <p>Returns the first value in the array which is not empty (""),
+     * {@code null} or whitespace only.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>If all values are blank or the array is {@code null}
+     * or empty then {@code null} is returned.</p>
+     *
+     * <pre>
+     * StringUtils.firstNonBlank(null, null, null)     = null
+     * StringUtils.firstNonBlank(null, "", " ")        = null
+     * StringUtils.firstNonBlank("abc")                = "abc"
+     * StringUtils.firstNonBlank(null, "xyz")          = "xyz"
+     * StringUtils.firstNonBlank(null, "", " ", "xyz") = "xyz"
+     * StringUtils.firstNonBlank(null, "xyz", "abc")   = "xyz"
+     * StringUtils.firstNonBlank()                     = null
+     * </pre>
+     *
+     * @param <T> the specific kind of CharSequence
+     * @param values  the values to test, may be {@code null} or empty
+     * @return the first value from {@code values} which is not blank,
+     *  or {@code null} if there are no non-blank values
+     * @since 3.8
+     */
+    @SafeVarargs
+    public static <T extends CharSequence> T firstNonBlank(final T... values) {
+        if (values != null) {
+            for (final T val : values) {
+                if (isNotBlank(val)) {
+                    return val;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * <p>Returns the first value in the array which is not empty.</p>
+     *
+     * <p>If all values are empty or the array is {@code null}
+     * or empty then {@code null} is returned.</p>
+     *
+     * <pre>
+     * StringUtils.firstNonEmpty(null, null, null)   = null
+     * StringUtils.firstNonEmpty(null, null, "")     = null
+     * StringUtils.firstNonEmpty(null, "", " ")      = " "
+     * StringUtils.firstNonEmpty("abc")              = "abc"
+     * StringUtils.firstNonEmpty(null, "xyz")        = "xyz"
+     * StringUtils.firstNonEmpty("", "xyz")          = "xyz"
+     * StringUtils.firstNonEmpty(null, "xyz", "abc") = "xyz"
+     * StringUtils.firstNonEmpty()                   = null
+     * </pre>
+     *
+     * @param <T> the specific kind of CharSequence
+     * @param values  the values to test, may be {@code null} or empty
+     * @return the first value from {@code values} which is not empty,
+     *  or {@code null} if there are no non-empty values
+     * @since 3.8
+     */
+    @SafeVarargs
+    public static <T extends CharSequence> T firstNonEmpty(final T... values) {
+        if (values != null) {
+            for (final T val : values) {
+                if (isNotEmpty(val)) {
+                    return val;
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -7944,7 +8111,7 @@ public class StringUtils {
         // find the min and max string lengths; this avoids checking to make
         // sure we are not exceeding the length of the string each time through
         // the bottom loop.
-        for (CharSequence cs : css) {
+        for (final CharSequence cs : css) {
             if (cs == null) {
                 anyStringNull = true;
                 shortestStrLen = 0;
@@ -8562,7 +8729,7 @@ public class StringUtils {
      */
     private static boolean startsWith(final CharSequence str, final CharSequence prefix, final boolean ignoreCase) {
         if (str == null || prefix == null) {
-            return str == null && prefix == null;
+            return str == prefix;
         }
         if (prefix.length() > str.length()) {
             return false;
@@ -8675,7 +8842,7 @@ public class StringUtils {
      */
     private static boolean endsWith(final CharSequence str, final CharSequence suffix, final boolean ignoreCase) {
         if (str == null || suffix == null) {
-            return str == null && suffix == null;
+            return str == suffix;
         }
         if (suffix.length() > str.length()) {
             return false;
@@ -8739,15 +8906,15 @@ public class StringUtils {
         for (int i = 0; i < size; i++) {
             final char actualChar = str.charAt(i);
             final boolean isWhitespace = Character.isWhitespace(actualChar);
-            if (!isWhitespace) {
-                startWhitespaces = false;
-                newChars[count++] = (actualChar == 160 ? 32 : actualChar);
-                whitespacesCount = 0;
-            } else {
+            if (isWhitespace) {
                 if (whitespacesCount == 0 && !startWhitespaces) {
                     newChars[count++] = SPACE.charAt(0);
                 }
                 whitespacesCount++;
+            } else {
+                startWhitespaces = false;
+                newChars[count++] = (actualChar == 160 ? 32 : actualChar);
+                whitespacesCount = 0;
             }
         }
         if (startWhitespaces) {
@@ -9267,7 +9434,7 @@ public class StringUtils {
      *
      * <p>Valid pairs of surrogate code units will be converted into a single supplementary
      * code point. Isolated surrogate code units (i.e. a high surrogate not followed by a low surrogate or
-     * a low surrogate not preceeded by a high surrogate) will be returned as-is.</p>
+     * a low surrogate not preceded by a high surrogate) will be returned as-is.</p>
      *
      * <pre>
      * StringUtils.toCodePoints(null)   =  null
@@ -9278,7 +9445,7 @@ public class StringUtils {
      * @return an array of code points
      * @since 3.6
      */
-    public static int[] toCodePoints(CharSequence str) {
+    public static int[] toCodePoints(final CharSequence str) {
         if (str == null) {
             return null;
         }
@@ -9286,8 +9453,8 @@ public class StringUtils {
             return ArrayUtils.EMPTY_INT_ARRAY;
         }
 
-        String s = str.toString();
-        int[] result = new int[s.codePointCount(0, s.length())];
+        final String s = str.toString();
+        final int[] result = new int[s.codePointCount(0, s.length())];
         int index = 0;
         for (int i = 0; i < result.length; i++) {
             result[i] = s.codePointAt(index);

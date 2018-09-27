@@ -243,7 +243,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if <code>|value| &gt; Integer.MAX_VALUE</code>
      *  or <code>value = NaN</code>
      * @throws ArithmeticException if the calculated denominator is <code>zero</code>
-     * @throws ArithmeticException if the the algorithm does not converge
+     * @throws ArithmeticException if the algorithm does not converge
      */
     public static Fraction getFraction(double value) {
         final int sign = value < 0 ? -1 : 1;
@@ -269,7 +269,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         double delta1, delta2 = Double.MAX_VALUE;
         double fraction;
         int i = 1;
-        // System.out.println("---");
         do {
             delta1 = delta2;
             a2 = (int) (x1 / y1);
@@ -279,7 +278,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             denom2 = a1 * denom1 + denom0;
             fraction = (double) numer2 / (double) denom2;
             delta2 = Math.abs(value - fraction);
-            // System.out.println(numer2 + " " + denom2 + " " + fraction + " " + delta2 + " " + y1);
             a1 = a2;
             x1 = x2;
             y1 = y2;
@@ -288,7 +286,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             numer1 = numer2;
             denom1 = denom2;
             i++;
-            // System.out.println(">>" + delta1 +" "+ delta2+" "+(delta1 > delta2)+" "+i+" "+denom2);
         } while (delta1 > delta2 && denom2 <= 10000 && denom2 > 0 && i < 25);
         if (i == 25) {
             throw new ArithmeticException("Unable to convert double to fraction");
@@ -468,7 +465,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (gcd == 1) {
             return this;
         }
-        return Fraction.getFraction(numerator / gcd, denominator / gcd);
+        return getFraction(numerator / gcd, denominator / gcd);
     }
 
     /**
@@ -872,13 +869,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         // otherwise see which is less
         final long first = (long) numerator * (long) other.denominator;
         final long second = (long) other.numerator * (long) denominator;
-        if (first == second) {
-            return 0;
-        } else if (first < second) {
-            return -1;
-        } else {
-            return 1;
-        }
+        return Long.compare(first, second);
     }
 
     /**

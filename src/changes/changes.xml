@@ -45,7 +45,58 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.7" date="tba" description="tba">
+  <release version="3.9" date="????-??-??" description="??">
+    <action issue="LANG-1416" type="update" dev="britter">Update to JUnit 5</action>
+    <action issue="LANG-1417" type="update" dev="britter">Add @FunctionalInterface to ThreadPredicate and ThreadGroupPredicate</action>
+    <action issue="LANG-1415" type="update" dev="britter">Update Java Language requirement to 1.8</action>
+    <action issue="LANG-1411" type="add" dev="britter" due-to="Alexander Tsvetkov">Add isEmpty method to ObjectUtils</action>
+  </release>
+
+  <release version="3.8.1" date="2018-09-19" description="This release is a bugfix for Restoring Bundle-SymbolicName in the MANIFEST.mf file.">
+    <action issue="LANG-1419" type="fix" dev="chtompki">Restore BundleSymbolicName for OSGi</action>
+  </release>
+
+  <release version="3.8" date="2018-08-15" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
+    <action issue="LANG-1380" type="fix" dev="chas" due-to="Markus Jelsma">FastDateParser too strict on abbreviated short month symbols</action>
+    <action issue="LANG-1396" type="fix" dev="sebb">JsonToStringStyle does not escape string names</action>
+    <action issue="LANG-1395" type="fix" dev="sebb" due-to="Jim Gan">JsonToStringStyle does not escape double quote in a string value</action>
+    <action issue="LANG-1384" type="fix" dev="erans" due-to="Ian Young">New Java version ("11") must be handled</action>
+    <action issue="LANG-1364" type="fix" dev="pschumacher" due-to="Zheng Xie">ExceptionUtils#getRootCause(Throwable t) should return t if no lower level cause exists</action>
+    <action issue="LANG-1060" type="fix" dev="pschumacher" due-to="Piotr Kosmala">NumberUtils.isNumber assumes number starting with Zero</action>
+    <action issue="LANG-1375" type="fix" dev="kinow" due-to="Jerry Zhao">defaultString(final String str) in StringUtils to reuse defaultString(final String str, final String defaultStr)</action>
+    <action issue="LANG-1374" type="fix" dev="kinow" due-to="Jaswanth Bala">Parsing Json Array failed</action>
+    <action issue="LANG-1371" type="fix" dev="pschumacher" due-to="Dmitry Ovchinnikov">Fix TypeUtils#parameterize to work correctly with narrower-typed array</action>
+    <action issue="LANG-1370" type="fix" dev="kinow" due-to="Andre Dieb">Fix EventCountCircuitBreaker increment batch</action>
+    <action issue="LANG-1385" type="fix" dev="ggregory" due-to="Rohan Padhye">NumberUtils.createNumber() throws StringIndexOutOfBoundsException instead of NumberFormatException</action>
+    <action issue="LANG-1397" type="fix" dev="ggregory" due-to="Takanobu Asanuma">WordUtils.wrap throws StringIndexOutOfBoundsException when wrapLength is Integer.MAX_VALUE.</action>
+    <action issue="LANG-1401" type="fix" dev="pschumacher" due-to="Roman Golyshev, Alex Mamedov">Typo in JavaDoc for lastIndexOf</action>
+    <action issue="LANG-1367" type="update" dev="ggregory" due-to="Gary Gregory">ObjectUtils.identityToString(Object) and friends should allocate builders and buffers with a size</action>
+    <action issue="LANG-1352" type="add" dev="pschumacher" due-to="Ruslan Sibgatullin">EnumUtils.getEnumIgnoreCase and isValidEnumIgnoreCase methods added</action>
+    <action issue="LANG-1372" type="add" dev="pschumacher" due-to="Sérgio Ozaki">Add ToStringSummary annotation</action>
+    <action issue="LANG-1356" type="add" dev="pschumacher" due-to="Yathos UG">Add bypass option for classes to recursive and reflective EqualsBuilder</action>
+    <action issue="LANG-1391" type="add" dev="ggregory" due-to="Sauro Matulli, Oleg Chubaryov">Improve Javadoc for StringUtils.isAnyEmpty(null)</action>   
+    <action issue="LANG-1393" type="add" dev="ggregory" due-to="Gary Gregory">Add API SystemUtils.String getEnvironmentVariable(final String name, final String defaultValue)</action>   
+    <action issue="LANG-1394" type="add" dev="ggregory" due-to="Sebb, Gary Gregory">org.apache.commons.lang3.SystemUtils should not write to System.err.</action>   
+    <action issue="LANG-1238" type="add" dev="ggregory" due-to="Christopher Cordeiro, Gary Gregory, Bruno P. Kinoshita, Oleg Chubaryov">Add RegexUtils class instead of overloading methods in StringUtils that take a regex to take precompiled Pattern.</action>
+    <action issue="LANG-1390" type="add" dev="ggregory" due-to="Jochen Schalanda">StringUtils.join() with support for List&lt;?> with configurable start/end indices.</action>
+    <action issue="LANG-1392" type="add" dev="pschumacher" due-to="Jeff Nelson">Methods for getting first non empty or non blank value</action>
+    <action issue="LANG-1405" type="update" dev="ggregory" due-to="Lars Grefer">Remove checks for java versions below the minimum supported one</action>
+    <action issue="LANG-1402" type="update" dev="chtompki" due-to="Mark Dacek">Null/index safe get methods for ArrayUtils</action>
+    <action issue="LANG-1408" type="add" dev="chtompki">Rounding utilities for converting to BigDecimal</action>
+  </release>
+
+  <release version="3.7" date="2017-11-04" description="New features and bug fixes. Requires Java 7, supports Java 8, 9, 10.">
+    <action issue="LANG-1362" type="fix" dev="ggregory" due-to="Stephen Colebourne">Fix tests DateUtilsTest for Java 9 with en_GB locale</action>
+    <action issue="LANG-1365" type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in isJavaVersionAtLeast on Java 10, add SystemUtils.IS_JAVA_10, add JavaVersion.JAVA_10</action>
+    <action issue="LANG-1348" type="fix" dev="pschumacher" due-to="mbusso">StackOverflowError on TypeUtils.toString(...) for a generic return type of Enum.valueOf</action>
+    <action issue="LANG-1350" type="fix" dev="ggregory" due-to="Brett Kail">ConstructorUtils.invokeConstructor(Class, Object...) regression</action>
+    <action issue="LANG-1349" type="fix" dev="pschumacher" due-to="Naman Nigam">EqualsBuilder#isRegistered: swappedPair construction bug</action>
+    <action issue="LANG-1357" type="fix" dev="ggregory" due-to="BruceKuiLiu">org.apache.commons.lang3.time.FastDateParser should use toUpperCase(Locale)</action>
+    <action issue="LANG-1358" type="update" dev="pschumacher" due-to="Stephane Landelle">Improve StringUtils#replace throughput</action>
+    <action issue="LANG-1346" type="update" dev="pschumacher">Remove deprecation from RandomStringUtils</action>
+    <action issue="LANG-1361" type="update" dev="ggregory" due-to="Ana">ExceptionUtils.getThrowableList() is using deprecated ExceptionUtils.getCause()</action>
+    <action issue="LANG-1355" type="add" dev="ggregory" due-to="Chas Honton">TimeZone.getTimeZone() in FastDateParser causes resource contention (PR #296.)</action>
+    <action issue="LANG-1360" type="add" dev="ggregory" due-to="Gary Gregory">Add methods to ObjectUtils to get various forms of class names in a null-safe manner</action>
   </release>
 
   <release version="3.6" date="2017-06-08" description="New features and bug fixes. Requires Java 7.">
@@ -116,7 +167,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1224" type="add" dev="pschumacher" due-to="Caleb Cushing">Extend RandomStringUtils with methods that generate strings between a min and max length</action>
     <action issue="LANG-1214" type="fix" dev="pschumacher" due-to="Henry Tung">Handle "void" in ClassUtils.getClass()</action>
     <action issue="LANG-1250" type="fix" dev="pschumacher" due-to="Glease Wang">SerializationUtils#deserialize has unnecessary code and a comment for that</action>
-    <action issue="LANG-1259" type="update" dev="britter" due-to="Dominik Stadler">JavaDoc for ArrayUtils.isNotEmpty() is slightly misleading</action>
+    <action issue="LANG-1259" type="update" dev="britter" due-to="Dominik Stadler">Javadoc for ArrayUtils.isNotEmpty() is slightly misleading</action>
     <action issue="LANG-1257" type="add" dev="ggregory" due-to="Gary Gregory">Add APIs StringUtils.wrapIfMissing(String, char|String)</action>
     <action issue="LANG-1190" type="fix" dev="pschumacher" due-to="pschumacher">TypeUtils.isAssignable throws NullPointerException when fromType has type variables and toType generic superclass specifies type variable</action>
     <action issue="LANG-1226" type="fix" dev="pschumacher" due-to="pschumacher">StringUtils#normalizeSpace does not trim the string anymore</action>
@@ -166,7 +217,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1194" type="fix" dev="chas">Limit max heap memory for consistent Travis CI build</action>
     <action issue="LANG-1186" type="fix" dev="chas" due-to="NickManley">Fix NullPointerException in FastDateParser$TimeZoneStrategy</action>
     <action issue="LANG-1193" type="fix" dev="sebb" due-to="Qin Li">ordinalIndexOf("abc", "ab", 1) gives incorrect answer of -1 (correct answer should be 0); revert fix for LANG-1077</action>
-    <action issue="LANG-1182" type="update" dev="britter" due-to="Larry West, Pascal Schumacher">Clarify JavaDoc of StringUtils.containsAny()</action>
+    <action issue="LANG-1182" type="update" dev="britter" due-to="Larry West, Pascal Schumacher">Clarify Javadoc of StringUtils.containsAny()</action>
     <action issue="LANG-1169" type="add" dev="lguibert" due-to="Rafal Glowinski, Robert Parr, Arman Sharif">Add StringUtils methods to compare a string to multiple strings</action>
     <action issue="LANG-1185" type="add" dev="lguibert">Add remove by regular expression methods in StringUtils</action>
     <action issue="LANG-1183" type="update" dev="lguibert">Making replacePattern/removePattern methods null safe in StringUtils</action>
@@ -213,7 +264,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1107" type="update" dev="chas">Fix parsing edge cases in FastDateParser</action>
     <action issue="LANG-1162" type="fix" dev="sebb">StringUtils#equals fails with Index OOBE on non-Strings with identical leading prefix</action>
     <action issue="LANG-1163" type="fix" dev="sebb">There are no tests for CharSequenceUtils.regionMatches</action>
-    <action issue="LANG-1200" type="fix" dev="ggregory" due-to="BarkZhang">StringUtils.ordinalIndexOf: Add missing right parenthesis in JavaDoc example</action>
+    <action issue="LANG-1200" type="fix" dev="ggregory" due-to="BarkZhang">StringUtils.ordinalIndexOf: Add missing right parenthesis in Javadoc example</action>
     <action issue="LANG-1191" type="fix" dev="ggregory" due-to="qed, Brent Worden, Gary Gregory">Incorrect Javadoc StringUtils.containsAny(CharSequence, CharSequence...)</action>
     <action type="update" dev="ebourg" due-to="Jake Wang">Added new property IS_OS_MAC_OSX_EL_CAPITAN in SystemUtils</action>
   </release>
@@ -247,7 +298,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1083" type="fix" dev="britter" due-to="Jonathan Baker">Add (T) casts to get unit tests to pass in old JDK</action>
     <action issue="LANG-1015" type="add" dev="britter" due-to="Thiago Andrade">Add JsonToStringStyle implementation to ToStringStyle</action>
     <action issue="LANG-1080" type="add" dev="britter" due-to="Innokenty Shuvalov">Add NoClassNameToStringStyle implementation of ToStringStyle</action>
-    <action issue="LANG-1071" type="update" dev="britter" due-to="Arno Noordover">Fix wrong examples in JavaDoc of StringUtils.replaceEachRepeatedly(...), StringUtils.replaceEach(...)</action>
+    <action issue="LANG-1071" type="update" dev="britter" due-to="Arno Noordover">Fix wrong examples in Javadoc of StringUtils.replaceEachRepeatedly(...), StringUtils.replaceEach(...)</action>
     <action issue="LANG-883" type="add" dev="britter" due-to="Daniel Stewart">Add StringUtils.containsAny(CharSequence, CharSequence...) method</action>
     <action issue="LANG-1073" type="fix" dev="kinow" due-to="haiyang li">Read wrong component type of array in add in ArrayUtils</action>
     <action issue="LANG-1077" type="fix" dev="kinow" due-to="haiyang li">StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) != 3 in StringUtils</action>
@@ -313,7 +364,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-958" type="update" dev="chas">FastDateParser javadoc incorrectly states that SimpleDateFormat is used internally</action>
     <action issue="LANG-637" type="add" dev="djones">There should be a DifferenceBuilder with a ReflectionDifferenceBuilder implementation</action>
     <action issue="LANG-954" type="fix" due-to="Michael Keppler" dev="sebb">uncaught PatternSyntaxException in FastDateFormat on Android</action>
-    <action issue="LANG-956" type="update" dev="britter">Improve JavaDoc of WordUtils.wrap methods</action>
+    <action issue="LANG-956" type="update" dev="britter">Improve Javadoc of WordUtils.wrap methods</action>
     <action issue="LANG-944" type="add" dev="britter" due-to="Rekha Joshi">Add the Jaro-Winkler string distance algorithm to StringUtils</action>
     <action issue="LANG-936" type="fix" dev="bayard" due-to="Yaniv Kunda, Eli Lindsey">StringUtils.getLevenshteinDistance with too big of a threshold returns wrong result</action>
     <action issue="LANG-943" type="fix" dev="kinow">Test DurationFormatUtilsTest.testEdgeDuration fails in JDK 1.6, 1.7 and 1.8, BRST time zone</action>

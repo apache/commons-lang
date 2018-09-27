@@ -50,6 +50,7 @@ import static org.junit.Assume.assumeNotNull;
  */
 public class FieldUtilsTest {
 
+    private static final String JACOCO_DATA_FIELD_NAME = "$jacocoData";
     static final Integer I0 = Integer.valueOf(0);
     static final Integer I1 = Integer.valueOf(1);
     static final Double D0 = Double.valueOf(0.0);
@@ -165,7 +166,15 @@ public class FieldUtilsTest {
         assertArrayEquals(fieldsNumber, FieldUtils.getAllFields(Number.class));
         final Field[] fieldsInteger = Integer.class.getDeclaredFields();
         assertArrayEquals(ArrayUtils.addAll(fieldsInteger, fieldsNumber), FieldUtils.getAllFields(Integer.class));
-        assertEquals(5, FieldUtils.getAllFields(PublicChild.class).length);
+        final Field[] allFields = FieldUtils.getAllFields(PublicChild.class);
+        // Under Jacoco,0.8.1 and Java 10, the field count is 7.
+        int expected = 5;
+        for (Field field : allFields) {
+            if (field.getName().equals(JACOCO_DATA_FIELD_NAME)) {
+                expected++;
+            }
+        }
+        assertEquals(Arrays.toString(allFields), expected, allFields.length);
     }
 
     @Test
@@ -177,7 +186,16 @@ public class FieldUtilsTest {
         final List<Field> allFieldsInteger = new ArrayList<>(fieldsInteger);
         allFieldsInteger.addAll(fieldsNumber);
         assertEquals(allFieldsInteger, FieldUtils.getAllFieldsList(Integer.class));
-        assertEquals(5, FieldUtils.getAllFieldsList(PublicChild.class).size());
+        final List<Field> allFields = FieldUtils.getAllFieldsList(PublicChild.class);
+        // Under Jacoco,0.8.1 and Java 10, the field count is 7.
+        int expected = 5;
+        for (Field field : allFields) {
+            if (field.getName().equals(JACOCO_DATA_FIELD_NAME)) {
+                expected++;
+            }
+        }
+        assertEquals(allFields.toString(), expected, allFields.size());
+
     }
 
     @Test

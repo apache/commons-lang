@@ -49,32 +49,32 @@ public class ArchUtils {
     }
 
     private static void init_X86_32Bit() {
-        Processor processor = new Processor(Processor.Arch.BIT_32, Processor.Type.X86);
+        final Processor processor = new Processor(Processor.Arch.BIT_32, Processor.Type.X86);
         addProcessors(processor, "x86", "i386", "i486", "i586", "i686", "pentium");
     }
 
     private static void init_X86_64Bit() {
-        Processor processor = new Processor(Processor.Arch.BIT_64, Processor.Type.X86);
+        final Processor processor = new Processor(Processor.Arch.BIT_64, Processor.Type.X86);
         addProcessors(processor, "x86_64", "amd64", "em64t", "universal");
     }
 
     private static void init_IA64_32Bit() {
-        Processor processor = new Processor(Processor.Arch.BIT_32, Processor.Type.IA_64);
+        final Processor processor = new Processor(Processor.Arch.BIT_32, Processor.Type.IA_64);
         addProcessors(processor, "ia64_32", "ia64n");
     }
 
     private static void init_IA64_64Bit() {
-        Processor processor = new Processor(Processor.Arch.BIT_64, Processor.Type.IA_64);
+        final Processor processor = new Processor(Processor.Arch.BIT_64, Processor.Type.IA_64);
         addProcessors(processor, "ia64", "ia64w");
     }
 
     private static void init_PPC_32Bit() {
-        Processor processor = new Processor(Processor.Arch.BIT_32, Processor.Type.PPC);
+        final Processor processor = new Processor(Processor.Arch.BIT_32, Processor.Type.PPC);
         addProcessors(processor, "ppc", "power", "powerpc", "power_pc", "power_rs");
     }
 
     private static void init_PPC_64Bit() {
-        Processor processor = new Processor(Processor.Arch.BIT_64, Processor.Type.PPC);
+        final Processor processor = new Processor(Processor.Arch.BIT_64, Processor.Type.PPC);
         addProcessors(processor, "ppc64", "power64", "powerpc64", "power_pc64", "power_rs64");
     }
 
@@ -85,13 +85,11 @@ public class ArchUtils {
      * @param processor The {@link Processor} to add.
      * @throws IllegalStateException If the key already exists.
      */
-    private static void addProcessor(String key, Processor processor) throws IllegalStateException {
-        if (!ARCH_TO_PROCESSOR.containsKey(key)) {
-            ARCH_TO_PROCESSOR.put(key, processor);
-        } else {
-            String msg = "Key " + key + " already exists in processor map";
-            throw new IllegalStateException(msg);
+    private static void addProcessor(final String key, final Processor processor) {
+        if (ARCH_TO_PROCESSOR.containsKey(key)) {
+            throw new IllegalStateException("Key " + key + " already exists in processor map");
         }
+        ARCH_TO_PROCESSOR.put(key, processor);
     }
 
     /**
@@ -101,8 +99,8 @@ public class ArchUtils {
      * @param processor The {@link Processor} to add.
      * @throws IllegalStateException If the key already exists.
      */
-    private static void addProcessors(Processor processor, String... keys) throws IllegalStateException {
-        for (String key : keys) {
+    private static void addProcessors(final Processor processor, final String... keys) {
+        for (final String key : keys) {
             addProcessor(key, processor);
         }
     }
@@ -128,7 +126,7 @@ public class ArchUtils {
      * @param value A {@link String} like a value returned by the os.arch System Property.
      * @return A {@link Processor} when it exists, else <code>null</code>.
      */
-    public static Processor getProcessor(String value) {
+    public static Processor getProcessor(final String value) {
         return ARCH_TO_PROCESSOR.get(value);
     }
 

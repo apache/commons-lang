@@ -27,15 +27,15 @@ import java.util.Random;
  * high surrogate is randomly chosen, 55296 (d800) to 56191 (db7f)
  * then it is followed by a low surrogate. If a low surrogate is chosen,
  * 56320 (dc00) to 57343 (dfff) then it is placed after a randomly
- * chosen high surrogate. </p>
+ * chosen high surrogate.</p>
+ * <p>RandomStringUtils is intended for simple use cases. For more advanced
+ * use cases consider using commons-text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
+ * RandomStringGenerator</a> instead.</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
- * @deprecated as of 3.6, use commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
- * RandomStringGenerator</a> instead
  */
-@Deprecated
 public class RandomStringUtils {
 
     /**
@@ -382,7 +382,7 @@ public class RandomStringUtils {
                     "or greater then (" + first_letter_ascii + ") for generating letters.");
         }
 
-        StringBuilder builder = new StringBuilder(count);
+        final StringBuilder builder = new StringBuilder(count);
         final int gap = end - start;
 
         while (count-- != 0) {

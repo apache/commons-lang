@@ -21,8 +21,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.Test;
 
 /**
@@ -163,6 +165,19 @@ public class EqualsBuilderTest {
 
         public void setT(final int t) {
             this.t = t;
+        }
+    }
+
+    static class TestRecursiveGenericObject<T> {
+
+        private final T a;
+
+        TestRecursiveGenericObject(final T a) {
+            this.a = a;
+        }
+
+        public T getA() {
+            return a;
         }
     }
 
@@ -414,6 +429,35 @@ public class EqualsBuilderTest {
         assertEquals(Boolean.FALSE, new EqualsBuilder().append(o1, null).build());
         assertEquals(Boolean.FALSE, new EqualsBuilder().append(null, o2).build());
         assertEquals(Boolean.TRUE, new EqualsBuilder().append((Object) null, null).build());
+    }
+
+    @Test
+    public void testObjectRecursiveGenericInteger() {
+        final TestRecursiveGenericObject<Integer> o1_a = new TestRecursiveGenericObject<>(1);
+        final TestRecursiveGenericObject<Integer> o1_b = new TestRecursiveGenericObject<>(1);
+        final TestRecursiveGenericObject<Integer> o2 = new TestRecursiveGenericObject<>(2);
+
+        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_a, o1_b).isEquals());
+        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_b, o1_a).isEquals());
+
+        assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1_b, o2).isEquals());
+    }
+
+    @Test
+    public void testObjectRecursiveGenericString() {
+        // Note: Do not use literals, because string literals are always mapped by same object (internal() of String))!
+        String s1_a = String.valueOf(1);
+        final TestRecursiveGenericObject<String> o1_a = new TestRecursiveGenericObject<>(s1_a);
+        final TestRecursiveGenericObject<String> o1_b = new TestRecursiveGenericObject<>(String.valueOf(1));
+        final TestRecursiveGenericObject<String> o2 = new TestRecursiveGenericObject<>(String.valueOf(2));
+
+        // To trigger bug reported in LANG-1356, call hashCode only on string in instance o1_a
+        s1_a.hashCode();
+
+        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_a, o1_b).isEquals());
+        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_b, o1_a).isEquals());
+
+        assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1_b, o2).isEquals());
     }
 
     @Test
@@ -1339,5 +1383,23 @@ public class EqualsBuilderTest {
         assertFalse(new EqualsBuilder().reflectionAppend(null, o2).build());
     }
 
+    @Test
+    public void testIsRegistered() throws Exception {
+        final Object firstObject = new Object();
+        final Object secondObject = new Object();
+
+        try {
+            final Method registerMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "register", Object.class, Object.class);
+            registerMethod.setAccessible(true);
+            registerMethod.invoke(null, firstObject, secondObject);
+
+            assertTrue(EqualsBuilder.isRegistered(firstObject, secondObject));
+            assertTrue(EqualsBuilder.isRegistered(secondObject, firstObject)); // LANG-1349
+        } finally {
+            final Method unregisterMethod = MethodUtils.getMatchingMethod(EqualsBuilder.class, "unregister", Object.class, Object.class);
+            unregisterMethod.setAccessible(true);
+            unregisterMethod.invoke(null, firstObject, secondObject);
+        }
+    }
 }
 

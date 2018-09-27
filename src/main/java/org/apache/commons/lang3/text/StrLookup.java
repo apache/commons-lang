@@ -33,8 +33,8 @@ import java.util.Map;
  *
  * @since 2.2
  * @deprecated as of 3.6, use commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrLookup.html">
- * StrLookup</a> instead
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StringLookupFactory.html">
+ * StringLookupFactory</a> instead
  */
 @Deprecated
 public abstract class StrLookup<V> {
@@ -171,7 +171,7 @@ public abstract class StrLookup<V> {
          */
         @Override
         public String lookup(final String key) {
-            if (key.length() > 0) {
+            if (!key.isEmpty()) {
                 try {
                     return System.getProperty(key);
                 } catch (final SecurityException scex) {

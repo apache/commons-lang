@@ -73,7 +73,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @throws NumberFormatException if the string cannot be parsed into an int
      * @since 2.5
      */
-    public MutableInt(final String value) throws NumberFormatException {
+    public MutableInt(final String value) {
         super();
         this.value = Integer.parseInt(value);
     }
@@ -113,7 +113,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Increments the value.
      *
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void increment() {
         value++;
@@ -147,7 +147,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Decrements the value.
      *
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void decrement() {
         value--;
@@ -183,7 +183,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * Adds a value to the value of this instance.
      *
      * @param operand  the value to add, not null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void add(final int operand) {
         this.value += operand;
@@ -194,7 +194,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      *
      * @param operand  the value to add, not null
      * @throws NullPointerException if the object is null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void add(final Number operand) {
         this.value += operand.intValue();
@@ -204,7 +204,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * Subtracts a value from the value of this instance.
      *
      * @param operand  the value to subtract, not null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void subtract(final int operand) {
         this.value -= operand;
@@ -215,7 +215,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      *
      * @param operand  the value to subtract, not null
      * @throws NullPointerException if the object is null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void subtract(final Number operand) {
         this.value -= operand.intValue();

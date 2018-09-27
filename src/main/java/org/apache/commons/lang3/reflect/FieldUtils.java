@@ -733,10 +733,8 @@ public class FieldUtils {
                     }
                 }
             }
-        } catch (final NoSuchFieldException ignored) {
+        } catch (final NoSuchFieldException | IllegalAccessException ignored) {
             // The field class contains always a modifiers field
-        } catch (final IllegalAccessException ignored) {
-            // The modifiers field is made accessible
         }
     }
 

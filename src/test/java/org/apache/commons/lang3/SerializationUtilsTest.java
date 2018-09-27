@@ -16,13 +16,14 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -36,7 +37,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -111,21 +111,14 @@ public class SerializationUtilsTest {
         final byte[] testBytes = streamTest.toByteArray();
         final byte[] realBytes = streamReal.toByteArray();
         assertEquals(testBytes.length, realBytes.length);
-        for (int i = 0; i < realBytes.length; i++) {
-            assertEquals(realBytes[i], testBytes[i]);
-        }
+        assertArrayEquals(realBytes, testBytes);
     }
 
-    @Test
+    @Test(expected = SerializationException.class)
     public void testSerializeStreamUnserializable() throws Exception {
         final ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
-        try {
-            iMap.put(new Object(), new Object());
-            SerializationUtils.serialize(iMap, streamTest);
-        } catch (final SerializationException ex) {
-            return;
-        }
-        fail();
+        iMap.put(new Object(), new Object());
+        SerializationUtils.serialize(iMap, streamTest);
     }
 
     @Test
@@ -142,29 +135,17 @@ public class SerializationUtilsTest {
         final byte[] testBytes = streamTest.toByteArray();
         final byte[] realBytes = streamReal.toByteArray();
         assertEquals(testBytes.length, realBytes.length);
-        for (int i = 0; i < realBytes.length; i++) {
-            assertEquals(realBytes[i], testBytes[i]);
-        }
+        assertArrayEquals(realBytes, testBytes);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testSerializeStreamObjNull() throws Exception {
-        try {
-            SerializationUtils.serialize(iMap, null);
-        } catch (final IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.serialize(iMap, null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testSerializeStreamNullNull() throws Exception {
-        try {
-            SerializationUtils.serialize(null, null);
-        } catch (final IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.serialize(null, null);
     }
 
     @Test
@@ -198,12 +179,12 @@ public class SerializationUtilsTest {
         final Object test = SerializationUtils.deserialize(inTest);
         assertNotNull(test);
         assertTrue(test instanceof HashMap<?, ?>);
-        assertTrue(test != iMap);
+        assertNotSame(test, iMap);
         final HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));
-        assertTrue(iString != testMap.get("FOO"));
+        assertNotSame(iString, testMap.get("FOO"));
         assertEquals(iInteger, testMap.get("BAR"));
-        assertTrue(iInteger != testMap.get("BAR"));
+        assertNotSame(iInteger, testMap.get("BAR"));
         assertEquals(iMap, testMap);
     }
 
@@ -211,7 +192,7 @@ public class SerializationUtilsTest {
     public void testDeserializeClassCastException() {
         final String value = "Hello";
         final byte[] serialized = SerializationUtils.serialize(value);
-        Assert.assertEquals(value, SerializationUtils.deserialize(serialized));
+        assertEquals(value, SerializationUtils.deserialize(serialized));
         // Causes ClassCastException in call site, not in SerializationUtils.deserialize
         @SuppressWarnings("unused") // needed to cause Exception
         final Integer i = SerializationUtils.deserialize(serialized);
@@ -230,24 +211,14 @@ public class SerializationUtilsTest {
         assertNull(test);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testDeserializeStreamNull() throws Exception {
-        try {
-            SerializationUtils.deserialize((InputStream) null);
-        } catch (final IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.deserialize((InputStream) null);
     }
 
-    @Test
+    @Test(expected = SerializationException.class)
     public void testDeserializeStreamBadStream() throws Exception {
-        try {
-            SerializationUtils.deserialize(new ByteArrayInputStream(new byte[0]));
-        } catch (final SerializationException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.deserialize(new ByteArrayInputStream(new byte[0]));
     }
 
     @Test
@@ -288,20 +259,13 @@ public class SerializationUtilsTest {
 
         final byte[] realBytes = streamReal.toByteArray();
         assertEquals(testBytes.length, realBytes.length);
-        for (int i = 0; i < realBytes.length; i++) {
-            assertEquals(realBytes[i], testBytes[i]);
-        }
+        assertArrayEquals(realBytes, testBytes);
     }
 
-    @Test
+    @Test(expected = SerializationException.class)
     public void testSerializeBytesUnserializable() throws Exception {
-        try {
-            iMap.put(new Object(), new Object());
-            SerializationUtils.serialize(iMap);
-        } catch (final SerializationException ex) {
-            return;
-        }
-        fail();
+        iMap.put(new Object(), new Object());
+        SerializationUtils.serialize(iMap);
     }
 
     @Test
@@ -316,9 +280,7 @@ public class SerializationUtilsTest {
 
         final byte[] realBytes = streamReal.toByteArray();
         assertEquals(testBytes.length, realBytes.length);
-        for (int i = 0; i < realBytes.length; i++) {
-            assertEquals(realBytes[i], testBytes[i]);
-        }
+        assertArrayEquals(realBytes, testBytes);
     }
 
     //-----------------------------------------------------------------------
@@ -334,12 +296,12 @@ public class SerializationUtilsTest {
         final Object test = SerializationUtils.deserialize(streamReal.toByteArray());
         assertNotNull(test);
         assertTrue(test instanceof HashMap<?, ?>);
-        assertTrue(test != iMap);
+        assertNotSame(test, iMap);
         final HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));
-        assertTrue(iString != testMap.get("FOO"));
+        assertNotSame(iString, testMap.get("FOO"));
         assertEquals(iInteger, testMap.get("BAR"));
-        assertTrue(iInteger != testMap.get("BAR"));
+        assertNotSame(iInteger, testMap.get("BAR"));
         assertEquals(iMap, testMap);
     }
 
@@ -355,24 +317,14 @@ public class SerializationUtilsTest {
         assertNull(test);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testDeserializeBytesNull() throws Exception {
-        try {
-            SerializationUtils.deserialize((byte[]) null);
-        } catch (final IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.deserialize((byte[]) null);
     }
 
-    @Test
+    @Test(expected = SerializationException.class)
     public void testDeserializeBytesBadStream() throws Exception {
-        try {
-            SerializationUtils.deserialize(new byte[0]);
-        } catch (final SerializationException ex) {
-            return;
-        }
-        fail();
+        SerializationUtils.deserialize(new byte[0]);
     }
 
     //-----------------------------------------------------------------------
@@ -382,12 +334,12 @@ public class SerializationUtilsTest {
         final Object test = SerializationUtils.clone(iMap);
         assertNotNull(test);
         assertTrue(test instanceof HashMap<?,?>);
-        assertTrue(test != iMap);
+        assertNotSame(test, iMap);
         final HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));
-        assertTrue(iString != testMap.get("FOO"));
+        assertNotSame(iString, testMap.get("FOO"));
         assertEquals(iInteger, testMap.get("BAR"));
-        assertTrue(iInteger != testMap.get("BAR"));
+        assertNotSame(iInteger, testMap.get("BAR"));
         assertEquals(iMap, testMap);
     }
 
@@ -397,15 +349,10 @@ public class SerializationUtilsTest {
         assertNull(test);
     }
 
-    @Test
+    @Test(expected = SerializationException.class)
     public void testCloneUnserializable() throws Exception {
-        try {
-            iMap.put(new Object(), new Object());
-            SerializationUtils.clone(iMap);
-        } catch (final SerializationException ex) {
-            return;
-        }
-        fail();
+        iMap.put(new Object(), new Object());
+        SerializationUtils.clone(iMap);
     }
 
     @Test

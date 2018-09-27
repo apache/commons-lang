@@ -29,7 +29,7 @@ package org.apache.commons.lang3.tuple;
  * @param <L> the left element type
  * @param <R> the right element type
  *
- * @since Lang 3.0
+ * @since 3.0
  */
 public final class ImmutablePair<L, R> extends Pair<L, R> {
 
@@ -38,7 +38,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      */
     // This is not defined with generics to avoid warnings in call sites.
     @SuppressWarnings("rawtypes")
-    private static final ImmutablePair NULL = ImmutablePair.of(null, null);
+    private static final ImmutablePair NULL = of(null, null);
 
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
@@ -62,7 +62,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
     public final R right;
 
     /**
-     * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
+     * <p>Obtains an immutable pair of two objects inferring the generic types.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>

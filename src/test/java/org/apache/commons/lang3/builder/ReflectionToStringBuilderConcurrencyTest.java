@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3.builder;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -63,19 +65,19 @@ public class ReflectionToStringBuilderConcurrencyTest {
     @Test
     @Ignore
     public void testLinkedList() throws InterruptedException, ExecutionException {
-        this.testConcurrency(new CollectionHolder<List<Integer>>(new LinkedList<Integer>()));
+        this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 
     @Test
     @Ignore
     public void testArrayList() throws InterruptedException, ExecutionException {
-        this.testConcurrency(new CollectionHolder<List<Integer>>(new ArrayList<Integer>()));
+        this.testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
     @Test
     @Ignore
     public void testCopyOnWriteArrayList() throws InterruptedException, ExecutionException {
-        this.testConcurrency(new CollectionHolder<List<Integer>>(new CopyOnWriteArrayList<Integer>()));
+        this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
     private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException,
@@ -113,7 +115,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
         tasks.add(producer);
         final List<Future<Integer>> futures = threadPool.invokeAll(tasks);
         for (final Future<Integer> future : futures) {
-            Assert.assertEquals(REPEAT, future.get().intValue());
+            assertEquals(REPEAT, future.get().intValue());
         }
         threadPool.shutdown();
         threadPool.awaitTermination(1, TimeUnit.SECONDS);

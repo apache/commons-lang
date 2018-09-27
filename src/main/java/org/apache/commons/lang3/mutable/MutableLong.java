@@ -73,7 +73,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @throws NumberFormatException if the string cannot be parsed into a long
      * @since 2.5
      */
-    public MutableLong(final String value) throws NumberFormatException {
+    public MutableLong(final String value) {
         super();
         this.value = Long.parseLong(value);
     }
@@ -113,7 +113,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
     /**
      * Increments the value.
      *
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void increment() {
         value++;
@@ -147,7 +147,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
     /**
      * Decrements the value.
      *
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void decrement() {
         value--;
@@ -183,7 +183,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * Adds a value to the value of this instance.
      *
      * @param operand  the value to add, not null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void add(final long operand) {
         this.value += operand;
@@ -194,7 +194,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      *
      * @param operand  the value to add, not null
      * @throws NullPointerException if the object is null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void add(final Number operand) {
         this.value += operand.longValue();
@@ -204,7 +204,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * Subtracts a value from the value of this instance.
      *
      * @param operand  the value to subtract, not null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void subtract(final long operand) {
         this.value -= operand;
@@ -215,7 +215,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      *
      * @param operand  the value to subtract, not null
      * @throws NullPointerException if the object is null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void subtract(final Number operand) {
         this.value -= operand.longValue();

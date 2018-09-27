@@ -1266,7 +1266,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
             final int value = calendar.get(Calendar.DAY_OF_WEEK);
-            mRule.appendTo(buffer, value != Calendar.SUNDAY ? value - 1 : 7);
+            mRule.appendTo(buffer, value == Calendar.SUNDAY ? 7 : value - 1);
         }
 
         @Override
@@ -1369,10 +1369,10 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
             final TimeZone zone = calendar.getTimeZone();
-            if (calendar.get(Calendar.DST_OFFSET) != 0) {
-                buffer.append(getTimeZoneDisplay(zone, true, mStyle, mLocale));
-            } else {
+            if (calendar.get(Calendar.DST_OFFSET) == 0) {
                 buffer.append(getTimeZoneDisplay(zone, false, mStyle, mLocale));
+            } else {
+                buffer.append(getTimeZoneDisplay(zone, true, mStyle, mLocale));
             }
         }
     }
@@ -1454,11 +1454,11 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         static Iso8601_Rule getRule(final int tokenLen) {
             switch(tokenLen) {
             case 1:
-                return Iso8601_Rule.ISO8601_HOURS;
+                return ISO8601_HOURS;
             case 2:
-                return Iso8601_Rule.ISO8601_HOURS_MINUTES;
+                return ISO8601_HOURS_MINUTES;
             case 3:
-                return Iso8601_Rule.ISO8601_HOURS_COLON_MINUTES;
+                return ISO8601_HOURS_COLON_MINUTES;
             default:
                 throw new IllegalArgumentException("invalid number of X");
             }

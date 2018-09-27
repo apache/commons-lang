@@ -135,7 +135,7 @@ abstract class MemberUtils {
     private static int compareParameterTypes(final Executable left, final Executable right, final Class<?>[] actual) {
         final float leftCost = getTotalTransformationCost(actual, left);
         final float rightCost = getTotalTransformationCost(actual, right);
-        return leftCost < rightCost ? -1 : rightCost < leftCost ? 1 : 0;
+        return Float.compare(leftCost, rightCost);
     }
 
     /**
@@ -246,15 +246,19 @@ abstract class MemberUtils {
     }
 
     static boolean isMatchingMethod(final Method method, final Class<?>[] parameterTypes) {
-      return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
+      return isMatchingExecutable(Executable.of(method), parameterTypes);
     }
 
     static boolean isMatchingConstructor(final Constructor<?> method, final Class<?>[] parameterTypes) {
-      return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
+      return isMatchingExecutable(Executable.of(method), parameterTypes);
     }
 
     private static boolean isMatchingExecutable(final Executable method, final Class<?>[] parameterTypes) {
         final Class<?>[] methodParameterTypes = method.getParameterTypes();
+        if (ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true)) {
+            return true;
+        }
+
         if (method.isVarArgs()) {
             int i;
             for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
@@ -270,7 +274,8 @@ abstract class MemberUtils {
             }
             return true;
         }
-        return ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true);
+
+        return false;
     }
 
     /**

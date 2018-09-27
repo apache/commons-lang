@@ -157,7 +157,7 @@ public class TypeUtils {
         private ParameterizedTypeImpl(final Class<?> raw, final Type useOwner, final Type[] typeArguments) {
             this.raw = raw;
             this.useOwner = useOwner;
-            this.typeArguments = typeArguments.clone();
+            this.typeArguments = Arrays.copyOf(typeArguments, typeArguments.length, Type[].class);
         }
 
         /**
@@ -864,7 +864,7 @@ public class TypeUtils {
                     getRawType(parameterizedOwnerType), subtypeVarAssigns);
         } else {
             // no owner, prep the type variable assignments map
-            typeVarAssigns = subtypeVarAssigns == null ? new HashMap<TypeVariable<?>, Type>()
+            typeVarAssigns = subtypeVarAssigns == null ? new HashMap<>()
                     : new HashMap<>(subtypeVarAssigns);
         }
 
@@ -918,7 +918,7 @@ public class TypeUtils {
         }
 
         // create a copy of the incoming map, or an empty one if it's null
-        final HashMap<TypeVariable<?>, Type> typeVarAssigns = subtypeVarAssigns == null ? new HashMap<TypeVariable<?>, Type>()
+        final HashMap<TypeVariable<?>, Type> typeVarAssigns = subtypeVarAssigns == null ? new HashMap<>()
                 : new HashMap<>(subtypeVarAssigns);
 
         // has target class been reached?
@@ -1216,7 +1216,7 @@ public class TypeUtils {
      */
     public static boolean typesSatisfyVariables(final Map<TypeVariable<?>, Type> typeVarAssigns) {
         Validate.notNull(typeVarAssigns, "typeVarAssigns is null");
-        // all types must be assignable to all the bounds of the their mapped
+        // all types must be assignable to all the bounds of their mapped
         // type variable.
         for (final Map.Entry<TypeVariable<?>, Type> entry : typeVarAssigns.entrySet()) {
             final TypeVariable<?> typeVar = entry.getKey();
@@ -1378,7 +1378,7 @@ public class TypeUtils {
                     parameterizedTypeArguments = typeArguments;
                 } else {
                     parameterizedTypeArguments = new HashMap<>(typeArguments);
-                    parameterizedTypeArguments.putAll(TypeUtils.getTypeArguments(p));
+                    parameterizedTypeArguments.putAll(getTypeArguments(p));
                 }
                 final Type[] args = p.getActualTypeArguments();
                 for (int i = 0; i < args.length; i++) {
@@ -1444,8 +1444,8 @@ public class TypeUtils {
         }
         if (type instanceof WildcardType) {
             final WildcardType wild = (WildcardType) type;
-            return containsTypeVariables(TypeUtils.getImplicitLowerBounds(wild)[0])
-                || containsTypeVariables(TypeUtils.getImplicitUpperBounds(wild)[0]);
+            return containsTypeVariables(getImplicitLowerBounds(wild)[0])
+                || containsTypeVariables(getImplicitUpperBounds(wild)[0]);
         }
         return false;
     }
@@ -1497,7 +1497,7 @@ public class TypeUtils {
         } else if (owner == null) {
             useOwner = raw.getEnclosingClass();
         } else {
-            Validate.isTrue(TypeUtils.isAssignable(owner, raw.getEnclosingClass()),
+            Validate.isTrue(isAssignable(owner, raw.getEnclosingClass()),
                 "%s is invalid owner type for parameterized %s", owner, raw);
             useOwner = owner;
         }
@@ -1732,7 +1732,7 @@ public class TypeUtils {
      * @since 3.2
      */
     public static <T> Typed<T> wrap(final Class<T> type) {
-        return TypeUtils.wrap((Type) type);
+        return wrap((Type) type);
     }
 
     /**
@@ -1788,7 +1788,7 @@ public class TypeUtils {
 
         final Type useOwner = p.getOwnerType();
         final Class<?> raw = (Class<?>) p.getRawType();
-        final Type[] typeArguments = p.getActualTypeArguments();
+
         if (useOwner == null) {
             buf.append(raw.getName());
         } else {
@@ -1800,8 +1800,44 @@ public class TypeUtils {
             buf.append('.').append(raw.getSimpleName());
         }
 
-        appendAllTo(buf.append('<'), ", ", typeArguments).append('>');
+        final int[] recursiveTypeIndexes = findRecursiveTypes(p);
+
+        if (recursiveTypeIndexes.length > 0) {
+            appendRecursiveTypes(buf, recursiveTypeIndexes, p.getActualTypeArguments());
+        } else {
+            appendAllTo(buf.append('<'), ", ", p.getActualTypeArguments()).append('>');
+        }
+
         return buf.toString();
+    }
+
+    private static void appendRecursiveTypes(final StringBuilder buf, final int[] recursiveTypeIndexes, final Type[] argumentTypes) {
+        for (int i = 0; i < recursiveTypeIndexes.length; i++) {
+            appendAllTo(buf.append('<'), ", ", argumentTypes[i].toString()).append('>');
+        }
+
+        final Type[] argumentsFiltered = ArrayUtils.removeAll(argumentTypes, recursiveTypeIndexes);
+
+        if (argumentsFiltered.length > 0) {
+            appendAllTo(buf.append('<'), ", ", argumentsFiltered).append('>');
+        }
+    }
+
+    private static int[] findRecursiveTypes(final ParameterizedType p) {
+        final Type[] filteredArgumentTypes = Arrays.copyOf(p.getActualTypeArguments(), p.getActualTypeArguments().length);
+        int[] indexesToRemove = {};
+        for (int i = 0; i < filteredArgumentTypes.length; i++) {
+            if (filteredArgumentTypes[i] instanceof TypeVariable<?>) {
+                if (containsVariableTypeSameParametrizedTypeBound(((TypeVariable<?>) filteredArgumentTypes[i]), p)) {
+                    indexesToRemove = ArrayUtils.add(indexesToRemove, i);
+                }
+            }
+        }
+        return indexesToRemove;
+    }
+
+    private static boolean containsVariableTypeSameParametrizedTypeBound(final TypeVariable<?> typeVariable, final ParameterizedType p) {
+        return ArrayUtils.contains(typeVariable.getBounds(), p);
     }
 
     /**
@@ -1840,7 +1876,7 @@ public class TypeUtils {
      * @return {@code buf}
      * @since 3.2
      */
-    private static StringBuilder appendAllTo(final StringBuilder buf, final String sep, final Type... types) {
+    private static <T> StringBuilder appendAllTo(final StringBuilder buf, final String sep, final T... types) {
         Validate.notEmpty(Validate.noNullElements(types));
         if (types.length > 0) {
             buf.append(toString(types[0]));
@@ -1849,6 +1885,10 @@ public class TypeUtils {
             }
         }
         return buf;
+    }
+
+    private static <T> String toString(final T object) {
+        return object instanceof Type ? toString((Type) object) : object.toString();
     }
 
 }

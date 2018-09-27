@@ -82,7 +82,7 @@ BUG FIXES IN 2.5
     * [LANG-521] - NumberUtils - isNumber(String) and createNumber(String) both modified to support '2.'
     * [LANG-432] - StringUtils - improve handling of case-insensitive Strings
     * [LANG-552] - StringUtils - replaceEach() no longer NPEs when null appears in the last String[]
-    * [LANG-460] - StringUtils - correct JavaDocs for startsWith() and startsWithIgnoreCase()
+    * [LANG-460] - StringUtils - correct Javadocs for startsWith() and startsWithIgnoreCase()
     * [LANG-421] - StringEscapeUtils - escapeJava() escapes '/' characters
     * [LANG-450] - StringEscapeUtils - change escapeJavaStyleString() to throw UnhandledException instead swallowing IOException
     * [LANG-419] - WordUtils - fix StringIndexOutOfBoundsException when lower is greater than the String length

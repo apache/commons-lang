@@ -358,6 +358,40 @@ public class JsonToStringStyleTest {
         }
     }
 
+    @Test
+    public void testArray() {
+        final Person p = new Person();
+        p.name = "Jane Doe";
+        p.age = 25;
+        p.smoker = true;
+
+        assertEquals(
+                "{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true,\"groups\":['admin', 'manager', 'user']}",
+                new ToStringBuilder(p).append("name", p.name)
+                        .append("age", p.age).append("smoker", p.smoker)
+                        .append("groups", new Object() {
+                            @Override
+                            public String toString() {
+                                return "['admin', 'manager', 'user']";
+                            }
+                        })
+                        .toString());
+    }
+
+    @Test
+    public void testLANG1395() {
+        assertEquals("{\"name\":\"value\"}",new ToStringBuilder(base).append("name","value").toString());
+        assertEquals("{\"name\":\"\"}",new ToStringBuilder(base).append("name","").toString());
+        assertEquals("{\"name\":\"\\\"\"}",new ToStringBuilder(base).append("name",'"').toString());
+        assertEquals("{\"name\":\"\\\\\"}",new ToStringBuilder(base).append("name",'\\').toString());
+        assertEquals("{\"name\":\"Let's \\\"quote\\\" this\"}",new ToStringBuilder(base).append("name","Let's \"quote\" this").toString());
+    }
+
+    @Test
+    public void testLANG1396() {
+        assertEquals("{\"Let's \\\"quote\\\" this\":\"value\"}",new ToStringBuilder(base).append("Let's \"quote\" this","value").toString());
+    }
+
     /**
      * An object with nested object structures used to test {@link ToStringStyle.JsonToStringStyle}.
      *

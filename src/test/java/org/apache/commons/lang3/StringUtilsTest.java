@@ -34,6 +34,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.PatternSyntaxException;
@@ -100,6 +101,11 @@ public class StringUtilsTest {
     private static final char[] CHAR_PRIM_LIST = {'1', '2'};
     private static final float[] FLOAT_PRIM_LIST = {1, 2};
     private static final double[] DOUBLE_PRIM_LIST = {1, 2};
+    private static final List<String> MIXED_STRING_LIST = Arrays.asList(null, "", "foo");
+    private static final List<Object> MIXED_TYPE_OBJECT_LIST = Arrays.<Object>asList("foo", Long.valueOf(2L));
+    private static final List<String> STRING_LIST = Arrays.asList("foo", "bar", "baz");
+    private static final List<String> EMPTY_STRING_LIST = Collections.emptyList();
+    private static final List<String> NULL_STRING_LIST = Collections.singletonList(null);
 
     private static final String SEPARATOR = ",";
     private static final char SEPARATOR_CHAR = ';';
@@ -364,6 +370,38 @@ public class StringUtilsTest {
         assertEquals("foo/2", StringUtils.join(MIXED_TYPE_LIST, "/", 0, 2));
         assertEquals("2", StringUtils.join(MIXED_TYPE_LIST, "/", 1, 2));
         assertEquals("", StringUtils.join(MIXED_TYPE_LIST, "/", 2, 1));
+    }
+
+    @Test
+    public void testJoin_List() {
+        assertNull(StringUtils.join((List<String>) null, null));
+        assertEquals(TEXT_LIST_NOSEP, StringUtils.join(STRING_LIST, null));
+        assertEquals(TEXT_LIST_NOSEP, StringUtils.join(STRING_LIST, ""));
+
+        assertEquals("", StringUtils.join(NULL_STRING_LIST, null));
+
+        assertEquals("", StringUtils.join(EMPTY_STRING_LIST, null));
+        assertEquals("", StringUtils.join(EMPTY_STRING_LIST, ""));
+        assertEquals("", StringUtils.join(EMPTY_STRING_LIST, SEPARATOR));
+
+        assertEquals(TEXT_LIST, StringUtils.join(STRING_LIST, SEPARATOR));
+        assertEquals(",,foo", StringUtils.join(MIXED_STRING_LIST, SEPARATOR));
+        assertEquals("foo,2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, SEPARATOR));
+
+        assertEquals("/", StringUtils.join(MIXED_STRING_LIST, "/", 0, MIXED_STRING_LIST.size() - 1));
+        assertEquals("", StringUtils.join(MIXED_STRING_LIST, "", 0, MIXED_STRING_LIST.size()- 1));
+        assertEquals("foo", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 0, 1));
+        assertEquals("foo/2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 0, 2));
+        assertEquals("2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 1, 2));
+        assertEquals("", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 2, 1));
+        assertNull(null, StringUtils.join((List<?>) null, "/", 0, 1));
+
+        assertEquals("/", StringUtils.join(MIXED_STRING_LIST, '/', 0, MIXED_STRING_LIST.size() - 1));
+        assertEquals("foo", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 0, 1));
+        assertEquals("foo/2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 0, 2));
+        assertEquals("2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 1, 2));
+        assertEquals("", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 2, 1));
+        assertNull(null, StringUtils.join((List<?>) null, '/', 0, 1));
     }
 
     @Test
@@ -1164,10 +1202,10 @@ public class StringUtilsTest {
 
     @Test
     public void testReplaceIgnoreCase_StringStringString() {
-        assertEquals(null, StringUtils.replaceIgnoreCase(null, null, null));
-        assertEquals(null, StringUtils.replaceIgnoreCase(null, null, "any"));
-        assertEquals(null, StringUtils.replaceIgnoreCase(null, "any", null));
-        assertEquals(null, StringUtils.replaceIgnoreCase(null, "any", "any"));
+        assertNull(StringUtils.replaceIgnoreCase(null, null, null));
+        assertNull(StringUtils.replaceIgnoreCase(null, null, "any"));
+        assertNull(StringUtils.replaceIgnoreCase(null, "any", null));
+        assertNull(StringUtils.replaceIgnoreCase(null, "any", "any"));
 
         assertEquals("", StringUtils.replaceIgnoreCase("", null, null));
         assertEquals("", StringUtils.replaceIgnoreCase("", null, "any"));
@@ -1190,7 +1228,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testReplacePattern() {
+    public void testReplacePattern_StringStringString() {
         assertNull(StringUtils.replacePattern(null, "", ""));
         assertEquals("any", StringUtils.replacePattern("any", null, ""));
         assertEquals("any", StringUtils.replacePattern("any", "", null));
@@ -1211,7 +1249,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testRemovePattern() {
+    public void testRemovePattern_StringString() {
         assertNull(StringUtils.removePattern(null, ""));
         assertEquals("any", StringUtils.removePattern("any", null));
 
@@ -1228,7 +1266,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testReplaceAll() {
+    public void testReplaceAll_StringStringString() {
         assertNull(StringUtils.replaceAll(null, "", ""));
 
         assertEquals("any", StringUtils.replaceAll("any", null, ""));
@@ -1257,7 +1295,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testReplaceFirst() {
+    public void testReplaceFirst_StringStringString() {
         assertNull(StringUtils.replaceFirst(null, "", ""));
 
         assertEquals("any", StringUtils.replaceFirst("any", null, ""));
@@ -1313,10 +1351,10 @@ public class StringUtilsTest {
 
     @Test
     public void testReplaceIgnoreCase_StringStringStringInt() {
-        assertEquals(null, StringUtils.replaceIgnoreCase(null, null, null, 2));
-        assertEquals(null, StringUtils.replaceIgnoreCase(null, null, "any", 2));
-        assertEquals(null, StringUtils.replaceIgnoreCase(null, "any", null, 2));
-        assertEquals(null, StringUtils.replaceIgnoreCase(null, "any", "any", 2));
+        assertNull(StringUtils.replaceIgnoreCase(null, null, null, 2));
+        assertNull(StringUtils.replaceIgnoreCase(null, null, "any", 2));
+        assertNull(StringUtils.replaceIgnoreCase(null, "any", null, 2));
+        assertNull(StringUtils.replaceIgnoreCase(null, "any", "any", 2));
 
         assertEquals("", StringUtils.replaceIgnoreCase("", null, null, 2));
         assertEquals("", StringUtils.replaceIgnoreCase("", null, "any", 2));
@@ -1370,10 +1408,10 @@ public class StringUtilsTest {
 
     @Test
     public void testReplaceOnceIgnoreCase_StringStringString() {
-        assertEquals(null, StringUtils.replaceOnceIgnoreCase(null, null, null));
-        assertEquals(null, StringUtils.replaceOnceIgnoreCase(null, null, "any"));
-        assertEquals(null, StringUtils.replaceOnceIgnoreCase(null, "any", null));
-        assertEquals(null, StringUtils.replaceOnceIgnoreCase(null, "any", "any"));
+        assertNull(StringUtils.replaceOnceIgnoreCase(null, null, null));
+        assertNull(StringUtils.replaceOnceIgnoreCase(null, null, "any"));
+        assertNull(StringUtils.replaceOnceIgnoreCase(null, "any", null));
+        assertNull(StringUtils.replaceOnceIgnoreCase(null, "any", "any"));
 
         assertEquals("", StringUtils.replaceOnceIgnoreCase("", null, null));
         assertEquals("", StringUtils.replaceOnceIgnoreCase("", null, "any"));
@@ -1823,7 +1861,7 @@ public class StringUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testRotate_StringInt() {
-        assertEquals(null, StringUtils.rotate(null, 1));
+        assertNull(StringUtils.rotate(null, 1));
         assertEquals("", StringUtils.rotate("", 1));
         assertEquals("abcdefg", StringUtils.rotate("abcdefg", 0));
         assertEquals("fgabcde", StringUtils.rotate("abcdefg", 2));
@@ -2392,7 +2430,6 @@ public class StringUtilsTest {
         assertEquals(7, StringUtils.indexOfDifference("i am a machine", "i am a robot"));
         assertEquals(-1, StringUtils.indexOfDifference("foo", "foo"));
         assertEquals(0, StringUtils.indexOfDifference("i am a robot", "you are a robot"));
-        //System.out.println("indexOfDiff: " + StringUtils.indexOfDifference("i am a robot", "not machine"));
     }
 
     //-----------------------------------------------------------------------
@@ -2742,9 +2779,9 @@ public class StringUtilsTest {
     @Test
     public void testRemoveIgnoreCase_String() {
         // StringUtils.removeIgnoreCase(null, *) = null
-        assertEquals(null, StringUtils.removeIgnoreCase(null, null));
-        assertEquals(null, StringUtils.removeIgnoreCase(null, ""));
-        assertEquals(null, StringUtils.removeIgnoreCase(null, "a"));
+        assertNull(StringUtils.removeIgnoreCase(null, null));
+        assertNull(StringUtils.removeIgnoreCase(null, ""));
+        assertNull(StringUtils.removeIgnoreCase(null, "a"));
 
         // StringUtils.removeIgnoreCase("", *) = ""
         assertEquals("", StringUtils.removeIgnoreCase("", null));
@@ -2752,12 +2789,12 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.removeIgnoreCase("", "a"));
 
         // StringUtils.removeIgnoreCase(*, null) = *
-        assertEquals(null, StringUtils.removeIgnoreCase(null, null));
+        assertNull(StringUtils.removeIgnoreCase(null, null));
         assertEquals("", StringUtils.removeIgnoreCase("", null));
         assertEquals("a", StringUtils.removeIgnoreCase("a", null));
 
         // StringUtils.removeIgnoreCase(*, "") = *
-        assertEquals(null, StringUtils.removeIgnoreCase(null, ""));
+        assertNull(StringUtils.removeIgnoreCase(null, ""));
         assertEquals("", StringUtils.removeIgnoreCase("", ""));
         assertEquals("a", StringUtils.removeIgnoreCase("a", ""));
 
@@ -2795,7 +2832,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testRemoveAll() {
+    public void testRemoveAll_StringString() {
         assertNull(StringUtils.removeAll(null, ""));
         assertEquals("any", StringUtils.removeAll("any", null));
 
@@ -2817,7 +2854,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testRemoveFirst() {
+    public void testRemoveFirst_StringString() {
         assertNull(StringUtils.removeFirst(null, ""));
         assertEquals("any", StringUtils.removeFirst("any", null));
 
@@ -3188,7 +3225,7 @@ public class StringUtilsTest {
         assertNull(StringUtils.wrap(null, ""));
         assertNull(StringUtils.wrap(null, "1"));
 
-        assertEquals(null, StringUtils.wrap(null, null));
+        assertNull(StringUtils.wrap(null, null));
         assertEquals("", StringUtils.wrap("", ""));
         assertEquals("ab", StringUtils.wrap("ab", null));
         assertEquals("xabx", StringUtils.wrap("ab", "x"));
@@ -3253,7 +3290,7 @@ public class StringUtilsTest {
 
     @Test
     public void testGetDigits() {
-        assertEquals(null, StringUtils.getDigits(null));
+        assertNull(StringUtils.getDigits(null));
         assertEquals("", StringUtils.getDigits(""));
         assertEquals("", StringUtils.getDigits("abc"));
         assertEquals("1000", StringUtils.getDigits("1000$"));

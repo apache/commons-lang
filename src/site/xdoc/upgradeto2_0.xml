@@ -154,7 +154,7 @@ ID Sev Pri Plt Owner State Result Summary
 16284  MethodUtils: Removed unused code/unused local vars.  
 16341  No Javadoc for NestableDelegate  
 16622  Removed compile warning in FastDateFormat  
-16669  JavaDoc Errata  
+16669  Javadoc Errata  
 16676  StackOverflow due to ToStringBuilder  
 16689  ExceptionUtils new methods.  
 16690  Specify initial size for Enum's HashMap.  

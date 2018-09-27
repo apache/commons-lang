@@ -17,11 +17,12 @@
 
 package org.apache.commons.lang3.builder;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.junit.Assert;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
@@ -103,7 +104,7 @@ public class ReflectionToStringBuilderExcludeTest {
 
     @Test
     public void test_toStringExcludeEmptyCollection() {
-        final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new ArrayList<String>());
+        final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new ArrayList<>());
         this.validateSecretFieldPresent(toString);
     }
 
@@ -120,17 +121,17 @@ public class ReflectionToStringBuilderExcludeTest {
     }
 
     private void validateNonSecretField(final String toString) {
-        Assert.assertTrue(toString.contains(NOT_SECRET_FIELD));
-        Assert.assertTrue(toString.contains(NOT_SECRET_VALUE));
+        assertTrue(toString.contains(NOT_SECRET_FIELD));
+        assertTrue(toString.contains(NOT_SECRET_VALUE));
     }
 
     private void validateSecretFieldAbsent(final String toString) {
-        Assert.assertEquals(ArrayUtils.INDEX_NOT_FOUND, toString.indexOf(SECRET_VALUE));
+        assertEquals(ArrayUtils.INDEX_NOT_FOUND, toString.indexOf(SECRET_VALUE));
         this.validateNonSecretField(toString);
     }
 
     private void validateSecretFieldPresent(final String toString) {
-        Assert.assertTrue(toString.indexOf(SECRET_VALUE) > 0);
+        assertTrue(toString.indexOf(SECRET_VALUE) > 0);
         this.validateNonSecretField(toString);
     }
 }

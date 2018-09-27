@@ -44,6 +44,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
  * @since 2.0
  */
 public class ClassUtils {
+
     /**
      * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
      * @since 3.2
@@ -242,32 +243,101 @@ public class ClassUtils {
     /**
      * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
      *
-     * @param cls the class for which to get the simple name.
+     * @param cls the class for which to get the simple name; may be null
      * @return the simple class name.
      * @since 3.0
      * @see Class#getSimpleName()
      */
     public static String getSimpleName(final Class<?> cls) {
-        if (cls == null) {
-            return StringUtils.EMPTY;
-        }
-        return cls.getSimpleName();
+        return getSimpleName(cls, StringUtils.EMPTY);
     }
 
     /**
      * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
      *
-     * @param object the object for which to get the simple class name.
+     * @param cls the class for which to get the simple name; may be null
+     * @param valueIfNull  the value to return if null
+     * @return the simple class name or {@code valueIfNull}
+     * @since 3.0
+     * @see Class#getSimpleName()
+     */
+    public static String getSimpleName(final Class<?> cls, String valueIfNull) {
+        return cls == null ? valueIfNull : cls.getSimpleName();
+    }
+
+    /**
+     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     *
+     * @param object the object for which to get the simple class name; may be null
+     * @return the simple class name or the empty String
+     * @since 3.7
+     * @see Class#getSimpleName()
+     */
+    public static String getSimpleName(final Object object) {
+        return getSimpleName(object, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     *
+     * @param object the object for which to get the simple class name; may be null
      * @param valueIfNull the value to return if <code>object</code> is <code>null</code>
-     * @return the simple class name.
+     * @return the simple class name or {@code valueIfNull}
      * @since 3.0
      * @see Class#getSimpleName()
      */
     public static String getSimpleName(final Object object, final String valueIfNull) {
-        if (object == null) {
-            return valueIfNull;
-        }
-        return getSimpleName(object.getClass());
+        return object == null ? valueIfNull : object.getClass().getSimpleName();
+    }
+
+    /**
+     * <p>Null-safe version of <code>Class.getName()</code></p>
+     *
+     * @param cls the class for which to get the class name; may be null
+     * @return the class name or the empty String.
+     * @since 3.7
+     * @see Class#getSimpleName()
+     */
+    public static String getName(final Class<?> cls) {
+        return getName(cls, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Null-safe version of <code>aClass.getName()</code></p>
+     *
+     * @param cls the class for which to get the class name; may be null
+     * @param valueIfNull the return value if <code>cls</code> is <code>null</code>
+     * @return the class name or {@code valueIfNull}
+     * @since 3.7
+     * @see Class#getName()
+     */
+    public static String getName(final Class<?> cls, final String valueIfNull) {
+        return cls == null ? valueIfNull : cls.getName();
+    }
+
+    /**
+     * <p>Null-safe version of <code>Class.getName()</code></p>
+     *
+     * @param object the object for which to get the class name; may be null
+     * @return the class name or the empty String
+     * @since 3.7
+     * @see Class#getSimpleName()
+     */
+    public static String getName(final Object object) {
+        return getName(object, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     *
+     * @param object the object for which to get the class name; may be null
+     * @param valueIfNull the value to return if <code>object</code> is <code>null</code>
+     * @return the class name or {@code valueIfNull}
+     * @since 3.0
+     * @see Class#getName()
+     */
+    public static String getName(final Object object, final String valueIfNull) {
+        return object == null ? valueIfNull : object.getClass().getName();
     }
 
     // Package name
@@ -359,8 +429,8 @@ public class ClassUtils {
      * If enough space is available, rightmost sub-packages will be displayed in full
      * length.</p>
      *
-     * <p>The following table illustrates the algorithm:</p>
-     * <table summary="abbreviation examples">
+     * <table>
+     * <caption>Examples</caption>
      * <tr><td>className</td><td>len</td><td>return</td></tr>
      * <tr><td>              null</td><td> 1</td><td>""</td></tr>
      * <tr><td>"java.lang.String"</td><td> 5</td><td>"j.l.String"</td></tr>
@@ -571,7 +641,7 @@ public class ClassUtils {
      * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(final Class<?>[] classArray, final Class<?>... toClassArray) {
-        return isAssignable(classArray, toClassArray, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
+        return isAssignable(classArray, toClassArray, true);
     }
 
     /**
@@ -687,7 +757,7 @@ public class ClassUtils {
      * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(final Class<?> cls, final Class<?> toClass) {
-        return isAssignable(cls, toClass, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
+        return isAssignable(cls, toClass, true);
     }
 
     /**
@@ -1014,7 +1084,7 @@ public class ClassUtils {
      *  or if the method doesn't conform with the requirements
      */
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes)
-            throws SecurityException, NoSuchMethodException {
+            throws NoSuchMethodException {
 
         final Method declaredMethod = cls.getMethod(methodName, parameterTypes);
         if (Modifier.isPublic(declaredMethod.getDeclaringClass().getModifiers())) {
@@ -1112,9 +1182,67 @@ public class ClassUtils {
     }
 
     /**
+     * <p>Gets the canonical class name for a {@code Class}.</p>
+     *
+     * @param cls the class for which to get the canonical class name; may be null
+     * @return the canonical name of the class, or the empty String
+     * @since 3.7
+     * @see Class#getCanonicalName()
+     */
+    public static String getCanonicalName(final Class<?> cls) {
+        return getCanonicalName(cls, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Gets the canonical name for a {@code Class}.</p>
+     *
+     * @param cls the class for which to get the canonical class name; may be null
+     * @param valueIfNull  the return value if null
+     * @return the canonical name of the class, or {@code valueIfNull}
+     * @since 3.7
+     * @see Class#getCanonicalName()
+     */
+    public static String getCanonicalName(final Class<?> cls, final String valueIfNull) {
+        if (cls == null) {
+            return valueIfNull;
+        }
+        final String canonicalName = cls.getCanonicalName();
+        return canonicalName == null ? valueIfNull : canonicalName;
+    }
+
+    /**
+     * <p>Gets the canonical name for an {@code Object}.</p>
+     *
+     * @param object the object for which to get the canonical class name; may be null
+     * @return the canonical name of the object, or the empty String
+     * @since 3.7
+     * @see Class#getCanonicalName()
+     */
+    public static String getCanonicalName(final Object object) {
+        return getCanonicalName(object, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Gets the canonical name for an {@code Object}.</p>
+     *
+     * @param object the object for which to get the canonical class name; may be null
+     * @param valueIfNull  the return value if null
+     * @return the canonical name of the object or {@code valueIfNull}
+     * @since 3.7
+     * @see Class#getCanonicalName()
+     */
+    public static String getCanonicalName(final Object object, final String valueIfNull) {
+        if (object == null) {
+            return valueIfNull;
+        }
+        final String canonicalName = object.getClass().getCanonicalName();
+        return canonicalName == null ? valueIfNull : canonicalName;
+    }
+
+    /**
      * <p>Gets the canonical name minus the package name from a {@code Class}.</p>
      *
-     * @param cls  the class to get the short name for.
+     * @param cls the class for which to get the short canonical class name; may be null
      * @return the canonical name without the package name or an empty string
      * @since 2.4
      */
@@ -1135,7 +1263,7 @@ public class ClassUtils {
      * @since 2.4
      */
     public static String getShortCanonicalName(final String canonicalName) {
-        return ClassUtils.getShortClassName(getCanonicalName(canonicalName));
+        return getShortClassName(getCanonicalName(canonicalName));
     }
 
     // Package name
@@ -1180,7 +1308,7 @@ public class ClassUtils {
      * @since 2.4
      */
     public static String getPackageCanonicalName(final String canonicalName) {
-        return ClassUtils.getPackageName(getCanonicalName(canonicalName));
+        return getPackageName(getCanonicalName(canonicalName));
     }
 
     /**
@@ -1219,7 +1347,7 @@ public class ClassUtils {
                     ? className.length() - 1
                     : className.length());
         } else {
-            if (className.length() > 0) {
+            if (!className.isEmpty()) {
                 className = reverseAbbreviationMap.get(className.substring(0, 1));
             }
         }
@@ -1255,7 +1383,7 @@ public class ClassUtils {
 
             @Override
             public Iterator<Class<?>> iterator() {
-                final MutableObject<Class<?>> next = new MutableObject<Class<?>>(type);
+                final MutableObject<Class<?>> next = new MutableObject<>(type);
                 return new Iterator<Class<?>>() {
 
                     @Override

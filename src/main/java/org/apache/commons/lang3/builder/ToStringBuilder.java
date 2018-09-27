@@ -225,7 +225,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Constructs a builder for the specified object using the a defined output style.</p>
+     * <p>Constructs a builder for the specified object using the defined output style.</p>
      *
      * <p>If the style is <code>null</code>, the default style is used.</p>
      *

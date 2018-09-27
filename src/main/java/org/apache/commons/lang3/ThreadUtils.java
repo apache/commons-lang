@@ -36,7 +36,7 @@ import java.util.List;
 public class ThreadUtils {
 
     /**
-     * Return the active thread with the specified id if it belong's to the specified thread group.
+     * Return the active thread with the specified id if it belongs to the specified thread group.
      *
      * @param threadId The thread id
      * @param threadGroup The thread group
@@ -59,7 +59,7 @@ public class ThreadUtils {
     }
 
     /**
-     * Return the active thread with the specified id if it belong's to a thread group with the specified group name.
+     * Return the active thread with the specified id if it belongs to a thread group with the specified group name.
      *
      * @param threadId The thread id
      * @param threadGroupName The thread group name
@@ -239,8 +239,9 @@ public class ThreadUtils {
     /**
      * A predicate for selecting threads.
      */
-    //if java minimal version for lang becomes 1.8 extend this interface from java.util.function.Predicate
-    public interface ThreadPredicate /*extends java.util.function.Predicate<Thread>*/{
+    // When breaking BC, replace this with Predicate<Thread>
+    @FunctionalInterface
+    public interface ThreadPredicate {
 
         /**
          * Evaluates this predicate on the given thread.
@@ -253,8 +254,9 @@ public class ThreadUtils {
     /**
      * A predicate for selecting threadgroups.
      */
-    //if java minimal version for lang becomes 1.8 extend this interface from java.util.function.Predicate
-    public interface ThreadGroupPredicate /*extends java.util.function.Predicate<ThreadGroup>*/{
+    // When breaking BC, replace this with Predicate<ThreadGroup>
+    @FunctionalInterface
+    public interface ThreadGroupPredicate {
 
         /**
          * Evaluates this predicate on the given threadgroup.
@@ -272,7 +274,7 @@ public class ThreadUtils {
     /**
      * A predicate implementation which always returns true.
      */
-    private static final class AlwaysTruePredicate implements ThreadPredicate, ThreadGroupPredicate{
+    private static final class AlwaysTruePredicate implements ThreadPredicate, ThreadGroupPredicate {
 
         private AlwaysTruePredicate() {
         }
@@ -357,7 +359,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<Thread> findThreads(final ThreadPredicate predicate){
+    public static Collection<Thread> findThreads(final ThreadPredicate predicate) {
         return findThreads(getSystemThreadGroup(), true, predicate);
     }
 
@@ -372,7 +374,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate){
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate) {
         return findThreadGroups(getSystemThreadGroup(), true, predicate);
     }
 
@@ -419,7 +421,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup group, final boolean recurse, final ThreadGroupPredicate predicate){
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup group, final boolean recurse, final ThreadGroupPredicate predicate) {
         Validate.isTrue(group != null, "The group must not be null");
         Validate.isTrue(predicate != null, "The predicate must not be null");
 

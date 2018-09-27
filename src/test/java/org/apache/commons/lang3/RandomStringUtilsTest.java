@@ -37,7 +37,6 @@ import org.junit.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.RandomStringUtils}.
  */
-@Deprecated
 public class RandomStringUtilsTest {
 
     //-----------------------------------------------------------------------
@@ -545,20 +544,21 @@ public class RandomStringUtilsTest {
      */
     @Test
     public void testCharOverflow() throws Exception {
-        int start = Character.MAX_VALUE;
-        int end = Integer.MAX_VALUE;
+        final int start = Character.MAX_VALUE;
+        final int end = Integer.MAX_VALUE;
 
         @SuppressWarnings("serial")
+        final
         Random fixedRandom = new Random() {
             @Override
-            public int nextInt(int n) {
+            public int nextInt(final int n) {
                 // Prevents selection of 'start' as the character
                 return super.nextInt(n - 1) + 1;
             }
         };
 
-        String result = RandomStringUtils.random(2, start, end, false, false, null, fixedRandom);
-        int c = result.codePointAt(0);
+        final String result = RandomStringUtils.random(2, start, end, false, false, null, fixedRandom);
+        final int c = result.codePointAt(0);
         assertTrue(String.format("Character '%d' not in range [%d,%d).", c, start, end), c >= start && c < end);
     }
 }

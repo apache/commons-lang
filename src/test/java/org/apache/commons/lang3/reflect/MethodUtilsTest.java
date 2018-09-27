@@ -50,7 +50,6 @@ import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.PublicChild;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -276,19 +275,19 @@ public class MethodUtilsTest {
         // not only is the correct overloaded variant invoked, but that the varags arguments
         // are also delivered correctly to the method.
         public ImmutablePair<String, Object[]> varOverloadEcho(final String... args) {
-            return new ImmutablePair<String, Object[]>("String...", args);
+            return new ImmutablePair<>("String...", args);
         }
 
         public ImmutablePair<String, Object[]> varOverloadEcho(final Number... args) {
-            return new ImmutablePair<String, Object[]>("Number...", args);
+            return new ImmutablePair<>("Number...", args);
         }
 
         public static ImmutablePair<String, Object[]> varOverloadEchoStatic(final String... args) {
-            return new ImmutablePair<String, Object[]>("String...", args);
+            return new ImmutablePair<>("String...", args);
         }
 
         public static ImmutablePair<String, Object[]> varOverloadEchoStatic(final Number... args) {
-            return new ImmutablePair<String, Object[]>("Number...", args);
+            return new ImmutablePair<>("Number...", args);
         }
 
         static void verify(final ImmutablePair<String, Object[]> a, final ImmutablePair<String, Object[]> b) {
@@ -439,16 +438,16 @@ public class MethodUtilsTest {
             MethodUtils.invokeMethod(testBean, "foo",
                     1, 2);
             fail("should throw NoSuchMethodException");
-        } catch (NoSuchMethodException expected) {
+        } catch (final NoSuchMethodException expected) {
         }
 
-        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
+        TestBean.verify(new ImmutablePair<>("String...", new String[]{"x", "y"}),
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
-        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
+        TestBean.verify(new ImmutablePair<>("Number...", new Number[]{17, 23, 42}),
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
-        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
+        TestBean.verify(new ImmutablePair<>("String...", new String[]{"x", "y"}),
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
-        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
+        TestBean.verify(new ImmutablePair<>("Number...", new Number[]{17, 23, 42}),
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
     }
 
@@ -517,13 +516,13 @@ public class MethodUtilsTest {
         assertEquals("bar(int, String...)", MethodUtils.invokeStaticMethod(
                 TestBean.class, "bar", NumberUtils.INTEGER_ONE, "a", "b"));
 
-        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
+        TestBean.verify(new ImmutablePair<>("String...", new String[]{"x", "y"}),
                 MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", "x", "y"));
-        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
+        TestBean.verify(new ImmutablePair<>("Number...", new Number[]{17, 23, 42}),
                 MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", 17, 23, 42));
-        TestBean.verify(new ImmutablePair<String, Object[]>("String...", new String[]{"x", "y"}),
+        TestBean.verify(new ImmutablePair<>("String...", new String[]{"x", "y"}),
                 MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", "x", "y"));
-        TestBean.verify(new ImmutablePair<String, Object[]>("Number...", new Number[]{17, 23, 42}),
+        TestBean.verify(new ImmutablePair<>("Number...", new Number[]{17, 23, 42}),
                 MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", 17, 23, 42));
 
         try {
@@ -986,20 +985,20 @@ public class MethodUtilsTest {
     public void testVarArgsUnboxing() throws Exception {
         final TestBean testBean = new TestBean();
         final int[] actual = (int[]) MethodUtils.invokeMethod(testBean, "unboxing", Integer.valueOf(1), Integer.valueOf(2));
-        Assert.assertArrayEquals(new int[]{1, 2}, actual);
+        assertArrayEquals(new int[]{1, 2}, actual);
     }
 
     @Test
     public void testInvokeMethodForceAccessNoArgs() throws Exception {
-        Assert.assertEquals("privateStringStuff()", MethodUtils.invokeMethod(testBean, true, "privateStringStuff"));
+        assertEquals("privateStringStuff()", MethodUtils.invokeMethod(testBean, true, "privateStringStuff"));
     }
 
     @Test
     public void testInvokeMethodForceAccessWithArgs() throws Exception {
-        Assert.assertEquals("privateStringStuff(Integer)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", 5));
-        Assert.assertEquals("privateStringStuff(double)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", 5.0d));
-        Assert.assertEquals("privateStringStuff(String)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", "Hi There"));
-        Assert.assertEquals("privateStringStuff(Object)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", new Date()));
+        assertEquals("privateStringStuff(Integer)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", 5));
+        assertEquals("privateStringStuff(double)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", 5.0d));
+        assertEquals("privateStringStuff(String)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", "Hi There"));
+        assertEquals("privateStringStuff(Object)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", new Date()));
     }
 
     @Test
@@ -1007,10 +1006,10 @@ public class MethodUtilsTest {
         final Method distanceMethod = MethodUtils.getMatchingMethod(MethodUtils.class, "distance", Class[].class, Class[].class);
         distanceMethod.setAccessible(true);
 
-        Assert.assertEquals(-1, distanceMethod.invoke(null, new Class[]{String.class}, new Class[]{Date.class}));
-        Assert.assertEquals(0, distanceMethod.invoke(null, new Class[]{Date.class}, new Class[]{Date.class}));
-        Assert.assertEquals(1, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{ClassUtils.wrapperToPrimitive(Integer.class)}));
-        Assert.assertEquals(2, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{Object.class}));
+        assertEquals(-1, distanceMethod.invoke(null, new Class[]{String.class}, new Class[]{Date.class}));
+        assertEquals(0, distanceMethod.invoke(null, new Class[]{Date.class}, new Class[]{Date.class}));
+        assertEquals(1, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{ClassUtils.wrapperToPrimitive(Integer.class)}));
+        assertEquals(2, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{Object.class}));
 
         distanceMethod.setAccessible(false);
     }

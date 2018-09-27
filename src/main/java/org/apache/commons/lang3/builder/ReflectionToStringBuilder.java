@@ -84,6 +84,10 @@ import org.apache.commons.lang3.Validate;
  * result.
  * </p>
  * <p>
+ * It is also possible to use the {@link ToStringSummary} annotation to output the summary information instead of the
+ * detailed information of a field.
+ * </p>
+ * <p>
  * The exact format of the <code>toString</code> is determined by the {@link ToStringStyle} passed into the constructor.
  * </p>
  *
@@ -119,6 +123,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object is <code>null</code>
      *
      * @see ToStringExclude
+     * @see ToStringSummary
      */
     public static String toString(final Object object) {
         return toString(object, null, false, false, null);
@@ -153,6 +158,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object or <code>ToStringStyle</code> is <code>null</code>
      *
      * @see ToStringExclude
+     * @see ToStringSummary
      */
     public static String toString(final Object object, final ToStringStyle style) {
         return toString(object, style, false, false, null);
@@ -193,6 +199,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object is <code>null</code>
      *
      * @see ToStringExclude
+     * @see ToStringSummary
      */
     public static String toString(final Object object, final ToStringStyle style, final boolean outputTransients) {
         return toString(object, style, outputTransients, false, null);
@@ -240,6 +247,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object is <code>null</code>
      *
      * @see ToStringExclude
+     * @see ToStringSummary
      * @since 2.1
      */
     public static String toString(final Object object, final ToStringStyle style, final boolean outputTransients, final boolean outputStatics) {
@@ -293,6 +301,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object is <code>null</code>
      *
      * @see ToStringExclude
+     * @see ToStringSummary
      * @since 2.1
      */
     public static <T> String toString(
@@ -351,11 +360,12 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object is <code>null</code>
      *
      * @see ToStringExclude
+     * @see ToStringSummary
      * @since 3.6
      */
     public static <T> String toString(
             final T object, final ToStringStyle style, final boolean outputTransients,
-            final boolean outputStatics, boolean excludeNullValues, final Class<? super T> reflectUpToClass) {
+            final boolean outputStatics, final boolean excludeNullValues, final Class<? super T> reflectUpToClass) {
         return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients, outputStatics, excludeNullValues)
                 .toString();
     }
@@ -639,7 +649,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
                     // for primitive types.
                     final Object fieldValue = this.getValue(field);
                     if (!excludeNullValues || fieldValue != null) {
-                        this.append(fieldName, fieldValue);
+                        this.append(fieldName, fieldValue, !field.isAnnotationPresent(ToStringSummary.class));
                     }
                 } catch (final IllegalAccessException ex) {
                     //this can't happen. Would get a Security exception
@@ -686,7 +696,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * @see java.lang.reflect.Field#get(Object)
      */
-    protected Object getValue(final Field field) throws IllegalArgumentException, IllegalAccessException {
+    protected Object getValue(final Field field) throws IllegalAccessException {
         return field.get(this.getObject());
     }
 

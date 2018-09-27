@@ -622,7 +622,7 @@ public class MethodUtils {
 
             // Check the implemented interfaces of the parent class
             final Class<?>[] interfaces = cls.getInterfaces();
-            for (Class<?> anInterface : interfaces) {
+            for (final Class<?> anInterface : interfaces) {
                 // Is this interface public?
                 if (!Modifier.isPublic(anInterface.getModifiers())) {
                     continue;
@@ -875,7 +875,7 @@ public class MethodUtils {
      * @since 3.6
      */
     public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls,
-                                                    boolean searchSupers, boolean ignoreAccess) {
+                                                    final boolean searchSupers, final boolean ignoreAccess) {
         final List<Method> annotatedMethodsList = getMethodsListWithAnnotation(cls, annotationCls, searchSupers,
                 ignoreAccess);
         return annotatedMethodsList.toArray(new Method[annotatedMethodsList.size()]);
@@ -898,15 +898,15 @@ public class MethodUtils {
      */
     public static List<Method> getMethodsListWithAnnotation(final Class<?> cls,
                                                             final Class<? extends Annotation> annotationCls,
-                                                            boolean searchSupers, boolean ignoreAccess) {
+                                                            final boolean searchSupers, final boolean ignoreAccess) {
 
         Validate.isTrue(cls != null, "The class must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
-        List<Class<?>> classes = (searchSupers ? getAllSuperclassesAndInterfaces(cls)
-                : new ArrayList<Class<?>>());
+        final List<Class<?>> classes = (searchSupers ? getAllSuperclassesAndInterfaces(cls)
+                : new ArrayList<>());
         classes.add(0, cls);
         final List<Method> annotatedMethods = new ArrayList<>();
-        for (Class<?> acls : classes) {
+        for (final Class<?> acls : classes) {
             final Method[] methods = (ignoreAccess ? acls.getDeclaredMethods() : acls.getMethods());
             for (final Method method : methods) {
                 if (method.getAnnotation(annotationCls) != null) {
@@ -941,7 +941,7 @@ public class MethodUtils {
      * @since 3.6
      */
     public static <A extends Annotation> A getAnnotation(final Method method, final Class<A> annotationCls,
-                                                         boolean searchSupers, boolean ignoreAccess) {
+                                                         final boolean searchSupers, final boolean ignoreAccess) {
 
         Validate.isTrue(method != null, "The method must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
@@ -952,14 +952,14 @@ public class MethodUtils {
         A annotation = method.getAnnotation(annotationCls);
 
         if (annotation == null && searchSupers) {
-            Class<?> mcls = method.getDeclaringClass();
-            List<Class<?>> classes = getAllSuperclassesAndInterfaces(mcls);
-            for (Class<?> acls : classes) {
+            final Class<?> mcls = method.getDeclaringClass();
+            final List<Class<?>> classes = getAllSuperclassesAndInterfaces(mcls);
+            for (final Class<?> acls : classes) {
                 Method equivalentMethod;
                 try {
                     equivalentMethod = (ignoreAccess ? acls.getDeclaredMethod(method.getName(), method.getParameterTypes())
                             : acls.getMethod(method.getName(), method.getParameterTypes()));
-                } catch (NoSuchMethodException e) {
+                } catch (final NoSuchMethodException e) {
                     // if not found, just keep searching
                     continue;
                 }
@@ -989,9 +989,9 @@ public class MethodUtils {
         }
 
         final List<Class<?>> allSuperClassesAndInterfaces = new ArrayList<>();
-        List<Class<?>> allSuperclasses = ClassUtils.getAllSuperclasses(cls);
+        final List<Class<?>> allSuperclasses = ClassUtils.getAllSuperclasses(cls);
         int superClassIndex = 0;
-        List<Class<?>> allInterfaces = ClassUtils.getAllInterfaces(cls);
+        final List<Class<?>> allInterfaces = ClassUtils.getAllInterfaces(cls);
         int interfaceIndex = 0;
         while (interfaceIndex < allInterfaces.size() ||
                 superClassIndex < allSuperclasses.size()) {

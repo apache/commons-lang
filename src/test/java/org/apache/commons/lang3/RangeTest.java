@@ -71,8 +71,8 @@ public class RangeTest {
         };
         final Range r1 = Range.is(c);
         final Range r2 = Range.between(c, c);
-        assertEquals(true, r1.isNaturalOrdering());
-        assertEquals(true, r2.isNaturalOrdering());
+        assertTrue(r1.isNaturalOrdering());
+        assertTrue(r2.isNaturalOrdering());
     }
 
     @Test

@@ -60,7 +60,8 @@ public class WordUtils {
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>
      *
-     * <table border="1" summary="Wrap Results">
+     * <table border="1">
+     *  <caption>Examples</caption>
      *  <tr>
      *   <th>input</th>
      *   <th>wrapLength</th>
@@ -109,7 +110,8 @@ public class WordUtils {
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>
      *
-     * <table border="1" summary="Wrap Results">
+     * <table border="1">
+     *  <caption>Examples</caption>
      *  <tr>
      *   <th>input</th>
      *   <th>wrapLength</th>
@@ -185,7 +187,8 @@ public class WordUtils {
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>
      *
-     * <table border="1" summary="Wrap Results">
+     * <table border="1">
+     *  <caption>Examples</caption>
      *  <tr>
      *   <th>input</th>
      *   <th>wrapLength</th>
@@ -288,7 +291,8 @@ public class WordUtils {
 
         while (offset < inputLineLength) {
             int spaceToWrapAt = -1;
-            Matcher matcher = patternToWrapOn.matcher(str.substring(offset, Math.min(offset + wrapLength + 1, inputLineLength)));
+            Matcher matcher = patternToWrapOn.matcher(
+                str.substring(offset, Math.min((int)Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));
             if (matcher.find()) {
                 if (matcher.start() == 0) {
                     offset += matcher.end();
@@ -308,7 +312,7 @@ public class WordUtils {
 
             if (spaceToWrapAt >= offset) {
                 // normal case
-                wrappedLine.append(str.substring(offset, spaceToWrapAt));
+                wrappedLine.append(str, offset, spaceToWrapAt);
                 wrappedLine.append(newLineStr);
                 offset = spaceToWrapAt + 1;
 
@@ -316,7 +320,7 @@ public class WordUtils {
                 // really long word or URL
                 if (wrapLongWords) {
                     // wrap really long word one line at a time
-                    wrappedLine.append(str.substring(offset, wrapLength + offset));
+                    wrappedLine.append(str, offset, wrapLength + offset);
                     wrappedLine.append(newLineStr);
                     offset += wrapLength;
                 } else {
@@ -327,11 +331,11 @@ public class WordUtils {
                     }
 
                     if (spaceToWrapAt >= 0) {
-                        wrappedLine.append(str.substring(offset, spaceToWrapAt));
+                        wrappedLine.append(str, offset, spaceToWrapAt);
                         wrappedLine.append(newLineStr);
                         offset = spaceToWrapAt + 1;
                     } else {
-                        wrappedLine.append(str.substring(offset));
+                        wrappedLine.append(str, offset, str.length());
                         offset = inputLineLength;
                     }
                 }
@@ -339,7 +343,7 @@ public class WordUtils {
         }
 
         // Whatever is left in line is short enough to just pass through
-        wrappedLine.append(str.substring(offset));
+        wrappedLine.append(str, offset, str.length());
 
         return wrappedLine.toString();
     }

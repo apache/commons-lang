@@ -3870,7 +3870,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int indexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -3902,7 +3902,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int indexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -3964,7 +3964,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -3998,7 +3998,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4077,7 +4077,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int indexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4120,7 +4120,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4181,7 +4181,7 @@ public class ArrayUtils {
      *  array input
      */
     public static int indexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4225,7 +4225,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -7436,7 +7436,7 @@ public class ArrayUtils {
      */
     // package protected for access by unit tests
     static Object removeAll(final Object array, final BitSet indices) {
-        final int srcLength = ArrayUtils.getLength(array);
+        final int srcLength = getLength(array);
         // No need to check maxIndex here, because method only currently called from removeElements()
         // which guarantee to generate on;y valid bit entries.
 //        final int maxIndex = indices.length();
@@ -8087,7 +8087,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        boolean[] result = new boolean[array.length + values.length];
+        final boolean[] result = new boolean[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8129,7 +8129,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        byte[] result = new byte[array.length + values.length];
+        final byte[] result = new byte[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8171,7 +8171,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        char[] result = new char[array.length + values.length];
+        final char[] result = new char[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8213,7 +8213,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        double[] result = new double[array.length + values.length];
+        final double[] result = new double[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8255,7 +8255,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        float[] result = new float[array.length + values.length];
+        final float[] result = new float[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8297,7 +8297,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        int[] result = new int[array.length + values.length];
+        final int[] result = new int[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8339,7 +8339,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        long[] result = new long[array.length + values.length];
+        final long[] result = new long[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8381,7 +8381,7 @@ public class ArrayUtils {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        short[] result = new short[array.length + values.length];
+        final short[] result = new short[array.length + values.length];
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -8435,6 +8435,7 @@ public class ArrayUtils {
 
         final Class<?> type = array.getClass().getComponentType();
         @SuppressWarnings("unchecked") // OK, because array and values are of type T
+        final
         T[] result = (T[]) Array.newInstance(type, array.length + values.length);
 
         System.arraycopy(values, 0, result, index, values.length);
@@ -8454,7 +8455,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(Object[] array) {
+    public static void shuffle(final Object[] array) {
         shuffle(array, new Random());
     }
 
@@ -8466,7 +8467,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(Object[] array, Random random) {
+    public static void shuffle(final Object[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8479,7 +8480,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(boolean[] array) {
+    public static void shuffle(final boolean[] array) {
         shuffle(array, new Random());
     }
 
@@ -8491,7 +8492,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(boolean[] array, Random random) {
+    public static void shuffle(final boolean[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8504,7 +8505,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(byte[] array) {
+    public static void shuffle(final byte[] array) {
         shuffle(array, new Random());
     }
 
@@ -8516,7 +8517,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(byte[] array, Random random) {
+    public static void shuffle(final byte[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8529,7 +8530,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(char[] array) {
+    public static void shuffle(final char[] array) {
         shuffle(array, new Random());
     }
 
@@ -8541,7 +8542,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(char[] array, Random random) {
+    public static void shuffle(final char[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8554,7 +8555,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(short[] array) {
+    public static void shuffle(final short[] array) {
         shuffle(array, new Random());
     }
 
@@ -8566,7 +8567,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(short[] array, Random random) {
+    public static void shuffle(final short[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8579,7 +8580,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(int[] array) {
+    public static void shuffle(final int[] array) {
         shuffle(array, new Random());
     }
 
@@ -8591,7 +8592,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(int[] array, Random random) {
+    public static void shuffle(final int[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8604,7 +8605,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(long[] array) {
+    public static void shuffle(final long[] array) {
         shuffle(array, new Random());
     }
 
@@ -8616,7 +8617,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(long[] array, Random random) {
+    public static void shuffle(final long[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8629,7 +8630,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(float[] array) {
+    public static void shuffle(final float[] array) {
         shuffle(array, new Random());
     }
 
@@ -8641,7 +8642,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(float[] array, Random random) {
+    public static void shuffle(final float[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
@@ -8654,7 +8655,7 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(double[] array) {
+    public static void shuffle(final double[] array) {
         shuffle(array, new Random());
     }
 
@@ -8666,9 +8667,25 @@ public class ArrayUtils {
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
-    public static void shuffle(double[] array, Random random) {
+    public static void shuffle(final double[] array, final Random random) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
+    }
+
+    /**
+     * Returns whether a given array can safely be accessed at the given index.
+     * @param <T> the component type of the array
+     * @param array the array to inspect, may be null
+     * @param index the index of the array to be inspected
+     * @return Whether the given index is safely-accessible in the given array
+     * @since 3.8
+     */
+    public static <T> boolean isArrayIndexValid(T[] array, int index){
+        if(getLength(array) == 0 || array.length <= index){
+            return false;
+        }
+
+        return index >= 0;
     }
 }

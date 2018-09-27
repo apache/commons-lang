@@ -30,7 +30,7 @@ public class CharUtils {
 
     private static final String[] CHAR_STRING_ARRAY = new String[128];
 
-    private static final char[] HEX_DIGITS = new char[] {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     /**
      * {@code \u000a} linefeed LF ('\n').
@@ -206,7 +206,7 @@ public class CharUtils {
      * <p>Converts the character to the Integer it represents, throwing an
      * exception if the character is not numeric.</p>
      *
-     * <p>This method coverts the char '1' to the int 1 and so on.</p>
+     * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
      *   CharUtils.toIntValue('3')  = 3
@@ -228,7 +228,7 @@ public class CharUtils {
      * <p>Converts the character to the Integer it represents, throwing an
      * exception if the character is not numeric.</p>
      *
-     * <p>This method coverts the char '1' to the int 1 and so on.</p>
+     * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
      *   CharUtils.toIntValue('3', -1)  = 3
@@ -250,7 +250,7 @@ public class CharUtils {
      * <p>Converts the character to the Integer it represents, throwing an
      * exception if the character is not numeric.</p>
      *
-     * <p>This method coverts the char '1' to the int 1 and so on.</p>
+     * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
      *   CharUtils.toIntValue('3')  = 3
@@ -271,7 +271,7 @@ public class CharUtils {
      * <p>Converts the character to the Integer it represents, throwing an
      * exception if the character is not numeric.</p>
      *
-     * <p>This method coverts the char '1' to the int 1 and so on.</p>
+     * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
      *   CharUtils.toIntValue(null, -1) = -1

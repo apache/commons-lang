@@ -40,7 +40,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     public R right;
 
     /**
-     * <p>Obtains an mutable triple of three objects inferring the generic types.</p>
+     * <p>Obtains a mutable triple of three objects inferring the generic types.</p>
      *
      * <p>This factory allows the triple to be created using inference to
      * obtain the generic types.</p>

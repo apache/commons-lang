@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -54,7 +55,7 @@ public class CharSetTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testGetInstance_Stringarray() {
-        assertEquals(null, CharSet.getInstance((String[]) null));
+        assertNull(CharSet.getInstance((String[]) null));
         assertEquals("[]", CharSet.getInstance(new String[0]).toString());
         assertEquals("[]", CharSet.getInstance(new String[] {null}).toString());
         assertEquals("[a-e]", CharSet.getInstance(new String[] {"a-e"}).toString());
