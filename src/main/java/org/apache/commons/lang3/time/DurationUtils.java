@@ -12,6 +12,7 @@ import java.time.Duration;
  */
 public class DurationUtils {
 
+    private static final long NANOS_IN_DAY = 86_400_000_000_000L;
     private static final long NANOS_IN_HOUR = 3_600_000_000_000L;
     private static final long NANOS_IN_MINUTE = 60_000_000_000L;
     private static final long NANOS_IN_SECOND = 1_000_000_000L;
@@ -22,6 +23,32 @@ public class DurationUtils {
      * to operate.</p>
      */
     public DurationUtils() {
+    }
+
+    /**
+     *
+     * @param duration the given duration from which the quantity of days should be rounded up
+     * @return rounded up quantity of days
+     */
+    public static long roundUpDays(final Duration duration) {
+        boolean shouldRoundUpDays = (duration.toNanos() % NANOS_IN_DAY != 0);
+        if (shouldRoundUpDays) {
+            return duration.toDays() + 1;
+        }
+        return duration.toDays();
+    }
+
+    /**
+     *
+     * @param duration the given duration from which the quantity of days should be rounded
+     * @return
+     */
+    public static long roundDays(final Duration duration) {
+        boolean shouldRoundDays = ((duration.toNanos() % NANOS_IN_DAY) >= (NANOS_IN_DAY/2));
+        if (shouldRoundDays) {
+            return duration.toDays() + 1;
+        }
+        return duration.toDays();
     }
 
     /**
@@ -95,5 +122,5 @@ public class DurationUtils {
         }
         return duration.getSeconds();
     }
-    
+
 }

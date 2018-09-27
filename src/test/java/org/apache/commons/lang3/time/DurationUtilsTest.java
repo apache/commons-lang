@@ -11,6 +11,50 @@ import org.junit.jupiter.api.Test;
  */
 public class DurationUtilsTest {
 
+    @DisplayName("the quantity of days of duration 24h 1min should be rounded up to 2 days")
+    @Test
+    void roundUpDaysShouldUpDuration() {
+        //given
+        Duration duration = Duration.of(24, ChronoUnit.HOURS).plusMinutes(1);
+        //when
+        long days = DurationUtils.roundUpDays(duration);
+        //then
+        Assertions.assertEquals(2, days);
+    }
+
+    @DisplayName("the quantity of days of duration 1 day should not be rounded up to 2 days")
+    @Test
+    void roundUpDaysShouldNotRoundUpDuration() {
+        //given
+        Duration duration = Duration.of(1, ChronoUnit.DAYS);
+        //when
+        long days = DurationUtils.roundUpDays(duration);
+        //then
+        Assertions.assertEquals(1, days);
+    }
+
+    @DisplayName("the quantity of days of duration 1 day 12 h should be rounded up to 2 days")
+    @Test
+    void roundDaysShouldRoundUpDuration() {
+        //given
+        Duration duration = Duration.of(36, ChronoUnit.HOURS);
+        //when
+        long days = DurationUtils.roundDays(duration);
+        //then
+        Assertions.assertEquals(2, days);
+    }
+
+    @DisplayName("the quantity of days of duration 1 day 11 hours and 59 minutes should be rounded up to 2 days")
+    @Test
+    void roundDaysShouldNotRoundUpDuration() {
+        //given
+        Duration duration = Duration.of(35, ChronoUnit.HOURS).plusMinutes(59);
+        //when
+        long days = DurationUtils.roundDays(duration);
+        //then
+        Assertions.assertEquals(1, days);
+    }
+
     @DisplayName("the quantity of hours of duration 1h 10 min should be rounded up to 2 hours")
     @Test
     void roundUpHoursShouldRoundUpDuration() {
