@@ -16,8 +16,16 @@
  */
 package org.apache.commons.lang3;
 
+import java.io.IOException;
+import java.lang.IllegalArgumentException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -1057,6 +1065,68 @@ public class ClassUtils {
         final ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
         final ClassLoader loader = contextCL == null ? ClassUtils.class.getClassLoader() : contextCL;
         return getClass(loader, className, initialize);
+    }
+
+    /**
+     * Returns a list of base classes/interfaces underneath the supplied package
+     * This method only retrieves base classes/interfaces that have children that can be instantiated
+     * via a no-args constructor
+     * The class loader is retrieved via Thread.currentThread().getContextClassLoader()
+     * This only retrieves base classes/interfaces directly underneath the supplied package
+     *
+     * @param desiredBase the desired base class/interface to retrieve
+     * @param packageName the package name in the standard import format (i.e. "java.lang.String")
+     * @param <T> The desired base class or interface type to retrieve
+     * @return a list of base classes/interfaces that match the supplied type underneath the supplied package
+     * @throws URISyntaxException if the packageName is not found in the class loader
+     * @throws IOException if an I/O error occurs in getting a new directory stream
+     * @throws IllegalArgumentException if the desiredBase or packageName are invalid
+     */
+    public static <T> List<T> getBaseClasses(final Class<T> desiredBase, final String packageName)
+            throws URISyntaxException, IOException, IllegalArgumentException {
+
+        if (desiredBase == null) {
+            throw new IllegalArgumentException("desiredBase must not be null");
+        }
+
+        if (StringUtils.isBlank(packageName)) {
+            throw new IllegalArgumentException("packageName must not be blank");
+        }
+
+        if (packageName.contains("/")) {
+            throw new IllegalArgumentException("packageName is not properly formatted (i.e. 'java.lang.String')");
+        }
+
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        URL url = classLoader.getResource(packageName.replaceAll("[.]", "/"));
+        if (url == null) {
+            throw new URISyntaxException(packageName, "Supplied package not found");
+        }
+
+        Path classesPath = Paths.get(url.toURI());
+
+        List<T> classes = new ArrayList<>();
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(classesPath)) {
+            for (Path file: stream) {
+                if ( ! Files.isDirectory(file)) {
+                    String fullClassName = packageName + "." +
+                                           file.getFileName().toString().replace(".class", "");
+
+                    // Only add classes that can be instantiated via newInstance()
+                    try {
+                        Object obj = Class.forName(fullClassName).newInstance();
+                        if (desiredBase.isInstance(obj)) {
+                            classes.add((T) obj);
+                        }
+                    } catch (Exception e) {
+                        // Class was not instantiable via newInstance()
+                    }
+                }
+            }
+        }
+
+        return classes;
     }
 
     // Public method
