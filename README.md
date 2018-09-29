@@ -55,8 +55,8 @@ Apache Commons Lang, a package of Java utility classes for the
 Documentation
 -------------
 
-More information can be found on the [Apache Commons Lang homepage](https://commons.apache.org/proper/commons-lang3).
-The [Javadoc](https://commons.apache.org/proper/commons-lang3/javadocs/api-release) can be browsed.
+More information can be found on the [Apache Commons Lang homepage](https://commons.apache.org/proper/commons-lang/).
+The [Javadoc](https://commons.apache.org/proper/commons-lang/javadocs/api-release/) can be browsed.
 Questions related to the usage of Apache Commons Lang should be posted to the [user mailing list][ml].
 
 Where can I get the latest release?
