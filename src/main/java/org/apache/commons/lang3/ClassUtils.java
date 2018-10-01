@@ -1108,9 +1108,10 @@ public class ClassUtils {
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(classesPath)) {
             for (Path file: stream) {
-                if ( ! Files.isDirectory(file)) {
+                Path pathFileName = file.getFileName();
+                if (( ! Files.isDirectory(file)) && (pathFileName != null)) {
                     String fullClassName = packageName + "." +
-                                           file.getFileName().toString().replace(".class", "");
+                                           pathFileName.toString().replace(".class", "");
 
                     // Only add classes that can be instantiated via newInstance()
                     try {
