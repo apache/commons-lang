@@ -78,6 +78,8 @@ import java.util.regex.Pattern;
  *      - rotate (circular shift) a String</li>
  *  <li><b>Reverse/ReverseDelimited</b>
  *      - reverses a String</li>
+ *  <li><b>Repeat</b>
+ *      - repeats a String</li>
  *  <li><b>Abbreviate</b>
  *      - abbreviates a string using ellipsis or another given String</li>
  *  <li><b>Difference</b>
@@ -6222,6 +6224,7 @@ public class StringUtils {
      * StringUtils.repeat("a", 3)  = "aaa"
      * StringUtils.repeat("ab", 2) = "abab"
      * StringUtils.repeat("a", -2) = ""
+     * StringUtils.repeat("aaa", Integer.MAX_VALUE) = throws an ArrayIndexOutOfBoundsException
      * </pre>
      *
      * @param str  the String to repeat, may be null
@@ -6246,7 +6249,13 @@ public class StringUtils {
             return repeat(str.charAt(0), repeat);
         }
 
-        final int outputLength = inputLength * repeat;
+        final long longSize = (long) inputLength * (long) repeat;
+        final int outputLength = (int) longSize;
+
+        if (outputLength != longSize) {
+            throw new ArrayIndexOutOfBoundsException("Required string length is too large: " + longSize);
+        }
+
         switch (inputLength) {
             case 1 :
                 return repeat(str.charAt(0), repeat);
