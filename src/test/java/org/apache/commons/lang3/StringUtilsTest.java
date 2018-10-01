@@ -1596,7 +1596,7 @@ public class StringUtilsTest {
             StringUtils.repeat("aaa",Integer.MAX_VALUE);
             fail("StringUtils.repeat expecting ArrayIndexOutOfBoundsException");
         } catch (final ArrayIndexOutOfBoundsException ex) {
-            // empty
+            //  empty
         }
     }
 
