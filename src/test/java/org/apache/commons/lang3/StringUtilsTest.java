@@ -1592,6 +1592,12 @@ public class StringUtilsTest {
         final String str = StringUtils.repeat("a", 10000);  // bigger than pad limit
         assertEquals(10000, str.length());
         assertTrue(StringUtils.containsOnly(str, 'a'));
+        try {
+            StringUtils.repeat("aaa",Integer.MAX_VALUE);
+            fail("StringUtils.repeat expecting ArrayIndexOutOfBoundsException");
+        } catch (final ArrayIndexOutOfBoundsException ex) {
+            //  empty
+        }
     }
 
     @Test
