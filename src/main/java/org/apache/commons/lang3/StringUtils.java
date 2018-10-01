@@ -78,8 +78,6 @@ import java.util.regex.Pattern;
  *      - rotate (circular shift) a String</li>
  *  <li><b>Reverse/ReverseDelimited</b>
  *      - reverses a String</li>
- *  <li><b>Repeat</b>
- *      - repeats a String</li>
  *  <li><b>Abbreviate</b>
  *      - abbreviates a string using ellipsis or another given String</li>
  *  <li><b>Difference</b>
