@@ -6075,8 +6075,8 @@ public class StringUtils {
             end = temp;
         }
         return str.substring(0, start) +
-                overlay +
-                str.substring(end);
+            overlay +
+            str.substring(end);
     }
 
     // Chomping
