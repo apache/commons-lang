@@ -17,7 +17,6 @@
 package org.apache.commons.lang3;
 
 import java.io.IOException;
-import java.lang.IllegalArgumentException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URISyntaxException;
