@@ -17,11 +17,11 @@
 
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
 
@@ -34,7 +34,7 @@ import java.nio.charset.StandardCharsets;
 public class CharEncodingTest  {
 
     private void assertSupportedEncoding(final String name) {
-        assertTrue("Encoding should be supported: " + name, CharEncoding.isSupported(name));
+        assertTrue(CharEncoding.isSupported(name), "Encoding should be supported: " + name);
     }
 
     /**

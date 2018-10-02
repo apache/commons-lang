@@ -16,14 +16,15 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -43,7 +44,7 @@ import java.util.Set;
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.text.StrBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ObjectUtils}.
@@ -111,8 +112,8 @@ public class ObjectUtilsTest {
     public void testIsNull() {
         final Object o = FOO;
         final Object dflt = BAR;
-        assertSame("dflt was not returned when o was null", dflt, ObjectUtils.defaultIfNull(null, dflt));
-        assertSame("dflt was returned when o was not null", o, ObjectUtils.defaultIfNull(o, dflt));
+        assertSame(dflt, ObjectUtils.defaultIfNull(null, dflt), "dflt was not returned when o was null");
+        assertSame(o, ObjectUtils.defaultIfNull(o, dflt), "dflt was returned when o was not null");
     }
 
     @Test
@@ -168,20 +169,20 @@ public class ObjectUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testEquals() {
-        assertTrue("ObjectUtils.equals(null, null) returned false", ObjectUtils.equals(null, null));
-        assertTrue("ObjectUtils.equals(\"foo\", null) returned true", !ObjectUtils.equals(FOO, null));
-        assertTrue("ObjectUtils.equals(null, \"bar\") returned true", !ObjectUtils.equals(null, BAR));
-        assertTrue("ObjectUtils.equals(\"foo\", \"bar\") returned true", !ObjectUtils.equals(FOO, BAR));
-        assertTrue("ObjectUtils.equals(\"foo\", \"foo\") returned false", ObjectUtils.equals(FOO, FOO));
+        assertTrue(ObjectUtils.equals(null, null), "ObjectUtils.equals(null, null) returned false");
+        assertTrue(!ObjectUtils.equals(FOO, null), "ObjectUtils.equals(\"foo\", null) returned true");
+        assertTrue(!ObjectUtils.equals(null, BAR), "ObjectUtils.equals(null, \"bar\") returned true");
+        assertTrue(!ObjectUtils.equals(FOO, BAR), "ObjectUtils.equals(\"foo\", \"bar\") returned true");
+        assertTrue(ObjectUtils.equals(FOO, FOO), "ObjectUtils.equals(\"foo\", \"foo\") returned false");
     }
 
     @Test
     public void testNotEqual() {
-        assertFalse("ObjectUtils.notEqual(null, null) returned false", ObjectUtils.notEqual(null, null));
-        assertTrue("ObjectUtils.notEqual(\"foo\", null) returned true", ObjectUtils.notEqual(FOO, null));
-        assertTrue("ObjectUtils.notEqual(null, \"bar\") returned true", ObjectUtils.notEqual(null, BAR));
-        assertTrue("ObjectUtils.notEqual(\"foo\", \"bar\") returned true", ObjectUtils.notEqual(FOO, BAR));
-        assertFalse("ObjectUtils.notEqual(\"foo\", \"foo\") returned false", ObjectUtils.notEqual(FOO, FOO));
+        assertFalse(ObjectUtils.notEqual(null, null), "ObjectUtils.notEqual(null, null) returned false");
+        assertTrue(ObjectUtils.notEqual(FOO, null), "ObjectUtils.notEqual(\"foo\", null) returned true");
+        assertTrue(ObjectUtils.notEqual(null, BAR), "ObjectUtils.notEqual(null, \"bar\") returned true");
+        assertTrue(ObjectUtils.notEqual(FOO, BAR), "ObjectUtils.notEqual(\"foo\", \"bar\") returned true");
+        assertFalse(ObjectUtils.notEqual(FOO, FOO), "ObjectUtils.notEqual(\"foo\", \"foo\") returned false");
     }
 
     @Test
@@ -430,17 +431,17 @@ public class ObjectUtilsTest {
         final Integer two = Integer.valueOf(2);
         final Integer nullValue = null;
 
-        assertEquals("Null Null false", 0, ObjectUtils.compare(nullValue, nullValue));
-        assertEquals("Null Null true",  0, ObjectUtils.compare(nullValue, nullValue, true));
+        assertEquals(0, ObjectUtils.compare(nullValue, nullValue), "Null Null false");
+        assertEquals(0, ObjectUtils.compare(nullValue, nullValue, true), "Null Null true");
 
-        assertEquals("Null one false", -1, ObjectUtils.compare(nullValue, one));
-        assertEquals("Null one true",   1, ObjectUtils.compare(nullValue, one, true));
+        assertEquals(-1, ObjectUtils.compare(nullValue, one), "Null one false");
+        assertEquals(1, ObjectUtils.compare(nullValue, one, true), "Null one true");
 
-        assertEquals("one Null false", 1, ObjectUtils.compare(one, nullValue));
-        assertEquals("one Null true", -1, ObjectUtils.compare(one, nullValue, true));
+        assertEquals(1, ObjectUtils.compare(one, nullValue), "one Null false");
+        assertEquals(-1, ObjectUtils.compare(one, nullValue, true), "one Null true");
 
-        assertEquals("one two false", -1, ObjectUtils.compare(one, two));
-        assertEquals("one two true",  -1, ObjectUtils.compare(one, two, true));
+        assertEquals(-1, ObjectUtils.compare(one, two), "one two false");
+        assertEquals(-1, ObjectUtils.compare(one, two, true), "one two true");
     }
 
     @Test
@@ -460,14 +461,14 @@ public class ObjectUtilsTest {
             ObjectUtils.median(Integer.valueOf(5), Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8)));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testMedian_nullItems() {
-        ObjectUtils.median((String[]) null);
+        assertThrows(NullPointerException.class, () -> ObjectUtils.median((String[]) null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMedian_emptyItems() {
-        ObjectUtils.<String> median();
+        assertThrows(IllegalArgumentException.class, ObjectUtils::<String>median);
     }
 
     @Test
@@ -485,19 +486,21 @@ public class ObjectUtilsTest {
         assertSame(blah, ObjectUtils.median(cmp, foo, bar, baz, blah, wah));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testComparatorMedian_nullComparator() {
-        ObjectUtils.median((Comparator<CharSequence>) null, new NonComparableCharSequence("foo"));
+        assertThrows(NullPointerException.class,
+                () -> ObjectUtils.median((Comparator<CharSequence>) null, new NonComparableCharSequence("foo")));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testComparatorMedian_nullItems() {
-        ObjectUtils.median(new CharSequenceComparator(), (CharSequence[]) null);
+        assertThrows(NullPointerException.class,
+                () -> ObjectUtils.median(new CharSequenceComparator(), (CharSequence[]) null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testComparatorMedian_emptyItems() {
-        ObjectUtils.median(new CharSequenceComparator());
+        assertThrows(IllegalArgumentException.class, () -> ObjectUtils.median(new CharSequenceComparator()));
     }
 
     @Test
@@ -532,18 +535,12 @@ public class ObjectUtilsTest {
 
     /**
      * Tests {@link ObjectUtils#clone(Object)} with an uncloneable object.
-     *
-     * @throws java.lang.Throwable because we expect this to fail
      */
-    @Test(expected = NoSuchMethodException.class)
-    public void testCloneOfUncloneable() throws Throwable {
+    @Test
+    public void testCloneOfUncloneable() {
         final UncloneableString string = new UncloneableString("apache");
-        try {
-            ObjectUtils.clone(string);
-            fail("Thrown " + CloneFailedException.class.getName() + " expected");
-        } catch (final CloneFailedException e) {
-            throw e.getCause();
-        }
+        CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.clone(string));
+        assertEquals(NoSuchMethodException.class, e.getCause().getClass());
     }
 
     /**
@@ -584,18 +581,12 @@ public class ObjectUtilsTest {
 
     /**
      * Tests {@link ObjectUtils#cloneIfPossible(Object)} with an uncloneable object.
-     *
-     * @throws java.lang.Throwable because we expect this to fail
      */
-    @Test(expected = NoSuchMethodException.class)
-    public void testPossibleCloneOfUncloneable() throws Throwable {
+    @Test
+    public void testPossibleCloneOfUncloneable() {
         final UncloneableString string = new UncloneableString("apache");
-        try {
-            ObjectUtils.cloneIfPossible(string);
-            fail("Thrown " + CloneFailedException.class.getName() + " expected");
-        } catch (final CloneFailedException e) {
-            throw e.getCause();
-        }
+        CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.cloneIfPossible(string));
+        assertEquals(NoSuchMethodException.class, e.getCause().getClass());
     }
 
     @Test
@@ -605,15 +596,18 @@ public class ObjectUtilsTest {
         // bytecode to see if the literals were folded into the
         // class, or if the bytecode kept the method call.
 
-        assertTrue("CONST(boolean)", ObjectUtils.CONST(true));
-        assertEquals("CONST(byte)", (byte) 3, ObjectUtils.CONST((byte) 3));
-        assertEquals("CONST(char)", (char) 3, ObjectUtils.CONST((char) 3));
-        assertEquals("CONST(short)", (short) 3, ObjectUtils.CONST((short) 3));
-        assertEquals("CONST(int)", 3, ObjectUtils.CONST(3));
-        assertEquals("CONST(long)", 3L, ObjectUtils.CONST(3L));
-        assertEquals("CONST(float)", 3f, ObjectUtils.CONST(3f), 0);
-        assertEquals("CONST(double)", 3.0, ObjectUtils.CONST(3.0), 0);
-        assertEquals("CONST(Object)", "abc", ObjectUtils.CONST("abc"));
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
+        assertTrue(ObjectUtils.CONST(true), "CONST(boolean)");
+        assertEquals((byte) 3, ObjectUtils.CONST((byte) 3), "CONST(byte)");
+        assertEquals((char) 3, ObjectUtils.CONST((char) 3), "CONST(char)");
+        assertEquals((short) 3, ObjectUtils.CONST((short) 3), "CONST(short)");
+        assertEquals(3, ObjectUtils.CONST(3), "CONST(int)");
+        assertEquals(3L, ObjectUtils.CONST(3L), "CONST(long)");
+        assertTrue(3f == ObjectUtils.CONST(3f), "CONST(float)");
+        assertTrue(3.0 == ObjectUtils.CONST(3.0), "CONST(double)");
+        assertEquals("abc", ObjectUtils.CONST("abc"), "CONST(Object)");
 
         // Make sure documentation examples from Javadoc all work
         // (this fixed a lot of my bugs when I these!)
@@ -644,8 +638,8 @@ public class ObjectUtilsTest {
         assertEquals(123, MAGIC_INT);
         assertEquals(123, MAGIC_LONG1);
         assertEquals(3, MAGIC_LONG2);
-        assertEquals(1.0f, MAGIC_FLOAT, 0.0f);
-        assertEquals(1.0, MAGIC_DOUBLE, 0.0);
+        assertTrue(1.0f == MAGIC_FLOAT);
+        assertTrue(1.0 == MAGIC_DOUBLE);
         assertEquals("abc", MAGIC_STRING);
 
         try {

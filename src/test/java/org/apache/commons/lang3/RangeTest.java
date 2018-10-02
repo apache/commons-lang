@@ -17,17 +17,18 @@
 
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Comparator;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * <p>
@@ -47,7 +48,7 @@ public class RangeTest {
     private Range<Double> doubleRange;
 
     @SuppressWarnings("cast") // intRange
-    @Before
+    @BeforeEach
     public void setUp() {
         byteRange = Range.between((byte) 0, (byte) 5);
         byteRange2 = Range.between((byte) 0, (byte) 5);
@@ -84,13 +85,13 @@ public class RangeTest {
             }
         };
         Range<Integer> ri = Range.is(10);
-        assertFalse("should not contain null", ri.contains(null));
-        assertTrue("should contain 10", ri.contains(10));
-        assertFalse("should not contain 11", ri.contains(11));
+        assertFalse(ri.contains(null), "should not contain null");
+        assertTrue(ri.contains(10), "should contain 10");
+        assertFalse(ri.contains(11), "should not contain 11");
         ri = Range.is(10, c);
-        assertFalse("should not contain null", ri.contains(null));
-        assertTrue("should contain 10", ri.contains(10));
-        assertTrue("should contain 11", ri.contains(11));
+        assertFalse(ri.contains(null), "should not contain null");
+        assertTrue(ri.contains(10), "should contain 10");
+        assertTrue(ri.contains(11), "should contain 11");
     }
 
     @Test
@@ -108,29 +109,29 @@ public class RangeTest {
             }
         };
         Range<Integer> rb = Range.between(-10, 20);
-        assertFalse("should not contain null", rb.contains(null));
-        assertTrue("should contain 10", rb.contains(10));
-        assertTrue("should contain -10", rb.contains(-10));
-        assertFalse("should not contain 21", rb.contains(21));
-        assertFalse("should not contain -11", rb.contains(-11));
+        assertFalse(rb.contains(null), "should not contain null");
+        assertTrue(rb.contains(10), "should contain 10");
+        assertTrue(rb.contains(-10), "should contain -10");
+        assertFalse(rb.contains(21), "should not contain 21");
+        assertFalse(rb.contains(-11), "should not contain -11");
         rb = Range.between(-10, 20, c);
-        assertFalse("should not contain null", rb.contains(null));
-        assertTrue("should contain 10", rb.contains(10));
-        assertTrue("should contain -10", rb.contains(-10));
-        assertTrue("should contain 21", rb.contains(21));
-        assertTrue("should contain -11", rb.contains(-11));
+        assertFalse(rb.contains(null), "should not contain null");
+        assertTrue(rb.contains(10), "should contain 10");
+        assertTrue(rb.contains(-10), "should contain -10");
+        assertTrue(rb.contains(21), "should contain 21");
+        assertTrue(rb.contains(-11), "should contain -11");
         Range<String> rbstr = Range.between("house", "i");
-        assertFalse("should not contain null", rbstr.contains(null));
-        assertTrue("should contain house", rbstr.contains("house"));
-        assertTrue("should contain i", rbstr.contains("i"));
-        assertFalse("should not contain hose", rbstr.contains("hose"));
-        assertFalse("should not contain ice", rbstr.contains("ice"));
+        assertFalse(rbstr.contains(null), "should not contain null");
+        assertTrue(rbstr.contains("house"), "should contain house");
+        assertTrue(rbstr.contains("i"), "should contain i");
+        assertFalse(rbstr.contains("hose"), "should not contain hose");
+        assertFalse(rbstr.contains("ice"), "should not contain ice");
         rbstr = Range.between("house", "i", lengthComp);
-        assertFalse("should not contain null", rbstr.contains(null));
-        assertTrue("should contain house", rbstr.contains("house"));
-        assertTrue("should contain i", rbstr.contains("i"));
-        assertFalse("should not contain houses", rbstr.contains("houses"));
-        assertFalse("should not contain ''", rbstr.contains(""));
+        assertFalse(rbstr.contains(null), "should not contain null");
+        assertTrue(rbstr.contains("house"), "should contain house");
+        assertTrue(rbstr.contains("i"), "should contain i");
+        assertFalse(rbstr.contains("houses"), "should not contain houses");
+        assertFalse(rbstr.contains(""), "should not contain ''");
     }
 
     // -----------------------------------------------------------------------
@@ -375,14 +376,14 @@ public class RangeTest {
         assertEquals(Range.between(10, 15), intRange.intersectionWith(Range.between(5, 15)));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIntersectionWithNull() {
-        intRange.intersectionWith(null);
+        assertThrows(IllegalArgumentException.class, () -> intRange.intersectionWith(null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIntersectionWithNonOverlapping() {
-        intRange.intersectionWith(Range.between(0, 9));
+        assertThrows(IllegalArgumentException.class, () -> intRange.intersectionWith(Range.between(0, 9)));
     }
 
     // -----------------------------------------------------------------------

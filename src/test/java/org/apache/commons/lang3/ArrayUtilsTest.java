@@ -16,15 +16,16 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -34,7 +35,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
@@ -394,10 +395,10 @@ public class ArrayUtilsTest {
         assertSame(input, output);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNullToEmptyGenericNullType() {
         final TestClass[] input = new TestClass[]{};
-        ArrayUtils.nullToEmpty(input, null);
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.nullToEmpty(input, null));
     }
 
     @Test
@@ -768,41 +769,32 @@ public class ArrayUtilsTest {
         final Object[] nullArray = null;
         final Object[] objectArray = {"a", "b", "c", "d", "e", "f"};
 
-        assertEquals("0 start, mid end", "abcd",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 0, 4)));
-        assertEquals("0 start, length end", "abcdef",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 0, objectArray.length)));
-        assertEquals("mid start, mid end", "bcd",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 1, 4)));
-        assertEquals("mid start, length end", "bcdef",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 1, objectArray.length)));
+        assertEquals("abcd", StringUtils.join(ArrayUtils.subarray(objectArray, 0, 4)), "0 start, mid end");
+        assertEquals("abcdef", StringUtils.join(ArrayUtils.subarray(objectArray, 0, objectArray.length)),
+                "0 start, length end");
+        assertEquals("bcd", StringUtils.join(ArrayUtils.subarray(objectArray, 1, 4)), "mid start, mid end");
+        assertEquals("bcdef", StringUtils.join(ArrayUtils.subarray(objectArray, 1, objectArray.length)),
+                "mid start, length end");
 
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-        assertEquals("empty array", "",
-                StringUtils.join(ArrayUtils.subarray(ArrayUtils.EMPTY_OBJECT_ARRAY, 1, 2)));
-        assertEquals("start > end", "",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 4, 2)));
-        assertEquals("start == end", "",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 3, 3)));
-        assertEquals("start undershoot, normal end", "abcd",
-                StringUtils.join(ArrayUtils.subarray(objectArray, -2, 4)));
-        assertEquals("start overshoot, any end", "",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 33, 4)));
-        assertEquals("normal start, end overshoot", "cdef",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 2, 33)));
-        assertEquals("start undershoot, end overshoot", "abcdef",
-                StringUtils.join(ArrayUtils.subarray(objectArray, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals("", StringUtils.join(ArrayUtils.subarray(ArrayUtils.EMPTY_OBJECT_ARRAY, 1, 2)), "empty array");
+        assertEquals("", StringUtils.join(ArrayUtils.subarray(objectArray, 4, 2)), "start > end");
+        assertEquals("", StringUtils.join(ArrayUtils.subarray(objectArray, 3, 3)), "start == end");
+        assertEquals("abcd", StringUtils.join(ArrayUtils.subarray(objectArray, -2, 4)), "start undershoot, normal end");
+        assertEquals("", StringUtils.join(ArrayUtils.subarray(objectArray, 33, 4)), "start overshoot, any end");
+        assertEquals("cdef", StringUtils.join(ArrayUtils.subarray(objectArray, 2, 33)), "normal start, end overshoot");
+        assertEquals("abcdef", StringUtils.join(ArrayUtils.subarray(objectArray, -2, 12)),
+                "start undershoot, end overshoot");
 
         // array type tests
         final Date[] dateArray = {new java.sql.Date(new Date().getTime()),
                 new Date(), new Date(), new Date(), new Date()};
 
-        assertSame("Object type", Object.class,
-                ArrayUtils.subarray(objectArray, 2, 4).getClass().getComponentType());
-        assertSame("java.util.Date type", java.util.Date.class,
-                ArrayUtils.subarray(dateArray, 1, 4).getClass().getComponentType());
-        assertNotSame("java.sql.Date type", java.sql.Date.class,
-                ArrayUtils.subarray(dateArray, 1, 4).getClass().getComponentType());
+        assertSame(Object.class, ArrayUtils.subarray(objectArray, 2, 4).getClass().getComponentType(), "Object type");
+        assertSame(Date.class, ArrayUtils.subarray(dateArray, 1, 4).getClass().getComponentType(),
+                "java.util.Date type");
+        assertNotSame(java.sql.Date.class, ArrayUtils.subarray(dateArray, 1, 4).getClass().getComponentType(),
+                "java.sql.Date type");
         try {
             @SuppressWarnings("unused") final java.sql.Date[] dummy = (java.sql.Date[]) ArrayUtils.subarray(dateArray, 1, 3);
             fail("Invalid downcast");
@@ -818,72 +810,49 @@ public class ArrayUtilsTest {
         final long[] midSubarray = {999911, 999912, 999913, 999914};
         final long[] rightSubarray = {999912, 999913, 999914, 999915};
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
 
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
 
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
 
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
 
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
+        assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_LONG_ARRAY, 1, 2),
+                "empty array");
 
-        assertEquals("empty array", ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_LONG_ARRAY, 1, 2));
+        assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
 
-        assertEquals("start > end", ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
+        assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
 
-        assertEquals("start == end", ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
 
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
+        assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
 
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
 
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_LONG_ARRAY, 1, 2));
+        assertSame(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_LONG_ARRAY, 1, 2),
+                "empty array, object test");
 
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
+        assertSame(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
 
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
+        assertSame(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
 
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("long type", long.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
+        assertSame(long.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "long type");
 
     }
 
@@ -896,73 +865,49 @@ public class ArrayUtilsTest {
         final int[] rightSubarray = {12, 13, 14, 15};
 
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
 
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
 
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
 
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
 
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
 
-        assertEquals("empty array", ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_INT_ARRAY, 1, 2));
+        assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_INT_ARRAY, 1, 2), "empty array");
 
-        assertEquals("start > end", ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
+        assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
 
-        assertEquals("start == end", ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
+        assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
 
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
 
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
+        assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
 
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
 
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_INT_ARRAY, 1, 2));
+        assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_INT_ARRAY, 1, 2),
+                "empty array, object test");
 
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
+        assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
 
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
+        assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
 
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("int type", int.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(int.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "int type");
     }
 
     @Test
@@ -973,74 +918,36 @@ public class ArrayUtilsTest {
         final short[] midSubarray = {11, 12, 13, 14};
         final short[] rightSubarray = {12, 13, 14, 15};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_SHORT_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_SHORT_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_SHORT_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_SHORT_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("short type", short.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(short.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "short type");
     }
 
     @Test
@@ -1051,74 +958,36 @@ public class ArrayUtilsTest {
         final char[] midSubarray = {'b', 'c', 'd', 'e',};
         final char[] rightSubarray = {'c', 'd', 'e', 'f',};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_CHAR_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_CHAR_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_CHAR_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_CHAR_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("char type", char.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(char.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "char type");
     }
 
     @Test
@@ -1129,74 +998,36 @@ public class ArrayUtilsTest {
         final byte[] midSubarray = {11, 12, 13, 14};
         final byte[] rightSubarray = {12, 13, 14, 15};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_BYTE_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_BYTE_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_BYTE_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_BYTE_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("byte type", byte.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(byte.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "byte type");
     }
 
     @Test
@@ -1207,74 +1038,36 @@ public class ArrayUtilsTest {
         final double[] midSubarray = {11.234, 12.345, 13.456, 14.567,};
         final double[] rightSubarray = {12.345, 13.456, 14.567, 15.678};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_DOUBLE_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_DOUBLE_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_DOUBLE_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_DOUBLE_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("double type", double.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(double.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "double type");
     }
 
     @Test
@@ -1285,74 +1078,36 @@ public class ArrayUtilsTest {
         final float[] midSubarray = {11, 12, 13, 14};
         final float[] rightSubarray = {12, 13, 14, 15};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_FLOAT_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_FLOAT_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 33, 4),"start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_FLOAT_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_FLOAT_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("float type", float.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(float.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "float type");
     }
 
     @Test
@@ -1363,74 +1118,36 @@ public class ArrayUtilsTest {
         final boolean[] midSubarray = {true, false, true, false};
         final boolean[] rightSubarray = {false, true, false, true};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_BOOLEAN_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_BOOLEAN_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_BOOLEAN_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_BOOLEAN_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("boolean type", boolean.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(boolean.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "boolean type");
     }
 
     //-----------------------------------------------------------------------
@@ -1805,11 +1522,14 @@ public class ArrayUtilsTest {
 
     @Test
     public void testReverseDouble() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         double[] array = new double[]{0.3d, 0.4d, 0.5d};
         ArrayUtils.reverse(array);
-        assertEquals(array[0], 0.5d, 0.0d);
-        assertEquals(array[1], 0.4d, 0.0d);
-        assertEquals(array[2], 0.3d, 0.0d);
+        assertTrue(array[0] == 0.5d);
+        assertTrue(array[1] == 0.4d);
+        assertTrue(array[2] == 0.3d);
 
         array = null;
         ArrayUtils.reverse(array);
@@ -1818,11 +1538,14 @@ public class ArrayUtilsTest {
 
     @Test
     public void testReverseFloat() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         float[] array = new float[]{0.3f, 0.4f, 0.5f};
         ArrayUtils.reverse(array);
-        assertEquals(array[0], 0.5f, 0.0f);
-        assertEquals(array[1], 0.4f, 0.0f);
-        assertEquals(array[2], 0.3f, 0.0f);
+        assertTrue(array[0] == 0.5f);
+        assertTrue(array[1] == 0.4f);
+        assertTrue(array[2] == 0.3f);
 
         array = null;
         ArrayUtils.reverse(array);
@@ -1940,30 +1663,33 @@ public class ArrayUtilsTest {
 
     @Test
     public void testReverseDoubleRange() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         double[] array = new double[]{1, 2, 3};
         // The whole array
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
         // a range
         array = new double[]{1, 2, 3};
         ArrayUtils.reverse(array, 0, 2);
-        assertEquals(2, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertTrue(2 == array[0]);
+        assertTrue(1 == array[1]);
+        assertTrue(3 == array[2]);
         // a range with a negative start
         array = new double[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, 3);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
         // a range with a large stop index
         array = new double[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
@@ -1972,30 +1698,33 @@ public class ArrayUtilsTest {
 
     @Test
     public void testReverseFloatRange() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         float[] array = new float[]{1, 2, 3};
         // The whole array
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
         // a range
         array = new float[]{1, 2, 3};
         ArrayUtils.reverse(array, 0, 2);
-        assertEquals(2, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertTrue(2 == array[0]);
+        assertTrue(1 == array[1]);
+        assertTrue(3 == array[2]);
         // a range with a negative start
         array = new float[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, 3);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
         // a range with a large stop index
         array = new float[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
@@ -2251,11 +1980,14 @@ public class ArrayUtilsTest {
 
     @Test
     public void testSwapFloat() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final float[] array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
     }
 
     @Test
@@ -2274,51 +2006,57 @@ public class ArrayUtilsTest {
 
     @Test
     public void testSwapFloatRange() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(4, array[1], 0);
-        assertEquals(1, array[2], 0);
-        assertEquals(2, array[3], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(4 == array[1]);
+        assertTrue(1 == array[2]);
+        assertTrue(2 == array[3]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 3);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, -1, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, -1, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, -1, -1, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
     }
 
     @Test
     public void testSwapDouble() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final double[] array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
     }
 
     @Test
@@ -2337,42 +2075,45 @@ public class ArrayUtilsTest {
 
     @Test
     public void testSwapDoubleRange() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(4, array[1], 0);
-        assertEquals(1, array[2], 0);
-        assertEquals(2, array[3], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(4 == array[1]);
+        assertTrue(1 == array[2]);
+        assertTrue(2 == array[3]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 3);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, -1, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(1 == array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, -1, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, -1, -1, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
     }
 
     @Test
@@ -2720,54 +2461,63 @@ public class ArrayUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testShiftDouble() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
-        assertEquals(4, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(3, array[3], 0);
+        assertTrue(4 == array[0]);
+        assertTrue(1 == array[1]);
+        assertTrue(2 == array[2]);
+        assertTrue(3 == array[3]);
         ArrayUtils.shift(array, -1);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
+        assertTrue(4 == array[3]);
         ArrayUtils.shift(array, 5);
-        assertEquals(4, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(3, array[3], 0);
+        assertTrue(4 == array[0]);
+        assertTrue(1 == array[1]);
+        assertTrue(2 == array[2]);
+        assertTrue(3 == array[3]);
         ArrayUtils.shift(array, -3);
-        assertEquals(3, array[0], 0);
-        assertEquals(4, array[1], 0);
-        assertEquals(1, array[2], 0);
-        assertEquals(2, array[3], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(4 == array[1]);
+        assertTrue(1 == array[2]);
+        assertTrue(2 == array[3]);
     }
 
     @Test
     public void testShiftRangeDouble() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final double[] array = new double[]{1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
-        assertEquals(1, array[0], 0);
-        assertEquals(3, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(4, array[3], 0);
-        assertEquals(5, array[4], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(3 == array[1]);
+        assertTrue(2 == array[2]);
+        assertTrue(4 == array[3]);
+        assertTrue(5 == array[4]);
         ArrayUtils.shift(array, 1, 4, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(4, array[2], 0);
-        assertEquals(3, array[3], 0);
-        assertEquals(5, array[4], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(4 == array[2]);
+        assertTrue(3 == array[3]);
+        assertTrue(5 == array[4]);
     }
 
     @Test
     public void testShiftRangeNoElemDouble() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
+        assertTrue(4 == array[3]);
     }
 
     @Test
@@ -2787,69 +2537,81 @@ public class ArrayUtilsTest {
 
     @Test
     public void testShiftAllDouble() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
+        assertTrue(4 == array[3]);
         ArrayUtils.shift(array, -4);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
+        assertTrue(4 == array[3]);
     }
 
     @Test
     public void testShiftFloat() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
-        assertEquals(4, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(3, array[3], 0);
+        assertTrue(4 == array[0]);
+        assertTrue(1 == array[1]);
+        assertTrue(2 == array[2]);
+        assertTrue(3 == array[3]);
         ArrayUtils.shift(array, -1);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
+        assertTrue(4 == array[3]);
         ArrayUtils.shift(array, 5);
-        assertEquals(4, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(3, array[3], 0);
+        assertTrue(4 == array[0]);
+        assertTrue(1 == array[1]);
+        assertTrue(2 == array[2]);
+        assertTrue(3 == array[3]);
         ArrayUtils.shift(array, -3);
-        assertEquals(3, array[0], 0);
-        assertEquals(4, array[1], 0);
-        assertEquals(1, array[2], 0);
-        assertEquals(2, array[3], 0);
+        assertTrue(3 == array[0]);
+        assertTrue(4 == array[1]);
+        assertTrue(1 == array[2]);
+        assertTrue(2 == array[3]);
     }
 
     @Test
     public void testShiftRangeFloat() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final float[] array = new float[]{1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
-        assertEquals(1, array[0], 0);
-        assertEquals(3, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(4, array[3], 0);
-        assertEquals(5, array[4], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(3 == array[1]);
+        assertTrue(2 == array[2]);
+        assertTrue(4 == array[3]);
+        assertTrue(5 == array[4]);
         ArrayUtils.shift(array, 1, 4, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(4, array[2], 0);
-        assertEquals(3, array[3], 0);
-        assertEquals(5, array[4], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(4 == array[2]);
+        assertTrue(3 == array[3]);
+        assertTrue(5 == array[4]);
     }
 
     @Test
     public void testShiftRangeNoElemFloat() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2 == array[1]);
+        assertTrue(3 == array[2]);
+        assertTrue(4 == array[3]);
     }
 
     @Test
@@ -2869,17 +2631,20 @@ public class ArrayUtilsTest {
 
     @Test
     public void testShiftAllFloat() {
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2== array[1]);
+        assertTrue(3 == array[2]);
+        assertTrue(4 == array[3]);
         ArrayUtils.shift(array, -4);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertTrue(1 == array[0]);
+        assertTrue(2== array[1]);
+        assertTrue(3 == array[2]);
+        assertTrue(4 == array[3]);
     }
 
     @Test
@@ -4844,9 +4609,9 @@ public class ArrayUtilsTest {
         assertFalse(ArrayUtils.isSorted(array, c));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testIsSortedNullComparator() throws Exception {
-        ArrayUtils.isSorted(null, null);
+    @Test
+    public void testIsSortedNullComparator() {
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSorted(null, null));
     }
 
     @Test
@@ -5014,7 +4779,7 @@ public class ArrayUtilsTest {
         ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final String element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5036,7 +4801,7 @@ public class ArrayUtilsTest {
         ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final byte element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5048,7 +4813,7 @@ public class ArrayUtilsTest {
         ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final char element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5060,7 +4825,7 @@ public class ArrayUtilsTest {
         ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final short element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5072,7 +4837,7 @@ public class ArrayUtilsTest {
         ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final int element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5084,7 +4849,7 @@ public class ArrayUtilsTest {
         ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final long element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5096,7 +4861,7 @@ public class ArrayUtilsTest {
         ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final float element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5108,7 +4873,7 @@ public class ArrayUtilsTest {
         ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final double element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 

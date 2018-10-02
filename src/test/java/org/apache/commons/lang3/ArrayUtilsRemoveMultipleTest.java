@@ -17,15 +17,16 @@
 
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests ArrayUtils remove and removeElement methods.
@@ -90,19 +91,19 @@ public class ArrayUtilsRemoveMultipleTest {
         assertEquals(Object.class, array2.getClass().getComponentType());
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllObjectArrayNegativeIndex() {
-        ArrayUtils.removeAll(new Object[] { "a", "b" }, -1);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new Object[] { "a", "b" }, -1));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllObjectArrayOutOfBoundsIndex() {
-        ArrayUtils.removeAll(new Object[] { "a", "b" }, 2);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new Object[] { "a", "b" }, 2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllNullObjectArray() {
-        ArrayUtils.remove((Object[]) null, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((Object[]) null, 0));
     }
 
     @Test
@@ -206,19 +207,19 @@ public class ArrayUtilsRemoveMultipleTest {
         assertEquals(boolean.class, array2.getClass().getComponentType());
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllBooleanArrayNegativeIndex() {
-        ArrayUtils.removeAll(new boolean[] { true, false }, -1);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new boolean[] { true, false }, -1));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllBooleanArrayOutOfBoundsIndex() {
-        ArrayUtils.removeAll(new boolean[] { true, false }, 2);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new boolean[] { true, false }, 2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllNullBooleanArray() {
-        ArrayUtils.removeAll((boolean[]) null, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((boolean[]) null, 0));
     }
 
     @Test
@@ -283,19 +284,19 @@ public class ArrayUtilsRemoveMultipleTest {
         assertEquals(byte.class, array2.getClass().getComponentType());
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllByteArrayNegativeIndex() {
-        ArrayUtils.removeAll(new byte[] { 1, 2 }, -1);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new byte[] { 1, 2 }, -1));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllByteArrayOutOfBoundsIndex() {
-        ArrayUtils.removeAll(new byte[] { 1, 2 }, 2);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new byte[] { 1, 2 }, 2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllNullByteArray() {
-        ArrayUtils.removeAll((byte[]) null, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((byte[]) null, 0));
     }
 
     @Test
@@ -360,19 +361,19 @@ public class ArrayUtilsRemoveMultipleTest {
         assertEquals(char.class, array2.getClass().getComponentType());
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllCharArrayNegativeIndex() {
-        ArrayUtils.removeAll(new char[] { 'a', 'b' }, -1);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new char[] { 'a', 'b' }, -1));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllCharArrayOutOfBoundsIndex() {
-        ArrayUtils.removeAll(new char[] { 'a', 'b' }, 2);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new char[] { 'a', 'b' }, 2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllNullCharArray() {
-        ArrayUtils.removeAll((char[]) null, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((char[]) null, 0));
     }
 
     @Test
@@ -437,19 +438,19 @@ public class ArrayUtilsRemoveMultipleTest {
         assertEquals(double.class, array2.getClass().getComponentType());
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllDoubleArrayNegativeIndex() {
-        ArrayUtils.removeAll(new double[] { 1, 2 }, -1);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new double[] { 1, 2 }, -1));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllDoubleArrayOutOfBoundsIndex() {
-        ArrayUtils.removeAll(new double[] { 1, 2 }, 2);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new double[] { 1, 2 }, 2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllNullDoubleArray() {
-        ArrayUtils.removeAll((double[]) null, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((double[]) null, 0));
     }
 
     @Test
@@ -514,19 +515,19 @@ public class ArrayUtilsRemoveMultipleTest {
         assertEquals(float.class, array2.getClass().getComponentType());
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllFloatArrayNegativeIndex() {
-        ArrayUtils.removeAll(new float[] { 1, 2 }, -1);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new float[] { 1, 2 }, -1));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllFloatArrayOutOfBoundsIndex() {
-        ArrayUtils.removeAll(new float[] { 1, 2 }, 2);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new float[] { 1, 2 }, 2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllNullFloatArray() {
-        ArrayUtils.removeAll((float[]) null, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((float[]) null, 0));
     }
 
     @Test
@@ -597,19 +598,19 @@ public class ArrayUtilsRemoveMultipleTest {
         assertEquals(int.class, array2.getClass().getComponentType());
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllIntArrayNegativeIndex() {
-        ArrayUtils.removeAll(new int[] { 1, 2 }, -1);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new int[] { 1, 2 }, -1));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllIntArrayOutOfBoundsIndex() {
-        ArrayUtils.removeAll(new int[] { 1, 2 }, 2);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new int[] { 1, 2 }, 2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllNullIntArray() {
-        ArrayUtils.removeAll((int[]) null, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((int[]) null, 0));
     }
 
     @Test
@@ -674,19 +675,19 @@ public class ArrayUtilsRemoveMultipleTest {
         assertEquals(long.class, array2.getClass().getComponentType());
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllLongArrayNegativeIndex() {
-        ArrayUtils.removeAll(new long[] { 1, 2 }, -1);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new long[] { 1, 2 }, -1));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllLongArrayOutOfBoundsIndex() {
-        ArrayUtils.removeAll(new long[] { 1, 2 }, 2);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new long[] { 1, 2 }, 2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllNullLongArray() {
-        ArrayUtils.removeAll((long[]) null, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((long[]) null, 0));
     }
 
     @Test
@@ -751,19 +752,19 @@ public class ArrayUtilsRemoveMultipleTest {
         assertEquals(short.class, array2.getClass().getComponentType());
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllShortArrayNegativeIndex() {
-        ArrayUtils.removeAll(new short[] { 1, 2 }, -1, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new short[] { 1, 2 }, -1, 0));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllShortArrayOutOfBoundsIndex() {
-        ArrayUtils.removeAll(new short[] { 1, 2 }, 2, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new short[] { 1, 2 }, 2, 0));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRemoveAllNullShortArray() {
-        ArrayUtils.removeAll((short[]) null, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((short[]) null, 0));
     }
 
     @Test
