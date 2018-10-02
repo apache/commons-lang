@@ -16,7 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Test class for {@code LazyInitializer}.
@@ -25,7 +25,7 @@ public class LazyInitializerTest extends AbstractConcurrentInitializerTest {
     /** The initializer to be tested. */
     private LazyInitializerTestImpl initializer;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         initializer = new LazyInitializerTestImpl();
     }

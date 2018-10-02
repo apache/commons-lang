@@ -16,12 +16,12 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@code AtomicSafeInitializer}.
@@ -31,7 +31,7 @@ public class AtomicSafeInitializerTest extends
     /** The instance to be tested. */
     private AtomicSafeInitializerTestImpl initializer;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         initializer = new AtomicSafeInitializerTestImpl();
     }
@@ -56,8 +56,7 @@ public class AtomicSafeInitializerTest extends
     public void testNumberOfInitializeInvocations() throws ConcurrentException,
             InterruptedException {
         testGetConcurrent();
-        assertEquals("Wrong number of invocations", 1,
-                initializer.initCounter.get());
+        assertEquals(1, initializer.initCounter.get(), "Wrong number of invocations");
     }
 
     /**

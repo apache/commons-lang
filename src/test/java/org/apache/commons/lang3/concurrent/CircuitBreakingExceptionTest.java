@@ -17,11 +17,12 @@
 package org.apache.commons.lang3.concurrent;
 
 import org.apache.commons.lang3.exception.AbstractExceptionTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 /**
@@ -29,42 +30,50 @@ import static org.junit.Assert.assertNull;
  */
 public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
 
-    @Test(expected = CircuitBreakingException.class)
-    public void testThrowingInformativeException() throws Exception {
-        throw new CircuitBreakingException(EXCEPTION_MESSAGE, generateCause());
+    @Test
+    public void testThrowingInformativeException() {
+        assertThrows(CircuitBreakingException.class, () -> {
+            throw new CircuitBreakingException(EXCEPTION_MESSAGE, generateCause());
+        });
     }
 
-    @Test(expected = CircuitBreakingException.class)
-    public void testThrowingExceptionWithMessage() throws Exception {
-        throw new CircuitBreakingException(EXCEPTION_MESSAGE);
+    @Test
+    public void testThrowingExceptionWithMessage() {
+        assertThrows(CircuitBreakingException.class, () -> {
+            throw new CircuitBreakingException(EXCEPTION_MESSAGE);
+        });
     }
 
-    @Test(expected = CircuitBreakingException.class)
-    public void testThrowingExceptionWithCause() throws Exception {
-        throw new CircuitBreakingException(generateCause());
+    @Test
+    public void testThrowingExceptionWithCause() {
+        assertThrows(CircuitBreakingException.class, () -> {
+            throw new CircuitBreakingException(generateCause());
+        });
     }
 
-    @Test(expected = CircuitBreakingException.class)
-    public void testThrowingEmptyException() throws Exception {
-        throw new CircuitBreakingException();
+    @Test
+    public void testThrowingEmptyException() {
+        assertThrows(CircuitBreakingException.class, () -> {
+            throw new CircuitBreakingException();
+        });
     }
 
     @Test
     public void testWithCauseAndMessage() throws Exception {
         final Exception exception = new CircuitBreakingException(EXCEPTION_MESSAGE, generateCause());
         assertNotNull(exception);
-        assertEquals(WRONG_EXCEPTION_MESSAGE, EXCEPTION_MESSAGE, exception.getMessage());
+        assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
 
         final Throwable cause = exception.getCause();
         assertNotNull(cause);
-        assertEquals(WRONG_CAUSE_MESSAGE, CAUSE_MESSAGE, cause.getMessage());
+        assertEquals(CAUSE_MESSAGE, cause.getMessage(), WRONG_CAUSE_MESSAGE);
     }
 
     @Test
     public void testWithoutCause() throws Exception {
         final Exception exception = new CircuitBreakingException(EXCEPTION_MESSAGE);
         assertNotNull(exception);
-        assertEquals(WRONG_EXCEPTION_MESSAGE, EXCEPTION_MESSAGE, exception.getMessage());
+        assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
 
         final Throwable cause = exception.getCause();
         assertNull(cause);
@@ -78,6 +87,6 @@ public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
 
         final Throwable cause = exception.getCause();
         assertNotNull(cause);
-        assertEquals(WRONG_CAUSE_MESSAGE, CAUSE_MESSAGE, cause.getMessage());
+        assertEquals(CAUSE_MESSAGE, cause.getMessage(), WRONG_CAUSE_MESSAGE);
     }
 }

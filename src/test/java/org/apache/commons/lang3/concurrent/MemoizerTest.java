@@ -16,21 +16,24 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import org.easymock.EasyMockRunner;
-import org.easymock.Mock;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.easymock.EasyMock;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
-@RunWith(EasyMockRunner.class)
 public class MemoizerTest {
 
-    @Mock
     private Computable<Integer, Integer> computable;
+
+    @BeforeEach
+    public void setUpComputableMock() {
+        computable = EasyMock.mock(Computable.class);
+    }
 
     @Test
     public void testOnlyCallComputableOnceIfDoesNotThrowException() throws Exception {
@@ -39,11 +42,11 @@ public class MemoizerTest {
         expect(computable.compute(input)).andReturn(input);
         replay(computable);
 
-        assertEquals("Should call computable first time", input, memoizer.compute(input));
-        assertEquals("Should not call the computable the second time", input, memoizer.compute(input));
+        assertEquals(input, memoizer.compute(input), "Should call computable first time");
+        assertEquals(input, memoizer.compute(input), "Should not call the computable the second time");
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testDefaultBehaviourNotToRecalculateExecutionExceptions() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
@@ -58,10 +61,10 @@ public class MemoizerTest {
             // Should always be thrown the first time
         }
 
-        memoizer.compute(input);
+        assertThrows(IllegalStateException.class, () -> memoizer.compute(input));
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testDoesNotRecalculateWhenSetToFalse() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable, false);
@@ -76,7 +79,7 @@ public class MemoizerTest {
             // Should always be thrown the first time
         }
 
-        memoizer.compute(input);
+        assertThrows(IllegalStateException.class, () -> memoizer.compute(input));
     }
 
     @Test
@@ -98,7 +101,7 @@ public class MemoizerTest {
         assertEquals(answer, memoizer.compute(input));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testWhenComputableThrowsRuntimeException() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
@@ -106,10 +109,10 @@ public class MemoizerTest {
         expect(computable.compute(input)).andThrow(runtimeException);
         replay(computable);
 
-        memoizer.compute(input);
+        assertThrows(RuntimeException.class, () -> memoizer.compute(input));
     }
 
-    @Test(expected = Error.class)
+    @Test
     public void testWhenComputableThrowsError() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
@@ -117,6 +120,6 @@ public class MemoizerTest {
         expect(computable.compute(input)).andThrow(error);
         replay(computable);
 
-        memoizer.compute(input);
+        assertThrows(Error.class, () -> memoizer.compute(input));
     }
 }
