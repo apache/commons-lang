@@ -17,8 +17,9 @@
 
 package org.apache.commons.lang3.event;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
@@ -34,7 +35,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.easymock.EasyMock;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @since 3.0
@@ -61,16 +62,16 @@ public class EventListenerSupportTest {
         assertSame(empty, listenerSupport.getListeners());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAddNullListener() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        listenerSupport.addListener(null);
+        assertThrows(NullPointerException.class, () -> listenerSupport.addListener(null));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRemoveNullListener() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        listenerSupport.removeListener(null);
+        assertThrows(NullPointerException.class, () -> listenerSupport.removeListener(null));
     }
 
     @Test
@@ -88,14 +89,14 @@ public class EventListenerSupportTest {
         assertSame(calledListeners.get(1), listener2);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCreateWithNonInterfaceParameter() {
-        EventListenerSupport.create(String.class);
+        assertThrows(IllegalArgumentException.class, () -> EventListenerSupport.create(String.class));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCreateWithNullParameter() {
-        EventListenerSupport.create(null);
+        assertThrows(NullPointerException.class, () -> EventListenerSupport.create(null));
     }
 
     @Test
