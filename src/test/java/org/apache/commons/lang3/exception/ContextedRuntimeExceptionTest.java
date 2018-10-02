@@ -16,23 +16,23 @@
  */
 package org.apache.commons.lang3.exception;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit tests for ContextedRuntimeException.
  */
 public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<ContextedRuntimeException> {
 
+    @BeforeEach
     @Override
-    @Before
     public void setUp() throws Exception {
         exceptionContext = new ContextedRuntimeException(new Exception(TEST_MESSAGE));
         super.setUp();

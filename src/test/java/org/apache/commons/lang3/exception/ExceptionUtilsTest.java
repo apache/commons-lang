@@ -16,12 +16,13 @@
  */
 package org.apache.commons.lang3.exception;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -33,9 +34,9 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 
 import org.apache.commons.lang3.test.NotVisibleExceptionFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link org.apache.commons.lang3.exception.ExceptionUtils}.
@@ -52,7 +53,7 @@ public class ExceptionUtilsTest {
     private Throwable notVisibleException;
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
         withoutCause = createExceptionWithoutCause();
         nested = new NestableException(withoutCause);
@@ -66,7 +67,7 @@ public class ExceptionUtilsTest {
     }
 
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         withoutCause = null;
         nested = null;
@@ -449,9 +450,9 @@ public class ExceptionUtilsTest {
         assertFalse(match);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testRemoveCommonFrames_ListList() throws Exception {
-        ExceptionUtils.removeCommonFrames(null, null);
+        assertThrows(IllegalArgumentException.class, () -> ExceptionUtils.removeCommonFrames(null, null));
     }
 
     @Test
