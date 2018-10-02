@@ -26,8 +26,8 @@ import org.apache.commons.lang3.reflect.testbed.PublicChild;
 import org.apache.commons.lang3.reflect.testbed.PubliclyShadowedChild;
 import org.apache.commons.lang3.reflect.testbed.StaticContainer;
 import org.apache.commons.lang3.reflect.testbed.StaticContainerChild;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -36,14 +36,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeNotNull;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
  * Unit tests FieldUtils
@@ -63,7 +64,7 @@ public class FieldUtilsTest {
     private PrivatelyShadowedChild privatelyShadowedChild;
     private final Class<? super PublicChild> parentClass = PublicChild.class.getSuperclass();
 
-    @Before
+    @BeforeEach
     public void setUp() {
         StaticContainer.reset();
         publicChild = new PublicChild();
@@ -100,24 +101,24 @@ public class FieldUtilsTest {
         assertNull(FieldUtils.getField(PrivatelyShadowedChild.class, "d"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldIllegalArgumentException1() {
-        FieldUtils.getField(null, "none");
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(null, "none"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldIllegalArgumentException2() {
-        FieldUtils.getField(PublicChild.class, null);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldIllegalArgumentException3() {
-        FieldUtils.getField(PublicChild.class, "");
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, ""));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldIllegalArgumentException4() {
-        FieldUtils.getField(PublicChild.class, " ");
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, " "));
     }
 
     @Test
@@ -139,24 +140,24 @@ public class FieldUtilsTest {
         assertEquals(PrivatelyShadowedChild.class, FieldUtils.getField(PrivatelyShadowedChild.class, "d", true).getDeclaringClass());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldForceAccessIllegalArgumentException1() {
-        FieldUtils.getField(null, "none", true);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(null, "none", true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldForceAccessIllegalArgumentException2() {
-        FieldUtils.getField(PublicChild.class, null, true);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, null, true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldForceAccessIllegalArgumentException3() {
-        FieldUtils.getField(PublicChild.class, "", true);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, "", true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldForceAccessIllegalArgumentException4() {
-        FieldUtils.getField(PublicChild.class, " ", true);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, " ", true));
     }
 
     @Test
@@ -174,7 +175,7 @@ public class FieldUtilsTest {
                 expected++;
             }
         }
-        assertEquals(Arrays.toString(allFields), expected, allFields.length);
+        assertEquals(expected, allFields.length, Arrays.toString(allFields));
     }
 
     @Test
@@ -194,7 +195,7 @@ public class FieldUtilsTest {
                 expected++;
             }
         }
-        assertEquals(allFields.toString(), expected, allFields.size());
+        assertEquals(expected, allFields.size(), allFields.toString());
 
     }
 
@@ -208,19 +209,19 @@ public class FieldUtilsTest {
         assertArrayEquals(annotatedFields, FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, Annotated.class));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldsWithAnnotationIllegalArgumentException1() {
-        FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, null);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldsWithAnnotationIllegalArgumentException2() {
-        FieldUtils.getFieldsWithAnnotation(null, Annotated.class);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsWithAnnotation(null, Annotated.class));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldsWithAnnotationIllegalArgumentException3() {
-        FieldUtils.getFieldsWithAnnotation(null, null);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsWithAnnotation(null, null));
     }
 
     @Test
@@ -236,19 +237,19 @@ public class FieldUtilsTest {
         assertTrue(fieldUtilsTestAnnotatedFields.contains(annotatedFields.get(1)));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldsListWithAnnotationIllegalArgumentException1() {
-        FieldUtils.getFieldsListWithAnnotation(FieldUtilsTest.class, null);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsListWithAnnotation(FieldUtilsTest.class, null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldsListWithAnnotationIllegalArgumentException2() {
-        FieldUtils.getFieldsListWithAnnotation(null, Annotated.class);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsListWithAnnotation(null, Annotated.class));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetFieldsListWithAnnotationIllegalArgumentException3() {
-        FieldUtils.getFieldsListWithAnnotation(null, null);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsListWithAnnotation(null, null));
     }
 
     @Test
@@ -270,24 +271,24 @@ public class FieldUtilsTest {
         assertNull(FieldUtils.getDeclaredField(PrivatelyShadowedChild.class, "d"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetDeclaredFieldAccessIllegalArgumentException1() {
-        FieldUtils.getDeclaredField(null, "none");
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(null, "none"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetDeclaredFieldAccessIllegalArgumentException2() {
-        FieldUtils.getDeclaredField(PublicChild.class, null);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetDeclaredFieldAccessIllegalArgumentException3() {
-        FieldUtils.getDeclaredField(PublicChild.class, "");
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, ""));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetDeclaredFieldAccessIllegalArgumentException4() {
-        FieldUtils.getDeclaredField(PublicChild.class, " ");
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, " "));
     }
 
     @Test
@@ -309,24 +310,24 @@ public class FieldUtilsTest {
         assertEquals(PrivatelyShadowedChild.class, FieldUtils.getDeclaredField(PrivatelyShadowedChild.class, "d", true).getDeclaringClass());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetDeclaredFieldForceAccessIllegalArgumentException1() {
-        FieldUtils.getDeclaredField(null, "none", true);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(null, "none", true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetDeclaredFieldForceAccessIllegalArgumentException2() {
-        FieldUtils.getDeclaredField(PublicChild.class, null, true);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, null, true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetDeclaredFieldForceAccessIllegalArgumentException3() {
-        FieldUtils.getDeclaredField(PublicChild.class, "", true);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, "", true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetDeclaredFieldForceAccessIllegalArgumentException4() {
-        FieldUtils.getDeclaredField(PublicChild.class, " ", true);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, " ", true));
     }
 
     @Test
@@ -334,17 +335,17 @@ public class FieldUtilsTest {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(Foo.class, "VALUE")));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testReadStaticFieldIllegalArgumentException1() throws Exception {
-        FieldUtils.readStaticField(null);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.readStaticField(null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testReadStaticFieldIllegalArgumentException2() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(Foo.class, "VALUE")));
         final Field nonStaticField = FieldUtils.getField(PublicChild.class, "s");
-        assumeNotNull(nonStaticField);
-        FieldUtils.readStaticField(nonStaticField);
+        assumeTrue(nonStaticField != null);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.readStaticField(nonStaticField));
     }
 
     @Test
@@ -353,16 +354,16 @@ public class FieldUtilsTest {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(PublicChild.class, "VALUE")));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testReadStaticFieldForceAccessIllegalArgumentException1() throws Exception {
-        FieldUtils.readStaticField(null, true);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.readStaticField(null, true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testReadStaticFieldForceAccessIllegalArgumentException2() throws Exception {
         final Field nonStaticField = FieldUtils.getField(PublicChild.class, "s", true);
-        assumeNotNull(nonStaticField);
-        FieldUtils.readStaticField(nonStaticField);
+        assumeTrue(nonStaticField != null);
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.readStaticField(nonStaticField));
     }
 
     @Test
@@ -1335,9 +1336,9 @@ public class FieldUtilsTest {
         assertEquals(Double.valueOf(0.0), FieldUtils.readDeclaredField(privatelyShadowedChild, "d", true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAmbig() {
-        FieldUtils.getField(Ambig.class, "VALUE");
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(Ambig.class, "VALUE"));
     }
 
     @Test

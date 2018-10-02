@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -44,7 +44,7 @@ import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test TypeUtils
@@ -353,8 +353,8 @@ public class TypeUtilsTest<B> {
         dis = uhder;
         assertTrue(TypeUtils.isAssignable(uhderType, disType));
         dis = ding;
-        assertFalse(String.format("type %s not assignable to %s!", dingType, disType),
-                TypeUtils.isAssignable(dingType, disType));
+        assertFalse(TypeUtils.isAssignable(dingType, disType),
+                String.format("type %s not assignable to %s!", dingType, disType));
         dis = tester;
         assertTrue(TypeUtils.isAssignable(testerType, disType));
         // dis = tester2;
@@ -459,13 +459,15 @@ public class TypeUtilsTest<B> {
         final boolean isAssignable = TypeUtils.isAssignable(type2, type1);
 
         if (expected) {
-            assertTrue("[" + i1 + ", " + i2 + "]: From "
-                    + String.valueOf(type2) + " to "
-                    + String.valueOf(type1), isAssignable);
+            assertTrue(isAssignable,
+                    "[" + i1 + ", " + i2 + "]: From "
+                                + String.valueOf(type2) + " to "
+                                + String.valueOf(type1));
         } else {
-            assertFalse("[" + i1 + ", " + i2 + "]: From "
-                    + String.valueOf(type2) + " to "
-                    + String.valueOf(type1), isAssignable);
+            assertFalse(isAssignable,
+                    "[" + i1 + ", " + i2 + "]: From "
+                                + String.valueOf(type2) + " to "
+                                + String.valueOf(type1));
         }
     }
 
@@ -488,25 +490,25 @@ public class TypeUtilsTest<B> {
 
         typeVarAssigns = TypeUtils.getTypeArguments(Integer.class, Comparable.class);
         treeSetTypeVar = Comparable.class.getTypeParameters()[0];
-        assertTrue("Type var assigns for Comparable from Integer: " + typeVarAssigns,
-                typeVarAssigns.containsKey(treeSetTypeVar));
+        assertTrue(typeVarAssigns.containsKey(treeSetTypeVar),
+                "Type var assigns for Comparable from Integer: " + typeVarAssigns);
         typeArg = typeVarAssigns.get(treeSetTypeVar);
-        assertEquals("Type argument of Comparable from Integer: " + typeArg, Integer.class,
-                typeVarAssigns.get(treeSetTypeVar));
+        assertEquals(Integer.class, typeVarAssigns.get(treeSetTypeVar),
+                "Type argument of Comparable from Integer: " + typeArg);
 
         typeVarAssigns = TypeUtils.getTypeArguments(int.class, Comparable.class);
         treeSetTypeVar = Comparable.class.getTypeParameters()[0];
-        assertTrue("Type var assigns for Comparable from int: " + typeVarAssigns,
-                typeVarAssigns.containsKey(treeSetTypeVar));
+        assertTrue(typeVarAssigns.containsKey(treeSetTypeVar),
+                "Type var assigns for Comparable from int: " + typeVarAssigns);
         typeArg = typeVarAssigns.get(treeSetTypeVar);
-        assertEquals("Type argument of Comparable from int: " + typeArg, Integer.class,
-                typeVarAssigns.get(treeSetTypeVar));
+        assertEquals(Integer.class, typeVarAssigns.get(treeSetTypeVar),
+                "Type argument of Comparable from int: " + typeArg);
 
         final Collection<Integer> col = Arrays.asList(new Integer[0]);
         typeVarAssigns = TypeUtils.getTypeArguments(List.class, Collection.class);
         treeSetTypeVar = Comparable.class.getTypeParameters()[0];
-        assertFalse("Type var assigns for Collection from List: " + typeVarAssigns,
-                typeVarAssigns.containsKey(treeSetTypeVar));
+        assertFalse(typeVarAssigns.containsKey(treeSetTypeVar),
+                "Type var assigns for Collection from List: " + typeVarAssigns);
 
         typeVarAssigns = TypeUtils.getTypeArguments(AAAClass.BBBClass.class, AAClass.BBClass.class);
         assertEquals(2, typeVarAssigns.size());

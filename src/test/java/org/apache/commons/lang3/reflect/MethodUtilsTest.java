@@ -18,16 +18,17 @@ package org.apache.commons.lang3.reflect;
 
 import static org.hamcrest.Matchers.hasItemInArray;
 import static org.hamcrest.Matchers.hasItems;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -50,8 +51,8 @@ import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.PublicChild;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests MethodUtils
@@ -316,7 +317,7 @@ public class MethodUtilsTest {
     private TestBean testBean;
     private final Map<Class<?>, Class<?>[]> classCache = new HashMap<>();
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         testBean = new TestBean();
         classCache.clear();
@@ -854,19 +855,19 @@ public class MethodUtilsTest {
                 Annotated.class, false, false));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetMethodsWithAnnotationIllegalArgumentException1() {
-        MethodUtils.getMethodsWithAnnotation(FieldUtilsTest.class, null);
+        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsWithAnnotation(FieldUtilsTest.class, null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetMethodsWithAnnotationIllegalArgumentException2() {
-        MethodUtils.getMethodsWithAnnotation(null, Annotated.class);
+        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsWithAnnotation(null, Annotated.class));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetMethodsWithAnnotationIllegalArgumentException3() {
-        MethodUtils.getMethodsWithAnnotation(null, null);
+        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsWithAnnotation(null, null));
     }
 
     @Test
@@ -882,46 +883,45 @@ public class MethodUtilsTest {
         ));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetMethodsListWithAnnotationIllegalArgumentException1() {
-        MethodUtils.getMethodsListWithAnnotation(FieldUtilsTest.class, null);
+        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsListWithAnnotation(FieldUtilsTest.class, null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetMethodsListWithAnnotationIllegalArgumentException2() {
-        MethodUtils.getMethodsListWithAnnotation(null, Annotated.class);
+        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, Annotated.class));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetMethodsListWithAnnotationIllegalArgumentException3() {
-        MethodUtils.getMethodsListWithAnnotation(null, null);
+        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetAnnotationIllegalArgumentException1() {
-        MethodUtils.getAnnotation(FieldUtilsTest.class.getDeclaredMethods()[0], null, true,
-                true);
+        assertThrows(IllegalArgumentException.class,
+                () -> MethodUtils.getAnnotation(FieldUtilsTest.class.getDeclaredMethods()[0], null, true, true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetAnnotationIllegalArgumentException2() {
-        MethodUtils.getAnnotation(null, Annotated.class, true, true);
+        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getAnnotation(null, Annotated.class, true, true));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetAnnotationIllegalArgumentException3() {
-        MethodUtils.getAnnotation(null, null, true, true);
+        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getAnnotation(null, null, true, true));
     }
 
     private void expectMatchingAccessibleMethodParameterTypes(final Class<?> cls,
                                                               final String methodName, final Class<?>[] requestTypes, final Class<?>[] actualTypes) {
         final Method m = MethodUtils.getMatchingAccessibleMethod(cls, methodName,
                 requestTypes);
-        assertNotNull("could not find any matches for " + methodName
-                + " (" + (requestTypes == null ? null : toString(requestTypes)) + ")", m);
-        assertTrue(toString(m.getParameterTypes()) + " not equals "
-                + toString(actualTypes), Arrays.equals(actualTypes, m
-                .getParameterTypes()));
+        assertNotNull(m, "could not find any matches for " + methodName
+                + " (" + (requestTypes == null ? null : toString(requestTypes)) + ")");
+        assertTrue(Arrays.equals(actualTypes, m.getParameterTypes()),
+                toString(m.getParameterTypes()) + " not equals " + toString(actualTypes));
     }
 
     private String toString(final Class<?>[] c) {

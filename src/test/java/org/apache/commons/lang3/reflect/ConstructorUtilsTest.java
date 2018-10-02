@@ -16,12 +16,12 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -31,8 +31,8 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableObject;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests ConstructorUtils
@@ -129,7 +129,7 @@ public class ConstructorUtilsTest {
     }
 
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         classCache.clear();
     }
@@ -278,9 +278,8 @@ public class ConstructorUtilsTest {
             final Class<?>[] requestTypes, final Class<?>[] actualTypes) {
         final Constructor<?> c = ConstructorUtils.getMatchingAccessibleConstructor(cls,
                 requestTypes);
-        assertTrue(toString(c.getParameterTypes()) + " not equals "
-                + toString(actualTypes), Arrays.equals(actualTypes, c
-                .getParameterTypes()));
+        assertTrue(Arrays.equals(actualTypes, c.getParameterTypes()),
+                toString(c.getParameterTypes()) + " not equals " + toString(actualTypes));
     }
 
     private String toString(final Class<?>[] c) {
