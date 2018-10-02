@@ -18,13 +18,14 @@
  */
 package org.apache.commons.lang3.math;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test cases for the {@link Fraction} class
@@ -428,9 +429,9 @@ public class FractionTest  {
         }
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testFactory_String() {
-        Fraction.getFraction(null);
+        assertThrows(IllegalArgumentException.class, () -> Fraction.getFraction(null));
     }
 
 
