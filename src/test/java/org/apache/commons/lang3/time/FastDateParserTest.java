@@ -16,10 +16,11 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -34,7 +35,7 @@ import java.util.Map;
 import java.util.TimeZone;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.SerializationUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.FastDateParser}.
@@ -224,7 +225,7 @@ public class FastDateParserTest {
         final String fmt = sdf.format(in);
         try {
             final Date out = fdp.parse(fmt);
-            assertEquals(locale.toString()+" "+in+" "+ format+ " "+tz.getID(), in, out);
+            assertEquals(in, out, locale.toString()+" "+in+" "+ format+ " "+tz.getID());
         } catch (final ParseException pe) {
             if (year >= 1868 || !locale.getCountry().equals("JP")) {// LANG-978
                 throw pe;
@@ -271,7 +272,7 @@ public class FastDateParserTest {
                 final Date expected= cal.getTime();
 
                 final Date actual = fdp.parse("2000/02/10 "+tz.getDisplayName(locale));
-                assertEquals("tz:"+tz.getID()+" locale:"+locale.getDisplayName(), expected, actual);
+                assertEquals(expected, actual, "tz:"+tz.getID()+" locale:"+locale.getDisplayName());
             }
         }
     }
@@ -385,7 +386,7 @@ public class FastDateParserTest {
     private void checkParse(final Locale locale, final SimpleDateFormat sdf, final DateParser fdf, final String formattedDate) throws ParseException {
         final Date expectedTime = sdf.parse(formattedDate);
         final Date actualTime = fdf.parse(formattedDate);
-        assertEquals(locale.toString()+" "+formattedDate +"\n",expectedTime, actualTime);
+        assertEquals(expectedTime, actualTime, locale.toString()+" "+formattedDate +"\n");
     }
 
     @Test
@@ -473,8 +474,8 @@ public class FastDateParserTest {
             }
         }
         // SDF and FDF should produce equivalent results
-        assertTrue("Should both or neither throw Exceptions", (f==null)==(s==null));
-        assertEquals("Parsed dates should be equal", dsdf, dfdp);
+        assertTrue((f==null)==(s==null), "Should both or neither throw Exceptions");
+        assertEquals(dsdf, dfdp, "Parsed dates should be equal");
     }
 
     @Test
@@ -604,9 +605,9 @@ public class FastDateParserTest {
         assertEquals(expected.getTime(), fdp.parse("14May2014"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test1806Argument() {
-        getInstance("XXXX");
+        assertThrows(IllegalArgumentException.class, () -> getInstance("XXXX"));
     }
 
     private static Calendar initializeCalendar(final TimeZone tz) {
@@ -652,13 +653,13 @@ public class FastDateParserTest {
             final String message = trial.zone.getDisplayName()+";";
 
             DateParser parser = getInstance(formatStub+"X", trial.zone);
-            assertEquals(message+trial.one, cal.getTime().getTime(), parser.parse(dateStub+trial.one).getTime()-trial.offset);
+            assertEquals(cal.getTime().getTime(), parser.parse(dateStub+trial.one).getTime()-trial.offset, message+trial.one);
 
             parser = getInstance(formatStub+"XX", trial.zone);
-            assertEquals(message+trial.two, cal.getTime(), parser.parse(dateStub+trial.two));
+            assertEquals(cal.getTime(), parser.parse(dateStub+trial.two), message+trial.two);
 
             parser = getInstance(formatStub+"XXX", trial.zone);
-            assertEquals(message+trial.three, cal.getTime(), parser.parse(dateStub+trial.three));
+            assertEquals(cal.getTime(), parser.parse(dateStub+trial.three), message+trial.three);
         }
     }
 

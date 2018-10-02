@@ -16,15 +16,15 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * TestCase for StopWatch.
@@ -109,8 +109,7 @@ public class StopWatchTest {
         watch.stop();
         final long totalTime = watch.getTime();
 
-        assertEquals("Formatted split string not the correct length",
-                splitStr.length(), 12);
+        assertEquals(splitStr.length(), 12, "Formatted split string not the correct length");
         assertTrue(splitTime >= 500);
         assertTrue(splitTime < 700);
         assertTrue(totalTime >= 1500);

@@ -16,12 +16,12 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.FieldPosition;
 import java.text.Format;
@@ -36,10 +36,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLongArray;
 
-import org.apache.commons.lang3.test.SystemDefaults;
-import org.apache.commons.lang3.test.SystemDefaultsSwitch;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.FastDateFormat}.
@@ -47,10 +46,6 @@ import org.junit.Test;
  * @since 2.0
  */
 public class FastDateFormatTest {
-
-    @Rule
-    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
-
     /*
      * Only the cache methods need to be tested here.
      * The print methods are tested by {@link FastDateFormat_PrinterTest}
@@ -76,7 +71,8 @@ public class FastDateFormatTest {
         assertEquals(TimeZone.getDefault(), format2.getTimeZone());
     }
 
-    @SystemDefaults(timezone="America/New_York", locale="en_US")
+    @DefaultLocale(language = "en", country = "US")
+    @DefaultTimeZone("America/New_York")
     @Test
     public void test_getInstance_String_TimeZone() {
 
@@ -96,7 +92,7 @@ public class FastDateFormatTest {
         assertNotSame(format4, format6);
     }
 
-    @SystemDefaults(locale="en_US")
+    @DefaultLocale(language = "en", country = "US")
     @Test
     public void test_getInstance_String_Locale() {
         final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
@@ -108,7 +104,7 @@ public class FastDateFormatTest {
         assertEquals(Locale.GERMANY, format1.getLocale());
     }
 
-    @SystemDefaults(locale="en_US")
+    @DefaultLocale(language = "en", country = "US")
     @Test
     public void test_changeDefault_Locale_DateInstance() {
         final FastDateFormat format1 = FastDateFormat.getDateInstance(FastDateFormat.FULL, Locale.GERMANY);
@@ -123,7 +119,7 @@ public class FastDateFormatTest {
         assertNotSame(format2, format3);
     }
 
-    @SystemDefaults(locale="en_US")
+    @DefaultLocale(language = "en", country = "US")
     @Test
     public void test_changeDefault_Locale_DateTimeInstance() {
         final FastDateFormat format1 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL, Locale.GERMANY);
@@ -138,7 +134,8 @@ public class FastDateFormatTest {
         assertNotSame(format2, format3);
     }
 
-    @SystemDefaults(locale="en_US", timezone="America/New_York")
+    @DefaultLocale(language = "en", country = "US")
+    @DefaultTimeZone("America/New_York")
     @Test
     public void test_getInstance_String_TimeZone_Locale() {
         final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",

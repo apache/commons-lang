@@ -16,9 +16,10 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.Serializable;
 import java.text.FieldPosition;
@@ -31,10 +32,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.SerializationUtils;
-import org.apache.commons.lang3.test.SystemDefaults;
-import org.apache.commons.lang3.test.SystemDefaultsSwitch;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.FastDatePrinter}.
@@ -76,10 +76,8 @@ public class FastDatePrinterTest {
         return new FastDatePrinter(format, timeZone, locale);
     }
 
-    @Rule
-    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
-
-    @SystemDefaults(timezone="America/New_York", locale="en_US")
+    @DefaultLocale(language = "en", country = "US")
+    @DefaultTimeZone("America/New_York")
     @Test
     public void testFormat() {
         final GregorianCalendar cal1 = new GregorianCalendar(2003, 0, 10, 15, 33, 20);
@@ -210,8 +208,8 @@ public class FastDatePrinterTest {
         cal.set(2009, Calendar.OCTOBER, 16, 8, 42, 16);
 
         final DatePrinter format = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone("GMT"));
-        assertEquals("dateTime", "2009-10-16T16:42:16.000Z", format.format(cal.getTime()));
-        assertEquals("dateTime", "2009-10-16T16:42:16.000Z", format.format(cal));
+        assertEquals("2009-10-16T16:42:16.000Z", format.format(cal.getTime()), "dateTime");
+        assertEquals("2009-10-16T16:42:16.000Z", format.format(cal), "dateTime");
     }
 
     @Test
@@ -262,7 +260,7 @@ public class FastDatePrinterTest {
         assertEquals(NEW_YORK, printer.getTimeZone());
     }
 
-    @SystemDefaults(timezone="UTC")
+    @DefaultTimeZone("UTC")
     @Test
     public void testTimeZoneAsZ() throws Exception {
         final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
@@ -288,9 +286,9 @@ public class FastDatePrinterTest {
         return cal;
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test1806Argument() {
-        getInstance("XXXX");
+        assertThrows(IllegalArgumentException.class, () -> getInstance("XXXX"));
     }
 
     private enum Expected1806 {
@@ -354,15 +352,15 @@ public class FastDatePrinterTest {
         // calendar fast.
         {
             final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Europe/Paris")).format(cal);
-            assertEquals("calendar", "2009-10-16T08:42:16 +0200", value);
+            assertEquals("2009-10-16T08:42:16 +0200", value, "calendar");
         }
         {
             final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Asia/Kolkata")).format(cal);
-            assertEquals("calendar", "2009-10-16T12:12:16 +0530", value);
+            assertEquals("2009-10-16T12:12:16 +0530", value, "calendar");
         }
         {
             final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Europe/London")).format(cal);
-            assertEquals("calendar", "2009-10-16T07:42:16 +0100", value);
+            assertEquals("2009-10-16T07:42:16 +0100", value, "calendar");
         }
     }
 

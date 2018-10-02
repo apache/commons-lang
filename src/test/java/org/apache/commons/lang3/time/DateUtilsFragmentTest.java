@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.time;
 
-import org.junit.Test;
-import org.junit.Before;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -37,7 +37,7 @@ public class DateUtilsFragmentTest {
     private Calendar aCalendar;
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
         aCalendar = Calendar.getInstance();
         aCalendar.set(2005, months, days, hours, minutes, seconds);
