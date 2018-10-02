@@ -16,16 +16,17 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.hamcrest.Matcher;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -424,15 +425,15 @@ public class DiffBuilderTest {
         assertEquals("prop1.int", list.getDiffs().get(0).getFieldName());
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testNullLhs() {
-        new DiffBuilder(null, this, ToStringStyle.DEFAULT_STYLE);
+        assertThrows(IllegalArgumentException.class, () -> new DiffBuilder(null, this, ToStringStyle.DEFAULT_STYLE));
     }
 
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testNullRhs() {
-        new DiffBuilder(this, null, ToStringStyle.DEFAULT_STYLE);
+        assertThrows(IllegalArgumentException.class, () -> new DiffBuilder(this, null, ToStringStyle.DEFAULT_STYLE));
     }
 
     @Test

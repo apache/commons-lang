@@ -16,17 +16,17 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.JsonToStringStyleTest}.
@@ -35,12 +35,12 @@ public class JsonToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.JSON_STYLE);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }

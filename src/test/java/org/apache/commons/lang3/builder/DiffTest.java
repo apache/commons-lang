@@ -16,9 +16,10 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -47,9 +48,9 @@ public class DiffTest {
         }
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testCannotModify() {
-        booleanDiff.setValue(Boolean.FALSE);
+        assertThrows(UnsupportedOperationException.class, () -> booleanDiff.setValue(Boolean.FALSE));
     }
 
     @Test
