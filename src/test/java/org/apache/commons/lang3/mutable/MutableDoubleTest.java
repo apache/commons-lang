@@ -16,11 +16,12 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * JUnit tests.
@@ -43,9 +44,9 @@ public class MutableDoubleTest {
 
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testConstructorNull() {
-        new MutableDouble((Number)null);
+        assertThrows(NullPointerException.class, () -> new MutableDouble((Number)null));
     }
 
     @Test
@@ -67,10 +68,10 @@ public class MutableDoubleTest {
         assertEquals(Double.valueOf(3d), mutNum.getValue());
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testSetNull() {
         final MutableDouble mutNum = new MutableDouble(0d);
-        mutNum.setValue(null);
+        assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
     }
 
     @Test
@@ -124,18 +125,21 @@ public class MutableDoubleTest {
         assertEquals(-1, mutNum.compareTo(new MutableDouble(1d)));
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testCompareToNull() {
         final MutableDouble mutNum = new MutableDouble(0d);
-        mutNum.compareTo(null);
+        assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
     }
 
     @Test
     public void testPrimitiveValues() {
         final MutableDouble mutNum = new MutableDouble(1.7);
 
-        assertEquals( 1.7F, mutNum.floatValue(), 0 );
-        assertEquals( 1.7, mutNum.doubleValue(), 0 );
+        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
+        // This should be replaced when it is supported in JUnit Jupiter 5.4.
+        // See https://github.com/junit-team/junit5/pull/1613 for details.
+        assertTrue ( 1.7F == mutNum.floatValue() );
+        assertTrue( 1.7 == mutNum.doubleValue() );
         assertEquals( (byte) 1, mutNum.byteValue() );
         assertEquals( (short) 1, mutNum.shortValue() );
         assertEquals( 1, mutNum.intValue() );

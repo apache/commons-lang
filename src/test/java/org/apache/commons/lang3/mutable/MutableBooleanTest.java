@@ -17,11 +17,12 @@
 
 package org.apache.commons.lang3.mutable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * JUnit tests.
@@ -42,10 +43,10 @@ public class MutableBooleanTest {
         assertEquals(0, mutBool.compareTo(new MutableBoolean(true)));
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testCompareToNull() {
         final MutableBoolean mutBool = new MutableBoolean(false);
-        mutBool.compareTo(null);
+        assertThrows(NullPointerException.class, () -> mutBool.compareTo(null));
     }
 
     // ----------------------------------------------------------------
@@ -61,9 +62,9 @@ public class MutableBooleanTest {
 
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testConstructorNull() {
-        new MutableBoolean(null);
+        assertThrows(NullPointerException.class, () -> new MutableBoolean(null));
     }
 
     @Test
@@ -115,10 +116,10 @@ public class MutableBooleanTest {
 
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testSetNull() {
         final MutableBoolean mutBool = new MutableBoolean(false);
-        mutBool.setValue(null);
+        assertThrows(NullPointerException.class, () -> mutBool.setValue(null));
     }
 
     @Test
