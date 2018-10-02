@@ -16,13 +16,16 @@
  */
 package org.apache.commons.lang3.builder;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReflectionToStringBuilderTest {
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testConstructorWithNullObject() {
-        new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuffer());
+        assertThrows(IllegalArgumentException.class,
+            () -> new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuffer()));
     }
 
 }

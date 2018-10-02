@@ -16,11 +16,12 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assume.assumeFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,8 +29,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.SystemUtils;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.builder.ToStringBuilder}.
@@ -44,7 +45,7 @@ public class ToStringBuilderTest {
     /*
      * All tests should leave the registry empty.
      */
-    @After
+    @AfterEach
     public void after(){
         validateNullToStringStyleRegistry();
     }
@@ -80,9 +81,9 @@ public class ToStringBuilderTest {
         }
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testSetDefaultEx() {
-        ToStringBuilder.setDefaultStyle(null);
+        assertThrows(IllegalArgumentException.class, () -> ToStringBuilder.setDefaultStyle(null));
     }
 
     @Test
@@ -594,7 +595,7 @@ public class ToStringBuilderTest {
 
     void validateNullToStringStyleRegistry() {
         final Map<Object, Object> registry = ToStringStyle.getRegistry();
-        assertNull("Expected null, actual: "+registry, registry);
+        assertNull(registry, "Expected null, actual: " + registry);
     }
     //  End: Reflection cycle tests
 
@@ -1242,15 +1243,12 @@ public class ToStringBuilderTest {
     /**
      * Tests ReflectionToStringBuilder setUpToClass().
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void test_setUpToClass_invalid() {
         final Integer val = Integer.valueOf(5);
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
-        try {
-            test.setUpToClass(String.class);
-        } finally {
-            test.toString();
-        }
+        assertThrows(IllegalArgumentException.class, () -> test.setUpToClass(String.class));
+        test.toString();
     }
 
     /**
@@ -1283,9 +1281,9 @@ public class ToStringBuilderTest {
         static final int staticInt2 = 67890;
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testReflectionNull() {
-        assertEquals("<null>", ReflectionToStringBuilder.toString(null));
+        assertThrows(IllegalArgumentException.class, () -> ReflectionToStringBuilder.toString(null));
     }
 
     /**

@@ -16,12 +16,13 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.CompareToBuilder}.
@@ -107,17 +108,17 @@ public class CompareToBuilderTest {
         assertTrue(CompareToBuilder.reflectionCompare(o2, o1) > 0);
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testReflectionCompareEx1() {
         final TestObject o1 = new TestObject(4);
-        CompareToBuilder.reflectionCompare(o1, null);
+        assertThrows(NullPointerException.class, () -> CompareToBuilder.reflectionCompare(o1, null));
     }
 
-    @Test(expected=ClassCastException.class)
+    @Test
     public void testReflectionCompareEx2() {
         final TestObject o1 = new TestObject(4);
         final Object o2 = new Object();
-        CompareToBuilder.reflectionCompare(o1, o2);
+        assertThrows(ClassCastException.class, () -> CompareToBuilder.reflectionCompare(o1, o2));
     }
 
     @Test
@@ -289,11 +290,11 @@ public class CompareToBuilderTest {
         assertTrue(new CompareToBuilder().append(null, o1).build().intValue() < 0);
     }
 
-    @Test(expected=ClassCastException.class)
+    @Test
     public void testObjectEx2() {
         final TestObject o1 = new TestObject(4);
         final Object o2 = new Object();
-        new CompareToBuilder().append(o1, o2);
+        assertThrows(ClassCastException.class, () -> new CompareToBuilder().append(o1, o2));
     }
 
     @Test

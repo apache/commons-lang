@@ -17,7 +17,8 @@
 
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,9 +32,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests concurrent access for {@link ReflectionToStringBuilder}.
@@ -63,19 +63,19 @@ public class ReflectionToStringBuilderConcurrencyTest {
     private static final int REPEAT = 100;
 
     @Test
-    @Ignore
+    @Disabled
     public void testLinkedList() throws InterruptedException, ExecutionException {
         this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testArrayList() throws InterruptedException, ExecutionException {
         this.testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testCopyOnWriteArrayList() throws InterruptedException, ExecutionException {
         this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
@@ -95,7 +95,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
             public Integer call() {
                 for (int i = 0; i < REPEAT; i++) {
                     final String s = ReflectionToStringBuilder.toString(holder);
-                    Assert.assertNotNull(s);
+                    assertNotNull(s);
                 }
                 return Integer.valueOf(REPEAT);
             }

@@ -16,13 +16,14 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link DiffResult}.
@@ -55,7 +56,7 @@ public class DiffResultTest {
     private static class EmptyClass {
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testListIsNonModifiable() {
         final SimpleClass lhs = new SimpleClass(true);
         final SimpleClass rhs = new SimpleClass(false);
@@ -65,7 +66,7 @@ public class DiffResultTest {
         final DiffResult list = new DiffResult(lhs, rhs, diffs, SHORT_STYLE);
         assertEquals(diffs, list.getDiffs());
         assertEquals(1, list.getNumberOfDiffs());
-        list.getDiffs().remove(0);
+        assertThrows(UnsupportedOperationException.class, () -> list.getDiffs().remove(0));
     }
 
     @Test
@@ -114,21 +115,22 @@ public class DiffResultTest {
                 list.toString(ToStringStyle.MULTI_LINE_STYLE));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNullLhs() {
-        new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE)
-                .getDiffs(), SHORT_STYLE);
+        assertThrows(IllegalArgumentException.class,
+            () ->  new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNullRhs() {
-        new DiffResult(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE)
-                .getDiffs(), SHORT_STYLE);
+        assertThrows(IllegalArgumentException.class,
+            () -> new DiffResult(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNullList() {
-        new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE);
+        assertThrows(IllegalArgumentException.class,
+            () -> new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE));
     }
 
     @Test

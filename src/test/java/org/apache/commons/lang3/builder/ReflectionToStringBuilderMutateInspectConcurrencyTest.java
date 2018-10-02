@@ -20,8 +20,8 @@ package org.apache.commons.lang3.builder;
 import java.util.LinkedList;
 import java.util.Random;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests concurrent access for {@link ReflectionToStringBuilder}.
@@ -90,7 +90,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testConcurrency() throws Exception {
         final TestFixture testFixture = new TestFixture();
         final int numMutators = 10;
