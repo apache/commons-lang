@@ -17,21 +17,21 @@
 
 package org.apache.commons.lang3.text;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.mutable.MutableObject;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for StrSubstitutor.
@@ -41,14 +41,14 @@ public class StrSubstitutorTest {
 
     private Map<String, String> values;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         values = new HashMap<>();
         values.put("animal", "quick brown fox");
         values.put("target", "lazy dog");
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         values = null;
     }
@@ -308,18 +308,18 @@ public class StrSubstitutorTest {
         final StrSubstitutor sub = new StrSubstitutor(values);
         sub.setEnableSubstitutionInVariables(true);
         assertEquals(
-                "Wrong result (1)",
                 "The mouse jumps over the lazy dog.",
-                sub.replace("The ${animal.${species}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species}} jumps over the ${target}."),
+                "Wrong result (1)");
         values.put("species", "1");
         assertEquals(
-                "Wrong result (2)",
                 "The fox jumps over the lazy dog.",
-                sub.replace("The ${animal.${species}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species}} jumps over the ${target}."),
+                "Wrong result (2)");
         assertEquals(
-                "Wrong result (3)",
                 "The fox jumps over the lazy dog.",
-                sub.replace("The ${unknown.animal.${unknown.species:-1}:-fox} jumps over the ${unknown.target:-lazy dog}."));
+                sub.replace("The ${unknown.animal.${unknown.species:-1}:-fox} jumps over the ${unknown.target:-lazy dog}."),
+                "Wrong result (3)");
     }
 
     /**
@@ -332,13 +332,13 @@ public class StrSubstitutorTest {
         values.put("species", "2");
         final StrSubstitutor sub = new StrSubstitutor(values);
         assertEquals(
-                "Wrong result (1)",
                 "The ${animal.${species}} jumps over the lazy dog.",
-                sub.replace("The ${animal.${species}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species}} jumps over the ${target}."),
+                "Wrong result (1)");
         assertEquals(
-                "Wrong result (2)",
                 "The ${animal.${species:-1}} jumps over the lazy dog.",
-                sub.replace("The ${animal.${species:-1}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species:-1}} jumps over the ${target}."),
+                "Wrong result (2)");
     }
 
     /**
@@ -354,13 +354,13 @@ public class StrSubstitutorTest {
         final StrSubstitutor sub = new StrSubstitutor(values);
         sub.setEnableSubstitutionInVariables(true);
         assertEquals(
-                "Wrong result (1)",
                 "The white mouse jumps over the lazy dog.",
-                sub.replace("The ${animal.${species.${color}}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species.${color}}} jumps over the ${target}."),
+                "Wrong result (1)");
         assertEquals(
-                "Wrong result (2)",
                 "The brown fox jumps over the lazy dog.",
-                sub.replace("The ${animal.${species.${unknownColor:-brown}}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species.${unknownColor:-brown}}} jumps over the ${target}."),
+                "Wrong result (2)");
     }
 
     @Test

@@ -17,15 +17,15 @@
 
 package org.apache.commons.lang3.text;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for StrLookup.
@@ -70,7 +70,7 @@ public class StrLookupTest  {
         newProps.setProperty(osName, newOsName);
         System.setProperties(newProps);
         try {
-            assertEquals("Changed properties not detected", newOsName, sysLookup.lookup(osName));
+            assertEquals(newOsName, sysLookup.lookup(osName), "Changed properties not detected");
         } finally {
             System.setProperties(oldProperties);
         }
@@ -89,7 +89,7 @@ public class StrLookupTest  {
         final StrLookup<String> sysLookup = StrLookup.systemPropertiesLookup();
         System.setProperty(osName, newOsName);
         try {
-            assertEquals("Changed properties not detected", newOsName, sysLookup.lookup(osName));
+            assertEquals(newOsName, sysLookup.lookup(osName), "Changed properties not detected");
         } finally {
             System.setProperty(osName, oldOs);
         }
