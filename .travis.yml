@@ -21,6 +21,11 @@ jdk:
   - oraclejdk10
   - openjdk10
   - openjdk11
+  - openjdk-ea
+
+matrix:
+  allow_failures:
+    - jdk: openjdk-ea
 
 script:
   - mvn
