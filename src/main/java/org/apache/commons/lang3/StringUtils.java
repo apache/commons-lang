@@ -8022,7 +8022,7 @@ public class StringUtils {
      * CharSequences begin to differ.</p>
      *
      * <p>For example,
-     * <code>indexOfDifference(new String[] {"i am a machine", "i am a robot"}) -&gt; 7</code></p>
+     * {@code indexOfDifference(new String[] {"i am a machine", "i am a robot"}) -> 7}</p>
      *
      * <pre>
      * StringUtils.indexOfDifference(null) = -1
