@@ -60,7 +60,7 @@ public class DurationUtils {
      * <p>Rounds the quantity of days from the given duration</p>
      *
      * <p>For the duration of 36h it should return 2 (days) and for the duration of 36h 59 minutes it should return 1(day)</p>
-     * 
+     *
      * @param duration the given duration from which the quantity of days will be calculated
      * @return the rounded quantity of days
      * @throws IllegalArgumentException if the given duration is null
@@ -83,7 +83,7 @@ public class DurationUtils {
      * <p>For the duration of 1h it should return 1(hour) and the duration of 1h 10 min  it should return 2(hours)</p>
      *
      * @param duration the given duration from which the quantity of hours will be calculated
-     * @return the rounded up quantity of hours
+     * @return the rounded up quantity of hours 
      * @throws IllegalArgumentException if the given duration is null
      * @since 3.9
      */
@@ -103,7 +103,7 @@ public class DurationUtils {
      *
      * <p>For the duration of 1h  30min it should return 2 (hours) and for the duration of 1h 29 min it should return 1(hour)</p>
      *
-     * @param duration the given duration
+     * @param duration the given duration from which the quantity of hours will be calculated
      * @return the rounded quantity of hours
      * @throws IllegalArgumentException if the given duration is null
      * @since 3.9
