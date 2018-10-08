@@ -25,6 +25,13 @@ public class DurationUtils {
     public static final long NANOS_PER_HOUR = 3_600_000_000_000L;
 
     /**
+     * Number of nanoseconds in a standard minute
+     *
+     * @since 3.9
+     */
+    public static final long NANOS_PER_MINUTE = 60_000_000_000L;
+
+    /**
      * <p>{@code DurationUtils} instances should NOT be constructed in
      * standard programming. </p>
      *
@@ -70,7 +77,7 @@ public class DurationUtils {
         if (duration == null) {
             throw new IllegalArgumentException("the duration must not be null");
         }
-        boolean shouldRoundDaysQuantity = ((duration.toNanos() % NANOS_PER_DAY) >= (NANOS_PER_DAY/2));
+        boolean shouldRoundDaysQuantity = ((duration.toNanos() % NANOS_PER_DAY) >= (NANOS_PER_DAY / 2));
         if (shouldRoundDaysQuantity) {
             return duration.toDays() + 1;
         }
@@ -112,11 +119,54 @@ public class DurationUtils {
         if (duration == null) {
             throw new IllegalArgumentException("the duration must not be null");
         }
-        boolean shouldRoundHoursQuantity = ((duration.toNanos() % NANOS_PER_HOUR) >= (NANOS_PER_HOUR/2));
+        boolean shouldRoundHoursQuantity = ((duration.toNanos() % NANOS_PER_HOUR) >= (NANOS_PER_HOUR / 2));
         if (shouldRoundHoursQuantity) {
             return duration.toHours() + 1;
         }
         return duration.toHours();
     }
 
+
+    /**
+     * <p>Rounds up the quantity of minutes from the given duration</p>
+     *
+     * <p>For the duration of 10 minutes it should return 10(minutes) and the duration of 10 minutes 10 seconds  it should return 11(minutes)</p>
+     *
+     * @param duration the given duration from which the quantity of minutes will be calculated
+     * @return the rounded up quantity of minutes
+     * @throws IllegalArgumentException if the given duration is null
+     * @since 3.9
+     */
+    public static long roundUpMinutesQuantity(final Duration duration) {
+        if (duration == null) {
+            throw new IllegalArgumentException("the duration must not be null");
+        }
+        boolean shouldRoundUpMinutes = (duration.toNanos() % NANOS_PER_MINUTE > 0);
+        if (shouldRoundUpMinutes) {
+            return duration.toMinutes() + 1;
+        }
+        return duration.toMinutes();
+    }
+
+
+    /**
+     * <p>Rounds the quantity of minutes from the given duration</p>
+     *
+     * <p>For the duration of 1 minute  30 seconds it should return 2(minutes) and for the duration of 1 minute 29 seconds it should return 1(minute)</p>
+     *
+     * @param duration the given duration from which the quantity of minutes will be calculated
+     * @return the rounded quantity of days
+     * @throws IllegalArgumentException if the given duration is null
+     * @since 3.9
+     */
+    public static long roundMinutesQuantity(final Duration duration) {
+        if (duration == null) {
+            throw new IllegalArgumentException("the duration must not be null");
+        }
+        boolean shouldRoundMinutes = ((duration.toNanos() % NANOS_PER_MINUTE) >= (NANOS_PER_MINUTE/2));
+        if (shouldRoundMinutes) {
+            return duration.toMinutes() + 1;
+        }
+        return duration.toMinutes();
+    }
 }

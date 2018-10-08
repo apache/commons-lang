@@ -29,7 +29,7 @@ public class DurationUtilsTest {
         @DisplayName("the quantity of days from the Duration 3 days should not be rounded up")
         @Test
         void durationOfExactly3DaysShouldNotBeRoundedUp() {
-            Duration duration = Duration.ofDays(3)        ;
+            Duration duration = Duration.ofDays(3);
             long daysQuantity = DurationUtils.roundUpDaysQuantity(duration);
             Assertions.assertEquals(3, daysQuantity);
         }
@@ -106,4 +106,52 @@ public class DurationUtilsTest {
         }
     }
 
+    @Nested
+    class MinutesQuantityRoundingTest {
+
+        @DisplayName("roundUpMinutesQuantity should throw the IllegalArgumentException for the null duration")
+        @Test
+        void roundUpMinutesQuantityShouldThrowIllegalArgumentExceptionForNullDuration() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> DurationUtils.roundUpMinutesQuantity(null));
+        }
+
+        @DisplayName("the quantity of minutes from the Duration 10 minutes and 1 second should be rounded up")
+        @Test
+        void durationOf10MinutesAnd1SecondShouldBeRoundedUp() {
+            Duration duration = Duration.ofMinutes(10).plusSeconds(1);
+            long minutesQuantity = DurationUtils.roundUpMinutesQuantity(duration);
+            Assertions.assertEquals(11, minutesQuantity);
+        }
+
+        @DisplayName("the quantity of minutes from the Duration 10 minutes should not be rounded up")
+        @Test
+        void durationOfExactly10MinutesShouldNotBeRoundedUp() {
+            Duration duration = Duration.ofMinutes(10);
+            long minutesQuantity = DurationUtils.roundUpMinutesQuantity(duration);
+            Assertions.assertEquals(10, minutesQuantity);
+        }
+
+        @DisplayName("roundMinutesQuantity should throw the IllegalArgumentException for the null duration")
+        @Test
+        void roundMinutesQuantityShouldThrowIllegalArgumentExceptionForNullDuration() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> DurationUtils.roundMinutesQuantity(null));
+        }
+
+        @DisplayName("the quantity of minutes from the Duration 10 minutes and 30 second should be rounded")
+        @Test
+        void durationOf10MinutesAnd30SecondShouldBeRoundedUp() {
+            Duration duration = Duration.ofMinutes(10).plusSeconds(30);
+            long minutesQuantity = DurationUtils.roundMinutesQuantity(duration);
+            Assertions.assertEquals(11, minutesQuantity);
+        }
+
+        @DisplayName("the quantity of minutes from the Duration 10 minutes and 29 seconds should not be rounded")
+        @Test
+        void durationOfExactly10MinutesAnd29SecondsShouldNotBeRounded() {
+            Duration duration = Duration.ofMinutes(10).plusSeconds(29);
+            long minutesQuantity = DurationUtils.roundMinutesQuantity(duration);
+            Assertions.assertEquals(10, minutesQuantity);
+        }
+
+    }
 }
