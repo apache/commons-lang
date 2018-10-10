@@ -32,6 +32,13 @@ public class DurationUtils {
     public static final long NANOS_PER_MINUTE = 60_000_000_000L;
 
     /**
+     * Number of nanoseconds in a standard second
+     *
+     * @since 3.9
+     */
+    public static final long NANOS_PER_SECOND = 1_000_000_000L;
+
+    /**
      * <p>{@code DurationUtils} instances should NOT be constructed in
      * standard programming. </p>
      *
@@ -126,7 +133,6 @@ public class DurationUtils {
         return duration.toHours();
     }
 
-
     /**
      * <p>Rounds up the quantity of minutes from the given duration</p>
      *
@@ -148,7 +154,6 @@ public class DurationUtils {
         return duration.toMinutes();
     }
 
-
     /**
      * <p>Rounds the quantity of minutes from the given duration</p>
      *
@@ -169,4 +174,48 @@ public class DurationUtils {
         }
         return duration.toMinutes();
     }
+
+    /**
+     * <p>Rounds up the quantity of seconds from the given duration</p>
+     *
+     * <p>For the duration of 10 seconds it should return 10(seconds) and the duration of 1 second 10 milliseconds  it should return 2(seconds)</p>
+     *
+     * @param duration the given duration from which the quantity of seconds will be calculated
+     * @return the rounded up quantity of seconds
+     * @throws IllegalArgumentException if the given duration is null
+     * @since 3.9
+     */
+    public static long roundUpSecondsQuantity(final Duration duration) {
+        if (duration == null) {
+            throw new IllegalArgumentException("the duration must not be null");
+        }
+        boolean shouldRoundUpSeconds = (duration.toNanos() % NANOS_PER_SECOND > 0);
+        if (shouldRoundUpSeconds) {
+            return duration.getSeconds() + 1;
+        }
+        return duration.getSeconds();
+    }
+
+    /**
+     * <p>Rounds the quantity of seconds from the given duration</p>
+     *
+     * <p>For the duration of 10 seconds and 499 milliseconds it should return 10(seconds)
+     * and the duration of 1 second 500 milliseconds  it should return 2(seconds)</p>
+     *
+     * @param duration the given duration from which the quantity of seconds will be calculated
+     * @return the rounded quantity of seconds
+     * @throws IllegalArgumentException if the given duration is null
+     * @since 3.9
+     */
+    public static long roundSecondsQuantity(final Duration duration) {
+        if (duration == null) {
+            throw new IllegalArgumentException("the duration must not be null");
+        }
+        boolean shouldRoundSeconds = ((duration.toNanos() % NANOS_PER_SECOND) >= (NANOS_PER_SECOND/2));
+        if (shouldRoundSeconds) {
+            return duration.getSeconds() + 1;
+        }
+        return duration.getSeconds();
+    }
+
 }
