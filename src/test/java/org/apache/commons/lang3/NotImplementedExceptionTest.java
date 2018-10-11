@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3;
 
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.NotImplementedException}.
@@ -46,9 +46,9 @@ public class NotImplementedExceptionTest {
     }
 
     private void assertCorrect(final String assertMessage, final NotImplementedException nie, final String message, final Throwable nested, final String code) {
-        assertNotNull(assertMessage + ": target is null", nie);
-        assertEquals(assertMessage + ": Message not equal", message, nie.getMessage());
-        assertEquals(assertMessage + ": Nested throwable not equal", nested, nie.getCause());
-        assertEquals(assertMessage + ": Code not equal", code, nie.getCode());
+        assertNotNull(nie, assertMessage + ": target is null");
+        assertEquals(message, nie.getMessage(), assertMessage + ": Message not equal");
+        assertEquals(nested, nie.getCause(), assertMessage + ": Nested throwable not equal");
+        assertEquals(code, nie.getCode(), assertMessage + ": Code not equal");
     }
 }

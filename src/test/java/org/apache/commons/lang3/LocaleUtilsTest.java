@@ -17,13 +17,13 @@
 package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -35,8 +35,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link LocaleUtils}.
@@ -51,7 +51,7 @@ public class LocaleUtilsTest  {
     private static final Locale LOCALE_QQ = new Locale("qq", "");
     private static final Locale LOCALE_QQ_ZZ = new Locale("qq", "ZZ");
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         // Testing #LANG-304. Must be called before availableLocaleSet is called.
         LocaleUtils.isAvailableLocale(Locale.getDefault());
@@ -79,7 +79,7 @@ public class LocaleUtilsTest  {
      */
     private static void assertValidToLocale(final String language) {
         final Locale locale = LocaleUtils.toLocale(language);
-        assertNotNull("valid locale", locale);
+        assertNotNull(locale, "valid locale");
         assertEquals(language, locale.getLanguage());
         //country and variant are empty
         assertTrue(locale.getCountry() == null || locale.getCountry().isEmpty());
@@ -95,7 +95,7 @@ public class LocaleUtilsTest  {
      */
     private static void assertValidToLocale(final String localeString, final String language, final String country) {
         final Locale locale = LocaleUtils.toLocale(localeString);
-        assertNotNull("valid locale", locale);
+        assertNotNull(locale, "valid locale");
         assertEquals(language, locale.getLanguage());
         assertEquals(country, locale.getCountry());
         //variant is empty
@@ -114,7 +114,7 @@ public class LocaleUtilsTest  {
             final String localeString, final String language,
             final String country, final String variant) {
         final Locale locale = LocaleUtils.toLocale(localeString);
-        assertNotNull("valid locale", locale);
+        assertNotNull(locale, "valid locale");
         assertEquals(language, locale.getLanguage());
         assertEquals(country, locale.getCountry());
         assertEquals(variant, locale.getVariant());

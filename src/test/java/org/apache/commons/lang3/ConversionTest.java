@@ -16,13 +16,13 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.UUID;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -519,7 +519,7 @@ public class ConversionTest {
         return out.substring(0, out.length() - 1);
     }
 
-    // org.junit.Assert(boolean[], boolean[]) does not exist in JUnit 4.2
+    // org.junit.jupiter.api.Assertions(boolean[], boolean[]) does not exist in JUnit 4.2
     static void assertBinaryEquals(final boolean[] expected, final boolean[] actual) {
         assertEquals(expected.length, actual.length);
         for (int i = 0; i < expected.length; i++ ) {

@@ -16,13 +16,14 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -47,49 +48,49 @@ public class RandomUtilsTest {
         assertFalse(Modifier.isFinal(RandomUtils.class.getModifiers()));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextBytesNegative() throws Exception {
-        RandomUtils.nextBytes(-1);
+    @Test
+    public void testNextBytesNegative() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextBytes(-1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextIntNegative() throws Exception {
-        RandomUtils.nextInt(-1, 1);
+    @Test
+    public void testNextIntNegative() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextInt(-1, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextLongNegative() throws Exception {
-        RandomUtils.nextLong(-1, 1);
+    @Test
+    public void testNextLongNegative() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextLong(-1, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleNegative() throws Exception {
-        RandomUtils.nextDouble(-1, 1);
+    @Test
+    public void testNextDoubleNegative() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextDouble(-1, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatNegative() throws Exception {
-        RandomUtils.nextFloat(-1, 1);
+    @Test
+    public void testNextFloatNegative() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextFloat(-1, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextIntLowerGreaterUpper() throws Exception {
-        RandomUtils.nextInt(2, 1);
+    @Test
+    public void testNextIntLowerGreaterUpper() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextInt(2, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextLongLowerGreaterUpper() throws Exception {
-        RandomUtils.nextLong(2, 1);
+    @Test
+    public void testNextLongLowerGreaterUpper() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextLong(2, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleLowerGreaterUpper() throws Exception {
-        RandomUtils.nextDouble(2, 1);
+    @Test
+    public void testNextDoubleLowerGreaterUpper() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextDouble(2, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatLowerGreaterUpper() throws Exception {
-        RandomUtils.nextFloat(2, 1);
+    @Test
+    public void testNextFloatLowerGreaterUpper() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextFloat(2, 1));
     }
 
     /**

@@ -16,18 +16,19 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests CharSequenceUtils
@@ -64,14 +65,14 @@ public class CharSequenceUtilsTest {
         assertEquals(StringUtils.EMPTY, CharSequenceUtils.subSequence("012", 3));
     }
 
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test
     public void testSubSequenceNegativeStart() {
-        assertNull(CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
     }
 
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test
     public void testSubSequenceTooLong() {
-        assertNull(CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
+        assertThrows(IndexOutOfBoundsException.class, () -> CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
     }
 
     static class TestData{
@@ -154,7 +155,7 @@ public class CharSequenceUtilsTest {
                 }
             } else {
                 final boolean stringCheck = invoke();
-                assertEquals(id + " Failed test " + data, data.expected, stringCheck);
+                assertEquals(data.expected, stringCheck, id + " Failed test " + data);
             }
         }
 
