@@ -39,6 +39,13 @@ public class DurationUtils {
     public static final long NANOS_PER_SECOND = 1_000_000_000L;
 
     /**
+     * Number of nanoseconds in a standard millisecond
+     *
+     * @since 3.9
+     */
+    public static final long NANOS_PER_MILLISECOND = 1_000_000L;
+
+    /**
      * <p>{@code DurationUtils} instances should NOT be constructed in
      * standard programming. </p>
      *
@@ -168,7 +175,7 @@ public class DurationUtils {
         if (duration == null) {
             throw new IllegalArgumentException("the duration must not be null");
         }
-        boolean shouldRoundMinutes = ((duration.toNanos() % NANOS_PER_MINUTE) >= (NANOS_PER_MINUTE/2));
+        boolean shouldRoundMinutes = ((duration.toNanos() % NANOS_PER_MINUTE) >= (NANOS_PER_MINUTE / 2));
         if (shouldRoundMinutes) {
             return duration.toMinutes() + 1;
         }
@@ -211,11 +218,53 @@ public class DurationUtils {
         if (duration == null) {
             throw new IllegalArgumentException("the duration must not be null");
         }
-        boolean shouldRoundSeconds = ((duration.toNanos() % NANOS_PER_SECOND) >= (NANOS_PER_SECOND/2));
+        boolean shouldRoundSeconds = ((duration.toNanos() % NANOS_PER_SECOND) >= (NANOS_PER_SECOND / 2));
         if (shouldRoundSeconds) {
             return duration.getSeconds() + 1;
         }
         return duration.getSeconds();
+    }
+
+    /**
+     * <p>Rounds up the quantity of milliseconds from the given duration</p>
+     *
+     * <p>For the duration of 10 milliseconds it should return 10(milliseconds) and the duration of 1 milliseconds 10 nanoseconds  it should return 2(milliseconds)</p>
+     *
+     * @param duration the given duration from which the quantity of milliseconds will be calculated
+     * @return the rounded up quantity of milliseconds
+     * @throws IllegalArgumentException if the given duration is null
+     * @since 3.9
+     */
+    public static long roundUpMillisecondsQuantity(final Duration duration) {
+        if (duration == null) {
+            throw new IllegalArgumentException("the duration must not be null");
+        }
+        boolean shouldRoundUp = (duration.toNanos() % NANOS_PER_MILLISECOND > 0);
+        if (shouldRoundUp) {
+            return duration.toMillis() + 1;
+        }
+        return duration.toMillis();
+    }
+
+    /**
+     * <p>Rounds the quantity of milliseconds from the given duration</p>
+     *
+     * <p>For the duration of 10 milliseconds 499 999 nanoseconds it should return 10(milliseconds) and the duration of 10 milliseconds and  500 000 nanoseconds it should return 11(milliseconds)</p>
+     *
+     * @param duration the given duration from which the quantity of milliseconds will be calculated
+     * @return the rounded quantity of milliseconds
+     * @throws IllegalArgumentException if the given duration is null
+     * @since 3.9
+     */
+    public static long roundMillisecondsQuantity(final Duration duration) {
+        if (duration == null) {
+            throw new IllegalArgumentException("the duration must not be null");
+        }
+        boolean shouldRound = ((duration.toNanos() % NANOS_PER_MILLISECOND) >= (NANOS_PER_MILLISECOND / 2));
+        if (shouldRound) {
+            return duration.toMillis() + 1;
+        }
+        return duration.toMillis();
     }
 
 }

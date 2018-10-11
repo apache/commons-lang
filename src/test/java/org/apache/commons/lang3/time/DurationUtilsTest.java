@@ -204,4 +204,52 @@ public class DurationUtilsTest {
 
     }
 
+    @Nested
+    class MillisecondsQuantityRoundingTest {
+
+        @DisplayName("roundUpMillisecondsQuantity should throw the IllegalArgumentException for the null duration")
+        @Test
+        void roundUpMillisecondsQuantityShouldThrowIllegalArgumentExceptionForNullDuration() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> DurationUtils.roundUpMillisecondsQuantity(null));
+        }
+
+        @DisplayName("the quantity of milliseconds from the Duration 10 milliseconds and 1 nanoseconds should be rounded up")
+        @Test
+        void durationOf10SecondsAnd1MillisecondShouldBeRoundedUp() {
+            Duration duration = Duration.ofMillis(10).plusNanos(1);
+            long millisecondsQuantity = DurationUtils.roundUpMillisecondsQuantity(duration);
+            Assertions.assertEquals(11, millisecondsQuantity);
+        }
+
+        @DisplayName("the quantity of milliseconds from the Duration 10 milliseconds should not be rounded up")
+        @Test
+        void durationOfExactly10SecondsShouldNotBeRoundedUp() {
+            Duration duration = Duration.ofMillis(10);
+            long millisecondsQuantity = DurationUtils.roundUpMillisecondsQuantity(duration);
+            Assertions.assertEquals(10, millisecondsQuantity);
+        }
+
+        @DisplayName("roundMillisecondsQuantity should throw the IllegalArgumentException for the null duration")
+        @Test
+        void roundSecondsQuantityShouldThrowIllegalArgumentExceptionForNullDuration() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> DurationUtils.roundMillisecondsQuantity(null));
+        }
+
+        @DisplayName("the quantity of milliseconds from the Duration 10 milliseconds and 500 000 nanoseconds should be rounded")
+        @Test
+        void durationOf10SecondsAnd500MillisecondShouldBeRounded() {
+            Duration duration = Duration.ofMillis(10).plusNanos(500_000);
+            long millisecondsQuantity = DurationUtils.roundMillisecondsQuantity(duration);
+            Assertions.assertEquals(11, millisecondsQuantity);
+        }
+
+        @DisplayName("the quantity of seconds from the Duration 10 seconds and 499 999 nanoseconds should not be rounded")
+        @Test
+        void durationOfExactly10MinutesAnd29SecondsShouldNotBeRounded() {
+            Duration duration = Duration.ofMillis(10).plusNanos(499_999);
+            long millisecondsQuantity = DurationUtils.roundMillisecondsQuantity(duration);
+            Assertions.assertEquals(10, millisecondsQuantity);
+        }
+    }
+
 }
