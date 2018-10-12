@@ -37,6 +37,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Unit tests for {@link LocaleUtils}.
@@ -561,41 +563,29 @@ public class LocaleUtilsTest  {
         }
     }
 
-    @Test
-    public void testParseAllLocales() {
-        final Locale[] locales = Locale.getAvailableLocales();
-        int failures = 0;
-        for (final Locale l : locales) {
-            // Check if it's possible to recreate the Locale using just the standard constructor
-            final Locale locale = new Locale(l.getLanguage(), l.getCountry(), l.getVariant());
-            if (l.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales
-                String str = l.toString();
-                // Look for the script/extension suffix
-                int suff = str.indexOf("_#");
-                if (suff == - 1) {
-                    suff = str.indexOf("#");
-                }
-                if (suff >= 0) { // we have a suffix
-                    try {
-                        LocaleUtils.toLocale(str); // should cause IAE
-                        System.out.println("Should not have parsed: " + str);
-                        failures++;
-                        continue; // try next Locale
-                    } catch (final IllegalArgumentException iae) {
-                        // expected; try without suffix
-                        str = str.substring(0, suff);
-                    }
-                }
-                final Locale loc = LocaleUtils.toLocale(str);
-                if (!l.equals(loc)) {
-                    System.out.println("Failed to parse: " + str);
-                    failures++;
+    @ParameterizedTest
+    @MethodSource("java.util.Locale#getAvailableLocales")
+    public void testParseAllLocales(Locale l) {
+        // Check if it's possible to recreate the Locale using just the standard constructor
+        final Locale locale = new Locale(l.getLanguage(), l.getCountry(), l.getVariant());
+        if (l.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales
+            String str = l.toString();
+            // Look for the script/extension suffix
+            int suff = str.indexOf("_#");
+            if (suff == - 1) {
+                suff = str.indexOf("#");
+            }
+            if (suff >= 0) { // we have a suffix
+                try {
+                    LocaleUtils.toLocale(str); // should cause IAE
+                    fail("Should not have parsed: " + str);
+                } catch (final IllegalArgumentException iae) {
+                    // expected; try without suffix
+                    str = str.substring(0, suff);
                 }
             }
-        }
-        if (failures > 0) {
-            fail("Failed "+failures+" test(s)");
+            final Locale loc = LocaleUtils.toLocale(str);
+            assertEquals(l, loc);
         }
     }
-
 }
