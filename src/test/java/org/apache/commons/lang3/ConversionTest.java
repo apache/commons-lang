@@ -105,49 +105,49 @@ public class ConversionTest {
      */
     @Test
     public void testHexDigitToBinary() {
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, false, false, false}, Conversion.hexDigitToBinary('0'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, false, false, false}, Conversion.hexDigitToBinary('1'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, true, false, false}, Conversion.hexDigitToBinary('2'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, false, false}, Conversion.hexDigitToBinary('3'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, false, true, false}, Conversion.hexDigitToBinary('4'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, false, true, false}, Conversion.hexDigitToBinary('5'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, true, true, false}, Conversion.hexDigitToBinary('6'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, true, false}, Conversion.hexDigitToBinary('7'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, false, false, true}, Conversion.hexDigitToBinary('8'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, false, false, true}, Conversion.hexDigitToBinary('9'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, true, false, true}, Conversion.hexDigitToBinary('A'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, true, false, true}, Conversion.hexDigitToBinary('a'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, false, true}, Conversion.hexDigitToBinary('B'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, false, true}, Conversion.hexDigitToBinary('b'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, false, true, true}, Conversion.hexDigitToBinary('C'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, false, true, true}, Conversion.hexDigitToBinary('c'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, false, true, true}, Conversion.hexDigitToBinary('D'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, false, true, true}, Conversion.hexDigitToBinary('d'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, true, true, true}, Conversion.hexDigitToBinary('E'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, true, true, true}, Conversion.hexDigitToBinary('e'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, true, true}, Conversion.hexDigitToBinary('F'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, true, true}, Conversion.hexDigitToBinary('f'));
         try {
             Conversion.hexDigitToBinary('G');
@@ -162,49 +162,49 @@ public class ConversionTest {
      */
     @Test
     public void testHexDigitMsb0ToBinary() {
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, false, false, false}, Conversion.hexDigitMsb0ToBinary('0'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, false, false, true}, Conversion.hexDigitMsb0ToBinary('1'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, false, true, false}, Conversion.hexDigitMsb0ToBinary('2'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, false, true, true}, Conversion.hexDigitMsb0ToBinary('3'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, true, false, false}, Conversion.hexDigitMsb0ToBinary('4'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, true, false, true}, Conversion.hexDigitMsb0ToBinary('5'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, true, true, false}, Conversion.hexDigitMsb0ToBinary('6'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{false, true, true, true}, Conversion.hexDigitMsb0ToBinary('7'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, false, false, false}, Conversion.hexDigitMsb0ToBinary('8'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, false, false, true}, Conversion.hexDigitMsb0ToBinary('9'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, false, true, false}, Conversion.hexDigitMsb0ToBinary('A'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, false, true, false}, Conversion.hexDigitMsb0ToBinary('a'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, false, true, true}, Conversion.hexDigitMsb0ToBinary('B'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, false, true, true}, Conversion.hexDigitMsb0ToBinary('b'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, false, false}, Conversion.hexDigitMsb0ToBinary('C'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, false, false}, Conversion.hexDigitMsb0ToBinary('c'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, false, true}, Conversion.hexDigitMsb0ToBinary('D'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, false, true}, Conversion.hexDigitMsb0ToBinary('d'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, true, false}, Conversion.hexDigitMsb0ToBinary('E'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, true, false}, Conversion.hexDigitMsb0ToBinary('e'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, true, true}, Conversion.hexDigitMsb0ToBinary('F'));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{true, true, true, true}, Conversion.hexDigitMsb0ToBinary('f'));
         try {
             Conversion.hexDigitMsb0ToBinary('G');
@@ -517,24 +517,6 @@ public class ConversionTest {
         }
         final String out = sb.toString();
         return out.substring(0, out.length() - 1);
-    }
-
-    // org.junit.jupiter.api.Assertions(boolean[], boolean[]) does not exist in JUnit 4.2
-    static void assertBinaryEquals(final boolean[] expected, final boolean[] actual) {
-        assertEquals(expected.length, actual.length);
-        for (int i = 0; i < expected.length; i++ ) {
-            try {
-                assertEquals(expected[i], actual[i]);
-            } catch (final Throwable e) {
-                final String msg = "Mismatch at index "
-                    + i
-                    + " between:\n"
-                    + dbgPrint(expected)
-                    + " and\n"
-                    + dbgPrint(actual);
-                fail(msg + "\n" + e.getMessage());
-            }
-        }
     }
 
     /**
@@ -1451,20 +1433,20 @@ public class ConversionTest {
      */
     @Test
     public void testLongToBinary() {
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{},
             Conversion.longToBinary(0x0000000000000000L, 0, new boolean[]{}, 0, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{},
             Conversion.longToBinary(0x0000000000000000L, 100, new boolean[]{}, 0, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{},
             Conversion.longToBinary(0x0000000000000000L, 0, new boolean[]{}, 100, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[69],
             Conversion.longToBinary(0x1234567890ABCDEFL, 0, new boolean[69], 0, 0));
 
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, false, false, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false, false,
@@ -1474,7 +1456,7 @@ public class ConversionTest {
                 false, false, false, false, false, false, false, false, false, false, false,
                 false, false, false},
             Conversion.longToBinary(0x1234567890ABCDEFL, 0, new boolean[69], 0, 1));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, false, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false, false,
@@ -1484,7 +1466,7 @@ public class ConversionTest {
                 false, false, false, false, false, false, false, false, false, false, false,
                 false, false, false},
             Conversion.longToBinary(0x1234567890ABCDEFL, 0, new boolean[69], 0, 2));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, true, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false, false,
@@ -1494,7 +1476,7 @@ public class ConversionTest {
                 false, false, false, false, false, false, false, false, false, false, false,
                 false, false, false},
             Conversion.longToBinary(0x1234567890ABCDEFL, 0, new boolean[69], 0, 3));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, true, true, false, true, true, true, true, false, true, true,
                 false, false, true, true, true, true, false, true, false, true, false, true,
@@ -1503,7 +1485,7 @@ public class ConversionTest {
                 false, false, false, true, false, true, true, false, false, false, true, false,
                 false, true, false, false, false, false, false, false, false, false},
             Conversion.longToBinary(0x1234567890ABCDEFL, 0, new boolean[69], 0, 63));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, true, true, false, true, true, true, true, false, true, true,
                 false, false, true, true, true, true, false, true, false, true, false, true,
@@ -1512,7 +1494,7 @@ public class ConversionTest {
                 false, false, false, true, false, true, true, false, false, false, true, false,
                 false, true, false, false, false, false, false, false, false, false},
             Conversion.longToBinary(0x1234567890ABCDEFL, 0, new boolean[69], 0, 64));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 false, false, true, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false, false,
@@ -1522,7 +1504,7 @@ public class ConversionTest {
                 false, false, false, false, false, false, false, false, false, false, false,
                 false, false, false},
             Conversion.longToBinary(0x1234567890ABCDEFL, 0, new boolean[69], 2, 1));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 false, false, true, true, true, true, false, true, true, true, true, false,
                 true, true, false, false, true, true, true, true, false, true, false, true,
@@ -1531,7 +1513,7 @@ public class ConversionTest {
                 false, true, false, false, false, true, false, true, true, false, false, false,
                 true, false, false, true, false, false, false, false, false, false},
             Conversion.longToBinary(0x1234567890ABCDEFL, 0, new boolean[69], 2, 64));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, true, false, true, true, true, true, false, true, true, false,
                 false, true, true, true, true, false, true, false, true, false, true, false,
@@ -1540,7 +1522,7 @@ public class ConversionTest {
                 false, true, false, true, true, false, false, false, true, false, false, true,
                 false, false, false, false, false, false, false, false, false},
             Conversion.longToBinary(0x1234567890ABCDEFL, 1, new boolean[69], 0, 63));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, false, true, true, true, true, false, true, true, false, false,
                 true, true, true, true, false, true, false, true, false, true, false, false,
@@ -1550,7 +1532,7 @@ public class ConversionTest {
                 false, false, false, false, false, false, false, false, false},
             Conversion.longToBinary(0x1234567890ABCDEFL, 2, new boolean[69], 0, 62));
 
-        // assertBinaryEquals(new boolean[]{false,false,false, true, true, false, true, true,
+        // assertArrayEquals(new boolean[]{false,false,false, true, true, false, true, true,
         // true, true, false, true, true, false, false, true, true, true, true, false, true,
         // false, true, false, true, false, false, false, false, true, false, false, true,
         // false, false, false, true, true, true, true, false, false, true, true, false, true,
@@ -1558,7 +1540,7 @@ public class ConversionTest {
         // false, false, true, false, false, false
         // ,false,false,false,false},Conversion.longToBinary(0x1234567890ABCDEFL, 2,new
         // boolean[69], 3, 63));//rejected by assertion
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 false, false, false, true, true, false, true, true, true, true, false, true,
                 true, false, false, true, true, true, true, false, true, false, true, false,
@@ -1574,71 +1556,71 @@ public class ConversionTest {
      */
     @Test
     public void testIntToBinary() {
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{}, Conversion.intToBinary(0x00000000, 0, new boolean[]{}, 0, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{}, Conversion.intToBinary(0x00000000, 100, new boolean[]{}, 0, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{}, Conversion.intToBinary(0x00000000, 0, new boolean[]{}, 100, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[69], Conversion.intToBinary(0x90ABCDEF, 0, new boolean[69], 0, 0));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             true, false, false, false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false, false, false, false, false,
             false}, Conversion.intToBinary(0x90ABCDEF, 0, new boolean[37], 0, 1));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             true, true, false, false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false, false, false, false, false,
             false}, Conversion.intToBinary(0x90ABCDEF, 0, new boolean[37], 0, 2));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             true, true, true, false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false, false, false, false, false,
             false}, Conversion.intToBinary(0x90ABCDEF, 0, new boolean[37], 0, 3));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, true, true, false, true, true, true, true, false, true, true,
                 false, false, true, true, true, true, false, true, false, true, false, true,
                 false, false, false, false, true, false, false, false, false, false, false,
                 false, false}, Conversion.intToBinary(0x90ABCDEF, 0, new boolean[37], 0, 31));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, true, true, false, true, true, true, true, false, true, true,
                 false, false, true, true, true, true, false, true, false, true, false, true,
                 false, false, false, false, true, false, false, true, false, false, false,
                 false, false}, Conversion.intToBinary(0x90ABCDEF, 0, new boolean[37], 0, 32));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             false, false, true, false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false, false, false, false, false,
             false}, Conversion.intToBinary(0x90ABCDEF, 0, new boolean[37], 2, 1));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 false, false, true, true, true, true, false, true, true, true, true, false,
                 true, true, false, false, true, true, true, true, false, true, false, true,
                 false, true, false, false, false, false, true, false, false, true, false,
                 false, false}, Conversion.intToBinary(0x90ABCDEF, 0, new boolean[37], 2, 32));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, true, false, true, true, true, true, false, true, true, false,
                 false, true, true, true, true, false, true, false, true, false, true, false,
                 false, false, false, true, false, false, true, false, false, false, false,
                 false, false}, Conversion.intToBinary(0x90ABCDEF, 1, new boolean[37], 0, 31));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, false, true, true, true, true, false, true, true, false, false,
                 true, true, true, true, false, true, false, true, false, true, false, false,
                 false, false, true, false, false, true, false, false, false, false, false,
                 false, false}, Conversion.intToBinary(0x90ABCDEF, 2, new boolean[37], 0, 30));
-        // assertBinaryEquals(new boolean[]{false, false, false, true, true, false, true,
+        // assertArrayEquals(new boolean[]{false, false, false, true, true, false, true,
         // true,
         // true, true, false, true, true, false, false, true, true, true, true, false, true,
         // false, true, false, true, false, false, false, false, true, false, false, false,
         // false, false, false, false},Conversion.intToBinary(0x90ABCDEF, 2,new boolean[37],
         // 3,31));//rejected by assertion
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 false, false, false, true, true, false, true, true, true, true, false, true,
                 true, false, false, true, true, true, true, false, true, false, true, false,
@@ -1651,57 +1633,57 @@ public class ConversionTest {
      */
     @Test
     public void testShortToBinary() {
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{}, Conversion.shortToBinary((short)0x0000, 0, new boolean[]{}, 0, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{},
             Conversion.shortToBinary((short)0x0000, 100, new boolean[]{}, 0, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{},
             Conversion.shortToBinary((short)0x0000, 0, new boolean[]{}, 100, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[69], Conversion.shortToBinary((short)0xCDEF, 0, new boolean[69], 0, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, false, false, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false},
             Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 0, 1));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, false, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false},
             Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 0, 2));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, true, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false},
             Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 0, 3));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, true, true, false, true, true, true, true, false, true, true,
                 false, false, true, false, false, false, false, false, false},
             Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 0, 15));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, true, true, false, true, true, true, true, false, true, true,
                 false, false, true, true, false, false, false, false, false},
             Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 0, 16));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 false, false, true, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false},
             Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 2, 1));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 false, false, true, true, true, true, false, true, true, true, true, false,
                 true, true, false, false, true, true, false, false, false},
             Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 2, 16));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, true, false, true, true, true, true, false, true, true, false,
                 false, true, true, false, false, false, false, false, false},
             Conversion.shortToBinary((short)0xCDEF, 1, new boolean[21], 0, 15));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 true, true, false, true, true, true, true, false, true, true, false, false,
                 true, true, false, false, false, false, false, false, false},
@@ -1711,7 +1693,7 @@ public class ConversionTest {
         // false},Conversion.shortToBinary((short)0xCDEF, 2,new boolean[21],
         // 3,15));//rejected by
         // assertion
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{
                 false, false, false, true, true, false, true, true, true, true, false, true,
                 true, false, false, true, true, false, false, false, false},
@@ -1723,45 +1705,45 @@ public class ConversionTest {
      */
     @Test
     public void testByteToBinary() {
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{}, Conversion.byteToBinary((byte)0x00, 0, new boolean[]{}, 0, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{}, Conversion.byteToBinary((byte)0x00, 100, new boolean[]{}, 0, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[]{}, Conversion.byteToBinary((byte)0x00, 0, new boolean[]{}, 100, 0));
-        assertBinaryEquals(
+        assertArrayEquals(
             new boolean[69], Conversion.byteToBinary((byte)0xEF, 0, new boolean[69], 0, 0));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             true, false, false, false, false, false, false, false, false, false, false, false,
             false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 0, 1));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             true, false, false, false, false, false, false, false, false, false, false, false,
             false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 0, 2));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             true, false, true, false, false, false, false, false, false, false, false, false,
             false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 0, 3));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             true, false, true, false, true, false, false, false, false, false, false, false,
             false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 0, 7));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             true, false, true, false, true, false, false, true, false, false, false, false,
             false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 0, 8));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             false, false, true, false, false, false, false, false, false, false, false, false,
             false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 2, 1));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             false, false, true, false, true, false, true, false, false, true, false, false,
             false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 2, 8));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             false, true, false, true, false, false, true, false, false, false, false, false,
             false}, Conversion.byteToBinary((byte)0x95, 1, new boolean[13], 0, 7));
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             true, false, true, false, false, true, false, false, false, false, false, false,
             false}, Conversion.byteToBinary((byte)0x95, 2, new boolean[13], 0, 6));
         // assertArrayEquals(new boolean[]{false, false, false, true, true, false, true, true,
         // false, false, false, false, false},Conversion.byteToBinary((byte)0x95, 2,new
         // boolean[13], 3, 7));//rejected by assertion
-        assertBinaryEquals(new boolean[]{
+        assertArrayEquals(new boolean[]{
             false, false, false, true, false, true, false, false, true, false, false, false,
             false}, Conversion.byteToBinary((byte)0x95, 2, new boolean[13], 3, 6));
     }
