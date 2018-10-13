@@ -175,13 +175,6 @@ public class StopWatchTest {
         }
 
         try {
-            watch.stop();
-            fail("Calling stop on an unstarted StopWatch should throw an exception. ");
-        } catch (final IllegalStateException ise) {
-            // expected
-        }
-
-        try {
             watch.suspend();
             fail("Calling suspend on an unstarted StopWatch should throw an exception. ");
         } catch (final IllegalStateException ise) {
