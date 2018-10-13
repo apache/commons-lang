@@ -19,9 +19,9 @@ package org.apache.commons.lang3.math;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -54,10 +54,10 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToIntString() {
-        assertTrue(NumberUtils.toInt("12345") == 12345, "toInt(String) 1 failed");
-        assertTrue(NumberUtils.toInt("abc") == 0, "toInt(String) 2 failed");
-        assertTrue(NumberUtils.toInt("") == 0, "toInt(empty) failed");
-        assertTrue(NumberUtils.toInt(null) == 0, "toInt(null) failed");
+        assertEquals(12345, NumberUtils.toInt("12345"), "toInt(String) 1 failed");
+        assertEquals(0, NumberUtils.toInt("abc"), "toInt(String) 2 failed");
+        assertEquals(0, NumberUtils.toInt(""), "toInt(empty) failed");
+        assertEquals(0, NumberUtils.toInt(null), "toInt(null) failed");
     }
 
     /**
@@ -65,8 +65,8 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToIntStringI() {
-        assertTrue(NumberUtils.toInt("12345", 5) == 12345, "toInt(String,int) 1 failed");
-        assertTrue(NumberUtils.toInt("1234.5", 5) == 5, "toInt(String,int) 2 failed");
+        assertEquals(12345, NumberUtils.toInt("12345", 5), "toInt(String,int) 1 failed");
+        assertEquals(5, NumberUtils.toInt("1234.5", 5), "toInt(String,int) 2 failed");
     }
 
     /**
@@ -74,14 +74,14 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToLongString() {
-        assertTrue(NumberUtils.toLong("12345") == 12345L, "toLong(String) 1 failed");
-        assertTrue(NumberUtils.toLong("abc") == 0L, "toLong(String) 2 failed");
-        assertTrue(NumberUtils.toLong("1L") == 0L, "toLong(String) 3 failed");
-        assertTrue(NumberUtils.toLong("1l") == 0L, "toLong(String) 4 failed");
-        assertTrue(NumberUtils.toLong(Long.MAX_VALUE+"") == Long.MAX_VALUE, "toLong(Long.MAX_VALUE) failed");
-        assertTrue(NumberUtils.toLong(Long.MIN_VALUE+"") == Long.MIN_VALUE, "toLong(Long.MIN_VALUE) failed");
-        assertTrue(NumberUtils.toLong("") == 0L, "toLong(empty) failed");
-        assertTrue(NumberUtils.toLong(null) == 0L, "toLong(null) failed");
+        assertEquals(12345L, NumberUtils.toLong("12345"), "toLong(String) 1 failed");
+        assertEquals(0L, NumberUtils.toLong("abc"), "toLong(String) 2 failed");
+        assertEquals(0L, NumberUtils.toLong("1L"), "toLong(String) 3 failed");
+        assertEquals(0L, NumberUtils.toLong("1l"), "toLong(String) 4 failed");
+        assertEquals(NumberUtils.toLong(Long.MAX_VALUE + ""), Long.MAX_VALUE, "toLong(Long.MAX_VALUE) failed");
+        assertEquals(NumberUtils.toLong(Long.MIN_VALUE + ""), Long.MIN_VALUE, "toLong(Long.MIN_VALUE) failed");
+        assertEquals(0L, NumberUtils.toLong(""), "toLong(empty) failed");
+        assertEquals(0L, NumberUtils.toLong(null), "toLong(null) failed");
     }
 
     /**
@@ -89,8 +89,8 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToLongStringL() {
-        assertTrue(NumberUtils.toLong("12345", 5L) == 12345L, "toLong(String,long) 1 failed");
-        assertTrue(NumberUtils.toLong("1234.5", 5L) == 5L, "toLong(String,long) 2 failed");
+        assertEquals(12345L, NumberUtils.toLong("12345", 5L), "toLong(String,long) 1 failed");
+        assertEquals(5L, NumberUtils.toLong("1234.5", 5L), "toLong(String,long) 2 failed");
     }
 
     /**
@@ -205,10 +205,10 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToByteString() {
-        assertTrue(NumberUtils.toByte("123") == 123, "toByte(String) 1 failed");
-        assertTrue(NumberUtils.toByte("abc") == 0, "toByte(String) 2 failed");
-        assertTrue(NumberUtils.toByte("") == 0, "toByte(empty) failed");
-        assertTrue(NumberUtils.toByte(null) == 0, "toByte(null) failed");
+        assertEquals(123, NumberUtils.toByte("123"), "toByte(String) 1 failed");
+        assertEquals(0, NumberUtils.toByte("abc"), "toByte(String) 2 failed");
+        assertEquals(0, NumberUtils.toByte(""), "toByte(empty) failed");
+        assertEquals(0, NumberUtils.toByte(null), "toByte(null) failed");
     }
 
     /**
@@ -216,8 +216,8 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToByteStringI() {
-        assertTrue(NumberUtils.toByte("123", (byte) 5) == 123, "toByte(String,byte) 1 failed");
-        assertTrue(NumberUtils.toByte("12.3", (byte) 5) == 5, "toByte(String,byte) 2 failed");
+        assertEquals(123, NumberUtils.toByte("123", (byte) 5), "toByte(String,byte) 1 failed");
+        assertEquals(5, NumberUtils.toByte("12.3", (byte) 5), "toByte(String,byte) 2 failed");
     }
 
     /**
@@ -225,10 +225,10 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToShortString() {
-        assertTrue(NumberUtils.toShort("12345") == 12345, "toShort(String) 1 failed");
-        assertTrue(NumberUtils.toShort("abc") == 0, "toShort(String) 2 failed");
-        assertTrue(NumberUtils.toShort("") == 0, "toShort(empty) failed");
-        assertTrue(NumberUtils.toShort(null) == 0, "toShort(null) failed");
+        assertEquals(12345, NumberUtils.toShort("12345"), "toShort(String) 1 failed");
+        assertEquals(0, NumberUtils.toShort("abc"), "toShort(String) 2 failed");
+        assertEquals(0, NumberUtils.toShort(""), "toShort(empty) failed");
+        assertEquals(0, NumberUtils.toShort(null), "toShort(null) failed");
     }
 
     /**
@@ -236,8 +236,8 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToShortStringI() {
-        assertTrue(NumberUtils.toShort("12345", (short) 5) == 12345, "toShort(String,short) 1 failed");
-        assertTrue(NumberUtils.toShort("1234.5", (short) 5) == 5, "toShort(String,short) 2 failed");
+        assertEquals(12345, NumberUtils.toShort("12345", (short) 5), "toShort(String,short) 1 failed");
+        assertEquals(5, NumberUtils.toShort("1234.5", (short) 5), "toShort(String,short) 2 failed");
     }
 
     /**
@@ -245,19 +245,13 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalBigDecimal() {
-        assertTrue(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(123.456)).equals(BigDecimal.valueOf(123.46)),
-                "toScaledBigDecimal(BigDecimal) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(123.456)), BigDecimal.valueOf(123.46), "toScaledBigDecimal(BigDecimal) 1 failed");
         // Test RoudingMode.HALF_EVEN default rounding.
-        assertTrue(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.515)).equals(BigDecimal.valueOf(23.52)),
-                "toScaledBigDecimal(BigDecimal) 2 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.525)).equals(BigDecimal.valueOf(23.52)),
-                "toScaledBigDecimal(BigDecimal) 3 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.525))
-                        .multiply(BigDecimal.valueOf(100)).toString()
-                        .equals("2352.00"),
-                "toScaledBigDecimal(BigDecimal) 4 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal((BigDecimal) null).equals(BigDecimal.ZERO),
-                "toScaledBigDecimal(BigDecimal) 5 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.515)), BigDecimal.valueOf(23.52), "toScaledBigDecimal(BigDecimal) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.525)), BigDecimal.valueOf(23.52), "toScaledBigDecimal(BigDecimal) 3 failed");
+        assertEquals("2352.00", NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.525))
+                .multiply(BigDecimal.valueOf(100)).toString(), "toScaledBigDecimal(BigDecimal) 4 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal((BigDecimal) null), BigDecimal.ZERO, "toScaledBigDecimal(BigDecimal) 5 failed");
     }
 
     /**
@@ -265,19 +259,13 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalBigDecimalIRM() {
-        assertTrue(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(123.456), 1, RoundingMode.CEILING).equals(BigDecimal.valueOf(123.5)),
-                "toScaledBigDecimal(BigDecimal, int, RoudingMode) 1 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.5159), 3, RoundingMode.FLOOR).equals(BigDecimal.valueOf(23.515)),
-                "toScaledBigDecimal(BigDecimal, int, RoudingMode) 2 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.525), 2, RoundingMode.HALF_UP).equals(BigDecimal.valueOf(23.53)),
-                "toScaledBigDecimal(BigDecimal, int, RoudingMode) 3 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.521), 4, RoundingMode.HALF_EVEN)
-                        .multiply(BigDecimal.valueOf(1000))
-                        .toString()
-                        .equals("23521.0000"),
-                "toScaledBigDecimal(BigDecimal, int, RoudingMode) 4 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal((BigDecimal) null, 2, RoundingMode.HALF_UP).equals(BigDecimal.ZERO),
-                "toScaledBigDecimal(BigDecimal, int, RoudingMode) 5 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(123.456), 1, RoundingMode.CEILING), BigDecimal.valueOf(123.5), "toScaledBigDecimal(BigDecimal, int, RoudingMode) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.5159), 3, RoundingMode.FLOOR), BigDecimal.valueOf(23.515), "toScaledBigDecimal(BigDecimal, int, RoudingMode) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.525), 2, RoundingMode.HALF_UP), BigDecimal.valueOf(23.53), "toScaledBigDecimal(BigDecimal, int, RoudingMode) 3 failed");
+        assertEquals("23521.0000", NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.521), 4, RoundingMode.HALF_EVEN)
+                .multiply(BigDecimal.valueOf(1000))
+                .toString(), "toScaledBigDecimal(BigDecimal, int, RoudingMode) 4 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal((BigDecimal) null, 2, RoundingMode.HALF_UP), BigDecimal.ZERO, "toScaledBigDecimal(BigDecimal, int, RoudingMode) 5 failed");
     }
 
     /**
@@ -285,21 +273,15 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalFloat() {
-        assertTrue(NumberUtils.toScaledBigDecimal(Float.valueOf(123.456f)).equals(BigDecimal.valueOf(123.46)),
-                "toScaledBigDecimal(Float) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(123.456f)), BigDecimal.valueOf(123.46), "toScaledBigDecimal(Float) 1 failed");
         // Test RoudingMode.HALF_EVEN default rounding.
-        assertTrue(NumberUtils.toScaledBigDecimal(Float.valueOf(23.515f)).equals(BigDecimal.valueOf(23.51)),
-                "toScaledBigDecimal(Float) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(23.515f)), BigDecimal.valueOf(23.51), "toScaledBigDecimal(Float) 2 failed");
         // Note. NumberUtils.toScaledBigDecimal(Float.valueOf(23.515f)).equals(BigDecimal.valueOf(23.51))
         // because of roundoff error. It is ok.
-        assertTrue(NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f)).equals(BigDecimal.valueOf(23.52)),
-                "toScaledBigDecimal(Float) 3 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f))
-                        .multiply(BigDecimal.valueOf(100)).toString()
-                        .equals("2352.00"),
-                "toScaledBigDecimal(Float) 4 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal((Float) null).equals(BigDecimal.ZERO),
-                "toScaledBigDecimal(Float) 5 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f)), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Float) 3 failed");
+        assertEquals("2352.00", NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f))
+                .multiply(BigDecimal.valueOf(100)).toString(), "toScaledBigDecimal(Float) 4 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal((Float) null), BigDecimal.ZERO, "toScaledBigDecimal(Float) 5 failed");
     }
 
     /**
@@ -307,20 +289,14 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalFloatIRM() {
-        assertTrue(NumberUtils.toScaledBigDecimal(Float.valueOf(123.456f), 1, RoundingMode.CEILING).equals(BigDecimal.valueOf(123.5)),
-                "toScaledBigDecimal(Float, int, RoudingMode) 1 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(Float.valueOf(23.5159f), 3, RoundingMode.FLOOR).equals(BigDecimal.valueOf(23.515)),
-                "toScaledBigDecimal(Float, int, RoudingMode) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(123.456f), 1, RoundingMode.CEILING), BigDecimal.valueOf(123.5), "toScaledBigDecimal(Float, int, RoudingMode) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(23.5159f), 3, RoundingMode.FLOOR), BigDecimal.valueOf(23.515), "toScaledBigDecimal(Float, int, RoudingMode) 2 failed");
         // The following happens due to roundoff error. We're ok with this.
-        assertTrue(NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f), 2, RoundingMode.HALF_UP).equals(BigDecimal.valueOf(23.52)),
-                "toScaledBigDecimal(Float, int, RoudingMode) 3 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(Float.valueOf(23.521f), 4, RoundingMode.HALF_EVEN)
-                        .multiply(BigDecimal.valueOf(1000))
-                        .toString()
-                        .equals("23521.0000"),
-                "toScaledBigDecimal(Float, int, RoudingMode) 4 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal((Float) null, 2, RoundingMode.HALF_UP).equals(BigDecimal.ZERO),
-                "toScaledBigDecimal(Float, int, RoudingMode) 5 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f), 2, RoundingMode.HALF_UP), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Float, int, RoudingMode) 3 failed");
+        assertEquals("23521.0000", NumberUtils.toScaledBigDecimal(Float.valueOf(23.521f), 4, RoundingMode.HALF_EVEN)
+                .multiply(BigDecimal.valueOf(1000))
+                .toString(), "toScaledBigDecimal(Float, int, RoudingMode) 4 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal((Float) null, 2, RoundingMode.HALF_UP), BigDecimal.ZERO, "toScaledBigDecimal(Float, int, RoudingMode) 5 failed");
     }
 
     /**
@@ -328,19 +304,13 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalDouble() {
-        assertTrue(NumberUtils.toScaledBigDecimal(Double.valueOf(123.456d)).equals(BigDecimal.valueOf(123.46)),
-                "toScaledBigDecimal(Double) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(123.456d)), BigDecimal.valueOf(123.46), "toScaledBigDecimal(Double) 1 failed");
         // Test RoudingMode.HALF_EVEN default rounding.
-        assertTrue(NumberUtils.toScaledBigDecimal(Double.valueOf(23.515d)).equals(BigDecimal.valueOf(23.52)),
-                "toScaledBigDecimal(Double) 2 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d)).equals(BigDecimal.valueOf(23.52)),
-                "toScaledBigDecimal(Double) 3 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d))
-                        .multiply(BigDecimal.valueOf(100)).toString()
-                        .equals("2352.00"),
-                "toScaledBigDecimal(Double) 4 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal((Double) null).equals(BigDecimal.ZERO),
-                "toScaledBigDecimal(Double) 5 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(23.515d)), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Double) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d)), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Double) 3 failed");
+        assertEquals("2352.00", NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d))
+                .multiply(BigDecimal.valueOf(100)).toString(), "toScaledBigDecimal(Double) 4 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal((Double) null), BigDecimal.ZERO, "toScaledBigDecimal(Double) 5 failed");
     }
 
     /**
@@ -348,19 +318,13 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalDoubleIRM() {
-        assertTrue(NumberUtils.toScaledBigDecimal(Double.valueOf(123.456d), 1, RoundingMode.CEILING).equals(BigDecimal.valueOf(123.5)),
-                "toScaledBigDecimal(Double, int, RoudingMode) 1 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(Double.valueOf(23.5159d), 3, RoundingMode.FLOOR).equals(BigDecimal.valueOf(23.515)),
-                "toScaledBigDecimal(Double, int, RoudingMode) 2 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d), 2, RoundingMode.HALF_UP).equals(BigDecimal.valueOf(23.53)),
-                "toScaledBigDecimal(Double, int, RoudingMode) 3 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal(Double.valueOf(23.521d), 4, RoundingMode.HALF_EVEN)
-                        .multiply(BigDecimal.valueOf(1000))
-                        .toString()
-                        .equals("23521.0000"),
-                "toScaledBigDecimal(Double, int, RoudingMode) 4 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal((Double) null, 2, RoundingMode.HALF_UP).equals(BigDecimal.ZERO),
-                "toScaledBigDecimal(Double, int, RoudingMode) 5 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(123.456d), 1, RoundingMode.CEILING), BigDecimal.valueOf(123.5), "toScaledBigDecimal(Double, int, RoudingMode) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(23.5159d), 3, RoundingMode.FLOOR), BigDecimal.valueOf(23.515), "toScaledBigDecimal(Double, int, RoudingMode) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d), 2, RoundingMode.HALF_UP), BigDecimal.valueOf(23.53), "toScaledBigDecimal(Double, int, RoudingMode) 3 failed");
+        assertEquals("23521.0000", NumberUtils.toScaledBigDecimal(Double.valueOf(23.521d), 4, RoundingMode.HALF_EVEN)
+                .multiply(BigDecimal.valueOf(1000))
+                .toString(), "toScaledBigDecimal(Double, int, RoudingMode) 4 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal((Double) null, 2, RoundingMode.HALF_UP), BigDecimal.ZERO, "toScaledBigDecimal(Double, int, RoudingMode) 5 failed");
     }
 
     /**
@@ -368,19 +332,13 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalString() {
-        assertTrue(NumberUtils.toScaledBigDecimal("123.456").equals(BigDecimal.valueOf(123.46)),
-                "toScaledBigDecimal(String) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal("123.456"), BigDecimal.valueOf(123.46), "toScaledBigDecimal(String) 1 failed");
         // Test RoudingMode.HALF_EVEN default rounding.
-        assertTrue(NumberUtils.toScaledBigDecimal("23.515").equals(BigDecimal.valueOf(23.52)),
-                "toScaledBigDecimal(String) 2 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal("23.525").equals(BigDecimal.valueOf(23.52)),
-                "toScaledBigDecimal(String) 3 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal("23.525")
-                        .multiply(BigDecimal.valueOf(100)).toString()
-                        .equals("2352.00"),
-                "toScaledBigDecimal(String) 4 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal((String) null).equals(BigDecimal.ZERO),
-                "toScaledBigDecimal(String) 5 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal("23.515"), BigDecimal.valueOf(23.52), "toScaledBigDecimal(String) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal("23.525"), BigDecimal.valueOf(23.52), "toScaledBigDecimal(String) 3 failed");
+        assertEquals("2352.00", NumberUtils.toScaledBigDecimal("23.525")
+                .multiply(BigDecimal.valueOf(100)).toString(), "toScaledBigDecimal(String) 4 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal((String) null), BigDecimal.ZERO, "toScaledBigDecimal(String) 5 failed");
     }
 
     /**
@@ -388,19 +346,13 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalStringIRM() {
-        assertTrue(NumberUtils.toScaledBigDecimal("123.456", 1, RoundingMode.CEILING).equals(BigDecimal.valueOf(123.5)),
-                "toScaledBigDecimal(String, int, RoudingMode) 1 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal("23.5159", 3, RoundingMode.FLOOR).equals(BigDecimal.valueOf(23.515)),
-                "toScaledBigDecimal(String, int, RoudingMode) 2 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal("23.525", 2, RoundingMode.HALF_UP).equals(BigDecimal.valueOf(23.53)),
-                "toScaledBigDecimal(String, int, RoudingMode) 3 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal("23.521", 4, RoundingMode.HALF_EVEN)
-                        .multiply(BigDecimal.valueOf(1000))
-                        .toString()
-                        .equals("23521.0000"),
-                "toScaledBigDecimal(String, int, RoudingMode) 4 failed");
-        assertTrue(NumberUtils.toScaledBigDecimal((String) null, 2, RoundingMode.HALF_UP).equals(BigDecimal.ZERO),
-                "toScaledBigDecimal(String, int, RoudingMode) 5 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal("123.456", 1, RoundingMode.CEILING), BigDecimal.valueOf(123.5), "toScaledBigDecimal(String, int, RoudingMode) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal("23.5159", 3, RoundingMode.FLOOR), BigDecimal.valueOf(23.515), "toScaledBigDecimal(String, int, RoudingMode) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal("23.525", 2, RoundingMode.HALF_UP), BigDecimal.valueOf(23.53), "toScaledBigDecimal(String, int, RoudingMode) 3 failed");
+        assertEquals("23521.0000", NumberUtils.toScaledBigDecimal("23.521", 4, RoundingMode.HALF_EVEN)
+                .multiply(BigDecimal.valueOf(1000))
+                .toString(), "toScaledBigDecimal(String, int, RoudingMode) 4 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal((String) null, 2, RoundingMode.HALF_UP), BigDecimal.ZERO, "toScaledBigDecimal(String, int, RoudingMode) 5 failed");
     }
 
     @Test
@@ -418,15 +370,15 @@ public class NumberUtilsTest {
         assertEquals(Long.valueOf(12345), NumberUtils.createNumber("12345l"), "createNumber(String) 6 failed");
         assertEquals(Float.valueOf("-1234.5"), NumberUtils.createNumber("-1234.5"), "createNumber(String) 7 failed");
         assertEquals(Integer.valueOf("-12345"), NumberUtils.createNumber("-12345"), "createNumber(String) 8 failed");
-        assertTrue(0xFADE == NumberUtils.createNumber("0xFADE").intValue(), "createNumber(String) 9a failed");
-        assertTrue(0xFADE == NumberUtils.createNumber("0Xfade").intValue(), "createNumber(String) 9b failed");
-        assertTrue(-0xFADE == NumberUtils.createNumber("-0xFADE").intValue(), "createNumber(String) 10a failed");
-        assertTrue(-0xFADE == NumberUtils.createNumber("-0Xfade").intValue(), "createNumber(String) 10b failed");
+        assertEquals(0xFADE, NumberUtils.createNumber("0xFADE").intValue(), "createNumber(String) 9a failed");
+        assertEquals(0xFADE, NumberUtils.createNumber("0Xfade").intValue(), "createNumber(String) 9b failed");
+        assertEquals(-0xFADE, NumberUtils.createNumber("-0xFADE").intValue(), "createNumber(String) 10a failed");
+        assertEquals(-0xFADE, NumberUtils.createNumber("-0Xfade").intValue(), "createNumber(String) 10b failed");
         assertEquals(Double.valueOf("1.1E200"), NumberUtils.createNumber("1.1E200"), "createNumber(String) 11 failed");
         assertEquals(Float.valueOf("1.1E20"), NumberUtils.createNumber("1.1E20"), "createNumber(String) 12 failed");
         assertEquals(Double.valueOf("-1.1E200"), NumberUtils.createNumber("-1.1E200"), "createNumber(String) 13 failed");
         assertEquals(Double.valueOf("1.1E-200"), NumberUtils.createNumber("1.1E-200"), "createNumber(String) 14 failed");
-        assertEquals(null, NumberUtils.createNumber(null), "createNumber(null) failed");
+        assertNull(NumberUtils.createNumber(null), "createNumber(null) failed");
         assertEquals(new BigInteger("12345678901234567890"), NumberUtils.createNumber("12345678901234567890L"), "createNumber(String) failed");
 
         assertEquals(new BigDecimal("1.1E-700"), NumberUtils.createNumber("1.1E-700F"), "createNumber(String) 15 failed");
@@ -607,7 +559,7 @@ public class NumberUtilsTest {
     @Test
     public void testCreateFloat() {
         assertEquals(Float.valueOf("1234.5"), NumberUtils.createFloat("1234.5"), "createFloat(String) failed");
-        assertEquals(null, NumberUtils.createFloat(null), "createFloat(null) failed");
+        assertNull(NumberUtils.createFloat(null), "createFloat(null) failed");
         this.testCreateFloatFailure("");
         this.testCreateFloatFailure(" ");
         this.testCreateFloatFailure("\b\t\n\f\r");
@@ -616,18 +568,15 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateFloatFailure(final String str) {
-        try {
-            final Float value = NumberUtils.createFloat(str);
-            fail("createFloat(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createFloat(str), "createFloat(\"" + str + "\") should have failed.");
     }
 
     @Test
     public void testCreateDouble() {
         assertEquals(Double.valueOf("1234.5"), NumberUtils.createDouble("1234.5"), "createDouble(String) failed");
-        assertEquals(null, NumberUtils.createDouble(null), "createDouble(null) failed");
+        assertNull(NumberUtils.createDouble(null), "createDouble(null) failed");
         this.testCreateDoubleFailure("");
         this.testCreateDoubleFailure(" ");
         this.testCreateDoubleFailure("\b\t\n\f\r");
@@ -636,18 +585,16 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateDoubleFailure(final String str) {
-        try {
-            final Double value = NumberUtils.createDouble(str);
-            fail("createDouble(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createDouble(str),
+                "createDouble(\"" + str + "\") should have failed.");
     }
 
     @Test
     public void testCreateInteger() {
         assertEquals(Integer.valueOf("12345"), NumberUtils.createInteger("12345"), "createInteger(String) failed");
-        assertEquals(null, NumberUtils.createInteger(null), "createInteger(null) failed");
+        assertNull(NumberUtils.createInteger(null), "createInteger(null) failed");
         this.testCreateIntegerFailure("");
         this.testCreateIntegerFailure(" ");
         this.testCreateIntegerFailure("\b\t\n\f\r");
@@ -656,18 +603,16 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateIntegerFailure(final String str) {
-        try {
-            final Integer value = NumberUtils.createInteger(str);
-            fail("createInteger(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createInteger(str),
+                "createInteger(\"" + str + "\") should have failed.");
     }
 
     @Test
     public void testCreateLong() {
         assertEquals(Long.valueOf("12345"), NumberUtils.createLong("12345"), "createLong(String) failed");
-        assertEquals(null, NumberUtils.createLong(null), "createLong(null) failed");
+        assertNull(NumberUtils.createLong(null), "createLong(null) failed");
         this.testCreateLongFailure("");
         this.testCreateLongFailure(" ");
         this.testCreateLongFailure("\b\t\n\f\r");
@@ -676,18 +621,16 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateLongFailure(final String str) {
-        try {
-            final Long value = NumberUtils.createLong(str);
-            fail("createLong(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createLong(str),
+                "createLong(\"" + str + "\") should have failed.");
     }
 
     @Test
     public void testCreateBigInteger() {
         assertEquals(new BigInteger("12345"), NumberUtils.createBigInteger("12345"), "createBigInteger(String) failed");
-        assertEquals(null, NumberUtils.createBigInteger(null), "createBigInteger(null) failed");
+        assertNull(NumberUtils.createBigInteger(null), "createBigInteger(null) failed");
         this.testCreateBigIntegerFailure("");
         this.testCreateBigIntegerFailure(" ");
         this.testCreateBigIntegerFailure("\b\t\n\f\r");
@@ -709,18 +652,16 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateBigIntegerFailure(final String str) {
-        try {
-            final BigInteger value = NumberUtils.createBigInteger(str);
-            fail("createBigInteger(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createBigInteger(str),
+                "createBigInteger(\"" + str + "\") should have failed.");
     }
 
     @Test
     public void testCreateBigDecimal() {
         assertEquals(new BigDecimal("1234.5"), NumberUtils.createBigDecimal("1234.5"), "createBigDecimal(String) failed");
-        assertEquals(null, NumberUtils.createBigDecimal(null), "createBigDecimal(null) failed");
+        assertNull(NumberUtils.createBigDecimal(null), "createBigDecimal(null) failed");
         this.testCreateBigDecimalFailure("");
         this.testCreateBigDecimalFailure(" ");
         this.testCreateBigDecimalFailure("\b\t\n\f\r");
@@ -735,12 +676,10 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateBigDecimalFailure(final String str) {
-        try {
-            final BigDecimal value = NumberUtils.createBigDecimal(str);
-            fail("createBigDecimal(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createBigDecimal(str),
+                "createBigDecimal(\"" + str + "\") should have failed.");
     }
 
     // min/max tests
@@ -954,15 +893,13 @@ public class NumberUtilsTest {
     @Test
     public void testMaxDouble() {
         final double[] d = null;
-        try {
-            NumberUtils.max(d);
-            fail("No exception was thrown for null input.");
-        } catch (final IllegalArgumentException ex) {}
+        assertThrows(
+                IllegalArgumentException.class, () -> NumberUtils.max(d), "No exception was thrown for null input.");
 
-        try {
-            NumberUtils.max(new double[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (final IllegalArgumentException ex) {}
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> NumberUtils.max(new double[0]),
+                "No exception was thrown for empty input.");
 
         // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
         // This should be replaced when it is supported in JUnit Jupiter 5.4.
@@ -1127,188 +1064,188 @@ public class NumberUtilsTest {
     // Testing JDK against old Lang functionality
     @Test
     public void testCompareDouble() {
-        assertTrue(Double.compare(Double.NaN, Double.NaN) == 0);
-        assertTrue(Double.compare(Double.NaN, Double.POSITIVE_INFINITY) == +1);
-        assertTrue(Double.compare(Double.NaN, Double.MAX_VALUE) == +1);
-        assertTrue(Double.compare(Double.NaN, 1.2d) == +1);
-        assertTrue(Double.compare(Double.NaN, 0.0d) == +1);
-        assertTrue(Double.compare(Double.NaN, -0.0d) == +1);
-        assertTrue(Double.compare(Double.NaN, -1.2d) == +1);
-        assertTrue(Double.compare(Double.NaN, -Double.MAX_VALUE) == +1);
-        assertTrue(Double.compare(Double.NaN, Double.NEGATIVE_INFINITY) == +1);
+        assertEquals(0, Double.compare(Double.NaN, Double.NaN));
+        assertEquals(Double.compare(Double.NaN, Double.POSITIVE_INFINITY), +1);
+        assertEquals(Double.compare(Double.NaN, Double.MAX_VALUE), +1);
+        assertEquals(Double.compare(Double.NaN, 1.2d), +1);
+        assertEquals(Double.compare(Double.NaN, 0.0d), +1);
+        assertEquals(Double.compare(Double.NaN, -0.0d), +1);
+        assertEquals(Double.compare(Double.NaN, -1.2d), +1);
+        assertEquals(Double.compare(Double.NaN, -Double.MAX_VALUE), +1);
+        assertEquals(Double.compare(Double.NaN, Double.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Double.compare(Double.POSITIVE_INFINITY, Double.NaN) == -1);
-        assertTrue(Double.compare(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY) == 0);
-        assertTrue(Double.compare(Double.POSITIVE_INFINITY, Double.MAX_VALUE) == +1);
-        assertTrue(Double.compare(Double.POSITIVE_INFINITY, 1.2d) == +1);
-        assertTrue(Double.compare(Double.POSITIVE_INFINITY, 0.0d) == +1);
-        assertTrue(Double.compare(Double.POSITIVE_INFINITY, -0.0d) == +1);
-        assertTrue(Double.compare(Double.POSITIVE_INFINITY, -1.2d) == +1);
-        assertTrue(Double.compare(Double.POSITIVE_INFINITY, -Double.MAX_VALUE) == +1);
-        assertTrue(Double.compare(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY) == +1);
+        assertEquals(Double.compare(Double.POSITIVE_INFINITY, Double.NaN), -1);
+        assertEquals(0, Double.compare(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY));
+        assertEquals(Double.compare(Double.POSITIVE_INFINITY, Double.MAX_VALUE), +1);
+        assertEquals(Double.compare(Double.POSITIVE_INFINITY, 1.2d), +1);
+        assertEquals(Double.compare(Double.POSITIVE_INFINITY, 0.0d), +1);
+        assertEquals(Double.compare(Double.POSITIVE_INFINITY, -0.0d), +1);
+        assertEquals(Double.compare(Double.POSITIVE_INFINITY, -1.2d), +1);
+        assertEquals(Double.compare(Double.POSITIVE_INFINITY, -Double.MAX_VALUE), +1);
+        assertEquals(Double.compare(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Double.compare(Double.MAX_VALUE, Double.NaN) == -1);
-        assertTrue(Double.compare(Double.MAX_VALUE, Double.POSITIVE_INFINITY) == -1);
-        assertTrue(Double.compare(Double.MAX_VALUE, Double.MAX_VALUE) == 0);
-        assertTrue(Double.compare(Double.MAX_VALUE, 1.2d) == +1);
-        assertTrue(Double.compare(Double.MAX_VALUE, 0.0d) == +1);
-        assertTrue(Double.compare(Double.MAX_VALUE, -0.0d) == +1);
-        assertTrue(Double.compare(Double.MAX_VALUE, -1.2d) == +1);
-        assertTrue(Double.compare(Double.MAX_VALUE, -Double.MAX_VALUE) == +1);
-        assertTrue(Double.compare(Double.MAX_VALUE, Double.NEGATIVE_INFINITY) == +1);
+        assertEquals(Double.compare(Double.MAX_VALUE, Double.NaN), -1);
+        assertEquals(Double.compare(Double.MAX_VALUE, Double.POSITIVE_INFINITY), -1);
+        assertEquals(0, Double.compare(Double.MAX_VALUE, Double.MAX_VALUE));
+        assertEquals(Double.compare(Double.MAX_VALUE, 1.2d), +1);
+        assertEquals(Double.compare(Double.MAX_VALUE, 0.0d), +1);
+        assertEquals(Double.compare(Double.MAX_VALUE, -0.0d), +1);
+        assertEquals(Double.compare(Double.MAX_VALUE, -1.2d), +1);
+        assertEquals(Double.compare(Double.MAX_VALUE, -Double.MAX_VALUE), +1);
+        assertEquals(Double.compare(Double.MAX_VALUE, Double.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Double.compare(1.2d, Double.NaN) == -1);
-        assertTrue(Double.compare(1.2d, Double.POSITIVE_INFINITY) == -1);
-        assertTrue(Double.compare(1.2d, Double.MAX_VALUE) == -1);
-        assertTrue(Double.compare(1.2d, 1.2d) == 0);
-        assertTrue(Double.compare(1.2d, 0.0d) == +1);
-        assertTrue(Double.compare(1.2d, -0.0d) == +1);
-        assertTrue(Double.compare(1.2d, -1.2d) == +1);
-        assertTrue(Double.compare(1.2d, -Double.MAX_VALUE) == +1);
-        assertTrue(Double.compare(1.2d, Double.NEGATIVE_INFINITY) == +1);
+        assertEquals(Double.compare(1.2d, Double.NaN), -1);
+        assertEquals(Double.compare(1.2d, Double.POSITIVE_INFINITY), -1);
+        assertEquals(Double.compare(1.2d, Double.MAX_VALUE), -1);
+        assertEquals(0, Double.compare(1.2d, 1.2d));
+        assertEquals(Double.compare(1.2d, 0.0d), +1);
+        assertEquals(Double.compare(1.2d, -0.0d), +1);
+        assertEquals(Double.compare(1.2d, -1.2d), +1);
+        assertEquals(Double.compare(1.2d, -Double.MAX_VALUE), +1);
+        assertEquals(Double.compare(1.2d, Double.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Double.compare(0.0d, Double.NaN) == -1);
-        assertTrue(Double.compare(0.0d, Double.POSITIVE_INFINITY) == -1);
-        assertTrue(Double.compare(0.0d, Double.MAX_VALUE) == -1);
-        assertTrue(Double.compare(0.0d, 1.2d) == -1);
-        assertTrue(Double.compare(0.0d, 0.0d) == 0);
-        assertTrue(Double.compare(0.0d, -0.0d) == +1);
-        assertTrue(Double.compare(0.0d, -1.2d) == +1);
-        assertTrue(Double.compare(0.0d, -Double.MAX_VALUE) == +1);
-        assertTrue(Double.compare(0.0d, Double.NEGATIVE_INFINITY) == +1);
+        assertEquals(Double.compare(0.0d, Double.NaN), -1);
+        assertEquals(Double.compare(0.0d, Double.POSITIVE_INFINITY), -1);
+        assertEquals(Double.compare(0.0d, Double.MAX_VALUE), -1);
+        assertEquals(Double.compare(0.0d, 1.2d), -1);
+        assertEquals(0, Double.compare(0.0d, 0.0d));
+        assertEquals(Double.compare(0.0d, -0.0d), +1);
+        assertEquals(Double.compare(0.0d, -1.2d), +1);
+        assertEquals(Double.compare(0.0d, -Double.MAX_VALUE), +1);
+        assertEquals(Double.compare(0.0d, Double.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Double.compare(-0.0d, Double.NaN) == -1);
-        assertTrue(Double.compare(-0.0d, Double.POSITIVE_INFINITY) == -1);
-        assertTrue(Double.compare(-0.0d, Double.MAX_VALUE) == -1);
-        assertTrue(Double.compare(-0.0d, 1.2d) == -1);
-        assertTrue(Double.compare(-0.0d, 0.0d) == -1);
-        assertTrue(Double.compare(-0.0d, -0.0d) == 0);
-        assertTrue(Double.compare(-0.0d, -1.2d) == +1);
-        assertTrue(Double.compare(-0.0d, -Double.MAX_VALUE) == +1);
-        assertTrue(Double.compare(-0.0d, Double.NEGATIVE_INFINITY) == +1);
+        assertEquals(Double.compare(-0.0d, Double.NaN), -1);
+        assertEquals(Double.compare(-0.0d, Double.POSITIVE_INFINITY), -1);
+        assertEquals(Double.compare(-0.0d, Double.MAX_VALUE), -1);
+        assertEquals(Double.compare(-0.0d, 1.2d), -1);
+        assertEquals(Double.compare(-0.0d, 0.0d), -1);
+        assertEquals(0, Double.compare(-0.0d, -0.0d));
+        assertEquals(Double.compare(-0.0d, -1.2d), +1);
+        assertEquals(Double.compare(-0.0d, -Double.MAX_VALUE), +1);
+        assertEquals(Double.compare(-0.0d, Double.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Double.compare(-1.2d, Double.NaN) == -1);
-        assertTrue(Double.compare(-1.2d, Double.POSITIVE_INFINITY) == -1);
-        assertTrue(Double.compare(-1.2d, Double.MAX_VALUE) == -1);
-        assertTrue(Double.compare(-1.2d, 1.2d) == -1);
-        assertTrue(Double.compare(-1.2d, 0.0d) == -1);
-        assertTrue(Double.compare(-1.2d, -0.0d) == -1);
-        assertTrue(Double.compare(-1.2d, -1.2d) == 0);
-        assertTrue(Double.compare(-1.2d, -Double.MAX_VALUE) == +1);
-        assertTrue(Double.compare(-1.2d, Double.NEGATIVE_INFINITY) == +1);
+        assertEquals(Double.compare(-1.2d, Double.NaN), -1);
+        assertEquals(Double.compare(-1.2d, Double.POSITIVE_INFINITY), -1);
+        assertEquals(Double.compare(-1.2d, Double.MAX_VALUE), -1);
+        assertEquals(Double.compare(-1.2d, 1.2d), -1);
+        assertEquals(Double.compare(-1.2d, 0.0d), -1);
+        assertEquals(Double.compare(-1.2d, -0.0d), -1);
+        assertEquals(0, Double.compare(-1.2d, -1.2d));
+        assertEquals(Double.compare(-1.2d, -Double.MAX_VALUE), +1);
+        assertEquals(Double.compare(-1.2d, Double.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Double.compare(-Double.MAX_VALUE, Double.NaN) == -1);
-        assertTrue(Double.compare(-Double.MAX_VALUE, Double.POSITIVE_INFINITY) == -1);
-        assertTrue(Double.compare(-Double.MAX_VALUE, Double.MAX_VALUE) == -1);
-        assertTrue(Double.compare(-Double.MAX_VALUE, 1.2d) == -1);
-        assertTrue(Double.compare(-Double.MAX_VALUE, 0.0d) == -1);
-        assertTrue(Double.compare(-Double.MAX_VALUE, -0.0d) == -1);
-        assertTrue(Double.compare(-Double.MAX_VALUE, -1.2d) == -1);
-        assertTrue(Double.compare(-Double.MAX_VALUE, -Double.MAX_VALUE) == 0);
-        assertTrue(Double.compare(-Double.MAX_VALUE, Double.NEGATIVE_INFINITY) == +1);
+        assertEquals(Double.compare(-Double.MAX_VALUE, Double.NaN), -1);
+        assertEquals(Double.compare(-Double.MAX_VALUE, Double.POSITIVE_INFINITY), -1);
+        assertEquals(Double.compare(-Double.MAX_VALUE, Double.MAX_VALUE), -1);
+        assertEquals(Double.compare(-Double.MAX_VALUE, 1.2d), -1);
+        assertEquals(Double.compare(-Double.MAX_VALUE, 0.0d), -1);
+        assertEquals(Double.compare(-Double.MAX_VALUE, -0.0d), -1);
+        assertEquals(Double.compare(-Double.MAX_VALUE, -1.2d), -1);
+        assertEquals(0, Double.compare(-Double.MAX_VALUE, -Double.MAX_VALUE));
+        assertEquals(Double.compare(-Double.MAX_VALUE, Double.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Double.compare(Double.NEGATIVE_INFINITY, Double.NaN) == -1);
-        assertTrue(Double.compare(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY) == -1);
-        assertTrue(Double.compare(Double.NEGATIVE_INFINITY, Double.MAX_VALUE) == -1);
-        assertTrue(Double.compare(Double.NEGATIVE_INFINITY, 1.2d) == -1);
-        assertTrue(Double.compare(Double.NEGATIVE_INFINITY, 0.0d) == -1);
-        assertTrue(Double.compare(Double.NEGATIVE_INFINITY, -0.0d) == -1);
-        assertTrue(Double.compare(Double.NEGATIVE_INFINITY, -1.2d) == -1);
-        assertTrue(Double.compare(Double.NEGATIVE_INFINITY, -Double.MAX_VALUE) == -1);
-        assertTrue(Double.compare(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY) == 0);
+        assertEquals(Double.compare(Double.NEGATIVE_INFINITY, Double.NaN), -1);
+        assertEquals(Double.compare(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY), -1);
+        assertEquals(Double.compare(Double.NEGATIVE_INFINITY, Double.MAX_VALUE), -1);
+        assertEquals(Double.compare(Double.NEGATIVE_INFINITY, 1.2d), -1);
+        assertEquals(Double.compare(Double.NEGATIVE_INFINITY, 0.0d), -1);
+        assertEquals(Double.compare(Double.NEGATIVE_INFINITY, -0.0d), -1);
+        assertEquals(Double.compare(Double.NEGATIVE_INFINITY, -1.2d), -1);
+        assertEquals(Double.compare(Double.NEGATIVE_INFINITY, -Double.MAX_VALUE), -1);
+        assertEquals(0, Double.compare(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY));
     }
 
     @Test
     public void testCompareFloat() {
-        assertTrue(Float.compare(Float.NaN, Float.NaN) == 0);
-        assertTrue(Float.compare(Float.NaN, Float.POSITIVE_INFINITY) == +1);
-        assertTrue(Float.compare(Float.NaN, Float.MAX_VALUE) == +1);
-        assertTrue(Float.compare(Float.NaN, 1.2f) == +1);
-        assertTrue(Float.compare(Float.NaN, 0.0f) == +1);
-        assertTrue(Float.compare(Float.NaN, -0.0f) == +1);
-        assertTrue(Float.compare(Float.NaN, -1.2f) == +1);
-        assertTrue(Float.compare(Float.NaN, -Float.MAX_VALUE) == +1);
-        assertTrue(Float.compare(Float.NaN, Float.NEGATIVE_INFINITY) == +1);
+        assertEquals(0, Float.compare(Float.NaN, Float.NaN));
+        assertEquals(Float.compare(Float.NaN, Float.POSITIVE_INFINITY), +1);
+        assertEquals(Float.compare(Float.NaN, Float.MAX_VALUE), +1);
+        assertEquals(Float.compare(Float.NaN, 1.2f), +1);
+        assertEquals(Float.compare(Float.NaN, 0.0f), +1);
+        assertEquals(Float.compare(Float.NaN, -0.0f), +1);
+        assertEquals(Float.compare(Float.NaN, -1.2f), +1);
+        assertEquals(Float.compare(Float.NaN, -Float.MAX_VALUE), +1);
+        assertEquals(Float.compare(Float.NaN, Float.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Float.compare(Float.POSITIVE_INFINITY, Float.NaN) == -1);
-        assertTrue(Float.compare(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY) == 0);
-        assertTrue(Float.compare(Float.POSITIVE_INFINITY, Float.MAX_VALUE) == +1);
-        assertTrue(Float.compare(Float.POSITIVE_INFINITY, 1.2f) == +1);
-        assertTrue(Float.compare(Float.POSITIVE_INFINITY, 0.0f) == +1);
-        assertTrue(Float.compare(Float.POSITIVE_INFINITY, -0.0f) == +1);
-        assertTrue(Float.compare(Float.POSITIVE_INFINITY, -1.2f) == +1);
-        assertTrue(Float.compare(Float.POSITIVE_INFINITY, -Float.MAX_VALUE) == +1);
-        assertTrue(Float.compare(Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY) == +1);
+        assertEquals(Float.compare(Float.POSITIVE_INFINITY, Float.NaN), -1);
+        assertEquals(0, Float.compare(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY));
+        assertEquals(Float.compare(Float.POSITIVE_INFINITY, Float.MAX_VALUE), +1);
+        assertEquals(Float.compare(Float.POSITIVE_INFINITY, 1.2f), +1);
+        assertEquals(Float.compare(Float.POSITIVE_INFINITY, 0.0f), +1);
+        assertEquals(Float.compare(Float.POSITIVE_INFINITY, -0.0f), +1);
+        assertEquals(Float.compare(Float.POSITIVE_INFINITY, -1.2f), +1);
+        assertEquals(Float.compare(Float.POSITIVE_INFINITY, -Float.MAX_VALUE), +1);
+        assertEquals(Float.compare(Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Float.compare(Float.MAX_VALUE, Float.NaN) == -1);
-        assertTrue(Float.compare(Float.MAX_VALUE, Float.POSITIVE_INFINITY) == -1);
-        assertTrue(Float.compare(Float.MAX_VALUE, Float.MAX_VALUE) == 0);
-        assertTrue(Float.compare(Float.MAX_VALUE, 1.2f) == +1);
-        assertTrue(Float.compare(Float.MAX_VALUE, 0.0f) == +1);
-        assertTrue(Float.compare(Float.MAX_VALUE, -0.0f) == +1);
-        assertTrue(Float.compare(Float.MAX_VALUE, -1.2f) == +1);
-        assertTrue(Float.compare(Float.MAX_VALUE, -Float.MAX_VALUE) == +1);
-        assertTrue(Float.compare(Float.MAX_VALUE, Float.NEGATIVE_INFINITY) == +1);
+        assertEquals(Float.compare(Float.MAX_VALUE, Float.NaN), -1);
+        assertEquals(Float.compare(Float.MAX_VALUE, Float.POSITIVE_INFINITY), -1);
+        assertEquals(0, Float.compare(Float.MAX_VALUE, Float.MAX_VALUE));
+        assertEquals(Float.compare(Float.MAX_VALUE, 1.2f), +1);
+        assertEquals(Float.compare(Float.MAX_VALUE, 0.0f), +1);
+        assertEquals(Float.compare(Float.MAX_VALUE, -0.0f), +1);
+        assertEquals(Float.compare(Float.MAX_VALUE, -1.2f), +1);
+        assertEquals(Float.compare(Float.MAX_VALUE, -Float.MAX_VALUE), +1);
+        assertEquals(Float.compare(Float.MAX_VALUE, Float.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Float.compare(1.2f, Float.NaN) == -1);
-        assertTrue(Float.compare(1.2f, Float.POSITIVE_INFINITY) == -1);
-        assertTrue(Float.compare(1.2f, Float.MAX_VALUE) == -1);
-        assertTrue(Float.compare(1.2f, 1.2f) == 0);
-        assertTrue(Float.compare(1.2f, 0.0f) == +1);
-        assertTrue(Float.compare(1.2f, -0.0f) == +1);
-        assertTrue(Float.compare(1.2f, -1.2f) == +1);
-        assertTrue(Float.compare(1.2f, -Float.MAX_VALUE) == +1);
-        assertTrue(Float.compare(1.2f, Float.NEGATIVE_INFINITY) == +1);
+        assertEquals(Float.compare(1.2f, Float.NaN), -1);
+        assertEquals(Float.compare(1.2f, Float.POSITIVE_INFINITY), -1);
+        assertEquals(Float.compare(1.2f, Float.MAX_VALUE), -1);
+        assertEquals(0, Float.compare(1.2f, 1.2f));
+        assertEquals(Float.compare(1.2f, 0.0f), +1);
+        assertEquals(Float.compare(1.2f, -0.0f), +1);
+        assertEquals(Float.compare(1.2f, -1.2f), +1);
+        assertEquals(Float.compare(1.2f, -Float.MAX_VALUE), +1);
+        assertEquals(Float.compare(1.2f, Float.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Float.compare(0.0f, Float.NaN) == -1);
-        assertTrue(Float.compare(0.0f, Float.POSITIVE_INFINITY) == -1);
-        assertTrue(Float.compare(0.0f, Float.MAX_VALUE) == -1);
-        assertTrue(Float.compare(0.0f, 1.2f) == -1);
-        assertTrue(Float.compare(0.0f, 0.0f) == 0);
-        assertTrue(Float.compare(0.0f, -0.0f) == +1);
-        assertTrue(Float.compare(0.0f, -1.2f) == +1);
-        assertTrue(Float.compare(0.0f, -Float.MAX_VALUE) == +1);
-        assertTrue(Float.compare(0.0f, Float.NEGATIVE_INFINITY) == +1);
+        assertEquals(Float.compare(0.0f, Float.NaN), -1);
+        assertEquals(Float.compare(0.0f, Float.POSITIVE_INFINITY), -1);
+        assertEquals(Float.compare(0.0f, Float.MAX_VALUE), -1);
+        assertEquals(Float.compare(0.0f, 1.2f), -1);
+        assertEquals(0, Float.compare(0.0f, 0.0f));
+        assertEquals(Float.compare(0.0f, -0.0f), +1);
+        assertEquals(Float.compare(0.0f, -1.2f), +1);
+        assertEquals(Float.compare(0.0f, -Float.MAX_VALUE), +1);
+        assertEquals(Float.compare(0.0f, Float.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Float.compare(-0.0f, Float.NaN) == -1);
-        assertTrue(Float.compare(-0.0f, Float.POSITIVE_INFINITY) == -1);
-        assertTrue(Float.compare(-0.0f, Float.MAX_VALUE) == -1);
-        assertTrue(Float.compare(-0.0f, 1.2f) == -1);
-        assertTrue(Float.compare(-0.0f, 0.0f) == -1);
-        assertTrue(Float.compare(-0.0f, -0.0f) == 0);
-        assertTrue(Float.compare(-0.0f, -1.2f) == +1);
-        assertTrue(Float.compare(-0.0f, -Float.MAX_VALUE) == +1);
-        assertTrue(Float.compare(-0.0f, Float.NEGATIVE_INFINITY) == +1);
+        assertEquals(Float.compare(-0.0f, Float.NaN), -1);
+        assertEquals(Float.compare(-0.0f, Float.POSITIVE_INFINITY), -1);
+        assertEquals(Float.compare(-0.0f, Float.MAX_VALUE), -1);
+        assertEquals(Float.compare(-0.0f, 1.2f), -1);
+        assertEquals(Float.compare(-0.0f, 0.0f), -1);
+        assertEquals(0, Float.compare(-0.0f, -0.0f));
+        assertEquals(Float.compare(-0.0f, -1.2f), +1);
+        assertEquals(Float.compare(-0.0f, -Float.MAX_VALUE), +1);
+        assertEquals(Float.compare(-0.0f, Float.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Float.compare(-1.2f, Float.NaN) == -1);
-        assertTrue(Float.compare(-1.2f, Float.POSITIVE_INFINITY) == -1);
-        assertTrue(Float.compare(-1.2f, Float.MAX_VALUE) == -1);
-        assertTrue(Float.compare(-1.2f, 1.2f) == -1);
-        assertTrue(Float.compare(-1.2f, 0.0f) == -1);
-        assertTrue(Float.compare(-1.2f, -0.0f) == -1);
-        assertTrue(Float.compare(-1.2f, -1.2f) == 0);
-        assertTrue(Float.compare(-1.2f, -Float.MAX_VALUE) == +1);
-        assertTrue(Float.compare(-1.2f, Float.NEGATIVE_INFINITY) == +1);
+        assertEquals(Float.compare(-1.2f, Float.NaN), -1);
+        assertEquals(Float.compare(-1.2f, Float.POSITIVE_INFINITY), -1);
+        assertEquals(Float.compare(-1.2f, Float.MAX_VALUE), -1);
+        assertEquals(Float.compare(-1.2f, 1.2f), -1);
+        assertEquals(Float.compare(-1.2f, 0.0f), -1);
+        assertEquals(Float.compare(-1.2f, -0.0f), -1);
+        assertEquals(0, Float.compare(-1.2f, -1.2f));
+        assertEquals(Float.compare(-1.2f, -Float.MAX_VALUE), +1);
+        assertEquals(Float.compare(-1.2f, Float.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Float.compare(-Float.MAX_VALUE, Float.NaN) == -1);
-        assertTrue(Float.compare(-Float.MAX_VALUE, Float.POSITIVE_INFINITY) == -1);
-        assertTrue(Float.compare(-Float.MAX_VALUE, Float.MAX_VALUE) == -1);
-        assertTrue(Float.compare(-Float.MAX_VALUE, 1.2f) == -1);
-        assertTrue(Float.compare(-Float.MAX_VALUE, 0.0f) == -1);
-        assertTrue(Float.compare(-Float.MAX_VALUE, -0.0f) == -1);
-        assertTrue(Float.compare(-Float.MAX_VALUE, -1.2f) == -1);
-        assertTrue(Float.compare(-Float.MAX_VALUE, -Float.MAX_VALUE) == 0);
-        assertTrue(Float.compare(-Float.MAX_VALUE, Float.NEGATIVE_INFINITY) == +1);
+        assertEquals(Float.compare(-Float.MAX_VALUE, Float.NaN), -1);
+        assertEquals(Float.compare(-Float.MAX_VALUE, Float.POSITIVE_INFINITY), -1);
+        assertEquals(Float.compare(-Float.MAX_VALUE, Float.MAX_VALUE), -1);
+        assertEquals(Float.compare(-Float.MAX_VALUE, 1.2f), -1);
+        assertEquals(Float.compare(-Float.MAX_VALUE, 0.0f), -1);
+        assertEquals(Float.compare(-Float.MAX_VALUE, -0.0f), -1);
+        assertEquals(Float.compare(-Float.MAX_VALUE, -1.2f), -1);
+        assertEquals(0, Float.compare(-Float.MAX_VALUE, -Float.MAX_VALUE));
+        assertEquals(Float.compare(-Float.MAX_VALUE, Float.NEGATIVE_INFINITY), +1);
 
-        assertTrue(Float.compare(Float.NEGATIVE_INFINITY, Float.NaN) == -1);
-        assertTrue(Float.compare(Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY) == -1);
-        assertTrue(Float.compare(Float.NEGATIVE_INFINITY, Float.MAX_VALUE) == -1);
-        assertTrue(Float.compare(Float.NEGATIVE_INFINITY, 1.2f) == -1);
-        assertTrue(Float.compare(Float.NEGATIVE_INFINITY, 0.0f) == -1);
-        assertTrue(Float.compare(Float.NEGATIVE_INFINITY, -0.0f) == -1);
-        assertTrue(Float.compare(Float.NEGATIVE_INFINITY, -1.2f) == -1);
-        assertTrue(Float.compare(Float.NEGATIVE_INFINITY, -Float.MAX_VALUE) == -1);
-        assertTrue(Float.compare(Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY) == 0);
+        assertEquals(Float.compare(Float.NEGATIVE_INFINITY, Float.NaN), -1);
+        assertEquals(Float.compare(Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY), -1);
+        assertEquals(Float.compare(Float.NEGATIVE_INFINITY, Float.MAX_VALUE), -1);
+        assertEquals(Float.compare(Float.NEGATIVE_INFINITY, 1.2f), -1);
+        assertEquals(Float.compare(Float.NEGATIVE_INFINITY, 0.0f), -1);
+        assertEquals(Float.compare(Float.NEGATIVE_INFINITY, -0.0f), -1);
+        assertEquals(Float.compare(Float.NEGATIVE_INFINITY, -1.2f), -1);
+        assertEquals(Float.compare(Float.NEGATIVE_INFINITY, -Float.MAX_VALUE), -1);
+        assertEquals(0, Float.compare(Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY));
     }
 
     @Test
@@ -1410,10 +1347,9 @@ public class NumberUtilsTest {
     private void compareIsCreatableWithCreateNumber(final String val, final boolean expected) {
         final boolean isValid = NumberUtils.isCreatable(val);
         final boolean canCreate = checkCreateNumber(val);
-        if (isValid == expected && canCreate == expected) {
-            return;
-        }
-        fail("Expecting "+ expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
+        assertTrue(
+                isValid == expected && canCreate == expected,
+                "Expecting " + expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
     }
 
     /**
@@ -1516,10 +1452,9 @@ public class NumberUtilsTest {
     private void compareIsNumberWithCreateNumber(final String val, final boolean expected) {
         final boolean isValid = NumberUtils.isCreatable(val);
         final boolean canCreate = checkCreateNumber(val);
-        if (isValid == expected && canCreate == expected) {
-            return;
-        }
-        fail("Expecting "+ expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
+        assertTrue(
+                isValid == expected && canCreate == expected,
+                "Expecting "+ expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
     }
 
     @Test
@@ -1576,23 +1511,23 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.FLOAT_ONE instanceof Float);
         assertTrue(NumberUtils.FLOAT_MINUS_ONE instanceof Float);
 
-        assertTrue(NumberUtils.LONG_ZERO.longValue() == 0);
-        assertTrue(NumberUtils.LONG_ONE.longValue() == 1);
-        assertTrue(NumberUtils.LONG_MINUS_ONE.longValue() == -1);
-        assertTrue(NumberUtils.INTEGER_ZERO.intValue() == 0);
-        assertTrue(NumberUtils.INTEGER_ONE.intValue() == 1);
-        assertTrue(NumberUtils.INTEGER_MINUS_ONE.intValue() == -1);
-        assertTrue(NumberUtils.SHORT_ZERO.shortValue() == 0);
-        assertTrue(NumberUtils.SHORT_ONE.shortValue() == 1);
-        assertTrue(NumberUtils.SHORT_MINUS_ONE.shortValue() == -1);
-        assertTrue(NumberUtils.BYTE_ZERO.byteValue() == 0);
-        assertTrue(NumberUtils.BYTE_ONE.byteValue() == 1);
-        assertTrue(NumberUtils.BYTE_MINUS_ONE.byteValue() == -1);
-        assertTrue(NumberUtils.DOUBLE_ZERO.doubleValue() == 0.0d);
-        assertTrue(NumberUtils.DOUBLE_ONE.doubleValue() == 1.0d);
+        assertEquals(0, NumberUtils.LONG_ZERO.longValue());
+        assertEquals(1, NumberUtils.LONG_ONE.longValue());
+        assertEquals(NumberUtils.LONG_MINUS_ONE.longValue(), -1);
+        assertEquals(0, NumberUtils.INTEGER_ZERO.intValue());
+        assertEquals(1, NumberUtils.INTEGER_ONE.intValue());
+        assertEquals(NumberUtils.INTEGER_MINUS_ONE.intValue(), -1);
+        assertEquals(0, NumberUtils.SHORT_ZERO.shortValue());
+        assertEquals(1, NumberUtils.SHORT_ONE.shortValue());
+        assertEquals(NumberUtils.SHORT_MINUS_ONE.shortValue(), -1);
+        assertEquals(0, NumberUtils.BYTE_ZERO.byteValue());
+        assertEquals(1, NumberUtils.BYTE_ONE.byteValue());
+        assertEquals(NumberUtils.BYTE_MINUS_ONE.byteValue(), -1);
+        assertTrue(0.0d == NumberUtils.DOUBLE_ZERO.doubleValue());
+        assertTrue(1.0d == NumberUtils.DOUBLE_ONE.doubleValue());
         assertTrue(NumberUtils.DOUBLE_MINUS_ONE.doubleValue() == -1.0d);
-        assertTrue(NumberUtils.FLOAT_ZERO.floatValue() == 0.0f);
-        assertTrue(NumberUtils.FLOAT_ONE.floatValue() == 1.0f);
+        assertTrue(0.0f == NumberUtils.FLOAT_ZERO.floatValue());
+        assertTrue(1.0f == NumberUtils.FLOAT_ONE.floatValue());
         assertTrue(NumberUtils.FLOAT_MINUS_ONE.floatValue() == -1.0f);
     }
 
@@ -1628,28 +1563,28 @@ public class NumberUtilsTest {
     @Test
     public void compareInt() {
         assertTrue(NumberUtils.compare(-3, 0) < 0);
-        assertTrue(NumberUtils.compare(113, 113)==0);
+        assertEquals(0, NumberUtils.compare(113, 113));
         assertTrue(NumberUtils.compare(213, 32) > 0);
     }
 
     @Test
     public void compareLong() {
         assertTrue(NumberUtils.compare(-3L, 0L) < 0);
-        assertTrue(NumberUtils.compare(113L, 113L)==0);
+        assertEquals(0, NumberUtils.compare(113L, 113L));
         assertTrue(NumberUtils.compare(213L, 32L) > 0);
     }
 
     @Test
     public void compareShort() {
         assertTrue(NumberUtils.compare((short)-3, (short)0) < 0);
-        assertTrue(NumberUtils.compare((short)113, (short)113)==0);
+        assertEquals(0, NumberUtils.compare((short) 113, (short) 113));
         assertTrue(NumberUtils.compare((short)213, (short)32) > 0);
     }
 
     @Test
     public void compareByte() {
         assertTrue(NumberUtils.compare((byte)-3, (byte)0) < 0);
-        assertTrue(NumberUtils.compare((byte)113, (byte)113)==0);
+        assertEquals(0, NumberUtils.compare((byte) 113, (byte) 113));
         assertTrue(NumberUtils.compare((byte)123, (byte)32) > 0);
     }
 }

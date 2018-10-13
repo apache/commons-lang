@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -83,7 +82,7 @@ public class CharSequenceUtilsTest {
         final int ooffset;
         final int len;
         final boolean expected;
-        final Class<?> throwable;
+        final Class<? extends Throwable> throwable;
         TestData(final String source, final boolean ignoreCase, final int toffset,
                 final String other, final int ooffset, final int len, final boolean expected){
             this.source = source;
@@ -96,7 +95,7 @@ public class CharSequenceUtilsTest {
             this.throwable = null;
         }
         TestData(final String source, final boolean ignoreCase, final int toffset,
-                final String other, final int ooffset, final int len, final Class<?> throwable){
+                final String other, final int ooffset, final int len, final Class<? extends Throwable> throwable){
             this.source = source;
             this.ignoreCase = ignoreCase;
             this.toffset = toffset;
@@ -145,14 +144,7 @@ public class CharSequenceUtilsTest {
 
         void run(final TestData data, final String id) {
             if (data.throwable != null) {
-                try {
-                    invoke();
-                    fail(id + " Expected " + data.throwable);
-                } catch (final Exception e) {
-                    if (!e.getClass().equals(data.throwable)) {
-                        fail(id + " Expected " + data.throwable + " got " + e.getClass());
-                    }
-                }
+                assertThrows(data.throwable, this::invoke, id + " Expected " + data.throwable);
             } else {
                 final boolean stringCheck = invoke();
                 assertEquals(data.expected, stringCheck, id + " Failed test " + data);
@@ -187,7 +179,7 @@ public class CharSequenceUtilsTest {
 
 
     @Test
-    public void testToCharArray() throws Exception {
+    public void testToCharArray() {
         final StringBuilder builder = new StringBuilder("abcdefg");
         final char[] expected = builder.toString().toCharArray();
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder));

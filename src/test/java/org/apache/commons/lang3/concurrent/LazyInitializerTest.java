@@ -26,7 +26,7 @@ public class LazyInitializerTest extends AbstractConcurrentInitializerTest {
     private LazyInitializerTestImpl initializer;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         initializer = new LazyInitializerTestImpl();
     }
 

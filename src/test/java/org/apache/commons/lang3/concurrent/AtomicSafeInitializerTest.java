@@ -32,7 +32,7 @@ public class AtomicSafeInitializerTest extends
     private AtomicSafeInitializerTestImpl initializer;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         initializer = new AtomicSafeInitializerTestImpl();
     }
 
@@ -70,7 +70,7 @@ public class AtomicSafeInitializerTest extends
         final AtomicInteger initCounter = new AtomicInteger();
 
         @Override
-        protected Object initialize() throws ConcurrentException {
+        protected Object initialize() {
             initCounter.incrementAndGet();
             return new Object();
         }

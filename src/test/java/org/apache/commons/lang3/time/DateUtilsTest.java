@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -366,10 +365,7 @@ public class DateUtilsTest {
         final Date date = DateUtils.parseDate(dateStr, parsers);
         assertEquals(cal.getTime(), date);
 
-        try {
-            DateUtils.parseDateStrictly(dateStr, parsers);
-            fail();
-        } catch (final ParseException ex) {}
+        assertThrows(ParseException.class, () -> DateUtils.parseDateStrictly(dateStr, parsers));
     }
 
     //-----------------------------------------------------------------------
@@ -556,12 +552,10 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 1, 5, 4, 3, 2, 1);
 
-        try {
-            DateUtils.setMonths(BASE_DATE, 12);
-            fail("DateUtils.setMonths did not throw an expected IllegalArgumentException.");
-        } catch (final IllegalArgumentException e) {
-
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMonths(BASE_DATE, 12),
+                "DateUtils.setMonths did not throw an expected IllegalArgumentException.");
     }
 
     // -----------------------------------------------------------------------
@@ -577,12 +571,10 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 29, 4, 3, 2, 1);
 
-        try {
-            DateUtils.setDays(BASE_DATE, 32);
-            fail("DateUtils.setDays did not throw an expected IllegalArgumentException.");
-        } catch (final IllegalArgumentException e) {
-
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setDays(BASE_DATE, 32),
+                "DateUtils.setDays did not throw an expected IllegalArgumentException.");
     }
 
     // -----------------------------------------------------------------------
@@ -598,12 +590,10 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 23, 3, 2, 1);
 
-        try {
-            DateUtils.setHours(BASE_DATE, 24);
-            fail("DateUtils.setHours did not throw an expected IllegalArgumentException.");
-        } catch (final IllegalArgumentException e) {
-
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setHours(BASE_DATE, 24),
+                "DateUtils.setHours did not throw an expected IllegalArgumentException.");
     }
 
     // -----------------------------------------------------------------------
@@ -619,12 +609,10 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 59, 2, 1);
 
-        try {
-            DateUtils.setMinutes(BASE_DATE, 60);
-            fail("DateUtils.setMinutes did not throw an expected IllegalArgumentException.");
-        } catch (final IllegalArgumentException e) {
-
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMinutes(BASE_DATE, 60),
+                "DateUtils.setMinutes did not throw an expected IllegalArgumentException.");
     }
 
     // -----------------------------------------------------------------------
@@ -640,12 +628,10 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 59, 1);
 
-        try {
-            DateUtils.setSeconds(BASE_DATE, 60);
-            fail("DateUtils.setSeconds did not throw an expected IllegalArgumentException.");
-        } catch (final IllegalArgumentException e) {
-
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setSeconds(BASE_DATE, 60),
+                "DateUtils.setSeconds did not throw an expected IllegalArgumentException.");
     }
 
     // -----------------------------------------------------------------------
@@ -661,16 +647,14 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 999);
 
-        try {
-            DateUtils.setMilliseconds(BASE_DATE, 1000);
-            fail("DateUtils.setMilliseconds did not throw an expected IllegalArgumentException.");
-        } catch (final IllegalArgumentException e) {
-
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMilliseconds(BASE_DATE, 1000),
+                "DateUtils.setMilliseconds did not throw an expected IllegalArgumentException.");
     }
 
     //-----------------------------------------------------------------------
-    private void assertDate(final Date date, final int year, final int month, final int day, final int hour, final int min, final int sec, final int mil) throws Exception {
+    private void assertDate(final Date date, final int year, final int month, final int day, final int hour, final int min, final int sec, final int mil) {
         final GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(date);
         assertEquals(year, cal.get(Calendar.YEAR));
@@ -686,12 +670,7 @@ public class DateUtilsTest {
     @Test
     public void testToCalendar() {
         assertEquals(date1, DateUtils.toCalendar(date1).getTime(), "Failed to convert to a Calendar and back");
-        try {
-            DateUtils.toCalendar(null);
-            fail("Expected NullPointerException to be thrown");
-        } catch(final NullPointerException npe) {
-            // expected
-        }
+        assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null));
     }
 
     //-----------------------------------------------------------------------
@@ -851,26 +830,11 @@ public class DateUtilsTest {
                 DateUtils.round((Object) dateAmPm4, Calendar.AM_PM),
                 "round ampm-4 failed");
 
-        try {
-            DateUtils.round((Date) null, Calendar.SECOND);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.round((Calendar) null, Calendar.SECOND);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.round((Object) null, Calendar.SECOND);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.round("", Calendar.SECOND);
-            fail();
-        } catch (final ClassCastException ex) {}
-        try {
-            DateUtils.round(date1, -9999);
-            fail();
-        } catch(final IllegalArgumentException ex) {}
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.round((Date) null, Calendar.SECOND));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.round((Calendar) null, Calendar.SECOND));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.round((Object) null, Calendar.SECOND));
+        assertThrows(ClassCastException.class, () -> DateUtils.round("", Calendar.SECOND));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.round(date1, -9999));
 
         assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"),
                 DateUtils.round((Object) calAmPm1, Calendar.AM_PM),
@@ -1147,22 +1111,10 @@ public class DateUtilsTest {
                 DateUtils.truncate((Object) calAmPm4, Calendar.AM_PM),
                 "truncate ampm-4 failed");
 
-        try {
-            DateUtils.truncate((Date) null, Calendar.SECOND);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.truncate((Calendar) null, Calendar.SECOND);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.truncate((Object) null, Calendar.SECOND);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.truncate("", Calendar.SECOND);
-            fail();
-        } catch (final ClassCastException ex) {}
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.truncate((Date) null, Calendar.SECOND));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.truncate((Calendar) null, Calendar.SECOND));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.truncate((Object) null, Calendar.SECOND));
+        assertThrows(ClassCastException.class, () -> DateUtils.truncate("", Calendar.SECOND));
 
         // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
         // Test truncate across beginning of daylight saving time
@@ -1191,15 +1143,9 @@ public class DateUtilsTest {
         final Date endOfTime = new Date(Long.MAX_VALUE); // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
         final GregorianCalendar endCal = new GregorianCalendar();
         endCal.setTime(endOfTime);
-        try {
-            DateUtils.truncate(endCal, Calendar.DATE);
-            fail();
-        } catch (final ArithmeticException ex) {}
+        assertThrows(ArithmeticException.class, () -> DateUtils.truncate(endCal, Calendar.DATE));
         endCal.set(Calendar.YEAR, 280000001);
-        try {
-            DateUtils.truncate(endCal, Calendar.DATE);
-            fail();
-        } catch (final ArithmeticException ex) {}
+        assertThrows(ArithmeticException.class, () -> DateUtils.truncate(endCal, Calendar.DATE));
         endCal.set(Calendar.YEAR, 280000000);
         final Calendar cal = DateUtils.truncate(endCal, Calendar.DATE);
         assertEquals(0, cal.get(Calendar.HOUR));
@@ -1208,12 +1154,10 @@ public class DateUtilsTest {
     /**
      * Tests for LANG-59
      *
-     * @throws java.lang.Exception so we don't have to catch it
-     *
      * see http://issues.apache.org/jira/browse/LANG-59
      */
     @Test
-    public void testTruncateLang59() throws Exception {
+    public void testTruncateLang59() {
         try {
             // Set TimeZone to Mountain Time
             final TimeZone denverZone = TimeZone.getTimeZone("America/Denver");
@@ -1445,27 +1389,11 @@ public class DateUtilsTest {
                 DateUtils.ceiling((Object) calAmPm4, Calendar.AM_PM),
                 "ceiling ampm-4 failed");
 
-        try {
-            DateUtils.ceiling((Date) null, Calendar.SECOND);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.ceiling((Calendar) null, Calendar.SECOND);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.ceiling((Object) null, Calendar.SECOND);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.ceiling("", Calendar.SECOND);
-            fail();
-        } catch (final ClassCastException ex) {}
-        try {
-            DateUtils.ceiling(date1, -9999);
-            fail();
-        } catch(final IllegalArgumentException ex) {}
-
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling((Date) null, Calendar.SECOND));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling((Calendar) null, Calendar.SECOND));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling((Object) null, Calendar.SECOND));
+        assertThrows(ClassCastException.class, () -> DateUtils.ceiling("", Calendar.SECOND));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling(date1, -9999));
 
         // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
         // Test ceiling across the beginning of daylight saving time
@@ -1532,15 +1460,9 @@ public class DateUtilsTest {
         final Date endOfTime = new Date(Long.MAX_VALUE); // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
         final GregorianCalendar endCal = new GregorianCalendar();
         endCal.setTime(endOfTime);
-        try {
-            DateUtils.ceiling(endCal, Calendar.DATE);
-            fail();
-        } catch (final ArithmeticException ex) {}
+        assertThrows(ArithmeticException.class, () -> DateUtils.ceiling(endCal, Calendar.DATE));
         endCal.set(Calendar.YEAR, 280000001);
-        try {
-            DateUtils.ceiling(endCal, Calendar.DATE);
-            fail();
-        } catch (final ArithmeticException ex) {}
+        assertThrows(ArithmeticException.class, () -> DateUtils.ceiling(endCal, Calendar.DATE));
         endCal.set(Calendar.YEAR, 280000000);
         final Calendar cal = DateUtils.ceiling(endCal, Calendar.DATE);
         assertEquals(0, cal.get(Calendar.HOUR));
@@ -1548,39 +1470,24 @@ public class DateUtilsTest {
 
     /**
      * Tests the iterator exceptions
-     *
-     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
-    public void testIteratorEx() throws Exception {
-        try {
-            DateUtils.iterator(Calendar.getInstance(), -9999);
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.iterator((Object) null, DateUtils.RANGE_WEEK_CENTER);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            DateUtils.iterator("", DateUtils.RANGE_WEEK_CENTER);
-            fail();
-        } catch (final ClassCastException ex) {}
+    public void testIteratorEx() {
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.iterator(Calendar.getInstance(), -9999));
+        assertThrows
+                (IllegalArgumentException.class, () -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
+        assertThrows
+                (IllegalArgumentException.class, () -> DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER));
+        assertThrows
+                (IllegalArgumentException.class, () -> DateUtils.iterator((Object) null, DateUtils.RANGE_WEEK_CENTER));
+        assertThrows(ClassCastException.class, () -> DateUtils.iterator("", DateUtils.RANGE_WEEK_CENTER));
     }
 
     /**
      * Tests the calendar iterator for week ranges
-     *
-     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
-    public void testWeekIterator() throws Exception {
+    public void testWeekIterator() {
         final Calendar now = Calendar.getInstance();
         for (int i = 0; i< 7; i++) {
             final Calendar today = DateUtils.truncate(now, Calendar.DATE);
@@ -1607,17 +1514,12 @@ public class DateUtilsTest {
 
             it = DateUtils.iterator((Object) now, DateUtils.RANGE_WEEK_CENTER);
             assertWeekIterator(it, centered);
-            it = DateUtils.iterator((Object) now.getTime(), DateUtils.RANGE_WEEK_CENTER);
-            assertWeekIterator(it, centered);
-            try {
-                it.next();
-                fail();
-            } catch (final NoSuchElementException ex) {}
-            it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_CENTER);
-            it.next();
-            try {
-                it.remove();
-            } catch( final UnsupportedOperationException ex) {}
+            Iterator<?> it2 = DateUtils.iterator((Object) now.getTime(), DateUtils.RANGE_WEEK_CENTER);
+            assertWeekIterator(it2, centered);
+            assertThrows(NoSuchElementException.class, it2::next);
+            Iterator<?> it3 = DateUtils.iterator(now, DateUtils.RANGE_WEEK_CENTER);
+            it3.next();
+            assertThrows(UnsupportedOperationException.class, it3::remove);
 
             now.add(Calendar.DATE,1);
         }

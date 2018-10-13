@@ -29,7 +29,7 @@ public class AtomicInitializerTest extends AbstractConcurrentInitializerTest {
     protected ConcurrentInitializer<Object> createInitializer() {
         return new AtomicInitializer<Object>() {
             @Override
-            protected Object initialize() throws ConcurrentException {
+            protected Object initialize() {
                 return new Object();
             }
         };

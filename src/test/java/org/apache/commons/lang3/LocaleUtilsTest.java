@@ -22,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -37,6 +37,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Unit tests for {@link LocaleUtils}.
@@ -52,7 +54,7 @@ public class LocaleUtilsTest  {
     private static final Locale LOCALE_QQ_ZZ = new Locale("qq", "ZZ");
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         // Testing #LANG-304. Must be called before availableLocaleSet is called.
         LocaleUtils.isAvailableLocale(Locale.getDefault());
     }
@@ -136,32 +138,13 @@ public class LocaleUtilsTest  {
         // LANG-941: JDK 8 introduced the empty locale as one of the default locales
         assertValidToLocale("");
 
-        try {
-            LocaleUtils.toLocale("Us");
-            fail("Should fail if not lowercase");
-        } catch (final IllegalArgumentException iae) {}
-        try {
-            LocaleUtils.toLocale("US");
-            fail("Should fail if not lowercase");
-        } catch (final IllegalArgumentException iae) {}
-        try {
-            LocaleUtils.toLocale("uS");
-            fail("Should fail if not lowercase");
-        } catch (final IllegalArgumentException iae) {}
-        try {
-            LocaleUtils.toLocale("u#");
-            fail("Should fail if not lowercase");
-        } catch (final IllegalArgumentException iae) {}
-
-        try {
-            LocaleUtils.toLocale("u");
-            fail("Must be 2 chars if less than 5");
-        } catch (final IllegalArgumentException iae) {}
-
-        try {
-            LocaleUtils.toLocale("uu_U");
-            fail("Must be 2 chars if less than 5");
-        } catch (final IllegalArgumentException iae) {}
+        assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale("Us"), "Should fail if not lowercase");
+        assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale("uS"), "Should fail if not lowercase");
+        assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale("u#"), "Should fail if not lowercase");
+        assertThrows(
+                IllegalArgumentException.class, () -> LocaleUtils.toLocale("u"), "Must be 2 chars if less than 5");
+        assertThrows(
+                IllegalArgumentException.class, () -> LocaleUtils.toLocale("uu_U"), "Must be 2 chars if less than 5");
     }
 
     /**
@@ -173,30 +156,28 @@ public class LocaleUtilsTest  {
         //valid though doesn't exist
         assertValidToLocale("us_ZH", "us", "ZH");
 
-        try {
-            LocaleUtils.toLocale("us-EN");
-            fail("Should fail as not underscore");
-        } catch (final IllegalArgumentException iae) {}
-        try {
-            LocaleUtils.toLocale("us_En");
-            fail("Should fail second part not uppercase");
-        } catch (final IllegalArgumentException iae) {}
-        try {
-            LocaleUtils.toLocale("us_en");
-            fail("Should fail second part not uppercase");
-        } catch (final IllegalArgumentException iae) {}
-        try {
-            LocaleUtils.toLocale("us_eN");
-            fail("Should fail second part not uppercase");
-        } catch (final IllegalArgumentException iae) {}
-        try {
-            LocaleUtils.toLocale("uS_EN");
-            fail("Should fail first part not lowercase");
-        } catch (final IllegalArgumentException iae) {}
-        try {
-            LocaleUtils.toLocale("us_E3");
-            fail("Should fail second part not uppercase");
-        } catch (final IllegalArgumentException iae) {}
+        assertThrows(
+                IllegalArgumentException.class, () -> LocaleUtils.toLocale("us-EN"), "Should fail as not underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("us_En"),
+                "Should fail second part not uppercase");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("us_en"),
+                "Should fail second part not uppercase");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("us_eN"),
+                "Should fail second part not uppercase");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("uS_EN"),
+                "Should fail first part not lowercase");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("us_E3"),
+                "Should fail second part not uppercase");
     }
 
     /**
@@ -215,14 +196,10 @@ public class LocaleUtilsTest  {
             assertValidToLocale("us_EN_SFsafdFDsdfF", "us", "EN", "SFSAFDFDSDFF");
         }
 
-        try {
-            LocaleUtils.toLocale("us_EN-a");
-            fail("Should fail as not underscore");
-        } catch (final IllegalArgumentException iae) {}
-        try {
-            LocaleUtils.toLocale("uu_UU_");
-            fail("Must be 3, 5 or 7+ in length");
-        } catch (final IllegalArgumentException iae) {}
+        assertThrows(
+                IllegalArgumentException.class, () -> LocaleUtils.toLocale("us_EN-a"), "Should fail as not underscore");
+        assertThrows(
+                IllegalArgumentException.class, () -> LocaleUtils.toLocale("uu_UU_"), "Must be 3, 5 or 7+ in length");
     }
 
     //-----------------------------------------------------------------------
@@ -416,10 +393,7 @@ public class LocaleUtilsTest  {
                     break;
                 }
             }
-            if (!found) {
-                fail("Could not find language: " + language
-                        + " for country: " + country);
-            }
+            assertTrue(found, "Could not find language: " + language + " for country: " + country);
         }
         assertUnmodifiableCollection(list);
     }
@@ -467,10 +441,7 @@ public class LocaleUtilsTest  {
                     break;
                 }
             }
-            if (!found) {
-                fail("Could not find language: " + country
-                        + " for country: " + language);
-            }
+            assertTrue(found, "Could not find language: " + country + " for country: " + language);
         }
         assertUnmodifiableCollection(list);
     }
@@ -490,10 +461,7 @@ public class LocaleUtilsTest  {
      * @param coll  the collection to check
      */
     private static void assertUnmodifiableCollection(final Collection<?> coll) {
-        try {
-            coll.add(null);
-            fail();
-        } catch (final UnsupportedOperationException ex) {}
+        assertThrows(UnsupportedOperationException.class, () -> coll.add(null));
     }
 
     /**
@@ -524,78 +492,56 @@ public class LocaleUtilsTest  {
         assertValidToLocale("_GB", "", "GB", "");
         assertValidToLocale("_GB_P", "", "GB", "P");
         assertValidToLocale("_GB_POSIX", "", "GB", "POSIX");
-        try {
-            LocaleUtils.toLocale("_G");
-            fail("Must be at least 3 chars if starts with underscore");
-        } catch (final IllegalArgumentException iae) {
-        }
-        try {
-            LocaleUtils.toLocale("_Gb");
-            fail("Must be uppercase if starts with underscore");
-        } catch (final IllegalArgumentException iae) {
-        }
-        try {
-            LocaleUtils.toLocale("_gB");
-            fail("Must be uppercase if starts with underscore");
-        } catch (final IllegalArgumentException iae) {
-        }
-        try {
-            LocaleUtils.toLocale("_1B");
-            fail("Must be letter if starts with underscore");
-        } catch (final IllegalArgumentException iae) {
-        }
-        try {
-            LocaleUtils.toLocale("_G1");
-            fail("Must be letter if starts with underscore");
-        } catch (final IllegalArgumentException iae) {
-        }
-        try {
-            LocaleUtils.toLocale("_GB_");
-            fail("Must be at least 5 chars if starts with underscore");
-        } catch (final IllegalArgumentException iae) {
-        }
-        try {
-            LocaleUtils.toLocale("_GBAP");
-            fail("Must have underscore after the country if starts with underscore and is at least 5 chars");
-        } catch (final IllegalArgumentException iae) {
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_G"),
+                "Must be at least 3 chars if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_Gb"),
+                "Must be uppercase if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_gB"),
+                "Must be uppercase if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_1B"),
+                "Must be letter if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_G1"),
+                "Must be letter if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_GB_"),
+                "Must be at least 5 chars if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_GBAP"),
+                "Must have underscore after the country if starts with underscore and is at least 5 chars");
     }
 
-    @Test
-    public void testParseAllLocales() {
-        final Locale[] locales = Locale.getAvailableLocales();
-        int failures = 0;
-        for (final Locale l : locales) {
-            // Check if it's possible to recreate the Locale using just the standard constructor
-            final Locale locale = new Locale(l.getLanguage(), l.getCountry(), l.getVariant());
-            if (l.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales
-                String str = l.toString();
-                // Look for the script/extension suffix
-                int suff = str.indexOf("_#");
-                if (suff == - 1) {
-                    suff = str.indexOf("#");
-                }
-                if (suff >= 0) { // we have a suffix
-                    try {
-                        LocaleUtils.toLocale(str); // should cause IAE
-                        System.out.println("Should not have parsed: " + str);
-                        failures++;
-                        continue; // try next Locale
-                    } catch (final IllegalArgumentException iae) {
-                        // expected; try without suffix
-                        str = str.substring(0, suff);
-                    }
-                }
-                final Locale loc = LocaleUtils.toLocale(str);
-                if (!l.equals(loc)) {
-                    System.out.println("Failed to parse: " + str);
-                    failures++;
-                }
+    @ParameterizedTest
+    @MethodSource("java.util.Locale#getAvailableLocales")
+    public void testParseAllLocales(Locale l) {
+        // Check if it's possible to recreate the Locale using just the standard constructor
+        final Locale locale = new Locale(l.getLanguage(), l.getCountry(), l.getVariant());
+        if (l.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales
+            final String str = l.toString();
+            // Look for the script/extension suffix
+            int suff = str.indexOf("_#");
+            if (suff == - 1) {
+                suff = str.indexOf("#");
             }
-        }
-        if (failures > 0) {
-            fail("Failed "+failures+" test(s)");
+            String localeStr = str;
+            if (suff >= 0) { // we have a suffix
+                assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale(str));
+                // try without suffix
+                localeStr = str.substring(0, suff);
+            }
+            final Locale loc = LocaleUtils.toLocale(localeStr);
+            assertEquals(l, loc);
         }
     }
-
 }

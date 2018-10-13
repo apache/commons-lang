@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ScheduledExecutorService;
@@ -105,9 +104,7 @@ public class TimedSemaphoreTest {
         int count = 0;
         do {
             Thread.sleep(PERIOD);
-            if (count++ > trials) {
-                fail("endOfPeriod() not called!");
-            }
+            assertFalse(count++ > trials, "endOfPeriod() not called!");
         } while (semaphore.getPeriodEnds() <= 0);
         semaphore.shutdown();
     }
@@ -293,11 +290,9 @@ public class TimedSemaphoreTest {
 
     /**
      * Tries to call acquire() after shutdown(). This should cause an exception.
-     *
-     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
-    public void testPassAfterShutdown() throws InterruptedException {
+    public void testPassAfterShutdown() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
         semaphore.shutdown();
         assertThrows(IllegalStateException.class, semaphore::acquire);

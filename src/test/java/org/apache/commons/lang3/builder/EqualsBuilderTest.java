@@ -18,6 +18,7 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -1198,10 +1199,10 @@ public class EqualsBuilderTest {
         assertTrue(Arrays.equals(x, y));
         assertTrue(Arrays.equals(y, x));
         // real tests:
-        assertTrue(x[0].equals(x[0]));
-        assertTrue(y[0].equals(y[0]));
-        assertTrue(x[0].equals(y[0]));
-        assertTrue(y[0].equals(x[0]));
+        assertEquals(x[0], x[0]);
+        assertEquals(y[0], y[0]);
+        assertEquals(x[0], y[0]);
+        assertEquals(y[0], x[0]);
         assertTrue(new EqualsBuilder().append(x, x).isEquals());
         assertTrue(new EqualsBuilder().append(y, y).isEquals());
         assertTrue(new EqualsBuilder().append(x, y).isEquals());
@@ -1222,7 +1223,7 @@ public class EqualsBuilderTest {
     }
 
     @Test
-    public void testReflectionEqualsExcludeFields() throws Exception {
+    public void testReflectionEqualsExcludeFields() {
         final TestObjectWithMultipleFields x1 = new TestObjectWithMultipleFields(1, 2, 3);
         final TestObjectWithMultipleFields x2 = new TestObjectWithMultipleFields(1, 3, 4);
 
@@ -1282,11 +1283,11 @@ public class EqualsBuilderTest {
         x3.setObjectReference(refX3);
         refX3.setObjectReference(x3);
 
-        assertTrue(x1.equals(x2));
+        assertEquals(x1, x2);
         assertNull(EqualsBuilder.getRegistry());
-        assertFalse(x1.equals(x3));
+        assertNotEquals(x1, x3);
         assertNull(EqualsBuilder.getRegistry());
-        assertFalse(x2.equals(x3));
+        assertNotEquals(x2, x3);
         assertNull(EqualsBuilder.getRegistry());
     }
 
@@ -1311,7 +1312,7 @@ public class EqualsBuilderTest {
     }
 
     @Test
-    public void testReflectionArrays() throws Exception {
+    public void testReflectionArrays() {
 
         final TestObject one = new TestObject(1);
         final TestObject two = new TestObject(2);

@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -78,17 +77,17 @@ public class ArrayUtilsTest {
     public void testHashCode() {
         final long[][] array1 = new long[][]{{2, 5}, {4, 5}};
         final long[][] array2 = new long[][]{{2, 5}, {4, 6}};
-        assertTrue(ArrayUtils.hashCode(array1) == ArrayUtils.hashCode(array1));
+        assertEquals(ArrayUtils.hashCode(array1), ArrayUtils.hashCode(array1));
         assertFalse(ArrayUtils.hashCode(array1) == ArrayUtils.hashCode(array2));
 
         final Object[] array3 = new Object[]{new String(new char[]{'A', 'B'})};
         final Object[] array4 = new Object[]{"AB"};
-        assertTrue(ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array3));
-        assertTrue(ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array4));
+        assertEquals(ArrayUtils.hashCode(array3), ArrayUtils.hashCode(array3));
+        assertEquals(ArrayUtils.hashCode(array3), ArrayUtils.hashCode(array4));
 
         final Object[] arrayA = new Object[]{new boolean[]{true, false}, new int[]{6, 7}};
         final Object[] arrayB = new Object[]{new boolean[]{true, false}, new int[]{6, 7}};
-        assertTrue(ArrayUtils.hashCode(arrayB) == ArrayUtils.hashCode(arrayA));
+        assertEquals(ArrayUtils.hashCode(arrayB), ArrayUtils.hashCode(arrayA));
     }
 
     //-----------------------------------------------------------------------
@@ -230,21 +229,12 @@ public class ArrayUtilsTest {
         assertEquals("world", map.get("hello"));
 
         assertNull(ArrayUtils.toMap(null));
-        try {
-            ArrayUtils.toMap(new String[][]{{"foo", "bar"}, {"short"}});
-            fail("exception expected");
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, "illegal type"});
-            fail("exception expected");
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, null});
-            fail("exception expected");
-        } catch (final IllegalArgumentException ex) {
-        }
+        assertThrows(IllegalArgumentException.class, () ->
+                ArrayUtils.toMap(new String[][]{{"foo", "bar"}, {"short"}}));
+        assertThrows(IllegalArgumentException.class, () ->
+                ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, "illegal type"}));
+        assertThrows(IllegalArgumentException.class, () ->
+                ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, null}));
 
         map = ArrayUtils.toMap(new Object[]{new Map.Entry<Object, Object>() {
             @Override
@@ -282,13 +272,13 @@ public class ArrayUtilsTest {
         Object[] original1 = new Object[0];
         Object[] cloned1 = ArrayUtils.clone(original1);
         assertTrue(Arrays.equals(original1, cloned1));
-        assertTrue(original1 != cloned1);
+        assertNotSame(original1, cloned1);
 
         final StringBuilder builder = new StringBuilder("pick");
         original1 = new Object[]{builder, "a", new String[]{"stick"}};
         cloned1 = ArrayUtils.clone(original1);
         assertTrue(Arrays.equals(original1, cloned1));
-        assertTrue(original1 != cloned1);
+        assertNotSame(original1, cloned1);
         assertSame(original1[0], cloned1[0]);
         assertSame(original1[1], cloned1[1]);
         assertSame(original1[2], cloned1[2]);
@@ -300,7 +290,7 @@ public class ArrayUtilsTest {
         final boolean[] original = new boolean[]{true, false};
         final boolean[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -309,7 +299,7 @@ public class ArrayUtilsTest {
         final long[] original = new long[]{0L, 1L};
         final long[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -318,7 +308,7 @@ public class ArrayUtilsTest {
         final int[] original = new int[]{5, 8};
         final int[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -327,7 +317,7 @@ public class ArrayUtilsTest {
         final short[] original = new short[]{1, 4};
         final short[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -336,7 +326,7 @@ public class ArrayUtilsTest {
         final char[] original = new char[]{'a', '4'};
         final char[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -345,7 +335,7 @@ public class ArrayUtilsTest {
         final byte[] original = new byte[]{1, 6};
         final byte[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -354,7 +344,7 @@ public class ArrayUtilsTest {
         final double[] original = new double[]{2.4d, 5.7d};
         final double[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -363,7 +353,7 @@ public class ArrayUtilsTest {
         final float[] original = new float[]{2.6f, 6.4f};
         final float[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     //-----------------------------------------------------------------------
@@ -375,8 +365,8 @@ public class ArrayUtilsTest {
     public void testNullToEmptyGenericNull() {
         final TestClass[] output = ArrayUtils.nullToEmpty(null, TestClass[].class);
 
-        assertTrue(output != null);
-        assertTrue(output.length == 0);
+        assertNotNull(output);
+        assertEquals(0, output.length);
     }
 
     @Test
@@ -402,12 +392,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyBooleanNull() throws Exception {
+    public void testNullToEmptyBooleanNull() {
         assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.nullToEmpty((boolean[]) null));
     }
 
     @Test
-    public void testNullToEmptyBooleanEmptyArray() throws Exception {
+    public void testNullToEmptyBooleanEmptyArray() {
         final boolean[] empty = new boolean[]{};
         final boolean[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, result);
@@ -421,12 +411,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyLongNull() throws Exception {
+    public void testNullToEmptyLongNull() {
         assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.nullToEmpty((long[]) null));
     }
 
     @Test
-    public void testNullToEmptyLongEmptyArray() throws Exception {
+    public void testNullToEmptyLongEmptyArray() {
         final long[] empty = new long[]{};
         final long[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, result);
@@ -440,12 +430,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyIntNull() throws Exception {
+    public void testNullToEmptyIntNull() {
         assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.nullToEmpty((int[]) null));
     }
 
     @Test
-    public void testNullToEmptyIntEmptyArray() throws Exception {
+    public void testNullToEmptyIntEmptyArray() {
         final int[] empty = new int[]{};
         final int[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_INT_ARRAY, result);
@@ -459,12 +449,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyShortNull() throws Exception {
+    public void testNullToEmptyShortNull() {
         assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.nullToEmpty((short[]) null));
     }
 
     @Test
-    public void testNullToEmptyShortEmptyArray() throws Exception {
+    public void testNullToEmptyShortEmptyArray() {
         final short[] empty = new short[]{};
         final short[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, result);
@@ -478,12 +468,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyCharNull() throws Exception {
+    public void testNullToEmptyCharNull() {
         assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.nullToEmpty((char[]) null));
     }
 
     @Test
-    public void testNullToEmptyCharEmptyArray() throws Exception {
+    public void testNullToEmptyCharEmptyArray() {
         final char[] empty = new char[]{};
         final char[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, result);
@@ -497,12 +487,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyByteNull() throws Exception {
+    public void testNullToEmptyByteNull() {
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.nullToEmpty((byte[]) null));
     }
 
     @Test
-    public void testNullToEmptyByteEmptyArray() throws Exception {
+    public void testNullToEmptyByteEmptyArray() {
         final byte[] empty = new byte[]{};
         final byte[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, result);
@@ -516,12 +506,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyDoubleNull() throws Exception {
+    public void testNullToEmptyDoubleNull() {
         assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.nullToEmpty((double[]) null));
     }
 
     @Test
-    public void testNullToEmptyDoubleEmptyArray() throws Exception {
+    public void testNullToEmptyDoubleEmptyArray() {
         final double[] empty = new double[]{};
         final double[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, result);
@@ -535,12 +525,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyFloatNull() throws Exception {
+    public void testNullToEmptyFloatNull() {
         assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.nullToEmpty((float[]) null));
     }
 
     @Test
-    public void testNullToEmptyFloatEmptyArray() throws Exception {
+    public void testNullToEmptyFloatEmptyArray() {
         final float[] empty = new float[]{};
         final float[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, result);
@@ -554,12 +544,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyObjectNull() throws Exception {
+    public void testNullToEmptyObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Object[]) null));
     }
 
     @Test
-    public void testNullToEmptyObjectEmptyArray() throws Exception {
+    public void testNullToEmptyObjectEmptyArray() {
         final Object[] empty = new Object[]{};
         final Object[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, result);
@@ -573,12 +563,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyClassNull() throws Exception {
+    public void testNullToEmptyClassNull() {
         assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.nullToEmpty((Class<?>[]) null));
     }
 
     @Test
-    public void testNullToEmptyClassEmptyArray() throws Exception {
+    public void testNullToEmptyClassEmptyArray() {
         final Class<?>[] empty = {};
         final Class<?>[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, result);
@@ -592,12 +582,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyStringNull() throws Exception {
+    public void testNullToEmptyStringNull() {
         assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.nullToEmpty((String[]) null));
     }
 
     @Test
-    public void testNullToEmptyStringEmptyArray() throws Exception {
+    public void testNullToEmptyStringEmptyArray() {
         final String[] empty = new String[]{};
         final String[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, result);
@@ -611,12 +601,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyBooleanObjectNull() throws Exception {
+    public void testNullToEmptyBooleanObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Boolean[]) null));
     }
 
     @Test
-    public void testNullToEmptyBooleanObjectEmptyArray() throws Exception {
+    public void testNullToEmptyBooleanObjectEmptyArray() {
         final Boolean[] empty = new Boolean[]{};
         final Boolean[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, result);
@@ -630,12 +620,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyLongObjectNull() throws Exception {
+    public void testNullToEmptyLongObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Long[]) null));
     }
 
     @Test
-    public void testNullToEmptyLongObjectEmptyArray() throws Exception {
+    public void testNullToEmptyLongObjectEmptyArray() {
         final Long[] empty = new Long[]{};
         final Long[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY, result);
@@ -649,12 +639,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyIntObjectNull() throws Exception {
+    public void testNullToEmptyIntObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Integer[]) null));
     }
 
     @Test
-    public void testNullToEmptyIntObjectEmptyArray() throws Exception {
+    public void testNullToEmptyIntObjectEmptyArray() {
         final Integer[] empty = new Integer[]{};
         final Integer[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY, result);
@@ -668,12 +658,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyShortObjectNull() throws Exception {
+    public void testNullToEmptyShortObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Short[]) null));
     }
 
     @Test
-    public void testNullToEmptyShortObjectEmptyArray() throws Exception {
+    public void testNullToEmptyShortObjectEmptyArray() {
         final Short[] empty = new Short[]{};
         final Short[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, result);
@@ -687,12 +677,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNUllToEmptyCharObjectNull() throws Exception {
+    public void testNUllToEmptyCharObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Character[]) null));
     }
 
     @Test
-    public void testNullToEmptyCharObjectEmptyArray() throws Exception {
+    public void testNullToEmptyCharObjectEmptyArray() {
         final Character[] empty = new Character[]{};
         final Character[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY, result);
@@ -706,12 +696,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyByteObjectNull() throws Exception {
+    public void testNullToEmptyByteObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Byte[]) null));
     }
 
     @Test
-    public void testNullToEmptyByteObjectEmptyArray() throws Exception {
+    public void testNullToEmptyByteObjectEmptyArray() {
         final Byte[] empty = new Byte[]{};
         final Byte[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY, result);
@@ -725,12 +715,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyDoubleObjectNull() throws Exception {
+    public void testNullToEmptyDoubleObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Double[]) null));
     }
 
     @Test
-    public void testNullToEmptyDoubleObjectEmptyArray() throws Exception {
+    public void testNullToEmptyDoubleObjectEmptyArray() {
         final Double[] empty = new Double[]{};
         final Double[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY, result);
@@ -744,12 +734,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyFloatObjectNull() throws Exception {
+    public void testNullToEmptyFloatObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Float[]) null));
     }
 
     @Test
-    public void testNullToEmptyFloatObjectEmptyArray() throws Exception {
+    public void testNullToEmptyFloatObjectEmptyArray() {
         final Float[] empty = new Float[]{};
         final Float[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY, result);
@@ -795,11 +785,9 @@ public class ArrayUtilsTest {
                 "java.util.Date type");
         assertNotSame(java.sql.Date.class, ArrayUtils.subarray(dateArray, 1, 4).getClass().getComponentType(),
                 "java.sql.Date type");
-        try {
-            @SuppressWarnings("unused") final java.sql.Date[] dummy = (java.sql.Date[]) ArrayUtils.subarray(dateArray, 1, 3);
-            fail("Invalid downcast");
-        } catch (final ClassCastException e) {
-        }
+        assertThrows(ClassCastException.class,
+                () -> java.sql.Date[].class.cast(ArrayUtils.subarray(dateArray, 1, 3)),
+                "Invalid downcast");
     }
 
     @Test
@@ -1406,21 +1394,9 @@ public class ArrayUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testSameType() {
-        try {
-            ArrayUtils.isSameType(null, null);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.isSameType(null, new Object[0]);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.isSameType(new Object[0], null);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(null, null));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(null, new Object[0]));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(new Object[0], null));
 
         assertTrue(ArrayUtils.isSameType(new Object[0], new Object[0]));
         assertFalse(ArrayUtils.isSameType(new String[0], new Object[0]));
@@ -3901,11 +3877,7 @@ public class ArrayUtilsTest {
                 ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class, () -> ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null}));
     }
 
     @Test
@@ -3952,11 +3924,8 @@ public class ArrayUtilsTest {
                         new Character(Character.MAX_VALUE), new Character('0')}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE), null}));
     }
 
     @Test
@@ -4012,11 +3981,8 @@ public class ArrayUtilsTest {
                         Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte) 9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE), null}));
     }
 
     @Test
@@ -4072,11 +4038,8 @@ public class ArrayUtilsTest {
                         Short.valueOf(Short.MAX_VALUE), Short.valueOf((short) 9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE), null}));
     }
 
     @Test
@@ -4129,11 +4092,8 @@ public class ArrayUtilsTest {
                         Integer.valueOf(Integer.MAX_VALUE), Integer.valueOf(9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE), null}));
     }
 
     @Test
@@ -4194,11 +4154,8 @@ public class ArrayUtilsTest {
                         Long.valueOf(Long.MAX_VALUE), Long.valueOf(9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE), null}));
     }
 
     @Test
@@ -4256,11 +4213,8 @@ public class ArrayUtilsTest {
                         Float.valueOf(Float.MAX_VALUE), Float.valueOf(9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null}));
     }
 
     @Test
@@ -4318,11 +4272,8 @@ public class ArrayUtilsTest {
                         Double.valueOf(Double.MAX_VALUE), Double.valueOf(9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null}));
     }
 
     @Test
@@ -4565,11 +4516,7 @@ public class ArrayUtilsTest {
         assertEquals(0, ArrayUtils.getLength(emptyBooleanArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyBooleanArray));
 
-        try {
-            ArrayUtils.getLength("notAnArray");
-            fail("IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.getLength("notAnArray"));
     }
 
     @Test
@@ -4753,11 +4700,7 @@ public class ArrayUtilsTest {
         final Object[] array = new Object[]{1, 2, 3, "array", "test"};
         assertArrayEquals(new String[]{"1", "2", "3", "array", "test"}, ArrayUtils.toStringArray(array));
 
-        try {
-            ArrayUtils.toStringArray(new Object[]{null});
-            fail("NullPointerException expected!");
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> ArrayUtils.toStringArray(new Object[]{null}));
     }
 
     @Test

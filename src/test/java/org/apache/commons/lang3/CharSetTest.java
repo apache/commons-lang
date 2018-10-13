@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -349,22 +350,22 @@ public class CharSetTest  {
         final CharSet notatoc = CharSet.getInstance("^a-c");
         final CharSet notatoc2 = CharSet.getInstance("^a-c");
 
-        assertFalse(abc.equals(null));
+        assertNotEquals(null, abc);
 
-        assertTrue(abc.equals(abc));
-        assertTrue(abc.equals(abc2));
-        assertFalse(abc.equals(atoc));
-        assertFalse(abc.equals(notatoc));
+        assertEquals(abc, abc);
+        assertEquals(abc, abc2);
+        assertNotEquals(abc, atoc);
+        assertNotEquals(abc, notatoc);
 
-        assertFalse(atoc.equals(abc));
-        assertTrue(atoc.equals(atoc));
-        assertTrue(atoc.equals(atoc2));
-        assertFalse(atoc.equals(notatoc));
+        assertNotEquals(atoc, abc);
+        assertEquals(atoc, atoc);
+        assertEquals(atoc, atoc2);
+        assertNotEquals(atoc, notatoc);
 
-        assertFalse(notatoc.equals(abc));
-        assertFalse(notatoc.equals(atoc));
-        assertTrue(notatoc.equals(notatoc));
-        assertTrue(notatoc.equals(notatoc2));
+        assertNotEquals(notatoc, abc);
+        assertNotEquals(notatoc, atoc);
+        assertEquals(notatoc, notatoc);
+        assertEquals(notatoc, notatoc2);
     }
 
     @Test
@@ -466,7 +467,7 @@ public class CharSetTest  {
     }
 
     @Test
-    public void testJavadocExamples() throws Exception {
+    public void testJavadocExamples() {
         assertFalse(CharSet.getInstance("^a-c").contains('a'));
         assertTrue(CharSet.getInstance("^a-c").contains('d'));
         assertTrue(CharSet.getInstance("^^a-c").contains('a'));

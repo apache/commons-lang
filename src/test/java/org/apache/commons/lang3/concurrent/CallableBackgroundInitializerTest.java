@@ -98,7 +98,7 @@ public class CallableBackgroundInitializerTest  {
          * Records this invocation and returns the test result.
          */
         @Override
-        public Integer call() throws Exception {
+        public Integer call() {
             callCount++;
             return RESULT;
         }

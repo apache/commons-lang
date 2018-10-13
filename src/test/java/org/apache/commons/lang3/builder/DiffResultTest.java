@@ -99,7 +99,7 @@ public class DiffResultTest {
     @Test
     public void testToStringSpecifyStyleOutput() {
         final DiffResult list = SIMPLE_FALSE.diff(SIMPLE_TRUE);
-        assertTrue(list.getToStringStyle().equals(SHORT_STYLE));
+        assertEquals(list.getToStringStyle(), SHORT_STYLE);
 
         final String lhsString = new ToStringBuilder(SIMPLE_FALSE,
                 ToStringStyle.MULTI_LINE_STYLE).append(
@@ -118,7 +118,7 @@ public class DiffResultTest {
     @Test
     public void testNullLhs() {
         assertThrows(IllegalArgumentException.class,
-            () ->  new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
+            () -> new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
     @Test

@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -318,7 +317,7 @@ public class MethodUtilsTest {
     private final Map<Class<?>, Class<?>[]> classCache = new HashMap<>();
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         testBean = new TestBean();
         classCache.clear();
     }
@@ -329,7 +328,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void verifyJavaVarargsOverloadingResolution() throws Exception {
+    public void verifyJavaVarargsOverloadingResolution() {
         // This code is not a test of MethodUtils.
         // Rather it makes explicit the behavior of the Java specification for
         // various cases of overload resolution.
@@ -435,12 +434,7 @@ public class MethodUtilsTest {
         assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo",
                 1L, 2L));
 
-        try {
-            MethodUtils.invokeMethod(testBean, "foo",
-                    1, 2);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException expected) {
-        }
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "foo", 1, 2));
 
         TestBean.verify(new ImmutablePair<>("String...", new String[]{"x", "y"}),
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
@@ -471,23 +465,14 @@ public class MethodUtilsTest {
                 "foo", new Object[]{NumberUtils.DOUBLE_ONE},
                 new Class[]{Double.TYPE}));
 
-        try {
-            MethodUtils
-                    .invokeExactMethod(testBean, "foo", NumberUtils.BYTE_ONE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
-        try {
-            MethodUtils
-                    .invokeExactMethod(testBean, "foo", NumberUtils.LONG_ONE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
-        try {
-            MethodUtils.invokeExactMethod(testBean, "foo", Boolean.TRUE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> MethodUtils.invokeExactMethod(testBean, "foo", NumberUtils.BYTE_ONE));
+
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> MethodUtils.invokeExactMethod(testBean, "foo", NumberUtils.LONG_ONE));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeExactMethod(testBean, "foo", Boolean.TRUE));
     }
 
     @Test
@@ -526,11 +511,8 @@ public class MethodUtilsTest {
         TestBean.verify(new ImmutablePair<>("Number...", new Number[]{17, 23, 42}),
                 MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", 17, 23, 42));
 
-        try {
-            MethodUtils.invokeStaticMethod(TestBean.class, "does_not_exist");
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
+        assertThrows(
+                NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(TestBean.class, "does_not_exist"));
     }
 
     @Test
@@ -551,24 +533,15 @@ public class MethodUtilsTest {
                 TestBean.class, "bar", new Object[]{NumberUtils.DOUBLE_ONE},
                 new Class[]{Double.TYPE}));
 
-        try {
-            MethodUtils.invokeExactStaticMethod(TestBean.class, "bar",
-                    NumberUtils.BYTE_ONE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
-        try {
-            MethodUtils.invokeExactStaticMethod(TestBean.class, "bar",
-                    NumberUtils.LONG_ONE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
-        try {
-            MethodUtils.invokeExactStaticMethod(TestBean.class, "bar",
-                    Boolean.TRUE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> MethodUtils.invokeExactStaticMethod(TestBean.class, "bar", NumberUtils.BYTE_ONE));
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> MethodUtils.invokeExactStaticMethod(TestBean.class, "bar", NumberUtils.LONG_ONE));
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> MethodUtils.invokeExactStaticMethod(TestBean.class, "bar", Boolean.TRUE));
     }
 
     @Test
@@ -591,8 +564,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetAccessibleInterfaceMethodFromDescription()
-            throws Exception {
+    public void testGetAccessibleInterfaceMethodFromDescription() {
         final Class<?>[][] p = {ArrayUtils.EMPTY_CLASS_ARRAY, null};
         for (final Class<?>[] element : p) {
             final Method accessibleMethod = MethodUtils.getAccessibleMethod(
@@ -609,7 +581,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetAccessiblePublicMethodFromDescription() throws Exception {
+    public void testGetAccessiblePublicMethodFromDescription() {
         assertSame(MutableObject.class, MethodUtils.getAccessibleMethod(
                 MutableObject.class, "getValue", ArrayUtils.EMPTY_CLASS_ARRAY)
                 .getDeclaringClass());
@@ -623,7 +595,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetMatchingAccessibleMethod() throws Exception {
+    public void testGetMatchingAccessibleMethod() {
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
                 ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.EMPTY_CLASS_ARRAY);
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
@@ -737,7 +709,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetMethodsWithAnnotationSearchSupersAndIgnoreAccess() throws NoSuchMethodException {
+    public void testGetMethodsWithAnnotationSearchSupersAndIgnoreAccess() {
         assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
                 true, true));
 
@@ -757,7 +729,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetMethodsWithAnnotationNotSearchSupersButIgnoreAccess() throws NoSuchMethodException {
+    public void testGetMethodsWithAnnotationNotSearchSupersButIgnoreAccess() {
         assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
                 false, true));
 
@@ -771,7 +743,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetMethodsWithAnnotationSearchSupersButNotIgnoreAccess() throws NoSuchMethodException {
+    public void testGetMethodsWithAnnotationSearchSupersButNotIgnoreAccess() {
         assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
                 true, false));
 
@@ -787,7 +759,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetMethodsWithAnnotationNotSearchSupersAndNotIgnoreAccess() throws NoSuchMethodException {
+    public void testGetMethodsWithAnnotationNotSearchSupersAndNotIgnoreAccess() {
         assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
                 false, false));
 

@@ -17,9 +17,9 @@
 package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -163,15 +163,11 @@ public class FastDateParserSDFTest {
         Class<?> fdfE = null;
         try {
             actualTime = fdf.parse(formattedDate);
-            if (!valid) {
-                // failure in test
-                fail("Expected FDP parse to fail, but got " + actualTime);
-            }
+            // failure in test
+            assertTrue(valid, "Expected FDP parse to fail, but got " + actualTime);
         } catch (final ParseException e) {
-            if (valid) {
-                // failure in test
-                fail("Expected FDP parse to succeed, but got " + e);
-            }
+            // failure in test
+            assertFalse(valid, "Expected FDP parse to succeed, but got " + e);
             fdfE = e.getClass();
         }
         if (valid) {

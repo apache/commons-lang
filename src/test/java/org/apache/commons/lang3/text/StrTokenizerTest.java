@@ -21,9 +21,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,8 +44,8 @@ public class StrTokenizerTest {
     private static final String TSV_SIMPLE_FIXTURE = "A\tb\tc";
 
     private void checkClone(final StrTokenizer tokenizer) {
-        assertFalse(StrTokenizer.getCSVInstance() == tokenizer);
-        assertFalse(StrTokenizer.getTSVInstance() == tokenizer);
+        assertNotSame(StrTokenizer.getCSVInstance(), tokenizer);
+        assertNotSame(StrTokenizer.getTSVInstance(), tokenizer);
     }
 
     // -----------------------------------------------------------------------
@@ -182,11 +183,9 @@ public class StrTokenizerTest {
 
         assertEquals(expected.length, tokens.length, ArrayUtils.toString(tokens));
 
-        assertTrue(nextCount == expected.length,
-                "could not cycle through entire token list" + " using the 'hasNext' and 'next' methods");
+        assertEquals(nextCount, expected.length, "could not cycle through entire token list" + " using the 'hasNext' and 'next' methods");
 
-        assertTrue(prevCount == expected.length,
-                "could not cycle through entire token list" + " using the 'hasPrevious' and 'previous' methods");
+        assertEquals(prevCount, expected.length, "could not cycle through entire token list" + " using the 'hasPrevious' and 'previous' methods");
 
     }
 
@@ -541,10 +540,7 @@ public class StrTokenizerTest {
         assertFalse(tokenizer.hasPrevious());
         assertNull(tokenizer.nextToken());
         assertEquals(0, tokenizer.size());
-        try {
-            tokenizer.next();
-            fail();
-        } catch (final NoSuchElementException ex) {}
+        assertThrows(NoSuchElementException.class, tokenizer::next);
     }
 
     @Test
@@ -805,25 +801,13 @@ public class StrTokenizerTest {
     public void testIteration() {
         final StrTokenizer tkn = new StrTokenizer("a b c");
         assertFalse(tkn.hasPrevious());
-        try {
-            tkn.previous();
-            fail();
-        } catch (final NoSuchElementException ex) {}
+        assertThrows(NoSuchElementException.class, tkn::previous);
         assertTrue(tkn.hasNext());
 
         assertEquals("a", tkn.next());
-        try {
-            tkn.remove();
-            fail();
-        } catch (final UnsupportedOperationException ex) {}
-        try {
-            tkn.set("x");
-            fail();
-        } catch (final UnsupportedOperationException ex) {}
-        try {
-            tkn.add("y");
-            fail();
-        } catch (final UnsupportedOperationException ex) {}
+        assertThrows(UnsupportedOperationException.class, tkn::remove);
+        assertThrows(UnsupportedOperationException.class, () -> tkn.set("x"));
+        assertThrows(UnsupportedOperationException.class, () -> tkn.add("y"));
         assertTrue(tkn.hasPrevious());
         assertTrue(tkn.hasNext());
 
@@ -835,10 +819,7 @@ public class StrTokenizerTest {
         assertTrue(tkn.hasPrevious());
         assertFalse(tkn.hasNext());
 
-        try {
-            tkn.next();
-            fail();
-        } catch (final NoSuchElementException ex) {}
+        assertThrows(NoSuchElementException.class, tkn::next);
         assertTrue(tkn.hasPrevious());
         assertFalse(tkn.hasNext());
     }

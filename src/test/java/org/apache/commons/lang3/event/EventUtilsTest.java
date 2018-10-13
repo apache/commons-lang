@@ -179,7 +179,7 @@ public class EventUtilsTest {
         }
 
         @Override
-        public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
+        public Object invoke(final Object proxy, final Method method, final Object[] args) {
             final Integer count = eventCounts.get(method.getName());
             if (count == null) {
                 eventCounts.put(method.getName(), Integer.valueOf(1));

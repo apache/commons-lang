@@ -20,9 +20,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.hamcrest.Matcher;
@@ -107,7 +108,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testBooleanArray() throws Exception {
+    public void testBooleanArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.booleanArrayField = new boolean[] {false, false};
@@ -134,7 +135,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testByteArray() throws Exception {
+    public void testByteArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.byteArrayField= new byte[] {0x01, 0x02};
@@ -161,7 +162,7 @@ public class DiffBuilderTest {
 
 
     @Test
-    public void testCharArray() throws Exception {
+    public void testCharArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.charArrayField = new char[] {'f', 'o', 'o'};
@@ -189,7 +190,7 @@ public class DiffBuilderTest {
 
 
     @Test
-    public void testDoubleArray() throws Exception {
+    public void testDoubleArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.doubleArrayField = new double[] {3.0, 2.9, 2.8};
@@ -216,7 +217,7 @@ public class DiffBuilderTest {
 
 
     @Test
-    public void testFloatArray() throws Exception {
+    public void testFloatArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.floatArrayField = new float[] {3.0F, 2.9F, 2.8F};
@@ -244,7 +245,7 @@ public class DiffBuilderTest {
 
 
     @Test
-    public void testIntArray() throws Exception {
+    public void testIntArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.intArrayField = new int[] {3, 2, 1};
@@ -271,7 +272,7 @@ public class DiffBuilderTest {
 
 
     @Test
-    public void testLongArray() throws Exception {
+    public void testLongArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.longArrayField = new long[] {3L, 2L, 1L};
@@ -298,7 +299,7 @@ public class DiffBuilderTest {
 
 
     @Test
-    public void testShortArray() throws Exception {
+    public void testShortArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.shortArrayField = new short[] {3, 2, 1};
@@ -312,7 +313,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testObject() throws Exception {
+    public void testObject() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.objectField = "Some string";
@@ -327,14 +328,14 @@ public class DiffBuilderTest {
      * Test that "left" and "right" are the same instance and are equal.
      */
     @Test
-    public void testObjectsSameAndEqual() throws Exception {
+    public void testObjectsSameAndEqual() {
         final Integer sameObject = 1;
         final TypeTestClass left = new TypeTestClass();
         left.objectField = sameObject;
         final TypeTestClass right = new TypeTestClass();
         right.objectField = sameObject;
-        assertTrue(left.objectField == right.objectField);
-        assertTrue(left.objectField.equals(right.objectField));
+        assertSame(left.objectField, right.objectField);
+        assertEquals(left.objectField, right.objectField);
 
         final DiffResult list = left.diff(right);
         assertEquals(0, list.getNumberOfDiffs());
@@ -344,13 +345,13 @@ public class DiffBuilderTest {
      * Test that "left" and "right" are the same instance but are equal.
      */
     @Test
-    public void testObjectsNotSameButEqual() throws Exception {
+    public void testObjectsNotSameButEqual() {
         final TypeTestClass left = new TypeTestClass();
         left.objectField = new Integer(1);
         final TypeTestClass right = new TypeTestClass();
         right.objectField = new Integer(1);
-        assertFalse(left.objectField == right.objectField);
-        assertTrue(left.objectField.equals(right.objectField));
+        assertNotSame(left.objectField, right.objectField);
+        assertEquals(left.objectField, right.objectField);
 
         final DiffResult list = left.diff(right);
         assertEquals(0, list.getNumberOfDiffs());
@@ -360,20 +361,20 @@ public class DiffBuilderTest {
      * Test that "left" and "right" are not the same instance and are not equal.
      */
     @Test
-    public void testObjectsNotSameNorEqual() throws Exception {
+    public void testObjectsNotSameNorEqual() {
         final TypeTestClass left = new TypeTestClass();
         left.objectField = 4;
         final TypeTestClass right = new TypeTestClass();
         right.objectField = 100;
-        assertFalse(left.objectField == right.objectField);
-        assertFalse(left.objectField.equals(right.objectField));
+        assertNotSame(left.objectField, right.objectField);
+        assertNotEquals(left.objectField, right.objectField);
 
         final DiffResult list = left.diff(right);
         assertEquals(1, list.getNumberOfDiffs());
     }
 
     @Test
-    public void testObjectArray() throws Exception {
+    public void testObjectArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.objectArrayField = new Object[] {"string", 1, 2};
@@ -385,7 +386,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testObjectArrayEqual() throws Exception {
+    public void testObjectArrayEqual() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class1.objectArrayField = new Object[] {"string", 1, 2};
@@ -396,7 +397,7 @@ public class DiffBuilderTest {
 
 
     @Test
-    public void testByteArrayEqualAsObject() throws Exception {
+    public void testByteArrayEqualAsObject() {
         final DiffResult list = new DiffBuilder("String1", "String2", SHORT_STYLE)
             .append("foo", new boolean[] {false}, new boolean[] {false})
             .append("foo", new byte[] {0x01}, new byte[] {0x01})

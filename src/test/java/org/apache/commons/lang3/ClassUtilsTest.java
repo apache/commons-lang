@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -93,20 +92,17 @@ public class ClassUtilsTest  {
         assertEquals( c, ClassUtils.getClass( c.getName() ) );
     }
 
-    private void assertGetClassThrowsClassNotFound( final String className ) throws Exception {
+    private void assertGetClassThrowsClassNotFound( final String className ) {
         assertGetClassThrowsException( className, ClassNotFoundException.class );
     }
 
-    private void assertGetClassThrowsException( final String className, final Class<?> exceptionType ) throws Exception {
-        try {
-            ClassUtils.getClass( className );
-            fail( "ClassUtils.getClass() should fail with an exception of type " + exceptionType.getName() + " when given class name \"" + className + "\"." );
-        } catch( final Exception e ) {
-            assertTrue( exceptionType.isAssignableFrom( e.getClass() ) );
-        }
+    private void assertGetClassThrowsException(final String className, final Class<? extends Exception> exceptionType) {
+        assertThrows(exceptionType,
+                () -> ClassUtils.getClass(className),
+                "ClassUtils.getClass() should fail with an exception of type " + exceptionType.getName() + " when given class name \"" + className + "\"." );
     }
 
-    private void assertGetClassThrowsNullPointerException( final String className ) throws Exception {
+    private void assertGetClassThrowsNullPointerException( final String className ) {
         assertGetClassThrowsException( className, NullPointerException.class );
     }
 
@@ -128,12 +124,9 @@ public class ClassUtilsTest  {
         @SuppressWarnings("unchecked") // test what happens when non-generic code adds wrong type of element
         final List<Object> olist = (List<Object>) (List<?>) list;
         olist.add(new Object());
-        try {
-            ClassUtils.convertClassesToClassNames(list);
-            fail("Should not have been able to convert list");
-        } catch (final ClassCastException expected) {
-            // empty
-    }
+        assertThrows(ClassCastException.class,
+                () -> ClassUtils.convertClassesToClassNames(list),
+                "Should not have been able to convert list");
         assertNull(ClassUtils.convertClassesToClassNames(null));
     }
 
@@ -156,12 +149,9 @@ public class ClassUtilsTest  {
         @SuppressWarnings("unchecked") // test what happens when non-generic code adds wrong type of element
         final List<Object> olist = (List<Object>) (List<?>) list;
         olist.add(new Object());
-        try {
-            ClassUtils.convertClassNamesToClasses(list);
-            fail("Should not have been able to convert list");
-        } catch (final ClassCastException expected) {
-            // empty
-        }
+        assertThrows(ClassCastException.class,
+                () -> ClassUtils.convertClassNamesToClasses(list),
+                "Should not have been able to convert list");
         assertNull(ClassUtils.convertClassNamesToClasses(null));
     }
 
@@ -673,11 +663,11 @@ public class ClassUtilsTest  {
         assertEquals("Inner", ClassUtils.getSimpleName(new Inner(), "<null>"));
         assertEquals("String", ClassUtils.getSimpleName("hello", "<null>"));
         assertEquals("<null>", ClassUtils.getSimpleName(null, "<null>"));
-        assertEquals(null, ClassUtils.getSimpleName(null, null));
+        assertNull(ClassUtils.getSimpleName(null, null));
     }
 
     @Test
-    public void test_isAssignable() throws Exception {
+    public void test_isAssignable() {
         assertFalse(ClassUtils.isAssignable((Class<?>) null, null));
         assertFalse(ClassUtils.isAssignable(String.class, null));
 
@@ -703,7 +693,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_Autoboxing() throws Exception {
+    public void test_isAssignable_Autoboxing() {
         assertFalse(ClassUtils.isAssignable((Class<?>) null, null, true));
         assertFalse(ClassUtils.isAssignable(String.class, null, true));
 
@@ -728,7 +718,7 @@ public class ClassUtilsTest  {
 
     // -------------------------------------------------------------------------
     @Test
-    public void test_isAssignable_ClassArray_ClassArray() throws Exception {
+    public void test_isAssignable_ClassArray_ClassArray() {
         final Class<?>[] array2 = new Class[] {Object.class, Object.class};
         final Class<?>[] array1 = new Class[] {Object.class};
         final Class<?>[] array1s = new Class[] {String.class};
@@ -756,7 +746,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_ClassArray_ClassArray_Autoboxing() throws Exception {
+    public void test_isAssignable_ClassArray_ClassArray_Autoboxing() {
         final Class<?>[] array2 = new Class[] {Object.class, Object.class};
         final Class<?>[] array1 = new Class[] {Object.class};
         final Class<?>[] array1s = new Class[] {String.class};
@@ -784,7 +774,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_ClassArray_ClassArray_NoAutoboxing() throws Exception {
+    public void test_isAssignable_ClassArray_ClassArray_NoAutoboxing() {
         final Class<?>[] array2 = new Class[] {Object.class, Object.class};
         final Class<?>[] array1 = new Class[] {Object.class};
         final Class<?>[] array1s = new Class[] {String.class};
@@ -812,7 +802,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_DefaultUnboxing_Widening() throws Exception {
+    public void test_isAssignable_DefaultUnboxing_Widening() {
         // test byte conversions
         assertFalse(ClassUtils.isAssignable(Byte.class, Character.TYPE), "byte -> char");
         assertTrue(ClassUtils.isAssignable(Byte.class, Byte.TYPE), "byte -> byte");
@@ -895,7 +885,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_NoAutoboxing() throws Exception {
+    public void test_isAssignable_NoAutoboxing() {
         assertFalse(ClassUtils.isAssignable((Class<?>) null, null, false));
         assertFalse(ClassUtils.isAssignable(String.class, null, false));
 
@@ -919,7 +909,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_Unboxing_Widening() throws Exception {
+    public void test_isAssignable_Unboxing_Widening() {
         // test byte conversions
         assertFalse(ClassUtils.isAssignable(Byte.class, Character.TYPE, true), "byte -> char");
         assertTrue(ClassUtils.isAssignable(Byte.class, Byte.TYPE, true), "byte -> byte");
@@ -1002,7 +992,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_Widening() throws Exception {
+    public void test_isAssignable_Widening() {
         // test byte conversions
         assertFalse(ClassUtils.isAssignable(Byte.TYPE, Character.TYPE), "byte -> char");
         assertTrue(ClassUtils.isAssignable(Byte.TYPE, Byte.TYPE), "byte -> byte");
@@ -1208,17 +1198,12 @@ public class ClassUtilsTest  {
         // Tests with Collections$UnmodifiableSet
         final Set<?> set = Collections.unmodifiableSet(new HashSet<>());
         final Method isEmptyMethod = ClassUtils.getPublicMethod(set.getClass(), "isEmpty");
-            assertTrue(Modifier.isPublic(isEmptyMethod.getDeclaringClass().getModifiers()));
-
-        try {
-            isEmptyMethod.invoke(set);
-        } catch(final java.lang.IllegalAccessException iae) {
-            fail("Should not have thrown IllegalAccessException");
-        }
+        assertTrue(Modifier.isPublic(isEmptyMethod.getDeclaringClass().getModifiers()));
+        assertTrue((Boolean) isEmptyMethod.invoke(set));
 
         // Tests with a public Class
         final Method toStringMethod = ClassUtils.getPublicMethod(Object.class, "toString");
-            assertEquals(Object.class.getMethod("toString", new Class[0]), toStringMethod);
+        assertEquals(Object.class.getMethod("toString", new Class[0]), toStringMethod);
     }
 
     @Test
@@ -1370,12 +1355,7 @@ public class ClassUtilsTest  {
         // Tests with Collections$UnmodifiableSet
         final Set<?> set = Collections.unmodifiableSet(new HashSet<>());
         final Method isEmptyMethod = set.getClass().getMethod("isEmpty");
-        try {
-            isEmptyMethod.invoke(set);
-            fail("Failed to throw IllegalAccessException as expected");
-        } catch(final IllegalAccessException iae) {
-            // expected
-        }
+        assertThrows(IllegalAccessException.class, () -> isEmptyMethod.invoke(set));
     }
 
     @Test

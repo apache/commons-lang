@@ -19,8 +19,8 @@ package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Arrays;
 
@@ -46,18 +46,9 @@ public class ArrayUtilsRemoveTest {
         array = ArrayUtils.remove(new Object[] {"a", "b", "c"}, 1);
         assertTrue(Arrays.equals(new Object[] {"a", "c"}, array));
         assertEquals(Object.class, array.getClass().getComponentType());
-        try {
-            ArrayUtils.remove(new Object[] {"a", "b"}, -1);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove(new Object[] {"a", "b"}, 2);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove((Object[]) null, 0);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new Object[] {"a", "b"}, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new Object[] {"a", "b"}, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((Object[]) null, 0));
     }
 
     @Test
@@ -91,18 +82,9 @@ public class ArrayUtilsRemoveTest {
         array = ArrayUtils.remove(new boolean[] {true, false, true}, 1);
         assertTrue(Arrays.equals(new boolean[] {true, true}, array));
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
-        try {
-            ArrayUtils.remove(new boolean[] {true, false}, -1);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove(new boolean[] {true, false}, 2);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove((boolean[]) null, 0);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new boolean[] {true, false}, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new boolean[] {true, false}, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((boolean[]) null, 0));
     }
 
     @Test
@@ -120,18 +102,9 @@ public class ArrayUtilsRemoveTest {
         array = ArrayUtils.remove(new byte[] {1, 2, 1}, 1);
         assertTrue(Arrays.equals(new byte[] {1, 1}, array));
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
-        try {
-            ArrayUtils.remove(new byte[] {1, 2}, -1);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove(new byte[] {1, 2}, 2);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove((byte[]) null, 0);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new byte[] {1, 2}, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new byte[] {1, 2}, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((byte[]) null, 0));
     }
 
     @Test
@@ -149,18 +122,9 @@ public class ArrayUtilsRemoveTest {
         array = ArrayUtils.remove(new char[] {'a', 'b', 'c'}, 1);
         assertTrue(Arrays.equals(new char[] {'a', 'c'}, array));
         assertEquals(Character.TYPE, array.getClass().getComponentType());
-        try {
-            ArrayUtils.remove(new char[] {'a', 'b'}, -1);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove(new char[] {'a', 'b'}, 2);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove((char[]) null, 0);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new char[] {'a', 'b'}, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new char[] {'a', 'b'}, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((char[]) null, 0));
     }
 
     @Test
@@ -178,18 +142,9 @@ public class ArrayUtilsRemoveTest {
         array = ArrayUtils.remove(new double[] {1, 2, 1}, 1);
         assertTrue(Arrays.equals(new double[] {1, 1}, array));
         assertEquals(Double.TYPE, array.getClass().getComponentType());
-        try {
-            ArrayUtils.remove(new double[] {1, 2}, -1);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove(new double[] {1, 2}, 2);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove((double[]) null, 0);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new double[] {1, 2}, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new double[] {1, 2}, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((double[]) null, 0));
     }
 
     @Test
@@ -207,18 +162,9 @@ public class ArrayUtilsRemoveTest {
         array = ArrayUtils.remove(new float[] {1, 2, 1}, 1);
         assertTrue(Arrays.equals(new float[] {1, 1}, array));
         assertEquals(Float.TYPE, array.getClass().getComponentType());
-        try {
-            ArrayUtils.remove(new float[] {1, 2}, -1);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove(new float[] {1, 2}, 2);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove((float[]) null, 0);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new float[] {1, 2}, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new float[] {1, 2}, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((float[]) null, 0));
     }
 
     @Test
@@ -236,18 +182,9 @@ public class ArrayUtilsRemoveTest {
         array = ArrayUtils.remove(new int[] {1, 2, 1}, 1);
         assertTrue(Arrays.equals(new int[] {1, 1}, array));
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
-        try {
-            ArrayUtils.remove(new int[] {1, 2}, -1);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove(new int[] {1, 2}, 2);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove((int[]) null, 0);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new int[] {1, 2}, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new int[] {1, 2}, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((int[]) null, 0));
     }
 
     @Test
@@ -265,18 +202,9 @@ public class ArrayUtilsRemoveTest {
         array = ArrayUtils.remove(new long[] {1, 2, 1}, 1);
         assertTrue(Arrays.equals(new long[] {1, 1}, array));
         assertEquals(Long.TYPE, array.getClass().getComponentType());
-        try {
-            ArrayUtils.remove(new long[] {1, 2}, -1);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove(new long[] {1, 2}, 2);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove((long[]) null, 0);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new long[] {1, 2}, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new long[] {1, 2}, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((long[]) null, 0));
     }
 
     @Test
@@ -294,18 +222,9 @@ public class ArrayUtilsRemoveTest {
         array = ArrayUtils.remove(new short[] {1, 2, 1}, 1);
         assertTrue(Arrays.equals(new short[] {1, 1}, array));
         assertEquals(Short.TYPE, array.getClass().getComponentType());
-        try {
-            ArrayUtils.remove(new short[] {1, 2}, -1);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove(new short[] {1, 2}, 2);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
-        try {
-            ArrayUtils.remove((short[]) null, 0);
-            fail("IndexOutOfBoundsException expected");
-        } catch (final IndexOutOfBoundsException e) {}
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new short[] {1, 2}, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove(new short[] {1, 2}, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((short[]) null, 0));
     }
 
     @Test

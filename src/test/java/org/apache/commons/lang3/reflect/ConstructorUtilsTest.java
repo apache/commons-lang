@@ -20,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -130,7 +130,7 @@ public class ConstructorUtilsTest {
 
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         classCache.clear();
     }
 
@@ -186,24 +186,15 @@ public class ConstructorUtilsTest {
                 TestBean.class, new Object[] { NumberUtils.DOUBLE_ONE },
                 new Class[] { Double.TYPE }).toString());
 
-        try {
-            ConstructorUtils.invokeExactConstructor(TestBean.class,
-                    NumberUtils.BYTE_ONE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
-        try {
-            ConstructorUtils.invokeExactConstructor(TestBean.class,
-                    NumberUtils.LONG_ONE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
-        try {
-            ConstructorUtils.invokeExactConstructor(TestBean.class,
-                    Boolean.TRUE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> ConstructorUtils.invokeExactConstructor(TestBean.class,NumberUtils.BYTE_ONE));
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> ConstructorUtils.invokeExactConstructor(TestBean.class, NumberUtils.LONG_ONE));
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> ConstructorUtils.invokeExactConstructor(TestBean.class, Boolean.TRUE));
     }
 
     @Test
@@ -216,7 +207,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testGetAccessibleConstructorFromDescription() throws Exception {
+    public void testGetAccessibleConstructorFromDescription() {
         assertNotNull(ConstructorUtils.getAccessibleConstructor(Object.class,
                 ArrayUtils.EMPTY_CLASS_ARRAY));
         assertNull(ConstructorUtils.getAccessibleConstructor(
@@ -224,7 +215,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testGetMatchingAccessibleMethod() throws Exception {
+    public void testGetMatchingAccessibleMethod() {
         expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
                 ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.EMPTY_CLASS_ARRAY);
         expectMatchingAccessibleConstructorParameterTypes(TestBean.class, null,

@@ -17,11 +17,10 @@
 package org.apache.commons.lang3.tuple;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -36,7 +35,7 @@ import org.junit.jupiter.api.Test;
 public class ImmutablePairTest {
 
     @Test
-    public void testBasic() throws Exception {
+    public void testBasic() {
         final ImmutablePair<Integer, String> pair = new ImmutablePair<>(0, "foo");
         assertEquals(0, pair.left.intValue());
         assertEquals(0, pair.getLeft().intValue());
@@ -50,7 +49,7 @@ public class ImmutablePairTest {
     }
 
     @Test
-    public void testPairOf() throws Exception {
+    public void testPairOf() {
         final ImmutablePair<Integer, String> pair = ImmutablePair.of(0, "foo");
         assertEquals(0, pair.left.intValue());
         assertEquals(0, pair.getLeft().intValue());
@@ -64,18 +63,18 @@ public class ImmutablePairTest {
     }
 
     @Test
-    public void testEquals() throws Exception {
+    public void testEquals() {
         assertEquals(ImmutablePair.of(null, "foo"), ImmutablePair.of(null, "foo"));
-        assertFalse(ImmutablePair.of("foo", 0).equals(ImmutablePair.of("foo", null)));
-        assertFalse(ImmutablePair.of("foo", "bar").equals(ImmutablePair.of("xyz", "bar")));
+        assertNotEquals(ImmutablePair.of("foo", 0), ImmutablePair.of("foo", null));
+        assertNotEquals(ImmutablePair.of("foo", "bar"), ImmutablePair.of("xyz", "bar"));
 
         final ImmutablePair<String, String> p = ImmutablePair.of("foo", "bar");
-        assertTrue(p.equals(p));
-        assertFalse(p.equals(new Object()));
+        assertEquals(p, p);
+        assertNotEquals(p, new Object());
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         assertEquals(ImmutablePair.of(null, "foo").hashCode(), ImmutablePair.of(null, "foo").hashCode());
     }
 
@@ -118,7 +117,7 @@ public class ImmutablePairTest {
     }
 
     @Test
-    public void testToString() throws Exception {
+    public void testToString() {
         assertEquals("(null,null)", ImmutablePair.of(null, null).toString());
         assertEquals("(null,two)", ImmutablePair.of(null, "two").toString());
         assertEquals("(one,null)", ImmutablePair.of("one", null).toString());

@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -596,7 +596,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateMilliSecond() throws Exception {
+    public void testTruncateMilliSecond() {
         final int calendarField = Calendar.MILLISECOND;
         baseTruncateTest(targetMilliSecondDate, targetMilliSecondDate, calendarField);
     }
@@ -667,7 +667,7 @@ public class DateUtilsRoundingTest {
         //Date-comparison
         assertEquals(truncatedDate, DateUtils.truncate(truncatedDate, calendarField), "Truncating "+ fdf.format(truncatedDate) +" as Date with CalendarField-value "+ calendarField +" must return itself");
         assertEquals(truncatedDate, DateUtils.truncate(lastTruncateDate, calendarField));
-        assertFalse(truncatedDate.equals(DateUtils.truncate(nextTruncateDate, calendarField)), fdf.format(lastTruncateDate) +" is not an extreme when truncating as Date with CalendarField-value "+ calendarField);
+        assertNotEquals(truncatedDate, DateUtils.truncate(nextTruncateDate, calendarField), fdf.format(lastTruncateDate) + " is not an extreme when truncating as Date with CalendarField-value " + calendarField);
 
         //Calendar-initiations
         Calendar truncatedCalendar, lastTruncateCalendar, nextTruncateCalendar;
@@ -681,15 +681,15 @@ public class DateUtilsRoundingTest {
         //Calendar-comparison
         assertEquals(truncatedCalendar, DateUtils.truncate(truncatedCalendar, calendarField), "Truncating "+ fdf.format(truncatedCalendar) +" as Calendar with CalendarField-value "+ calendarField +" must return itself");
         assertEquals(truncatedCalendar, DateUtils.truncate(lastTruncateCalendar, calendarField));
-        assertFalse(truncatedCalendar.equals(DateUtils.truncate(nextTruncateCalendar, calendarField)), fdf.format(lastTruncateCalendar) +" is not an extreme when truncating as Calendar with CalendarField-value "+ calendarField);
+        assertNotEquals(truncatedCalendar, DateUtils.truncate(nextTruncateCalendar, calendarField), fdf.format(lastTruncateCalendar) + " is not an extreme when truncating as Calendar with CalendarField-value " + calendarField);
 
         //Object-comparison
         assertEquals(truncatedDate, DateUtils.truncate((Object) truncatedDate, calendarField), "Truncating "+ fdf.format(truncatedDate) +" as Date cast to Object with CalendarField-value "+ calendarField +" must return itself as Date");
         assertEquals(truncatedDate, DateUtils.truncate((Object) lastTruncateDate, calendarField));
-        assertFalse(truncatedDate.equals(DateUtils.truncate((Object) nextTruncateDate, calendarField)), fdf.format(lastTruncateDate) +" is not an extreme when truncating as Date cast to Object with CalendarField-value "+ calendarField);
+        assertNotEquals(truncatedDate, DateUtils.truncate((Object) nextTruncateDate, calendarField), fdf.format(lastTruncateDate) + " is not an extreme when truncating as Date cast to Object with CalendarField-value " + calendarField);
         assertEquals(truncatedDate, DateUtils.truncate((Object) truncatedCalendar, calendarField), "Truncating "+ fdf.format(truncatedCalendar) +" as Calendar cast to Object with CalendarField-value "+ calendarField +" must return itself as Date");
         assertEquals(truncatedDate, DateUtils.truncate((Object) lastTruncateCalendar, calendarField));
-        assertFalse(truncatedDate.equals(DateUtils.truncate((Object) nextTruncateCalendar, calendarField)), fdf.format(lastTruncateCalendar) +" is not an extreme when truncating as Calendar cast to Object with CalendarField-value "+ calendarField);
+        assertNotEquals(truncatedDate, DateUtils.truncate((Object) nextTruncateCalendar, calendarField), fdf.format(lastTruncateCalendar) + " is not an extreme when truncating as Calendar cast to Object with CalendarField-value " + calendarField);
     }
 
     /**
@@ -717,14 +717,14 @@ public class DateUtilsRoundingTest {
 
         final Date toPrevRoundDate = DateUtils.addMilliseconds(minDate, -1);
         final Date toNextRoundDate = DateUtils.addMilliseconds(maxDate, 1);
-        assertFalse(januaryOneDate.equals(DateUtils.round(toPrevRoundDate, calendarField)), fdf.format(minDate) +" is not an lower-extreme when rounding as Date with CalendarField-value "+ calendarField);
-        assertFalse(januaryOneDate.equals(DateUtils.round(toNextRoundDate, calendarField)), fdf.format(maxDate) +" is not an upper-extreme when rounding as Date with CalendarField-value "+ calendarField);
+        assertNotEquals(januaryOneDate, DateUtils.round(toPrevRoundDate, calendarField), fdf.format(minDate) + " is not an lower-extreme when rounding as Date with CalendarField-value " + calendarField);
+        assertNotEquals(januaryOneDate, DateUtils.round(toNextRoundDate, calendarField), fdf.format(maxDate) + " is not an upper-extreme when rounding as Date with CalendarField-value " + calendarField);
 
         final Calendar toPrevRoundCalendar = Calendar.getInstance();
         toPrevRoundCalendar.setTime(toPrevRoundDate);
         final Calendar toNextRoundCalendar = Calendar.getInstance();
         toNextRoundCalendar.setTime(toNextRoundDate);
-        assertFalse(januaryOneDate.equals(DateUtils.round(toPrevRoundDate, calendarField)), fdf.format(minCalendar) +" is not an lower-extreme when rounding as Date with CalendarField-value "+ calendarField);
-        assertFalse(januaryOneDate.equals(DateUtils.round(toNextRoundDate, calendarField)), fdf.format(maxCalendar) +" is not an upper-extreme when rounding as Date with CalendarField-value "+ calendarField);
+        assertNotEquals(januaryOneDate, DateUtils.round(toPrevRoundDate, calendarField), fdf.format(minCalendar) + " is not an lower-extreme when rounding as Date with CalendarField-value " + calendarField);
+        assertNotEquals(januaryOneDate, DateUtils.round(toNextRoundDate, calendarField), fdf.format(maxCalendar) + " is not an upper-extreme when rounding as Date with CalendarField-value " + calendarField);
     }
 }

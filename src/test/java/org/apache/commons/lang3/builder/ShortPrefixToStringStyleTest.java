@@ -35,12 +35,12 @@ public class ShortPrefixToStringStyleTest {
     private final String baseStr = "Integer";
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
+    public void tearDown() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 

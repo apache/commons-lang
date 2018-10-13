@@ -35,12 +35,12 @@ public class NoFieldNamesToStringStyleTest {
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.NO_FIELD_NAMES_STYLE);
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
+    public void tearDown() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 

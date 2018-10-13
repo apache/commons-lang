@@ -21,7 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -48,7 +48,7 @@ public class ExtendedMessageFormatTest {
     private final Map<String, FormatFactory> registry = new HashMap<>();
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         registry.put("lower", new LowerCaseFormatFactory());
         registry.put("upper", new UpperCaseFormatFactory());
     }
@@ -301,33 +301,33 @@ public class ExtendedMessageFormatTest {
         ExtendedMessageFormat other = null;
 
         // Same object
-        assertTrue(emf.equals(emf), "same, equals()");
-        assertTrue(emf.hashCode() == emf.hashCode(), "same, hashcode()");
+        assertEquals(emf, emf, "same, equals()");
+        assertEquals(emf.hashCode(), emf.hashCode(), "same, hashcode()");
 
         // Equal Object
         other = new ExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
-        assertTrue(emf.equals(other), "equal, equals()");
-        assertTrue(emf.hashCode() == other.hashCode(), "equal, hashcode()");
+        assertEquals(emf, other, "equal, equals()");
+        assertEquals(emf.hashCode(), other.hashCode(), "equal, hashcode()");
 
         // Different Class
         other = new OtherExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
-        assertFalse(emf.equals(other), "class, equals()");
-        assertTrue(emf.hashCode() == other.hashCode(), "class, hashcode()"); // same hashcode
+        assertNotEquals(emf, other, "class, equals()");
+        assertEquals(emf.hashCode(), other.hashCode(), "class, hashcode()"); // same hashcode
 
         // Different pattern
         other = new ExtendedMessageFormat("X" + pattern, Locale.US, fmtRegistry);
-        assertFalse(emf.equals(other), "pattern, equals()");
+        assertNotEquals(emf, other, "pattern, equals()");
         assertFalse(emf.hashCode() == other.hashCode(), "pattern, hashcode()");
 
         // Different registry
         other = new ExtendedMessageFormat(pattern, Locale.US, otherRegitry);
-        assertFalse(emf.equals(other), "registry, equals()");
+        assertNotEquals(emf, other, "registry, equals()");
         assertFalse(emf.hashCode() == other.hashCode(), "registry, hashcode()");
 
         // Different Locale
         other = new ExtendedMessageFormat(pattern, Locale.FRANCE, fmtRegistry);
-        assertFalse(emf.equals(other), "locale, equals()");
-        assertTrue(emf.hashCode() == other.hashCode(), "locale, hashcode()"); // same hashcode
+        assertNotEquals(emf, other, "locale, equals()");
+        assertEquals(emf.hashCode(), other.hashCode(), "locale, hashcode()"); // same hashcode
     }
 
     /**

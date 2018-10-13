@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -73,16 +74,16 @@ public class MutableBooleanTest {
         final MutableBoolean mutBoolB = new MutableBoolean(false);
         final MutableBoolean mutBoolC = new MutableBoolean(true);
 
-        assertTrue(mutBoolA.equals(mutBoolA));
-        assertTrue(mutBoolA.equals(mutBoolB));
-        assertTrue(mutBoolB.equals(mutBoolA));
-        assertTrue(mutBoolB.equals(mutBoolB));
-        assertFalse(mutBoolA.equals(mutBoolC));
-        assertFalse(mutBoolB.equals(mutBoolC));
-        assertTrue(mutBoolC.equals(mutBoolC));
-        assertFalse(mutBoolA.equals(null));
-        assertFalse(mutBoolA.equals(Boolean.FALSE));
-        assertFalse(mutBoolA.equals("false"));
+        assertEquals(mutBoolA, mutBoolA);
+        assertEquals(mutBoolA, mutBoolB);
+        assertEquals(mutBoolB, mutBoolA);
+        assertEquals(mutBoolB, mutBoolB);
+        assertNotEquals(mutBoolA, mutBoolC);
+        assertNotEquals(mutBoolB, mutBoolC);
+        assertEquals(mutBoolC, mutBoolC);
+        assertNotEquals(null, mutBoolA);
+        assertNotEquals(mutBoolA, Boolean.FALSE);
+        assertNotEquals("false", mutBoolA);
     }
 
     @Test
