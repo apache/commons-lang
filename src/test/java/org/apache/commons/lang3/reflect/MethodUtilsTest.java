@@ -317,7 +317,7 @@ public class MethodUtilsTest {
     private final Map<Class<?>, Class<?>[]> classCache = new HashMap<>();
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         testBean = new TestBean();
         classCache.clear();
     }
@@ -328,7 +328,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void verifyJavaVarargsOverloadingResolution() throws Exception {
+    public void verifyJavaVarargsOverloadingResolution() {
         // This code is not a test of MethodUtils.
         // Rather it makes explicit the behavior of the Java specification for
         // various cases of overload resolution.
@@ -564,8 +564,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetAccessibleInterfaceMethodFromDescription()
-            throws Exception {
+    public void testGetAccessibleInterfaceMethodFromDescription() {
         final Class<?>[][] p = {ArrayUtils.EMPTY_CLASS_ARRAY, null};
         for (final Class<?>[] element : p) {
             final Method accessibleMethod = MethodUtils.getAccessibleMethod(
@@ -582,7 +581,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetAccessiblePublicMethodFromDescription() throws Exception {
+    public void testGetAccessiblePublicMethodFromDescription() {
         assertSame(MutableObject.class, MethodUtils.getAccessibleMethod(
                 MutableObject.class, "getValue", ArrayUtils.EMPTY_CLASS_ARRAY)
                 .getDeclaringClass());
@@ -596,7 +595,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetMatchingAccessibleMethod() throws Exception {
+    public void testGetMatchingAccessibleMethod() {
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
                 ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.EMPTY_CLASS_ARRAY);
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
@@ -710,7 +709,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetMethodsWithAnnotationSearchSupersAndIgnoreAccess() throws NoSuchMethodException {
+    public void testGetMethodsWithAnnotationSearchSupersAndIgnoreAccess() {
         assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
                 true, true));
 
@@ -730,7 +729,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetMethodsWithAnnotationNotSearchSupersButIgnoreAccess() throws NoSuchMethodException {
+    public void testGetMethodsWithAnnotationNotSearchSupersButIgnoreAccess() {
         assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
                 false, true));
 
@@ -744,7 +743,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetMethodsWithAnnotationSearchSupersButNotIgnoreAccess() throws NoSuchMethodException {
+    public void testGetMethodsWithAnnotationSearchSupersButNotIgnoreAccess() {
         assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
                 true, false));
 
@@ -760,7 +759,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testGetMethodsWithAnnotationNotSearchSupersAndNotIgnoreAccess() throws NoSuchMethodException {
+    public void testGetMethodsWithAnnotationNotSearchSupersAndNotIgnoreAccess() {
         assertArrayEquals(new Method[0], MethodUtils.getMethodsWithAnnotation(Object.class, Annotated.class,
                 false, false));
 

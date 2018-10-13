@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.Serializable;
 import java.text.FieldPosition;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -262,7 +261,7 @@ public class FastDatePrinterTest {
 
     @DefaultTimeZone("UTC")
     @Test
-    public void testTimeZoneAsZ() throws Exception {
+    public void testTimeZoneAsZ() {
         final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
         final FastDateFormat noColonFormat = FastDateFormat.getInstance("Z");
         assertEquals("+0000", noColonFormat.format(c));
@@ -309,7 +308,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void test1806() throws ParseException {
+    public void test1806() {
         for (final Expected1806 trial : Expected1806.values()) {
             final Calendar cal = initializeCalendar(trial.zone);
 
@@ -325,7 +324,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void testLang1103() throws ParseException {
+    public void testLang1103() {
         final Calendar cal = Calendar.getInstance(SWEDEN);
         cal.set(Calendar.DAY_OF_MONTH, 2);
 
@@ -343,7 +342,7 @@ public class FastDatePrinterTest {
      * This method test that the bug is fixed.
      */
     @Test
-    public void testLang916() throws Exception {
+    public void testLang916() {
 
         final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         cal.clear();

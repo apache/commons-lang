@@ -54,7 +54,7 @@ public class LocaleUtilsTest  {
     private static final Locale LOCALE_QQ_ZZ = new Locale("qq", "ZZ");
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         // Testing #LANG-304. Must be called before availableLocaleSet is called.
         LocaleUtils.isAvailableLocale(Locale.getDefault());
     }

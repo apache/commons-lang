@@ -392,12 +392,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyBooleanNull() throws Exception {
+    public void testNullToEmptyBooleanNull() {
         assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.nullToEmpty((boolean[]) null));
     }
 
     @Test
-    public void testNullToEmptyBooleanEmptyArray() throws Exception {
+    public void testNullToEmptyBooleanEmptyArray() {
         final boolean[] empty = new boolean[]{};
         final boolean[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, result);
@@ -411,12 +411,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyLongNull() throws Exception {
+    public void testNullToEmptyLongNull() {
         assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.nullToEmpty((long[]) null));
     }
 
     @Test
-    public void testNullToEmptyLongEmptyArray() throws Exception {
+    public void testNullToEmptyLongEmptyArray() {
         final long[] empty = new long[]{};
         final long[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, result);
@@ -430,12 +430,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyIntNull() throws Exception {
+    public void testNullToEmptyIntNull() {
         assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.nullToEmpty((int[]) null));
     }
 
     @Test
-    public void testNullToEmptyIntEmptyArray() throws Exception {
+    public void testNullToEmptyIntEmptyArray() {
         final int[] empty = new int[]{};
         final int[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_INT_ARRAY, result);
@@ -449,12 +449,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyShortNull() throws Exception {
+    public void testNullToEmptyShortNull() {
         assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.nullToEmpty((short[]) null));
     }
 
     @Test
-    public void testNullToEmptyShortEmptyArray() throws Exception {
+    public void testNullToEmptyShortEmptyArray() {
         final short[] empty = new short[]{};
         final short[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, result);
@@ -468,12 +468,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyCharNull() throws Exception {
+    public void testNullToEmptyCharNull() {
         assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.nullToEmpty((char[]) null));
     }
 
     @Test
-    public void testNullToEmptyCharEmptyArray() throws Exception {
+    public void testNullToEmptyCharEmptyArray() {
         final char[] empty = new char[]{};
         final char[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, result);
@@ -487,12 +487,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyByteNull() throws Exception {
+    public void testNullToEmptyByteNull() {
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.nullToEmpty((byte[]) null));
     }
 
     @Test
-    public void testNullToEmptyByteEmptyArray() throws Exception {
+    public void testNullToEmptyByteEmptyArray() {
         final byte[] empty = new byte[]{};
         final byte[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, result);
@@ -506,12 +506,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyDoubleNull() throws Exception {
+    public void testNullToEmptyDoubleNull() {
         assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.nullToEmpty((double[]) null));
     }
 
     @Test
-    public void testNullToEmptyDoubleEmptyArray() throws Exception {
+    public void testNullToEmptyDoubleEmptyArray() {
         final double[] empty = new double[]{};
         final double[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, result);
@@ -525,12 +525,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyFloatNull() throws Exception {
+    public void testNullToEmptyFloatNull() {
         assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.nullToEmpty((float[]) null));
     }
 
     @Test
-    public void testNullToEmptyFloatEmptyArray() throws Exception {
+    public void testNullToEmptyFloatEmptyArray() {
         final float[] empty = new float[]{};
         final float[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, result);
@@ -544,12 +544,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyObjectNull() throws Exception {
+    public void testNullToEmptyObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Object[]) null));
     }
 
     @Test
-    public void testNullToEmptyObjectEmptyArray() throws Exception {
+    public void testNullToEmptyObjectEmptyArray() {
         final Object[] empty = new Object[]{};
         final Object[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, result);
@@ -563,12 +563,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyClassNull() throws Exception {
+    public void testNullToEmptyClassNull() {
         assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.nullToEmpty((Class<?>[]) null));
     }
 
     @Test
-    public void testNullToEmptyClassEmptyArray() throws Exception {
+    public void testNullToEmptyClassEmptyArray() {
         final Class<?>[] empty = {};
         final Class<?>[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, result);
@@ -582,12 +582,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyStringNull() throws Exception {
+    public void testNullToEmptyStringNull() {
         assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.nullToEmpty((String[]) null));
     }
 
     @Test
-    public void testNullToEmptyStringEmptyArray() throws Exception {
+    public void testNullToEmptyStringEmptyArray() {
         final String[] empty = new String[]{};
         final String[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, result);
@@ -601,12 +601,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyBooleanObjectNull() throws Exception {
+    public void testNullToEmptyBooleanObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Boolean[]) null));
     }
 
     @Test
-    public void testNullToEmptyBooleanObjectEmptyArray() throws Exception {
+    public void testNullToEmptyBooleanObjectEmptyArray() {
         final Boolean[] empty = new Boolean[]{};
         final Boolean[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, result);
@@ -620,12 +620,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyLongObjectNull() throws Exception {
+    public void testNullToEmptyLongObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Long[]) null));
     }
 
     @Test
-    public void testNullToEmptyLongObjectEmptyArray() throws Exception {
+    public void testNullToEmptyLongObjectEmptyArray() {
         final Long[] empty = new Long[]{};
         final Long[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY, result);
@@ -639,12 +639,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyIntObjectNull() throws Exception {
+    public void testNullToEmptyIntObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Integer[]) null));
     }
 
     @Test
-    public void testNullToEmptyIntObjectEmptyArray() throws Exception {
+    public void testNullToEmptyIntObjectEmptyArray() {
         final Integer[] empty = new Integer[]{};
         final Integer[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY, result);
@@ -658,12 +658,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyShortObjectNull() throws Exception {
+    public void testNullToEmptyShortObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Short[]) null));
     }
 
     @Test
-    public void testNullToEmptyShortObjectEmptyArray() throws Exception {
+    public void testNullToEmptyShortObjectEmptyArray() {
         final Short[] empty = new Short[]{};
         final Short[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, result);
@@ -677,12 +677,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNUllToEmptyCharObjectNull() throws Exception {
+    public void testNUllToEmptyCharObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Character[]) null));
     }
 
     @Test
-    public void testNullToEmptyCharObjectEmptyArray() throws Exception {
+    public void testNullToEmptyCharObjectEmptyArray() {
         final Character[] empty = new Character[]{};
         final Character[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY, result);
@@ -696,12 +696,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyByteObjectNull() throws Exception {
+    public void testNullToEmptyByteObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Byte[]) null));
     }
 
     @Test
-    public void testNullToEmptyByteObjectEmptyArray() throws Exception {
+    public void testNullToEmptyByteObjectEmptyArray() {
         final Byte[] empty = new Byte[]{};
         final Byte[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY, result);
@@ -715,12 +715,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyDoubleObjectNull() throws Exception {
+    public void testNullToEmptyDoubleObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Double[]) null));
     }
 
     @Test
-    public void testNullToEmptyDoubleObjectEmptyArray() throws Exception {
+    public void testNullToEmptyDoubleObjectEmptyArray() {
         final Double[] empty = new Double[]{};
         final Double[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY, result);
@@ -734,12 +734,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyFloatObjectNull() throws Exception {
+    public void testNullToEmptyFloatObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Float[]) null));
     }
 
     @Test
-    public void testNullToEmptyFloatObjectEmptyArray() throws Exception {
+    public void testNullToEmptyFloatObjectEmptyArray() {
         final Float[] empty = new Float[]{};
         final Float[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY, result);

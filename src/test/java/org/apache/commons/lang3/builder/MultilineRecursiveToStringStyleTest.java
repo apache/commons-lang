@@ -203,7 +203,7 @@ public class MultilineRecursiveToStringStyleTest {
 
 
     @Test
-    public void testLANG1319() throws Exception {
+    public void testLANG1319() {
         final String[] stringArray = {"1", "2"};
 
         final String exp = getClassPrefix(stringArray) + "[" + BR

@@ -501,11 +501,9 @@ public class RandomStringUtilsTest {
      * Test for LANG-1286. Creates situation where old code would
      * overflow a char and result in a code point outside the specified
      * range.
-     *
-     * @throws Exception
      */
     @Test
-    public void testCharOverflow() throws Exception {
+    public void testCharOverflow() {
         final int start = Character.MAX_VALUE;
         final int end = Integer.MAX_VALUE;
 

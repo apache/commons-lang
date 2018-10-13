@@ -487,7 +487,7 @@ public class HashCodeBuilderTest {
     }
 
     @Test
-    public void testReflectionHashCodeExcludeFields() throws Exception {
+    public void testReflectionHashCodeExcludeFields() {
         final TestObjectWithMultipleFields x = new TestObjectWithMultipleFields(1, 2, 3);
 
         assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x));

@@ -2442,7 +2442,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testGetFuzzyDistance() throws Exception {
+    public void testGetFuzzyDistance() {
         assertEquals(0, StringUtils.getFuzzyDistance("", "", Locale.ENGLISH));
         assertEquals(0, StringUtils.getFuzzyDistance("Workshop", "b", Locale.ENGLISH));
         assertEquals(1, StringUtils.getFuzzyDistance("Room", "o", Locale.ENGLISH));
@@ -2884,7 +2884,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testEscapeSurrogatePairs() throws Exception {
+    public void testEscapeSurrogatePairs() {
         assertEquals("\uD83D\uDE30", StringEscapeUtils.escapeCsv("\uD83D\uDE30"));
         // Examples from https://en.wikipedia.org/wiki/UTF-16
         assertEquals("\uD800\uDC00", StringEscapeUtils.escapeCsv("\uD800\uDC00"));
@@ -2905,7 +2905,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testUnescapeSurrogatePairs() throws Exception {
+    public void testUnescapeSurrogatePairs() {
         assertEquals("\uD83D\uDE30", StringEscapeUtils.unescapeCsv("\uD83D\uDE30"));
         // Examples from https://en.wikipedia.org/wiki/UTF-16
         assertEquals("\uD800\uDC00", StringEscapeUtils.unescapeCsv("\uD800\uDC00"));
@@ -3145,7 +3145,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testToCodePoints() throws Exception {
+    public void testToCodePoints() {
         final int orphanedHighSurrogate = 0xD801;
         final int orphanedLowSurrogate = 0xDC00;
         final int supplementary = 0x2070E;

@@ -420,7 +420,7 @@ public class WordUtilsTest {
     }
 
     @Test
-    public void testLANG1292() throws Exception {
+    public void testLANG1292() {
         // Prior to fix, this was throwing StringIndexOutOfBoundsException
         WordUtils.wrap("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
                 + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
@@ -428,7 +428,7 @@ public class WordUtilsTest {
     }
 
     @Test
-    public void testLANG1397() throws Exception {
+    public void testLANG1397() {
         // Prior to fix, this was throwing StringIndexOutOfBoundsException
         WordUtils.wrap("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
             + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "

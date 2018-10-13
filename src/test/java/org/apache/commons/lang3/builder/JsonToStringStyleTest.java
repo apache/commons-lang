@@ -36,12 +36,12 @@ public class JsonToStringStyleTest {
     private final Integer base = Integer.valueOf(5);
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.JSON_STYLE);
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
+    public void tearDown() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 

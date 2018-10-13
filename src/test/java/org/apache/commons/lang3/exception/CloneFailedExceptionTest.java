@@ -50,7 +50,7 @@ public class CloneFailedExceptionTest extends AbstractExceptionTest {
     }
 
     @Test
-    public void testWithCauseAndMessage() throws Exception {
+    public void testWithCauseAndMessage() {
         final Exception exception = new CloneFailedException(EXCEPTION_MESSAGE, generateCause());
         assertNotNull(exception);
         assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
@@ -61,7 +61,7 @@ public class CloneFailedExceptionTest extends AbstractExceptionTest {
     }
 
     @Test
-    public void testWithoutCause() throws Exception {
+    public void testWithoutCause() {
         final Exception exception = new CloneFailedException(EXCEPTION_MESSAGE);
         assertNotNull(exception);
         assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
@@ -71,7 +71,7 @@ public class CloneFailedExceptionTest extends AbstractExceptionTest {
     }
 
     @Test
-    public void testWithoutMessage() throws Exception {
+    public void testWithoutMessage() {
         final Exception exception = new CloneFailedException(generateCause());
         assertNotNull(exception);
         assertNotNull(exception.getMessage());

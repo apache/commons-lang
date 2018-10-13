@@ -67,7 +67,7 @@ public class ExceptionUtilsTest {
 
 
     @AfterEach
-    public void tearDown() throws Exception {
+    public void tearDown() {
         withoutCause = null;
         nested = null;
         withCause = null;
@@ -364,14 +364,14 @@ public class ExceptionUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testPrintRootCauseStackTrace_Throwable() throws Exception {
+    public void testPrintRootCauseStackTrace_Throwable() {
         ExceptionUtils.printRootCauseStackTrace(null);
         // could pipe system.err to a known stream, but not much point as
         // internally this method calls stream method anyway
     }
 
     @Test
-    public void testPrintRootCauseStackTrace_ThrowableStream() throws Exception {
+    public void testPrintRootCauseStackTrace_ThrowableStream() {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
         ExceptionUtils.printRootCauseStackTrace(null, (PrintStream) null);
         ExceptionUtils.printRootCauseStackTrace(null, new PrintStream(out));
@@ -395,7 +395,7 @@ public class ExceptionUtilsTest {
     }
 
     @Test
-    public void testPrintRootCauseStackTrace_ThrowableWriter() throws Exception {
+    public void testPrintRootCauseStackTrace_ThrowableWriter() {
         StringWriter writer = new StringWriter(1024);
         ExceptionUtils.printRootCauseStackTrace(null, (PrintWriter) null);
         ExceptionUtils.printRootCauseStackTrace(null, new PrintWriter(writer));
@@ -420,7 +420,7 @@ public class ExceptionUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testGetRootCauseStackTrace_Throwable() throws Exception {
+    public void testGetRootCauseStackTrace_Throwable() {
         assertEquals(0, ExceptionUtils.getRootCauseStackTrace(null).length);
 
         final Throwable cause = createExceptionWithCause();
@@ -446,7 +446,7 @@ public class ExceptionUtilsTest {
     }
 
     @Test
-    public void testRemoveCommonFrames_ListList() throws Exception {
+    public void testRemoveCommonFrames_ListList() {
         assertThrows(IllegalArgumentException.class, () -> ExceptionUtils.removeCommonFrames(null, null));
     }
 
@@ -550,7 +550,7 @@ public class ExceptionUtilsTest {
         assertEquals(1, ExceptionUtils.getThrowableCount(ioe));
     }
 
-    private static int redeclareCheckedException() throws IOException {
+    private static int redeclareCheckedException() {
         return throwsCheckedException();
     }
 

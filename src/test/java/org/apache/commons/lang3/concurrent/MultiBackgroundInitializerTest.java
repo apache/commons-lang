@@ -42,7 +42,7 @@ public class MultiBackgroundInitializerTest {
     private MultiBackgroundInitializer initializer;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         initializer = new MultiBackgroundInitializer();
     }
 

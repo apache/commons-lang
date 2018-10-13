@@ -130,7 +130,7 @@ public class ConstructorUtilsTest {
 
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         classCache.clear();
     }
 
@@ -207,7 +207,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testGetAccessibleConstructorFromDescription() throws Exception {
+    public void testGetAccessibleConstructorFromDescription() {
         assertNotNull(ConstructorUtils.getAccessibleConstructor(Object.class,
                 ArrayUtils.EMPTY_CLASS_ARRAY));
         assertNull(ConstructorUtils.getAccessibleConstructor(
@@ -215,7 +215,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testGetMatchingAccessibleMethod() throws Exception {
+    public void testGetMatchingAccessibleMethod() {
         expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
                 ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.EMPTY_CLASS_ARRAY);
         expectMatchingAccessibleConstructorParameterTypes(TestBean.class, null,

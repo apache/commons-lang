@@ -59,7 +59,7 @@ public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
     }
 
     @Test
-    public void testWithCauseAndMessage() throws Exception {
+    public void testWithCauseAndMessage() {
         final Exception exception = new CircuitBreakingException(EXCEPTION_MESSAGE, generateCause());
         assertNotNull(exception);
         assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
@@ -70,7 +70,7 @@ public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
     }
 
     @Test
-    public void testWithoutCause() throws Exception {
+    public void testWithoutCause() {
         final Exception exception = new CircuitBreakingException(EXCEPTION_MESSAGE);
         assertNotNull(exception);
         assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
@@ -80,7 +80,7 @@ public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
     }
 
     @Test
-    public void testWithoutMessage() throws Exception {
+    public void testWithoutMessage() {
         final Exception exception = new CircuitBreakingException(generateCause());
         assertNotNull(exception);
         assertNotNull(exception.getMessage());

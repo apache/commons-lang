@@ -596,7 +596,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateMilliSecond() throws Exception {
+    public void testTruncateMilliSecond() {
         final int calendarField = Calendar.MILLISECOND;
         baseTruncateTest(targetMilliSecondDate, targetMilliSecondDate, calendarField);
     }

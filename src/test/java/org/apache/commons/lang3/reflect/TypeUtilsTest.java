@@ -532,7 +532,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testTypesSatisfyVariables() throws SecurityException, NoSuchFieldException,
+    public void testTypesSatisfyVariables() throws SecurityException,
             NoSuchMethodException {
         final Map<TypeVariable<?>, Type> typeVarAssigns = new HashMap<>();
         final Integer max = TypeUtilsTest.<Integer> stub();
@@ -548,7 +548,7 @@ public class TypeUtilsTest<B> {
 
     @Test
     public void testDetermineTypeVariableAssignments() throws SecurityException,
-            NoSuchFieldException, NoSuchMethodException {
+            NoSuchFieldException {
         final ParameterizedType iterableType = (ParameterizedType) getClass().getField("iterable")
                 .getGenericType();
         final Map<TypeVariable<?>, Type> typeVarAssigns = TypeUtils.determineTypeArguments(TreeSet.class,
@@ -634,7 +634,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testGetPrimitiveArrayComponentType() throws Exception {
+    public void testGetPrimitiveArrayComponentType() {
         assertEquals(boolean.class, TypeUtils.getArrayComponentType(boolean[].class));
         assertEquals(byte.class, TypeUtils.getArrayComponentType(byte[].class));
         assertEquals(short.class, TypeUtils.getArrayComponentType(short[].class));
@@ -679,7 +679,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testLang820() throws Exception {
+    public void testLang820() {
         final Type[] typeArray = {String.class, String.class};
         final Type[] expectedArray = {String.class};
         assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));

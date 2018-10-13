@@ -425,7 +425,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionArrayArrayCycle() throws Exception {
+    public void testReflectionArrayArrayCycle() {
         final Object[][] objects = new Object[2][2];
         objects[0][0] = objects;
         objects[0][1] = objects;

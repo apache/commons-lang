@@ -290,11 +290,9 @@ public class TimedSemaphoreTest {
 
     /**
      * Tries to call acquire() after shutdown(). This should cause an exception.
-     *
-     * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
-    public void testPassAfterShutdown() throws InterruptedException {
+    public void testPassAfterShutdown() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
         semaphore.shutdown();
         assertThrows(IllegalStateException.class, semaphore::acquire);

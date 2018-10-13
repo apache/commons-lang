@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 public class MutablePairTest {
 
     @Test
-    public void testBasic() throws Exception {
+    public void testBasic() {
         final MutablePair<Integer, String> pair = new MutablePair<>(0, "foo");
         assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.getRight());
@@ -44,14 +44,14 @@ public class MutablePairTest {
     }
 
     @Test
-    public void testDefault() throws Exception {
+    public void testDefault() {
         final MutablePair<Integer, String> pair = new MutablePair<>();
         assertNull(pair.getLeft());
         assertNull(pair.getRight());
     }
 
     @Test
-    public void testMutate() throws Exception {
+    public void testMutate() {
         final MutablePair<Integer, String> pair = new MutablePair<>(0, "foo");
         pair.setLeft(42);
         pair.setRight("bar");
@@ -60,7 +60,7 @@ public class MutablePairTest {
     }
 
     @Test
-    public void testPairOf() throws Exception {
+    public void testPairOf() {
         final MutablePair<Integer, String> pair = MutablePair.of(0, "foo");
         assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.getRight());
@@ -70,7 +70,7 @@ public class MutablePairTest {
     }
 
     @Test
-    public void testEquals() throws Exception {
+    public void testEquals() {
         assertEquals(MutablePair.of(null, "foo"), MutablePair.of(null, "foo"));
         assertFalse(MutablePair.of("foo", 0).equals(MutablePair.of("foo", null)));
         assertFalse(MutablePair.of("foo", "bar").equals(MutablePair.of("xyz", "bar")));
@@ -81,12 +81,12 @@ public class MutablePairTest {
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         assertEquals(MutablePair.of(null, "foo").hashCode(), MutablePair.of(null, "foo").hashCode());
     }
 
     @Test
-    public void testToString() throws Exception {
+    public void testToString() {
         assertEquals("(null,null)", MutablePair.of(null, null).toString());
         assertEquals("(null,two)", MutablePair.of(null, "two").toString());
         assertEquals("(one,null)", MutablePair.of("one", null).toString());

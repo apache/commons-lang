@@ -53,7 +53,7 @@ public class ClassPathUtilsTest {
     }
 
     @Test
-    public void testToFullyQualifiedNameClassString() throws Exception {
+    public void testToFullyQualifiedNameClassString() {
         final String expected = "org.apache.commons.lang3.Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, "Test.properties");
 
@@ -73,7 +73,7 @@ public class ClassPathUtilsTest {
     }
 
     @Test
-    public void testToFullyQualifiedNamePackageString() throws Exception {
+    public void testToFullyQualifiedNamePackageString() {
         final String expected = "org.apache.commons.lang3.Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class.getPackage(), "Test.properties");
 
@@ -92,7 +92,7 @@ public class ClassPathUtilsTest {
     }
 
     @Test
-    public void testToFullyQualifiedPathClass() throws Exception {
+    public void testToFullyQualifiedPathClass() {
         final String expected = "org/apache/commons/lang3/Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, "Test.properties");
 
@@ -112,7 +112,7 @@ public class ClassPathUtilsTest {
     }
 
     @Test
-    public void testToFullyQualifiedPathPackage() throws Exception {
+    public void testToFullyQualifiedPathPackage() {
         final String expected = "org/apache/commons/lang3/Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class.getPackage(), "Test.properties");
 

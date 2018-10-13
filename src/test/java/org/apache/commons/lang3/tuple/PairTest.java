@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 public class PairTest {
 
     @Test
-    public void testPairOf() throws Exception {
+    public void testPairOf() {
         final Pair<Integer, String> pair = Pair.of(0, "foo");
         assertTrue(pair instanceof ImmutablePair<?, ?>);
         assertEquals(0, ((ImmutablePair<Integer, String>) pair).left.intValue());
@@ -46,7 +46,7 @@ public class PairTest {
     }
 
     @Test
-    public void testCompatibilityBetweenPairs() throws Exception {
+    public void testCompatibilityBetweenPairs() {
         final Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
         final Pair<Integer, String> pair2 = MutablePair.of(0, "foo");
         assertEquals(pair, pair2);
@@ -61,7 +61,7 @@ public class PairTest {
     }
 
     @Test
-    public void testMapEntry() throws Exception {
+    public void testMapEntry() {
         final Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
         final HashMap<Integer, String> map = new HashMap<>();
         map.put(0, "foo");
@@ -71,7 +71,7 @@ public class PairTest {
     }
 
     @Test
-    public void testComparable1() throws Exception {
+    public void testComparable1() {
         final Pair<String, String> pair1 = Pair.of("A", "D");
         final Pair<String, String> pair2 = Pair.of("B", "C");
         assertTrue(pair1.compareTo(pair1) == 0);
@@ -81,7 +81,7 @@ public class PairTest {
     }
 
     @Test
-    public void testComparable2() throws Exception {
+    public void testComparable2() {
         final Pair<String, String> pair1 = Pair.of("A", "C");
         final Pair<String, String> pair2 = Pair.of("A", "D");
         assertTrue(pair1.compareTo(pair1) == 0);
@@ -91,13 +91,13 @@ public class PairTest {
     }
 
     @Test
-    public void testToString() throws Exception {
+    public void testToString() {
         final Pair<String, String> pair = Pair.of("Key", "Value");
         assertEquals("(Key,Value)", pair.toString());
     }
 
     @Test
-    public void testToStringCustom() throws Exception {
+    public void testToStringCustom() {
         final Calendar date = Calendar.getInstance();
         date.set(2011, Calendar.APRIL, 25);
         final Pair<String, Calendar> pair = Pair.of("DOB", date);
@@ -105,13 +105,13 @@ public class PairTest {
     }
 
     @Test
-    public void testFormattable_simple() throws Exception {
+    public void testFormattable_simple() {
         final Pair<String, String> pair = Pair.of("Key", "Value");
         assertEquals("(Key,Value)", String.format("%1$s", pair));
     }
 
     @Test
-    public void testFormattable_padded() throws Exception {
+    public void testFormattable_padded() {
         final Pair<String, String> pair = Pair.of("Key", "Value");
         assertEquals("         (Key,Value)", String.format("%1$20s", pair));
     }
