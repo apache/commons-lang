@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 public class ImmutablePairTest {
 
     @Test
-    public void testBasic() throws Exception {
+    public void testBasic() {
         final ImmutablePair<Integer, String> pair = new ImmutablePair<>(0, "foo");
         assertEquals(0, pair.left.intValue());
         assertEquals(0, pair.getLeft().intValue());
@@ -50,7 +50,7 @@ public class ImmutablePairTest {
     }
 
     @Test
-    public void testPairOf() throws Exception {
+    public void testPairOf() {
         final ImmutablePair<Integer, String> pair = ImmutablePair.of(0, "foo");
         assertEquals(0, pair.left.intValue());
         assertEquals(0, pair.getLeft().intValue());
@@ -64,7 +64,7 @@ public class ImmutablePairTest {
     }
 
     @Test
-    public void testEquals() throws Exception {
+    public void testEquals() {
         assertEquals(ImmutablePair.of(null, "foo"), ImmutablePair.of(null, "foo"));
         assertFalse(ImmutablePair.of("foo", 0).equals(ImmutablePair.of("foo", null)));
         assertFalse(ImmutablePair.of("foo", "bar").equals(ImmutablePair.of("xyz", "bar")));
@@ -75,7 +75,7 @@ public class ImmutablePairTest {
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         assertEquals(ImmutablePair.of(null, "foo").hashCode(), ImmutablePair.of(null, "foo").hashCode());
     }
 
@@ -118,7 +118,7 @@ public class ImmutablePairTest {
     }
 
     @Test
-    public void testToString() throws Exception {
+    public void testToString() {
         assertEquals("(null,null)", ImmutablePair.of(null, null).toString());
         assertEquals("(null,two)", ImmutablePair.of(null, "two").toString());
         assertEquals("(one,null)", ImmutablePair.of("one", null).toString());

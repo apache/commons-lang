@@ -35,7 +35,7 @@ public class ConstantInitializerTest {
     private ConstantInitializer<Integer> init;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         init = new ConstantInitializer<>(VALUE);
     }
 

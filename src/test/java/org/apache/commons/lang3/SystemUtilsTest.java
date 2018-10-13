@@ -420,7 +420,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testIsJavaVersionAtLeast() throws Exception {
+    public void testIsJavaVersionAtLeast() {
         if (SystemUtils.IS_JAVA_1_7) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
@@ -524,7 +524,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testOsVersionMatches() throws Exception {
+    public void testOsVersionMatches() {
         String osVersion = null;
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
 

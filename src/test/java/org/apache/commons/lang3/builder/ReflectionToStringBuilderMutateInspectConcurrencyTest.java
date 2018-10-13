@@ -91,7 +91,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
 
     @Test
     @Disabled
-    public void testConcurrency() throws Exception {
+    public void testConcurrency() {
         final TestFixture testFixture = new TestFixture();
         final int numMutators = 10;
         final int numIterations = 10;

@@ -183,11 +183,9 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests handleCause() if the cause is an error.
-     *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testHandleCauseError() throws ConcurrentException {
+    public void testHandleCauseError() {
         final Error err = new AssertionError("Test");
         Error e = assertThrows(Error.class, () -> ConcurrentUtils.handleCause(new ExecutionException(err)));
         assertEquals(err, e, "Wrong error");
@@ -195,11 +193,9 @@ public class ConcurrentUtilsTest {
 
     /**
      * Tests handleCause() if the cause is an unchecked exception.
-     *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testHandleCauseUncheckedException() throws ConcurrentException {
+    public void testHandleCauseUncheckedException() {
         final RuntimeException rex = new RuntimeException("Test");
         RuntimeException r =
                 assertThrows(RuntimeException.class, () -> ConcurrentUtils.handleCause(new ExecutionException(rex)));

@@ -466,7 +466,7 @@ public class CharSetTest  {
     }
 
     @Test
-    public void testJavadocExamples() throws Exception {
+    public void testJavadocExamples() {
         assertFalse(CharSet.getInstance("^a-c").contains('a'));
         assertTrue(CharSet.getInstance("^a-c").contains('d'));
         assertTrue(CharSet.getInstance("^^a-c").contains('a'));

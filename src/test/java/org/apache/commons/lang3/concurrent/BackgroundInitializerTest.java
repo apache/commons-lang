@@ -162,11 +162,9 @@ public class BackgroundInitializerTest {
 
     /**
      * Tests calling get() before start(). This should cause an exception.
-     *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the test implementation may throw it
      */
     @Test
-    public void testGetBeforeStart() throws ConcurrentException {
+    public void testGetBeforeStart() {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertThrows(IllegalStateException.class, init::get);
     }

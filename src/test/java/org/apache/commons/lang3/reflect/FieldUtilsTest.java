@@ -335,7 +335,7 @@ public class FieldUtilsTest {
     }
 
     @Test
-    public void testReadStaticFieldIllegalArgumentException1() throws Exception {
+    public void testReadStaticFieldIllegalArgumentException1() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.readStaticField(null));
     }
 
@@ -354,12 +354,12 @@ public class FieldUtilsTest {
     }
 
     @Test
-    public void testReadStaticFieldForceAccessIllegalArgumentException1() throws Exception {
+    public void testReadStaticFieldForceAccessIllegalArgumentException1() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.readStaticField(null, true));
     }
 
     @Test
-    public void testReadStaticFieldForceAccessIllegalArgumentException2() throws Exception {
+    public void testReadStaticFieldForceAccessIllegalArgumentException2() {
         final Field nonStaticField = FieldUtils.getField(PublicChild.class, "s", true);
         assumeTrue(nonStaticField != null);
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.readStaticField(nonStaticField));

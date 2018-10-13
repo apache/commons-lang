@@ -42,7 +42,7 @@ public class BasicThreadFactoryTest {
     private BasicThreadFactory.Builder builder;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         builder = new BasicThreadFactory.Builder();
     }
 

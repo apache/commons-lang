@@ -34,12 +34,12 @@ public class RecursiveToStringStyleTest {
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         ToStringBuilder.setDefaultStyle(new RecursiveToStringStyle());
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
+    public void tearDown() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 

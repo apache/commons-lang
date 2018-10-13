@@ -1222,7 +1222,7 @@ public class EqualsBuilderTest {
     }
 
     @Test
-    public void testReflectionEqualsExcludeFields() throws Exception {
+    public void testReflectionEqualsExcludeFields() {
         final TestObjectWithMultipleFields x1 = new TestObjectWithMultipleFields(1, 2, 3);
         final TestObjectWithMultipleFields x2 = new TestObjectWithMultipleFields(1, 3, 4);
 
@@ -1311,7 +1311,7 @@ public class EqualsBuilderTest {
     }
 
     @Test
-    public void testReflectionArrays() throws Exception {
+    public void testReflectionArrays() {
 
         final TestObject one = new TestObject(1);
         final TestObject two = new TestObject(2);

@@ -654,7 +654,7 @@ public class DateUtilsTest {
     }
 
     //-----------------------------------------------------------------------
-    private void assertDate(final Date date, final int year, final int month, final int day, final int hour, final int min, final int sec, final int mil) throws Exception {
+    private void assertDate(final Date date, final int year, final int month, final int day, final int hour, final int min, final int sec, final int mil) {
         final GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(date);
         assertEquals(year, cal.get(Calendar.YEAR));
@@ -1154,12 +1154,10 @@ public class DateUtilsTest {
     /**
      * Tests for LANG-59
      *
-     * @throws java.lang.Exception so we don't have to catch it
-     *
      * see http://issues.apache.org/jira/browse/LANG-59
      */
     @Test
-    public void testTruncateLang59() throws Exception {
+    public void testTruncateLang59() {
         try {
             // Set TimeZone to Mountain Time
             final TimeZone denverZone = TimeZone.getTimeZone("America/Denver");
@@ -1472,11 +1470,9 @@ public class DateUtilsTest {
 
     /**
      * Tests the iterator exceptions
-     *
-     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
-    public void testIteratorEx() throws Exception {
+    public void testIteratorEx() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.iterator(Calendar.getInstance(), -9999));
         assertThrows
                 (IllegalArgumentException.class, () -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
@@ -1489,11 +1485,9 @@ public class DateUtilsTest {
 
     /**
      * Tests the calendar iterator for week ranges
-     *
-     * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
-    public void testWeekIterator() throws Exception {
+    public void testWeekIterator() {
         final Calendar now = Calendar.getInstance();
         for (int i = 0; i< 7; i++) {
             final Calendar today = DateUtils.truncate(now, Calendar.DATE);

@@ -179,7 +179,7 @@ public class CharSequenceUtilsTest {
 
 
     @Test
-    public void testToCharArray() throws Exception {
+    public void testToCharArray() {
         final StringBuilder builder = new StringBuilder("abcdefg");
         final char[] expected = builder.toString().toCharArray();
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder));

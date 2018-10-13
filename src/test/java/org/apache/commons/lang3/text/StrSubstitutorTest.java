@@ -42,14 +42,14 @@ public class StrSubstitutorTest {
     private Map<String, String> values;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         values = new HashMap<>();
         values.put("animal", "quick brown fox");
         values.put("target", "lazy dog");
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
+    public void tearDown() {
         values = null;
     }
 

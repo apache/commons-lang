@@ -139,7 +139,7 @@ public class DateFormatUtilsTest {
     }
 
     @Test
-    public void testDateTimeISO() throws Exception {
+    public void testDateTimeISO() {
         testGmtMinus3("2002-02-23T09:11:12", DateFormatUtils.ISO_DATETIME_FORMAT.getPattern());
         testGmtMinus3("2002-02-23T09:11:12-03:00", DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
         testUTC("2002-02-23T09:11:12Z", DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
@@ -204,7 +204,7 @@ public class DateFormatUtilsTest {
      * This method test that the bug is fixed.
      */
     @Test
-    public void testLang916() throws Exception {
+    public void testLang916() {
 
         final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         cal.clear();

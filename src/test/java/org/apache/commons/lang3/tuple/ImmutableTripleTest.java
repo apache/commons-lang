@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 public class ImmutableTripleTest {
 
     @Test
-    public void testBasic() throws Exception {
+    public void testBasic() {
         final ImmutableTriple<Integer, String, Boolean> triple = new ImmutableTriple<>(0, "foo", Boolean.TRUE);
         assertEquals(0, triple.left.intValue());
         assertEquals(0, triple.getLeft().intValue());
@@ -54,7 +54,7 @@ public class ImmutableTripleTest {
     }
 
     @Test
-    public void testTripleOf() throws Exception {
+    public void testTripleOf() {
         final ImmutableTriple<Integer, String, Boolean> triple = ImmutableTriple.of(0, "foo", Boolean.FALSE);
         assertEquals(0, triple.left.intValue());
         assertEquals(0, triple.getLeft().intValue());
@@ -72,7 +72,7 @@ public class ImmutableTripleTest {
     }
 
     @Test
-    public void testEquals() throws Exception {
+    public void testEquals() {
         assertEquals(ImmutableTriple.of(null, "foo", 42), ImmutableTriple.of(null, "foo", 42));
         assertFalse(ImmutableTriple.of("foo", 0, Boolean.TRUE).equals(ImmutableTriple.of("foo", null, null)));
         assertFalse(ImmutableTriple.of("foo", "bar", "baz").equals(ImmutableTriple.of("xyz", "bar", "blo")));
@@ -83,7 +83,7 @@ public class ImmutableTripleTest {
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         assertEquals(ImmutableTriple.of(null, "foo", Boolean.TRUE).hashCode(), ImmutableTriple.of(null, "foo", Boolean.TRUE).hashCode());
     }
 
@@ -121,7 +121,7 @@ public class ImmutableTripleTest {
     }
 
     @Test
-    public void testToString() throws Exception {
+    public void testToString() {
         assertEquals("(null,null,null)", ImmutableTriple.of(null, null, null).toString());
         assertEquals("(null,two,null)", ImmutableTriple.of(null, "two", null).toString());
         assertEquals("(one,null,null)", ImmutableTriple.of("one", null, null).toString());

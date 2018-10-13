@@ -73,7 +73,7 @@ public class CharEncodingTest  {
     }
 
     @Test
-    public void testStandardCharsetsEquality() throws Exception {
+    public void testStandardCharsetsEquality() {
         assertEquals(StandardCharsets.ISO_8859_1.name(), CharEncoding.ISO_8859_1);
         assertEquals(StandardCharsets.US_ASCII.name(), CharEncoding.US_ASCII);
         assertEquals(StandardCharsets.UTF_8.name(), CharEncoding.UTF_8);

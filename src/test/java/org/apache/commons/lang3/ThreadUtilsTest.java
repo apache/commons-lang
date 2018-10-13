@@ -108,17 +108,17 @@ public class ThreadUtilsTest {
     }
 
     @Test
-    public void testNoThread() throws InterruptedException {
+    public void testNoThread() {
         assertEquals(0, ThreadUtils.findThreadsByName("some_thread_which_does_not_exist_18762ZucTT").size());
     }
 
     @Test
-    public void testNoThreadGroup() throws InterruptedException {
+    public void testNoThreadGroup() {
         assertEquals(0, ThreadUtils.findThreadGroupsByName("some_thread_group_which_does_not_exist_18762ZucTTII").size());
     }
 
     @Test
-    public void testSystemThreadGroupExists() throws InterruptedException {
+    public void testSystemThreadGroupExists() {
         final ThreadGroup systemThreadGroup = ThreadUtils.getSystemThreadGroup();
         assertNotNull(systemThreadGroup);
         assertNull(systemThreadGroup.getParent());
@@ -126,12 +126,12 @@ public class ThreadUtilsTest {
     }
 
     @Test
-    public void testAtLeastOneThreadExists() throws InterruptedException {
+    public void testAtLeastOneThreadExists() {
         assertTrue(ThreadUtils.getAllThreads().size() > 0);
     }
 
     @Test
-    public void testAtLeastOneThreadGroupsExists() throws InterruptedException {
+    public void testAtLeastOneThreadGroupsExists() {
         assertTrue(ThreadUtils.getAllThreadGroups().size() > 0);
     }
 
@@ -278,7 +278,7 @@ public class ThreadUtilsTest {
     }
 
     @Test
-    public void testConstructor() throws InterruptedException {
+    public void testConstructor() {
         assertNotNull(new ThreadUtils());
         final Constructor<?>[] cons = ThreadUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);

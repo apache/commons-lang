@@ -1560,7 +1560,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAsTokenizer() throws Exception {
+    public void testAsTokenizer() {
         // from Javadoc
         final StrBuilder b = new StrBuilder();
         b.append("a b ");
@@ -1740,7 +1740,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void test_LANG_1131_EqualsWithNullStrBuilder() throws Exception {
+    public void test_LANG_1131_EqualsWithNullStrBuilder() {
         final StrBuilder sb = new StrBuilder();
         final StrBuilder other = null;
         assertFalse(sb.equals(other));

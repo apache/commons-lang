@@ -92,7 +92,7 @@ public class ClassUtilsTest  {
         assertEquals( c, ClassUtils.getClass( c.getName() ) );
     }
 
-    private void assertGetClassThrowsClassNotFound( final String className ) throws Exception {
+    private void assertGetClassThrowsClassNotFound( final String className ) {
         assertGetClassThrowsException( className, ClassNotFoundException.class );
     }
 
@@ -102,7 +102,7 @@ public class ClassUtilsTest  {
                 "ClassUtils.getClass() should fail with an exception of type " + exceptionType.getName() + " when given class name \"" + className + "\"." );
     }
 
-    private void assertGetClassThrowsNullPointerException( final String className ) throws Exception {
+    private void assertGetClassThrowsNullPointerException( final String className ) {
         assertGetClassThrowsException( className, NullPointerException.class );
     }
 
@@ -667,7 +667,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable() throws Exception {
+    public void test_isAssignable() {
         assertFalse(ClassUtils.isAssignable((Class<?>) null, null));
         assertFalse(ClassUtils.isAssignable(String.class, null));
 
@@ -693,7 +693,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_Autoboxing() throws Exception {
+    public void test_isAssignable_Autoboxing() {
         assertFalse(ClassUtils.isAssignable((Class<?>) null, null, true));
         assertFalse(ClassUtils.isAssignable(String.class, null, true));
 
@@ -718,7 +718,7 @@ public class ClassUtilsTest  {
 
     // -------------------------------------------------------------------------
     @Test
-    public void test_isAssignable_ClassArray_ClassArray() throws Exception {
+    public void test_isAssignable_ClassArray_ClassArray() {
         final Class<?>[] array2 = new Class[] {Object.class, Object.class};
         final Class<?>[] array1 = new Class[] {Object.class};
         final Class<?>[] array1s = new Class[] {String.class};
@@ -746,7 +746,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_ClassArray_ClassArray_Autoboxing() throws Exception {
+    public void test_isAssignable_ClassArray_ClassArray_Autoboxing() {
         final Class<?>[] array2 = new Class[] {Object.class, Object.class};
         final Class<?>[] array1 = new Class[] {Object.class};
         final Class<?>[] array1s = new Class[] {String.class};
@@ -774,7 +774,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_ClassArray_ClassArray_NoAutoboxing() throws Exception {
+    public void test_isAssignable_ClassArray_ClassArray_NoAutoboxing() {
         final Class<?>[] array2 = new Class[] {Object.class, Object.class};
         final Class<?>[] array1 = new Class[] {Object.class};
         final Class<?>[] array1s = new Class[] {String.class};
@@ -802,7 +802,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_DefaultUnboxing_Widening() throws Exception {
+    public void test_isAssignable_DefaultUnboxing_Widening() {
         // test byte conversions
         assertFalse(ClassUtils.isAssignable(Byte.class, Character.TYPE), "byte -> char");
         assertTrue(ClassUtils.isAssignable(Byte.class, Byte.TYPE), "byte -> byte");
@@ -885,7 +885,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_NoAutoboxing() throws Exception {
+    public void test_isAssignable_NoAutoboxing() {
         assertFalse(ClassUtils.isAssignable((Class<?>) null, null, false));
         assertFalse(ClassUtils.isAssignable(String.class, null, false));
 
@@ -909,7 +909,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_Unboxing_Widening() throws Exception {
+    public void test_isAssignable_Unboxing_Widening() {
         // test byte conversions
         assertFalse(ClassUtils.isAssignable(Byte.class, Character.TYPE, true), "byte -> char");
         assertTrue(ClassUtils.isAssignable(Byte.class, Byte.TYPE, true), "byte -> byte");
@@ -992,7 +992,7 @@ public class ClassUtilsTest  {
     }
 
     @Test
-    public void test_isAssignable_Widening() throws Exception {
+    public void test_isAssignable_Widening() {
         // test byte conversions
         assertFalse(ClassUtils.isAssignable(Byte.TYPE, Character.TYPE), "byte -> char");
         assertTrue(ClassUtils.isAssignable(Byte.TYPE, Byte.TYPE), "byte -> byte");

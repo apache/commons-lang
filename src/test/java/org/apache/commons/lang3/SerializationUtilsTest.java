@@ -150,7 +150,7 @@ public class SerializationUtilsTest {
     }
 
     @Test
-    public void testSerializeIOException() throws Exception {
+    public void testSerializeIOException() {
         // forces an IOException when the ObjectOutputStream is created, to test not closing the stream
         // in the finally block
         final OutputStream streamTest = new OutputStream() {
@@ -328,7 +328,7 @@ public class SerializationUtilsTest {
     //-----------------------------------------------------------------------
 
     @Test
-    public void testClone() throws Exception {
+    public void testClone() {
         final Object test = SerializationUtils.clone(iMap);
         assertNotNull(test);
         assertTrue(test instanceof HashMap<?,?>);
@@ -342,7 +342,7 @@ public class SerializationUtilsTest {
     }
 
     @Test
-    public void testCloneNull() throws Exception {
+    public void testCloneNull() {
         final Object test = SerializationUtils.clone(null);
         assertNull(test);
     }

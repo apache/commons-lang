@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 public class ArrayUtilsInsertTest {
 
     @Test
-    public void testInsertBooleans() throws Exception {
+    public void testInsertBooleans() {
         final boolean[] array = {true,false,true};
         final boolean[] values = {false,true,false};
 
@@ -55,7 +55,7 @@ public class ArrayUtilsInsertTest {
 
 
     @Test
-    public void testInsertBytes() throws Exception {
+    public void testInsertBytes() {
         final byte[] array = {1,2,3};
         final byte[] values = {4,5,6};
 
@@ -79,7 +79,7 @@ public class ArrayUtilsInsertTest {
     }
 
     @Test
-    public void testInsertChars() throws Exception {
+    public void testInsertChars() {
         final char[] array = {'a','b','c'};
         final char[] values = {'d','e','f'};
 
@@ -103,7 +103,7 @@ public class ArrayUtilsInsertTest {
     }
 
     @Test
-    public void testInsertDoubles() throws Exception {
+    public void testInsertDoubles() {
         final double[] array = {1,2,3};
         final double[] values = {4,5,6};
         final double delta = 0.000001;
@@ -128,7 +128,7 @@ public class ArrayUtilsInsertTest {
     }
 
     @Test
-    public void testInsertFloats() throws Exception {
+    public void testInsertFloats() {
         final float[] array = {1,2,3};
         final float[] values = {4,5,6};
         final float delta = 0.000001f;
@@ -153,7 +153,7 @@ public class ArrayUtilsInsertTest {
     }
 
     @Test
-    public void testInsertInts() throws Exception {
+    public void testInsertInts() {
         final int[] array = {1,2,3};
         final int[] values = {4,5,6};
 
@@ -178,7 +178,7 @@ public class ArrayUtilsInsertTest {
 
 
     @Test
-    public void testInsertLongs() throws Exception {
+    public void testInsertLongs() {
         final long[] array = {1,2,3};
         final long[] values = {4,5,6};
 
@@ -203,7 +203,7 @@ public class ArrayUtilsInsertTest {
 
 
     @Test
-    public void testInsertShorts() throws Exception {
+    public void testInsertShorts() {
         final short[] array = {1,2,3};
         final short[] values = {4,5,6};
 
@@ -228,7 +228,7 @@ public class ArrayUtilsInsertTest {
 
 
     @Test
-    public void testInsertGenericArray() throws Exception {
+    public void testInsertGenericArray() {
         final String[] array = {"a","b","c"};
         final String[] values = {"d","e","f"};
 
