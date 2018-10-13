@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -1395,10 +1394,9 @@ public class NumberUtilsTest {
     private void compareIsCreatableWithCreateNumber(final String val, final boolean expected) {
         final boolean isValid = NumberUtils.isCreatable(val);
         final boolean canCreate = checkCreateNumber(val);
-        if (isValid == expected && canCreate == expected) {
-            return;
-        }
-        fail("Expecting "+ expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
+        assertTrue(
+                isValid == expected && canCreate == expected,
+                "Expecting " + expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
     }
 
     /**
@@ -1501,10 +1499,9 @@ public class NumberUtilsTest {
     private void compareIsNumberWithCreateNumber(final String val, final boolean expected) {
         final boolean isValid = NumberUtils.isCreatable(val);
         final boolean canCreate = checkCreateNumber(val);
-        if (isValid == expected && canCreate == expected) {
-            return;
-        }
-        fail("Expecting "+ expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
+        assertTrue(
+                isValid == expected && canCreate == expected,
+                "Expecting "+ expected + " for isCreatable/createNumber using \"" + val + "\" but got " + isValid + " and " + canCreate);
     }
 
     @Test

@@ -200,10 +200,9 @@ public class RandomStringUtilsTest {
             }
         }
         for (int i = 0; i < testChars.length; i++) {
-            if (!found[i]) {
-                fail("alphanumeric character not generated in 1000 attempts: "
-                   + testChars[i] +" -- repeated failures indicate a problem ");
-            }
+            assertTrue(found[i],
+                    "alphanumeric character not generated in 1000 attempts: " +
+                            testChars[i] + " -- repeated failures indicate a problem ");
         }
     }
 
@@ -224,10 +223,9 @@ public class RandomStringUtilsTest {
             }
         }
         for (int i = 0; i < testChars.length; i++) {
-            if (!found[i]) {
-                fail("digit not generated in 1000 attempts: "
-                   + testChars[i] +" -- repeated failures indicate a problem ");
-            }
+            assertTrue(found[i],
+                    "digit not generated in 1000 attempts: " + testChars[i] +
+                            " -- repeated failures indicate a problem ");
         }
     }
 
@@ -248,10 +246,9 @@ public class RandomStringUtilsTest {
             }
         }
         for (int i = 0; i < testChars.length; i++) {
-            if (!found[i]) {
-                fail("alphanumeric character not generated in 1000 attempts: "
-                   + testChars[i] +" -- repeated failures indicate a problem ");
-            }
+            assertTrue(found[i],
+                    "alphanumeric character not generated in 1000 attempts: " + testChars[i] +
+                            " -- repeated failures indicate a problem ");
         }
     }
 
@@ -272,11 +269,9 @@ public class RandomStringUtilsTest {
             }
         }
         for (int i = 0; i < testChars.length; i++) {
-            if (!found[i]) {
-                fail("ascii character not generated in 1000 attempts: "
-                + (int) testChars[i] +
-                 " -- repeated failures indicate a problem");
-            }
+            assertTrue(found[i],
+                    "ascii character not generated in 1000 attempts: " + (int) testChars[i] +
+                            " -- repeated failures indicate a problem");
         }
     }
 

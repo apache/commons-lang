@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -444,9 +443,7 @@ public class FastDateParserTest {
             final SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
             sdf.setTimeZone(NEW_YORK);
             dsdf = sdf.parse(date);
-            if (shouldFail) {
-                fail("Expected SDF failure, but got " + dsdf + " for ["+format+","+date+"]");
-            }
+            assertFalse(shouldFail, "Expected SDF failure, but got " + dsdf + " for ["+format+","+date+"]");
         } catch (final Exception e) {
             s = e;
             if (!shouldFail) {
@@ -457,9 +454,7 @@ public class FastDateParserTest {
         try {
             final DateParser fdp = getInstance(format, NEW_YORK, Locale.US);
             dfdp = fdp.parse(date);
-            if (shouldFail) {
-                fail("Expected FDF failure, but got " + dfdp + " for ["+format+","+date+"]");
-            }
+            assertFalse(shouldFail, "Expected FDF failure, but got " + dfdp + " for ["+format+","+date+"]");
         } catch (final Exception e) {
             f = e;
             if (!shouldFail) {
