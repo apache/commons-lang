@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -40,22 +39,18 @@ public class BackgroundInitializerTest {
      *
      * @param init the initializer to test
      */
-    private void checkInitialize(final BackgroundInitializerTestImpl init) {
-        try {
-            final Integer result = init.get();
-            assertEquals(1, result.intValue(), "Wrong result");
-            assertEquals(1, init.initializeCalls, "Wrong number of invocations");
-            assertNotNull(init.getFuture(), "No future");
-        } catch (final ConcurrentException cex) {
-            fail("Unexpected exception: " + cex);
-        }
+    private void checkInitialize(final BackgroundInitializerTestImpl init) throws ConcurrentException {
+        final Integer result = init.get();
+        assertEquals(1, result.intValue(), "Wrong result");
+        assertEquals(1, init.initializeCalls, "Wrong number of invocations");
+        assertNotNull(init.getFuture(), "No future");
     }
 
     /**
      * Tests whether initialize() is invoked.
      */
     @Test
-    public void testInitialize() {
+    public void testInitialize() throws ConcurrentException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         checkInitialize(init);
@@ -75,7 +70,7 @@ public class BackgroundInitializerTest {
      * Tests whether an external executor is correctly detected.
      */
     @Test
-    public void testGetActiveExecutorExternal() throws InterruptedException {
+    public void testGetActiveExecutorExternal() throws InterruptedException, ConcurrentException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
             final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl(
@@ -93,7 +88,7 @@ public class BackgroundInitializerTest {
      * Tests getActiveExecutor() for a temporary executor.
      */
     @Test
-    public void testGetActiveExecutorTemp() {
+    public void testGetActiveExecutorTemp() throws ConcurrentException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         assertNotNull(init.getActiveExecutor(), "No active executor");
@@ -105,7 +100,7 @@ public class BackgroundInitializerTest {
      * be created.
      */
     @Test
-    public void testInitializeTempExecutor() {
+    public void testInitializeTempExecutor() throws ConcurrentException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertTrue(init.start(), "Wrong result of start()");
         checkInitialize(init);
@@ -117,7 +112,7 @@ public class BackgroundInitializerTest {
      * setExternalExecutor() method.
      */
     @Test
-    public void testSetExternalExecutor() {
+    public void testSetExternalExecutor() throws ConcurrentException {
         final ExecutorService exec = Executors.newCachedThreadPool();
         try {
             final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
@@ -143,9 +138,7 @@ public class BackgroundInitializerTest {
         init.start();
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
-            init.setExternalExecutor(exec);
-            fail("Could set executor after start()!");
-        } catch (final IllegalStateException istex) {
+            assertThrows(IllegalStateException.class, () -> init.setExternalExecutor(exec));
             init.get();
         } finally {
             exec.shutdown();
@@ -158,7 +151,7 @@ public class BackgroundInitializerTest {
      * have an effect.
      */
     @Test
-    public void testStartMultipleTimes() {
+    public void testStartMultipleTimes() throws ConcurrentException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertTrue(init.start(), "Wrong result for start()");
         for (int i = 0; i < 10; i++) {
@@ -188,12 +181,8 @@ public class BackgroundInitializerTest {
         final RuntimeException rex = new RuntimeException();
         init.ex = rex;
         init.start();
-        try {
-            init.get();
-            fail("Exception not thrown!");
-        } catch (final Exception ex) {
-            assertEquals(rex, ex, "Runtime exception not thrown");
-        }
+        Exception ex = assertThrows(Exception.class, init::get);
+        assertEquals(rex, ex, "Runtime exception not thrown");
     }
 
     /**
@@ -206,12 +195,8 @@ public class BackgroundInitializerTest {
         final Exception ex = new Exception();
         init.ex = ex;
         init.start();
-        try {
-            init.get();
-            fail("Exception not thrown!");
-        } catch (final ConcurrentException cex) {
-            assertEquals(ex, cex.getCause(), "Exception not thrown");
-        }
+        ConcurrentException cex = assertThrows(ConcurrentException.class, init::get);
+        assertEquals(ex, cex.getCause(), "Exception not thrown");
     }
 
     /**
@@ -274,7 +259,7 @@ public class BackgroundInitializerTest {
      * Tests isStarted() after the background task has finished.
      */
     @Test
-    public void testIsStartedAfterGet() {
+    public void testIsStartedAfterGet() throws ConcurrentException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         checkInitialize(init);

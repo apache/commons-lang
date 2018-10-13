@@ -24,7 +24,6 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class MemoizerTest {
 
@@ -54,13 +53,7 @@ public class MemoizerTest {
         expect(computable.compute(input)).andThrow(interruptedException);
         replay(computable);
 
-        try {
-            memoizer.compute(input);
-            fail("Expected Throwable to be thrown!");
-        } catch (final Throwable expected) {
-            // Should always be thrown the first time
-        }
-
+        assertThrows(Throwable.class, () -> memoizer.compute(input));
         assertThrows(IllegalStateException.class, () -> memoizer.compute(input));
     }
 
@@ -72,13 +65,7 @@ public class MemoizerTest {
         expect(computable.compute(input)).andThrow(interruptedException);
         replay(computable);
 
-        try {
-            memoizer.compute(input);
-            fail("Expected Throwable to be thrown!");
-        } catch (final Throwable expected) {
-            // Should always be thrown the first time
-        }
-
+        assertThrows(Throwable.class, () -> memoizer.compute(input));
         assertThrows(IllegalStateException.class, () -> memoizer.compute(input));
     }
 
@@ -91,13 +78,7 @@ public class MemoizerTest {
         expect(computable.compute(input)).andThrow(interruptedException).andReturn(answer);
         replay(computable);
 
-        try {
-            memoizer.compute(input);
-            fail("Expected Throwable to be thrown!");
-        } catch (final Throwable expected) {
-            // Should always be thrown the first time
-        }
-
+        assertThrows(Throwable.class, () -> memoizer.compute(input));
         assertEquals(answer, memoizer.compute(input));
     }
 

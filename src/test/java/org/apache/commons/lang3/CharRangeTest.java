@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
@@ -311,13 +310,8 @@ public class CharRangeTest  {
     @Test
     public void testContainsNullArg() {
         final CharRange range = CharRange.is('a');
-        try {
-            @SuppressWarnings("unused")
-            final
-            boolean contains = range.contains(null);
-        } catch(final IllegalArgumentException e) {
-            assertEquals("The Range must not be null", e.getMessage());
-        }
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> range.contains(null));
+        assertEquals("The Range must not be null", e.getMessage());
     }
 
     @Test
@@ -355,36 +349,21 @@ public class CharRangeTest  {
         final Iterator<Character> emptySetIt = emptySet.iterator();
         assertNotNull(emptySetIt);
         assertFalse(emptySetIt.hasNext());
-        try {
-            emptySetIt.next();
-            fail("Should throw NoSuchElementException");
-        } catch (final NoSuchElementException e) {
-            assertTrue(true);
-        }
+        assertThrows(NoSuchElementException.class, emptySetIt::next);
 
         final Iterator<Character> notFirstIt = notFirst.iterator();
         assertNotNull(notFirstIt);
         assertTrue(notFirstIt.hasNext());
         assertEquals(Character.valueOf((char) 0), notFirstIt.next());
         assertFalse(notFirstIt.hasNext());
-        try {
-            notFirstIt.next();
-            fail("Should throw NoSuchElementException");
-        } catch (final NoSuchElementException e) {
-            assertTrue(true);
-        }
+        assertThrows(NoSuchElementException.class, notFirstIt::next);
 
         final Iterator<Character> notLastIt = notLast.iterator();
         assertNotNull(notLastIt);
         assertTrue(notLastIt.hasNext());
         assertEquals(Character.valueOf(Character.MAX_VALUE), notLastIt.next());
         assertFalse(notLastIt.hasNext());
-        try {
-            notLastIt.next();
-            fail("Should throw NoSuchElementException");
-        } catch (final NoSuchElementException e) {
-            assertTrue(true);
-        }
+        assertThrows(NoSuchElementException.class, notLastIt::next);
     }
 
     //-----------------------------------------------------------------------

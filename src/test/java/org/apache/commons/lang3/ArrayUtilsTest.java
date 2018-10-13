@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -230,21 +229,12 @@ public class ArrayUtilsTest {
         assertEquals("world", map.get("hello"));
 
         assertNull(ArrayUtils.toMap(null));
-        try {
-            ArrayUtils.toMap(new String[][]{{"foo", "bar"}, {"short"}});
-            fail("exception expected");
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, "illegal type"});
-            fail("exception expected");
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, null});
-            fail("exception expected");
-        } catch (final IllegalArgumentException ex) {
-        }
+        assertThrows(IllegalArgumentException.class, () ->
+                ArrayUtils.toMap(new String[][]{{"foo", "bar"}, {"short"}}));
+        assertThrows(IllegalArgumentException.class, () ->
+                ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, "illegal type"}));
+        assertThrows(IllegalArgumentException.class, () ->
+                ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, null}));
 
         map = ArrayUtils.toMap(new Object[]{new Map.Entry<Object, Object>() {
             @Override
@@ -795,11 +785,9 @@ public class ArrayUtilsTest {
                 "java.util.Date type");
         assertNotSame(java.sql.Date.class, ArrayUtils.subarray(dateArray, 1, 4).getClass().getComponentType(),
                 "java.sql.Date type");
-        try {
-            @SuppressWarnings("unused") final java.sql.Date[] dummy = (java.sql.Date[]) ArrayUtils.subarray(dateArray, 1, 3);
-            fail("Invalid downcast");
-        } catch (final ClassCastException e) {
-        }
+        assertThrows(ClassCastException.class,
+                () -> java.sql.Date[].class.cast(ArrayUtils.subarray(dateArray, 1, 3)),
+                "Invalid downcast");
     }
 
     @Test
@@ -1406,21 +1394,9 @@ public class ArrayUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testSameType() {
-        try {
-            ArrayUtils.isSameType(null, null);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.isSameType(null, new Object[0]);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.isSameType(new Object[0], null);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(null, null));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(null, new Object[0]));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(new Object[0], null));
 
         assertTrue(ArrayUtils.isSameType(new Object[0], new Object[0]));
         assertFalse(ArrayUtils.isSameType(new String[0], new Object[0]));
@@ -3901,11 +3877,7 @@ public class ArrayUtilsTest {
                 ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class, () -> ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null}));
     }
 
     @Test
@@ -3952,11 +3924,8 @@ public class ArrayUtilsTest {
                         new Character(Character.MAX_VALUE), new Character('0')}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE), null}));
     }
 
     @Test
@@ -4012,11 +3981,8 @@ public class ArrayUtilsTest {
                         Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte) 9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE), null}));
     }
 
     @Test
@@ -4072,11 +4038,8 @@ public class ArrayUtilsTest {
                         Short.valueOf(Short.MAX_VALUE), Short.valueOf((short) 9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE), null}));
     }
 
     @Test
@@ -4129,11 +4092,8 @@ public class ArrayUtilsTest {
                         Integer.valueOf(Integer.MAX_VALUE), Integer.valueOf(9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE), null}));
     }
 
     @Test
@@ -4194,11 +4154,8 @@ public class ArrayUtilsTest {
                         Long.valueOf(Long.MAX_VALUE), Long.valueOf(9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE), null}));
     }
 
     @Test
@@ -4256,11 +4213,8 @@ public class ArrayUtilsTest {
                         Float.valueOf(Float.MAX_VALUE), Float.valueOf(9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null}));
     }
 
     @Test
@@ -4318,11 +4272,8 @@ public class ArrayUtilsTest {
                         Double.valueOf(Double.MAX_VALUE), Double.valueOf(9999999)}))
         );
 
-        try {
-            ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null}));
     }
 
     @Test
@@ -4565,11 +4516,7 @@ public class ArrayUtilsTest {
         assertEquals(0, ArrayUtils.getLength(emptyBooleanArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyBooleanArray));
 
-        try {
-            ArrayUtils.getLength("notAnArray");
-            fail("IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.getLength("notAnArray"));
     }
 
     @Test
@@ -4753,11 +4700,7 @@ public class ArrayUtilsTest {
         final Object[] array = new Object[]{1, 2, 3, "array", "test"};
         assertArrayEquals(new String[]{"1", "2", "3", "array", "test"}, ArrayUtils.toStringArray(array));
 
-        try {
-            ArrayUtils.toStringArray(new Object[]{null});
-            fail("NullPointerException expected!");
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> ArrayUtils.toStringArray(new Object[]{null}));
     }
 
     @Test

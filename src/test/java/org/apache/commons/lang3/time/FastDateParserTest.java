@@ -335,34 +335,27 @@ public class FastDateParserTest {
             final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
             final DateParser fdf = getInstance(format, locale);
 
-            try {
-                checkParse(locale, cal, sdf, fdf);
-            } catch(final ParseException ex) {
-                fail("Locale "+locale+ " failed with "+format+" era "+(eraBC?"BC":"AD")+"\n" + trimMessage(ex.toString()));
-            }
+            // If parsing fails, a ParseException will be thrown and the test will fail
+            checkParse(locale, cal, sdf, fdf);
         }
     }
 
     @Test
-    public void testJpLocales() {
+    public void testJpLocales() throws ParseException {
 
         final Calendar cal= Calendar.getInstance(GMT);
         cal.clear();
         cal.set(2003, Calendar.FEBRUARY, 10);
         cal.set(Calendar.ERA, GregorianCalendar.BC);
 
-        final Locale locale = LocaleUtils.toLocale("zh"); {
-            // ja_JP_JP cannot handle dates before 1868 properly
+        final Locale locale = LocaleUtils.toLocale("zh");
+        // ja_JP_JP cannot handle dates before 1868 properly
 
-            final SimpleDateFormat sdf = new SimpleDateFormat(LONG_FORMAT, locale);
-            final DateParser fdf = getInstance(LONG_FORMAT, locale);
+        final SimpleDateFormat sdf = new SimpleDateFormat(LONG_FORMAT, locale);
+        final DateParser fdf = getInstance(LONG_FORMAT, locale);
 
-            try {
-                checkParse(locale, cal, sdf, fdf);
-            } catch(final ParseException ex) {
-                fail("Locale "+locale+ " failed with "+LONG_FORMAT+"\n" + trimMessage(ex.toString()));
-            }
-        }
+        // If parsing fails, a ParseException will be thrown and the test will fail
+        checkParse(locale, cal, sdf, fdf);
     }
 
     private String trimMessage(final String msg) {
@@ -668,12 +661,7 @@ public class FastDateParserTest {
         final TimeZone kst = TimeZone.getTimeZone("KST");
         final DateParser fdp = getInstance("yyyyMMdd", kst, Locale.KOREA);
 
-        try {
-            fdp.parse("2015");
-            fail("expected parse exception");
-        } catch (final ParseException pe) {
-            // expected parse exception
-        }
+        assertThrows(ParseException.class, () -> fdp.parse("2015"));
 
         // Wed Apr 29 00:00:00 KST 2015
         Date actual = fdp.parse("20150429");

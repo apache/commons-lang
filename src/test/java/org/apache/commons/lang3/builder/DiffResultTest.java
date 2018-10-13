@@ -118,7 +118,7 @@ public class DiffResultTest {
     @Test
     public void testNullLhs() {
         assertThrows(IllegalArgumentException.class,
-            () ->  new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
+            () -> new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
     @Test

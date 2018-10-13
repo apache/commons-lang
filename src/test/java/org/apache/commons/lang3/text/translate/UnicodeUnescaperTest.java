@@ -18,7 +18,7 @@
 package org.apache.commons.lang3.text.translate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -51,11 +51,9 @@ public class UnicodeUnescaperTest {
         final UnicodeUnescaper uu = new UnicodeUnescaper();
 
         final String input = "\\0047\\u006";
-        try {
-            uu.translate(input);
-            fail("A lack of digits in a Unicode escape sequence failed to throw an exception");
-        } catch(final IllegalArgumentException iae) {
-            // expected
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> uu.translate(input),
+                "A lack of digits in a Unicode escape sequence failed to throw an exception");
     }
 }

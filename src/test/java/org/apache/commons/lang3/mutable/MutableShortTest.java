@@ -20,8 +20,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * JUnit tests.
@@ -42,10 +42,7 @@ public class MutableShortTest {
 
         assertEquals((short) 2, new MutableShort("2").shortValue());
 
-        try {
-            new MutableShort((Number)null);
-            fail();
-        } catch (final NullPointerException ex) {}
+        assertThrows(NullPointerException.class, () -> new MutableShort((Number)null));
     }
 
     @Test
@@ -65,10 +62,7 @@ public class MutableShortTest {
         mutNum.setValue(new MutableShort((short) 3));
         assertEquals((short) 3, mutNum.shortValue());
         assertEquals(Short.valueOf((short) 3), mutNum.getValue());
-        try {
-            mutNum.setValue(null);
-            fail();
-        } catch (final NullPointerException ex) {}
+        assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
     }
 
     @Test
@@ -108,10 +102,7 @@ public class MutableShortTest {
         assertEquals((short) 0, mutNum.compareTo(new MutableShort((short) 0)));
         assertEquals((short) +1, mutNum.compareTo(new MutableShort((short) -1)));
         assertEquals((short) -1, mutNum.compareTo(new MutableShort((short) 1)));
-        try {
-            mutNum.compareTo(null);
-            fail();
-        } catch (final NullPointerException ex) {}
+        assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
     }
 
     @Test

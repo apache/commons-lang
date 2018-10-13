@@ -616,12 +616,9 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateFloatFailure(final String str) {
-        try {
-            final Float value = NumberUtils.createFloat(str);
-            fail("createFloat(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createFloat(str), "createFloat(\"" + str + "\") should have failed.");
     }
 
     @Test
@@ -636,12 +633,10 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateDoubleFailure(final String str) {
-        try {
-            final Double value = NumberUtils.createDouble(str);
-            fail("createDouble(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createDouble(str),
+                "createDouble(\"" + str + "\") should have failed.");
     }
 
     @Test
@@ -656,12 +651,10 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateIntegerFailure(final String str) {
-        try {
-            final Integer value = NumberUtils.createInteger(str);
-            fail("createInteger(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createInteger(str),
+                "createInteger(\"" + str + "\") should have failed.");
     }
 
     @Test
@@ -676,12 +669,10 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateLongFailure(final String str) {
-        try {
-            final Long value = NumberUtils.createLong(str);
-            fail("createLong(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createLong(str),
+                "createLong(\"" + str + "\") should have failed.");
     }
 
     @Test
@@ -709,12 +700,10 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateBigIntegerFailure(final String str) {
-        try {
-            final BigInteger value = NumberUtils.createBigInteger(str);
-            fail("createBigInteger(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createBigInteger(str),
+                "createBigInteger(\"" + str + "\") should have failed.");
     }
 
     @Test
@@ -735,12 +724,10 @@ public class NumberUtilsTest {
     }
 
     protected void testCreateBigDecimalFailure(final String str) {
-        try {
-            final BigDecimal value = NumberUtils.createBigDecimal(str);
-            fail("createBigDecimal(\"" + str + "\") should have failed: " + value);
-        } catch (final NumberFormatException ex) {
-            // empty
-        }
+        assertThrows(
+                NumberFormatException.class,
+                () -> NumberUtils.createBigDecimal(str),
+                "createBigDecimal(\"" + str + "\") should have failed.");
     }
 
     // min/max tests
@@ -954,15 +941,13 @@ public class NumberUtilsTest {
     @Test
     public void testMaxDouble() {
         final double[] d = null;
-        try {
-            NumberUtils.max(d);
-            fail("No exception was thrown for null input.");
-        } catch (final IllegalArgumentException ex) {}
+        assertThrows(
+                IllegalArgumentException.class, () -> NumberUtils.max(d), "No exception was thrown for null input.");
 
-        try {
-            NumberUtils.max(new double[0]);
-            fail("No exception was thrown for empty input.");
-        } catch (final IllegalArgumentException ex) {}
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> NumberUtils.max(new double[0]),
+                "No exception was thrown for empty input.");
 
         // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
         // This should be replaced when it is supported in JUnit Jupiter 5.4.

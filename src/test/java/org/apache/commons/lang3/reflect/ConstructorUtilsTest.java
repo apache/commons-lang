@@ -20,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -186,24 +186,15 @@ public class ConstructorUtilsTest {
                 TestBean.class, new Object[] { NumberUtils.DOUBLE_ONE },
                 new Class[] { Double.TYPE }).toString());
 
-        try {
-            ConstructorUtils.invokeExactConstructor(TestBean.class,
-                    NumberUtils.BYTE_ONE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
-        try {
-            ConstructorUtils.invokeExactConstructor(TestBean.class,
-                    NumberUtils.LONG_ONE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
-        try {
-            ConstructorUtils.invokeExactConstructor(TestBean.class,
-                    Boolean.TRUE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> ConstructorUtils.invokeExactConstructor(TestBean.class,NumberUtils.BYTE_ONE));
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> ConstructorUtils.invokeExactConstructor(TestBean.class, NumberUtils.LONG_ONE));
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> ConstructorUtils.invokeExactConstructor(TestBean.class, Boolean.TRUE));
     }
 
     @Test
