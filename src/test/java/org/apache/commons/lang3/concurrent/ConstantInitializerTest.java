@@ -46,9 +46,9 @@ public class ConstantInitializerTest {
      * @param expected the expected result
      */
     private void checkEquals(final Object obj, final boolean expected) {
-        assertTrue(expected == init.equals(obj), "Wrong result of equals");
+        assertEquals(expected, init.equals(obj), "Wrong result of equals");
         if (obj != null) {
-            assertTrue(expected == obj.equals(init), "Not symmetric");
+            assertEquals(expected, obj.equals(init), "Not symmetric");
             if (expected) {
                 assertEquals(init.hashCode(), obj.hashCode(), "Different hash codes");
             }

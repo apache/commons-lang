@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -147,12 +148,12 @@ public class RangeTest {
         assertEquals(byteRange, byteRange);
         assertEquals(byteRange, byteRange2);
         assertEquals(byteRange2, byteRange2);
-        assertTrue(byteRange.equals(byteRange));
-        assertTrue(byteRange2.equals(byteRange2));
-        assertTrue(byteRange3.equals(byteRange3));
-        assertFalse(byteRange2.equals(byteRange3));
-        assertFalse(byteRange2.equals(null));
-        assertFalse(byteRange2.equals("Ni!"));
+        assertEquals(byteRange, byteRange);
+        assertEquals(byteRange2, byteRange2);
+        assertEquals(byteRange3, byteRange3);
+        assertNotEquals(byteRange2, byteRange3);
+        assertNotEquals(null, byteRange2);
+        assertNotEquals("Ni!", byteRange2);
     }
 
     @Test

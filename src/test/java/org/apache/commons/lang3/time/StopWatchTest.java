@@ -160,7 +160,7 @@ public class StopWatchTest {
         }
         watch.stop();
         final long totalTime = watch.getTime();
-        assertTrue(suspendTime == totalTime);
+        assertEquals(suspendTime, totalTime);
     }
 
     // test bad states

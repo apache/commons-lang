@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.exception;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -98,7 +99,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         .addContextValue("test Poorly written obj", new ObjectWithFaultyToString());
 
         final String message = exceptionContext.getMessage();
-        assertTrue(message != null);
+        assertNotNull(message);
     }
 
     @Test

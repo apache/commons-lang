@@ -77,17 +77,17 @@ public class ArrayUtilsTest {
     public void testHashCode() {
         final long[][] array1 = new long[][]{{2, 5}, {4, 5}};
         final long[][] array2 = new long[][]{{2, 5}, {4, 6}};
-        assertTrue(ArrayUtils.hashCode(array1) == ArrayUtils.hashCode(array1));
+        assertEquals(ArrayUtils.hashCode(array1), ArrayUtils.hashCode(array1));
         assertFalse(ArrayUtils.hashCode(array1) == ArrayUtils.hashCode(array2));
 
         final Object[] array3 = new Object[]{new String(new char[]{'A', 'B'})};
         final Object[] array4 = new Object[]{"AB"};
-        assertTrue(ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array3));
-        assertTrue(ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array4));
+        assertEquals(ArrayUtils.hashCode(array3), ArrayUtils.hashCode(array3));
+        assertEquals(ArrayUtils.hashCode(array3), ArrayUtils.hashCode(array4));
 
         final Object[] arrayA = new Object[]{new boolean[]{true, false}, new int[]{6, 7}};
         final Object[] arrayB = new Object[]{new boolean[]{true, false}, new int[]{6, 7}};
-        assertTrue(ArrayUtils.hashCode(arrayB) == ArrayUtils.hashCode(arrayA));
+        assertEquals(ArrayUtils.hashCode(arrayB), ArrayUtils.hashCode(arrayA));
     }
 
     //-----------------------------------------------------------------------
@@ -272,13 +272,13 @@ public class ArrayUtilsTest {
         Object[] original1 = new Object[0];
         Object[] cloned1 = ArrayUtils.clone(original1);
         assertTrue(Arrays.equals(original1, cloned1));
-        assertTrue(original1 != cloned1);
+        assertNotSame(original1, cloned1);
 
         final StringBuilder builder = new StringBuilder("pick");
         original1 = new Object[]{builder, "a", new String[]{"stick"}};
         cloned1 = ArrayUtils.clone(original1);
         assertTrue(Arrays.equals(original1, cloned1));
-        assertTrue(original1 != cloned1);
+        assertNotSame(original1, cloned1);
         assertSame(original1[0], cloned1[0]);
         assertSame(original1[1], cloned1[1]);
         assertSame(original1[2], cloned1[2]);
@@ -290,7 +290,7 @@ public class ArrayUtilsTest {
         final boolean[] original = new boolean[]{true, false};
         final boolean[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -299,7 +299,7 @@ public class ArrayUtilsTest {
         final long[] original = new long[]{0L, 1L};
         final long[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -308,7 +308,7 @@ public class ArrayUtilsTest {
         final int[] original = new int[]{5, 8};
         final int[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -317,7 +317,7 @@ public class ArrayUtilsTest {
         final short[] original = new short[]{1, 4};
         final short[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -326,7 +326,7 @@ public class ArrayUtilsTest {
         final char[] original = new char[]{'a', '4'};
         final char[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -335,7 +335,7 @@ public class ArrayUtilsTest {
         final byte[] original = new byte[]{1, 6};
         final byte[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -344,7 +344,7 @@ public class ArrayUtilsTest {
         final double[] original = new double[]{2.4d, 5.7d};
         final double[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -353,7 +353,7 @@ public class ArrayUtilsTest {
         final float[] original = new float[]{2.6f, 6.4f};
         final float[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertNotSame(original, cloned);
     }
 
     //-----------------------------------------------------------------------
@@ -365,8 +365,8 @@ public class ArrayUtilsTest {
     public void testNullToEmptyGenericNull() {
         final TestClass[] output = ArrayUtils.nullToEmpty(null, TestClass[].class);
 
-        assertTrue(output != null);
-        assertTrue(output.length == 0);
+        assertNotNull(output);
+        assertEquals(0, output.length);
     }
 
     @Test

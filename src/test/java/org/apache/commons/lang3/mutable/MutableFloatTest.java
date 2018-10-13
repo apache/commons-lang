@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -92,16 +93,16 @@ public class MutableFloatTest {
         final MutableFloat mutNumB = new MutableFloat(0f);
         final MutableFloat mutNumC = new MutableFloat(1f);
 
-        assertTrue(mutNumA.equals(mutNumA));
-        assertTrue(mutNumA.equals(mutNumB));
-        assertTrue(mutNumB.equals(mutNumA));
-        assertTrue(mutNumB.equals(mutNumB));
-        assertFalse(mutNumA.equals(mutNumC));
-        assertFalse(mutNumB.equals(mutNumC));
-        assertTrue(mutNumC.equals(mutNumC));
-        assertFalse(mutNumA.equals(null));
-        assertFalse(mutNumA.equals(Float.valueOf(0f)));
-        assertFalse(mutNumA.equals("0"));
+        assertEquals(mutNumA, mutNumA);
+        assertEquals(mutNumA, mutNumB);
+        assertEquals(mutNumB, mutNumA);
+        assertEquals(mutNumB, mutNumB);
+        assertNotEquals(mutNumA, mutNumC);
+        assertNotEquals(mutNumB, mutNumC);
+        assertEquals(mutNumC, mutNumC);
+        assertNotEquals(null, mutNumA);
+        assertNotEquals(mutNumA, Float.valueOf(0f));
+        assertNotEquals("0", mutNumA);
     }
 
     @Test
@@ -110,10 +111,10 @@ public class MutableFloatTest {
         final MutableFloat mutNumB = new MutableFloat(0f);
         final MutableFloat mutNumC = new MutableFloat(1f);
 
-        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
-        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumA.hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumB.hashCode());
         assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
-        assertTrue(mutNumA.hashCode() == Float.valueOf(0f).hashCode());
+        assertEquals(mutNumA.hashCode(), Float.valueOf(0f).hashCode());
     }
 
     @Test

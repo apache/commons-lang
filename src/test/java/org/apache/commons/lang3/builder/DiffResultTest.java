@@ -99,7 +99,7 @@ public class DiffResultTest {
     @Test
     public void testToStringSpecifyStyleOutput() {
         final DiffResult list = SIMPLE_FALSE.diff(SIMPLE_TRUE);
-        assertTrue(list.getToStringStyle().equals(SHORT_STYLE));
+        assertEquals(list.getToStringStyle(), SHORT_STYLE);
 
         final String lhsString = new ToStringBuilder(SIMPLE_FALSE,
                 ToStringStyle.MULTI_LINE_STYLE).append(

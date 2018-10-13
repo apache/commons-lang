@@ -17,11 +17,10 @@
 package org.apache.commons.lang3.tuple;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -66,12 +65,12 @@ public class ImmutablePairTest {
     @Test
     public void testEquals() {
         assertEquals(ImmutablePair.of(null, "foo"), ImmutablePair.of(null, "foo"));
-        assertFalse(ImmutablePair.of("foo", 0).equals(ImmutablePair.of("foo", null)));
-        assertFalse(ImmutablePair.of("foo", "bar").equals(ImmutablePair.of("xyz", "bar")));
+        assertNotEquals(ImmutablePair.of("foo", 0), ImmutablePair.of("foo", null));
+        assertNotEquals(ImmutablePair.of("foo", "bar"), ImmutablePair.of("xyz", "bar"));
 
         final ImmutablePair<String, String> p = ImmutablePair.of("foo", "bar");
-        assertTrue(p.equals(p));
-        assertFalse(p.equals(new Object()));
+        assertEquals(p, p);
+        assertNotEquals(p, new Object());
     }
 
     @Test

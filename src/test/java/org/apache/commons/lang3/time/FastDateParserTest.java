@@ -18,6 +18,7 @@ package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -462,7 +463,7 @@ public class FastDateParserTest {
             }
         }
         // SDF and FDF should produce equivalent results
-        assertTrue((f==null)==(s==null), "Should both or neither throw Exceptions");
+        assertEquals((f == null), (s == null), "Should both or neither throw Exceptions");
         assertEquals(dsdf, dfdp, "Parsed dates should be equal");
     }
 
@@ -554,7 +555,7 @@ public class FastDateParserTest {
         assertEquals(parser1, parser2);
         assertEquals(parser1.hashCode(), parser2.hashCode());
 
-        assertFalse(parser1.equals(new Object()));
+        assertNotEquals(parser1, new Object());
     }
 
     @Test

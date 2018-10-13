@@ -17,7 +17,7 @@
 package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -232,7 +232,7 @@ public class FastDatePrinterTest {
         assertEquals(printer1, printer2);
         assertEquals(printer1.hashCode(), printer2.hashCode());
 
-        assertFalse(printer1.equals(new Object()));
+        assertNotEquals(printer1, new Object());
     }
 
     @Test

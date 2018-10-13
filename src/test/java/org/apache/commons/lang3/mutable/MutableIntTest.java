@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -87,16 +88,16 @@ public class MutableIntTest {
      * @param numC must not equal numA; must not equal numC.
      */
     void testEquals(final Number numA, final Number numB, final Number numC) {
-        assertTrue(numA.equals(numA));
-        assertTrue(numA.equals(numB));
-        assertTrue(numB.equals(numA));
-        assertTrue(numB.equals(numB));
-        assertFalse(numA.equals(numC));
-        assertFalse(numB.equals(numC));
-        assertTrue(numC.equals(numC));
-        assertFalse(numA.equals(null));
-        assertFalse(numA.equals(Integer.valueOf(0)));
-        assertFalse(numA.equals("0"));
+        assertEquals(numA, numA);
+        assertEquals(numA, numB);
+        assertEquals(numB, numA);
+        assertEquals(numB, numB);
+        assertNotEquals(numA, numC);
+        assertNotEquals(numB, numC);
+        assertEquals(numC, numC);
+        assertNotEquals(null, numA);
+        assertNotEquals(numA, Integer.valueOf(0));
+        assertNotEquals("0", numA);
     }
 
     @Test
@@ -105,10 +106,10 @@ public class MutableIntTest {
         final MutableInt mutNumB = new MutableInt(0);
         final MutableInt mutNumC = new MutableInt(1);
 
-        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
-        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumA.hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumB.hashCode());
         assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
-        assertTrue(mutNumA.hashCode() == Integer.valueOf(0).hashCode());
+        assertEquals(mutNumA.hashCode(), Integer.valueOf(0).hashCode());
     }
 
     @Test
