@@ -618,6 +618,8 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
+    <checkstyle.version>8.13</checkstyle.version>
+
     <spotbugs.plugin.version>3.1.6</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
 
@@ -734,6 +736,13 @@
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${checkstyle.version}</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>com.github.spotbugs</groupId>

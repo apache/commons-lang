@@ -474,18 +474,29 @@ public class RandomStringUtilsTest {
         final String set = "abc";
         final char[] chars = set.toCharArray();
         String gen = "";
-        final int[] counts = {0,0,0};
-        final int[] expected = {200,200,200};
+        final int[] counts = {0, 0, 0};
+        final int[] expected = {200, 200, 200};
         for (int i = 0; i< 100; i++) {
-           gen = RandomStringUtils.random(6,chars);
-           for (int j = 0; j < 6; j++) {
-               switch (gen.charAt(j)) {
-                   case 'a': {counts[0]++; break;}
-                   case 'b': {counts[1]++; break;}
-                   case 'c': {counts[2]++; break;}
-                   default: {fail("generated character not in set");}
-               }
-           }
+            gen = RandomStringUtils.random(6,chars);
+            for (int j = 0; j < 6; j++) {
+                switch (gen.charAt(j)) {
+                    case 'a': {
+                        counts[0]++;
+                        break;
+                    }
+                    case 'b': {
+                        counts[1]++;
+                        break;
+                    }
+                    case 'c': {
+                        counts[2]++;
+                        break;
+                    }
+                    default: {
+                        fail("generated character not in set");
+                    }
+                }
+            }
         }
         // Perform chi-square test with df = 3-1 = 2, testing at .001 level
         assertTrue(chiSquare(expected,counts) < 13.82, "test homogeneity -- will fail about 1 in 1000 times");
