@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -97,13 +96,10 @@ public class ClassUtilsTest  {
         assertGetClassThrowsException( className, ClassNotFoundException.class );
     }
 
-    private void assertGetClassThrowsException( final String className, final Class<?> exceptionType ) throws Exception {
-        try {
-            ClassUtils.getClass( className );
-            fail( "ClassUtils.getClass() should fail with an exception of type " + exceptionType.getName() + " when given class name \"" + className + "\"." );
-        } catch( final Exception e ) {
-            assertTrue( exceptionType.isAssignableFrom( e.getClass() ) );
-        }
+    private void assertGetClassThrowsException(final String className, final Class<? extends Exception> exceptionType) {
+        assertThrows(exceptionType,
+                () -> ClassUtils.getClass(className),
+                "ClassUtils.getClass() should fail with an exception of type " + exceptionType.getName() + " when given class name \"" + className + "\"." );
     }
 
     private void assertGetClassThrowsNullPointerException( final String className ) throws Exception {
@@ -128,12 +124,9 @@ public class ClassUtilsTest  {
         @SuppressWarnings("unchecked") // test what happens when non-generic code adds wrong type of element
         final List<Object> olist = (List<Object>) (List<?>) list;
         olist.add(new Object());
-        try {
-            ClassUtils.convertClassesToClassNames(list);
-            fail("Should not have been able to convert list");
-        } catch (final ClassCastException expected) {
-            // empty
-    }
+        assertThrows(ClassCastException.class,
+                () -> ClassUtils.convertClassesToClassNames(list),
+                "Should not have been able to convert list");
         assertNull(ClassUtils.convertClassesToClassNames(null));
     }
 
@@ -156,12 +149,9 @@ public class ClassUtilsTest  {
         @SuppressWarnings("unchecked") // test what happens when non-generic code adds wrong type of element
         final List<Object> olist = (List<Object>) (List<?>) list;
         olist.add(new Object());
-        try {
-            ClassUtils.convertClassNamesToClasses(list);
-            fail("Should not have been able to convert list");
-        } catch (final ClassCastException expected) {
-            // empty
-        }
+        assertThrows(ClassCastException.class,
+                () -> ClassUtils.convertClassNamesToClasses(list),
+                "Should not have been able to convert list");
         assertNull(ClassUtils.convertClassNamesToClasses(null));
     }
 
@@ -1208,17 +1198,12 @@ public class ClassUtilsTest  {
         // Tests with Collections$UnmodifiableSet
         final Set<?> set = Collections.unmodifiableSet(new HashSet<>());
         final Method isEmptyMethod = ClassUtils.getPublicMethod(set.getClass(), "isEmpty");
-            assertTrue(Modifier.isPublic(isEmptyMethod.getDeclaringClass().getModifiers()));
-
-        try {
-            isEmptyMethod.invoke(set);
-        } catch(final java.lang.IllegalAccessException iae) {
-            fail("Should not have thrown IllegalAccessException");
-        }
+        assertTrue(Modifier.isPublic(isEmptyMethod.getDeclaringClass().getModifiers()));
+        assertTrue((Boolean) isEmptyMethod.invoke(set));
 
         // Tests with a public Class
         final Method toStringMethod = ClassUtils.getPublicMethod(Object.class, "toString");
-            assertEquals(Object.class.getMethod("toString", new Class[0]), toStringMethod);
+        assertEquals(Object.class.getMethod("toString", new Class[0]), toStringMethod);
     }
 
     @Test
@@ -1370,12 +1355,7 @@ public class ClassUtilsTest  {
         // Tests with Collections$UnmodifiableSet
         final Set<?> set = Collections.unmodifiableSet(new HashSet<>());
         final Method isEmptyMethod = set.getClass().getMethod("isEmpty");
-        try {
-            isEmptyMethod.invoke(set);
-            fail("Failed to throw IllegalAccessException as expected");
-        } catch(final IllegalAccessException iae) {
-            // expected
-        }
+        assertThrows(IllegalAccessException.class, () -> isEmptyMethod.invoke(set));
     }
 
     @Test

@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Comparator;
 
@@ -254,12 +253,7 @@ public class RangeTest {
 
     @Test
     public void testElementCompareTo() {
-        try {
-            intRange.elementCompareTo(null);
-            fail("NullPointerException should have been thrown");
-        } catch (final NullPointerException npe) {
-            // expected
-        }
+        assertThrows(NullPointerException.class, () -> intRange.elementCompareTo(null));
 
         assertEquals(-1, intRange.elementCompareTo(5));
         assertEquals(0, intRange.elementCompareTo(10));

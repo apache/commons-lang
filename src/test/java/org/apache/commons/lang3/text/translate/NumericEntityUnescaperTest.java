@@ -18,7 +18,7 @@
 package org.apache.commons.lang3.text.translate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -67,15 +67,10 @@ public class NumericEntityUnescaperTest  {
         assertEquals(expected, result, "Failed to ignore unfinished entities (i.e. missing semi-colon)");
 
         // fail it
-        neu = new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.errorIfNoSemiColon);
-        input = "Test &#x30 not test";
-
-        try {
-            result = neu.translate(input);
-            fail("IllegalArgumentException expected");
-        } catch(final IllegalArgumentException iae) {
-            // expected
-        }
+        final NumericEntityUnescaper failingNeu =
+                new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.errorIfNoSemiColon);
+        final String failingInput = "Test &#x30 not test";
+        assertThrows(IllegalArgumentException.class, () -> failingNeu.translate(failingInput));
     }
 
 }

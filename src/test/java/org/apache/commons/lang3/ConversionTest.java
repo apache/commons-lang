@@ -18,7 +18,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.UUID;
 
@@ -57,12 +57,7 @@ public class ConversionTest {
         assertEquals(14, Conversion.hexDigitToInt('e'));
         assertEquals(15, Conversion.hexDigitToInt('F'));
         assertEquals(15, Conversion.hexDigitToInt('f'));
-        try {
-            Conversion.hexDigitToInt('G');
-            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
-        } catch (final IllegalArgumentException e) {
-            // OK
-        }
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexDigitToInt('G'));
     }
 
     /**
@@ -92,12 +87,7 @@ public class ConversionTest {
         assertEquals(0x7, Conversion.hexDigitMsb0ToInt('e'));
         assertEquals(0xF, Conversion.hexDigitMsb0ToInt('F'));
         assertEquals(0xF, Conversion.hexDigitMsb0ToInt('f'));
-        try {
-            Conversion.hexDigitMsb0ToInt('G');
-            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
-        } catch (final IllegalArgumentException e) {
-            // OK
-        }
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexDigitMsb0ToInt('G'));
     }
 
     /**
@@ -149,12 +139,7 @@ public class ConversionTest {
             new boolean[]{true, true, true, true}, Conversion.hexDigitToBinary('F'));
         assertArrayEquals(
             new boolean[]{true, true, true, true}, Conversion.hexDigitToBinary('f'));
-        try {
-            Conversion.hexDigitToBinary('G');
-            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
-        } catch (final IllegalArgumentException e) {
-            // OK
-        }
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexDigitToBinary('G'));
     }
 
     /**
@@ -206,12 +191,7 @@ public class ConversionTest {
             new boolean[]{true, true, true, true}, Conversion.hexDigitMsb0ToBinary('F'));
         assertArrayEquals(
             new boolean[]{true, true, true, true}, Conversion.hexDigitMsb0ToBinary('f'));
-        try {
-            Conversion.hexDigitMsb0ToBinary('G');
-            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
-        } catch (final IllegalArgumentException e) {
-            // OK
-        }
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexDigitMsb0ToBinary('G'));
     }
 
     /**
@@ -239,12 +219,7 @@ public class ConversionTest {
         assertEquals('1', Conversion.binaryToHexDigit(new boolean[]{true}));
         assertEquals(
             'f', Conversion.binaryToHexDigit(new boolean[]{true, true, true, true, true}));
-        try {
-            Conversion.binaryToHexDigit(new boolean[]{});
-            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
-        } catch (final IllegalArgumentException e) {
-            // OK
-        }
+        assertThrows(IllegalArgumentException.class, () -> Conversion.binaryToHexDigit(new boolean[]{}));
     }
 
     /**
@@ -308,12 +283,7 @@ public class ConversionTest {
             'e', Conversion.binaryToHexDigitMsb0_4bits(new boolean[]{true, true, true, false}));
         assertEquals(
             'f', Conversion.binaryToHexDigitMsb0_4bits(new boolean[]{true, true, true, true}));
-        try {
-            Conversion.binaryToHexDigitMsb0_4bits(new boolean[]{});
-            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
-        } catch (final IllegalArgumentException e) {
-            // OK
-        }
+        assertThrows(IllegalArgumentException.class, () -> Conversion.binaryToHexDigitMsb0_4bits(new boolean[]{}));
     }
 
     /**
@@ -393,12 +363,7 @@ public class ConversionTest {
             Conversion.binaryBeMsb0ToHexDigit(new boolean[]{
                 true, false, false, false, false, false, false, false, false, false, false,
                 false, false, true, false, false}));
-        try {
-            Conversion.binaryBeMsb0ToHexDigit(new boolean[]{});
-            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
-        } catch (final IllegalArgumentException e) {
-            // OK
-        }
+        assertThrows(IllegalArgumentException.class, () -> Conversion.binaryBeMsb0ToHexDigit(new boolean[]{}));
     }
 
     /**
@@ -469,12 +434,7 @@ public class ConversionTest {
         assertEquals('d', Conversion.intToHexDigit(13));
         assertEquals('e', Conversion.intToHexDigit(14));
         assertEquals('f', Conversion.intToHexDigit(15));
-        try {
-            Conversion.intToHexDigit(16);
-            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
-        } catch (final IllegalArgumentException e) {
-            // OK
-        }
+        assertThrows(IllegalArgumentException.class, () -> Conversion.intToHexDigit(16));
     }
 
     /**
@@ -498,12 +458,7 @@ public class ConversionTest {
         assertEquals('b', Conversion.intToHexDigitMsb0(13));
         assertEquals('7', Conversion.intToHexDigitMsb0(14));
         assertEquals('f', Conversion.intToHexDigitMsb0(15));
-        try {
-            Conversion.intToHexDigitMsb0(16);
-            fail("Thrown " + IllegalArgumentException.class.getName() + " expected");
-        } catch (final IllegalArgumentException e) {
-            // OK
-        }
+        assertThrows(IllegalArgumentException.class, () -> Conversion.intToHexDigitMsb0(16));
     }
 
     static String dbgPrint(final boolean[] src) {
@@ -1276,12 +1231,7 @@ public class ConversionTest {
             Conversion.longToHex(0x1234567890ABCDEFL, 4, "ffffffffffffffffffffffff", 3, 15));
         assertEquals(
             "fedcba0987654321", Conversion.longToHex(0x1234567890ABCDEFL, 0, "", 0, 16));
-        try {
-            Conversion.longToHex(0x1234567890ABCDEFL, 0, "", 1, 8);
-            fail("Thrown " + StringIndexOutOfBoundsException.class.getName() + " expected");
-        } catch (final StringIndexOutOfBoundsException e) {
-            // OK
-        }
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.longToHex(0x1234567890ABCDEFL, 0, "", 1, 8));
     }
 
     /**
@@ -1340,12 +1290,7 @@ public class ConversionTest {
             "fffedcba09ffffffffffffff",
             Conversion.intToHex(0x90ABCDEF, 4, "ffffffffffffffffffffffff", 3, 7));
         assertEquals("fedcba09", Conversion.intToHex(0x90ABCDEF, 0, "", 0, 8));
-        try {
-            Conversion.intToHex(0x90ABCDEF, 0, "", 1, 8);
-            fail("Thrown " + StringIndexOutOfBoundsException.class.getName() + " expected");
-        } catch (final StringIndexOutOfBoundsException e) {
-            // OK
-        }
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.intToHex(0x90ABCDEF, 0, "", 1, 8));
     }
 
     /**
@@ -1392,12 +1337,7 @@ public class ConversionTest {
             "fffedcffffffffffffffffff",
             Conversion.shortToHex((short)0xCDEF, 4, "ffffffffffffffffffffffff", 3, 3));
         assertEquals("fedc", Conversion.shortToHex((short)0xCDEF, 0, "", 0, 4));
-        try {
-            Conversion.shortToHex((short)0xCDEF, 0, "", 1, 4);
-            fail("Thrown " + StringIndexOutOfBoundsException.class.getName() + " expected");
-        } catch (final StringIndexOutOfBoundsException e) {
-            // OK
-        }
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.shortToHex((short)0xCDEF, 0, "", 1, 4));
     }
 
     /**
@@ -1420,12 +1360,7 @@ public class ConversionTest {
         // assertion
         assertEquals("000e0", Conversion.byteToHex((byte)0xEF, 4, "00000", 3, 1));
         assertEquals("fe", Conversion.byteToHex((byte)0xEF, 0, "", 0, 2));
-        try {
-            Conversion.byteToHex((byte)0xEF, 0, "", 1, 2);
-            fail("Thrown " + StringIndexOutOfBoundsException.class.getName() + " expected");
-        } catch (final StringIndexOutOfBoundsException e) {
-            // OK
-        }
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.byteToHex((byte)0xEF, 0, "", 1, 2));
     }
 
     /**

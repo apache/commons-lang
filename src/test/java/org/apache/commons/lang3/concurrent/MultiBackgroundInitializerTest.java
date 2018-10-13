@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -194,13 +193,11 @@ public class MultiBackgroundInitializerTest {
     @Test
     public void testAddInitializerAfterStart() throws ConcurrentException {
         initializer.start();
-        try {
-            initializer.addInitializer(CHILD_INIT,
-                    new ChildBackgroundInitializer());
-            fail("Could add initializer after start()!");
-        } catch (final IllegalStateException istex) {
-            initializer.get();
-        }
+        assertThrows(
+                IllegalStateException.class,
+                () -> initializer.addInitializer(CHILD_INIT, new ChildBackgroundInitializer()),
+                "Could add initializer after start()!");
+        initializer.get();
     }
 
     /**
@@ -276,12 +273,8 @@ public class MultiBackgroundInitializerTest {
         child.ex = new RuntimeException();
         initializer.addInitializer(CHILD_INIT, child);
         initializer.start();
-        try {
-            initializer.get();
-            fail("Runtime exception not thrown!");
-        } catch (final Exception ex) {
-            assertEquals(child.ex, ex, "Wrong exception");
-        }
+        Exception ex = assertThrows(Exception.class, initializer::get);
+        assertEquals(child.ex, ex, "Wrong exception");
     }
 
     /**

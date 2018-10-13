@@ -24,6 +24,7 @@ import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -157,63 +158,29 @@ public class RandomStringUtilsTest {
 
     @Test
     public void testLANG807() {
-        try {
-            RandomStringUtils.random(3,5,5,false,false);
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) { // distinguish from Random#nextInt message
-            final String msg = ex.getMessage();
-            assertTrue(msg.contains("start"), "Message (" + msg + ") must contain 'start'");
-            assertTrue(msg.contains("end"), "Message (" + msg + ") must contain 'end'");
-        }
+        IllegalArgumentException ex =
+                assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(3,5,5,false,false));
+        final String msg = ex.getMessage();
+        assertTrue(msg.contains("start"), "Message (" + msg + ") must contain 'start'");
+        assertTrue(msg.contains("end"), "Message (" + msg + ") must contain 'end'");
     }
 
     @Test
     public void testExceptions() {
         final char[] DUMMY = new char[]{'a'}; // valid char array
-        try {
-            RandomStringUtils.random(-1);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            RandomStringUtils.random(-1, true, true);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            RandomStringUtils.random(-1, DUMMY);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            RandomStringUtils.random(1, new char[0]); // must not provide empty array => IAE
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            RandomStringUtils.random(-1, "");
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            RandomStringUtils.random(-1, (String)null);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            RandomStringUtils.random(-1, 'a', 'z', false, false);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random());
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            RandomStringUtils.random(8, 32, 48, false, true);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            RandomStringUtils.random(8, 32, 65, true, false);
-            fail();
-        } catch (final IllegalArgumentException ex) {}
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, true, true));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, DUMMY));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(1, new char[0]));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, ""));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, (String) null));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random()));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 48, false, true));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 65, true, false));
     }
 
     /**

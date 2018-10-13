@@ -19,7 +19,7 @@ package org.apache.commons.lang3.text;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,12 +46,7 @@ public class StrLookupTest  {
         assertEquals(System.getProperty("os.name"), StrLookup.systemPropertiesLookup().lookup("os.name"));
         assertNull(StrLookup.systemPropertiesLookup().lookup(""));
         assertNull(StrLookup.systemPropertiesLookup().lookup("other"));
-        try {
-            StrLookup.systemPropertiesLookup().lookup(null);
-            fail();
-        } catch (final NullPointerException ex) {
-            // expected
-        }
+        assertThrows(NullPointerException.class, () -> StrLookup.systemPropertiesLookup().lookup(null));
     }
 
     /**

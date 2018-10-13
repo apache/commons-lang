@@ -1273,12 +1273,10 @@ public class StringUtilsTest {
         assertEquals("Lorem_ipsum_dolor_sit",
                      StringUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
 
-        try {
-            StringUtils.replaceAll("any", "{badRegexSyntax}", "");
-            fail("StringUtils.replaceAll expecting PatternSyntaxException");
-        } catch (final PatternSyntaxException ex) {
-            // empty
-        }
+        assertThrows(
+                PatternSyntaxException.class,
+                () -> StringUtils.replaceAll("any", "{badRegexSyntax}", ""),
+                "StringUtils.replaceAll expecting PatternSyntaxException");
     }
 
     @Test
@@ -1302,12 +1300,10 @@ public class StringUtilsTest {
         assertEquals("Lorem_ipsum  dolor   sit",
                      StringUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
 
-        try {
-            StringUtils.replaceFirst("any", "{badRegexSyntax}", "");
-            fail("StringUtils.replaceFirst expecting PatternSyntaxException");
-        } catch (final PatternSyntaxException ex) {
-            // empty
-        }
+        assertThrows(
+                PatternSyntaxException.class,
+                () -> StringUtils.replaceFirst("any", "{badRegexSyntax}", ""),
+                "StringUtils.replaceFirst expecting PatternSyntaxException");
     }
 
     @Test
@@ -1450,12 +1446,10 @@ public class StringUtilsTest {
         assertEquals(StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{null}), "aba");
         assertEquals(StringUtils.replaceEach("aba", new String[]{"a", "b"}, new String[]{"c", null}), "cbc");
 
-        try {
-            StringUtils.replaceEach("abba", new String[]{"a"}, new String[]{"b", "a"});
-            fail("StringUtils.replaceEach(String, String[], String[]) expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            // expected
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.replaceEach("abba", new String[]{"a"}, new String[]{"b", "a"}),
+                "StringUtils.replaceEach(String, String[], String[]) expecting IllegalArgumentException");
     }
 
     /**
@@ -1476,11 +1470,10 @@ public class StringUtilsTest {
         assertEquals(StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}), "wcte");
         assertEquals(StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}), "tcte");
 
-        try {
-            StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"});
-            fail("Should be a circular reference");
-        } catch (final IllegalStateException e) {
-        }
+        assertThrows(
+                IllegalStateException.class,
+                () -> StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}),
+                "Should be a circular reference");
 
         //JAVADOC TESTS END
     }
@@ -1981,12 +1974,10 @@ public class StringUtilsTest {
         assertEquals("a...", StringUtils.abbreviate("abcdefg", 4));
         assertEquals("", StringUtils.abbreviate("", 4));
 
-        try {
-            StringUtils.abbreviate("abc", 3);
-            fail("StringUtils.abbreviate expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-            // empty
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.abbreviate("abc", 3),
+                "StringUtils.abbreviate expecting IllegalArgumentException");
     }
 
     @Test
@@ -2008,14 +1999,10 @@ public class StringUtilsTest {
         assertEquals("abc.", StringUtils.abbreviate("abcdefg", ".", 4));
         assertEquals("", StringUtils.abbreviate("", 4));
 
-        try {
-            @SuppressWarnings("unused")
-            final
-            String res = StringUtils.abbreviate("abcdefghij", "...", 3);
-            fail("StringUtils.abbreviate expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException ex) {
-            // empty
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.abbreviate("abcdefghij", "...", 3),
+                "StringUtils.abbreviate expecting IllegalArgumentException");
     }
 
     @Test
@@ -2024,19 +2011,14 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.abbreviate("", 0, 10));
         assertEquals("", StringUtils.abbreviate("", 2, 10));
 
-        try {
-            StringUtils.abbreviate("abcdefghij", 0, 3);
-            fail("StringUtils.abbreviate expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-            // empty
-        }
-        try {
-            StringUtils.abbreviate("abcdefghij", 5, 6);
-            fail("StringUtils.abbreviate expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-            // empty
-        }
-
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.abbreviate("abcdefghij", 0, 3),
+                "StringUtils.abbreviate expecting IllegalArgumentException");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.abbreviate("abcdefghij", 5, 6),
+                "StringUtils.abbreviate expecting IllegalArgumentException");
 
         final String raspberry = "raspberry peach";
         assertEquals("raspberry peach", StringUtils.abbreviate(raspberry, 11, 15));
@@ -2084,18 +2066,14 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.abbreviate("", null, 0, 10));
         assertEquals("", StringUtils.abbreviate("", "...", 2, 10));
 
-        try {
-            StringUtils.abbreviate("abcdefghij", "::", 0, 2);
-            fail("StringUtils.abbreviate expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-            // empty
-        }
-        try {
-            StringUtils.abbreviate("abcdefghij", "!!!", 5, 6);
-            fail("StringUtils.abbreviate expecting IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-            // empty
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.abbreviate("abcdefghij", "::", 0, 2),
+                "StringUtils.abbreviate expecting IllegalArgumentException");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.abbreviate("abcdefghij", "!!!", 5, 6),
+                "StringUtils.abbreviate expecting IllegalArgumentException");
 
         final String raspberry = "raspberry peach";
         assertEquals("raspberry peach", StringUtils.abbreviate(raspberry, "--", 12, 15));
@@ -2181,47 +2159,31 @@ public class StringUtilsTest {
     @Test
     public void testTruncate_StringInt() {
         assertNull(StringUtils.truncate(null, 12));
-        try {
-            StringUtils.truncate(null, -1);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate(null, -10);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate(null, Integer.MIN_VALUE);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
+        assertThrows(
+                IllegalArgumentException.class, () -> StringUtils.truncate(null, -1), "maxWith cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class, () -> StringUtils.truncate(null, -10), "maxWith cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate(null, Integer.MIN_VALUE),
+                "maxWith cannot be negative");
         assertEquals("", StringUtils.truncate("", 10));
         assertEquals("", StringUtils.truncate("", 10));
         assertEquals("abc", StringUtils.truncate("abcdefghij", 3));
         assertEquals("abcdef", StringUtils.truncate("abcdefghij", 6));
         assertEquals("", StringUtils.truncate("abcdefghij", 0));
-        try {
-            StringUtils.truncate("abcdefghij", -1);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", -100);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", Integer.MIN_VALUE);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", -1),
+                "maxWith cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", -100),
+                "maxWith cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE),
+                "maxWith cannot be negative");
         assertEquals("abcdefghij", StringUtils.truncate("abcdefghijklmno", 10));
         assertEquals("abcdefghijklmno", StringUtils.truncate("abcdefghijklmno", Integer.MAX_VALUE));
         assertEquals("abcde", StringUtils.truncate("abcdefghijklmno", 5));
@@ -2231,108 +2193,74 @@ public class StringUtilsTest {
     @Test
     public void testTruncate_StringIntInt() {
         assertNull(StringUtils.truncate(null, 0, 12));
-        try {
-            StringUtils.truncate(null, -1, 0);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate(null, -10, -4);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate(null, Integer.MIN_VALUE, Integer.MIN_VALUE);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
+        assertThrows(
+                IllegalArgumentException.class, () -> StringUtils.truncate(null, -1, 0), "maxWith cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate(null, -10, -4),
+                "maxWith cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate(null, Integer.MIN_VALUE, Integer.MIN_VALUE),
+                "maxWith cannot be negative");
         assertNull(StringUtils.truncate(null, 10, 12));
         assertEquals("", StringUtils.truncate("", 0, 10));
         assertEquals("", StringUtils.truncate("", 2, 10));
         assertEquals("abc", StringUtils.truncate("abcdefghij", 0, 3));
         assertEquals("fghij", StringUtils.truncate("abcdefghij", 5, 6));
         assertEquals("", StringUtils.truncate("abcdefghij", 0, 0));
-        try {
-            StringUtils.truncate("abcdefghij", 0, -1);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", 0, -10);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", 0, -100);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", 1, -100);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", 0, Integer.MIN_VALUE);
-            fail("maxWith cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", -1, 0);
-            fail("offset cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", -10, 0);
-            fail("offset cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", -100, 1);
-            fail("offset cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, 0);
-            fail("offset cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", -1, -1);
-            fail("offset cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", -10, -10);
-            fail("offset cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", -100, -100);
-            fail("offset  cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-        try {
-            StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, Integer.MIN_VALUE);
-            fail("offset  cannot be negative");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", 0, -1),
+                "maxWith cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", 0, -10),
+                "maxWith cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", 0, -100),
+                "maxWith cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", 1, -100),
+                "maxWith cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", 0, Integer.MIN_VALUE),
+                "maxWith cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", -1, 0),
+                "offset cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", -10, 0),
+                "offset cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", -100, 1),
+                "offset cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, 0),
+                "offset cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", -1, -1),
+                "offset cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", -10, -10),
+                "offset cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", -100, -100),
+                "offset  cannot be negative");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, Integer.MIN_VALUE),
+                "offset  cannot be negative");
         final String raspberry = "raspberry peach";
         assertEquals("peach", StringUtils.truncate(raspberry, 10, 15));
         assertEquals("abcdefghij", StringUtils.truncate("abcdefghijklmno", 0, 10));
@@ -2795,12 +2723,10 @@ public class StringUtilsTest {
         assertEquals("AB", StringUtils.removeAll("A<__>\n<__>B", "(?s)<.*>"));
         assertEquals("ABC123", StringUtils.removeAll("ABCabc123abc", "[a-z]"));
 
-        try {
-            StringUtils.removeAll("any", "{badRegexSyntax}");
-            fail("StringUtils.removeAll expecting PatternSyntaxException");
-        } catch (final PatternSyntaxException ex) {
-            // empty
-        }
+        assertThrows(
+                PatternSyntaxException.class,
+                () -> StringUtils.removeAll("any", "{badRegexSyntax}"),
+                "StringUtils.removeAll expecting PatternSyntaxException");
     }
 
     @Test
@@ -2818,12 +2744,10 @@ public class StringUtilsTest {
         assertEquals("ABCbc123", StringUtils.removeFirst("ABCabc123", "[a-z]"));
         assertEquals("ABC123abc", StringUtils.removeFirst("ABCabc123abc", "[a-z]+"));
 
-        try {
-            StringUtils.removeFirst("any", "{badRegexSyntax}");
-            fail("StringUtils.removeFirst expecting PatternSyntaxException");
-        } catch (final PatternSyntaxException ex) {
-            // empty
-        }
+        assertThrows(
+                PatternSyntaxException.class,
+                () -> StringUtils.removeFirst("any", "{badRegexSyntax}"),
+                "StringUtils.removeFirst expecting PatternSyntaxException");
     }
 
     @Test

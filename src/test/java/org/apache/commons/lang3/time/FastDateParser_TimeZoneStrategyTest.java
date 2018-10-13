@@ -27,13 +27,12 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 class FastDateParser_TimeZoneStrategyTest {
 
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
-    void testTimeZoneStrategyPattern(final Locale locale) {
+    void testTimeZoneStrategyPattern(final Locale locale) throws ParseException {
         final FastDateParser parser = new FastDateParser("z", TimeZone.getDefault(), locale);
         final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
         for (final String[] zone : zones) {
@@ -42,17 +41,8 @@ class FastDateParser_TimeZoneStrategyTest {
                 if (tzDisplay == null) {
                     break;
                 }
-                try {
-                    parser.parse(tzDisplay);
-                } catch (final Exception ex) {
-                    fail("'" + tzDisplay + "'"
-                            + " Locale: '" + locale.getDisplayName() + "'"
-                            + " TimeZone: " + zone[0]
-                            + " offset: " + t
-                            + " defaultLocale: " + Locale.getDefault()
-                            + " defaultTimeZone: " + TimeZone.getDefault().getDisplayName()
-                    );
-                }
+                // An exception will be thrown and the test will fail if parsing isn't successful
+                parser.parse(tzDisplay);
             }
         }
     }

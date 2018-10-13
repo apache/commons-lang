@@ -21,8 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -199,10 +199,7 @@ public class CharUtilsTest {
     public void testToChar_Character() {
         assertEquals('A', CharUtils.toChar(CHARACTER_A));
         assertEquals('B', CharUtils.toChar(CHARACTER_B));
-        try {
-            CharUtils.toChar((Character) null);
-            fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
+        assertThrows(IllegalArgumentException.class, () -> CharUtils.toChar((Character) null));
     }
 
     @Test
@@ -216,14 +213,8 @@ public class CharUtilsTest {
     public void testToChar_String() {
         assertEquals('A', CharUtils.toChar("A"));
         assertEquals('B', CharUtils.toChar("BA"));
-        try {
-            CharUtils.toChar((String) null);
-            fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            CharUtils.toChar("");
-            fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
+        assertThrows(IllegalArgumentException.class, () -> CharUtils.toChar((String) null));
+        assertThrows(IllegalArgumentException.class, () -> CharUtils.toChar(""));
     }
 
     @Test
@@ -278,10 +269,7 @@ public class CharUtilsTest {
         assertEquals(7, CharUtils.toIntValue('7'));
         assertEquals(8, CharUtils.toIntValue('8'));
         assertEquals(9, CharUtils.toIntValue('9'));
-        try {
-            CharUtils.toIntValue('a');
-            fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
+        assertThrows(IllegalArgumentException.class, () -> CharUtils.toIntValue('a'));
     }
 
     @Test
@@ -295,14 +283,8 @@ public class CharUtilsTest {
     public void testToIntValue_Character() {
         assertEquals(0, CharUtils.toIntValue(new Character('0')));
         assertEquals(3, CharUtils.toIntValue(new Character('3')));
-        try {
-            CharUtils.toIntValue(null);
-            fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
-        try {
-            CharUtils.toIntValue(CHARACTER_A);
-            fail("An IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException ex) {}
+        assertThrows(IllegalArgumentException.class, () -> CharUtils.toIntValue(null));
+        assertThrows(IllegalArgumentException.class, () -> CharUtils.toIntValue(CHARACTER_A));
     }
 
     @Test

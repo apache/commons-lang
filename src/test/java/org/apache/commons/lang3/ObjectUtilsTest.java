@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -227,16 +226,8 @@ public class ObjectUtilsTest {
         ObjectUtils.identityToString(buffer, i);
         assertEquals(expected, buffer.toString());
 
-        try {
-            ObjectUtils.identityToString((StringBuffer)null, "tmp");
-            fail("NullPointerException expected");
-        } catch(final NullPointerException npe) {
-        }
-        try {
-            ObjectUtils.identityToString(new StringBuffer(), null);
-            fail("NullPointerException expected");
-        } catch(final NullPointerException npe) {
-        }
+        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StringBuffer)null, "tmp"));
+        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString(new StringBuffer(), null));
     }
 
     @Test
@@ -281,20 +272,12 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringStringBuilderNullValue() {
-        try {
-            ObjectUtils.identityToString(new StringBuilder(), null);
-            fail("NullPointerException expected");
-        } catch(final NullPointerException npe) {
-        }
+        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString(new StringBuilder(), null));
     }
 
     @Test
     public  void testIdentityToStringStringBuilderNullStringBuilder() {
-        try {
-            ObjectUtils.identityToString((StringBuilder)null, "tmp");
-            fail("NullPointerException expected");
-        } catch(final NullPointerException npe) {
-        }
+        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StringBuilder)null, "tmp"));
     }
 
     @Test
@@ -306,47 +289,25 @@ public class ObjectUtilsTest {
         ObjectUtils.identityToString(builder, i);
         assertEquals(expected, builder.toString());
 
-        try {
-            ObjectUtils.identityToString((StrBuilder)null, "tmp");
-            fail("NullPointerException expected");
-        } catch(final NullPointerException npe) {
-        }
+        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StrBuilder)null, "tmp"));
 
-        try {
-            ObjectUtils.identityToString(new StrBuilder(), null);
-            fail("NullPointerException expected");
-        } catch(final NullPointerException npe) {
-        }
+        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString(new StrBuilder(), null));
     }
 
     @Test
-    public void testIdentityToStringAppendable() {
+    public void testIdentityToStringAppendable() throws IOException {
         final Integer i = Integer.valueOf(121);
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
-        try {
-            final Appendable appendable = new StringBuilder();
-            ObjectUtils.identityToString(appendable, i);
-            assertEquals(expected, appendable.toString());
-        } catch(final IOException ex) {
-            fail("IOException unexpected");
-        }
+        final Appendable appendable = new StringBuilder();
+        ObjectUtils.identityToString(appendable, i);
+        assertEquals(expected, appendable.toString());
 
-        try {
-            ObjectUtils.identityToString((Appendable)null, "tmp");
-            fail("NullPointerException expected");
-        } catch(final NullPointerException expectedException) {
-        } catch(final IOException ex) {
-          fail("IOException unexpected");
-        }
+        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((Appendable)null, "tmp"));
 
-        try {
-            ObjectUtils.identityToString((Appendable)(new StringBuilder()), null);
-            fail("NullPointerException expected");
-        } catch(final NullPointerException expectedException) {
-        } catch(final IOException ex) {
-          fail("IOException unexpected");
-        }
+        assertThrows(
+                NullPointerException.class,
+                () -> ObjectUtils.identityToString((Appendable)(new StringBuilder()), null));
     }
 
     @Test
@@ -641,32 +602,22 @@ public class ObjectUtilsTest {
         assertTrue(1.0f == MAGIC_FLOAT);
         assertTrue(1.0 == MAGIC_DOUBLE);
         assertEquals("abc", MAGIC_STRING);
-
-        try {
-            ObjectUtils.CONST_BYTE(-129);
-            fail("CONST_BYTE(-129): IllegalArgumentException should have been thrown.");
-        } catch (final IllegalArgumentException iae) {
-
-        }
-        try {
-            ObjectUtils.CONST_BYTE(128);
-            fail("CONST_BYTE(128): IllegalArgumentException should have been thrown.");
-        } catch (final IllegalArgumentException iae) {
-
-        }
-        try {
-            ObjectUtils.CONST_SHORT(-32769);
-            fail("CONST_SHORT(-32769): IllegalArgumentException should have been thrown.");
-        } catch (final IllegalArgumentException iae) {
-
-        }
-        try {
-            ObjectUtils.CONST_BYTE(32768);
-            fail("CONST_SHORT(32768): IllegalArgumentException should have been thrown.");
-        } catch (final IllegalArgumentException iae) {
-
-        }
-
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ObjectUtils.CONST_BYTE(-129),
+                "CONST_BYTE(-129): IllegalArgumentException should have been thrown.");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ObjectUtils.CONST_BYTE(128),
+                "CONST_BYTE(128): IllegalArgumentException should have been thrown.");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ObjectUtils.CONST_SHORT(-32769),
+                "CONST_SHORT(-32769): IllegalArgumentException should have been thrown.");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ObjectUtils.CONST_BYTE(32768),
+                "CONST_SHORT(32768): IllegalArgumentException should have been thrown.");
     }
 
     /**
