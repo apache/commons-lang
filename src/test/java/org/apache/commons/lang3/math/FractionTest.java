@@ -19,7 +19,7 @@
 package org.apache.commons.lang3.math;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -621,7 +621,7 @@ public class FractionTest  {
 
         f = Fraction.getFraction(6, 10);
         assertEquals(f, f.pow(1));
-        assertFalse(f.pow(1).equals(Fraction.getFraction(3,5)));
+        assertNotEquals(f.pow(1), Fraction.getFraction(3, 5));
 
         f = Fraction.getFraction(6, 10);
         f = f.pow(2);
@@ -646,11 +646,11 @@ public class FractionTest  {
         // zero to any positive power is still zero.
         f = Fraction.getFraction(0, 1231);
         f = f.pow(1);
-        assertTrue(0==f.compareTo(Fraction.ZERO));
+        assertEquals(0, f.compareTo(Fraction.ZERO));
         assertEquals(0, f.getNumerator());
         assertEquals(1231, f.getDenominator());
         f = f.pow(2);
-        assertTrue(0==f.compareTo(Fraction.ZERO));
+        assertEquals(0, f.compareTo(Fraction.ZERO));
         assertEquals(0, f.getNumerator());
         assertEquals(1, f.getDenominator());
 
@@ -994,21 +994,21 @@ public class FractionTest  {
         Fraction f2 = null;
 
         f1 = Fraction.getFraction(3, 5);
-        assertFalse(f1.equals(null));
-        assertFalse(f1.equals(new Object()));
-        assertFalse(f1.equals(Integer.valueOf(6)));
+        assertNotEquals(null, f1);
+        assertNotEquals(f1, new Object());
+        assertNotEquals(f1, Integer.valueOf(6));
 
         f1 = Fraction.getFraction(3, 5);
         f2 = Fraction.getFraction(2, 5);
-        assertFalse(f1.equals(f2));
-        assertTrue(f1.equals(f1));
-        assertTrue(f2.equals(f2));
+        assertNotEquals(f1, f2);
+        assertEquals(f1, f1);
+        assertEquals(f2, f2);
 
         f2 = Fraction.getFraction(3, 5);
-        assertTrue(f1.equals(f2));
+        assertEquals(f1, f2);
 
         f2 = Fraction.getFraction(6, 10);
-        assertFalse(f1.equals(f2));
+        assertNotEquals(f1, f2);
     }
 
     @Test
@@ -1016,7 +1016,7 @@ public class FractionTest  {
         final Fraction f1 = Fraction.getFraction(3, 5);
         Fraction f2 = Fraction.getFraction(3, 5);
 
-        assertTrue(f1.hashCode() == f2.hashCode());
+        assertEquals(f1.hashCode(), f2.hashCode());
 
         f2 = Fraction.getFraction(2, 5);
         assertTrue(f1.hashCode() != f2.hashCode());
@@ -1031,30 +1031,30 @@ public class FractionTest  {
         Fraction f2 = null;
 
         f1 = Fraction.getFraction(3, 5);
-        assertTrue(f1.compareTo(f1) == 0);
+        assertEquals(0, f1.compareTo(f1));
 
         final Fraction fr = f1;
         assertThrows(NullPointerException.class, () -> fr.compareTo(null));
 
         f2 = Fraction.getFraction(2, 5);
         assertTrue(f1.compareTo(f2) > 0);
-        assertTrue(f2.compareTo(f2) == 0);
+        assertEquals(0, f2.compareTo(f2));
 
         f2 = Fraction.getFraction(4, 5);
         assertTrue(f1.compareTo(f2) < 0);
-        assertTrue(f2.compareTo(f2) == 0);
+        assertEquals(0, f2.compareTo(f2));
 
         f2 = Fraction.getFraction(3, 5);
-        assertTrue(f1.compareTo(f2) == 0);
-        assertTrue(f2.compareTo(f2) == 0);
+        assertEquals(0, f1.compareTo(f2));
+        assertEquals(0, f2.compareTo(f2));
 
         f2 = Fraction.getFraction(6, 10);
-        assertTrue(f1.compareTo(f2) == 0);
-        assertTrue(f2.compareTo(f2) == 0);
+        assertEquals(0, f1.compareTo(f2));
+        assertEquals(0, f2.compareTo(f2));
 
         f2 = Fraction.getFraction(-1, 1, Integer.MAX_VALUE);
         assertTrue(f1.compareTo(f2) > 0);
-        assertTrue(f2.compareTo(f2) == 0);
+        assertEquals(0, f2.compareTo(f2));
 
     }
 

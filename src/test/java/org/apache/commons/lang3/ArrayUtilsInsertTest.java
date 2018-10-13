@@ -18,7 +18,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -36,7 +36,7 @@ public class ArrayUtilsInsertTest {
 
         final boolean[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
-        assertFalse(array == result);
+        assertNotSame(array, result);
 
         assertNull(ArrayUtils.insert(42, null, array));
         assertArrayEquals(new boolean[0], ArrayUtils.insert(0, new boolean[0], null));
@@ -61,7 +61,7 @@ public class ArrayUtilsInsertTest {
 
         final byte[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
-        assertFalse(array == result);
+        assertNotSame(array, result);
 
         assertNull(ArrayUtils.insert(42, null, array));
         assertArrayEquals(new byte[0], ArrayUtils.insert(0, new byte[0], null));
@@ -85,7 +85,7 @@ public class ArrayUtilsInsertTest {
 
         final char[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
-        assertFalse(array == result);
+        assertNotSame(array, result);
 
         assertNull(ArrayUtils.insert(42, null, array));
         assertArrayEquals(new char[0], ArrayUtils.insert(0, new char[0], null));
@@ -110,7 +110,7 @@ public class ArrayUtilsInsertTest {
 
         final double[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result, delta);
-        assertFalse(array == result);
+        assertNotSame(array, result);
 
         assertNull(ArrayUtils.insert(42, null, array));
         assertArrayEquals(new double[0], ArrayUtils.insert(0, new double[0], null), delta);
@@ -135,7 +135,7 @@ public class ArrayUtilsInsertTest {
 
         final float[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result, delta);
-        assertFalse(array == result);
+        assertNotSame(array, result);
 
         assertNull(ArrayUtils.insert(42, null, array));
         assertArrayEquals(new float[0], ArrayUtils.insert(0, new float[0], null), delta);
@@ -159,7 +159,7 @@ public class ArrayUtilsInsertTest {
 
         final int[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
-        assertFalse(array == result);
+        assertNotSame(array, result);
 
         assertNull(ArrayUtils.insert(42, null, array));
         assertArrayEquals(new int[0], ArrayUtils.insert(0, new int[0], null));
@@ -184,7 +184,7 @@ public class ArrayUtilsInsertTest {
 
         final long[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
-        assertFalse(array == result);
+        assertNotSame(array, result);
 
         assertNull(ArrayUtils.insert(42, null, array));
         assertArrayEquals(new long[0], ArrayUtils.insert(0, new long[0], null));
@@ -209,7 +209,7 @@ public class ArrayUtilsInsertTest {
 
         final short[] result = ArrayUtils.insert(42, array, null);
         assertArrayEquals(array, result);
-        assertFalse(array == result);
+        assertNotSame(array, result);
 
         assertNull(ArrayUtils.insert(42, null, array));
         assertArrayEquals(new short[0], ArrayUtils.insert(0, new short[0], null));
@@ -234,7 +234,7 @@ public class ArrayUtilsInsertTest {
 
         final String[] result = ArrayUtils.insert(42, array, (String[]) null);
         assertArrayEquals(array, result);
-        assertFalse(array == result);
+        assertNotSame(array, result);
 
         assertNull(ArrayUtils.insert(42, null, array));
         assertArrayEquals(new String[0], ArrayUtils.insert(0, new String[0], (String[]) null));

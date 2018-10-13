@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -123,21 +124,21 @@ public class CharRangeTest  {
         final CharRange rangeae = CharRange.isIn('a', 'e');
         final CharRange rangenotbf = CharRange.isIn('b', 'f');
 
-        assertFalse(rangea.equals(null));
+        assertNotEquals(null, rangea);
 
-        assertTrue(rangea.equals(rangea));
-        assertTrue(rangea.equals(CharRange.is('a')));
-        assertTrue(rangeae.equals(rangeae));
-        assertTrue(rangeae.equals(CharRange.isIn('a', 'e')));
-        assertTrue(rangenotbf.equals(rangenotbf));
-        assertTrue(rangenotbf.equals(CharRange.isIn('b', 'f')));
+        assertEquals(rangea, rangea);
+        assertEquals(rangea, CharRange.is('a'));
+        assertEquals(rangeae, rangeae);
+        assertEquals(rangeae, CharRange.isIn('a', 'e'));
+        assertEquals(rangenotbf, rangenotbf);
+        assertEquals(rangenotbf, CharRange.isIn('b', 'f'));
 
-        assertFalse(rangea.equals(rangeae));
-        assertFalse(rangea.equals(rangenotbf));
-        assertFalse(rangeae.equals(rangea));
-        assertFalse(rangeae.equals(rangenotbf));
-        assertFalse(rangenotbf.equals(rangea));
-        assertFalse(rangenotbf.equals(rangeae));
+        assertNotEquals(rangea, rangeae);
+        assertNotEquals(rangea, rangenotbf);
+        assertNotEquals(rangeae, rangea);
+        assertNotEquals(rangeae, rangenotbf);
+        assertNotEquals(rangenotbf, rangea);
+        assertNotEquals(rangenotbf, rangeae);
     }
 
     @Test
@@ -146,12 +147,12 @@ public class CharRangeTest  {
         final CharRange rangeae = CharRange.isIn('a', 'e');
         final CharRange rangenotbf = CharRange.isIn('b', 'f');
 
-        assertTrue(rangea.hashCode() == rangea.hashCode());
-        assertTrue(rangea.hashCode() == CharRange.is('a').hashCode());
-        assertTrue(rangeae.hashCode() == rangeae.hashCode());
-        assertTrue(rangeae.hashCode() == CharRange.isIn('a', 'e').hashCode());
-        assertTrue(rangenotbf.hashCode() == rangenotbf.hashCode());
-        assertTrue(rangenotbf.hashCode() == CharRange.isIn('b', 'f').hashCode());
+        assertEquals(rangea.hashCode(), rangea.hashCode());
+        assertEquals(rangea.hashCode(), CharRange.is('a').hashCode());
+        assertEquals(rangeae.hashCode(), rangeae.hashCode());
+        assertEquals(rangeae.hashCode(), CharRange.isIn('a', 'e').hashCode());
+        assertEquals(rangenotbf.hashCode(), rangenotbf.hashCode());
+        assertEquals(rangenotbf.hashCode(), CharRange.isIn('b', 'f').hashCode());
 
         assertFalse(rangea.hashCode() == rangeae.hashCode());
         assertFalse(rangea.hashCode() == rangenotbf.hashCode());

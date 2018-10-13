@@ -17,10 +17,9 @@
 package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.FieldPosition;
@@ -64,7 +63,7 @@ public class FastDateFormatTest {
         final FastDateFormat format2 = FastDateFormat.getInstance("MM-DD-yyyy");
         final FastDateFormat format3 = FastDateFormat.getInstance("MM-DD-yyyy");
 
-        assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
+        assertNotSame(format1, format2);
         assertSame(format2, format3);
         assertEquals("MM/DD/yyyy", format1.getPattern());
         assertEquals(TimeZone.getDefault(), format1.getTimeZone());
@@ -173,12 +172,12 @@ public class FastDateFormatTest {
         final FastDateFormat longShort = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.SHORT, Locale.US);
         final FastDateFormat longLong = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.LONG, Locale.US);
 
-        assertFalse(shortShort.equals(shortLong));
-        assertFalse(shortShort.equals(longShort));
-        assertFalse(shortShort.equals(longLong));
-        assertFalse(shortLong.equals(longShort));
-        assertFalse(shortLong.equals(longLong));
-        assertFalse(longShort.equals(longLong));
+        assertNotEquals(shortShort, shortLong);
+        assertNotEquals(shortShort, longShort);
+        assertNotEquals(shortShort, longLong);
+        assertNotEquals(shortLong, longShort);
+        assertNotEquals(shortLong, longLong);
+        assertNotEquals(longShort, longLong);
     }
 
     @Test

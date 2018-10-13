@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,7 +42,7 @@ public class CharUtilsTest {
     @Test
     public void testCompare() {
         assertTrue(CharUtils.compare('a', 'b') < 0);
-        assertTrue(CharUtils.compare('c', 'c') == 0);
+        assertEquals(0, CharUtils.compare('c', 'c'));
         assertTrue(CharUtils.compare('c', 'a') > 0);
     }
 
@@ -241,7 +242,7 @@ public class CharUtilsTest {
             final Character ch = CharUtils.toCharacterObject((char) i);
             final Character ch2 = CharUtils.toCharacterObject((char) i);
             assertEquals(ch, ch2);
-            assertTrue(ch != ch2);
+            assertNotSame(ch, ch2);
             assertEquals(i, ch.charValue());
             assertEquals(i, ch2.charValue());
         }
@@ -311,7 +312,7 @@ public class CharUtilsTest {
             final String str = CharUtils.toString((char) i);
             final String str2 = CharUtils.toString((char) i);
             assertEquals(str, str2);
-            assertTrue(str != str2);
+            assertNotSame(str, str2);
             assertEquals(1, str.length());
             assertEquals(i, str.charAt(0));
             assertEquals(1, str2.length());

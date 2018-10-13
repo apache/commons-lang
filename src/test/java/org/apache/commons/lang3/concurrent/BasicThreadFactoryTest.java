@@ -175,7 +175,7 @@ public class BasicThreadFactoryTest {
         final BasicThreadFactory factory = builder.wrappedFactory(wrapped).daemon(
                 flag).build();
         assertSame(t, factory.newThread(r), "Wrong thread");
-        assertTrue(flag == t.isDaemon(), "Wrong daemon flag");
+        assertEquals(flag, t.isDaemon(), "Wrong daemon flag");
         EasyMock.verify(wrapped, r);
     }
 

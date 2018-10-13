@@ -24,6 +24,7 @@ import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.MOE;
 import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.SHEMP;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -484,16 +485,16 @@ public class AnnotationUtilsTest {
             final Test generated = (Test) Proxy.newProxyInstance(Thread.currentThread()
                             .getContextClassLoader(), new Class[]{Test.class},
                     generatedTestInvocationHandler);
-            assertTrue(real.equals(generated));
-            assertFalse(generated.equals(real));
+            assertEquals(real, generated);
+            assertNotEquals(generated, real);
             assertTrue(AnnotationUtils.equals(generated, real));
             assertTrue(AnnotationUtils.equals(real, generated));
 
             final Test generated2 = (Test) Proxy.newProxyInstance(Thread.currentThread()
                             .getContextClassLoader(), new Class[]{Test.class},
                     generatedTestInvocationHandler);
-            assertFalse(generated.equals(generated2));
-            assertFalse(generated2.equals(generated));
+            assertNotEquals(generated, generated2);
+            assertNotEquals(generated2, generated);
             assertTrue(AnnotationUtils.equals(generated, generated2));
             assertTrue(AnnotationUtils.equals(generated2, generated));
         });

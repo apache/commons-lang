@@ -1653,9 +1653,9 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.chomp("", "foo"), "chomp(String, String) failed");
         assertEquals("", StringUtils.chomp("", null), "chomp(String, String) failed");
         assertEquals("", StringUtils.chomp("", ""), "chomp(String, String) failed");
-        assertEquals(null, StringUtils.chomp(null, "foo"), "chomp(String, String) failed");
-        assertEquals(null, StringUtils.chomp(null, null), "chomp(String, String) failed");
-        assertEquals(null, StringUtils.chomp(null, ""), "chomp(String, String) failed");
+        assertNull(StringUtils.chomp(null, "foo"), "chomp(String, String) failed");
+        assertNull(StringUtils.chomp(null, null), "chomp(String, String) failed");
+        assertNull(StringUtils.chomp(null, ""), "chomp(String, String) failed");
         assertEquals("", StringUtils.chomp("foo", "foo"), "chomp(String, String) failed");
         assertEquals(" ", StringUtils.chomp(" foo", "foo"), "chomp(String, String) failed");
         assertEquals("foo ", StringUtils.chomp("foo ", "foo"), "chomp(String, String) failed");
@@ -2920,14 +2920,14 @@ public class StringUtilsTest {
      */
     @Test
     public void testAppendIfMissing() {
-        assertEquals(null, StringUtils.appendIfMissing(null, null), "appendIfMissing(null,null)");
+        assertNull(StringUtils.appendIfMissing(null, null), "appendIfMissing(null,null)");
         assertEquals("abc", StringUtils.appendIfMissing("abc", null), "appendIfMissing(abc,null)");
         assertEquals("xyz", StringUtils.appendIfMissing("", "xyz"), "appendIfMissing(\"\",xyz)");
         assertEquals("abcxyz", StringUtils.appendIfMissing("abc", "xyz"), "appendIfMissing(abc,xyz)");
         assertEquals("abcxyz", StringUtils.appendIfMissing("abcxyz", "xyz"), "appendIfMissing(abcxyz,xyz)");
         assertEquals("aXYZxyz", StringUtils.appendIfMissing("aXYZ", "xyz"), "appendIfMissing(aXYZ,xyz)");
 
-        assertEquals(null, StringUtils.appendIfMissing(null, null, (CharSequence[]) null), "appendIfMissing(null,null,null)");
+        assertNull(StringUtils.appendIfMissing(null, null, (CharSequence[]) null), "appendIfMissing(null,null,null)");
         assertEquals("abc", StringUtils.appendIfMissing("abc", null, (CharSequence[]) null), "appendIfMissing(abc,null,null)");
         assertEquals("xyz", StringUtils.appendIfMissing("", "xyz", (CharSequence[]) null), "appendIfMissing(\"\",xyz,null))");
         assertEquals("abcxyz", StringUtils.appendIfMissing("abc", "xyz", new CharSequence[]{null}), "appendIfMissing(abc,xyz,{null})");
@@ -2944,14 +2944,14 @@ public class StringUtilsTest {
      */
     @Test
     public void testAppendIfMissingIgnoreCase() {
-        assertEquals(null, StringUtils.appendIfMissingIgnoreCase(null, null), "appendIfMissingIgnoreCase(null,null)");
+        assertNull(StringUtils.appendIfMissingIgnoreCase(null, null), "appendIfMissingIgnoreCase(null,null)");
         assertEquals("abc", StringUtils.appendIfMissingIgnoreCase("abc", null), "appendIfMissingIgnoreCase(abc,null)");
         assertEquals("xyz", StringUtils.appendIfMissingIgnoreCase("", "xyz"), "appendIfMissingIgnoreCase(\"\",xyz)");
         assertEquals("abcxyz", StringUtils.appendIfMissingIgnoreCase("abc", "xyz"), "appendIfMissingIgnoreCase(abc,xyz)");
         assertEquals("abcxyz", StringUtils.appendIfMissingIgnoreCase("abcxyz", "xyz"), "appendIfMissingIgnoreCase(abcxyz,xyz)");
         assertEquals("abcXYZ", StringUtils.appendIfMissingIgnoreCase("abcXYZ", "xyz"), "appendIfMissingIgnoreCase(abcXYZ,xyz)");
 
-        assertEquals(null, StringUtils.appendIfMissingIgnoreCase(null, null, (CharSequence[]) null), "appendIfMissingIgnoreCase(null,null,null)");
+        assertNull(StringUtils.appendIfMissingIgnoreCase(null, null, (CharSequence[]) null), "appendIfMissingIgnoreCase(null,null,null)");
         assertEquals("abc", StringUtils.appendIfMissingIgnoreCase("abc", null, (CharSequence[]) null), "appendIfMissingIgnoreCase(abc,null,null)");
         assertEquals("xyz", StringUtils.appendIfMissingIgnoreCase("", "xyz", (CharSequence[]) null), "appendIfMissingIgnoreCase(\"\",xyz,null)");
         assertEquals("abcxyz", StringUtils.appendIfMissingIgnoreCase("abc", "xyz", new CharSequence[]{null}), "appendIfMissingIgnoreCase(abc,xyz,{null})");
@@ -2968,14 +2968,14 @@ public class StringUtilsTest {
      */
     @Test
     public void testPrependIfMissing() {
-        assertEquals(null, StringUtils.prependIfMissing(null, null), "prependIfMissing(null,null)");
+        assertNull(StringUtils.prependIfMissing(null, null), "prependIfMissing(null,null)");
         assertEquals("abc", StringUtils.prependIfMissing("abc", null), "prependIfMissing(abc,null)");
         assertEquals("xyz", StringUtils.prependIfMissing("", "xyz"), "prependIfMissing(\"\",xyz)");
         assertEquals("xyzabc", StringUtils.prependIfMissing("abc", "xyz"), "prependIfMissing(abc,xyz)");
         assertEquals("xyzabc", StringUtils.prependIfMissing("xyzabc", "xyz"), "prependIfMissing(xyzabc,xyz)");
         assertEquals("xyzXYZabc", StringUtils.prependIfMissing("XYZabc", "xyz"), "prependIfMissing(XYZabc,xyz)");
 
-        assertEquals(null, StringUtils.prependIfMissing(null, null, (CharSequence[]) null), "prependIfMissing(null,null null)");
+        assertNull(StringUtils.prependIfMissing(null, null, (CharSequence[]) null), "prependIfMissing(null,null null)");
         assertEquals("abc", StringUtils.prependIfMissing("abc", null, (CharSequence[]) null), "prependIfMissing(abc,null,null)");
         assertEquals("xyz", StringUtils.prependIfMissing("", "xyz", (CharSequence[]) null), "prependIfMissing(\"\",xyz,null)");
         assertEquals("xyzabc", StringUtils.prependIfMissing("abc", "xyz", new CharSequence[]{null}), "prependIfMissing(abc,xyz,{null})");
@@ -2992,14 +2992,14 @@ public class StringUtilsTest {
      */
     @Test
     public void testPrependIfMissingIgnoreCase() {
-        assertEquals(null, StringUtils.prependIfMissingIgnoreCase(null, null), "prependIfMissingIgnoreCase(null,null)");
+        assertNull(StringUtils.prependIfMissingIgnoreCase(null, null), "prependIfMissingIgnoreCase(null,null)");
         assertEquals("abc", StringUtils.prependIfMissingIgnoreCase("abc", null), "prependIfMissingIgnoreCase(abc,null)");
         assertEquals("xyz", StringUtils.prependIfMissingIgnoreCase("", "xyz"), "prependIfMissingIgnoreCase(\"\",xyz)");
         assertEquals("xyzabc", StringUtils.prependIfMissingIgnoreCase("abc", "xyz"), "prependIfMissingIgnoreCase(abc,xyz)");
         assertEquals("xyzabc", StringUtils.prependIfMissingIgnoreCase("xyzabc", "xyz"), "prependIfMissingIgnoreCase(xyzabc,xyz)");
         assertEquals("XYZabc", StringUtils.prependIfMissingIgnoreCase("XYZabc", "xyz"), "prependIfMissingIgnoreCase(XYZabc,xyz)");
 
-        assertEquals(null, StringUtils.prependIfMissingIgnoreCase(null, null, (CharSequence[]) null), "prependIfMissingIgnoreCase(null,null null)");
+        assertNull(StringUtils.prependIfMissingIgnoreCase(null, null, (CharSequence[]) null), "prependIfMissingIgnoreCase(null,null null)");
         assertEquals("abc", StringUtils.prependIfMissingIgnoreCase("abc", null, (CharSequence[]) null), "prependIfMissingIgnoreCase(abc,null,null)");
         assertEquals("xyz", StringUtils.prependIfMissingIgnoreCase("", "xyz", (CharSequence[]) null), "prependIfMissingIgnoreCase(\"\",xyz,null)");
         assertEquals("xyzabc", StringUtils.prependIfMissingIgnoreCase("abc", "xyz", new CharSequence[]{null}), "prependIfMissingIgnoreCase(abc,xyz,{null})");

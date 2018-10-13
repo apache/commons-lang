@@ -20,9 +20,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.hamcrest.Matcher;
@@ -333,8 +334,8 @@ public class DiffBuilderTest {
         left.objectField = sameObject;
         final TypeTestClass right = new TypeTestClass();
         right.objectField = sameObject;
-        assertTrue(left.objectField == right.objectField);
-        assertTrue(left.objectField.equals(right.objectField));
+        assertSame(left.objectField, right.objectField);
+        assertEquals(left.objectField, right.objectField);
 
         final DiffResult list = left.diff(right);
         assertEquals(0, list.getNumberOfDiffs());
@@ -349,8 +350,8 @@ public class DiffBuilderTest {
         left.objectField = new Integer(1);
         final TypeTestClass right = new TypeTestClass();
         right.objectField = new Integer(1);
-        assertFalse(left.objectField == right.objectField);
-        assertTrue(left.objectField.equals(right.objectField));
+        assertNotSame(left.objectField, right.objectField);
+        assertEquals(left.objectField, right.objectField);
 
         final DiffResult list = left.diff(right);
         assertEquals(0, list.getNumberOfDiffs());
@@ -365,8 +366,8 @@ public class DiffBuilderTest {
         left.objectField = 4;
         final TypeTestClass right = new TypeTestClass();
         right.objectField = 100;
-        assertFalse(left.objectField == right.objectField);
-        assertFalse(left.objectField.equals(right.objectField));
+        assertNotSame(left.objectField, right.objectField);
+        assertNotEquals(left.objectField, right.objectField);
 
         final DiffResult list = left.diff(right);
         assertEquals(1, list.getNumberOfDiffs());

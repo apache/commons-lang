@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -241,7 +242,7 @@ public class StrBuilderTest {
         assertTrue(sb.capacity() >= 32);
         assertEquals(3, sb.length());
         assertEquals(3, sb.size());
-        assertTrue(sb.isEmpty() == false);
+        assertFalse(sb.isEmpty());
 
         sb.clear();
         assertTrue(sb.capacity() >= 32);
@@ -253,19 +254,19 @@ public class StrBuilderTest {
         assertTrue(sb.capacity() > 32);
         assertEquals(33, sb.length());
         assertEquals(33, sb.size());
-        assertTrue(sb.isEmpty() == false);
+        assertFalse(sb.isEmpty());
 
         sb.ensureCapacity(16);
         assertTrue(sb.capacity() > 16);
         assertEquals(33, sb.length());
         assertEquals(33, sb.size());
-        assertTrue(sb.isEmpty() == false);
+        assertFalse(sb.isEmpty());
 
         sb.minimizeCapacity();
         assertEquals(33, sb.capacity());
         assertEquals(33, sb.length());
         assertEquals(33, sb.size());
-        assertTrue(sb.isEmpty() == false);
+        assertFalse(sb.isEmpty());
 
         assertThrows(
                 IndexOutOfBoundsException.class,
@@ -276,21 +277,21 @@ public class StrBuilderTest {
         assertEquals(33, sb.capacity());
         assertEquals(33, sb.length());
         assertEquals(33, sb.size());
-        assertTrue(sb.isEmpty() == false);
+        assertFalse(sb.isEmpty());
 
         sb.setLength(16);
         assertTrue(sb.capacity() >= 16);
         assertEquals(16, sb.length());
         assertEquals(16, sb.size());
         assertEquals("1234567890123456", sb.toString());
-        assertTrue(sb.isEmpty() == false);
+        assertFalse(sb.isEmpty());
 
         sb.setLength(32);
         assertTrue(sb.capacity() >= 32);
         assertEquals(32, sb.length());
         assertEquals(32, sb.size());
         assertEquals("1234567890123456\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", sb.toString());
-        assertTrue(sb.isEmpty() == false);
+        assertFalse(sb.isEmpty());
 
         sb.setLength(0);
         assertTrue(sb.capacity() >= 32);
@@ -1721,22 +1722,22 @@ public class StrBuilderTest {
         assertTrue(sb1.equals(sb2));
         assertTrue(sb1.equals(sb1));
         assertTrue(sb2.equals(sb2));
-        assertTrue(sb1.equals((Object) sb2));
+        assertEquals(sb1, (Object) sb2);
 
         sb1.append("abc");
         assertFalse(sb1.equals(sb2));
-        assertFalse(sb1.equals((Object) sb2));
+        assertNotEquals(sb1, (Object) sb2);
 
         sb2.append("ABC");
         assertFalse(sb1.equals(sb2));
-        assertFalse(sb1.equals((Object) sb2));
+        assertNotEquals(sb1, (Object) sb2);
 
         sb2.clear().append("abc");
         assertTrue(sb1.equals(sb2));
-        assertTrue(sb1.equals((Object) sb2));
+        assertEquals(sb1, (Object) sb2);
 
-        assertFalse(sb1.equals(Integer.valueOf(1)));
-        assertFalse(sb1.equals("abc"));
+        assertNotEquals(sb1, Integer.valueOf(1));
+        assertNotEquals("abc", sb1);
     }
 
     @Test

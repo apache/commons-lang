@@ -18,6 +18,7 @@ package org.apache.commons.lang3.tuple;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -56,7 +57,7 @@ public class PairTest {
         assertTrue(set.contains(pair2));
 
         pair2.setValue("bar");
-        assertFalse(pair.equals(pair2));
+        assertNotEquals(pair, pair2);
         assertFalse(pair.hashCode() == pair2.hashCode());
     }
 
@@ -74,9 +75,9 @@ public class PairTest {
     public void testComparable1() {
         final Pair<String, String> pair1 = Pair.of("A", "D");
         final Pair<String, String> pair2 = Pair.of("B", "C");
-        assertTrue(pair1.compareTo(pair1) == 0);
+        assertEquals(0, pair1.compareTo(pair1));
         assertTrue(pair1.compareTo(pair2) < 0);
-        assertTrue(pair2.compareTo(pair2) == 0);
+        assertEquals(0, pair2.compareTo(pair2));
         assertTrue(pair2.compareTo(pair1) > 0);
     }
 
@@ -84,9 +85,9 @@ public class PairTest {
     public void testComparable2() {
         final Pair<String, String> pair1 = Pair.of("A", "C");
         final Pair<String, String> pair2 = Pair.of("A", "D");
-        assertTrue(pair1.compareTo(pair1) == 0);
+        assertEquals(0, pair1.compareTo(pair1));
         assertTrue(pair1.compareTo(pair2) < 0);
-        assertTrue(pair2.compareTo(pair2) == 0);
+        assertEquals(0, pair2.compareTo(pair2));
         assertTrue(pair2.compareTo(pair1) > 0);
     }
 

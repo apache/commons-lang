@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -43,8 +44,8 @@ public class StrTokenizerTest {
     private static final String TSV_SIMPLE_FIXTURE = "A\tb\tc";
 
     private void checkClone(final StrTokenizer tokenizer) {
-        assertFalse(StrTokenizer.getCSVInstance() == tokenizer);
-        assertFalse(StrTokenizer.getTSVInstance() == tokenizer);
+        assertNotSame(StrTokenizer.getCSVInstance(), tokenizer);
+        assertNotSame(StrTokenizer.getTSVInstance(), tokenizer);
     }
 
     // -----------------------------------------------------------------------
@@ -182,11 +183,9 @@ public class StrTokenizerTest {
 
         assertEquals(expected.length, tokens.length, ArrayUtils.toString(tokens));
 
-        assertTrue(nextCount == expected.length,
-                "could not cycle through entire token list" + " using the 'hasNext' and 'next' methods");
+        assertEquals(nextCount, expected.length, "could not cycle through entire token list" + " using the 'hasNext' and 'next' methods");
 
-        assertTrue(prevCount == expected.length,
-                "could not cycle through entire token list" + " using the 'hasPrevious' and 'previous' methods");
+        assertEquals(prevCount, expected.length, "could not cycle through entire token list" + " using the 'hasPrevious' and 'previous' methods");
 
     }
 

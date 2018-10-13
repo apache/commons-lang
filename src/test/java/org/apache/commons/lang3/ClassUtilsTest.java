@@ -663,7 +663,7 @@ public class ClassUtilsTest  {
         assertEquals("Inner", ClassUtils.getSimpleName(new Inner(), "<null>"));
         assertEquals("String", ClassUtils.getSimpleName("hello", "<null>"));
         assertEquals("<null>", ClassUtils.getSimpleName(null, "<null>"));
-        assertEquals(null, ClassUtils.getSimpleName(null, null));
+        assertNull(ClassUtils.getSimpleName(null, null));
     }
 
     @Test

@@ -59,9 +59,9 @@ public class TripleTest {
     public void testComparable1() {
         final Triple<String, String, String> triple1 = Triple.of("A", "D", "A");
         final Triple<String, String, String> triple2 = Triple.of("B", "C", "A");
-        assertTrue(triple1.compareTo(triple1) == 0);
+        assertEquals(0, triple1.compareTo(triple1));
         assertTrue(triple1.compareTo(triple2) < 0);
-        assertTrue(triple2.compareTo(triple2) == 0);
+        assertEquals(0, triple2.compareTo(triple2));
         assertTrue(triple2.compareTo(triple1) > 0);
     }
 
@@ -69,9 +69,9 @@ public class TripleTest {
     public void testComparable2() {
         final Triple<String, String, String> triple1 = Triple.of("A", "C", "B");
         final Triple<String, String, String> triple2 = Triple.of("A", "D", "B");
-        assertTrue(triple1.compareTo(triple1) == 0);
+        assertEquals(0, triple1.compareTo(triple1));
         assertTrue(triple1.compareTo(triple2) < 0);
-        assertTrue(triple2.compareTo(triple2) == 0);
+        assertEquals(0, triple2.compareTo(triple2));
         assertTrue(triple2.compareTo(triple1) > 0);
     }
 
@@ -79,9 +79,9 @@ public class TripleTest {
     public void testComparable3() {
         final Triple<String, String, String> triple1 = Triple.of("A", "A", "D");
         final Triple<String, String, String> triple2 = Triple.of("A", "B", "C");
-        assertTrue(triple1.compareTo(triple1) == 0);
+        assertEquals(0, triple1.compareTo(triple1));
         assertTrue(triple1.compareTo(triple2) < 0);
-        assertTrue(triple2.compareTo(triple2) == 0);
+        assertEquals(0, triple2.compareTo(triple2));
         assertTrue(triple2.compareTo(triple1) > 0);
     }
 
@@ -89,9 +89,9 @@ public class TripleTest {
     public void testComparable4() {
         final Triple<String, String, String> triple1 = Triple.of("B", "A", "C");
         final Triple<String, String, String> triple2 = Triple.of("B", "A", "D");
-        assertTrue(triple1.compareTo(triple1) == 0);
+        assertEquals(0, triple1.compareTo(triple1));
         assertTrue(triple1.compareTo(triple2) < 0);
-        assertTrue(triple2.compareTo(triple2) == 0);
+        assertEquals(0, triple2.compareTo(triple2));
         assertTrue(triple2.compareTo(triple1) > 0);
     }
 

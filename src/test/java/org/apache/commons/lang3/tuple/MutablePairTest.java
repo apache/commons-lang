@@ -17,9 +17,8 @@
 package org.apache.commons.lang3.tuple;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -72,12 +71,12 @@ public class MutablePairTest {
     @Test
     public void testEquals() {
         assertEquals(MutablePair.of(null, "foo"), MutablePair.of(null, "foo"));
-        assertFalse(MutablePair.of("foo", 0).equals(MutablePair.of("foo", null)));
-        assertFalse(MutablePair.of("foo", "bar").equals(MutablePair.of("xyz", "bar")));
+        assertNotEquals(MutablePair.of("foo", 0), MutablePair.of("foo", null));
+        assertNotEquals(MutablePair.of("foo", "bar"), MutablePair.of("xyz", "bar"));
 
         final MutablePair<String, String> p = MutablePair.of("foo", "bar");
-        assertTrue(p.equals(p));
-        assertFalse(p.equals(new Object()));
+        assertEquals(p, p);
+        assertNotEquals(p, new Object());
     }
 
     @Test
