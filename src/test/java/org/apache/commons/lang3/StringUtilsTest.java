@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
@@ -2849,18 +2848,16 @@ public class StringUtilsTest {
                 // don't actively test for that.
                 final Class<?>[] params = m.getParameterTypes();
                 if (params.length > 0 && (params[0] == CharSequence.class || params[0] == CharSequence[].class)) {
-                    if (!ArrayUtils.contains(excludeMethods, methodStr)) {
-                        fail("The method \"" + methodStr + "\" appears to be mutable in spirit and therefore must not accept a CharSequence");
-                    }
+                    assertTrue(!ArrayUtils.contains(excludeMethods, methodStr),
+                            "The method \"" + methodStr + "\" appears to be mutable in spirit and therefore must not accept a CharSequence");
                 }
             } else {
                 // Assume this is immutable in spirit and ensure the first parameter is not String.
                 // As above, it may be something other than CharSequence.
                 final Class<?>[] params = m.getParameterTypes();
                 if (params.length > 0 && (params[0] == String.class || params[0] == String[].class)) {
-                    if (!ArrayUtils.contains(excludeMethods, methodStr)) {
-                        fail("The method \"" + methodStr + "\" appears to be immutable in spirit and therefore must not accept a String");
-                    }
+                    assertTrue(ArrayUtils.contains(excludeMethods, methodStr),
+                            "The method \"" + methodStr + "\" appears to be immutable in spirit and therefore must not accept a String");
                 }
             }
         }
