@@ -32,6 +32,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Map;
 import java.util.Set;
 
@@ -1077,16 +1078,15 @@ public class ClassUtils {
      * @param packageName the package name in the standard import format (i.e. "java.lang.String")
      * @param <T> The desired base class or interface type to retrieve
      * @return a list of base classes/interfaces that match the supplied type underneath the supplied package
-     * @throws URISyntaxException if the packageName is not found in the class loader
-     * @throws IOException if an I/O error occurs in getting a new directory stream
      * @throws IllegalArgumentException if the desiredBase or packageName are invalid
+     * @throws IOException if an I/O error occurs in getting a new directory stream
+     * @throws NullPointerException if desiredBase or url are null
+     * @throws URISyntaxException if the generated url can't be converted to a URI
      */
     public static <T> List<T> getBaseClasses(final Class<T> desiredBase, final String packageName)
-            throws URISyntaxException, IOException, IllegalArgumentException {
+            throws IllegalArgumentException, IOException, NullPointerException, URISyntaxException  {
 
-        if (desiredBase == null) {
-            throw new IllegalArgumentException("desiredBase must not be null");
-        }
+        Objects.requireNonNull(desiredBase, "desiredBase must not be null");
 
         if (StringUtils.isBlank(packageName)) {
             throw new IllegalArgumentException("packageName must not be blank");
@@ -1094,9 +1094,7 @@ public class ClassUtils {
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         URL url = classLoader.getResource(packageName.replaceAll("[.]", "/"));
-        if (url == null) {
-            throw new URISyntaxException(packageName, "Supplied package not found");
-        }
+        Objects.requireNonNull(url, "supplied package not found");
 
         Path classesPath = Paths.get(url.toURI());
 

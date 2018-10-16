@@ -1222,7 +1222,7 @@ public class ClassUtilsTest  {
         assertEquals(0, classes.size());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testGetBaseClassesNullDesiredClass() throws Exception {
         ClassUtils.getBaseClasses(null, "org.apache.commons.lang3.test");
     }
@@ -1237,12 +1237,12 @@ public class ClassUtilsTest  {
         ClassUtils.getBaseClasses(String.class, " ");
     }
 
-    @Test(expected = URISyntaxException.class)
+    @Test(expected = NullPointerException.class)
     public void testGetBaseClassesInvalidPackage() throws Exception {
         ClassUtils.getBaseClasses(String.class, "an.invalid.package");
     }
 
-    @Test(expected = URISyntaxException.class)
+    @Test(expected = NullPointerException.class)
     public void testGetBaseClassesAnotherInvalidPackage() throws Exception {
         ClassUtils.getBaseClasses(String.class, "bad formatted package");
     }
