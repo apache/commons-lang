@@ -1233,8 +1233,8 @@ public class ClassUtilsTest  {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testGetBaseClassesIllegalPackageName() throws Exception {
-        ClassUtils.getBaseClasses(String.class, "com/test");
+    public void testGetBaseClassesEmptyPackageName() throws Exception {
+        ClassUtils.getBaseClasses(String.class, " ");
     }
 
     @Test(expected = URISyntaxException.class)

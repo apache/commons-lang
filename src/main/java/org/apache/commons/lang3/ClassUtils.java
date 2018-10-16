@@ -1092,10 +1092,6 @@ public class ClassUtils {
             throw new IllegalArgumentException("packageName must not be blank");
         }
 
-        if (packageName.contains("/")) {
-            throw new IllegalArgumentException("packageName is not properly formatted (i.e. 'java.lang.String')");
-        }
-
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         URL url = classLoader.getResource(packageName.replaceAll("[.]", "/"));
         if (url == null) {
