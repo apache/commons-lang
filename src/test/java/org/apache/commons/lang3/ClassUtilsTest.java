@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -1222,29 +1221,49 @@ public class ClassUtilsTest  {
         assertEquals(0, classes.size());
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testGetBaseClassesNullDesiredClass() throws Exception {
-        ClassUtils.getBaseClasses(null, "org.apache.commons.lang3.test");
+    @Test
+    public void testGetBaseClassesNullDesiredClass() {
+        try {
+            ClassUtils.getBaseClasses(null, "org.apache.commons.lang3.test");
+        } catch (Exception e) {
+            assertTrue(e instanceof NullPointerException);
+        }
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetBaseClassesNullPackageName() throws Exception {
-        ClassUtils.getBaseClasses(String.class, null);
+    @Test
+    public void testGetBaseClassesNullPackageName() {
+        try {
+            ClassUtils.getBaseClasses(String.class, null);
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetBaseClassesEmptyPackageName() throws Exception {
-        ClassUtils.getBaseClasses(String.class, " ");
+    @Test
+    public void testGetBaseClassesEmptyPackageName() {
+        try {
+            ClassUtils.getBaseClasses(String.class, " ");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testGetBaseClassesInvalidPackage() throws Exception {
-        ClassUtils.getBaseClasses(String.class, "an.invalid.package");
+    @Test
+    public void testGetBaseClassesInvalidPackage() {
+        try {
+            ClassUtils.getBaseClasses(String.class, "an.invalid.package");
+        } catch (Exception e) {
+            assertTrue(e instanceof NullPointerException);
+        }
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testGetBaseClassesAnotherInvalidPackage() throws Exception {
-        ClassUtils.getBaseClasses(String.class, "bad formatted package");
+    @Test
+    public void testGetBaseClassesAnotherInvalidPackage() {
+        try {
+            ClassUtils.getBaseClasses(String.class, "bad formatted package");
+        } catch (Exception e) {
+            assertTrue(e instanceof NullPointerException);
+        }
     }
 
     @Test
