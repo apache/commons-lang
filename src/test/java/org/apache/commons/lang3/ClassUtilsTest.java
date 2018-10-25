@@ -1231,6 +1231,15 @@ public class ClassUtilsTest  {
     }
 
     @Test
+    public void testGetBaseClassesNullClassLoader() {
+        try {
+            ClassUtils.getBaseClasses(String.class, "org.apache.common.lang3.test", null);
+        } catch (Exception e) {
+            assertTrue(e instanceof NullPointerException);
+        }
+    }
+
+    @Test
     public void testGetBaseClassesNullPackageName() {
         try {
             ClassUtils.getBaseClasses(String.class, null);

@@ -1068,22 +1068,22 @@ public class ClassUtils {
     }
 
     /**
-     * Returns a list of base classes/interfaces underneath the supplied package
-     * This method only retrieves base classes/interfaces that have children that can be instantiated
-     * via a no-args constructor
-     * The class loader is retrieved via Thread.currentThread().getContextClassLoader()
-     * This only retrieves base classes/interfaces directly underneath the supplied package
+     * Returns a list of base classes/interfaces underneath the supplied package.
+     * This method only retrieves base classes/interfaces that have child classes that can be instantiated
+     * via a no-args constructor.
+     * This only retrieves base classes/interfaces directly underneath the supplied package.
      *
      * @param desiredBase the desired base class/interface to retrieve
      * @param packageName the package name in the standard import format (i.e. "java.lang.String")
+     * @param classLoader the class loader to use for retrieving classes
      * @param <T> The desired base class or interface type to retrieve
      * @return a list of base classes/interfaces that match the supplied type underneath the supplied package
-     * @throws IllegalArgumentException if the desiredBase or packageName are invalid
+     * @throws IllegalArgumentException if the packageName is invalid
      * @throws IOException if an I/O error occurs in getting a new directory stream
-     * @throws NullPointerException if desiredBase or url are null
+     * @throws NullPointerException if desiredBase, classLoader or url are null
      * @throws URISyntaxException if the generated url can't be converted to a URI
      */
-    public static <T> List<T> getBaseClasses(final Class<T> desiredBase, final String packageName)
+    public static <T> List<T> getBaseClasses(final Class<T> desiredBase, final String packageName, ClassLoader classLoader)
             throws IllegalArgumentException, IOException, NullPointerException, URISyntaxException  {
 
         Objects.requireNonNull(desiredBase, "desiredBase must not be null");
@@ -1092,7 +1092,8 @@ public class ClassUtils {
             throw new IllegalArgumentException("packageName must not be blank");
         }
 
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        Objects.requireNonNull(classLoader, "classLoader must not be null");
+
         URL url = classLoader.getResource(packageName.replaceAll("[.]", "/"));
         Objects.requireNonNull(url, "supplied package not found");
 
@@ -1121,6 +1122,19 @@ public class ClassUtils {
         }
 
         return classes;
+    }
+
+    /**
+     * Invokes {@link #getBaseClasses(Class, String, ClassLoader)} with
+     * {@code Thread.currentThread().getContextClassLoader()} class loader.
+     *
+     * @see #getBaseClasses(Class, String, ClassLoader) for complete details.
+     */
+    public static <T> List<T> getBaseClasses(final Class<T> desiredBase, final String packageName)
+            throws IllegalArgumentException, IOException, NullPointerException, URISyntaxException  {
+
+        return getBaseClasses(desiredBase, packageName, Thread.currentThread().getContextClassLoader());
+
     }
 
     // Public method
