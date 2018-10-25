@@ -1129,6 +1129,15 @@ public class ClassUtils {
      * {@code Thread.currentThread().getContextClassLoader()} class loader.
      *
      * @see #getBaseClasses(Class, String, ClassLoader) for complete details.
+     *
+     * @param desiredBase the desired base class/interface to retrieve
+     * @param packageName the package name in the standard import format (i.e. "java.lang.String")
+     * @param <T> The desired base class or interface type to retrieve
+     * @return a list of base classes/interfaces that match the supplied type underneath the supplied package
+     * @throws IllegalArgumentException if the packageName is invalid
+     * @throws IOException if an I/O error occurs in getting a new directory stream
+     * @throws NullPointerException if desiredBase, classLoader or url are null
+     * @throws URISyntaxException if the generated url can't be converted to a URI
      */
     public static <T> List<T> getBaseClasses(final Class<T> desiredBase, final String packageName)
             throws IllegalArgumentException, IOException, NullPointerException, URISyntaxException  {
