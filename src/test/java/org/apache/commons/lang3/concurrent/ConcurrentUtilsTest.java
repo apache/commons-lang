@@ -118,8 +118,7 @@ public class ConcurrentUtilsTest {
     @Test
     public void testExtractCauseUncheckedException() {
         final RuntimeException rex = new RuntimeException("Test");
-        RuntimeException r =
-                assertThrows(RuntimeException.class, () -> ConcurrentUtils.extractCause(new ExecutionException(rex)));
+        assertThrows(RuntimeException.class, () -> ConcurrentUtils.extractCause(new ExecutionException(rex)));
     }
 
     /**

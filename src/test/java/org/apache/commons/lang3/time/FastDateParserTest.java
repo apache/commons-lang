@@ -358,17 +358,6 @@ public class FastDateParserTest {
         checkParse(locale, cal, sdf, fdf);
     }
 
-    private String trimMessage(final String msg) {
-        if (msg.length() < 100) {
-            return msg;
-        }
-        final int gmt = msg.indexOf("(GMT");
-        if (gmt > 0) {
-            return msg.substring(0, gmt+4)+"...)";
-        }
-        return msg.substring(0, 100)+"...";
-    }
-
     private void checkParse(final Locale locale, final Calendar cal, final SimpleDateFormat sdf, final DateParser fdf) throws ParseException {
         final String formattedDate= sdf.format(cal.getTime());
         checkParse(locale, sdf, fdf, formattedDate);
