@@ -9413,10 +9413,10 @@ public class StringUtils {
         }
         return result;
     }
-    
+
     /**
-     *  Returns the string representation of the {@code char} array or null.
-     *  
+     * Returns the string representation of the {@code char} array or null.
+     *
      * @param value the character array.
      * @return a String or null
      * @see String#valueOf(char[])
@@ -9425,5 +9425,5 @@ public class StringUtils {
     public static String valueOf(final char[] value) {
         return value == null ? null : String.valueOf(value);
     }
-    
+
 }

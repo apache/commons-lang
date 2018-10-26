@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link StringUtils}'s valueOf() methods.
- * 
+ *
  * @since 3.9
  */
 public class StringUtilsValueOfTest {
