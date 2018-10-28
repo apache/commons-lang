@@ -553,7 +553,7 @@
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>3.6</version>
+      <version>4.0</version>
       <scope>test</scope>
     </dependency>
 
