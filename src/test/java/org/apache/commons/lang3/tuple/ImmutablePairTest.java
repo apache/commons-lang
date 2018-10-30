@@ -26,6 +26,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -135,5 +140,42 @@ public class ImmutablePairTest {
                 new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origPair, deserializedPair);
         assertEquals(origPair.hashCode(), deserializedPair.hashCode());
+    }
+    
+    @Test
+    public void testUseAsKeyOfHashMap() {
+    	
+    	HashMap<ImmutablePair<Object, Object>, String> map = new HashMap<>();
+    	
+    	Object o1 = new Object();
+    	Object o2 = new Object();
+    	
+    	ImmutablePair<Object, Object> key1 = ImmutablePair.of(o1, o2);
+    	String value1 = "a1";
+    	map.put(key1, value1);
+    	
+    	assertEquals(value1, map.get(key1));
+    	assertEquals(value1, map.get(ImmutablePair.of(o1, o2)));
+    }
+    
+    @Test
+    public void testUseAsKeyOfTreeMap() {
+    	
+    	TreeMap<ImmutablePair<Integer, Integer>, String> map = new TreeMap<>();
+    	map.put(ImmutablePair.of(1, 2), "12");
+    	map.put(ImmutablePair.of(1, 1), "11");
+    	map.put(ImmutablePair.of(0, 1), "01");
+    	    	
+    	ArrayList<ImmutablePair<Integer, Integer>> expected = new ArrayList<>();
+    	expected.add(ImmutablePair.of(0, 1));
+    	expected.add(ImmutablePair.of(1, 1));
+    	expected.add(ImmutablePair.of(1, 2));
+    	
+    	Iterator<Entry<ImmutablePair<Integer, Integer>, String>> it = map.entrySet().iterator();
+    	for(ImmutablePair<Integer, Integer> item : expected) {
+    		Entry<ImmutablePair<Integer, Integer>, String> entry = it.next();
+        	assertEquals(item, entry.getKey());
+        	assertEquals(item.getLeft() + "" + item.getRight(), entry.getValue());	
+    	}
     }
 }
