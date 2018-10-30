@@ -141,7 +141,7 @@ public class ImmutablePairTest {
         assertEquals(origPair, deserializedPair);
         assertEquals(origPair.hashCode(), deserializedPair.hashCode());
     }
-    
+
     @Test
     public void testUseAsKeyOfHashMap() {
         HashMap<ImmutablePair<Object, Object>, String> map = new HashMap<>();
@@ -153,7 +153,7 @@ public class ImmutablePairTest {
         assertEquals(value1, map.get(key1));
         assertEquals(value1, map.get(ImmutablePair.of(o1, o2)));
     }
-    
+
     @Test
     public void testUseAsKeyOfTreeMap() {
         TreeMap<ImmutablePair<Integer, Integer>, String> map = new TreeMap<>();
