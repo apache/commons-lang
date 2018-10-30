@@ -168,7 +168,7 @@ public class ImmutablePairTest {
         for(ImmutablePair<Integer, Integer> item : expected) {
             Entry<ImmutablePair<Integer, Integer>, String> entry = it.next();
             assertEquals(item, entry.getKey());
-            assertEquals(item.getLeft() + "" + item.getRight(), entry.getValue());	
+            assertEquals(item.getLeft() + "" + item.getRight(), entry.getValue());
         }
     }
 }
