@@ -620,7 +620,7 @@
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
     <checkstyle.version>8.13</checkstyle.version>
 
-    <spotbugs.plugin.version>3.1.6</spotbugs.plugin.version>
+    <spotbugs.plugin.version>3.1.7</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
@@ -908,8 +908,6 @@
       <properties>
         <!-- jacoco does not work with java 11 yet, see https://github.com/jacoco/jacoco/issues/663 -->
         <jacoco.skip>true</jacoco.skip>
-        <!-- spotbugs does not work with java 11 yet -->
-        <spotbugs.skip>true</spotbugs.skip>
       </properties>
     </profile>
 
