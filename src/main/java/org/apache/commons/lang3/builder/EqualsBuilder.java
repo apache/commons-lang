@@ -786,7 +786,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * <p>Test if two <code>float</code>s are equal byt testing that the
+     * <p>Test if two <code>float</code>s are equal by testing that the
      * pattern of bits returned by doubleToLong are equal.</p>
      *
      * <p>This handles NaNs, Infinities, and <code>-0.0</code>.</p>
