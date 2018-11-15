@@ -5596,7 +5596,16 @@ public class StringUtils {
          }
          String searchText = text;
          if (ignoreCase) {
-             searchText = text.toLowerCase();
+             StringBuilder buf = new StringBuilder(text.length());
+             for (int i = 0; i < text.length(); i++) {
+                 char c = text.charAt(i);
+                 if (Character.UnicodeBlock.of(c) != Character.UnicodeBlock.BASIC_LATIN) {
+                     buf.append(c);
+                 } else {
+                     buf.append(Character.toLowerCase(c));
+                 }
+             }
+             searchText = buf.toString();
              searchString = searchString.toLowerCase();
          }
          int start = 0;

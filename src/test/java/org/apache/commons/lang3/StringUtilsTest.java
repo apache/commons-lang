@@ -1214,6 +1214,15 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testReplaceIgnoreCase_LANG_1406() {
+        assertEquals("\u0130", StringUtils.replaceIgnoreCase("\u0130x", "x", ""));
+        assertEquals("\u0130", StringUtils.replaceIgnoreCase("X\u0130x", "x", ""));
+        assertEquals("yz\u0130yz", StringUtils.replaceIgnoreCase("X\u0130x", "x", "yz"));
+        assertEquals("yzyz\u0130yz", StringUtils.replaceIgnoreCase("xX\u0130x", "x", "yz"));
+        assertEquals("\u0130\u0131", StringUtils.replaceIgnoreCase("\u0130x\u0131", "x", ""));
+    }
+
+    @Test
     public void testReplacePattern_StringStringString() {
         assertNull(StringUtils.replacePattern(null, "", ""));
         assertEquals("any", StringUtils.replacePattern("any", null, ""));
