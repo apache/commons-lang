@@ -244,7 +244,7 @@ public class ArrayUtils {
         for (int i = 0; i < array.length; i++) {
             final Object object = array[i];
             if (object instanceof Map.Entry<?, ?>) {
-                final Map.Entry<?,?> entry = (Map.Entry<?,?>) object;
+                final Map.Entry<?, ?> entry = (Map.Entry<?, ?>) object;
                 map.put(entry.getKey(), entry.getValue());
             } else if (object instanceof Object[]) {
                 final Object[] entry = (Object[]) object;
@@ -275,7 +275,7 @@ public class ArrayUtils {
         return new T[size]; // compiler error here
     }
     public static &lt;T&gt; T[] createAnArray(int size) {
-        return (T[])new Object[size]; // ClassCastException at runtime
+        return (T[]) new Object[size]; // ClassCastException at runtime
     }
      * </pre>
      *
@@ -877,7 +877,7 @@ public class ArrayUtils {
      * {@code Date}, the following usage is envisaged:
      *
      * <pre>
-     * Date[] someDates = (Date[])ArrayUtils.subarray(allDates, 2, 5);
+     * Date[] someDates = (Date[]) ArrayUtils.subarray(allDates, 2, 5);
      * </pre>
      *
      * @param <T> the component type of the array
@@ -4748,19 +4748,19 @@ public class ArrayUtils {
         }
         final Class<?> ct = array.getClass().getComponentType();
         final Class<?> pt = ClassUtils.wrapperToPrimitive(ct);
-        if(Integer.TYPE.equals(pt)) {
+        if (Integer.TYPE.equals(pt)) {
             return toPrimitive((Integer[]) array);
         }
-        if(Long.TYPE.equals(pt)) {
+        if (Long.TYPE.equals(pt)) {
             return toPrimitive((Long[]) array);
         }
-        if(Short.TYPE.equals(pt)) {
+        if (Short.TYPE.equals(pt)) {
             return toPrimitive((Short[]) array);
         }
-        if(Double.TYPE.equals(pt)) {
+        if (Double.TYPE.equals(pt)) {
             return toPrimitive((Double[]) array);
         }
-        if(Float.TYPE.equals(pt)) {
+        if (Float.TYPE.equals(pt)) {
             return toPrimitive((Float[]) array);
         }
         return array;
@@ -5387,7 +5387,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean[] add(final boolean[] array, final boolean element) {
-        final boolean[] newArray = (boolean[])copyArrayGrow1(array, Boolean.TYPE);
+        final boolean[] newArray = (boolean[]) copyArrayGrow1(array, Boolean.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5414,7 +5414,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static byte[] add(final byte[] array, final byte element) {
-        final byte[] newArray = (byte[])copyArrayGrow1(array, Byte.TYPE);
+        final byte[] newArray = (byte[]) copyArrayGrow1(array, Byte.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5441,7 +5441,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static char[] add(final char[] array, final char element) {
-        final char[] newArray = (char[])copyArrayGrow1(array, Character.TYPE);
+        final char[] newArray = (char[]) copyArrayGrow1(array, Character.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5468,7 +5468,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static double[] add(final double[] array, final double element) {
-        final double[] newArray = (double[])copyArrayGrow1(array, Double.TYPE);
+        final double[] newArray = (double[]) copyArrayGrow1(array, Double.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5495,7 +5495,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static float[] add(final float[] array, final float element) {
-        final float[] newArray = (float[])copyArrayGrow1(array, Float.TYPE);
+        final float[] newArray = (float[]) copyArrayGrow1(array, Float.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5522,7 +5522,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static int[] add(final int[] array, final int element) {
-        final int[] newArray = (int[])copyArrayGrow1(array, Integer.TYPE);
+        final int[] newArray = (int[]) copyArrayGrow1(array, Integer.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5549,7 +5549,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static long[] add(final long[] array, final long element) {
-        final long[] newArray = (long[])copyArrayGrow1(array, Long.TYPE);
+        final long[] newArray = (long[]) copyArrayGrow1(array, Long.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -8681,8 +8681,8 @@ public class ArrayUtils {
      * @return Whether the given index is safely-accessible in the given array
      * @since 3.8
      */
-    public static <T> boolean isArrayIndexValid(T[] array, int index){
-        if(getLength(array) == 0 || array.length <= index){
+    public static <T> boolean isArrayIndexValid(T[] array, int index) {
+        if (getLength(array) == 0 || array.length <= index) {
             return false;
         }
 

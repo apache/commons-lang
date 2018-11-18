@@ -65,8 +65,8 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToIntStringI() {
-        assertEquals(12345, NumberUtils.toInt("12345", 5), "toInt(String,int) 1 failed");
-        assertEquals(5, NumberUtils.toInt("1234.5", 5), "toInt(String,int) 2 failed");
+        assertEquals(12345, NumberUtils.toInt("12345", 5), "toInt(String, int) 1 failed");
+        assertEquals(5, NumberUtils.toInt("1234.5", 5), "toInt(String, int) 2 failed");
     }
 
     /**
@@ -89,8 +89,8 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToLongStringL() {
-        assertEquals(12345L, NumberUtils.toLong("12345", 5L), "toLong(String,long) 1 failed");
-        assertEquals(5L, NumberUtils.toLong("1234.5", 5L), "toLong(String,long) 2 failed");
+        assertEquals(12345L, NumberUtils.toLong("12345", 5L), "toLong(String, long) 1 failed");
+        assertEquals(5L, NumberUtils.toLong("1234.5", 5L), "toLong(String, long) 2 failed");
     }
 
     /**
@@ -118,19 +118,19 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToFloatStringF() {
-        assertTrue(NumberUtils.toFloat("1.2345", 5.1f) == 1.2345f, "toFloat(String,int) 1 failed");
-        assertTrue(NumberUtils.toFloat("a", 5.0f) == 5.0f, "toFloat(String,int) 2 failed");
+        assertTrue(NumberUtils.toFloat("1.2345", 5.1f) == 1.2345f, "toFloat(String, int) 1 failed");
+        assertTrue(NumberUtils.toFloat("a", 5.0f) == 5.0f, "toFloat(String, int) 2 failed");
         // LANG-1060
-        assertTrue(NumberUtils.toFloat("-001Z.2345", 5.0f) == 5.0f, "toFloat(String,int) 3 failed");
-        assertTrue(NumberUtils.toFloat("+001AB.2345", 5.0f) == 5.0f, "toFloat(String,int) 4 failed");
-        assertTrue(NumberUtils.toFloat("001Z.2345", 5.0f) == 5.0f, "toFloat(String,int) 5 failed");
+        assertTrue(NumberUtils.toFloat("-001Z.2345", 5.0f) == 5.0f, "toFloat(String, int) 3 failed");
+        assertTrue(NumberUtils.toFloat("+001AB.2345", 5.0f) == 5.0f, "toFloat(String, int) 4 failed");
+        assertTrue(NumberUtils.toFloat("001Z.2345", 5.0f) == 5.0f, "toFloat(String, int) 5 failed");
     }
 
     /**
      * Test for {(@link NumberUtils#createNumber(String)}
      */
     @Test
-    public void testStringCreateNumberEnsureNoPrecisionLoss(){
+    public void testStringCreateNumberEnsureNoPrecisionLoss() {
         final String shouldBeFloat = "1.23";
         final String shouldBeDouble = "3.40282354e+38";
         final String shouldBeBigDecimal = "1.797693134862315759e+308";
@@ -173,13 +173,13 @@ public class NumberUtilsTest {
      */
     @Test
     public void testStringToDoubleStringD() {
-        assertTrue(NumberUtils.toDouble("1.2345", 5.1d) == 1.2345d, "toDouble(String,int) 1 failed");
-        assertTrue(NumberUtils.toDouble("a", 5.0d) == 5.0d, "toDouble(String,int) 2 failed");
+        assertTrue(NumberUtils.toDouble("1.2345", 5.1d) == 1.2345d, "toDouble(String, int) 1 failed");
+        assertTrue(NumberUtils.toDouble("a", 5.0d) == 5.0d, "toDouble(String, int) 2 failed");
         // LANG-1060
-        assertTrue(NumberUtils.toDouble("001.2345", 5.1d) == 1.2345d, "toDouble(String,int) 3 failed");
-        assertTrue(NumberUtils.toDouble("-001.2345", 5.1d) == -1.2345d, "toDouble(String,int) 4 failed");
-        assertTrue(NumberUtils.toDouble("+001.2345", 5.1d) == 1.2345d, "toDouble(String,int) 5 failed");
-        assertTrue(NumberUtils.toDouble("000.00", 5.1d) == 0d, "toDouble(String,int) 7 failed");
+        assertTrue(NumberUtils.toDouble("001.2345", 5.1d) == 1.2345d, "toDouble(String, int) 3 failed");
+        assertTrue(NumberUtils.toDouble("-001.2345", 5.1d) == -1.2345d, "toDouble(String, int) 4 failed");
+        assertTrue(NumberUtils.toDouble("+001.2345", 5.1d) == 1.2345d, "toDouble(String, int) 5 failed");
+        assertTrue(NumberUtils.toDouble("000.00", 5.1d) == 0d, "toDouble(String, int) 7 failed");
     }
 
     /**
@@ -216,8 +216,8 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToByteStringI() {
-        assertEquals(123, NumberUtils.toByte("123", (byte) 5), "toByte(String,byte) 1 failed");
-        assertEquals(5, NumberUtils.toByte("12.3", (byte) 5), "toByte(String,byte) 2 failed");
+        assertEquals(123, NumberUtils.toByte("123", (byte) 5), "toByte(String, byte) 1 failed");
+        assertEquals(5, NumberUtils.toByte("12.3", (byte) 5), "toByte(String, byte) 2 failed");
     }
 
     /**
@@ -236,8 +236,8 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToShortStringI() {
-        assertEquals(12345, NumberUtils.toShort("12345", (short) 5), "toShort(String,short) 1 failed");
-        assertEquals(5, NumberUtils.toShort("1234.5", (short) 5), "toShort(String,short) 2 failed");
+        assertEquals(12345, NumberUtils.toShort("12345", (short) 5), "toShort(String, short) 1 failed");
+        assertEquals(5, NumberUtils.toShort("1234.5", (short) 5), "toShort(String, short) 2 failed");
     }
 
     /**
@@ -429,7 +429,7 @@ public class NumberUtilsTest {
     }
 
     @Test
-    public void testLang1087(){
+    public void testLang1087() {
         // no sign cases
         assertEquals(Float.class, NumberUtils.createNumber("0.0").getClass());
         assertEquals(Float.valueOf("0.0"), NumberUtils.createNumber("0.0"));
@@ -544,16 +544,16 @@ public class NumberUtilsTest {
 
         assertEquals(Long.valueOf(0x7fffffffffffffffL),      NumberUtils.createNumber("0x7fffffffffffffff"));
         // Does not appear to be a way to create a literal BigInteger of this magnitude
-        assertEquals(new BigInteger("7fffffffffffffff0",16), NumberUtils.createNumber("0x7fffffffffffffff0"));
+        assertEquals(new BigInteger("7fffffffffffffff0", 16), NumberUtils.createNumber("0x7fffffffffffffff0"));
 
         assertEquals(Long.valueOf(0x7fffffffffffffffL),      NumberUtils.createNumber("#7fffffffffffffff"));
-        assertEquals(new BigInteger("7fffffffffffffff0",16), NumberUtils.createNumber("#7fffffffffffffff0"));
+        assertEquals(new BigInteger("7fffffffffffffff0", 16), NumberUtils.createNumber("#7fffffffffffffff0"));
 
         assertEquals(Integer.valueOf(017777777777), NumberUtils.createNumber("017777777777")); // 31 bits
         assertEquals(Long.valueOf(037777777777L),   NumberUtils.createNumber("037777777777")); // 32 bits
 
         assertEquals(Long.valueOf(0777777777777777777777L),      NumberUtils.createNumber("0777777777777777777777")); // 63 bits
-        assertEquals(new BigInteger("1777777777777777777777",8), NumberUtils.createNumber("01777777777777777777777"));// 64 bits
+        assertEquals(new BigInteger("1777777777777777777777", 8), NumberUtils.createNumber("01777777777777777777777")); // 64 bits
     }
 
     @Test
@@ -935,20 +935,20 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinimumLong() {
-        assertEquals(12345L, NumberUtils.min(12345L, 12345L + 1L, 12345L + 2L), "minimum(long,long,long) 1 failed");
-        assertEquals(12345L, NumberUtils.min(12345L + 1L, 12345L, 12345 + 2L), "minimum(long,long,long) 2 failed");
-        assertEquals(12345L, NumberUtils.min(12345L + 1L, 12345L + 2L, 12345L), "minimum(long,long,long) 3 failed");
-        assertEquals(12345L, NumberUtils.min(12345L + 1L, 12345L, 12345L), "minimum(long,long,long) 4 failed");
-        assertEquals(12345L, NumberUtils.min(12345L, 12345L, 12345L), "minimum(long,long,long) 5 failed");
+        assertEquals(12345L, NumberUtils.min(12345L, 12345L + 1L, 12345L + 2L), "minimum(long, long, long) 1 failed");
+        assertEquals(12345L, NumberUtils.min(12345L + 1L, 12345L, 12345 + 2L), "minimum(long, long, long) 2 failed");
+        assertEquals(12345L, NumberUtils.min(12345L + 1L, 12345L + 2L, 12345L), "minimum(long, long, long) 3 failed");
+        assertEquals(12345L, NumberUtils.min(12345L + 1L, 12345L, 12345L), "minimum(long, long, long) 4 failed");
+        assertEquals(12345L, NumberUtils.min(12345L, 12345L, 12345L), "minimum(long, long, long) 5 failed");
     }
 
     @Test
     public void testMinimumInt() {
-        assertEquals(12345, NumberUtils.min(12345, 12345 + 1, 12345 + 2), "minimum(int,int,int) 1 failed");
-        assertEquals(12345, NumberUtils.min(12345 + 1, 12345, 12345 + 2), "minimum(int,int,int) 2 failed");
-        assertEquals(12345, NumberUtils.min(12345 + 1, 12345 + 2, 12345), "minimum(int,int,int) 3 failed");
-        assertEquals(12345, NumberUtils.min(12345 + 1, 12345, 12345), "minimum(int,int,int) 4 failed");
-        assertEquals(12345, NumberUtils.min(12345, 12345, 12345), "minimum(int,int,int) 5 failed");
+        assertEquals(12345, NumberUtils.min(12345, 12345 + 1, 12345 + 2), "minimum(int, int, int) 1 failed");
+        assertEquals(12345, NumberUtils.min(12345 + 1, 12345, 12345 + 2), "minimum(int, int, int) 2 failed");
+        assertEquals(12345, NumberUtils.min(12345 + 1, 12345 + 2, 12345), "minimum(int, int, int) 3 failed");
+        assertEquals(12345, NumberUtils.min(12345 + 1, 12345, 12345), "minimum(int, int, int) 4 failed");
+        assertEquals(12345, NumberUtils.min(12345, 12345, 12345), "minimum(int, int, int) 5 failed");
     }
 
     @Test
@@ -956,10 +956,10 @@ public class NumberUtilsTest {
         final short low = 1234;
         final short mid = 1234 + 1;
         final short high = 1234 + 2;
-        assertEquals(low, NumberUtils.min(low, mid, high), "minimum(short,short,short) 1 failed");
-        assertEquals(low, NumberUtils.min(mid, low, high), "minimum(short,short,short) 2 failed");
-        assertEquals(low, NumberUtils.min(mid, high, low), "minimum(short,short,short) 3 failed");
-        assertEquals(low, NumberUtils.min(low, mid, low), "minimum(short,short,short) 4 failed");
+        assertEquals(low, NumberUtils.min(low, mid, high), "minimum(short, short, short) 1 failed");
+        assertEquals(low, NumberUtils.min(mid, low, high), "minimum(short, short, short) 2 failed");
+        assertEquals(low, NumberUtils.min(mid, high, low), "minimum(short, short, short) 3 failed");
+        assertEquals(low, NumberUtils.min(low, mid, low), "minimum(short, short, short) 4 failed");
     }
 
     @Test
@@ -967,10 +967,10 @@ public class NumberUtilsTest {
         final byte low = 123;
         final byte mid = 123 + 1;
         final byte high = 123 + 2;
-        assertEquals(low, NumberUtils.min(low, mid, high), "minimum(byte,byte,byte) 1 failed");
-        assertEquals(low, NumberUtils.min(mid, low, high), "minimum(byte,byte,byte) 2 failed");
-        assertEquals(low, NumberUtils.min(mid, high, low), "minimum(byte,byte,byte) 3 failed");
-        assertEquals(low, NumberUtils.min(low, mid, low), "minimum(byte,byte,byte) 4 failed");
+        assertEquals(low, NumberUtils.min(low, mid, high), "minimum(byte, byte, byte) 1 failed");
+        assertEquals(low, NumberUtils.min(mid, low, high), "minimum(byte, byte, byte) 2 failed");
+        assertEquals(low, NumberUtils.min(mid, high, low), "minimum(byte, byte, byte) 3 failed");
+        assertEquals(low, NumberUtils.min(low, mid, low), "minimum(byte, byte, byte) 4 failed");
     }
 
     @Test
@@ -999,20 +999,20 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaximumLong() {
-        assertEquals(12345L, NumberUtils.max(12345L, 12345L - 1L, 12345L - 2L), "maximum(long,long,long) 1 failed");
-        assertEquals(12345L, NumberUtils.max(12345L - 1L, 12345L, 12345L - 2L), "maximum(long,long,long) 2 failed");
-        assertEquals(12345L, NumberUtils.max(12345L - 1L, 12345L - 2L, 12345L), "maximum(long,long,long) 3 failed");
-        assertEquals(12345L, NumberUtils.max(12345L - 1L, 12345L, 12345L), "maximum(long,long,long) 4 failed");
-        assertEquals(12345L, NumberUtils.max(12345L, 12345L, 12345L), "maximum(long,long,long) 5 failed");
+        assertEquals(12345L, NumberUtils.max(12345L, 12345L - 1L, 12345L - 2L), "maximum(long, long, long) 1 failed");
+        assertEquals(12345L, NumberUtils.max(12345L - 1L, 12345L, 12345L - 2L), "maximum(long, long, long) 2 failed");
+        assertEquals(12345L, NumberUtils.max(12345L - 1L, 12345L - 2L, 12345L), "maximum(long, long, long) 3 failed");
+        assertEquals(12345L, NumberUtils.max(12345L - 1L, 12345L, 12345L), "maximum(long, long, long) 4 failed");
+        assertEquals(12345L, NumberUtils.max(12345L, 12345L, 12345L), "maximum(long, long, long) 5 failed");
     }
 
     @Test
     public void testMaximumInt() {
-        assertEquals(12345, NumberUtils.max(12345, 12345 - 1, 12345 - 2), "maximum(int,int,int) 1 failed");
-        assertEquals(12345, NumberUtils.max(12345 - 1, 12345, 12345 - 2), "maximum(int,int,int) 2 failed");
-        assertEquals(12345, NumberUtils.max(12345 - 1, 12345 - 2, 12345), "maximum(int,int,int) 3 failed");
-        assertEquals(12345, NumberUtils.max(12345 - 1, 12345, 12345), "maximum(int,int,int) 4 failed");
-        assertEquals(12345, NumberUtils.max(12345, 12345, 12345), "maximum(int,int,int) 5 failed");
+        assertEquals(12345, NumberUtils.max(12345, 12345 - 1, 12345 - 2), "maximum(int, int, int) 1 failed");
+        assertEquals(12345, NumberUtils.max(12345 - 1, 12345, 12345 - 2), "maximum(int, int, int) 2 failed");
+        assertEquals(12345, NumberUtils.max(12345 - 1, 12345 - 2, 12345), "maximum(int, int, int) 3 failed");
+        assertEquals(12345, NumberUtils.max(12345 - 1, 12345, 12345), "maximum(int, int, int) 4 failed");
+        assertEquals(12345, NumberUtils.max(12345, 12345, 12345), "maximum(int, int, int) 5 failed");
     }
 
     @Test
@@ -1020,10 +1020,10 @@ public class NumberUtilsTest {
         final short low = 1234;
         final short mid = 1234 + 1;
         final short high = 1234 + 2;
-        assertEquals(high, NumberUtils.max(low, mid, high), "maximum(short,short,short) 1 failed");
-        assertEquals(high, NumberUtils.max(mid, low, high), "maximum(short,short,short) 2 failed");
-        assertEquals(high, NumberUtils.max(mid, high, low), "maximum(short,short,short) 3 failed");
-        assertEquals(high, NumberUtils.max(high, mid, high), "maximum(short,short,short) 4 failed");
+        assertEquals(high, NumberUtils.max(low, mid, high), "maximum(short, short, short) 1 failed");
+        assertEquals(high, NumberUtils.max(mid, low, high), "maximum(short, short, short) 2 failed");
+        assertEquals(high, NumberUtils.max(mid, high, low), "maximum(short, short, short) 3 failed");
+        assertEquals(high, NumberUtils.max(high, mid, high), "maximum(short, short, short) 4 failed");
     }
 
     @Test
@@ -1031,10 +1031,10 @@ public class NumberUtilsTest {
         final byte low = 123;
         final byte mid = 123 + 1;
         final byte high = 123 + 2;
-        assertEquals(high, NumberUtils.max(low, mid, high), "maximum(byte,byte,byte) 1 failed");
-        assertEquals(high, NumberUtils.max(mid, low, high), "maximum(byte,byte,byte) 2 failed");
-        assertEquals(high, NumberUtils.max(mid, high, low), "maximum(byte,byte,byte) 3 failed");
-        assertEquals(high, NumberUtils.max(high, mid, high), "maximum(byte,byte,byte) 4 failed");
+        assertEquals(high, NumberUtils.max(low, mid, high), "maximum(byte, byte, byte) 1 failed");
+        assertEquals(high, NumberUtils.max(mid, low, high), "maximum(byte, byte, byte) 2 failed");
+        assertEquals(high, NumberUtils.max(mid, high, low), "maximum(byte, byte, byte) 3 failed");
+        assertEquals(high, NumberUtils.max(high, mid, high), "maximum(byte, byte, byte) 4 failed");
     }
 
     @Test
@@ -1464,7 +1464,7 @@ public class NumberUtilsTest {
         assertFalse( NumberUtils.isParsable("0xC1AB") );
         assertFalse( NumberUtils.isParsable("65CBA2") );
         assertFalse( NumberUtils.isParsable("pendro") );
-        assertFalse( NumberUtils.isParsable("64,2") );
+        assertFalse( NumberUtils.isParsable("64, 2") );
         assertFalse( NumberUtils.isParsable("64.2.2") );
         assertFalse( NumberUtils.isParsable("64.") );
         assertFalse( NumberUtils.isParsable("64L") );
@@ -1576,15 +1576,15 @@ public class NumberUtilsTest {
 
     @Test
     public void compareShort() {
-        assertTrue(NumberUtils.compare((short)-3, (short)0) < 0);
+        assertTrue(NumberUtils.compare((short) -3, (short) 0) < 0);
         assertEquals(0, NumberUtils.compare((short) 113, (short) 113));
-        assertTrue(NumberUtils.compare((short)213, (short)32) > 0);
+        assertTrue(NumberUtils.compare((short) 213, (short) 32) > 0);
     }
 
     @Test
     public void compareByte() {
-        assertTrue(NumberUtils.compare((byte)-3, (byte)0) < 0);
+        assertTrue(NumberUtils.compare((byte) -3, (byte) 0) < 0);
         assertEquals(0, NumberUtils.compare((byte) 113, (byte) 113));
-        assertTrue(NumberUtils.compare((byte)123, (byte)32) > 0);
+        assertTrue(NumberUtils.compare((byte) 123, (byte) 32) > 0);
     }
 }

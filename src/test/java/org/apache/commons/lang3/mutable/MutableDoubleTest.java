@@ -47,7 +47,7 @@ public class MutableDoubleTest {
 
     @Test
     public void testConstructorNull() {
-        assertThrows(NullPointerException.class, () -> new MutableDouble((Number)null));
+        assertThrows(NullPointerException.class, () -> new MutableDouble((Number) null));
     }
 
     @Test

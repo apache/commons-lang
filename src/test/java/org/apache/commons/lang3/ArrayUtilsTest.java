@@ -942,9 +942,9 @@ public class ArrayUtilsTest {
     public void testSubarrChar() {
         final char[] nullArray = null;
         final char[] array = {'a', 'b', 'c', 'd', 'e', 'f'};
-        final char[] leftSubarray = {'a', 'b', 'c', 'd',};
-        final char[] midSubarray = {'b', 'c', 'd', 'e',};
-        final char[] rightSubarray = {'c', 'd', 'e', 'f',};
+        final char[] leftSubarray = {'a', 'b', 'c', 'd'};
+        final char[] midSubarray = {'b', 'c', 'd', 'e'};
+        final char[] rightSubarray = {'c', 'd', 'e', 'f'};
 
         assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
         assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
@@ -1022,8 +1022,8 @@ public class ArrayUtilsTest {
     public void testSubarrayDouble() {
         final double[] nullArray = null;
         final double[] array = {10.123, 11.234, 12.345, 13.456, 14.567, 15.678};
-        final double[] leftSubarray = {10.123, 11.234, 12.345, 13.456,};
-        final double[] midSubarray = {11.234, 12.345, 13.456, 14.567,};
+        final double[] leftSubarray = {10.123, 11.234, 12.345, 13.456};
+        final double[] midSubarray = {11.234, 12.345, 13.456, 14.567};
         final double[] rightSubarray = {12.345, 13.456, 14.567, 15.678};
 
         assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
@@ -1079,7 +1079,7 @@ public class ArrayUtilsTest {
         assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
         assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
                 "start undershoot, normal end");
-        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 33, 4),"start overshoot, any end");
+        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
         assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
                 "normal start, end overshoot");
         assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
@@ -4821,7 +4821,7 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testIsArrayIndexValid(){
+    public void testIsArrayIndexValid() {
         assertFalse(ArrayUtils.isArrayIndexValid(null, 0));
         String[] array = new String[1];
 

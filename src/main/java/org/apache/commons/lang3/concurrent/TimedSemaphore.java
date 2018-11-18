@@ -65,7 +65,7 @@ import java.util.concurrent.TimeUnit;
  *     // Gather statistics
  *     public void run() {
  *         try {
- *             while(true) {
+ *             while (true) {
  *                 semaphore.acquire();   // limit database load
  *                 performQuery();        // issue a query
  *             }

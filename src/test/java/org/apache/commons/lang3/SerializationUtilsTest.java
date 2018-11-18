@@ -331,7 +331,7 @@ public class SerializationUtilsTest {
     public void testClone() {
         final Object test = SerializationUtils.clone(iMap);
         assertNotNull(test);
-        assertTrue(test instanceof HashMap<?,?>);
+        assertTrue(test instanceof HashMap<?, ?>);
         assertNotSame(test, iMap);
         final HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));

@@ -291,10 +291,10 @@ public class ConversionTest {
      */
     @Test
     public void testBinaryToHexDigitMsb0_4bits_2args() {
-        // boolean[] shortArray = new boolean[]{true,true,false};
-        // assertEquals('6', Conversion.BinaryToHexDigitMsb0(shortArray,0));
-        // assertEquals('3', Conversion.BinaryToHexDigitMsb0(shortArray,1));
-        // assertEquals('1', Conversion.BinaryToHexDigitMsb0(shortArray,2));
+        // boolean[] shortArray = new boolean[]{true, true, false};
+        // assertEquals('6', Conversion.BinaryToHexDigitMsb0(shortArray, 0));
+        // assertEquals('3', Conversion.BinaryToHexDigitMsb0(shortArray, 1));
+        // assertEquals('1', Conversion.BinaryToHexDigitMsb0(shortArray, 2));
         final boolean[] shortArray = new boolean[]{true, true, false, true};
         assertEquals('d', Conversion.binaryToHexDigitMsb0_4bits(shortArray, 0));
         final boolean[] longArray = new boolean[]{true, false, true, false, false, true, true};
@@ -302,9 +302,9 @@ public class ConversionTest {
         assertEquals('4', Conversion.binaryToHexDigitMsb0_4bits(longArray, 1));
         assertEquals('9', Conversion.binaryToHexDigitMsb0_4bits(longArray, 2));
         assertEquals('3', Conversion.binaryToHexDigitMsb0_4bits(longArray, 3));
-        // assertEquals('6', Conversion.BinaryToHexDigitMsb0(longArray,4));
-        // assertEquals('3', Conversion.BinaryToHexDigitMsb0(longArray,5));
-        // assertEquals('1', Conversion.BinaryToHexDigitMsb0(longArray,6));
+        // assertEquals('6', Conversion.BinaryToHexDigitMsb0(longArray, 4));
+        // assertEquals('3', Conversion.BinaryToHexDigitMsb0(longArray, 5));
+        // assertEquals('1', Conversion.BinaryToHexDigitMsb0(longArray, 6));
         final boolean[] maxLengthArray = new boolean[]{
             true, false, true, false, false, true, true, true};
         assertEquals('a', Conversion.binaryToHexDigitMsb0_4bits(maxLengthArray, 0));
@@ -312,9 +312,9 @@ public class ConversionTest {
         assertEquals('9', Conversion.binaryToHexDigitMsb0_4bits(maxLengthArray, 2));
         assertEquals('3', Conversion.binaryToHexDigitMsb0_4bits(maxLengthArray, 3));
         assertEquals('7', Conversion.binaryToHexDigitMsb0_4bits(maxLengthArray, 4));
-        // assertEquals('7', Conversion.BinaryToHexDigitMsb0(longArray,5));
-        // assertEquals('3', Conversion.BinaryToHexDigitMsb0(longArray,6));
-        // assertEquals('1', Conversion.BinaryToHexDigitMsb0(longArray,7));
+        // assertEquals('7', Conversion.BinaryToHexDigitMsb0(longArray, 5));
+        // assertEquals('3', Conversion.BinaryToHexDigitMsb0(longArray, 6));
+        // assertEquals('1', Conversion.BinaryToHexDigitMsb0(longArray, 7));
         final boolean[] javaDocCheck = new boolean[]{
             true, false, false, true, true, false, true, false};
         assertEquals('d', Conversion.binaryToHexDigitMsb0_4bits(javaDocCheck, 3));
@@ -465,9 +465,9 @@ public class ConversionTest {
         final StringBuilder sb = new StringBuilder();
         for (final boolean e : src) {
             if (e) {
-                sb.append("1,");
+                sb.append("1, ");
             } else {
-                sb.append("0,");
+                sb.append("0, ");
             }
         }
         final String out = sb.toString();
@@ -489,7 +489,7 @@ public class ConversionTest {
             0x123456789ABCDEF0L, Conversion.intArrayToLong(src, 0, 0x123456789ABCDEF0L, 0, 0));
         assertEquals(
             0x1234567878000000L, Conversion.intArrayToLong(src, 2, 0x123456789ABCDEF0L, 0, 1));
-        // assertEquals(0x0F12345678000000L,Conversion.intsToLong(src,1,0x123456789ABCDEF0L,32,2));
+        // assertEquals(0x0F12345678000000L, Conversion.intsToLong(src, 1, 0x123456789ABCDEF0L, 32, 2));
     }
 
     /**
@@ -498,7 +498,7 @@ public class ConversionTest {
     @Test
     public void testShortArrayToLong() {
         final short[] src = new short[]{
-            (short)0xCDF1, (short)0xF0C1, (short)0x0F12, (short)0x3456, (short)0x7800};
+            (short) 0xCDF1, (short) 0xF0C1, (short) 0x0F12, (short) 0x3456, (short) 0x7800};
         assertEquals(0x0000000000000000L, Conversion.shortArrayToLong(src, 0, 0L, 0, 0));
         assertEquals(0x000000000000CDF1L, Conversion.shortArrayToLong(src, 0, 0L, 0, 1));
         assertEquals(0x00000000F0C1CDF1L, Conversion.shortArrayToLong(src, 0, 0L, 0, 2));
@@ -519,8 +519,8 @@ public class ConversionTest {
     @Test
     public void testByteArrayToLong() {
         final byte[] src = new byte[]{
-            (byte)0xCD, (byte)0xF1, (byte)0xF0, (byte)0xC1, (byte)0x0F, (byte)0x12, (byte)0x34,
-            (byte)0x56, (byte)0x78};
+            (byte) 0xCD, (byte) 0xF1, (byte) 0xF0, (byte) 0xC1, (byte) 0x0F, (byte) 0x12, (byte) 0x34,
+            (byte) 0x56, (byte) 0x78};
         assertEquals(0x0000000000000000L, Conversion.byteArrayToLong(src, 0, 0L, 0, 0));
         assertEquals(0x00000000000000CDL, Conversion.byteArrayToLong(src, 0, 0L, 0, 1));
         assertEquals(0x00000000C1F0F1CDL, Conversion.byteArrayToLong(src, 0, 0L, 0, 4));
@@ -539,14 +539,14 @@ public class ConversionTest {
     @Test
     public void testShortArrayToInt() {
         final short[] src = new short[]{
-            (short)0xCDF1, (short)0xF0C1, (short)0x0F12, (short)0x3456, (short)0x7800};
+            (short) 0xCDF1, (short) 0xF0C1, (short) 0x0F12, (short) 0x3456, (short) 0x7800};
         assertEquals(0x00000000, Conversion.shortArrayToInt(src, 0, 0, 0, 0));
         assertEquals(0x0000CDF1, Conversion.shortArrayToInt(src, 0, 0, 0, 1));
         assertEquals(0xF0C1CDF1, Conversion.shortArrayToInt(src, 0, 0, 0, 2));
         assertEquals(0x0F12F0C1, Conversion.shortArrayToInt(src, 1, 0, 0, 2));
         assertEquals(0x12345678, Conversion.shortArrayToInt(src, 0, 0x12345678, 0, 0));
         assertEquals(0xCDF15678, Conversion.shortArrayToInt(src, 0, 0x12345678, 16, 1));
-        // assertEquals(0x34567800,Conversion.ShortArrayToInt(src, 3, 0x12345678, 16, 2));
+        // assertEquals(0x34567800, Conversion.ShortArrayToInt(src, 3, 0x12345678, 16, 2));
     }
 
     /**
@@ -555,15 +555,15 @@ public class ConversionTest {
     @Test
     public void testByteArrayToInt() {
         final byte[] src = new byte[]{
-            (byte)0xCD, (byte)0xF1, (byte)0xF0, (byte)0xC1, (byte)0x0F, (byte)0x12, (byte)0x34,
-            (byte)0x56, (byte)0x78};
+            (byte) 0xCD, (byte) 0xF1, (byte) 0xF0, (byte) 0xC1, (byte) 0x0F, (byte) 0x12, (byte) 0x34,
+            (byte) 0x56, (byte) 0x78};
         assertEquals(0x00000000, Conversion.byteArrayToInt(src, 0, 0, 0, 0));
         assertEquals(0x000000CD, Conversion.byteArrayToInt(src, 0, 0, 0, 1));
         assertEquals(0xC1F0F1CD, Conversion.byteArrayToInt(src, 0, 0, 0, 4));
         assertEquals(0x0FC1F0F1, Conversion.byteArrayToInt(src, 1, 0, 0, 4));
         assertEquals(0x12345678, Conversion.byteArrayToInt(src, 0, 0x12345678, 0, 0));
         assertEquals(0xCD345678, Conversion.byteArrayToInt(src, 0, 0x12345678, 24, 1));
-        // assertEquals(0x56341278,Conversion.ByteArrayToInt(src, 5, 0x01234567, 8, 4));
+        // assertEquals(0x56341278, Conversion.ByteArrayToInt(src, 5, 0x01234567, 8, 4));
     }
 
     /**
@@ -572,15 +572,15 @@ public class ConversionTest {
     @Test
     public void testByteArrayToShort() {
         final byte[] src = new byte[]{
-            (byte)0xCD, (byte)0xF1, (byte)0xF0, (byte)0xC1, (byte)0x0F, (byte)0x12, (byte)0x34,
-            (byte)0x56, (byte)0x78};
-        assertEquals((short)0x0000, Conversion.byteArrayToShort(src, 0, (short)0, 0, 0));
-        assertEquals((short)0x00CD, Conversion.byteArrayToShort(src, 0, (short)0, 0, 1));
-        assertEquals((short)0xF1CD, Conversion.byteArrayToShort(src, 0, (short)0, 0, 2));
-        assertEquals((short)0xF0F1, Conversion.byteArrayToShort(src, 1, (short)0, 0, 2));
-        assertEquals((short)0x1234, Conversion.byteArrayToShort(src, 0, (short)0x1234, 0, 0));
-        assertEquals((short)0xCD34, Conversion.byteArrayToShort(src, 0, (short)0x1234, 8, 1));
-        // assertEquals((short)0x5678,Conversion.ByteArrayToShort(src, 7, (short) 0x0123, 8,
+            (byte) 0xCD, (byte) 0xF1, (byte) 0xF0, (byte) 0xC1, (byte) 0x0F, (byte) 0x12, (byte) 0x34,
+            (byte) 0x56, (byte) 0x78};
+        assertEquals((short) 0x0000, Conversion.byteArrayToShort(src, 0, (short) 0, 0, 0));
+        assertEquals((short) 0x00CD, Conversion.byteArrayToShort(src, 0, (short) 0, 0, 1));
+        assertEquals((short) 0xF1CD, Conversion.byteArrayToShort(src, 0, (short) 0, 0, 2));
+        assertEquals((short) 0xF0F1, Conversion.byteArrayToShort(src, 1, (short) 0, 0, 2));
+        assertEquals((short) 0x1234, Conversion.byteArrayToShort(src, 0, (short) 0x1234, 0, 0));
+        assertEquals((short) 0xCD34, Conversion.byteArrayToShort(src, 0, (short) 0x1234, 8, 1));
+        // assertEquals((short) 0x5678, Conversion.ByteArrayToShort(src, 7, (short) 0x0123, 8,
         // 2));
     }
 
@@ -620,12 +620,12 @@ public class ConversionTest {
     @Test
     public void testHexToShort() {
         final String src = "CDF1F0C10F12345678";
-        assertEquals((short)0x0000, Conversion.hexToShort(src, 0, (short)0, 0, 0));
-        assertEquals((short)0x000C, Conversion.hexToShort(src, 0, (short)0, 0, 1));
-        assertEquals((short)0x1FDC, Conversion.hexToShort(src, 0, (short)0, 0, 4));
-        assertEquals((short)0xF1FD, Conversion.hexToShort(src, 1, (short)0, 0, 4));
-        assertEquals((short)0x1234, Conversion.hexToShort(src, 0, (short)0x1234, 0, 0));
-        assertEquals((short)0x8764, Conversion.hexToShort(src, 15, (short)0x1234, 4, 3));
+        assertEquals((short) 0x0000, Conversion.hexToShort(src, 0, (short) 0, 0, 0));
+        assertEquals((short) 0x000C, Conversion.hexToShort(src, 0, (short) 0, 0, 1));
+        assertEquals((short) 0x1FDC, Conversion.hexToShort(src, 0, (short) 0, 0, 4));
+        assertEquals((short) 0xF1FD, Conversion.hexToShort(src, 1, (short) 0, 0, 4));
+        assertEquals((short) 0x1234, Conversion.hexToShort(src, 0, (short) 0x1234, 0, 0));
+        assertEquals((short) 0x8764, Conversion.hexToShort(src, 15, (short) 0x1234, 4, 3));
     }
 
     /**
@@ -634,12 +634,12 @@ public class ConversionTest {
     @Test
     public void testHexToByte() {
         final String src = "CDF1F0C10F12345678";
-        assertEquals((byte)0x00, Conversion.hexToByte(src, 0, (byte)0, 0, 0));
-        assertEquals((byte)0x0C, Conversion.hexToByte(src, 0, (byte)0, 0, 1));
-        assertEquals((byte)0xDC, Conversion.hexToByte(src, 0, (byte)0, 0, 2));
-        assertEquals((byte)0xFD, Conversion.hexToByte(src, 1, (byte)0, 0, 2));
-        assertEquals((byte)0x34, Conversion.hexToByte(src, 0, (byte)0x34, 0, 0));
-        assertEquals((byte)0x84, Conversion.hexToByte(src, 17, (byte)0x34, 4, 1));
+        assertEquals((byte) 0x00, Conversion.hexToByte(src, 0, (byte) 0, 0, 0));
+        assertEquals((byte) 0x0C, Conversion.hexToByte(src, 0, (byte) 0, 0, 1));
+        assertEquals((byte) 0xDC, Conversion.hexToByte(src, 0, (byte) 0, 0, 2));
+        assertEquals((byte) 0xFD, Conversion.hexToByte(src, 1, (byte) 0, 0, 2));
+        assertEquals((byte) 0x34, Conversion.hexToByte(src, 0, (byte) 0x34, 0, 0));
+        assertEquals((byte) 0x84, Conversion.hexToByte(src, 17, (byte) 0x34, 4, 1));
     }
 
     /**
@@ -700,14 +700,14 @@ public class ConversionTest {
             false, false, false, false, true, false, true, false, true, false, false, true,
             true, false, true, true, true, false, false, false, false, true};
         // conversion of "CDF1F0C10F12345678" by HexToBinary
-        assertEquals((short)0x0000, Conversion.binaryToShort(src, 0 * 4, (short)0, 0, 0 * 4));
-        assertEquals((short)0x000C, Conversion.binaryToShort(src, 0 * 4, (short)0, 0, 1 * 4));
-        assertEquals((short)0x1FDC, Conversion.binaryToShort(src, 0 * 4, (short)0, 0, 4 * 4));
-        assertEquals((short)0xF1FD, Conversion.binaryToShort(src, 1 * 4, (short)0, 0, 4 * 4));
+        assertEquals((short) 0x0000, Conversion.binaryToShort(src, 0 * 4, (short) 0, 0, 0 * 4));
+        assertEquals((short) 0x000C, Conversion.binaryToShort(src, 0 * 4, (short) 0, 0, 1 * 4));
+        assertEquals((short) 0x1FDC, Conversion.binaryToShort(src, 0 * 4, (short) 0, 0, 4 * 4));
+        assertEquals((short) 0xF1FD, Conversion.binaryToShort(src, 1 * 4, (short) 0, 0, 4 * 4));
         assertEquals(
-            (short)0x1234, Conversion.binaryToShort(src, 0 * 4, (short)0x1234, 0, 0 * 4));
+            (short) 0x1234, Conversion.binaryToShort(src, 0 * 4, (short) 0x1234, 0, 0 * 4));
         assertEquals(
-            (short)0x8764, Conversion.binaryToShort(src, 15 * 4, (short)0x1234, 4, 3 * 4));
+            (short) 0x8764, Conversion.binaryToShort(src, 15 * 4, (short) 0x1234, 4, 3 * 4));
     }
 
     /**
@@ -723,12 +723,12 @@ public class ConversionTest {
             false, false, false, false, true, false, true, false, true, false, false, true,
             true, false, true, true, true, false, false, false, false, true};
         // conversion of "CDF1F0C10F12345678" by HexToBinary
-        assertEquals((byte)0x00, Conversion.binaryToByte(src, 0 * 4, (byte)0, 0, 0 * 4));
-        assertEquals((byte)0x0C, Conversion.binaryToByte(src, 0 * 4, (byte)0, 0, 1 * 4));
-        assertEquals((byte)0xDC, Conversion.binaryToByte(src, 0 * 4, (byte)0, 0, 2 * 4));
-        assertEquals((byte)0xFD, Conversion.binaryToByte(src, 1 * 4, (byte)0, 0, 2 * 4));
-        assertEquals((byte)0x34, Conversion.binaryToByte(src, 0 * 4, (byte)0x34, 0, 0 * 4));
-        assertEquals((byte)0x84, Conversion.binaryToByte(src, 17 * 4, (byte)0x34, 4, 1 * 4));
+        assertEquals((byte) 0x00, Conversion.binaryToByte(src, 0 * 4, (byte) 0, 0, 0 * 4));
+        assertEquals((byte) 0x0C, Conversion.binaryToByte(src, 0 * 4, (byte) 0, 0, 1 * 4));
+        assertEquals((byte) 0xDC, Conversion.binaryToByte(src, 0 * 4, (byte) 0, 0, 2 * 4));
+        assertEquals((byte) 0xFD, Conversion.binaryToByte(src, 1 * 4, (byte) 0, 0, 2 * 4));
+        assertEquals((byte) 0x34, Conversion.binaryToByte(src, 0 * 4, (byte) 0x34, 0, 0 * 4));
+        assertEquals((byte) 0x84, Conversion.binaryToByte(src, 17 * 4, (byte) 0x34, 4, 1 * 4));
     }
 
     /**
@@ -752,11 +752,11 @@ public class ConversionTest {
             new int[]{0x90ABCDEF, 0x12345678, 0xFFFFFFFF, 0xFFFFFFFF},
             Conversion.longToIntArray(0x1234567890ABCDEFL, 0, new int[]{-1, -1, -1, -1}, 0, 2));
         // assertArrayEquals(new
-        // int[]{0x90ABCDEF,0x12345678,0x90ABCDEF,0x12345678},Conversion.longToIntArray(0x1234567890ABCDEFL,
-        // 0,new int[]{-1,-1,-1,-1},0,4));//rejected by assertion
+        // int[]{0x90ABCDEF, 0x12345678, 0x90ABCDEF, 0x12345678}, Conversion.longToIntArray(0x1234567890ABCDEFL,
+        // 0, new int[]{-1, -1, -1, -1}, 0, 4));//rejected by assertion
         // assertArrayEquals(new
-        // int[]{0xFFFFFFFF,0x90ABCDEF,0x12345678,0x90ABCDEF},Conversion.longToIntArray(0x1234567890ABCDEFL,
-        // 0,new int[]{-1,-1,-1,-1},1,3));
+        // int[]{0xFFFFFFFF, 0x90ABCDEF, 0x12345678, 0x90ABCDEF}, Conversion.longToIntArray(0x1234567890ABCDEFL,
+        // 0, new int[]{-1, -1, -1, -1}, 1, 3));
         assertArrayEquals(
             new int[]{0xFFFFFFFF, 0xFFFFFFFF, 0x90ABCDEF, 0x12345678},
             Conversion.longToIntArray(0x1234567890ABCDEFL, 0, new int[]{-1, -1, -1, -1}, 2, 2));
@@ -779,8 +779,8 @@ public class ConversionTest {
             new int[]{0xFFFFFFFF, 0xFFFFFFFF, 0x890ABCDE, 0xFFFFFFFF},
             Conversion.longToIntArray(0x1234567890ABCDEFL, 4, new int[]{-1, -1, -1, -1}, 2, 1));
         // assertArrayEquals(new
-        // int[]{0x4855E6F7,0x091A2B3C,0x4855E6F7,0x091A2B3C},Conversion.longToIntArray(0x1234567890ABCDEFL,
-        // 1,new int[]{-1,-1,-1,-1},0,4));//rejected by assertion
+        // int[]{0x4855E6F7, 0x091A2B3C, 0x4855E6F7, 0x091A2B3C}, Conversion.longToIntArray(0x1234567890ABCDEFL,
+        // 1, new int[]{-1, -1, -1, -1}, 0, 4));//rejected by assertion
         assertArrayEquals(
             new int[]{0x091A2B3C},
             Conversion.longToIntArray(0x1234567890ABCDEFL, 33, new int[]{0}, 0, 1));
@@ -801,63 +801,63 @@ public class ConversionTest {
             new short[]{},
             Conversion.longToShortArray(0x0000000000000000L, 0, new short[]{}, 100, 0));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0xFFFF, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0xFFFF, (short) 0xFFFF},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 0, new short[]{-1, -1, -1, -1}, 0, 0));
         assertArrayEquals(
-            new short[]{(short)0xCDEF, (short)0xFFFF, (short)0xFFFF, (short)0xFFFF},
+            new short[]{(short) 0xCDEF, (short) 0xFFFF, (short) 0xFFFF, (short) 0xFFFF},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 0, new short[]{-1, -1, -1, -1}, 0, 1));
         assertArrayEquals(
-            new short[]{(short)0xCDEF, (short)0x90AB, (short)0xFFFF, (short)0xFFFF},
+            new short[]{(short) 0xCDEF, (short) 0x90AB, (short) 0xFFFF, (short) 0xFFFF},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 0, new short[]{-1, -1, -1, -1}, 0, 2));
         assertArrayEquals(
-            new short[]{(short)0xCDEF, (short)0x90AB, (short)0x5678, (short)0xFFFF},
+            new short[]{(short) 0xCDEF, (short) 0x90AB, (short) 0x5678, (short) 0xFFFF},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 0, new short[]{-1, -1, -1, -1}, 0, 3));
         assertArrayEquals(
-            new short[]{(short)0xCDEF, (short)0x90AB, (short)0x5678, (short)0x1234},
+            new short[]{(short) 0xCDEF, (short) 0x90AB, (short) 0x5678, (short) 0x1234},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 0, new short[]{-1, -1, -1, -1}, 0, 4));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xCDEF, (short)0x90AB, (short)0x5678},
+            new short[]{(short) 0xFFFF, (short) 0xCDEF, (short) 0x90AB, (short) 0x5678},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 0, new short[]{-1, -1, -1, -1}, 1, 3));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0xCDEF, (short)0x90AB},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0xCDEF, (short) 0x90AB},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 0, new short[]{-1, -1, -1, -1}, 2, 2));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0xCDEF, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0xCDEF, (short) 0xFFFF},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 0, new short[]{-1, -1, -1, -1}, 2, 1));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0xFFFF, (short)0xCDEF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0xFFFF, (short) 0xCDEF},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 0, new short[]{-1, -1, -1, -1}, 3, 1));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0xE6F7, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0xE6F7, (short) 0xFFFF},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 1, new short[]{-1, -1, -1, -1}, 2, 1));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0xF37B, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0xF37B, (short) 0xFFFF},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 2, new short[]{-1, -1, -1, -1}, 2, 1));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0x79BD, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0x79BD, (short) 0xFFFF},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 3, new short[]{-1, -1, -1, -1}, 2, 1));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0xBCDE, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0xBCDE, (short) 0xFFFF},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 4, new short[]{-1, -1, -1, -1}, 2, 1));
         assertArrayEquals(
-            new short[]{(short)0xE6F7, (short)0x4855, (short)0x2B3C, (short)0x091A},
+            new short[]{(short) 0xE6F7, (short) 0x4855, (short) 0x2B3C, (short) 0x091A},
             Conversion.longToShortArray(
                 0x1234567890ABCDEFL, 1, new short[]{-1, -1, -1, -1}, 0, 4));
         assertArrayEquals(
-            new short[]{(short)0x2B3C},
+            new short[]{(short) 0x2B3C},
             Conversion.longToShortArray(0x1234567890ABCDEFL, 33, new short[]{0}, 0, 1));
     }
 
@@ -873,52 +873,52 @@ public class ConversionTest {
         assertArrayEquals(
             new short[]{}, Conversion.intToShortArray(0x00000000, 0, new short[]{}, 100, 0));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0xFFFF, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0xFFFF, (short) 0xFFFF},
             Conversion.intToShortArray(0x12345678, 0, new short[]{-1, -1, -1, -1}, 0, 0));
         assertArrayEquals(
-            new short[]{(short)0x5678, (short)0xFFFF, (short)0xFFFF, (short)0xFFFF},
+            new short[]{(short) 0x5678, (short) 0xFFFF, (short) 0xFFFF, (short) 0xFFFF},
             Conversion.intToShortArray(0x12345678, 0, new short[]{-1, -1, -1, -1}, 0, 1));
         assertArrayEquals(
-            new short[]{(short)0x5678, (short)0x1234, (short)0xFFFF, (short)0xFFFF},
+            new short[]{(short) 0x5678, (short) 0x1234, (short) 0xFFFF, (short) 0xFFFF},
             Conversion.intToShortArray(0x12345678, 0, new short[]{-1, -1, -1, -1}, 0, 2));
         // assertArrayEquals(new
-        // short[]{(short)0x5678,(short)0x1234,(short)0x5678,(short)0xFFFF},Conversion.intToShortArray(0x12345678,
-        // 0,new short[]{-1,-1,-1,-1},0,3));//rejected by assertion
+        // short[]{(short) 0x5678, (short) 0x1234, (short) 0x5678, (short) 0xFFFF}, Conversion.intToShortArray(0x12345678,
+        // 0, new short[]{-1, -1, -1, -1}, 0, 3));//rejected by assertion
         // assertArrayEquals(new
-        // short[]{(short)0x5678,(short)0x1234,(short)0x5678,(short)0x1234},Conversion.intToShortArray(0x12345678,
-        // 0,new short[]{-1,-1,-1,-1},0,4));
+        // short[]{(short) 0x5678, (short) 0x1234, (short) 0x5678, (short) 0x1234}, Conversion.intToShortArray(0x12345678,
+        // 0, new short[]{-1, -1, -1, -1}, 0, 4));
         // assertArrayEquals(new
-        // short[]{(short)0xFFFF,(short)0x5678,(short)0x1234,(short)0x5678},Conversion.intToShortArray(0x12345678,
-        // 0,new short[]{-1,-1,-1,-1},1,3));
+        // short[]{(short) 0xFFFF, (short) 0x5678, (short) 0x1234, (short) 0x5678}, Conversion.intToShortArray(0x12345678,
+        // 0, new short[]{-1, -1, -1, -1}, 1, 3));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0x5678, (short)0x1234},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0x5678, (short) 0x1234},
             Conversion.intToShortArray(0x12345678, 0, new short[]{-1, -1, -1, -1}, 2, 2));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0x5678, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0x5678, (short) 0xFFFF},
             Conversion.intToShortArray(0x12345678, 0, new short[]{-1, -1, -1, -1}, 2, 1));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0xFFFF, (short)0x5678},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0xFFFF, (short) 0x5678},
             Conversion.intToShortArray(0x12345678, 0, new short[]{-1, -1, -1, -1}, 3, 1));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0x2B3C, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0x2B3C, (short) 0xFFFF},
             Conversion.intToShortArray(0x12345678, 1, new short[]{-1, -1, -1, -1}, 2, 1));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0x159E, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0x159E, (short) 0xFFFF},
             Conversion.intToShortArray(0x12345678, 2, new short[]{-1, -1, -1, -1}, 2, 1));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0x8ACF, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0x8ACF, (short) 0xFFFF},
             Conversion.intToShortArray(0x12345678, 3, new short[]{-1, -1, -1, -1}, 2, 1));
         assertArrayEquals(
-            new short[]{(short)0xFFFF, (short)0xFFFF, (short)0x4567, (short)0xFFFF},
+            new short[]{(short) 0xFFFF, (short) 0xFFFF, (short) 0x4567, (short) 0xFFFF},
             Conversion.intToShortArray(0x12345678, 4, new short[]{-1, -1, -1, -1}, 2, 1));
         // assertArrayEquals(new
-        // short[]{(short)0xE6F7,(short)0x4855,(short)0x2B3C,(short)0x091A},Conversion.intToShortArray(0x12345678,
-        // 1,new short[]{-1,-1,-1,-1},0,4));//rejected by assertion
+        // short[]{(short) 0xE6F7, (short) 0x4855, (short) 0x2B3C, (short) 0x091A}, Conversion.intToShortArray(0x12345678,
+        // 1, new short[]{-1, -1, -1, -1}, 0, 4));//rejected by assertion
         // assertArrayEquals(new
-        // short[]{(short)0x2B3C},Conversion.intToShortArray(0x12345678,33,new
-        // short[]{0},0,1));//rejected by assertion
+        // short[]{(short) 0x2B3C}, Conversion.intToShortArray(0x12345678, 33, new
+        // short[]{0}, 0, 1));//rejected by assertion
         assertArrayEquals(
-            new short[]{(short)0x091A},
+            new short[]{(short) 0x091A},
             Conversion.intToShortArray(0x12345678, 17, new short[]{0}, 0, 1));
     }
 
@@ -938,95 +938,95 @@ public class ConversionTest {
             Conversion.longToByteArray(0x0000000000000000L, 0, new byte[]{}, 100, 0));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 0));
         assertArrayEquals(
             new byte[]{
-                (byte)0xEF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xEF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0xEF, (byte)0xCD, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xEF, (byte) 0xCD, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 2));
         assertArrayEquals(
             new byte[]{
-                (byte)0xEF, (byte)0xCD, (byte)0xAB, (byte)0x90, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xEF, (byte) 0xCD, (byte) 0xAB, (byte) 0x90, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 4));
         assertArrayEquals(
             new byte[]{
-                (byte)0xEF, (byte)0xCD, (byte)0xAB, (byte)0x90, (byte)0x78, (byte)0x56,
-                (byte)0x34, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xEF, (byte) 0xCD, (byte) 0xAB, (byte) 0x90, (byte) 0x78, (byte) 0x56,
+                (byte) 0x34, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 7));
         assertArrayEquals(
             new byte[]{
-                (byte)0xEF, (byte)0xCD, (byte)0xAB, (byte)0x90, (byte)0x78, (byte)0x56,
-                (byte)0x34, (byte)0x12, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xEF, (byte) 0xCD, (byte) 0xAB, (byte) 0x90, (byte) 0x78, (byte) 0x56,
+                (byte) 0x34, (byte) 0x12, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 8));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xEF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xEF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xEF, (byte)0xCD, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xEF, (byte) 0xCD, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 2));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xEF, (byte)0xCD, (byte)0xAB,
-                (byte)0x90, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xEF, (byte) 0xCD, (byte) 0xAB,
+                (byte) 0x90, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 4));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xEF, (byte)0xCD, (byte)0xAB,
-                (byte)0x90, (byte)0x78, (byte)0x56, (byte)0x34, (byte)0xFF},
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xEF, (byte) 0xCD, (byte) 0xAB,
+                (byte) 0x90, (byte) 0x78, (byte) 0x56, (byte) 0x34, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 7));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xEF, (byte)0xCD, (byte)0xAB,
-                (byte)0x90, (byte)0x78, (byte)0x56, (byte)0x34, (byte)0x12},
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xEF, (byte) 0xCD, (byte) 0xAB,
+                (byte) 0x90, (byte) 0x78, (byte) 0x56, (byte) 0x34, (byte) 0x12},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 8));
         assertArrayEquals(
             new byte[]{
-                (byte)0xF7, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xF7, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 1, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0x7B, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0x7B, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 2, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0x00, (byte)0xFF, (byte)0x6F, (byte)0x5E, (byte)0x85,
-                (byte)0xC4, (byte)0xB3, (byte)0xA2, (byte)0x91, (byte)0x00},
+                (byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x6F, (byte) 0x5E, (byte) 0x85,
+                (byte) 0xC4, (byte) 0xB3, (byte) 0xA2, (byte) 0x91, (byte) 0x00},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 5, new byte[]{
                 -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 8));
         // assertArrayEquals(new
-        // byte[]{(byte)0xFF,(byte)0x00,(byte)0xFF,(byte)0x5E,(byte)0x85,(byte)0xC4,(byte)0xB3,(byte)0xA2,(byte)0x91,(byte)0x00,(byte)0x00},Conversion.longToByteArray(0x1234567890ABCDEFL,13,new
-        // byte[]{-1, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1},3,8));//rejected by assertion
+        // byte[]{(byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x5E, (byte) 0x85, (byte) 0xC4, (byte) 0xB3, (byte) 0xA2, (byte) 0x91, (byte) 0x00, (byte) 0x00}, Conversion.longToByteArray(0x1234567890ABCDEFL, 13, new
+        // byte[]{-1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 8));//rejected by assertion
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0x00, (byte)0xFF, (byte)0x5E, (byte)0x85, (byte)0xC4,
-                (byte)0xB3, (byte)0xA2, (byte)0x91, (byte)0x00, (byte)0xFF},
+                (byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x5E, (byte) 0x85, (byte) 0xC4,
+                (byte) 0xB3, (byte) 0xA2, (byte) 0x91, (byte) 0x00, (byte) 0xFF},
             Conversion.longToByteArray(0x1234567890ABCDEFL, 13, new byte[]{
                 -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 7));
     }
@@ -1044,71 +1044,71 @@ public class ConversionTest {
             new byte[]{}, Conversion.intToByteArray(0x00000000, 0, new byte[]{}, 100, 0));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 0));
         assertArrayEquals(
             new byte[]{
-                (byte)0xEF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xEF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0xEF, (byte)0xCD, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xEF, (byte) 0xCD, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 2));
         assertArrayEquals(
             new byte[]{
-                (byte)0xEF, (byte)0xCD, (byte)0xAB, (byte)0x90, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xEF, (byte) 0xCD, (byte) 0xAB, (byte) 0x90, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 4));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xEF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xEF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xEF, (byte)0xCD, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xEF, (byte) 0xCD, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 2));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xEF, (byte)0xCD, (byte)0xAB,
-                (byte)0x90, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xEF, (byte) 0xCD, (byte) 0xAB,
+                (byte) 0x90, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 4));
         assertArrayEquals(
             new byte[]{
-                (byte)0xF7, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xF7, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 1, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0x7B, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0x7B, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 2, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 0, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0x00, (byte)0xFF, (byte)0x6F, (byte)0x5E, (byte)0x85,
-                (byte)0xFC, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x6F, (byte) 0x5E, (byte) 0x85,
+                (byte) 0xFC, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 5, new byte[]{
                 -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 4));
         // assertArrayEquals(new
-        // byte[]{(byte)0xFF,(byte)0x00,(byte)0xFF,(byte)0x5E,(byte)0x85,(byte)0xFC,(byte)0x00,(byte)0xFF,(byte)0xFF,(byte)0xFF,(byte)0xFF},Conversion.intToByteArray(0x90ABCDEF,13,new
-        // byte[]{-1, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1},3,4));//rejected by assertion
+        // byte[]{(byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x5E, (byte) 0x85, (byte) 0xFC, (byte) 0x00, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}, Conversion.intToByteArray(0x90ABCDEF, 13, new
+        // byte[]{-1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 4));//rejected by assertion
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0x00, (byte)0xFF, (byte)0x5E, (byte)0x85, (byte)0xFC,
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF},
+                (byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x5E, (byte) 0x85, (byte) 0xFC,
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 13, new byte[]{
                 -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 3));
     }
@@ -1119,58 +1119,58 @@ public class ConversionTest {
     @Test
     public void testShortToByteArray() {
         assertArrayEquals(
-            new byte[]{}, Conversion.shortToByteArray((short)0x0000, 0, new byte[]{}, 0, 0));
+            new byte[]{}, Conversion.shortToByteArray((short) 0x0000, 0, new byte[]{}, 0, 0));
         assertArrayEquals(
-            new byte[]{}, Conversion.shortToByteArray((short)0x0000, 100, new byte[]{}, 0, 0));
+            new byte[]{}, Conversion.shortToByteArray((short) 0x0000, 100, new byte[]{}, 0, 0));
         assertArrayEquals(
-            new byte[]{}, Conversion.shortToByteArray((short)0x0000, 0, new byte[]{}, 100, 0));
+            new byte[]{}, Conversion.shortToByteArray((short) 0x0000, 0, new byte[]{}, 100, 0));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF}, Conversion.shortToByteArray((short)0xCDEF, 0, new byte[]{
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF}, Conversion.shortToByteArray((short) 0xCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1}, 0, 0));
         assertArrayEquals(
             new byte[]{
-                (byte)0xEF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF}, Conversion.shortToByteArray((short)0xCDEF, 0, new byte[]{
+                (byte) 0xEF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF}, Conversion.shortToByteArray((short) 0xCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1}, 0, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0xEF, (byte)0xCD, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF}, Conversion.shortToByteArray((short)0xCDEF, 0, new byte[]{
+                (byte) 0xEF, (byte) 0xCD, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF}, Conversion.shortToByteArray((short) 0xCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1}, 0, 2));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xEF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF}, Conversion.shortToByteArray((short)0xCDEF, 0, new byte[]{
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xEF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF}, Conversion.shortToByteArray((short) 0xCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1}, 3, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xEF, (byte)0xCD, (byte)0xFF,
-                (byte)0xFF}, Conversion.shortToByteArray((short)0xCDEF, 0, new byte[]{
+                (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xEF, (byte) 0xCD, (byte) 0xFF,
+                (byte) 0xFF}, Conversion.shortToByteArray((short) 0xCDEF, 0, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1}, 3, 2));
         assertArrayEquals(
             new byte[]{
-                (byte)0xF7, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF}, Conversion.shortToByteArray((short)0xCDEF, 1, new byte[]{
+                (byte) 0xF7, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF}, Conversion.shortToByteArray((short) 0xCDEF, 1, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1}, 0, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0x7B, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF}, Conversion.shortToByteArray((short)0xCDEF, 2, new byte[]{
+                (byte) 0x7B, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF}, Conversion.shortToByteArray((short) 0xCDEF, 2, new byte[]{
                 -1, -1, -1, -1, -1, -1, -1}, 0, 1));
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0x00, (byte)0xFF, (byte)0x6F, (byte)0xFE, (byte)0xFF,
-                (byte)0xFF}, Conversion.shortToByteArray((short)0xCDEF, 5, new byte[]{
+                (byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x6F, (byte) 0xFE, (byte) 0xFF,
+                (byte) 0xFF}, Conversion.shortToByteArray((short) 0xCDEF, 5, new byte[]{
                 -1, 0, -1, -1, -1, -1, -1}, 3, 2));
         // assertArrayEquals(new
-        // byte[]{(byte)0xFF,(byte)0x00,(byte)0xFF,(byte)0x5E,(byte)0xFF,(byte)0xFF,(byte)0xFF},Conversion.shortToByteArray((short)0xCDEF,13,new
-        // byte[]{-1, 0,-1,-1,-1,-1,-1},3,2));//rejected by assertion
+        // byte[]{(byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x5E, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}, Conversion.shortToByteArray((short) 0xCDEF, 13, new
+        // byte[]{-1, 0, -1, -1, -1, -1, -1}, 3, 2));//rejected by assertion
         assertArrayEquals(
             new byte[]{
-                (byte)0xFF, (byte)0x00, (byte)0xFF, (byte)0xFE, (byte)0xFF, (byte)0xFF,
-                (byte)0xFF}, Conversion.shortToByteArray((short)0xCDEF, 13, new byte[]{
+                (byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0xFE, (byte) 0xFF, (byte) 0xFF,
+                (byte) 0xFF}, Conversion.shortToByteArray((short) 0xCDEF, 13, new byte[]{
                 -1, 0, -1, -1, -1, -1, -1}, 3, 1));
     }
 
@@ -1224,7 +1224,7 @@ public class ConversionTest {
         assertEquals(
             "fffdb975121fca86420fffff",
             Conversion.longToHex(0x1234567890ABCDEFL, 3, "ffffffffffffffffffffffff", 3, 16));
-        // assertEquals("ffffffffffffffffffffffff",Conversion.longToHex(0x1234567890ABCDEFL,4,"ffffffffffffffffffffffff",3,16));//rejected
+        // assertEquals("ffffffffffffffffffffffff", Conversion.longToHex(0x1234567890ABCDEFL, 4, "ffffffffffffffffffffffff", 3, 16));//rejected
         // by assertion
         assertEquals(
             "fffedcba0987654321ffffff",
@@ -1284,8 +1284,8 @@ public class ConversionTest {
         assertEquals(
             "fffdb97512ffffffffffffff",
             Conversion.intToHex(0x90ABCDEF, 3, "ffffffffffffffffffffffff", 3, 8));
-        // assertEquals("ffffffffffffffffffffffff",Conversion.intToHex(0x90ABCDEF,
-        // 4,"ffffffffffffffffffffffff",3,8));//rejected by assertion
+        // assertEquals("ffffffffffffffffffffffff", Conversion.intToHex(0x90ABCDEF,
+        // 4, "ffffffffffffffffffffffff", 3, 8));//rejected by assertion
         assertEquals(
             "fffedcba09ffffffffffffff",
             Conversion.intToHex(0x90ABCDEF, 4, "ffffffffffffffffffffffff", 3, 7));
@@ -1298,46 +1298,46 @@ public class ConversionTest {
      */
     @Test
     public void testShortToHex() {
-        assertEquals("", Conversion.shortToHex((short)0x0000, 0, "", 0, 0));
-        assertEquals("", Conversion.shortToHex((short)0x0000, 100, "", 0, 0));
-        assertEquals("", Conversion.shortToHex((short)0x0000, 0, "", 100, 0));
+        assertEquals("", Conversion.shortToHex((short) 0x0000, 0, "", 0, 0));
+        assertEquals("", Conversion.shortToHex((short) 0x0000, 100, "", 0, 0));
+        assertEquals("", Conversion.shortToHex((short) 0x0000, 0, "", 100, 0));
         assertEquals(
             "ffffffffffffffffffffffff",
-            Conversion.shortToHex((short)0xCDEF, 0, "ffffffffffffffffffffffff", 0, 0));
+            Conversion.shortToHex((short) 0xCDEF, 0, "ffffffffffffffffffffffff", 0, 0));
         assertEquals(
             "3fffffffffffffffffffffff",
-            Conversion.shortToHex((short)0xCDE3, 0, "ffffffffffffffffffffffff", 0, 1));
+            Conversion.shortToHex((short) 0xCDE3, 0, "ffffffffffffffffffffffff", 0, 1));
         assertEquals(
             "feffffffffffffffffffffff",
-            Conversion.shortToHex((short)0xCDEF, 0, "ffffffffffffffffffffffff", 0, 2));
+            Conversion.shortToHex((short) 0xCDEF, 0, "ffffffffffffffffffffffff", 0, 2));
         assertEquals(
             "fedfffffffffffffffffffff",
-            Conversion.shortToHex((short)0xCDEF, 0, "ffffffffffffffffffffffff", 0, 3));
+            Conversion.shortToHex((short) 0xCDEF, 0, "ffffffffffffffffffffffff", 0, 3));
         assertEquals(
             "fedcffffffffffffffffffff",
-            Conversion.shortToHex((short)0xCDEF, 0, "ffffffffffffffffffffffff", 0, 4));
+            Conversion.shortToHex((short) 0xCDEF, 0, "ffffffffffffffffffffffff", 0, 4));
         assertEquals(
             "fff3ffffffffffffffffffff",
-            Conversion.shortToHex((short)0xCDE3, 0, "ffffffffffffffffffffffff", 3, 1));
+            Conversion.shortToHex((short) 0xCDE3, 0, "ffffffffffffffffffffffff", 3, 1));
         assertEquals(
             "ffffefffffffffffffffffff",
-            Conversion.shortToHex((short)0xCDEF, 0, "ffffffffffffffffffffffff", 3, 2));
+            Conversion.shortToHex((short) 0xCDEF, 0, "ffffffffffffffffffffffff", 3, 2));
         assertEquals(
             "7fffffffffffffffffffffff",
-            Conversion.shortToHex((short)0xCDEF, 1, "ffffffffffffffffffffffff", 0, 1));
+            Conversion.shortToHex((short) 0xCDEF, 1, "ffffffffffffffffffffffff", 0, 1));
         assertEquals(
             "bfffffffffffffffffffffff",
-            Conversion.shortToHex((short)0xCDEF, 2, "ffffffffffffffffffffffff", 0, 1));
+            Conversion.shortToHex((short) 0xCDEF, 2, "ffffffffffffffffffffffff", 0, 1));
         assertEquals(
             "fffdb9ffffffffffffffffff",
-            Conversion.shortToHex((short)0xCDEF, 3, "ffffffffffffffffffffffff", 3, 4));
-        // assertEquals("ffffffffffffffffffffffff",Conversion.shortToHex((short)0xCDEF,
-        // 4,"ffffffffffffffffffffffff",3,4));//rejected by assertion
+            Conversion.shortToHex((short) 0xCDEF, 3, "ffffffffffffffffffffffff", 3, 4));
+        // assertEquals("ffffffffffffffffffffffff", Conversion.shortToHex((short) 0xCDEF,
+        // 4, "ffffffffffffffffffffffff", 3, 4));//rejected by assertion
         assertEquals(
             "fffedcffffffffffffffffff",
-            Conversion.shortToHex((short)0xCDEF, 4, "ffffffffffffffffffffffff", 3, 3));
-        assertEquals("fedc", Conversion.shortToHex((short)0xCDEF, 0, "", 0, 4));
-        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.shortToHex((short)0xCDEF, 0, "", 1, 4));
+            Conversion.shortToHex((short) 0xCDEF, 4, "ffffffffffffffffffffffff", 3, 3));
+        assertEquals("fedc", Conversion.shortToHex((short) 0xCDEF, 0, "", 0, 4));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.shortToHex((short) 0xCDEF, 0, "", 1, 4));
     }
 
     /**
@@ -1345,22 +1345,22 @@ public class ConversionTest {
      */
     @Test
     public void testByteToHex() {
-        assertEquals("", Conversion.byteToHex((byte)0x00, 0, "", 0, 0));
-        assertEquals("", Conversion.byteToHex((byte)0x00, 100, "", 0, 0));
-        assertEquals("", Conversion.byteToHex((byte)0x00, 0, "", 100, 0));
-        assertEquals("00000", Conversion.byteToHex((byte)0xEF, 0, "00000", 0, 0));
-        assertEquals("f0000", Conversion.byteToHex((byte)0xEF, 0, "00000", 0, 1));
-        assertEquals("fe000", Conversion.byteToHex((byte)0xEF, 0, "00000", 0, 2));
-        assertEquals("000f0", Conversion.byteToHex((byte)0xEF, 0, "00000", 3, 1));
-        assertEquals("000fe", Conversion.byteToHex((byte)0xEF, 0, "00000", 3, 2));
-        assertEquals("70000", Conversion.byteToHex((byte)0xEF, 1, "00000", 0, 1));
-        assertEquals("b0000", Conversion.byteToHex((byte)0xEF, 2, "00000", 0, 1));
-        assertEquals("000df", Conversion.byteToHex((byte)0xEF, 3, "00000", 3, 2));
-        // assertEquals("00000",Conversion.byteToHex((byte)0xEF, 4,"00000",3,2));//rejected by
+        assertEquals("", Conversion.byteToHex((byte) 0x00, 0, "", 0, 0));
+        assertEquals("", Conversion.byteToHex((byte) 0x00, 100, "", 0, 0));
+        assertEquals("", Conversion.byteToHex((byte) 0x00, 0, "", 100, 0));
+        assertEquals("00000", Conversion.byteToHex((byte) 0xEF, 0, "00000", 0, 0));
+        assertEquals("f0000", Conversion.byteToHex((byte) 0xEF, 0, "00000", 0, 1));
+        assertEquals("fe000", Conversion.byteToHex((byte) 0xEF, 0, "00000", 0, 2));
+        assertEquals("000f0", Conversion.byteToHex((byte) 0xEF, 0, "00000", 3, 1));
+        assertEquals("000fe", Conversion.byteToHex((byte) 0xEF, 0, "00000", 3, 2));
+        assertEquals("70000", Conversion.byteToHex((byte) 0xEF, 1, "00000", 0, 1));
+        assertEquals("b0000", Conversion.byteToHex((byte) 0xEF, 2, "00000", 0, 1));
+        assertEquals("000df", Conversion.byteToHex((byte) 0xEF, 3, "00000", 3, 2));
+        // assertEquals("00000", Conversion.byteToHex((byte) 0xEF, 4, "00000", 3, 2));//rejected by
         // assertion
-        assertEquals("000e0", Conversion.byteToHex((byte)0xEF, 4, "00000", 3, 1));
-        assertEquals("fe", Conversion.byteToHex((byte)0xEF, 0, "", 0, 2));
-        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.byteToHex((byte)0xEF, 0, "", 1, 2));
+        assertEquals("000e0", Conversion.byteToHex((byte) 0xEF, 4, "00000", 3, 1));
+        assertEquals("fe", Conversion.byteToHex((byte) 0xEF, 0, "", 0, 2));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.byteToHex((byte) 0xEF, 0, "", 1, 2));
     }
 
     /**
@@ -1467,13 +1467,13 @@ public class ConversionTest {
                 false, false, false, false, false, false, false, false, false},
             Conversion.longToBinary(0x1234567890ABCDEFL, 2, new boolean[69], 0, 62));
 
-        // assertArrayEquals(new boolean[]{false,false,false, true, true, false, true, true,
+        // assertArrayEquals(new boolean[]{false, false, false, true, true, false, true, true,
         // true, true, false, true, true, false, false, true, true, true, true, false, true,
         // false, true, false, true, false, false, false, false, true, false, false, true,
         // false, false, false, true, true, true, true, false, false, true, true, false, true,
         // false, true, false, false, false, true, false, true, true, false, false, false, true,
         // false, false, true, false, false, false
-        // ,false,false,false,false},Conversion.longToBinary(0x1234567890ABCDEFL, 2,new
+        // , false, false, false, false}, Conversion.longToBinary(0x1234567890ABCDEFL, 2, new
         // boolean[69], 3, 63));//rejected by assertion
         assertArrayEquals(
             new boolean[]{
@@ -1553,8 +1553,8 @@ public class ConversionTest {
         // true,
         // true, true, false, true, true, false, false, true, true, true, true, false, true,
         // false, true, false, true, false, false, false, false, true, false, false, false,
-        // false, false, false, false},Conversion.intToBinary(0x90ABCDEF, 2,new boolean[37],
-        // 3,31));//rejected by assertion
+        // false, false, false, false}, Conversion.intToBinary(0x90ABCDEF, 2, new boolean[37],
+        // 3, 31));//rejected by assertion
         assertArrayEquals(
             new boolean[]{
                 false, false, false, true, true, false, true, true, true, true, false, true,
@@ -1569,70 +1569,70 @@ public class ConversionTest {
     @Test
     public void testShortToBinary() {
         assertArrayEquals(
-            new boolean[]{}, Conversion.shortToBinary((short)0x0000, 0, new boolean[]{}, 0, 0));
+            new boolean[]{}, Conversion.shortToBinary((short) 0x0000, 0, new boolean[]{}, 0, 0));
         assertArrayEquals(
             new boolean[]{},
-            Conversion.shortToBinary((short)0x0000, 100, new boolean[]{}, 0, 0));
+            Conversion.shortToBinary((short) 0x0000, 100, new boolean[]{}, 0, 0));
         assertArrayEquals(
             new boolean[]{},
-            Conversion.shortToBinary((short)0x0000, 0, new boolean[]{}, 100, 0));
+            Conversion.shortToBinary((short) 0x0000, 0, new boolean[]{}, 100, 0));
         assertArrayEquals(
-            new boolean[69], Conversion.shortToBinary((short)0xCDEF, 0, new boolean[69], 0, 0));
+            new boolean[69], Conversion.shortToBinary((short) 0xCDEF, 0, new boolean[69], 0, 0));
         assertArrayEquals(
             new boolean[]{
                 true, false, false, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false},
-            Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 0, 1));
+            Conversion.shortToBinary((short) 0xCDEF, 0, new boolean[21], 0, 1));
         assertArrayEquals(
             new boolean[]{
                 true, true, false, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false},
-            Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 0, 2));
+            Conversion.shortToBinary((short) 0xCDEF, 0, new boolean[21], 0, 2));
         assertArrayEquals(
             new boolean[]{
                 true, true, true, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false},
-            Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 0, 3));
+            Conversion.shortToBinary((short) 0xCDEF, 0, new boolean[21], 0, 3));
         assertArrayEquals(
             new boolean[]{
                 true, true, true, true, false, true, true, true, true, false, true, true,
                 false, false, true, false, false, false, false, false, false},
-            Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 0, 15));
+            Conversion.shortToBinary((short) 0xCDEF, 0, new boolean[21], 0, 15));
         assertArrayEquals(
             new boolean[]{
                 true, true, true, true, false, true, true, true, true, false, true, true,
                 false, false, true, true, false, false, false, false, false},
-            Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 0, 16));
+            Conversion.shortToBinary((short) 0xCDEF, 0, new boolean[21], 0, 16));
         assertArrayEquals(
             new boolean[]{
                 false, false, true, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false},
-            Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 2, 1));
+            Conversion.shortToBinary((short) 0xCDEF, 0, new boolean[21], 2, 1));
         assertArrayEquals(
             new boolean[]{
                 false, false, true, true, true, true, false, true, true, true, true, false,
                 true, true, false, false, true, true, false, false, false},
-            Conversion.shortToBinary((short)0xCDEF, 0, new boolean[21], 2, 16));
+            Conversion.shortToBinary((short) 0xCDEF, 0, new boolean[21], 2, 16));
         assertArrayEquals(
             new boolean[]{
                 true, true, true, false, true, true, true, true, false, true, true, false,
                 false, true, true, false, false, false, false, false, false},
-            Conversion.shortToBinary((short)0xCDEF, 1, new boolean[21], 0, 15));
+            Conversion.shortToBinary((short) 0xCDEF, 1, new boolean[21], 0, 15));
         assertArrayEquals(
             new boolean[]{
                 true, true, false, true, true, true, true, false, true, true, false, false,
                 true, true, false, false, false, false, false, false, false},
-            Conversion.shortToBinary((short)0xCDEF, 2, new boolean[21], 0, 14));
+            Conversion.shortToBinary((short) 0xCDEF, 2, new boolean[21], 0, 14));
         // assertArrayEquals(new boolean[]{false, false, false, true, true, false, true, true,
         // true, true, false, true, true, false, false, true, false, false, false, false,
-        // false},Conversion.shortToBinary((short)0xCDEF, 2,new boolean[21],
-        // 3,15));//rejected by
+        // false}, Conversion.shortToBinary((short) 0xCDEF, 2, new boolean[21],
+        // 3, 15));//rejected by
         // assertion
         assertArrayEquals(
             new boolean[]{
                 false, false, false, true, true, false, true, true, true, true, false, true,
                 true, false, false, true, true, false, false, false, false},
-            Conversion.shortToBinary((short)0xCDEF, 2, new boolean[21], 3, 14));
+            Conversion.shortToBinary((short) 0xCDEF, 2, new boolean[21], 3, 14));
     }
 
     /**
@@ -1641,46 +1641,46 @@ public class ConversionTest {
     @Test
     public void testByteToBinary() {
         assertArrayEquals(
-            new boolean[]{}, Conversion.byteToBinary((byte)0x00, 0, new boolean[]{}, 0, 0));
+            new boolean[]{}, Conversion.byteToBinary((byte) 0x00, 0, new boolean[]{}, 0, 0));
         assertArrayEquals(
-            new boolean[]{}, Conversion.byteToBinary((byte)0x00, 100, new boolean[]{}, 0, 0));
+            new boolean[]{}, Conversion.byteToBinary((byte) 0x00, 100, new boolean[]{}, 0, 0));
         assertArrayEquals(
-            new boolean[]{}, Conversion.byteToBinary((byte)0x00, 0, new boolean[]{}, 100, 0));
+            new boolean[]{}, Conversion.byteToBinary((byte) 0x00, 0, new boolean[]{}, 100, 0));
         assertArrayEquals(
-            new boolean[69], Conversion.byteToBinary((byte)0xEF, 0, new boolean[69], 0, 0));
+            new boolean[69], Conversion.byteToBinary((byte) 0xEF, 0, new boolean[69], 0, 0));
         assertArrayEquals(new boolean[]{
             true, false, false, false, false, false, false, false, false, false, false, false,
-            false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 0, 1));
+            false}, Conversion.byteToBinary((byte) 0x95, 0, new boolean[13], 0, 1));
         assertArrayEquals(new boolean[]{
             true, false, false, false, false, false, false, false, false, false, false, false,
-            false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 0, 2));
+            false}, Conversion.byteToBinary((byte) 0x95, 0, new boolean[13], 0, 2));
         assertArrayEquals(new boolean[]{
             true, false, true, false, false, false, false, false, false, false, false, false,
-            false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 0, 3));
+            false}, Conversion.byteToBinary((byte) 0x95, 0, new boolean[13], 0, 3));
         assertArrayEquals(new boolean[]{
             true, false, true, false, true, false, false, false, false, false, false, false,
-            false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 0, 7));
+            false}, Conversion.byteToBinary((byte) 0x95, 0, new boolean[13], 0, 7));
         assertArrayEquals(new boolean[]{
             true, false, true, false, true, false, false, true, false, false, false, false,
-            false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 0, 8));
+            false}, Conversion.byteToBinary((byte) 0x95, 0, new boolean[13], 0, 8));
         assertArrayEquals(new boolean[]{
             false, false, true, false, false, false, false, false, false, false, false, false,
-            false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 2, 1));
+            false}, Conversion.byteToBinary((byte) 0x95, 0, new boolean[13], 2, 1));
         assertArrayEquals(new boolean[]{
             false, false, true, false, true, false, true, false, false, true, false, false,
-            false}, Conversion.byteToBinary((byte)0x95, 0, new boolean[13], 2, 8));
+            false}, Conversion.byteToBinary((byte) 0x95, 0, new boolean[13], 2, 8));
         assertArrayEquals(new boolean[]{
             false, true, false, true, false, false, true, false, false, false, false, false,
-            false}, Conversion.byteToBinary((byte)0x95, 1, new boolean[13], 0, 7));
+            false}, Conversion.byteToBinary((byte) 0x95, 1, new boolean[13], 0, 7));
         assertArrayEquals(new boolean[]{
             true, false, true, false, false, true, false, false, false, false, false, false,
-            false}, Conversion.byteToBinary((byte)0x95, 2, new boolean[13], 0, 6));
+            false}, Conversion.byteToBinary((byte) 0x95, 2, new boolean[13], 0, 6));
         // assertArrayEquals(new boolean[]{false, false, false, true, true, false, true, true,
-        // false, false, false, false, false},Conversion.byteToBinary((byte)0x95, 2,new
+        // false, false, false, false, false}, Conversion.byteToBinary((byte) 0x95, 2, new
         // boolean[13], 3, 7));//rejected by assertion
         assertArrayEquals(new boolean[]{
             false, false, false, true, false, true, false, false, true, false, false, false,
-            false}, Conversion.byteToBinary((byte)0x95, 2, new boolean[13], 3, 6));
+            false}, Conversion.byteToBinary((byte) 0x95, 2, new boolean[13], 3, 6));
     }
 
     /**
@@ -1689,24 +1689,24 @@ public class ConversionTest {
     @Test
     public void testUuidToByteArray() {
         assertArrayEquals(new byte[]{
-            (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,
-            (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,
-            (byte)0xff, (byte)0xff}, Conversion.uuidToByteArray(new UUID(
+            (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
+            (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
+            (byte) 0xff, (byte) 0xff}, Conversion.uuidToByteArray(new UUID(
             0xFFFFFFFFFFFFFFFFL, 0xFFFFFFFFFFFFFFFFL), new byte[16], 0, 16));
         assertArrayEquals(new byte[]{
-            (byte)0x88, (byte)0x99, (byte)0xaa, (byte)0xbb, (byte)0xcc, (byte)0xdd, (byte)0xee,
-            (byte)0xff, (byte)0x00, (byte)0x11, (byte)0x22, (byte)0x33, (byte)0x44, (byte)0x55,
-            (byte)0x66, (byte)0x77}, Conversion.uuidToByteArray(new UUID(
+            (byte) 0x88, (byte) 0x99, (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd, (byte) 0xee,
+            (byte) 0xff, (byte) 0x00, (byte) 0x11, (byte) 0x22, (byte) 0x33, (byte) 0x44, (byte) 0x55,
+            (byte) 0x66, (byte) 0x77}, Conversion.uuidToByteArray(new UUID(
             0xFFEEDDCCBBAA9988L, 0x7766554433221100L), new byte[16], 0, 16));
         assertArrayEquals(new byte[]{
-            (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x88, (byte)0x99, (byte)0xaa,
-            (byte)0xbb, (byte)0xcc, (byte)0xdd, (byte)0xee, (byte)0xff, (byte)0x00, (byte)0x00,
-            (byte)0x00, (byte)0x00}, Conversion.uuidToByteArray(new UUID(
+            (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x88, (byte) 0x99, (byte) 0xaa,
+            (byte) 0xbb, (byte) 0xcc, (byte) 0xdd, (byte) 0xee, (byte) 0xff, (byte) 0x00, (byte) 0x00,
+            (byte) 0x00, (byte) 0x00}, Conversion.uuidToByteArray(new UUID(
             0xFFEEDDCCBBAA9988L, 0x7766554433221100L), new byte[16], 4, 8));
         assertArrayEquals(new byte[]{
-            (byte)0x00, (byte)0x00, (byte)0x88, (byte)0x99, (byte)0xaa, (byte)0xbb, (byte)0xcc,
-            (byte)0xdd, (byte)0xee, (byte)0xff, (byte)0x00, (byte)0x11, (byte)0x22, (byte)0x33,
-            (byte)0x00, (byte)0x00}, Conversion.uuidToByteArray(new UUID(
+            (byte) 0x00, (byte) 0x00, (byte) 0x88, (byte) 0x99, (byte) 0xaa, (byte) 0xbb, (byte) 0xcc,
+            (byte) 0xdd, (byte) 0xee, (byte) 0xff, (byte) 0x00, (byte) 0x11, (byte) 0x22, (byte) 0x33,
+            (byte) 0x00, (byte) 0x00}, Conversion.uuidToByteArray(new UUID(
             0xFFEEDDCCBBAA9988L, 0x7766554433221100L), new byte[16], 2, 12));
     }
 
@@ -1718,20 +1718,20 @@ public class ConversionTest {
         assertEquals(
             new UUID(0xFFFFFFFFFFFFFFFFL, 0xFFFFFFFFFFFFFFFFL),
             Conversion.byteArrayToUuid(new byte[]{
-                (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,
-                (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,
-                (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff}, 0));
+                (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
+                (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
+                (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff}, 0));
         assertEquals(
             new UUID(0xFFEEDDCCBBAA9988L, 0x7766554433221100L),
             Conversion.byteArrayToUuid(new byte[]{
-                (byte)0x88, (byte)0x99, (byte)0xaa, (byte)0xbb, (byte)0xcc, (byte)0xdd,
-                (byte)0xee, (byte)0xff, (byte)0x00, (byte)0x11, (byte)0x22, (byte)0x33,
-                (byte)0x44, (byte)0x55, (byte)0x66, (byte)0x77}, 0));
+                (byte) 0x88, (byte) 0x99, (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd,
+                (byte) 0xee, (byte) 0xff, (byte) 0x00, (byte) 0x11, (byte) 0x22, (byte) 0x33,
+                (byte) 0x44, (byte) 0x55, (byte) 0x66, (byte) 0x77}, 0));
         assertEquals(
             new UUID(0xFFEEDDCCBBAA9988L, 0x7766554433221100L),
             Conversion.byteArrayToUuid(new byte[]{
-                0, 0, (byte)0x88, (byte)0x99, (byte)0xaa, (byte)0xbb, (byte)0xcc, (byte)0xdd,
-                (byte)0xee, (byte)0xff, (byte)0x00, (byte)0x11, (byte)0x22, (byte)0x33,
-                (byte)0x44, (byte)0x55, (byte)0x66, (byte)0x77}, 2));
+                0, 0, (byte) 0x88, (byte) 0x99, (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd,
+                (byte) 0xee, (byte) 0xff, (byte) 0x00, (byte) 0x11, (byte) 0x22, (byte) 0x33,
+                (byte) 0x44, (byte) 0x55, (byte) 0x66, (byte) 0x77}, 2));
     }
 }

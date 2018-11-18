@@ -32,7 +32,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @since 3.0
  */
-// TODO: Before making public move from getDateTimeInstance(Integer,...) to int; or some other approach.
+// TODO: Before making public move from getDateTimeInstance(Integer, ...) to int; or some other approach.
 abstract class FormatCache<F extends Format> {
 
     /**
@@ -201,7 +201,7 @@ abstract class FormatCache<F extends Format> {
                 } else {
                     formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), locale);
                 }
-                pattern = ((SimpleDateFormat)formatter).toPattern();
+                pattern = ((SimpleDateFormat) formatter).toPattern();
                 final String previous = cDateTimeInstanceCache.putIfAbsent(key, pattern);
                 if (previous != null) {
                     // even though it doesn't matter if another thread put the pattern
@@ -240,7 +240,7 @@ abstract class FormatCache<F extends Format> {
             // Eliminate the usual boilerplate because
             // this inner static class is only used in a generic ConcurrentHashMap
             // which will not compare against other Object types
-            return Arrays.equals(keys, ((MultipartKey)obj).keys);
+            return Arrays.equals(keys, ((MultipartKey) obj).keys);
         }
 
         /**
@@ -248,10 +248,10 @@ abstract class FormatCache<F extends Format> {
          */
         @Override
         public int hashCode() {
-            if(hashCode==0) {
+            if (hashCode==0) {
                 int rc= 0;
-                for(final Object key : keys) {
-                    if(key!=null) {
+                for (final Object key : keys) {
+                    if (key!=null) {
                         rc= rc*7 + key.hashCode();
                     }
                 }

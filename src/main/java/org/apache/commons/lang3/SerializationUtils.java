@@ -134,7 +134,7 @@ public class SerializationUtils {
      */
     public static void serialize(final Serializable obj, final OutputStream outputStream) {
         Validate.isTrue(outputStream != null, "The OutputStream must not be null");
-        try (ObjectOutputStream out = new ObjectOutputStream(outputStream)){
+        try (ObjectOutputStream out = new ObjectOutputStream(outputStream)) {
             out.writeObject(obj);
         } catch (final IOException ex) {
             throw new SerializationException(ex);

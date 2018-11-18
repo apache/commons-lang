@@ -85,9 +85,9 @@ public class StringUtilsStartsEndsWithTest {
 
     @Test
     public void testStartsWithAny() {
-        assertFalse(StringUtils.startsWithAny(null, (String[])null));
+        assertFalse(StringUtils.startsWithAny(null, (String[]) null));
         assertFalse(StringUtils.startsWithAny(null, "abc"));
-        assertFalse(StringUtils.startsWithAny("abcxyz", (String[])null));
+        assertFalse(StringUtils.startsWithAny("abcxyz", (String[]) null));
         assertFalse(StringUtils.startsWithAny("abcxyz"));
         assertTrue(StringUtils.startsWithAny("abcxyz", "abc"));
         assertTrue(StringUtils.startsWithAny("abcxyz", null, "xyz", "abc"));
@@ -124,10 +124,10 @@ public class StringUtilsStartsEndsWithTest {
         assertFalse(StringUtils.endsWith(foobar, BAR), "endsWith(foobar, BAR)");
         assertFalse(StringUtils.endsWith(FOOBAR, bar), "endsWith(FOOBAR, bar)");
 
-        // "alpha,beta,gamma,delta".endsWith("delta")
+        // "alpha, beta, gamma, delta".endsWith("delta")
         assertTrue(StringUtils.endsWith("\u03B1\u03B2\u03B3\u03B4", "\u03B4"),
                 "endsWith(\u03B1\u03B2\u03B3\u03B4, \u03B4)");
-        // "alpha,beta,gamma,delta".endsWith("gamma,DELTA")
+        // "alpha, beta, gamma, delta".endsWith("gamma, DELTA")
         assertFalse(StringUtils.endsWith("\u03B1\u03B2\u03B3\u03B4", "\u03B3\u0394"),
                 "endsWith(\u03B1\u03B2\u03B3\u03B4, \u03B3\u0394)");
     }
@@ -160,19 +160,19 @@ public class StringUtilsStartsEndsWithTest {
         assertTrue(StringUtils.endsWithIgnoreCase("ABCDEF", "def"));
         assertFalse(StringUtils.endsWithIgnoreCase("ABCDEF", "cde"));
 
-        // "alpha,beta,gamma,delta".endsWith("DELTA")
+        // "alpha, beta, gamma, delta".endsWith("DELTA")
         assertTrue(StringUtils.endsWithIgnoreCase("\u03B1\u03B2\u03B3\u03B4", "\u0394"),
                 "endsWith(\u03B1\u03B2\u03B3\u03B4, \u0394)");
-        // "alpha,beta,gamma,delta".endsWith("GAMMA")
+        // "alpha, beta, gamma, delta".endsWith("GAMMA")
         assertFalse(StringUtils.endsWithIgnoreCase("\u03B1\u03B2\u03B3\u03B4", "\u0393"),
                 "endsWith(\u03B1\u03B2\u03B3\u03B4, \u0393)");
     }
 
     @Test
     public void testEndsWithAny() {
-        assertFalse(StringUtils.endsWithAny(null, (String)null), "StringUtils.endsWithAny(null, null)");
+        assertFalse(StringUtils.endsWithAny(null, (String) null), "StringUtils.endsWithAny(null, null)");
         assertFalse(StringUtils.endsWithAny(null, new String[] {"abc"}), "StringUtils.endsWithAny(null, new String[] {abc})");
-        assertFalse(StringUtils.endsWithAny("abcxyz", (String)null), "StringUtils.endsWithAny(abcxyz, null)");
+        assertFalse(StringUtils.endsWithAny("abcxyz", (String) null), "StringUtils.endsWithAny(abcxyz, null)");
         assertTrue(StringUtils.endsWithAny("abcxyz", new String[] {""}), "StringUtils.endsWithAny(abcxyz, new String[] {\"\"})");
         assertTrue(StringUtils.endsWithAny("abcxyz", new String[] {"xyz"}), "StringUtils.endsWithAny(abcxyz, new String[] {xyz})");
         assertTrue(StringUtils.endsWithAny("abcxyz", new String[] {null, "xyz", "abc"}), "StringUtils.endsWithAny(abcxyz, new String[] {null, xyz, abc})");

@@ -1662,7 +1662,7 @@ public class DateUtils {
      * @since 2.4
      */
     private static long getFragment(final Calendar calendar, final int fragment, final TimeUnit unit) {
-        if(calendar == null) {
+        if (calendar == null) {
             throw  new IllegalArgumentException("The date must not be null");
         }
 
@@ -1701,7 +1701,7 @@ public class DateUtils {
             case Calendar.SECOND:
                 result += unit.convert(calendar.get(Calendar.MILLISECOND), TimeUnit.MILLISECONDS);
                 break;
-            case Calendar.MILLISECOND: break;//never useful
+            case Calendar.MILLISECOND: break; //never useful
                 default: throw new IllegalArgumentException("The fragment " + fragment + " is not supported");
         }
         return result;

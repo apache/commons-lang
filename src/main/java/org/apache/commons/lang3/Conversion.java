@@ -359,7 +359,7 @@ public class Conversion {
      * ordering.
      * </p>
      * <p>
-     * (1, 0, 0, 0) is converted as follow: '8' (1,0,0,1,1,0,1,0) with srcPos = 3 is converted
+     * (1, 0, 0, 0) is converted as follow: '8' (1, 0, 0, 1, 1, 0, 1, 0) with srcPos = 3 is converted
      * to 'D'
      * </p>
      *
@@ -407,7 +407,7 @@ public class Conversion {
      * bit ordering to a hexadecimal digit.
      * </p>
      * <p>
-     * (1, 0, 0, 0) is converted as follow: '8' (1,0,0,0,0,0,0,0, 0,0,0,0,0,1,0,0) is converted
+     * (1, 0, 0, 0) is converted as follow: '8' (1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0) is converted
      * to '4'
      * </p>
      *
@@ -426,8 +426,8 @@ public class Conversion {
      * hexadecimal digit.
      * </p>
      * <p>
-     * (1, 0, 0, 0) with srcPos = 0 is converted as follow: '8' (1,0,0,0,0,0,0,0,
-     * 0,0,0,1,0,1,0,0) with srcPos = 2 is converted to '5'
+     * (1, 0, 0, 0) with srcPos = 0 is converted as follow: '8' (1, 0, 0, 0, 0, 0, 0, 0,
+     * 0, 0, 0, 1, 0, 1, 0, 0) with srcPos = 2 is converted to '5'
      * </p>
      *
      * @param src the binary to convert

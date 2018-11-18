@@ -124,7 +124,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      * @return the exception message <b>with</b> context information appended, never null
      */
     @Override
-    public String getFormattedExceptionMessage(final String baseMessage){
+    public String getFormattedExceptionMessage(final String baseMessage) {
         final StringBuilder buffer = new StringBuilder(256);
         if (baseMessage != null) {
             buffer.append(baseMessage);

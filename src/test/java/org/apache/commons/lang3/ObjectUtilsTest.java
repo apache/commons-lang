@@ -226,7 +226,7 @@ public class ObjectUtilsTest {
         ObjectUtils.identityToString(buffer, i);
         assertEquals(expected, buffer.toString());
 
-        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StringBuffer)null, "tmp"));
+        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StringBuffer) null, "tmp"));
         assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString(new StringBuffer(), null));
     }
 
@@ -277,7 +277,7 @@ public class ObjectUtilsTest {
 
     @Test
     public  void testIdentityToStringStringBuilderNullStringBuilder() {
-        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StringBuilder)null, "tmp"));
+        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StringBuilder) null, "tmp"));
     }
 
     @Test
@@ -289,7 +289,7 @@ public class ObjectUtilsTest {
         ObjectUtils.identityToString(builder, i);
         assertEquals(expected, builder.toString());
 
-        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StrBuilder)null, "tmp"));
+        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StrBuilder) null, "tmp"));
 
         assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString(new StrBuilder(), null));
     }
@@ -303,11 +303,11 @@ public class ObjectUtilsTest {
         ObjectUtils.identityToString(appendable, i);
         assertEquals(expected, appendable.toString());
 
-        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((Appendable)null, "tmp"));
+        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((Appendable) null, "tmp"));
 
         assertThrows(
                 NullPointerException.class,
-                () -> ObjectUtils.identityToString((Appendable)(new StringBuilder()), null));
+                () -> ObjectUtils.identityToString((Appendable) (new StringBuilder()), null));
     }
 
     @Test
@@ -631,7 +631,7 @@ public class ObjectUtilsTest {
 
         @Override
         public CloneableString clone() throws CloneNotSupportedException {
-            return (CloneableString)super.clone();
+            return (CloneableString) super.clone();
         }
     }
 

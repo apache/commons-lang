@@ -256,7 +256,7 @@ public class StringUtils {
       if (ArrayUtils.isEmpty(css)) {
         return false;
       }
-      for (final CharSequence cs : css){
+      for (final CharSequence cs : css) {
         if (isEmpty(cs)) {
           return true;
         }
@@ -400,7 +400,7 @@ public class StringUtils {
       if (ArrayUtils.isEmpty(css)) {
         return false;
       }
-      for (final CharSequence cs : css){
+      for (final CharSequence cs : css) {
         if (isBlank(cs)) {
           return true;
         }
@@ -952,10 +952,10 @@ public class StringUtils {
      */
     // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their unaccented equivalent (and uncommitted bug fix: https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
     public static String stripAccents(final String input) {
-        if(input == null) {
+        if (input == null) {
             return null;
         }
-        final Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");//$NON-NLS-1$
+        final Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
         final StringBuilder decomposed = new StringBuilder(Normalizer.normalize(input, Normalizer.Form.NFD));
         convertRemainingAccentCharacters(decomposed);
         // Note that this doesn't correctly remove ligatures...
@@ -1488,9 +1488,9 @@ public class StringUtils {
      *
      * <p>Matches may overlap:</p>
      * <pre>
-     * StringUtils.ordinalIndexOf("ababab","aba", 1)   = 0
-     * StringUtils.ordinalIndexOf("ababab","aba", 2)   = 2
-     * StringUtils.ordinalIndexOf("ababab","aba", 3)   = -1
+     * StringUtils.ordinalIndexOf("ababab", "aba", 1)   = 0
+     * StringUtils.ordinalIndexOf("ababab", "aba", 2)   = 2
+     * StringUtils.ordinalIndexOf("ababab", "aba", 3)   = -1
      *
      * StringUtils.ordinalIndexOf("abababab", "abab", 1) = 0
      * StringUtils.ordinalIndexOf("abababab", "abab", 2) = 2
@@ -1530,7 +1530,7 @@ public class StringUtils {
      * @return the n-th index of the search CharSequence,
      *  {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input
      */
-    // Shared code between ordinalIndexOf(String,String,int) and lastOrdinalIndexOf(String,String,int)
+    // Shared code between ordinalIndexOf(String, String, int) and lastOrdinalIndexOf(String, String, int)
     private static int ordinalIndexOf(final CharSequence str, final CharSequence searchStr, final int ordinal, final boolean lastIndex) {
         if (str == null || searchStr == null || ordinal <= 0) {
             return INDEX_NOT_FOUND;
@@ -2057,13 +2057,13 @@ public class StringUtils {
      * A {@code null} or zero length search array will return {@code -1}.</p>
      *
      * <pre>
-     * StringUtils.indexOfAny(null, *)                = -1
-     * StringUtils.indexOfAny("", *)                  = -1
-     * StringUtils.indexOfAny(*, null)                = -1
-     * StringUtils.indexOfAny(*, [])                  = -1
-     * StringUtils.indexOfAny("zzabyycdxx",['z','a']) = 0
-     * StringUtils.indexOfAny("zzabyycdxx",['b','y']) = 3
-     * StringUtils.indexOfAny("aba", ['z'])           = -1
+     * StringUtils.indexOfAny(null, *)                  = -1
+     * StringUtils.indexOfAny("", *)                    = -1
+     * StringUtils.indexOfAny(*, null)                  = -1
+     * StringUtils.indexOfAny(*, [])                    = -1
+     * StringUtils.indexOfAny("zzabyycdxx", ['z', 'a']) = 0
+     * StringUtils.indexOfAny("zzabyycdxx", ['b', 'y']) = 3
+     * StringUtils.indexOfAny("aba", ['z'])             = -1
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
@@ -2112,7 +2112,7 @@ public class StringUtils {
      * StringUtils.indexOfAny(*, "")              = -1
      * StringUtils.indexOfAny("zzabyycdxx", "za") = 0
      * StringUtils.indexOfAny("zzabyycdxx", "by") = 3
-     * StringUtils.indexOfAny("aba","z")          = -1
+     * StringUtils.indexOfAny("aba", "z")         = -1
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
@@ -2138,14 +2138,14 @@ public class StringUtils {
      * A {@code null} or zero length search array will return {@code false}.</p>
      *
      * <pre>
-     * StringUtils.containsAny(null, *)                = false
-     * StringUtils.containsAny("", *)                  = false
-     * StringUtils.containsAny(*, null)                = false
-     * StringUtils.containsAny(*, [])                  = false
-     * StringUtils.containsAny("zzabyycdxx",['z','a']) = true
-     * StringUtils.containsAny("zzabyycdxx",['b','y']) = true
-     * StringUtils.containsAny("zzabyycdxx",['z','y']) = true
-     * StringUtils.containsAny("aba", ['z'])           = false
+     * StringUtils.containsAny(null, *)                  = false
+     * StringUtils.containsAny("", *)                    = false
+     * StringUtils.containsAny(*, null)                  = false
+     * StringUtils.containsAny(*, [])                    = false
+     * StringUtils.containsAny("zzabyycdxx", ['z', 'a']) = true
+     * StringUtils.containsAny("zzabyycdxx", ['b', 'y']) = true
+     * StringUtils.containsAny("zzabyycdxx", ['z', 'y']) = true
+     * StringUtils.containsAny("aba", ['z'])             = false
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
@@ -2205,7 +2205,7 @@ public class StringUtils {
      * StringUtils.containsAny("zzabyycdxx", "zy")    = true
      * StringUtils.containsAny("zzabyycdxx", "\tx")   = true
      * StringUtils.containsAny("zzabyycdxx", "$.#yF") = true
-     * StringUtils.containsAny("aba","z")             = false
+     * StringUtils.containsAny("aba", "z")            = false
      * </pre>
      *
      * @param cs
@@ -2327,7 +2327,7 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut(*, "")              = -1
      * StringUtils.indexOfAnyBut("zzabyycdxx", "za") = 3
      * StringUtils.indexOfAnyBut("zzabyycdxx", "")   = -1
-     * StringUtils.indexOfAnyBut("aba","ab")         = -1
+     * StringUtils.indexOfAnyBut("aba", "ab")        = -1
      * </pre>
      *
      * @param seq  the CharSequence to check, may be null
@@ -2523,16 +2523,16 @@ public class StringUtils {
      * null. This method uses {@link String#indexOf(String)} if possible.</p>
      *
      * <pre>
-     * StringUtils.indexOfAny(null, *)                     = -1
-     * StringUtils.indexOfAny(*, null)                     = -1
-     * StringUtils.indexOfAny(*, [])                       = -1
-     * StringUtils.indexOfAny("zzabyycdxx", ["ab","cd"])   = 2
-     * StringUtils.indexOfAny("zzabyycdxx", ["cd","ab"])   = 2
-     * StringUtils.indexOfAny("zzabyycdxx", ["mn","op"])   = -1
-     * StringUtils.indexOfAny("zzabyycdxx", ["zab","aby"]) = 1
-     * StringUtils.indexOfAny("zzabyycdxx", [""])          = 0
-     * StringUtils.indexOfAny("", [""])                    = 0
-     * StringUtils.indexOfAny("", ["a"])                   = -1
+     * StringUtils.indexOfAny(null, *)                      = -1
+     * StringUtils.indexOfAny(*, null)                      = -1
+     * StringUtils.indexOfAny(*, [])                        = -1
+     * StringUtils.indexOfAny("zzabyycdxx", ["ab", "cd"])   = 2
+     * StringUtils.indexOfAny("zzabyycdxx", ["cd", "ab"])   = 2
+     * StringUtils.indexOfAny("zzabyycdxx", ["mn", "op"])   = -1
+     * StringUtils.indexOfAny("zzabyycdxx", ["zab", "aby"]) = 1
+     * StringUtils.indexOfAny("zzabyycdxx", [""])           = 0
+     * StringUtils.indexOfAny("", [""])                     = 0
+     * StringUtils.indexOfAny("", ["a"])                    = -1
      * </pre>
      *
      * @param str  the CharSequence to check, may be null
@@ -2576,15 +2576,15 @@ public class StringUtils {
      * if {@code str} is not null. This method uses {@link String#indexOf(String)} if possible</p>
      *
      * <pre>
-     * StringUtils.lastIndexOfAny(null, *)                   = -1
-     * StringUtils.lastIndexOfAny(*, null)                   = -1
-     * StringUtils.lastIndexOfAny(*, [])                     = -1
-     * StringUtils.lastIndexOfAny(*, [null])                 = -1
-     * StringUtils.lastIndexOfAny("zzabyycdxx", ["ab","cd"]) = 6
-     * StringUtils.lastIndexOfAny("zzabyycdxx", ["cd","ab"]) = 6
-     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn","op"]) = -1
-     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn","op"]) = -1
-     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn",""])   = 10
+     * StringUtils.lastIndexOfAny(null, *)                    = -1
+     * StringUtils.lastIndexOfAny(*, null)                    = -1
+     * StringUtils.lastIndexOfAny(*, [])                      = -1
+     * StringUtils.lastIndexOfAny(*, [null])                  = -1
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["ab", "cd"]) = 6
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["cd", "ab"]) = 6
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn", "op"]) = -1
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn", "op"]) = -1
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn", ""])   = 10
      * </pre>
      *
      * @param str  the CharSequence to check, may be null
@@ -4910,7 +4910,7 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(remove)) {
             return str;
         }
-        if (str.startsWith(remove)){
+        if (str.startsWith(remove)) {
             return str.substring(remove.length());
         }
         return str;
@@ -6161,7 +6161,7 @@ public class StringUtils {
      */
     @Deprecated
     public static String chomp(final String str, final String separator) {
-        return removeEnd(str,separator);
+        return removeEnd(str, separator);
     }
 
     // Chopping
@@ -6289,7 +6289,7 @@ public class StringUtils {
      * @since 2.5
      */
     public static String repeat(final String str, final String separator, final int repeat) {
-        if(str == null || separator == null) {
+        if (str == null || separator == null) {
             return repeat(str, repeat);
         }
         // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
@@ -8176,8 +8176,8 @@ public class StringUtils {
      * <pre>
      * StringUtils.getLevenshteinDistance(null, *)             = IllegalArgumentException
      * StringUtils.getLevenshteinDistance(*, null)             = IllegalArgumentException
-     * StringUtils.getLevenshteinDistance("","")               = 0
-     * StringUtils.getLevenshteinDistance("","a")              = 1
+     * StringUtils.getLevenshteinDistance("", "")              = 0
+     * StringUtils.getLevenshteinDistance("", "a")             = 1
      * StringUtils.getLevenshteinDistance("aaapppp", "")       = 7
      * StringUtils.getLevenshteinDistance("frog", "fog")       = 1
      * StringUtils.getLevenshteinDistance("fly", "ant")        = 3
@@ -8268,7 +8268,7 @@ public class StringUtils {
      * StringUtils.getLevenshteinDistance(null, *, *)             = IllegalArgumentException
      * StringUtils.getLevenshteinDistance(*, null, *)             = IllegalArgumentException
      * StringUtils.getLevenshteinDistance(*, *, -1)               = IllegalArgumentException
-     * StringUtils.getLevenshteinDistance("","", 0)               = 0
+     * StringUtils.getLevenshteinDistance("", "", 0)              = 0
      * StringUtils.getLevenshteinDistance("aaapppp", "", 8)       = 7
      * StringUtils.getLevenshteinDistance("aaapppp", "", 7)       = 7
      * StringUtils.getLevenshteinDistance("aaapppp", "", 6))      = -1
@@ -8431,8 +8431,8 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.getJaroWinklerDistance(null, null)          = IllegalArgumentException
-     * StringUtils.getJaroWinklerDistance("","")               = 0.0
-     * StringUtils.getJaroWinklerDistance("","a")              = 0.0
+     * StringUtils.getJaroWinklerDistance("", "")              = 0.0
+     * StringUtils.getJaroWinklerDistance("", "a")             = 0.0
      * StringUtils.getJaroWinklerDistance("aaapppp", "")       = 0.0
      * StringUtils.getJaroWinklerDistance("frog", "fog")       = 0.93
      * StringUtils.getJaroWinklerDistance("fly", "ant")        = 0.0

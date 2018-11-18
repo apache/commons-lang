@@ -95,10 +95,10 @@ public class IEEE754rUtils {
      * @return  the smallest of the values
      */
     public static double min(final double a, final double b) {
-        if(Double.isNaN(a)) {
+        if (Double.isNaN(a)) {
             return b;
         } else
-        if(Double.isNaN(b)) {
+        if (Double.isNaN(b)) {
             return a;
         } else {
             return Math.min(a, b);
@@ -129,10 +129,10 @@ public class IEEE754rUtils {
      * @return  the smallest of the values
      */
     public static float min(final float a, final float b) {
-        if(Float.isNaN(a)) {
+        if (Float.isNaN(a)) {
             return b;
         } else
-        if(Float.isNaN(b)) {
+        if (Float.isNaN(b)) {
             return a;
         } else {
             return Math.min(a, b);
@@ -207,10 +207,10 @@ public class IEEE754rUtils {
      * @return  the largest of the values
      */
     public static double max(final double a, final double b) {
-        if(Double.isNaN(a)) {
+        if (Double.isNaN(a)) {
             return b;
         } else
-        if(Double.isNaN(b)) {
+        if (Double.isNaN(b)) {
             return a;
         } else {
             return Math.max(a, b);
@@ -241,10 +241,10 @@ public class IEEE754rUtils {
      * @return  the largest of the values
      */
     public static float max(final float a, final float b) {
-        if(Float.isNaN(a)) {
+        if (Float.isNaN(a)) {
             return b;
         } else
-        if(Float.isNaN(b)) {
+        if (Float.isNaN(b)) {
             return a;
         } else {
             return Math.max(a, b);

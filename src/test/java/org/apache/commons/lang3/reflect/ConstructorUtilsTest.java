@@ -90,7 +90,7 @@ public class ConstructorUtilsTest {
         public TestBean(final Integer first, final int... args) {
             toString = "(Integer, String...)";
             varArgs = new String[args.length];
-            for(int i = 0; i< args.length; ++i) {
+            for (int i = 0; i< args.length; ++i) {
                 varArgs[i] = Integer.toString(args[i]);
             }
         }
@@ -188,7 +188,7 @@ public class ConstructorUtilsTest {
 
         assertThrows(
                 NoSuchMethodException.class,
-                () -> ConstructorUtils.invokeExactConstructor(TestBean.class,NumberUtils.BYTE_ONE));
+                () -> ConstructorUtils.invokeExactConstructor(TestBean.class, NumberUtils.BYTE_ONE));
         assertThrows(
                 NoSuchMethodException.class,
                 () -> ConstructorUtils.invokeExactConstructor(TestBean.class, NumberUtils.LONG_ONE));

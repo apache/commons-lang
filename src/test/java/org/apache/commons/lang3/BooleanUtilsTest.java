@@ -1007,7 +1007,7 @@ public class BooleanUtilsTest {
     }
 
     @Test
-    public void testCompare(){
+    public void testCompare() {
         assertTrue(BooleanUtils.compare(true, false) > 0);
         assertEquals(0, BooleanUtils.compare(true, true));
         assertEquals(0, BooleanUtils.compare(false, false));

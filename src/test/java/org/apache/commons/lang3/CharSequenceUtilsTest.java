@@ -84,7 +84,7 @@ public class CharSequenceUtilsTest {
         final boolean expected;
         final Class<? extends Throwable> throwable;
         TestData(final String source, final boolean ignoreCase, final int toffset,
-                final String other, final int ooffset, final int len, final boolean expected){
+                final String other, final int ooffset, final int len, final boolean expected) {
             this.source = source;
             this.ignoreCase = ignoreCase;
             this.toffset = toffset;
@@ -95,7 +95,7 @@ public class CharSequenceUtilsTest {
             this.throwable = null;
         }
         TestData(final String source, final boolean ignoreCase, final int toffset,
-                final String other, final int ooffset, final int len, final Class<? extends Throwable> throwable){
+                final String other, final int ooffset, final int len, final Class<? extends Throwable> throwable) {
             this.source = source;
             this.ignoreCase = ignoreCase;
             this.toffset = toffset;
@@ -106,7 +106,7 @@ public class CharSequenceUtilsTest {
             this.throwable = throwable;
         }
         @Override
-        public String toString(){
+        public String toString() {
             final StringBuilder sb = new StringBuilder();
             sb.append(source).append("[").append(toffset).append("]");
             sb.append(ignoreCase? " caseblind ":" samecase ");
@@ -134,8 +134,8 @@ public class CharSequenceUtilsTest {
             new TestData("Abc", false,     0,     "abc", 0,     3,     false),
             new TestData("Abc", true,      1,     "abc", 1,     2,     true),
             new TestData("Abc", false,     1,     "abc", 1,     2,     true),
-            new TestData("Abcd",true,      1,     "abcD",1,     2,     true),
-            new TestData("Abcd",false,     1,     "abcD",1,     2,     true),
+            new TestData("Abcd", true,      1,     "abcD", 1,     2,     true),
+            new TestData("Abcd", false,     1,     "abcD", 1,     2,     true),
     };
 
     private abstract static class RunTest {

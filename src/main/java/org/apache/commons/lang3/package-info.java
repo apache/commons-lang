@@ -61,7 +61,7 @@
  * <p>SystemUtils is a simple little class which makes it easy to find out information about which platform you are on.
  * For some, this is a necessary evil. It was never something I expected to use myself until I was trying to ensure that Commons Lang itself compiled under JDK 1.2.
  * Having pushed out a few JDK 1.3 bits that had slipped in (<code>Collections.EMPTY_MAP</code> is a classic offender), I then found that one of the Unit Tests was dying mysteriously under JDK 1.2, but ran fine under JDK 1.3.
- * There was no obvious solution and I needed to move onwards, so the simple solution was to wrap that particular test in a <code>if(SystemUtils.isJavaVersionAtLeast(1.3f)) {</code>, make a note and move on.</p>
+ * There was no obvious solution and I needed to move onwards, so the simple solution was to wrap that particular test in a <code>if (SystemUtils.isJavaVersionAtLeast(1.3f)) {</code>, make a note and move on.</p>
  *
  * <p>The {@link org.apache.commons.lang3.CharEncoding} class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment. </p>
  *

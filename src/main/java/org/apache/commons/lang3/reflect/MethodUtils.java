@@ -77,7 +77,7 @@ public class MethodUtils {
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -99,7 +99,7 @@ public class MethodUtils {
      * <p>Invokes a named method without parameters.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,boolean forceAccess,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, boolean forceAccess, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -128,7 +128,7 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -156,7 +156,7 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,boolean forceAccess,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, boolean forceAccess, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -261,7 +261,7 @@ public class MethodUtils {
      * types.</p>
      *
      * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod}(Class,String,Class[])}.</p>
+     * {@link #getAccessibleMethod}(Class, String, Class[])}.</p>
      *
      * @param object invoke method on this object
      * @param methodName get method with this name
@@ -284,7 +284,7 @@ public class MethodUtils {
      * <p>Invokes a method with no parameters.</p>
      *
      * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod}(Class,String,Class[])}.</p>
+     * {@link #getAccessibleMethod}(Class, String, Class[])}.</p>
      *
      * @param object invoke method on this object
      * @param methodName get method with this name
@@ -310,7 +310,7 @@ public class MethodUtils {
      * types given.</p>
      *
      * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod(Class,String,Class[])}.</p>
+     * {@link #getAccessibleMethod(Class, String, Class[])}.</p>
      *
      * @param object invoke method on this object
      * @param methodName get method with this name
@@ -482,7 +482,7 @@ public class MethodUtils {
         // Copy the variadic arguments into the varargs array.
         System.arraycopy(args, methodParameterTypes.length - 1, varArgsArray, 0, varArgLength);
 
-        if(varArgComponentType.isPrimitive()) {
+        if (varArgComponentType.isPrimitive()) {
             // unbox from wrapper type to primitive type
             varArgsArray = ArrayUtils.toPrimitive(varArgsArray);
         }

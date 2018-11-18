@@ -44,7 +44,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
     private final TestFixture BOTH_NULL = new TestFixture(null, null);
 
     @Test
-    public void test_NonExclude(){
+    public void test_NonExclude() {
         //normal case=
         String toString = ReflectionToStringBuilder.toString(BOTH_NON_NULL, null, false, false, false, null);
         assertTrue(toString.contains(INTEGER_FIELD_NAME));
@@ -67,7 +67,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
     }
 
     @Test
-    public void test_excludeNull(){
+    public void test_excludeNull() {
 
         //test normal case
         String toString = ReflectionToStringBuilder.toString(BOTH_NON_NULL, null, false, false, true, null);
@@ -91,7 +91,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
     }
 
     @Test
-    public void test_ConstructorOption(){
+    public void test_ConstructorOption() {
         ReflectionToStringBuilder builder = new ReflectionToStringBuilder(BOTH_NON_NULL, null, null, null, false, false, true);
         assertTrue(builder.isExcludeNullValues());
         String toString = builder.toString();
@@ -115,7 +115,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
     }
 
     @Test
-    public void test_ConstructorOptionNormal(){
+    public void test_ConstructorOptionNormal() {
         final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(BOTH_NULL, null, null, null, false, false, false);
         assertFalse(builder.isExcludeNullValues());
         String toString = builder.toString();
@@ -140,7 +140,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
     }
 
     @Test
-    public void test_ConstructorOption_ExcludeNull(){
+    public void test_ConstructorOption_ExcludeNull() {
         ReflectionToStringBuilder builder = new ReflectionToStringBuilder(BOTH_NULL, null, null, null, false, false, false);
         builder.setExcludeNullValues(true);
         assertTrue(builder.isExcludeNullValues());

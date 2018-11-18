@@ -325,7 +325,7 @@ public class CharSetTest  {
 
         set = CharSet.getInstance("^-b");
         array = set.getCharRanges();
-        assertTrue(ArrayUtils.contains(array, CharRange.isIn('^','b'))); // "^-b"
+        assertTrue(ArrayUtils.contains(array, CharRange.isIn('^', 'b'))); // "^-b"
         assertTrue(set.contains('b'));
         assertTrue(set.contains('_')); // between ^ and a
         assertFalse(set.contains('A'));
@@ -333,7 +333,7 @@ public class CharSetTest  {
 
         set = CharSet.getInstance("b-^");
         array = set.getCharRanges();
-        assertTrue(ArrayUtils.contains(array, CharRange.isIn('^','b'))); // "b-^"
+        assertTrue(ArrayUtils.contains(array, CharRange.isIn('^', 'b'))); // "b-^"
         assertTrue(set.contains('b'));
         assertTrue(set.contains('^'));
         assertTrue(set.contains('a')); // between ^ and b

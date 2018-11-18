@@ -344,7 +344,7 @@ public class DurationFormatUtils {
         } else {
             // there are no M's in the format string
 
-            if( !Token.containsTokenWithValue(tokens, y) ) {
+            if ( !Token.containsTokenWithValue(tokens, y) ) {
                 int target = end.get(Calendar.YEAR);
                 if (months < 0) {
                     // target is end-year -1
@@ -369,7 +369,7 @@ public class DurationFormatUtils {
                 years = 0;
             }
 
-            while( start.get(Calendar.MONTH) != end.get(Calendar.MONTH) ) {
+            while ( start.get(Calendar.MONTH) != end.get(Calendar.MONTH) ) {
                 days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
                 start.add(Calendar.MONTH, 1);
             }

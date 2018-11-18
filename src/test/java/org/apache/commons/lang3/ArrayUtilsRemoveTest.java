@@ -52,8 +52,8 @@ public class ArrayUtilsRemoveTest {
     }
 
     @Test
-    public void testRemoveNumberArray(){
-        final Number[] inarray = {Integer.valueOf(1),Long.valueOf(2),Byte.valueOf((byte) 3)};
+    public void testRemoveNumberArray() {
+        final Number[] inarray = {Integer.valueOf(1), Long.valueOf(2), Byte.valueOf((byte) 3)};
         assertEquals(3, inarray.length);
         Number[] outarray;
         outarray = ArrayUtils.remove(inarray, 1);

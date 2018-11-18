@@ -140,8 +140,8 @@ public class StringUtilsEqualsIndexOfTest  {
         assertFalse(StringUtils.equalsIgnoreCase(FOO, BAR));
         assertFalse(StringUtils.equalsIgnoreCase(FOO, null));
         assertFalse(StringUtils.equalsIgnoreCase(null, FOO));
-        assertTrue(StringUtils.equalsIgnoreCase("",""));
-        assertFalse(StringUtils.equalsIgnoreCase("abcd","abcd "));
+        assertTrue(StringUtils.equalsIgnoreCase("", ""));
+        assertFalse(StringUtils.equalsIgnoreCase("abcd", "abcd "));
     }
 
     @Test
@@ -347,7 +347,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(5, StringUtils.indexOf("aabaabaa", "b", 3));
         assertEquals(-1, StringUtils.indexOf("aabaabaa", "b", 9));
         assertEquals(2, StringUtils.indexOf("aabaabaa", "b", -1));
-        assertEquals(2,StringUtils.indexOf("aabaabaa", "", 2));
+        assertEquals(2, StringUtils.indexOf("aabaabaa", "", 2));
 
         // Test that startIndex works correctly, i.e. cannot match before startIndex
         assertEquals(7, StringUtils.indexOf("12345678", "8", 5));
@@ -362,16 +362,16 @@ public class StringUtilsEqualsIndexOfTest  {
     public void testIndexOfAny_StringCharArray() {
         assertEquals(-1, StringUtils.indexOfAny(null, (char[]) null));
         assertEquals(-1, StringUtils.indexOfAny(null, new char[0]));
-        assertEquals(-1, StringUtils.indexOfAny(null, 'a','b'));
+        assertEquals(-1, StringUtils.indexOfAny(null, 'a', 'b'));
 
         assertEquals(-1, StringUtils.indexOfAny("", (char[]) null));
         assertEquals(-1, StringUtils.indexOfAny("", new char[0]));
-        assertEquals(-1, StringUtils.indexOfAny("", 'a','b'));
+        assertEquals(-1, StringUtils.indexOfAny("", 'a', 'b'));
 
         assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", (char[]) null));
         assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", new char[0]));
-        assertEquals(0, StringUtils.indexOfAny("zzabyycdxx", 'z','a'));
-        assertEquals(3, StringUtils.indexOfAny("zzabyycdxx", 'b','y'));
+        assertEquals(0, StringUtils.indexOfAny("zzabyycdxx", 'z', 'a'));
+        assertEquals(3, StringUtils.indexOfAny("zzabyycdxx", 'b', 'y'));
         assertEquals(-1, StringUtils.indexOfAny("ab", 'z'));
     }
 
@@ -436,16 +436,16 @@ public class StringUtilsEqualsIndexOfTest  {
     public void testIndexOfAnyBut_StringCharArray() {
         assertEquals(-1, StringUtils.indexOfAnyBut(null, (char[]) null));
         assertEquals(-1, StringUtils.indexOfAnyBut(null));
-        assertEquals(-1, StringUtils.indexOfAnyBut(null, 'a','b'));
+        assertEquals(-1, StringUtils.indexOfAnyBut(null, 'a', 'b'));
 
         assertEquals(-1, StringUtils.indexOfAnyBut("", (char[]) null));
         assertEquals(-1, StringUtils.indexOfAnyBut(""));
-        assertEquals(-1, StringUtils.indexOfAnyBut("", 'a','b'));
+        assertEquals(-1, StringUtils.indexOfAnyBut("", 'a', 'b'));
 
         assertEquals(-1, StringUtils.indexOfAnyBut("zzabyycdxx", (char[]) null));
         assertEquals(-1, StringUtils.indexOfAnyBut("zzabyycdxx"));
-        assertEquals(3, StringUtils.indexOfAnyBut("zzabyycdxx", 'z','a'));
-        assertEquals(0, StringUtils.indexOfAnyBut("zzabyycdxx", 'b','y'));
+        assertEquals(3, StringUtils.indexOfAnyBut("zzabyycdxx", 'z', 'a'));
+        assertEquals(0, StringUtils.indexOfAnyBut("zzabyycdxx", 'b', 'y'));
         assertEquals(-1, StringUtils.indexOfAnyBut("aba", 'a', 'b'));
         assertEquals(0, StringUtils.indexOfAnyBut("aba", 'z'));
     }

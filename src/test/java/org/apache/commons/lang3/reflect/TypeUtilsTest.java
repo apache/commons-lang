@@ -744,7 +744,7 @@ public class TypeUtilsTest<B> {
     @Test
     public void testLang1114() throws Exception {
         final Type nonWildcardType = getClass().getDeclaredField("wildcardComparable").getGenericType();
-        final Type wildcardType = ((ParameterizedType)nonWildcardType).getActualTypeArguments()[0];
+        final Type wildcardType = ((ParameterizedType) nonWildcardType).getActualTypeArguments()[0];
 
         assertFalse(TypeUtils.equals(wildcardType, nonWildcardType));
         assertFalse(TypeUtils.equals(nonWildcardType, wildcardType));

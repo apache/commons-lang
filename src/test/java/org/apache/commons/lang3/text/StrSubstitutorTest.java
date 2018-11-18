@@ -580,7 +580,7 @@ public class StrSubstitutorTest {
      * Test the replace of a properties object
      */
     @Test
-    public void testSubstituteDefaultProperties(){
+    public void testSubstituteDefaultProperties() {
         final String org = "${doesnotwork}";
         System.setProperty("doesnotwork", "It works!");
 

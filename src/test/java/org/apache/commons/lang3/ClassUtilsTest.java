@@ -158,7 +158,7 @@ public class ClassUtilsTest  {
     // -------------------------------------------------------------------------
     @Test
     public void test_getAbbreviatedName_Class() {
-        assertEquals("", ClassUtils.getAbbreviatedName((Class<?>)null, 1));
+        assertEquals("", ClassUtils.getAbbreviatedName((Class<?>) null, 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName(String.class, 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName(String.class, 5));
         assertEquals("j.lang.String", ClassUtils.getAbbreviatedName(String.class, 13));
@@ -1295,8 +1295,8 @@ public class ClassUtilsTest  {
         assertNull(ClassUtils.primitivesToWrappers((Class<?>[]) null), "null -> null"); // equivalent cast to avoid warning
         // Other possible casts for null
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.primitivesToWrappers()), "empty -> empty");
-        final Class<?>[] castNull = ClassUtils.primitivesToWrappers((Class<?>)null); // == new Class<?>[]{null}
-        assertTrue(Arrays.equals(new Class<?>[]{null}, castNull), "(Class<?>)null -> [null]");
+        final Class<?>[] castNull = ClassUtils.primitivesToWrappers((Class<?>) null); // == new Class<?>[]{null}
+        assertTrue(Arrays.equals(new Class<?>[]{null}, castNull), "(Class<?>) null -> [null]");
         // test empty array is returned unchanged
         assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.primitivesToWrappers(ArrayUtils.EMPTY_CLASS_ARRAY),
                 "empty -> empty");
@@ -1366,7 +1366,7 @@ public class ClassUtilsTest  {
         // Additional varargs tests
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass()), "empty -> empty");
         final Class<?>[] castNull = ClassUtils.toClass((Object) null); // == new Object[]{null}
-        assertTrue(Arrays.equals(new Object[]{null}, castNull), "(Object)null -> [null]");
+        assertTrue(Arrays.equals(new Object[]{null}, castNull), "(Object) null -> [null]");
 
         assertSame(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass(ArrayUtils.EMPTY_OBJECT_ARRAY));
 
@@ -1415,8 +1415,8 @@ public class ClassUtilsTest  {
         assertNull(ClassUtils.wrappersToPrimitives((Class<?>[]) null), "Wrong result for null input"); // equivalent cast
         // Other possible casts for null
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.wrappersToPrimitives()), "empty -> empty");
-        final Class<?>[] castNull = ClassUtils.wrappersToPrimitives((Class<?>)null); // == new Class<?>[]{null}
-        assertTrue(Arrays.equals(new Class<?>[]{null}, castNull), "(Class<?>)null -> [null]");
+        final Class<?>[] castNull = ClassUtils.wrappersToPrimitives((Class<?>) null); // == new Class<?>[]{null}
+        assertTrue(Arrays.equals(new Class<?>[]{null}, castNull), "(Class<?>) null -> [null]");
 }
 
     @Test

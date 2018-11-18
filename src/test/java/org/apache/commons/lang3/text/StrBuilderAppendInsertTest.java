@@ -202,7 +202,7 @@ public class StrBuilderAppendInsertTest {
         sb.append("abcbardef", 3, 3);
         assertEquals("foobar", sb.toString());
 
-        sb.append( (CharSequence)"abcbardef", 4, 3);
+        sb.append((CharSequence) "abcbardef", 4, 3);
         assertEquals("foobarard", sb.toString());
     }
 

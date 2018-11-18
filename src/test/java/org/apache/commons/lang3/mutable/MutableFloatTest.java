@@ -47,7 +47,7 @@ public class MutableFloatTest {
 
     @Test
     public void testConstructorNull() {
-        assertThrows(NullPointerException.class, () -> new MutableFloat((Number)null));
+        assertThrows(NullPointerException.class, () -> new MutableFloat((Number) null));
     }
 
     @Test

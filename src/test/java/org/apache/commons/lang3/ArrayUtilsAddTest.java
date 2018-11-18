@@ -34,12 +34,12 @@ import org.junit.jupiter.api.Test;
 public class ArrayUtilsAddTest {
 
     @Test
-    public void testJira567(){
+    public void testJira567() {
         Number[] n;
         // Valid array construction
         n = ArrayUtils.addAll(new Number[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)});
-        assertEquals(2,n.length);
-        assertEquals(Number.class,n.getClass().getComponentType());
+        assertEquals(2, n.length);
+        assertEquals(Number.class, n.getClass().getComponentType());
         // Invalid - can't store Long in Integer array
         assertThrows(IllegalArgumentException.class,
                 () -> ArrayUtils.addAll(new Integer[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)}));
@@ -63,17 +63,17 @@ public class ArrayUtilsAddTest {
     @Test
     public void testAddObjectArrayByte() {
         byte[] newArray;
-        newArray = ArrayUtils.add((byte[])null, (byte)0);
+        newArray = ArrayUtils.add((byte[]) null, (byte) 0);
         assertTrue(Arrays.equals(new byte[]{0}, newArray));
         assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add((byte[])null, (byte)1);
+        newArray = ArrayUtils.add((byte[]) null, (byte) 1);
         assertTrue(Arrays.equals(new byte[]{1}, newArray));
         assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
         final byte[] array1 = new byte[]{1, 2, 3};
-        newArray = ArrayUtils.add(array1, (byte)0);
+        newArray = ArrayUtils.add(array1, (byte) 0);
         assertTrue(Arrays.equals(new byte[]{1, 2, 3, 0}, newArray));
         assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add(array1, (byte)4);
+        newArray = ArrayUtils.add(array1, (byte) 4);
         assertTrue(Arrays.equals(new byte[]{1, 2, 3, 4}, newArray));
         assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
     }
@@ -81,17 +81,17 @@ public class ArrayUtilsAddTest {
     @Test
     public void testAddObjectArrayChar() {
         char[] newArray;
-        newArray = ArrayUtils.add((char[])null, (char)0);
+        newArray = ArrayUtils.add((char[]) null, (char) 0);
         assertTrue(Arrays.equals(new char[]{0}, newArray));
         assertEquals(Character.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add((char[])null, (char)1);
+        newArray = ArrayUtils.add((char[]) null, (char) 1);
         assertTrue(Arrays.equals(new char[]{1}, newArray));
         assertEquals(Character.TYPE, newArray.getClass().getComponentType());
         final char[] array1 = new char[]{1, 2, 3};
-        newArray = ArrayUtils.add(array1, (char)0);
+        newArray = ArrayUtils.add(array1, (char) 0);
         assertTrue(Arrays.equals(new char[]{1, 2, 3, 0}, newArray));
         assertEquals(Character.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add(array1, (char)4);
+        newArray = ArrayUtils.add(array1, (char) 4);
         assertTrue(Arrays.equals(new char[]{1, 2, 3, 4}, newArray));
         assertEquals(Character.TYPE, newArray.getClass().getComponentType());
     }
@@ -99,10 +99,10 @@ public class ArrayUtilsAddTest {
     @Test
     public void testAddObjectArrayDouble() {
         double[] newArray;
-        newArray = ArrayUtils.add((double[])null, 0);
+        newArray = ArrayUtils.add((double[]) null, 0);
         assertTrue(Arrays.equals(new double[]{0}, newArray));
         assertEquals(Double.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add((double[])null, 1);
+        newArray = ArrayUtils.add((double[]) null, 1);
         assertTrue(Arrays.equals(new double[]{1}, newArray));
         assertEquals(Double.TYPE, newArray.getClass().getComponentType());
         final double[] array1 = new double[]{1, 2, 3};
@@ -117,10 +117,10 @@ public class ArrayUtilsAddTest {
     @Test
     public void testAddObjectArrayFloat() {
         float[] newArray;
-        newArray = ArrayUtils.add((float[])null, 0);
+        newArray = ArrayUtils.add((float[]) null, 0);
         assertTrue(Arrays.equals(new float[]{0}, newArray));
         assertEquals(Float.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add((float[])null, 1);
+        newArray = ArrayUtils.add((float[]) null, 1);
         assertTrue(Arrays.equals(new float[]{1}, newArray));
         assertEquals(Float.TYPE, newArray.getClass().getComponentType());
         final float[] array1 = new float[]{1, 2, 3};
@@ -135,10 +135,10 @@ public class ArrayUtilsAddTest {
     @Test
     public void testAddObjectArrayInt() {
         int[] newArray;
-        newArray = ArrayUtils.add((int[])null, 0);
+        newArray = ArrayUtils.add((int[]) null, 0);
         assertTrue(Arrays.equals(new int[]{0}, newArray));
         assertEquals(Integer.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add((int[])null, 1);
+        newArray = ArrayUtils.add((int[]) null, 1);
         assertTrue(Arrays.equals(new int[]{1}, newArray));
         assertEquals(Integer.TYPE, newArray.getClass().getComponentType());
         final int[] array1 = new int[]{1, 2, 3};
@@ -153,10 +153,10 @@ public class ArrayUtilsAddTest {
     @Test
     public void testAddObjectArrayLong() {
         long[] newArray;
-        newArray = ArrayUtils.add((long[])null, 0);
+        newArray = ArrayUtils.add((long[]) null, 0);
         assertTrue(Arrays.equals(new long[]{0}, newArray));
         assertEquals(Long.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add((long[])null, 1);
+        newArray = ArrayUtils.add((long[]) null, 1);
         assertTrue(Arrays.equals(new long[]{1}, newArray));
         assertEquals(Long.TYPE, newArray.getClass().getComponentType());
         final long[] array1 = new long[]{1, 2, 3};
@@ -171,17 +171,17 @@ public class ArrayUtilsAddTest {
     @Test
     public void testAddObjectArrayShort() {
         short[] newArray;
-        newArray = ArrayUtils.add((short[])null, (short)0);
+        newArray = ArrayUtils.add((short[]) null, (short) 0);
         assertTrue(Arrays.equals(new short[]{0}, newArray));
         assertEquals(Short.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add((short[])null, (short)1);
+        newArray = ArrayUtils.add((short[]) null, (short) 1);
         assertTrue(Arrays.equals(new short[]{1}, newArray));
         assertEquals(Short.TYPE, newArray.getClass().getComponentType());
         final short[] array1 = new short[]{1, 2, 3};
-        newArray = ArrayUtils.add(array1, (short)0);
+        newArray = ArrayUtils.add(array1, (short) 0);
         assertTrue(Arrays.equals(new short[]{1, 2, 3, 0}, newArray));
         assertEquals(Short.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add(array1, (short)4);
+        newArray = ArrayUtils.add(array1, (short) 4);
         assertTrue(Arrays.equals(new short[]{1, 2, 3, 4}, newArray));
         assertEquals(Short.TYPE, newArray.getClass().getComponentType());
     }
@@ -191,7 +191,7 @@ public class ArrayUtilsAddTest {
         Object[] newArray;
 
         //show that not casting is okay
-        newArray = ArrayUtils.add((Object[])null, "a");
+        newArray = ArrayUtils.add((Object[]) null, "a");
         assertTrue(Arrays.equals(new String[]{"a"}, newArray));
         assertTrue(Arrays.equals(new Object[]{"a"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
@@ -224,7 +224,7 @@ public class ArrayUtilsAddTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testLANG571(){
+    public void testLANG571() {
         final String[] stringArray=null;
         final String aString=null;
         assertThrows(IllegalArgumentException.class, () -> ArrayUtils.add(stringArray, aString));
@@ -353,7 +353,7 @@ public class ArrayUtilsAddTest {
     @Test
     public void testAddObjectAtIndex() {
         Object[] newArray;
-        newArray = ArrayUtils.add((Object[])null, 0, "a");
+        newArray = ArrayUtils.add((Object[]) null, 0, "a");
         assertTrue(Arrays.equals(new String[]{"a"}, newArray));
         assertTrue(Arrays.equals(new Object[]{"a"}, newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());

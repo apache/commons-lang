@@ -435,9 +435,9 @@ public class DurationFormatUtilsTest {
     // Testing the under a day range in DurationFormatUtils.formatPeriod
     @Test
     public void testLowDurations() {
-        for(int hr=0; hr < 24; hr++) {
-            for(int min=0; min < 60; min++) {
-                for(int sec=0; sec < 60; sec++) {
+        for (int hr=0; hr < 24; hr++) {
+            for (int min=0; min < 60; min++) {
+                for (int sec=0; sec < 60; sec++) {
                     assertEqualDuration( hr + ":" + min + ":" + sec,
                                          new int[] { 2000, 0, 1, 0, 0, 0, 0 },
                                          new int[] { 2000, 0, 1, hr, min, sec },

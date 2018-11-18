@@ -271,7 +271,7 @@ public class ConstructorUtils {
                         // temporary variable for annotation, see comment above (1)
                         @SuppressWarnings("unchecked")
                         final
-                        Constructor<T> constructor = (Constructor<T>)ctor;
+                        Constructor<T> constructor = (Constructor<T>) ctor;
                         result = constructor;
                     }
                 }

@@ -52,7 +52,7 @@ public class ThreadUtils {
     public static Thread findThreadById(final long threadId, final ThreadGroup threadGroup) {
         Validate.isTrue(threadGroup != null, "The thread group must not be null");
         final Thread thread = findThreadById(threadId);
-        if(thread != null && threadGroup.equals(thread.getThreadGroup())) {
+        if (thread != null && threadGroup.equals(thread.getThreadGroup())) {
             return thread;
         }
         return null;
@@ -75,7 +75,7 @@ public class ThreadUtils {
     public static Thread findThreadById(final long threadId, final String threadGroupName) {
         Validate.isTrue(threadGroupName != null, "The thread group name must not be null");
         final Thread thread = findThreadById(threadId);
-        if(thread != null && thread.getThreadGroup() != null && thread.getThreadGroup().getName().equals(threadGroupName)) {
+        if (thread != null && thread.getThreadGroup() != null && thread.getThreadGroup().getName().equals(threadGroupName)) {
             return thread;
         }
         return null;
@@ -119,13 +119,13 @@ public class ThreadUtils {
 
         final Collection<ThreadGroup> threadGroups = findThreadGroups(new NamePredicate(threadGroupName));
 
-        if(threadGroups.isEmpty()) {
+        if (threadGroups.isEmpty()) {
             return Collections.emptyList();
         }
 
         final Collection<Thread> result = new ArrayList<>();
         final NamePredicate threadNamePredicate = new NamePredicate(threadName);
-        for(final ThreadGroup group : threadGroups) {
+        for (final ThreadGroup group : threadGroups) {
             result.addAll(findThreads(group, false, threadNamePredicate));
         }
         return Collections.unmodifiableCollection(result);
@@ -170,7 +170,7 @@ public class ThreadUtils {
      */
     public static ThreadGroup getSystemThreadGroup() {
         ThreadGroup threadGroup = Thread.currentThread().getThreadGroup();
-        while(threadGroup.getParent() != null) {
+        while (threadGroup.getParent() != null) {
             threadGroup = threadGroup.getParent();
         }
         return threadGroup;
@@ -431,11 +431,11 @@ public class ThreadUtils {
             threadGroups = new ThreadGroup[count + (count / 2) + 1]; //slightly grow the array size
             count = group.enumerate(threadGroups, recurse);
             //return value of enumerate() must be strictly less than the array size according to javadoc
-        } while(count >= threadGroups.length);
+        } while (count >= threadGroups.length);
 
         final List<ThreadGroup> result = new ArrayList<>(count);
-        for(int i = 0; i < count; ++i) {
-            if(predicate.test(threadGroups[i])) {
+        for (int i = 0; i < count; ++i) {
+            if (predicate.test(threadGroups[i])) {
                 result.add(threadGroups[i]);
             }
         }

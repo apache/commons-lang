@@ -292,7 +292,7 @@ public class WordUtils {
         while (offset < inputLineLength) {
             int spaceToWrapAt = -1;
             Matcher matcher = patternToWrapOn.matcher(
-                str.substring(offset, Math.min((int)Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));
+                str.substring(offset, Math.min((int) Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));
             if (matcher.find()) {
                 if (matcher.start() == 0) {
                     offset += matcher.end();
@@ -302,11 +302,11 @@ public class WordUtils {
             }
 
             // only last line without leading spaces is left
-            if(inputLineLength - offset <= wrapLength) {
+            if (inputLineLength - offset <= wrapLength) {
                 break;
             }
 
-            while(matcher.find()){
+            while (matcher.find()) {
                 spaceToWrapAt = matcher.start() + offset;
             }
 

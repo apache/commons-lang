@@ -102,14 +102,14 @@ public class FastDateParserTest {
             getInstance(MDY_SLASH, REYKJAVIK, SWEDEN)
         };
 
-        final Map<DateParser,Integer> map= new HashMap<>();
+        final Map<DateParser, Integer> map= new HashMap<>();
         int i= 0;
-        for(final DateParser parser:parsers) {
+        for (final DateParser parser:parsers) {
             map.put(parser, Integer.valueOf(i++));
         }
 
         i= 0;
-        for(final DateParser parser:parsers) {
+        for (final DateParser parser:parsers) {
             assertEquals(i++, map.get(parser).intValue());
         }
     }
@@ -202,7 +202,7 @@ public class FastDateParserTest {
 
         // http://docs.oracle.com/javase/6/docs/technotes/guides/intl/calendar.doc.html
         if (locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
-            if(year < 1868) {
+            if (year < 1868) {
                 cal.set(Calendar.ERA, 0);
                 cal.set(Calendar.YEAR, 1868-year);
             }
@@ -236,10 +236,10 @@ public class FastDateParserTest {
     @Test
     // Check that all Locales can parse the formats we use
     public void testParses() throws Exception {
-        for(final String format : new String[]{LONG_FORMAT, SHORT_FORMAT}) {
-            for(final Locale locale : Locale.getAvailableLocales()) {
-                for(final TimeZone tz :  new TimeZone[]{NEW_YORK, REYKJAVIK, GMT}) {
-                     for(final int year : new int[]{2003, 1940, 1868, 1867, 1, -1, -1940}) {
+        for (final String format : new String[]{LONG_FORMAT, SHORT_FORMAT}) {
+            for (final Locale locale : Locale.getAvailableLocales()) {
+                for (final TimeZone tz :  new TimeZone[]{NEW_YORK, REYKJAVIK, GMT}) {
+                     for (final int year : new int[]{2003, 1940, 1868, 1867, 1, -1, -1940}) {
                         final Calendar cal= getEraStart(year, tz, locale);
                         final Date centuryStart= cal.getTime();
 
@@ -260,10 +260,10 @@ public class FastDateParserTest {
     @Test
     public void testTzParses() throws Exception {
         // Check that all Locales can parse the time formats we use
-        for(final Locale locale : Locale.getAvailableLocales()) {
+        for (final Locale locale : Locale.getAvailableLocales()) {
             final FastDateParser fdp= new FastDateParser("yyyy/MM/dd z", TimeZone.getDefault(), locale);
 
-            for(final TimeZone tz :  new TimeZone[]{NEW_YORK, REYKJAVIK, GMT}) {
+            for (final TimeZone tz :  new TimeZone[]{NEW_YORK, REYKJAVIK, GMT}) {
                 final Calendar cal= Calendar.getInstance(tz, locale);
                 cal.clear();
                 cal.set(Calendar.YEAR, 2000);
@@ -327,7 +327,7 @@ public class FastDateParserTest {
             cal.set(Calendar.ERA, GregorianCalendar.BC);
         }
 
-        for(final Locale locale : Locale.getAvailableLocales() ) {
+        for (final Locale locale : Locale.getAvailableLocales() ) {
             // ja_JP_JP cannot handle dates before 1868 properly
             if (eraBC && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
                 continue;
@@ -395,13 +395,13 @@ public class FastDateParserTest {
 
     @Test
     public void testSpecialCharacters() throws Exception {
-        testSdfAndFdp("q" ,"", true); // bad pattern character (at present)
-        testSdfAndFdp("Q" ,"", true); // bad pattern character
-        testSdfAndFdp("$" ,"$", false); // OK
-        testSdfAndFdp("?.d" ,"?.12", false); // OK
+        testSdfAndFdp("q" , "", true); // bad pattern character (at present)
+        testSdfAndFdp("Q" , "", true); // bad pattern character
+        testSdfAndFdp("$" , "$", false); // OK
+        testSdfAndFdp("?.d" , "?.12", false); // OK
         testSdfAndFdp("''yyyyMMdd'A''B'HHmmssSSS''", "'20030210A'B153320989'", false); // OK
         testSdfAndFdp("''''yyyyMMdd'A''B'HHmmssSSS''", "''20030210A'B153320989'", false); // OK
-        testSdfAndFdp("'$\\Ed'" ,"$\\Ed", false); // OK
+        testSdfAndFdp("'$\\Ed'" , "$\\Ed", false); // OK
 
         // quoted charaters are case sensitive
         testSdfAndFdp("'QED'", "QED", false);
@@ -413,13 +413,13 @@ public class FastDateParserTest {
 
     @Test
     public void testLANG_832() throws Exception {
-        testSdfAndFdp("'d'd" ,"d3", false); // OK
-        testSdfAndFdp("'d'd'","d3", true); // should fail (unterminated quote)
+        testSdfAndFdp("'d'd" , "d3", false); // OK
+        testSdfAndFdp("'d'd'", "d3", true); // should fail (unterminated quote)
     }
 
     @Test
     public void testLANG_831() throws Exception {
-        testSdfAndFdp("M E","3  Tue", true);
+        testSdfAndFdp("M E", "3  Tue", true);
     }
 
     private void testSdfAndFdp(final String format, final String date, final boolean shouldFail)
@@ -433,7 +433,7 @@ public class FastDateParserTest {
             final SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
             sdf.setTimeZone(NEW_YORK);
             dsdf = sdf.parse(date);
-            assertFalse(shouldFail, "Expected SDF failure, but got " + dsdf + " for ["+format+","+date+"]");
+            assertFalse(shouldFail, "Expected SDF failure, but got " + dsdf + " for ["+format+", "+date+"]");
         } catch (final Exception e) {
             s = e;
             if (!shouldFail) {
@@ -444,7 +444,7 @@ public class FastDateParserTest {
         try {
             final DateParser fdp = getInstance(format, NEW_YORK, Locale.US);
             dfdp = fdp.parse(date);
-            assertFalse(shouldFail, "Expected FDF failure, but got " + dfdp + " for ["+format+","+date+"]");
+            assertFalse(shouldFail, "Expected FDF failure, but got " + dfdp + " for ["+format+", "+date+"]");
         } catch (final Exception e) {
             f = e;
             if (!shouldFail) {

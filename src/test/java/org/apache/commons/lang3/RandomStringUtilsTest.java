@@ -65,7 +65,7 @@ public class RandomStringUtilsTest {
 
         r1 = RandomStringUtils.randomAscii(50);
         assertEquals(50, r1.length(), "randomAscii(50) length");
-        for(int i = 0; i < r1.length(); i++) {
+        for (int i = 0; i < r1.length(); i++) {
             assertTrue(r1.charAt(i) >= 32 && r1.charAt(i) <= 127, "char between 32 and 127");
         }
         r2 = RandomStringUtils.randomAscii(50);
@@ -73,7 +73,7 @@ public class RandomStringUtilsTest {
 
         r1 = RandomStringUtils.randomAlphabetic(50);
         assertEquals(50, r1.length(), "randomAlphabetic(50)");
-        for(int i = 0; i < r1.length(); i++) {
+        for (int i = 0; i < r1.length(); i++) {
             assertTrue(Character.isLetter(r1.charAt(i)) && !Character.isDigit(r1.charAt(i)), "r1 contains alphabetic");
         }
         r2 = RandomStringUtils.randomAlphabetic(50);
@@ -81,7 +81,7 @@ public class RandomStringUtilsTest {
 
         r1 = RandomStringUtils.randomAlphanumeric(50);
         assertEquals(50, r1.length(), "randomAlphanumeric(50)");
-        for(int i = 0; i < r1.length(); i++) {
+        for (int i = 0; i < r1.length(); i++) {
             assertTrue(Character.isLetterOrDigit(r1.charAt(i)), "r1 contains alphanumeric");
         }
         r2 = RandomStringUtils.randomAlphabetic(50);
@@ -89,7 +89,7 @@ public class RandomStringUtilsTest {
 
         r1 = RandomStringUtils.randomGraph(50);
         assertEquals(50, r1.length(), "randomGraph(50) length");
-        for(int i = 0; i < r1.length(); i++) {
+        for (int i = 0; i < r1.length(); i++) {
             assertTrue(r1.charAt(i) >= 33 && r1.charAt(i) <= 126, "char between 33 and 126");
         }
         r2 = RandomStringUtils.randomGraph(50);
@@ -97,7 +97,7 @@ public class RandomStringUtilsTest {
 
         r1 = RandomStringUtils.randomNumeric(50);
         assertEquals(50, r1.length(), "randomNumeric(50)");
-        for(int i = 0; i < r1.length(); i++) {
+        for (int i = 0; i < r1.length(); i++) {
             assertTrue(Character.isDigit(r1.charAt(i)) && !Character.isLetter(r1.charAt(i)), "r1 contains numeric");
         }
         r2 = RandomStringUtils.randomNumeric(50);
@@ -105,7 +105,7 @@ public class RandomStringUtilsTest {
 
         r1 = RandomStringUtils.randomPrint(50);
         assertEquals(50, r1.length(), "randomPrint(50) length");
-        for(int i = 0; i < r1.length(); i++) {
+        for (int i = 0; i < r1.length(); i++) {
             assertTrue(r1.charAt(i) >= 32 && r1.charAt(i) <= 126, "char between 32 and 126");
         }
         r2 = RandomStringUtils.randomPrint(50);
@@ -114,7 +114,7 @@ public class RandomStringUtilsTest {
         String set = "abcdefg";
         r1 = RandomStringUtils.random(50, set);
         assertEquals(50, r1.length(), "random(50, \"abcdefg\")");
-        for(int i = 0; i < r1.length(); i++) {
+        for (int i = 0; i < r1.length(); i++) {
             assertTrue(set.indexOf(r1.charAt(i)) > -1, "random char in set");
         }
         r2 = RandomStringUtils.random(50, set);
@@ -129,7 +129,7 @@ public class RandomStringUtilsTest {
         set = "stuvwxyz";
         r1 = RandomStringUtils.random(50, set.toCharArray());
         assertEquals(50, r1.length(), "random(50, \"stuvwxyz\")");
-        for(int i = 0; i < r1.length(); i++) {
+        for (int i = 0; i < r1.length(); i++) {
             assertTrue(set.indexOf(r1.charAt(i)) > -1, "random char in set");
         }
         r2 = RandomStringUtils.random(50, set);
@@ -142,8 +142,8 @@ public class RandomStringUtilsTest {
         assertTrue(!r1.equals(r2), "!r1.equals(r2)");
 
         final long seed = System.currentTimeMillis();
-        r1 = RandomStringUtils.random(50,0,0,true,true,null,new Random(seed));
-        r2 = RandomStringUtils.random(50,0,0,true,true,null,new Random(seed));
+        r1 = RandomStringUtils.random(50, 0, 0, true, true, null, new Random(seed));
+        r2 = RandomStringUtils.random(50, 0, 0, true, true, null, new Random(seed));
         assertEquals(r1, r2, "r1.equals(r2)");
 
         r1 = RandomStringUtils.random(0);
@@ -153,13 +153,13 @@ public class RandomStringUtilsTest {
     @Test
     public void testLANG805() {
         final long seed = System.currentTimeMillis();
-        assertEquals("aaa", RandomStringUtils.random(3,0,0,false,false,new char[]{'a'},new Random(seed)));
+        assertEquals("aaa", RandomStringUtils.random(3, 0, 0, false, false, new char[]{'a'}, new Random(seed)));
     }
 
     @Test
     public void testLANG807() {
         IllegalArgumentException ex =
-                assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(3,5,5,false,false));
+                assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(3, 5, 5, false, false));
         final String msg = ex.getMessage();
         assertTrue(msg.contains("start"), "Message (" + msg + ") must contain 'start'");
         assertTrue(msg.contains("end"), "Message (" + msg + ") must contain 'end'");
@@ -212,7 +212,7 @@ public class RandomStringUtilsTest {
      */
     @Test
     public void testRandomNumeric() {
-        final char[] testChars = {'0','9'};
+        final char[] testChars = {'0', '9'};
         final boolean[] found = {false, false};
         for (int i = 0; i < 100; i++) {
             final String randString = RandomStringUtils.randomNumeric(10);
@@ -439,7 +439,7 @@ public class RandomStringUtilsTest {
         final int[] counts = {0, 0, 0};
         final int[] expected = {200, 200, 200};
         for (int i = 0; i< 100; i++) {
-            gen = RandomStringUtils.random(6,chars);
+            gen = RandomStringUtils.random(6, chars);
             for (int j = 0; j < 6; j++) {
                 switch (gen.charAt(j)) {
                     case 'a': {
@@ -461,7 +461,7 @@ public class RandomStringUtilsTest {
             }
         }
         // Perform chi-square test with df = 3-1 = 2, testing at .001 level
-        assertTrue(chiSquare(expected,counts) < 13.82, "test homogeneity -- will fail about 1 in 1000 times");
+        assertTrue(chiSquare(expected, counts) < 13.82, "test homogeneity -- will fail about 1 in 1000 times");
     }
 
     /**

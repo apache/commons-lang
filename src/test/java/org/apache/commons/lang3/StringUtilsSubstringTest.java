@@ -70,7 +70,7 @@ public class StringUtilsSubstringTest  {
         assertEquals("o", StringUtils.substring(SENTENCE, -9, -8));
         assertEquals(SENTENCE, StringUtils.substring(SENTENCE, 0, 80));
         assertEquals("", StringUtils.substring(SENTENCE, 2, 2));
-        assertEquals("b",StringUtils.substring("abc", -2, -1));
+        assertEquals("b", StringUtils.substring("abc", -2, -1));
     }
 
     @Test

@@ -3150,7 +3150,7 @@ public class StringUtilsTest {
         final int orphanedLowSurrogate = 0xDC00;
         final int supplementary = 0x2070E;
 
-        final int[] codePoints = {'a', orphanedHighSurrogate, 'b','c', supplementary,
+        final int[] codePoints = {'a', orphanedHighSurrogate, 'b', 'c', supplementary,
                 'd', orphanedLowSurrogate, 'e'};
         final String s = new String(codePoints, 0, codePoints.length);
         assertArrayEquals(codePoints, StringUtils.toCodePoints(s));

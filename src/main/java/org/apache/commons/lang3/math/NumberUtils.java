@@ -122,7 +122,7 @@ public class NumberUtils {
      * @since 2.1
      */
     public static int toInt(final String str, final int defaultValue) {
-        if(str == null) {
+        if (str == null) {
             return defaultValue;
         }
         try {
@@ -366,7 +366,7 @@ public class NumberUtils {
      * @since 2.5
      */
     public static byte toByte(final String str, final byte defaultValue) {
-        if(str == null) {
+        if (str == null) {
             return defaultValue;
         }
         try {
@@ -415,7 +415,7 @@ public class NumberUtils {
      * @since 2.5
      */
     public static short toShort(final String str, final short defaultValue) {
-        if(str == null) {
+        if (str == null) {
             return defaultValue;
         }
         try {
@@ -585,33 +585,33 @@ public class NumberUtils {
     //                  BigDecimal, BigInteger and Byte
     // useful methods:
     // Byte.decode(String)
-    // Byte.valueOf(String,int radix)
+    // Byte.valueOf(String, int radix)
     // Byte.valueOf(String)
     // Double.valueOf(String)
     // Float.valueOf(String)
     // Float.valueOf(String)
-    // Integer.valueOf(String,int radix)
+    // Integer.valueOf(String, int radix)
     // Integer.valueOf(String)
     // Integer.decode(String)
     // Integer.getInteger(String)
-    // Integer.getInteger(String,int val)
-    // Integer.getInteger(String,Integer val)
+    // Integer.getInteger(String, int val)
+    // Integer.getInteger(String, Integer val)
     // Integer.valueOf(String)
     // Double.valueOf(String)
     // new Byte(String)
     // Long.valueOf(String)
     // Long.getLong(String)
-    // Long.getLong(String,int)
-    // Long.getLong(String,Integer)
-    // Long.valueOf(String,int)
+    // Long.getLong(String, int)
+    // Long.getLong(String, Integer)
+    // Long.valueOf(String, int)
     // Long.valueOf(String)
     // Short.valueOf(String)
     // Short.decode(String)
-    // Short.valueOf(String,int)
+    // Short.valueOf(String, int)
     // Short.valueOf(String)
     // new BigDecimal(String)
     // new BigInteger(String)
-    // new BigInteger(String,int radix)
+    // new BigInteger(String, int radix)
     // Possible inputs:
     // 45 45.5 45E7 4.5E7 Hex Oct Binary xxxF xxxD xxxf xxxd
     // plus minus everything. Prolly more. A lot are not separable.
@@ -624,7 +624,7 @@ public class NumberUtils {
      * prefix is more than 8 - or BigInteger if there are more than 16 digits.
      * </p>
      * <p>Then, the value is examined for a type qualifier on the end, i.e. one of
-     * <code>'f','F','d','D','l','L'</code>.  If it is found, it starts
+     * <code>'f', 'F', 'd', 'D', 'l', 'L'</code>.  If it is found, it starts
      * trying to create successively larger types from the type specified
      * until one is found that can represent the value.</p>
      *
@@ -657,7 +657,7 @@ public class NumberUtils {
         // Need to deal with all possible hex prefixes here
         final String[] hex_prefixes = {"0x", "0X", "-0x", "-0X", "#", "-#"};
         int pfxLen = 0;
-        for(final String pfx : hex_prefixes) {
+        for (final String pfx : hex_prefixes) {
             if (str.startsWith(pfx)) {
                 pfxLen += pfx.length();
                 break;
@@ -665,7 +665,7 @@ public class NumberUtils {
         }
         if (pfxLen > 0) { // we have a hex number
             char firstSigDigit = 0; // strip leading zeroes
-            for(int i = pfxLen; i < str.length(); i++) {
+            for (int i = pfxLen; i < str.length(); i++) {
                 firstSigDigit = str.charAt(i);
                 if (firstSigDigit == '0') { // count leading zeroes
                     pfxLen++;

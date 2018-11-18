@@ -218,7 +218,7 @@ public class CompareToBuilderTest {
 
         // transitive
         if (CompareToBuilder.reflectionCompare(x, y, testTransients, null, excludeFields) > 0
-                && CompareToBuilder.reflectionCompare(y, z, testTransients, null, excludeFields) > 0){
+                && CompareToBuilder.reflectionCompare(y, z, testTransients, null, excludeFields) > 0) {
             assertTrue(CompareToBuilder.reflectionCompare(x, z, testTransients, null, excludeFields) > 0);
         }
 
@@ -745,9 +745,9 @@ public class CompareToBuilderTest {
         final short[][] array3 = new short[2][3];
         for (short i = 0; i < array1.length; ++i) {
             for (short j = 0; j < array1[0].length; j++) {
-                array1[i][j] = (short)((i + 1) * (j + 1));
-                array2[i][j] = (short)((i + 1) * (j + 1));
-                array3[i][j] = (short)((i + 1) * (j + 1));
+                array1[i][j] = (short) ((i + 1) * (j + 1));
+                array2[i][j] = (short) ((i + 1) * (j + 1));
+                array3[i][j] = (short) ((i + 1) * (j + 1));
             }
         }
         array3[1][2] = 100;
@@ -769,9 +769,9 @@ public class CompareToBuilderTest {
         final char[][] array3 = new char[2][3];
         for (short i = 0; i < array1.length; ++i) {
             for (short j = 0; j < array1[0].length; j++) {
-                array1[i][j] = (char)((i + 1) * (j + 1));
-                array2[i][j] = (char)((i + 1) * (j + 1));
-                array3[i][j] = (char)((i + 1) * (j + 1));
+                array1[i][j] = (char) ((i + 1) * (j + 1));
+                array2[i][j] = (char) ((i + 1) * (j + 1));
+                array3[i][j] = (char) ((i + 1) * (j + 1));
             }
         }
         array3[1][2] = 100;
@@ -793,9 +793,9 @@ public class CompareToBuilderTest {
         final byte[][] array3 = new byte[2][3];
         for (byte i = 0; i < array1.length; ++i) {
             for (byte j = 0; j < array1[0].length; j++) {
-                array1[i][j] = (byte)((i + 1) * (j + 1));
-                array2[i][j] = (byte)((i + 1) * (j + 1));
-                array3[i][j] = (byte)((i + 1) * (j + 1));
+                array1[i][j] = (byte) ((i + 1) * (j + 1));
+                array2[i][j] = (byte) ((i + 1) * (j + 1));
+                array3[i][j] = (byte) ((i + 1) * (j + 1));
             }
         }
         array3[1][2] = 100;

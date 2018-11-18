@@ -71,7 +71,7 @@ public class HashSetvBitSetTest {
         final int[] array = new int[100];
         toRemove.set(10, 20);
         final int[] extractIndices = extractIndices(toRemove);
-        return (int[]) ArrayUtils.removeAll((Object)array, extractIndices);
+        return (int[]) ArrayUtils.removeAll((Object) array, extractIndices);
     }
 
     // --- utility methods
@@ -88,7 +88,7 @@ public class HashSetvBitSetTest {
         final int[] result = new int[coll.cardinality()];
         int i = 0;
         int j=0;
-        while((j=coll.nextSetBit(j)) != -1) {
+        while ((j=coll.nextSetBit(j)) != -1) {
             result[i++] = j++;
         }
         return result;

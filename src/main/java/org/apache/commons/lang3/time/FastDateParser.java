@@ -79,7 +79,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private static final long serialVersionUID = 3L;
 
-    static final Locale JAPANESE_IMPERIAL = new Locale("ja","JP","JP");
+    static final Locale JAPANESE_IMPERIAL = new Locale("ja", "JP", "JP");
 
     // defining fields
     private final String pattern;
@@ -135,10 +135,10 @@ public class FastDateParser implements DateParser, Serializable {
         final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
 
         int centuryStartYear;
-        if(centuryStart!=null) {
+        if (centuryStart!=null) {
             definingCalendar.setTime(centuryStart);
             centuryStartYear= definingCalendar.get(Calendar.YEAR);
-        } else if(locale.equals(JAPANESE_IMPERIAL)) {
+        } else if (locale.equals(JAPANESE_IMPERIAL)) {
             centuryStartYear= 0;
         } else {
             // from 80 years ago to 20 years from now
@@ -161,9 +161,9 @@ public class FastDateParser implements DateParser, Serializable {
         patterns = new ArrayList<>();
 
         final StrategyParser fm = new StrategyParser(definingCalendar);
-        for(;;) {
+        for (;;) {
             final StrategyAndWidth field = fm.getNextStrategy();
-            if(field==null) {
+            if (field==null) {
                 break;
             }
             patterns.add(field);
@@ -186,7 +186,7 @@ public class FastDateParser implements DateParser, Serializable {
         }
 
         int getMaxWidth(final ListIterator<StrategyAndWidth> lt) {
-            if(!strategy.isNumber() || !lt.hasNext()) {
+            if (!strategy.isNumber() || !lt.hasNext()) {
                 return 0;
             }
             final Strategy nextStrategy = lt.next().strategy;
@@ -448,7 +448,7 @@ public class FastDateParser implements DateParser, Serializable {
                 sb.append(c);
             }
         }
-        if(sb.charAt(sb.length() - 1) == '.') {
+        if (sb.charAt(sb.length() - 1) == '.') {
             // trailing '.' is optional
             sb.append('?');
         }
@@ -719,7 +719,7 @@ public class FastDateParser implements DateParser, Serializable {
         void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
             final String lowerCase = value.toLowerCase(locale);
             Integer iVal = lKeyValues.get(lowerCase);
-            if(iVal == null) {
+            if (iVal == null) {
                 // match missing the optional trailing period
                 iVal = lKeyValues.get(lowerCase + '.');
             }

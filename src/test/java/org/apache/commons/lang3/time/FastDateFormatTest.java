@@ -256,11 +256,11 @@ public class FastDateFormatTest {
         final AtomicInteger failures= new AtomicInteger(0);
         final AtomicLongArray totalElapsed= new AtomicLongArray(2);
 
-        for(int i= 0; i<NTHREADS; ++i) {
+        for (int i= 0; i<NTHREADS; ++i) {
             pool.submit(new Runnable() {
                 @Override
                 public void run() {
-                    for(int j= 0; j<NROUNDS; ++j) {
+                    for (int j= 0; j<NROUNDS; ++j) {
                         try {
                             final Date date= new Date();
 
@@ -272,7 +272,7 @@ public class FastDateFormatTest {
                             final Object pd= parser.parseObject(formattedDate);
                             totalElapsed.addAndGet(1, System.currentTimeMillis() - t1);
 
-                            if(!date.equals(pd)) {
+                            if (!date.equals(pd)) {
                                 failures.incrementAndGet();
                             }
                         } catch (final Exception e) {
@@ -287,7 +287,7 @@ public class FastDateFormatTest {
         // depending on the performance of the machine used to run the parsing,
         // the tests can run for a while. It should however complete within
         // 30 seconds. Might need increase on very slow machines.
-        if(!pool.awaitTermination(30, TimeUnit.SECONDS)) {
+        if (!pool.awaitTermination(30, TimeUnit.SECONDS)) {
             pool.shutdownNow();
             fail("did not complete tasks");
         }

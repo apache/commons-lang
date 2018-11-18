@@ -46,7 +46,7 @@ public class ToStringBuilderTest {
      * All tests should leave the registry empty.
      */
     @AfterEach
-    public void after(){
+    public void after() {
         validateNullToStringStyleRegistry();
     }
 
@@ -512,7 +512,7 @@ public class ToStringBuilderTest {
             this.typeIsSelf = this;
         }
 
-        public String getOtherType(){
+        public String getOtherType() {
             return this.otherType;
         }
 
@@ -845,7 +845,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testConstructToStringBuilder(){
+    public void testConstructToStringBuilder() {
         final ToStringBuilder stringBuilder1 = new ToStringBuilder(base, null, null);
         final ToStringBuilder stringBuilder2 = new ToStringBuilder(base, ToStringStyle.DEFAULT_STYLE, new StringBuffer(1024));
         assertEquals(ToStringStyle.DEFAULT_STYLE, stringBuilder1.getStyle());

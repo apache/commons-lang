@@ -231,7 +231,7 @@ public class FieldUtilsTest {
                 FieldUtilsTest.class.getDeclaredField("privatelyShadowedChild")
         );
         final List<Field> fieldUtilsTestAnnotatedFields = FieldUtils.getFieldsListWithAnnotation(FieldUtilsTest.class, Annotated.class);
-        assertEquals(annotatedFields.size(),fieldUtilsTestAnnotatedFields.size());
+        assertEquals(annotatedFields.size(), fieldUtilsTestAnnotatedFields.size());
         assertTrue(fieldUtilsTestAnnotatedFields.contains(annotatedFields.get(0)));
         assertTrue(fieldUtilsTestAnnotatedFields.contains(annotatedFields.get(1)));
     }

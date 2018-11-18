@@ -737,7 +737,7 @@ public class TypeUtils {
     /**
      * <p>Retrieves all the type arguments for this parameterized type
      * including owner hierarchy arguments such as
-     * {@code Outer<K,V>.Inner<T>.DeepInner<E>} .
+     * {@code Outer<K, V>.Inner<T>.DeepInner<E>} .
      * The arguments are returned in a
      * {@link Map} specifying the argument type for each {@link TypeVariable}.
      * </p>

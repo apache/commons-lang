@@ -194,8 +194,8 @@ public class LocaleUtils {
      * a locale search.</p>
      *
      * <pre>
-     * localeLookupList(Locale("fr","CA","xxx"))
-     *   = [Locale("fr","CA","xxx"), Locale("fr","CA"), Locale("fr")]
+     * localeLookupList(Locale("fr", "CA", "xxx"))
+     *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr")]
      * </pre>
      *
      * @param locale  the locale to start from
@@ -212,7 +212,7 @@ public class LocaleUtils {
      *
      * <pre>
      * localeLookupList(Locale("fr", "CA", "xxx"), Locale("en"))
-     *   = [Locale("fr","CA","xxx"), Locale("fr","CA"), Locale("fr"), Locale("en"]
+     *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr"), Locale("en"]
      * </pre>
      *
      * <p>The result list begins with the most specific locale, then the

@@ -260,7 +260,7 @@ public class StringEscapeUtils {
         @Override
         public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
 
-            if(index != 0) {
+            if (index != 0) {
                 throw new IllegalStateException("CsvEscaper should never reach the [1] index");
             }
 
@@ -393,7 +393,7 @@ public class StringEscapeUtils {
         @Override
         public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
 
-            if(index != 0) {
+            if (index != 0) {
                 throw new IllegalStateException("CsvUnescaper should never reach the [1] index");
             }
 

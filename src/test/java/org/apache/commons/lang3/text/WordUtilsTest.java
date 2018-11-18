@@ -424,7 +424,7 @@ public class WordUtilsTest {
         // Prior to fix, this was throwing StringIndexOutOfBoundsException
         WordUtils.wrap("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
                 + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
-                + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",70);
+                + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 70);
     }
 
     @Test

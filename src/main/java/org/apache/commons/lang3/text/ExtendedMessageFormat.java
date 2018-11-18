@@ -276,7 +276,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (ObjectUtils.notEqual(getClass(), obj.getClass())) {
           return false;
         }
-        final ExtendedMessageFormat rhs = (ExtendedMessageFormat)obj;
+        final ExtendedMessageFormat rhs = (ExtendedMessageFormat) obj;
         if (ObjectUtils.notEqual(toPattern, rhs.toPattern)) {
             return false;
         }
@@ -478,7 +478,7 @@ public class ExtendedMessageFormat extends MessageFormat {
             "Quoted string must start with quote character";
 
         // handle quote character at the beginning of the string
-        if(appendTo != null) {
+        if (appendTo != null) {
             appendTo.append(QUOTE);
         }
         next(pos);

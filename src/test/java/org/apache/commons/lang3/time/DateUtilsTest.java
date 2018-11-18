@@ -1521,7 +1521,7 @@ public class DateUtilsTest {
             it3.next();
             assertThrows(UnsupportedOperationException.class, it3::remove);
 
-            now.add(Calendar.DATE,1);
+            now.add(Calendar.DATE, 1);
         }
     }
 

@@ -2407,7 +2407,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2423,7 +2423,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2439,7 +2439,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2455,7 +2455,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2471,7 +2471,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2487,7 +2487,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2503,7 +2503,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2519,7 +2519,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2535,7 +2535,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2551,7 +2551,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }

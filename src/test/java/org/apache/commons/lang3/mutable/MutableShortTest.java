@@ -43,7 +43,7 @@ public class MutableShortTest {
 
         assertEquals((short) 2, new MutableShort("2").shortValue());
 
-        assertThrows(NullPointerException.class, () -> new MutableShort((Number)null));
+        assertThrows(NullPointerException.class, () -> new MutableShort((Number) null));
     }
 
     @Test
@@ -203,7 +203,7 @@ public class MutableShortTest {
 
     @Test
     public void testGetAndAddValuePrimitive() {
-        final MutableShort mutableShort = new MutableShort((short)0);
+        final MutableShort mutableShort = new MutableShort((short) 0);
         final short result = mutableShort.getAndAdd((short) 1);
 
         assertEquals((short) 0, result);
@@ -212,7 +212,7 @@ public class MutableShortTest {
 
     @Test
     public void testGetAndAddValueObject() {
-        final MutableShort mutableShort = new MutableShort((short)0);
+        final MutableShort mutableShort = new MutableShort((short) 0);
         final short result = mutableShort.getAndAdd(Short.valueOf((short) 1));
 
         assertEquals((short) 0, result);
