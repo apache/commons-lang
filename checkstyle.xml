@@ -56,5 +56,6 @@ limitations under the License.
     <module name="NeedBraces"/>
     <module name="RightCurly"/>
     <module name="WhitespaceAfter"/>
+    <module name="NoWhitespaceBefore"/>
  </module>
 </module>

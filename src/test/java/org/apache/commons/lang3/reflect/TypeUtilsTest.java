@@ -49,7 +49,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test TypeUtils
  */
-@SuppressWarnings({ "unchecked", "unused" , "rawtypes" })
+@SuppressWarnings({ "unchecked", "unused", "rawtypes" })
 //raw types, where used, are used purposely
 public class TypeUtilsTest<B> {
 

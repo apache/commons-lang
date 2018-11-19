@@ -960,10 +960,10 @@ public class NumberUtils {
             pos += 2;
         } else if (str.startsWith("#", pos)) { // alternative hex (allowed by Long/Integer)
             radix = 16;
-            pos ++;
+            pos++;
         } else if (str.startsWith("0", pos) && str.length() > pos + 1) { // octal; so long as there are additional digits
             radix = 8;
-            pos ++;
+            pos++;
         } // default is to treat as decimal
 
         final BigInteger value = new BigInteger(str.substring(pos), radix);

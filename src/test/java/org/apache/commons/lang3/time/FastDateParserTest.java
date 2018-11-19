@@ -395,13 +395,13 @@ public class FastDateParserTest {
 
     @Test
     public void testSpecialCharacters() throws Exception {
-        testSdfAndFdp("q" , "", true); // bad pattern character (at present)
-        testSdfAndFdp("Q" , "", true); // bad pattern character
-        testSdfAndFdp("$" , "$", false); // OK
-        testSdfAndFdp("?.d" , "?.12", false); // OK
+        testSdfAndFdp("q", "", true); // bad pattern character (at present)
+        testSdfAndFdp("Q", "", true); // bad pattern character
+        testSdfAndFdp("$", "$", false); // OK
+        testSdfAndFdp("?.d", "?.12", false); // OK
         testSdfAndFdp("''yyyyMMdd'A''B'HHmmssSSS''", "'20030210A'B153320989'", false); // OK
         testSdfAndFdp("''''yyyyMMdd'A''B'HHmmssSSS''", "''20030210A'B153320989'", false); // OK
-        testSdfAndFdp("'$\\Ed'" , "$\\Ed", false); // OK
+        testSdfAndFdp("'$\\Ed'", "$\\Ed", false); // OK
 
         // quoted charaters are case sensitive
         testSdfAndFdp("'QED'", "QED", false);
@@ -413,7 +413,7 @@ public class FastDateParserTest {
 
     @Test
     public void testLANG_832() throws Exception {
-        testSdfAndFdp("'d'd" , "d3", false); // OK
+        testSdfAndFdp("'d'd", "d3", false); // OK
         testSdfAndFdp("'d'd'", "d3", true); // should fail (unterminated quote)
     }
 
