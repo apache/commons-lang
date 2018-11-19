@@ -744,7 +744,7 @@ public class ExceptionUtils {
      */
     public static <R> R rethrow(final Throwable throwable) {
         // claim that the typeErasure invocation throws a RuntimeException
-        return ExceptionUtils.<R, RuntimeException> typeErasure(throwable);
+        return ExceptionUtils.<R, RuntimeException>typeErasure(throwable);
     }
 
     /**
