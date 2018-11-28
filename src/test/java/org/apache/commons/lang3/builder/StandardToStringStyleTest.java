@@ -17,6 +17,8 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -139,6 +141,26 @@ public class StandardToStringStyleTest {
         array = null;
         assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).append((Object) array).toString());
+    }
+
+    @Test
+    public void testDefaultValueOfUseClassName() {
+        assertTrue((new StandardToStringStyle()).isUseClassName());
+    }
+
+    @Test
+    public void testDefaultValueOfUseFieldNames() {
+        assertTrue((new StandardToStringStyle()).isUseFieldNames());
+    }
+
+    @Test
+    public void testDefaultValueOfUseShortClassName() {
+        assertFalse((new StandardToStringStyle()).isUseShortClassName());
+    }
+
+    @Test
+    public void testDefaultValueOfUseIdentityHashCode() {
+        assertTrue((new StandardToStringStyle()).isUseIdentityHashCode());
     }
 
 }
