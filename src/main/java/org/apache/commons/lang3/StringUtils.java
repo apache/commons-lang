@@ -338,15 +338,17 @@ public class StringUtils {
      * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
      */
     public static boolean isBlank(final CharSequence cs) {
-        int strLen;
-        if (cs == null || (strLen = cs.length()) == 0) {
+        int sz;
+        if (cs == null || (sz = cs.length()) == 0) {
             return true;
         }
-        for (int i = 0; i < strLen; i++) {
-            if (!Character.isWhitespace(cs.charAt(i))) {
+
+        while (--sz >= 0) {
+            if (!Character.isWhitespace(cs.charAt(sz))) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -397,15 +399,15 @@ public class StringUtils {
      * @since 3.2
      */
     public static boolean isAnyBlank(final CharSequence... css) {
-      if (ArrayUtils.isEmpty(css)) {
-        return false;
-      }
-      for (final CharSequence cs : css) {
-        if (isBlank(cs)) {
-          return true;
+        if (ArrayUtils.isEmpty(css)) {
+            return false;
         }
-      }
-      return false;
+        for (final CharSequence cs : css) {
+            if (isBlank(cs)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -432,7 +434,7 @@ public class StringUtils {
      * @since 3.2
      */
     public static boolean isNoneBlank(final CharSequence... css) {
-      return !isAnyBlank(css);
+        return !isAnyBlank(css);
     }
 
     /**
@@ -7315,12 +7317,13 @@ public class StringUtils {
         if (cs == null) {
             return false;
         }
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isWhitespace(cs.charAt(i))) {
+
+        for (int sz = cs.length(); --sz >= 0;) {
+            if (!Character.isWhitespace(cs.charAt(sz))) {
                 return false;
             }
         }
+
         return true;
     }
 
