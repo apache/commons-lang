@@ -1679,18 +1679,28 @@ public class SystemUtils {
      * Is the Java version at least the requested version.
      * </p>
      * <p>
-     * Example input:
-     * </p>
-     * <ul>
-     * <li>{@code 1.2f} to test for Java 1.2</li>
-     * <li>{@code 1.31f} to test for Java 1.3.1</li>
-     * </ul>
      *
      * @param requiredVersion the required version, for example 1.31f
      * @return {@code true} if the actual version is equal or greater than the required version
      */
     public static boolean isJavaVersionAtLeast(final JavaVersion requiredVersion) {
         return JAVA_SPECIFICATION_VERSION_AS_ENUM.atLeast(requiredVersion);
+    }
+
+    /**
+     * <p>
+     * Is the Java version at most the requested version.
+     * </p>
+     * <p>
+     * Example input:
+     * </p>
+     *
+     * @param requiredVersion the required version, for example 1.31f
+     * @return {@code true} if the actual version is equal or greater than the required version
+     * @since 3.9
+     */
+    public static boolean isJavaVersionAtMost(final JavaVersion requiredVersion) {
+        return JAVA_SPECIFICATION_VERSION_AS_ENUM.atMost(requiredVersion);
     }
 
     /**

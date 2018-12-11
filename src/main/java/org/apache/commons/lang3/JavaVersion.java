@@ -141,6 +141,21 @@ public enum JavaVersion {
         return this.value >= requiredVersion.value;
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Whether this version of Java is at most the version of Java passed in.</p>
+     *
+     * <p>For example:<br>
+     *  {@code myVersion.atMost(JavaVersion.JAVA_1_4)}<p>
+     *
+     * @param requiredVersion  the version to check against, not null
+     * @return true if this version is equal to or greater than the specified version
+     * @since 3.9
+     */
+    public boolean atMost(final JavaVersion requiredVersion) {
+        return this.value <= requiredVersion.value;
+    }
+
     /**
      * Transforms the given string with a Java version number to the
      * corresponding constant of this enumeration class. This method is used
