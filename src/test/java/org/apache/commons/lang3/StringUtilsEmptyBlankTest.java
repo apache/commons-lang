@@ -90,7 +90,10 @@ public class StringUtilsEmptyBlankTest  {
         assertFalse(StringUtils.isWhitespace(null));
         assertTrue(StringUtils.isWhitespace(""));
         assertTrue(StringUtils.isWhitespace(StringUtilsTest.WHITESPACE));
+
+        // fails when 'index > 0' is used instead of 'index >= 0' in the expression of the down going loop
         assertFalse(StringUtils.isWhitespace("a"));
+
         assertFalse(StringUtils.isWhitespace("foo"));
         assertFalse(StringUtils.isWhitespace("  foo  "));
     }
@@ -100,7 +103,10 @@ public class StringUtilsEmptyBlankTest  {
         assertTrue(StringUtils.isBlank(null));
         assertTrue(StringUtils.isBlank(""));
         assertTrue(StringUtils.isBlank(StringUtilsTest.WHITESPACE));
+
+        // fails when 'index > 0' is used instead of 'index >= 0' in the expression of the down going loop
         assertFalse(StringUtils.isBlank("a"));
+
         assertFalse(StringUtils.isBlank("foo"));
         assertFalse(StringUtils.isBlank("  foo  "));
     }
@@ -110,7 +116,10 @@ public class StringUtilsEmptyBlankTest  {
         assertFalse(StringUtils.isNotBlank(null));
         assertFalse(StringUtils.isNotBlank(""));
         assertFalse(StringUtils.isNotBlank(StringUtilsTest.WHITESPACE));
+
+        // fails when 'index > 0' is used instead of 'index >= 0' in the expression of the down going loop
         assertTrue(StringUtils.isNotBlank("a"));
+
         assertTrue(StringUtils.isNotBlank("foo"));
         assertTrue(StringUtils.isNotBlank("  foo  "));
     }
