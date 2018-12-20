@@ -629,6 +629,8 @@
 
     <junit.version>5.3.2</junit.version>
 
+    <commons.jacoco.version>0.8.2</commons.jacoco.version>
+
     <!-- generate report even if there are binary incompatible changes -->
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
     <!-- 0.12.0 dies with a NullPointerException -->
@@ -897,17 +899,6 @@
         <argLine>-Xmx512m --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
         <!-- coverall version 4.3.0 does not work with java 9, see https://github.com/trautonen/coveralls-maven-plugin/issues/112 -->
         <coveralls.skip>true</coveralls.skip>
-      </properties>
-    </profile>
-
-    <profile>
-      <id>java11+</id>
-      <activation>
-        <jdk>[11,)</jdk>
-      </activation>
-      <properties>
-        <!-- jacoco does not work with java 11 yet, see https://github.com/jacoco/jacoco/issues/663 -->
-        <jacoco.skip>true</jacoco.skip>
       </properties>
     </profile>
 
