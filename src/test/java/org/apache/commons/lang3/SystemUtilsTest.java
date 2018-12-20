@@ -482,7 +482,7 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_5));
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_6));
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_7));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_1_8));            
+            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_1_8));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_9));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_10));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_11));
@@ -495,7 +495,7 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_6));
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_7));
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_8));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_9));            
+            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_9));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_10));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_11));
         } else if (SystemUtils.IS_JAVA_10) {
