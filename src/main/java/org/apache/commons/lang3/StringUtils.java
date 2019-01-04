@@ -3147,7 +3147,6 @@ public class StringUtils {
             if (start > 0) {
                 preceding = str.substring(0, start);
             }
-            
             final int end = str.indexOf(close, start + open.length());
             if (end != INDEX_NOT_FOUND) {
                 String exceding = "";
@@ -3160,7 +3159,6 @@ public class StringUtils {
         }
         return null;
     }
-    
     // Nested extraction
     //-----------------------------------------------------------------------
 
