@@ -3124,6 +3124,45 @@ public class StringUtils {
         return list.toArray(new String [list.size()]);
     }
 
+    /**
+	 * <p>Replaces the given String, with the String which is nested in between two Strings.</p>
+	 *
+	 * <p>A {@code null} input String returns {@code null}.
+	 * A {@code null} open/close returns {@code null} (no match).
+	 * An empty ("") open and close returns an empty string.</p>
+	 *
+	 * @param str  the String containing the substring, may be null
+	 * @param replace the Sting to be replaced, which is nested in between open and close substrings
+	 * @param open  the String before the substring, may be null
+	 * @param close  the String after the substring, may be null
+	 * @return the substring, {@code null} if no match
+	 */
+	public static String replaceSubstringInBetween(final String str, final String replace, final String open, final String close) {
+		if (str == null || open == null || close == null) {
+			return null;
+		}
+		final int start = str.indexOf(open);
+		if (start != INDEX_NOT_FOUND) {
+			String preceding = "", exceding = "";
+			if( start > 0 ) {
+				preceding = str.substring(0, start);
+			}
+			
+			final int end = str.indexOf(close, start + open.length());
+			if (end != INDEX_NOT_FOUND) {
+				if( (end < str.length()-1) && (end+close.length() < str.length() ) ) {
+					exceding = str.substring(end+close.length(), str.length());
+				}
+				
+				String middleString = str.substring(start + open.length(), end);
+				System.out.println("Middle Str : "+ middleString);
+				
+				return preceding+open+replace+close+exceding;
+			}
+		}
+		return null;
+	}
+    
     // Nested extraction
     //-----------------------------------------------------------------------
 
