@@ -18,10 +18,12 @@ language: java
 jdk:
   - oraclejdk8
   - openjdk11
+  - openjdk12
   - openjdk-ea
 
 matrix:
   allow_failures:
+    - jdk: openjdk12
     - jdk: openjdk-ea
 
 script:
