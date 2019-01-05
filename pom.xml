@@ -620,7 +620,7 @@
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
     <checkstyle.version>8.13</checkstyle.version>
 
-    <spotbugs.plugin.version>3.1.8</spotbugs.plugin.version>
+    <spotbugs.plugin.version>3.1.10</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
