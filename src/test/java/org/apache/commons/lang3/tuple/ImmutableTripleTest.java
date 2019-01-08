@@ -172,7 +172,7 @@ public class ImmutableTripleTest {
         expected.add(ImmutableTriple.of(0, 1, 1));
         expected.add(ImmutableTriple.of(0, 1, 2));
         Iterator<Entry<ImmutableTriple<Integer, Integer, Integer>, String>> it = map.entrySet().iterator();
-        for(ImmutableTriple<Integer, Integer, Integer> item : expected) {
+        for (ImmutableTriple<Integer, Integer, Integer> item : expected) {
             Entry<ImmutableTriple<Integer, Integer, Integer>, String> entry = it.next();
             assertEquals(item, entry.getKey());
             assertEquals(item.getLeft() + "" + item.getMiddle() + "" + item.getRight(), entry.getValue());

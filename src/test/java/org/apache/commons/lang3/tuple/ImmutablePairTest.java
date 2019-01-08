@@ -165,7 +165,7 @@ public class ImmutablePairTest {
         expected.add(ImmutablePair.of(1, 1));
         expected.add(ImmutablePair.of(1, 2));
         Iterator<Entry<ImmutablePair<Integer, Integer>, String>> it = map.entrySet().iterator();
-        for(ImmutablePair<Integer, Integer> item : expected) {
+        for (ImmutablePair<Integer, Integer> item : expected) {
             Entry<ImmutablePair<Integer, Integer>, String> entry = it.next();
             assertEquals(item, entry.getKey());
             assertEquals(item.getLeft() + "" + item.getRight(), entry.getValue());
