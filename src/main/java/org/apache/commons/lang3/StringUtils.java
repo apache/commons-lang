@@ -3140,7 +3140,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        if (open == null || close == null) {
+        if (open == null || close == null || replace == null) {
             return str;
         }
         final int start = str.indexOf(open);
