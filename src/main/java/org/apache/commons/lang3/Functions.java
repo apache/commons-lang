@@ -18,11 +18,8 @@ package org.apache.commons.lang3;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
-import java.util.ArrayList;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /** This class provides utility functions, and classes for working with the
  * {@code java.util.function} package, or more generally, with Java 8
@@ -73,6 +70,14 @@ public class Functions {
 	public interface FailableBiFunction<I1,I2,O,T extends Throwable> {
 		public O apply(I1 pInput1, I2 pInput2) throws T;
 	}
+	@FunctionalInterface
+	public interface FailablePredicate<O,T extends Throwable> {
+		public boolean test(O pObject) throws T;
+	}
+	@FunctionalInterface
+	public interface FailableBiPredicate<O1,O2,T extends Throwable> {
+		public boolean test(O1 pObject1, O2 pObject2) throws T;
+	}
 
 	public static <T extends Throwable> void run(FailableRunnable<T> pRunnable) {
 		try {
@@ -122,6 +127,112 @@ public class Functions {
 		}
 	}
 
+	public static <O,T extends Throwable> boolean test(FailablePredicate<O,T> pPredicate, O pObject) {
+		try {
+			return pPredicate.test(pObject);
+		} catch (Throwable t) {
+			throw rethrow(t);
+		}
+	}
+
+	public static <O1,O2,T extends Throwable> boolean test(FailableBiPredicate<O1,O2,T> pPredicate, O1 pObject1, O2 pObject2) {
+		try {
+			return pPredicate.test(pObject1, pObject2);
+		} catch (Throwable t) {
+			throw rethrow(t);
+		}
+	}
+
+	/**
+	 * A simple try-with-resources implementation, that can be used, if your
+	 * objects do not implement the {@link AutoCloseable} interface. The method
+	 * executes the {@code pAction}. The method guarantees, that <em>all</em>
+	 * the {@code pResources} are being executed, in the given order, afterwards,
+	 * and regardless of success, or failure. If either the original action, or
+	 * any of the resource action fails, then the <em>first</em> failure (aka
+	 * {@link Throwable} is rethrown. Example use:
+	 * <pre>
+	 *   final FileInputStream fis = new FileInputStream("my.file");
+	 *   Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
+	 * </pre>
+	 * @param pAction The action to execute. This object <em>will</em> always
+	 *   be invoked.
+	 * @param pErrorHandler An optional error handler, which will be invoked finally,
+	 *   if any error occurred. The error handler will receive the first
+	 *   error, aka {@link Throwable}.
+	 * @param pResources The resource actions to execute. <em>All</em> resource
+	 *   actions will be invoked, in the given order. A resource action is an
+	 *   instance of {@link FailableRunnable}, which will be executed.
+	 * @see #tryWithResources(FailableRunnable, FailableRunnable...)
+	 */
+	@SafeVarargs
+	public static <O> void tryWithResources(FailableRunnable<? extends Throwable> pAction,
+			                                FailableConsumer<Throwable,? extends Throwable> pErrorHandler,
+											FailableRunnable<? extends Throwable>... pResources) {
+		final FailableConsumer<Throwable,? extends Throwable> errorHandler;
+		if (pErrorHandler == null) {
+			errorHandler = (t) -> rethrow(t);
+		} else {
+			errorHandler = pErrorHandler;
+		}
+		if (pResources != null) {
+			for (FailableRunnable<? extends Throwable> runnable : pResources) {
+				if (runnable == null) {
+					throw new NullPointerException("A resource action must not be null.");
+				}
+			}
+		}
+		Throwable th = null;
+		try {
+			pAction.run();
+		} catch (Throwable t) {
+			th = t;
+		}
+		if (pResources != null) {
+			for (FailableRunnable<? extends Object> runnable : pResources) {
+				try {
+					runnable.run();
+				} catch (Throwable t) {
+					if (th == null) {
+						th = t;
+					}
+				}
+			}
+		}
+		if (th != null) {
+			try {
+				errorHandler.accept(th);
+			} catch (Throwable t) {
+				throw rethrow(t);
+			}
+		}
+	}
+
+	/**
+	 * A simple try-with-resources implementation, that can be used, if your
+	 * objects do not implement the {@link AutoCloseable} interface. The method
+	 * executes the {@code pAction}. The method guarantees, that <em>all</em>
+	 * the {@code pResources} are being executed, in the given order, afterwards,
+	 * and regardless of success, or failure. If either the original action, or
+	 * any of the resource action fails, then the <em>first</em> failure (aka
+	 * {@link Throwable} is rethrown. Example use:
+	 * <pre>
+	 *   final FileInputStream fis = new FileInputStream("my.file");
+	 *   Functions.tryWithResources(useInputStream(fis), () -> fis.close());
+	 * </pre>
+	 * @param pAction The action to execute. This object <em>will</em> always
+	 *   be invoked.
+	 * @param pResources The resource actions to execute. <em>All</em> resource
+	 *   actions will be invoked, in the given order. A resource action is an
+	 *   instance of {@link FailableRunnable}, which will be executed.
+	 * @see #tryWithResources(FailableRunnable, FailableConsumer, FailableRunnable...)
+	 */
+	@SafeVarargs
+	public static <O> void tryWithResources(FailableRunnable<? extends Throwable> pAction,
+											FailableRunnable<? extends Throwable>... pResources) {
+		tryWithResources(pAction, null, pResources);
+	}
+
 	public static RuntimeException rethrow(Throwable pThrowable) {
 		if (pThrowable == null) {
 			throw new NullPointerException("The Throwable must not be null.");
@@ -136,9 +247,5 @@ public class Functions {
 				throw new UndeclaredThrowableException(pThrowable);
 			}
 		}
-	}
-
-	public static void test() throws Exception {
-		run(() -> ArrayList.class.newInstance());
 	}
 }

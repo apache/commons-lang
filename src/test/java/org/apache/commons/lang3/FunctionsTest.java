@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.reflect.UndeclaredThrowableException;
 
+import org.apache.commons.lang3.Functions.FailableBiConsumer;
+import org.apache.commons.lang3.Functions.FailableConsumer;
 import org.junit.jupiter.api.Test;
 
 class FunctionsTest {
@@ -71,6 +73,28 @@ class FunctionsTest {
 		}
 	}
 
+	public static class CloseableObject {
+		private boolean closed;
+
+		public void run(Throwable pTh) throws Throwable {
+			if (pTh != null) {
+				throw pTh;
+			}
+		}
+
+		public void reset() {
+			closed = false;
+		}
+
+		public void close() {
+			closed = true;
+		}
+
+		public boolean isClosed() {
+			return closed;
+		}
+	}
+	
 	@Test
 	void testRunnable() {
 		FailureOnOddInvocations.invocation = 0;
@@ -228,5 +252,41 @@ class FunctionsTest {
 		final Integer i = Functions.apply((t1,t2) -> t1.testInt(t2), testable, (Throwable) null);
 		assertNotNull(i);
 		assertEquals(0, i.intValue());
+	}
+
+	@Test
+	public void testTryWithResources() {
+		final CloseableObject co = new CloseableObject();
+		final FailableConsumer<Throwable,? extends Throwable> consumer = (th) -> co.run(th);
+		final IllegalStateException ise = new IllegalStateException();
+		try {
+			Functions.tryWithResources(() -> consumer.accept(ise), () -> co.close());
+			fail("Expected Exception");
+		} catch (IllegalStateException e) {
+			assertSame(ise, e);
+		}
+		assertTrue(co.isClosed());
+		co.reset();
+		final Error error = new OutOfMemoryError();
+		try {
+			Functions.tryWithResources(() -> consumer.accept(error), () -> co.close());
+			fail("Expected Exception");
+		} catch (OutOfMemoryError e) {
+			assertSame(error, e);
+		}
+		assertTrue(co.isClosed());
+		co.reset();
+		final IOException ioe = new IOException("Unknown I/O error");
+		try {
+			Functions.tryWithResources(() -> consumer.accept(ioe), () -> co.close());
+			fail("Expected Exception");
+		} catch (UncheckedIOException e) {
+			final IOException cause = e.getCause();
+			assertSame(ioe, cause);
+		}
+		assertTrue(co.isClosed());
+		co.reset();
+		Functions.tryWithResources(() -> consumer.accept(null), () -> co.close());
+		assertTrue(co.isClosed());
 	}
 }
