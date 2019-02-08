@@ -772,12 +772,9 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinDouble() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
-        assertTrue(5.12 == NumberUtils.min(5.12), "min(double[]) failed for array length 1");
-        assertTrue(6.23 == NumberUtils.min(6.23, 9.34), "min(double[]) failed for array length 2");
-        assertTrue(-10.45 == NumberUtils.min(-10.45, -5.56, 0, 5.67, 10.78), "min(double[]) failed for array length 5");
+        assertEquals(5.12, NumberUtils.min(5.12), "min(double[]) failed for array length 1");
+        assertEquals(6.23, NumberUtils.min(6.23, 9.34), "min(double[]) failed for array length 2");
+        assertEquals(-10.45, NumberUtils.min(-10.45, -5.56, 0, 5.67, 10.78), "min(double[]) failed for array length 5");
         assertEquals(-10, NumberUtils.min(new double[] { -10, -5, 0, 5, 10 }), 0.0001);
         assertEquals(-10, NumberUtils.min(new double[] { -5, 0, -10, 5, 10 }), 0.0001);
     }
@@ -794,12 +791,9 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinFloat() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
-        assertTrue(5.9f == NumberUtils.min(5.9f), "min(float[]) failed for array length 1");
-        assertTrue(6.8f == NumberUtils.min(6.8f, 9.7f), "min(float[]) failed for array length 2");
-        assertTrue(-10.6f == NumberUtils.min(-10.6f, -5.5f, 0, 5.4f, 10.3f), "min(float[]) failed for array length 5");
+        assertEquals(5.9f, NumberUtils.min(5.9f), "min(float[]) failed for array length 1");
+        assertEquals(6.8f, NumberUtils.min(6.8f, 9.7f), "min(float[]) failed for array length 2");
+        assertEquals(-10.6f, NumberUtils.min(-10.6f, -5.5f, 0, 5.4f, 10.3f), "min(float[]) failed for array length 5");
         assertEquals(-10, NumberUtils.min(new float[] { -10, -5, 0, 5, 10 }), 0.0001f);
         assertEquals(-10, NumberUtils.min(new float[] { -5, 0, -10, 5, 10 }), 0.0001f);
     }
@@ -901,12 +895,9 @@ public class NumberUtilsTest {
                 () -> NumberUtils.max(new double[0]),
                 "No exception was thrown for empty input.");
 
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
-        assertTrue(5.1f == NumberUtils.max(new double[] { 5.1f }), "max(double[]) failed for array length 1");
-        assertTrue(9.2f == NumberUtils.max(new double[] { 6.3f, 9.2f }), "max(double[]) failed for array length 2");
-        assertTrue(10.4f == NumberUtils.max(new double[] { -10.5f, -5.6f, 0, 5.7f, 10.4f }), "max(double[]) failed for float length 5");
+        assertEquals(5.1f, NumberUtils.max(new double[]{5.1f}), "max(double[]) failed for array length 1");
+        assertEquals(9.2f, NumberUtils.max(new double[]{6.3f, 9.2f}), "max(double[]) failed for array length 2");
+        assertEquals(10.4f, NumberUtils.max(new double[]{-10.5f, -5.6f, 0, 5.7f, 10.4f}), "max(double[]) failed for float length 5");
         assertEquals(10, NumberUtils.max(new double[] { -10, -5, 0, 5, 10 }), 0.0001);
         assertEquals(10, NumberUtils.max(new double[] { -5, 0, 10, 5, -10 }), 0.0001);
     }
@@ -923,12 +914,9 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxFloat() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
-        assertTrue(5.1f == NumberUtils.max(5.1f), "max(float[]) failed for array length 1");
-        assertTrue(9.2f == NumberUtils.max(6.3f, 9.2f), "max(float[]) failed for array length 2");
-        assertTrue(10.4f == NumberUtils.max(-10.5f, -5.6f, 0, 5.7f, 10.4f), "max(float[]) failed for float length 5");
+        assertEquals(5.1f, NumberUtils.max(5.1f), "max(float[]) failed for array length 1");
+        assertEquals(9.2f, NumberUtils.max(6.3f, 9.2f), "max(float[]) failed for array length 2");
+        assertEquals(10.4f, NumberUtils.max(-10.5f, -5.6f, 0, 5.7f, 10.4f), "max(float[]) failed for float length 5");
         assertEquals(10, NumberUtils.max(new float[] { -10, -5, 0, 5, 10 }), 0.0001f);
         assertEquals(10, NumberUtils.max(new float[] { -5, 0, 10, 5, -10 }), 0.0001f);
     }

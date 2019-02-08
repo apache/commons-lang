@@ -1498,14 +1498,11 @@ public class ArrayUtilsTest {
 
     @Test
     public void testReverseDouble() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         double[] array = new double[]{0.3d, 0.4d, 0.5d};
         ArrayUtils.reverse(array);
-        assertTrue(array[0] == 0.5d);
-        assertTrue(array[1] == 0.4d);
-        assertTrue(array[2] == 0.3d);
+        assertEquals(0.5d, array[0]);
+        assertEquals(0.4d, array[1]);
+        assertEquals(0.3d, array[2]);
 
         array = null;
         ArrayUtils.reverse(array);
@@ -1514,14 +1511,11 @@ public class ArrayUtilsTest {
 
     @Test
     public void testReverseFloat() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         float[] array = new float[]{0.3f, 0.4f, 0.5f};
         ArrayUtils.reverse(array);
-        assertTrue(array[0] == 0.5f);
-        assertTrue(array[1] == 0.4f);
-        assertTrue(array[2] == 0.3f);
+        assertEquals(0.5f, array[0]);
+        assertEquals(0.4f, array[1]);
+        assertEquals(0.3f, array[2]);
 
         array = null;
         ArrayUtils.reverse(array);
@@ -1639,33 +1633,30 @@ public class ArrayUtilsTest {
 
     @Test
     public void testReverseDoubleRange() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         double[] array = new double[]{1, 2, 3};
         // The whole array
         ArrayUtils.reverse(array, 0, 3);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // a range
         array = new double[]{1, 2, 3};
         ArrayUtils.reverse(array, 0, 2);
-        assertTrue(2 == array[0]);
-        assertTrue(1 == array[1]);
-        assertTrue(3 == array[2]);
+        assertEquals(2, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(3, array[2]);
         // a range with a negative start
         array = new double[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, 3);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // a range with a large stop index
         array = new double[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
@@ -1674,33 +1665,30 @@ public class ArrayUtilsTest {
 
     @Test
     public void testReverseFloatRange() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         float[] array = new float[]{1, 2, 3};
         // The whole array
         ArrayUtils.reverse(array, 0, 3);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // a range
         array = new float[]{1, 2, 3};
         ArrayUtils.reverse(array, 0, 2);
-        assertTrue(2 == array[0]);
-        assertTrue(1 == array[1]);
-        assertTrue(3 == array[2]);
+        assertEquals(2, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(3, array[2]);
         // a range with a negative start
         array = new float[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, 3);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // a range with a large stop index
         array = new float[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
@@ -1956,14 +1944,11 @@ public class ArrayUtilsTest {
 
     @Test
     public void testSwapFloat() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final float[] array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
     }
 
     @Test
@@ -1982,57 +1967,51 @@ public class ArrayUtilsTest {
 
     @Test
     public void testSwapFloatRange() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertTrue(3 == array[0]);
-        assertTrue(4 == array[1]);
-        assertTrue(1 == array[2]);
-        assertTrue(2 == array[3]);
+        assertEquals(3, array[0]);
+        assertEquals(4, array[1]);
+        assertEquals(1, array[2]);
+        assertEquals(2, array[3]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 3);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, -1, 2, 2);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, -1, 2);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, -1, -1, 2);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
     }
 
     @Test
     public void testSwapDouble() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final double[] array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
     }
 
     @Test
@@ -2051,45 +2030,42 @@ public class ArrayUtilsTest {
 
     @Test
     public void testSwapDoubleRange() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertTrue(3 == array[0]);
-        assertTrue(4 == array[1]);
-        assertTrue(1 == array[2]);
-        assertTrue(2 == array[3]);
+        assertEquals(3, array[0]);
+        assertEquals(4, array[1]);
+        assertEquals(1, array[2]);
+        assertEquals(2, array[3]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 3);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, -1, 2, 2);
-        assertTrue(3 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(1 == array[2]);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, -1, 2);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, -1, -1, 2);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
     }
 
     @Test
@@ -2437,63 +2413,54 @@ public class ArrayUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testShiftDouble() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
-        assertTrue(4 == array[0]);
-        assertTrue(1 == array[1]);
-        assertTrue(2 == array[2]);
-        assertTrue(3 == array[3]);
+        assertEquals(4, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(3, array[3]);
         ArrayUtils.shift(array, -1);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
-        assertTrue(4 == array[3]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
         ArrayUtils.shift(array, 5);
-        assertTrue(4 == array[0]);
-        assertTrue(1 == array[1]);
-        assertTrue(2 == array[2]);
-        assertTrue(3 == array[3]);
+        assertEquals(4, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(3, array[3]);
         ArrayUtils.shift(array, -3);
-        assertTrue(3 == array[0]);
-        assertTrue(4 == array[1]);
-        assertTrue(1 == array[2]);
-        assertTrue(2 == array[3]);
+        assertEquals(3, array[0]);
+        assertEquals(4, array[1]);
+        assertEquals(1, array[2]);
+        assertEquals(2, array[3]);
     }
 
     @Test
     public void testShiftRangeDouble() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final double[] array = new double[]{1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
-        assertTrue(1 == array[0]);
-        assertTrue(3 == array[1]);
-        assertTrue(2 == array[2]);
-        assertTrue(4 == array[3]);
-        assertTrue(5 == array[4]);
+        assertEquals(1, array[0]);
+        assertEquals(3, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(4, array[3]);
+        assertEquals(5, array[4]);
         ArrayUtils.shift(array, 1, 4, 2);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(4 == array[2]);
-        assertTrue(3 == array[3]);
-        assertTrue(5 == array[4]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(4, array[2]);
+        assertEquals(3, array[3]);
+        assertEquals(5, array[4]);
     }
 
     @Test
     public void testShiftRangeNoElemDouble() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
-        assertTrue(4 == array[3]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
     }
 
     @Test
@@ -2513,81 +2480,69 @@ public class ArrayUtilsTest {
 
     @Test
     public void testShiftAllDouble() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
-        assertTrue(4 == array[3]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
         ArrayUtils.shift(array, -4);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
-        assertTrue(4 == array[3]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
     }
 
     @Test
     public void testShiftFloat() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
-        assertTrue(4 == array[0]);
-        assertTrue(1 == array[1]);
-        assertTrue(2 == array[2]);
-        assertTrue(3 == array[3]);
+        assertEquals(4, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(3, array[3]);
         ArrayUtils.shift(array, -1);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
-        assertTrue(4 == array[3]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
         ArrayUtils.shift(array, 5);
-        assertTrue(4 == array[0]);
-        assertTrue(1 == array[1]);
-        assertTrue(2 == array[2]);
-        assertTrue(3 == array[3]);
+        assertEquals(4, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(3, array[3]);
         ArrayUtils.shift(array, -3);
-        assertTrue(3 == array[0]);
-        assertTrue(4 == array[1]);
-        assertTrue(1 == array[2]);
-        assertTrue(2 == array[3]);
+        assertEquals(3, array[0]);
+        assertEquals(4, array[1]);
+        assertEquals(1, array[2]);
+        assertEquals(2, array[3]);
     }
 
     @Test
     public void testShiftRangeFloat() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final float[] array = new float[]{1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
-        assertTrue(1 == array[0]);
-        assertTrue(3 == array[1]);
-        assertTrue(2 == array[2]);
-        assertTrue(4 == array[3]);
-        assertTrue(5 == array[4]);
+        assertEquals(1, array[0]);
+        assertEquals(3, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(4, array[3]);
+        assertEquals(5, array[4]);
         ArrayUtils.shift(array, 1, 4, 2);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(4 == array[2]);
-        assertTrue(3 == array[3]);
-        assertTrue(5 == array[4]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(4, array[2]);
+        assertEquals(3, array[3]);
+        assertEquals(5, array[4]);
     }
 
     @Test
     public void testShiftRangeNoElemFloat() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
-        assertTrue(1 == array[0]);
-        assertTrue(2 == array[1]);
-        assertTrue(3 == array[2]);
-        assertTrue(4 == array[3]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
     }
 
     @Test
@@ -2607,20 +2562,17 @@ public class ArrayUtilsTest {
 
     @Test
     public void testShiftAllFloat() {
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         final float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
-        assertTrue(1 == array[0]);
-        assertTrue(2== array[1]);
-        assertTrue(3 == array[2]);
-        assertTrue(4 == array[3]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
         ArrayUtils.shift(array, -4);
-        assertTrue(1 == array[0]);
-        assertTrue(2== array[1]);
-        assertTrue(3 == array[2]);
-        assertTrue(4 == array[3]);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
     }
 
     @Test
