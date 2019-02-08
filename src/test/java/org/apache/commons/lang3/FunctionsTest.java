@@ -276,7 +276,7 @@ class FunctionsTest {
 	@Test
 	public void testTryWithResources() {
 		final CloseableObject co = new CloseableObject();
-		final FailableConsumer<Throwable,? extends Throwable> consumer = co::run;
+		final FailableConsumer<Throwable, ? extends Throwable> consumer = co::run;
 		final IllegalStateException ise = new IllegalStateException();
 		try {
 			Functions.tryWithResources(() -> consumer.accept(ise), co::close);
