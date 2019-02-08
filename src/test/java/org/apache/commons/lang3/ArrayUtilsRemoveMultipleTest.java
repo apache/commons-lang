@@ -22,9 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -142,59 +139,59 @@ public class ArrayUtilsRemoveMultipleTest {
         boolean[] array;
 
         array = ArrayUtils.removeAll(new boolean[] { true }, 0);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false }, 0);
-        assertTrue(Arrays.equals(new boolean[] { false }, array));
+        assertArrayEquals(new boolean[]{false}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false }, 1);
-        assertTrue(Arrays.equals(new boolean[] { true }, array));
+        assertArrayEquals(new boolean[]{true}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false, true }, 1);
-        assertTrue(Arrays.equals(new boolean[] { true, true }, array));
+        assertArrayEquals(new boolean[]{true, true}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false }, 0, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false, false }, 0, 1);
-        assertTrue(Arrays.equals(new boolean[] { false }, array));
+        assertArrayEquals(new boolean[]{false}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false, false }, 0, 2);
-        assertTrue(Arrays.equals(new boolean[] { false }, array));
+        assertArrayEquals(new boolean[]{false}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false, false }, 1, 2);
-        assertTrue(Arrays.equals(new boolean[] { true }, array));
+        assertArrayEquals(new boolean[]{true}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false, true, false, true }, 0, 2, 4);
-        assertTrue(Arrays.equals(new boolean[] { false, false }, array));
+        assertArrayEquals(new boolean[]{false, false}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false, true, false, true }, 1, 3);
-        assertTrue(Arrays.equals(new boolean[] { true, true, true }, array));
+        assertArrayEquals(new boolean[]{true, true, true}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false, true, false, true }, 1, 3, 4);
-        assertTrue(Arrays.equals(new boolean[] { true, true }, array));
+        assertArrayEquals(new boolean[]{true, true}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false, true, false, true, false, true }, 0, 2, 4, 6);
-        assertTrue(Arrays.equals(new boolean[] { false, false, false }, array));
+        assertArrayEquals(new boolean[]{false, false, false}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false, true, false, true, false, true }, 1, 3, 5);
-        assertTrue(Arrays.equals(new boolean[] { true, true, true, true }, array));
+        assertArrayEquals(new boolean[]{true, true, true, true}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false, true, false, true, false, true }, 0, 1, 2);
-        assertTrue(Arrays.equals(new boolean[] { false, true, false, true }, array));
+        assertArrayEquals(new boolean[]{false, true, false, true}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
     }
 
@@ -203,7 +200,7 @@ public class ArrayUtilsRemoveMultipleTest {
         final boolean[] array1 = new boolean[] { true, false };
         final boolean[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
-        assertTrue(Arrays.equals(array1, array2));
+        assertArrayEquals(array1, array2);
         assertEquals(boolean.class, array2.getClass().getComponentType());
     }
 
@@ -227,51 +224,51 @@ public class ArrayUtilsRemoveMultipleTest {
         byte[] array;
 
         array = ArrayUtils.removeAll(new byte[] { 1 }, 0);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BYTE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new byte[] { 1, 2 }, 0);
-        assertTrue(Arrays.equals(new byte[] { 2 }, array));
+        assertArrayEquals(new byte[]{2}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new byte[] { 1, 2 }, 1);
-        assertTrue(Arrays.equals(new byte[] { 1 }, array));
+        assertArrayEquals(new byte[]{1}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new byte[] { 1, 2, 1 }, 1);
-        assertTrue(Arrays.equals(new byte[] { 1, 1 }, array));
+        assertArrayEquals(new byte[]{1, 1}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new byte[] { 1, 2 }, 0, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BYTE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new byte[] { 1, 2, 3 }, 0, 1);
-        assertTrue(Arrays.equals(new byte[] { 3 }, array));
+        assertArrayEquals(new byte[]{3}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new byte[] { 1, 2, 3 }, 1, 2);
-        assertTrue(Arrays.equals(new byte[] { 1 }, array));
+        assertArrayEquals(new byte[]{1}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new byte[] { 1, 2, 3 }, 0, 2);
-        assertTrue(Arrays.equals(new byte[] { 2 }, array));
+        assertArrayEquals(new byte[]{2}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new byte[] { 1, 2, 3, 4, 5 }, 1, 3);
-        assertTrue(Arrays.equals(new byte[] { 1, 3, 5 }, array));
+        assertArrayEquals(new byte[]{1, 3, 5}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new byte[] { 1, 2, 3, 4, 5 }, 0, 2, 4);
-        assertTrue(Arrays.equals(new byte[] { 2, 4 }, array));
+        assertArrayEquals(new byte[]{2, 4}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new byte[] { 1, 2, 3, 4, 5, 6, 7 }, 1, 3, 5);
-        assertTrue(Arrays.equals(new byte[] { 1, 3, 5, 7 }, array));
+        assertArrayEquals(new byte[]{1, 3, 5, 7}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new byte[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 2, 4, 6);
-        assertTrue(Arrays.equals(new byte[] { 2, 4, 6 }, array));
+        assertArrayEquals(new byte[]{2, 4, 6}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
     }
 
@@ -304,51 +301,51 @@ public class ArrayUtilsRemoveMultipleTest {
         char[] array;
 
         array = ArrayUtils.removeAll(new char[] { 'a' }, 0);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_CHAR_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new char[] { 'a', 'b' }, 0);
-        assertTrue(Arrays.equals(new char[] { 'b' }, array));
+        assertArrayEquals(new char[]{'b'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new char[] { 'a', 'b' }, 1);
-        assertTrue(Arrays.equals(new char[] { 'a' }, array));
+        assertArrayEquals(new char[]{'a'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new char[] { 'a', 'b', 'c' }, 1);
-        assertTrue(Arrays.equals(new char[] { 'a', 'c' }, array));
+        assertArrayEquals(new char[]{'a', 'c'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new char[] { 'a', 'b' }, 0, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_CHAR_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new char[] { 'a', 'b', 'c' }, 0, 1);
-        assertTrue(Arrays.equals(new char[] { 'c' }, array));
+        assertArrayEquals(new char[]{'c'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new char[] { 'a', 'b', 'c' }, 1, 2);
-        assertTrue(Arrays.equals(new char[] { 'a' }, array));
+        assertArrayEquals(new char[]{'a'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new char[] { 'a', 'b', 'c' }, 0, 2);
-        assertTrue(Arrays.equals(new char[] { 'b' }, array));
+        assertArrayEquals(new char[]{'b'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new char[] { 'a', 'b', 'c', 'd', 'e' }, 1, 3);
-        assertTrue(Arrays.equals(new char[] { 'a', 'c', 'e' }, array));
+        assertArrayEquals(new char[]{'a', 'c', 'e'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new char[] { 'a', 'b', 'c', 'd', 'e' }, 0, 2, 4);
-        assertTrue(Arrays.equals(new char[] { 'b', 'd' }, array));
+        assertArrayEquals(new char[]{'b', 'd'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' }, 1, 3, 5);
-        assertTrue(Arrays.equals(new char[] { 'a', 'c', 'e', 'g' }, array));
+        assertArrayEquals(new char[]{'a', 'c', 'e', 'g'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' }, 0, 2, 4, 6);
-        assertTrue(Arrays.equals(new char[] { 'b', 'd', 'f' }, array));
+        assertArrayEquals(new char[]{'b', 'd', 'f'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
     }
 
@@ -381,51 +378,51 @@ public class ArrayUtilsRemoveMultipleTest {
         double[] array;
 
         array = ArrayUtils.removeAll(new double[] { 1 }, 0);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new double[] { 1, 2 }, 0);
-        assertTrue(Arrays.equals(new double[] { 2 }, array));
+        assertArrayEquals(new double[]{2}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new double[] { 1, 2 }, 1);
-        assertTrue(Arrays.equals(new double[] { 1 }, array));
+        assertArrayEquals(new double[]{1}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new double[] { 1, 2, 1 }, 1);
-        assertTrue(Arrays.equals(new double[] { 1, 1 }, array));
+        assertArrayEquals(new double[]{1, 1}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new double[] { 1, 2 }, 0, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new double[] { 1, 2, 3 }, 0, 1);
-        assertTrue(Arrays.equals(new double[] { 3 }, array));
+        assertArrayEquals(new double[]{3}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new double[] { 1, 2, 3 }, 1, 2);
-        assertTrue(Arrays.equals(new double[] { 1 }, array));
+        assertArrayEquals(new double[]{1}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new double[] { 1, 2, 3 }, 0, 2);
-        assertTrue(Arrays.equals(new double[] { 2 }, array));
+        assertArrayEquals(new double[]{2}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new double[] { 1, 2, 3, 4, 5 }, 1, 3);
-        assertTrue(Arrays.equals(new double[] { 1, 3, 5 }, array));
+        assertArrayEquals(new double[]{1, 3, 5}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new double[] { 1, 2, 3, 4, 5 }, 0, 2, 4);
-        assertTrue(Arrays.equals(new double[] { 2, 4 }, array));
+        assertArrayEquals(new double[]{2, 4}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new double[] { 1, 2, 3, 4, 5, 6, 7 }, 1, 3, 5);
-        assertTrue(Arrays.equals(new double[] { 1, 3, 5, 7 }, array));
+        assertArrayEquals(new double[]{1, 3, 5, 7}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new double[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 2, 4, 6);
-        assertTrue(Arrays.equals(new double[] { 2, 4, 6 }, array));
+        assertArrayEquals(new double[]{2, 4, 6}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
     }
 
@@ -434,7 +431,7 @@ public class ArrayUtilsRemoveMultipleTest {
         final double[] array1 = new double[] { 1, 2 };
         final double[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
-        assertTrue(Arrays.equals(array1, array2));
+        assertArrayEquals(array1, array2);
         assertEquals(double.class, array2.getClass().getComponentType());
     }
 
@@ -458,51 +455,51 @@ public class ArrayUtilsRemoveMultipleTest {
         float[] array;
 
         array = ArrayUtils.removeAll(new float[] { 1 }, 0);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_FLOAT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new float[] { 1, 2 }, 0);
-        assertTrue(Arrays.equals(new float[] { 2 }, array));
+        assertArrayEquals(new float[]{2}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new float[] { 1, 2 }, 1);
-        assertTrue(Arrays.equals(new float[] { 1 }, array));
+        assertArrayEquals(new float[]{1}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new float[] { 1, 2, 1 }, 1);
-        assertTrue(Arrays.equals(new float[] { 1, 1 }, array));
+        assertArrayEquals(new float[]{1, 1}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new float[] { 1, 2 }, 0, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_FLOAT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new float[] { 1, 2, 3 }, 0, 1);
-        assertTrue(Arrays.equals(new float[] { 3 }, array));
+        assertArrayEquals(new float[]{3}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new float[] { 1, 2, 3 }, 1, 2);
-        assertTrue(Arrays.equals(new float[] { 1 }, array));
+        assertArrayEquals(new float[]{1}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new float[] { 1, 2, 3 }, 0, 2);
-        assertTrue(Arrays.equals(new float[] { 2 }, array));
+        assertArrayEquals(new float[]{2}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new float[] { 1, 2, 3, 4, 5 }, 1, 3);
-        assertTrue(Arrays.equals(new float[] { 1, 3, 5 }, array));
+        assertArrayEquals(new float[]{1, 3, 5}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new float[] { 1, 2, 3, 4, 5 }, 0, 2, 4);
-        assertTrue(Arrays.equals(new float[] { 2, 4 }, array));
+        assertArrayEquals(new float[]{2, 4}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new float[] { 1, 2, 3, 4, 5, 6, 7 }, 1, 3, 5);
-        assertTrue(Arrays.equals(new float[] { 1, 3, 5, 7 }, array));
+        assertArrayEquals(new float[]{1, 3, 5, 7}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new float[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 2, 4, 6);
-        assertTrue(Arrays.equals(new float[] { 2, 4, 6 }, array));
+        assertArrayEquals(new float[]{2, 4, 6}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
     }
 
@@ -511,7 +508,7 @@ public class ArrayUtilsRemoveMultipleTest {
         final float[] array1 = new float[] { 1, 2 };
         final float[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
-        assertTrue(Arrays.equals(array1, array2));
+        assertArrayEquals(array1, array2);
         assertEquals(float.class, array2.getClass().getComponentType());
     }
 
@@ -535,57 +532,57 @@ public class ArrayUtilsRemoveMultipleTest {
         int[] array;
 
         array = ArrayUtils.removeAll(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.EMPTY_INT_ARRAY);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_INT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, array);
 
         array = ArrayUtils.removeAll(new int[] { 1 }, ArrayUtils.EMPTY_INT_ARRAY);
-        assertTrue(Arrays.equals(new int[] { 1 }, array));
+        assertArrayEquals(new int[]{1}, array);
 
         array = ArrayUtils.removeAll(new int[] { 1 }, 0);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_INT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new int[] { 1, 2 }, 0);
-        assertTrue(Arrays.equals(new int[] { 2 }, array));
+        assertArrayEquals(new int[]{2}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new int[] { 1, 2 }, 1);
-        assertTrue(Arrays.equals(new int[] { 1 }, array));
+        assertArrayEquals(new int[]{1}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new int[] { 1, 2, 1 }, 1);
-        assertTrue(Arrays.equals(new int[] { 1, 1 }, array));
+        assertArrayEquals(new int[]{1, 1}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new int[] { 1, 2 }, 0, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_INT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new int[] { 1, 2, 3 }, 0, 1);
-        assertTrue(Arrays.equals(new int[] { 3 }, array));
+        assertArrayEquals(new int[]{3}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new int[] { 1, 2, 3 }, 1, 2);
-        assertTrue(Arrays.equals(new int[] { 1 }, array));
+        assertArrayEquals(new int[]{1}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new int[] { 1, 2, 3 }, 0, 2);
-        assertTrue(Arrays.equals(new int[] { 2 }, array));
+        assertArrayEquals(new int[]{2}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new int[] { 1, 2, 3, 4, 5 }, 1, 3);
-        assertTrue(Arrays.equals(new int[] { 1, 3, 5 }, array));
+        assertArrayEquals(new int[]{1, 3, 5}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new int[] { 1, 2, 3, 4, 5 }, 0, 2, 4);
-        assertTrue(Arrays.equals(new int[] { 2, 4 }, array));
+        assertArrayEquals(new int[]{2, 4}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1, 3, 5);
-        assertTrue(Arrays.equals(new int[] { 1, 3, 5, 7 }, array));
+        assertArrayEquals(new int[]{1, 3, 5, 7}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 2, 4, 6);
-        assertTrue(Arrays.equals(new int[] { 2, 4, 6 }, array));
+        assertArrayEquals(new int[]{2, 4, 6}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
     }
 
@@ -618,51 +615,51 @@ public class ArrayUtilsRemoveMultipleTest {
         long[] array;
 
         array = ArrayUtils.removeAll(new long[] { 1 }, 0);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_LONG_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new long[] { 1, 2 }, 0);
-        assertTrue(Arrays.equals(new long[] { 2 }, array));
+        assertArrayEquals(new long[]{2}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new long[] { 1, 2 }, 1);
-        assertTrue(Arrays.equals(new long[] { 1 }, array));
+        assertArrayEquals(new long[]{1}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new long[] { 1, 2, 1 }, 1);
-        assertTrue(Arrays.equals(new long[] { 1, 1 }, array));
+        assertArrayEquals(new long[]{1, 1}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new long[] { 1, 2 }, 0, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_LONG_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new long[] { 1, 2, 3 }, 0, 1);
-        assertTrue(Arrays.equals(new long[] { 3 }, array));
+        assertArrayEquals(new long[]{3}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new long[] { 1, 2, 3 }, 1, 2);
-        assertTrue(Arrays.equals(new long[] { 1 }, array));
+        assertArrayEquals(new long[]{1}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new long[] { 1, 2, 3 }, 0, 2);
-        assertTrue(Arrays.equals(new long[] { 2 }, array));
+        assertArrayEquals(new long[]{2}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new long[] { 1, 2, 3, 4, 5 }, 1, 3);
-        assertTrue(Arrays.equals(new long[] { 1, 3, 5 }, array));
+        assertArrayEquals(new long[]{1, 3, 5}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new long[] { 1, 2, 3, 4, 5 }, 0, 2, 4);
-        assertTrue(Arrays.equals(new long[] { 2, 4 }, array));
+        assertArrayEquals(new long[]{2, 4}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new long[] { 1, 2, 3, 4, 5, 6, 7 }, 1, 3, 5);
-        assertTrue(Arrays.equals(new long[] { 1, 3, 5, 7 }, array));
+        assertArrayEquals(new long[]{1, 3, 5, 7}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new long[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 2, 4, 6);
-        assertTrue(Arrays.equals(new long[] { 2, 4, 6 }, array));
+        assertArrayEquals(new long[]{2, 4, 6}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
     }
 
@@ -695,51 +692,51 @@ public class ArrayUtilsRemoveMultipleTest {
         short[] array;
 
         array = ArrayUtils.removeAll(new short[] { 1 }, 0);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_SHORT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new short[] { 1, 2 }, 0);
-        assertTrue(Arrays.equals(new short[] { 2 }, array));
+        assertArrayEquals(new short[]{2}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new short[] { 1, 2 }, 1);
-        assertTrue(Arrays.equals(new short[] { 1 }, array));
+        assertArrayEquals(new short[]{1}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new short[] { 1, 2, 1 }, 1);
-        assertTrue(Arrays.equals(new short[] { 1, 1 }, array));
+        assertArrayEquals(new short[]{1, 1}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new short[] { 1, 2 }, 0, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_SHORT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new short[] { 1, 2, 3 }, 0, 1);
-        assertTrue(Arrays.equals(new short[] { 3 }, array));
+        assertArrayEquals(new short[]{3}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new short[] { 1, 2, 3 }, 1, 2);
-        assertTrue(Arrays.equals(new short[] { 1 }, array));
+        assertArrayEquals(new short[]{1}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new short[] { 1, 2, 3 }, 0, 2);
-        assertTrue(Arrays.equals(new short[] { 2 }, array));
+        assertArrayEquals(new short[]{2}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new short[] { 1, 2, 3, 4, 5 }, 1, 3);
-        assertTrue(Arrays.equals(new short[] { 1, 3, 5 }, array));
+        assertArrayEquals(new short[]{1, 3, 5}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new short[] { 1, 2, 3, 4, 5 }, 0, 2, 4);
-        assertTrue(Arrays.equals(new short[] { 2, 4 }, array));
+        assertArrayEquals(new short[]{2, 4}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new short[] { 1, 2, 3, 4, 5, 6, 7 }, 1, 3, 5);
-        assertTrue(Arrays.equals(new short[] { 1, 3, 5, 7 }, array));
+        assertArrayEquals(new short[]{1, 3, 5, 7}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new short[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 2, 4, 6);
-        assertTrue(Arrays.equals(new short[] { 2, 4, 6 }, array));
+        assertArrayEquals(new short[]{2, 4, 6}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
     }
 
@@ -775,50 +772,50 @@ public class ArrayUtilsRemoveMultipleTest {
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_OBJECT_ARRAY, "a");
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_OBJECT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
         assertEquals(Object.class, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new Object[] { "a" }, "a");
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_OBJECT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
         assertEquals(Object.class, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new Object[] { "a", "b" }, "a");
-        assertTrue(Arrays.equals(new Object[] { "b" }, array));
+        assertArrayEquals(new Object[]{"b"}, array);
         assertEquals(Object.class, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a");
-        assertTrue(Arrays.equals(new Object[] { "b", "a" }, array));
+        assertArrayEquals(new Object[]{"b", "a"}, array);
         assertEquals(Object.class, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements((Object[]) null, "a", "b");
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_OBJECT_ARRAY, "a", "b");
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_OBJECT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
         assertEquals(Object.class, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new Object[] { "a" }, "a", "b");
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_OBJECT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
         assertEquals(Object.class, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new Object[] { "a", "b" }, "a", "c");
-        assertTrue(Arrays.equals(new Object[] { "b" }, array));
+        assertArrayEquals(new Object[]{"b"}, array);
         assertEquals(Object.class, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a");
-        assertTrue(Arrays.equals(new Object[] { "b", "a" }, array));
+        assertArrayEquals(new Object[]{"b", "a"}, array);
         assertEquals(Object.class, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a", "b");
-        assertTrue(Arrays.equals(new Object[] { "a" }, array));
+        assertArrayEquals(new Object[]{"a"}, array);
         assertEquals(Object.class, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a", "a");
-        assertTrue(Arrays.equals(new Object[] { "b" }, array));
+        assertArrayEquals(new Object[]{"b"}, array);
         assertEquals(Object.class, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a", "a", "a", "a");
-        assertTrue(Arrays.equals(new Object[] { "b" }, array));
+        assertArrayEquals(new Object[]{"b"}, array);
         assertEquals(Object.class, array.getClass().getComponentType());
     }
 
@@ -830,50 +827,50 @@ public class ArrayUtilsRemoveMultipleTest {
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_BOOLEAN_ARRAY, true);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true }, true);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true, false }, true);
-        assertTrue(Arrays.equals(new boolean[] { false }, array));
+        assertArrayEquals(new boolean[]{false}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true, false, true }, true);
-        assertTrue(Arrays.equals(new boolean[] { false, true }, array));
+        assertArrayEquals(new boolean[]{false, true}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements((boolean[]) null, true, false);
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_BOOLEAN_ARRAY, true, false);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true }, true, false);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true, false }, true, false);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true, false }, true, true);
-        assertTrue(Arrays.equals(new boolean[] { false }, array));
+        assertArrayEquals(new boolean[]{false}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true, false, true }, true, false);
-        assertTrue(Arrays.equals(new boolean[] { true }, array));
+        assertArrayEquals(new boolean[]{true}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true, false, true }, true, true);
-        assertTrue(Arrays.equals(new boolean[] { false }, array));
+        assertArrayEquals(new boolean[]{false}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true, false, true }, true, true, true, true);
-        assertTrue(Arrays.equals(new boolean[] { false }, array));
+        assertArrayEquals(new boolean[]{false}, array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
     }
 
@@ -885,50 +882,50 @@ public class ArrayUtilsRemoveMultipleTest {
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_BYTE_ARRAY, (byte) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BYTE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new byte[] { 1 }, (byte) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BYTE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new byte[] { 1, 2 }, (byte) 1);
-        assertTrue(Arrays.equals(new byte[] { 2 }, array));
+        assertArrayEquals(new byte[]{2}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new byte[] { 1, 2, 1 }, (byte) 1);
-        assertTrue(Arrays.equals(new byte[] { 2, 1 }, array));
+        assertArrayEquals(new byte[]{2, 1}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements((byte[]) null, (byte) 1, (byte) 2);
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_BYTE_ARRAY, (byte) 1, (byte) 2);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BYTE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new byte[] { 1 }, (byte) 1, (byte) 2);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BYTE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new byte[] { 1, 2 }, (byte) 1, (byte) 2);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_BYTE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new byte[] { 1, 2 }, (byte) 1, (byte) 1);
-        assertTrue(Arrays.equals(new byte[] { 2 }, array));
+        assertArrayEquals(new byte[]{2}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new byte[] { 1, 2, 1 }, (byte) 1, (byte) 2);
-        assertTrue(Arrays.equals(new byte[] { 1 }, array));
+        assertArrayEquals(new byte[]{1}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new byte[] { 1, 2, 1 }, (byte) 1, (byte) 1);
-        assertTrue(Arrays.equals(new byte[] { 2 }, array));
+        assertArrayEquals(new byte[]{2}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new byte[] { 1, 2, 1 }, (byte) 1, (byte) 1, (byte) 1, (byte) 1);
-        assertTrue(Arrays.equals(new byte[] { 2 }, array));
+        assertArrayEquals(new byte[]{2}, array);
         assertEquals(Byte.TYPE, array.getClass().getComponentType());
     }
 
@@ -940,50 +937,50 @@ public class ArrayUtilsRemoveMultipleTest {
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_CHAR_ARRAY, 'a');
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_CHAR_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new char[] { 'a' }, 'a');
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_CHAR_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new char[] { 'a', 'b' }, 'a');
-        assertTrue(Arrays.equals(new char[] { 'b' }, array));
+        assertArrayEquals(new char[]{'b'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new char[] { 'a', 'b', 'a' }, 'a');
-        assertTrue(Arrays.equals(new char[] { 'b', 'a' }, array));
+        assertArrayEquals(new char[]{'b', 'a'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements((char[]) null, 'a', 'b');
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_CHAR_ARRAY, 'a', 'b');
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_CHAR_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new char[] { 'a' }, 'a', 'b');
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_CHAR_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new char[] { 'a', 'b' }, 'a', 'b');
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_CHAR_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new char[] { 'a', 'b' }, 'a', 'a');
-        assertTrue(Arrays.equals(new char[] { 'b' }, array));
+        assertArrayEquals(new char[]{'b'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new char[] { 'a', 'b', 'a' }, 'a', 'b');
-        assertTrue(Arrays.equals(new char[] { 'a' }, array));
+        assertArrayEquals(new char[]{'a'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new char[] { 'a', 'b', 'a' }, 'a', 'a');
-        assertTrue(Arrays.equals(new char[] { 'b' }, array));
+        assertArrayEquals(new char[]{'b'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new char[] { 'a', 'b', 'a' }, 'a', 'a', 'a', 'a');
-        assertTrue(Arrays.equals(new char[] { 'b' }, array));
+        assertArrayEquals(new char[]{'b'}, array);
         assertEquals(Character.TYPE, array.getClass().getComponentType());
     }
 
@@ -996,50 +993,50 @@ public class ArrayUtilsRemoveMultipleTest {
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_DOUBLE_ARRAY, (double) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new double[] { 1 }, (double) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new double[] { 1, 2 }, (double) 1);
-        assertTrue(Arrays.equals(new double[] { 2 }, array));
+        assertArrayEquals(new double[]{2}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new double[] { 1, 2, 1 }, (double) 1);
-        assertTrue(Arrays.equals(new double[] { 2, 1 }, array));
+        assertArrayEquals(new double[]{2, 1}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements((double[]) null, (double) 1, (double) 2);
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_DOUBLE_ARRAY, (double) 1, (double) 2);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new double[] { 1 }, (double) 1, (double) 2);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new double[] { 1, 2 }, (double) 1, (double) 2);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new double[] { 1, 2 }, (double) 1, (double) 1);
-        assertTrue(Arrays.equals(new double[] { 2 }, array));
+        assertArrayEquals(new double[]{2}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new double[] { 1, 2, 1 }, (double) 1, (double) 2);
-        assertTrue(Arrays.equals(new double[] { 1 }, array));
+        assertArrayEquals(new double[]{1}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new double[] { 1, 2, 1 }, (double) 1, (double) 1);
-        assertTrue(Arrays.equals(new double[] { 2 }, array));
+        assertArrayEquals(new double[]{2}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new double[] { 1, 2, 1 }, (double) 1, (double) 1, (double) 1, (double) 1);
-        assertTrue(Arrays.equals(new double[] { 2 }, array));
+        assertArrayEquals(new double[]{2}, array);
         assertEquals(Double.TYPE, array.getClass().getComponentType());
     }
 
@@ -1052,50 +1049,50 @@ public class ArrayUtilsRemoveMultipleTest {
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_FLOAT_ARRAY, (float) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_FLOAT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new float[] { 1 }, (float) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_FLOAT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new float[] { 1, 2 }, (float) 1);
-        assertTrue(Arrays.equals(new float[] { 2 }, array));
+        assertArrayEquals(new float[]{2}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new float[] { 1, 2, 1 }, (float) 1);
-        assertTrue(Arrays.equals(new float[] { 2, 1 }, array));
+        assertArrayEquals(new float[]{2, 1}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements((float[]) null, (float) 1, (float) 1);
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_FLOAT_ARRAY, (float) 1, (float) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_FLOAT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new float[] { 1 }, (float) 1, (float) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_FLOAT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new float[] { 1, 2 }, (float) 1, (float) 2);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_FLOAT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new float[] { 1, 2 }, (float) 1, (float) 1);
-        assertTrue(Arrays.equals(new float[] { 2 }, array));
+        assertArrayEquals(new float[]{2}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new float[] { 1, 2, 1 }, (float) 1, (float) 1);
-        assertTrue(Arrays.equals(new float[] { 2 }, array));
+        assertArrayEquals(new float[]{2}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new float[] { 1, 2, 1 }, (float) 1, (float) 2);
-        assertTrue(Arrays.equals(new float[] { 1 }, array));
+        assertArrayEquals(new float[]{1}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new float[] { 1, 2, 1 }, (float) 1, (float) 1, (float) 1, (float) 1);
-        assertTrue(Arrays.equals(new float[] { 2 }, array));
+        assertArrayEquals(new float[]{2}, array);
         assertEquals(Float.TYPE, array.getClass().getComponentType());
     }
 
@@ -1107,50 +1104,50 @@ public class ArrayUtilsRemoveMultipleTest {
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_INT_ARRAY, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_INT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new int[] { 1 }, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_INT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new int[] { 1, 2 }, 1);
-        assertTrue(Arrays.equals(new int[] { 2 }, array));
+        assertArrayEquals(new int[]{2}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new int[] { 1, 2, 1 }, 1);
-        assertTrue(Arrays.equals(new int[] { 2, 1 }, array));
+        assertArrayEquals(new int[]{2, 1}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements((int[]) null, 1);
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_INT_ARRAY, 1, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_INT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new int[] { 1 }, 1, 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_INT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new int[] { 1, 2 }, 1, 2);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_INT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new int[] { 1, 2 }, 1, 1);
-        assertTrue(Arrays.equals(new int[] { 2 }, array));
+        assertArrayEquals(new int[]{2}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new int[] { 1, 2, 1 }, 1, 2);
-        assertTrue(Arrays.equals(new int[] { 1 }, array));
+        assertArrayEquals(new int[]{1}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new int[] { 1, 2, 1 }, 1, 1);
-        assertTrue(Arrays.equals(new int[] { 2 }, array));
+        assertArrayEquals(new int[]{2}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new int[] { 1, 2, 1 }, 1, 1, 1, 1);
-        assertTrue(Arrays.equals(new int[] { 2 }, array));
+        assertArrayEquals(new int[]{2}, array);
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
     }
 
@@ -1163,50 +1160,50 @@ public class ArrayUtilsRemoveMultipleTest {
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_LONG_ARRAY, 1L);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_LONG_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new long[] { 1 }, 1L);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_LONG_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new long[] { 1, 2 }, 1L);
-        assertTrue(Arrays.equals(new long[] { 2 }, array));
+        assertArrayEquals(new long[]{2}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new long[] { 1, 2, 1 }, 1L);
-        assertTrue(Arrays.equals(new long[] { 2, 1 }, array));
+        assertArrayEquals(new long[]{2, 1}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements((long[]) null, 1L, 1L);
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_LONG_ARRAY, 1L, 1L);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_LONG_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new long[] { 1 }, 1L, 1L);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_LONG_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new long[] { 1, 2 }, 1L, 2L);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_LONG_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new long[] { 1, 2 }, 1L, 1L);
-        assertTrue(Arrays.equals(new long[] { 2 }, array));
+        assertArrayEquals(new long[]{2}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new long[] { 1, 2, 1 }, 1L, 1L);
-        assertTrue(Arrays.equals(new long[] { 2 }, array));
+        assertArrayEquals(new long[]{2}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new long[] { 1, 2, 1 }, 1L, 2L);
-        assertTrue(Arrays.equals(new long[] { 1 }, array));
+        assertArrayEquals(new long[]{1}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new long[] { 1, 2, 1 }, 1L, 1L, 1L, 1L);
-        assertTrue(Arrays.equals(new long[] { 2 }, array));
+        assertArrayEquals(new long[]{2}, array);
         assertEquals(Long.TYPE, array.getClass().getComponentType());
     }
 
@@ -1218,50 +1215,50 @@ public class ArrayUtilsRemoveMultipleTest {
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_SHORT_ARRAY, (short) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_SHORT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new short[] { 1 }, (short) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_SHORT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new short[] { 1, 2 }, (short) 1);
-        assertTrue(Arrays.equals(new short[] { 2 }, array));
+        assertArrayEquals(new short[]{2}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new short[] { 1, 2, 1 }, (short) 1);
-        assertTrue(Arrays.equals(new short[] { 2, 1 }, array));
+        assertArrayEquals(new short[]{2, 1}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements((short[]) null, (short) 1, (short) 1);
         assertNull(array);
 
         array = ArrayUtils.removeElements(ArrayUtils.EMPTY_SHORT_ARRAY, (short) 1, (short) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_SHORT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new short[] { 1 }, (short) 1, (short) 1);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_SHORT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new short[] { 1, 2 }, (short) 1, (short) 2);
-        assertTrue(Arrays.equals(ArrayUtils.EMPTY_SHORT_ARRAY, array));
+        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new short[] { 1, 2 }, (short) 1, (short) 1);
-        assertTrue(Arrays.equals(new short[] { 2 }, array));
+        assertArrayEquals(new short[]{2}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new short[] { 1, 2, 1 }, (short) 1, (short) 1);
-        assertTrue(Arrays.equals(new short[] { 2 }, array));
+        assertArrayEquals(new short[]{2}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new short[] { 1, 2, 1 }, (short) 1, (short) 2);
-        assertTrue(Arrays.equals(new short[] { 1 }, array));
+        assertArrayEquals(new short[]{1}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new short[] { 1, 2, 1 }, (short) 1, (short) 1, (short) 1, (short) 1);
-        assertTrue(Arrays.equals(new short[] { 2 }, array));
+        assertArrayEquals(new short[]{2}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
     }
 

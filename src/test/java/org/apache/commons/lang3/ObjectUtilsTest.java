@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -518,7 +519,7 @@ public class ObjectUtilsTest {
      */
     @Test
     public void testCloneOfPrimitiveArray() {
-        assertTrue(Arrays.equals(new int[]{1}, ObjectUtils.clone(new int[]{1})));
+        assertArrayEquals(new int[]{1}, ObjectUtils.clone(new int[]{1}));
     }
 
     /**

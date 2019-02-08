@@ -131,7 +131,7 @@ public class MutableBooleanTest {
 
         assertEquals(mutBoolA.hashCode(), mutBoolA.hashCode());
         assertEquals(mutBoolA.hashCode(), mutBoolB.hashCode());
-        assertFalse(mutBoolA.hashCode() == mutBoolC.hashCode());
+        assertNotEquals(mutBoolA.hashCode(), mutBoolC.hashCode());
         assertEquals(mutBoolA.hashCode(), Boolean.FALSE.hashCode());
         assertEquals(mutBoolC.hashCode(), Boolean.TRUE.hashCode());
     }

@@ -19,7 +19,6 @@ package org.apache.commons.lang3.mutable;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -107,7 +106,7 @@ public class MutableIntTest {
 
         assertEquals(mutNumA.hashCode(), mutNumA.hashCode());
         assertEquals(mutNumA.hashCode(), mutNumB.hashCode());
-        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
+        assertNotEquals(mutNumA.hashCode(), mutNumC.hashCode());
         assertEquals(mutNumA.hashCode(), Integer.valueOf(0).hashCode());
     }
 

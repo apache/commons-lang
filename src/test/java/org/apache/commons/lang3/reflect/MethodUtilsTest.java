@@ -892,8 +892,7 @@ public class MethodUtilsTest {
                 requestTypes);
         assertNotNull(m, "could not find any matches for " + methodName
                 + " (" + (requestTypes == null ? null : toString(requestTypes)) + ")");
-        assertTrue(Arrays.equals(actualTypes, m.getParameterTypes()),
-                toString(m.getParameterTypes()) + " not equals " + toString(actualTypes));
+        assertArrayEquals(actualTypes, m.getParameterTypes(), toString(m.getParameterTypes()) + " not equals " + toString(actualTypes));
     }
 
     private String toString(final Class<?>[] c) {

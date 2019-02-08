@@ -159,7 +159,7 @@ public class RangeTest {
     @Test
     public void testHashCode() {
         assertEquals(byteRange.hashCode(), byteRange2.hashCode());
-        assertFalse(byteRange.hashCode() == byteRange3.hashCode());
+        assertNotEquals(byteRange.hashCode(), byteRange3.hashCode());
 
         assertEquals(intRange.hashCode(), intRange.hashCode());
         assertTrue(intRange.hashCode() != 0);

@@ -2415,15 +2415,15 @@ public class StringUtilsTest {
 
     @Test
     public void testGetJaroWinklerDistance_StringString() {
-        assertTrue(0.93d == StringUtils.getJaroWinklerDistance("frog", "fog"));
-        assertTrue(0.0d == StringUtils.getJaroWinklerDistance("fly", "ant"));
-        assertTrue(0.44d == StringUtils.getJaroWinklerDistance("elephant", "hippo"));
-        assertTrue(0.84d == StringUtils.getJaroWinklerDistance("dwayne", "duane"));
-        assertTrue(0.93d == StringUtils.getJaroWinklerDistance("ABC Corporation", "ABC Corp"));
-        assertTrue(0.95d == StringUtils.getJaroWinklerDistance("D N H Enterprises Inc", "D & H Enterprises, Inc."));
-        assertTrue(0.92d == StringUtils.getJaroWinklerDistance("My Gym Children's Fitness Center", "My Gym. Childrens Fitness"));
-        assertTrue(0.88d == StringUtils.getJaroWinklerDistance("PENNSYLVANIA", "PENNCISYLVNIA"));
-        assertTrue(0.63d == StringUtils.getJaroWinklerDistance("Haus Ingeborg", "Ingeborg Esser"));
+        assertEquals(0.93d, StringUtils.getJaroWinklerDistance("frog", "fog"));
+        assertEquals(0.0d, StringUtils.getJaroWinklerDistance("fly", "ant"));
+        assertEquals(0.44d, StringUtils.getJaroWinklerDistance("elephant", "hippo"));
+        assertEquals(0.84d, StringUtils.getJaroWinklerDistance("dwayne", "duane"));
+        assertEquals(0.93d, StringUtils.getJaroWinklerDistance("ABC Corporation", "ABC Corp"));
+        assertEquals(0.95d, StringUtils.getJaroWinklerDistance("D N H Enterprises Inc", "D & H Enterprises, Inc."));
+        assertEquals(0.92d, StringUtils.getJaroWinklerDistance("My Gym Children's Fitness Center", "My Gym. Childrens Fitness"));
+        assertEquals(0.88d, StringUtils.getJaroWinklerDistance("PENNSYLVANIA", "PENNCISYLVNIA"));
+        assertEquals(0.63d, StringUtils.getJaroWinklerDistance("Haus Ingeborg", "Ingeborg Esser"));
     }
 
     @Test

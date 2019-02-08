@@ -98,19 +98,19 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToFloatString() {
-        assertTrue(NumberUtils.toFloat("-1.2345") == -1.2345f, "toFloat(String) 1 failed");
-        assertTrue(NumberUtils.toFloat("1.2345") == 1.2345f, "toFloat(String) 2 failed");
-        assertTrue(NumberUtils.toFloat("abc") == 0.0f, "toFloat(String) 3 failed");
+        assertEquals(NumberUtils.toFloat("-1.2345"), -1.2345f, "toFloat(String) 1 failed");
+        assertEquals(1.2345f, NumberUtils.toFloat("1.2345"), "toFloat(String) 2 failed");
+        assertEquals(0.0f, NumberUtils.toFloat("abc"), "toFloat(String) 3 failed");
         // LANG-1060
-        assertTrue(NumberUtils.toFloat("-001.2345") == -1.2345f, "toFloat(String) 4 failed");
-        assertTrue(NumberUtils.toFloat("+001.2345") == 1.2345f, "toFloat(String) 5 failed");
-        assertTrue(NumberUtils.toFloat("001.2345") == 1.2345f, "toFloat(String) 6 failed");
-        assertTrue(NumberUtils.toFloat("000.00") == 0f, "toFloat(String) 7 failed");
+        assertEquals(NumberUtils.toFloat("-001.2345"), -1.2345f, "toFloat(String) 4 failed");
+        assertEquals(1.2345f, NumberUtils.toFloat("+001.2345"), "toFloat(String) 5 failed");
+        assertEquals(1.2345f, NumberUtils.toFloat("001.2345"), "toFloat(String) 6 failed");
+        assertEquals(0f, NumberUtils.toFloat("000.00"), "toFloat(String) 7 failed");
 
-        assertTrue(NumberUtils.toFloat(Float.MAX_VALUE+"") ==  Float.MAX_VALUE, "toFloat(Float.MAX_VALUE) failed");
-        assertTrue(NumberUtils.toFloat(Float.MIN_VALUE+"") == Float.MIN_VALUE, "toFloat(Float.MIN_VALUE) failed");
-        assertTrue(NumberUtils.toFloat("") == 0.0f, "toFloat(empty) failed");
-        assertTrue(NumberUtils.toFloat(null) == 0.0f, "toFloat(null) failed");
+        assertEquals(NumberUtils.toFloat(Float.MAX_VALUE + ""), Float.MAX_VALUE, "toFloat(Float.MAX_VALUE) failed");
+        assertEquals(NumberUtils.toFloat(Float.MIN_VALUE + ""), Float.MIN_VALUE, "toFloat(Float.MIN_VALUE) failed");
+        assertEquals(0.0f, NumberUtils.toFloat(""), "toFloat(empty) failed");
+        assertEquals(0.0f, NumberUtils.toFloat(null), "toFloat(null) failed");
     }
 
     /**
@@ -118,12 +118,12 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToFloatStringF() {
-        assertTrue(NumberUtils.toFloat("1.2345", 5.1f) == 1.2345f, "toFloat(String, int) 1 failed");
-        assertTrue(NumberUtils.toFloat("a", 5.0f) == 5.0f, "toFloat(String, int) 2 failed");
+        assertEquals(1.2345f, NumberUtils.toFloat("1.2345", 5.1f), "toFloat(String, int) 1 failed");
+        assertEquals(5.0f, NumberUtils.toFloat("a", 5.0f), "toFloat(String, int) 2 failed");
         // LANG-1060
-        assertTrue(NumberUtils.toFloat("-001Z.2345", 5.0f) == 5.0f, "toFloat(String, int) 3 failed");
-        assertTrue(NumberUtils.toFloat("+001AB.2345", 5.0f) == 5.0f, "toFloat(String, int) 4 failed");
-        assertTrue(NumberUtils.toFloat("001Z.2345", 5.0f) == 5.0f, "toFloat(String, int) 5 failed");
+        assertEquals(5.0f, NumberUtils.toFloat("-001Z.2345", 5.0f), "toFloat(String, int) 3 failed");
+        assertEquals(5.0f, NumberUtils.toFloat("+001AB.2345", 5.0f), "toFloat(String, int) 4 failed");
+        assertEquals(5.0f, NumberUtils.toFloat("001Z.2345", 5.0f), "toFloat(String, int) 5 failed");
     }
 
     /**
@@ -153,19 +153,19 @@ public class NumberUtilsTest {
      */
     @Test
     public void testStringToDoubleString() {
-        assertTrue(NumberUtils.toDouble("-1.2345") == -1.2345d, "toDouble(String) 1 failed");
-        assertTrue(NumberUtils.toDouble("1.2345") == 1.2345d, "toDouble(String) 2 failed");
-        assertTrue(NumberUtils.toDouble("abc") == 0.0d, "toDouble(String) 3 failed");
+        assertEquals(NumberUtils.toDouble("-1.2345"), -1.2345d, "toDouble(String) 1 failed");
+        assertEquals(1.2345d, NumberUtils.toDouble("1.2345"), "toDouble(String) 2 failed");
+        assertEquals(0.0d, NumberUtils.toDouble("abc"), "toDouble(String) 3 failed");
         // LANG-1060
-        assertTrue(NumberUtils.toDouble("-001.2345") == -1.2345d, "toDouble(String) 4 failed");
-        assertTrue(NumberUtils.toDouble("+001.2345") == 1.2345d, "toDouble(String) 5 failed");
-        assertTrue(NumberUtils.toDouble("001.2345") == 1.2345d, "toDouble(String) 6 failed");
-        assertTrue(NumberUtils.toDouble("000.00000") == 0d, "toDouble(String) 7 failed");
+        assertEquals(NumberUtils.toDouble("-001.2345"), -1.2345d, "toDouble(String) 4 failed");
+        assertEquals(1.2345d, NumberUtils.toDouble("+001.2345"), "toDouble(String) 5 failed");
+        assertEquals(1.2345d, NumberUtils.toDouble("001.2345"), "toDouble(String) 6 failed");
+        assertEquals(0d, NumberUtils.toDouble("000.00000"), "toDouble(String) 7 failed");
 
-        assertTrue(NumberUtils.toDouble(Double.MAX_VALUE+"") == Double.MAX_VALUE, "toDouble(Double.MAX_VALUE) failed");
-        assertTrue(NumberUtils.toDouble(Double.MIN_VALUE+"") == Double.MIN_VALUE, "toDouble(Double.MIN_VALUE) failed");
-        assertTrue(NumberUtils.toDouble("") == 0.0d, "toDouble(empty) failed");
-        assertTrue(NumberUtils.toDouble((String) null) == 0.0d, "toDouble(null) failed");
+        assertEquals(NumberUtils.toDouble(Double.MAX_VALUE + ""), Double.MAX_VALUE, "toDouble(Double.MAX_VALUE) failed");
+        assertEquals(NumberUtils.toDouble(Double.MIN_VALUE + ""), Double.MIN_VALUE, "toDouble(Double.MIN_VALUE) failed");
+        assertEquals(0.0d, NumberUtils.toDouble(""), "toDouble(empty) failed");
+        assertEquals(0.0d, NumberUtils.toDouble((String) null), "toDouble(null) failed");
     }
 
     /**
@@ -173,13 +173,13 @@ public class NumberUtilsTest {
      */
     @Test
     public void testStringToDoubleStringD() {
-        assertTrue(NumberUtils.toDouble("1.2345", 5.1d) == 1.2345d, "toDouble(String, int) 1 failed");
-        assertTrue(NumberUtils.toDouble("a", 5.0d) == 5.0d, "toDouble(String, int) 2 failed");
+        assertEquals(1.2345d, NumberUtils.toDouble("1.2345", 5.1d), "toDouble(String, int) 1 failed");
+        assertEquals(5.0d, NumberUtils.toDouble("a", 5.0d), "toDouble(String, int) 2 failed");
         // LANG-1060
-        assertTrue(NumberUtils.toDouble("001.2345", 5.1d) == 1.2345d, "toDouble(String, int) 3 failed");
-        assertTrue(NumberUtils.toDouble("-001.2345", 5.1d) == -1.2345d, "toDouble(String, int) 4 failed");
-        assertTrue(NumberUtils.toDouble("+001.2345", 5.1d) == 1.2345d, "toDouble(String, int) 5 failed");
-        assertTrue(NumberUtils.toDouble("000.00", 5.1d) == 0d, "toDouble(String, int) 7 failed");
+        assertEquals(1.2345d, NumberUtils.toDouble("001.2345", 5.1d), "toDouble(String, int) 3 failed");
+        assertEquals(NumberUtils.toDouble("-001.2345", 5.1d), -1.2345d, "toDouble(String, int) 4 failed");
+        assertEquals(1.2345d, NumberUtils.toDouble("+001.2345", 5.1d), "toDouble(String, int) 5 failed");
+        assertEquals(0d, NumberUtils.toDouble("000.00", 5.1d), "toDouble(String, int) 7 failed");
     }
 
     /**
@@ -187,8 +187,8 @@ public class NumberUtilsTest {
      */
     @Test
     public void testBigIntegerToDoubleBigInteger() {
-        assertTrue(NumberUtils.toDouble((BigDecimal) null) == 0.0d, "toDouble(BigInteger) 1 failed");
-        assertTrue(NumberUtils.toDouble(BigDecimal.valueOf(8.5d)) == 8.5d, "toDouble(BigInteger) 2 failed");
+        assertEquals(0.0d, NumberUtils.toDouble((BigDecimal) null), "toDouble(BigInteger) 1 failed");
+        assertEquals(8.5d, NumberUtils.toDouble(BigDecimal.valueOf(8.5d)), "toDouble(BigInteger) 2 failed");
     }
 
     /**
@@ -196,8 +196,8 @@ public class NumberUtilsTest {
      */
     @Test
     public void testBigIntegerToDoubleBigIntegerD() {
-        assertTrue(NumberUtils.toDouble((BigDecimal) null, 1.1d) == 1.1d, "toDouble(BigInteger) 1 failed");
-        assertTrue(NumberUtils.toDouble(BigDecimal.valueOf(8.5d), 1.1d) == 8.5d, "toDouble(BigInteger) 2 failed");
+        assertEquals(1.1d, NumberUtils.toDouble((BigDecimal) null, 1.1d), "toDouble(BigInteger) 1 failed");
+        assertEquals(8.5d, NumberUtils.toDouble(BigDecimal.valueOf(8.5d), 1.1d), "toDouble(BigInteger) 2 failed");
     }
 
      /**
@@ -1511,12 +1511,12 @@ public class NumberUtilsTest {
         assertEquals(0, NumberUtils.BYTE_ZERO.byteValue());
         assertEquals(1, NumberUtils.BYTE_ONE.byteValue());
         assertEquals(NumberUtils.BYTE_MINUS_ONE.byteValue(), -1);
-        assertTrue(0.0d == NumberUtils.DOUBLE_ZERO.doubleValue());
-        assertTrue(1.0d == NumberUtils.DOUBLE_ONE.doubleValue());
-        assertTrue(NumberUtils.DOUBLE_MINUS_ONE.doubleValue() == -1.0d);
-        assertTrue(0.0f == NumberUtils.FLOAT_ZERO.floatValue());
-        assertTrue(1.0f == NumberUtils.FLOAT_ONE.floatValue());
-        assertTrue(NumberUtils.FLOAT_MINUS_ONE.floatValue() == -1.0f);
+        assertEquals(0.0d, NumberUtils.DOUBLE_ZERO.doubleValue());
+        assertEquals(1.0d, NumberUtils.DOUBLE_ONE.doubleValue());
+        assertEquals(NumberUtils.DOUBLE_MINUS_ONE.doubleValue(), -1.0d);
+        assertEquals(0.0f, NumberUtils.FLOAT_ZERO.floatValue());
+        assertEquals(1.0f, NumberUtils.FLOAT_ONE.floatValue());
+        assertEquals(NumberUtils.FLOAT_MINUS_ONE.floatValue(), -1.0f);
     }
 
     @Test

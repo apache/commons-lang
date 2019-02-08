@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -23,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.jupiter.api.Test;
@@ -1194,10 +1194,10 @@ public class EqualsBuilderTest {
         final Object[] y = new Object[]{new TestBCanEqualA(1)};
 
         // sanity checks:
-        assertTrue(Arrays.equals(x, x));
-        assertTrue(Arrays.equals(y, y));
-        assertTrue(Arrays.equals(x, y));
-        assertTrue(Arrays.equals(y, x));
+        assertArrayEquals(x, x);
+        assertArrayEquals(y, y);
+        assertArrayEquals(x, y);
+        assertArrayEquals(y, x);
         // real tests:
         assertEquals(x[0], x[0]);
         assertEquals(y[0], y[0]);
