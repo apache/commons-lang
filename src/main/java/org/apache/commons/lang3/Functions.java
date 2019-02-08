@@ -55,7 +55,7 @@ public class Functions {
 		void run() throws T;
 	}
 	@FunctionalInterface
-	public interface FailableCallable<O,T extends Throwable> {
+	public interface FailableCallable<O, T extends Throwable> {
 		/**
 		 * Calls the callable.
 		 * @return The value returned from the callable
@@ -64,7 +64,7 @@ public class Functions {
 		O call() throws T;
 	}
 	@FunctionalInterface
-	public interface FailableConsumer<O,T extends Throwable> {
+	public interface FailableConsumer<O, T extends Throwable> {
 		/**
 		 * Accepts the consumer.
 		 * @param pObject the parameter for the consumable to accept
@@ -73,7 +73,7 @@ public class Functions {
 		void accept(O pObject) throws T;
 	}
 	@FunctionalInterface
-	public interface FailableBiConsumer<O1,O2,T extends Throwable> {
+	public interface FailableBiConsumer<O1, O2, T extends Throwable> {
 		/**
 		 * Accepts the consumer.
 		 * @param pObject1 the first parameter for the consumable to accept
@@ -83,7 +83,7 @@ public class Functions {
 		void accept(O1 pObject1, O2 pObject2) throws T;
 	}
 	@FunctionalInterface
-	public interface FailableFunction<I,O,T extends Throwable> {
+	public interface FailableFunction<I, O, T extends Throwable> {
 		/**
 		 * Apply the function.
 		 * @param pInput the input for the function
@@ -93,7 +93,7 @@ public class Functions {
 		O apply(I pInput) throws T;
 	}
 	@FunctionalInterface
-	public interface FailableBiFunction<I1,I2,O,T extends Throwable> {
+	public interface FailableBiFunction<I1, I2, O, T extends Throwable> {
 		/**
 		 * Apply the function.
 		 * @param pInput1 the first input for the function
@@ -104,7 +104,7 @@ public class Functions {
 		O apply(I1 pInput1, I2 pInput2) throws T;
 	}
 	@FunctionalInterface
-	public interface FailablePredicate<O,T extends Throwable> {
+	public interface FailablePredicate<O, T extends Throwable> {
 		/**
 		 * Test the predicate.
 		 * @param pObject the object to test the predicate on
@@ -114,7 +114,7 @@ public class Functions {
 		boolean test(O pObject) throws T;
 	}
 	@FunctionalInterface
-	public interface FailableBiPredicate<O1,O2,T extends Throwable> {
+	public interface FailableBiPredicate<O1, O2, T extends Throwable> {
 		/**
 		 * Test the predicate.
 		 * @param pObject1 the first object to test the predicate on
@@ -145,7 +145,7 @@ public class Functions {
 	 * @param <T> the type of checked exception the callable may throw
 	 * @return the value returned from the callable
 	 */
-	public static <O,T extends Throwable> O call(FailableCallable<O,T> pCallable) {
+	public static <O, T extends Throwable> O call(FailableCallable<O, T> pCallable) {
 		try {
 			return pCallable.call();
 		} catch (Throwable t) {
@@ -160,7 +160,7 @@ public class Functions {
 	 * @param <O> the type the consumer accepts
 	 * @param <T> the type of checked exception the consumer may throw
 	 */
-	public static <O,T extends Throwable> void accept(FailableConsumer<O,T> pConsumer, O pObject) {
+	public static <O, T extends Throwable> void accept(FailableConsumer<O, T> pConsumer, O pObject) {
 		try {
 			pConsumer.accept(pObject);
 		} catch (Throwable t) {
@@ -177,7 +177,7 @@ public class Functions {
 	 * @param <O2> the type of the second argument the consumer accepts
 	 * @param <T> the type of checked exception the consumer may throw
 	 */
-	public static <O1,O2,T extends Throwable> void accept(FailableBiConsumer<O1,O2,T> pConsumer, O1 pObject1, O2 pObject2) {
+	public static <O1, O2, T extends Throwable> void accept(FailableBiConsumer<O1, O2, T> pConsumer, O1 pObject1, O2 pObject2) {
 		try {
 			pConsumer.accept(pObject1, pObject2);
 		} catch (Throwable t) {
@@ -194,7 +194,7 @@ public class Functions {
 	 * @param <T> the type of checked exception the function may throw
 	 * @return the value returned from the function
 	 */
-	public static <I,O,T extends Throwable> O apply(FailableFunction<I,O,T> pFunction, I pInput) {
+	public static <I, O, T extends Throwable> O apply(FailableFunction<I, O, T> pFunction, I pInput) {
 		try {
 			return pFunction.apply(pInput);
 		} catch (Throwable t) {
@@ -213,7 +213,7 @@ public class Functions {
 	 * @param <T> the type of checked exception the function may throw
 	 * @return the value returned from the function
 	 */
-	public static <I1,I2,O,T extends Throwable> O apply(FailableBiFunction<I1,I2,O,T> pFunction, I1 pInput1, I2 pInput2) {
+	public static <I1, I2, O, T extends Throwable> O apply(FailableBiFunction<I1, I2, O, T> pFunction, I1 pInput1, I2 pInput2) {
 		try {
 			return pFunction.apply(pInput1, pInput2);
 		} catch (Throwable t) {
@@ -229,7 +229,7 @@ public class Functions {
 	 * @param <T> the type of checked exception the predicate may throw
 	 * @return the boolean value returned by the predicate
 	 */
-	public static <O,T extends Throwable> boolean test(FailablePredicate<O,T> pPredicate, O pObject) {
+	public static <O, T extends Throwable> boolean test(FailablePredicate<O, T> pPredicate, O pObject) {
 		try {
 			return pPredicate.test(pObject);
 		} catch (Throwable t) {
@@ -247,7 +247,7 @@ public class Functions {
 	 * @param <T> the type of checked exception the predicate may throw
 	 * @return the boolean value returned by the predicate
 	 */
-	public static <O1,O2,T extends Throwable> boolean test(FailableBiPredicate<O1,O2,T> pPredicate, O1 pObject1, O2 pObject2) {
+	public static <O1, O2, T extends Throwable> boolean test(FailableBiPredicate<O1, O2, T> pPredicate, O1 pObject1, O2 pObject2) {
 		try {
 			return pPredicate.test(pObject1, pObject2);
 		} catch (Throwable t) {
@@ -279,9 +279,9 @@ public class Functions {
 	 */
 	@SafeVarargs
 	public static void tryWithResources(FailableRunnable<? extends Throwable> pAction,
-			                                FailableConsumer<Throwable,? extends Throwable> pErrorHandler,
+			                                FailableConsumer<Throwable, ? extends Throwable> pErrorHandler,
 											FailableRunnable<? extends Throwable>... pResources) {
-		final FailableConsumer<Throwable,? extends Throwable> errorHandler;
+		final FailableConsumer<Throwable, ? extends Throwable> errorHandler;
 		if (pErrorHandler == null) {
 			errorHandler = (t) -> rethrow(t);
 		} else {
