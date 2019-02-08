@@ -26,8 +26,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 class FunctionsTest {
     public static class SomeException extends Exception {
@@ -117,30 +117,24 @@ class FunctionsTest {
     @Test
     void testRunnable() {
         FailureOnOddInvocations.invocation = 0;
-        try {
-            Functions.run(FailureOnOddInvocations::new);
-            fail("Expected Exception");
-        } catch (UndeclaredThrowableException e) {
-            final Throwable cause = e.getCause();
-            assertNotNull(cause);
-            assertTrue(cause instanceof SomeException);
-            assertEquals("Odd Invocation: 1", cause.getMessage());
-        }
+        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
+        final Throwable cause = e.getCause();
+        assertNotNull(cause);
+        assertTrue(cause instanceof SomeException);
+        assertEquals("Odd Invocation: 1", cause.getMessage());
+
+        // Even invocation, should not throw an exception
         Functions.run(FailureOnOddInvocations::new);
     }
 
     @Test
     void testCallable() {
         FailureOnOddInvocations.invocation = 0;
-        try {
-            Functions.call(FailureOnOddInvocations::new);
-            fail("Expected Exception");
-        } catch (UndeclaredThrowableException e) {
-            final Throwable cause = e.getCause();
-            assertNotNull(cause);
-            assertTrue(cause instanceof SomeException);
-            assertEquals("Odd Invocation: 1", cause.getMessage());
-        }
+        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
+        final Throwable cause = e.getCause();
+        assertNotNull(cause);
+        assertTrue(cause instanceof SomeException);
+        assertEquals("Odd Invocation: 1", cause.getMessage());
         final FailureOnOddInvocations instance = Functions.call(FailureOnOddInvocations::new);
         assertNotNull(instance);
     }
@@ -149,30 +143,21 @@ class FunctionsTest {
     void testAcceptConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
-        try {
-            Functions.accept(Testable::test, testable);
-            fail("Expected Exception");
-        } catch (IllegalStateException e) {
-            assertSame(ise, e);
-        }
+        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(Testable::test, testable));
+        assertSame(ise, e);
+
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        try {
-            Functions.accept(Testable::test, testable);
-        } catch (OutOfMemoryError e) {
-            assertSame(error, e);
-        }
+        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(Testable::test, testable));
+        assertSame(error, e);
+
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        try {
-            Functions.accept(Testable::test, testable);
-            fail("Expected Exception");
-        } catch (UncheckedIOException e) {
-            final Throwable t = e.getCause();
-            assertNotNull(t);
-            assertTrue(t instanceof IOException);
-            assertSame(ioe, t);
-        }
+        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(Testable::test, testable));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
         testable.setThrowable(null);
         Functions.accept(Testable::test, testable);
     }
@@ -181,29 +166,20 @@ class FunctionsTest {
     void testAcceptBiConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(null);
-        try {
-            Functions.accept(Testable::test, testable, ise);
-            fail("Expected Exception");
-        } catch (IllegalStateException e) {
-            assertSame(ise, e);
-        }
+        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(Testable::test, testable, ise));
+        assertSame(ise, e);
+
         final Error error = new OutOfMemoryError();
-        try {
-            Functions.accept(Testable::test, testable, error);
-        } catch (OutOfMemoryError e) {
-            assertSame(error, e);
-        }
+        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(Testable::test, testable, error));
+        assertSame(error, e);
+
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        try {
-            Functions.accept(Testable::test, testable, ioe);
-            fail("Expected Exception");
-        } catch (UncheckedIOException e) {
-            final Throwable t = e.getCause();
-            assertNotNull(t);
-            assertTrue(t instanceof IOException);
-            assertSame(ioe, t);
-        }
+        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(Testable::test, testable, ioe));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
         testable.setThrowable(null);
         Functions.accept(Testable::test, testable, (Throwable) null);
     }
@@ -212,30 +188,21 @@ class FunctionsTest {
     public void testApplyFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
-        try {
-            Functions.apply(Testable::testInt, testable);
-            fail("Expected Exception");
-        } catch (IllegalStateException e) {
-            assertSame(ise, e);
-        }
+        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.apply(Testable::testInt, testable));
+        assertSame(ise, e);
+
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        try {
-            Functions.apply(Testable::testInt, testable);
-        } catch (OutOfMemoryError e) {
-            assertSame(error, e);
-        }
+        e = assertThrows(OutOfMemoryError.class, () -> Functions.apply(Testable::testInt, testable));
+        assertSame(error, e);
+
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        try {
-            Functions.apply(Testable::testInt, testable);
-            fail("Expected Exception");
-        } catch (UncheckedIOException e) {
-            final Throwable t = e.getCause();
-            assertNotNull(t);
-            assertTrue(t instanceof IOException);
-            assertSame(ioe, t);
-        }
+        e = assertThrows(UncheckedIOException.class, () -> Functions.apply(Testable::testInt, testable));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
         testable.setThrowable(null);
         final Integer i = Functions.apply(Testable::testInt, testable);
         assertNotNull(i);
@@ -246,28 +213,19 @@ class FunctionsTest {
     public void testApplyBiFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(null);
-        try {
-            Functions.apply(Testable::testInt, testable, ise);
-            fail("Expected Exception");
-        } catch (IllegalStateException e) {
-            assertSame(ise, e);
-        }
+        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.apply(Testable::testInt, testable, ise));
+        assertSame(ise, e);
+
         final Error error = new OutOfMemoryError();
-        try {
-            Functions.apply(Testable::testInt, testable, error);
-        } catch (OutOfMemoryError e) {
-            assertSame(error, e);
-        }
+        e = assertThrows(OutOfMemoryError.class, () -> Functions.apply(Testable::testInt, testable, error));
+        assertSame(error, e);
+
         final IOException ioe = new IOException("Unknown I/O error");
-        try {
-            Functions.apply(Testable::testInt, testable, ioe);
-            fail("Expected Exception");
-        } catch (UncheckedIOException e) {
-            final Throwable t = e.getCause();
-            assertNotNull(t);
-            assertTrue(t instanceof IOException);
-            assertSame(ioe, t);
-        }
+        e = assertThrows(UncheckedIOException.class, () -> Functions.apply(Testable::testInt, testable, ioe));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
         final Integer i = Functions.apply(Testable::testInt, testable, (Throwable) null);
         assertNotNull(i);
         assertEquals(0, i.intValue());
@@ -278,31 +236,22 @@ class FunctionsTest {
         final CloseableObject co = new CloseableObject();
         final FailableConsumer<Throwable, ? extends Throwable> consumer = co::run;
         final IllegalStateException ise = new IllegalStateException();
-        try {
-            Functions.tryWithResources(() -> consumer.accept(ise), co::close);
-            fail("Expected Exception");
-        } catch (IllegalStateException e) {
-            assertSame(ise, e);
-        }
+        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.tryWithResources(() -> consumer.accept(ise), co::close));
+        assertSame(ise, e);
+
         assertTrue(co.isClosed());
         co.reset();
         final Error error = new OutOfMemoryError();
-        try {
-            Functions.tryWithResources(() -> consumer.accept(error), co::close);
-            fail("Expected Exception");
-        } catch (OutOfMemoryError e) {
-            assertSame(error, e);
-        }
+        e = assertThrows(OutOfMemoryError.class, () -> Functions.tryWithResources(() -> consumer.accept(error), co::close));
+        assertSame(error, e);
+
         assertTrue(co.isClosed());
         co.reset();
         final IOException ioe = new IOException("Unknown I/O error");
-        try {
-            Functions.tryWithResources(() -> consumer.accept(ioe), co::close);
-            fail("Expected Exception");
-        } catch (UncheckedIOException e) {
-            final IOException cause = e.getCause();
-            assertSame(ioe, cause);
-        }
+        UncheckedIOException uioe = assertThrows(UncheckedIOException.class, () ->  Functions.tryWithResources(() -> consumer.accept(ioe), co::close));
+        final IOException cause = uioe.getCause();
+        assertSame(ioe, cause);
+
         assertTrue(co.isClosed());
         co.reset();
         Functions.tryWithResources(() -> consumer.accept(null), co::close);
