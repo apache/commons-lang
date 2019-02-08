@@ -17,7 +17,6 @@
 package org.apache.commons.lang3.tuple;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -58,7 +57,7 @@ public class PairTest {
 
         pair2.setValue("bar");
         assertNotEquals(pair, pair2);
-        assertFalse(pair.hashCode() == pair2.hashCode());
+        assertNotEquals(pair.hashCode(), pair2.hashCode());
     }
 
     @Test

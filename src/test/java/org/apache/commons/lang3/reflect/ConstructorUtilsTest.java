@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -269,8 +268,7 @@ public class ConstructorUtilsTest {
             final Class<?>[] requestTypes, final Class<?>[] actualTypes) {
         final Constructor<?> c = ConstructorUtils.getMatchingAccessibleConstructor(cls,
                 requestTypes);
-        assertTrue(Arrays.equals(actualTypes, c.getParameterTypes()),
-                toString(c.getParameterTypes()) + " not equals " + toString(actualTypes));
+        assertArrayEquals(actualTypes, c.getParameterTypes(), toString(c.getParameterTypes()) + " not equals " + toString(actualTypes));
     }
 
     private String toString(final Class<?>[] c) {

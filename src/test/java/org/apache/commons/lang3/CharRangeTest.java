@@ -154,12 +154,12 @@ public class CharRangeTest  {
         assertEquals(rangenotbf.hashCode(), rangenotbf.hashCode());
         assertEquals(rangenotbf.hashCode(), CharRange.isIn('b', 'f').hashCode());
 
-        assertFalse(rangea.hashCode() == rangeae.hashCode());
-        assertFalse(rangea.hashCode() == rangenotbf.hashCode());
-        assertFalse(rangeae.hashCode() == rangea.hashCode());
-        assertFalse(rangeae.hashCode() == rangenotbf.hashCode());
-        assertFalse(rangenotbf.hashCode() == rangea.hashCode());
-        assertFalse(rangenotbf.hashCode() == rangeae.hashCode());
+        assertNotEquals(rangea.hashCode(), rangeae.hashCode());
+        assertNotEquals(rangea.hashCode(), rangenotbf.hashCode());
+        assertNotEquals(rangeae.hashCode(), rangea.hashCode());
+        assertNotEquals(rangeae.hashCode(), rangenotbf.hashCode());
+        assertNotEquals(rangenotbf.hashCode(), rangea.hashCode());
+        assertNotEquals(rangenotbf.hashCode(), rangeae.hashCode());
     }
 
     //-----------------------------------------------------------------------
@@ -344,7 +344,7 @@ public class CharRangeTest  {
         assertTrue(notaIt.hasNext());
         while (notaIt.hasNext()) {
             final Character c = notaIt.next();
-            assertFalse('a' == c.charValue());
+            assertNotEquals('a', c.charValue());
         }
 
         final Iterator<Character> emptySetIt = emptySet.iterator();

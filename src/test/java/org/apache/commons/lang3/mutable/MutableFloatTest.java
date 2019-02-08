@@ -19,7 +19,6 @@ package org.apache.commons.lang3.mutable;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -113,7 +112,7 @@ public class MutableFloatTest {
 
         assertEquals(mutNumA.hashCode(), mutNumA.hashCode());
         assertEquals(mutNumA.hashCode(), mutNumB.hashCode());
-        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
+        assertNotEquals(mutNumA.hashCode(), mutNumC.hashCode());
         assertEquals(mutNumA.hashCode(), Float.valueOf(0f).hashCode());
     }
 

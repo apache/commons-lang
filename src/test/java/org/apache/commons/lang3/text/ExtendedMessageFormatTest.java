@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.text.DateFormat;
@@ -317,12 +316,12 @@ public class ExtendedMessageFormatTest {
         // Different pattern
         other = new ExtendedMessageFormat("X" + pattern, Locale.US, fmtRegistry);
         assertNotEquals(emf, other, "pattern, equals()");
-        assertFalse(emf.hashCode() == other.hashCode(), "pattern, hashcode()");
+        assertNotEquals(emf.hashCode(), other.hashCode(), "pattern, hashcode()");
 
         // Different registry
         other = new ExtendedMessageFormat(pattern, Locale.US, otherRegitry);
         assertNotEquals(emf, other, "registry, equals()");
-        assertFalse(emf.hashCode() == other.hashCode(), "registry, hashcode()");
+        assertNotEquals(emf.hashCode(), other.hashCode(), "registry, hashcode()");
 
         // Different Locale
         other = new ExtendedMessageFormat(pattern, Locale.FRANCE, fmtRegistry);
