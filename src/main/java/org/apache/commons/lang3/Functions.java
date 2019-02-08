@@ -278,7 +278,7 @@ public class Functions {
 	 * @see #tryWithResources(FailableRunnable, FailableRunnable...)
 	 */
 	@SafeVarargs
-	public static <O> void tryWithResources(FailableRunnable<? extends Throwable> pAction,
+	public static void tryWithResources(FailableRunnable<? extends Throwable> pAction,
 			                                FailableConsumer<Throwable,? extends Throwable> pErrorHandler,
 											FailableRunnable<? extends Throwable>... pResources) {
 		final FailableConsumer<Throwable,? extends Throwable> errorHandler;
@@ -340,7 +340,7 @@ public class Functions {
 	 * @see #tryWithResources(FailableRunnable, FailableConsumer, FailableRunnable...)
 	 */
 	@SafeVarargs
-	public static <O> void tryWithResources(FailableRunnable<? extends Throwable> pAction,
+	public static void tryWithResources(FailableRunnable<? extends Throwable> pAction,
 											FailableRunnable<? extends Throwable>... pResources) {
 		tryWithResources(pAction, null, pResources);
 	}
