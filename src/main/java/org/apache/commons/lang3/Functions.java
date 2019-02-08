@@ -28,7 +28,7 @@ import java.lang.reflect.UndeclaredThrowableException;
  * not to throw Exceptions, at least not checked Exceptions, aka instances of
  * {@link Exception}. This enforces the use of constructs like
  * <pre>
- *   Consumer<java.lang.reflect.Method> consumer = (m) -> {
+ *   Consumer&lt;java.lang.reflect.Method&gt; consumer = (m) -&gt; {
  *       try {
  *           m.invoke(o, args);
  *       } catch (Throwable t) {
@@ -36,11 +36,11 @@ import java.lang.reflect.UndeclaredThrowableException;
  *       }
  *   };
  * </pre>
- * By replacing a {@link Consumer Consumer<O>} with a
- * {@link FailableConsumer FailableConsumer<O,? extends Throwable}, this can be
+ * By replacing a {@link java.util.function.Consumer Consumer&lt;O&gt;} with a
+ * {@link FailableConsumer FailableConsumer&lt;O,? extends Throwable&gt;}, this can be
  * written like follows:
  * <pre>
- *   Functions.accept((m) -> m.invoke(o,args));
+ *   Functions.accept((m) -&gt; m.invoke(o,args));
  * </pre>
  * Obviously, the second version is much more concise and the spirit of
  * Lambda expressions is met better than the second version.
@@ -265,7 +265,7 @@ public class Functions {
      * {@link Throwable} is rethrown. Example use:
      * <pre>
      *   final FileInputStream fis = new FileInputStream("my.file");
-     *   Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
+     *   Functions.tryWithResources(useInputStream(fis), null, () -&gt; fis.close());
      * </pre>
      * @param pAction The action to execute. This object <em>will</em> always
      *   be invoked.
@@ -330,7 +330,7 @@ public class Functions {
      * {@link Throwable} is rethrown. Example use:
      * <pre>
      *   final FileInputStream fis = new FileInputStream("my.file");
-     *   Functions.tryWithResources(useInputStream(fis), () -> fis.close());
+     *   Functions.tryWithResources(useInputStream(fis), () -&gt; fis.close());
      * </pre>
      * @param pAction The action to execute. This object <em>will</em> always
      *   be invoked.
