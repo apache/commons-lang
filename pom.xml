@@ -903,6 +903,19 @@
     </profile>
 
     <profile>
+      <id>java11</id>
+      <activation>
+        <jdk>11</jdk>
+      </activation>
+      <properties>
+        <!-- workaround for https://bugs.openjdk.java.net/browse/JDK-8212233
+             which causes javadoc to fail with "Exit code: 1 - javadoc: error - The code being documented uses modules
+             but the packages defined in https://docs.oracle.com/javase/7/docs/api/ are in the unnamed module."  -->
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+      </properties>
+    </profile>
+
+    <profile>
       <id>benchmark</id>
       <properties>
         <skipTests>true</skipTests>
