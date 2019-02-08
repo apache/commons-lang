@@ -557,17 +557,14 @@ public class ObjectUtilsTest {
         // bytecode to see if the literals were folded into the
         // class, or if the bytecode kept the method call.
 
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
         assertTrue(ObjectUtils.CONST(true), "CONST(boolean)");
         assertEquals((byte) 3, ObjectUtils.CONST((byte) 3), "CONST(byte)");
         assertEquals((char) 3, ObjectUtils.CONST((char) 3), "CONST(char)");
         assertEquals((short) 3, ObjectUtils.CONST((short) 3), "CONST(short)");
         assertEquals(3, ObjectUtils.CONST(3), "CONST(int)");
         assertEquals(3L, ObjectUtils.CONST(3L), "CONST(long)");
-        assertTrue(3f == ObjectUtils.CONST(3f), "CONST(float)");
-        assertTrue(3.0 == ObjectUtils.CONST(3.0), "CONST(double)");
+        assertEquals(3f, ObjectUtils.CONST(3f), "CONST(float)");
+        assertEquals(3.0, ObjectUtils.CONST(3.0), "CONST(double)");
         assertEquals("abc", ObjectUtils.CONST("abc"), "CONST(Object)");
 
         // Make sure documentation examples from Javadoc all work
@@ -599,8 +596,8 @@ public class ObjectUtilsTest {
         assertEquals(123, MAGIC_INT);
         assertEquals(123, MAGIC_LONG1);
         assertEquals(3, MAGIC_LONG2);
-        assertTrue(1.0f == MAGIC_FLOAT);
-        assertTrue(1.0 == MAGIC_DOUBLE);
+        assertEquals(1.0f, MAGIC_FLOAT);
+        assertEquals(1.0, MAGIC_DOUBLE);
         assertEquals("abc", MAGIC_STRING);
         assertThrows(
                 IllegalArgumentException.class,

@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * JUnit tests.
@@ -109,12 +108,8 @@ public class MutableShortTest {
     @Test
     public void testPrimitiveValues() {
         final MutableShort mutNum = new MutableShort( (short) 1 );
-
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
-        assertTrue ( 1.0F == mutNum.floatValue() );
-        assertTrue ( 1.0 == mutNum.doubleValue() );
+        assertEquals(1.0F, mutNum.floatValue());
+        assertEquals(1.0, mutNum.doubleValue());
         assertEquals( (byte) 1, mutNum.byteValue() );
         assertEquals( (short) 1, mutNum.shortValue() );
         assertEquals( 1, mutNum.intValue() );

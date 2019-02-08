@@ -135,12 +135,8 @@ public class MutableDoubleTest {
     @Test
     public void testPrimitiveValues() {
         final MutableDouble mutNum = new MutableDouble(1.7);
-
-        // TODO: JUnit Jupiter 5.3.1 doesn't support delta=0.
-        // This should be replaced when it is supported in JUnit Jupiter 5.4.
-        // See https://github.com/junit-team/junit5/pull/1613 for details.
-        assertTrue ( 1.7F == mutNum.floatValue() );
-        assertTrue( 1.7 == mutNum.doubleValue() );
+        assertEquals(1.7F, mutNum.floatValue());
+        assertEquals(1.7, mutNum.doubleValue());
         assertEquals( (byte) 1, mutNum.byteValue() );
         assertEquals( (short) 1, mutNum.shortValue() );
         assertEquals( 1, mutNum.intValue() );
