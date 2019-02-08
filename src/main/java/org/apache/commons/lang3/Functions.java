@@ -48,35 +48,35 @@ import java.lang.reflect.UndeclaredThrowableException;
 public class Functions {
 	@FunctionalInterface
 	public interface FailableRunnable<T extends Throwable> {
-		public void run() throws T;
+		void run() throws T;
 	}
 	@FunctionalInterface
 	public interface FailableCallable<O,T extends Throwable> {
-		public O call() throws T;
+		O call() throws T;
 	}
 	@FunctionalInterface
 	public interface FailableConsumer<O,T extends Throwable> {
-		public void accept(O pObject) throws T;
+		void accept(O pObject) throws T;
 	}
 	@FunctionalInterface
 	public interface FailableBiConsumer<O1,O2,T extends Throwable> {
-		public void accept(O1 pObject1, O2 pObject2) throws T;
+		void accept(O1 pObject1, O2 pObject2) throws T;
 	}
 	@FunctionalInterface
 	public interface FailableFunction<I,O,T extends Throwable> {
-		public O apply(I pInput) throws T;
+		O apply(I pInput) throws T;
 	}
 	@FunctionalInterface
 	public interface FailableBiFunction<I1,I2,O,T extends Throwable> {
-		public O apply(I1 pInput1, I2 pInput2) throws T;
+		O apply(I1 pInput1, I2 pInput2) throws T;
 	}
 	@FunctionalInterface
 	public interface FailablePredicate<O,T extends Throwable> {
-		public boolean test(O pObject) throws T;
+		boolean test(O pObject) throws T;
 	}
 	@FunctionalInterface
 	public interface FailableBiPredicate<O1,O2,T extends Throwable> {
-		public boolean test(O1 pObject1, O2 pObject2) throws T;
+		boolean test(O1 pObject1, O2 pObject2) throws T;
 	}
 
 	public static <T extends Throwable> void run(FailableRunnable<T> pRunnable) {
