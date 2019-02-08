@@ -35,7 +35,7 @@ class FunctionsTest {
 
 		private Throwable t;
 
-		public SomeException(String pMsg) {
+		SomeException(String pMsg) {
 			super(pMsg);
 		}
 
@@ -52,7 +52,7 @@ class FunctionsTest {
 	public static class Testable {
 		private Throwable t;
 
-		public Testable(Throwable pTh) {
+		Testable(Throwable pTh) {
 			t = pTh;
 		}
 
@@ -84,7 +84,7 @@ class FunctionsTest {
 
 	public static class FailureOnOddInvocations {
 		private static int invocation;
-		public FailureOnOddInvocations() throws SomeException {
+		FailureOnOddInvocations() throws SomeException {
 			final int i = ++invocation;
 			if (i % 2 == 1) {
 				throw new SomeException("Odd Invocation: " + i);
