@@ -21,14 +21,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -104,7 +102,7 @@ public class ToStringBuilderTest {
      */
     @Test
     public void testReflectionCharacter() {
-        final Character c = new Character('A');
+        final Character c = 'A';
         assertEquals(this.toBaseString(c) + "[value=A]", ToStringBuilder.reflectionToString(c));
     }
 
@@ -315,10 +313,6 @@ public class ToStringBuilderTest {
     // Reflection hierarchy tests
     @Test
     public void testReflectionHierarchyArrayList() {
-        // note, the test data depends on the internal representation of the ArrayList, which may differ between JDK versions and vendors
-        // representation different for IBM JDK 1.6.0, LANG-727
-        assumeFalse("IBM Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".equals(SystemUtils.JAVA_SPECIFICATION_VERSION));
-        assumeFalse("Oracle Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".compareTo(SystemUtils.JAVA_SPECIFICATION_VERSION) < 0);
         // LANG-1337 without this, the generated string can differ depending on the JVM version/vendor
         final List<Object> list = new ArrayList<>(ARRAYLIST_INITIAL_CAPACITY);
         final String baseString = this.toBaseString(list);
@@ -1276,6 +1270,7 @@ public class ToStringBuilderTest {
     /**
      * Test fixture for ReflectionToStringBuilder.toString() for statics.
      */
+    @SuppressWarnings("unused")
     class InheritedReflectionStaticFieldsFixture extends SimpleReflectionStaticFieldsFixture {
         static final String staticString2 = "staticString2";
         static final int staticInt2 = 67890;
@@ -1303,7 +1298,7 @@ public class ToStringBuilderTest {
         final MultiLineTestObject obj = new MultiLineTestObject();
         final ToStringBuilder testBuilder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                                           .appendToString(obj.toString());
-        assertEquals(testBuilder.toString().indexOf("testInt=31337"), -1);
+        assertEquals(-1, testBuilder.toString().indexOf("testInt=31337"));
     }
 
 }
