@@ -507,24 +507,13 @@
     </contributor>
   </contributors>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.junit</groupId>
-        <artifactId>junit-bom</artifactId>
-        <version>${junit.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <!-- Lang should depend on very little -->
   <dependencies>
     <!-- testing -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
+      <version>5.4.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -616,8 +605,6 @@
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
     <jmh.version>1.21</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
-
-    <junit.version>5.4.0</junit.version>
 
     <commons.jacoco.version>0.8.2</commons.jacoco.version>
 
