@@ -64,12 +64,7 @@ public class RangeTest {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
     public void testComparableConstructors() {
-        final Comparable c = new Comparable() {
-            @Override
-            public int compareTo(final Object other) {
-                return 1;
-            }
-        };
+        final Comparable c = other -> 1;
         final Range r1 = Range.is(c);
         final Range r2 = Range.between(c, c);
         assertTrue(r1.isNaturalOrdering());
@@ -78,12 +73,8 @@ public class RangeTest {
 
     @Test
     public void testIsWithCompare() {
-        final Comparator<Integer> c = new Comparator<Integer>() {
-            @Override
-            public int compare(final Integer o1, final Integer o2) {
-                return 0; // all integers are equal
-            }
-        };
+        // all integers are equal
+        final Comparator<Integer> c = (o1, o2) -> 0;
         Range<Integer> ri = Range.is(10);
         assertFalse(ri.contains(null), "should not contain null");
         assertTrue(ri.contains(10), "should contain 10");
@@ -96,18 +87,9 @@ public class RangeTest {
 
     @Test
     public void testBetweenWithCompare() {
-        final Comparator<Integer> c = new Comparator<Integer>() {
-            @Override
-            public int compare(final Integer o1, final Integer o2) {
-                return 0; // all integers are equal
-            }
-        };
-        final Comparator<String> lengthComp = new Comparator<String>() {
-            @Override
-            public int compare(final String str1, final String str2) {
-                return str1.length() - str2.length();
-            }
-        };
+        // all integers are equal
+        final Comparator<Integer> c = (o1, o2) -> 0;
+        final Comparator<String> lengthComp = Comparator.comparingInt(String::length);
         Range<Integer> rb = Range.between(-10, 20);
         assertFalse(rb.contains(null), "should not contain null");
         assertTrue(rb.contains(10), "should contain 10");
