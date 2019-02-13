@@ -558,7 +558,7 @@
     <dependency>
       <groupId>org.checkerframework</groupId>
       <artifactId>checker-qual</artifactId>
-      <version>2.6.0</version>
+      <version>1.9.13</version>
     </dependency>
     <dependency>
       <groupId>org.checkerframework</groupId>
@@ -570,27 +570,6 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.8.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.checkerframework</groupId>
-      <artifactId>checker-qual</artifactId>
-      <version>2.6.0</version>
-      <scope>system</scope>
-      <systemPath>${env.CHECKERFRAMEWORK}/checker/dist/checker-qual.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>org.checkerframework</groupId>
-      <artifactId>checker</artifactId>
-      <version>2.6.0</version>
-      <scope>system</scope>
-      <systemPath>${env.CHECKERFRAMEWORK}/checker/dist/checker.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>org.checkerframework</groupId>
-      <artifactId>jdk8</artifactId>
-      <version>2.6.0</version>
-      <scope>system</scope>
-      <systemPath>${env.CHECKERFRAMEWORK}/checker/dist/jdk8.jar</systemPath>
     </dependency>
 
   </dependencies>
@@ -609,7 +588,6 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
     <!--
        This is also  used to generate download_xxx file name.
        To override this when generating the download page:
@@ -906,48 +884,6 @@
               </execution>
             </executions>
           </plugin>
-           <plugin>
-    <!-- This plugin will set properties values using dependency information -->
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-dependency-plugin</artifactId>
-    <executions>
-      <execution>
-        <goals>
-          <goal>properties</goal>
-        </goals>
-      </execution>
-    </executions>
-  </plugin>
-<plugin>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <version>3.6.1</version>
-    <configuration>
-      <source>1.8</source>
-      <target>1.8</target>
-      <compilerArguments>
-        <Xmaxerrs>10000</Xmaxerrs>
-        <Xmaxwarns>10000</Xmaxwarns>
-      </compilerArguments>
-      <annotationProcessorPaths>
-        <path>
-          <groupId>org.checkerframework</groupId>
-          <artifactId>checker</artifactId>
-          <version>2.6.0</version>
-        </path>
-      </annotationProcessorPaths>
-      <annotationProcessors>
-        <!-- Add all the checkers you want to enable here -->
-        <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
-      </annotationProcessors>
-      <compilerArgs>
-        <!-- location of the annotated JDK, which comes from a Maven dependency -->
-        <arg>-Xbootclasspath/p:${annotatedJdk}</arg>
-        <!-- -Awarns turns type-checking warnings into errors. -->
-        <!-- <arg>-Awarns</arg> -->
-      </compilerArgs>
-    </configuration>
-  </plugin>
-
         </plugins>
       </build>
     </profile>
