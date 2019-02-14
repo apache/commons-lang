@@ -21,7 +21,7 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * This class contains the utils methods for rounding a duration value in a given unit
- *
+ * It supports rounding up (the ceil value) and normal rounding
  * @since 3.9
  */
 public class DurationUtils {
@@ -46,7 +46,8 @@ public class DurationUtils {
      * A method for rounding up a value of days for a given duration
      *
      * @param duration the duration from which days value will be rounded up
-     * @return rounded days value
+     * @return rounded up days value. For instance for  the duration equals 6 days 1 hour this  method
+     * returns 7 and for the duration equals exactly 6 days it returns 6
      * @since 3.9
      */
     public static long roundUpDays(final Duration duration) {
@@ -61,7 +62,8 @@ public class DurationUtils {
      * A method for rounding a value of days for a given duration
      *
      * @param duration the duration from which days value will be rounded up
-     * @return rounded days value
+     * @return rounded days value. For instance for the duration equals 6 days and 12 hours this method
+     * returns 7 and for the duration equals exactly 6 days 11 hours and 59 minutes it returns 6
      * @since 3.9
      */
     public static long roundDays(final Duration duration) {
@@ -76,7 +78,8 @@ public class DurationUtils {
      * A method for rounding up a value of hours for a given duration
      *
      * @param duration the duration from which hours value will be rounded up
-     * @return rounded hours value
+     * @return rounded up hours value. For instance for the duration equals 6 hours and one millisecond this method
+     * returns 7 and for the duration equals exactly 6 hours it returns 6
      * @since 3.9
      */
     public static long roundUpHours(final Duration duration) {
@@ -91,7 +94,8 @@ public class DurationUtils {
      * A method for rounding up a value of hours for a given duration
      *
      * @param duration the duration from which hours value will be rounded
-     * @return rounded hours value
+     * @return rounded hours value. For instance for the duration equals 6 hours 30 minutes this method  returns 6
+     * and for the duration equals 6 hours 29 minutes and 59 seconds it returns 6
      * @since 3.9
      */
     public static long roundHours(final Duration duration) {
@@ -106,7 +110,9 @@ public class DurationUtils {
      * A method for rounding up a value of minutes for a given duration
      *
      * @param duration the duration from which minutes value will be rounded up
-     * @return rounded minutes value
+     * @return rounded up minutes value. For instance for the duration equals 10 minutes 1 millisecond this method returns 11
+     * and for duration equals exactly 10 minutes it returns 10.
+     *
      * @since 3.9
      */
     public static long roundUpMinutes(final Duration duration) {
@@ -120,7 +126,8 @@ public class DurationUtils {
      * A method for rounding a value of minutes for a given duration
      *
      * @param duration the duration from which minutes value will be rounded
-     * @return rounded minutes value
+     * @return rounded minutes value. For instance for the duration equals 10 minutes and 30 seconds this method returns 11
+     * and for the duration equals 10 minutes 29 seconds 999 milliseconds it returns 10.
      * @since 3.9
      */
     public static long roundMinutes(final Duration duration) {
@@ -135,7 +142,8 @@ public class DurationUtils {
      * A method for rounding up a value of seconds for a given duration
      *
      * @param duration the duration from which seconds value will be rounded up
-     * @return rounded seconds value
+     * @return rounded up seconds value. For instance for the duration equals 10 seconds and 1 millisecond this method
+     * returns 11 and for the duration equals exactly 10 seconds it returns 10
      * @since 3.9
      */
     public static long roundUpSeconds(final Duration duration) {
@@ -149,7 +157,8 @@ public class DurationUtils {
      * A method for rounding up a value of seconds for a given duration
      *
      * @param duration the duration from which seconds value will be rounded up
-     * @return rounded seconds value
+     * @return rounded seconds value. For instance for the duration equals 10 seconds and 500 millisecond this method
+     * returns 11 and for the duration equals 10 second and 499 millisecond it returns 10.
      * @since 3.9
      */
     public static long roundSeconds(final Duration duration) {
