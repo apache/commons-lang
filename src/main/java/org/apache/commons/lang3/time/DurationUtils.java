@@ -30,6 +30,7 @@ public class DurationUtils {
     private static final long NANOS_PER_HOUR = 3_600_000_000_000L;
     private static final long NANOS_PER_MINUTE = 60_000_000_000L;
     private static final long NANOS_PER_SECOND = 1_000_000_000L;
+    private static final long NANOS_PER_MILLISECOND = 1_000_000L;
 
     /**
      * <p>DurationUtils instances should NOT be constructed in standard programming.</p>
@@ -167,4 +168,37 @@ public class DurationUtils {
         }
         return duration.get(ChronoUnit.SECONDS);
     }
+
+
+    /**
+     * A method for rounding up a value of milliseconds for a given duration
+     *
+     * @param duration the duration from which milliseconds value will be rounded up
+     * @return rounded up milliseconds value. For instance for the duration equals 10 millisecond and 1 nanosecond this method
+     * returns 11 and for the duration equals exactly 10 millisecond it returns 10
+     * @since 3.9
+     */
+    public static long roundUpMilliseconds(Duration duration) {
+        if ((duration.toNanos() % NANOS_PER_MILLISECOND) > 0) {
+            return duration.toMillis() + 1;
+        }
+        return duration.toMillis();
+    }
+
+
+    /**
+     * A method for rounding a value of milliseconds for a given duration
+     *
+     * @param duration the duration from which milliseconds value will be rounded up
+     * @return rounded  milliseconds value. For instance for the duration equals 10 millisecond and 500 000 nanosecond this method
+     * returns 11 and for the duration equals 10 millisecond and 499 999 nanoseconds it returns 10
+     * @since 3.9
+     */
+    public static long roundMilliseconds(Duration duration) {
+        if ((duration.toNanos() % NANOS_PER_MILLISECOND) >= (NANOS_PER_MILLISECOND / 2)) {
+            return duration.toMillis() + 1;
+        }
+        return duration.toMillis();
+    }
+
 }

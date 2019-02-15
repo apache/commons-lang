@@ -139,7 +139,7 @@ public class DurationUtilsTest {
             //given
             Duration duration = Duration.of(10, ChronoUnit.MINUTES).plus(1, ChronoUnit.SECONDS);
             //when
-            long  roundedMinutes = DurationUtils.roundUpMinutes(duration);
+            long roundedMinutes = DurationUtils.roundUpMinutes(duration);
             //then
             Assertions.assertEquals(11, roundedMinutes);
         }
@@ -150,7 +150,7 @@ public class DurationUtilsTest {
             //given
             Duration duration = Duration.of(10, ChronoUnit.MINUTES).plus(1, ChronoUnit.SECONDS);
             //when
-            long  roundedMinutes = DurationUtils.roundUpMinutes(duration);
+            long roundedMinutes = DurationUtils.roundUpMinutes(duration);
             //then
             Assertions.assertEquals(11, roundedMinutes);
         }
@@ -161,7 +161,7 @@ public class DurationUtilsTest {
             //given
             Duration duration = Duration.of(10, ChronoUnit.MINUTES).plus(30, ChronoUnit.SECONDS);
             //when
-            long  roundedMinutes = DurationUtils.roundMinutes(duration);
+            long roundedMinutes = DurationUtils.roundMinutes(duration);
             //then
             Assertions.assertEquals(11, roundedMinutes);
         }
@@ -174,7 +174,7 @@ public class DurationUtilsTest {
                     .plus(29, ChronoUnit.SECONDS)
                     .plus(999, ChronoUnit.MILLIS);
             //when
-            long  roundedMinutes = DurationUtils.roundMinutes(duration);
+            long roundedMinutes = DurationUtils.roundMinutes(duration);
             //then
             Assertions.assertEquals(10, roundedMinutes);
         }
@@ -189,7 +189,7 @@ public class DurationUtilsTest {
             //given
             Duration duration = Duration.of(10, ChronoUnit.SECONDS).plus(1, ChronoUnit.MILLIS);
             //when
-            long  roundedSeconds = DurationUtils.roundUpSeconds(duration);
+            long roundedSeconds = DurationUtils.roundUpSeconds(duration);
             //then
             Assertions.assertEquals(11, roundedSeconds);
         }
@@ -200,7 +200,7 @@ public class DurationUtilsTest {
             //given
             Duration duration = Duration.of(10, ChronoUnit.SECONDS);
             //when
-            long  roundedSeconds = DurationUtils.roundUpSeconds(duration);
+            long roundedSeconds = DurationUtils.roundUpSeconds(duration);
             //then
             Assertions.assertEquals(10, roundedSeconds);
         }
@@ -211,7 +211,7 @@ public class DurationUtilsTest {
             //given
             Duration duration = Duration.of(10, ChronoUnit.SECONDS).plus(500, ChronoUnit.MILLIS);
             //when
-            long  roundedSeconds = DurationUtils.roundUpSeconds(duration);
+            long roundedSeconds = DurationUtils.roundUpSeconds(duration);
             //then
             Assertions.assertEquals(11, roundedSeconds);
         }
@@ -222,11 +222,60 @@ public class DurationUtilsTest {
             //given
             Duration duration = Duration.of(10, ChronoUnit.SECONDS).plus(499, ChronoUnit.MILLIS);
             //when
-            long  roundedSeconds = DurationUtils.roundSeconds(duration);
+            long roundedSeconds = DurationUtils.roundSeconds(duration);
             //then
             Assertions.assertEquals(10, roundedSeconds);
         }
 
     }
+
+    @Nested
+    class MillisecondsRounding {
+        @Test
+        @DisplayName("10 millisecond 1 nanosecond should be rounded up to 11 milliseconds")
+        void shouldRoundUpMilliseconds () {
+            //given
+            Duration duration = Duration.of(10, ChronoUnit.MILLIS).plusNanos(1);
+            //when
+            long roundedMilliseconds = DurationUtils.roundUpMilliseconds(duration);
+            //then
+            Assertions.assertEquals(11, roundedMilliseconds);
+        }
+
+        @Test
+        @DisplayName("10 milliseconds should not be rounded up to 11 milliseconds")
+        void shouldNotRoundUpMilliSeconds() {
+            //given
+            Duration duration = Duration.of(10, ChronoUnit.MILLIS);
+            //when
+            long roundedMilliseconds = DurationUtils.roundUpMilliseconds(duration);
+            //then
+            Assertions.assertEquals(10, roundedMilliseconds);
+        }
+
+        @Test
+        @DisplayName("10 millisecond 500 000 nanosecond should be rounded up to 11 milliseconds")
+        void shouldRoundMilliseconds () {
+            //given
+            Duration duration = Duration.of(10, ChronoUnit.MILLIS).plusNanos(500_000);
+            //when
+            long roundedMilliseconds = DurationUtils.roundMilliseconds(duration);
+            //then
+            Assertions.assertEquals(11, roundedMilliseconds);
+        }
+
+        @Test
+        @DisplayName("10 milliseconds  499 999 nanoseconds should not be rounded up to 11 milliseconds")
+        void shouldNotRoundMilliSeconds() {
+            //given
+            Duration duration = Duration.of(10, ChronoUnit.MILLIS);
+            //when
+            long roundedMilliseconds = DurationUtils.roundMilliseconds(duration);
+            //then
+            Assertions.assertEquals(10, roundedMilliseconds);
+        }
+    }
+
+
 
 }
