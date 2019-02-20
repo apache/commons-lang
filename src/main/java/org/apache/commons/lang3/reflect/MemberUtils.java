@@ -227,7 +227,7 @@ abstract class MemberUtils {
      * @return The cost of promoting the primitive
      */
     private static float getPrimitivePromotionCost(final Class<?> srcClass, final Class<?> destClass) {
-        if(srcClass == null) {
+        if (srcClass == null) {
             return 1.5f;
         }
         float cost = 0.0f;

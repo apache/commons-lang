@@ -459,7 +459,7 @@ public class MethodUtilsTest {
       assertEquals("Boolean...", MethodUtils.invokeMethod(testBean, "varOverload",
                                                          new Object[] {null}));
       assertEquals("Object...", MethodUtils.invokeMethod(testBean, "varOverload",
-                                                         (Object[])null));
+                                                         (Object[]) null));
     }
 
     @Test

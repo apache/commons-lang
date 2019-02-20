@@ -702,7 +702,7 @@ public class MethodUtils {
         Collections.sort (matchingMethods, METHOD_BY_SIGNATURE);
 
         Method bestMatch = null;
-        for(final Method method : matchingMethods) {
+        for (final Method method : matchingMethods) {
             // get accessible version of method
             final Method accessibleMethod = getAccessibleMethod(method);
             if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(
