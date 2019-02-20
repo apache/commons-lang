@@ -447,6 +447,22 @@ public class MethodUtilsTest {
     }
 
     @Test
+    public void testInvokeMethod_VarArgsWithNullValues() throws Exception {
+        assertEquals("String...", MethodUtils.invokeMethod(testBean, "varOverload",
+                "a", null, "c"));
+        assertEquals("String...", MethodUtils.invokeMethod(testBean, "varOverload",
+                                                                "a", "b", null));
+    }
+
+    @Test
+    public void testInvokeMethod_VarArgsNotUniqueResolvable() throws Exception {
+      assertEquals("Boolean...", MethodUtils.invokeMethod(testBean, "varOverload",
+                                                         new Object[] {null}));
+      assertEquals("Object...", MethodUtils.invokeMethod(testBean, "varOverload",
+                                                         (Object[])null));
+    }
+
+    @Test
     public void testInvokeExactMethod() throws Exception {
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo",
                 (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));

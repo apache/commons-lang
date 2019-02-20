@@ -462,8 +462,8 @@ public class MethodUtils {
      * @since 3.5
      */
     static Object[] getVarArgs(final Object[] args, final Class<?>[] methodParameterTypes) {
-        if (args.length == methodParameterTypes.length
-                && args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1])) {
+        if (args.length == methodParameterTypes.length && (args[args.length - 1] == null ||
+                args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1]))) {
             // The args array is already in the canonical form for the method.
             return args;
         }
@@ -703,10 +703,12 @@ public class MethodUtils {
             final Class<?>[] methodParameterTypes = bestMatch.getParameterTypes();
             final Class<?> methodParameterComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
             final String methodParameterComponentTypeName = ClassUtils.primitiveToWrapper(methodParameterComponentType).getName();
-            final String parameterTypeName = parameterTypes[parameterTypes.length - 1].getName();
-            final String parameterTypeSuperClassName = parameterTypes[parameterTypes.length - 1].getSuperclass().getName();
 
-            if (!methodParameterComponentTypeName.equals(parameterTypeName)
+            final Class<?> lastParameterType = parameterTypes[parameterTypes.length - 1];
+            final String parameterTypeName = (lastParameterType==null) ? null : lastParameterType.getName();
+            final String parameterTypeSuperClassName = (lastParameterType==null) ? null : lastParameterType.getSuperclass().getName();
+
+            if (parameterTypeName!= null && parameterTypeSuperClassName != null && !methodParameterComponentTypeName.equals(parameterTypeName)
                     && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
                 return null;
             }
