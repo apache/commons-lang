@@ -25,6 +25,8 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -58,6 +60,13 @@ import org.apache.commons.lang3.Validate;
  * @since 2.5
  */
 public class MethodUtils {
+
+  private static final Comparator<Method> METHOD_BY_SIGNATURE = new Comparator<Method>() {
+    @Override
+    public int compare(final Method m1, final Method m2) {
+        return m1.toString ().compareTo (m2.toString ());
+    }
+  };
 
     /**
      * <p>{@link MethodUtils} instances should NOT be constructed in standard programming.
@@ -679,20 +688,28 @@ public class MethodUtils {
         } catch (final NoSuchMethodException e) { // NOPMD - Swallow the exception
         }
         // search through all methods
-        Method bestMatch = null;
         final Method[] methods = cls.getMethods();
+        final List<Method> matchingMethods = new ArrayList<>();
         for (final Method method : methods) {
             // compare name and parameters
             if (method.getName().equals(methodName) &&
                     MemberUtils.isMatchingMethod(method, parameterTypes)) {
-                // get accessible version of method
-                final Method accessibleMethod = getAccessibleMethod(method);
-                if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(
-                            accessibleMethod,
-                            bestMatch,
-                            parameterTypes) < 0)) {
-                    bestMatch = accessibleMethod;
-                }
+                matchingMethods.add (method);
+            }
+        }
+
+        // Sort methods by signature to force deterministic result
+        Collections.sort (matchingMethods, METHOD_BY_SIGNATURE);
+
+        Method bestMatch = null;
+        for(final Method method : matchingMethods) {
+            // get accessible version of method
+            final Method accessibleMethod = getAccessibleMethod(method);
+            if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(
+                        accessibleMethod,
+                        bestMatch,
+                        parameterTypes) < 0)) {
+                bestMatch = accessibleMethod;
             }
         }
         if (bestMatch != null) {
