@@ -180,11 +180,11 @@ public class ObjectUtils {
      *  <p>Returns a default value if the object passed is {@code null}.</p>
      *
      * <pre>
-     * ObjectUtils.defaultIfNull(null, () -> null) = null
-     * ObjectUtils.defaultIfNull(null, () -> "")   = ""
-     * ObjectUtils.defaultIfNull(null, () -> "zz") = "zz"
-     * ObjectUtils.defaultIfNull("abc", *)         = "abc"
-     * ObjectUtils.defaultIfNull(Boolean.TRUE, *)  = Boolean.TRUE
+     * {@code ObjectUtils.getDefaultIfNull(null, () -> null)} = null
+     * {@code ObjectUtils.getDefaultIfNull(null, () -> "")  } = ""
+     * {@code ObjectUtils.getDefaultIfNull(null, () -> "zz")} = "zz"
+     * {@code ObjectUtils.getDefaultIfNull("abc", *)        } = "abc"
+     * {@code ObjectUtils.getDefaultIfNull(Boolean.TRUE, *) } = Boolean.TRUE
      * </pre>
      *
      * @param object  the {@code Object} to test, may be {@code null}
