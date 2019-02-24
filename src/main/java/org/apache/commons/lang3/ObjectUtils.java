@@ -193,7 +193,7 @@ public class ObjectUtils {
      * @param <T>  the type of the object
      * @return {@code object} if it is not {@code null}, value returned by defaultValueSupplier otherwise
      */
-    public static <T> T defaultIfNull(final T object, final Supplier<T> defaultValueSupplier) {
+    public static <T> T getDefaultIfNull(final T object, final Supplier<T> defaultValueSupplier) {
         return object != null ? object : defaultValueSupplier.get();
     }
 

@@ -121,11 +121,15 @@ public class ObjectUtilsTest {
     public void testDefaultIfNull() {
         final Object o = FOO;
         final Object dflt = BAR;
-        assertSame(o, ObjectUtils.defaultIfNull(o, () -> null));
-        assertSame(o, ObjectUtils.defaultIfNull(o, () -> { throw new AssertionFailedError("This supplier should have never been executed"); }));
-        assertSame(Boolean.TRUE, ObjectUtils.defaultIfNull(Boolean.TRUE, () -> { throw new AssertionFailedError("This supplier should have never been executed"); }));
-        assertNull(ObjectUtils.defaultIfNull(null, () -> null));
-        assertSame(dflt, ObjectUtils.defaultIfNull(null, () -> dflt));
+        assertSame(o, ObjectUtils.getDefaultIfNull(o, () -> null));
+        assertSame(o, ObjectUtils.getDefaultIfNull(o, () -> {
+            throw new AssertionFailedError("This supplier should have never been executed");
+        }));
+        assertSame(Boolean.TRUE, ObjectUtils.getDefaultIfNull(Boolean.TRUE, () -> {
+            throw new AssertionFailedError("This supplier should have never been executed");
+        }));
+        assertNull(ObjectUtils.getDefaultIfNull(null, () -> null));
+        assertSame(dflt, ObjectUtils.getDefaultIfNull(null, () -> dflt));
     }
 
     @Test
