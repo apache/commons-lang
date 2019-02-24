@@ -27,6 +27,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -173,6 +174,27 @@ public class ObjectUtils {
      */
     public static <T> T defaultIfNull(final T object, final T defaultValue) {
         return object != null ? object : defaultValue;
+    }
+
+    /**
+     *  <p>Returns a default value if the object passed is {@code null}.</p>
+     *
+     * <pre>
+     * ObjectUtils.defaultIfNull(null, () -> null) = null
+     * ObjectUtils.defaultIfNull(null, () -> "")   = ""
+     * ObjectUtils.defaultIfNull(null, () -> "zz") = "zz"
+     * ObjectUtils.defaultIfNull("abc", *)         = "abc"
+     * ObjectUtils.defaultIfNull(Boolean.TRUE, *)  = Boolean.TRUE
+     * </pre>
+     *
+     * @param object  the {@code Object} to test, may be {@code null}
+     * @param defaultValueSupplier  a supplier that gives the default value to return, may not be {@code null},
+     *                              but may result in a {@code null} value
+     * @param <T>  the type of the object
+     * @return {@code object} if it is not {@code null}, value returned by defaultValueSupplier otherwise
+     */
+    public static <T> T defaultIfNull(final T object, final Supplier<T> defaultValueSupplier) {
+        return object != null ? object : defaultValueSupplier.get();
     }
 
     /**

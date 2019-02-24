@@ -45,6 +45,7 @@ import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ObjectUtils}.
@@ -114,6 +115,17 @@ public class ObjectUtilsTest {
         final Object dflt = BAR;
         assertSame(dflt, ObjectUtils.defaultIfNull(null, dflt), "dflt was not returned when o was null");
         assertSame(o, ObjectUtils.defaultIfNull(o, dflt), "dflt was returned when o was not null");
+    }
+
+    @Test
+    public void testDefaultIfNull() {
+        final Object o = FOO;
+        final Object dflt = BAR;
+        assertSame(o, ObjectUtils.defaultIfNull(o, () -> null));
+        assertSame(o, ObjectUtils.defaultIfNull(o, () -> { throw new AssertionFailedError("This supplier should have never been executed"); }));
+        assertSame(Boolean.TRUE, ObjectUtils.defaultIfNull(Boolean.TRUE, () -> { throw new AssertionFailedError("This supplier should have never been executed"); }));
+        assertNull(ObjectUtils.defaultIfNull(null, () -> null));
+        assertSame(dflt, ObjectUtils.defaultIfNull(null, () -> dflt));
     }
 
     @Test
