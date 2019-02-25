@@ -110,7 +110,7 @@ public class ObjectUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsNull() {
+    public void testDefaultIfNull() {
         final Object o = FOO;
         final Object dflt = BAR;
         assertSame(dflt, ObjectUtils.defaultIfNull(null, dflt), "dflt was not returned when o was null");
@@ -118,7 +118,7 @@ public class ObjectUtilsTest {
     }
 
     @Test
-    public void testDefaultIfNull() {
+    public void testGetDefaultIfNull() {
         final Object o = FOO;
         final Object dflt = BAR;
         assertSame(o, ObjectUtils.getDefaultIfNull(o, () -> null));
