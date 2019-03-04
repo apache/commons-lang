@@ -43,11 +43,7 @@ pipeline {
         }
         stage('Analyze') {
             steps {
-                sh 'mvn apache-rat:check'
-                sh 'mvn clirr:check'
-                sh 'mvn checkstyle:check'
-                sh 'mvn spotbugs:check'
-                sh 'mvn javadoc:javadoc'
+                sh 'mvn apache-rat:check clirr:check checkstyle:check spotbugs:check javadoc:javadoc'
             }
         }
         stage('Deploy') {
