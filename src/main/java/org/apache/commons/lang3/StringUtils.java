@@ -4142,7 +4142,7 @@ public class StringUtils {
      * @param array  the array of values to join together, may be null
      * @param separator  the separator character to use
      * @param startIndex the first index to start joining from.  It is
-     * an error to pass in an end index past the end of the array
+     * an error to pass in a start index past the end of the array
      * @param endIndex the index to stop joining from (exclusive). It is
      * an error to pass in an end index past the end of the array
      * @return the joined String, {@code null} if null array input
@@ -4191,7 +4191,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4240,7 +4240,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4289,7 +4289,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4338,7 +4338,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4387,7 +4387,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4436,7 +4436,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4485,7 +4485,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4757,7 +4757,7 @@ public class StringUtils {
      * @param list  the {@code List} of values to join together, may be null
      * @param separator  the separator character to use
      * @param startIndex the first index to start joining from.  It is
-     * an error to pass in an end index past the end of the list
+     * an error to pass in a start index past the end of the list
      * @param endIndex the index to stop joining from (exclusive). It is
      * an error to pass in an end index past the end of the list
      * @return the joined String, {@code null} if null list input
@@ -4795,7 +4795,7 @@ public class StringUtils {
      * @param list  the {@code List} of values to join together, may be null
      * @param separator  the separator character to use
      * @param startIndex the first index to start joining from.  It is
-     * an error to pass in an end index past the end of the list
+     * an error to pass in a start index past the end of the list
      * @param endIndex the index to stop joining from (exclusive). It is
      * an error to pass in an end index past the end of the list
      * @return the joined String, {@code null} if null list input
