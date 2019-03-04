@@ -54,6 +54,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1422" type="add" dev="ggregory">Add null-safe StringUtils.valueOf(char[]) to delegate to String.valueOf(char[])</action>
     <action issue="LANG-1427" type="add" dev="ggregory">Add API org.apache.commons.lang3.SystemUtils.isJavaVersionAtMost(JavaVersion)</action>
     <action issue="LANG-1436" type="update" dev="aherbert">Consolidate the StringUtils equals and equalsIgnoreCase Javadoc and implementation</action>
+    <action                   type="update" dev="ggregory" due-to="Andrei Troie aft90">(doc) Fix javadoc for 'startIndex' parameter of StringUtils.join() methods. GitHub PR #412.</action>    
   </release>
 
   <release version="3.8.1" date="2018-09-19" description="This release is a bugfix for Restoring Bundle-SymbolicName in the MANIFEST.mf file.">
