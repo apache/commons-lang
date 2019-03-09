@@ -33,17 +33,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean verify'
+                sh 'mvn'
             }
             post {
                 always {
                     junit(testResults: '**/surefire-reports/*.xml', allowEmptyResults: true)
                 }
-            }
-        }
-        stage('Analyze') {
-            steps {
-                sh 'mvn apache-rat:check clirr:check checkstyle:check spotbugs:check javadoc:javadoc'
             }
         }
         stage('Deploy') {
