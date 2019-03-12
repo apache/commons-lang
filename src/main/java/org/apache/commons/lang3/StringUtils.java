@@ -9229,16 +9229,16 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.wrap(null, *)        = null
-     * StringUtils.wrap("", *)          = ""
-     * StringUtils.wrap("ab", '\0')     = "ab"
-     * StringUtils.wrap("ab", 'x')      = "xabx"
-     * StringUtils.wrap("ab", '\'')     = "'ab'"
-     * StringUtils.wrap("\"ab\"", '\"') = "\"ab\""
-     * StringUtils.wrap("/", '/')  = "/"
-     * StringUtils.wrap("a/b/c", '/')  = "/a/b/c/"
-     * StringUtils.wrap("/a/b/c", '/')  = "/a/b/c/"
-     * StringUtils.wrap("a/b/c/", '/')  = "/a/b/c/"
+     * StringUtils.wrapIfMissing(null, *)        = null
+     * StringUtils.wrapIfMissing("", *)          = ""
+     * StringUtils.wrapIfMissing("ab", '\0')     = "ab"
+     * StringUtils.wrapIfMissing("ab", 'x')      = "xabx"
+     * StringUtils.wrapIfMissing("ab", '\'')     = "'ab'"
+     * StringUtils.wrapIfMissing("\"ab\"", '\"') = "\"ab\""
+     * StringUtils.wrapIfMissing("/", '/')  = "/"
+     * StringUtils.wrapIfMissing("a/b/c", '/')  = "/a/b/c/"
+     * StringUtils.wrapIfMissing("/a/b/c", '/')  = "/a/b/c/"
+     * StringUtils.wrapIfMissing("a/b/c/", '/')  = "/a/b/c/"
      * </pre>
      *
      * @param str
@@ -9269,20 +9269,20 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.wrap(null, *)         = null
-     * StringUtils.wrap("", *)           = ""
-     * StringUtils.wrap("ab", null)      = "ab"
-     * StringUtils.wrap("ab", "x")       = "xabx"
-     * StringUtils.wrap("ab", "\"")      = "\"ab\""
-     * StringUtils.wrap("\"ab\"", "\"")  = "\"ab\""
-     * StringUtils.wrap("ab", "'")       = "'ab'"
-     * StringUtils.wrap("'abcd'", "'")   = "'abcd'"
-     * StringUtils.wrap("\"abcd\"", "'") = "'\"abcd\"'"
-     * StringUtils.wrap("'abcd'", "\"")  = "\"'abcd'\""
-     * StringUtils.wrap("/", "/")  = "/"
-     * StringUtils.wrap("a/b/c", "/")  = "/a/b/c/"
-     * StringUtils.wrap("/a/b/c", "/")  = "/a/b/c/"
-     * StringUtils.wrap("a/b/c/", "/")  = "/a/b/c/"
+     * StringUtils.wrapIfMissing(null, *)         = null
+     * StringUtils.wrapIfMissing("", *)           = ""
+     * StringUtils.wrapIfMissing("ab", null)      = "ab"
+     * StringUtils.wrapIfMissing("ab", "x")       = "xabx"
+     * StringUtils.wrapIfMissing("ab", "\"")      = "\"ab\""
+     * StringUtils.wrapIfMissing("\"ab\"", "\"")  = "\"ab\""
+     * StringUtils.wrapIfMissing("ab", "'")       = "'ab'"
+     * StringUtils.wrapIfMissing("'abcd'", "'")   = "'abcd'"
+     * StringUtils.wrapIfMissing("\"abcd\"", "'") = "'\"abcd\"'"
+     * StringUtils.wrapIfMissing("'abcd'", "\"")  = "\"'abcd'\""
+     * StringUtils.wrapIfMissing("/", "/")  = "/"
+     * StringUtils.wrapIfMissing("a/b/c", "/")  = "/a/b/c/"
+     * StringUtils.wrapIfMissing("/a/b/c", "/")  = "/a/b/c/"
+     * StringUtils.wrapIfMissing("a/b/c/", "/")  = "/a/b/c/"
      * </pre>
      *
      * @param str
