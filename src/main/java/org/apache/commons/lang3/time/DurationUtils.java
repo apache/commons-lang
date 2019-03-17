@@ -51,7 +51,7 @@ public class DurationUtils {
      * returns 7 and for the duration equals exactly 6 days it returns 6
      * @since 3.9
      */
-    public static long roundUpDays(final Duration duration) {
+    public static long ceilDays(final Duration duration) {
         if (duration.toNanos() % NANOS_PER_DAY > 0) {
             return duration.toDays() + 1;
         } else {
@@ -83,7 +83,7 @@ public class DurationUtils {
      * returns 7 and for the duration equals exactly 6 hours it returns 6
      * @since 3.9
      */
-    public static long roundUpHours(final Duration duration) {
+    public static long ceilHours(final Duration duration) {
         if (duration.toNanos() % NANOS_PER_HOUR > 0) {
             return duration.toHours() + 1;
         } else {
@@ -116,7 +116,7 @@ public class DurationUtils {
      *
      * @since 3.9
      */
-    public static long roundUpMinutes(final Duration duration) {
+    public static long ceilMinutes(final Duration duration) {
         if ((duration.toNanos() % NANOS_PER_MINUTE) > 0) {
             return duration.toMinutes() + 1;
         }
@@ -147,7 +147,7 @@ public class DurationUtils {
      * returns 11 and for the duration equals exactly 10 seconds it returns 10
      * @since 3.9
      */
-    public static long roundUpSeconds(final Duration duration) {
+    public static long ceilSeconds(final Duration duration) {
         if ((duration.toNanos() % NANOS_PER_SECOND) > 0) {
             return duration.get(ChronoUnit.SECONDS) + 1;
         }
@@ -178,7 +178,7 @@ public class DurationUtils {
      * returns 11 and for the duration equals exactly 10 millisecond it returns 10
      * @since 3.9
      */
-    public static long roundUpMilliseconds(Duration duration) {
+    public static long ceilMilliseconds(Duration duration) {
         if ((duration.toNanos() % NANOS_PER_MILLISECOND) > 0) {
             return duration.toMillis() + 1;
         }

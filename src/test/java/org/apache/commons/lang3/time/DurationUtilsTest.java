@@ -34,22 +34,22 @@ public class DurationUtilsTest {
 
         @Test
         @DisplayName("2 days 1 millisecond should be rounded up to 3 days")
-        void shouldRoundUpDays() {
+        void shouldCeilDays() {
             //given
             Duration duration = Duration.of(2, ChronoUnit.DAYS).plusMillis(1);
             //when
-            long roundedDays = DurationUtils.roundUpDays(duration);
+            long roundedDays = DurationUtils.ceilDays(duration);
             //then
             Assertions.assertEquals(3, roundedDays);
         }
 
         @Test
         @DisplayName("2 days should not be rounded up to 3 days")
-        void shouldNotRoundUpDays() {
+        void shouldNotCeilDays() {
             //given
             Duration duration = Duration.of(2, ChronoUnit.DAYS);
             //when
-            long roundedDays = DurationUtils.roundUpDays(duration);
+            long roundedDays = DurationUtils.ceilDays(duration);
             //then
             Assertions.assertEquals(2, roundedDays);
         }
@@ -86,22 +86,22 @@ public class DurationUtilsTest {
 
         @Test
         @DisplayName("2 hours 1 millisecond should be rounded up to 3 hours")
-        void shouldRoundUpHours() {
+        void shouldCeilHours() {
             //given
             Duration duration = Duration.of(2, ChronoUnit.HOURS).plusMillis(1);
             //when
-            long roundedHours = DurationUtils.roundUpHours(duration);
+            long roundedHours = DurationUtils.ceilHours(duration);
             //then
             Assertions.assertEquals(3, roundedHours);
         }
 
         @Test
         @DisplayName("2 hours should not be rounded up to 3 hours")
-        void shouldNotRoundUpHours() {
+        void shouldNotCeilHours() {
             //given
             Duration duration = Duration.of(2, ChronoUnit.HOURS);
             //when
-            long roundedHours = DurationUtils.roundUpHours(duration);
+            long roundedHours = DurationUtils.ceilHours(duration);
             //then
             Assertions.assertEquals(2, roundedHours);
         }
@@ -135,22 +135,22 @@ public class DurationUtilsTest {
 
         @Test
         @DisplayName("10 minutes 1 second should be rounded up to 11 minutes")
-        void shouldRoundUpMinutes() {
+        void shouldCeilMinutes() {
             //given
             Duration duration = Duration.of(10, ChronoUnit.MINUTES).plus(1, ChronoUnit.SECONDS);
             //when
-            long roundedMinutes = DurationUtils.roundUpMinutes(duration);
+            long roundedMinutes = DurationUtils.ceilMinutes(duration);
             //then
             Assertions.assertEquals(11, roundedMinutes);
         }
 
         @Test
         @DisplayName("10 minutes should not be rounded up to 11 minutes")
-        void shouldNotRoundUpMinutes() {
+        void shouldNotCeilMinutes() {
             //given
             Duration duration = Duration.of(10, ChronoUnit.MINUTES).plus(1, ChronoUnit.SECONDS);
             //when
-            long roundedMinutes = DurationUtils.roundUpMinutes(duration);
+            long roundedMinutes = DurationUtils.ceilMinutes(duration);
             //then
             Assertions.assertEquals(11, roundedMinutes);
         }
@@ -185,22 +185,22 @@ public class DurationUtilsTest {
 
         @Test
         @DisplayName("10 seconds 1 millisecond should be rounded up to 11 seconds")
-        void shouldRoundUpSeconds() {
+        void shouldCeilSeconds() {
             //given
             Duration duration = Duration.of(10, ChronoUnit.SECONDS).plus(1, ChronoUnit.MILLIS);
             //when
-            long roundedSeconds = DurationUtils.roundUpSeconds(duration);
+            long roundedSeconds = DurationUtils.ceilSeconds(duration);
             //then
             Assertions.assertEquals(11, roundedSeconds);
         }
 
         @Test
         @DisplayName("10 seconds should not be rounded up to 11 seconds")
-        void shouldNotRoundUpSeconds() {
+        void shouldNotCeilSeconds() {
             //given
             Duration duration = Duration.of(10, ChronoUnit.SECONDS);
             //when
-            long roundedSeconds = DurationUtils.roundUpSeconds(duration);
+            long roundedSeconds = DurationUtils.ceilSeconds(duration);
             //then
             Assertions.assertEquals(10, roundedSeconds);
         }
@@ -211,7 +211,7 @@ public class DurationUtilsTest {
             //given
             Duration duration = Duration.of(10, ChronoUnit.SECONDS).plus(500, ChronoUnit.MILLIS);
             //when
-            long roundedSeconds = DurationUtils.roundUpSeconds(duration);
+            long roundedSeconds = DurationUtils.ceilSeconds(duration);
             //then
             Assertions.assertEquals(11, roundedSeconds);
         }
@@ -233,22 +233,22 @@ public class DurationUtilsTest {
     class MillisecondsRounding {
         @Test
         @DisplayName("10 millisecond 1 nanosecond should be rounded up to 11 milliseconds")
-        void shouldRoundUpMilliseconds () {
+        void shouldCeilMilliseconds() {
             //given
             Duration duration = Duration.of(10, ChronoUnit.MILLIS).plusNanos(1);
             //when
-            long roundedMilliseconds = DurationUtils.roundUpMilliseconds(duration);
+            long roundedMilliseconds = DurationUtils.ceilMilliseconds(duration);
             //then
             Assertions.assertEquals(11, roundedMilliseconds);
         }
 
         @Test
         @DisplayName("10 milliseconds should not be rounded up to 11 milliseconds")
-        void shouldNotRoundUpMilliSeconds() {
+        void shouldNotCeilMilliSeconds() {
             //given
             Duration duration = Duration.of(10, ChronoUnit.MILLIS);
             //when
-            long roundedMilliseconds = DurationUtils.roundUpMilliseconds(duration);
+            long roundedMilliseconds = DurationUtils.ceilMilliseconds(duration);
             //then
             Assertions.assertEquals(10, roundedMilliseconds);
         }
