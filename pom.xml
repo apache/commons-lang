@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>47</version>
+    <version>48</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
@@ -597,9 +597,9 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
-    <checkstyle.version>8.17</checkstyle.version>
+    <checkstyle.version>8.18</checkstyle.version>
 
-    <spotbugs.plugin.version>3.1.10</spotbugs.plugin.version>
+    <spotbugs.plugin.version>3.1.11</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
@@ -610,11 +610,11 @@
 
     <!-- generate report even if there are binary incompatible changes -->
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
-    <!-- 0.12.0 dies with a NullPointerException -->
-    <commons.japicmp.version>0.11.1</commons.japicmp.version>
+    <commons.japicmp.version>0.13.1</commons.japicmp.version>
+    <japicmp.skip>false</japicmp.skip>
 
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.8</commons.bc.version>
+    <commons.bc.version>3.8.1</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
@@ -763,7 +763,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.10.0</version>
+        <version>3.11.0</version>
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>
@@ -812,11 +812,6 @@
             </tagClasses>
           </tagListOptions>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>javancss-maven-plugin</artifactId>
-        <version>2.1</version>
       </plugin>
     </plugins>
   </reporting>
