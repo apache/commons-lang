@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 /**
@@ -32,6 +33,12 @@ import java.util.Random;
  * use cases consider using commons-text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
  * RandomStringGenerator</a> instead.</p>
+ *
+ * <p><em>Note.</em> This class relies on an instance {@link Random}, and instances
+ * of {@link Random} are not cryptographically
+ * secure. Consider instead using {@link SecureRandom}, for which we have no utility class,
+ * to get a cryptographically secure pseudo-random number generator for use by
+ * security-sensitive applications.</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
