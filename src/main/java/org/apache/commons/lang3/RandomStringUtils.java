@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import java.security.SecureRandom;
 import java.util.Random;
 
 /**
