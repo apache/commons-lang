@@ -35,7 +35,7 @@ import java.util.Random;
  *
  * <p><em>Note.</em> This class relies on an instance of {@link Random}, and instances
  * of {@link Random} are not cryptographically secure. Consider instead using a more
- * cryptographically secure pseudo-random number generator, for which we have no utility class.
+ * cryptographically secure pseudo-random number generator, for which we have no utility class.</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
