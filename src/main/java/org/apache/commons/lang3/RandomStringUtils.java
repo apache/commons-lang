@@ -34,11 +34,9 @@ import java.util.Random;
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
  * RandomStringGenerator</a> instead.</p>
  *
- * <p><em>Note.</em> This class relies on an instance {@link Random}, and instances
- * of {@link Random} are not cryptographically
- * secure. Consider instead using {@link SecureRandom}, for which we have no utility class,
- * to get a cryptographically secure pseudo-random number generator for use by
- * security-sensitive applications.</p>
+ * <p><em>Note.</em> This class relies on an instance of {@link Random}, and instances
+ * of {@link Random} are not cryptographically secure. Consider instead using a more
+ * cryptographically secure pseudo-random number generator, for which we have no utility class.
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0

@@ -23,9 +23,8 @@ import java.util.Random;
  * <p>Utility library that supplements the standard {@link Random} class.</p>
  *
  * <p><em>Note.</em> Instances of {@link Random} are not cryptographically
- * secure. Consider instead using {@link SecureRandom}, for which we have no utility class,
- * to get a cryptographically secure pseudo-random number generator for use by
- * security-sensitive applications.</p>
+ * secure. Consider instead using a more cryptographically secure pseudo-random
+ * number generator, for which we have no utility class.</p>
  *
  * @since 3.3
  */
