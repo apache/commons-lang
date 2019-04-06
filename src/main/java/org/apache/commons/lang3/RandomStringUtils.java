@@ -37,6 +37,11 @@ import java.util.Random;
  * of {@link Random} are not cryptographically secure. Consider instead using a more
  * cryptographically secure pseudo-random number generator, for which we have no utility class.</p>
  *
+ * <p>We would like to further note to users that the Apache Commons Project has
+ * a component entirely dedicated to random number generation, namely
+ * <a href="http://commons.apache.org/rng">Commons RNG</a>. For a more extensive
+ * treatment of random numbers, we suggest that the user use this library.</p>
+ *
  * <p>#ThreadSafe#</p>
  * @since 1.0
  */
