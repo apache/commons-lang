@@ -28,7 +28,7 @@ import java.util.Random;
  * <p>We would like to further note to users that the Apache Commons Project has
  * a component entirely dedicated to random number generation, namely
  * <a href="http://commons.apache.org/rng">Commons RNG</a>. For a more extensive
- * treatment of random numbers, we suggest that the user use this library.</p>
+ * treatment of random numbers, we suggest that the user explore this library.</p>
  *
  * @since 3.3
  */
