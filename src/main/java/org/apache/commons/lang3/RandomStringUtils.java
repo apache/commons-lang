@@ -33,14 +33,13 @@ import java.util.Random;
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
  * RandomStringGenerator</a> instead.</p>
  *
- * <p><em>Note.</em> This class relies on an instance of {@link Random}, and instances
- * of {@link Random} are not cryptographically secure. Consider instead using a more
- * cryptographically secure pseudo-random number generator, for which we have no utility class.</p>
+ * <p>Caveat: Instances of {@link Random} are not cryptographically secure.</p>
  *
- * <p>We would like to further note to users that the Apache Commons Project has
- * a component entirely dedicated to random number generation, namely
- * <a href="http://commons.apache.org/rng">Commons RNG</a>. For a more extensive
- * treatment of random numbers, we suggest that the user explore this library.</p>
+ * <p>Please note that the Apache Commons project provides a component
+ * dedicated to pseudo-random number generation, namely
+ * <a href="https://commons.apache.org/rng">Commons RNG</a>, that may be
+ * a better choice for applications with more stringent requirements
+ * (performance and/or correctness).</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
