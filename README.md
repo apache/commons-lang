@@ -69,7 +69,7 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-lang3</artifactId>
-  <version>3.8.1</version>
+  <version>3.9</version>
 </dependency>
 ```
 
