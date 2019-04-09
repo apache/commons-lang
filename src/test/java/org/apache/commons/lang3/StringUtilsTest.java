@@ -37,8 +37,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.regex.PatternSyntaxException;
 
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
 import org.junit.jupiter.api.Test;
 
@@ -1870,6 +1872,25 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testLazyDefault_StringStringSupplier() {
+        assertEquals("NULL", StringUtils.lazyDefaultString(null, () -> "NULL"));
+        assertEquals("", StringUtils.lazyDefaultString("", () -> "NULL"));
+        assertEquals("abc", StringUtils.lazyDefaultString("abc", () -> "NULL"));
+        assertNull(null, StringUtils.lazyDefaultString(null, () -> null));
+        assertNull(null, StringUtils.lazyDefaultString(null, null));
+        //Checking laziness
+        MutableInt numberOfCalls = new MutableInt(0);
+        Supplier<String> countingDefaultSupplier = () -> {
+            numberOfCalls.increment();
+            return "NULL";
+        };
+        StringUtils.lazyDefaultString("abc", countingDefaultSupplier);
+        assertEquals(0, numberOfCalls.getValue());
+        StringUtils.lazyDefaultString(null, countingDefaultSupplier);
+        assertEquals(1, numberOfCalls.getValue());
+    }
+
+    @Test
     public void testDefaultIfEmpty_StringString() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(null, "NULL"));
         assertEquals("NULL", StringUtils.defaultIfEmpty("", "NULL"));
@@ -1878,6 +1899,30 @@ public class StringUtilsTest {
         // Tests compatibility for the API return type
         final String s = StringUtils.defaultIfEmpty("abc", "NULL");
         assertEquals("abc", s);
+    }
+
+    @Test
+    public void testLazyDefaultIfEmpty_StringStringSupplier() {
+        assertEquals("NULL", StringUtils.lazyDefaultIfEmpty(null, () -> "NULL"));
+        assertEquals("NULL", StringUtils.lazyDefaultIfEmpty("", () -> "NULL"));
+        assertEquals("abc", StringUtils.lazyDefaultIfEmpty("abc", () -> "NULL"));
+        assertNull(StringUtils.lazyDefaultIfEmpty("", () -> null));
+        assertNull(StringUtils.lazyDefaultIfEmpty("", null));
+        // Tests compatibility for the API return type
+        final String s = StringUtils.lazyDefaultIfEmpty("abc", ()->"NULL");
+        assertEquals("abc", s);
+        //Checking laziness
+        MutableInt numberOfCalls = new MutableInt(0);
+        Supplier<String> countingDefaultSupplier = () -> {
+            numberOfCalls.increment();
+            return "NULL";
+        };
+        StringUtils.lazyDefaultIfEmpty("abc", countingDefaultSupplier);
+        assertEquals(0, numberOfCalls.getValue());
+        StringUtils.lazyDefaultIfEmpty("", countingDefaultSupplier);
+        assertEquals(1, numberOfCalls.getValue());
+        StringUtils.lazyDefaultIfEmpty(null, countingDefaultSupplier);
+        assertEquals(2, numberOfCalls.getValue());
     }
 
     @Test
@@ -1890,6 +1935,33 @@ public class StringUtilsTest {
         // Tests compatibility for the API return type
         final String s = StringUtils.defaultIfBlank("abc", "NULL");
         assertEquals("abc", s);
+    }
+
+    @Test
+    public void testLazyDefaultIfBlank_StringString() {
+        assertEquals("NULL", StringUtils.lazyDefaultIfBlank(null, () -> "NULL"));
+        assertEquals("NULL", StringUtils.lazyDefaultIfBlank("", () -> "NULL"));
+        assertEquals("NULL", StringUtils.lazyDefaultIfBlank(" ", () -> "NULL"));
+        assertEquals("abc", StringUtils.lazyDefaultIfBlank("abc", () -> "NULL"));
+        assertNull(StringUtils.lazyDefaultIfBlank("", () -> null));
+        assertNull(StringUtils.lazyDefaultIfBlank("", null));
+        // Tests compatibility for the API return type
+        final String s = StringUtils.lazyDefaultIfBlank("abc", () -> "NULL");
+        assertEquals("abc", s);
+        //Checking laziness
+        MutableInt numberOfCalls = new MutableInt(0);
+        Supplier<String> countingDefaultSupplier = () -> {
+            numberOfCalls.increment();
+            return "NULL";
+        };
+        StringUtils.lazyDefaultIfBlank("abc", countingDefaultSupplier);
+        assertEquals(0, numberOfCalls.getValue());
+        StringUtils.lazyDefaultIfBlank("", countingDefaultSupplier);
+        assertEquals(1, numberOfCalls.getValue());
+        StringUtils.lazyDefaultIfBlank(" ", countingDefaultSupplier);
+        assertEquals(2, numberOfCalls.getValue());
+        StringUtils.lazyDefaultIfBlank(null, countingDefaultSupplier);
+        assertEquals(3, numberOfCalls.getValue());
     }
 
     @Test

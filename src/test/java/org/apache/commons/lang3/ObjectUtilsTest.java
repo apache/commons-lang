@@ -40,8 +40,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.junit.jupiter.api.Test;
@@ -114,6 +116,17 @@ public class ObjectUtilsTest {
         final Object dflt = BAR;
         assertSame(dflt, ObjectUtils.defaultIfNull(null, dflt), "dflt was not returned when o was null");
         assertSame(o, ObjectUtils.defaultIfNull(o, dflt), "dflt was returned when o was not null");
+        assertSame(dflt, ObjectUtils.lazyDefaultIfNull(null, () -> dflt), "dflt was not returned when o was null");
+        assertSame(o, ObjectUtils.lazyDefaultIfNull(o, () -> dflt), "dflt was returned when o was not null");
+        MutableInt callsCounter = new MutableInt(0);
+        Supplier<Object> countingDefaultSupplier = () -> {
+            callsCounter.increment();
+            return dflt;
+        };
+        ObjectUtils.lazyDefaultIfNull(o, countingDefaultSupplier);
+        assertEquals(0, callsCounter.getValue());
+        ObjectUtils.lazyDefaultIfNull(null, countingDefaultSupplier);
+        assertEquals(1, callsCounter.getValue());
     }
 
     @Test

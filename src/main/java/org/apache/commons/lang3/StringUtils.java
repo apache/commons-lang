@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 /**
@@ -7487,6 +7488,32 @@ public class StringUtils {
         return str == null ? defaultStr : str;
     }
 
+
+    /**
+     * <p>Returns either the passed in String, or if the String is
+     * {@code null}, the value supplied by {@code defaultStr}.</p>
+     *
+     * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
+     *
+     * <pre>
+     * StringUtils.lazyDefaultString(null, () -> "NULL")    = "NULL"
+     * StringUtils.lazyDefaultString("", () -> "NULL")      = ""
+     * StringUtils.lazyDefaultString("bat", () -> "NULL")   = "bat"
+     * StringUtils.lazyDefaultString(null, () -> null)      = null
+     * StringUtils.lazyDefaultString(null, null)            = null
+     * </pre>
+     *
+     * @see ObjectUtils#toString(Object,String)
+     * @see String#valueOf(Object)
+     * @param str  the String to check, may be null
+     * @param defaultStrSupplier  the supplier of default String to return
+     *  if the input is {@code null}, may be null
+     * @return the passed in String, or the default if it was {@code null}
+     */
+    public static String lazyDefaultString(final String str, final Supplier<String> defaultStrSupplier) {
+        return str == null ? defaultStrSupplier == null ? null : defaultStrSupplier.get() : str;
+    }
+
     /**
      * <p>Returns the first value in the array which is not empty (""),
      * {@code null} or whitespace only.</p>
@@ -7583,6 +7610,34 @@ public class StringUtils {
         return isBlank(str) ? defaultStr : str;
     }
 
+
+    /**
+     * <p>Returns either the passed in CharSequence, or if the CharSequence is
+     * whitespace, empty ("") or {@code null}, the value supplied by {@code defaultStrSupplier}.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
+     *
+     * <pre>
+     * StringUtils.lazyDefaultIfBlank(null, () -> "NULL")   = "NULL"
+     * StringUtils.lazyDefaultIfBlank("", () -> "NULL")     = "NULL"
+     * StringUtils.lazyDefaultIfBlank(" ", () -> "NULL")    = "NULL"
+     * StringUtils.lazyDefaultIfBlank("bat", () -> "NULL")  = "bat"
+     * StringUtils.lazyDefaultIfBlank("", () -> null)       = null
+     * StringUtils.lazyDefaultIfBlank("", null)             = null
+     * </pre>
+     * @param <T> the specific kind of CharSequence
+     * @param str the CharSequence to check, may be null
+     * @param defaultStrSupplier the supplier of default CharSequence to return
+     *  if the input is whitespace, empty ("") or {@code null}, may be null
+     * @return the passed in CharSequence, or the default
+     * @see StringUtils#defaultString(String, String)
+     */
+    public static <T extends CharSequence> T lazyDefaultIfBlank(final T str, final Supplier<T> defaultStrSupplier) {
+        return isBlank(str) ? defaultStrSupplier == null ? null : defaultStrSupplier.get() : str;
+    }
+
     /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * empty or {@code null}, the value of {@code defaultStr}.</p>
@@ -7603,6 +7658,32 @@ public class StringUtils {
      */
     public static <T extends CharSequence> T defaultIfEmpty(final T str, final T defaultStr) {
         return isEmpty(str) ? defaultStr : str;
+    }
+
+    /**
+     * <p>Returns either the passed in CharSequence, or if the CharSequence is
+     * empty or {@code null}, the value supplied by {@code defaultStrSupplier}.</p>
+     *
+     * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
+     *
+     * <pre>
+     * StringUtils.lazyDefaultIfEmpty(null, () -> "NULL")   = "NULL"
+     * StringUtils.lazyDefaultIfEmpty("", () -> "NULL")     = "NULL"
+     * StringUtils.lazyDefaultIfEmpty(" ", () -> "NULL")    = " "
+     * StringUtils.lazyDefaultIfEmpty("bat", () -> "NULL")  = "bat"
+     * StringUtils.lazyDefaultIfEmpty("", () -> null)       = null
+     * StringUtils.lazyDefaultIfEmpty("", null)             = null
+     * </pre>
+     * @param <T> the specific kind of CharSequence
+     * @param str  the CharSequence to check, may be null
+     * @param defaultStrSupplier  the supplier of default CharSequence to return
+     *  if the input is empty ("") or {@code null}, may be null
+     * @return the passed in CharSequence, or the default
+     * @see StringUtils#defaultString(String, String)
+     */
+    public static <T extends CharSequence> T lazyDefaultIfEmpty(final T str, final Supplier<T> defaultStrSupplier) {
+        return isEmpty(str) ? defaultStrSupplier == null ? null : defaultStrSupplier.get() : str;
+
     }
 
     // Rotating (circular shift)
