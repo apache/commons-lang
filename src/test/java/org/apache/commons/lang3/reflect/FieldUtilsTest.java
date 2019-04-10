@@ -18,6 +18,7 @@ package org.apache.commons.lang3.reflect;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.reflect.testbed.Ambig;
 import org.apache.commons.lang3.reflect.testbed.Annotated;
@@ -996,7 +997,7 @@ public class FieldUtilsTest {
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         callRemoveFinalModifierCheckForException(field, true);
-        if (!SystemUtils.IS_JAVA_12 && !SystemUtils.IS_JAVA_13) {
+        if (SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_11)) {
             assertFalse(Modifier.isFinal(field.getModifiers()));
             assertFalse(field.isAccessible());
         }
@@ -1008,7 +1009,7 @@ public class FieldUtilsTest {
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         callRemoveFinalModifierCheckForException(field, true);
-        if (!SystemUtils.IS_JAVA_12 && !SystemUtils.IS_JAVA_13) {
+        if (SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_11)) {
             assertFalse(Modifier.isFinal(field.getModifiers()));
             assertFalse(field.isAccessible());
         }
@@ -1020,7 +1021,7 @@ public class FieldUtilsTest {
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         callRemoveFinalModifierCheckForException(field, false);
-        if (!SystemUtils.IS_JAVA_12 && !SystemUtils.IS_JAVA_13) {
+        if (SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_11)) {
             assertTrue(Modifier.isFinal(field.getModifiers()));
             assertFalse(field.isAccessible());
         }
@@ -1032,7 +1033,7 @@ public class FieldUtilsTest {
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
         callRemoveFinalModifierCheckForException(field, false);
-        if (!SystemUtils.IS_JAVA_12 && !SystemUtils.IS_JAVA_13) {
+        if (SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_11)) {
             assertTrue(Modifier.isFinal(field.getModifiers()));
             assertFalse(field.isAccessible());
         }
@@ -1051,7 +1052,7 @@ public class FieldUtilsTest {
         try {
             FieldUtils.removeFinalModifier(field, forceAccess);
         } catch (UnsupportedOperationException exception) {
-            if(SystemUtils.IS_JAVA_12 || SystemUtils.IS_JAVA_13) {
+            if(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_12)) {
                 assertTrue(exception.getCause() instanceof NoSuchFieldException);
             } else {
                 fail("No exception should be thrown for java prior to 12.0");

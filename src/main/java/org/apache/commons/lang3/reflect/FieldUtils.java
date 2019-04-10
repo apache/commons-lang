@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.reflect;
 
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.Validate;
@@ -739,7 +740,7 @@ public class FieldUtils {
                 }
             }
         } catch (final NoSuchFieldException | IllegalAccessException ignored) {
-            if (SystemUtils.IS_JAVA_12 || SystemUtils.IS_JAVA_13) {
+            if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_12)) {
               throw new UnsupportedOperationException(
                   "In java 12+ final cannot be removed.",
                   ignored
