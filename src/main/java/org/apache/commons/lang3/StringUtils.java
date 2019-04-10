@@ -7496,11 +7496,11 @@ public class StringUtils {
      * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
      *
      * <pre>
-     * StringUtils.lazyDefaultString(null, () -> "NULL")    = "NULL"
-     * StringUtils.lazyDefaultString("", () -> "NULL")      = ""
-     * StringUtils.lazyDefaultString("bat", () -> "NULL")   = "bat"
-     * StringUtils.lazyDefaultString(null, () -> null)      = null
-     * StringUtils.lazyDefaultString(null, null)            = null
+     * StringUtils.lazyDefaultString(null, () -&gt; "NULL")    = "NULL"
+     * StringUtils.lazyDefaultString("", () -&gt; "NULL")      = ""
+     * StringUtils.lazyDefaultString("bat", () -&gt; "NULL")   = "bat"
+     * StringUtils.lazyDefaultString(null, () -&gt; null)      = null
+     * StringUtils.lazyDefaultString(null, null)               = null
      * </pre>
      *
      * @see ObjectUtils#toString(Object,String)
@@ -7620,12 +7620,12 @@ public class StringUtils {
      * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
      *
      * <pre>
-     * StringUtils.lazyDefaultIfBlank(null, () -> "NULL")   = "NULL"
-     * StringUtils.lazyDefaultIfBlank("", () -> "NULL")     = "NULL"
-     * StringUtils.lazyDefaultIfBlank(" ", () -> "NULL")    = "NULL"
-     * StringUtils.lazyDefaultIfBlank("bat", () -> "NULL")  = "bat"
-     * StringUtils.lazyDefaultIfBlank("", () -> null)       = null
-     * StringUtils.lazyDefaultIfBlank("", null)             = null
+     * StringUtils.lazyDefaultIfBlank(null, () -&gt; "NULL")   = "NULL"
+     * StringUtils.lazyDefaultIfBlank("", () -&gt; "NULL")     = "NULL"
+     * StringUtils.lazyDefaultIfBlank(" ", () -&gt; "NULL")    = "NULL"
+     * StringUtils.lazyDefaultIfBlank("bat", () -&gt; "NULL")  = "bat"
+     * StringUtils.lazyDefaultIfBlank("", () -&gt; null)       = null
+     * StringUtils.lazyDefaultIfBlank("", null)                = null
      * </pre>
      * @param <T> the specific kind of CharSequence
      * @param str the CharSequence to check, may be null
@@ -7667,12 +7667,12 @@ public class StringUtils {
      * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
      *
      * <pre>
-     * StringUtils.lazyDefaultIfEmpty(null, () -> "NULL")   = "NULL"
-     * StringUtils.lazyDefaultIfEmpty("", () -> "NULL")     = "NULL"
-     * StringUtils.lazyDefaultIfEmpty(" ", () -> "NULL")    = " "
-     * StringUtils.lazyDefaultIfEmpty("bat", () -> "NULL")  = "bat"
-     * StringUtils.lazyDefaultIfEmpty("", () -> null)       = null
-     * StringUtils.lazyDefaultIfEmpty("", null)             = null
+     * StringUtils.lazyDefaultIfEmpty(null, () -&gt; "NULL")    = "NULL"
+     * StringUtils.lazyDefaultIfEmpty("", () -&gt; "NULL")      = "NULL"
+     * StringUtils.lazyDefaultIfEmpty(" ", () -&gt; "NULL")     = " "
+     * StringUtils.lazyDefaultIfEmpty("bat", () -&gt; "NULL")   = "bat"
+     * StringUtils.lazyDefaultIfEmpty("", () -&gt; null)        = null
+     * StringUtils.lazyDefaultIfEmpty("", null)                 = null
      * </pre>
      * @param <T> the specific kind of CharSequence
      * @param str  the CharSequence to check, may be null
