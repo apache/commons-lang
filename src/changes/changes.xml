@@ -46,6 +46,8 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11">
+    <action issue="LANG-1447" type="update" dev="chtompki">FieldUtils.removeFinalModifier(Field, boolean), in java 12
+      throw exception because the final modifier is no longer mutable.</action>
     <action issue="LANG-1446" type="add" dev="chtompki">Switch coverage from cobertura to jacoco.</action>
     <action issue="LANG-1442" type="add" dev="chtompki">Javadoc pointing to Commons RNG.</action>
     <action issue="LANG-1416" type="update" dev="britter">Add more SystemUtils.IS_JAVA_XX variants.</action>

@@ -606,7 +606,8 @@
     <jmh.version>1.21</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
-    <commons.jacoco.version>0.8.2</commons.jacoco.version>
+    <commons.jacoco.version>0.8.3</commons.jacoco.version>
+    <commons.surefire.version>3.0.0-M3</commons.surefire.version>
 
     <!-- generate report even if there are binary incompatible changes -->
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
